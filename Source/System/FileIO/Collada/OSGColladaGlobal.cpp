@@ -4,6 +4,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaScene.h"
 #include "OSGColladaElementFactory.h"
 #include "OSGColladaOptions.h"
 
@@ -118,11 +119,11 @@ ColladaGlobal::doRead(DAE *dae)
 
         if(scene != NULL)
         {
-            ColladaElementRefPtr sceneElem =
-                ColladaElementFactory::the()->create(scene, this);
+            ColladaSceneRefPtr colScene = dynamic_pointer_cast<ColladaScene>(
+                ColladaElementFactory::the()->create(scene, this));
 
-            sceneElem->read   (    );
-            sceneElem->process(NULL);
+            colScene->read   ();
+            colScene->process();
         }
         else
         {

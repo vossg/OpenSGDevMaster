@@ -36,12 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+
 #include "OSGColladaGeometry.h"
 
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
 #include "OSGColladaSource.h"
+#include "OSGColladaInstanceGeometry.h"
 #include "OSGGeometry.h"
 #include "OSGGroup.h"
 #include "OSGTypedGeoVectorProperty.h"
@@ -87,28 +92,26 @@ ColladaGeometry::read(void)
     readMesh(mesh);
 }
 
-FieldContainer *
-ColladaGeometry::process(ColladaElement *parent)
-{
-    SFATAL << "ColladaGeometry::process: <geometry> must be "
-           << "instantiated to use."
-           << std::endl;
-
-    OSG_ASSERT(false);
-}
-
 Node *
 ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 {
     SWARNING << "ColladaGeometry::createInstance: NIY" << std::endl;
 
+    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+
+    ColladaInstanceGeometryRefPtr colInstGeo =
+        dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
+
     // XXX TODO - reuse geometry if possible
     //          - handle <bind_material>
 
-    NodeUnrecPtr    groupN = makeCoredNode<Group>();
+    const MaterialMap &matMap = colInstGeo->getMaterialMap();
 
-    GeoStoreConstIt gsIt   = _geoStore.begin();
-    GeoStoreConstIt gsEnd  = _geoStore.end  ();
+    NodeUnrecPtr       groupN = makeCoredNode<Group>();
+
+    GeoStoreConstIt    gsIt   = _geoStore.begin();
+    GeoStoreConstIt    gsEnd  = _geoStore.end  ();
 
     for(; gsIt != gsEnd; ++gsIt)
     {
@@ -135,15 +138,41 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
         }
 
         groupN->addChild(geoN);
+
+
+        MaterialMapConstIt mmIt = matMap.find(gsIt->_matSymbol);
+
+        if(mmIt == matMap.end())
+        {
+            SWARNING << "ColladaGeometry::createInstance: No material found "
+                     << "for symbol [" << gsIt->_matSymbol << "]."
+                     << std::endl;
+            continue;
+        }
+
+        Material *material = mmIt->second->process(NULL);
+
+        if(material == NULL)
+        {
+            SWARNING << "ColladaGeometry::createInstance: No material created "
+                     << "for symbol [" << gsIt->_matSymbol << "]."
+                     << std::endl;
+            continue;
+        }
+
+        geo->setMaterial(material);
     }
 
+    // XXX TODO: do we need to always generate a new geo?
     editInstStore().push_back(groupN);
 
     return groupN;
 }
 
 ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
+    : Inherited (elem, global)
+    , _sourceMap()
+    , _geoStore ()
 {
 }
 
@@ -262,6 +291,11 @@ ColladaGeometry::readLines(domMesh *mesh, domLines *lines)
 
     _geoStore[geoIdx]._types  ->push_back(GL_LINES);
     _geoStore[geoIdx]._lengths->push_back(length  );
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readLines: material symbol [%s] "
+                     "vertices [%d]\n",
+                     (lines->getMaterial() != NULL ? lines->getMaterial() : ""),
+                     length));
 }
 
 void
@@ -281,6 +315,7 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
     const domP_Array &pArray  = lineStrips->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
+    UInt32            verts   = 0;
 
     for(UInt32 i = 0; i < pArray.getCount(); ++i)
     {
@@ -302,8 +337,16 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
         _geoStore[geoIdx]._types  ->push_back(GL_LINE_STRIP);
         _geoStore[geoIdx]._lengths->push_back(length       );
 
-        length = 0;
+        verts  += length;
+        length =  0;
     }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readLineStrips: material symbol [%s] "
+                     "vertices [%d] strips [%d]\n",
+                     (lineStrips->getMaterial() != NULL ?
+                      lineStrips->getMaterial() : ""), verts,
+                     _geoStore[geoIdx]._lengths->size()));
+                     
 }
 
 void
@@ -323,6 +366,7 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
     const domP_Array &pArray  = polygons->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
+    UInt32            verts   = 0;
 
     for(UInt32 i = 0; i < pArray.getCount(); ++i)
     {
@@ -344,7 +388,8 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
         _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
         _geoStore[geoIdx]._lengths->push_back(length    );
 
-        length = 0;
+        verts  += length;
+        length =  0;
     }
 
     const domPolygons::domPh_Array &phArray = polygons->getPh_array();
@@ -374,7 +419,8 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
         _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
         _geoStore[geoIdx]._lengths->push_back(length    );
 
-        length = 0;
+        verts  += length;
+        length =  0;
 
         if(phArray[i]->getH_array().getCount() > 0)
         {
@@ -383,6 +429,12 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
                      << "] holes in polygon." << std::endl;
         }
     }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readPolygons: material symbol [%s] "
+                     "vertices [%d] polygons [%d]\n",
+                     (polygons->getMaterial() != NULL ?
+                      polygons->getMaterial() : ""), verts,
+                     _geoStore[geoIdx]._lengths->size()));
 }
 
 void
@@ -402,6 +454,8 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
     const domListOfUInts &pList    = polyList->getP     ()->getValue();
     const domListOfUInts &vList    = polyList->getVcount()->getValue();
     UInt32                currIdx  = 0;
+    UInt32                verts    = 0;
+    UInt32                prims    = 0;
     bool                  useQuads = true;
 
     // check if all polys are quads
@@ -431,6 +485,9 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
 
         _geoStore[geoIdx]._types  ->push_back(GL_QUADS            );
         _geoStore[geoIdx]._lengths->push_back(4 * vList.getCount());
+
+        verts += 4 * vList.getCount();
+        prims +=     vList.getCount();
     }
     else
     {
@@ -448,8 +505,18 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
 
             _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
             _geoStore[geoIdx]._lengths->push_back(vList[i]  );
+
+            verts += vList[i];
+            prims += 1;
         }
     }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readPolyList: material symbol [%s] "
+                     "vertices [%d] %s [%d]\n",
+                     (polyList->getMaterial() != NULL ?
+                      polyList->getMaterial() : ""),
+                     verts,
+                     (useQuads == true ? "quads" : "polygons"), prims));
 }
 
 void
@@ -485,6 +552,12 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
 
     _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLES);
     _geoStore[geoIdx]._lengths->push_back(length      );
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriangles: material symbol [%s] "
+                     "vertices [%d] triangles [%d]\n",
+                     (triangles->getMaterial() != NULL ?
+                      triangles->getMaterial() : ""),
+                     length, length/3));
 }
 
 void
@@ -504,6 +577,7 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
     const domP_Array &pArray  = triFans->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
+    UInt32            verts   = 0;
 
     for(UInt32 i = 0; i < pArray.getCount(); ++i)
     {
@@ -525,8 +599,15 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
         _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_FAN);
         _geoStore[geoIdx]._lengths->push_back(length         );
 
-        length = 0;
+        verts  += length;
+        length =  0;
     }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriFans: material symbol [%s] "
+                     "vertices [%d] fans [%d]\n",
+                     (triFans->getMaterial() != NULL ?
+                      triFans->getMaterial() : ""), verts,
+                     _geoStore[geoIdx]._lengths->size()));
 }
 
 void
@@ -546,6 +627,7 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
     const domP_Array &pArray  = triStrips->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
+    UInt32            verts   = 0;
 
     for(UInt32 i = 0; i < pArray.getCount(); ++i)
     {
@@ -567,8 +649,16 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
         _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_STRIP);
         _geoStore[geoIdx]._lengths->push_back(length           );
 
-        length = 0;
+        verts  += length;
+        length =  0;
     }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriStrips: material symbol [%s] "
+                     "vertices [%d] strips [%d]\n",
+                     (triStrips->getMaterial() != NULL ?
+                      triStrips->getMaterial() : ""), verts,
+                     _geoStore[geoIdx]._lengths->size()));
+
 }
 
 UInt32

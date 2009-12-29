@@ -36,34 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAELEMENT_H_
-#define _OSGCOLLADAELEMENT_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOLLADAINSTANCEEFFECT_H_
+#define _OSGCOLLADAINSTANCEEFFECT_H_
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGContainerForwards.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaEffect.h"
+#include "OSGColladaElementFactoryHelper.h"
 
-// collada dom includes
-#include <dae.h>
-#include <dae/daeElement.h>
+#include <dom/domEffect.h>
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-class ColladaGlobal;
-OSG_GEN_MEMOBJPTR(ColladaGlobal);
-
-
-class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaInstanceEffect
+    : public ColladaInstanceElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -71,34 +60,34 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject   Inherited;
-    typedef ColladaElement Self;
+    typedef ColladaInstanceElement  Inherited;
+    typedef ColladaInstanceEffect   Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaElement);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceEffect);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Craete                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void) = 0;
+    virtual void            read   (void                  );
+    virtual FieldContainer *process(ColladaElement *parent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    inline ColladaGlobal *getGlobal      (void) const;
-
-    inline daeElement    *getDOMElement  (void) const;
-    template <class DomTypeT>
-    inline DomTypeT      *getDOMElementAs(void) const;
-
-    template <class UserDataTypeT>
-    inline        UserDataTypeT *getUserDataAs(void            ) const;
-
-    template <class UserDataTypeT>
-    static inline UserDataTypeT *getUserDataAs(daeElement *elem);
+    virtual ColladaEffect *getSourceElem   (void) const;
+    virtual domEffect     *getSourceDOMElem(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -107,23 +96,21 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaElement(daeElement *elem, ColladaGlobal *global);
-    virtual ~ColladaElement(void                                   );
+             ColladaInstanceEffect(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaInstanceEffect(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    daeElementRef       _elem;
-    ColladaGlobalRefPtr _global;
+    static ColladaElementRegistrationHelper _regHelper;
 };
 
-
-OSG_GEN_MEMOBJPTR(ColladaElement);
+OSG_GEN_MEMOBJPTR(ColladaInstanceEffect);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaElement.inl"
+// #include "OSGColladaInstanceEffect.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAELEMENT_H_
+#endif // _OSGCOLLADAINSTANCEEFFECT_H_

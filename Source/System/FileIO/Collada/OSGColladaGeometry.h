@@ -98,8 +98,6 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \{                                                                 */
 
     virtual void            read          (void                            );
-    virtual FieldContainer *process       (ColladaElement         *parent  );
-
     virtual Node           *createInstance(ColladaInstanceElement *instElem);
 
     /*! \}                                                                 */

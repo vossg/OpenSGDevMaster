@@ -38,10 +38,96 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! Returns whether an option with the given \a name is present in \a optSet.
+
+    \param[in] optSet OptionSet to check.
+    \param[in] name   Name of the option.
+    \return Whether the option is present.
+ */
+inline bool
+IOFileTypeBase::hasOption(const OptionSet &optSet, const std::string &name)
+{
+    return (optSet.find(name) != optSet.end());
+}
+
+/*! Attempts to set option \a name to \a value in \a optSet.
+    If successful \c true is returned, false otherwise.
+    For the operation to succeed a \c boost::lexical_cast<> from the given type
+    has to succeed, usually that means an appropriate overload of
+    \c operator<< has to be available.
+    
+    \param[in] optSet OptionSet to modify.
+    \param[in] name Name of the option.
+    \param[in] value Value of the option.
+    \return Whether the value was set successfully.
+ */
+template <class ValueTypeT>
+inline bool
+IOFileTypeBase::setOptionAs(
+    OptionSet &optSet, const std::string &name, const ValueTypeT &value)
+{
+    bool retVal = false;
+
+    try
+    {
+        setOption(optSet, name, boost::lexical_cast<std::string>(value));
+        retVal = true;
+    }
+    catch(boost::bad_lexical_cast &blc)
+    {
+        SWARNING << "IOFileTypeBase::setOptionAs: Failed to store value "
+                 << "for option [" << name << "] : "
+                 << blc.what() << std::endl;
+    }
+
+    return retVal;
+}
+
+/*! Attempts to return the \a value associated with option \a name in \a optSet
+    as the requested type.
+    If the option is not present \c false is returned, \c true otherwise and
+    only in this case value is being set.
+    For the operation to succeed a \c boost::lexical_cast<> to the requested
+    type has to succeed, usually that means an appropriate overload of
+    \c operator>> has to be available.
+
+    \param[in]  optSet OptionSet to read.
+    \param[in]  name Name of the option.
+    \param[out] value Value of option.
+    \return Whether the option is present.
+ */
+template <class ValueTypeT>
+inline bool
+IOFileTypeBase::getOptionAs(
+    const OptionSet &optSet, const std::string &name, ValueTypeT &value)
+{
+    bool        retVal   = false;
+    std::string valueStr;
+
+    if(getOption(optSet, name, valueStr) == true)
+    {
+        try
+        {
+            value  = boost::lexical_cast<ValueTypeT>(valueStr);
+            retVal = true;
+        }
+        catch(boost::bad_lexical_cast &blc)
+        {
+            SWARNING << "IOFileTypeBase::getOptionAs: Failed to extract "
+                     << "value of option [" << name << "] from string ["
+                     << valueStr << "] : "
+                     << blc.what() << std::endl;
+        }
+    }
+
+    return retVal;
+}
+
+
 /*! Returns the currently active option set, i.e. the top of the options stack.
  */
 inline IOFileTypeBase::OptionSet const  &
-    IOFileTypeBase::getOptions (void) const
+    IOFileTypeBase::getOptions(void) const
 {
     return _optStack.top();
 }
@@ -62,7 +148,7 @@ inline IOFileTypeBase::OptionSet &
 inline bool
     IOFileTypeBase::hasOption(std::string const &name) const
 {
-    return (_optStack.top().find(name) != _optStack.top().end());
+    return hasOption(_optStack.top(), name);
 }
 
 /*! Attempts to set option \a name to \a value.
@@ -80,21 +166,30 @@ inline bool
     IOFileTypeBase::setOptionAs(
         const std::string &name, const ValueTypeT &value)
 {
-    bool retVal = false;
-    
-    try
-    {
-        _optStack.top()[name] =
-            IOOption(name, boost::lexical_cast<std::string>(value));
-        retVal = true;
-    }
-    catch(boost::bad_lexical_cast &)
-    {
-        FWARNING(("IOFileTypeBase::setOptionAs: Failed to store value "
-                  "for option [%s].\n", name.c_str()));
-    }
-    
-    return retVal;
+    return setOptionAs(_optStack.top(), name, value);
+}
+
+/*! Sets the option \a name to \a value overwriting any previous value.
+
+    \param[in] name Name of the option.
+    \param[in[ value Value of the option.
+ */
+inline void
+IOFileTypeBase::setOption(const std::string &name, const std::string &value)
+{
+    setOption(_optStack.top(), name, value);
+}
+
+/*! Removes the option \a name. If the option is not present
+    \c false is returned, \c true otherwise.
+
+    \param[in] name   Name of the option.
+    \return Whether the option was successfully removed.
+ */
+inline bool
+IOFileTypeBase::unsetOption(const std::string &name)
+{
+    return unsetOption(_optStack.top(), name);
 }
 
 /*! Attempts to return the value associated with option \a name in \a value
@@ -114,24 +209,21 @@ inline bool
     IOFileTypeBase::getOptionAs(
         const std::string &name, ValueTypeT &value) const
 {
-    bool                      retVal = false;
-    OptionSet::const_iterator oIt    = _optStack.top().find(name);
+    return getOptionAs(_optStack.top(), name, value);
+}
+
+/*! Attempts to return the \a value associated with option \a name.
+    If the option is not present \c false is returned,
+    \c true otherwise and only in this case value is being set.
     
-    if(oIt != _optStack.top().end())
-    {
-        try
-        {
-            value  = boost::lexical_cast<ValueTypeT>(oIt->second.optValue);
-            retVal = true;
-        }
-        catch(boost::bad_lexical_cast &)
-        {
-            FWARNING(("IOFileTypeBase::getOptionAs: Failed to extract value "
-                      "of option [%s].\n", name.c_str()));
-        }
-    }
-    
-    return retVal;
+    \param[in]  name   Name of the option.
+    \param[out] value  Value of option.
+    \return Whether the option is present.
+ */
+inline bool
+IOFileTypeBase::getOption(const std::string &name, std::string &value) const
+{
+    return getOption(_optStack.top(), name, value);
 }
 
 OSG_END_NAMESPACE

@@ -40,145 +40,116 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaInstanceGeometry.h"
+#include "OSGColladaInstanceEffect.h"
 
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
 
-#include <dom/domInstance_geometry.h>
-#include <dom/domInstance_material.h>
-#include <dom/domBind_material.h>
-#include <dom/domParam.h>
+#include <dom/domInstance_effect.h>
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaInstanceGeometry::_regHelper(
-    &ColladaInstanceGeometry::create, "instance_geometry");
-
+ColladaElementRegistrationHelper ColladaInstanceEffect::_regHelper(
+    &ColladaInstanceEffect::create, "instance_effect");
 
 ColladaElementTransitPtr
-ColladaInstanceGeometry::create(daeElement *elem, ColladaGlobal *global)
+ColladaInstanceEffect::create(daeElement *elem, ColladaGlobal *global)
 {
-    return ColladaElementTransitPtr(new ColladaInstanceGeometry(elem, global));
+    return ColladaElementTransitPtr(new ColladaInstanceEffect(elem, global));
 }
 
 void
-ColladaInstanceGeometry::read(void)
+ColladaInstanceEffect::read(void)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read\n"));
+    OSG_COLLADA_LOG(("ColladaInstanceEffect::read\n"));
 
-    ColladaGeometryRefPtr colGeo = getSourceElem();
+    ColladaEffectRefPtr colEffect = getSourceElem();
 
-    if(colGeo == NULL)
+    if(colEffect == NULL)
     {
-        colGeo = dynamic_pointer_cast<ColladaGeometry>(
+        colEffect = dynamic_pointer_cast<ColladaEffect>(
             ColladaElementFactory::the()->create(
                 getSourceDOMElem(), getGlobal()));
 
-        colGeo->read();
+        colEffect->read();
     }
 
-    domInstance_geometryRef instGeo = getDOMElementAs<domInstance_geometry>();
-    domBind_materialRef     bindMat = instGeo->getBind_material            ();
+    domInstance_effectRef instEffect = getDOMElementAs<domInstance_effect>();
 
-    if(bindMat == NULL)
+    const domInstance_effect::domTechnique_hint_Array &techHints =
+        instEffect->getTechnique_hint_array();
+
+    if(techHints.getCount() > 0)
     {
-        SWARNING << "ColladaInstanceGeometry::read: No <bind_material> found."
+        SWARNING << "ColladaInstanceEffect::read: Ignoring ["
+                 << techHints.getCount() << "] <technique_hint> elements."
                  << std::endl;
-        return;
     }
 
-    domBind_material::domTechnique_commonRef  techCom      =
-        bindMat->getTechnique_common();
-    const domInstance_material_Array         &instMatArray =
-        techCom->getInstance_material_array();
+    const domInstance_effect::domSetparam_Array &setParams =
+        instEffect->getSetparam_array();
 
-    for(UInt32 i = 0; i < instMatArray.getCount(); ++i)
+    if(setParams.getCount() > 0)
     {
-        ColladaInstanceMaterialRefPtr colInstMat =
-            getUserDataAs<ColladaInstanceMaterial>(instMatArray[i]);
-
-        if(colInstMat == NULL)
-        {
-            colInstMat = dynamic_pointer_cast<ColladaInstanceMaterial>(
-                ColladaElementFactory::the()->create(
-                    instMatArray[i], getGlobal()));
-
-            colInstMat->read();
-        }
-
-        _matMap[colInstMat->getSymbol()] = colInstMat;
-
-        OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: binding symbol [%s] "
-                         "to target [%s]\n",
-                         colInstMat->getSymbol().c_str(),
-                         instMatArray[i]->getTarget().getURI()));
-    }
-
-    const domParam_Array &params = bindMat->getParam_array();
-
-    if(params.getCount() > 0)
-    {
-        SWARNING << "ColladaInstanceGeometry::read: Ignoring ["
-                 << params.getCount() << "] <param> elements."
+        SWARNING << "ColladaInstanceEffect::read: Ignoring ["
+                 << setParams.getCount() << "] <setparam> elements."
                  << std::endl;
     }
 }
 
-Node *
-ColladaInstanceGeometry::process(ColladaElement *parent)
+FieldContainer *
+ColladaInstanceEffect::process(ColladaElement *parent)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceGeometry::process\n"));
+    OSG_COLLADA_LOG(("ColaldaInstanceEffect::process\n"));
 
-    ColladaGeometryRefPtr colGeo = getSourceElem();
+    ColladaEffectRefPtr colEffect = getSourceElem();
 
-    return colGeo->createInstance(this);
+    return colEffect->createInstance(this);
 }
 
-ColladaGeometry *
-ColladaInstanceGeometry::getSourceElem(void) const
+ColladaEffect *
+ColladaInstanceEffect::getSourceElem(void) const
 {
-    ColladaGeometry *retVal     = NULL;
-    domGeometryRef   sourceElem = getSourceDOMElem();
+    ColladaEffect *retVal     = NULL;
+    domEffectRef   sourceElem = getSourceDOMElem();
 
     if(sourceElem != NULL)
     {
-        retVal = getUserDataAs<ColladaGeometry>(sourceElem);
+        retVal = getUserDataAs<ColladaEffect>(sourceElem);
     }
 
     return retVal;
 }
 
-domGeometry *
-ColladaInstanceGeometry::getSourceDOMElem(void) const
+domEffect *
+ColladaInstanceEffect::getSourceDOMElem(void) const
 {
-    domGeometryRef          retVal  = NULL;
-    domInstance_geometryRef instGeo = getDOMElementAs<domInstance_geometry>();
+    domEffectRef          retVal     = NULL;
+    domInstance_effectRef instEffect = getDOMElementAs<domInstance_effect>();
 
-    if(instGeo->getUrl().getElement() != NULL)
+    if(instEffect->getUrl().getElement() != NULL)
     {
-        retVal = daeSafeCast<domGeometry>(instGeo->getUrl().getElement());
+        retVal = daeSafeCast<domEffect>(instEffect->getUrl().getElement());
+    }
+    else
+    {
+        SWARNING << "ColladaInstanceEffet::getSourceDOMElem: "
+                 << "can not resolve URL [" << instEffect->getUrl().str()
+                 << "]." << std::endl;
     }
 
     return retVal;
 }
 
-const ColladaInstanceGeometry::MaterialMap &
-ColladaInstanceGeometry::getMaterialMap(void) const
-{
-    return _matMap;
-}
-
-ColladaInstanceGeometry::ColladaInstanceGeometry(
+ColladaInstanceEffect::ColladaInstanceEffect(
     daeElement *elem, ColladaGlobal *global)
 
     : Inherited(elem, global)
-    , _matMap  ()
 {
 }
 
-ColladaInstanceGeometry::~ColladaInstanceGeometry(void)
+ColladaInstanceEffect::~ColladaInstanceEffect(void)
 {
 }
 

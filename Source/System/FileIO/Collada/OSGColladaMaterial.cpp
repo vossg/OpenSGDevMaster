@@ -36,94 +36,69 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAELEMENT_H_
-#define _OSGCOLLADAELEMENT_H_
-#ifdef __sgi
-#pragma once
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGConfig.h"
+#include "OSGColladaMaterial.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGContainerForwards.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
+#include "OSGColladaLog.h"
+#include "OSGColladaInstanceMaterial.h"
+#include "OSGColladaInstanceEffect.h"
 
-// collada dom includes
-#include <dae.h>
-#include <dae/daeElement.h>
+#include <dom/domMaterial.h>
+#include <dom/domInstance_effect.h>
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-class ColladaGlobal;
-OSG_GEN_MEMOBJPTR(ColladaGlobal);
+ColladaElementRegistrationHelper ColladaMaterial::_regHelper(
+    &ColladaMaterial::create, "material");
 
 
-class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
+ColladaElementTransitPtr
+ColladaMaterial::create(daeElement *elem, ColladaGlobal *global)
 {
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
+    return ColladaElementTransitPtr(new ColladaMaterial(elem, global));
+}
 
-    typedef MemoryObject   Inherited;
-    typedef ColladaElement Self;
+void
+ColladaMaterial::read(void)
+{
+    OSG_COLLADA_LOG(("ColladaMaterial::read\n"));
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaElement);
+    domMaterialRef              material   = getDOMElementAs<domMaterial>();
+    domInstance_effectRef       instEffect = material->getInstance_effect();
+    ColladaInstanceEffectRefPtr colInstEffect =
+        getUserDataAs<ColladaInstanceEffect>(instEffect);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Reading                                                      */
-    /*! \{                                                                 */
+    if(colInstEffect == NULL)
+    {
+        colInstEffect = dynamic_pointer_cast<ColladaInstanceEffect>(
+            ColladaElementFactory::the()->create(instEffect, getGlobal()));
 
-    virtual void read(void) = 0;
+        colInstEffect->read();
+    }
+}
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
+Material *
+ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
+{
+    SWARNING << "ColladaMaterial::craeteInstance: NIY" << std::endl;
 
-    inline ColladaGlobal *getGlobal      (void) const;
+    return NULL;
+}
 
-    inline daeElement    *getDOMElement  (void) const;
-    template <class DomTypeT>
-    inline DomTypeT      *getDOMElementAs(void) const;
+ColladaMaterial::ColladaMaterial(daeElement *elem, ColladaGlobal *global)
+    : Inherited(elem, global)
+{
+}
 
-    template <class UserDataTypeT>
-    inline        UserDataTypeT *getUserDataAs(void            ) const;
-
-    template <class UserDataTypeT>
-    static inline UserDataTypeT *getUserDataAs(daeElement *elem);
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructors/Destructor                                      */
-    /*! \{                                                                 */
-    
-             ColladaElement(daeElement *elem, ColladaGlobal *global);
-    virtual ~ColladaElement(void                                   );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-
-    daeElementRef       _elem;
-    ColladaGlobalRefPtr _global;
-};
-
-
-OSG_GEN_MEMOBJPTR(ColladaElement);
+ColladaMaterial::~ColladaMaterial(void)
+{
+}
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaElement.inl"
-
 #endif // OSG_WITH_COLLADA
-
-#endif // _OSGCOLLADAELEMENT_H_

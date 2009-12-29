@@ -45,6 +45,7 @@
 
 #include "OSGColladaInstanceElement.h"
 #include "OSGColladaGeometry.h"
+#include "OSGColladaInstanceMaterial.h"
 #include "OSGColladaElementFactoryHelper.h"
 
 #include <dom/domGeometry.h>
@@ -64,6 +65,12 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     typedef ColladaInstanceGeometry Self;
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceGeometry);
+
+    // map material symbol to material instance
+    typedef std::map<std::string,
+                     ColladaInstanceMaterialRefPtr>  MaterialMap;
+    typedef MaterialMap::iterator                    MaterialMapIt;
+    typedef MaterialMap::const_iterator              MaterialMapConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -89,6 +96,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     virtual ColladaGeometry *getSourceElem   (void) const;
     virtual domGeometry     *getSourceDOMElem(void) const;
 
+    const MaterialMap       &getMaterialMap  (void) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
@@ -103,6 +112,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
+
+    MaterialMap _matMap;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);

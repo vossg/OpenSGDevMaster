@@ -42,17 +42,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-FieldContainer *
-ColladaInstantiableElement::process(ColladaElement *parent)
-{
-    SFATAL << "ColladaInstantiableElement::process: "
-           << "InstantiableElements must be created from their "
-           << "respective <instance_*> elements with createInstance()"
-           << std::endl;
-
-    return NULL;
-}
-
 ColladaInstantiableElement::ColladaInstantiableElement(
     daeElement *elem, ColladaGlobal *global)
 

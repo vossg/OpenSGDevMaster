@@ -75,8 +75,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void            read   (void                  );
-    virtual FieldContainer *process(ColladaElement *parent);
+    virtual void read(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -110,7 +109,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     typedef StrideMap::const_iterator           StrideMapConstIt;
 
 
-    void readProperty(const SemanticSetPair &semSetPair);
+    void fillProperty(const SemanticSetPair &semSetPair);
     
 
     static ColladaElementRegistrationHelper _regHelper;
@@ -127,6 +126,8 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
 OSG_GEN_MEMOBJPTR(ColladaSource);
 
 OSG_END_NAMESPACE
+
+// #include "OSGColladaSource.inl"
 
 #endif // OSG_WITH_COLLADA
 

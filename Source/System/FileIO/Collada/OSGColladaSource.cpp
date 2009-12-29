@@ -36,6 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+
 #include "OSGColladaSource.h"
 
 #ifdef OSG_WITH_COLLADA
@@ -99,19 +103,6 @@ ColladaSource::read(void)
                      _offset, _count, _stride, _elemSize));
 }
 
-FieldContainer *
-ColladaSource::process(ColladaElement *parent)
-{
-    SFATAL << "ColladaSource::process: <source> has no direct "
-           << "correspondence in OpenSG and must be interpreted by "
-           << "its parent element."
-           << std::endl;
-
-    OSG_ASSERT(false);
-
-    return NULL;
-}
-
 GeoVectorProperty *
 ColladaSource::getProperty(const std::string &semantic, UInt32 set)
 {
@@ -123,7 +114,7 @@ ColladaSource::getProperty(const std::string &semantic, UInt32 set)
         return pmIt->second;
     }
 
-    readProperty(semSetPair);
+    fillProperty(semSetPair);
 
     pmIt = _propMap.find(semSetPair);
 
@@ -157,9 +148,9 @@ ColladaSource::~ColladaSource(void)
 }
 
 void
-ColladaSource::readProperty(const SemanticSetPair &semSetPair)
+ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
 {
-    OSG_COLLADA_LOG(("ColladaSource::readProperty: semantic [%s] set [%d]\n",
+    OSG_COLLADA_LOG(("ColladaSource::fillProperty: semantic [%s] set [%d]\n",
                      semSetPair.first.c_str(), semSetPair.second));
 
     GeoVectorPropertyUnrecPtr         prop    = NULL;
@@ -173,7 +164,7 @@ ColladaSource::readProperty(const SemanticSetPair &semSetPair)
 
     if(dataArray == NULL)
     {
-        SWARNING << "ColladaSource::readProperty: Could not find <float_array> "
+        SWARNING << "ColladaSource::fillProperty: Could not find <float_array> "
                  << "for [" << dataURI.str() << "]." << std::endl;
         return;
     }
@@ -186,7 +177,7 @@ ColladaSource::readProperty(const SemanticSetPair &semSetPair)
     {
         if(_elemSize != 3)
         {
-            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+            SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
                      << _elemSize << "]." << std::endl;
             return;
         }
@@ -216,7 +207,7 @@ ColladaSource::readProperty(const SemanticSetPair &semSetPair)
     {
         if(_elemSize != 3)
         {
-            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+            SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
                      << _elemSize << "]." << std::endl;
             return;
         }
@@ -246,7 +237,7 @@ ColladaSource::readProperty(const SemanticSetPair &semSetPair)
     {
         if(_elemSize != 2)
         {
-            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+            SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
                      << _elemSize << "]." << std::endl;
             return;
         }
@@ -274,7 +265,7 @@ ColladaSource::readProperty(const SemanticSetPair &semSetPair)
     }
     else
     {
-        SWARNING << "ColladaSource::readProperty: Unknown semantic ["
+        SWARNING << "ColladaSource::fillProperty: Unknown semantic ["
                  << semSetPair.first << "]." << std::endl;
         return;
     }

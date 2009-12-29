@@ -93,8 +93,15 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \{                                                                 */
 
     virtual void  read          (void                               );
-    virtual Node *process       (ColladaElement         *parent     );
     virtual Node *createInstance(ColladaInstanceElement *colInstElem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    Node *getTopNode   (void) const;
+    Node *getBottomNode(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -85,8 +85,8 @@ class OSG_FILEIO_DLLMAPPING ColladaScene : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void            read   (void                  );
-    virtual FieldContainer *process(ColladaElement *parent);
+    virtual void read   (void);
+    virtual void process(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

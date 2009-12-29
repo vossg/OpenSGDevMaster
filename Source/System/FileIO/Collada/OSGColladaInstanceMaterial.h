@@ -36,34 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAELEMENT_H_
-#define _OSGCOLLADAELEMENT_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOLLADAINSTANCEMATERIAL_H_
+#define _OSGCOLLADAINSTANCEMATERIAL_H_
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGContainerForwards.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaMaterial.h"
+#include "OSGColladaElementFactoryHelper.h"
 
-// collada dom includes
-#include <dae.h>
-#include <dae/daeElement.h>
+#include <dom/domMaterial.h>
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-class ColladaGlobal;
-OSG_GEN_MEMOBJPTR(ColladaGlobal);
-
-
-class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
+  : public ColladaInstanceElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -71,34 +60,60 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject   Inherited;
-    typedef ColladaElement Self;
+    typedef ColladaInstanceElement  Inherited;
+    typedef ColladaInstanceMaterial Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaElement);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceMaterial);
+
+    struct BindInfo
+    {
+        std::string semantic;
+        std::string target;
+    };
+
+    typedef std::vector<BindInfo>            BindStore;
+    typedef BindStore::iterator              BindStoreIt;
+    typedef BindStore::const_iterator        BindStoreConstIt;
+    
+    struct BindVertexInfo
+    {
+        std::string semantic;
+        std::string inSemantic;
+        UInt32      inSet;
+    };
+
+    typedef std::vector<BindVertexInfo>      BindVertexStore;
+    typedef BindVertexStore::iterator        BindVertexStoreIt;
+    typedef BindVertexStore::const_iterator  BindVertexStoreConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Craete                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void) = 0;
+    virtual void      read   (void                  );
+    virtual Material *process(ColladaElement *parent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    inline ColladaGlobal *getGlobal      (void) const;
+    virtual ColladaMaterial *getSourceElem     (void) const;
+    virtual domMaterial     *getSourceDOMElem  (void) const;
 
-    inline daeElement    *getDOMElement  (void) const;
-    template <class DomTypeT>
-    inline DomTypeT      *getDOMElementAs(void) const;
+    const std::string       &getSymbol         (void) const;
 
-    template <class UserDataTypeT>
-    inline        UserDataTypeT *getUserDataAs(void            ) const;
-
-    template <class UserDataTypeT>
-    static inline UserDataTypeT *getUserDataAs(daeElement *elem);
+    const BindStore         &getBindStore      (void) const;
+    const BindVertexStore   &getBindVertexStore(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -107,23 +122,25 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaElement(daeElement *elem, ColladaGlobal *global);
-    virtual ~ColladaElement(void                                   );
+             ColladaInstanceMaterial(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaInstanceMaterial(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    daeElementRef       _elem;
-    ColladaGlobalRefPtr _global;
+    static ColladaElementRegistrationHelper _regHelper;
+
+    std::string      _symbol;
+    BindStore        _bindStore;
+    BindVertexStore  _bindVertexStore;
 };
 
-
-OSG_GEN_MEMOBJPTR(ColladaElement);
+OSG_GEN_MEMOBJPTR(ColladaInstanceMaterial);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaElement.inl"
+// #include "OSGColladaInstanceMaterial.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAELEMENT_H_
+#endif // _OSGCOLLADAINSTANCEMATERIAL_H_

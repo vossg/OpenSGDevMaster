@@ -88,6 +88,14 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     virtual void parseOptions(const OptionSet &optSet);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Options                                                      */
+    /*! \{                                                                 */
+
+    bool getInvertTransparency(void      ) const;
+    void setInvertTransparency(bool value);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
@@ -99,6 +107,8 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+
+    bool _invertTransparency;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaOptions);

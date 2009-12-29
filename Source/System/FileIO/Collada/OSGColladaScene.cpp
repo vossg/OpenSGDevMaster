@@ -87,12 +87,10 @@ ColladaScene::read(void)
     }
 }
 
-FieldContainer *
-ColladaScene::process(ColladaElement *parent)
+void
+ColladaScene::process(void)
 {
     _colInstVisScene->process(this);
-
-    return NULL;
 }
 
 ColladaScene::ColladaScene(daeElement *elem, ColladaGlobal *global)

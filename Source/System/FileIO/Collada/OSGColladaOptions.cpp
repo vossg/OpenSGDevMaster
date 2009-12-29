@@ -41,6 +41,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGIOFileTypeBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -48,11 +49,35 @@ void
 ColladaOptions::parseOptions(const OptionSet &optSet)
 {
     OSG_COLLADA_LOG(("ColladaOptions::parseOptions\n"));
+
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "invertTransparency", _invertTransparency);
 }
 
+/*! Return \c true if transparency values should be inverted, \false
+    otherwise. Option name: "invertTransparency".
+    Some tools store transparency values inverted, use this to ensure correct
+    display.
+ */
+bool
+ColladaOptions::getInvertTransparency(void) const
+{
+    return _invertTransparency;
+}
+
+/*! Set transparency value inversion. Option name: "invertTransparency".
+    Some tools store transparency values inverted, use this to ensure correct
+    display.
+ */
+void
+ColladaOptions::setInvertTransparency(bool value)
+{
+    _invertTransparency = value;
+}
 
 ColladaOptions::ColladaOptions(void)
-    : Inherited()
+    : Inherited          ()
+    , _invertTransparency(false)
 {
 }
 

@@ -82,9 +82,6 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     virtual void
         read          (void                            ) = 0;
     virtual FieldContainer *
-        process       (ColladaElement         *parent  );
-
-    virtual FieldContainer *
         createInstance(ColladaInstanceElement *instElem) = 0;
 
     /*! \}                                                                 */

@@ -77,8 +77,6 @@ class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     /*! \{                                                                 */
 
     virtual void  read          (void                            );
-    virtual Node *process       (ColladaElement         *parent  );
-
     virtual Node *createInstance(ColladaInstanceElement *instElem);
 
     /*! \}                                                                 */

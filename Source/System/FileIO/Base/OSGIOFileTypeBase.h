@@ -92,6 +92,33 @@ class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Option Handling Helpers                                      */
+    /*! \{                                                                 */
+
+    static bool hasOption  (const OptionSet   &optSet,
+                            const std::string &name   );
+
+    template <class ValueTypeT>
+    static bool setOptionAs(      OptionSet   &optSet,
+                            const std::string &name,
+                            const ValueTypeT  &value  );
+    static void setOption  (      OptionSet   &optSet,
+                            const std::string &name,
+                            const std::string &value  );
+
+    static bool unsetOption(      OptionSet  &optSet,
+                            const std::string &name   );
+
+    template <class ValueTypeT>
+    static bool getOptionAs(const OptionSet   &optSet,
+                            const std::string &name,
+                                  ValueTypeT  &value  );
+    static bool getOption  (const OptionSet   &optSet,
+                            const std::string &name,
+                                  std::string &value  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Option Handling                                              */
     /*! \{                                                                 */
     

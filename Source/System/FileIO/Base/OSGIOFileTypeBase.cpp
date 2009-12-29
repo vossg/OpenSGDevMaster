@@ -120,55 +120,59 @@ void
     }
 }
 
-/*! Sets the option \a name to \a value overwriting any previous value.
+/*! Sets the option \a name to \a value in \a optSet overwriting
+    any previous value.
 
+    \param[in] optSet OptionSet to modify.
     \param[in] name Name of the option.
     \param[in[ value Value of the option.
  */
 void
-    IOFileTypeBase::setOption(
-        const std::string &name, const std::string &value)
+IOFileTypeBase::setOption(
+    OptionSet &optSet, const std::string &name, const std::string &value)
 {
-    _optStack.top()[name] = IOOption(name, value);
+    optSet[name] = IOOption(name, value);
 }
 
-/*! Removes the option \a name. If the option is not present \c false is
-    returned, \c true otherwise.
+/*! Removes the option \a name from \a optSet. If the option is not present
+    \c false is returned, \c true otherwise.
 
-    \param[in] name Name of the option.
+    \param[in] optSet OptionSet to modify.
+    \param[in] name   Name of the option.
     \return Whether the option was successfully removed.
  */
 bool
-    IOFileTypeBase::unsetOption(const std::string &name)
+IOFileTypeBase::unsetOption(OptionSet &optSet, const std::string &name)
 {
     bool                retVal = false;
-    OptionSet::iterator oIt    = _optStack.top().find(name);
+    OptionSet::iterator oIt    = optSet.find(name);
     
-    if(oIt != _optStack.top().end())
+    if(oIt != optSet.end())
     {
-        _optStack.top().erase(oIt);
+        optSet.erase(oIt);
         retVal = true;
     }
     
     return retVal;
 }
 
-/*! Attempts to return the value associated with option \a name in \a value.
-    If the option is not present \c false is returned, \c true otherwise and
-    only in this case value is being set.
+/*! Attempts to return the \a value associated with option \a name
+    in \a optSet. If the option is not present \c false is returned,
+    \c true otherwise and only in this case value is being set.
     
-    \param[in]  name Name of the option.
-    \param[out] value Value of option.
+    \param[in]  optSet OptionSet to read.
+    \param[in]  name   Name of the option.
+    \param[out] value  Value of option.
     \return Whether the option is present.
  */
 bool
-    IOFileTypeBase::getOption(
-        std::string const &name, std::string &value) const
+IOFileTypeBase::getOption(
+    const OptionSet &optSet, std::string const &name, std::string &value)
 {
     bool                      retVal = false;
-    OptionSet::const_iterator oIt    = _optStack.top().find(name);
+    OptionSet::const_iterator oIt    = optSet.find(name);
     
-    if(oIt != _optStack.top().end())
+    if(oIt != optSet.end())
     {
         value  = oIt->second.optValue;
         retVal = true;

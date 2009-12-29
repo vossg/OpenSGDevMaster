@@ -67,16 +67,6 @@ ColladaVisualScene::read(void)
 }
 
 Node *
-ColladaVisualScene::process(ColladaElement *parent)
-{
-    SFATAL << "ColladaVisualScene::process: <visual_scene> must be "
-           << "instantiated to use."
-           << std::endl;
-
-    OSG_ASSERT(false);
-}
-
-Node *
 ColladaVisualScene::createInstance(ColladaInstanceElement *colInstElem)
 {
     OSG_COLLADA_LOG(("ColladaVisualScene::createInstance\n"));
@@ -108,11 +98,27 @@ ColladaVisualScene::createInstance(ColladaInstanceElement *colInstElem)
                 rootN = makeNodeFor(group);
             }
 
-            rootN->addChild(colNode->process(this));
+            Node *childN = colNode->getTopNode();
+
+            if(childN->getParent() != NULL)
+            {
+                SWARNING << "ColladaVisualScene::createInstance: <node> [" << i
+                         << "] already has a parent." << std::endl;
+            }
+
+            rootN->addChild(childN);
         }
         else
         {
-            rootN = colNode->process(this);
+            Node *childN = colNode->getTopNode();
+
+            if(childN->getParent() != NULL)
+            {
+                SWARNING << "ColladaVisualScene::createInstance: <node> [" << i
+                         << "] already has a parent." << std::endl;
+            }
+
+            rootN = childN;
         }
     }
 

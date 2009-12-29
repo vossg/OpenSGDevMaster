@@ -141,28 +141,20 @@ ColladaNode::read(void)
     {
         handleInstanceController(instControllers[i]);
     }
-}
 
-Node *
-ColladaNode::process(ColladaElement *parent)
-{
-    OSG_COLLADA_LOG(("ColladaNode::process: parent [%s]\n",
-                    parent->getDOMElement()->getElementName()));
-
-    NodeUnrecPtr retVal = NULL;
-
-    if(getInstStore().empty() == true)
+    // nothing created? build a dummy node
+    if(_topN == NULL)
     {
-        retVal = _topN;
-    }
-    else
-    {
-        retVal = cloneTree(_topN);
+        _topN = makeCoredNode<Group>();
+
+        if(node->getName() != NULL)
+            setName(_topN, node->getName());
     }
 
-    editInstStore().push_back(retVal);
-
-    return retVal;
+    if(_bottomN == NULL)
+    {
+        _bottomN = _topN;
+    }
 }
 
 Node *
@@ -186,8 +178,22 @@ ColladaNode::createInstance(ColladaInstanceElement *colInstElem)
     return retVal;
 }
 
+Node *
+ColladaNode::getTopNode(void) const
+{
+    return _topN;
+}
+
+Node *
+ColladaNode::getBottomNode(void) const
+{
+    return _bottomN;
+}
+
 ColladaNode::ColladaNode(daeElement *elem, ColladaGlobal *global)
     : Inherited(elem, global)
+    , _topN    (NULL)
+    , _bottomN (NULL)
 {
 }
 
@@ -370,7 +376,13 @@ ColladaNode::handleNode(domNode *node)
         colNode->read();
     }
 
-    NodeUnrecPtr childN = colNode->process(this);
+    Node *childN = colNode->getTopNode();
+
+    if(childN->getParent() != NULL)
+    {
+        SWARNING << "ColladaNode::handleNode: Node already has a parent."
+                 << std::endl;
+    }
 
     appendChild(childN);
 }
@@ -430,7 +442,7 @@ ColladaNode::appendXForm(Node *xformN)
     {
         _topN = xformN;
     }
-
+    
     if(_bottomN != NULL)
     {
         _bottomN->addChild(xformN);
