@@ -138,6 +138,9 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
      */
     struct PropInfo
     {
+        PropInfo(void                  );
+        PropInfo(const PropInfo &source);
+
         std::string               _semantic;
         Int32                     _set;
 

@@ -53,6 +53,7 @@
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGNameAttachment.h"
+#include "OSGPrimeMaterial.h"
 
 #include <dom/domGeometry.h>
 #include <dom/domMesh.h>
@@ -67,9 +68,26 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*---------------------------------------------------------------------------*/
+
+ColladaGeometry::PropInfo::PropInfo(void)
+    : _semantic()
+    , _set     ()
+    , _prop    (NULL)
+{
+}
+
+ColladaGeometry::PropInfo::PropInfo(const PropInfo &source)
+    : _semantic(source._semantic)
+    , _set     (source._set)
+    , _prop    (source._prop)
+{
+}
+
+/*---------------------------------------------------------------------------*/
+
 ColladaElementRegistrationHelper ColladaGeometry::_regHelper(
     &ColladaGeometry::create, "geometry");
-
 
 ColladaElementTransitPtr
 ColladaGeometry::create(daeElement *elem, ColladaGlobal *global)
@@ -1068,6 +1086,8 @@ ColladaGeometry::handleBindMaterial(
         SWARNING << "ColladaGeometry::handleBindMaterial: No material found "
                  << "for symbol [" << geoInfo._matSymbol << "]."
                  << std::endl;
+
+        geo->setMaterial(getDefaultMaterial());
         return;
     }
 
@@ -1202,6 +1222,8 @@ ColladaGeometry::handleBindMaterial(
         SWARNING << "ColladaGeometry::handleBindMaterial: No material created "
                  << "for symbol [" << geoInfo._matSymbol << "]."
                  << std::endl;
+
+        geo->setMaterial(getDefaultMaterial());
     }
 }
 
