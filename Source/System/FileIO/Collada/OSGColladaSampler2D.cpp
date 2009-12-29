@@ -40,67 +40,137 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaMaterial.h"
+#include "OSGColladaSampler2D.h"
 
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGColladaInstanceMaterial.h"
-#include "OSGColladaInstanceEffect.h"
+#include "OSGColladaEffect.h"
+#include "OSGColladaSurface.h"
 
-#include <dom/domMaterial.h>
-#include <dom/domInstance_effect.h>
+#include <dom/domFx_sampler2D_common.h>
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaMaterial::_regHelper(
-    &ColladaMaterial::create, "material");
+ColladaElementRegistrationHelper ColladaSampler2D::_regHelper(
+    &ColladaSampler2D::create, "sampler2D");
 
 
 ColladaElementTransitPtr
-ColladaMaterial::create(daeElement *elem, ColladaGlobal *global)
+ColladaSampler2D::create(daeElement *elem, ColladaGlobal *global)
 {
-    return ColladaElementTransitPtr(new ColladaMaterial(elem, global));
+    return ColladaElementTransitPtr(new ColladaSampler2D(elem, global));
 }
 
 void
-ColladaMaterial::read(void)
+ColladaSampler2D::read(void)
 {
-    OSG_COLLADA_LOG(("ColladaMaterial::read\n"));
+    OSG_COLLADA_LOG(("OSGColladaSampler2D::read\n"));
 
-    domMaterialRef              material      = getDOMElementAs<domMaterial>();
-    domInstance_effectRef       instEffect    = material->getInstance_effect();
-    ColladaInstanceEffectRefPtr colInstEffect =
-        getUserDataAs<ColladaInstanceEffect>(instEffect);
+    domFx_sampler2D_commonRef            sampler2D =
+        getDOMElementAs<domFx_sampler2D_common>();
+    domFx_sampler2D_common::domSourceRef source    = sampler2D->getSource();
 
-    if(colInstEffect == NULL)
+    if(_colEffect == NULL)
     {
-        colInstEffect = dynamic_pointer_cast<ColladaInstanceEffect>(
-            ColladaElementFactory::the()->create(instEffect, getGlobal()));
+        SWARNING << "ColladaSampler2D::read: No effect set, can not resolve "
+                 << "<source> elements." << std::endl;
+        return;
+    }
 
-        colInstEffect->read();
+    ColladaElement *colElem    = _colEffect->findParam(source->getValue());
+    ColladaSurface *colSurface = dynamic_cast<ColladaSurface *>(colElem);
+
+    if(colElem == NULL || colSurface == NULL)
+    {
+        SWARNING << "ColladaSampler2D::read: Could not resolve <source> ["
+                 << source->getValue() << "]." << std::endl;
+    }
+    
+    _texObj = TextureObjChunk::create();
+    _texObj->setImage(colSurface->getImage());
+
+    if(sampler2D->getWrap_s() != NULL)
+    {
+        switch(sampler2D->getWrap_s()->getValue())
+        {
+        case FX_SAMPLER_WRAP_COMMON_NONE:
+            SWARNING << "ColladaSampler2D::read: <wrap_s> == NONE "
+                     << "not supported" << std::endl;
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_WRAP:
+            _texObj->setWrapS(GL_REPEAT);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_MIRROR:
+            _texObj->setWrapS(GL_MIRRORED_REPEAT);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_CLAMP:
+            _texObj->setWrapS(GL_CLAMP_TO_EDGE);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_BORDER:
+            _texObj->setWrapS(GL_CLAMP_TO_BORDER);
+            break;
+        }
+    }
+
+    if(sampler2D->getWrap_t() != NULL)
+    {
+        switch(sampler2D->getWrap_t()->getValue())
+        {
+        case FX_SAMPLER_WRAP_COMMON_NONE:
+            SWARNING << "ColladaSampler2D::read: <wrap_t> == NONE "
+                     << "not supported" << std::endl;
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_WRAP:
+            _texObj->setWrapT(GL_REPEAT);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_MIRROR:
+            _texObj->setWrapT(GL_MIRRORED_REPEAT);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_CLAMP:
+            _texObj->setWrapT(GL_CLAMP_TO_EDGE);
+            break;
+
+        case FX_SAMPLER_WRAP_COMMON_BORDER:
+            _texObj->setWrapT(GL_CLAMP_TO_BORDER);
+            break;            
+        }
     }
 }
 
-Material *
-ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
+ColladaEffect *
+ColladaSampler2D::getEffect(void) const
 {
-    SWARNING << "ColladaMaterial::craeteInstance: NIY" << std::endl;
-
-    domMaterialRef              material      = getDOMElementAs<domMaterial>();
-    domInstance_effectRef       instEffect    = material->getInstance_effect();
-    ColladaInstanceEffectRefPtr colInstEffect =
-      getUserDataAs<ColladaInstanceEffect>(instEffect);
-
-    return colInstEffect->process(this);
+    return _colEffect;
 }
 
-ColladaMaterial::ColladaMaterial(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
+void
+ColladaSampler2D::setEffect(ColladaEffect *colEffect)
+{
+    _colEffect = colEffect;
+}
+
+TextureObjChunk *
+ColladaSampler2D::getTexture(void) const
+{
+    return _texObj;
+}
+
+ColladaSampler2D::ColladaSampler2D(daeElement *elem, ColladaGlobal *global)
+    : Inherited (elem, global)
+    , _colEffect(NULL)
+    , _texObj   (NULL)
 {
 }
 
-ColladaMaterial::~ColladaMaterial(void)
+ColladaSampler2D::~ColladaSampler2D(void)
 {
 }
 

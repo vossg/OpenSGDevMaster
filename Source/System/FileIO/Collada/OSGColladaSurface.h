@@ -36,35 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAEFFECT_H_
-#define _OSGCOLLADAEFFECT_H_
+#ifndef _OSGCOLLADASURFACE_H_
+#define _OSGCOLLADASURFACE_H_
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaInstantiableElement.h"
+#include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
-#include "OSGColladaSampler2D.h"
-#include "OSGColladaSurface.h"
-#include "OSGMaterial.h"
 
-#include <dom/domImage.h>
-#include <dom/domFx_sampler2D_common.h>
-#include <dom/domFx_surface_common.h>
-#include <dom/domCommon_color_or_texture_type.h>
+#include "OSGImage.h"
 
 // forward decl
-class domProfile_COMMON;
-class domProfile_GLSL;
-class domProfile_CG;
-class domEffect;
-class domInstance_effect;
-
+class domFx_surface_common;
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
+class OSG_FILEIO_DLLMAPPING ColladaSurface : public ColladaElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -72,10 +61,10 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef ColladaInstantiableElement Inherited;
-    typedef ColladaEffect              Self;
+    typedef ColladaElement  Inherited;
+    typedef ColladaSurface  Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaEffect);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaSurface);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -90,93 +79,47 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void      read          (void                            );
-    virtual Material *createInstance(ColladaInstanceElement *instElem);
+    virtual void read(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    daeElement     *findDOMParam(const std::string &name) const;
-    ColladaElement *findParam   (const std::string &name) const;
+    Image *getImage(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
- protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
-
-    struct ParamSampler2D
-    {
-        ColladaSampler2DRefPtr    colSampler2D;
-        domFx_sampler2D_commonRef sampler2D;
-    };
-
-    struct ParamSurface
-    {
-        ColladaSurfaceRefPtr    colSurface;
-        domFx_surface_commonRef surface;
-    };
-
-    typedef std::map<std::string, ParamSampler2D> ParamSampler2DMap;
-    typedef ParamSampler2DMap::iterator           ParamSampler2DMapIt;
-    typedef ParamSampler2DMap::const_iterator     ParamSampler2DMapConstIt;
-    
-    typedef std::map<std::string, ParamSurface  > ParamSurfaceMap;
-    typedef ParamSurfaceMap::iterator             ParamSurfaceMapIt;
-    typedef ParamSurfaceMap::const_iterator       ParamSurfaceMapConstIt;
-
-    /*! \}                                                                 */
+  protected:
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-             ColladaEffect(daeElement *elem, ColladaGlobal *global);
-    virtual ~ColladaEffect(void                                   );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Profile Handlers                                             */
-    /*! \{                                                                 */
-
-    virtual void      readProfileCommon(domProfile_COMMON *prof);
-    virtual void      readProfileGLSL  (domProfile_GLSL   *prof);
-    virtual void      readProfileCG    (domProfile_CG     *prof);
-
-    virtual MaterialTransitPtr createInstanceProfileCommon(
-        domProfile_COMMON  *prof,       domEffect *effect,
-        domInstance_effect *instEffect                    );
-    virtual MaterialTransitPtr createInstanceProfileGLSL(
-        domProfile_GLSL    *prof,       domEffect *effect,
-        domInstance_effect *instEffect                    );
-    virtual MaterialTransitPtr createInstanceProfileCG(
-        domProfile_CG      *prof,       domEffect *effect,
-        domInstance_effect *instEffect                    );
+             ColladaSurface(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaSurface(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    void readImageArray(const domImage_Array &images);
-    void fillColorParamTex  (
-        domCommon_color_or_texture_type                *colTex,
-        domCommon_color_or_texture_type::domColorRef   &colOut,
-        domCommon_color_or_texture_type::domParamRef   &paramOut,
-        domCommon_color_or_texture_type::domTextureRef &texOut   );
+    virtual void readUntyped(domFx_surface_common *surface);
+    virtual void read1D     (domFx_surface_common *surface);
+    virtual void read2D     (domFx_surface_common *surface);
+    virtual void read3D     (domFx_surface_common *surface);
+    virtual void readRect   (domFx_surface_common *surface);
+    virtual void readCube   (domFx_surface_common *surface);
+    virtual void readDepth  (domFx_surface_common *surface);
 
     static ColladaElementRegistrationHelper _regHelper;
 
-    ParamSampler2DMap _sampler2DParams;
-    ParamSurfaceMap   _surfaceParams;
+    ImageUnrecPtr _image;
 };
 
-OSG_GEN_MEMOBJPTR(ColladaEffect);
+OSG_GEN_MEMOBJPTR(ColladaSurface);
 
 OSG_END_NAMESPACE
 
-// #include "OSGColladaEffect.inl"
+// #include "OSGColladaSurface.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAEFFECT_H_
+#endif // _OSGCOLLADASURFACE_H_

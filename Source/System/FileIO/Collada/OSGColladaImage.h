@@ -78,6 +78,13 @@ class OSG_FILEIO_DLLMAPPING ColladaImage : public ColladaElement
     virtual void read(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    Image *getImage(void) const;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/

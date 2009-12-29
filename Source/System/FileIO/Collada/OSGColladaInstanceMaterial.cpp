@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaInstanceEffect.h"
 
 #include <dom/domInstance_material.h>
 
@@ -64,7 +65,7 @@ ColladaInstanceMaterial::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceMaterial::read\n"));
 
-    ColladaMaterialRefPtr   colMat  = getSourceElem      ();
+    ColladaMaterialRefPtr colMat = getSourceElem();
 
     if(colMat == NULL)
     {
@@ -180,10 +181,55 @@ ColladaInstanceMaterial::getBindStore(void) const
     return _bindStore;
 }
 
+const ColladaInstanceMaterial::BindInfo *
+ColladaInstanceMaterial::findBindInfo(const std::string &semantic) const
+{
+    const BindInfo *retVal = NULL;
+
+    for(UInt32 i = 0; i < _bindStore.size(); ++i)
+    {
+        if(_bindStore[i].semantic == semantic)
+        {
+            retVal = &_bindStore[i];
+            break;
+        }
+    }
+
+    return retVal;
+}
+
 const ColladaInstanceMaterial::BindVertexStore &
 ColladaInstanceMaterial::getBindVertexStore(void) const
 {
     return _bindVertexStore;
+}
+
+const ColladaInstanceMaterial::BindVertexInfo *
+ColladaInstanceMaterial::findBindVertexInfo(
+    const std::string &inSemantic, UInt32 inSet) const
+{
+    const BindVertexInfo *retVal = NULL;
+
+    for(UInt32 i = 0; i < _bindVertexStore.size(); ++i)
+    {
+        if(_bindVertexStore[i].inSemantic == inSemantic &&
+           _bindVertexStore[i].inSet      == inSet        )
+        {
+            retVal = &_bindVertexStore[i];
+            break;
+        }
+    }
+
+    return retVal;
+}
+
+ColladaInstanceEffect *
+ColladaInstanceMaterial::getInstanceEffect(void) const
+{
+    domMaterialRef         material   = getSourceDOMElem            ();
+    domInstance_effectRef  instEffect = material->getInstance_effect();
+
+    return getUserDataAs<ColladaInstanceEffect>(instEffect);
 }
 
 ColladaInstanceMaterial::ColladaInstanceMaterial(

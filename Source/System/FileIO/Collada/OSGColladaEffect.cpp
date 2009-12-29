@@ -46,10 +46,13 @@
 
 #include "OSGColladaLog.h"
 #include "OSGColladaImage.h"
+#include "OSGColladaSampler2D.h"
 #include "OSGColladaInstanceEffect.h"
 
+#include "OSGGeometry.h"
 #include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 #include <dom/domEffect.h>
 #include <dom/domInstance_effect.h>
@@ -78,6 +81,59 @@ ColladaEffect::read(void)
     const domImage_Array &images = effect->getImage_array();
 
     readImageArray(images);
+
+    const domFx_newparam_common_Array &newParams = effect->getNewparam_array();
+
+    for(UInt32 i = 0; i < newParams.getCount(); ++i)
+    {
+        if(newParams[i]->getFx_basic_type_common() == NULL)
+        {
+            SWARNING << "ColladaEffect::read: <newparam> ["
+                     << newParams[i]->getSid()
+                     << "] without contents encountered, ignored."
+                     << std::endl;
+            continue;
+        }
+
+        // must read surface params before sampler params, because their <source>
+        // element can refer to a surface
+        domFx_surface_commonRef paramSurface =
+            newParams[i]->getFx_basic_type_common()->getSurface();
+
+        if(paramSurface != NULL)
+        {
+            ParamSurface param;
+
+            param.surface    = paramSurface;
+            param.colSurface = dynamic_pointer_cast<ColladaSurface>(
+                ColladaElementFactory::the()->create(
+                    paramSurface, getGlobal()));
+
+            param.colSurface->read();
+
+            _surfaceParams[newParams[i]->getSid()] = param;
+            continue;
+        }
+
+        domFx_sampler2D_commonRef paramSampler2D =
+            newParams[i]->getFx_basic_type_common()->getSampler2D();
+
+        if(paramSampler2D != NULL)
+        {
+            ParamSampler2D param;
+
+            param.sampler2D    = paramSampler2D;
+            param.colSampler2D = dynamic_pointer_cast<ColladaSampler2D>(
+                ColladaElementFactory::the()->create(
+                    paramSampler2D, getGlobal()));
+
+            param.colSampler2D->setEffect(this);
+            param.colSampler2D->read     (    );
+
+            _sampler2DParams[newParams[i]->getSid()] = param;
+            continue;
+        }
+    }
 
     const domFx_profile_abstract_Array &profiles =
         effect->getFx_profile_abstract_array();
@@ -142,6 +198,42 @@ ColladaEffect::createInstance(ColladaInstanceElement *colInstElem)
     return retVal;
 }
 
+daeElement *
+ColladaEffect::findDOMParam(const std::string &name) const
+{
+    ParamSampler2DMapConstIt sampler2DIt = _sampler2DParams.find(name);
+
+    if(sampler2DIt != _sampler2DParams.end())
+    {
+        return sampler2DIt->second.sampler2D;
+    }
+
+    ParamSurfaceMapConstIt surfaceIt = _surfaceParams.find(name);
+
+    if(surfaceIt != _surfaceParams.end())
+    {
+        return surfaceIt->second.surface;
+    }
+}
+
+ColladaElement *
+ColladaEffect::findParam(const std::string &name) const
+{
+    ParamSampler2DMapConstIt sampler2DIt = _sampler2DParams.find(name);
+
+    if(sampler2DIt != _sampler2DParams.end())
+    {
+        return sampler2DIt->second.colSampler2D;
+    }
+
+    ParamSurfaceMapConstIt surfaceIt = _surfaceParams.find(name);
+
+    if(surfaceIt != _surfaceParams.end())
+    {
+        return surfaceIt->second.colSurface;
+    }
+}
+
 ColladaEffect::ColladaEffect(daeElement *elem, ColladaGlobal *global)
     : Inherited(elem, global)
 {
@@ -163,6 +255,55 @@ ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
 
     readImageArray(prof->getImage_array());
 
+    const domCommon_newparam_type_Array &newParams = prof->getNewparam_array();
+
+    for(UInt32 i = 0; i < newParams.getCount(); ++i)
+    {
+        // must read surface params before sampler params, because their <source>
+        // element can refer to a surface
+        domFx_surface_commonRef paramSurface =
+            newParams[i]->getSurface();
+
+        if(paramSurface != NULL)
+        {
+            ParamSurface param;
+
+            param.surface    = paramSurface;
+            param.colSurface = dynamic_pointer_cast<ColladaSurface>(
+                ColladaElementFactory::the()->create(
+                    paramSurface, getGlobal()));
+
+            param.colSurface->read();
+
+            _surfaceParams[newParams[i]->getSid()] = param;
+            continue;
+        }
+
+        domFx_sampler2D_commonRef paramSampler2D =
+            newParams[i]->getSampler2D();
+
+        if(paramSampler2D != NULL)
+        {
+            ParamSampler2D param;
+
+            param.sampler2D    = paramSampler2D;
+            param.colSampler2D = dynamic_pointer_cast<ColladaSampler2D>(
+                ColladaElementFactory::the()->create(
+                    paramSampler2D, getGlobal()));
+
+            param.colSampler2D->setEffect(this);
+            param.colSampler2D->read     (    );
+
+            _sampler2DParams[newParams[i]->getSid()] = param;
+            continue;
+        }
+
+        // param is unhandled if we get to here
+        SWARNING << "ColladaEffect::readProfileCommon: Unhandled <newparam> ["
+                 << newParams[i]->getSid() << "]."
+                 << std::endl;
+    }
+
     domProfile_COMMON::domTechniqueRef tech = prof->getTechnique();
 
     readImageArray(tech->getImage_array());
@@ -180,22 +321,29 @@ ColladaEffect::readProfileCG(domProfile_CG *prof)
     SWARNING << "ColladaEffect::readProfileCG: NIY." << std::endl;
 }
 
-Material *
+MaterialTransitPtr
 ColladaEffect::createInstanceProfileCommon(
     domProfile_COMMON  *prof,       domEffect *effect,
     domInstance_effect *instEffect                      )
 {
     OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon\n"));
 
+    ColladaInstanceEffectRefPtr colInstEffect =
+        getUserDataAs<ColladaInstanceEffect>(instEffect);
+
     domProfile_COMMON::domTechniqueRef tech = prof->getTechnique();
 
-    domCommon_color_or_texture_typeRef emission = NULL;
-    domCommon_color_or_texture_typeRef ambient  = NULL;
-    domCommon_color_or_texture_typeRef diffuse  = NULL;
-    domCommon_color_or_texture_typeRef specular = NULL;
+    domCommon_color_or_texture_typeRef emission  = NULL;
+    domCommon_color_or_texture_typeRef ambient   = NULL;
+    domCommon_color_or_texture_typeRef diffuse   = NULL;
+    domCommon_color_or_texture_typeRef specular  = NULL;
+    domCommon_float_or_param_typeRef   shininess = NULL;
 
     if(tech->getConstant() != NULL)
     {
+        OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                         "using <constant> shader\n"));
+
         domProfile_COMMON::domTechnique::domConstantRef constant =
             tech->getConstant();
 
@@ -203,6 +351,9 @@ ColladaEffect::createInstanceProfileCommon(
     }
     else if(tech->getLambert() != NULL)
     {
+        OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                         "using <lambert> shader\n"));
+
         domProfile_COMMON::domTechnique::domLambertRef lambert =
             tech->getLambert();
 
@@ -212,36 +363,44 @@ ColladaEffect::createInstanceProfileCommon(
     }
     else if(tech->getPhong() != NULL)
     {
+        OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                         "using <phong> shader\n"));
+
         domProfile_COMMON::domTechnique::domPhongRef phong =
             tech->getPhong();
 
-        emission = phong->getEmission();
-        ambient  = phong->getAmbient ();
-        diffuse  = phong->getDiffuse ();
-        specular = phong->getSpecular();
+        emission  = phong->getEmission ();
+        ambient   = phong->getAmbient  ();
+        diffuse   = phong->getDiffuse  ();
+        specular  = phong->getSpecular ();
+        shininess = phong->getShininess();
     }
     else if(tech->getBlinn() != NULL)
     {
+        OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                         "using <blinn> shader\n"));
+
         domProfile_COMMON::domTechnique::domBlinnRef blinn =
             tech->getBlinn();
 
-        emission = blinn->getEmission();
-        ambient  = blinn->getAmbient ();
-        diffuse  = blinn->getDiffuse ();
-        specular = blinn->getSpecular();
+        emission  = blinn->getEmission ();
+        ambient   = blinn->getAmbient  ();
+        diffuse   = blinn->getDiffuse  ();
+        specular  = blinn->getSpecular ();
+        shininess = blinn->getShininess();
     }
 
+    UInt32                texCount = 0;
     ChunkMaterialUnrecPtr mat      = ChunkMaterial::create();
     MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
 
     if(emission != NULL)
     {
-        domCommon_color_or_texture_type::domColorRef   color   =
-            emission->getColor  ();
-        domCommon_color_or_texture_type::domParamRef   param   =
-            emission->getParam  ();
-        domCommon_color_or_texture_type::domTextureRef texture =
-            emission->getTexture();
+        domCommon_color_or_texture_type::domColorRef   color;
+        domCommon_color_or_texture_type::domParamRef   param;
+        domCommon_color_or_texture_type::domTextureRef texture;
+
+        fillColorParamTex(emission, color, param, texture);
 
         if(color != NULL)
         {
@@ -254,35 +413,203 @@ ColladaEffect::createInstanceProfileCommon(
         }
         else if(param != NULL)
         {
-            
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<emission>/<param> not supported."
+                     << std::endl;
         }
         else if(texture != NULL)
         {
+            xsNCName texId      = texture->getTexture ();
+            xsNCName tcSemantic = texture->getTexcoord();
+
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<emission>/<texture> not supported."
+                     << std::endl;
         }
     }
 
-    // XXX TODO: return constructed material
-    return NULL;
+    if(ambient != NULL)
+    {
+        domCommon_color_or_texture_type::domColorRef   color;
+        domCommon_color_or_texture_type::domParamRef   param;
+        domCommon_color_or_texture_type::domTextureRef texture;
+
+        fillColorParamTex(ambient, color, param, texture);
+
+        if(color != NULL)
+        {
+            Color4f colVal(color->getValue()[0],
+                           color->getValue()[1],
+                           color->getValue()[2],
+                           color->getValue()[3] );
+
+            matChunk->setAmbient(colVal);
+        }
+        else if(param != NULL)
+        {
+            
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<ambient>/<param> not supported."
+                     << std::endl;
+        }
+        else if(texture != NULL)
+        {
+            xsNCName texId      = texture->getTexture ();
+            xsNCName tcSemantic = texture->getTexcoord();
+
+            ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
+
+            if(paramIt != _sampler2DParams.end())
+            {
+                mat->addChunk(paramIt->second.colSampler2D->getTexture(),
+                              texCount                                   );
+
+                TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
+                texEnv->setEnvMode(GL_REPLACE);
+
+                mat->addChunk(texEnv, texCount);
+
+                OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                                 "texCoord symbol [%s] in slot [%d]\n",
+                                 tcSemantic,
+                                 Geometry::TexCoordsIndex + texCount));
+
+                // record the texture slot that is associated with
+                // the symbolic name
+                colInstEffect->editTCMap()[tcSemantic] =
+                    Geometry::TexCoordsIndex + texCount;
+                ++texCount;
+            }
+            else
+            {
+                SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                         << "<ambient>/<texture> could not find sampler2D ["
+                         << texId << "]."
+                         << std::endl;
+            }
+        }
+    }
+
+    if(diffuse != NULL)
+    {
+        domCommon_color_or_texture_type::domColorRef   color;
+        domCommon_color_or_texture_type::domParamRef   param;
+        domCommon_color_or_texture_type::domTextureRef texture;
+
+        fillColorParamTex(diffuse, color, param, texture);
+
+        if(color != NULL)
+        {
+            Color4f colVal(color->getValue()[0],
+                           color->getValue()[1],
+                           color->getValue()[2],
+                           color->getValue()[3] );
+
+            matChunk->setDiffuse(colVal);
+        }
+        else if(param != NULL)
+        {
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<diffuse>/<param> not supported."
+                     << std::endl;
+        }
+        else if(texture != NULL)
+        {
+            xsNCName texId      = texture->getTexture ();
+            xsNCName tcSemantic = texture->getTexcoord();
+
+            ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
+
+            if(paramIt != _sampler2DParams.end())
+            {
+                mat->addChunk(paramIt->second.colSampler2D->getTexture(),
+                              texCount                                   );
+                
+                TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
+                texEnv->setEnvMode(GL_MODULATE);
+
+                mat->addChunk(texEnv, texCount);
+   
+                OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                                 "texCoord symbol [%s] in slot [%d]\n",
+                                 tcSemantic,
+                                 Geometry::TexCoordsIndex + texCount));
+
+                // record the texture slot that is associated with
+                // the symbolic name
+                colInstEffect->editTCMap()[tcSemantic] =
+                    Geometry::TexCoordsIndex + texCount;
+                ++texCount;
+            }
+            else
+            {
+                SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                         << "<diffuse>/<texture> could not find sampler2D ["
+                         << texId << "]."
+                         << std::endl;
+            }
+
+            matChunk->setDiffuse(Color4f(0.8f, 0.8f, 0.8f, 1.f));
+        }
+    }
+
+    if(specular != NULL)
+    {
+        domCommon_color_or_texture_type::domColorRef   color;
+        domCommon_color_or_texture_type::domParamRef   param;
+        domCommon_color_or_texture_type::domTextureRef texture;
+
+        fillColorParamTex(specular, color, param, texture);
+
+        if(color != NULL)
+        {
+            Color4f colVal(color->getValue()[0],
+                           color->getValue()[1],
+                           color->getValue()[2],
+                           color->getValue()[3] );
+
+            matChunk->setSpecular(colVal);
+        }
+        else if(param != NULL)
+        {
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<specular>/<param> not supported."
+                     << std::endl;
+        }
+        else if(texture != NULL)
+        {
+            xsNCName texId      = texture->getTexture ();
+            xsNCName tcSemantic = texture->getTexcoord();
+
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<specular>/<texture> not supported."
+                     << std::endl;
+        }
+    }
+
+    mat->addChunk(matChunk);
+
+    return MaterialTransitPtr(mat);
 }
 
-Material *
+MaterialTransitPtr
 ColladaEffect::createInstanceProfileGLSL(
     domProfile_GLSL    *prof,       domEffect   *effect,
     domInstance_effect *instEffect                      )
 {
     SWARNING << "ColladaEffect::createInstanceProfileGLSL: NIY" << std::endl;
 
-    return NULL;
+    return MaterialTransitPtr();
 }
 
-Material *
+MaterialTransitPtr
 ColladaEffect::createInstanceProfileCG(
     domProfile_CG      *prof,       domEffect   *effect,
     domInstance_effect *instEffect                      )
 {
     SWARNING << "ColladaEffect::createInstanceProfileCG: NIY" << std::endl;
 
-    return NULL;
+    return MaterialTransitPtr();
 }
 
 void
@@ -304,15 +631,17 @@ ColladaEffect::readImageArray(const domImage_Array &images)
 }
 
 void
-ColladaEffect::fillTexColor(
+ColladaEffect::fillColorParamTex(
     domCommon_color_or_texture_type                *colTex,
     domCommon_color_or_texture_type::domColorRef   &colOut,
-    domCommon_color_or_texture_type::domTextureRef &texOut )
+    domCommon_color_or_texture_type::domParamRef   &paramOut,
+    domCommon_color_or_texture_type::domTextureRef &texOut   )
 {
     if(colTex != NULL)
     {
-        colOut = colTex->getColor  ();
-        texOut = colTex->getTexture();
+        colOut   = colTex->getColor  ();
+        paramOut = colTex->getParam  ();
+        texOut   = colTex->getTexture();
     }
 }
 

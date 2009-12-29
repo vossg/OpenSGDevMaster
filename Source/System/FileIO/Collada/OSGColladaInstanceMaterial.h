@@ -51,6 +51,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+// forward decl
+class ColladaInstanceEffect;
+
+
 class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
   : public ColladaInstanceElement
 {
@@ -112,8 +116,16 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
 
     const std::string       &getSymbol         (void) const;
 
-    const BindStore         &getBindStore      (void) const;
-    const BindVertexStore   &getBindVertexStore(void) const;
+    const BindStore         &getBindStore      (void                ) const;
+    const BindInfo          *findBindInfo      (
+                                      const std::string &semantic   ) const;
+
+    const BindVertexStore   &getBindVertexStore(void                ) const;
+    const BindVertexInfo    *findBindVertexInfo(
+                                      const std::string &inSemantic,
+                                      UInt32             inSet      ) const;
+
+    ColladaInstanceEffect   *getInstanceEffect(void                 ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -130,9 +142,9 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
 
     static ColladaElementRegistrationHelper _regHelper;
 
-    std::string      _symbol;
-    BindStore        _bindStore;
-    BindVertexStore  _bindVertexStore;
+    std::string            _symbol;
+    BindStore              _bindStore;
+    BindVertexStore        _bindVertexStore;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaInstanceMaterial);

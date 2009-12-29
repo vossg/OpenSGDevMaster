@@ -106,6 +106,12 @@ ColladaImage::read(void)
     }
 }
 
+Image *
+ColladaImage::getImage(void) const
+{
+    return _image;
+}
+
 ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
     : Inherited(elem, global)
     , _image   (NULL)

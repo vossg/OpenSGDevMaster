@@ -47,7 +47,7 @@
 #include "OSGColladaLog.h"
 #include "OSGColladaSource.h"
 #include "OSGColladaInstanceGeometry.h"
-#include "OSGGeometry.h"
+#include "OSGColladaInstanceEffect.h"
 #include "OSGGroup.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
@@ -123,44 +123,9 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
         geo->setLengths(gsIt->_lengths);
         geo->setTypes  (gsIt->_types  );
 
-        PropStoreConstIt  psIt  = gsIt->_propStore .begin();
-        PropStoreConstIt  psEnd = gsIt->_propStore .end  ();
-        IndexStoreConstIt isIt  = gsIt->_indexStore.begin();
-        IndexStoreConstIt isEnd = gsIt->_indexStore.end  ();
-
-        for(UInt32 i = 0; psIt != psEnd && isIt != isEnd; ++psIt, ++isIt, ++i)
-        {
-            if(psIt->_prop != NULL && *isIt != NULL)
-            {
-                geo->setProperty( psIt->_prop, i);
-                geo->setIndex   (*isIt,        i);
-            }
-        }
+        mapProperties(*gsIt, geo, colInstGeo);
 
         groupN->addChild(geoN);
-
-
-        MaterialMapConstIt mmIt = matMap.find(gsIt->_matSymbol);
-
-        if(mmIt == matMap.end())
-        {
-            SWARNING << "ColladaGeometry::createInstance: No material found "
-                     << "for symbol [" << gsIt->_matSymbol << "]."
-                     << std::endl;
-            continue;
-        }
-
-        Material *material = mmIt->second->process(NULL);
-
-        if(material == NULL)
-        {
-            SWARNING << "ColladaGeometry::createInstance: No material created "
-                     << "for symbol [" << gsIt->_matSymbol << "]."
-                     << std::endl;
-            continue;
-        }
-
-        geo->setMaterial(material);
     }
 
     // XXX TODO: do we need to always generate a new geo?
@@ -289,13 +254,23 @@ ColladaGeometry::readLines(domMesh *mesh, domLines *lines)
         }
     }
 
-    _geoStore[geoIdx]._types  ->push_back(GL_LINES);
-    _geoStore[geoIdx]._lengths->push_back(length  );
-
     OSG_COLLADA_LOG(("ColladaGeometry::readLines: material symbol [%s] "
                      "vertices [%d]\n",
                      (lines->getMaterial() != NULL ? lines->getMaterial() : ""),
                      length));
+
+    _geoStore[geoIdx]._types  ->push_back(GL_LINES);
+    _geoStore[geoIdx]._lengths->push_back(length  );
+
+    // remove empty geometry
+    if(length == 0)
+    {
+        SWARNING << "ColladaGeometry::readLines: Empty <lines> with material ["
+                 << (lines->getMaterial() != NULL ? lines->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -334,8 +309,12 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_LINE_STRIP);
-        _geoStore[geoIdx]._lengths->push_back(length       );
+        // only add non-empty line strip
+        if(length > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_LINE_STRIP);
+            _geoStore[geoIdx]._lengths->push_back(length       );
+        }
 
         verts  += length;
         length =  0;
@@ -346,7 +325,18 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
                      (lineStrips->getMaterial() != NULL ?
                       lineStrips->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
-                     
+
+    // remove empty geometry
+    if(verts == 0)
+    {
+        SWARNING << "ColladaGeometry::readLineStrips: Empty <linestrips> "
+                 << "with material ["
+                 << (lineStrips->getMaterial() != NULL ? 
+                     lineStrips->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -385,8 +375,12 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
-        _geoStore[geoIdx]._lengths->push_back(length    );
+        // only add non-empty polygon
+        if(length > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+            _geoStore[geoIdx]._lengths->push_back(length    );
+        }
 
         verts  += length;
         length =  0;
@@ -416,8 +410,12 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
-        _geoStore[geoIdx]._lengths->push_back(length    );
+        // only add non-empty polygon
+        if(length > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+            _geoStore[geoIdx]._lengths->push_back(length    );
+        }
 
         verts  += length;
         length =  0;
@@ -435,6 +433,18 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
                      (polygons->getMaterial() != NULL ?
                       polygons->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
+
+    // remove empty geometry
+    if(verts == 0)
+    {
+        SWARNING << "ColladaGeometry::readPolygons: Empty <polygons> "
+                 << "with material ["
+                 << (polygons->getMaterial() != NULL ? 
+                     polygons->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -483,8 +493,12 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_QUADS            );
-        _geoStore[geoIdx]._lengths->push_back(4 * vList.getCount());
+        // only add non-empty quads
+        if(vList.getCount() > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_QUADS            );
+            _geoStore[geoIdx]._lengths->push_back(4 * vList.getCount());
+        }
 
         verts += 4 * vList.getCount();
         prims +=     vList.getCount();
@@ -503,8 +517,12 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
                 }
             }
 
-            _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
-            _geoStore[geoIdx]._lengths->push_back(vList[i]  );
+            // only add non-empty polygons
+            if(vList[i] > 0)
+            {
+                _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+                _geoStore[geoIdx]._lengths->push_back(vList[i]  );
+            }
 
             verts += vList[i];
             prims += 1;
@@ -517,6 +535,18 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
                       polyList->getMaterial() : ""),
                      verts,
                      (useQuads == true ? "quads" : "polygons"), prims));
+
+    // remove empty geometry
+    if(verts == 0)
+    {
+        SWARNING << "ColladaGeometry::readPolyList: Empty <polylist> "
+                 << "with material ["
+                 << (polyList->getMaterial() != NULL ? 
+                     polyList->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -558,6 +588,17 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
                      (triangles->getMaterial() != NULL ?
                       triangles->getMaterial() : ""),
                      length, length/3));
+
+    if(length == 0)
+    {
+        SWARNING << "ColladaGeometry::readTriangles: Empty <triangles> "
+                 << "with material ["
+                 << (triangles->getMaterial() != NULL ? 
+                     triangles->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -596,8 +637,12 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_FAN);
-        _geoStore[geoIdx]._lengths->push_back(length         );
+        // only add non-empty tri fans
+        if(length > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_FAN);
+            _geoStore[geoIdx]._lengths->push_back(length         );
+        }
 
         verts  += length;
         length =  0;
@@ -608,6 +653,18 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
                      (triFans->getMaterial() != NULL ?
                       triFans->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
+
+    // remove empty geometry
+    if(verts == 0)
+    {
+        SWARNING << "ColladaGeometry::readTriFans: Empty <trifans> "
+                 << "with material ["
+                 << (triFans->getMaterial() != NULL ? 
+                     triFans->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 void
@@ -646,8 +703,12 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
             }
         }
 
-        _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_STRIP);
-        _geoStore[geoIdx]._lengths->push_back(length           );
+        // only add non-empty tri strip
+        if(length > 0)
+        {
+            _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_STRIP);
+            _geoStore[geoIdx]._lengths->push_back(length           );
+        }
 
         verts  += length;
         length =  0;
@@ -659,6 +720,17 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
                       triStrips->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
 
+    // remove empty geometry
+    if(verts == 0)
+    {
+        SWARNING << "ColladaGeometry::readTriStrips: Empty <tristrips> "
+                 << "with material ["
+                 << (triStrips->getMaterial() != NULL ? 
+                     triStrips->getMaterial() : "")
+                 << "]." << std::endl;
+
+        _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
 }
 
 UInt32
@@ -845,6 +917,189 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
     _geoStore[geoIdx]._types   = GeoUInt8Property ::create();
 
     return geoIdx;
+}
+
+void
+ColladaGeometry::mapProperties(
+    const GeoInfo &geoInfo, Geometry *geo, ColladaInstanceGeometry *colInstGeo)
+{
+    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+
+    const MaterialMap       &matMap        = colInstGeo->getMaterialMap();
+    MaterialMapConstIt       mmIt          = matMap.find(geoInfo._matSymbol);
+    Material                *material      = NULL;
+    ColladaInstanceMaterial *colInstMat    = NULL;
+    ColladaInstanceEffect   *colInstEffect = NULL;
+
+    if(mmIt != matMap.end())
+    {
+        colInstMat    = mmIt      ->second;
+        material      = colInstMat->process          (NULL);
+        colInstEffect = colInstMat->getInstanceEffect(    );
+    }
+    else
+    {
+        SWARNING << "ColladaGeometry::mapProperties: No material found "
+                 << "for symbol [" << geoInfo._matSymbol << "]."
+                 << std::endl;
+    }
+
+    const BindStore       &bindStore       = colInstMat->getBindStore      ();
+    const BindVertexStore &bindVertexStore = colInstMat->getBindVertexStore();
+
+    PropStoreConstIt       psIt            = geoInfo._propStore .begin();
+    PropStoreConstIt       psEnd           = geoInfo._propStore .end  ();
+    IndexStoreConstIt      isIt            = geoInfo._indexStore.begin();
+    IndexStoreConstIt      isEnd           = geoInfo._indexStore.end  ();
+
+    // for every property in geoInfo we need to check if it gets remapped by a
+    // <bind> or <bind_vertex_input>
+
+    for(UInt32 i = 0; psIt != psEnd && isIt != isEnd; ++psIt, ++isIt, ++i)
+    {
+        if(psIt->_prop == NULL || *isIt == NULL)
+            continue;
+
+        bool   handledProperty  = false;
+        UInt32 bindOffset       = 0;
+        UInt32 bindVertexOffset = 0;
+
+        const BindInfo       *bi  = findBind      (bindStore,
+                                                   psIt->_semantic, bindOffset );
+        const BindVertexInfo *bvi = findBindVertex(bindVertexStore,
+                                                   psIt->_semantic, psIt->_set,
+                                                   bindVertexOffset            );
+
+        // there may be multiple consumers for a property, keep looping
+        // until no more consumers are found
+        while(bi != NULL || bvi != NULL)
+        {
+            UInt32 mappedProp = i;
+
+            if(bi != NULL)
+            {
+                if(colInstEffect->findTC(bi->target, mappedProp) == true)
+                {
+                    OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+                                     "Resolved <bind> semantic [%s] "
+                                     "target [%s] to property [%d]\n",
+                                     bi->semantic.c_str(), bi->target.c_str(),
+                                     mappedProp));
+
+                    geo->setProperty( psIt->_prop, mappedProp);
+                    geo->setIndex   (*isIt,        mappedProp);
+
+                    handledProperty = true;
+                }
+                else
+                {
+                    SWARNING << "ColladaGeometry::mapProperties: "
+                             << "Failed to resolve <bind> semantic ["
+                             << bi->semantic << "] target [" << bi->target
+                             << "]." << std::endl;
+                }
+            }
+            else if(bvi != NULL)
+            {
+                if(colInstEffect->findTC(bvi->semantic, mappedProp) == true)
+                {
+                    OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+                                     "Resolved <bind_vertex_input> "
+                                     "inSemantic [%s] inSet [%d] semantic [%s] "
+                                     "to property [%d]\n",
+                                     bvi->inSemantic.c_str(), bvi->inSet,
+                                     bvi->semantic.c_str(), mappedProp));
+
+                    geo->setProperty( psIt->_prop, mappedProp);
+                    geo->setIndex   (*isIt,        mappedProp);
+                    
+                    handledProperty = true;
+                }
+                else
+                {
+                    SWARNING << "ColladaGeometry::mapProperties: "
+                             << "Failed to resolve <bind_vertex_input> "
+                             << "inSemantic ["
+                             << bvi->inSemantic << "] inSet [" << bvi->inSet
+                             << "] semantic [" << bvi->semantic
+                             << "]." << std::endl;
+                }
+            }
+
+            // find additional consumers
+            ++bindOffset;
+            ++bindVertexOffset;
+
+            bi  = findBind      (bindStore,       psIt->_semantic,
+                                 bindOffset                       );
+            bvi = findBindVertex(bindVertexStore, psIt->_semantic,
+                                 psIt->_set,      bindVertexOffset);
+        }
+
+        // if the property is not remapped by <bind> or <bind_vertex_input>
+        // we just put it at the location it received at read time
+        if(handledProperty == false)
+        {
+            OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+                             "Setting property [%d] without "
+                             "<bind>/<bind_vertex_input> mapping.\n", i));
+
+            geo->setProperty( psIt->_prop, i);
+            geo->setIndex   (*isIt,        i);
+        }
+    }
+
+    if(material != NULL)
+    {
+        geo->setMaterial(material);
+    }
+    else
+    {
+        SWARNING << "ColladaGeometry::mapProperties: No material created "
+                 << "for symbol [" << geoInfo._matSymbol << "]."
+                 << std::endl;
+    }
+}
+
+const ColladaGeometry::BindInfo *
+ColladaGeometry::findBind(
+    const BindStore &store, const std::string &semantic, UInt32 &offset)
+{
+    const BindInfo *retVal = NULL;
+
+    for(UInt32 i = offset; i < store.size(); ++i)
+    {
+        if(store[i].semantic == semantic)
+        {
+            retVal = &store[i];
+            offset = i;
+            break;
+        }
+    }
+
+    return retVal;
+}
+
+const ColladaGeometry::BindVertexInfo *
+ColladaGeometry::findBindVertex(
+    const BindVertexStore &store, const std::string &inSemantic,
+    UInt32                 inSet, UInt32            &offset     )
+{
+    const BindVertexInfo *retVal = NULL;
+
+    for(UInt32 i = offset; i < store.size(); ++i)
+    {
+        if(store[i].inSemantic == inSemantic &&
+           store[i].inSet      == inSet        )
+        {
+            retVal = &store[i];
+            offset = i;
+            break;
+        }
+    }
+
+    return retVal;
 }
 
 OSG_END_NAMESPACE

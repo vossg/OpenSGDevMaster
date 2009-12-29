@@ -45,7 +45,9 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstanceMaterial.h"
 #include "OSGNode.h"
+#include "OSGGeometry.h"
 #include "OSGGeoVectorProperty.h"
 #include "OSGGeoIntegralProperty.h"
 
@@ -69,6 +71,8 @@ OSG_BEGIN_NAMESPACE
 // forward decls
 class ColladaSource;
 OSG_GEN_MEMOBJPTR(ColladaSource);
+class ColladaInstanceGeometry;
+OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 
 
 class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
@@ -84,6 +88,12 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGeometry);
 
+    typedef ColladaInstanceMaterial::BindInfo        BindInfo;
+    typedef ColladaInstanceMaterial::BindStore       BindStore;
+
+    typedef ColladaInstanceMaterial::BindVertexInfo  BindVertexInfo;
+    typedef ColladaInstanceMaterial::BindVertexStore BindVertexStore;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -97,8 +107,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void            read          (void                            );
-    virtual Node           *createInstance(ColladaInstanceElement *instElem);
+    virtual void  read          (void                            );
+    virtual Node *createInstance(ColladaInstanceElement *instElem);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,6 +186,18 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
                          const domInputLocalOffset_Array &inputs,
                          xsNCName                         matSymbold,
                          IndexStore                      &indexStore );
+
+    void   mapProperties(const GeoInfo           &geoInfo,
+                         Geometry                *geo,
+                         ColladaInstanceGeometry *colInstGeo);
+
+    const BindInfo       *findBind      (const BindStore       &store,
+                                         const std::string     &semantic,
+                                         UInt32                &offset     );
+    const BindVertexInfo *findBindVertex(const BindVertexStore &store,
+                                         const std::string     &inSemantic,
+                                         UInt32                 inSet,
+                                         UInt32                &offset     );
 
     static ColladaElementRegistrationHelper _regHelper;
 

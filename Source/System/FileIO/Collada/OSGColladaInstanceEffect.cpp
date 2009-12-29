@@ -98,7 +98,7 @@ ColladaInstanceEffect::read(void)
     }
 }
 
-FieldContainer *
+Material *
 ColladaInstanceEffect::process(ColladaElement *parent)
 {
     OSG_COLLADA_LOG(("ColaldaInstanceEffect::process\n"));
@@ -137,6 +137,34 @@ ColladaInstanceEffect::getSourceDOMElem(void) const
         SWARNING << "ColladaInstanceEffet::getSourceDOMElem: "
                  << "can not resolve URL [" << instEffect->getUrl().str()
                  << "]." << std::endl;
+    }
+
+    return retVal;
+}
+
+const ColladaInstanceEffect::TCSymbolToSlotMap &
+ColladaInstanceEffect::getTCMap(void) const
+{
+    return _tcMap;
+}
+
+ColladaInstanceEffect::TCSymbolToSlotMap &
+ColladaInstanceEffect::editTCMap(void)
+{
+    return _tcMap;
+}
+
+bool
+ColladaInstanceEffect::findTC(
+    const std::string &tcSymbol, UInt32 &texSlot) const
+{
+    bool                     retVal = false;
+    TCSymbolToSlotMapConstIt tcIt   = _tcMap.find(tcSymbol);
+
+    if(tcIt != _tcMap.end())
+    {
+        texSlot = tcIt->second;
+        retVal  = true;
     }
 
     return retVal;

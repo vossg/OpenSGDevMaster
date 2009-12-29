@@ -36,74 +36,86 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
+#ifndef _OSGCOLLADASAMPLER2D_H_
+#define _OSGCOLLADASAMPLER2D_H_
 
-#include "OSGColladaMaterial.h"
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaLog.h"
-#include "OSGColladaInstanceMaterial.h"
-#include "OSGColladaInstanceEffect.h"
-
-#include <dom/domMaterial.h>
-#include <dom/domInstance_effect.h>
+#include "OSGColladaElement.h"
+#include "OSGColladaElementFactoryHelper.h"
+#include "OSGTextureObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaMaterial::_regHelper(
-    &ColladaMaterial::create, "material");
+// forward decl
+class ColladaEffect;
 
 
-ColladaElementTransitPtr
-ColladaMaterial::create(daeElement *elem, ColladaGlobal *global)
+class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
 {
-    return ColladaElementTransitPtr(new ColladaMaterial(elem, global));
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-void
-ColladaMaterial::read(void)
-{
-    OSG_COLLADA_LOG(("ColladaMaterial::read\n"));
+    typedef ColladaElement    Inherited;
+    typedef ColladaSampler2D  Self;
 
-    domMaterialRef              material      = getDOMElementAs<domMaterial>();
-    domInstance_effectRef       instEffect    = material->getInstance_effect();
-    ColladaInstanceEffectRefPtr colInstEffect =
-        getUserDataAs<ColladaInstanceEffect>(instEffect);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaSampler2D);
 
-    if(colInstEffect == NULL)
-    {
-        colInstEffect = dynamic_pointer_cast<ColladaInstanceEffect>(
-            ColladaElementFactory::the()->create(instEffect, getGlobal()));
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
 
-        colInstEffect->read();
-    }
-}
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
 
-Material *
-ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
-{
-    SWARNING << "ColladaMaterial::craeteInstance: NIY" << std::endl;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
 
-    domMaterialRef              material      = getDOMElementAs<domMaterial>();
-    domInstance_effectRef       instEffect    = material->getInstance_effect();
-    ColladaInstanceEffectRefPtr colInstEffect =
-      getUserDataAs<ColladaInstanceEffect>(instEffect);
+    virtual void read(void);
 
-    return colInstEffect->process(this);
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
 
-ColladaMaterial::ColladaMaterial(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-{
-}
+    ColladaEffect   *getEffect (void                    ) const;
+    void             setEffect (ColladaEffect *colEffect);
 
-ColladaMaterial::~ColladaMaterial(void)
-{
-}
+    TextureObjChunk *getTexture(void                    ) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+    
+             ColladaSampler2D(daeElement *elem,ColladaGlobal *global);
+    virtual ~ColladaSampler2D(void                                  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static ColladaElementRegistrationHelper _regHelper;
+
+    ColladaEffect           *_colEffect;
+    TextureObjChunkUnrecPtr  _texObj;
+};
+
+OSG_GEN_MEMOBJPTR(ColladaSampler2D);
 
 OSG_END_NAMESPACE
 
+// #include "OSGColladaSampler2D.inl"
+
 #endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADASAMPLER2D_H_
