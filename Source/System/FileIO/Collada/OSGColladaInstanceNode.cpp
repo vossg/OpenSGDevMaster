@@ -64,13 +64,13 @@ ColladaInstanceNode::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceNode::read\n"));
 
-    ColladaNodeRefPtr colNode = getSourceElem();
+    ColladaNodeRefPtr colNode = getTargetElem();
 
     if(colNode == NULL)
     {
         colNode = dynamic_pointer_cast<ColladaNode>(
             ColladaElementFactory::the()->create(
-                getSourceDOMElem(), getGlobal()));
+                getTargetDOMElem(), getGlobal()));
 
         colNode->read();
     }
@@ -79,16 +79,16 @@ ColladaInstanceNode::read(void)
 Node *
 ColladaInstanceNode::process(ColladaElement *parent)
 {
-    ColladaNodeRefPtr colNode = getSourceElem();
+    ColladaNodeRefPtr colNode = getTargetElem();
 
     return colNode->createInstance(this);
 }
 
 ColladaNode *
-ColladaInstanceNode::getSourceElem(void) const
+ColladaInstanceNode::getTargetElem(void) const
 {
     ColladaNode   *retVal     = NULL;
-    daeElementRef  sourceElem = getSourceDOMElem();
+    daeElementRef  sourceElem = getTargetDOMElem();
 
     if(sourceElem != NULL)
     {
@@ -99,7 +99,7 @@ ColladaInstanceNode::getSourceElem(void) const
 }
 
 domNode *
-ColladaInstanceNode::getSourceDOMElem(void) const
+ColladaInstanceNode::getTargetDOMElem(void) const
 {
     domNodeRef          retVal   = NULL;
     domInstance_nodeRef instNode = getDOMElementAs<domInstance_node>();

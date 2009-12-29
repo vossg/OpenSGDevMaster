@@ -92,8 +92,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceEffect
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual ColladaEffect *getSourceElem   (void) const;
-    virtual domEffect     *getSourceDOMElem(void) const;
+    virtual ColladaEffect *getTargetElem   (void) const;
+    virtual domEffect     *getTargetDOMElem(void) const;
 
     const TCSymbolToSlotMap &getTCMap (void) const;
     TCSymbolToSlotMap       &editTCMap(void);

@@ -89,8 +89,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceVisualScene
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual ColladaVisualScene *getSourceElem   (void) const;
-    virtual domVisual_scene    *getSourceDOMElem(void) const;
+    virtual ColladaVisualScene *getTargetElem   (void) const;
+    virtual domVisual_scene    *getTargetDOMElem(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

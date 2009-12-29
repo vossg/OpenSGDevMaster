@@ -67,13 +67,13 @@ ColladaInstanceMaterial::read(void)
 
     domInstance_materialRef instMat =
         getDOMElementAs<domInstance_material>();
-    ColladaMaterialRefPtr   colMat  = getSourceElem();
+    ColladaMaterialRefPtr   colMat  = getTargetElem();
 
     if(colMat == NULL)
     {
         colMat = dynamic_pointer_cast<ColladaMaterial>(
             ColladaElementFactory::the()->create(
-                getSourceDOMElem(), getGlobal()));
+                getTargetDOMElem(), getGlobal()));
 
         colMat->read();
     }
@@ -138,16 +138,16 @@ ColladaInstanceMaterial::read(void)
 Material *
 ColladaInstanceMaterial::process(ColladaElement *parent)
 {
-    ColladaMaterialRefPtr colMat = getSourceElem();
+    ColladaMaterialRefPtr colMat = getTargetElem();
 
     return colMat->createInstance(this);
 }
 
 ColladaMaterial *
-ColladaInstanceMaterial::getSourceElem(void) const
+ColladaInstanceMaterial::getTargetElem(void) const
 {
     ColladaMaterial *retVal     = NULL;
-    domMaterialRef   sourceElem = getSourceDOMElem();
+    domMaterialRef   sourceElem = getTargetDOMElem();
 
     if(sourceElem != NULL)
     {
@@ -158,7 +158,7 @@ ColladaInstanceMaterial::getSourceElem(void) const
 }
 
 domMaterial *
-ColladaInstanceMaterial::getSourceDOMElem(void) const
+ColladaInstanceMaterial::getTargetDOMElem(void) const
 {
     domMaterialRef          retVal  = NULL;
     domInstance_materialRef instMat = getDOMElementAs<domInstance_material>();
@@ -234,7 +234,7 @@ ColladaInstanceMaterial::findBindVertexInfo(
 ColladaInstanceEffect *
 ColladaInstanceMaterial::getInstanceEffect(void) const
 {
-    domMaterialRef         material   = getSourceDOMElem            ();
+    domMaterialRef         material   = getTargetDOMElem            ();
     domInstance_effectRef  instEffect = material->getInstance_effect();
 
     return getUserDataAs<ColladaInstanceEffect>(instEffect);

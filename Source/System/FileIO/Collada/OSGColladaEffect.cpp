@@ -52,6 +52,7 @@
 
 #include "OSGGeometry.h"
 #include "OSGChunkMaterial.h"
+#include "OSGBlendChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGTextureEnvChunk.h"
 
@@ -345,11 +346,13 @@ ColladaEffect::createInstanceProfileCommon(
 
     domProfile_COMMON::domTechniqueRef tech = prof->getTechnique();
 
-    domCommon_color_or_texture_typeRef emission  = NULL;
-    domCommon_color_or_texture_typeRef ambient   = NULL;
-    domCommon_color_or_texture_typeRef diffuse   = NULL;
-    domCommon_color_or_texture_typeRef specular  = NULL;
-    domCommon_float_or_param_typeRef   shininess = NULL;
+    domCommon_color_or_texture_typeRef emission     = NULL;
+    domCommon_color_or_texture_typeRef ambient      = NULL;
+    domCommon_color_or_texture_typeRef diffuse      = NULL;
+    domCommon_color_or_texture_typeRef specular     = NULL;
+    domCommon_float_or_param_typeRef   shininess    = NULL;
+    domCommon_transparent_typeRef      transparent  = NULL;
+    domCommon_float_or_param_typeRef   transparency = NULL;
 
     if(tech->getConstant() != NULL)
     {
@@ -359,7 +362,9 @@ ColladaEffect::createInstanceProfileCommon(
         domProfile_COMMON::domTechnique::domConstantRef constant =
             tech->getConstant();
 
-        emission = constant->getEmission();
+        emission     = constant->getEmission    ();
+        transparent  = constant->getTransparent ();
+        transparency = constant->getTransparency();
     }
     else if(tech->getLambert() != NULL)
     {
@@ -369,9 +374,11 @@ ColladaEffect::createInstanceProfileCommon(
         domProfile_COMMON::domTechnique::domLambertRef lambert =
             tech->getLambert();
 
-        emission = lambert->getEmission();
-        ambient  = lambert->getAmbient ();
-        diffuse  = lambert->getDiffuse ();
+        emission     = lambert->getEmission    ();
+        ambient      = lambert->getAmbient     ();
+        diffuse      = lambert->getDiffuse     ();
+        transparent  = lambert->getTransparent ();
+        transparency = lambert->getTransparency();
     }
     else if(tech->getPhong() != NULL)
     {
@@ -381,11 +388,13 @@ ColladaEffect::createInstanceProfileCommon(
         domProfile_COMMON::domTechnique::domPhongRef phong =
             tech->getPhong();
 
-        emission  = phong->getEmission ();
-        ambient   = phong->getAmbient  ();
-        diffuse   = phong->getDiffuse  ();
-        specular  = phong->getSpecular ();
-        shininess = phong->getShininess();
+        emission     = phong->getEmission    ();
+        ambient      = phong->getAmbient     ();
+        diffuse      = phong->getDiffuse     ();
+        specular     = phong->getSpecular    ();
+        shininess    = phong->getShininess   ();
+        transparent  = phong->getTransparent ();
+        transparency = phong->getTransparency();
     }
     else if(tech->getBlinn() != NULL)
     {
@@ -395,16 +404,20 @@ ColladaEffect::createInstanceProfileCommon(
         domProfile_COMMON::domTechnique::domBlinnRef blinn =
             tech->getBlinn();
 
-        emission  = blinn->getEmission ();
-        ambient   = blinn->getAmbient  ();
-        diffuse   = blinn->getDiffuse  ();
-        specular  = blinn->getSpecular ();
-        shininess = blinn->getShininess();
+        emission     = blinn->getEmission    ();
+        ambient      = blinn->getAmbient     ();
+        diffuse      = blinn->getDiffuse     ();
+        specular     = blinn->getSpecular    ();
+        shininess    = blinn->getShininess   ();
+        transparent  = blinn->getTransparent ();
+        transparency = blinn->getTransparency();
     }
 
-    UInt32                texCount = 0;
-    ChunkMaterialUnrecPtr mat      = ChunkMaterial::create();
-    MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
+    UInt32                texCount   = 0;
+    Real32                transVal   = 1.f;
+    ChunkMaterialUnrecPtr mat        = ChunkMaterial::create();
+    BlendChunkUnrecPtr    blendChunk = NULL;
+    MaterialChunkUnrecPtr matChunk   = MaterialChunk::create();
 
     getGlobal()->getStatCollector()->getElem(
         ColladaGlobal::statNMaterialCreated)->inc();
@@ -590,8 +603,185 @@ ColladaEffect::createInstanceProfileCommon(
                      << std::endl;
         }
     }
+    
+    if(transparency != NULL)
+    {
+        domCommon_float_or_param_type::domFloatRef value;
+        domCommon_float_or_param_type::domParamRef param;
+
+        fillFloatParam(transparency, value, param);
+
+        if(value != NULL)
+        {
+            transVal = value->getValue();
+
+            if(getGlobal()->getOptions()->getInvertTransparency() == true)
+                transVal = 1.f - transVal;
+        }
+        else if(param != NULL)
+        {
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<transparency>/<param> not supported."
+                     << std::endl;
+        }
+    }
+
+    if(transparent != NULL)
+    {
+        // this handles <transparent> and <transparency> tags
+        // since they are so closely related that they need to
+        // be handled together
+
+        domCommon_color_or_texture_type::domColorRef   color;
+        domCommon_color_or_texture_type::domParamRef   param;
+        domCommon_color_or_texture_type::domTextureRef texture;
+
+        fillColorParamTex(transparent, color, param, texture);
+
+        if(color != NULL)
+        {
+            Color4f colVal(color->getValue()[0],
+                           color->getValue()[1],
+                           color->getValue()[2],
+                           color->getValue()[3] );
+
+            domFx_opaque_enum opaque = transparent->getOpaque();
+
+            if(opaque == FX_OPAQUE_ENUM_A_ONE)
+            {
+                Color4f constCol(colVal[3] * transVal,
+                                 colVal[3] * transVal,
+                                 colVal[3] * transVal,
+                                 colVal[3] * transVal );
+
+                if(constCol[0] < (1.f - Eps))
+                {
+                    if(blendChunk == NULL)
+                        blendChunk = BlendChunk::create();
+
+                    blendChunk->setSrcFactor (GL_CONSTANT_ALPHA          );
+                    blendChunk->setDestFactor(GL_ONE_MINUS_CONSTANT_ALPHA);
+
+                    blendChunk->setColor     (constCol                   );
+
+                    OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                                     "src: GL_CONSTANT_ALPHA "
+                                     "dst: GL_ONE_MINUS_CONSTANT_ALPHA "
+                                     "%f\n", constCol[0]));
+                }
+            }
+            else if(opaque == FX_OPAQUE_ENUM_RGB_ZERO)
+            {
+                Color4f constCol(colVal[0]         * transVal,
+                                 colVal[1]         * transVal,
+                                 colVal[2]         * transVal,
+                                 luminance(colVal) * transVal );
+
+                if(constCol[0] > Eps || constCol[1] > Eps || constCol[2] > Eps)
+                {
+                    if(blendChunk == NULL)
+                        blendChunk = BlendChunk::create();
+
+                    blendChunk->setSrcFactor (GL_ONE_MINUS_CONSTANT_COLOR);
+                    blendChunk->setDestFactor(GL_CONSTANT_COLOR          );
+
+                    blendChunk->setColor     (constCol                   );
+
+                    OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                                     "src: GL_ONE_MINUS_CONSTANT_COLOR "
+                                     "dst: GL_CONSTANT_COLOR "
+                                     "%f %f %f %f\n",
+                                     constCol[0], constCol[1],
+                                     constCol[2], constCol[3] ));
+                }
+            }
+        }
+        else if(param != NULL)
+        {
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<transparent>/<param> not supported."
+                     << std::endl;
+        }
+        else if(texture != NULL)
+        {
+            xsNCName texId      = texture->getTexture ();
+            xsNCName tcSemantic = texture->getTexcoord();
+
+            ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
+
+            if(paramIt != _sampler2DParams.end())
+            {
+                addTexture(texId, tcSemantic, colInstEffect,
+                           paramIt->second.colSampler2D, mat, GL_MODULATE,
+                           texCount                                       );
+
+                // do we need a blend chunk?
+                if(paramIt->second.colSampler2D->hasAlpha())
+                {
+                    if(blendChunk == NULL)
+                        blendChunk = BlendChunk::create();
+
+                    // is alpha testing sufficient?
+                    if(paramIt->second.colSampler2D->hasBinaryAlpha())
+                    {
+                        OSG_COLLADA_LOG((
+                            "ColladaEffect::createInstanceProfileCommon: "
+                            "<transparent>/<texture> using alpha test.\n"));
+
+                        blendChunk->setAlphaFunc (GL_GREATER  );
+                        blendChunk->setAlphaValue(0.5f        );
+
+                        blendChunk->setDestFactor(GL_ZERO     );
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA);
+                    }
+                    else
+                    {
+                        OSG_COLLADA_LOG((
+                            "ColladaEffect::createInstanceProfileCommon: "
+                            "<transparent>/<texture> using blending.\n"));
+
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+                    }
+                }
+            }
+            else
+            {
+                SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                         << "<diffuse>/<texture> could not find sampler2D ["
+                         << texId << "]."
+                         << std::endl;
+            }
+        }
+    }
+    else if(transparency != NULL)
+    {
+        // handle no <transparent>, but <transparency> tag
+
+        Color4f constCol(transVal, transVal, transVal, transVal);
+
+        if(constCol[0] < (1.f - Eps))
+        {
+            if(blendChunk == NULL)
+                blendChunk = BlendChunk::create();
+
+            blendChunk->setSrcFactor (GL_CONSTANT_ALPHA          );
+            blendChunk->setDestFactor(GL_ONE_MINUS_CONSTANT_ALPHA);
+
+            blendChunk->setColor     (constCol                   );
+
+            OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
+                             "src: GL_CONSTANT_ALPHA "
+                             "dst: GL_ONE_MINUS_CONSTANT_ALPHA "
+                             "%f\n", constCol[0]));
+        }
+    }
+
 
     mat->addChunk(matChunk);
+
+    if(blendChunk != NULL)
+        mat->addChunk(blendChunk);
 
     return MaterialTransitPtr(mat);
 }
@@ -650,6 +840,21 @@ ColladaEffect::fillColorParamTex(
 }
 
 void
+ColladaEffect::fillColorParamTex(
+    domCommon_transparent_type                     *colTex,
+    domCommon_color_or_texture_type::domColorRef   &colOut,
+    domCommon_color_or_texture_type::domParamRef   &paramOut,
+    domCommon_color_or_texture_type::domTextureRef &texOut   )
+{
+    if(colTex != NULL)
+    {
+        colOut   = colTex->getColor  ();
+        paramOut = colTex->getParam  ();
+        texOut   = colTex->getTexture();
+    }
+}
+
+void
 ColladaEffect::fillFloatParam(
     domCommon_float_or_param_type              *floatParam,
     domCommon_float_or_param_type::domFloatRef &floatOut,
@@ -675,6 +880,9 @@ ColladaEffect::addTexture(
     mat->addChunk(colSampler2D->getTexture(), texCount);
     mat->addChunk(texEnv,                     texCount);
 
+    getGlobal()->getStatCollector()->getElem(
+        ColladaGlobal::statNTextureUsed)->inc();
+
     OSG_COLLADA_LOG(("ColladaEffect::addTexture: "
                      "texCoord symbol [%s] in slot [%d]\n",
                      tcSemantic.c_str(),
@@ -684,6 +892,12 @@ ColladaEffect::addTexture(
         Geometry::TexCoordsIndex + texCount;
 
     ++texCount;
+}
+
+Real32
+ColladaEffect::luminance(const Color4f &col)
+{
+    return (col[0] * 0.212671f + col[1] * 0.71516f, col[2] * 0.072169f);
 }
 
 OSG_END_NAMESPACE

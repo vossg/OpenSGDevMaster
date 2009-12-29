@@ -135,6 +135,9 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 
             geo = dynamic_pointer_cast<Geometry>(
                 getInstStore()[instIt->second]);
+
+            getGlobal()->getStatCollector()->getElem(
+                ColladaGlobal::statNGeometryUsed)->inc();
         }
         else
         {
@@ -978,6 +981,7 @@ ColladaGeometry::handleBindMaterial(
         SWARNING << "ColladaGeometry::handleBindMaterial: No material found "
                  << "for symbol [" << geoInfo._matSymbol << "]."
                  << std::endl;
+        return;
     }
 
     const BindStore       &bindStore       = colInstMat->getBindStore      ();

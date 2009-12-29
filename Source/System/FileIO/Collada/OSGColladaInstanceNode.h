@@ -88,8 +88,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceNode : public ColladaInstanceElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual ColladaNode *getSourceElem   (void) const;
-    virtual domNode     *getSourceDOMElem(void) const;
+    virtual ColladaNode *getTargetElem   (void) const;
+    virtual domNode     *getTargetDOMElem(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

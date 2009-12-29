@@ -167,6 +167,20 @@ ColladaSampler2D::getTexture(void) const
     return _texObj;
 }
 
+bool
+ColladaSampler2D::hasAlpha(void) const
+{
+    return _texObj->getImage()->hasAlphaChannel();
+}
+
+bool
+ColladaSampler2D::hasBinaryAlpha(void) const
+{
+    Image *img = _texObj->getImage();
+
+    return (img->isAlphaBinary() || img->calcIsAlphaBinary());
+}
+
 ColladaSampler2D::ColladaSampler2D(daeElement *elem, ColladaGlobal *global)
     : Inherited (elem, global)
     , _colEffect(NULL)

@@ -86,10 +86,13 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    ColladaEffect   *getEffect (void                    ) const;
-    void             setEffect (ColladaEffect *colEffect);
+    ColladaEffect   *getEffect     (void                    ) const;
+    void             setEffect     (ColladaEffect *colEffect);
 
-    TextureObjChunk *getTexture(void                    ) const;
+    TextureObjChunk *getTexture    (void                    ) const;
+
+    bool             hasAlpha      (void                    ) const;
+    bool             hasBinaryAlpha(void                    ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

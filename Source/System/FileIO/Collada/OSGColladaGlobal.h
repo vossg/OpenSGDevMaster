@@ -90,8 +90,11 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \{                                                                 */
 
     static StatElemDesc<StatIntElem> statNGeometryCreated;
+    static StatElemDesc<StatIntElem> statNGeometryUsed;
     static StatElemDesc<StatIntElem> statNMaterialCreated;
+    static StatElemDesc<StatIntElem> statNMaterialUsed;
     static StatElemDesc<StatIntElem> statNTextureCreated;
+    static StatElemDesc<StatIntElem> statNTextureUsed;
 
     StatCollector *getStatCollector(void                   );
     void           setStatCollector(StatCollector *statColl);

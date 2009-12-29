@@ -69,13 +69,13 @@ ColladaInstanceVisualScene::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceVisualScene::read\n"));
 
-    ColladaVisualSceneRefPtr colVisScene = getSourceElem();
+    ColladaVisualSceneRefPtr colVisScene = getTargetElem();
 
     if(colVisScene == NULL)
     {
         colVisScene = dynamic_pointer_cast<ColladaVisualScene>(
             ColladaElementFactory::the()->create(
-                getSourceDOMElem(), getGlobal()));
+                getTargetDOMElem(), getGlobal()));
 
         colVisScene->read();
     }
@@ -84,7 +84,7 @@ ColladaInstanceVisualScene::read(void)
 FieldContainer *
 ColladaInstanceVisualScene::process(ColladaElement *parent)
 {
-    ColladaVisualSceneRefPtr colVisScene = getSourceElem();
+    ColladaVisualSceneRefPtr colVisScene = getTargetElem();
 
     getGlobal()->setRoot(colVisScene->createInstance(this));
 
@@ -92,10 +92,10 @@ ColladaInstanceVisualScene::process(ColladaElement *parent)
 }
 
 ColladaVisualScene *
-ColladaInstanceVisualScene::getSourceElem(void) const
+ColladaInstanceVisualScene::getTargetElem(void) const
 {
     ColladaVisualScene *retVal     = NULL;
-    daeElementRef       sourceElem = getSourceDOMElem();
+    daeElementRef       sourceElem = getTargetDOMElem();
  
     if(sourceElem != NULL)
     {
@@ -106,7 +106,7 @@ ColladaInstanceVisualScene::getSourceElem(void) const
 }
 
 domVisual_scene *
-ColladaInstanceVisualScene::getSourceDOMElem(void) const
+ColladaInstanceVisualScene::getTargetDOMElem(void) const
 {
     domVisual_sceneRef      retVal       = NULL;
     domInstanceWithExtraRef instVisScene =

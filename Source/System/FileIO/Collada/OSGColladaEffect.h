@@ -54,6 +54,7 @@
 #include <dom/domFx_surface_common.h>
 #include <dom/domCommon_color_or_texture_type.h>
 #include <dom/domCommon_float_or_param_type.h>
+#include <dom/domCommon_transparent_type.h>
 
 // forward decl
 class domProfile_COMMON;
@@ -172,6 +173,11 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
         domCommon_color_or_texture_type::domTextureRef &texOut     );
+    void fillColorParamTex  (
+        domCommon_transparent_type                     *colTex,
+        domCommon_color_or_texture_type::domColorRef   &colOut,
+        domCommon_color_or_texture_type::domParamRef   &paramOut,
+        domCommon_color_or_texture_type::domTextureRef &texOut     );
     void fillFloatParam     (
         domCommon_float_or_param_type                  *floatParam,
         domCommon_float_or_param_type::domFloatRef     &floatOut,
@@ -184,6 +190,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
                     ChunkMaterial         *mat,
                     GLenum                 envMode,
                     UInt32                &texCount       );
+
+    Real32 luminance(const Color4f &col);
 
     static ColladaElementRegistrationHelper _regHelper;
 

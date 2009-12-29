@@ -64,13 +64,13 @@ ColladaInstanceEffect::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceEffect::read\n"));
 
-    ColladaEffectRefPtr colEffect = getSourceElem();
+    ColladaEffectRefPtr colEffect = getTargetElem();
 
     if(colEffect == NULL)
     {
         colEffect = dynamic_pointer_cast<ColladaEffect>(
             ColladaElementFactory::the()->create(
-                getSourceDOMElem(), getGlobal()));
+                getTargetDOMElem(), getGlobal()));
 
         colEffect->read();
     }
@@ -103,16 +103,16 @@ ColladaInstanceEffect::process(ColladaElement *parent)
 {
     OSG_COLLADA_LOG(("ColaldaInstanceEffect::process\n"));
 
-    ColladaEffectRefPtr colEffect = getSourceElem();
+    ColladaEffectRefPtr colEffect = getTargetElem();
 
     return colEffect->createInstance(this);
 }
 
 ColladaEffect *
-ColladaInstanceEffect::getSourceElem(void) const
+ColladaInstanceEffect::getTargetElem(void) const
 {
     ColladaEffect *retVal     = NULL;
-    domEffectRef   sourceElem = getSourceDOMElem();
+    domEffectRef   sourceElem = getTargetDOMElem();
 
     if(sourceElem != NULL)
     {
@@ -123,7 +123,7 @@ ColladaInstanceEffect::getSourceElem(void) const
 }
 
 domEffect *
-ColladaInstanceEffect::getSourceDOMElem(void) const
+ColladaInstanceEffect::getTargetDOMElem(void) const
 {
     domEffectRef          retVal     = NULL;
     domInstance_effectRef instEffect = getDOMElementAs<domInstance_effect>();
@@ -134,7 +134,7 @@ ColladaInstanceEffect::getSourceDOMElem(void) const
     }
     else
     {
-        SWARNING << "ColladaInstanceEffet::getSourceDOMElem: "
+        SWARNING << "ColladaInstanceEffet::getTargetDOMElem: "
                  << "can not resolve URL [" << instEffect->getUrl().str()
                  << "]." << std::endl;
     }

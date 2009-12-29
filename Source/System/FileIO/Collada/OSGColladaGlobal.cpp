@@ -63,13 +63,25 @@ StatElemDesc<StatIntElem> ColladaGlobal::statNGeometryCreated(
     "Collada::NGeometryCreated",
     "Number of OpenSG geometries created by the collada loader",
     StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNGeometryUsed(
+    "Collada::NGeometryUsed",
+    "Number of OpenSG geometries in the scene created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
 StatElemDesc<StatIntElem> ColladaGlobal::statNMaterialCreated(
     "Collada::NMaterialCreated",
     "Number of OpenSG materials created by the collada loader",
     StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNMaterialUsed(
+    "Collada::NMaterialUsed",
+    "Number of OpenSG materials in the scene created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
 StatElemDesc<StatIntElem> ColladaGlobal::statNTextureCreated(
     "Collada::NTextureCreated",
     "Number of OpenSG textures created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNTextureUsed(
+    "Collada::NTextureUsed",
+    "Number of OpenSG textures in the scene created by the collada loader",
     StatElemDescBase::RESET_ALWAYS);
 
 StatCollector *
@@ -181,9 +193,13 @@ ColladaGlobal::doRead(void)
     if(_statColl == NULL)
         _statColl = new StatCollector;
 
+    // force creation of the statistic elements
     _statColl->getElem(statNGeometryCreated, true);
+    _statColl->getElem(statNGeometryUsed,    true);
     _statColl->getElem(statNMaterialCreated, true);
+    _statColl->getElem(statNMaterialUsed,    true);
     _statColl->getElem(statNTextureCreated,  true);
+    _statColl->getElem(statNTextureUsed,     true);
 
     _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 

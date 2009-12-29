@@ -49,12 +49,12 @@
     Collada.    
  */
 
-/*! \fn ColladaInstantiableElement *ColladaInstanceElement::getSourceElem(void) const
+/*! \fn ColladaInstantiableElement *ColladaInstanceElement::getTargetElem(void) const
     Returns the element instantiated by this element, if it exists and
     NULL otherwise.
  */
 
-/*! \fn daeElement *ColladaInstanceElement::getSourceDOMElement(void) const
+/*! \fn daeElement *ColladaInstanceElement::getTargetDOMElement(void) const
     Returns the DOM element instantiated by this element (usually obtained
     by resolving the URL attribute).
     If the DOM element is not available (e.g. the URL attribute refers to

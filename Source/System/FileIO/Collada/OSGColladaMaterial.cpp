@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceMaterial.h"
 #include "OSGColladaInstanceEffect.h"
 
@@ -102,6 +103,9 @@ ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
     else
     {
         retVal = dynamic_pointer_cast<Material>(getInstStore()[0]);
+
+        getGlobal()->getStatCollector()->getElem(
+            ColladaGlobal::statNMaterialUsed)->inc();
     }
 
     return retVal;

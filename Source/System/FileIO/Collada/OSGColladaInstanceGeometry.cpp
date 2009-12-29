@@ -68,13 +68,13 @@ ColladaInstanceGeometry::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceGeometry::read\n"));
 
-    ColladaGeometryRefPtr colGeo = getSourceElem();
+    ColladaGeometryRefPtr colGeo = getTargetElem();
 
     if(colGeo == NULL)
     {
         colGeo = dynamic_pointer_cast<ColladaGeometry>(
             ColladaElementFactory::the()->create(
-                getSourceDOMElem(), getGlobal()));
+                getTargetDOMElem(), getGlobal()));
 
         colGeo->read();
     }
@@ -131,16 +131,16 @@ ColladaInstanceGeometry::process(ColladaElement *parent)
 {
     OSG_COLLADA_LOG(("ColladaInstanceGeometry::process\n"));
 
-    ColladaGeometryRefPtr colGeo = getSourceElem();
+    ColladaGeometryRefPtr colGeo = getTargetElem();
 
     return colGeo->createInstance(this);
 }
 
 ColladaGeometry *
-ColladaInstanceGeometry::getSourceElem(void) const
+ColladaInstanceGeometry::getTargetElem(void) const
 {
     ColladaGeometry *retVal     = NULL;
-    domGeometryRef   sourceElem = getSourceDOMElem();
+    domGeometryRef   sourceElem = getTargetDOMElem();
 
     if(sourceElem != NULL)
     {
@@ -151,7 +151,7 @@ ColladaInstanceGeometry::getSourceElem(void) const
 }
 
 domGeometry *
-ColladaInstanceGeometry::getSourceDOMElem(void) const
+ColladaInstanceGeometry::getTargetDOMElem(void) const
 {
     domGeometryRef          retVal  = NULL;
     domInstance_geometryRef instGeo = getDOMElementAs<domInstance_geometry>();

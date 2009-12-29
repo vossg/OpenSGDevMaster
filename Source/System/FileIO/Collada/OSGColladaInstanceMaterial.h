@@ -111,8 +111,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual ColladaMaterial *getSourceElem     (void) const;
-    virtual domMaterial     *getSourceDOMElem  (void) const;
+    virtual ColladaMaterial *getTargetElem     (void) const;
+    virtual domMaterial     *getTargetDOMElem  (void) const;
 
     const std::string       &getSymbol         (void) const;
     const std::string       &getTarget         (void) const;
