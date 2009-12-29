@@ -74,7 +74,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Craete                                                       */
+    /*! \name Create                                                       */
     /*! \{                                                                 */
 
     static ColladaElementTransitPtr
@@ -93,12 +93,10 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual ColladaGeometry *getTargetElem      (void) const;
-    virtual domGeometry     *getTargetDOMElem   (void) const;
+    virtual ColladaGeometry *getTargetElem   (void) const;
+    virtual domGeometry     *getTargetDOMElem(void) const;
 
-    const MaterialMap       &getMaterialMap     (void) const;
-
-    ColladaInstanceMaterial *getInstanceMaterial(void) const;
+    const MaterialMap       &getMaterialMap  (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

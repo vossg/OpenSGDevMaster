@@ -122,6 +122,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Internal Types                                               */
+    /*! \{                                                                 */
 
     // <source> map
     typedef std::map<std::string, ColladaSourceRefPtr> SourceMap;
@@ -167,6 +169,11 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef GeoStore::iterator                       GeoStoreIt;
     typedef GeoStore::const_iterator                 GeoStoreConstIt;
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Helper Functions                                             */
+    /*! \{                                                                 */
+
     void readMesh     (domMesh *mesh);
     void readSources  (domMesh *mesh);
 
@@ -205,6 +212,9 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
                                          const std::string     &inSemantic,
                                          UInt32                 inSet,
                                          UInt32                &offset     );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
 
