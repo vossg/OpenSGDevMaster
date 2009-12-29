@@ -125,8 +125,8 @@ class TransitPtr
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    bool operator ==(FieldContainer * const rhs);
-    bool operator !=(FieldContainer * const rhs);
+    bool operator ==(Object * const rhs);
+    bool operator !=(Object * const rhs);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

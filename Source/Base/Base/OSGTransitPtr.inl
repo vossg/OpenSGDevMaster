@@ -133,14 +133,14 @@ typename TransitPtr<ObjectT>::Object *
 }
 
 template<class ObjectT> inline
-bool TransitPtr<ObjectT>::operator ==(FieldContainer * const rhs)
+bool TransitPtr<ObjectT>::operator ==(Object * const rhs)
 {
     return _pObj == rhs;
 }
 
 
 template<class ObjectT> inline
-bool TransitPtr<ObjectT>::operator !=(FieldContainer * const rhs)
+bool TransitPtr<ObjectT>::operator !=(Object * const rhs)
 {
     return !(*this == rhs);
 }
