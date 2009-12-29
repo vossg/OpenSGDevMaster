@@ -170,15 +170,26 @@ ColladaSampler2D::getTexture(void) const
 bool
 ColladaSampler2D::hasAlpha(void) const
 {
-    return _texObj->getImage()->hasAlphaChannel();
+    bool retVal = false;
+
+    if(_texObj != NULL && _texObj->getImage() != NULL)
+        retVal = _texObj->getImage()->hasAlphaChannel();
+
+    return retVal;
 }
 
 bool
 ColladaSampler2D::hasBinaryAlpha(void) const
 {
-    Image *img = _texObj->getImage();
+    bool retVal = false;
 
-    return (img->isAlphaBinary() || img->calcIsAlphaBinary());
+    if(_texObj != NULL && _texObj->getImage() != NULL)
+    {
+        retVal = _texObj->getImage()->isAlphaBinary    () ||
+                 _texObj->getImage()->calcIsAlphaBinary();
+    }
+
+    return retVal;
 }
 
 ColladaSampler2D::ColladaSampler2D(daeElement *elem, ColladaGlobal *global)

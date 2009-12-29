@@ -69,6 +69,12 @@ OSG_BEGIN_NAMESPACE
 // forward decl
 class ColladaInstanceEffect;
 class ChunkMaterial;
+class MaterialChunk;
+class BlendChunk;
+OSG_GEN_CONTAINERPTR(BlendChunk);
+
+class DepthChunk;
+OSG_GEN_CONTAINERPTR(DepthChunk);
 
 
 class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
@@ -166,6 +172,29 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+
+    void handleProfileCommonEmission(
+        domCommon_color_or_texture_type *emission,
+        MaterialChunk                   *matChunk     );
+    void handleProfileCommonAmbient(
+        domCommon_color_or_texture_type *ambient,
+        ColladaInstanceEffect           *colInstEffect,
+        ChunkMaterial                   *mat,
+        MaterialChunk                   *matChunk,
+        BlendChunkUnrecPtr              &blendChunk,
+        DepthChunkUnrecPtr              &depthChunk,
+        UInt32                          &texCount     );
+    void handleProfileCommonDiffuse(
+        domCommon_color_or_texture_type *diffuse,
+        ColladaInstanceEffect           *colInstEffect,
+        ChunkMaterial                   *mat,
+        MaterialChunk                   *matChunk,
+        BlendChunkUnrecPtr              &blendChunk,
+        DepthChunkUnrecPtr              &depthChunk,
+        UInt32                          &texCount     );
+    void handleProfileCommonSpecular(
+        domCommon_color_or_texture_type *specular,
+        MaterialChunk                   *matChunk     );
 
     void readImageArray(const domImage_Array &images);
     void fillColorParamTex  (

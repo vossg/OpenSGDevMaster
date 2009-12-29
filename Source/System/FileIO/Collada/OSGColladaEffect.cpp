@@ -53,6 +53,7 @@
 #include "OSGGeometry.h"
 #include "OSGChunkMaterial.h"
 #include "OSGBlendChunk.h"
+#include "OSGDepthChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGTextureEnvChunk.h"
 
@@ -61,6 +62,13 @@
 #include <dom/domProfile_COMMON.h>
 #include <dom/domProfile_GLSL.h>
 #include <dom/domProfile_CG.h>
+
+// It is not clear what is the best way to handle <transparent>/<texture>, so
+// OSG_COLLADA_TRANSPARENT_MODE allows choosing between implementations
+// to experiment. See below for what the modes do.
+
+#define OSG_COLLADA_TRANSPARENT_MODE 1
+// #define OSG_COLLADA_TRANSPARENT_MODE 2
 
 OSG_BEGIN_NAMESPACE
 
@@ -416,174 +424,22 @@ ColladaEffect::createInstanceProfileCommon(
     UInt32                texCount   = 0;
     Real32                transVal   = 1.f;
     ChunkMaterialUnrecPtr mat        = ChunkMaterial::create();
-    BlendChunkUnrecPtr    blendChunk = NULL;
     MaterialChunkUnrecPtr matChunk   = MaterialChunk::create();
+    BlendChunkUnrecPtr    blendChunk = NULL;
+    DepthChunkUnrecPtr    depthChunk = NULL;
 
     getGlobal()->getStatCollector()->getElem(
         ColladaGlobal::statNMaterialCreated)->inc();
 
-    if(emission != NULL)
-    {
-        domCommon_color_or_texture_type::domColorRef   color;
-        domCommon_color_or_texture_type::domParamRef   param;
-        domCommon_color_or_texture_type::domTextureRef texture;
-
-        fillColorParamTex(emission, color, param, texture);
-
-        if(color != NULL)
-        {
-            Color4f colVal(color->getValue()[0],
-                           color->getValue()[1],
-                           color->getValue()[2],
-                           color->getValue()[3] );
-
-            matChunk->setEmission(colVal);
-        }
-        else if(param != NULL)
-        {
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<emission>/<param> not supported."
-                     << std::endl;
-        }
-        else if(texture != NULL)
-        {
-            xsNCName texId      = texture->getTexture ();
-            xsNCName tcSemantic = texture->getTexcoord();
-
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<emission>/<texture> not supported."
-                     << std::endl;
-        }
-    }
-
-    if(ambient != NULL)
-    {
-        domCommon_color_or_texture_type::domColorRef   color;
-        domCommon_color_or_texture_type::domParamRef   param;
-        domCommon_color_or_texture_type::domTextureRef texture;
-
-        fillColorParamTex(ambient, color, param, texture);
-
-        if(color != NULL)
-        {
-            Color4f colVal(color->getValue()[0],
-                           color->getValue()[1],
-                           color->getValue()[2],
-                           color->getValue()[3] );
-
-            matChunk->setAmbient(colVal);
-        }
-        else if(param != NULL)
-        {
-            
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<ambient>/<param> not supported."
-                     << std::endl;
-        }
-        else if(texture != NULL)
-        {
-            std::string texId      = texture->getTexture ();
-            std::string tcSemantic = texture->getTexcoord();
-
-            ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
-
-            if(paramIt != _sampler2DParams.end())
-            {
-                addTexture(texId, tcSemantic, colInstEffect,
-                           paramIt->second.colSampler2D, mat, GL_REPLACE,
-                           texCount                                      );
-            }
-            else
-            {
-                SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                         << "<ambient>/<texture> could not find sampler2D ["
-                         << texId << "]."
-                         << std::endl;
-            }
-        }
-    }
-
-    if(diffuse != NULL)
-    {
-        domCommon_color_or_texture_type::domColorRef   color;
-        domCommon_color_or_texture_type::domParamRef   param;
-        domCommon_color_or_texture_type::domTextureRef texture;
-
-        fillColorParamTex(diffuse, color, param, texture);
-
-        if(color != NULL)
-        {
-            Color4f colVal(color->getValue()[0],
-                           color->getValue()[1],
-                           color->getValue()[2],
-                           color->getValue()[3] );
-
-            matChunk->setDiffuse(colVal);
-        }
-        else if(param != NULL)
-        {
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<diffuse>/<param> not supported."
-                     << std::endl;
-        }
-        else if(texture != NULL)
-        {
-            std::string texId      = texture->getTexture ();
-            std::string tcSemantic = texture->getTexcoord();
-
-            ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
-
-            if(paramIt != _sampler2DParams.end())
-            {
-                addTexture(texId, tcSemantic, colInstEffect,
-                           paramIt->second.colSampler2D, mat, GL_MODULATE,
-                           texCount                                       );
-            }
-            else
-            {
-                SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                         << "<diffuse>/<texture> could not find sampler2D ["
-                         << texId << "]."
-                         << std::endl;
-            }
-
-            matChunk->setDiffuse(Color4f(0.8f, 0.8f, 0.8f, 1.f));
-        }
-    }
-
-    if(specular != NULL)
-    {
-        domCommon_color_or_texture_type::domColorRef   color;
-        domCommon_color_or_texture_type::domParamRef   param;
-        domCommon_color_or_texture_type::domTextureRef texture;
-
-        fillColorParamTex(specular, color, param, texture);
-
-        if(color != NULL)
-        {
-            Color4f colVal(color->getValue()[0],
-                           color->getValue()[1],
-                           color->getValue()[2],
-                           color->getValue()[3] );
-
-            matChunk->setSpecular(colVal);
-        }
-        else if(param != NULL)
-        {
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<specular>/<param> not supported."
-                     << std::endl;
-        }
-        else if(texture != NULL)
-        {
-            xsNCName texId      = texture->getTexture ();
-            xsNCName tcSemantic = texture->getTexcoord();
-
-            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
-                     << "<specular>/<texture> not supported."
-                     << std::endl;
-        }
-    }
+    // handle the "conventional" material attributes
+    handleProfileCommonEmission(emission,   matChunk               );
+    handleProfileCommonAmbient (ambient,    colInstEffect,
+                                mat,        matChunk,
+                                blendChunk, depthChunk,    texCount);
+    handleProfileCommonDiffuse (diffuse,    colInstEffect,
+                                mat,        matChunk,
+                                blendChunk, depthChunk,    texCount);
+    handleProfileCommonSpecular(specular,   matChunk               );
 
     if(shininess != NULL)
     {
@@ -603,7 +459,7 @@ ColladaEffect::createInstanceProfileCommon(
                      << std::endl;
         }
     }
-    
+
     if(transparency != NULL)
     {
         domCommon_float_or_param_type::domFloatRef value;
@@ -721,7 +577,25 @@ ColladaEffect::createInstanceProfileCommon(
                     if(blendChunk == NULL)
                         blendChunk = BlendChunk::create();
 
-                    // is alpha testing sufficient?
+#if defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 1
+                    // Always use alpha test with low alpha value, standard
+                    // blending, but enable depth writes
+
+                    blendChunk->setAlphaFunc (GL_GREATER);
+                    blendChunk->setAlphaValue(0.1f      );
+
+                    blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                    blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                    // force depth writing even for transparent object
+                    if(depthChunk == NULL)
+                        depthChunk = DepthChunk::create();
+
+#elif defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 2
+                    // enable depth writes for textures with a "mask" alpha
+                    // channel (only values are 0 and 1)
+                    // standard blending otherwise
+
                     if(paramIt->second.colSampler2D->hasBinaryAlpha())
                     {
                         OSG_COLLADA_LOG((
@@ -743,6 +617,7 @@ ColladaEffect::createInstanceProfileCommon(
                         blendChunk->setSrcFactor (GL_SRC_ALPHA          );
                         blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
                     }
+#endif // OSG_COLLADA_TRANSPARENT_MODE
                 }
             }
             else
@@ -783,6 +658,9 @@ ColladaEffect::createInstanceProfileCommon(
     if(blendChunk != NULL)
         mat->addChunk(blendChunk);
 
+    if(depthChunk != NULL)
+        mat->addChunk(depthChunk);
+
     return MaterialTransitPtr(mat);
 }
 
@@ -804,6 +682,294 @@ ColladaEffect::createInstanceProfileCG(
     SWARNING << "ColladaEffect::createInstanceProfileCG: NIY" << std::endl;
 
     return MaterialTransitPtr();
+}
+
+void
+ColladaEffect::handleProfileCommonEmission(
+    domCommon_color_or_texture_type *emission,
+    MaterialChunk                   *matChunk )
+{
+    if(emission == NULL)
+        return;
+
+    domCommon_color_or_texture_type::domColorRef   color;
+    domCommon_color_or_texture_type::domParamRef   param;
+    domCommon_color_or_texture_type::domTextureRef texture;
+
+    fillColorParamTex(emission, color, param, texture);
+
+    if(color != NULL)
+    {
+        Color4f colVal(color->getValue()[0],
+                       color->getValue()[1],
+                       color->getValue()[2],
+                       color->getValue()[3] );
+
+        matChunk->setEmission(colVal);
+    }
+    else if(param != NULL)
+    {
+        SWARNING << "ColladaEffect::handleProfileCommonEmission: "
+                 << "<emission>/<param> not supported."
+                 << std::endl;
+    }
+    else if(texture != NULL)
+    {
+        xsNCName texId      = texture->getTexture ();
+        xsNCName tcSemantic = texture->getTexcoord();
+
+        SWARNING << "ColladaEffect::handleProfileCommonEmission: "
+                 << "<emission>/<texture> not supported."
+                 << std::endl;
+    }
+}
+
+void
+ColladaEffect::handleProfileCommonAmbient(
+    domCommon_color_or_texture_type *ambient,
+    ColladaInstanceEffect           *colInstEffect,
+    ChunkMaterial                   *mat,
+    MaterialChunk                   *matChunk,
+    BlendChunkUnrecPtr              &blendChunk,
+    DepthChunkUnrecPtr              &depthChunk,
+    UInt32                          &texCount     )
+{
+    if(ambient == NULL)
+        return;
+
+    domCommon_color_or_texture_type::domColorRef   color;
+    domCommon_color_or_texture_type::domParamRef   param;
+    domCommon_color_or_texture_type::domTextureRef texture;
+
+    fillColorParamTex(ambient, color, param, texture);
+
+    if(color != NULL)
+    {
+        Color4f colVal(color->getValue()[0],
+                       color->getValue()[1],
+                       color->getValue()[2],
+                       color->getValue()[3] );
+
+        matChunk->setAmbient(colVal);
+    }
+    else if(param != NULL)
+    {
+
+        SWARNING << "ColladaEffect::handleProfileCommonAmbient: "
+                 << "<ambient>/<param> not supported."
+                 << std::endl;
+    }
+    else if(texture != NULL)
+    {
+        std::string texId      = texture->getTexture ();
+        std::string tcSemantic = texture->getTexcoord();
+
+        ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
+
+        if(paramIt != _sampler2DParams.end())
+        {
+            addTexture(texId, tcSemantic, colInstEffect,
+                       paramIt->second.colSampler2D, mat, GL_REPLACE,
+                       texCount                                      );
+
+            // do we need a blend chunk?
+            if(paramIt->second.colSampler2D->hasAlpha())
+            {
+                if(blendChunk == NULL)
+                    blendChunk = BlendChunk::create();
+
+#if defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 1
+                // Always use alpha test with low alpha value, standard
+                // blending, but enable depth writes
+
+                blendChunk->setAlphaFunc (GL_GREATER);
+                blendChunk->setAlphaValue(0.1f      );
+
+                blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                // force depth writing even for transparent object
+                if(depthChunk == NULL)
+                    depthChunk = DepthChunk::create();
+
+#elif defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 2
+                // enable depth writes for textures with a "mask" alpha
+                // channel (only values are 0 and 1)
+                // standard blending otherwise
+
+                if(paramIt->second.colSampler2D->hasBinaryAlpha())
+                {
+                    OSG_COLLADA_LOG(("ColladaEffect::handleProfileCommonAmbient: "
+                                     "<ambient>/<texture> using alpha test.\n"));
+
+                    blendChunk->setAlphaFunc (GL_GREATER  );
+                    blendChunk->setAlphaValue(0.5f        );
+
+                    blendChunk->setDestFactor(GL_ZERO     );
+                    blendChunk->setSrcFactor (GL_SRC_ALPHA);
+                }
+                else
+                {
+                    OSG_COLLADA_LOG(("ColladaEffect::handleProfileCommonAmbient: "
+                                     "<ambient>/<texture> using blending.\n"));
+
+                    blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                    blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+                }
+#endif // OSG_COLLADA_TRANSPARENT_MODE
+            }
+        }
+        else
+        {
+            SWARNING << "ColladaEffect::handleProfileCommonAmbient: "
+                     << "<ambient>/<texture> could not find sampler2D ["
+                     << texId << "]."
+                     << std::endl;
+        }
+    }
+}
+
+void
+ColladaEffect::handleProfileCommonDiffuse(
+    domCommon_color_or_texture_type *diffuse,
+    ColladaInstanceEffect           *colInstEffect,
+    ChunkMaterial                   *mat,
+    MaterialChunk                   *matChunk,
+    BlendChunkUnrecPtr              &blendChunk,
+    DepthChunkUnrecPtr              &depthChunk,
+    UInt32                          &texCount     )
+{
+    domCommon_color_or_texture_type::domColorRef   color;
+    domCommon_color_or_texture_type::domParamRef   param;
+    domCommon_color_or_texture_type::domTextureRef texture;
+
+    fillColorParamTex(diffuse, color, param, texture);
+
+    if(color != NULL)
+    {
+        Color4f colVal(color->getValue()[0],
+                       color->getValue()[1],
+                       color->getValue()[2],
+                       color->getValue()[3] );
+
+        matChunk->setDiffuse(colVal);
+    }
+    else if(param != NULL)
+    {
+        SWARNING << "ColladaEffect::handleProfileCommonDiffuse: "
+                 << "<diffuse>/<param> not supported."
+                 << std::endl;
+    }
+    else if(texture != NULL)
+    {
+        std::string texId      = texture->getTexture ();
+        std::string tcSemantic = texture->getTexcoord();
+
+        ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
+
+        if(paramIt != _sampler2DParams.end())
+        {
+            addTexture(texId, tcSemantic, colInstEffect,
+                       paramIt->second.colSampler2D, mat, GL_MODULATE,
+                       texCount                                       );
+
+            // do we need a blend chunk?
+            if(paramIt->second.colSampler2D->hasAlpha())
+            {
+                if(blendChunk == NULL)
+                    blendChunk = BlendChunk::create();
+
+#if defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 1
+                // Always use alpha test with low alpha value, standard
+                // blending, but enable depth writes
+
+                blendChunk->setAlphaFunc (GL_GREATER);
+                blendChunk->setAlphaValue(0.1f      );
+
+                blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                // force depth writing even for transparent object
+                if(depthChunk == NULL)
+                    depthChunk = DepthChunk::create();
+
+#elif defined(OSG_COLLADA_TRANSPARENT_MODE) && OSG_COLLADA_TRANSPARENT_MODE == 2
+                // enable depth writes for textures with a "mask" alpha
+                // channel (only values are 0 and 1)
+                // standard blending otherwise
+
+                if(paramIt->second.colSampler2D->hasBinaryAlpha())
+                {
+                    OSG_COLLADA_LOG(("ColladaEffect::handleProfileCommonDiffuse: "
+                                     "<diffuse>/<texture> using alpha test.\n"));
+
+                    blendChunk->setAlphaFunc (GL_GREATER  );
+                    blendChunk->setAlphaValue(0.5f        );
+
+                    blendChunk->setDestFactor(GL_ZERO     );
+                    blendChunk->setSrcFactor (GL_SRC_ALPHA);
+                }
+                else
+                {
+                    OSG_COLLADA_LOG(("ColladaEffect::handleProfileCommonDiffuse: "
+                                     "<diffuse>/<texture> using blending.\n"));
+
+                    blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                    blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+                }
+#endif // OSG_COLLADA_TRANSPARENT_MODE
+            }
+        }
+        else
+        {
+            SWARNING << "ColladaEffect::handleProfileCommonDiffuse: "
+                     << "<diffuse>/<texture> could not find sampler2D ["
+                     << texId << "]."
+                     << std::endl;
+        }
+
+        matChunk->setDiffuse(Color4f(0.8f, 0.8f, 0.8f, 1.f));
+    }
+}
+
+void
+ColladaEffect::handleProfileCommonSpecular(
+    domCommon_color_or_texture_type *specular,
+    MaterialChunk                   *matChunk )
+{
+    if(specular == NULL)
+        return;
+
+    domCommon_color_or_texture_type::domColorRef   color;
+    domCommon_color_or_texture_type::domParamRef   param;
+    domCommon_color_or_texture_type::domTextureRef texture;
+
+    fillColorParamTex(specular, color, param, texture);
+
+    if(color != NULL)
+    {
+        Color4f colVal(color->getValue()[0],
+                       color->getValue()[1],
+                       color->getValue()[2],
+                       color->getValue()[3] );
+
+        matChunk->setSpecular(colVal);
+    }
+    else if(param != NULL)
+    {
+        SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                 << "<specular>/<param> not supported."
+                 << std::endl;
+    }
+    else if(texture != NULL)
+    {
+        xsNCName texId      = texture->getTexture ();
+        xsNCName tcSemantic = texture->getTexcoord();
+
+        SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                 << "<specular>/<texture> not supported."
+                 << std::endl;
+    }
 }
 
 void
