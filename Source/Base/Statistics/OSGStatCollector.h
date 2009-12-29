@@ -70,7 +70,10 @@ class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
 
   public:
 
-    typedef MemoryObject Inherited;
+    typedef MemoryObject  Inherited;
+    typedef StatCollector Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(StatCollector);
 
     /*---------------------------------------------------------------------*/
     /*! \name                     Instance                                 */
@@ -171,6 +174,8 @@ class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
 typedef StatCollector *       StatCollectorP;
 typedef StatCollector * const StatCollectorPConst;
 typedef StatCollector * const StatCollectorPConstArg;
+
+OSG_GEN_MEMOBJPTR(StatCollector);
 
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
