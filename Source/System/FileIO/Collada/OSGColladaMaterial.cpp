@@ -85,7 +85,7 @@ ColladaMaterial::read(void)
 Material *
 ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
 {
-    SWARNING << "ColladaMaterial::craeteInstance: NIY" << std::endl;
+    OSG_COLLADA_LOG(("ColladaMaterial::createInstance\n"));
 
     MaterialUnrecPtr            retVal        = NULL;
     domMaterialRef              material      = getDOMElementAs<domMaterial>();

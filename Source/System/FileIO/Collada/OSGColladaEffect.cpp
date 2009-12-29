@@ -96,8 +96,8 @@ ColladaEffect::read(void)
             continue;
         }
 
-        // must read surface params before sampler params, because their <source>
-        // element can refer to a surface
+        // must read surface params before sampler params, because
+        // a samplers <source> can refer to a surface
         domFx_surface_commonRef paramSurface =
             newParams[i]->getFx_basic_type_common()->getSurface();
 
@@ -469,31 +469,16 @@ ColladaEffect::createInstanceProfileCommon(
         }
         else if(texture != NULL)
         {
-            xsNCName texId      = texture->getTexture ();
-            xsNCName tcSemantic = texture->getTexcoord();
+            std::string texId      = texture->getTexture ();
+            std::string tcSemantic = texture->getTexcoord();
 
             ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
 
             if(paramIt != _sampler2DParams.end())
             {
-                mat->addChunk(paramIt->second.colSampler2D->getTexture(),
-                              texCount                                   );
-
-                TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
-                texEnv->setEnvMode(GL_REPLACE);
-
-                mat->addChunk(texEnv, texCount);
-
-                OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
-                                 "texCoord symbol [%s] in slot [%d]\n",
-                                 tcSemantic,
-                                 Geometry::TexCoordsIndex + texCount));
-
-                // record the texture slot that is associated with
-                // the symbolic name
-                colInstEffect->editTCMap()[tcSemantic] =
-                    Geometry::TexCoordsIndex + texCount;
-                ++texCount;
+                addTexture(texId, tcSemantic, colInstEffect,
+                           paramIt->second.colSampler2D, mat, GL_REPLACE,
+                           texCount                                      );
             }
             else
             {
@@ -530,31 +515,16 @@ ColladaEffect::createInstanceProfileCommon(
         }
         else if(texture != NULL)
         {
-            xsNCName texId      = texture->getTexture ();
-            xsNCName tcSemantic = texture->getTexcoord();
+            std::string texId      = texture->getTexture ();
+            std::string tcSemantic = texture->getTexcoord();
 
             ParamSampler2DMapConstIt paramIt = _sampler2DParams.find(texId);
 
             if(paramIt != _sampler2DParams.end())
             {
-                mat->addChunk(paramIt->second.colSampler2D->getTexture(),
-                              texCount                                   );
-                
-                TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
-                texEnv->setEnvMode(GL_MODULATE);
-
-                mat->addChunk(texEnv, texCount);
-   
-                OSG_COLLADA_LOG(("ColladaEffect::createInstanceProfileCommon: "
-                                 "texCoord symbol [%s] in slot [%d]\n",
-                                 tcSemantic,
-                                 Geometry::TexCoordsIndex + texCount));
-
-                // record the texture slot that is associated with
-                // the symbolic name
-                colInstEffect->editTCMap()[tcSemantic] =
-                    Geometry::TexCoordsIndex + texCount;
-                ++texCount;
+                addTexture(texId, tcSemantic, colInstEffect,
+                           paramIt->second.colSampler2D, mat, GL_MODULATE,
+                           texCount                                       );
             }
             else
             {
@@ -690,6 +660,30 @@ ColladaEffect::fillFloatParam(
         floatOut = floatParam->getFloat();
         paramOut = floatParam->getParam();
     }
+}
+
+void
+ColladaEffect::addTexture(
+    const std::string     &texId,         const std::string &tcSemantic,
+    ColladaInstanceEffect *colInstEffect, ColladaSampler2D  *colSampler2D,
+    ChunkMaterial         *mat,           GLenum             envMode,
+    UInt32                &texCount                                       )
+{
+    TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
+    texEnv->setEnvMode(envMode);
+
+    mat->addChunk(colSampler2D->getTexture(), texCount);
+    mat->addChunk(texEnv,                     texCount);
+
+    OSG_COLLADA_LOG(("ColladaEffect::addTexture: "
+                     "texCoord symbol [%s] in slot [%d]\n",
+                     tcSemantic.c_str(),
+                     Geometry::TexCoordsIndex + texCount));
+
+    colInstEffect->editTCMap()[tcSemantic] =
+        Geometry::TexCoordsIndex + texCount;
+
+    ++texCount;
 }
 
 OSG_END_NAMESPACE

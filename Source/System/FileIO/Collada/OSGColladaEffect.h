@@ -65,6 +65,11 @@ class domInstance_effect;
 
 OSG_BEGIN_NAMESPACE
 
+// forward decl
+class ColladaInstanceEffect;
+class ChunkMaterial;
+
+
 class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 {
     /*==========================  PUBLIC  =================================*/
@@ -109,12 +114,14 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
+    // <sampler2D> DOM and loader objects
     struct ParamSampler2D
     {
         ColladaSampler2DRefPtr    colSampler2D;
         domFx_sampler2D_commonRef sampler2D;
     };
 
+    // <surface> DOM and loader objects
     struct ParamSurface
     {
         ColladaSurfaceRefPtr    colSurface;
@@ -169,6 +176,14 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         domCommon_float_or_param_type                  *floatParam,
         domCommon_float_or_param_type::domFloatRef     &floatOut,
         domCommon_float_or_param_type::domParamRef     &paramOut   );
+
+    void addTexture(const std::string     &texId,
+                    const std::string     &tcSemantic,
+                    ColladaInstanceEffect *colInstEffect,
+                    ColladaSampler2D      *colSampler2D,
+                    ChunkMaterial         *mat,
+                    GLenum                 envMode,
+                    UInt32                &texCount       );
 
     static ColladaElementRegistrationHelper _regHelper;
 
