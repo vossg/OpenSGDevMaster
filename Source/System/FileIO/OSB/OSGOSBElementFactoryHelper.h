@@ -56,7 +56,6 @@ struct OSBElementRegistrationHelper
     typedef ElementTypeT ElementType;
 
     /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
     /*! \name Constructor                                                  */
     /*! \{                                                                 */
@@ -77,7 +76,6 @@ struct OSBDefaultElementRegistrationHelper
     typedef ElementTypeT ElementType;
 
     /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
     /*! \name Constructor                                                  */
     /*! \{                                                                 */
