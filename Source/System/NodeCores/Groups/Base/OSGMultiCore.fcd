@@ -1,32 +1,32 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="MultiCore"
-	parent="Group"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-	<Field
-		name="cores"
-		type="NodeCore"
-		cardinality="multi"
-		visibility="external"
-        access="protected"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-
-        pushToFieldAs="addCore"
-        assignMFieldAs="assignCoresFrom"
-        insertIntoMFieldAs="insertCore"
-        replaceInMFieldIndexAs="replaceCore"
-        replaceInMFieldObjectAs="replaceCoreByObj"
-        removeFromMFieldIndexAs="subCore"
-        removeFromMFieldObjectAs="subCoreByObj"
-        clearFieldAs="clearCores"
-	>
-	</Field>
+   name="MultiCore"
+   parent="Group"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   >
+  <Field
+     name="cores"
+     type="NodeCore"
+     cardinality="multi"
+     visibility="external"
+     access="protected"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+     
+     pushToFieldAs="addCore"
+     assignMFieldAs="assignCoresFrom"
+     insertIntoMFieldAs="insertCore"
+     replaceInMFieldIndexAs="replaceCore"
+     replaceInMFieldObjectAs="replaceCoreByObj"
+     removeFromMFieldIndexAs="subCore"
+     removeFromMFieldObjectAs="subCoreByObj"
+     clearFieldAs="clearCores"
+     >
+  </Field>
 </FieldContainer>

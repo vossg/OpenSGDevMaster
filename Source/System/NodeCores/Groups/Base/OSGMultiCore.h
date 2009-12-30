@@ -93,11 +93,17 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    void addCore        (      NodeCore                * const value   );
-    void assignCoresFrom(const MFUnrecChildNodeCorePtr &       value   );
-    void subCore        (      UInt32                          uiIndex );
-    void subCoreByObj   (      NodeCore                * const value   );
-    void clearCores     (      void                                    );
+    void addCore         (      NodeCore                * const value   );
+    void assignCoresFrom (const MFUnrecChildNodeCorePtr &       value   );
+    void subCore         (      UInt32                          uiIndex );
+    void subCoreByObj    (      NodeCore                * const value   );
+    void clearCores      (      void                                    );
+
+    void replaceCore     (      UInt32                          uiIndex,
+                                NodeCore                * const value   );
+    
+    void replaceCoreByObj(      NodeCore                * const pOldElem,
+                                NodeCore                * const pNewElem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

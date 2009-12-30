@@ -31,6 +31,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("Source/Contrib/ComputeBase/Base")
+OSG_ADD_DIRECTORY("Source/Contrib/ComputeBase/Cuda")
 
 ##############################################################################
 # setup build

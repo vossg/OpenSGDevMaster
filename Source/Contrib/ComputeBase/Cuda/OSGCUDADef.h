@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                 Copyright (C) 2003 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,107 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGCUDADEF_H_
+#define _OSGCUDADEF_H_
+#ifdef __sgi
+#pragma once
+#endif
+
 //---------------------------------------------------------------------------
-//  Includes
+//  Defines
 //---------------------------------------------------------------------------
 
-OSG_BEGIN_NAMESPACE
+#define OSGCUDA_BEGIN_NAMESPACE namespace OSGCUDA {
+#define OSGCUDA_END_NAMESPACE }
 
-inline
-UInt32 MultiCore::getNCores(void) const
-{
-    return _mfCores.size();
-}
-
-inline
-Int32 MultiCore::findCore(NodeCore * const pCore) const
-{
-    return _mfCores.findIndex(pCore);
-}
-
-inline
-void MultiCore::insertCore(UInt32           coreIdx, 
-                           NodeCore * const coreP  )
-{
-    MultiCore *pMCore = dynamic_cast<MultiCore *>(coreP);
-
-    if(pMCore != NULL)
-    {
-        FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
-        return;
-    }
-
-    editMField(CoresFieldMask, _mfCores);
-
-    MFCoresType::iterator cIt = _mfCores.begin_nc();
-
-    cIt += coreIdx;
-
-    _mfCores.insert(cIt, coreP);
-}
-
-inline
-const MFUnrecChildNodeCorePtr *MultiCore::getMFCores(void) const
-{
-    return Inherited::getMFCores();
-}
-
-inline
-NodeCore *MultiCore::getCores(const UInt32 index) const
-{
-    return Inherited::getCores(index);
-}
-
-inline
-void MultiCore::addCore(NodeCore * const value)
-{
-    MultiCore *pMCore = dynamic_cast<MultiCore *>(value);
-
-    if(pMCore != NULL)
-    {
-        FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
-        return;
-    }
-
-    Inherited::addCore(value);
-}
-
-inline
-void MultiCore::assignCoresFrom(const MFUnrecChildNodeCorePtr &value)
-{
-    MFUnrecChildNodeCorePtr::const_iterator vIt  = value.begin();
-    MFUnrecChildNodeCorePtr::const_iterator vEnd = value.end  ();
-
-    for(; vIt != vEnd; ++vIt)
-    {
-        MultiCore *pMCore = dynamic_cast<MultiCore *>(*vIt);
-
-        if(pMCore != NULL)
-        {
-            FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
-            return;
-        }
-    }
-    
-    Inherited::assignCoresFrom(value);
-}
-
-inline
-void MultiCore::subCore(UInt32 uiIndex)
-{
-    Inherited::subCore(uiIndex);
-}
-
-inline
-void MultiCore::subCoreByObj(NodeCore * const value)
-{
-    Inherited::subCoreByObj(value);
-}
-
-inline
-void MultiCore::clearCores(void)
-{
-    Inherited::clearCores();
-}
-
-OSG_END_NAMESPACE
+#endif /* _OSGCUDADEF_H_ */

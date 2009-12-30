@@ -291,4 +291,34 @@ ActionBase::ResultE MultiCore::renderLeaveFrom(Action   *action,
     return returnValue;
 }
 
+void MultiCore::replaceCore(UInt32           uiIndex,
+                            NodeCore * const value   )
+{
+    if(value == NULL)
+        return;
+
+    if(uiIndex >= _mfCores.size())
+        return;
+
+    editMField(CoresFieldMask, _mfCores);
+
+    _mfCores.replace(uiIndex, value);
+}
+
+void MultiCore::replaceCoreByObj(NodeCore * const pOldElem,
+                                 NodeCore * const pNewElem)
+{
+    if(pNewElem == NULL)
+        return;
+
+    Int32 elemIdx = _mfCores.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(CoresFieldMask, _mfCores);
+
+        _mfCores.replace(elemIdx, pNewElem);
+    }
+}
+
 OSG_END_NAMESPACE
