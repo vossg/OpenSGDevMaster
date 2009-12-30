@@ -118,6 +118,11 @@ ColladaSampler2D::read(void)
         case FX_SAMPLER_WRAP_COMMON_BORDER:
             _texObj->setWrapS(GL_CLAMP_TO_BORDER);
             break;
+        case FX_SAMPLER_WRAP_COMMON_COUNT:
+            SWARNING << "OSGColladaSampler2D::read <wrap_s> "
+                     << "FX_SAMPLER_WRAP_COMMON_COUNT not handled" 
+                     << std::endl;
+            break;
         }
     }
 
@@ -145,6 +150,11 @@ ColladaSampler2D::read(void)
         case FX_SAMPLER_WRAP_COMMON_BORDER:
             _texObj->setWrapT(GL_CLAMP_TO_BORDER);
             break;            
+        case FX_SAMPLER_WRAP_COMMON_COUNT:
+            SWARNING << "OSGColladaSampler2D::read <wrap_t> "
+                     << "FX_SAMPLER_WRAP_COMMON_COUNT not handled" 
+                     << std::endl;
+            break;
         }
     }
 }

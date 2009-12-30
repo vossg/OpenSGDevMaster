@@ -225,6 +225,8 @@ ColladaEffect::findDOMParam(const std::string &name) const
     {
         return surfaceIt->second.surface;
     }
+
+    return NULL;
 }
 
 /*! Return the loader element for the parameter of the effect (\c <newparam>
@@ -246,6 +248,8 @@ ColladaEffect::findParam(const std::string &name) const
     {
         return surfaceIt->second.colSurface;
     }
+
+    return NULL;
 }
 
 ColladaEffect::ColladaEffect(daeElement *elem, ColladaGlobal *global)
@@ -715,8 +719,10 @@ ColladaEffect::handleProfileCommonEmission(
     }
     else if(texture != NULL)
     {
+#if 0
         xsNCName texId      = texture->getTexture ();
         xsNCName tcSemantic = texture->getTexcoord();
+#endif
 
         SWARNING << "ColladaEffect::handleProfileCommonEmission: "
                  << "<emission>/<texture> not supported."
@@ -963,9 +969,10 @@ ColladaEffect::handleProfileCommonSpecular(
     }
     else if(texture != NULL)
     {
+#if 0
         xsNCName texId      = texture->getTexture ();
         xsNCName tcSemantic = texture->getTexcoord();
-
+#endif
         SWARNING << "ColladaEffect::createInstanceProfileCommon: "
                  << "<specular>/<texture> not supported."
                  << std::endl;
@@ -1063,7 +1070,7 @@ ColladaEffect::addTexture(
 Real32
 ColladaEffect::luminance(const Color4f &col)
 {
-    return (col[0] * 0.212671f + col[1] * 0.71516f, col[2] * 0.072169f);
+    return (col[0] * 0.212671f + col[1] * 0.71516f + col[2] * 0.072169f);
 }
 
 OSG_END_NAMESPACE

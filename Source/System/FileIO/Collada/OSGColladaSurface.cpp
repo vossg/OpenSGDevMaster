@@ -98,6 +98,12 @@ ColladaSurface::read(void)
     case FX_SURFACE_TYPE_ENUM_DEPTH:
         readDepth(surface);
         break;
+
+    case FX_SURFACE_TYPE_ENUM_COUNT:
+        SWARNING << "ColladaSurface::read FX_SURFACE_TYPE_ENUM_COUNT "
+                 << "not handled"
+                 << std::endl;
+        break;
     }
 }
 
