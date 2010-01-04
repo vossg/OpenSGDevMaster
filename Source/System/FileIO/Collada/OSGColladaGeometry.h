@@ -46,6 +46,7 @@
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGColladaInstanceMaterial.h"
+#include "OSGColladaSource.h"
 #include "OSGNode.h"
 #include "OSGGeometry.h"
 #include "OSGGeoVectorProperty.h"
@@ -69,8 +70,6 @@ class domTristrips;
 OSG_BEGIN_NAMESPACE
 
 // forward decls
-class ColladaSource;
-OSG_GEN_MEMOBJPTR(ColladaSource);
 class ColladaInstanceGeometry;
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 

@@ -123,6 +123,7 @@ OSG_GEN_MEMOBJPTR(ColladaElement);
 OSG_END_NAMESPACE
 
 #include "OSGColladaElement.inl"
+#include "OSGColladaGlobal.h"
 
 #endif // OSG_WITH_COLLADA
 

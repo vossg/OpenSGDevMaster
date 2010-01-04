@@ -722,12 +722,14 @@ IF(OSG_DOXY_INPUTS)
                 "@INCLUDE = ${OSG_DOXY_INPUTS}\n")
 ENDIF(OSG_DOXY_INPUTS)
 
-ADD_CUSTOM_TARGET(DocSyncGV 
-                  COMMAND rsync html -av --delete html rsync://tombstone.camtech.ntu.edu.sg/opensgdoc
-                  WORKING_DIRECTORY Doc)
+IF(DOXYGEN_EXECUTABLE)
+  ADD_CUSTOM_TARGET(DocSyncGV 
+                    COMMAND rsync html -av --delete html rsync://tombstone.camtech.ntu.edu.sg/opensgdoc
+                    WORKING_DIRECTORY Doc)
 
-ADD_CUSTOM_TARGET(DocCompleteGV)
-ADD_DEPENDENCIES(DocCompleteGV Doc DocSyncGV)
+  ADD_CUSTOM_TARGET(DocCompleteGV)
+  ADD_DEPENDENCIES(DocCompleteGV Doc DocSyncGV)
+ENDIF(DOXYGEN_EXECUTABLE)
 
 
 ###############
@@ -861,9 +863,11 @@ IF(OSG_DOXY_STDOUT_LOG)
     SET(OSG_DOC_PIPES > ${OSG_DOXY_STDOUT_LOG})
 ENDIF(OSG_DOXY_STDOUT_LOG)
 
-ADD_CUSTOM_TARGET(Doc 
-                  VERBATIM
-                  COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES})
+IF(DOXYGEN_EXECUTABLE)
+  ADD_CUSTOM_TARGET(Doc 
+                    VERBATIM
+                    COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES})
+ENDIF(DOXYGEN_EXECUTABLE)
 
 ##################
 # osg2-config

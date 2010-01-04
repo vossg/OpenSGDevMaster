@@ -111,6 +111,7 @@ OSG_GEN_MEMOBJPTR(ColladaScene);
 OSG_END_NAMESPACE
 
 // #include "OSGColladaScene.inl"
+#include "OSGColladaInstanceVisualScene.h"
 
 #endif // OSG_WITH_COLLADA
 
