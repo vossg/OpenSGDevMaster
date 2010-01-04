@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 #include "OSGGL.h"
 #include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
 
 #include "OSGTextureBuffer.h"
 #include "OSGWindow.h"
@@ -62,31 +63,6 @@ UInt32 TextureBuffer::_uiFuncFramebufferTexture1D =  Window::invalidFunctionID;
 UInt32 TextureBuffer::_uiFuncFramebufferTexture2D =  Window::invalidFunctionID;
 UInt32 TextureBuffer::_uiFuncFramebufferTexture3D =  Window::invalidFunctionID;
 UInt32 TextureBuffer::_uiFuncGenerateMipmap       =  Window::invalidFunctionID;
-
-
-typedef void (OSG_APIENTRY *GLFramebufferTexture1DEXTProcT)(
-    GLenum target, 
-    GLenum attachment, 
-    GLenum textarget, 
-    GLuint texture, 
-    GLint level);
-
-typedef void (OSG_APIENTRY *GLFramebufferTexture2DEXTProcT)(
-    GLenum target, 
-    GLenum attachment, 
-    GLenum textarget, 
-    GLuint texture, 
-    GLint level);
-
-typedef void (OSG_APIENTRY *GLFramebufferTexture3DEXTProcT)(
-    GLenum target, 
-    GLenum attachment, 
-    GLenum textarget, 
-    GLuint texture, 
-    GLint level, 
-    GLint zoffset);
-
-typedef void   (OSG_APIENTRY *GLGenerateMipmapEXTProcT)(GLenum target);
 
 // Documentation for this class is emited in the
 // OSGTextureBufferBase.cpp file.
@@ -116,18 +92,15 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
         {
             case GL_TEXTURE_1D:
             {
-                GLFramebufferTexture1DEXTProcT 
-                    glFramebufferTexture1DEXTProc =
+                OSGGETGLFUNC( OSGglFramebufferTexture1DProc,
+                              osgGlFramebufferTexture1DProc,
+                             _uiFuncFramebufferTexture1D   );
 
-                    reinterpret_cast<GLFramebufferTexture1DEXTProcT>(
-                        pWindow->getFunction(_uiFuncFramebufferTexture1D));
-
-                glFramebufferTexture1DEXTProc(
+                osgGlFramebufferTexture1DProc(
                     GL_FRAMEBUFFER_EXT, 
                     index,
                     target,
-                    pWindow->getGLObjectId(
-                        _sfTexture.getValue()->getGLId()),
+                    pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
                     getLevel());
              }
             break;
@@ -141,24 +114,34 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
             {
-                GLFramebufferTexture2DEXTProcT 
-                    glFramebufferTexture2DEXTProc =
+                OSGGETGLFUNC( OSGglFramebufferTexture2DProc,
+                              osgGlFramebufferTexture2DProc,
+                             _uiFuncFramebufferTexture2D   );
 
-                    reinterpret_cast<GLFramebufferTexture2DEXTProcT>(
-                        pWindow->getFunction(_uiFuncFramebufferTexture2D));
-
-                glFramebufferTexture2DEXTProc(
+                osgGlFramebufferTexture2DProc(
                     GL_FRAMEBUFFER_EXT, 
                     index,
                     target,
-                    pWindow->getGLObjectId(
-                        _sfTexture.getValue()->getGLId()),
+                    pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
                     getLevel());
             }
             break;
                 
             case GL_TEXTURE_3D:
-                break;
+            {
+                OSGGETGLFUNC( OSGglFramebufferTexture3DProc,
+                              osgGlFramebufferTexture3DProc,
+                             _uiFuncFramebufferTexture3D   );
+
+                osgGlFramebufferTexture3DProc(
+                    GL_FRAMEBUFFER_EXT, 
+                    index,
+                    target,
+                    pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
+                    getLevel(),
+                    getZoffset());
+            }
+            break;
         }
     }
 }
@@ -220,24 +203,24 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
 
         switch(target)
         {
-        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
-            side = 0;
-            break;
-        case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
-            side = 1;
-            break;
-        case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
-            side = 2;
-            break;
-        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
-            side = 3;
-            break;
-        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
-            side = 4;
-            break;
-        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-            side = 5;
-            break;
+            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
+                side = 0;
+                break;
+            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
+                side = 1;
+                break;
+            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
+                side = 2;
+                break;
+            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
+                side = 3;
+                break;
+            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
+                side = 4;
+                break;
+            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
+                side = 5;
+                break;
         }
 
         // select GL_COLORATTACHMENTn and read data into image
@@ -248,7 +231,7 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
                      pTexImg->getPixelFormat(),
                      pTexImg->getDataType   (),
                      pTexImg->editData      (mipMapLevel, frame, side));
-
+        
         glReadBuffer(GL_NONE);
     }
 }
@@ -259,10 +242,6 @@ void TextureBuffer::processPostDeactivate(DrawEnv *pEnv)
 
     // If there are TextureBuffers with mipmap filters attached,
     // the mipmaps need to be regenerated
-    GLGenerateMipmapEXTProcT glGenerateMipmapExtProc =
-        reinterpret_cast<GLGenerateMipmapEXTProcT>(
-            win->getFunction(_uiFuncGenerateMipmap));
-
     TextureObjChunk *pTexObj = this->getTexture();
         
     if(pTexObj == NULL)
@@ -270,14 +249,19 @@ void TextureBuffer::processPostDeactivate(DrawEnv *pEnv)
         
     GLenum target = pTexObj->determineTextureTarget(win);
     
-    if(target                  == GL_TEXTURE_2D                 &&
+    if(target                   == GL_TEXTURE_2D                 &&
        (pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_NEAREST ||
         pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_NEAREST  ||
         pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_LINEAR  ||
         pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_LINEAR     )   )
     {
+        OSGGETGLFUNC( OSGglGenerateMipmapProc,
+                      osgGlGenerateMipmapProc,
+                     _uiFuncGenerateMipmap  );
+
         glBindTexture(target, win->getGLObjectId(pTexObj->getGLId()));
-        glGenerateMipmapExtProc(target);
+
+        osgGlGenerateMipmapProc(target);
     }
 }
 
@@ -310,22 +294,22 @@ void TextureBuffer::initMethod(InitPhase ePhase)
 
         _uiFuncFramebufferTexture1D =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glFramebufferTexture1DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture1DEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncFramebufferTexture2D =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glFramebufferTexture2DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture2DEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncFramebufferTexture3D =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glFramebufferTexture3DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture3DEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncGenerateMipmap =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
+                 OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
                 _uiFramebuffer_object_extension);
     }
 

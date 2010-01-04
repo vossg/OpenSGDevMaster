@@ -44,42 +44,43 @@
 {                                                                      \
     GLenum status;                                                     \
                                                                        \
-    GLCheckFramebufferStatusEXTProcT glCheckFramebufferStatusEXTProc = \
-        reinterpret_cast<GLCheckFramebufferStatusEXTProcT>(            \
-            win->getFunction(_uiFuncCheckFramebufferStatus));          \
+    OSGGETGLFUNC( OSGglCheckFramebufferStatusProc,                     \
+                  osgGlCheckFramebufferStatusProc,                     \
+                 _uiFuncCheckFramebufferStatus    );                   \
                                                                        \
-    status = glCheckFramebufferStatusEXTProc(GL_FRAMEBUFFER_EXT);      \
-                                                                  \
-    switch(status)                                                \
-    {                                                             \
-        case GL_FRAMEBUFFER_COMPLETE_EXT:                         \
-            break;                                                \
-        case GL_FRAMEBUFFER_UNSUPPORTED_EXT:                      \
-            FWARNING(("Unsupported Framebuffer\n"));              \
-            /* choose different formats */                        \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT: \
-            FWARNING(("Incomplete Attachment\n"));              \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT: \
-            FWARNING(("Incomplete Missing Attachment\n"));              \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT: \
-            FWARNING(("Incomplete Dimensions\n"));              \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT: \
-            FWARNING(("Incomplete Formats\n"));              \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT: \
-            FWARNING(("Incomplete Draw Buffer\n"));              \
-            break;                                                \
-		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT: \
-            FWARNING(("Incomplete Read Buffer\n"));              \
-            break;                                                \
-		default: \
-			FWARNING(("Unknown error %x\n", status)); \
-			break; \
-     }                                                            \
+    status = osgGlCheckFramebufferStatusProc(GL_FRAMEBUFFER_EXT);      \
+                                                                       \
+                                                                       \
+    switch(status)                                                     \
+    {                                                                  \
+        case GL_FRAMEBUFFER_COMPLETE_EXT:                              \
+            break;                                                     \
+        case GL_FRAMEBUFFER_UNSUPPORTED_EXT:                           \
+            FWARNING(("Unsupported Framebuffer\n"));                   \
+            /* choose different formats */                             \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT:                 \
+            FWARNING(("Incomplete Attachment\n"));                     \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT:         \
+            FWARNING(("Incomplete Missing Attachment\n"));             \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:                 \
+            FWARNING(("Incomplete Dimensions\n"));                     \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:                    \
+            FWARNING(("Incomplete Formats\n"));                        \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:                \
+            FWARNING(("Incomplete Draw Buffer\n"));                    \
+            break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:                \
+            FWARNING(("Incomplete Read Buffer\n"));                    \
+            break;                                                     \
+		default:                                                       \
+			FWARNING(("Unknown error %x\n", status));                  \
+			break;                                                     \
+    }                                                                  \
 }
 
 
@@ -91,6 +92,7 @@
 #include "OSGGL.h"
 #include "OSGGLEXT.h"
 #include "OSGGLU.h"
+#include "OSGGLFuncProtos.h"
 
 #include "OSGWindow.h"
 
@@ -123,28 +125,6 @@ UInt32 FrameBufferObject::_uiFuncFramebufferRenderbuffer  =
 UInt32 FrameBufferObject::_uiFuncDrawBuffers              =
     Window::invalidFunctionID;
 
-typedef void   (OSG_APIENTRY *GLGenFramebuffersEXTProcT)(GLsizei, 
-                                                         GLuint *);
-
-typedef void   (OSG_APIENTRY *GLBindFramebufferEXTProcT)(GLenum target, 
-                                                         GLuint framebuffer);
-
-typedef GLenum (OSG_APIENTRY *GLCheckFramebufferStatusEXTProcT)(GLenum target);
-
-typedef void   (OSG_APIENTRY *GLDeleteFramebuffersEXTProcT)(
-          GLsizei  n, 
-    const GLuint  *framebuffers);
-
-typedef void   (OSG_APIENTRY *GLFramebufferRenderbufferEXTProcT)(
-    GLenum target, 
-    GLenum attachment, 
-    GLenum renderbuffertarget, 
-    GLuint renderbuffer);
-
-typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
-          GLsizei  n, 
-    const GLenum  *buffers);
-
 // Documentation for this class is emited in the
 // OSGFrameBufferObjectBase.cpp file.
 // To modify it, please change the .fcd file (OSGFrameBufferObject.fcd) and
@@ -164,7 +144,6 @@ void FrameBufferObject::setColorAttachment(
         _mfColorAttachments.resize(uiSlot + 1, NULL);
     }
 
-//    setRefd(_mfColorAttachments[uiSlot], pAttachment);
     _mfColorAttachments.replace(uiSlot, pAttachment);
 }
 
@@ -203,32 +182,32 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
 
         _uiFuncGenFramebuffers =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGenFramebuffersEXT",
+                 OSG_DLSYM_UNDERSCORE"glGenFramebuffersEXT",
                 _uiFramebuffer_object_extension);
 
         _uiFuncCheckFramebufferStatus   = 
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glCheckFramebufferStatusEXT", 
+                 OSG_DLSYM_UNDERSCORE"glCheckFramebufferStatusEXT", 
                 _uiFramebuffer_object_extension);
         
         _uiFuncBindFramebuffer          = 
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncDeleteFramebuffers       = 
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glDeleteFramebuffersEXT", 
+                 OSG_DLSYM_UNDERSCORE"glDeleteFramebuffersEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncDrawBuffers  =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
+                 OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
                 _uiFramebuffer_object_extension);
     }
 
@@ -353,11 +332,11 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
 
     win->validateGLObject(getGLId(), pEnv);
 
-    GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-        reinterpret_cast<GLBindFramebufferEXTProcT>(
-            win->getFunction(_uiFuncBindFramebuffer));
+    OSGGETGLFUNC( OSGglBindFramebufferProc,
+                  osgGlBindFramebufferProc,
+                 _uiFuncBindFramebuffer   );
 
-    glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 
+    osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, 
                              win->getGLObjectId(getGLId()));
 
     glErr("FrameBufferObject::activate::bind");
@@ -368,11 +347,11 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     {
         if(_mfDrawBuffers.size() != 0)
         {
-            GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-                reinterpret_cast<GLDrawBuffersEXTProcT>(
-                    win->getFunction(_uiFuncDrawBuffers));
-            
-            glDrawBuffersEXTProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
+            OSGGETGLFUNC( OSGglDrawBuffersProc,
+                          osgGlDrawBuffersProc,
+                         _uiFuncDrawBuffers);
+
+            osgGlDrawBuffersProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
         }
         else
         {
@@ -382,11 +361,11 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     }
     else
     {
-        GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-            reinterpret_cast<GLDrawBuffersEXTProcT>(
-                win->getFunction(_uiFuncDrawBuffers));
+        OSGGETGLFUNC( OSGglDrawBuffersProc,
+                      osgGlDrawBuffersProc,
+                     _uiFuncDrawBuffers);
         
-        glDrawBuffersEXTProc(1, &eDrawBuffer );
+        osgGlDrawBuffersProc(1, &eDrawBuffer );
     }
 
     CHECK_FRAMEBUFFER_STATUS();
@@ -404,9 +383,9 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 
 //    FLOG(("FBO DeActivate %p\n", this));
 
-    GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-        reinterpret_cast<GLBindFramebufferEXTProcT>(
-            win->getFunction(_uiFuncBindFramebuffer));
+    OSGGETGLFUNC( OSGglBindFramebufferProc,
+                  osgGlBindFramebufferProc,
+                 _uiFuncBindFramebuffer   );
 
     if(_sfPostProcessOnDeactivate.getValue() == true)
     {
@@ -426,7 +405,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
         }
     }
 
-    glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 0);
+    osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, 0);
     
     if(_sfPostProcessOnDeactivate.getValue() == true)
     {
@@ -458,11 +437,11 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
     {
         if(mode == Window::initialize)
         {
-            GLGenFramebuffersEXTProcT glGenFramebuffersEXTProc = 
-                reinterpret_cast<GLGenFramebuffersEXTProcT>(
-                    win->getFunction(_uiFuncGenFramebuffers));
+            OSGGETGLFUNC( OSGglGenFramebuffersProc,
+                          osgGlGenFramebuffersProc,
+                         _uiFuncGenFramebuffers   );
 
-            glGenFramebuffersEXTProc(1, &uiFBOId);
+            osgGlGenFramebuffersProc(1, &uiFBOId);
 
             win->setGLObjectId(osgid, uiFBOId);
         }
@@ -476,15 +455,15 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
     
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
-        GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-            reinterpret_cast<GLBindFramebufferEXTProcT>(
-                win->getFunction(_uiFuncBindFramebuffer));
+        OSGGETGLFUNC( OSGglBindFramebufferProc,
+                      osgGlBindFramebufferProc,
+                     _uiFuncBindFramebuffer   );
 
-        glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, uiFBOId);
+        OSGGETGLFUNC( OSGglFramebufferRenderbufferProc,
+                      osgGlFramebufferRenderbufferProc,
+                     _uiFuncFramebufferRenderbuffer   );
 
-        GLFramebufferRenderbufferEXTProcT glFramebufferRenderbufferEXTProc =
-            reinterpret_cast<GLFramebufferRenderbufferEXTProcT>(
-                win->getFunction(_uiFuncFramebufferRenderbuffer));
+        osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, uiFBOId);
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
             _mfColorAttachments.begin();
@@ -507,7 +486,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             }
             else
             {
-                glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
+                osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
                                                  index,
                                                  GL_RENDERBUFFER_EXT,
                                                  0);
@@ -521,7 +500,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         while(index < iMaxColorAttachments)
         {
-            glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
+            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
                                              index,
                                              GL_RENDERBUFFER_EXT,
                                              0);
@@ -538,7 +517,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         }
         else
         {
-            glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
+            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
                                              GL_DEPTH_ATTACHMENT_EXT,
                                              GL_RENDERBUFFER_EXT,
                                              0);
@@ -553,7 +532,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         }
         else
         {
-            glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
+            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
                                              GL_STENCIL_ATTACHMENT_EXT,
                                              GL_RENDERBUFFER_EXT,
                                              0);
@@ -606,11 +585,11 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
 
         if(win->hasExtension(_uiFramebuffer_object_extension) != false)
         {
-            GLDeleteFramebuffersEXTProcT glDeleteFramebuffersEXTProc =
-                reinterpret_cast<GLDeleteFramebuffersEXTProcT>(
-                    win->getFunction(_uiFuncDeleteFramebuffers));
-            
-            glDeleteFramebuffersEXTProc(1, &uiFBOId);
+            OSGGETGLFUNC( OSGglDeleteFramebuffersProc,
+                          osgGlDeleteFramebuffersProc,
+                         _uiFuncDeleteFramebuffers   );
+
+            osgGlDeleteFramebuffersProc(1, &uiFBOId);
         }
     }
 }

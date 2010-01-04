@@ -366,6 +366,94 @@ typedef void (OSG_APIENTRY *OSGglSecondaryColorPointerEXT)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name TextureBuffers                                                     */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglFramebufferTexture1DProc)(GLenum target, 
+                                                           GLenum attachment, 
+                                                           GLenum textarget, 
+                                                           GLuint texture, 
+                                                           GLint  level     );
+
+typedef void (OSG_APIENTRY *OSGglFramebufferTexture2DProc)(GLenum target, 
+                                                           GLenum attachment, 
+                                                           GLenum textarget, 
+                                                           GLuint texture, 
+                                                           GLint  level     );
+
+typedef void (OSG_APIENTRY *OSGglFramebufferTexture3DProc)(GLenum target, 
+                                                           GLenum attachment, 
+                                                           GLenum textarget, 
+                                                           GLuint texture, 
+                                                           GLint  level, 
+                                                           GLint  zoffset   );
+
+typedef void   (OSG_APIENTRY *OSGglGenerateMipmapProc    )(GLenum target    );
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name RenderBuffers                                                      */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglFramebufferRenderbufferProc)(
+    GLenum   target, 
+    GLenum   attachment, 
+    GLenum   renderbuffertarget, 
+    GLuint   renderbuffer);
+
+typedef void (OSG_APIENTRY *OSGglGenRenderbuffersProc       )(
+    GLsizei  n, 
+    GLuint  *renderbuffers);
+
+typedef void (OSG_APIENTRY *OSGglBindRenderbufferProc       )(
+    GLenum   target, 
+    GLuint   renderbuffer);
+
+typedef void (OSG_APIENTRY *OSGglRenderbufferStorageProc    )(
+    GLenum   target, 
+    GLenum   internalformat, 
+    GLsizei  width, 
+    GLsizei  height);
+
+typedef void (OSG_APIENTRY *OSGglDeleteRenderbuffersProc    )(
+          GLsizei  n, 
+    const GLuint  *renderbuffers);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name FrameBufferObjects                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void   (OSG_APIENTRY *OSGglGenFramebuffersProc        )(
+          GLsizei  n, 
+          GLuint  *framebuffers);
+
+typedef void   (OSG_APIENTRY *OSGglDeleteFramebuffersProc     )(
+          GLsizei  n, 
+    const GLuint  *framebuffers);
+
+typedef void   (OSG_APIENTRY *OSGglBindFramebufferProc        )(
+          GLenum   target, 
+          GLuint   framebuffer);
+
+typedef void   (OSG_APIENTRY *OSGglFramebufferRenderbufferProc)(
+          GLenum   target, 
+          GLenum   attachment, 
+          GLenum   renderbuffertarget, 
+          GLuint   renderbuffer);
+
+typedef void   (OSG_APIENTRY *OSGglDrawBuffersProc           )(
+          GLsizei  n, 
+    const GLenum  *buffers);
+
+typedef GLenum (OSG_APIENTRY *OSGglCheckFramebufferStatusProc)(
+          GLenum   target );
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

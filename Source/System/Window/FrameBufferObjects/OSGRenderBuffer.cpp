@@ -47,6 +47,7 @@
 #include "OSGConfig.h"
 #include "OSGGL.h"
 #include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
 
 #include "OSGRenderBuffer.h"
 #include "OSGWindow.h"
@@ -74,30 +75,6 @@ UInt32 RenderBuffer::_uiFuncBindRenderbuffer         =
 UInt32 RenderBuffer::_uiFuncRenderbufferStorage      =
     Window::invalidFunctionID;
 
-typedef void (OSG_APIENTRY *GLFramebufferRenderbufferEXTProcT)(
-    GLenum target, 
-    GLenum attachment, 
-    GLenum renderbuffertarget, 
-    GLuint renderbuffer);
-
-typedef void (OSG_APIENTRY *GLGenRenderbuffersEXTProcT)(
-    GLsizei  n, 
-    GLuint  *renderbuffers);
-
-typedef void (OSG_APIENTRY *GLDeleteRenderbuffersEXTProcT    )(
-          GLsizei  n, 
-    const GLuint  *renderbuffers);
-
-typedef void (OSG_APIENTRY *GLBindRenderbufferEXTProcT       )(
-    GLenum target, 
-    GLuint renderbuffer);
-
-typedef void (OSG_APIENTRY *GLRenderbufferStorageEXTProcT    )(
-    GLenum target, 
-    GLenum internalformat, 
-    GLsizei width, 
-    GLsizei height);
-
 // Documentation for this class is emited in the
 // OSGRenderBufferBase.cpp file.
 // To modify it, please change the .fcd file (OSGRenderBuffer.fcd) and
@@ -107,13 +84,13 @@ void RenderBuffer::bind(DrawEnv *pEnv, UInt32 index)
 {
     Window *pWindow = pEnv->getWindow();
 
-    GLFramebufferRenderbufferEXTProcT glFramebufferRenderbufferEXTProc =
-        reinterpret_cast<GLFramebufferRenderbufferEXTProcT>(
-            pWindow->getFunction(_uiFuncFramebufferRenderbuffer));
-
     pWindow->validateGLObject(getGLId(), pEnv);
 
-    glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
+    OSGGETGLFUNC( OSGglFramebufferRenderbufferProc,
+                  osgGlFramebufferRenderbufferProc,
+                 _uiFuncFramebufferRenderbuffer   );
+
+    osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
                                      index,
                                      GL_RENDERBUFFER_EXT, 
                                      pWindow->getGLObjectId(getGLId()));
@@ -158,28 +135,28 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncGenRenderbuffers      =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGenRenderbuffersEXT", 
+                 OSG_DLSYM_UNDERSCORE"glGenRenderbuffersEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncDeleteRenderbuffers      =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glDeleteRenderbuffersEXT", 
+                 OSG_DLSYM_UNDERSCORE"glDeleteRenderbuffersEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncRenderbufferStorage      =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glRenderbufferStorageEXT", 
+                 OSG_DLSYM_UNDERSCORE"glRenderbufferStorageEXT", 
                 _uiFramebuffer_object_extension);
 
 
         _uiFuncBindRenderbuffer         =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glBindRenderbufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glBindRenderbufferEXT", 
                 _uiFramebuffer_object_extension);
     }
 }
@@ -229,11 +206,11 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
 
         if(mode == Window::initialize)
         {
-            GLGenRenderbuffersEXTProcT glGenRenderbuffersEXTProc =
-                reinterpret_cast<GLGenRenderbuffersEXTProcT>(
-                    pWindow->getFunction(_uiFuncGenRenderbuffers));
+            OSGGETGLFUNC( OSGglGenRenderbuffersProc,
+                          osgGlGenRenderbuffersProc,
+                         _uiFuncGenRenderbuffers   );
 
-            glGenRenderbuffersEXTProc(1, &uiBufferId);
+            osgGlGenRenderbuffersProc(1, &uiBufferId);
 
             pWindow->setGLObjectId(osgid, uiBufferId);
         }
@@ -242,19 +219,17 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
             uiBufferId = pWindow->getGLObjectId(osgid);
         }
 
-        GLBindRenderbufferEXTProcT glBindRenderbufferEXTProc =
-            reinterpret_cast<GLBindRenderbufferEXTProcT>(
-                pWindow->getFunction(_uiFuncBindRenderbuffer));
+        OSGGETGLFUNC( OSGglBindRenderbufferProc,
+                      osgGlBindRenderbufferProc,
+                     _uiFuncBindRenderbuffer   );
 
+        OSGGETGLFUNC( OSGglRenderbufferStorageProc,
+                      osgGlRenderbufferStorageProc,
+                     _uiFuncRenderbufferStorage   );
 
-        GLRenderbufferStorageEXTProcT glRenderbufferStorageEXTProc =
-            reinterpret_cast<GLRenderbufferStorageEXTProcT>(
-                pWindow->getFunction(_uiFuncRenderbufferStorage));
+        osgGlBindRenderbufferProc(GL_RENDERBUFFER_EXT, uiBufferId);
 
-
-        glBindRenderbufferEXTProc(GL_RENDERBUFFER_EXT, uiBufferId);
-
-        glRenderbufferStorageEXTProc(GL_RENDERBUFFER_EXT,
+        osgGlRenderbufferStorageProc(GL_RENDERBUFFER_EXT,
                                      getInternalFormat(), 
                                      getWidth(), 
                                      getHeight());
@@ -274,11 +249,11 @@ void RenderBuffer::handleDestroyGL(DrawEnv                 *pEnv,
     {
         GLuint uiBufferId =  pWindow->getGLObjectId(osgid);
 
-        GLDeleteRenderbuffersEXTProcT glDeleteRenderbuffersEXTProc =
-            reinterpret_cast<GLDeleteRenderbuffersEXTProcT>(
-                pWindow->getFunction(_uiFuncDeleteRenderbuffers));
+        OSGGETGLFUNC( OSGglDeleteRenderbuffersProc,
+                      osgGlDeleteRenderbuffersProc,
+                     _uiFuncDeleteRenderbuffers   );
 
-        glDeleteRenderbuffersEXTProc(1, &uiBufferId);
+        osgGlDeleteRenderbuffersProc(1, &uiBufferId);
     }
     else if(mode == Window::finaldestroy)
     {
