@@ -136,7 +136,7 @@ void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
     MFInValuesType::const_iterator ivIt =
         std::lower_bound(_mfInValues.begin(),
                          _mfInValues.end  (),
-                         inValue             );
+                         _mfInValues.front() + inValue);
     
     InterpolationModeE im = IM_Linear;
 
@@ -156,18 +156,18 @@ void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
     switch(im)
     {
     case IM_Step:
-        evalStep(outValue, inValue, ivIt);
+        evalStep(outValue, _mfInValues.front() + inValue, ivIt);
         break;
 
     case IM_Linear:
-        evalLinear(outValue, inValue, ivIt);
+        evalLinear(outValue, _mfInValues.front() + inValue, ivIt);
         break;
 
     default:
         SWARNING << "AnimVec3fDataSource: Unkown interpolation mode ["
                  << im << "] - using IM_Linear [" << IM_Linear << "]"
                  << std::endl;
-        evalLinear(outValue, inValue, ivIt);
+        evalLinear(outValue, _mfInValues.front() + inValue, ivIt);
         break;
     }
 }

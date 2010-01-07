@@ -109,7 +109,7 @@ Real32 AnimKeyFrameDataSource::getLength(void) const
 {
     if(_mfInValues.empty() == false)
     {
-        return _mfInValues.back();
+        return _mfInValues.back() - _mfInValues.front();
     }
     else
     {
