@@ -49,6 +49,14 @@
 
 #include "OSGAnimKeyFrameTemplate.h"
 
+// Existing exporters for Maya are not producing useable <animation_clip> tags
+// when exporting baked transforms (see code.google.com/p/opencollada issue 45
+// for more details).
+// A workaround that can help in certain situations is to instantiate simply
+// all animations from a clip and assume they all belong to that clip.
+
+// #define OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK 1
+
 OSG_BEGIN_NAMESPACE
 
 // forward decl
@@ -99,6 +107,45 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
+#if !defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
+    class ColladaAnimationInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        typedef ColladaInstInfo          Inherited;
+        typedef ColladaAnimationInstInfo Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationInstInfo);
+
+        static ColladaInstInfoTransitPtr
+            create(ColladaAnimationClip     *colInstParent,
+                   ColladaInstanceAnimation *colInst,
+                   AnimKeyFrameTemplate     *animTmpl      );
+
+        virtual void          process    (void);
+
+        AnimKeyFrameTemplate *getTemplate(void) const;
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaAnimationInstInfo(
+                     ColladaAnimationClip     *colInstParent,
+                     ColladaInstanceAnimation *colInst,
+                     AnimKeyFrameTemplate     *animTmpl      );
+        virtual ~ColladaAnimationInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        AnimKeyFrameTemplateUnrecPtr _animTmpl;
+    };
+
+#else
     class ColladaAnimationInstInfo : public ColladaInstInfo
     {
         /*==========================  PUBLIC  =============================*/
@@ -114,7 +161,7 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
                    ColladaAnimation         *colAnim,
                    AnimKeyFrameTemplate     *animTmpl      );
 
-        virtual void      process(void);
+        virtual void         process     (void);
 
         ColladaAnimation     *getAnim    (void) const;
         AnimKeyFrameTemplate *getTemplate(void) const;
@@ -139,6 +186,8 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
         ColladaAnimation             *_colAnim;
         AnimKeyFrameTemplateUnrecPtr  _animTmpl;
     };
+#endif // OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

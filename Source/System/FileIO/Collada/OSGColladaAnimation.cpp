@@ -104,6 +104,7 @@ ColladaAnimation::createInstance(
         dynamic_cast<ColladaAnimationClip *>(colInstParent);
     AnimKeyFrameTemplate   *animTmpl    = colAnimClip->getCurrTemplate();
 
+    OSG_ASSERT(animTmpl != NULL);
 
     createInstanceAnim(anim, colInstParent, colInst, animTmpl);
     
@@ -432,7 +433,11 @@ ColladaAnimation::handleOutput(
             smIt->second->getMatrixStore().begin() + dsInfo._firstKey;
         ColladaSource::MatrixStoreConstIt matEnd =
             smIt->second->getMatrixStore().begin() + dsInfo._lastKey;
-        
+
+#if defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
+        // remove animations that do not change during the clip we instantiate
+        // them from
+
         for(; matIt != matEnd; ++matIt)
         {
             if(*matIt != smIt->second->getMatrixStore()[dsInfo._firstKey])
@@ -454,6 +459,7 @@ ColladaAnimation::handleOutput(
 
         matIt  = smIt->second->getMatrixStore().begin() + dsInfo._firstKey;
         matEnd = smIt->second->getMatrixStore().begin() + dsInfo._lastKey;
+#endif
 
         for(; matIt != matEnd; ++matIt)
         {

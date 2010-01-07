@@ -54,6 +54,49 @@
 OSG_BEGIN_NAMESPACE
 
 // ===========================================================================
+#if !defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
+
+ColladaInstInfoTransitPtr
+ColladaAnimationClip::ColladaAnimationInstInfo::create(
+    ColladaAnimationClip     *colInstParent,
+    ColladaInstanceAnimation *colInst,
+    AnimKeyFrameTemplate     *animTmpl)
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaAnimationInstInfo(colInstParent, colInst, animTmpl));
+}
+
+void
+ColladaAnimationClip::ColladaAnimationInstInfo::process(void)
+{
+    ColladaAnimationClip *colAnimClip =
+        dynamic_cast<ColladaAnimationClip *>(getColInstParent());
+
+    colAnimClip->handleInstanceAnimation(this);
+}
+
+AnimKeyFrameTemplate *
+ColladaAnimationClip::ColladaAnimationInstInfo::getTemplate(void) const
+{
+    return _animTmpl;
+}
+
+ColladaAnimationClip::ColladaAnimationInstInfo::ColladaAnimationInstInfo(
+    ColladaAnimationClip     *colInstParent,
+    ColladaInstanceAnimation *colInst,
+    AnimKeyFrameTemplate     *animTmpl)
+
+    : Inherited(colInstParent, colInst, NULL)
+    , _animTmpl(animTmpl)
+{
+}
+
+ColladaAnimationClip::ColladaAnimationInstInfo::~ColladaAnimationInstInfo(void)
+{
+}
+
+#else
+// ===========================================================================
 
 ColladaInstInfoTransitPtr
 ColladaAnimationClip::ColladaAnimationInstInfo::create(
@@ -102,6 +145,8 @@ ColladaAnimationClip::ColladaAnimationInstInfo::~ColladaAnimationInstInfo(void)
 {
 }
 
+#endif // OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK
+
 // ===========================================================================
 
 ColladaElementRegistrationHelper ColladaAnimationClip::_regHelper(
@@ -122,11 +167,10 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
     OSG_COLLADA_LOG(("ColladaAnimationClip::read: id [%s]\n",
                      (animClip->getId() != NULL ? animClip->getId() : "")));
 
-#if 0
-    // This is the "normal" code for ColladaAnimationClip::read, however
-    // the existing exporters for Maya don't produce usable <animation_clip>
-    // tags in the document, so we do a horrible hack and instantiate all
-    // <animation>s using the start/end time of the clip -- cneumann
+#if !defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
+
+    AnimKeyFrameTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
+    getGlobal()->getGlobalsAtt()->editMFElements()->push_back(animTmpl);
 
     const domInstanceWithExtra_Array &animInsts =
         animClip->getInstance_animation_array();
@@ -146,15 +190,16 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
         }
 
         ColladaInstInfoRefPtr animInstInfo =
-            ColladaAnimationInstInfo::create(this, colInstAnim);
+            ColladaAnimationInstInfo::create(this, colInstAnim, animTmpl);
 
         getGlobal()->editInstQueue().push_back(animInstInfo);
     }
-#endif
+
+#else
 
     // add anim template to the globals attachment
     AnimKeyFrameTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
-    getGlobal()->getGlobalsAtt()->editMFElements()->push_back(animTmpl);    
+    getGlobal()->getGlobalsAtt()->editMFElements()->push_back(animTmpl);
 
     domCOLLADA *docRoot = getGlobal()->getDocRoot();
     const domLibrary_animations_Array &libAnims =
@@ -186,6 +231,7 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
             getGlobal()->editInstQueue().push_back(animInstInfo);
         }
     }
+#endif // OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK
 }
 
 void
@@ -212,6 +258,29 @@ ColladaAnimationClip::~ColladaAnimationClip(void)
 {
 }
 
+#if 1
+void
+ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
+{
+    OSG_COLLADA_LOG(("ColladaAnimationClip::handleInstanceAnimation\n"));
+
+    ColladaAnimationInstInfo *animInstInfo =
+        dynamic_cast<ColladaAnimationInstInfo *>(instInfo);
+
+    OSG_ASSERT(animInstInfo                                != NULL);
+    OSG_ASSERT(animInstInfo->getColInst()                  != NULL);
+    OSG_ASSERT(animInstInfo->getColInst()->getTargetElem() != NULL);
+    OSG_ASSERT(animInstInfo->getTemplate()                 != NULL);
+
+    setCurrTemplate(animInstInfo->getTemplate());
+
+    animInstInfo->getColInst()->getTargetElem()->createInstance(
+        animInstInfo->getColInstParent(), animInstInfo->getColInst());
+
+    setCurrTemplate(NULL);
+}
+
+#else
 void
 ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
 {
@@ -223,7 +292,7 @@ ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
     OSG_ASSERT(animInstInfo                != NULL);
     OSG_ASSERT(animInstInfo->getAnim    () != NULL);
     OSG_ASSERT(animInstInfo->getTemplate() != NULL);
-    
+
     setCurrTemplate(animInstInfo->getTemplate());
 
     animInstInfo->getAnim()->createInstance(
@@ -231,6 +300,7 @@ ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
 
     setCurrTemplate(NULL);
 }
+#endif
 
 OSG_END_NAMESPACE
 
