@@ -159,7 +159,7 @@ void InterpolationHelper<MFReal32,
     UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
 
     MFPnt3f::const_iterator stopIt  = mfKeyValues.end();
-    MFPnt3f::const_iterator startIt = stopIt - (uiNumPoints + 1);
+    MFPnt3f::const_iterator startIt = stopIt - uiNumPoints;
     
     fValue.clear();
     fValue.insert(fValue.begin(), startIt, stopIt);
