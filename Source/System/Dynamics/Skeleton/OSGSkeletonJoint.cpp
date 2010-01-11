@@ -102,14 +102,12 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 SkeletonJoint::SkeletonJoint(void)
-    : Inherited        ()
-    , _worldMatrixValid(false)
+    : Inherited()
 {
 }
 
 SkeletonJoint::SkeletonJoint(const SkeletonJoint &source)
-    : Inherited        (source)
-    , _worldMatrixValid(false )
+    : Inherited(source)
 {
 }
 
@@ -126,7 +124,6 @@ void SkeletonJoint::changed(ConstFieldMaskArg whichField,
     if(((InvBindMatrixFieldMask |
          MatrixFieldMask          ) & whichField) != 0x0000)
     {
-        _worldMatrixValid = false;
         invalidateVolume();
     }
 
@@ -292,13 +289,7 @@ SkeletonJoint::updateLeave(Action *action)
 void
 SkeletonJoint::accumulateMatrix(Matrix &result)
 {
-    SLOG << "SkeletonJoint::accumulateMatrix: joint [" << _sfJointId.getValue() << "]" << std::endl;
-
     result.mult(_sfMatrix.getValue());
-
-    editSField(WorldMatrixFieldId);
-    _sfWorldMatrix.setValue(result);
-    _worldMatrixValid = true;
 }
 
 void
@@ -308,10 +299,6 @@ SkeletonJoint::adjustVolume(Volume &volume)
     volume.extendBy (Pnt3f( Eps,  Eps,  Eps));
     volume.extendBy (Pnt3f(-Eps, -Eps, -Eps));
 
-    // if the volume gets recalculated, something changed and
-    // the matrix is likely not valid any more
-    _worldMatrixValid = false;
-
 //     volume.extendBy (Pnt3f(-0.01f, -0.01f, -0.01f));
 //     volume.extendBy (Pnt3f( 0.01f,  0.01f,  0.01f));
 }
@@ -320,25 +307,6 @@ void SkeletonJoint::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump SkeletonJoint NI" << std::endl;
-}
-
-const Matrix &
-SkeletonJoint::getWorldMatrix(void)
-{
-    if(_worldMatrixValid == false)
-    {
-        // can not share joints!
-        OSG_ASSERT(_mfParents.size() == 1);
-
-        Node *parent = dynamic_cast<Node *>(_mfParents[0]);
-        OSG_ASSERT(parent != NULL);
-
-        editSField(WorldMatrixFieldId);
-        parent->getToWorld(_sfWorldMatrix.getValue());
-        _worldMatrixValid = true;
-    }
-
-    return _sfWorldMatrix.getValue();
 }
 
 OSG_END_NAMESPACE

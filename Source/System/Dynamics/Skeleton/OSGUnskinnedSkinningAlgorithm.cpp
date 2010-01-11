@@ -45,20 +45,15 @@
 
 #include <OSGConfig.h>
 
-#include "OSGSkeleton.h"
-#include "OSGSkeletonJoint.h"
+#include "OSGUnskinnedSkinningAlgorithm.h"
 
-// debug only
-#include "OSGFieldContainerUtils.h"
-
-#include <boost/bind.hpp>
 #include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGSkeletonBase.cpp file.
-// To modify it, please change the .fcd file (OSGSkeleton.fcd) and
+// OSGUnskinnedSkinningAlgorithmBase.cpp file.
+// To modify it, please change the .fcd file (OSGUnskinnedSkinningAlgorithm.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -69,7 +64,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void Skeleton::initMethod(InitPhase ePhase)
+void UnskinnedSkinningAlgorithm::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -89,159 +84,57 @@ void Skeleton::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-Skeleton::Skeleton(void)
-    : Inherited()
+UnskinnedSkinningAlgorithm::UnskinnedSkinningAlgorithm(void) :
+    Inherited()
 {
 }
 
-Skeleton::Skeleton(const Skeleton &source)
-    : Inherited(source)
+UnskinnedSkinningAlgorithm::UnskinnedSkinningAlgorithm(const UnskinnedSkinningAlgorithm &source) :
+    Inherited(source)
 {
 }
 
-Skeleton::~Skeleton(void)
+UnskinnedSkinningAlgorithm::~UnskinnedSkinningAlgorithm(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void Skeleton::changed(ConstFieldMaskArg whichField,
-                       UInt32            origin,
-                       BitVector         details)
+void
+UnskinnedSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    if((RootsFieldMask & whichField) != 0)
-    {
-        updateJoints();
-    }
+    SkinnedGeometry *skinGeo = getParent();
 
+    skinGeo->Inherited::adjustVolume(volume);
+}
+
+ActionBase::ResultE
+UnskinnedSkinningAlgorithm::renderEnter(Action *action)
+{
+    SkinnedGeometry *skinGeo = getParent();
+
+    return skinGeo->renderActionEnterHandler(action);
+}
+
+ActionBase::ResultE
+UnskinnedSkinningAlgorithm::renderLeave(Action *action)
+{
+    SkinnedGeometry *skinGeo = getParent();
+
+    return skinGeo->renderActionLeaveHandler(action);
+}
+
+void UnskinnedSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
     Inherited::changed(whichField, origin, details);
 }
 
-void
-Skeleton::adjustVolume(Volume &volume)
-{
-    MFRootsType::const_iterator rIt  = _mfRoots.begin();
-    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
-
-    for(; rIt != rEnd; ++rIt)
-    {
-        (*rIt)->updateVolume();
-        volume.extendBy((*rIt)->getVolume());
-    }
-}
-
-void Skeleton::dump(      UInt32    ,
+void UnskinnedSkinningAlgorithm::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump Skeleton NI" << std::endl;
-}
-
-void
-Skeleton::updateJoints(void)
-{
-    editMFJoints             ()->clear();
-    editMFParentJoints       ()->clear();
-    editMFJointMatrices      ()->clear();
-    editMFJointNormalMatrices()->clear();
-
-    JointStack jointStack;
-
-    TraverseEnterFunctor enterFunc =
-        boost::bind(&Skeleton::findJointsEnter, this, &jointStack, _1);
-    TraverseLeaveFunctor leaveFunc =
-        boost::bind(&Skeleton::findJointsLeave, this, &jointStack, _1);
-
-    MFRootsType::const_iterator rIt  = _mfRoots.begin();
-    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
-
-    for(; rIt != rEnd; ++rIt)
-        traverse(*rIt, enterFunc, leaveFunc);
-}
-
-Action::ResultE
-Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
-{
-    if(node == NULL || node->getCore() == NULL)
-        return Action::Continue;
-
-    SkeletonJoint *joint       = dynamic_cast<SkeletonJoint *>(node->getCore());
-    SkeletonJoint *parentJoint = jointStack->empty() ? NULL : jointStack->back();
-
-    if(joint == NULL)
-        return Action::Continue;
-
-    Int16 jointId = joint->getJointId();
-
-    if(jointId == SkeletonJoint::INVALID_JOINT_ID)
-    {
-        SWARNING << "Skeleton::findJointsEnter: SkeletonJoint has "
-                 << "invalid joint id. Ignoring joint." << std::endl;
-        return Action::Continue;
-    }
-
-    if(joint->getSkeleton() != NULL)
-    {
-        if(joint->getSkeleton() != this)
-        {
-            SWARNING << "Skeleton::findJointsEnter: Found SkeletonJoint ["
-                     << joint << "][" << jointId << "] already owned by a "
-                     << "Skeleton. Ignoring joint." << std::endl;
-        }
-
-        // joint already owned by this skeleton - ok, the skeleton may be
-        // shared between multiple SkinnedGeometry and already scanned for
-        // joints
-        jointStack->push_back(joint);
-
-        return Action::Continue;
-    }
-
-    MFJointsType              *mfJoints       = editMFJoints             ();
-    MFParentJointsType        *mfParentJoints = editMFParentJoints       ();
-    MFJointMatricesType       *mfJointMat     = editMFJointMatrices      ();
-    MFJointNormalMatricesType *mfJointNMats   = editMFJointNormalMatrices();
-    UInt32                     newSize        =
-        osgMax<UInt32>(mfJoints->size(), jointId + 1);
-
-    mfJoints      ->resize(newSize, NULL              );
-    mfParentJoints->resize(newSize, NULL              );
-    mfJointMat    ->resize(newSize, Matrix::identity());
-    mfJointNMats  ->resize(newSize, Matrix::identity());
-
-    if((*mfJoints)[jointId] != NULL)
-    {
-        SWARNING << "Skeleton::findJointsEnter: JointId [" << jointId
-                 << "] is already used. Ignoring joint." << std::endl;
-        return Action::Continue;
-    }
-
-    (*mfJoints      )[jointId] = joint;
-    (*mfParentJoints)[jointId] = parentJoint;
-
-    SLOG << "Skeleton::findJointsEnter: found joint [" << jointId << "]" << std::endl;
-
-    jointStack->push_back(joint);
-
-    return Action::Continue;
-}
-
-Action::ResultE
-Skeleton::findJointsLeave(JointStack *jointStack, Node *node)
-{
-    if(node == NULL || node->getCore() == NULL)
-        return Action::Continue;
-
-    SkeletonJoint *joint = dynamic_cast<SkeletonJoint *>(node->getCore());
-
-    if(joint == NULL)
-        return Action::Continue;
-
-    if(joint->getJointId() == SkeletonJoint::INVALID_JOINT_ID)
-        return Action::Continue;
-
-    jointStack->pop_back();
-
-    return Action::Continue;
+    SLOG << "Dump UnskinnedSkinningAlgorithm NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

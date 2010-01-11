@@ -101,10 +101,6 @@ OSG_BEGIN_NAMESPACE
     Transformation matrix of this joint.
 */
 
-/*! \var Matrix          SkeletonJointBase::_sfWorldMatrix
-    World transformation matrix of this joint.
-*/
-
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -228,18 +224,6 @@ void SkeletonJointBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&SkeletonJoint::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(),
-        "worldMatrix",
-        "World transformation matrix of this joint.\n",
-        WorldMatrixFieldId, WorldMatrixFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&SkeletonJoint::editHandleWorldMatrix),
-        static_cast<FieldGetMethodSig >(&SkeletonJoint::getHandleWorldMatrix));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -317,16 +301,6 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     "    Transformation matrix of this joint.\n"
     "  </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"worldMatrix\"\n"
-    "     type=\"Matrix\"\n"
-    "     category=\"data\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"protected\"\n"
-    "     >\n"
-    "    World transformation matrix of this joint.\n"
-    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -391,19 +365,6 @@ const SFMatrix *SkeletonJointBase::getSFMatrix(void) const
 }
 
 
-SFMatrix *SkeletonJointBase::editSFWorldMatrix(void)
-{
-    editSField(WorldMatrixFieldMask);
-
-    return &_sfWorldMatrix;
-}
-
-const SFMatrix *SkeletonJointBase::getSFWorldMatrix(void) const
-{
-    return &_sfWorldMatrix;
-}
-
-
 
 
 
@@ -430,10 +391,6 @@ UInt32 SkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfMatrix.getBinSize();
     }
-    if(FieldBits::NoField != (WorldMatrixFieldMask & whichField))
-    {
-        returnValue += _sfWorldMatrix.getBinSize();
-    }
 
     return returnValue;
 }
@@ -459,10 +416,6 @@ void SkeletonJointBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfMatrix.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (WorldMatrixFieldMask & whichField))
-    {
-        _sfWorldMatrix.copyToBin(pMem);
-    }
 }
 
 void SkeletonJointBase::copyFromBin(BinaryDataHandler &pMem,
@@ -485,10 +438,6 @@ void SkeletonJointBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {
         _sfMatrix.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (WorldMatrixFieldMask & whichField))
-    {
-        _sfWorldMatrix.copyFromBin(pMem);
     }
 }
 
@@ -618,8 +567,7 @@ SkeletonJointBase::SkeletonJointBase(void) :
     _sfSkeleton               (NULL),
     _sfJointId                (Int16(SkeletonJoint::INVALID_JOINT_ID)),
     _sfInvBindMatrix          (),
-    _sfMatrix                 (),
-    _sfWorldMatrix            ()
+    _sfMatrix                 ()
 {
 }
 
@@ -628,8 +576,7 @@ SkeletonJointBase::SkeletonJointBase(const SkeletonJointBase &source) :
     _sfSkeleton               (NULL),
     _sfJointId                (source._sfJointId                ),
     _sfInvBindMatrix          (source._sfInvBindMatrix          ),
-    _sfMatrix                 (source._sfMatrix                 ),
-    _sfWorldMatrix            (source._sfWorldMatrix            )
+    _sfMatrix                 (source._sfMatrix                 )
 {
 }
 
@@ -797,31 +744,6 @@ EditFieldHandlePtr SkeletonJointBase::editHandleMatrix         (void)
 
 
     editSField(MatrixFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SkeletonJointBase::getHandleWorldMatrix     (void) const
-{
-    SFMatrix::GetHandlePtr returnValue(
-        new  SFMatrix::GetHandle(
-             &_sfWorldMatrix,
-             this->getType().getFieldDesc(WorldMatrixFieldId),
-             const_cast<SkeletonJointBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonJointBase::editHandleWorldMatrix    (void)
-{
-    SFMatrix::EditHandlePtr returnValue(
-        new  SFMatrix::EditHandle(
-             &_sfWorldMatrix,
-             this->getType().getFieldDesc(WorldMatrixFieldId),
-             this));
-
-
-    editSField(WorldMatrixFieldMask);
 
     return returnValue;
 }

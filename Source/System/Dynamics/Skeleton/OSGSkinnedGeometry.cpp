@@ -47,6 +47,7 @@
 #include "OSGSkinnedGeometry.h"
 #include "OSGHardwareSkinningAlgorithm.h"
 #include "OSGSkeletonSkinningAlgorithm.h"
+#include "OSGUnskinnedSkinningAlgorithm.h"
 
 #include <boost/cast.hpp>
 
@@ -116,7 +117,12 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
         switch(_sfRenderMode.getValue())
         {
         case RMUnskinned:
-            break;
+        {
+            UnskinnedSkinningAlgorithmUnrecPtr algo =
+                UnskinnedSkinningAlgorithm::create();
+            setSkinningAlgorithm(algo);
+        }
+        break;
 
         case RMSkeleton:
         {
@@ -142,6 +148,7 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
 
         case RMSkinnedSoftware:
         {
+            setSkinningAlgorithm(NULL);
         }
         break;
         }
@@ -168,8 +175,6 @@ SkinnedGeometry::renderEnter(Action *action)
                  << std::endl;
         return Action::Continue;
     }
-
-    _sfSkeleton.getValue()->updateJointMatrices();
 
     return _sfSkinningAlgorithm.getValue()->renderEnter(action);
 }
@@ -202,10 +207,8 @@ SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
 
 void SkinnedGeometry::adjustVolume(Volume &volume)
 {
-    if(_sfSkeleton         .getValue() != NULL  &&
-       _sfSkinningAlgorithm.getValue() != NULL    )
+    if(_sfSkinningAlgorithm.getValue() != NULL)
     {
-        _sfSkeleton         .getValue()->updateJointMatrices();
         _sfSkinningAlgorithm.getValue()->adjustVolume(volume);
     }
     else

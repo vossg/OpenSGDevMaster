@@ -175,6 +175,8 @@ HardwareSkinningAlgorithm::renderEnter(Action *action)
     else
     {
         shData->updateUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
+        shData->updateUniformVariable(
             "matJoints",    (*skel->getMFJointMatrices()));
     }
 

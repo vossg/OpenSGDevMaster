@@ -154,6 +154,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+            const MFUnrecNodePtr      *getMFRoots          (void) const;
+                  MFUnrecNodePtr      *editMFRoots          (void);
             const MFUnrecChildSkeletonJointPtr *getMFJoints         (void) const;
                   MFUnrecChildSkeletonJointPtr *editMFJoints         (void);
 
@@ -171,6 +173,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
                   SFBool              *editSFCalcNormalMatrices(void);
             const SFBool              *getSFCalcNormalMatrices (void) const;
 
+
+                  Node * getRoots          (const UInt32 index) const;
 
                   SkeletonJoint * getJoints         (const UInt32 index) const;
 
@@ -205,6 +209,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+    void pushToRoots               (Node * const value   );
+    void assignRoots              (const MFUnrecNodePtr    &value);
+    void removeFromRoots (UInt32               uiIndex );
+    void removeObjFromRoots(Node * const value   );
+    void clearRoots                 (void                         );
 
     void pushToJoints              (SkeletonJoint * const value   );
     void assignJoints             (const MFUnrecChildSkeletonJointPtr &value);
@@ -328,34 +338,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     EditFieldHandlePtr editHandleUseInvBindMatrix(void);
     GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;
     EditFieldHandlePtr editHandleCalcNormalMatrices(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecNodePtr      *getMFRoots           (void) const;
-                  MFUnrecNodePtr      *editMFRoots          (void);
-
-
-                  Node * getRoots          (const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToRoots               (Node * const value   );
-    void assignRoots               (const MFUnrecNodePtr    &value);
-    void removeFromRoots (UInt32                uiIndex );
-    void removeObjFromRoots(Node * const value   );
-    void clearRoots                 (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

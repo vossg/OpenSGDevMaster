@@ -285,6 +285,8 @@ OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
         OSG::SkinnedGeometry *sgeo =
             dynamic_cast<OSG::SkinnedGeometry *>(core);
         skinnedGeoMat.push_back(sgeo->getMaterial());
+
+        sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
     }
 
     return OSG::Action::Continue;
@@ -414,7 +416,7 @@ void toggleAnim(OSG::UInt32 index, bool loop)
 // redraw the window
 void display(void)
 {
-    std::cout << ">> FRAME START" << std::endl;
+//     std::cout << ">> FRAME START" << std::endl;
 
     static OSG::Time   tAcc = 0;
     static OSG::UInt32 fc   = 0;
@@ -425,7 +427,7 @@ void display(void)
 
     OSG::commitChangesAndClear();
 
-    //    ua->apply(rootN);
+    ua->apply(rootN);
 
     mgr->idle();
     mgr->redraw();
@@ -445,7 +447,7 @@ void display(void)
         fc   = 0;
     }
 
-    std::cout << "<< FRAME END" << std::endl;
+//     std::cout << "<< FRAME END" << std::endl;
 
 //     mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
 //     mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
