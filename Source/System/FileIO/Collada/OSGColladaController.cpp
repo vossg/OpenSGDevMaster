@@ -146,9 +146,9 @@ ColladaController::createInstance(
 
         // create new geometry
         SkinnedGeometryUnrecPtr geo = SkinnedGeometry::create();
-        geo->setSkeleton       (_skeleton                      );
-        geo->setBindShapeMatrix(_matBindShape                  );
-        geo->addFlag           (SkinnedGeometry::SGFlagHardware);
+        geo->setSkeleton       (_skeleton                         );
+        geo->setBindShapeMatrix(_matBindShape                     );
+        geo->setRenderMode     (SkinnedGeometry::RMSkinnedHardware);
 
         getGlobal()->getStatCollector()->getElem(
             ColladaGlobal::statNGeometryCreated)->inc();

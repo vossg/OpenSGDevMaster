@@ -839,7 +839,7 @@ ColladaNode::createInstanceJoint(
     }
 
     if(startSkel == true)
-        _skel->editMFRoots()->push_back(instTopN);
+        _skel->pushToRoots(instTopN);
 
     editInstStore() .push_back(instTopN   );
     _bottomInstStore.push_back(instBottomN);
