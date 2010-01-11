@@ -164,62 +164,46 @@ void SkinnedGeometryBase::setJointWeightProperty(const UInt16 value)
 
     _sfJointWeightProperty.setValue(value);
 }
-//! Get the value of the SkinnedGeometry::_sfFlags field.
+//! Get the value of the SkinnedGeometry::_sfRenderMode field.
 
 inline
-UInt32 &SkinnedGeometryBase::editFlags(void)
+UInt32 &SkinnedGeometryBase::editRenderMode(void)
 {
-    editSField(FlagsFieldMask);
+    editSField(RenderModeFieldMask);
 
-    return _sfFlags.getValue();
+    return _sfRenderMode.getValue();
 }
 
-//! Get the value of the SkinnedGeometry::_sfFlags field.
+//! Get the value of the SkinnedGeometry::_sfRenderMode field.
 inline
-      UInt32  SkinnedGeometryBase::getFlags(void) const
+      UInt32  SkinnedGeometryBase::getRenderMode(void) const
 {
-    return _sfFlags.getValue();
+    return _sfRenderMode.getValue();
 }
 
-//! Set the value of the SkinnedGeometry::_sfFlags field.
+//! Set the value of the SkinnedGeometry::_sfRenderMode field.
 inline
-void SkinnedGeometryBase::setFlags(const UInt32 value)
+void SkinnedGeometryBase::setRenderMode(const UInt32 value)
 {
-    editSField(FlagsFieldMask);
+    editSField(RenderModeFieldMask);
 
-    _sfFlags.setValue(value);
+    _sfRenderMode.setValue(value);
 }
 
-//! Get the value of the SkinnedGeometry::_sfShaderCode field.
+//! Get the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
 inline
-ShaderProgramChunk * SkinnedGeometryBase::getShaderCode(void) const
+SkinningAlgorithm * SkinnedGeometryBase::getSkinningAlgorithm(void) const
 {
-    return _sfShaderCode.getValue();
+    return _sfSkinningAlgorithm.getValue();
 }
 
-//! Set the value of the SkinnedGeometry::_sfShaderCode field.
+//! Set the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
 inline
-void SkinnedGeometryBase::setShaderCode(ShaderProgramChunk * const value)
+void SkinnedGeometryBase::setSkinningAlgorithm(SkinningAlgorithm * const value)
 {
-    editSField(ShaderCodeFieldMask);
+    editSField(SkinningAlgorithmFieldMask);
 
-    _sfShaderCode.setValue(value);
-}
-
-//! Get the value of the SkinnedGeometry::_sfShaderData field.
-inline
-ShaderProgramVariableChunk * SkinnedGeometryBase::getShaderData(void) const
-{
-    return _sfShaderData.getValue();
-}
-
-//! Set the value of the SkinnedGeometry::_sfShaderData field.
-inline
-void SkinnedGeometryBase::setShaderData(ShaderProgramVariableChunk * const value)
-{
-    editSField(ShaderDataFieldMask);
-
-    _sfShaderData.setValue(value);
+    _sfSkinningAlgorithm.setValue(value);
 }
 
 //! Get the value of the \a index element the SkinnedGeometry::_mfJointIds field.
@@ -267,14 +251,11 @@ void SkinnedGeometryBase::execSync (      SkinnedGeometryBase *pFrom,
     if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
         _sfJointWeightProperty.syncWith(pFrom->_sfJointWeightProperty);
 
-    if(FieldBits::NoField != (FlagsFieldMask & whichField))
-        _sfFlags.syncWith(pFrom->_sfFlags);
+    if(FieldBits::NoField != (RenderModeFieldMask & whichField))
+        _sfRenderMode.syncWith(pFrom->_sfRenderMode);
 
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
-
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-        _sfShaderData.syncWith(pFrom->_sfShaderData);
+    if(FieldBits::NoField != (SkinningAlgorithmFieldMask & whichField))
+        _sfSkinningAlgorithm.syncWith(pFrom->_sfSkinningAlgorithm);
 }
 #endif
 

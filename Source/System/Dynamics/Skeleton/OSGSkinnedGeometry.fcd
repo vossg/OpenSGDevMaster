@@ -10,7 +10,7 @@
    parentsystemcomponent="true"
    decoratable="false"
    childFields="none"
-   parentFields="none"
+   parentFields="both"
 >
 
   <Field
@@ -72,7 +72,7 @@
   </Field>
 
   <Field
-     name="flags"
+     name="renderMode"
      type="UInt32"
      category="data"
      cardinality="single"
@@ -83,20 +83,10 @@
   </Field>
 
   <Field
-     name="shaderCode"
-     type="ShaderProgramChunk"
-     category="pointer"
-     cardinality="single"
-     visibility="external"
-     access="protected"
-     defaultValue="NULL"
-     >
-  </Field>
-
-  <Field
-     name="shaderData"
-     type="ShaderProgramVariableChunk"
-     category="pointer"
+     name="skinningAlgorithm"
+     type="SkinningAlgorithm"
+     category="childpointer"
+     linkParentField="Parent"
      cardinality="single"
      visibility="external"
      access="protected"

@@ -359,7 +359,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     category=\"pointer\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
+    "     access=\"protected\"\n"
     "     >\n"
     "    The roots of the joint (or bone) hierarchies for the skeleton.\n"
     "    There should be Nodes with SkeletonJoint cores in the pointed-to\n"

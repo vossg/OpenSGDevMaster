@@ -43,18 +43,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
-#include "OSGSkinnedGeometry.h"
-#include "OSGHardwareSkinningAlgorithm.h"
-#include "OSGSkeletonSkinningAlgorithm.h"
+#include <OSGConfig.h>
 
-#include <boost/cast.hpp>
+#include "OSGSkinningAlgorithm.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGSkinnedGeometryBase.cpp file.
-// To modify it, please change the .fcd file (OSGSkinnedGeometry.fcd) and
+// OSGSkinningAlgorithmBase.cpp file.
+// To modify it, please change the .fcd file (OSGSkinningAlgorithm.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -65,18 +62,12 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void SkinnedGeometry::initMethod(InitPhase ePhase)
+void SkinningAlgorithm::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            SkinnedGeometry::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderEnter));
-        RenderAction::registerLeaveDefault(
-            SkinnedGeometry::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderLeave));
     }
 }
 
@@ -85,162 +76,45 @@ void SkinnedGeometry::initMethod(InitPhase ePhase)
  *                           Instance methods                              *
 \***************************************************************************/
 
+void
+SkinningAlgorithm::execute(DrawEnv *)
+{
+    // execute is never called - do nothing
+}
+
 /*-------------------------------------------------------------------------*\
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
 
 /*----------------------- constructors & destructors ----------------------*/
 
-SkinnedGeometry::SkinnedGeometry(void) :
+SkinningAlgorithm::SkinningAlgorithm(void) :
     Inherited()
 {
 }
 
-SkinnedGeometry::SkinnedGeometry(const SkinnedGeometry &source) :
+SkinningAlgorithm::SkinningAlgorithm(const SkinningAlgorithm &source) :
     Inherited(source)
 {
 }
 
-SkinnedGeometry::~SkinnedGeometry(void)
+SkinningAlgorithm::~SkinningAlgorithm(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void SkinnedGeometry::changed(ConstFieldMaskArg whichField, 
-                              UInt32            origin,
-                              BitVector         details)
+void SkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    if((RenderModeFieldMask & whichField) != 0)
-    {
-        switch(_sfRenderMode.getValue())
-        {
-        case RMUnskinned:
-            break;
-
-        case RMSkeleton:
-        {
-            SkeletonSkinningAlgorithmUnrecPtr algo =
-                SkeletonSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
-                _sfSkeleton.getValue()->setUseInvBindMatrix(false);
-        }
-        break;
-
-        case RMSkinnedHardware:
-        {
-            HardwareSkinningAlgorithmUnrecPtr algo =
-                HardwareSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
-                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
-        }
-        break;
-
-        case RMSkinnedSoftware:
-        {
-        }
-        break;
-        }
-
-        invalidateVolume();
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
-Action::ResultE
-SkinnedGeometry::renderEnter(Action *action)
-{
-    if(_sfSkeleton.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderEnter: No skeleton." << std::endl;
-
-        return Action::Continue;
-    }
-
-    if(_sfSkinningAlgorithm.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderEnter: No SkinningAlgorithm."
-                 << std::endl;
-        return Action::Continue;
-    }
-
-    _sfSkeleton.getValue()->updateJointMatrices();
-
-    return _sfSkinningAlgorithm.getValue()->renderEnter(action);
-}
-
-Action::ResultE
-SkinnedGeometry::renderLeave(Action *action)
-{
-    if(_sfSkeleton.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderLeave: No skeleton." << std::endl;
-
-        return Action::Continue;
-    }
-
-    if(_sfSkinningAlgorithm.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderLeave: No SkinningAlgorithm."
-                 << std::endl;
-        return Action::Continue;
-    }
-
-    return _sfSkinningAlgorithm.getValue()->renderLeave(action);
-}
-
-void
-SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
-{
-    Inherited::fill(drawStats);
-}
-
-void SkinnedGeometry::adjustVolume(Volume &volume)
-{
-    if(_sfSkeleton         .getValue() != NULL  &&
-       _sfSkinningAlgorithm.getValue() != NULL    )
-    {
-        _sfSkeleton         .getValue()->updateJointMatrices();
-        _sfSkinningAlgorithm.getValue()->adjustVolume(volume);
-    }
-    else
-    {
-        Inherited::adjustVolume(volume                       );
-        volume.transform       (_sfBindShapeMatrix.getValue());
-
-        SLOG << "SkinnedGeometry::adjustVolume: Using Mesh vol "
-             << std::endl;
-    }
-}
-
-void SkinnedGeometry::dump(      UInt32    ,
+void SkinningAlgorithm::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump SkinnedGeometry NI" << std::endl;
-}
-
-Action::ResultE
-SkinnedGeometry::renderDebug(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderHardware(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderSoftware(RenderAction *ract)
-{
-    SWARNING << "SkinnedGeometry::renderSoftware: NIY"
-             << std::endl;
+    SLOG << "Dump SkinningAlgorithm NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

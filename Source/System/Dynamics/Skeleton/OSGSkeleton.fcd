@@ -25,7 +25,7 @@
      category="pointer"
      cardinality="multi"
      visibility="external"
-     access="public"
+     access="protected"
      >
     The roots of the joint (or bone) hierarchies for the skeleton.
     There should be Nodes with SkeletonJoint cores in the pointed-to

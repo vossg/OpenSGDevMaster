@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGSKINNEDGEOMETRYFIELDS_H_
-#define _OSGSKINNEDGEOMETRYFIELDS_H_
+#ifndef _OSGSKELETONSKINNINGALGORITHMFIELDS_H_
+#define _OSGSKELETONSKINNINGALGORITHMFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-class SkinnedGeometry;
+class SkeletonSkinningAlgorithm;
 
-OSG_GEN_CONTAINERPTR(SkinnedGeometry);
+OSG_GEN_CONTAINERPTR(SkeletonSkinningAlgorithm);
 
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<SkinnedGeometry *> :
-    public FieldTraitsFCPtrBase<SkinnedGeometry *>
+struct FieldTraits<SkeletonSkinningAlgorithm *> :
+    public FieldTraitsFCPtrBase<SkeletonSkinningAlgorithm *>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SkinnedGeometry *> :
 
   public:
 
-    typedef FieldTraits<SkinnedGeometry *>  Self;
+    typedef FieldTraits<SkeletonSkinningAlgorithm *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,195 +90,134 @@ struct FieldTraits<SkinnedGeometry *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSkinnedGeometryPtr"; }
+//    static const char *getSName(void) { return "SFSkeletonSkinningAlgorithmPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSkinnedGeometryPtr"; }
+//    static const char *getMName(void) { return "MFSkeletonSkinningAlgorithmPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecSkinnedGeometryPtr"; 
+    return "SFRecSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecSkinnedGeometryPtr"; 
+    return "SFUnrecSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakSkinnedGeometryPtr"; 
+    return "SFWeakSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdSkinnedGeometryPtr"; 
+    return "SFUnrefdSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecSkinnedGeometryPtr"; 
+    return "MFRecSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecSkinnedGeometryPtr"; 
+    return "MFUnrecSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakSkinnedGeometryPtr"; 
+    return "MFWeakSkeletonSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkinnedGeometry *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonSkinningAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdSkinnedGeometryPtr"; 
+    return "MFUnrefdSkeletonSkinningAlgorithmPtr"; 
 }
 
-
-/*! \ingroup GrpDynamicsFieldTraits
- */
-template <>
-struct FieldTraits<SkinnedGeometry *, 1> : 
-    public FieldTraitsFCPtrBase<SkinnedGeometry *, 1>
-{
-  private:
-
-    static  DataType                                _type;
-
-  public:
-
-    static const bool bIsPointerField = true;
-
-    typedef FieldTraits<SkinnedGeometry *, 1>        Self;
-
-
-    enum             { Convertible = Self::NotConvertible };
-    
-    static OSG_DYNAMICS_DLLMAPPING
-                 DataType &getType (void);
-
-    static const Char8    *getSName(void) 
-    {
-        return "SFParentSkinnedGeometryPtr"; 
-    }
-
-    static const Char8    *getMName(void) 
-    { 
-        return "MFParentSkinnedGeometryPtr"; 
-    }
-};
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<SkinnedGeometry *,
-                      RecordedRefCountPolicy  > SFRecSkinnedGeometryPtr;
+typedef PointerSField<SkeletonSkinningAlgorithm *,
+                      RecordedRefCountPolicy  > SFRecSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<SkinnedGeometry *,
-                      UnrecordedRefCountPolicy> SFUnrecSkinnedGeometryPtr;
+typedef PointerSField<SkeletonSkinningAlgorithm *,
+                      UnrecordedRefCountPolicy> SFUnrecSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<SkinnedGeometry *,
-                      WeakRefCountPolicy      > SFWeakSkinnedGeometryPtr;
+typedef PointerSField<SkeletonSkinningAlgorithm *,
+                      WeakRefCountPolicy      > SFWeakSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<SkinnedGeometry *,
-                      NoRefCountPolicy        > SFUncountedSkinnedGeometryPtr;
+typedef PointerSField<SkeletonSkinningAlgorithm *,
+                      NoRefCountPolicy        > SFUncountedSkeletonSkinningAlgorithmPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<SkinnedGeometry *,
-                      RecordedRefCountPolicy  > MFRecSkinnedGeometryPtr;
+typedef PointerMField<SkeletonSkinningAlgorithm *,
+                      RecordedRefCountPolicy  > MFRecSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<SkinnedGeometry *,
-                      UnrecordedRefCountPolicy> MFUnrecSkinnedGeometryPtr;
+typedef PointerMField<SkeletonSkinningAlgorithm *,
+                      UnrecordedRefCountPolicy> MFUnrecSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<SkinnedGeometry *,
-                      WeakRefCountPolicy      > MFWeakSkinnedGeometryPtr;
+typedef PointerMField<SkeletonSkinningAlgorithm *,
+                      WeakRefCountPolicy      > MFWeakSkeletonSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<SkinnedGeometry *,
-                      NoRefCountPolicy        > MFUncountedSkinnedGeometryPtr;
+typedef PointerMField<SkeletonSkinningAlgorithm *,
+                      NoRefCountPolicy        > MFUncountedSkeletonSkinningAlgorithmPtr;
 
-
-
-/*! \ingroup GrpDynamicsFieldSFields */
-typedef ParentPointerSField<
-          SkinnedGeometry *, 
-          NoRefCountPolicy,
-          1    > SFParentSkinnedGeometryPtr;
-
-/*! \ingroup GrpDynamicsFieldMFields */
-typedef ParentPointerMField<
-          SkinnedGeometry *, 
-          NoRefCountPolicy,
-          1    > MFParentSkinnedGeometryPtr;
 
 
 
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFRecSkinnedGeometryPtr : 
-    public PointerSField<SkinnedGeometry *,
+struct SFRecSkeletonSkinningAlgorithmPtr : 
+    public PointerSField<SkeletonSkinningAlgorithm *,
                          RecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFUnrecSkinnedGeometryPtr : 
-    public PointerSField<SkinnedGeometry *,
+struct SFUnrecSkeletonSkinningAlgorithmPtr : 
+    public PointerSField<SkeletonSkinningAlgorithm *,
                          UnrecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFWeakSkinnedGeometryPtr :
-    public PointerSField<SkinnedGeometry *,
+struct SFWeakSkeletonSkinningAlgorithmPtr :
+    public PointerSField<SkeletonSkinningAlgorithm *,
                          WeakRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFUncountedSkinnedGeometryPtr :
-    public PointerSField<SkinnedGeometry *,
+struct SFUncountedSkeletonSkinningAlgorithmPtr :
+    public PointerSField<SkeletonSkinningAlgorithm *,
                          NoRefCountPolicy> {};
 
 
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFRecSkinnedGeometryPtr :
-    public PointerMField<SkinnedGeometry *,
+struct MFRecSkeletonSkinningAlgorithmPtr :
+    public PointerMField<SkeletonSkinningAlgorithm *,
                          RecordedRefCountPolicy  > {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFUnrecSkinnedGeometryPtr :
-    public PointerMField<SkinnedGeometry *,
+struct MFUnrecSkeletonSkinningAlgorithmPtr :
+    public PointerMField<SkeletonSkinningAlgorithm *,
                          UnrecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFWeakSkinnedGeometryPtr :
-    public PointerMField<SkinnedGeometry *,
+struct MFWeakSkeletonSkinningAlgorithmPtr :
+    public PointerMField<SkeletonSkinningAlgorithm *,
                          WeakRefCountPolicy      > {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFUncountedSkinnedGeometryPtr :
-    public PointerMField<SkinnedGeometry *,
+struct MFUncountedSkeletonSkinningAlgorithmPtr :
+    public PointerMField<SkeletonSkinningAlgorithm *,
                          NoRefCountPolicy        > {};
 
-
-
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFParentSkinnedGeometryPtr :
-    public ParentPointerSField<
-        SkinnedGeometry *, 
-        NoRefCountPolicy,
-        1    > {};
-
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFParentSkinnedGeometryPtr :
-    public  ParentPointerMField<
-        SkinnedGeometry *, 
-        NoRefCountPolicy,
-        1    > {};
 
 
 #endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGSKINNEDGEOMETRYFIELDS_H_ */
+#endif /* _OSGSKELETONSKINNINGALGORITHMFIELDS_H_ */

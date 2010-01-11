@@ -40,4 +40,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline SkinnedGeometry *
+SkinningAlgorithm::getParent(void) const
+{
+    return _sfParent.getValue();
+}
+
 OSG_END_NAMESPACE

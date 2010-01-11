@@ -36,25 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSKELETONJOINT_H_
-#define _OSGSKELETONJOINT_H_
+#ifndef _OSGSKINNINGALGORITHM_H_
+#define _OSGSKINNINGALGORITHM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSkeletonJointBase.h"
-#include "OSGSkeletonFields.h"
+#include "OSGSkinningAlgorithmBase.h"
+
+#include "OSGSkinnedGeometry.h"
+#include "OSGVolume.h"
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class Skeleton;
-
-/*! \brief SkeletonJoint class. See \ref
-           PageDrawableSkeletonJoint for a description.
+/*! \brief SkinningAlgorithm class. See \ref
+           PageDynamicsSkinningAlgorithm for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
+class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
 {
   protected:
 
@@ -62,10 +61,23 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
   public:
 
-    typedef SkeletonJointBase Inherited;
-    typedef SkeletonJoint     Self;
+    typedef SkinningAlgorithmBase Inherited;
+    typedef SkinningAlgorithm     Self;
 
-    static const Int16 INVALID_JOINT_ID = -1;
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Execute                                 */
+    /*! \{                                                                 */
+
+    virtual void adjustVolume(Volume  &volume ) = 0;
+
+    virtual void execute     (DrawEnv *drawEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Parent                                */
+    /*! \{                                                                 */
+
+    SkinnedGeometry *getParent(void) const;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -74,39 +86,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Skeleton                                */
-    /*! \{                                                                 */
-
-    const SFParentSkeletonPtr *getSFSkeleton(void) const;
-    Skeleton                  *getSkeleton  (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter(Action *action);
-    Action::ResultE renderLeave(Action *action);
-
-    Action::ResultE updateEnter(Action *action);
-    Action::ResultE updateLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Transformation                             */
-    /*! \{                                                                 */
-
-    virtual void accumulateMatrix(Matrixr &result);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Volume                                  */
-    /*! \{                                                                 */
-
-    virtual void adjustVolume    (Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,22 +100,21 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
   protected:
 
-    // Variables should all be in SkeletonJointBase.
-    bool _worldMatrixValid;
+    // Variables should all be in SkinningAlgorithmBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    SkeletonJoint(void);
-    SkeletonJoint(const SkeletonJoint &source);
+    SkinningAlgorithm(void);
+    SkinningAlgorithm(const SkinningAlgorithm &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkeletonJoint(void);
+    virtual ~SkinningAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -146,34 +124,22 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    World Matrix                              */
-    /*! \{                                                                 */
-
-    const Matrix& getWorldMatrix(void);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class SkeletonJointBase;
-
-    friend class Skeleton;
+    friend class SkinningAlgorithmBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SkeletonJoint &source);
+    void operator =(const SkinningAlgorithm &source);
 };
 
-typedef SkeletonJoint *SkeletonJointP;
+typedef SkinningAlgorithm *SkinningAlgorithmP;
 
 OSG_END_NAMESPACE
 
-// include this here, so that it is available in the .inl
-#include "OSGSkeleton.h"
+#include "OSGSkinningAlgorithmBase.inl"
+#include "OSGSkinningAlgorithm.inl"
 
-#include "OSGSkeletonJointBase.inl"
-#include "OSGSkeletonJoint.inl"
-
-#endif /* _OSGSKELETONJOINT_H_ */
+#endif /* _OSGSKINNINGALGORITHM_H_ */

@@ -65,12 +65,25 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Roots                                   */
+    /*! \{                                                                 */
+
+    void pushToRoots       (Node * const          value   );
+    void assignRoots       (const MFUnrecNodePtr &value   );
+    void removeFromRoots   (UInt32                uiIndex );
+    void removeObjFromRoots(Node * const          value   );
+    void clearRoots        (void                          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    void updateJointMatrices(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,6 +106,7 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
   protected:
 
     // Variables should all be in SkeletonBase.
+    bool _rootsChanged;
     
     typedef std::vector<SkeletonJoint *> JointStack;
     typedef JointStack::iterator         JointStackIt;
@@ -124,9 +138,12 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
     /*! \name                      Update                                  */
     /*! \{                                                                 */
 
-    void            updateJoints   (void                              );
-    Action::ResultE findJointsEnter(JointStack *jointStack, Node *node);
-    Action::ResultE findJointsLeave(JointStack *jointStack, Node *node);
+    void            rootsChanged       (FieldContainer *root,
+                                        BitVector       whichField        );
+
+    void            updateJoints       (void                              );
+    Action::ResultE findJointsEnter    (JointStack *jointStack, Node *node);
+    Action::ResultE findJointsLeave    (JointStack *jointStack, Node *node);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

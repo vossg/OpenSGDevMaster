@@ -68,8 +68,7 @@
 #include "OSGSkeletonFields.h"          // Skeleton type
 #include "OSGMathFields.h"              // BindShapeMatrix type
 #include "OSGSysFields.h"               // JointIds type
-#include "OSGShaderProgramChunkFields.h" // ShaderCode type
-#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
+#include "OSGSkinningAlgorithmFields.h" // SkinningAlgorithm type
 
 #include "OSGSkinnedGeometryFields.h"
 
@@ -102,10 +101,9 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
         JointIdsFieldId = BindShapeMatrixFieldId + 1,
         JointIndexPropertyFieldId = JointIdsFieldId + 1,
         JointWeightPropertyFieldId = JointIndexPropertyFieldId + 1,
-        FlagsFieldId = JointWeightPropertyFieldId + 1,
-        ShaderCodeFieldId = FlagsFieldId + 1,
-        ShaderDataFieldId = ShaderCodeFieldId + 1,
-        NextFieldId = ShaderDataFieldId + 1
+        RenderModeFieldId = JointWeightPropertyFieldId + 1,
+        SkinningAlgorithmFieldId = RenderModeFieldId + 1,
+        NextFieldId = SkinningAlgorithmFieldId + 1
     };
 
     static const OSG::BitVector SkeletonFieldMask =
@@ -118,12 +116,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
         (TypeTraits<BitVector>::One << JointIndexPropertyFieldId);
     static const OSG::BitVector JointWeightPropertyFieldMask =
         (TypeTraits<BitVector>::One << JointWeightPropertyFieldId);
-    static const OSG::BitVector FlagsFieldMask =
-        (TypeTraits<BitVector>::One << FlagsFieldId);
-    static const OSG::BitVector ShaderCodeFieldMask =
-        (TypeTraits<BitVector>::One << ShaderCodeFieldId);
-    static const OSG::BitVector ShaderDataFieldMask =
-        (TypeTraits<BitVector>::One << ShaderDataFieldId);
+    static const OSG::BitVector RenderModeFieldMask =
+        (TypeTraits<BitVector>::One << RenderModeFieldId);
+    static const OSG::BitVector SkinningAlgorithmFieldMask =
+        (TypeTraits<BitVector>::One << SkinningAlgorithmFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -132,9 +128,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     typedef MFInt16           MFJointIdsType;
     typedef SFUInt16          SFJointIndexPropertyType;
     typedef SFUInt16          SFJointWeightPropertyType;
-    typedef SFUInt32          SFFlagsType;
-    typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
-    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
+    typedef SFUInt32          SFRenderModeType;
+    typedef SFUnrecChildSkinningAlgorithmPtr SFSkinningAlgorithmType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -174,8 +169,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
                   SFUInt16            *editSFJointWeightProperty(void);
             const SFUInt16            *getSFJointWeightProperty (void) const;
 
-                  SFUInt32            *editSFFlags          (void);
-            const SFUInt32            *getSFFlags           (void) const;
+                  SFUInt32            *editSFRenderMode     (void);
+            const SFUInt32            *getSFRenderMode      (void) const;
 
 
                   Skeleton * getSkeleton       (void) const;
@@ -192,8 +187,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
                   UInt16              &editJointWeightProperty(void);
                   UInt16               getJointWeightProperty (void) const;
 
-                  UInt32              &editFlags          (void);
-                  UInt32               getFlags           (void) const;
+                  UInt32              &editRenderMode     (void);
+                  UInt32               getRenderMode      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -204,7 +199,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
             void setBindShapeMatrix(const Matrix &value);
             void setJointIndexProperty(const UInt16 value);
             void setJointWeightProperty(const UInt16 value);
-            void setFlags          (const UInt32 value);
+            void setRenderMode     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -274,9 +269,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     MFInt16           _mfJointIds;
     SFUInt16          _sfJointIndexProperty;
     SFUInt16          _sfJointWeightProperty;
-    SFUInt32          _sfFlags;
-    SFUnrecShaderProgramChunkPtr _sfShaderCode;
-    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
+    SFUInt32          _sfRenderMode;
+    SFUnrecChildSkinningAlgorithmPtr _sfSkinningAlgorithm;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -302,6 +296,14 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
@@ -315,35 +317,28 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     EditFieldHandlePtr editHandleJointIndexProperty(void);
     GetFieldHandlePtr  getHandleJointWeightProperty (void) const;
     EditFieldHandlePtr editHandleJointWeightProperty(void);
-    GetFieldHandlePtr  getHandleFlags           (void) const;
-    EditFieldHandlePtr editHandleFlags          (void);
-    GetFieldHandlePtr  getHandleShaderCode      (void) const;
-    EditFieldHandlePtr editHandleShaderCode     (void);
-    GetFieldHandlePtr  getHandleShaderData      (void) const;
-    EditFieldHandlePtr editHandleShaderData     (void);
+    GetFieldHandlePtr  getHandleRenderMode      (void) const;
+    EditFieldHandlePtr editHandleRenderMode     (void);
+    GetFieldHandlePtr  getHandleSkinningAlgorithm (void) const;
+    EditFieldHandlePtr editHandleSkinningAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecShaderProgramChunkPtr *getSFShaderCode      (void) const;
-                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData      (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
+            const SFUnrecChildSkinningAlgorithmPtr *getSFSkinningAlgorithm (void) const;
+                  SFUnrecChildSkinningAlgorithmPtr *editSFSkinningAlgorithm(void);
 
 
-                  ShaderProgramChunk * getShaderCode     (void) const;
-
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
+                  SkinningAlgorithm * getSkinningAlgorithm(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setShaderCode     (ShaderProgramChunk * const value);
-            void setShaderData     (ShaderProgramVariableChunk * const value);
+            void setSkinningAlgorithm(SkinningAlgorithm * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

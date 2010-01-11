@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SkeletonJoint
+ **     class HardwareSkinningAlgorithm
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGSKELETONJOINTBASE_H_
-#define _OSGSKELETONJOINTBASE_H_
+#ifndef _OSGHARDWARESKINNINGALGORITHMBASE_H_
+#define _OSGHARDWARESKINNINGALGORITHMBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,31 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGGroup.h" // Parent
+#include "OSGSkinningAlgorithm.h" // Parent
 
-#include "OSGSkeletonFields.h"          // Skeleton type
-#include "OSGSysFields.h"               // JointId type
-#include "OSGMathFields.h"              // InvBindMatrix type
+#include "OSGShaderProgramChunkFields.h" // ShaderCode type
+#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
 
-#include "OSGSkeletonJointFields.h"
+#include "OSGHardwareSkinningAlgorithmFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class SkeletonJoint;
+class HardwareSkinningAlgorithm;
 
-//! \brief SkeletonJoint Base Class.
+//! \brief HardwareSkinningAlgorithm Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
+class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlgorithm
 {
   public:
 
-    typedef Group Inherited;
-    typedef Group ParentContainer;
+    typedef SkinningAlgorithm Inherited;
+    typedef SkinningAlgorithm ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(SkeletonJoint);
+    OSG_GEN_INTERNALPTR(HardwareSkinningAlgorithm);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,32 +94,20 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     enum
     {
-        SkeletonFieldId = Inherited::NextFieldId,
-        JointIdFieldId = SkeletonFieldId + 1,
-        InvBindMatrixFieldId = JointIdFieldId + 1,
-        MatrixFieldId = InvBindMatrixFieldId + 1,
-        WorldMatrixFieldId = MatrixFieldId + 1,
-        NextFieldId = WorldMatrixFieldId + 1
+        ShaderCodeFieldId = Inherited::NextFieldId,
+        ShaderDataFieldId = ShaderCodeFieldId + 1,
+        NextFieldId = ShaderDataFieldId + 1
     };
 
-    static const OSG::BitVector SkeletonFieldMask =
-        (TypeTraits<BitVector>::One << SkeletonFieldId);
-    static const OSG::BitVector JointIdFieldMask =
-        (TypeTraits<BitVector>::One << JointIdFieldId);
-    static const OSG::BitVector InvBindMatrixFieldMask =
-        (TypeTraits<BitVector>::One << InvBindMatrixFieldId);
-    static const OSG::BitVector MatrixFieldMask =
-        (TypeTraits<BitVector>::One << MatrixFieldId);
-    static const OSG::BitVector WorldMatrixFieldMask =
-        (TypeTraits<BitVector>::One << WorldMatrixFieldId);
+    static const OSG::BitVector ShaderCodeFieldMask =
+        (TypeTraits<BitVector>::One << ShaderCodeFieldId);
+    static const OSG::BitVector ShaderDataFieldMask =
+        (TypeTraits<BitVector>::One << ShaderDataFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentSkeletonPtr SFSkeletonType;
-    typedef SFInt16           SFJointIdType;
-    typedef SFMatrix          SFInvBindMatrixType;
-    typedef SFMatrix          SFMatrixType;
-    typedef SFMatrix          SFWorldMatrixType;
+    typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
+    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,45 +129,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFInt16             *editSFJointId        (void);
-            const SFInt16             *getSFJointId         (void) const;
-
-                  SFMatrix            *editSFInvBindMatrix  (void);
-            const SFMatrix            *getSFInvBindMatrix   (void) const;
-
-                  SFMatrix            *editSFMatrix         (void);
-            const SFMatrix            *getSFMatrix          (void) const;
-
-
-                  Int16               &editJointId        (void);
-                  Int16                getJointId         (void) const;
-
-                  Matrix              &editInvBindMatrix  (void);
-            const Matrix              &getInvBindMatrix   (void) const;
-
-                  Matrix              &editMatrix         (void);
-            const Matrix              &getMatrix          (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setJointId        (const Int16 value);
-            void setInvBindMatrix  (const Matrix &value);
-            void setMatrix         (const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -196,16 +144,16 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkeletonJointTransitPtr  create          (void);
-    static  SkeletonJoint           *createEmpty     (void);
+    static  HardwareSkinningAlgorithmTransitPtr  create          (void);
+    static  HardwareSkinningAlgorithm           *createEmpty     (void);
 
-    static  SkeletonJointTransitPtr  createLocal     (
+    static  HardwareSkinningAlgorithmTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  SkeletonJoint            *createEmptyLocal(
+    static  HardwareSkinningAlgorithm            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  SkeletonJointTransitPtr  createDependent  (BitVector bFlags);
+    static  HardwareSkinningAlgorithmTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,79 +180,63 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentSkeletonPtr _sfSkeleton;
-    SFInt16           _sfJointId;
-    SFMatrix          _sfInvBindMatrix;
-    SFMatrix          _sfMatrix;
-    SFMatrix          _sfWorldMatrix;
+    SFUnrecShaderProgramChunkPtr _sfShaderCode;
+    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SkeletonJointBase(void);
-    SkeletonJointBase(const SkeletonJointBase &source);
+    HardwareSkinningAlgorithmBase(void);
+    HardwareSkinningAlgorithmBase(const HardwareSkinningAlgorithmBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkeletonJointBase(void);
+    virtual ~HardwareSkinningAlgorithmBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
-    /*! \{                                                                 */
-
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
+    void onCreate(const HardwareSkinningAlgorithm *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleJointId         (void) const;
-    EditFieldHandlePtr editHandleJointId        (void);
-    GetFieldHandlePtr  getHandleInvBindMatrix   (void) const;
-    EditFieldHandlePtr editHandleInvBindMatrix  (void);
-    GetFieldHandlePtr  getHandleMatrix          (void) const;
-    EditFieldHandlePtr editHandleMatrix         (void);
-    GetFieldHandlePtr  getHandleWorldMatrix     (void) const;
-    EditFieldHandlePtr editHandleWorldMatrix    (void);
+    GetFieldHandlePtr  getHandleShaderCode      (void) const;
+    EditFieldHandlePtr editHandleShaderCode     (void);
+    GetFieldHandlePtr  getHandleShaderData      (void) const;
+    EditFieldHandlePtr editHandleShaderData     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+            const SFUnrecShaderProgramChunkPtr *getSFShaderCode      (void) const;
+                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
+            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData      (void) const;
+                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
 
-                  SFMatrix            *editSFWorldMatrix    (void);
-            const SFMatrix            *getSFWorldMatrix     (void) const;
 
+                  ShaderProgramChunk * getShaderCode     (void) const;
 
-                  Matrix              &editWorldMatrix    (void);
-            const Matrix              &getWorldMatrix     (void) const;
+                  ShaderProgramVariableChunk * getShaderData     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWorldMatrix    (const Matrix &value);
+            void setShaderCode     (ShaderProgramChunk * const value);
+            void setShaderData     (ShaderProgramVariableChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -323,7 +255,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      SkeletonJointBase *pFrom,
+            void execSync (      HardwareSkinningAlgorithmBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -363,11 +295,11 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SkeletonJointBase &source);
+    void operator =(const HardwareSkinningAlgorithmBase &source);
 };
 
-typedef SkeletonJointBase *SkeletonJointBaseP;
+typedef HardwareSkinningAlgorithmBase *HardwareSkinningAlgorithmBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGSKELETONJOINTBASE_H_ */
+#endif /* _OSGHARDWARESKINNINGALGORITHMBASE_H_ */

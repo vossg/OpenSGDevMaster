@@ -43,18 +43,18 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
-#include "OSGSkinnedGeometry.h"
-#include "OSGHardwareSkinningAlgorithm.h"
+#include <OSGConfig.h>
+
 #include "OSGSkeletonSkinningAlgorithm.h"
+#include "OSGPrimeMaterial.h"
 
 #include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGSkinnedGeometryBase.cpp file.
-// To modify it, please change the .fcd file (OSGSkinnedGeometry.fcd) and
+// OSGSkeletonSkinningAlgorithmBase.cpp file.
+// To modify it, please change the .fcd file (OSGSkeletonSkinningAlgorithm.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -65,18 +65,12 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void SkinnedGeometry::initMethod(InitPhase ePhase)
+void SkeletonSkinningAlgorithm::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            SkinnedGeometry::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderEnter));
-        RenderAction::registerLeaveDefault(
-            SkinnedGeometry::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderLeave));
     }
 }
 
@@ -91,156 +85,128 @@ void SkinnedGeometry::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-SkinnedGeometry::SkinnedGeometry(void) :
+SkeletonSkinningAlgorithm::SkeletonSkinningAlgorithm(void) :
     Inherited()
 {
 }
 
-SkinnedGeometry::SkinnedGeometry(const SkinnedGeometry &source) :
+SkeletonSkinningAlgorithm::SkeletonSkinningAlgorithm(const SkeletonSkinningAlgorithm &source) :
     Inherited(source)
 {
 }
 
-SkinnedGeometry::~SkinnedGeometry(void)
+SkeletonSkinningAlgorithm::~SkeletonSkinningAlgorithm(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void SkinnedGeometry::changed(ConstFieldMaskArg whichField, 
-                              UInt32            origin,
-                              BitVector         details)
+void
+SkeletonSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    if((RenderModeFieldMask & whichField) != 0)
+    SkinnedGeometry *skinGeo = getParent();
+    Skeleton        *skel    = skinGeo->getSkeleton();
+
+    skel->adjustVolume(volume);
+}
+
+ActionBase::ResultE
+SkeletonSkinningAlgorithm::renderEnter(Action *action)
+{
+    Action::ResultE  res  = Action::Continue;
+    RenderAction    *ract =
+        boost::polymorphic_downcast<RenderAction *>(action);
+
+    const SkinnedGeometry *skinGeo = getParent();
+    const Skeleton        *skel    = skinGeo->getSkeleton();
+
+    const Skeleton::MFJointsType        *joints       = skel->getMFJoints();
+    const Skeleton::MFParentJointsType  *parentJoints =
+        skel->getMFParentJoints();
+    const Skeleton::MFJointMatricesType *jointMats    =
+        skel->getMFJointMatrices();
+
+    Real32 axisLen   = 1.f;
+    UInt32 numJoints = joints->size();
+    
+    _mfDrawPositions.resize(4 * numJoints);
+    _mfDrawIndex    .clear (             );
+
+    for(UInt32 i = 0; i < numJoints; ++i)
     {
-        switch(_sfRenderMode.getValue())
-        {
-        case RMUnskinned:
-            break;
+        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f), _mfDrawPositions[4 * i + 0]);
 
-        case RMSkeleton:
+        if((*parentJoints)[i] != NULL)
         {
-            SkeletonSkinningAlgorithmUnrecPtr algo =
-                SkeletonSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
+            _mfDrawIndex.push_back(4 * i                                + 0);
+            _mfDrawIndex.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
 
-            if(_sfSkeleton.getValue() != NULL)
-                _sfSkeleton.getValue()->setUseInvBindMatrix(false);
+            Vec3f vec = _mfDrawPositions[4 * i                                + 0] -
+                        _mfDrawPositions[4 * (*parentJoints)[i]->getJointId() + 0];
+
+            axisLen = 0.2f * vec.length();
         }
-        break;
-
-        case RMSkinnedHardware:
+        else
         {
-            HardwareSkinningAlgorithmUnrecPtr algo =
-                HardwareSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
-                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
-        }
-        break;
-
-        case RMSkinnedSoftware:
-        {
-        }
-        break;
+            axisLen = 1.f;
         }
 
-        invalidateVolume();
+        (*jointMats)[i].mult(
+            Pnt3f(axisLen, 0.f,     0.f    ), _mfDrawPositions[4 * i + 1]);
+        (*jointMats)[i].mult(
+            Pnt3f(0.f,     axisLen, 0.f    ), _mfDrawPositions[4 * i + 2]);
+        (*jointMats)[i].mult(
+            Pnt3f(0.f,     0.f,     axisLen), _mfDrawPositions[4 * i + 3]);
+
+//         _mfDrawIndex.push_back(4 * i + 0);
+//         _mfDrawIndex.push_back(4 * i + 1);
+//         _mfDrawIndex.push_back(4 * i + 0);
+//         _mfDrawIndex.push_back(4 * i + 2);
+//         _mfDrawIndex.push_back(4 * i + 0);
+//         _mfDrawIndex.push_back(4 * i + 3);
     }
 
+    Material::DrawFunctor  drawFunc =
+        boost::bind(&SkeletonSkinningAlgorithm::drawFunc, this, _1);
+    PrimeMaterial         *skelMat  = getDefaultUnlitMaterial();
+    State                 *state    = skelMat->getState      ();
+
+    ract->dropFunctor(drawFunc, state, skelMat->getSortKey());
+
+    return res;
+}
+
+ActionBase::ResultE
+SkeletonSkinningAlgorithm::renderLeave(Action *action)
+{
+    return Action::Continue;
+}
+
+ActionBase::ResultE
+SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
+{
+    glEnableClientState(GL_VERTEX_ARRAY);
+    {
+        glVertexPointer(3, GL_FLOAT, 0, &(_mfDrawPositions.front()));
+        glDrawElements (GL_LINES, _mfDrawIndex.size(), GL_UNSIGNED_INT,
+                        &(_mfDrawIndex.front()));
+    }
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    return Action::Continue;
+}
+
+void SkeletonSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
     Inherited::changed(whichField, origin, details);
 }
 
-Action::ResultE
-SkinnedGeometry::renderEnter(Action *action)
-{
-    if(_sfSkeleton.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderEnter: No skeleton." << std::endl;
-
-        return Action::Continue;
-    }
-
-    if(_sfSkinningAlgorithm.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderEnter: No SkinningAlgorithm."
-                 << std::endl;
-        return Action::Continue;
-    }
-
-    _sfSkeleton.getValue()->updateJointMatrices();
-
-    return _sfSkinningAlgorithm.getValue()->renderEnter(action);
-}
-
-Action::ResultE
-SkinnedGeometry::renderLeave(Action *action)
-{
-    if(_sfSkeleton.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderLeave: No skeleton." << std::endl;
-
-        return Action::Continue;
-    }
-
-    if(_sfSkinningAlgorithm.getValue() == NULL)
-    {
-        SWARNING << "SkinnedGeometry::renderLeave: No SkinningAlgorithm."
-                 << std::endl;
-        return Action::Continue;
-    }
-
-    return _sfSkinningAlgorithm.getValue()->renderLeave(action);
-}
-
-void
-SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
-{
-    Inherited::fill(drawStats);
-}
-
-void SkinnedGeometry::adjustVolume(Volume &volume)
-{
-    if(_sfSkeleton         .getValue() != NULL  &&
-       _sfSkinningAlgorithm.getValue() != NULL    )
-    {
-        _sfSkeleton         .getValue()->updateJointMatrices();
-        _sfSkinningAlgorithm.getValue()->adjustVolume(volume);
-    }
-    else
-    {
-        Inherited::adjustVolume(volume                       );
-        volume.transform       (_sfBindShapeMatrix.getValue());
-
-        SLOG << "SkinnedGeometry::adjustVolume: Using Mesh vol "
-             << std::endl;
-    }
-}
-
-void SkinnedGeometry::dump(      UInt32    ,
+void SkeletonSkinningAlgorithm::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump SkinnedGeometry NI" << std::endl;
-}
-
-Action::ResultE
-SkinnedGeometry::renderDebug(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderHardware(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderSoftware(RenderAction *ract)
-{
-    SWARNING << "SkinnedGeometry::renderSoftware: NIY"
-             << std::endl;
+    SLOG << "Dump SkeletonSkinningAlgorithm NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SkeletonJoint
+ **     class SkinningAlgorithm
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGSKELETONJOINTBASE_H_
-#define _OSGSKELETONJOINTBASE_H_
+#ifndef _OSGSKINNINGALGORITHMBASE_H_
+#define _OSGSKINNINGALGORITHMBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,31 +63,29 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGGroup.h" // Parent
+#include "OSGAlgorithm.h" // Parent
 
-#include "OSGSkeletonFields.h"          // Skeleton type
-#include "OSGSysFields.h"               // JointId type
-#include "OSGMathFields.h"              // InvBindMatrix type
+#include "OSGSkinnedGeometryFields.h"   // Parent type
 
-#include "OSGSkeletonJointFields.h"
+#include "OSGSkinningAlgorithmFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class SkeletonJoint;
+class SkinningAlgorithm;
 
-//! \brief SkeletonJoint Base Class.
+//! \brief SkinningAlgorithm Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
+class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
 {
   public:
 
-    typedef Group Inherited;
-    typedef Group ParentContainer;
+    typedef Algorithm Inherited;
+    typedef Algorithm ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(SkeletonJoint);
+    OSG_GEN_INTERNALPTR(SkinningAlgorithm);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,32 +93,16 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     enum
     {
-        SkeletonFieldId = Inherited::NextFieldId,
-        JointIdFieldId = SkeletonFieldId + 1,
-        InvBindMatrixFieldId = JointIdFieldId + 1,
-        MatrixFieldId = InvBindMatrixFieldId + 1,
-        WorldMatrixFieldId = MatrixFieldId + 1,
-        NextFieldId = WorldMatrixFieldId + 1
+        ParentFieldId = Inherited::NextFieldId,
+        NextFieldId = ParentFieldId + 1
     };
 
-    static const OSG::BitVector SkeletonFieldMask =
-        (TypeTraits<BitVector>::One << SkeletonFieldId);
-    static const OSG::BitVector JointIdFieldMask =
-        (TypeTraits<BitVector>::One << JointIdFieldId);
-    static const OSG::BitVector InvBindMatrixFieldMask =
-        (TypeTraits<BitVector>::One << InvBindMatrixFieldId);
-    static const OSG::BitVector MatrixFieldMask =
-        (TypeTraits<BitVector>::One << MatrixFieldId);
-    static const OSG::BitVector WorldMatrixFieldMask =
-        (TypeTraits<BitVector>::One << WorldMatrixFieldId);
+    static const OSG::BitVector ParentFieldMask =
+        (TypeTraits<BitVector>::One << ParentFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentSkeletonPtr SFSkeletonType;
-    typedef SFInt16           SFJointIdType;
-    typedef SFMatrix          SFInvBindMatrixType;
-    typedef SFMatrix          SFMatrixType;
-    typedef SFMatrix          SFWorldMatrixType;
+    typedef SFParentSkinnedGeometryPtr SFParentType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,45 +124,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFInt16             *editSFJointId        (void);
-            const SFInt16             *getSFJointId         (void) const;
-
-                  SFMatrix            *editSFInvBindMatrix  (void);
-            const SFMatrix            *getSFInvBindMatrix   (void) const;
-
-                  SFMatrix            *editSFMatrix         (void);
-            const SFMatrix            *getSFMatrix          (void) const;
-
-
-                  Int16               &editJointId        (void);
-                  Int16                getJointId         (void) const;
-
-                  Matrix              &editInvBindMatrix  (void);
-            const Matrix              &getInvBindMatrix   (void) const;
-
-                  Matrix              &editMatrix         (void);
-            const Matrix              &getMatrix          (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setJointId        (const Int16 value);
-            void setInvBindMatrix  (const Matrix &value);
-            void setMatrix         (const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -190,33 +133,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    static  SkeletonJointTransitPtr  create          (void);
-    static  SkeletonJoint           *createEmpty     (void);
-
-    static  SkeletonJointTransitPtr  createLocal     (
-                                               BitVector bFlags = FCLocal::All);
-
-    static  SkeletonJoint            *createEmptyLocal(
-                                              BitVector bFlags = FCLocal::All);
-
-    static  SkeletonJointTransitPtr  createDependent  (BitVector bFlags);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Copy                                   */
-    /*! \{                                                                 */
-
-    virtual FieldContainerTransitPtr shallowCopy     (void) const;
-    virtual FieldContainerTransitPtr shallowCopyLocal(
-                                       BitVector bFlags = FCLocal::All) const;
-    virtual FieldContainerTransitPtr shallowCopyDependent(
-                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -232,26 +148,22 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentSkeletonPtr _sfSkeleton;
-    SFInt16           _sfJointId;
-    SFMatrix          _sfInvBindMatrix;
-    SFMatrix          _sfMatrix;
-    SFMatrix          _sfWorldMatrix;
+    SFParentSkinnedGeometryPtr _sfParent;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SkeletonJointBase(void);
-    SkeletonJointBase(const SkeletonJointBase &source);
+    SkinningAlgorithmBase(void);
+    SkinningAlgorithmBase(const SkinningAlgorithmBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkeletonJointBase(void);
+    virtual ~SkinningAlgorithmBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,41 +187,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleJointId         (void) const;
-    EditFieldHandlePtr editHandleJointId        (void);
-    GetFieldHandlePtr  getHandleInvBindMatrix   (void) const;
-    EditFieldHandlePtr editHandleInvBindMatrix  (void);
-    GetFieldHandlePtr  getHandleMatrix          (void) const;
-    EditFieldHandlePtr editHandleMatrix         (void);
-    GetFieldHandlePtr  getHandleWorldMatrix     (void) const;
-    EditFieldHandlePtr editHandleWorldMatrix    (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFMatrix            *editSFWorldMatrix    (void);
-            const SFMatrix            *getSFWorldMatrix     (void) const;
-
-
-                  Matrix              &editWorldMatrix    (void);
-            const Matrix              &getWorldMatrix     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setWorldMatrix    (const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleParent          (void) const;
+    EditFieldHandlePtr editHandleParent         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -323,7 +202,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      SkeletonJointBase *pFrom,
+            void execSync (      SkinningAlgorithmBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -339,11 +218,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(
-                                    const FieldContainer *pRefAspect) const;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -363,11 +237,11 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SkeletonJointBase &source);
+    void operator =(const SkinningAlgorithmBase &source);
 };
 
-typedef SkeletonJointBase *SkeletonJointBaseP;
+typedef SkinningAlgorithmBase *SkinningAlgorithmBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGSKELETONJOINTBASE_H_ */
+#endif /* _OSGSKINNINGALGORITHMBASE_H_ */

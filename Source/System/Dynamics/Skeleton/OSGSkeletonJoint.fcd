@@ -60,4 +60,15 @@
      >
     Transformation matrix of this joint.
   </Field>
+
+  <Field
+     name="worldMatrix"
+     type="Matrix"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     >
+    World transformation matrix of this joint.
+  </Field>
 </FieldContainer>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="HardwareSkinningAlgorithm"
+   parent="SkinningAlgorithm"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="none"
+   parentFields="none"
+>
+  <Field
+     name="shaderCode"
+     type="ShaderProgramChunk"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     defaultValue="NULL"
+     >
+  </Field>
+
+  <Field
+     name="shaderData"
+     type="ShaderProgramVariableChunk"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     defaultValue="NULL"
+     >
+  </Field>
+
+</FieldContainer>

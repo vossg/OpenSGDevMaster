@@ -43,10 +43,10 @@
 #endif
 
 #include "OSGSkinnedGeometryBase.h"
+
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
-#include "OSGShaderProgramChunk.h"
-#include "OSGShaderProgramVariableChunk.h"
+#include "OSGSkinningAlgorithm.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
@@ -66,11 +66,12 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     typedef SkinnedGeometryBase Inherited;
     typedef SkinnedGeometry     Self;
 
-    enum SkinnedGeoFlagsE
+    enum RenderModeE
     {
-        SGFlagHardware  = 0x0001,
-        SGFlagDebug     = 0x0002,
-        SGFlagUnskinned = 0x0004
+        RMUnskinned,
+        RMSkeleton,
+        RMSkinnedHardware,
+        RMSkinnedSoftware
     };
 
     /*---------------------------------------------------------------------*/
@@ -80,15 +81,6 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Flags                                   */
-    /*! \{                                                                 */
-
-    void addFlag (SkinnedGeoFlagsE flag);
-    void subFlag (SkinnedGeoFlagsE flag);
-    bool testFlag(SkinnedGeoFlagsE flag);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,14 +113,6 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
     // Variables should all be in SkinnedGeometryBase.
 
-    typedef std::vector<Pnt3f > PositionStore;
-    typedef std::vector<UInt32> IndexStore;
-
-    static const std::string _vpVertexSkinning;
-
-    PositionStore _debugDrawPos;
-    IndexStore    _debugDrawIdx;
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -158,8 +142,6 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     Action::ResultE renderDebug   (RenderAction *ract);
     Action::ResultE renderHardware(RenderAction *ract);
     Action::ResultE renderSoftware(RenderAction *ract);
-
-    Action::ResultE drawDebug     (DrawEnv      *drawEnv);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

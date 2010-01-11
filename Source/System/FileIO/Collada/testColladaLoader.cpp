@@ -414,6 +414,8 @@ void toggleAnim(OSG::UInt32 index, bool loop)
 // redraw the window
 void display(void)
 {
+    std::cout << ">> FRAME START" << std::endl;
+
     static OSG::Time   tAcc = 0;
     static OSG::UInt32 fc   = 0;
 
@@ -423,7 +425,7 @@ void display(void)
 
     OSG::commitChangesAndClear();
 
-    ua->apply(rootN);
+    //    ua->apply(rootN);
 
     mgr->idle();
     mgr->redraw();
@@ -442,6 +444,8 @@ void display(void)
         tAcc = 0;
         fc   = 0;
     }
+
+    std::cout << "<< FRAME END" << std::endl;
 
 //     mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
 //     mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
@@ -640,35 +644,29 @@ void keyboard(unsigned char k, int , int )
             OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
                 (*nIt)->getCore());
 
-            if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagHardware))
+            if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedHardware)
             {
-                std::cout << "Enabling SkinnedGeo DEBUG mode ["
+                std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
                           << sgeo << "]" << std::endl;
 
-                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagHardware);
-                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagDebug   );
-
-                sgeo->setMaterial(skinnedGeoMat[i]);
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
+                sgeo->setMaterial  (skinnedGeoMat[i]                 );
             }
-            else if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagDebug))
+            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMUnskinned)
             {
-               std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
-                         << sgeo << "]" << std::endl;
+                std::cout << "Enabling SkinnedGeo SKELETON mode ["
+                          << sgeo << "]" << std::endl;
 
-               sgeo->subFlag(OSG::SkinnedGeometry::SGFlagDebug    );
-               sgeo->addFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
-
-               sgeo->setMaterial(skinnedGeoMat[i]);
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkeleton);
+                sgeo->setMaterial  (skinnedGeoMat[i]                );
             }
-            else
+            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkeleton)
             {
                 std::cout << "Enabling SkinnedGeo HARDWARE mode ["
                           << sgeo << "]" << std::endl;
 
-                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
-                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagHardware );
-
-                sgeo->setMaterial(matSkin);
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedHardware);
+                sgeo->setMaterial  (matSkin                                );
             }
         }
     }

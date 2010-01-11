@@ -11,6 +11,8 @@
 #include "OSGSkinnedGeometry.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
+#include "OSGShaderProgram.h"
+#include "OSGShaderProgramChunk.h"
 
 #if 0
 #include "OSGAnimation.h"
@@ -216,7 +218,7 @@ void buildScene(void)
     // construct skeleton
     SkeletonUnrecPtr skel = Skeleton::create();
 
-    skel->editMFRoots()->push_back(jointC0N);
+    skel->pushToRoots(jointC0N);
 
     // construct skinned geometry
     SkinnedGeometryUnrecPtr skin = SkinnedGeometry::create();
@@ -296,8 +298,8 @@ void buildScene(void)
     skin->setJointIndexProperty (SkinnedGeometry::TexCoordsIndex );
     skin->setJointWeightProperty(SkinnedGeometry::TexCoords1Index);
 
-    //skin->addFlag(SkinnedGeometry::SGFlagDebug);
-    skin->addFlag(SkinnedGeometry::SGFlagHardware);
+//     skin->setRenderMode(SkinnedGeometry::RMSkeleton       );
+    skin->setRenderMode(SkinnedGeometry::RMSkinnedHardware);
     
     ShaderProgramUnrecPtr vp = ShaderProgram::createVertexShader();
     vp->setProgram(vpCode);
@@ -320,6 +322,8 @@ void buildScene(void)
 
 void display(void)
 {
+    commitChanges();
+
     mgr->redraw();
 }
 
@@ -486,7 +490,7 @@ int setupGLUT(int *argc, char *argv[])
     
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    // glutIdleFunc(idle);
+    glutIdleFunc(idle);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);

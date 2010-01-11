@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SkeletonJoint!
+ **     class SkinningAlgorithm!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,131 +53,31 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &SkeletonJointBase::getClassType(void)
+OSG::FieldContainerType &SkinningAlgorithmBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SkeletonJointBase::getClassTypeId(void)
+OSG::UInt32 SkinningAlgorithmBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 SkeletonJointBase::getClassGroupId(void)
+OSG::UInt16 SkinningAlgorithmBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the SkeletonJoint::_sfJointId field.
-
-inline
-Int16 &SkeletonJointBase::editJointId(void)
-{
-    editSField(JointIdFieldMask);
-
-    return _sfJointId.getValue();
-}
-
-//! Get the value of the SkeletonJoint::_sfJointId field.
-inline
-      Int16  SkeletonJointBase::getJointId(void) const
-{
-    return _sfJointId.getValue();
-}
-
-//! Set the value of the SkeletonJoint::_sfJointId field.
-inline
-void SkeletonJointBase::setJointId(const Int16 value)
-{
-    editSField(JointIdFieldMask);
-
-    _sfJointId.setValue(value);
-}
-//! Get the value of the SkeletonJoint::_sfInvBindMatrix field.
-
-inline
-Matrix &SkeletonJointBase::editInvBindMatrix(void)
-{
-    editSField(InvBindMatrixFieldMask);
-
-    return _sfInvBindMatrix.getValue();
-}
-
-//! Get the value of the SkeletonJoint::_sfInvBindMatrix field.
-inline
-const Matrix &SkeletonJointBase::getInvBindMatrix(void) const
-{
-    return _sfInvBindMatrix.getValue();
-}
-
-//! Set the value of the SkeletonJoint::_sfInvBindMatrix field.
-inline
-void SkeletonJointBase::setInvBindMatrix(const Matrix &value)
-{
-    editSField(InvBindMatrixFieldMask);
-
-    _sfInvBindMatrix.setValue(value);
-}
-//! Get the value of the SkeletonJoint::_sfMatrix field.
-
-inline
-Matrix &SkeletonJointBase::editMatrix(void)
-{
-    editSField(MatrixFieldMask);
-
-    return _sfMatrix.getValue();
-}
-
-//! Get the value of the SkeletonJoint::_sfMatrix field.
-inline
-const Matrix &SkeletonJointBase::getMatrix(void) const
-{
-    return _sfMatrix.getValue();
-}
-
-//! Set the value of the SkeletonJoint::_sfMatrix field.
-inline
-void SkeletonJointBase::setMatrix(const Matrix &value)
-{
-    editSField(MatrixFieldMask);
-
-    _sfMatrix.setValue(value);
-}
-//! Get the value of the SkeletonJoint::_sfWorldMatrix field.
-
-inline
-Matrix &SkeletonJointBase::editWorldMatrix(void)
-{
-    editSField(WorldMatrixFieldMask);
-
-    return _sfWorldMatrix.getValue();
-}
-
-//! Get the value of the SkeletonJoint::_sfWorldMatrix field.
-inline
-const Matrix &SkeletonJointBase::getWorldMatrix(void) const
-{
-    return _sfWorldMatrix.getValue();
-}
-
-//! Set the value of the SkeletonJoint::_sfWorldMatrix field.
-inline
-void SkeletonJointBase::setWorldMatrix(const Matrix &value)
-{
-    editSField(WorldMatrixFieldMask);
-
-    _sfWorldMatrix.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void SkeletonJointBase::execSync (      SkeletonJointBase *pFrom,
+void SkinningAlgorithmBase::execSync (      SkinningAlgorithmBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -185,30 +85,18 @@ void SkeletonJointBase::execSync (      SkeletonJointBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
-        _sfSkeleton.syncWith(pFrom->_sfSkeleton);
-
-    if(FieldBits::NoField != (JointIdFieldMask & whichField))
-        _sfJointId.syncWith(pFrom->_sfJointId);
-
-    if(FieldBits::NoField != (InvBindMatrixFieldMask & whichField))
-        _sfInvBindMatrix.syncWith(pFrom->_sfInvBindMatrix);
-
-    if(FieldBits::NoField != (MatrixFieldMask & whichField))
-        _sfMatrix.syncWith(pFrom->_sfMatrix);
-
-    if(FieldBits::NoField != (WorldMatrixFieldMask & whichField))
-        _sfWorldMatrix.syncWith(pFrom->_sfWorldMatrix);
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+        _sfParent.syncWith(pFrom->_sfParent);
 }
 #endif
 
 
 inline
-const Char8 *SkeletonJointBase::getClassname(void)
+const Char8 *SkinningAlgorithmBase::getClassname(void)
 {
-    return "SkeletonJoint";
+    return "SkinningAlgorithm";
 }
-OSG_GEN_CONTAINERPTR(SkeletonJoint);
+OSG_GEN_CONTAINERPTR(SkinningAlgorithm);
 
 OSG_END_NAMESPACE
 
