@@ -218,8 +218,6 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
     (*mfJoints      )[jointId] = joint;
     (*mfParentJoints)[jointId] = parentJoint;
 
-    SLOG << "Skeleton::findJointsEnter: found joint [" << jointId << "]" << std::endl;
-
     jointStack->push_back(joint);
 
     return Action::Continue;
