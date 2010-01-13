@@ -146,9 +146,6 @@ ColladaController::createInstance(
 
         // create new geometry
         SkinnedGeometryUnrecPtr geo = SkinnedGeometry::create();
-        geo->setSkeleton       (_skeleton                         );
-        geo->setBindShapeMatrix(_matBindShape                     );
-        geo->setRenderMode     (SkinnedGeometry::RMSkinnedHardware);
 
         getGlobal()->getStatCollector()->getElem(
             ColladaGlobal::statNGeometryCreated)->inc();
@@ -157,6 +154,10 @@ ColladaController::createInstance(
         geo->setTypes  (gsIt->_types  );
 
         Inherited::handleBindMaterial(*gsIt, geo, colInstCtrl);
+
+        geo->setSkeleton       (_skeleton                         );
+        geo->setBindShapeMatrix(_matBindShape                     );
+        geo->setRenderMode     (SkinnedGeometry::RMSkinnedHardware);
 
         NodeUnrecPtr geoN = makeNodeFor(geo);
 
