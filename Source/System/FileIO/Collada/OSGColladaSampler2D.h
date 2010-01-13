@@ -73,7 +73,6 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
     /*! \{                                                                 */
-
     static ColladaElementTransitPtr
         create(daeElement *elem, ColladaGlobal *global);
 

@@ -82,11 +82,10 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void
-      read          (ColladaElement         *colElemParent ) = 0;
+    virtual void read (ColladaElement         *colElemParent ) = 0;
     virtual FieldContainer *
-      createInstance(ColladaElement         *colInstParent,
-                     ColladaInstanceElement *colInst       ) = 0;
+        createInstance(ColladaElement         *colInstParent,
+                       ColladaInstanceElement *colInst       ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

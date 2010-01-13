@@ -55,7 +55,6 @@
 #include "OSGNode.h"
 #include "OSGColladaElement.h"
 #include "OSGColladaOptions.h"
-#include "OSGColladaInstInfo.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
 #include "OSGGlobalsAttachment.h"
@@ -69,6 +68,11 @@
 #include <vector>
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class ColladaInstInfo;
+OSG_GEN_MEMOBJPTR(ColladaInstInfo);
+
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
@@ -135,7 +139,6 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
 
     inline const DAE          *getDAE       (void                      ) const;
     inline DAE                *editDAE      (void                      );
-
     inline domCOLLADA         *getDocRoot   (void                      ) const;
 
     inline const std::string  &getDocPath   (void                      ) const;

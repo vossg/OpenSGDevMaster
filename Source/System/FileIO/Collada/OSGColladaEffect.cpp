@@ -951,7 +951,6 @@ ColladaEffect::handleProfileCommonSpecular(
 {
     if(specular == NULL)
         return;
-
     domCommon_color_or_texture_type::domColorRef   color;
     domCommon_color_or_texture_type::domParamRef   param;
     domCommon_color_or_texture_type::domTextureRef texture;

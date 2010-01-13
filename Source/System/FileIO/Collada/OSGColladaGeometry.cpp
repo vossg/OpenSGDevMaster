@@ -238,7 +238,6 @@ ColladaGeometry::readMesh(domMesh *mesh)
     {
         readPolygons(mesh, polygonsArray[i]);
     }
-
     const domPolylist_Array &polyListArray = mesh->getPolylist_array();
 
     for(UInt32 i = 0; i < polyListArray.getCount(); ++i)
@@ -1159,8 +1158,7 @@ ColladaGeometry::handleBindMaterial(
                              << "]." << std::endl;
                 }
             }
-
-            if(bvi != NULL)
+            else if(bvi != NULL)
             {
                 if(colInstEffect->findTC(bvi->semantic, mappedProp) == true)
                 {
@@ -1173,7 +1171,6 @@ ColladaGeometry::handleBindMaterial(
 
                     geo->setProperty( psIt->_prop, mappedProp);
                     geo->setIndex   (*isIt,        mappedProp);
-
                     handledProperty = true;
                 }
                 else
@@ -1276,7 +1273,6 @@ ColladaGeometry::findBindVertex(
 
     return retVal;
 }
-
 UInt16
 ColladaGeometry::findFreePropertyIndex(UInt32 geoIdx)
 {

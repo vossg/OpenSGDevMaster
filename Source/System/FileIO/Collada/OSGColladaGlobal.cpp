@@ -46,6 +46,7 @@
 
 #include "OSGColladaLog.h"
 #include "OSGColladaCOLLADA.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGColladaElementFactory.h"
 #include "OSGColladaOptions.h"
 
