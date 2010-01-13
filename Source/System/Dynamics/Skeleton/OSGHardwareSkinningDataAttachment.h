@@ -36,26 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSKINNEDGEOMETRY_H_
-#define _OSGSKINNEDGEOMETRY_H_
+#ifndef _OSGHARDWARESKINNINGDATAATTACHMENT_H_
+#define _OSGHARDWARESKINNINGDATAATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSkinnedGeometryBase.h"
-
-#include "OSGSkeleton.h"
-#include "OSGSkeletonJoint.h"
-#include "OSGSkinningAlgorithm.h"
-#include "OSGRenderAction.h"
+#include "OSGHardwareSkinningDataAttachmentBase.h"
+#include "OSGShaderProgramChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief SkinnedGeometry class. See \ref
-           PageDynamicsSkinnedGeometry for a description.
+/*! \brief HardwareSkinningDataAttachment class. See \ref
+           PageDynamicsHardwareSkinningDataAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
+class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachment : public HardwareSkinningDataAttachmentBase
 {
   protected:
 
@@ -63,16 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
   public:
 
-    typedef SkinnedGeometryBase Inherited;
-    typedef SkinnedGeometry     Self;
-
-    enum RenderModeE
-    {
-        RMUnskinned,
-        RMSkeleton,
-        RMSkinnedHardware,
-        RMSkinnedSoftware
-    };
+    typedef HardwareSkinningDataAttachmentBase Inherited;
+    typedef HardwareSkinningDataAttachment     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -81,30 +69,6 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Bind Shape Matrix                            */
-    /*! \{                                                                 */
-
-    const Matrix &getBindShapeMatrix(void               ) const;
-    void          setBindShapeMatrix(const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Render                                   */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter(Action *action);
-    Action::ResultE renderLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Drawable Specifics                           */
-    /*! \{                                                                 */
-
-    virtual void fill        (DrawableStatsAttachment *drawStats);
-    virtual void adjustVolume(Volume                  &volume   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,21 +83,21 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
   protected:
 
-    // Variables should all be in SkinnedGeometryBase.
+    // Variables should all be in HardwareSkinningDataAttachmentBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    SkinnedGeometry(void);
-    SkinnedGeometry(const SkinnedGeometry &source);
+    HardwareSkinningDataAttachment(void);
+    HardwareSkinningDataAttachment(const HardwareSkinningDataAttachment &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkinnedGeometry(void);
+    virtual ~HardwareSkinningDataAttachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,30 +107,25 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Helper                                   */
-    /*! \{                                                                 */
-
-    template <class ElemTypeT>
-    void transformProperty(GeoVectorProperty *prop, const Matrix &matrix);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class SkinnedGeometryBase;
+    friend class HardwareSkinningDataAttachmentBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SkinnedGeometry &source);
+    void operator =(const HardwareSkinningDataAttachment &source);
 };
 
-typedef SkinnedGeometry *SkinnedGeometryP;
+typedef HardwareSkinningDataAttachment *HardwareSkinningDataAttachmentP;
+
+HardwareSkinningDataAttachment *
+getHardwareSkinningData(AttachmentContainer *attCon);
 
 OSG_END_NAMESPACE
 
-#include "OSGSkinnedGeometryBase.inl"
-#include "OSGSkinnedGeometry.inl"
+#include "OSGHardwareSkinningDataAttachmentBase.inl"
+#include "OSGHardwareSkinningDataAttachment.inl"
 
-#endif /* _OSGSKINNEDGEOMETRY_H_ */
+#endif /* _OSGHARDWARESKINNINGDATAATTACHMENT_H_ */

@@ -4,6 +4,8 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -38,23 +40,90 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#include <cstdlib>
+#include <cstdio>
+
+#include <OSGConfig.h>
+
+#include "OSGHardwareSkinningDataAttachment.h"
+
 OSG_BEGIN_NAMESPACE
 
-template <class ElemTypeT>
-void
-SkinnedGeometry::transformProperty(
-    GeoVectorProperty *prop, const Matrix &matrix)
+// Documentation for this class is emitted in the
+// OSGHardwareSkinningDataAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGHardwareSkinningDataAttachment.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void HardwareSkinningDataAttachment::initMethod(InitPhase ePhase)
 {
-    UInt32 propSize = prop->size();
+    Inherited::initMethod(ePhase);
 
-    for(UInt32 i = 0; i < propSize; ++i)
+    if(ePhase == TypeObject::SystemPost)
     {
-        ElemTypeT value = prop->getValue<ElemTypeT>(i);
-
-        matrix.mult(value, value);
-
-        prop->setValue(value, i);
     }
+}
+
+
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+HardwareSkinningDataAttachment::HardwareSkinningDataAttachment(void) :
+    Inherited()
+{
+}
+
+HardwareSkinningDataAttachment::HardwareSkinningDataAttachment(const HardwareSkinningDataAttachment &source) :
+    Inherited(source)
+{
+}
+
+HardwareSkinningDataAttachment::~HardwareSkinningDataAttachment(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void HardwareSkinningDataAttachment::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void HardwareSkinningDataAttachment::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump HardwareSkinningDataAttachment NI" << std::endl;
+}
+
+HardwareSkinningDataAttachment *
+getHardwareSkinningData(AttachmentContainer *attCon)
+{
+    HardwareSkinningDataAttachment *retVal = NULL;
+
+    if(attCon != NULL)
+    {
+        retVal = dynamic_cast<HardwareSkinningDataAttachment *>(
+            attCon->findAttachment(
+                HardwareSkinningDataAttachment::getClassType()));
+    }
+
+    return retVal;
 }
 
 OSG_END_NAMESPACE

@@ -1,36 +1,36 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="SkinningAlgorithm"
-   parent="Algorithm"
+   name="HardwareSkinningDataAttachment"
+   parent="Attachment"
    library="Dynamics"
    pointerfieldtypes="both"
-   structure="abstract"
+   structure="concrete"
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
-   childFields="both"
+   childFields="none"
    parentFields="none"
 >
   <Field
-     name="parent"
-     type="SkinnedGeometry"
-     category="parentpointer"
-     cardinality="single"
-     visibility="external"
-     access="none"
-     defaultValue="NULL"
-     >
-  </Field>
-
-  <Field
-     name="skeleton"
-     type="Skeleton"
+     name="shaderCode"
+     type="ShaderProgramChunk"
      category="pointer"
      cardinality="single"
      visibility="external"
      access="public"
      defaultValue="NULL"
+     >
+  </Field>
+
+  <Field
+     name="dataValid"
+     type="bool"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="false"
      >
   </Field>
 

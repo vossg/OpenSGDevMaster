@@ -13,25 +13,13 @@
    parentFields="none"
 >
   <Field
-     name="shaderCode"
-     type="ShaderProgramChunk"
-     category="pointer"
-     cardinality="single"
-     visibility="external"
-     access="protected"
-     defaultValue="NULL"
-     >
-  </Field>
-
-  <Field
      name="shaderData"
      type="ShaderProgramVariableChunk"
      category="pointer"
      cardinality="single"
      visibility="external"
-     access="protected"
+     access="public"
      defaultValue="NULL"
      >
   </Field>
-
 </FieldContainer>

@@ -74,22 +74,6 @@ OSG::UInt16 HardwareSkinningAlgorithmBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the HardwareSkinningAlgorithm::_sfShaderCode field.
-inline
-ShaderProgramChunk * HardwareSkinningAlgorithmBase::getShaderCode(void) const
-{
-    return _sfShaderCode.getValue();
-}
-
-//! Set the value of the HardwareSkinningAlgorithm::_sfShaderCode field.
-inline
-void HardwareSkinningAlgorithmBase::setShaderCode(ShaderProgramChunk * const value)
-{
-    editSField(ShaderCodeFieldMask);
-
-    _sfShaderCode.setValue(value);
-}
-
 //! Get the value of the HardwareSkinningAlgorithm::_sfShaderData field.
 inline
 ShaderProgramVariableChunk * HardwareSkinningAlgorithmBase::getShaderData(void) const
@@ -116,9 +100,6 @@ void HardwareSkinningAlgorithmBase::execSync (      HardwareSkinningAlgorithmBas
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
 
     if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
         _sfShaderData.syncWith(pFrom->_sfShaderData);

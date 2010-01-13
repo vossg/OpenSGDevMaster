@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGHardwareSkinningAlgorithmBase.h"
-
-#include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
 
 OSG_BEGIN_NAMESPACE
@@ -119,6 +117,20 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinnin
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Skeleton Change                             */
+    /*! \{                                                                 */
+
+    void skeletonChanged(FieldContainer *fc, ConstFieldMaskArg whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -30,7 +30,7 @@
      category="data"
      cardinality="single"
      visibility="external"
-     access="public"
+     access="protected"
      >
     Matrix that is applied to the vertices of the mesh before deformation.
     It transforms the vertices into bind space.

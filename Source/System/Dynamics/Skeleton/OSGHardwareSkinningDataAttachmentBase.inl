@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SkinningAlgorithm!
+ **     class HardwareSkinningDataAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &SkinningAlgorithmBase::getClassType(void)
+OSG::FieldContainerType &HardwareSkinningDataAttachmentBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SkinningAlgorithmBase::getClassTypeId(void)
+OSG::UInt32 HardwareSkinningDataAttachmentBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 SkinningAlgorithmBase::getClassGroupId(void)
+OSG::UInt16 HardwareSkinningDataAttachmentBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,26 +74,51 @@ OSG::UInt16 SkinningAlgorithmBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the SkinningAlgorithm::_sfSkeleton field.
+//! Get the value of the HardwareSkinningDataAttachment::_sfShaderCode field.
 inline
-Skeleton * SkinningAlgorithmBase::getSkeleton(void) const
+ShaderProgramChunk * HardwareSkinningDataAttachmentBase::getShaderCode(void) const
 {
-    return _sfSkeleton.getValue();
+    return _sfShaderCode.getValue();
 }
 
-//! Set the value of the SkinningAlgorithm::_sfSkeleton field.
+//! Set the value of the HardwareSkinningDataAttachment::_sfShaderCode field.
 inline
-void SkinningAlgorithmBase::setSkeleton(Skeleton * const value)
+void HardwareSkinningDataAttachmentBase::setShaderCode(ShaderProgramChunk * const value)
 {
-    editSField(SkeletonFieldMask);
+    editSField(ShaderCodeFieldMask);
 
-    _sfSkeleton.setValue(value);
+    _sfShaderCode.setValue(value);
+}
+//! Get the value of the HardwareSkinningDataAttachment::_sfDataValid field.
+
+inline
+bool &HardwareSkinningDataAttachmentBase::editDataValid(void)
+{
+    editSField(DataValidFieldMask);
+
+    return _sfDataValid.getValue();
+}
+
+//! Get the value of the HardwareSkinningDataAttachment::_sfDataValid field.
+inline
+      bool  HardwareSkinningDataAttachmentBase::getDataValid(void) const
+{
+    return _sfDataValid.getValue();
+}
+
+//! Set the value of the HardwareSkinningDataAttachment::_sfDataValid field.
+inline
+void HardwareSkinningDataAttachmentBase::setDataValid(const bool value)
+{
+    editSField(DataValidFieldMask);
+
+    _sfDataValid.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void SkinningAlgorithmBase::execSync (      SkinningAlgorithmBase *pFrom,
+void HardwareSkinningDataAttachmentBase::execSync (      HardwareSkinningDataAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -101,21 +126,21 @@ void SkinningAlgorithmBase::execSync (      SkinningAlgorithmBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-        _sfParent.syncWith(pFrom->_sfParent);
+    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
+        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
 
-    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
-        _sfSkeleton.syncWith(pFrom->_sfSkeleton);
+    if(FieldBits::NoField != (DataValidFieldMask & whichField))
+        _sfDataValid.syncWith(pFrom->_sfDataValid);
 }
 #endif
 
 
 inline
-const Char8 *SkinningAlgorithmBase::getClassname(void)
+const Char8 *HardwareSkinningDataAttachmentBase::getClassname(void)
 {
-    return "SkinningAlgorithm";
+    return "HardwareSkinningDataAttachment";
 }
-OSG_GEN_CONTAINERPTR(SkinningAlgorithm);
+OSG_GEN_CONTAINERPTR(HardwareSkinningDataAttachment);
 
 OSG_END_NAMESPACE
 

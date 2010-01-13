@@ -59,6 +59,7 @@
 
 
 #include "OSGSkinnedGeometry.h"         // Parent Class
+#include "OSGSkeleton.h"                // Skeleton Class
 
 #include "OSGSkinningAlgorithmBase.h"
 #include "OSGSkinningAlgorithm.h"
@@ -84,6 +85,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var SkinnedGeometry * SkinningAlgorithmBase::_sfParent
+    
+*/
+
+/*! \var Skeleton *      SkinningAlgorithmBase::_sfSkeleton
     
 */
 
@@ -144,6 +149,18 @@ void SkinningAlgorithmBase::classDescInserter(TypeObject &oType)
         static_cast     <FieldGetMethodSig >(&SkinningAlgorithm::invalidGetField));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecSkeletonPtr::Description(
+        SFUnrecSkeletonPtr::getClassType(),
+        "skeleton",
+        "",
+        SkeletonFieldId, SkeletonFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkinningAlgorithm::editHandleSkeleton),
+        static_cast<FieldGetMethodSig >(&SkinningAlgorithm::getHandleSkeleton));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -183,6 +200,17 @@ SkinningAlgorithmBase::TypeObject SkinningAlgorithmBase::_type(
     "     >\n"
     "  </Field>\n"
     "\n"
+    "  <Field\n"
+    "     name=\"skeleton\"\n"
+    "     type=\"Skeleton\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -208,6 +236,19 @@ UInt32 SkinningAlgorithmBase::getContainerSize(void) const
 
 
 
+//! Get the SkinningAlgorithm::_sfSkeleton field.
+const SFUnrecSkeletonPtr *SkinningAlgorithmBase::getSFSkeleton(void) const
+{
+    return &_sfSkeleton;
+}
+
+SFUnrecSkeletonPtr  *SkinningAlgorithmBase::editSFSkeleton       (void)
+{
+    editSField(SkeletonFieldMask);
+
+    return &_sfSkeleton;
+}
+
 
 
 
@@ -222,6 +263,10 @@ UInt32 SkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfParent.getBinSize();
     }
+    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
+    {
+        returnValue += _sfSkeleton.getBinSize();
+    }
 
     return returnValue;
 }
@@ -235,6 +280,10 @@ void SkinningAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfParent.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
+    {
+        _sfSkeleton.copyToBin(pMem);
+    }
 }
 
 void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
@@ -246,6 +295,10 @@ void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfParent.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
+    {
+        _sfSkeleton.copyFromBin(pMem);
+    }
 }
 
 
@@ -255,13 +308,15 @@ void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
 SkinningAlgorithmBase::SkinningAlgorithmBase(void) :
     Inherited(),
-    _sfParent                 (NULL)
+    _sfParent                 (NULL),
+    _sfSkeleton               (NULL)
 {
 }
 
 SkinningAlgorithmBase::SkinningAlgorithmBase(const SkinningAlgorithmBase &source) :
     Inherited(source),
-    _sfParent                 (NULL)
+    _sfParent                 (NULL),
+    _sfSkeleton               (NULL)
 {
 }
 
@@ -343,6 +398,17 @@ bool SkinningAlgorithmBase::unlinkParent(
 }
 
 
+void SkinningAlgorithmBase::onCreate(const SkinningAlgorithm *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        SkinningAlgorithm *pThis = static_cast<SkinningAlgorithm *>(this);
+
+        pThis->setSkeleton(source->getSkeleton());
+    }
+}
 
 GetFieldHandlePtr SkinningAlgorithmBase::getHandleParent          (void) const
 {
@@ -354,6 +420,34 @@ GetFieldHandlePtr SkinningAlgorithmBase::getHandleParent          (void) const
 EditFieldHandlePtr SkinningAlgorithmBase::editHandleParent         (void)
 {
     EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkinningAlgorithmBase::getHandleSkeleton        (void) const
+{
+    SFUnrecSkeletonPtr::GetHandlePtr returnValue(
+        new  SFUnrecSkeletonPtr::GetHandle(
+             &_sfSkeleton,
+             this->getType().getFieldDesc(SkeletonFieldId),
+             const_cast<SkinningAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkinningAlgorithmBase::editHandleSkeleton       (void)
+{
+    SFUnrecSkeletonPtr::EditHandlePtr returnValue(
+        new  SFUnrecSkeletonPtr::EditHandle(
+             &_sfSkeleton,
+             this->getType().getFieldDesc(SkeletonFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&SkinningAlgorithm::setSkeleton,
+                    static_cast<SkinningAlgorithm *>(this), _1));
+
+    editSField(SkeletonFieldMask);
 
     return returnValue;
 }
@@ -381,6 +475,8 @@ void SkinningAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 void SkinningAlgorithmBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<SkinningAlgorithm *>(this)->setSkeleton(NULL);
 
 
 }

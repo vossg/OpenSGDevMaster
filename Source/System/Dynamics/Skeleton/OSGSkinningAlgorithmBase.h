@@ -66,6 +66,7 @@
 #include "OSGAlgorithm.h" // Parent
 
 #include "OSGSkinnedGeometryFields.h"   // Parent type
+#include "OSGSkeletonFields.h"          // Skeleton type
 
 #include "OSGSkinningAlgorithmFields.h"
 
@@ -94,15 +95,19 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     enum
     {
         ParentFieldId = Inherited::NextFieldId,
-        NextFieldId = ParentFieldId + 1
+        SkeletonFieldId = ParentFieldId + 1,
+        NextFieldId = SkeletonFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
         (TypeTraits<BitVector>::One << ParentFieldId);
+    static const OSG::BitVector SkeletonFieldMask =
+        (TypeTraits<BitVector>::One << SkeletonFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFParentSkinnedGeometryPtr SFParentType;
+    typedef SFUnrecSkeletonPtr SFSkeletonType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -121,6 +126,34 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecSkeletonPtr  *getSFSkeleton       (void) const;
+                  SFUnrecSkeletonPtr  *editSFSkeleton       (void);
+
+
+                  Skeleton * getSkeleton       (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setSkeleton       (Skeleton * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,6 +182,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     /*! \{                                                                 */
 
     SFParentSkinnedGeometryPtr _sfParent;
+    SFUnrecSkeletonPtr _sfSkeleton;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,6 +204,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const SkinningAlgorithm *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -189,6 +224,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
 
     GetFieldHandlePtr  getHandleParent          (void) const;
     EditFieldHandlePtr editHandleParent         (void);
+    GetFieldHandlePtr  getHandleSkeleton        (void) const;
+    EditFieldHandlePtr editHandleSkeleton       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -121,6 +121,9 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
             UnskinnedSkinningAlgorithmUnrecPtr algo =
                 UnskinnedSkinningAlgorithm::create();
             setSkinningAlgorithm(algo);
+
+            if(_sfSkeleton.getValue() != NULL)
+                algo->setSkeleton(_sfSkeleton.getValue());
         }
         break;
 
@@ -131,7 +134,10 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
             setSkinningAlgorithm(algo);
 
             if(_sfSkeleton.getValue() != NULL)
+            {
+                algo->setSkeleton(_sfSkeleton.getValue());
                 _sfSkeleton.getValue()->setUseInvBindMatrix(false);
+            }
         }
         break;
 
@@ -142,7 +148,10 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
             setSkinningAlgorithm(algo);
 
             if(_sfSkeleton.getValue() != NULL)
+            {
+                algo->setSkeleton(_sfSkeleton.getValue());
                 _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+            }
         }
         break;
 
@@ -155,8 +164,89 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
 
         invalidateVolume();
     }
+    
+    if((SkeletonFieldMask & whichField) != 0)
+    {
+        if(_sfSkinningAlgorithm.getValue() != NULL)
+        {
+            _sfSkinningAlgorithm.getValue()->setSkeleton(
+                _sfSkeleton.getValue());
+        }
+    }
 
     Inherited::changed(whichField, origin, details);
+}
+
+const Matrix &
+SkinnedGeometry::getBindShapeMatrix(void) const
+{
+    return Inherited::getBindShapeMatrix();
+}
+
+void
+SkinnedGeometry::setBindShapeMatrix(const Matrix &value)
+{
+#if 0
+    bool   needTransform  = false;
+    Matrix objSpaceMatrix;
+    Matrix tangSpaceMatrix;
+
+    if(_sfBindShapeMatrix.getValue() != Matrix::identity())
+    {
+        needTransform = true;
+
+        objSpaceMatrix = _sfBindShapeMatrix.getValue();
+        objSpaceMatrix.invert();
+
+        tangSpaceMatrix = _sfBindShapeMatrix.getValue();
+        tangSpaceMatrix.transpose();
+    }
+
+    if(value != Matrix::identity())
+    {
+        needTransform = true;
+
+        objSpaceMatrix.multLeft(value);
+    
+        Matrix valueInvT(value);
+        valueInvT.invert   ();
+        valueInvT.transpose();
+
+        tangSpaceMatrix.multLeft(valueInvT);
+    }
+
+    if(needTransform == true)
+    {
+        // transform properties
+        MFPropertiesType::const_iterator pIt  = getMFProperties()->begin();
+        MFPropertiesType::const_iterator pEnd = getMFProperties()->end  ();
+
+        for(UInt32 i = 0; pIt != pEnd; ++pIt, ++i)
+        {
+            if(*pIt == NULL)
+                continue;
+
+            UInt32 propSpace = (*pIt)->getUsage() & GeoProperty::UsageSpaceMask;
+
+            if(propSpace == GeoProperty::UsageObjectSpace)
+            {
+                SLOG << "SkinnedGeometry::setBindShapeMatrix: transforming prop "
+                     << i << " with objSpaceMatrix" << std::endl;
+
+                transformProperty<Pnt4f>(*pIt, objSpaceMatrix);
+            }
+            else if(propSpace == GeoProperty::UsageTangentSpace)
+            {
+                SLOG << "SkinnedGeometry::setBindShapeMatrix: transforming prop "
+                     << i << " with tangSpaceMatrix" << std::endl;
+
+                transformProperty<Vec4f>(*pIt, tangSpaceMatrix);
+            }
+        }
+    }
+#endif
+
+    Inherited::setBindShapeMatrix(value);
 }
 
 Action::ResultE
@@ -225,25 +315,6 @@ void SkinnedGeometry::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump SkinnedGeometry NI" << std::endl;
-}
-
-Action::ResultE
-SkinnedGeometry::renderDebug(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderHardware(RenderAction *ract)
-{
-    return Action::Continue;
-}
-
-Action::ResultE
-SkinnedGeometry::renderSoftware(RenderAction *ract)
-{
-    SWARNING << "SkinnedGeometry::renderSoftware: NIY"
-             << std::endl;
 }
 
 OSG_END_NAMESPACE

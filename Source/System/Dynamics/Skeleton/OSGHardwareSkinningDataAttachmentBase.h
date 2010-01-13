@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class HardwareSkinningAlgorithm
+ **     class HardwareSkinningDataAttachment
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGHARDWARESKINNINGALGORITHMBASE_H_
-#define _OSGHARDWARESKINNINGALGORITHMBASE_H_
+#ifndef _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_
+#define _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,29 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGSkinningAlgorithm.h" // Parent
+#include "OSGAttachment.h" // Parent
 
-#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
+#include "OSGShaderProgramChunkFields.h" // ShaderCode type
+#include "OSGSysFields.h"               // DataValid type
 
-#include "OSGHardwareSkinningAlgorithmFields.h"
+#include "OSGHardwareSkinningDataAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class HardwareSkinningAlgorithm;
+class HardwareSkinningDataAttachment;
 
-//! \brief HardwareSkinningAlgorithm Base Class.
+//! \brief HardwareSkinningDataAttachment Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlgorithm
+class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attachment
 {
   public:
 
-    typedef SkinningAlgorithm Inherited;
-    typedef SkinningAlgorithm ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(HardwareSkinningAlgorithm);
+    OSG_GEN_INTERNALPTR(HardwareSkinningDataAttachment);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -93,16 +94,20 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
 
     enum
     {
-        ShaderDataFieldId = Inherited::NextFieldId,
-        NextFieldId = ShaderDataFieldId + 1
+        ShaderCodeFieldId = Inherited::NextFieldId,
+        DataValidFieldId = ShaderCodeFieldId + 1,
+        NextFieldId = DataValidFieldId + 1
     };
 
-    static const OSG::BitVector ShaderDataFieldMask =
-        (TypeTraits<BitVector>::One << ShaderDataFieldId);
+    static const OSG::BitVector ShaderCodeFieldMask =
+        (TypeTraits<BitVector>::One << ShaderCodeFieldId);
+    static const OSG::BitVector DataValidFieldMask =
+        (TypeTraits<BitVector>::One << DataValidFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
+    typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
+    typedef SFBool            SFDataValidType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -127,18 +132,25 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData     (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
+            const SFUnrecShaderProgramChunkPtr *getSFShaderCode     (void) const;
+                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
+
+                  SFBool              *editSFDataValid      (void);
+            const SFBool              *getSFDataValid       (void) const;
 
 
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
+                  ShaderProgramChunk * getShaderCode     (void) const;
+
+                  bool                &editDataValid      (void);
+                  bool                 getDataValid       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setShaderData     (ShaderProgramVariableChunk * const value);
+            void setShaderCode     (ShaderProgramChunk * const value);
+            void setDataValid      (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,16 +179,16 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HardwareSkinningAlgorithmTransitPtr  create          (void);
-    static  HardwareSkinningAlgorithm           *createEmpty     (void);
+    static  HardwareSkinningDataAttachmentTransitPtr  create          (void);
+    static  HardwareSkinningDataAttachment           *createEmpty     (void);
 
-    static  HardwareSkinningAlgorithmTransitPtr  createLocal     (
+    static  HardwareSkinningDataAttachmentTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  HardwareSkinningAlgorithm            *createEmptyLocal(
+    static  HardwareSkinningDataAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  HardwareSkinningAlgorithmTransitPtr  createDependent  (BitVector bFlags);
+    static  HardwareSkinningDataAttachmentTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -203,37 +215,40 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
+    SFUnrecShaderProgramChunkPtr _sfShaderCode;
+    SFBool            _sfDataValid;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    HardwareSkinningAlgorithmBase(void);
-    HardwareSkinningAlgorithmBase(const HardwareSkinningAlgorithmBase &source);
+    HardwareSkinningDataAttachmentBase(void);
+    HardwareSkinningDataAttachmentBase(const HardwareSkinningDataAttachmentBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~HardwareSkinningAlgorithmBase(void);
+    virtual ~HardwareSkinningDataAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const HardwareSkinningAlgorithm *source = NULL);
+    void onCreate(const HardwareSkinningDataAttachment *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderData      (void) const;
-    EditFieldHandlePtr editHandleShaderData     (void);
+    GetFieldHandlePtr  getHandleShaderCode      (void) const;
+    EditFieldHandlePtr editHandleShaderCode     (void);
+    GetFieldHandlePtr  getHandleDataValid       (void) const;
+    EditFieldHandlePtr editHandleDataValid      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,7 +262,7 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      HardwareSkinningAlgorithmBase *pFrom,
+            void execSync (      HardwareSkinningDataAttachmentBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -287,11 +302,11 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithmBase : public SkinningAlg
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const HardwareSkinningAlgorithmBase &source);
+    void operator =(const HardwareSkinningDataAttachmentBase &source);
 };
 
-typedef HardwareSkinningAlgorithmBase *HardwareSkinningAlgorithmBaseP;
+typedef HardwareSkinningDataAttachmentBase *HardwareSkinningDataAttachmentBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGHARDWARESKINNINGALGORITHMBASE_H_ */
+#endif /* _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_ */

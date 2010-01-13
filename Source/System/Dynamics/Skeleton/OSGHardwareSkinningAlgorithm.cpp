@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGHardwareSkinningAlgorithm.h"
+#include "OSGHardwareSkinningDataAttachment.h"
 
 #include <boost/cast.hpp>
 
@@ -132,58 +133,79 @@ HardwareSkinningAlgorithm::~HardwareSkinningAlgorithm(void)
 void
 HardwareSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    SkinnedGeometry *skinGeo = getParent();
-    Skeleton        *skel    = skinGeo->getSkeleton();
-
-    skel->adjustVolume(volume);
+    if(_sfSkeleton.getValue() != NULL)
+        _sfSkeleton.getValue()->adjustVolume(volume);
 }
 
 ActionBase::ResultE
 HardwareSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
-    SkinnedGeometry *skinGeo = getParent();
-    Skeleton        *skel    = skinGeo->getSkeleton();
+    SkinnedGeometry *skinGeo = getParent  ();
+    Skeleton        *skel    = getSkeleton();
     RenderAction    *ract    =
         boost::polymorphic_downcast<RenderAction *>(action); 
 
+    OSG_ASSERT(skinGeo != NULL);
+    OSG_ASSERT(skel    != NULL);
 
-    ShaderProgramChunkUnrecPtr         shCode = getShaderCode();
+    HardwareSkinningDataAttachmentUnrecPtr data = getHardwareSkinningData(skel);
+
+    if(data == NULL)
+    {
+        data = HardwareSkinningDataAttachment::create();
+        skel->addAttachment(data);
+    }
+
+    ShaderProgramChunkUnrecPtr         shCode = data->getShaderCode();
     ShaderProgramVariableChunkUnrecPtr shData = getShaderData();
 
     if(shCode == NULL)
     {
         shCode = ShaderProgramChunk::create();
-        setShaderCode(shCode);
+        data->setShaderCode(shCode);
 
         ShaderProgramUnrecPtr vp = ShaderProgram::createVertexShader();
         vp->setProgram(_vpVertexSkinning);
 
         shCode->addShader(vp);
+
+        vp->addUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+    }
+    else if(data->getDataValid() == false)
+    {
+        ShaderProgram *vp = shCode->getVertexShader(0);
+
+        vp->updateUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+
+        data->setDataValid(true);
     }
 
     if(shData == NULL)
     {
+        // XXX TODO just to tag the OpenGL stream in bugle
+        glGetString(GL_VERSION);
+
         shData = ShaderProgramVariableChunk::create();
         setShaderData(shData);
 
         shData->addUniformVariable(
             "matBindShape", skinGeo->getBindShapeMatrix());
-        shData->addUniformVariable(
-            "matJoints",    (*skel->getMFJointMatrices()));
     }
     else
     {
         shData->updateUniformVariable(
             "matBindShape", skinGeo->getBindShapeMatrix());
-        shData->updateUniformVariable(
-            "matJoints",    (*skel->getMFJointMatrices()));
     }
 
     ract->pushState();
     {
-        ract->addOverride(ShaderProgramChunk        ::getStaticClassId(), shCode);
-        ract->addOverride(ShaderProgramVariableChunk::getStaticClassId(), shData);
+        ract->addOverride(ShaderProgramChunk        ::getStaticClassId(),
+                          shCode                                         );
+        ract->addOverride(ShaderProgramVariableChunk::getStaticClassId(),
+                          shData                                         );
 
         res = skinGeo->renderActionEnterHandler(ract);
     }
@@ -207,6 +229,20 @@ void HardwareSkinningAlgorithm::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
+    if((SkeletonFieldMask & whichField) != 0    &&
+       _sfSkeleton.getValue()           != NULL   )
+    {
+        if(_sfSkeleton.getValue()->hasChangedFunctor(boost::bind(
+               &HardwareSkinningAlgorithm::skeletonChanged,
+               this, _1, _2                                )) == false)
+        {
+            _sfSkeleton.getValue()->addChangedFunctor(boost::bind(
+                &HardwareSkinningAlgorithm::skeletonChanged,
+                this, _1, _2                                ),
+                "HardwareSkinningAlgorithm::skeletonChanged"  );
+        }
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -215,5 +251,91 @@ void HardwareSkinningAlgorithm::dump(      UInt32    ,
 {
     SLOG << "Dump HardwareSkinningAlgorithm NI" << std::endl;
 }
+
+void
+HardwareSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
+                                           ConstFieldMaskArg  whichField)
+{
+    if(((Skeleton::JointMatricesFieldMask      |
+         Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
+    {
+        OSG_ASSERT(fc == _sfSkeleton.getValue());
+
+        HardwareSkinningDataAttachment *data =
+            getHardwareSkinningData(_sfSkeleton.getValue());
+
+        if(data != NULL)
+            data->setDataValid(false);
+    }
+}
+
+void
+HardwareSkinningAlgorithm::resolveLinks(void)
+{
+    SLOG << "HardwareSkinningAlgorithm::resolveLinks" << std::endl;
+
+    if(_sfSkeleton.getValue() != NULL)
+    {
+        _sfSkeleton.getValue()->subChangedFunctor(boost::bind(
+            &HardwareSkinningAlgorithm::skeletonChanged,
+            this, _1, _2                                ));
+    }
+
+    Inherited::resolveLinks();
+}
+
+#if 0
+// renderEnter code that does not work because of problems with the
+// way ProgVars are handled and how uniform locations are invalidated
+
+    ShaderProgramChunkUnrecPtr         shCode = getShaderCode();
+    ShaderProgramVariableChunkUnrecPtr shData = getShaderData();
+
+    if(shCode == NULL)
+    {
+        shCode = ShaderProgramChunk::create();
+        setShaderCode(shCode);
+
+        ShaderProgramUnrecPtr vp = ShaderProgram::createVertexShader();
+        vp->setProgram(_vpVertexSkinning);
+
+        shCode->addShader(vp);
+
+
+        vp->addUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
+        vp->addUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+    }
+    else
+    {
+        ShaderProgram *vp = shCode->getVertexShader(0);
+
+        vp->updateUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
+        vp->updateUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+    }
+
+#if 0
+    if(shData == NULL)
+    {
+        shData = ShaderProgramVariableChunk::create();
+        setShaderData(shData);
+
+        shData->addUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
+        shData->addUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+    }
+    else
+    {
+        shData->updateUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
+        shData->updateUniformVariable(
+            "matJoints",    (*skel->getMFJointMatrices()));
+    }
+#endif
+#endif
 
 OSG_END_NAMESPACE
