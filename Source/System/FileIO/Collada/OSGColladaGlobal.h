@@ -56,7 +56,6 @@
 #include "OSGColladaElement.h"
 #include "OSGColladaLoaderState.h"
 #include "OSGColladaOptions.h"
-#include "OSGColladaInstInfo.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
 #include "OSGGlobalsAttachment.h"
@@ -80,6 +79,11 @@ OSG_GEN_MEMOBJPTR(ColladaInstInfo);
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
  */
+
+// forward decl
+class ColladaInstInfo;
+OSG_GEN_MEMOBJPTR(ColladaInstInfo);
+
 
 class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
 {
