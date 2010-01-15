@@ -153,6 +153,10 @@ SocketSelection::~SocketSelection()
 #undef __FDMASK
 #define	__FDMASK(d)	(__fd_mask(1) << ((d) % __NFDBITS))
 #endif
+#ifdef  __NFDBITS
+#undef  __NFDBITS
+#define __NFDBITS	(8 * int(sizeof (__fd_mask)))
+#endif
 #endif
 
 void SocketSelection::clear()
