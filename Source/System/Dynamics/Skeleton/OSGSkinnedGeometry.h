@@ -84,14 +84,6 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                 Bind Shape Matrix                            */
-    /*! \{                                                                 */
-
-    const Matrix &getBindShapeMatrix(void               ) const;
-    void          setBindShapeMatrix(const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                     Render                                   */
     /*! \{                                                                 */
 

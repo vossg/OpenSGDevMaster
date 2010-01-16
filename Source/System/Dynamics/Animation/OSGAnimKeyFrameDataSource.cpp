@@ -105,6 +105,9 @@ void AnimKeyFrameDataSource::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+/*! Length of this data source, defined as the time between the first
+    and last key frame.
+ */
 Real32 AnimKeyFrameDataSource::getLength(void) const
 {
     if(_mfInValues.empty() == false)

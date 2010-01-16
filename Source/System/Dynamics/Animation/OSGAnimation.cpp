@@ -104,14 +104,14 @@ void Animation::changed(ConstFieldMaskArg whichField,
                         UInt32            origin,
                         BitVector         details)
 {
-    if(0 != ((ChannelsFieldMask | WeightFieldMask)& whichField))
+    if(0 != ((ChannelsFieldMask | WeightFieldMask) & whichField))
     {
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
 
         for(; cIt != cEnd; ++cIt)
         {
-            (*cIt)->setWeight (_sfWeight .getValue());
+            (*cIt)->setWeight(_sfWeight.getValue());
         }
     }
 
