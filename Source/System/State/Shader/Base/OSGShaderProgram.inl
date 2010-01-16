@@ -160,6 +160,12 @@ bool ShaderProgram::hasDestroyedFunctor(FunctorT func)
     return returnValue;
 }
 
+inline
+UInt32 ShaderProgram::getNumDestroyedFunctors(void) const
+{
+    return _mfDestroyedFunctors.size();
+}
+
 inline 
 void ShaderProgram::clearDestroyedFunctors(void)
 {

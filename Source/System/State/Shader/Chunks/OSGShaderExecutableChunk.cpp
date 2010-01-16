@@ -353,13 +353,15 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
 
             updateParameters(pEnv, uiProgram);
         
-            osgGlUseProgram(uiProgram);
+            pEnv->setActiveShader(uiProgram);
+            osgGlUseProgram      (uiProgram);
         
             updateVariables(pEnv, uiProgram);
         
             if(0x0000 == (uiOptions & KeepProgActive))
             {
-                osgGlUseProgram(0);
+                pEnv->setActiveShader(0);
+                osgGlUseProgram      (0);
             }
             else
             {

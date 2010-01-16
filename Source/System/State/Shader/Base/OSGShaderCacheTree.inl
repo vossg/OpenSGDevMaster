@@ -3594,9 +3594,6 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
 
     UInt32 uiChildStart = 0;
 
-    if(pNode->_pPrev == NULL)
-        uiChildStart = 1;
-
     for(UInt32 i = uiChildStart; i < LevelSize; ++i)
     {
         if(pNode->_vChildren[i].asT2() != NULL)
@@ -3630,7 +3627,13 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
 
-    _vLevelEntries[0] = NULL;
+    TreeNodeVecIt      leIt  = _vLevelEntries.begin();
+    TreeNodeVecConstIt leEnd = _vLevelEntries.end  ();
+    
+    for(; leIt != leEnd; ++leIt)
+    {
+        *leIt = NULL;
+    }
 
     _pRoot = NULL;
 }

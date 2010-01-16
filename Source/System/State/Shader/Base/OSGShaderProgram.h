@@ -226,16 +226,18 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void   addDestroyedFunctor   (ChangedFunctor func,
-                                  std::string    createSymbol);
+    void   addDestroyedFunctor    (ChangedFunctor func,
+                                   std::string    createSymbol);
 
     template<class FunctorT>
-    void   subDestroyedFunctor   (FunctorT       func        );
+    void   subDestroyedFunctor    (FunctorT       func        );
 
     template<class FunctorT>
-    bool   hasDestroyedFunctor   (FunctorT       func        );
+    bool   hasDestroyedFunctor    (FunctorT       func        );
 
-    void   clearDestroyedFunctors(void                       );
+    void   clearDestroyedFunctors (void                       );
+
+    UInt32 getNumDestroyedFunctors(void                       ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

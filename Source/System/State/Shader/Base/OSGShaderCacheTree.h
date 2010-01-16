@@ -767,6 +767,9 @@ class ShaderCacheTreeV3
     std::vector<TreeNode *>  _vLevelEntries;
     std::deque <TreeNode *>  _qFreeElements;
 
+    typedef typename std::vector<TreeNode *>::      iterator TreeNodeVecIt;
+    typedef typename std::vector<TreeNode *>::const_iterator TreeNodeVecConstIt;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */

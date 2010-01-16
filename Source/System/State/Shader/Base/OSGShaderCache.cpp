@@ -312,7 +312,7 @@ void ShaderCache::addShaderVar(const IdStore                  &vIds,
 #endif
 #endif
 
-#ifdef OSG_SHC_REF_CLEANUP
+#ifndef OSG_SHC_REF_CLEANUP
         updateRemoveCallback(pVar);
 #endif
     }
