@@ -66,8 +66,13 @@ OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaVisualScene;
+class ColladaInstanceNode;
 class ColladaInstanceGeometry;
 class ColladaInstanceController;
+
+class ColladaNode;
+OSG_GEN_MEMOBJPTR(ColladaNode);
+
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
@@ -86,6 +91,70 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaNode);
 
+    typedef std::vector<std::string>     NodePath;
+    typedef NodePath::iterator           NodePathIt;
+    typedef NodePath::const_iterator     NodePathConstIt;
+
+
+    class ColladaNodeInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo      Inherited;
+        typedef ColladaNodeInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaNodeInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaElement      *colInstParent,
+                   ColladaInstanceNode *colInst,
+                   Node                *parentN       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Access                                                   */
+        /*! \{                                                             */
+
+        inline Node *getParentNode(void) const;
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaNodeInstInfo(
+                     ColladaElement      *colInstParent,
+                     ColladaInstanceNode *colInst,
+                     Node                *parentN       );
+        virtual ~ColladaNodeInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        ColladaNodeRefPtr _colInstTarget;
+        NodeUnrecPtr      _parentN;
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaNodeInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -99,9 +168,8 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (ColladaElement         *colElemParent );
-    virtual Node *createInstance(ColladaElement         *colInstParent,
-                                 ColladaInstanceElement *colInst       );
+    virtual void  read          (ColladaElement  *colElemParent);
+    virtual Node *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -120,6 +188,96 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    class NodeLoaderState;
+    OSG_GEN_MEMOBJPTR(NodeLoaderState);
+
+    class NodeLoaderState : public ColladaLoaderState
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaLoaderState   Inherited;
+        typedef NodeLoaderState      Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(NodeLoaderState);
+
+        typedef std::vector<Matrix>          MatrixStack;
+        typedef MatrixStack::iterator        MatrixStackIt;
+        typedef MatrixStack::const_iterator  MatrixStackConstIt;
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static NodeLoaderStateTransitPtr create(void);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Access                                                   */
+        /*! \{                                                             */
+
+        void            pushNodePath(const std::string &nodeId);
+        void            popNodePath (void                     );
+        const NodePath &getNodePath (void                     ) const;
+        void            dumpNodePath(void                     ) const;
+
+        void            pushMatrix    (const Matrix &matrix);
+        void            popMatrix     (void                );
+        const Matrix   &getWorldMatrix(void                ) const;
+
+        Skeleton       *getSkeleton(void             ) const;
+        void            setSkeleton(Skeleton *skel   );
+
+        Int16           getJointId (void             ) const;
+        void            setJointId (Int16     jointId);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 NodeLoaderState(void);
+        virtual ~NodeLoaderState(void);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        NodePath         _nodePath;
+        SkeletonUnrecPtr _skel;
+        Int16            _jointId;
+
+        Matrix           _worldMatrix;
+        MatrixStack      _matrixStack;
+    };
+
+    struct InstData
+    {
+         InstData(void);
+        ~InstData(void);
+        
+        NodePath              _nodePath;
+        Matrix                _localMatrix;
+
+        SkeletonUnrecPtr      _skel;
+        NodeUnrecPtr          _topN;
+        NodeUnrecPtr          _bottomN;
+    };
+
+    typedef std::vector<InstData>          InstDataStore;
+    typedef InstDataStore::iterator        InstDataStoreIt;
+    typedef InstDataStore::const_iterator  InstDataStoreConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
@@ -129,147 +287,55 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
 
-    class ColladaGeometryInstInfo : public ColladaInstInfo
-    {
-        /*==========================  PUBLIC  =============================*/
-      public:
-        /*-----------------------------------------------------------------*/
-        /*! \name Types                                                    */
-        /*! \{                                                             */
+    Node *createInstanceNode (ColladaInstInfo *colInstInfo, domNode *node);
+    Node *createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node);
 
-        typedef ColladaInstInfo          Inherited;
-        typedef ColladaGeometryInstInfo  Self;
+    void handleLookAt   (domLookat    *lookat,
+                         InstData     &instData  );
+    void handleMatrix   (domMatrix    *matrix,
+                         InstData     &instData  );
+    void handleRotate   (domRotate    *rotate,
+                         InstData     &instData  );
+    void handleScale    (domScale     *scale,
+                         InstData     &instData  );
+    void handleSkew     (domSkew      *skew,
+                         InstData     &instData  );
+    void handleTranslate(domTranslate *translate,
+                         InstData     &instData  );
 
-        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGeometryInstInfo);
+    void appendXForm     (const Matrix      &m,
+                          const std::string &nameSuffix,
+                          InstData          &instData   );
+    void appendChild     (domNode           *child,
+                          Node              *childN,
+                          InstData          &instData   );
 
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-        /*! \name Class specific                                           */
-        /*! \{                                                             */
+    void readNode                 (domNode                *child    );
+    void handleNode               (domNode                *child,
+                                   InstData               &instData );
 
-        static  ColladaInstInfoTransitPtr
-            create(ColladaNode             *colInstParent,
-                   ColladaInstanceGeometry *colInst,
-                   Node                    *attachN       );
+    void readInstanceNode         (domInstance_node       *instNode );
+    void handleInstanceNode       (domInstance_node       *instNode,
+                                   InstData               &instData );
 
-        virtual void process(void);
+    void readInstanceGeometry     (domInstance_geometry   *instGeo  );
+    void handleInstanceGeometry   (domInstance_geometry   *instGeo,
+                                   InstData               &instData );
 
-        /*! \}                                                             */
-        /*=========================  PROTECTED  ===========================*/
-      protected:
-        /*-----------------------------------------------------------------*/
-        /*! \name Constructors/Destructor                                  */
-        /*! \{                                                             */
-
-                 ColladaGeometryInstInfo(
-                     ColladaNode             *colInstParent,
-                     ColladaInstanceGeometry *colInst,
-                     Node                    *attachN       );
-        virtual ~ColladaGeometryInstInfo(void               );
-
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-    };
-
-    class ColladaControllerInstInfo : public ColladaInstInfo
-    {
-        /*==========================  PUBLIC  =============================*/
-      public:
-        /*-----------------------------------------------------------------*/
-        /*! \name Types                                                    */
-        /*! \{                                                             */
-
-        typedef ColladaInstInfo            Inherited;
-        typedef ColladaControllerInstInfo  Self;
-
-        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaControllerInstInfo);
-
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-        /*! \name Class specific                                           */
-        /*! \{                                                             */
-
-        static  ColladaInstInfoTransitPtr
-            create(ColladaNode               *colInstParent,
-                   ColladaInstanceController *colInst,
-                   Node                      *attachN       );
-
-        virtual void process(void);
-
-        /*! \}                                                             */
-        /*=========================  PROTECTED  ===========================*/
-      protected:
-        /*-----------------------------------------------------------------*/
-        /*! \name Constructors/Destructor                                  */
-        /*! \{                                                             */
-
-                 ColladaControllerInstInfo(
-                     ColladaNode               *colInstParent,
-                     ColladaInstanceController *colInst,
-                     Node                      *attachN       );
-        virtual ~ColladaControllerInstInfo(void               );
-
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-    };
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-
-    void readLookAt   (domLookat    *lookat   );
-    void readMatrix   (domMatrix    *matrix   );
-    void readRotate   (domRotate    *rotate   );
-    void readScale    (domScale     *scale    );
-    void readSkew     (domSkew      *skew     );
-    void readTranslate(domTranslate *translate);
-
-    void readNode                (domNode                *node     );
-    void addNode                 (domNode                *node,
-                                  Node                   *attachN  );
-
-    void readInstanceNode        (domInstance_node       *instNode );
-    void addInstanceNode         (domInstance_node       *instNode,
-                                  Node                   *attachN  );
-
-    void readInstanceGeometry    (domInstance_geometry   *instGeo  );
-    void addInstanceGeometry     (domInstance_geometry   *instGeo,
-                                  Node                   *attachN  );
-    void handleInstanceGeometry  (ColladaInstInfo        *instInfo );
-
-    void readInstanceController  (domInstance_controller *instCtrl );
-    void addInstanceController   (domInstance_controller *instCtrl,
-                                  Node                   *attachN  );
-    void handleInstanceController(ColladaInstInfo        *instInfo );
-
-    void appendXForm(Node         *nodeN                      );
-    void cloneXForms(NodeUnrecPtr &topN, NodeUnrecPtr &bottomN);
-
-    Node *createInstanceNode (ColladaElement         *colInstParent,
-                              ColladaInstanceElement *colInst,
-                              domNode                *node          );
-    Node *createInstanceJoint(ColladaElement         *colInstParent,
-                              ColladaInstanceElement *colInst,
-                              domNode                *node          );
+    void readInstanceController   (domInstance_controller *instCtrl );
+    void handleInstanceController (domInstance_controller *instCtrl,
+                                   InstData               &instData );
 
     static ColladaElementRegistrationHelper _regHelper;
-    static Int16                            _jointId;
+    static const std::string                _loaderStateName;
 
-    InstanceStore    _bottomInstStore;
-
-    NodeUnrecPtr     _xformTopN;
-    NodeUnrecPtr     _xformBottomN;
-
-    SkeletonUnrecPtr _skel;
+    InstDataStore _instDataStore;
 };
-
-OSG_GEN_MEMOBJPTR(ColladaNode);
 
 OSG_END_NAMESPACE
 
-// #include "OSGColladaNode.inl"
+#include "OSGColladaNode.inl"
 
 #endif // OSG_WITH_COLLADA
 

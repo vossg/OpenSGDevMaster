@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,32 +36,26 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAINSTANTIABLEELEMENT_H_
-#define _OSGCOLLADAINSTANTIABLEELEMENT_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOLLADALOADERSTATE_H_
+#define _OSGCOLLADALOADERSTATE_H_
 
 #include "OSGConfig.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaElement.h"
-#include "OSGFieldContainer.h"
-
-#include <vector>
+#include "OSGFileIODef.h"
+#include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 
 OSG_BEGIN_NAMESPACE
 
 // forward decl
-class ColladaInstanceElement;
-class ColladaInstInfo;
+class ColladaLoaderState;
+OSG_GEN_MEMOBJPTR(ColladaLoaderState);
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
 
-class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
+class ColladaLoaderState : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -69,30 +63,10 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef ColladaElement             Inherited;
-    typedef ColladaInstantiableElement Self;
+    typedef MemoryObject        Inherited;
+    typedef ColladaLoaderState  Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstantiableElement);
-
-    typedef std::vector<FieldContainerUnrecPtr> InstanceStore;
-    typedef InstanceStore::iterator             InstanceStoreIt;
-    typedef InstanceStore::const_iterator       InstanceStoreConstIt;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Reading                                                      */
-    /*! \{                                                                 */
-
-    virtual void            read          (ColladaElement  *colElemParent) = 0;
-    virtual FieldContainer *createInstance(ColladaInstInfo *colInstInfo  ) = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-
-    inline const InstanceStore &getInstStore (void) const;
-    inline InstanceStore       &editInstStore(void);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaLoaderState);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -101,22 +75,17 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaInstantiableElement(daeElement    *elem,
-                                        ColladaGlobal *global);
-    virtual ~ColladaInstantiableElement(void                 );
+             ColladaLoaderState(void);
+    virtual ~ColladaLoaderState(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-
-    InstanceStore _instStore;
 };
-
-OSG_GEN_MEMOBJPTR(ColladaInstantiableElement);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaInstantiableElement.inl"
+// #include  "OSGColladaLoaderState.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAINSTANTIABLEELEMENT_H_
+#endif // _OSGCOLLADALOADERSTATE_H_

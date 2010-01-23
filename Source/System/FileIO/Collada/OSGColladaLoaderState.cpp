@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,18 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+
+#include "OSGColladaLoaderState.h"
+
+#ifdef OSG_WITH_COLLADA
+
 OSG_BEGIN_NAMESPACE
 
-inline ColladaElement *
-ColladaInstInfo::getColInstParent(void) const
+/*! \class ColladaLoaderState
+    Base class for objects that can be added to the global ColladaGlobal
+    object by ColladaElement subclasses.
+    Some collada elements require to keep track of some global state while
+    traversing the document tree and these objects allow the global state
+    to be extended without modifying the ColladaGlobal class definition.
+ */
+
+ColladaLoaderState::ColladaLoaderState(void)
+    : Inherited()
 {
-    return _colInstParent;
 }
 
-inline ColladaInstanceElement *
-ColladaInstInfo::getColInst(void) const
+ColladaLoaderState::~ColladaLoaderState(void)
 {
-    return _colInst;
 }
 
 OSG_END_NAMESPACE
+
+#endif // OSG_WITH_COLLADA

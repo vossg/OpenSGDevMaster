@@ -169,6 +169,7 @@ ColladaGlobal::addElement(ColladaElement *elem)
 ColladaGlobal::ColladaGlobal(void)
     : Inherited   ()
     , _instQueue  ()
+    , _loaderState()
     , _elemStore  ()
     , _options    ()
     , _statColl   (NULL)
@@ -235,8 +236,9 @@ ColladaGlobal::doRead(void)
     rootN = _rootN;
 
     _docRoot = NULL;
-    _instQueue.clear();
-    _elemStore.clear();
+    _instQueue  .clear();
+    _loaderState.clear();
+    _elemStore  .clear();
 
 #ifndef OSG_COLLADA_SILENT
     std::string statString;

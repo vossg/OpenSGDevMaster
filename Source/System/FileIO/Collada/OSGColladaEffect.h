@@ -45,6 +45,7 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGColladaSampler2D.h"
 #include "OSGColladaSurface.h"
 #include "OSGMaterial.h"
@@ -68,6 +69,7 @@ OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaInstanceEffect;
+class ColladaMaterial;
 class ChunkMaterial;
 class MaterialChunk;
 class BlendChunk;
@@ -93,6 +95,53 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaEffect);
 
+    class ColladaEffectInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo      Inherited;
+        typedef ColladaEffectInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaEffectInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaMaterial       *colInstParent,
+                   ColladaInstanceEffect *colInst       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaEffectInstInfo(
+                     ColladaMaterial       *colInstParent,
+                     ColladaInstanceEffect *colInst       );
+        virtual ~ColladaEffectInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaEffectInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -106,9 +155,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void      read          (ColladaElement         *colElemParent );
-    virtual Material *createInstance(ColladaElement         *colInstParent,
-                                     ColladaInstanceElement *colInst       );
+    virtual void      read          (ColladaElement  *colElemParent);
+    virtual Material *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

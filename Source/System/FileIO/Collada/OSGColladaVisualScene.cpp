@@ -47,6 +47,7 @@
 #include "OSGColladaLog.h"
 #include "OSGColladaInstanceVisualScene.h"
 #include "OSGColladaNode.h"
+#include "OSGColladaScene.h"
 #include "OSGGroup.h"
 #include "OSGNameAttachment.h"
 
@@ -54,10 +55,38 @@
 
 OSG_BEGIN_NAMESPACE
 
+ColladaInstInfoTransitPtr
+ColladaVisualScene::ColladaVisualSceneInstInfo::create(
+    ColladaScene *colInstParent, ColladaInstanceVisualScene *colInst)
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaVisualSceneInstInfo(colInstParent, colInst));
+}
+
+void
+ColladaVisualScene::ColladaVisualSceneInstInfo::process(void)
+{
+    SFATAL << "ColladaVisualSceneInstInfo::process called!" << std::endl;
+}
+
+ColladaVisualScene::ColladaVisualSceneInstInfo::ColladaVisualSceneInstInfo(
+    ColladaScene *colInstParent, ColladaInstanceVisualScene *colInst)
+
+    : Inherited(colInstParent, colInst)
+{
+}
+
+ColladaVisualScene::ColladaVisualSceneInstInfo::~ColladaVisualSceneInstInfo(void)
+{
+}
+
+// ===========================================================================
+
 ColladaElementRegistrationHelper ColladaVisualScene::_regHelper(
     &ColladaVisualScene::create,
     "visual_scene"              );
 
+// ===========================================================================
 
 ColladaElementTransitPtr
 ColladaVisualScene::create(daeElement *elem, ColladaGlobal *global)
@@ -85,36 +114,20 @@ ColladaVisualScene::read(ColladaElement *colElemParent)
 
             colNode->read(this);
         }
-    }
-}
-
-Node *
-ColladaVisualScene::createInstance(
-    ColladaElement         *colInstParent,
-    ColladaInstanceElement *colInst       )
-{
-    OSG_COLLADA_LOG(("ColladaVisualScene::createInstance\n"));
-
-    domVisual_sceneRef   visScene   = getDOMElementAs<domVisual_scene>();
-    const domNode_Array &nodes      = visScene->getNode_array         ();
-    UInt32               childCount = 0;
-    NodeUnrecPtr         rootN;
-
-    for(UInt32 i = 0; i < nodes.getCount(); ++i)
-    {
-        ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(nodes[i]);
 
         if(nodes.getCount() > 1)
         {
             if(rootN == NULL)
                 rootN = makeCoredNode<Group>();
 
-            Node *childN = colNode->createInstance(this, NULL);
+            ColladaInstInfoRefPtr colInstInfo =
+                ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
+            Node *childN = colNode->createInstance(colInstInfo);
 
             if(childN->getParent() != NULL)
             {
                 SWARNING
-                    << "ColladaVisualScene::createInstance: <node> [" << i
+                    << "ColladaVisualScene::read: <node> [" << i
                     << "] name ["
                     << (getName(childN) != NULL ? getName(childN) : "")
                     << "] already has a parent ["
@@ -123,15 +136,20 @@ ColladaVisualScene::createInstance(
                     << "]." << std::endl;
             }
 
-            rootN->addChild(childN);
+            // don't add joints to the scene hierarchy
+
+            if(colNode->isJoint() == false)
+                rootN->addChild(childN);
         }
         else
         {
-            Node *childN = colNode->createInstance(this, NULL);
+            ColladaInstInfoRefPtr colInstInfo =
+                ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
+            Node *childN = colNode->createInstance(colInstInfo);
 
             if(childN->getParent() != NULL)
             {
-                SWARNING << "ColladaVisualScene::createInstance: <node> [" 
+                SWARNING << "ColladaVisualScene::read: <node> [" 
                          << i << "] name ["
                          << (getName(childN) != NULL ? getName(childN) : "")
                          << "] already has a parent." << std::endl;
@@ -142,8 +160,17 @@ ColladaVisualScene::createInstance(
     }
 
     editInstStore().push_back(rootN);
+}
 
-    return rootN;
+Node *
+ColladaVisualScene::createInstance(ColladaInstInfo *colInstInfo)
+{
+    OSG_COLLADA_LOG(("ColladaVisualScene::createInstance\n"));
+
+    // can only have one <instance_visual_scene> tag
+    OSG_ASSERT(getInstStore().size() == 1);
+
+    return dynamic_pointer_cast<Node>(editInstStore().front());
 }
 
 ColladaVisualScene::ColladaVisualScene(daeElement *elem, ColladaGlobal *global)

@@ -99,6 +99,9 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     bool getInvertTransparency   (void      ) const;
     void setInvertTransparency   (bool value);
 
+    bool getMergeTransforms      (void      ) const;
+    void setMergeTransforms      (bool value);
+
     bool getCreateNameAttachments(void      ) const;
     void setCreateNameAttachments(bool value);
 
@@ -119,6 +122,7 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     bool _invertTransparency;
+    bool _mergeTransforms;
     bool _createNameAttachments;
     bool _loadAnimations;
 };

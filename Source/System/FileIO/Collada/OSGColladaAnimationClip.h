@@ -59,10 +59,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class ColladaInstanceAnimation;
-class ColladaAnimation;
-
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 {
@@ -93,103 +89,8 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-
-    void                  setCurrTemplate(AnimKeyFrameTemplate *animTmpl);
-    AnimKeyFrameTemplate *getCurrTemplate(void                          ) const;
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
-
-#if !defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
-    class ColladaAnimationInstInfo : public ColladaInstInfo
-    {
-        /*==========================  PUBLIC  =============================*/
-      public:
-        typedef ColladaInstInfo          Inherited;
-        typedef ColladaAnimationInstInfo Self;
-
-        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationInstInfo);
-
-        static ColladaInstInfoTransitPtr
-            create(ColladaAnimationClip     *colInstParent,
-                   ColladaInstanceAnimation *colInst,
-                   AnimKeyFrameTemplate     *animTmpl      );
-
-        virtual void          process    (void);
-
-        AnimKeyFrameTemplate *getTemplate(void) const;
-
-        /*! \}                                                             */
-        /*=========================  PROTECTED  ===========================*/
-      protected:
-        /*-----------------------------------------------------------------*/
-        /*! \name Constructors/Destructor                                  */
-        /*! \{                                                             */
-
-                 ColladaAnimationInstInfo(
-                     ColladaAnimationClip     *colInstParent,
-                     ColladaInstanceAnimation *colInst,
-                     AnimKeyFrameTemplate     *animTmpl      );
-        virtual ~ColladaAnimationInstInfo(void               );
-
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-
-        AnimKeyFrameTemplateUnrecPtr _animTmpl;
-    };
-
-#else
-    class ColladaAnimationInstInfo : public ColladaInstInfo
-    {
-        /*==========================  PUBLIC  =============================*/
-      public:
-        typedef ColladaInstInfo          Inherited;
-        typedef ColladaAnimationInstInfo Self;
-
-        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationInstInfo);
-
-        static ColladaInstInfoTransitPtr
-            create(ColladaAnimationClip     *colInstParent,
-                   ColladaInstanceAnimation *colInst,
-                   ColladaAnimation         *colAnim,
-                   AnimKeyFrameTemplate     *animTmpl      );
-
-        virtual void         process     (void);
-
-        ColladaAnimation     *getAnim    (void) const;
-        AnimKeyFrameTemplate *getTemplate(void) const;
-
-        /*! \}                                                             */
-        /*=========================  PROTECTED  ===========================*/
-      protected:
-        /*-----------------------------------------------------------------*/
-        /*! \name Constructors/Destructor                                  */
-        /*! \{                                                             */
-
-                 ColladaAnimationInstInfo(
-                     ColladaAnimationClip     *colInstParent,
-                     ColladaInstanceAnimation *colInst,
-                     ColladaAnimation         *colAnim,
-                     AnimKeyFrameTemplate     *animTmpl      );
-        virtual ~ColladaAnimationInstInfo(void               );
-
-        /*! \}                                                             */
-        /*-----------------------------------------------------------------*/
-
-        ColladaAnimation             *_colAnim;
-        AnimKeyFrameTemplateUnrecPtr  _animTmpl;
-    };
-#endif // OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK
-
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -201,11 +102,7 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    void handleInstanceAnimation(ColladaInstInfo *instInfo);
-
     static ColladaElementRegistrationHelper _regHelper;
-
-    AnimKeyFrameTemplateUnrecPtr _currAnimTmpl;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaAnimationClip);

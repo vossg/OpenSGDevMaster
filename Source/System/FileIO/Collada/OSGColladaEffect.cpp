@@ -47,8 +47,9 @@
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
 #include "OSGColladaImage.h"
-#include "OSGColladaSampler2D.h"
 #include "OSGColladaInstanceEffect.h"
+#include "OSGColladaMaterial.h"
+#include "OSGColladaSampler2D.h"
 
 #include "OSGGeometry.h"
 #include "OSGChunkMaterial.h"
@@ -71,6 +72,33 @@
 // #define OSG_COLLADA_TRANSPARENT_MODE 2
 
 OSG_BEGIN_NAMESPACE
+
+ColladaInstInfoTransitPtr
+ColladaEffect::ColladaEffectInstInfo::create(
+    ColladaMaterial *colInstParent, ColladaInstanceEffect *colInst)
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaEffectInstInfo(colInstParent, colInst));
+}
+
+void
+ColladaEffect::ColladaEffectInstInfo::process(void)
+{
+    SFATAL << "ColladaEffectInstInfo::process called!" << std::endl;
+}
+
+ColladaEffect::ColladaEffectInstInfo::ColladaEffectInstInfo(
+    ColladaMaterial *colInstParent, ColladaInstanceEffect *colInst)
+
+    : Inherited(colInstParent, colInst)
+{
+}
+
+ColladaEffect::ColladaEffectInstInfo::~ColladaEffectInstInfo(void)
+{
+}
+
+// ===========================================================================
 
 ColladaElementRegistrationHelper ColladaEffect::_regHelper(
     &ColladaEffect::create, "effect");
@@ -166,17 +194,16 @@ ColladaEffect::read(ColladaElement *colElemParent)
 }
 
 Material *
-ColladaEffect::createInstance(
-    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
+ColladaEffect::createInstance(ColladaInstInfo *colInstInfo)
 {
     OSG_COLLADA_LOG(("ColladaEffect::createInstance\n"));
 
     MaterialUnrecPtr            retVal        = NULL;
     domEffectRef                effect        = getDOMElementAs<domEffect>();
     ColladaInstanceEffectRefPtr colInstEffect =
-        dynamic_cast<ColladaInstanceEffect *>(colInst);
+        dynamic_cast<ColladaInstanceEffect *>(colInstInfo->getColInst());
     domInstance_effectRef       instEffect    =
-        colInst->getDOMElementAs<domInstance_effect>();
+        colInstInfo->getColInst()->getDOMElementAs<domInstance_effect>();
 
     const domFx_profile_abstract_Array &profiles =
         effect->getFx_profile_abstract_array();

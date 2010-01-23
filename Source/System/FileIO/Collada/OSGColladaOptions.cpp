@@ -57,6 +57,8 @@ ColladaOptions::parseOptions(const OptionSet &optSet)
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "invertTransparency", _invertTransparency);
     IOFileTypeBase::getOptionAs<bool>(
+        optSet, "mergeTransforms", _mergeTransforms);
+    IOFileTypeBase::getOptionAs<bool>(
         optSet, "createNameAttachments", _createNameAttachments);
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "loadAnimations", _loadAnimations);
@@ -81,6 +83,25 @@ void
 ColladaOptions::setInvertTransparency(bool value)
 {
     _invertTransparency = value;
+}
+
+/*! Return \c true if transform tags within a single collada <node> tag
+    should be merge, \c false if they should be preserved as individual
+    Nodes in OpenSG.
+ */
+bool
+ColladaOptions::getMergeTransforms(void) const
+{
+    return _mergeTransforms;
+}
+
+/*! Set if transform tags should be merged.
+    Options name: "mergeTransforms".
+ */
+void
+ColladaOptions::setMergeTransforms(bool value)
+{
+    _mergeTransforms = value;
 }
 
 /*! Return \c true if NameAttachments should be created, \c false otherwise.
@@ -116,6 +137,7 @@ ColladaOptions::setLoadAnimations(bool value)
 ColladaOptions::ColladaOptions(void)
     : Inherited             ()
     , _invertTransparency   (false)
+    , _mergeTransforms      (true)
     , _createNameAttachments(true)
     , _loadAnimations       (true)
 {

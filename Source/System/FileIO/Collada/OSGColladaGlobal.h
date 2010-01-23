@@ -54,6 +54,7 @@
 #include "OSGPathHandler.h"
 #include "OSGNode.h"
 #include "OSGColladaElement.h"
+#include "OSGColladaLoaderState.h"
 #include "OSGColladaOptions.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
@@ -64,6 +65,7 @@
 #include <dom/domCOLLADA.h>
 
 #include <deque>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -91,13 +93,18 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGlobal);
 
-    typedef std::deque<ColladaInstInfoRefPtr> InstanceQueue;
-    typedef InstanceQueue::iterator           InstanceQueueIt;
-    typedef InstanceQueue::const_iterator     InstanceQueueConstIt;
+    typedef std::deque<ColladaInstInfoRefPtr>  InstanceQueue;
+    typedef InstanceQueue::iterator            InstanceQueueIt;
+    typedef InstanceQueue::const_iterator      InstanceQueueConstIt;
 
-    typedef std::vector<ColladaElementRefPtr> ElementStore;
-    typedef ElementStore::iterator            ElementStoreIt;
-    typedef ElementStore::const_iterator      ElementStoreConstIt;
+    typedef std::map<std::string,
+                     ColladaLoaderStateRefPtr> LoaderStateMap;
+    typedef LoaderStateMap::iterator           LoaderStateMapIt;
+    typedef LoaderStateMap::const_iterator     LoaderStateMapConstIt;
+
+    typedef std::vector<ColladaElementRefPtr>  ElementStore;
+    typedef ElementStore::iterator             ElementStoreIt;
+    typedef ElementStore::const_iterator       ElementStoreConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,6 +161,19 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name LoaderState                                                  */
+    /*! \{                                                                 */
+
+    inline void addLoaderState(const std::string  &name,
+                               ColladaLoaderState *state);
+    inline void subLoaderState(const std::string &name  );
+
+    inline ColladaLoaderState *getLoaderState  (const std::string &name) const;
+    template <class StateTypeT>
+    inline StateTypeT         *getLoaderStateAs(const std::string &name) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name ElementStore                                                 */
     /*! \{                                                                 */
 
@@ -189,6 +209,7 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     InstanceQueue              _instQueue;
+    LoaderStateMap             _loaderState;
     ElementStore               _elemStore;
 
     ColladaOptionsRefPtr       _options;

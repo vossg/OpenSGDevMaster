@@ -45,9 +45,15 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class ColladaInstanceVisualScene;
+class ColladaScene;
+
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
@@ -67,6 +73,53 @@ class OSG_FILEIO_DLLMAPPING ColladaVisualScene
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaVisualScene);
 
+    class ColladaVisualSceneInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo             Inherited;
+        typedef ColladaVisualSceneInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaVisualSceneInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaScene               *colInstParent,
+                   ColladaInstanceVisualScene *colInst       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaVisualSceneInstInfo(
+                     ColladaScene               *colInstParent,
+                     ColladaInstanceVisualScene *colInst       );
+        virtual ~ColladaVisualSceneInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaVisualSceneInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -80,9 +133,8 @@ class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (ColladaElement         *colElemParent );
-    virtual Node *createInstance(ColladaElement         *colInstParent,
-                                 ColladaInstanceElement *colInst       );
+    virtual void  read          (ColladaElement  *colElemParent);
+    virtual Node *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

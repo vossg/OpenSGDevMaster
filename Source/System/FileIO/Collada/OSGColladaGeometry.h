@@ -46,6 +46,7 @@
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGColladaInstanceMaterial.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGColladaSource.h"
 #include "OSGNode.h"
 #include "OSGGeometry.h"
@@ -74,6 +75,8 @@ OSG_BEGIN_NAMESPACE
 class ColladaInstanceGeometry;
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 
+class ColladaNode;
+
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
  */
@@ -97,6 +100,64 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef ColladaInstanceMaterial::BindVertexInfo  BindVertexInfo;
     typedef ColladaInstanceMaterial::BindVertexStore BindVertexStore;
 
+    class ColladaGeometryInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo          Inherited;
+        typedef ColladaGeometryInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGeometryInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaNode             *colInstParent,
+                   ColladaInstanceGeometry *colInst,
+                   Node                    *parentN       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Access                                                   */
+        /*! \{                                                             */
+
+        inline Node *getParentNode(void) const;
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaGeometryInstInfo(
+                     ColladaNode             *colInstParent,
+                     ColladaInstanceGeometry *colInst,
+                     Node                    *parentN       );
+        virtual ~ColladaGeometryInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        NodeUnrecPtr _parentN;
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaGeometryInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -110,9 +171,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (ColladaElement         *colElemParent );
-    virtual Node *createInstance(ColladaElement         *colInstParent,
-                                 ColladaInstanceElement *colInst       );
+    virtual void  read          (ColladaElement  *colElemParent);
+    virtual Node *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,7 +300,7 @@ OSG_GEN_MEMOBJPTR(ColladaGeometry);
 
 OSG_END_NAMESPACE
 
-// #include "OSGColladaGeometry.inl"
+#include "OSGColladaGeometry.inl"
 
 #endif // OSG_WITH_COLLADA
 

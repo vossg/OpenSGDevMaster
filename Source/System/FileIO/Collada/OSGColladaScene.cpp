@@ -47,6 +47,7 @@
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceVisualScene.h"
+#include "OSGColladaVisualScene.h"
 
 #include <dom/domCOLLADA.h>
 #include <dom/domInstanceWithExtra.h>
@@ -96,9 +97,11 @@ ColladaScene::read(ColladaElement *colElemParent)
     OSG_ASSERT(colInstVisScene                  != NULL);
     OSG_ASSERT(colInstVisScene->getTargetElem() != NULL);
 
-    Node *rootN =
-        colInstVisScene->getTargetElem()->createInstance(
+    ColladaInstInfoRefPtr colInstInfo =
+        ColladaVisualScene::ColladaVisualSceneInstInfo::create(
             this, colInstVisScene);
+
+    Node *rootN = colInstVisScene->getTargetElem()->createInstance(colInstInfo);
 
     getGlobal()->setRoot(rootN);
 }

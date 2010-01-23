@@ -44,11 +44,12 @@
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaLog.h"
+#include "OSGColladaAnimationClip.h"
 #include "OSGColladaGlobal.h"
+#include "OSGColladaInstanceAnimation.h"
+#include "OSGColladaLog.h"
 #include "OSGColladaNode.h"
 #include "OSGColladaSource.h"
-#include "OSGColladaAnimationClip.h"
 
 #include "OSGAnimMatrixDataSource.h"
 #include "OSGAnimQuaternionDataSource.h"
@@ -60,6 +61,64 @@
 #include <dom/domAnimation.h>
 
 OSG_BEGIN_NAMESPACE
+
+ColladaInstInfoTransitPtr
+ColladaAnimation::ColladaAnimationInstInfo::create(
+    ColladaAnimationClip     *colInstParent,
+    ColladaInstanceAnimation *colInst,
+    ColladaAnimation         *colInstTarget,
+    AnimKeyFrameTemplate     *animTmpl      )
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaAnimationInstInfo(colInstParent, colInst,
+                                     colInstTarget, animTmpl));
+}
+
+ColladaAnimation *
+ColladaAnimation::ColladaAnimationInstInfo::getAnim(void) const
+{
+    return _colInstTarget;
+}
+
+AnimKeyFrameTemplate *
+ColladaAnimation::ColladaAnimationInstInfo::getTemplate(void) const
+{
+    return _animTmpl;
+}
+
+void
+ColladaAnimation::ColladaAnimationInstInfo::process(void)
+{
+#if !defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
+    ColladaAnimation *colAnim =
+        dynamic_cast<ColladaAnimation *>(getColInst()->getTargetElem());
+    OSG_ASSERT(colAnim != NULL);
+
+    colAnim->createInstance(this);
+#else
+    OSG_ASSERT(getAnim() != NULL);
+
+    getAnim()->createInstance(this);
+#endif
+}
+
+ColladaAnimation::ColladaAnimationInstInfo::ColladaAnimationInstInfo(
+    ColladaAnimationClip     *colInstParent,
+    ColladaInstanceAnimation *colInst,
+    ColladaAnimation         *colInstTarget,
+    AnimKeyFrameTemplate     *animTmpl      )
+
+    : Inherited     (colInstParent, colInst)
+    , _colInstTarget(colInstTarget)
+    , _animTmpl     (animTmpl)
+{
+}
+
+ColladaAnimation::ColladaAnimationInstInfo::~ColladaAnimationInstInfo(void)
+{
+}
+
+// ===========================================================================
 
 ColladaElementRegistrationHelper ColladaAnimation::_regHelper(
     &ColladaAnimation::create, "animation");
@@ -76,8 +135,7 @@ ColladaAnimation::read(ColladaElement *colElemParent)
 {
     domAnimationRef anim = getDOMElementAs<domAnimation>();
 
-    OSG_COLLADA_LOG(("ColladaAnimation::read id [%s]\n",
-                     (anim->getId() != NULL ? anim->getId() : "") ));
+    OSG_COLLADA_LOG(("ColladaAnimation::read id [%s]\n", anim->getId()));
 
     readAnim(anim);
 
@@ -90,29 +148,35 @@ ColladaAnimation::read(ColladaElement *colElemParent)
 }
 
 AnimKeyFrameTemplate *
-ColladaAnimation::createInstance(
-    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
+ColladaAnimation::createInstance(ColladaInstInfo *colInstInfo)
 {
     domAnimationRef anim = getDOMElementAs<domAnimation>();
 
     OSG_COLLADA_LOG(("ColladaAnimation::createInstance id [%s]\n",
-                     (anim->getId() != NULL ? anim->getId() : "") ));
+                     anim->getId()));
 
-    SWARNING << "ColladaAnimation::createInstance: NIY" << std::endl;
-
-    ColladaAnimationClip   *colAnimClip =
-        dynamic_cast<ColladaAnimationClip *>(colInstParent);
-    AnimKeyFrameTemplate   *animTmpl    = colAnimClip->getCurrTemplate();
+    ColladaAnimationInstInfo *colAnimInstInfo =
+        dynamic_cast<ColladaAnimationInstInfo *>(colInstInfo);
+    ColladaAnimationClip     *colAnimClip     =
+        dynamic_cast<ColladaAnimationClip *>(colInstInfo->getColInstParent());
+    AnimKeyFrameTemplate     *animTmpl        =
+        colAnimInstInfo->getTemplate();
 
     OSG_ASSERT(animTmpl != NULL);
 
-    createInstanceAnim(anim, colInstParent, colInst, animTmpl);
+    createInstanceAnim(anim,
+                       colInstInfo->getColInstParent(),
+                       colInstInfo->getColInst      (),
+                       animTmpl                        );
     
     const domAnimation_Array &subAnims = anim->getAnimation_array();
 
     for(UInt32 i = 0; i < subAnims.getCount(); ++i)
     {
-        createInstanceAnim(subAnims[i], colInstParent, colInst, animTmpl);
+        createInstanceAnim(subAnims[i],
+                           colInstInfo->getColInstParent(),
+                           colInstInfo->getColInst      (),
+                           animTmpl                        );
     }
 
     editInstStore().push_back(animTmpl);

@@ -46,9 +46,10 @@
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
-#include "OSGColladaSource.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceEffect.h"
+#include "OSGColladaNode.h"
+#include "OSGColladaSource.h"
 #include "OSGGroup.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
@@ -67,6 +68,40 @@
 #include <dom/domTristrips.h>
 
 OSG_BEGIN_NAMESPACE
+
+ColladaInstInfoTransitPtr
+ColladaGeometry::ColladaGeometryInstInfo::create(
+    ColladaNode *colInstParent, ColladaInstanceGeometry *colInst,
+    Node        *parentN                                         )
+{
+    OSG_ASSERT(colInstParent != NULL);
+    OSG_ASSERT(colInst       != NULL);
+
+    return ColladaInstInfoTransitPtr(
+        new ColladaGeometryInstInfo(colInstParent, colInst, parentN));
+}
+
+void
+ColladaGeometry::ColladaGeometryInstInfo::process(void)
+{
+    Node *geoInstN = dynamic_cast<Node *>(
+        getColInst()->getTargetElem()->createInstance(this));
+
+    getParentNode()->addChild(geoInstN);
+}
+
+ColladaGeometry::ColladaGeometryInstInfo::ColladaGeometryInstInfo(
+    ColladaNode *colInstParent, ColladaInstanceGeometry *colInst,
+    Node        *parentN                                         )
+
+    : Inherited(colInstParent, colInst)
+    , _parentN (parentN               )
+{
+}
+
+ColladaGeometry::ColladaGeometryInstInfo::~ColladaGeometryInstInfo(void)
+{
+}
 
 /*---------------------------------------------------------------------------*/
 
@@ -102,7 +137,7 @@ ColladaGeometry::read(ColladaElement *colElemParent)
     domMeshRef     mesh     = geometry->getMesh();
 
     OSG_COLLADA_LOG(("ColladaGeometry::read id [%s]\n",
-                     (geometry->getId() != NULL ? geometry->getId() : "")));
+                     geometry->getId()));
 
     if(mesh == NULL)
     {
@@ -114,8 +149,7 @@ ColladaGeometry::read(ColladaElement *colElemParent)
 }
 
 Node *
-ColladaGeometry::createInstance(
-    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
+ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
 {
     typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
     typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
@@ -124,7 +158,7 @@ ColladaGeometry::createInstance(
     NodeUnrecPtr   groupN   = makeCoredNode<Group>();
 
     OSG_COLLADA_LOG(("ColladaGeometry::createInstance id [%s]\n",
-                     (geometry->getId() != NULL ? geometry->getId() : "")));
+                     geometry->getId()));
 
     if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
        geometry->getName()                                   != NULL   )
@@ -133,7 +167,7 @@ ColladaGeometry::createInstance(
     }
 
     ColladaInstanceGeometryRefPtr  colInstGeo =
-        dynamic_cast<ColladaInstanceGeometry *>(colInst);
+        dynamic_cast<ColladaInstanceGeometry *>(colInstInfo->getColInst());
     const MaterialMap             &matMap     =
         colInstGeo->getMaterialMap();
 
@@ -1076,8 +1110,11 @@ ColladaGeometry::handleBindMaterial(
         OSG_ASSERT(colInstMat                  != NULL);
         OSG_ASSERT(colInstMat->getTargetElem() != NULL);
 
+        ColladaInstInfoRefPtr colInstInfo =
+            ColladaMaterial::ColladaMaterialInstInfo::create(this, colInstMat);
+
         material      =
-            colInstMat->getTargetElem()->createInstance(this, colInstMat);
+            colInstMat->getTargetElem()->createInstance(colInstInfo);
         colInstEffect = colInstMat->getInstanceEffect();
     }
     else

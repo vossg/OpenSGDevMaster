@@ -45,6 +45,7 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGColladaSource.h"
 
 #include "OSGAnimKeyFrameTemplate.h"
@@ -59,7 +60,10 @@ class domSampler;
 OSG_BEGIN_NAMESPACE
 
 // forward decl
+class ColladaAnimation;
+OSG_GEN_MEMOBJPTR(ColladaAnimation);
 class ColladaAnimationClip;
+class ColladaInstanceAnimation;
 
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimation 
@@ -76,6 +80,59 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimation);
 
+    class ColladaAnimationInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        typedef ColladaInstInfo          Inherited;
+        typedef ColladaAnimationInstInfo Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationInstInfo);
+
+        static ColladaInstInfoTransitPtr
+            create(ColladaAnimationClip     *colInstParent,
+                   ColladaInstanceAnimation *colInst,
+                   ColladaAnimation         *colInstTarget,
+                   AnimKeyFrameTemplate     *animTmpl      );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Access                                                   */
+        /*! \{                                                             */
+
+        ColladaAnimation     *getAnim    (void) const;
+        AnimKeyFrameTemplate *getTemplate(void) const;
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaAnimationInstInfo(
+                     ColladaAnimationClip     *colInstParent,
+                     ColladaInstanceAnimation *colInst,
+                     ColladaAnimation         *colInstTarget,
+                     AnimKeyFrameTemplate     *animTmpl      );
+        virtual ~ColladaAnimationInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        ColladaAnimationRefPtr       _colInstTarget;
+        AnimKeyFrameTemplateUnrecPtr _animTmpl;
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaAnimationInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -89,10 +146,8 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read          (ColladaElement         *colElemParent );
-    virtual AnimKeyFrameTemplate *
-                 createInstance(ColladaElement         *colInstParent,
-                                ColladaInstanceElement *colInst       );
+    virtual void                  read          (ColladaElement  *colElemParent);
+    virtual AnimKeyFrameTemplate *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -148,8 +203,6 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
 
     SourceMap _sourceMap;
 };
-
-OSG_GEN_MEMOBJPTR(ColladaAnimation);
 
 OSG_END_NAMESPACE
 

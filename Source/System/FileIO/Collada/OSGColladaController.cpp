@@ -63,6 +63,39 @@
 
 OSG_BEGIN_NAMESPACE
 
+ColladaInstInfoTransitPtr
+ColladaController::ColladaControllerInstInfo::create(
+    ColladaNode *colInstParent, ColladaInstanceController *colInst,
+    Node        *parentN                                           )
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaControllerInstInfo(colInstParent, colInst, parentN));
+}
+
+void
+ColladaController::ColladaControllerInstInfo::process(void)
+{
+     Node *ctrlInstN = dynamic_cast<Node *>(
+        getColInst()->getTargetElem()->createInstance(this));
+
+    getParentNode()->addChild(ctrlInstN);
+}
+
+ColladaController::ColladaControllerInstInfo::ColladaControllerInstInfo(
+    ColladaNode *colInstParent, ColladaInstanceController *colInst,
+    Node        *parentN                                           )
+
+    : Inherited(colInstParent, colInst)
+    , _parentN (parentN               )
+{
+}
+
+ColladaController::ColladaControllerInstInfo::~ColladaControllerInstInfo(void)
+{
+}
+
+// ===========================================================================
+
 ColladaElementRegistrationHelper ColladaController::_regHelper(
     &ColladaController::create, "controller");
 
@@ -76,10 +109,10 @@ ColladaController::create(daeElement *elem, ColladaGlobal *global)
 void
 ColladaController::read(ColladaElement *colElemParent)
 {
-    OSG_COLLADA_LOG(("ColladaController::read\n"));
-
     domControllerRef ctrl = getDOMElementAs<domController>();
     domSkinRef       skin = ctrl->getSkin();
+
+    OSG_COLLADA_LOG(("ColladaController::read id [%s]\n", ctrl->getId()));
 
     if(skin == NULL)
     {
@@ -91,20 +124,20 @@ ColladaController::read(ColladaElement *colElemParent)
 }
 
 Node *
-ColladaController::createInstance(
-    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
+ColladaController::createInstance(ColladaInstInfo *colInstInfo)
 {
-    OSG_COLLADA_LOG(("ColladaController::createInstance\n"));
-
     typedef ColladaInstanceController::MaterialMap        MaterialMap;
     typedef ColladaInstanceController::MaterialMapConstIt MaterialMapConstIt;
 
-    domControllerRef                ctrl        =
-        getDOMElementAs<domController>();
+    domControllerRef ctrl = getDOMElementAs<domController>();
+
+    OSG_COLLADA_LOG(("ColladaController::createInstance id [%s]\n",
+                     ctrl->getId()));
+
     domSkinRef                      skin        = ctrl->getSkin();
     NodeUnrecPtr                    groupN      = makeCoredNode<Group>();
     ColladaInstanceControllerRefPtr colInstCtrl =
-        dynamic_cast<ColladaInstanceController *>(colInst);
+        dynamic_cast<ColladaInstanceController *>(colInstInfo->getColInst());
 
     if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
        ctrl->getName()                                       != NULL   )

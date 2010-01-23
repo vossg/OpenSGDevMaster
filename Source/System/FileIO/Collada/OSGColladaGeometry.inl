@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,16 +38,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaElement *
-ColladaInstInfo::getColInstParent(void) const
+inline Node *
+ColladaGeometry::ColladaGeometryInstInfo::getParentNode(void) const
 {
-    return _colInstParent;
+    return _parentN;
 }
 
-inline ColladaInstanceElement *
-ColladaInstInfo::getColInst(void) const
-{
-    return _colInst;
-}
 
 OSG_END_NAMESPACE

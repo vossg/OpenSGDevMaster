@@ -73,6 +73,64 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaController);
 
+    class ColladaControllerInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo            Inherited;
+        typedef ColladaControllerInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaControllerInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaNode               *colInstParent,
+                   ColladaInstanceController *colInst,
+                   Node                      *parentN       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Access                                                   */
+        /*! \{                                                             */
+
+        inline Node *getParentNode(void) const;
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaControllerInstInfo(
+                     ColladaNode               *colInstParent,
+                     ColladaInstanceController *colInst,
+                     Node                      *parentN       );
+        virtual ~ColladaControllerInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        NodeUnrecPtr _parentN;
+    };
+
+    OSG_GEN_MEMOBJPTR(ColladaControllerInstInfo);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -86,9 +144,8 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (ColladaElement         *colElemParent );
-    virtual Node *createInstance(ColladaElement         *colInstParent,
-                                 ColladaInstanceElement *colInst       );
+    virtual void  read          (ColladaElement  *colElemParent);
+    virtual Node *createInstance(ColladaInstInfo *colInstInfo  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -153,7 +210,7 @@ OSG_GEN_MEMOBJPTR(ColladaController);
 
 OSG_END_NAMESPACE
 
-// #include "OSGColladaController.inl"
+#include "OSGColladaController.inl"
 
 #endif // OSG_WITH_COLLADA
 
