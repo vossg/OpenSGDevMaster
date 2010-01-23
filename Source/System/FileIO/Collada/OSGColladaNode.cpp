@@ -50,7 +50,6 @@
 #include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
-#include "OSGColladaVisualScene.h"
 #include "OSGTransform.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
@@ -352,7 +351,6 @@ ColladaNode::getNodeBySid(UInt32 instIdx, const std::string &sid) const
     Node              *retVal   = NULL;
     const InstData    &instData = _instDataStore[instIdx];
     SIdNodeMapConstIt  sidIt    = instData._sidMap.find(sid);
-
     if(sidIt != instData._sidMap.end())
     {
         retVal = sidIt->second;
@@ -744,7 +742,7 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
     if(skew == NULL)
         return;
 
-    SWARNING << "ColladaNode::readSkew: NIY" << std::endl;
+    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
 }
 
 void
@@ -755,6 +753,28 @@ ColladaNode::handleTranslate(domTranslate *translate, InstData &instData)
 
     Matrix m;
     m.setTranslate(translate->getValue()[0],
+                   translate->getValue()[1],
+                   translate->getValue()[2] );
+
+    std::string nameSuffix;
+
+    if(translate->getSid() != NULL)
+    {
+        nameSuffix.append("."                );
+        nameSuffix.append(translate->getSid());
+    }
+
+    appendXForm(m, nameSuffix, instData);  
+}
+
+void
+ColladaNode::appendXForm(const Matrix      &m,
+                         const std::string &nameSuffix,
+                         InstData          &instData   )
+{
+    NodeLoaderState *state =
+        getGlobal()->getLoaderStateAs<NodeLoaderState>(_loaderStateName);
+    OSG_ASSERT(state != NULL);
                    translate->getValue()[1],
                    translate->getValue()[2] );
 

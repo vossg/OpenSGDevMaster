@@ -50,10 +50,4 @@ ColladaInstInfo::getColInst(void) const
     return _colInst;
 }
 
-inline Node *
-ColladaInstInfo::getAttachNode(void) const
-{
-    return _attachN;
-}
-
 OSG_END_NAMESPACE
