@@ -53,13 +53,12 @@ OSG_BEGIN_NAMESPACE
 // forward decl
 class ColladaInstanceMaterial;
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
-
 // forward decl
 class ColladaInstanceMaterial;
 
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaMaterial : public ColladaInstantiableElement
 {

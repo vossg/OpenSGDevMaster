@@ -55,14 +55,13 @@ class ColladaInstanceVisualScene;
 class ColladaScene;
 
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
-
 // forward decl
 class ColladaInstanceVisualScene;
 class ColladaScene;
 
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     : public ColladaInstantiableElement
