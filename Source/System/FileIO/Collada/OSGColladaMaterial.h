@@ -57,6 +57,10 @@ class ColladaInstanceMaterial;
     \nohierarchy
  */
 
+// forward decl
+class ColladaInstanceMaterial;
+
+
 class OSG_FILEIO_DLLMAPPING ColladaMaterial : public ColladaInstantiableElement
 {
     /*==========================  PUBLIC  =================================*/

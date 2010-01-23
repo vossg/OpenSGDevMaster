@@ -59,6 +59,11 @@ class ColladaScene;
     \nohierarchy
  */
 
+// forward decl
+class ColladaInstanceVisualScene;
+class ColladaScene;
+
+
 class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     : public ColladaInstantiableElement
 {

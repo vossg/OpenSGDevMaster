@@ -78,7 +78,6 @@ class OSG_FILEIO_DLLMAPPING ColladaInstInfo : public MemoryObject
 
     inline ColladaElement         *getColInstParent(void) const;
     inline ColladaInstanceElement *getColInst      (void) const;
-    inline Node                   *getAttachNode   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -95,8 +94,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstInfo : public MemoryObject
     /*! \{                                                                 */
 
              ColladaInstInfo(ColladaElement         *colInstParent,
-                             ColladaInstanceElement *colInst,
-                             Node                   *attachN       );
+                             ColladaInstanceElement *colInst       );
     virtual ~ColladaInstInfo(void                                  ) = 0;
 
     /*! \}                                                                 */
@@ -104,7 +102,6 @@ class OSG_FILEIO_DLLMAPPING ColladaInstInfo : public MemoryObject
 
     ColladaElementRefPtr         _colInstParent;
     ColladaInstanceElementRefPtr _colInst;
-    NodeUnrecPtr                 _attachN;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaInstInfo);

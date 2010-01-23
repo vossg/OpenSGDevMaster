@@ -120,7 +120,6 @@ ColladaVisualScene::read(ColladaElement *colElemParent)
 
             colNode->read(this);
         }
-
         ColladaInstInfoRefPtr  colInstInfo =
             ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
         Node                  *childN      =

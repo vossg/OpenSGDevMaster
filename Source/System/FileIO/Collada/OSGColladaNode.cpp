@@ -50,7 +50,6 @@
 #include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
-#include "OSGColladaVisualScene.h"
 #include "OSGTransform.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
@@ -127,6 +126,13 @@ ColladaNode::NodeLoaderState::getNodePath(void) const
 void
 ColladaNode::NodeLoaderState::dumpNodePath(void) const
 {
+    NodePathConstIt npIt  = _nodePath.begin();
+    NodePathConstIt npEnd = _nodePath.end  ();
+
+    OSG_COLLADA_LOG(("node path ["));
+
+    for(; npIt != npEnd; ++npIt)
+    {
     NodePathConstIt npIt  = _nodePath.begin();
     NodePathConstIt npEnd = _nodePath.end  ();
 
@@ -393,7 +399,6 @@ ColladaNode::createInstanceNode(ColladaInstInfo *colInstInfo, domNode *node)
     InstData     instData;
 
     instData._nodePath = state->getNodePath();
-
     const daeElementRefArray &contents = node->getContents();
 
     // read "transform" child elements in the order
@@ -663,7 +668,7 @@ ColladaNode::handleLookAt(domLookat *lookat, InstData &instData)
     if(lookat == NULL)
         return;
 
-    SWARNING << "ColladaNode::readLookAt: NIY" << std::endl;
+    SWARNING << "ColladaNode::handleLookAt: NIY" << std::endl;
 }
 
 void
@@ -745,7 +750,7 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
     if(skew == NULL)
         return;
 
-    SWARNING << "ColladaNode::readSkew: NIY" << std::endl;
+    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
 }
 
 void
@@ -758,6 +763,43 @@ ColladaNode::handleTranslate(domTranslate *translate, InstData &instData)
     m.setTranslate(translate->getValue()[0],
                    translate->getValue()[1],
                    translate->getValue()[2] );
+
+    std::string nameSuffix;
+
+    if(translate->getSid() != NULL)
+    {
+        nameSuffix.append("."                );
+        nameSuffix.append(translate->getSid());
+    }
+
+    appendXForm(m, nameSuffix, instData);  
+}
+
+void
+ColladaNode::appendXForm(const Matrix      &m,
+                         const std::string &nameSuffix,
+                         InstData          &instData   )
+{
+    if(getGlobal()->getOptions()->getMergeTransforms() == true)
+    {
+        if(instData._bottomN == NULL)
+        {
+            if(node->getType() == NODETYPE_JOINT)
+            {
+                SkeletonJointUnrecPtr joint = SkeletonJoint::create();
+                instData._bottomN           = makeNodeFor(joint);
+
+                joint->setMatrix(m);
+                joint->setJointId(state->getJointId());
+            }
+            else
+            {
+                TransformUnrecPtr xform = Transform::create();
+                instData._bottomN       = makeNodeFor(xform);
+
+                xform->setMatrix(m);
+            }
+
 
     std::string xformSID;
 
