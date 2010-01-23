@@ -48,6 +48,7 @@
 #include "OSGHardwareSkinningAlgorithm.h"
 #include "OSGSkeletonSkinningAlgorithm.h"
 #include "OSGUnskinnedSkinningAlgorithm.h"
+#include "OSGAnimBindAction.h"
 
 #include <boost/cast.hpp>
 
@@ -78,6 +79,10 @@ void SkinnedGeometry::initMethod(InitPhase ePhase)
         RenderAction::registerLeaveDefault(
             SkinnedGeometry::getClassType(),
             reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderLeave));
+
+        AnimBindAction::registerEnterDefault(
+            SkinnedGeometry::getClassType(),
+            reinterpret_cast<Action::Callback>(&SkinnedGeometry::animBindEnter));
     }
 }
 
@@ -157,6 +162,8 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
 
         case RMSkinnedSoftware:
         {
+            SWARNING << "SkinnedGeometry: render mode 'RMSkinnedSoftware' NIY"
+                     << std::endl;
             setSkinningAlgorithm(NULL);
         }
         break;
@@ -243,6 +250,24 @@ void SkinnedGeometry::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump SkinnedGeometry NI" << std::endl;
+}
+
+Action::ResultE
+SkinnedGeometry::animBindEnter(Action *action)
+{
+    Action::ResultE res = Action::Continue;
+
+    if(_sfSkeleton.getValue() != NULL)
+    {
+        res = _sfSkeleton.getValue()->animBindEnter(action, this);
+    }
+    else
+    {
+        SWARNING << "SkinnedGeometry::animBindEnter: No skeleton."
+                 << std::endl;
+    }
+
+    return res;
 }
 
 OSG_END_NAMESPACE

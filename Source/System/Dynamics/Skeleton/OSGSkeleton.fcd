@@ -2,7 +2,7 @@
 
 <FieldContainer
    name="Skeleton"
-   parent="AttachmentContainer"
+   parent="SkeletonParent"
    library="Dynamics"
    pointerfieldtypes="both"
    structure="concrete"
@@ -119,6 +119,16 @@
      >
     Whether jointNormalMatrices should be calculated when computing the
     jointMatrices.
+  </Field>
+
+  <Field
+     name="jointsChanged"
+     type="OSGAny"
+     category="data"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     >
   </Field>
 
 </FieldContainer>

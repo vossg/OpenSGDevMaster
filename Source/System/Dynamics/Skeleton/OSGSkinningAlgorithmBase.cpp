@@ -58,7 +58,7 @@
 
 
 
-#include "OSGSkinnedGeometry.h"         // Parent Class
+#include "OSGSkinnedGeometry.h"         // Skin Class
 #include "OSGSkeleton.h"                // Skeleton Class
 
 #include "OSGSkinningAlgorithmBase.h"
@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var SkinnedGeometry * SkinningAlgorithmBase::_sfParent
+/*! \var SkinnedGeometry * SkinningAlgorithmBase::_sfSkin
     
 */
 
@@ -140,9 +140,9 @@ void SkinningAlgorithmBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFParentSkinnedGeometryPtr::Description(
         SFParentSkinnedGeometryPtr::getClassType(),
-        "parent",
+        "skin",
         "",
-        ParentFieldId, ParentFieldMask,
+        SkinFieldId, SkinFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&SkinningAlgorithm::invalidEditField),
@@ -190,7 +190,7 @@ SkinningAlgorithmBase::TypeObject SkinningAlgorithmBase::_type(
     "   parentFields=\"none\"\n"
     ">\n"
     "  <Field\n"
-    "     name=\"parent\"\n"
+    "     name=\"skin\"\n"
     "     type=\"SkinnedGeometry\"\n"
     "     category=\"parentpointer\"\n"
     "     cardinality=\"single\"\n"
@@ -259,9 +259,9 @@ UInt32 SkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    if(FieldBits::NoField != (SkinFieldMask & whichField))
     {
-        returnValue += _sfParent.getBinSize();
+        returnValue += _sfSkin.getBinSize();
     }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
@@ -276,9 +276,9 @@ void SkinningAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    if(FieldBits::NoField != (SkinFieldMask & whichField))
     {
-        _sfParent.copyToBin(pMem);
+        _sfSkin.copyToBin(pMem);
     }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
@@ -291,9 +291,9 @@ void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    if(FieldBits::NoField != (SkinFieldMask & whichField))
     {
-        _sfParent.copyFromBin(pMem);
+        _sfSkin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
@@ -308,14 +308,14 @@ void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
 SkinningAlgorithmBase::SkinningAlgorithmBase(void) :
     Inherited(),
-    _sfParent                 (NULL),
+    _sfSkin                   (NULL),
     _sfSkeleton               (NULL)
 {
 }
 
 SkinningAlgorithmBase::SkinningAlgorithmBase(const SkinningAlgorithmBase &source) :
     Inherited(source),
-    _sfParent                 (NULL),
+    _sfSkin                   (NULL),
     _sfSkeleton               (NULL)
 {
 }
@@ -334,7 +334,7 @@ bool SkinningAlgorithmBase::linkParent(
     UInt16           const childFieldId,
     UInt16           const parentFieldId )
 {
-    if(parentFieldId == ParentFieldId)
+    if(parentFieldId == SkinFieldId)
     {
         SkinnedGeometry * pTypedParent =
             dynamic_cast< SkinnedGeometry * >(pParent);
@@ -342,19 +342,19 @@ bool SkinningAlgorithmBase::linkParent(
         if(pTypedParent != NULL)
         {
             FieldContainer *pOldParent =
-                _sfParent.getValue         ();
+                _sfSkin.getValue         ();
 
             UInt16 oldChildFieldId =
-                _sfParent.getParentFieldPos();
+                _sfSkin.getParentFieldPos();
 
             if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
 
-            editSField(ParentFieldMask);
+            editSField(SkinFieldMask);
 
-            _sfParent.setValue(static_cast<SkinnedGeometry *>(pParent), childFieldId);
+            _sfSkin.setValue(static_cast<SkinnedGeometry *>(pParent), childFieldId);
 
             return true;
         }
@@ -369,18 +369,18 @@ bool SkinningAlgorithmBase::unlinkParent(
     FieldContainer * const pParent,
     UInt16           const parentFieldId)
 {
-    if(parentFieldId == ParentFieldId)
+    if(parentFieldId == SkinFieldId)
     {
         SkinnedGeometry * pTypedParent =
             dynamic_cast< SkinnedGeometry * >(pParent);
 
         if(pTypedParent != NULL)
         {
-            if(_sfParent.getValue() == pParent)
+            if(_sfSkin.getValue() == pParent)
             {
-                editSField(ParentFieldMask);
+                editSField(SkinFieldMask);
 
-                _sfParent.setValue(NULL, 0xFFFF);
+                _sfSkin.setValue(NULL, 0xFFFF);
 
                 return true;
             }
@@ -410,14 +410,14 @@ void SkinningAlgorithmBase::onCreate(const SkinningAlgorithm *source)
     }
 }
 
-GetFieldHandlePtr SkinningAlgorithmBase::getHandleParent          (void) const
+GetFieldHandlePtr SkinningAlgorithmBase::getHandleSkin            (void) const
 {
     SFParentSkinnedGeometryPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }
 
-EditFieldHandlePtr SkinningAlgorithmBase::editHandleParent         (void)
+EditFieldHandlePtr SkinningAlgorithmBase::editHandleSkin           (void)
 {
     EditFieldHandlePtr returnValue;
 

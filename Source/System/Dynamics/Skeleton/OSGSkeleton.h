@@ -73,6 +73,16 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Render                                  */
+    /*! \{                                                                 */
+
+    Action::ResultE renderEnter  (Action *action, NodeCore *parent);
+    Action::ResultE renderLeave  (Action *action, NodeCore *parent);
+
+    Action::ResultE animBindEnter(Action *action, NodeCore *parent);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Volume                                  */
     /*! \{                                                                 */
 
@@ -95,6 +105,8 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
     typedef std::vector<SkeletonJoint *> JointStack;
     typedef JointStack::iterator         JointStackIt;
     typedef JointStack::const_iterator   JointStackConstIt;
+
+    bool _jointMatricesValid;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

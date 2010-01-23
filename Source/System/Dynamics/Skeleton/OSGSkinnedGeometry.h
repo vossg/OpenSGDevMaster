@@ -87,9 +87,11 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     /*! \name                     Render                                   */
     /*! \{                                                                 */
 
-    Action::ResultE renderEnter(Action *action);
-    Action::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter  (Action *action);
+    Action::ResultE renderLeave  (Action *action);
 
+    Action::ResultE animBindEnter(Action *action);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Drawable Specifics                           */

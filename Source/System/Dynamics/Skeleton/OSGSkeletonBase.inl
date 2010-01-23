@@ -123,6 +123,31 @@ void SkeletonBase::setCalcNormalMatrices(const bool value)
 
     _sfCalcNormalMatrices.setValue(value);
 }
+//! Get the value of the Skeleton::_sfJointsChanged field.
+
+inline
+OSGAny &SkeletonBase::editJointsChanged(void)
+{
+    editSField(JointsChangedFieldMask);
+
+    return _sfJointsChanged.getValue();
+}
+
+//! Get the value of the Skeleton::_sfJointsChanged field.
+inline
+const OSGAny &SkeletonBase::getJointsChanged(void) const
+{
+    return _sfJointsChanged.getValue();
+}
+
+//! Set the value of the Skeleton::_sfJointsChanged field.
+inline
+void SkeletonBase::setJointsChanged(const OSGAny &value)
+{
+    editSField(JointsChangedFieldMask);
+
+    _sfJointsChanged.setValue(value);
+}
 
 //! Get the value of the \a index element the Skeleton::_mfRoots field.
 inline
@@ -223,6 +248,9 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
 
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
         _sfCalcNormalMatrices.syncWith(pFrom->_sfCalcNormalMatrices);
+
+    if(FieldBits::NoField != (JointsChangedFieldMask & whichField))
+        _sfJointsChanged.syncWith(pFrom->_sfJointsChanged);
 }
 #endif
 

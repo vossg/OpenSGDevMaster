@@ -46,8 +46,12 @@
 #include "OSGConfig.h"
 
 #include "OSGSkeletonJoint.h"
+#include "OSGAnimation.h"
+#include "OSGAnimBindAction.h"
+#include "OSGAnimChannel.h"
+#include "OSGAnimDataSource.h"
+#include "OSGAnimTargetAttachment.h"
 #include "OSGRenderAction.h"
-#include "OSGUpdateAction.h"
 
 #include <boost/cast.hpp>
 
@@ -74,19 +78,16 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-//         RenderAction::registerEnterDefault(
-//             SkeletonJoint::getClassType(),
-//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
-//         RenderAction::registerLeaveDefault(
-//             SkeletonJoint::getClassType(),
-//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+        RenderAction::registerEnterDefault(
+            SkeletonJoint::getClassType(),
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
+        RenderAction::registerLeaveDefault(
+            SkeletonJoint::getClassType(),
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
 
-        UpdateAction::registerEnterDefault(
+        AnimBindAction::registerEnterDefault(
             SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateEnter));
-        UpdateAction::registerLeaveDefault(
-            SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateLeave));
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::animBindEnter));
     }
 }
 
@@ -125,6 +126,9 @@ void SkeletonJoint::changed(ConstFieldMaskArg whichField,
          MatrixFieldMask          ) & whichField) != 0x0000)
     {
         invalidateVolume();
+
+        if(_sfSkeleton.getValue() != NULL)
+            _sfSkeleton.getValue()->editSFJointsChanged();
     }
 
     Inherited::changed(whichField, origin, details);
@@ -160,8 +164,7 @@ SkeletonJoint::renderEnter(Action *action)
     Skeleton::MFJointNormalMatricesType *jointNMats =
         skel->editMFJointNormalMatrices();
 
-    ract->pushVisibility(                    );
-    ract->pushMatrix    (_sfMatrix.getValue());
+    ract->pushMatrix(_sfMatrix.getValue());
 
     Matrix jointMat(ract->topMatrix());
 
@@ -207,81 +210,22 @@ SkeletonJoint::renderLeave(Action *action)
     }
 #endif
 
-    ract->popMatrix    ();
-    ract->popVisibility();
+    ract->popMatrix();
 
     return res;
 }
 
 Action::ResultE
-SkeletonJoint::updateEnter(Action *action)
+SkeletonJoint::animBindEnter(Action *action)
 {
-    UpdateAction    *ua      = dynamic_cast<UpdateAction *>(action);
     Action::ResultE  res     = Action::Continue;
-    Skeleton        *skel    = _sfSkeleton.getValue();
-    Int16            jointId = _sfJointId .getValue();
+    AnimBindAction  *bindAct =
+        boost::polymorphic_downcast<AnimBindAction *>(action);
 
-#ifdef OSG_DEBUG
-    if(jointId == INVALID_JOINT_ID)
-    {
-        SWARNING << "SkeletonJoint::updateEnter: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-    
-    if(skel == NULL)
-    {
-        SWARNING << "SkeletonJoint::updateEnter: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-#endif // OSG_DEBUG
+    SLOG << "SkeletonJoint::animBindEnter: jointId ["
+         << _sfJointId.getValue() << "]" << std::endl;
 
-    ua->pushMatrix(_sfMatrix.getValue());
-
-    Matrix jointMat(ua->getModelMatrix());
-
-    if(skel->getUseInvBindMatrix() == true)
-        jointMat.mult(_sfInvBindMatrix.getValue());
-
-    (*skel->editMFJointMatrices())[jointId] = jointMat;
-
-    if(skel->getCalcNormalMatrices() == true)
-    {
-        jointMat.invert   ();
-        jointMat.transpose();
-
-        (*skel->editMFJointNormalMatrices())[jointId] = jointMat;
-    }
-
-    return res;
-}
-
-Action::ResultE
-SkeletonJoint::updateLeave(Action *action)
-{
-    UpdateAction    *ua      = dynamic_cast<UpdateAction *>(action);
-    Action::ResultE  res     = Action::Continue;
-    Skeleton        *skel    = _sfSkeleton.getValue();
-    Int16            jointId = _sfJointId .getValue();
-
-#ifdef OSG_DEBUG
-    if(jointId == INVALID_JOINT_ID)
-    {
-        SWARNING << "SkeletonJoint::updateLeave: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-    
-    if(skel == NULL)
-    {
-        SWARNING << "SkeletonJoint::updateLeave: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-#endif // OSG_DEBUG
-
-    ua->popMatrix();
+    bindAct->bindFields(this);
 
     return res;
 }

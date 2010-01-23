@@ -63,12 +63,13 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGSkeletonParent.h" // Parent
 
 #include "OSGNodeFields.h"              // Roots type
 #include "OSGSkeletonJointFields.h"     // Joints type
 #include "OSGMathFields.h"              // JointMatrices type
 #include "OSGSysFields.h"               // UseInvBindMatrix type
+#include "OSGOSGAnyFields.h"            // JointsChanged type
 
 #include "OSGSkeletonFields.h"
 
@@ -78,12 +79,12 @@ class Skeleton;
 
 //! \brief Skeleton Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef SkeletonParent Inherited;
+    typedef SkeletonParent ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -103,7 +104,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
         ParentJointsFieldId = JointNormalMatricesFieldId + 1,
         UseInvBindMatrixFieldId = ParentJointsFieldId + 1,
         CalcNormalMatricesFieldId = UseInvBindMatrixFieldId + 1,
-        NextFieldId = CalcNormalMatricesFieldId + 1
+        JointsChangedFieldId = CalcNormalMatricesFieldId + 1,
+        NextFieldId = JointsChangedFieldId + 1
     };
 
     static const OSG::BitVector RootsFieldMask =
@@ -120,6 +122,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << UseInvBindMatrixFieldId);
     static const OSG::BitVector CalcNormalMatricesFieldMask =
         (TypeTraits<BitVector>::One << CalcNormalMatricesFieldId);
+    static const OSG::BitVector JointsChangedFieldMask =
+        (TypeTraits<BitVector>::One << JointsChangedFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -130,6 +134,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     typedef MFUnrecSkeletonJointPtr MFParentJointsType;
     typedef SFBool            SFUseInvBindMatrixType;
     typedef SFBool            SFCalcNormalMatricesType;
+    typedef SFOSGAny          SFJointsChangedType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -173,6 +178,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
                   SFBool              *editSFCalcNormalMatrices(void);
             const SFBool              *getSFCalcNormalMatrices (void) const;
 
+                  SFOSGAny            *editSFJointsChanged  (void);
+            const SFOSGAny            *getSFJointsChanged   (void) const;
+
 
                   Node * getRoots          (const UInt32 index) const;
 
@@ -192,6 +200,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
                   bool                &editCalcNormalMatrices(void);
                   bool                 getCalcNormalMatrices (void) const;
 
+                  OSGAny              &editJointsChanged  (void);
+            const OSGAny              &getJointsChanged   (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -199,6 +210,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
 
             void setUseInvBindMatrix(const bool value);
             void setCalcNormalMatrices(const bool value);
+            void setJointsChanged  (const OSGAny &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -288,6 +300,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     MFUnrecSkeletonJointPtr _mfParentJoints;
     SFBool            _sfUseInvBindMatrix;
     SFBool            _sfCalcNormalMatrices;
+    SFOSGAny          _sfJointsChanged;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -338,6 +351,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     EditFieldHandlePtr editHandleUseInvBindMatrix(void);
     GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;
     EditFieldHandlePtr editHandleCalcNormalMatrices(void);
+    GetFieldHandlePtr  getHandleJointsChanged   (void) const;
+    EditFieldHandlePtr editHandleJointsChanged  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

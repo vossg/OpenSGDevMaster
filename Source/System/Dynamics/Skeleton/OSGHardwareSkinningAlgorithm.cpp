@@ -141,7 +141,7 @@ ActionBase::ResultE
 HardwareSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
-    SkinnedGeometry *skinGeo = getParent  ();
+    SkinnedGeometry *skinGeo = getSkin    ();
     Skeleton        *skel    = getSkeleton();
     RenderAction    *ract    =
         boost::polymorphic_downcast<RenderAction *>(action); 
@@ -156,6 +156,8 @@ HardwareSkinningAlgorithm::renderEnter(Action *action)
         data = HardwareSkinningDataAttachment::create();
         skel->addAttachment(data);
     }
+
+    skel->renderEnter(action, skinGeo);
 
     ShaderProgramChunkUnrecPtr         shCode = data->getShaderCode();
     ShaderProgramVariableChunkUnrecPtr shData = getShaderData();
@@ -218,7 +220,10 @@ ActionBase::ResultE
 HardwareSkinningAlgorithm::renderLeave(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
-    SkinnedGeometry *skinGeo = getParent();
+    SkinnedGeometry *skinGeo = getSkin();
+    Skeleton        *skel    = getSkeleton();
+
+    skel->renderLeave(action, skinGeo);
 
     res = skinGeo->renderActionLeaveHandler(action);
 

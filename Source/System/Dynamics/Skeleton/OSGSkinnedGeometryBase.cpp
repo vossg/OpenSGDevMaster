@@ -359,7 +359,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     name=\"skinningAlgorithm\"\n"
     "     type=\"SkinningAlgorithm\"\n"
     "     category=\"childpointer\"\n"
-    "     linkParentField=\"Parent\"\n"
+    "     linkParentField=\"Skin\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"protected\"\n"
@@ -725,7 +725,7 @@ SkinnedGeometryBase::SkinnedGeometryBase(void) :
     _sfRenderMode             (UInt32(0)),
     _sfSkinningAlgorithm      (this,
                           SkinningAlgorithmFieldId,
-                          SkinningAlgorithm::ParentFieldId)
+                          SkinningAlgorithm::SkinFieldId)
 {
 }
 
@@ -739,7 +739,7 @@ SkinnedGeometryBase::SkinnedGeometryBase(const SkinnedGeometryBase &source) :
     _sfRenderMode             (source._sfRenderMode             ),
     _sfSkinningAlgorithm      (this,
                           SkinningAlgorithmFieldId,
-                          SkinningAlgorithm::ParentFieldId)
+                          SkinningAlgorithm::SkinFieldId)
 {
 }
 

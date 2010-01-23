@@ -116,6 +116,8 @@ AnimKeyFrameTemplate::instantiate(Node *rootNode)
     anim->setTimeSensor(ts  );
     anim->setTemplate  (this);
     
+    dump();
+
     AnimBindAction *bindAct = AnimBindAction::create();
 
     bindAct->setTemplate(this);
@@ -129,10 +131,10 @@ AnimKeyFrameTemplate::instantiate(Node *rootNode)
 }
 
 
-void AnimKeyFrameTemplate::dump(      UInt32    ,
-                         const BitVector ) const
+void AnimKeyFrameTemplate::dump(      UInt32    uiIndent,
+                                const BitVector bvFlags  ) const
 {
-    SLOG << "Dump AnimKeyFrameTemplate NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
 }
 
 OSG_END_NAMESPACE

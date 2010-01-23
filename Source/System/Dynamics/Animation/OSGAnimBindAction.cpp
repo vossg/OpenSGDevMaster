@@ -39,10 +39,13 @@
 #include "OSGAnimBindAction.h"
 #include "OSGAnimTemplate.h"
 #include "OSGAnimation.h"
+#include "OSGAnimDataSource.h"
 
 // for callbacks only
 #include "OSGTransform.h"
 #include "OSGAnimTargetAttachment.h"
+
+#include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -127,6 +130,112 @@ AnimBindAction::setAnim(Animation *anim)
     _anim = anim;
 }
 
+void
+AnimBindAction::bindFields(AttachmentContainer *attCon)
+{
+    AnimTargetAttachment *targetAtt = getTargetAtt(attCon);
+
+    if(targetAtt == NULL)
+        return;
+
+    Animation       *anim  = getAnim();
+    DataSourceMapIt  dsIt  = _dsMap.begin();
+    DataSourceMapIt  dsEnd = _dsMap.end  ();
+
+    while(dsIt != dsEnd)
+    {
+        if(dsIt->first.find(targetAtt->getTargetId()) != 0)
+        {
+            ++dsIt;
+            continue;
+        }
+
+        std::string targetId;
+        std::string subTargetId;
+
+        splitTargetId(dsIt->first, targetId, subTargetId);
+
+        FieldDescriptionBase *fDesc =
+            attCon->getType().getFieldDesc(subTargetId.c_str());
+
+        if(fDesc == NULL)
+        {
+            SWARNING << "AnimBindAction::bindFields: no Field for "
+                     << "subTargetId [" << subTargetId << "] found."
+                     << std::endl;
+            ++dsIt;
+            continue;
+        }
+
+        // create channel
+        AnimChannelUnrecPtr channel = dsIt->second->createChannel();
+        anim->editMFChannels()->push_back(channel);
+
+         // create blender
+        UInt32 fId = fDesc->getFieldId();
+
+        if(targetAtt->getMFBlenders()->size() <= fId)
+            targetAtt->editMFBlenders()->resize(fId + 1, NULL);
+
+        AnimBlenderUnrecPtr blender = targetAtt->getBlenders(fId);
+
+        if(blender == NULL)
+        {
+            blender = dsIt->second->createBlender();
+            (*targetAtt->editMFBlenders())[fId] = blender;
+        }
+
+        blender->addChannel(channel                 );
+        blender->connectTo (attCon, fDesc->getName());
+
+        // remove bound data source from map
+        DataSourceMapIt eraseIt = dsIt;
+        ++dsIt;
+        _dsMap.erase(eraseIt);
+    }
+}
+
+
+void
+AnimBindAction::fillSourceMap(NodeCore      *core,
+                              DataSourceMap &dsMap) const
+{
+    AnimTargetAttachment *targetAtt = getTargetAtt(core);
+
+    if(targetAtt == NULL)
+        return;
+
+    DataSourceMapConstIt dsIt  = _dsMap.begin();
+    DataSourceMapConstIt dsEnd = _dsMap.end  ();
+
+    for(; dsIt != dsEnd; ++dsIt)
+    {
+        if(dsIt->first.find(targetAtt->getTargetId()) == 0)
+        {
+            SLOG << "AnimBindAction::fillSourceMap: adding ["
+                 << dsIt->first << "] for [" << targetAtt->getTargetId()
+                 << "]" << std::endl;
+
+            dsMap.insert(*dsIt);
+        }
+    }
+}
+
+void
+AnimBindAction::markUsed(const std::string &targetId)
+{
+    DataSourceMapIt dsIt = _dsMap.find(targetId);
+
+    if(dsIt != _dsMap.end())
+    {
+        _dsMap.erase(dsIt);
+    }
+    else
+    {
+        SWARNING << "AnimBindAction::markUsed: targetId [" << targetId
+                 << "] not in unused sources map." << std::endl;
+    }
+}
 
 void
 AnimBindAction::splitTargetId(
@@ -152,6 +261,7 @@ AnimBindAction::AnimBindAction(void)
     : Inherited(    )
     , _animTmpl(NULL)
     , _anim    (NULL)
+    , _dsMap   (    )
 {
 }
 
@@ -165,6 +275,47 @@ AnimBindAction::FunctorStore *
 AnimBindAction::getDefaultLeaveFunctors(void)
 {
     return _defaultLeaveFunctors;
+}
+
+Action::ResultE
+AnimBindAction::start(void)
+{
+    ResultE res = Inherited::start();
+
+    _dsMap.clear();
+
+    if(res != Continue)
+        return res;
+
+    UInt32 sourceCount = _animTmpl->getMFSources()->size();
+
+    for(UInt32 i = 0; i < sourceCount; ++i)
+    {
+        _dsMap.insert(DataSourceMap::value_type(
+                          _animTmpl->getTargetIds(i),
+                          _animTmpl->getSources  (i) ));
+                                                
+    }
+
+    return Action::Continue;
+}
+
+Action::ResultE
+AnimBindAction::stop(ResultE res)
+{
+    if(_dsMap.empty() == false)
+    {
+        SWARNING << "AnimBindAction::stop: Unbound targets/data sources:"
+                 << std::endl;
+
+        DataSourceMapConstIt dsIt  = _dsMap.begin();
+        DataSourceMapConstIt dsEnd = _dsMap.end  ();
+
+        for(; dsIt != dsEnd; ++dsIt)
+            SWARNING << "  " << dsIt->first << std::endl;
+    }
+
+    return Inherited::stop(res);
 }
 
 bool
@@ -191,6 +342,18 @@ AnimBindAction::terminateLeave(void)
 
 /*------------------------------- callbacks -------------------------------*/
 
+Action::ResultE
+bindEnterDefault(NodeCore *core, Action *action)
+{
+    AnimBindAction *bindAct =
+        boost::polymorphic_downcast<AnimBindAction *>(action);
+
+    bindAct->bindFields(core);
+
+    return Action::Continue;
+}
+
+#if 0
 Action::ResultE
 bindEnterDefault(NodeCore *core, Action *action)
 {
@@ -261,6 +424,7 @@ bindEnterDefault(NodeCore *core, Action *action)
 
     return Action::Continue;
 }
+#endif
 
 Action::ResultE
 bindSkeletonEnter(NodeCore *core, Action *action)

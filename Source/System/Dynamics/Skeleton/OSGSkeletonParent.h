@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,16 +36,37 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGSKELETONPARENT_H_
+#define _OSGSKELETONPARENT_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGAttachmentContainer.h"
+#include "OSGStageHandlerMixin.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline SkinnedGeometry *
-SkinningAlgorithm::getSkin(void) const
+struct SkeletonDesc
 {
-    return _sfSkin.getValue();
+    typedef AttachmentContainer        ParentT;
+    typedef FieldContainer::TypeObject TypeObject;
+};
+
+typedef ContainerMixinHead<SkeletonDesc> SkeletonMixinParent;
+
+typedef StageHandlerMixin<SkeletonMixinParent> SkeletonParent;
+
+#ifdef WIN32
+template <> inline
+Action::ResultE 
+    StageHandlerMixin<SkeletonMixinParent>::recurseFromThis(RenderAction *)
+{
+    OSG_ASSERT(false);
+    return Action::Continue;
 }
+#endif
 
 OSG_END_NAMESPACE
+
+#endif /* _OSGSKELETONPARENT_H_ */

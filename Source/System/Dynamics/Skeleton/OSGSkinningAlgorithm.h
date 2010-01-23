@@ -77,7 +77,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
     /*! \name                        Parent                                */
     /*! \{                                                                 */
 
-    SkinnedGeometry *getParent(void) const;
+    SkinnedGeometry *getSkin(void) const;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

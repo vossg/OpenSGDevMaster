@@ -104,7 +104,7 @@ SkeletonSkinningAlgorithm::~SkeletonSkinningAlgorithm(void)
 void
 SkeletonSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    SkinnedGeometry *skinGeo = getParent();
+    SkinnedGeometry *skinGeo = getSkin();
     Skeleton        *skel    = skinGeo->getSkeleton();
 
     skel->adjustVolume(volume);
@@ -117,8 +117,10 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    const SkinnedGeometry *skinGeo = getParent();
-    const Skeleton        *skel    = skinGeo->getSkeleton();
+    SkinnedGeometry *skinGeo = getSkin();
+    Skeleton        *skel    = skinGeo->getSkeleton();
+
+    skel->renderEnter(action, skinGeo);
 
     const Skeleton::MFJointsType        *joints       = skel->getMFJoints();
     const Skeleton::MFParentJointsType  *parentJoints =
@@ -179,6 +181,11 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
 ActionBase::ResultE
 SkeletonSkinningAlgorithm::renderLeave(Action *action)
 {
+    SkinnedGeometry *skinGeo = getSkin();
+    Skeleton        *skel    = getSkeleton();
+
+    skel->renderLeave(action, skinGeo);
+  
     return Action::Continue;
 }
 

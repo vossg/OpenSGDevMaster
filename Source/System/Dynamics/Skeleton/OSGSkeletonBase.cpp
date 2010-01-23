@@ -139,13 +139,17 @@ OSG_BEGIN_NAMESPACE
     jointMatrices.
 */
 
+/*! \var OSGAny          SkeletonBase::_sfJointsChanged
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "SkeletonParentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(Skeleton *)
@@ -318,6 +322,18 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleCalcNormalMatrices));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFOSGAny::Description(
+        SFOSGAny::getClassType(),
+        "jointsChanged",
+        "",
+        JointsChangedFieldId, JointsChangedFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointsChanged),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointsChanged));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -336,7 +352,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Skeleton\"\n"
-    "   parent=\"AttachmentContainer\"\n"
+    "   parent=\"SkeletonParent\"\n"
     "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
@@ -453,6 +469,16 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     >\n"
     "    Whether jointNormalMatrices should be calculated when computing the\n"
     "    jointMatrices.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"jointsChanged\"\n"
+    "     type=\"OSGAny\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
     "  </Field>\n"
     "\n"
     "</FieldContainer>\n",
@@ -572,6 +598,19 @@ SFBool *SkeletonBase::editSFCalcNormalMatrices(void)
 const SFBool *SkeletonBase::getSFCalcNormalMatrices(void) const
 {
     return &_sfCalcNormalMatrices;
+}
+
+
+SFOSGAny *SkeletonBase::editSFJointsChanged(void)
+{
+    editSField(JointsChangedFieldMask);
+
+    return &_sfJointsChanged;
+}
+
+const SFOSGAny *SkeletonBase::getSFJointsChanged(void) const
+{
+    return &_sfJointsChanged;
 }
 
 
@@ -772,6 +811,10 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfCalcNormalMatrices.getBinSize();
     }
+    if(FieldBits::NoField != (JointsChangedFieldMask & whichField))
+    {
+        returnValue += _sfJointsChanged.getBinSize();
+    }
 
     return returnValue;
 }
@@ -809,6 +852,10 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfCalcNormalMatrices.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (JointsChangedFieldMask & whichField))
+    {
+        _sfJointsChanged.copyToBin(pMem);
+    }
 }
 
 void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
@@ -843,6 +890,10 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
     {
         _sfCalcNormalMatrices.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (JointsChangedFieldMask & whichField))
+    {
+        _sfJointsChanged.copyFromBin(pMem);
     }
 }
 
@@ -977,7 +1028,8 @@ SkeletonBase::SkeletonBase(void) :
     _mfJointNormalMatrices    (),
     _mfParentJoints           (),
     _sfUseInvBindMatrix       (bool(true)),
-    _sfCalcNormalMatrices     (bool(true))
+    _sfCalcNormalMatrices     (bool(true)),
+    _sfJointsChanged          ()
 {
 }
 
@@ -991,7 +1043,8 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
     _mfParentJoints           (),
     _sfUseInvBindMatrix       (source._sfUseInvBindMatrix       ),
-    _sfCalcNormalMatrices     (source._sfCalcNormalMatrices     )
+    _sfCalcNormalMatrices     (source._sfCalcNormalMatrices     ),
+    _sfJointsChanged          (source._sfJointsChanged          )
 {
 }
 
@@ -1293,6 +1346,31 @@ EditFieldHandlePtr SkeletonBase::editHandleCalcNormalMatrices(void)
 
 
     editSField(CalcNormalMatricesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkeletonBase::getHandleJointsChanged   (void) const
+{
+    SFOSGAny::GetHandlePtr returnValue(
+        new  SFOSGAny::GetHandle(
+             &_sfJointsChanged,
+             this->getType().getFieldDesc(JointsChangedFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleJointsChanged  (void)
+{
+    SFOSGAny::EditHandlePtr returnValue(
+        new  SFOSGAny::EditHandle(
+             &_sfJointsChanged,
+             this->getType().getFieldDesc(JointsChangedFieldId),
+             this));
+
+
+    editSField(JointsChangedFieldMask);
 
     return returnValue;
 }

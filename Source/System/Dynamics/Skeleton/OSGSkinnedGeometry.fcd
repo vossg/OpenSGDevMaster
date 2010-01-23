@@ -86,7 +86,7 @@
      name="skinningAlgorithm"
      type="SkinningAlgorithm"
      category="childpointer"
-     linkParentField="Parent"
+     linkParentField="Skin"
      cardinality="single"
      visibility="external"
      access="protected"

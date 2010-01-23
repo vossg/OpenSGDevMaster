@@ -65,7 +65,7 @@
 
 #include "OSGAlgorithm.h" // Parent
 
-#include "OSGSkinnedGeometryFields.h"   // Parent type
+#include "OSGSkinnedGeometryFields.h"   // Skin type
 #include "OSGSkeletonFields.h"          // Skeleton type
 
 #include "OSGSkinningAlgorithmFields.h"
@@ -94,19 +94,19 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
 
     enum
     {
-        ParentFieldId = Inherited::NextFieldId,
-        SkeletonFieldId = ParentFieldId + 1,
+        SkinFieldId = Inherited::NextFieldId,
+        SkeletonFieldId = SkinFieldId + 1,
         NextFieldId = SkeletonFieldId + 1
     };
 
-    static const OSG::BitVector ParentFieldMask =
-        (TypeTraits<BitVector>::One << ParentFieldId);
+    static const OSG::BitVector SkinFieldMask =
+        (TypeTraits<BitVector>::One << SkinFieldId);
     static const OSG::BitVector SkeletonFieldMask =
         (TypeTraits<BitVector>::One << SkeletonFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentSkinnedGeometryPtr SFParentType;
+    typedef SFParentSkinnedGeometryPtr SFSkinType;
     typedef SFUnrecSkeletonPtr SFSkeletonType;
 
     /*---------------------------------------------------------------------*/
@@ -181,7 +181,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentSkinnedGeometryPtr _sfParent;
+    SFParentSkinnedGeometryPtr _sfSkin;
     SFUnrecSkeletonPtr _sfSkeleton;
 
     /*! \}                                                                 */
@@ -222,8 +222,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
+    GetFieldHandlePtr  getHandleSkin            (void) const;
+    EditFieldHandlePtr editHandleSkin           (void);
     GetFieldHandlePtr  getHandleSkeleton        (void) const;
     EditFieldHandlePtr editHandleSkeleton       (void);
 

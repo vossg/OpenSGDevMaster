@@ -101,8 +101,8 @@ void SkinningAlgorithmBase::execSync (      SkinningAlgorithmBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-        _sfParent.syncWith(pFrom->_sfParent);
+    if(FieldBits::NoField != (SkinFieldMask & whichField))
+        _sfSkin.syncWith(pFrom->_sfSkin);
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
         _sfSkeleton.syncWith(pFrom->_sfSkeleton);

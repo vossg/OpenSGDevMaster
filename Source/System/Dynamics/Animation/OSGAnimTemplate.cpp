@@ -142,10 +142,28 @@ AnimTemplate::findTargetId(const std::string &targetId, Int32 offset) const
     return index;
 }
 
-void AnimTemplate::dump(      UInt32    ,
-                         const BitVector ) const
+void AnimTemplate::dump(      UInt32    uiIndent,
+                        const BitVector bvFlags  ) const
 {
-    SLOG << "Dump AnimTemplate NI" << std::endl;
+    SLOG;
+    indentLog(uiIndent, PLOG);
+
+    PLOG << "AnimTemplate (" << _sfName.getValue() << ") :\n";
+
+    uiIndent += 4;
+
+    MFTargetIdsType::const_iterator idIt  = _mfTargetIds.begin();
+    MFTargetIdsType::const_iterator idEnd = _mfTargetIds.end  ();
+
+    for(; idIt != idEnd; ++idIt)
+    {
+        SLOG;
+        indentLog(uiIndent, PLOG);
+
+        PLOG << *idIt << "\n";
+    }
+    
+    uiIndent -= 4;
 }
 
 void AnimTemplate::updateLength(void) const

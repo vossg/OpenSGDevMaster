@@ -48,9 +48,9 @@ OSG_BEGIN_NAMESPACE
 // forward decl
 class AnimTemplate;
 OSG_GEN_CONTAINERPTR(AnimTemplate);
-
 class Animation;
 OSG_GEN_CONTAINERPTR(Animation   );
+class AnimDataSource;
 
 /*---------------------------------------------------------------------------*\
  * AnimBindAction                                                            *
@@ -58,9 +58,23 @@ OSG_GEN_CONTAINERPTR(Animation   );
 
 class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
 {
+    /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
     typedef Action         Inherited;
     typedef AnimBindAction Self;
+
+    typedef std::map<std::string, AnimDataSource *> DataSourceMap;
+    typedef DataSourceMap::iterator                 DataSourceMapIt;
+    typedef DataSourceMap::const_iterator           DataSourceMapConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
 
     virtual ~AnimBindAction(void);
 
@@ -71,6 +85,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
     static void registerLeaveDefault(const FieldContainerType &type,
                                      const Action::Functor    &func );
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
     AnimTemplate *getTemplate(void                  ) const;
     void          setTemplate(AnimTemplate *animTmpl);
 
@@ -78,16 +97,30 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
     void          setAnim    (Animation    *anim    );
 
 
+    void          bindFields (AttachmentContainer *attCon);
+
+    void          fillSourceMap(NodeCore      *core,
+                                DataSourceMap &dsMap) const;
+    void          markUsed     (const std::string &targetId);
+
+
+
     void splitTargetId(const std::string &targetIdFull,
                              std::string &targetId,
                              std::string &subTargetId  );
 
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
+
     AnimBindAction(void                        );
     AnimBindAction(const AnimBindAction &source);
 
     virtual FunctorStore *getDefaultEnterFunctors(void);
     virtual FunctorStore *getDefaultLeaveFunctors(void);
+
+    virtual ResultE       start(void       );
+    virtual ResultE       stop (ResultE res);
 
     static  bool          terminateEnter         (void);
     static  bool          terminateLeave         (void);
@@ -99,7 +132,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
   private:
     AnimTemplateUnrecPtr _animTmpl;
     AnimationUnrecPtr    _anim;
-
+    DataSourceMap        _dsMap;
 };
 
 Action::ResultE
@@ -109,5 +142,7 @@ Action::ResultE
 bindSkeletonEnter(NodeCore *core, Action *action);
 
 OSG_END_NAMESPACE
+
+#include "OSGAnimBindAction.inl"
 
 #endif // _OSGANIMBINDACTION_H_

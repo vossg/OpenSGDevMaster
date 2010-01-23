@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGSkeleton.h"
+#include "OSGAction.h"
 #include "OSGSkeletonJoint.h"
 
 // debug only
@@ -90,12 +91,14 @@ void Skeleton::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 Skeleton::Skeleton(void)
-    : Inherited()
+    : Inherited          ()
+    , _jointMatricesValid(false)
 {
 }
 
 Skeleton::Skeleton(const Skeleton &source)
-    : Inherited(source)
+    : Inherited          (source)
+    , _jointMatricesValid(false)
 {
 }
 
@@ -112,9 +115,69 @@ void Skeleton::changed(ConstFieldMaskArg whichField,
     if((RootsFieldMask & whichField) != 0)
     {
         updateJoints();
+        _jointMatricesValid = false;
     }
 
+    if(((UseInvBindMatrixFieldMask |
+         JointsChangedFieldMask     ) & whichField) != 0)
+    {
+        _jointMatricesValid = false;
+    }  
+
     Inherited::changed(whichField, origin, details);
+}
+
+Action::ResultE
+Skeleton::renderEnter(Action *action, NodeCore *parent)
+{
+    RenderAction *ract = boost::polymorphic_downcast<RenderAction *>(action);
+
+    if(_jointMatricesValid == true)
+        return Action::Continue;
+
+    Matrix matWorldInv;
+    matWorldInv.invertFrom(ract->topMatrix());
+
+    bool frustCull = ract->getFrustumCulling();
+    ract->setFrustumCulling(false      );
+    ract->pushMatrix       (matWorldInv);
+    ract->useNodeList      (true       );
+        
+    MFRootsType::const_iterator rIt  = _mfRoots.begin();
+    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+    for(; rIt != rEnd; ++rIt)
+        ract->addNode(*rIt); 
+
+    this->recurseFrom(ract, parent);
+    _jointMatricesValid = true;
+
+    ract->popMatrix        (         );
+    ract->setFrustumCulling(frustCull);
+
+    return Action::Continue;
+}
+
+Action::ResultE
+Skeleton::renderLeave(Action *action, NodeCore *parent)
+{
+    return Action::Continue;
+}
+
+Action::ResultE
+Skeleton::animBindEnter(Action *action, NodeCore *parent)
+{
+    action->useNodeList(true);
+
+    MFRootsType::const_iterator rIt  = _mfRoots.begin();
+    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+    for(; rIt != rEnd; ++rIt)
+        action->addNode(*rIt);
+
+    this->recurseFrom(action, parent);
+
+    return Action::Continue;
 }
 
 void
