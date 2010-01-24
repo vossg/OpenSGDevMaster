@@ -788,7 +788,7 @@ macro(CUDA_WRAP_SRCS cuda_target format generated_files)
   # Emulation if the card isn't present.
   if (CUDA_BUILD_EMULATION)
     # Emulation.
-    set(nvcc_flags ${nvcc_flags} --device-emulation -D_DEVICEEMU -g)
+    set(nvcc_flags ${nvcc_flags} --device-emulation --keep -D_DEVICEEMU -g)
   else(CUDA_BUILD_EMULATION)
     # Device mode.  No flags necessary.
   endif(CUDA_BUILD_EMULATION)
