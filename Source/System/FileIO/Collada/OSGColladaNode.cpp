@@ -141,6 +141,8 @@ ColladaNode::NodeLoaderState::dumpNodePath(void) const
 void
 ColladaNode::NodeLoaderState::pushMatrix(const Matrix &matrix)
 {
+    OSG_COLLADA_LOG((">> >> ColladaNode::NodeLoaderState::pushMatrix\n"));
+
     _matrixStack.push_back(_worldMatrix);
     _worldMatrix.mult(matrix);
 }
@@ -148,6 +150,8 @@ ColladaNode::NodeLoaderState::pushMatrix(const Matrix &matrix)
 void
 ColladaNode::NodeLoaderState::popMatrix(void)
 {
+    OSG_COLLADA_LOG(("<< << ColladaNode::NodeLoaderState::popMatrix\n"));
+
     OSG_ASSERT(_matrixStack.empty() == false);
 
     _worldMatrix = _matrixStack.back();
@@ -206,6 +210,7 @@ ColladaNode::InstData::InstData(void)
     , _skel       (NULL)
     , _topN       (NULL)
     , _bottomN    (NULL)
+    , _sidMap     ()
 {
 }
 
@@ -338,61 +343,23 @@ ColladaNode::getBottomNode(UInt32 instIdx) const
 Node *
 ColladaNode::getNodeBySid(UInt32 instIdx, const std::string &sid) const
 {
-    Node                     *n        = getTopNode(instIdx);
-    domNodeRef                node     = getDOMElementAs<domNode>();
-    const daeElementRefArray &contents = node->getContents();
+    OSG_ASSERT(instIdx < _instDataStore.size());
 
-    for(UInt32 i = 0; i < contents.getCount(); ++i)
+    Node              *retVal   = NULL;
+    const InstData    &instData = _instDataStore[instIdx];
+    SIdNodeMapConstIt  sidIt    = instData._sidMap.find(sid);
+
+    if(sidIt != instData._sidMap.end())
     {
-        switch(contents[i]->getElementType())
-        {
-        case COLLADA_TYPE::LOOKAT:
-            // ignored as NIY
-            break;
-
-        case COLLADA_TYPE::MATRIX:
-        {
-            domMatrixRef matrix = daeSafeCast<domMatrix>(contents[i]);
-            if(sid == matrix->getSid())
-                return n;
-            n = n->getChild(0);
-        }
-        break;
-
-        case COLLADA_TYPE::ROTATE:
-        {
-            domRotateRef rotate = daeSafeCast<domRotate>(contents[i]);
-            if(sid == rotate->getSid())
-                return n;
-            n = n->getChild(0);
-        }
-        break;
-
-        case COLLADA_TYPE::SCALE:
-        {
-            domScaleRef scale = daeSafeCast<domScale>(contents[i]);
-            if(sid == scale->getSid())
-                return n;
-            n = n->getChild(0);
-        }
-        break;
-
-        case COLLADA_TYPE::SKEW:
-            // ignored as NIY
-            break;
-
-        case COLLADA_TYPE::TRANSLATE:
-        {
-            domTranslateRef translate = daeSafeCast<domTranslate>(contents[i]);
-            if(sid == translate->getSid())
-                return n;
-            n = n->getChild(0);
-        }
-        break;
-        }
+        retVal = sidIt->second;
+    }
+    else
+    {
+        SWARNING << "ColladaNode::getNodeBySid: Could not find a node "
+                 << "for sid [" << sid << "]." << std::endl;
     }
 
-    return NULL;
+    return retVal;
 }
 
 
@@ -494,14 +461,14 @@ ColladaNode::createInstanceNode(ColladaInstInfo *colInstInfo, domNode *node)
 
     for(UInt32 i = 0; i < instGeos.getCount(); ++i)
         handleInstanceGeometry(instGeos[i], instData);
-    
+
     // add <instance_controller> child elemnts
     const domInstance_controller_Array &instControllers =
         node->getInstance_controller_array();
 
     for(UInt32 i = 0; i < instControllers.getCount(); ++i)
         handleInstanceController(instControllers[i], instData);
-    
+
     editInstStore().push_back(instData._topN);
     _instDataStore .push_back(instData      );
     retVal = instData._topN;
@@ -633,8 +600,14 @@ ColladaNode::createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node)
 
         xform->setMatrix(state->getWorldMatrix());
 
+        SLOG << "ColladaNode::createInstanceJoint: starting Skeleton with worldMatrix\n"
+             << state->getWorldMatrix();
+
         xformN->addChild(instData._topN);
         instData._topN = xformN;
+
+        if(getGlobal()->getOptions()->getCreateNameAttachments() == true)
+            setName(xformN, "SkeletonWorldMatrix");
     }
 
     // update world matrix before we instantiate child nodes, etc.
@@ -703,15 +676,12 @@ ColladaNode::handleMatrix(domMatrix *matrix, InstData &instData)
              matrix->getValue()[14],     // rVal23
              matrix->getValue()[15] );   // rVal33
 
-    std::string nameSuffix;
+    std::string xformSID;
 
     if(matrix->getSid() != NULL)
-    {
-        nameSuffix.append("."             );
-        nameSuffix.append(matrix->getSid());
-    }
+        xformSID.assign(matrix->getSid());
 
-    appendXForm(m, nameSuffix, instData);
+    appendXForm(m, xformSID, instData);
 }
 
 void
@@ -729,15 +699,12 @@ ColladaNode::handleRotate(domRotate *rotate, InstData &instData)
 
     m.setRotate(q);
 
-    std::string nameSuffix;
+    std::string xformSID;
 
     if(rotate->getSid() != NULL)
-    {
-        nameSuffix.append("."             );
-        nameSuffix.append(rotate->getSid());
-    }
+        xformSID.assign(rotate->getSid());
 
-    appendXForm(m, nameSuffix, instData);
+    appendXForm(m, xformSID, instData);
 }
 
 void
@@ -751,15 +718,12 @@ ColladaNode::handleScale(domScale *scale, InstData &instData)
                scale->getValue()[1],
                scale->getValue()[2] );
 
-    std::string nameSuffix;
+    std::string xformSID;
 
     if(scale->getSid() != NULL)
-    {
-        nameSuffix.append("."            );
-        nameSuffix.append(scale->getSid());
-    }
+        xformSID.assign(scale->getSid());
 
-    appendXForm(m, nameSuffix, instData);
+    appendXForm(m, xformSID, instData);
 }
 
 void
@@ -782,20 +746,17 @@ ColladaNode::handleTranslate(domTranslate *translate, InstData &instData)
                    translate->getValue()[1],
                    translate->getValue()[2] );
 
-    std::string nameSuffix;
+    std::string xformSID;
 
     if(translate->getSid() != NULL)
-    {
-        nameSuffix.append("."                );
-        nameSuffix.append(translate->getSid());
-    }
+        xformSID.assign(translate->getSid());
 
-    appendXForm(m, nameSuffix, instData);  
+    appendXForm(m, xformSID, instData);
 }
 
 void
 ColladaNode::appendXForm(const Matrix      &m,
-                         const std::string &nameSuffix,
+                         const std::string &xformSID,
                          InstData          &instData   )
 {
     domNodeRef       node  = getDOMElementAs<domNode>();
@@ -850,6 +811,9 @@ ColladaNode::appendXForm(const Matrix      &m,
         if(instData._topN == NULL)
             instData._topN = instData._bottomN;
 
+        if(xformSID.empty() == false)
+            instData._sidMap[xformSID] = instData._bottomN;
+
         if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
            node->getName()                                       != NULL &&
            getName(instData._bottomN)                            == NULL   )
@@ -875,10 +839,19 @@ ColladaNode::appendXForm(const Matrix      &m,
         if(instData._topN == NULL)
             instData._topN = instData._bottomN;
 
+        if(xformSID.empty() == false)
+            instData._sidMap[xformSID] = xformN;
+
         if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
            node->getName()                                       != NULL   )
         {
-            std::string nodeName = node->getName() + nameSuffix;
+            std::string nodeName = node->getName();
+
+            if(xformSID.empty() == false)
+            {
+                nodeName.append("."     );
+                nodeName.append(xformSID);
+            }
 
             setName(instData._bottomN, nodeName);
         }
@@ -891,10 +864,10 @@ ColladaNode::appendChild(domNode  *child,
                          InstData &instData)
 {
     domNodeRef node = getDOMElementAs<domNode>();
-    
+
     // only add the child if it is not the first joint
     // in a hierarchy
-    
+
     if(child->getType() != NODETYPE_JOINT ||
        node ->getType() != NODETYPE_NODE    )
     {
@@ -955,7 +928,7 @@ ColladaNode::handleInstanceNode(domInstance_node *instNode,
         getUserDataAs<ColladaInstanceNode>(instNode);
     ColladaInstInfoRefPtr     colInstInfo =
         ColladaNodeInstInfo::create(this, colInstNode, instData._bottomN);
-    
+
     Node *childN = colInstNode->getTargetElem()->createInstance(colInstInfo);
 
     appendChild(colInstNode->getTargetDOMElem(), childN, instData);

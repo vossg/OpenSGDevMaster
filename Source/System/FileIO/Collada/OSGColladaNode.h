@@ -259,6 +259,10 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         MatrixStack      _matrixStack;
     };
 
+    typedef std::map<std::string, Node *> SIdNodeMap;
+    typedef SIdNodeMap::iterator          SIdNodeMapIt;
+    typedef SIdNodeMap::const_iterator    SIdNodeMapConstIt;
+
     struct InstData
     {
          InstData(void);
@@ -270,6 +274,7 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         SkeletonUnrecPtr      _skel;
         NodeUnrecPtr          _topN;
         NodeUnrecPtr          _bottomN;
+        SIdNodeMap            _sidMap;
     };
 
     typedef std::vector<InstData>          InstDataStore;
@@ -305,7 +310,7 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
                          InstData     &instData  );
 
     void appendXForm     (const Matrix      &m,
-                          const std::string &nameSuffix,
+                          const std::string &xformSID,
                           InstData          &instData   );
     void appendChild     (domNode           *child,
                           Node              *childN,
