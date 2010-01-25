@@ -49,10 +49,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_OLD_RENDER_ACTION
-class DrawActionBase;
-#endif
-
 class Viewport;
 class DrawEnv;
 

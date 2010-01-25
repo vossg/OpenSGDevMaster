@@ -47,7 +47,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
 class Viewport;
 
 /*! \brief Background clearing class using a sky sphere and box. See \ref 

@@ -89,6 +89,8 @@ class OSG_DRAWABLE_DLLMAPPING FaceIterator : public PrimitiveIterator
     /*! \{                                                                 */
     
     inline Int32        getIndex                (void       ) const;
+    inline Int32        getIndex                (Int32 which) const;
+
     inline UInt32       getLength               (void       ) const;
     
     inline Int32        getPositionIndex        (Int32 which) const;

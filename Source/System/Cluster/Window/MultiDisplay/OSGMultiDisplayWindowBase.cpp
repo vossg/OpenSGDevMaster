@@ -102,6 +102,11 @@ OSG_BEGIN_NAMESPACE
     Vertical overlap
 */
 
+/*! \var Int32           MultiDisplayWindowBase::_sfMaxDepth
+    Maximum depth in scene to create load groups for load balancing. Bigger
+    values are more precise but slower. 
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -181,6 +186,19 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleYOverlap));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "maxDepth",
+        "Maximum depth in scene to create load groups for load balancing. Bigger\n"
+        "values are more precise but slower. \n",
+        MaxDepthFieldId, MaxDepthFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleMaxDepth),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleMaxDepth));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -257,6 +275,17 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     "\t>\n"
     "\tVertical overlap\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"maxDepth\"\n"
+    "\t   type=\"Int32\"\n"
+    "       cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   defaultValue=\"999\"\n"
+    "       access=\"public\"\n"
+    "\t   >\n"
+    "      Maximum depth in scene to create load groups for load balancing. Bigger\n"
+    "\t   values are more precise but slower. \n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "Cluster rendering configuration for multible displays\n"
     );
@@ -346,6 +375,19 @@ const SFInt32 *MultiDisplayWindowBase::getSFYOverlap(void) const
 }
 
 
+SFInt32 *MultiDisplayWindowBase::editSFMaxDepth(void)
+{
+    editSField(MaxDepthFieldMask);
+
+    return &_sfMaxDepth;
+}
+
+const SFInt32 *MultiDisplayWindowBase::getSFMaxDepth(void) const
+{
+    return &_sfMaxDepth;
+}
+
+
 
 
 
@@ -376,6 +418,10 @@ UInt32 MultiDisplayWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfYOverlap.getBinSize();
     }
+    if(FieldBits::NoField != (MaxDepthFieldMask & whichField))
+    {
+        returnValue += _sfMaxDepth.getBinSize();
+    }
 
     return returnValue;
 }
@@ -405,6 +451,10 @@ void MultiDisplayWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfYOverlap.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (MaxDepthFieldMask & whichField))
+    {
+        _sfMaxDepth.copyToBin(pMem);
+    }
 }
 
 void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -431,6 +481,10 @@ void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (YOverlapFieldMask & whichField))
     {
         _sfYOverlap.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MaxDepthFieldMask & whichField))
+    {
+        _sfMaxDepth.copyFromBin(pMem);
     }
 }
 
@@ -561,7 +615,8 @@ MultiDisplayWindowBase::MultiDisplayWindowBase(void) :
     _sfVServers               (),
     _sfManageClientViewports  (bool(true)),
     _sfXOverlap               (Int32(0)),
-    _sfYOverlap               (Int32(0))
+    _sfYOverlap               (Int32(0)),
+    _sfMaxDepth               (Int32(999))
 {
 }
 
@@ -571,7 +626,8 @@ MultiDisplayWindowBase::MultiDisplayWindowBase(const MultiDisplayWindowBase &sou
     _sfVServers               (source._sfVServers               ),
     _sfManageClientViewports  (source._sfManageClientViewports  ),
     _sfXOverlap               (source._sfXOverlap               ),
-    _sfYOverlap               (source._sfYOverlap               )
+    _sfYOverlap               (source._sfYOverlap               ),
+    _sfMaxDepth               (source._sfMaxDepth               )
 {
 }
 
@@ -704,6 +760,31 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleYOverlap       (void)
 
 
     editSField(YOverlapFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MultiDisplayWindowBase::getHandleMaxDepth        (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfMaxDepth,
+             this->getType().getFieldDesc(MaxDepthFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiDisplayWindowBase::editHandleMaxDepth       (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfMaxDepth,
+             this->getType().getFieldDesc(MaxDepthFieldId),
+             this));
+
+
+    editSField(MaxDepthFieldMask);
 
     return returnValue;
 }

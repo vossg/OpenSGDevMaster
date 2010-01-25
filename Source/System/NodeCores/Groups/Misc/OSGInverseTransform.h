@@ -47,8 +47,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
-
 /*! \brief InverseTransform class. See \ref
     PageSystemInverseTransform for a description.
 */

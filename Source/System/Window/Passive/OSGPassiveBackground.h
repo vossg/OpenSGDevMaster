@@ -47,7 +47,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
 class Viewport;
 
 /*! \brief Passive Background  class. See \ref 

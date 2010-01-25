@@ -108,6 +108,7 @@ enum LogHeaderElem
     LOG_END_NEWLINE_HEADER   = 128,
     LOG_ASPECT_HEADER        = 256,
 
+    LOG_ANSICOLOR_HEADER     = 4096,
     LOG_COLOR_HEADER         = 8192,
     LOG_TAB_HEADER           = 16384,
 

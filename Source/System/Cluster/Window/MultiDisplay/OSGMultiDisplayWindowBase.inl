@@ -198,6 +198,31 @@ void MultiDisplayWindowBase::setYOverlap(const Int32 value)
 
     _sfYOverlap.setValue(value);
 }
+//! Get the value of the MultiDisplayWindow::_sfMaxDepth field.
+
+inline
+Int32 &MultiDisplayWindowBase::editMaxDepth(void)
+{
+    editSField(MaxDepthFieldMask);
+
+    return _sfMaxDepth.getValue();
+}
+
+//! Get the value of the MultiDisplayWindow::_sfMaxDepth field.
+inline
+      Int32  MultiDisplayWindowBase::getMaxDepth(void) const
+{
+    return _sfMaxDepth.getValue();
+}
+
+//! Set the value of the MultiDisplayWindow::_sfMaxDepth field.
+inline
+void MultiDisplayWindowBase::setMaxDepth(const Int32 value)
+{
+    editSField(MaxDepthFieldMask);
+
+    _sfMaxDepth.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -224,6 +249,9 @@ void MultiDisplayWindowBase::execSync (      MultiDisplayWindowBase *pFrom,
 
     if(FieldBits::NoField != (YOverlapFieldMask & whichField))
         _sfYOverlap.syncWith(pFrom->_sfYOverlap);
+
+    if(FieldBits::NoField != (MaxDepthFieldMask & whichField))
+        _sfMaxDepth.syncWith(pFrom->_sfMaxDepth);
 }
 #endif
 

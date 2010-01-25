@@ -846,17 +846,28 @@ std::ostream &Log::doHeader(      LogLevel  level,
         if(_headerElem & LOG_TYPE_HEADER)
         {
 #ifdef WIN32
-            if(!color || !colorHeader(level, sep))
+            if(_headerElem & LOG_ANSICOLOR_HEADER)
             {
+                if(color)
+                    sout << color;
+
                 sout << _levelName[level] << sep;
+
+                if(color)
+                    sout << resetColor;
+            }
+            else
+            {
+                if(!color || !colorHeader(level, sep))
+                    sout << _levelName[level] << sep;
             }
 #else
-            if (color)
+            if(color)
                 sout << color;
 
             sout << _levelName[level] << sep;
 
-            if (color)
+            if(color)
                 sout << resetColor;
 #endif
         }

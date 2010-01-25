@@ -60,4 +60,15 @@ Cluster rendering configuration for multible displays
 	>
 	Vertical overlap
 	</Field>
+    <Field
+	   name="maxDepth"
+	   type="Int32"
+       cardinality="single"
+	   visibility="external"
+	   defaultValue="999"
+       access="public"
+	   >
+      Maximum depth in scene to create load groups for load balancing. Bigger
+	   values are more precise but slower. 
+    </Field>
 </FieldContainer>

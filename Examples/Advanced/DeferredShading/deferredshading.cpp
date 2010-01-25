@@ -461,10 +461,10 @@ void subLight(UInt32 lightIdx)
     OSG_ASSERT(lightIdx < gv->dsStage->getMFLights       ()->size());
     OSG_ASSERT(lightIdx < gv->dsStage->getMFLightPrograms()->size());
 
-    gv->dsStage->editMFLights       ()->erase(
-        gv->dsStage->editMFLights       ()->begin() + lightIdx);
-    gv->dsStage->editMFLightPrograms()->erase(
-        gv->dsStage->editMFLightPrograms()->begin() + lightIdx);
+    gv->dsStage->editMFLights       ()->erase(lightIdx);
+//        gv->dsStage->editMFLights       ()->begin() + lightIdx);
+    gv->dsStage->editMFLightPrograms()->erase(lightIdx);
+//        gv->dsStage->editMFLightPrograms()->begin() + lightIdx);
 
     LightInfo &li = gv->lightInfos[lightIdx];
     gv->rootN->subChild(li.beaconN);

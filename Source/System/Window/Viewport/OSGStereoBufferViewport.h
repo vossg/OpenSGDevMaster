@@ -46,8 +46,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
-
 /*! \brief Viewport class for quad-buffered stereo rendering. See \ref 
     PageSystemWindowViewports for a description.
 */

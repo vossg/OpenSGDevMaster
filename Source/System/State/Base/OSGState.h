@@ -48,7 +48,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
 class StateOverride;
 class DrawEnv;
 

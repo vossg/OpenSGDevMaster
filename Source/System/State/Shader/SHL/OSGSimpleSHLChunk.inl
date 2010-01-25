@@ -71,6 +71,18 @@ bool SimpleSHLChunk::setUniformParameter(const Char8 *name, const ValueT &value)
         editMFVariableLocations          (),
         editMFProceduralVariableLocations());
 }
+
+template<class ValueT> inline
+bool SimpleSHLChunk::getUniformParameter(const Char8 *name, ValueT &value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getUniformVariable(name, value);
+    }
+
+    return false;
+}
+
 #endif
 
 template<class ValueT> inline

@@ -52,7 +52,6 @@
 OSG_BEGIN_NAMESPACE
 
 class Window;
-class DrawActionBase;
 class SHLParameterChunk;
 class ShaderProgram;
 

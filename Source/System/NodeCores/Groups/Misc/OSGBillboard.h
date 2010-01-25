@@ -47,8 +47,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawActionBase;
-
 /*! \brief *put brief class description here*
  */
 

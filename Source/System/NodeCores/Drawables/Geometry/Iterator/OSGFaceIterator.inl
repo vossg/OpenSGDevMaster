@@ -46,6 +46,16 @@ Int32 FaceIterator::getIndex(void) const
     return _faceIndex;
 }
 
+inline 
+Int32 FaceIterator::getIndex(Int32 which) const
+{
+    if(which < 4)
+    {
+        return Inherited::getIndex(_facePntIndex[which]);
+    }
+
+    return -1;
+}
 
 /*! Return the length of the current face. 3 or 4, depending on the current 
     primitive.

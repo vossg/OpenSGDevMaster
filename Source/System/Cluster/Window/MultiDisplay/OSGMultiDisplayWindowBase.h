@@ -98,7 +98,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
         ManageClientViewportsFieldId = VServersFieldId + 1,
         XOverlapFieldId = ManageClientViewportsFieldId + 1,
         YOverlapFieldId = XOverlapFieldId + 1,
-        NextFieldId = YOverlapFieldId + 1
+        MaxDepthFieldId = YOverlapFieldId + 1,
+        NextFieldId = MaxDepthFieldId + 1
     };
 
     static const OSG::BitVector HServersFieldMask =
@@ -111,6 +112,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
         (TypeTraits<BitVector>::One << XOverlapFieldId);
     static const OSG::BitVector YOverlapFieldMask =
         (TypeTraits<BitVector>::One << YOverlapFieldId);
+    static const OSG::BitVector MaxDepthFieldMask =
+        (TypeTraits<BitVector>::One << MaxDepthFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -119,6 +122,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     typedef SFBool            SFManageClientViewportsType;
     typedef SFInt32           SFXOverlapType;
     typedef SFInt32           SFYOverlapType;
+    typedef SFInt32           SFMaxDepthType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -159,6 +163,9 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
                   SFInt32             *editSFYOverlap       (void);
             const SFInt32             *getSFYOverlap        (void) const;
 
+                  SFInt32             *editSFMaxDepth       (void);
+            const SFInt32             *getSFMaxDepth        (void) const;
+
 
                   UInt32              &editHServers       (void);
                   UInt32               getHServers        (void) const;
@@ -175,6 +182,9 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
                   Int32               &editYOverlap       (void);
                   Int32                getYOverlap        (void) const;
 
+                  Int32               &editMaxDepth       (void);
+                  Int32                getMaxDepth        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -185,6 +195,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
             void setManageClientViewports(const bool value);
             void setXOverlap       (const Int32 value);
             void setYOverlap       (const Int32 value);
+            void setMaxDepth       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -249,6 +260,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     SFBool            _sfManageClientViewports;
     SFInt32           _sfXOverlap;
     SFInt32           _sfYOverlap;
+    SFInt32           _sfMaxDepth;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -286,6 +298,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     EditFieldHandlePtr editHandleXOverlap       (void);
     GetFieldHandlePtr  getHandleYOverlap        (void) const;
     EditFieldHandlePtr editHandleYOverlap       (void);
+    GetFieldHandlePtr  getHandleMaxDepth        (void) const;
+    EditFieldHandlePtr editHandleMaxDepth       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
