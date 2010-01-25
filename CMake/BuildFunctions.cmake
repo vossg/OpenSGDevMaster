@@ -425,6 +425,20 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
         FILE(GLOB BASE_MM            "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
+    ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+        FILE(GLOB LOCAL_SRC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
+        FILE(GLOB LOCAL_HDR          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h")
+        FILE(GLOB LOCAL_INL          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.inl")
+        FILE(GLOB LOCAL_INS          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
+        FILE(GLOB LOCAL_FCD          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
+        FILE(GLOB LOCAL_LL           "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
+        FILE(GLOB LOCAL_YY           "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.yy")
+        FILE(GLOB LOCAL_MOC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h")
+        FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
+        FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.cpp"
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.mm")
+        FILE(GLOB BASE_MM            "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSE()
         # Guess it's an absolute dir we got as the rel one is not there
         FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" "${DIRNAME}/OSG*.mm")
@@ -527,6 +541,9 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/${DIRNAME}\")\n\n")
+    ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}\")\n\n")
     ELSE()
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_INC \"${DIRNAME}\")\n\n")

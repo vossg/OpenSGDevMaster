@@ -867,6 +867,19 @@ IF(OSGBUILD_EXAMPLES_ADVANCED)
     ADD_SUBDIRECTORY("Examples/Advanced/DeferredShading")
 ENDIF(OSGBUILD_EXAMPLES_ADVANCED)
 
+###################
+# External Examples
+###################
+
+FOREACH(_OSGCORE_EXT_EXAMPLE_DIR ${OSG_CORE_EXAMPLE_EXTENSIONS})
+  MESSAGE(STATUS "processing example ext : ${_OSGCORE_EXT_EXAMPLE_DIR}")
+
+  IF(EXISTS ${_OSGCORE_EXT_EXAMPLE_DIR}/CMakeLists.Examples.txt)
+    MESSAGE(STATUS "   Found and process ${_OSGCORE_EXT_EXAMPLE_DIR}/CMakeLists.Examples.txt")
+    INCLUDE(${_OSGCORE_EXT_EXAMPLE_DIR}/CMakeLists.Examples.txt)
+  ENDIF(EXISTS ${_OSGCORE_EXT_EXAMPLE_DIR}/CMakeLists.Examples.txt)
+ENDFOREACH(_OSGCORE_EXT_EXAMPLE_DIR ${OSG_CORE_EXAMPLE_EXTENSIONS})
+
 ##################
 # Documentation II
 ##################
