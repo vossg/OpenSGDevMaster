@@ -46,7 +46,6 @@
 #include "OSGIntersectAction.h"
 
 #include "OSGRenderAction.h"
-#include "OSGUpdateAction.h"
 #include "OSGTransform.h"
 #include "OSGVolume.h"
 
@@ -141,26 +140,6 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
     pAction->popMatrix();
 
     return ActionBase::Continue;
-}
-
-Action::ResultE
-Transform::updateEnter(Action *action)
-{
-    UpdateAction *ua = dynamic_cast<UpdateAction *>(action);
-    
-    ua->pushMatrix(this->getMatrix());
-
-    return Action::Continue;
-}
-
-Action::ResultE
-Transform::updateLeave(Action *action)
-{
-    UpdateAction *ua = dynamic_cast<UpdateAction *>(action);
-
-    ua->popMatrix();
-
-    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
