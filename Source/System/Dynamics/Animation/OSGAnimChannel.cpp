@@ -103,7 +103,7 @@ void AnimChannel::changed(ConstFieldMaskArg whichField,
                           UInt32            origin,
                           BitVector         details)
 {
-    if(0 != (InValueFieldMask & whichField))
+    if(0 != ((WeightFieldMask | InValueFieldMask)  & whichField))
     {
         this->evaluate();
     }

@@ -107,6 +107,9 @@ void AnimVec3fChannel::changed(ConstFieldMaskArg whichField,
 
 void AnimVec3fChannel::evaluate(void)
 {
+    if(getEnabled() == false)
+        return;
+
     if(_sfData.getValue() != NULL)
     {
         editSField(OutValueFieldMask);

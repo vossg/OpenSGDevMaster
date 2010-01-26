@@ -107,6 +107,9 @@ void AnimMatrixChannel::changed(ConstFieldMaskArg whichField,
 
 void AnimMatrixChannel::evaluate(void)
 {
+    if(getEnabled() == false)
+        return;
+
     if(_sfData.getValue() != NULL)
     {
         editSField(OutValueFieldMask);

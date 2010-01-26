@@ -107,6 +107,9 @@ void AnimQuaternionChannel::changed(ConstFieldMaskArg whichField,
 
 void AnimQuaternionChannel::evaluate(void)
 {
+    if(getEnabled() == false)
+        return;
+
     if(_sfData.getValue() != NULL)
     {
         editSField(OutValueFieldMask);
