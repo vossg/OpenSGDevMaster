@@ -132,9 +132,6 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
     ActionBase::ResultE     renderEnter   (Action    *action);
     ActionBase::ResultE     renderLeave   (Action    *action);
 
-    ActionBase::ResultE     updateEnter   (Action    *action);
-    ActionBase::ResultE     updateLeave   (Action    *action);
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

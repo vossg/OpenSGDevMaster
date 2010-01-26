@@ -34,8 +34,7 @@
 #include "OSGGlobalsAttachment.h"
 #include "OSGComponentTransform.h"
 #include "OSGTransform.h"
-
-#include "OSGUpdateAction.h"
+#include "OSGSkeletonJoint.h"
 
 typedef std::vector<OSG::NodeUnrecPtr    > NodeStore;
 typedef std::vector<OSG::MaterialUnrecPtr> MaterialStore;
@@ -49,7 +48,6 @@ struct AnimInfo
 typedef std::vector<AnimInfo>              AnimStore;
 
 // The SimpleSceneManager to manage simple applications
-OSG::UpdateAction                 *ua  = NULL;
 OSG::SimpleSceneManager           *mgr = NULL;
 OSG::NodeUnrecPtr                  sceneN;   // scene from file
 OSG::NodeUnrecPtr                  rootN;    // root
@@ -172,7 +170,17 @@ void init(int argc, char *argv[])
         sceneN = OSG::SceneFileHandler::the()->read(argv[1]);
     }
 
-    rootN->addChild(sceneN);
+    OSG::TransformUnrecPtr xform  = OSG::Transform::create();
+    OSG::NodeUnrecPtr      xformN = OSG::makeNodeFor(xform);
+
+    xform->editMatrix().setTranslate(OSG::Vec3f(100.f, 0.f, 0.f));
+
+
+    OSG::NodeUnrecPtr     boxN    = OSG::makeBox(1.f, 1.f, 1.f, 1, 1, 1);
+
+    xformN->addChild(sceneN);
+    rootN ->addChild(xformN);
+    rootN ->addChild(boxN  );
 
     OSG::commitChanges();
     
@@ -202,11 +210,6 @@ void init(int argc, char *argv[])
     // tell the manager what to manage
     mgr->setWindow(gwin );
     mgr->setRoot  (rootN);
-
-    ua = OSG::UpdateAction::create();
-    ua->setCamera  (mgr->getCamera()            );
-    ua->setViewport(mgr->getWindow()->getPort(0));
-    ua->setWindow  (mgr->getWindow()            );
     
     // show the whole scene
     mgr->showAll();  
@@ -214,9 +217,6 @@ void init(int argc, char *argv[])
 
 void cleanup(void)
 {
-    delete ua;
-    ua = NULL;
-
     delete mgr;
     mgr = NULL;
 
@@ -408,6 +408,20 @@ void toggleAnim(OSG::UInt32 index, bool loop)
     }
 }
 
+void printXForm(OSG::SceneGraphPrinter *sgp, OSG::NodeCore *core)
+{
+    OSG::Transform *xform = dynamic_cast<OSG::Transform *>(core);
+
+    sgp->indentStream() << "matrix:\n" << xform->getMatrix();
+}
+
+void printJoint(OSG::SceneGraphPrinter *sgp, OSG::NodeCore *core)
+{
+    OSG::SkeletonJoint *joint = dynamic_cast<OSG::SkeletonJoint *>(core);
+
+    sgp->indentStream() << "matrix:\n" << joint->getMatrix();
+}
+
 
 //
 // GLUT callback functions
@@ -426,8 +440,6 @@ void display(void)
     OSG::FrameHandler::the()->frame();
 
     OSG::commitChangesAndClear();
-
-    ua->apply(rootN);
 
     mgr->idle();
     mgr->redraw();
@@ -634,6 +646,23 @@ void keyboard(unsigned char k, int , int )
     {
         OSG::SceneGraphPrinter sgp(mgr->getRoot());
         sgp.printDownTree(std::cout);
+
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
+        {
+            OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+            std::cout << "Skeleton:\n";
+            OSG::SceneGraphPrinter skelPrinter(sgeo->getSkeleton()->getRoots(0));
+            skelPrinter.addPrintFunc(OSG::Transform    ::getClassType(),
+                                     &printXForm                        );
+            skelPrinter.addPrintFunc(OSG::SkeletonJoint::getClassType(),
+                                     &printJoint                        );
+            skelPrinter.printDownTree(std::cout);
+        }
     }
     break;
     case 'd':
