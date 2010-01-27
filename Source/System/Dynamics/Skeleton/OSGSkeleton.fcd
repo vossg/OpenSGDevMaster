@@ -47,11 +47,27 @@
   </Field>
 
   <Field
+     name="parentJoints"
+     type="SkeletonJoint"
+     category="pointer"
+     cardinality="multi"
+     visibility="internal"
+     access="public"
+     >
+    Stores the parent of each joint at the position of the childs jointId.
+    In other words parentJoints[i] is the parent of the joint with
+    jointId i (which is stored in joints[i]). If the joint has no parent
+    NULL is stored instead.
+    READ ONLY: You should never write to this field, Skeleton scans
+    for joints whenever the set of roots is modified.
+  </Field>
+
+  <Field
      name="jointMatrices"
      type="Matrix"
      category="data"
      cardinality="multi"
-     visibility="external"
+     visibility="internal"
      access="public"
      >
     Matrices for all joints of the skeleton. Elements correspond to
@@ -66,29 +82,13 @@
      type="Matrix"
      category="data"
      cardinality="multi"
-     visibility="external"
+     visibility="internal"
      access="public"
      >
     Normal matrices for all joints of the skeleton (these are the inverse
     transpose of the jointMatrices). Elements correspond to
     joints at the same index in _mfJoints.
     These matrices are absolute, not relative to the parent joint.
-    READ ONLY: You should never write to this field, Skeleton updates
-    it during the RenderActions traversal.
-  </Field>
-
-  <Field
-     name="parentJoints"
-     type="SkeletonJoint"
-     category="pointer"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     >
-    Stores the parent of each joint at the position of the childs jointId.
-    In other words parentJoints[i] is the parent of the joint with
-    jointId i (which is stored in joints[i]). If the joint has no parent
-    NULL is stored instead.
     READ ONLY: You should never write to this field, Skeleton updates
     it during the RenderActions traversal.
   </Field>
@@ -115,7 +115,7 @@
      cardinality="single"
      visibility="external"
      access="public"
-     defaultValue="true"
+     defaultValue="false"
      >
     Whether jointNormalMatrices should be calculated when computing the
     jointMatrices.
@@ -129,6 +129,12 @@
      visibility="internal"
      access="public"
      >
+    Used by the joints to efficiently notify the Skeleton that they have been
+    modified and matrices need to be recalculated.
+    If the trees starting at 'roots' contain for example Transform cores and
+    you modify those without making changes to any SkeletonJoint cores you will
+    have to call editJointsChanged() manually once per frame to force a
+    recomputation of the joint matrices.
   </Field>
 
 </FieldContainer>

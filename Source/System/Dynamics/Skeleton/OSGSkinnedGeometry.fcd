@@ -80,6 +80,8 @@
      access="public"
      defaultValue="0"
      >
+    Mode used to render this skinned geometry, one of the RenderModeE
+    enums values. Effectively selects the SkinningAlgorithm to use.
   </Field>
 
   <Field

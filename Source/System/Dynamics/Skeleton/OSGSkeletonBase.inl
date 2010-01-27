@@ -163,6 +163,13 @@ SkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
     return _mfJoints[index];
 }
 
+//! Get the value of the \a index element the Skeleton::_mfParentJoints field.
+inline
+SkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
+{
+    return _mfParentJoints[index];
+}
+
 //! Get the value of the \a index element the Skeleton::_mfJointMatrices field.
 inline
 const Matrix &SkeletonBase::getJointMatrices(const UInt32 index) const
@@ -195,13 +202,6 @@ Matrix &SkeletonBase::editJointNormalMatrices(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the Skeleton::_mfParentJoints field.
-inline
-SkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
-{
-    return _mfParentJoints[index];
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -225,6 +225,12 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
 
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+        _mfParentJoints.syncWith(pFrom->_mfParentJoints,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
         _mfJointMatrices.syncWith(pFrom->_mfJointMatrices,
                                 syncMode,
@@ -233,12 +239,6 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
 
     if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
         _mfJointNormalMatrices.syncWith(pFrom->_mfJointNormalMatrices,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
-        _mfParentJoints.syncWith(pFrom->_mfParentJoints,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

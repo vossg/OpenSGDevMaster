@@ -50,6 +50,8 @@
 
 #include <boost/cast.hpp>
 
+// #define OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -104,10 +106,8 @@ SkeletonSkinningAlgorithm::~SkeletonSkinningAlgorithm(void)
 void
 SkeletonSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    SkinnedGeometry *skinGeo = getSkin();
-    Skeleton        *skel    = skinGeo->getSkeleton();
-
-    skel->adjustVolume(volume);
+    if(_sfSkeleton.getValue() != NULL)
+        _sfSkeleton.getValue()->adjustVolume(volume);
 }
 
 ActionBase::ResultE
@@ -130,21 +130,40 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
 
     Real32 axisLen   = 1.f;
     UInt32 numJoints = joints->size();
-    
+
+#ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
+    _mfDrawPositions.resize(numJoints);
+    _mfDrawIndex    .clear (         );
+
+    for(UInt32 i = 0; i < numJoints; ++i)
+    {
+        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f),
+                             _mfDrawPositions[i]  );
+
+        if((*parentJoints)[i] != NULL)
+        {
+            _mfDrawIndex.push_back(i                               );
+            _mfDrawIndex.push_back((*parentJoints)[i]->getJointId());
+        }
+    }
+
+#else
     _mfDrawPositions.resize(4 * numJoints);
     _mfDrawIndex    .clear (             );
 
     for(UInt32 i = 0; i < numJoints; ++i)
     {
-        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f), _mfDrawPositions[4 * i + 0]);
+        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f),
+                             _mfDrawPositions[4 * i + 0]);
 
         if((*parentJoints)[i] != NULL)
         {
             _mfDrawIndex.push_back(4 * i                                + 0);
             _mfDrawIndex.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
 
-            Vec3f vec = _mfDrawPositions[4 * i                                + 0] -
-                        _mfDrawPositions[4 * (*parentJoints)[i]->getJointId() + 0];
+            Vec3f vec =
+                _mfDrawPositions[4 * i                                + 0] -
+                _mfDrawPositions[4 * (*parentJoints)[i]->getJointId() + 0];
 
             axisLen = 0.2f * vec.length();
         }
@@ -160,13 +179,14 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
         (*jointMats)[i].mult(
             Pnt3f(0.f,     0.f,     axisLen), _mfDrawPositions[4 * i + 3]);
 
-//         _mfDrawIndex.push_back(4 * i + 0);
-//         _mfDrawIndex.push_back(4 * i + 1);
-//         _mfDrawIndex.push_back(4 * i + 0);
-//         _mfDrawIndex.push_back(4 * i + 2);
-//         _mfDrawIndex.push_back(4 * i + 0);
-//         _mfDrawIndex.push_back(4 * i + 3);
+        _mfDrawIndex.push_back(4 * i + 0);
+        _mfDrawIndex.push_back(4 * i + 1);
+        _mfDrawIndex.push_back(4 * i + 0);
+        _mfDrawIndex.push_back(4 * i + 2);
+        _mfDrawIndex.push_back(4 * i + 0);
+        _mfDrawIndex.push_back(4 * i + 3);
     }
+#endif // #ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
 
     Material::DrawFunctor  drawFunc =
         boost::bind(&SkeletonSkinningAlgorithm::drawFunc, this, _1);
@@ -185,7 +205,7 @@ SkeletonSkinningAlgorithm::renderLeave(Action *action)
     Skeleton        *skel    = getSkeleton();
 
     skel->renderLeave(action, skinGeo);
-  
+
     return Action::Continue;
 }
 
@@ -203,7 +223,7 @@ SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
     return Action::Continue;
 }
 
-void SkeletonSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
+void SkeletonSkinningAlgorithm::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {

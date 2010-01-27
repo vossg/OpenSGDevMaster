@@ -108,7 +108,8 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          SkinnedGeometryBase::_sfRenderMode
-    
+    Mode used to render this skinned geometry, one of the RenderModeE
+    enums values. Effectively selects the SkinningAlgorithm to use.
 */
 
 /*! \var SkinningAlgorithm * SkinnedGeometryBase::_sfSkinningAlgorithm
@@ -237,7 +238,8 @@ void SkinnedGeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "renderMode",
-        "",
+        "Mode used to render this skinned geometry, one of the RenderModeE\n"
+        "enums values. Effectively selects the SkinningAlgorithm to use.\n",
         RenderModeFieldId, RenderModeFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -353,6 +355,8 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     access=\"public\"\n"
     "     defaultValue=\"0\"\n"
     "     >\n"
+    "    Mode used to render this skinned geometry, one of the RenderModeE\n"
+    "    enums values. Effectively selects the SkinningAlgorithm to use.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"

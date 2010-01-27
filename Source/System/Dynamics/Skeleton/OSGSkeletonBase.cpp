@@ -101,6 +101,15 @@ OSG_BEGIN_NAMESPACE
     for joints whenever the set of roots is modified.
 */
 
+/*! \var SkeletonJoint * SkeletonBase::_mfParentJoints
+    Stores the parent of each joint at the position of the childs jointId.
+    In other words parentJoints[i] is the parent of the joint with
+    jointId i (which is stored in joints[i]). If the joint has no parent
+    NULL is stored instead.
+    READ ONLY: You should never write to this field, Skeleton scans
+    for joints whenever the set of roots is modified.
+*/
+
 /*! \var Matrix          SkeletonBase::_mfJointMatrices
     Matrices for all joints of the skeleton. Elements correspond to
     joints at the same index in _mfJoints.
@@ -118,15 +127,6 @@ OSG_BEGIN_NAMESPACE
     it during the RenderActions traversal.
 */
 
-/*! \var SkeletonJoint * SkeletonBase::_mfParentJoints
-    Stores the parent of each joint at the position of the childs jointId.
-    In other words parentJoints[i] is the parent of the joint with
-    jointId i (which is stored in joints[i]). If the joint has no parent
-    NULL is stored instead.
-    READ ONLY: You should never write to this field, Skeleton updates
-    it during the RenderActions traversal.
-*/
-
 /*! \var bool            SkeletonBase::_sfUseInvBindMatrix
     Whether joints should use their SFInvBindMatrix when computing
     the jointMatrices/jointNormalMatrices.
@@ -140,7 +140,12 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var OSGAny          SkeletonBase::_sfJointsChanged
-    
+    Used by the joints to efficiently notify the Skeleton that they have been
+    modified and matrices need to be recalculated.
+    If the trees starting at 'roots' contain for example Transform cores and
+    you modify those without making changes to any SkeletonJoint cores you will
+    have to call editJointsChanged() manually once per frame to force a
+    recomputation of the joint matrices.
 */
 
 
@@ -245,6 +250,23 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new MFUnrecSkeletonJointPtr::Description(
+        MFUnrecSkeletonJointPtr::getClassType(),
+        "parentJoints",
+        "Stores the parent of each joint at the position of the childs jointId.\n"
+        "In other words parentJoints[i] is the parent of the joint with\n"
+        "jointId i (which is stored in joints[i]). If the joint has no parent\n"
+        "NULL is stored instead.\n"
+        "READ ONLY: You should never write to this field, Skeleton scans\n"
+        "for joints whenever the set of roots is modified.\n",
+        ParentJointsFieldId, ParentJointsFieldMask,
+        true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleParentJoints),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleParentJoints));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new MFMatrix::Description(
         MFMatrix::getClassType(),
         "jointMatrices",
@@ -254,7 +276,7 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         "READ ONLY: You should never write to this field, Skeleton updates\n"
         "it during the RenderActions traversal.\n",
         JointMatricesFieldId, JointMatricesFieldMask,
-        false,
+        true,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointMatrices),
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointMatrices));
@@ -271,27 +293,10 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         "READ ONLY: You should never write to this field, Skeleton updates\n"
         "it during the RenderActions traversal.\n",
         JointNormalMatricesFieldId, JointNormalMatricesFieldMask,
-        false,
+        true,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointNormalMatrices),
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointNormalMatrices));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFUnrecSkeletonJointPtr::Description(
-        MFUnrecSkeletonJointPtr::getClassType(),
-        "parentJoints",
-        "Stores the parent of each joint at the position of the childs jointId.\n"
-        "In other words parentJoints[i] is the parent of the joint with\n"
-        "jointId i (which is stored in joints[i]). If the joint has no parent\n"
-        "NULL is stored instead.\n"
-        "READ ONLY: You should never write to this field, Skeleton updates\n"
-        "it during the RenderActions traversal.\n",
-        ParentJointsFieldId, ParentJointsFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Skeleton::editHandleParentJoints),
-        static_cast<FieldGetMethodSig >(&Skeleton::getHandleParentJoints));
 
     oType.addInitialDesc(pDesc);
 
@@ -326,7 +331,12 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
     pDesc = new SFOSGAny::Description(
         SFOSGAny::getClassType(),
         "jointsChanged",
-        "",
+        "Used by the joints to efficiently notify the Skeleton that they have been\n"
+        "modified and matrices need to be recalculated.\n"
+        "If the trees starting at 'roots' contain for example Transform cores and\n"
+        "you modify those without making changes to any SkeletonJoint cores you will\n"
+        "have to call editJointsChanged() manually once per frame to force a\n"
+        "recomputation of the joint matrices.\n",
         JointsChangedFieldId, JointsChangedFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -397,11 +407,27 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "  </Field>\n"
     "\n"
     "  <Field\n"
+    "     name=\"parentJoints\"\n"
+    "     type=\"SkeletonJoint\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Stores the parent of each joint at the position of the childs jointId.\n"
+    "    In other words parentJoints[i] is the parent of the joint with\n"
+    "    jointId i (which is stored in joints[i]). If the joint has no parent\n"
+    "    NULL is stored instead.\n"
+    "    READ ONLY: You should never write to this field, Skeleton scans\n"
+    "    for joints whenever the set of roots is modified.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
     "     name=\"jointMatrices\"\n"
     "     type=\"Matrix\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
+    "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     >\n"
     "    Matrices for all joints of the skeleton. Elements correspond to\n"
@@ -416,29 +442,13 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     type=\"Matrix\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
+    "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     >\n"
     "    Normal matrices for all joints of the skeleton (these are the inverse\n"
     "    transpose of the jointMatrices). Elements correspond to\n"
     "    joints at the same index in _mfJoints.\n"
     "    These matrices are absolute, not relative to the parent joint.\n"
-    "    READ ONLY: You should never write to this field, Skeleton updates\n"
-    "    it during the RenderActions traversal.\n"
-    "  </Field>\n"
-    "\n"
-    "  <Field\n"
-    "     name=\"parentJoints\"\n"
-    "     type=\"SkeletonJoint\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     >\n"
-    "    Stores the parent of each joint at the position of the childs jointId.\n"
-    "    In other words parentJoints[i] is the parent of the joint with\n"
-    "    jointId i (which is stored in joints[i]). If the joint has no parent\n"
-    "    NULL is stored instead.\n"
     "    READ ONLY: You should never write to this field, Skeleton updates\n"
     "    it during the RenderActions traversal.\n"
     "  </Field>\n"
@@ -465,7 +475,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     defaultValue=\"true\"\n"
+    "     defaultValue=\"false\"\n"
     "     >\n"
     "    Whether jointNormalMatrices should be calculated when computing the\n"
     "    jointMatrices.\n"
@@ -479,6 +489,12 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     >\n"
+    "    Used by the joints to efficiently notify the Skeleton that they have been\n"
+    "    modified and matrices need to be recalculated.\n"
+    "    If the trees starting at 'roots' contain for example Transform cores and\n"
+    "    you modify those without making changes to any SkeletonJoint cores you will\n"
+    "    have to call editJointsChanged() manually once per frame to force a\n"
+    "    recomputation of the joint matrices.\n"
     "  </Field>\n"
     "\n"
     "</FieldContainer>\n",
@@ -536,6 +552,19 @@ MFUnrecChildSkeletonJointPtr *SkeletonBase::editMFJoints         (void)
     return &_mfJoints;
 }
 
+//! Get the Skeleton::_mfParentJoints field.
+const MFUnrecSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
+{
+    return &_mfParentJoints;
+}
+
+MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
+{
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return &_mfParentJoints;
+}
+
 MFMatrix *SkeletonBase::editMFJointMatrices(void)
 {
     editMField(JointMatricesFieldMask, _mfJointMatrices);
@@ -561,19 +590,6 @@ const MFMatrix *SkeletonBase::getMFJointNormalMatrices(void) const
     return &_mfJointNormalMatrices;
 }
 
-
-//! Get the Skeleton::_mfParentJoints field.
-const MFUnrecSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
-{
-    return &_mfParentJoints;
-}
-
-MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
-{
-    editMField(ParentJointsFieldMask, _mfParentJoints);
-
-    return &_mfParentJoints;
-}
 
 SFBool *SkeletonBase::editSFUseInvBindMatrix(void)
 {
@@ -791,6 +807,10 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfJoints.getBinSize();
     }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        returnValue += _mfParentJoints.getBinSize();
+    }
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         returnValue += _mfJointMatrices.getBinSize();
@@ -798,10 +818,6 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
     {
         returnValue += _mfJointNormalMatrices.getBinSize();
-    }
-    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
-    {
-        returnValue += _mfParentJoints.getBinSize();
     }
     if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
     {
@@ -832,6 +848,10 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfJoints.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        _mfParentJoints.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         _mfJointMatrices.copyToBin(pMem);
@@ -839,10 +859,6 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
     {
         _mfJointNormalMatrices.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
-    {
-        _mfParentJoints.copyToBin(pMem);
     }
     if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
     {
@@ -871,6 +887,10 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfJoints.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        _mfParentJoints.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         _mfJointMatrices.copyFromBin(pMem);
@@ -878,10 +898,6 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
     {
         _mfJointNormalMatrices.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
-    {
-        _mfParentJoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
     {
@@ -1024,11 +1040,11 @@ SkeletonBase::SkeletonBase(void) :
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
+    _mfParentJoints           (),
     _mfJointMatrices          (),
     _mfJointNormalMatrices    (),
-    _mfParentJoints           (),
     _sfUseInvBindMatrix       (bool(true)),
-    _sfCalcNormalMatrices     (bool(true)),
+    _sfCalcNormalMatrices     (bool(false)),
     _sfJointsChanged          ()
 {
 }
@@ -1039,9 +1055,9 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
+    _mfParentJoints           (),
     _mfJointMatrices          (source._mfJointMatrices          ),
     _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
-    _mfParentJoints           (),
     _sfUseInvBindMatrix       (source._sfUseInvBindMatrix       ),
     _sfCalcNormalMatrices     (source._sfCalcNormalMatrices     ),
     _sfJointsChanged          (source._sfJointsChanged          )
@@ -1213,6 +1229,43 @@ EditFieldHandlePtr SkeletonBase::editHandleJoints         (void)
     return returnValue;
 }
 
+GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
+{
+    MFUnrecSkeletonJointPtr::GetHandlePtr returnValue(
+        new  MFUnrecSkeletonJointPtr::GetHandle(
+             &_mfParentJoints,
+             this->getType().getFieldDesc(ParentJointsFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
+{
+    MFUnrecSkeletonJointPtr::EditHandlePtr returnValue(
+        new  MFUnrecSkeletonJointPtr::EditHandle(
+             &_mfParentJoints,
+             this->getType().getFieldDesc(ParentJointsFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&Skeleton::pushToParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&Skeleton::removeFromParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&Skeleton::removeObjFromParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&Skeleton::clearParentJoints,
+                    static_cast<Skeleton *>(this)));
+
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr SkeletonBase::getHandleJointMatrices   (void) const
 {
     MFMatrix::GetHandlePtr returnValue(
@@ -1259,43 +1312,6 @@ EditFieldHandlePtr SkeletonBase::editHandleJointNormalMatrices(void)
 
 
     editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
-{
-    MFUnrecSkeletonJointPtr::GetHandlePtr returnValue(
-        new  MFUnrecSkeletonJointPtr::GetHandle(
-             &_mfParentJoints,
-             this->getType().getFieldDesc(ParentJointsFieldId),
-             const_cast<SkeletonBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
-{
-    MFUnrecSkeletonJointPtr::EditHandlePtr returnValue(
-        new  MFUnrecSkeletonJointPtr::EditHandle(
-             &_mfParentJoints,
-             this->getType().getFieldDesc(ParentJointsFieldId),
-             this));
-
-    returnValue->setAddMethod(
-        boost::bind(&Skeleton::pushToParentJoints,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setRemoveMethod(
-        boost::bind(&Skeleton::removeFromParentJoints,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setRemoveObjMethod(
-        boost::bind(&Skeleton::removeObjFromParentJoints,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setClearMethod(
-        boost::bind(&Skeleton::clearParentJoints,
-                    static_cast<Skeleton *>(this)));
-
-    editMField(ParentJointsFieldMask, _mfParentJoints);
 
     return returnValue;
 }

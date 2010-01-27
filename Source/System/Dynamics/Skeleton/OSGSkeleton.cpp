@@ -155,6 +155,10 @@ Skeleton::renderEnter(Action *action, NodeCore *parent)
     ract->popMatrix        (         );
     ract->setFrustumCulling(frustCull);
 
+    // mark skin volume invalid (the volume will lag a frame
+    // behind the skeleton - not sure how to avoid that) -- cneumann
+    parent->invalidateVolume();
+
     return Action::Continue;
 }
 

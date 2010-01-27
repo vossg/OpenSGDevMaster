@@ -99,10 +99,10 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
     {
         RootsFieldId = Inherited::NextFieldId,
         JointsFieldId = RootsFieldId + 1,
-        JointMatricesFieldId = JointsFieldId + 1,
+        ParentJointsFieldId = JointsFieldId + 1,
+        JointMatricesFieldId = ParentJointsFieldId + 1,
         JointNormalMatricesFieldId = JointMatricesFieldId + 1,
-        ParentJointsFieldId = JointNormalMatricesFieldId + 1,
-        UseInvBindMatrixFieldId = ParentJointsFieldId + 1,
+        UseInvBindMatrixFieldId = JointNormalMatricesFieldId + 1,
         CalcNormalMatricesFieldId = UseInvBindMatrixFieldId + 1,
         JointsChangedFieldId = CalcNormalMatricesFieldId + 1,
         NextFieldId = JointsChangedFieldId + 1
@@ -112,12 +112,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
         (TypeTraits<BitVector>::One << RootsFieldId);
     static const OSG::BitVector JointsFieldMask =
         (TypeTraits<BitVector>::One << JointsFieldId);
+    static const OSG::BitVector ParentJointsFieldMask =
+        (TypeTraits<BitVector>::One << ParentJointsFieldId);
     static const OSG::BitVector JointMatricesFieldMask =
         (TypeTraits<BitVector>::One << JointMatricesFieldId);
     static const OSG::BitVector JointNormalMatricesFieldMask =
         (TypeTraits<BitVector>::One << JointNormalMatricesFieldId);
-    static const OSG::BitVector ParentJointsFieldMask =
-        (TypeTraits<BitVector>::One << ParentJointsFieldId);
     static const OSG::BitVector UseInvBindMatrixFieldMask =
         (TypeTraits<BitVector>::One << UseInvBindMatrixFieldId);
     static const OSG::BitVector CalcNormalMatricesFieldMask =
@@ -129,9 +129,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
         
     typedef MFUnrecNodePtr    MFRootsType;
     typedef MFUnrecChildSkeletonJointPtr MFJointsType;
+    typedef MFUnrecSkeletonJointPtr MFParentJointsType;
     typedef MFMatrix          MFJointMatricesType;
     typedef MFMatrix          MFJointNormalMatricesType;
-    typedef MFUnrecSkeletonJointPtr MFParentJointsType;
     typedef SFBool            SFUseInvBindMatrixType;
     typedef SFBool            SFCalcNormalMatricesType;
     typedef SFOSGAny          SFJointsChangedType;
@@ -163,14 +163,14 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
                   MFUnrecNodePtr      *editMFRoots          (void);
             const MFUnrecChildSkeletonJointPtr *getMFJoints         (void) const;
                   MFUnrecChildSkeletonJointPtr *editMFJoints         (void);
+            const MFUnrecSkeletonJointPtr *getMFParentJoints   (void) const;
+                  MFUnrecSkeletonJointPtr *editMFParentJoints   (void);
 
                   MFMatrix            *editMFJointMatrices  (void);
             const MFMatrix            *getMFJointMatrices   (void) const;
 
                   MFMatrix            *editMFJointNormalMatrices(void);
             const MFMatrix            *getMFJointNormalMatrices (void) const;
-            const MFUnrecSkeletonJointPtr *getMFParentJoints   (void) const;
-                  MFUnrecSkeletonJointPtr *editMFParentJoints   (void);
 
                   SFBool              *editSFUseInvBindMatrix(void);
             const SFBool              *getSFUseInvBindMatrix (void) const;
@@ -186,13 +186,13 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
 
                   SkeletonJoint * getJoints         (const UInt32 index) const;
 
+                  SkeletonJoint * getParentJoints   (const UInt32 index) const;
+
                   Matrix              &editJointMatrices  (const UInt32 index);
             const Matrix              &getJointMatrices   (const UInt32 index) const;
 
                   Matrix              &editJointNormalMatrices(const UInt32 index);
             const Matrix              &getJointNormalMatrices (const UInt32 index) const;
-
-                  SkeletonJoint * getParentJoints   (const UInt32 index) const;
 
                   bool                &editUseInvBindMatrix(void);
                   bool                 getUseInvBindMatrix (void) const;
@@ -295,9 +295,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
 
     MFUnrecNodePtr    _mfRoots;
     MFUnrecChildSkeletonJointPtr _mfJoints;
+    MFUnrecSkeletonJointPtr _mfParentJoints;
     MFMatrix          _mfJointMatrices;
     MFMatrix          _mfJointNormalMatrices;
-    MFUnrecSkeletonJointPtr _mfParentJoints;
     SFBool            _sfUseInvBindMatrix;
     SFBool            _sfCalcNormalMatrices;
     SFOSGAny          _sfJointsChanged;
@@ -341,12 +341,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
     EditFieldHandlePtr editHandleRoots          (void);
     GetFieldHandlePtr  getHandleJoints          (void) const;
     EditFieldHandlePtr editHandleJoints         (void);
+    GetFieldHandlePtr  getHandleParentJoints    (void) const;
+    EditFieldHandlePtr editHandleParentJoints   (void);
     GetFieldHandlePtr  getHandleJointMatrices   (void) const;
     EditFieldHandlePtr editHandleJointMatrices  (void);
     GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
     EditFieldHandlePtr editHandleJointNormalMatrices(void);
-    GetFieldHandlePtr  getHandleParentJoints    (void) const;
-    EditFieldHandlePtr editHandleParentJoints   (void);
     GetFieldHandlePtr  getHandleUseInvBindMatrix (void) const;
     EditFieldHandlePtr editHandleUseInvBindMatrix(void);
     GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;

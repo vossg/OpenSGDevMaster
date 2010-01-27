@@ -187,9 +187,6 @@ HardwareSkinningAlgorithm::renderEnter(Action *action)
 
     if(shData == NULL)
     {
-        // XXX TODO just to tag the OpenGL stream in bugle
-        glGetString(GL_VERSION);
-
         shData = ShaderProgramVariableChunk::create();
         setShaderData(shData);
 
