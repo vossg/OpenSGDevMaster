@@ -861,8 +861,8 @@ ColladaGeometry::mapSemantic(
     }
     else
     {
-        SWARNING << "ColladaGeometry::mapSemantic: Unknown semantic ["
-                 << semantic << "] set [" << set << "]" << std::endl;
+        OSG_COLLADA_LOG(("ColladaGeometry::mapSemantic: Unknown semantic [%s] "
+                         "set [%d]\n", semantic.c_str(), set));
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::mapSemantic: semantic [%s] "
