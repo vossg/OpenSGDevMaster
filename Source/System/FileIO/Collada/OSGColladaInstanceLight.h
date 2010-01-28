@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,33 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAOPTIONS_H_
-#define _OSGCOLLADAOPTIONS_H_
+#ifndef _OSGCOLLADAINSTANCELIGHT_H_
+#define _OSGCOLLADAINSTANCELIGHT_H_
 
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaOptions.h
-    \ingroup GrpLoader
- */
 #include "OSGConfig.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
-#include "OSGIOFileTypeBase.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaLight.h"
+
+#include <dom/domLight.h>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
-
-class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaInstanceLight 
+    : public ColladaInstanceElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -70,46 +60,33 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject    Inherited;
-    typedef ColladaOptions  Self;
+    typedef ColladaInstanceElement  Inherited;
+    typedef ColladaInstanceLight    Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaOptions);
-
-    typedef IOFileTypeBase::OptionSet OptionSet;
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceLight);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
     /*! \{                                                                 */
 
-    static ObjTransitPtr create(void);
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Options                                                      */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void parseOptions(const OptionSet &optSet);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Options                                                      */
+    /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    bool getInvertTransparency   (void      ) const;
-    void setInvertTransparency   (bool value);
-
-    bool getMergeTransforms      (void      ) const;
-    void setMergeTransforms      (bool value);
-
-    bool getCreateNameAttachments(void      ) const;
-    void setCreateNameAttachments(bool value);
-
-    bool getLoadAnimations       (void      ) const;
-    void setLoadAnimations       (bool value);   
-
-    bool getLoadLights           (void      ) const;
-    void setLoadLights           (bool value);
+    virtual ColladaLight *getTargetElem   (void) const;
+    virtual domLight     *getTargetDOMElem(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -118,25 +95,22 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-             ColladaOptions(void);
-    virtual ~ColladaOptions(void);
+             ColladaInstanceLight(daeElement    *elem,
+                                  ColladaGlobal *global);
+    virtual ~ColladaInstanceLight(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    bool _invertTransparency;
-    bool _mergeTransforms;
-    bool _createNameAttachments;
-    bool _loadAnimations;
-    bool _loadLights;
+    static ColladaElementRegistrationHelper _regHelper;
 };
 
-OSG_GEN_MEMOBJPTR(ColladaOptions);
+OSG_GEN_MEMOBJPTR(ColladaInstanceLight);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaOptions.inl"
+// #include "OSGColladaInstanceLight.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAOPTIONS_H_
+#endif // _OSGCOLLADAINSTANCELIGHT_H_

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,51 +36,30 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADANODE_H_
-#define _OSGCOLLADANODE_H_
+#ifndef _OSGCOLLADALIGHT_H_
+#define _OSGCOLLADALIGHT_H_
 
 #include "OSGConfig.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGColladaInstInfo.h"
-#include "OSGNode.h"
-#include "OSGSkeleton.h"
+#include "OSGLightModelChunk.h"
 
-// forward decl
-class domLookat;
-class domMatrix;
-class domRotate;
-class domScale;
-class domSkew;
-class domTranslate;
-class domNode;
-class domInstance_node;
-class domInstance_light;
-class domInstance_geometry;
-class domInstance_controller;
-
+#include <dom/domLight.h>
+#include <dom/domTechnique.h>
 
 OSG_BEGIN_NAMESPACE
 
 // forward decl
-class ColladaVisualScene;
-class ColladaInstanceNode;
 class ColladaInstanceLight;
-class ColladaInstanceGeometry;
-class ColladaInstanceController;
-
-class ColladaNode;
-OSG_GEN_MEMOBJPTR(ColladaNode);
+class ColladaLight;
+OSG_GEN_MEMOBJPTR(ColladaLight);
 
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
-
-class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
+class OSG_FILEIO_DLLMAPPING ColladaLight : public ColladaInstantiableElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -89,16 +68,16 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \{                                                                 */
 
     typedef ColladaInstantiableElement Inherited;
-    typedef ColladaNode                Self;
+    typedef ColladaLight               Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaNode);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaLight);
 
-    typedef std::vector<std::string>     NodePath;
-    typedef NodePath::iterator           NodePathIt;
-    typedef NodePath::const_iterator     NodePathConstIt;
+    // forward decl
+    class ColladaLightInstInfo;
+    OSG_GEN_MEMOBJPTR(ColladaLightInstInfo);
 
 
-    class ColladaNodeInstInfo : public ColladaInstInfo
+    class ColladaLightInstInfo : public ColladaInstInfo
     {
         /*==========================  PUBLIC  =============================*/
       public:
@@ -106,10 +85,10 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         /*! \name Types                                                    */
         /*! \{                                                             */
 
-        typedef ColladaInstInfo      Inherited;
-        typedef ColladaNodeInstInfo  Self;
+        typedef ColladaInstInfo       Inherited;
+        typedef ColladaLightInstInfo  Self;
 
-        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaNodeInstInfo);
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaLightInstInfo);
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
@@ -117,16 +96,68 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         /*! \{                                                             */
 
         static  ColladaInstInfoTransitPtr
-            create(ColladaElement      *colInstParent,
-                   ColladaInstanceNode *colInst,
-                   Node                *parentN       );
+            create(ColladaElement       *colInstParent,
+                   ColladaInstanceLight *colInst,
+                   Node                 *beaconN       );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Process                                                  */
+        /*! \{                                                             */
+
+        virtual void process(void);
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
         /*! \name Access                                                   */
         /*! \{                                                             */
 
-        inline Node *getParentNode(void) const;
+        Node *getBeacon(void) const;
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaLightInstInfo(
+                     ColladaElement       *colInstParent,
+                     ColladaInstanceLight *colInst,
+                     Node                 *beaconN       );
+        virtual ~ColladaLightInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+
+        Node *_beacon;
+    };
+
+    // forward decl
+    class ColladaLightAmbientInstInfo;
+    OSG_GEN_MEMOBJPTR(ColladaLightAmbientInstInfo);
+
+    class ColladaLightAmbientInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo              Inherited;
+        typedef ColladaLightAmbientInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaLightAmbientInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Create                                                   */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaElement       *colInstParent,
+                   ColladaInstanceLight *colInst       );
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
@@ -142,20 +173,14 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         /*! \name Constructors/Destructor                                  */
         /*! \{                                                             */
 
-                 ColladaNodeInstInfo(
-                     ColladaElement      *colInstParent,
-                     ColladaInstanceNode *colInst,
-                     Node                *parentN       );
-        virtual ~ColladaNodeInstInfo(void               );
+                 ColladaLightAmbientInstInfo(
+                     ColladaElement       *colInstParent,
+                     ColladaInstanceLight *colInst       );
+        virtual ~ColladaLightAmbientInstInfo(void        );
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
-
-        ColladaNodeRefPtr _colInstTarget;
-        NodeUnrecPtr      _parentN;
     };
-
-    OSG_GEN_MEMOBJPTR(ColladaNodeInstInfo);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -175,16 +200,10 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
+    /*! \name Ambient Light                                                */
     /*! \{                                                                 */
 
-    bool      isJoint      (void          ) const;
-    Skeleton *getSkeleton  (void          ) const;
-
-    Node     *getTopNode   (UInt32 instIdx) const;
-    Node     *getBottomNode(UInt32 instIdx) const;
-
-    Node     *getNodeBySid (UInt32 instIdx, const std::string &sid) const;
+    void createAmbientLight(ColladaLightAmbientInstInfo *colInstInfo);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -193,10 +212,12 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    class NodeLoaderState;
-    OSG_GEN_MEMOBJPTR(NodeLoaderState);
+    // forward decl
+    class LightLoaderState;
+    OSG_GEN_MEMOBJPTR(LightLoaderState);
 
-    class NodeLoaderState : public ColladaLoaderState
+
+    class LightLoaderState : public ColladaLoaderState
     {
         /*==========================  PUBLIC  =============================*/
       public:
@@ -204,41 +225,25 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         /*! \name Types                                                    */
         /*! \{                                                             */
 
-        typedef ColladaLoaderState   Inherited;
-        typedef NodeLoaderState      Self;
+        typedef ColladaLoaderState    Inherited;
+        typedef LightLoaderState      Self;
 
-        OSG_GEN_INTERNAL_MEMOBJPTR(NodeLoaderState);
-
-        typedef std::vector<Matrix>          MatrixStack;
-        typedef MatrixStack::iterator        MatrixStackIt;
-        typedef MatrixStack::const_iterator  MatrixStackConstIt;
+        OSG_GEN_INTERNAL_MEMOBJPTR(LightLoaderState);
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
         /*! \name Create                                                   */
         /*! \{                                                             */
 
-        static NodeLoaderStateTransitPtr create(void);
+        static LightLoaderStateTransitPtr create(void);
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
         /*! \name Access                                                   */
         /*! \{                                                             */
 
-        void            pushNodePath(const std::string &nodeId);
-        void            popNodePath (void                     );
-        const NodePath &getNodePath (void                     ) const;
-        void            dumpNodePath(void                     ) const;
-
-        void            pushMatrix    (const Matrix &matrix);
-        void            popMatrix     (void                );
-        const Matrix   &getWorldMatrix(void                ) const;
-
-        Skeleton       *getSkeleton(void             ) const;
-        void            setSkeleton(Skeleton *skel   );
-
-        Int16           getJointId (void             ) const;
-        void            setJointId (Int16     jointId);
+        LightModelChunk *getLightModelChunk(void                  ) const;
+        void             setLightModelChunk(LightModelChunk *chunk);
 
         /*! \}                                                             */
         /*=========================  PROTECTED  ===========================*/
@@ -247,107 +252,45 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
         /*! \name Constructors/Destructor                                  */
         /*! \{                                                             */
 
-                 NodeLoaderState(void);
-        virtual ~NodeLoaderState(void);
+                 LightLoaderState(void);
+        virtual ~LightLoaderState(void);
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
 
-        NodePath         _nodePath;
-        SkeletonUnrecPtr _skel;
-        Int16            _jointId;
-
-        Matrix           _worldMatrix;
-        MatrixStack      _matrixStack;
+        LightModelChunkUnrecPtr _lightModel;
     };
-
-    typedef std::map<std::string, Node *> SIdNodeMap;
-    typedef SIdNodeMap::iterator          SIdNodeMapIt;
-    typedef SIdNodeMap::const_iterator    SIdNodeMapConstIt;
-
-    struct InstData
-    {
-         InstData(void);
-        ~InstData(void);
-        
-        NodePath              _nodePath;
-        Matrix                _localMatrix;
-
-        SkeletonUnrecPtr      _skel;
-        NodeUnrecPtr          _topN;
-        NodeUnrecPtr          _bottomN;
-        SIdNodeMap            _sidMap;
-    };
-
-    typedef std::vector<InstData>          InstDataStore;
-    typedef InstDataStore::iterator        InstDataStoreIt;
-    typedef InstDataStore::const_iterator  InstDataStoreConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaNode(daeElement    *elem,
-                         ColladaGlobal *global);
-    virtual ~ColladaNode(void                 );
+             ColladaLight(daeElement    *elem,
+                          ColladaGlobal *global);
+    virtual ~ColladaLight(void                 );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Helper Functions                                             */
+    /*! \{                                                                 */
+
+    Node *createInstanceTechnique(ColladaLightInstInfo          *colInstInfo,
+                                  domTechnique                  *tech        );
+    Node *createInstanceCommon   (ColladaLightInstInfo          *colInstInfo,
+                                  domLight::domTechnique_common *tech        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    Node *createInstanceNode (ColladaInstInfo *colInstInfo, domNode *node);
-    Node *createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node);
-
-    void handleLookAt   (domLookat    *lookat,
-                         InstData     &instData  );
-    void handleMatrix   (domMatrix    *matrix,
-                         InstData     &instData  );
-    void handleRotate   (domRotate    *rotate,
-                         InstData     &instData  );
-    void handleScale    (domScale     *scale,
-                         InstData     &instData  );
-    void handleSkew     (domSkew      *skew,
-                         InstData     &instData  );
-    void handleTranslate(domTranslate *translate,
-                         InstData     &instData  );
-
-    void appendXForm     (const Matrix      &m,
-                          const std::string &xformSID,
-                          InstData          &instData   );
-    void appendChild     (domNode           *child,
-                          Node              *childN,
-                          InstData          &instData   );
-
-    void readNode                 (domNode                *child     );
-    void handleNode               (domNode                *child,
-                                   InstData               &instData  );
-
-    void readInstanceNode         (domInstance_node       *instNode  );
-    void handleInstanceNode       (domInstance_node       *instNode,
-                                   InstData               &instData  );
-
-    void readInstanceLight        (domInstance_light      *instLight );
-    void handleInstanceLight      (domInstance_light      *instLight,
-                                   InstData               &instData  );
-
-    void readInstanceGeometry     (domInstance_geometry   *instGeo   );
-    void handleInstanceGeometry   (domInstance_geometry   *instGeo,
-                                   InstData               &instData  );
-
-    void readInstanceController   (domInstance_controller *instCtrl  );
-    void handleInstanceController (domInstance_controller *instCtrl,
-                                   InstData               &instData  );
-
     static ColladaElementRegistrationHelper _regHelper;
     static const std::string                _loaderStateName;
-
-    InstDataStore _instDataStore;
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaNode.inl"
+// #include "OSGColladaLight.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADANODE_H_
+#endif // _OSGCOLLADALIGHT_H_

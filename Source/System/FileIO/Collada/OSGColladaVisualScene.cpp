@@ -101,7 +101,13 @@ ColladaVisualScene::read(ColladaElement *colElemParent)
 
     domVisual_sceneRef   visScene = getDOMElementAs<domVisual_scene>();
     const domNode_Array &nodes    = visScene->getNode_array         ();
-    NodeUnrecPtr         rootN;
+    NodeUnrecPtr         rootN    = makeCoredNode<Group>            ();
+
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+       visScene->getName()                                   != NULL   )
+    {
+        setName(rootN, visScene->getName());
+    }
 
     for(UInt32 i = 0; i < nodes.getCount(); ++i)
     {
@@ -115,48 +121,27 @@ ColladaVisualScene::read(ColladaElement *colElemParent)
             colNode->read(this);
         }
 
-        if(nodes.getCount() > 1)
+        ColladaInstInfoRefPtr  colInstInfo =
+            ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
+        Node                  *childN      =
+            colNode->createInstance(colInstInfo);
+
+        if(childN->getParent() != NULL)
         {
-            if(rootN == NULL)
-                rootN = makeCoredNode<Group>();
-
-            ColladaInstInfoRefPtr colInstInfo =
-                ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
-            Node *childN = colNode->createInstance(colInstInfo);
-
-            if(childN->getParent() != NULL)
-            {
-                SWARNING
-                    << "ColladaVisualScene::read: <node> [" << i
-                    << "] name ["
-                    << (getName(childN) != NULL ? getName(childN) : "")
-                    << "] already has a parent ["
-                    << (getName(childN->getParent()) != NULL ? 
-                        getName(childN->getParent()) : "")
-                    << "]." << std::endl;
-            }
-
-            // don't add joints to the scene hierarchy
-
-            if(colNode->isJoint() == false)
-                rootN->addChild(childN);
+            SWARNING
+                << "ColladaVisualScene::read: <node> [" << i
+                << "] name ["
+                << (getName(childN) != NULL ? getName(childN) : "")
+                << "] already has a parent ["
+                << (getName(childN->getParent()) != NULL ?
+                    getName(childN->getParent()) : "")
+                << "]." << std::endl;
         }
-        else
-        {
-            ColladaInstInfoRefPtr colInstInfo =
-                ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
-            Node *childN = colNode->createInstance(colInstInfo);
 
-            if(childN->getParent() != NULL)
-            {
-                SWARNING << "ColladaVisualScene::read: <node> [" 
-                         << i << "] name ["
-                         << (getName(childN) != NULL ? getName(childN) : "")
-                         << "] already has a parent." << std::endl;
-            }
+        // don't add joints to the scene hierarchy
 
-            rootN = childN;
-        }
+        if(colNode->isJoint() == false)
+            rootN->addChild(childN);
     }
 
     editInstStore().push_back(rootN);

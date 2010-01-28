@@ -40,125 +40,77 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaOptions.h"
+#include "OSGColladaInstanceLight.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGIOFileTypeBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-void
-ColladaOptions::parseOptions(const OptionSet &optSet)
-{
-    OSG_COLLADA_LOG(("ColladaOptions::parseOptions\n"));
+ColladaElementRegistrationHelper ColladaInstanceLight::_regHelper(
+    &ColladaInstanceLight::create, "instance_light");
 
-    IOFileTypeBase::getOptionAs<bool>(
-        optSet, "invertTransparency", _invertTransparency);
-    IOFileTypeBase::getOptionAs<bool>(
-        optSet, "mergeTransforms", _mergeTransforms);
-    IOFileTypeBase::getOptionAs<bool>(
-        optSet, "createNameAttachments", _createNameAttachments);
-    IOFileTypeBase::getOptionAs<bool>(
-        optSet, "loadAnimations", _loadAnimations);
-    IOFileTypeBase::getOptionAs<bool>(
-        optSet, "loadLights", _loadLights);
-}
 
-/*! Return \c true if transparency values should be inverted, \c false
-    otherwise. Option name: "invertTransparency".
-    Some tools store transparency values inverted, use this to ensure correct
-    display.
- */
-bool
-ColladaOptions::getInvertTransparency(void) const
+ColladaElementTransitPtr
+ColladaInstanceLight::create(daeElement *elem, ColladaGlobal *global)
 {
-    return _invertTransparency;
-}
-
-/*! Set transparency value inversion. Option name: "invertTransparency".
-    Some tools store transparency values inverted, use this to ensure correct
-    display.
- */
-void
-ColladaOptions::setInvertTransparency(bool value)
-{
-    _invertTransparency = value;
-}
-
-/*! Return \c true if transform tags within a single collada <node> tag
-    should be merge, \c false if they should be preserved as individual
-    Nodes in OpenSG.
- */
-bool
-ColladaOptions::getMergeTransforms(void) const
-{
-    return _mergeTransforms;
-}
-
-/*! Set if transform tags should be merged.
-    Options name: "mergeTransforms".
- */
-void
-ColladaOptions::setMergeTransforms(bool value)
-{
-    _mergeTransforms = value;
-}
-
-/*! Return \c true if NameAttachments should be created, \c false otherwise.
-    Option name: "createNameAttachments".
- */
-bool
-ColladaOptions::getCreateNameAttachments(void) const
-{
-    return _createNameAttachments;
-}
-
-/*! Set if NameAttachments should be created.
-    Option name: "createNameAttachments".
- */
-void
-ColladaOptions::setCreateNameAttachments(bool value)
-{
-    _createNameAttachments = value;
-}
-
-bool
-ColladaOptions::getLoadAnimations(void) const
-{
-    return _loadAnimations;
+    return ColladaElementTransitPtr(new ColladaInstanceLight(elem, global));
 }
 
 void
-ColladaOptions::setLoadAnimations(bool value)
+ColladaInstanceLight::read(ColladaElement *colElemParent)
 {
-    _loadAnimations = value;
+    OSG_COLLADA_LOG(("ColladaInstanceLight::read\n"));
+
+    ColladaLightRefPtr colLight = getTargetElem();
+
+    if(colLight == NULL)
+    {
+        colLight = dynamic_pointer_cast<ColladaLight>(
+            ColladaElementFactory::the()->create(
+                getTargetDOMElem(), getGlobal()));
+
+        colLight->read(this);
+    }
 }
 
-bool
-ColladaOptions::getLoadLights(void) const
+ColladaLight *
+ColladaInstanceLight::getTargetElem(void) const
 {
-    return _loadLights;
+    ColladaLight  *retVal     = NULL;
+    daeElementRef  targetElem = getTargetDOMElem();
+
+    if(targetElem != NULL)
+    {
+        retVal = getUserDataAs<ColladaLight>(targetElem);
+    }
+
+    return retVal;
 }
 
-void
-ColladaOptions::setLoadLights(bool value)
+domLight *
+ColladaInstanceLight::getTargetDOMElem(void) const
 {
-    _loadLights = value;
+    domLightRef          retVal    = NULL;
+    domInstance_lightRef instLight = getDOMElementAs<domInstance_light>();
+
+    if(instLight->getUrl().getElement() != NULL)
+    {
+        retVal = daeSafeCast<domLight>(instLight->getUrl().getElement());
+    }
+
+    return retVal;
 }
 
-ColladaOptions::ColladaOptions(void)
-    : Inherited             ()
-    , _invertTransparency   (false)
-    , _mergeTransforms      (true)
-    , _createNameAttachments(true)
-    , _loadAnimations       (true)
-    , _loadLights           (true)
+ColladaInstanceLight::ColladaInstanceLight(
+    daeElement *elem, ColladaGlobal *global)
+
+    : Inherited(elem, global)
 {
 }
 
-ColladaOptions::~ColladaOptions(void)
+ColladaInstanceLight::~ColladaInstanceLight(void)
 {
 }
 

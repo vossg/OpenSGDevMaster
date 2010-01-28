@@ -217,11 +217,24 @@ ColladaGlobal::doRead(void)
 
         colCOL->read(NULL);
 
-        InstanceQueueIt iqIt  = _instQueue.begin();
-        InstanceQueueIt iqEnd = _instQueue.end  ();
+        for(UInt32 i = 0; _instQueue.empty() == false; ++i)
+        {
+            if(i > 10)
+            {
+                SWARNING << "ColladaGlobal::doRead: InstanceQueue loop "
+                         << "maximum iteration count reached." << std::endl;
+                break;
+            }
 
-        for(; iqIt != iqEnd; ++iqIt)
-            (*iqIt)->process();
+            InstanceQueue workQueue;
+            workQueue.swap(_instQueue);
+
+            InstanceQueueIt iqIt  = workQueue.begin();
+            InstanceQueueIt iqEnd = workQueue.end  ();
+
+            for(; iqIt != iqEnd; ++iqIt)
+                (*iqIt)->process();
+        }
     }
     else
     {

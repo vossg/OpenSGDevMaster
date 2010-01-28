@@ -47,6 +47,7 @@
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceNode.h"
+#include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
 #include "OSGTransform.h"
@@ -141,8 +142,6 @@ ColladaNode::NodeLoaderState::dumpNodePath(void) const
 void
 ColladaNode::NodeLoaderState::pushMatrix(const Matrix &matrix)
 {
-    OSG_COLLADA_LOG((">> >> ColladaNode::NodeLoaderState::pushMatrix\n"));
-
     _matrixStack.push_back(_worldMatrix);
     _worldMatrix.mult(matrix);
 }
@@ -150,8 +149,6 @@ ColladaNode::NodeLoaderState::pushMatrix(const Matrix &matrix)
 void
 ColladaNode::NodeLoaderState::popMatrix(void)
 {
-    OSG_COLLADA_LOG(("<< << ColladaNode::NodeLoaderState::popMatrix\n"));
-
     OSG_ASSERT(_matrixStack.empty() == false);
 
     _worldMatrix = _matrixStack.back();
@@ -257,6 +254,13 @@ ColladaNode::read(ColladaElement *colElemParent)
 
     for(UInt32 i = 0; i < instNodes.getCount(); ++i)
         readInstanceNode(instNodes[i]);
+
+    // <instance_light>
+    const domInstance_light_Array &instLights =
+        node->getInstance_light_array();
+
+    for(UInt32 i = 0; i < instLights.getCount(); ++i)
+        readInstanceLight(instLights[i]);
 
     // <instance_geometry>
     const domInstance_geometry_Array &instGeos =
@@ -455,6 +459,13 @@ ColladaNode::createInstanceNode(ColladaInstInfo *colInstInfo, domNode *node)
     for(UInt32 i = 0; i < instNodes.getCount(); ++i)
         handleInstanceNode(instNodes[i], instData);
 
+    // add <instance_light> child elements
+    const domInstance_light_Array &instLights =
+        node->getInstance_light_array();
+
+    for(UInt32 i = 0; i < instLights.getCount(); ++i)
+        handleInstanceLight(instLights[i], instData);
+
     // add <instance_geometry> child elements
     const domInstance_geometry_Array &instGeos =
         node->getInstance_geometry_array();
@@ -600,9 +611,6 @@ ColladaNode::createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node)
 
         xform->setMatrix(state->getWorldMatrix());
 
-        SLOG << "ColladaNode::createInstanceJoint: starting Skeleton with worldMatrix\n"
-             << state->getWorldMatrix();
-
         xformN->addChild(instData._topN);
         instData._topN = xformN;
 
@@ -625,6 +633,9 @@ ColladaNode::createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node)
 
     for(UInt32 i = 0; i < instNodes.getCount(); ++i)
         handleInstanceNode(instNodes[i], instData);
+
+    // we don't handle other <instance_*> tags here, it does not
+    // make sense to have them inside a skeleton
 
     editInstStore().push_back(instData._topN);
     _instDataStore .push_back(instData      );
@@ -932,6 +943,41 @@ ColladaNode::handleInstanceNode(domInstance_node *instNode,
     Node *childN = colInstNode->getTargetElem()->createInstance(colInstInfo);
 
     appendChild(colInstNode->getTargetDOMElem(), childN, instData);
+}
+
+void
+ColladaNode::readInstanceLight(domInstance_light *instLight)
+{
+    if(getGlobal()->getOptions()->getLoadLights() == false)
+        return;
+
+    ColladaInstanceLightRefPtr colInstLight =
+        getUserDataAs<ColladaInstanceLight>(instLight);
+
+    if(colInstLight == NULL)
+    {
+        colInstLight = dynamic_pointer_cast<ColladaInstanceLight>(
+            ColladaElementFactory::the()->create(instLight, getGlobal()));
+
+        colInstLight->read(this);
+    }
+}
+
+void
+ColladaNode::handleInstanceLight(domInstance_light *instLight,
+                                 InstData          &instData  )
+{
+    if(getGlobal()->getOptions()->getLoadLights() == false)
+        return;
+
+    ColladaInstanceLightRefPtr colInstLight =
+        getUserDataAs<ColladaInstanceLight>(instLight);
+
+    ColladaInstInfoRefPtr lightInstInfo =
+        ColladaLight::ColladaLightInstInfo::create(
+            this, colInstLight, instData._bottomN);
+
+    getGlobal()->editInstQueue().push_back(lightInstInfo);
 }
 
 void
