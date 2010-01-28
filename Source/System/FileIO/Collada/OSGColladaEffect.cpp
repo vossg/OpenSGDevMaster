@@ -497,6 +497,9 @@ ColladaEffect::createInstanceProfileCommon(
 
     if(transparency != NULL)
     {
+        // this only sets transVal to the value stored in the
+        // <transparency> tag.
+
         domCommon_float_or_param_type::domFloatRef value;
         domCommon_float_or_param_type::domParamRef param;
 
@@ -520,8 +523,8 @@ ColladaEffect::createInstanceProfileCommon(
     if(transparent != NULL)
     {
         // this handles <transparent> and <transparency> tags
-        // since they are so closely related that they need to
-        // be handled together
+        // (by considering the value of transVal) - since they are
+        // so closely related that they need to be handled together
 
         domCommon_color_or_texture_type::domColorRef   color;
         domCommon_color_or_texture_type::domParamRef   param;
@@ -668,7 +671,7 @@ ColladaEffect::createInstanceProfileCommon(
     }
     else if(transparency != NULL)
     {
-        // handle no <transparent>, but <transparency> tag
+        // handle only <transparency> tag case (no <transparent> tag)
 
         Color4f constCol(transVal, transVal, transVal, transVal);
 
@@ -688,7 +691,6 @@ ColladaEffect::createInstanceProfileCommon(
                              "%f\n", constCol[0]));
         }
     }
-
 
     mat->addChunk(matChunk);
 
