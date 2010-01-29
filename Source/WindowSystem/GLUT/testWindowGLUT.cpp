@@ -38,6 +38,7 @@
 #include "OSGGraphOp.h"
 #include "OSGGraphOpFactory.h"
 #include "OSGMultiCore.h"
+#include "OSGFrameHandler.h"
 
 #include "OSGTrackball.h"
 
@@ -108,6 +109,8 @@ display(void)
     {
         cam_trans->editSFMatrix()->setValue( m1 );
     }
+
+    OSG::FrameHandler::the()->frame();
 
     OSG::commitChanges();
 
@@ -212,6 +215,8 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
+            OSG::FrameHandler::the()->shutdown();
+
             root        = NULL;
             file        = NULL;
             cam         = NULL;
@@ -323,7 +328,9 @@ void key(unsigned char key, int x, int y)
 int init(int argc, char **argv)
 {
     OSG::osgInit(argc,argv);
-    
+
+    OSG::setVBOUsageOnPropertyProtos(true);
+
     // GLUT init
 
     glutInit(&argc, argv);
@@ -344,7 +351,7 @@ int init(int argc, char **argv)
 //    glEnable( GL_LIGHTING );
 //    glEnable( GL_LIGHT0 );
 //    glFrontFace(GL_CW);
-    glEnable(GL_CULL_FACE);
+//    glEnable(GL_CULL_FACE);
 
     // OSG
 
@@ -403,6 +410,8 @@ int init(int argc, char **argv)
 
     }
 
+    OSG::Thread::getCurrentChangeList()->commitChanges();
+
 #if 0
     OSG::GeometryPtr pGeo = cast_dynamic<OSG::GeometryPtr>(file->getCore());
     
@@ -423,7 +432,6 @@ int init(int argc, char **argv)
 //   createOptimizedPrimitives(pGeo);
 //    createSharedIndex(pGeo);
     
-    OSG::Thread::getCurrentChangeList()->commitChanges();
 
 //    file->dump();
     file->updateVolume();
@@ -498,7 +506,7 @@ int init(int argc, char **argv)
     // Background
     OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
 
-    bkgnd->setColor(OSG::Color3f(1,0,0));
+    bkgnd->setColor(OSG::Color3f(0.1,0.1,0.1));
     
     // Viewport
 
@@ -598,6 +606,8 @@ int init(int argc, char **argv)
 
     pGr = NULL;
 #endif
+
+    OSG::FrameHandler::the()->init();
 
     return 0;
 }

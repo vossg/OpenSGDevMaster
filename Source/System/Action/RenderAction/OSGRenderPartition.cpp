@@ -1146,6 +1146,9 @@ bool RenderPartition::isVisible(Node *pNode)
 
 //    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
 
+    if(pNode->getVolume().isInfinite() == true)
+        return true;
+
     BoxVolume vol;
 
     pNode->updateVolume();
@@ -1191,21 +1194,26 @@ bool RenderPartition::pushVisibility(Node * const pNode)
     Color3f col;
     bool result = true;
 
-    pNode->updateVolume();
-
-    BoxVolume     vol     = pNode->getVolume();
     FrustumVolume frustum = _oFrustum;
+    BoxVolume     vol     = pNode->getVolume();
+
+    // don't mess with infinite volumes
+    if(vol.isInfinite() == false)
+    {
+        pNode->updateVolume();
+
+        vol = pNode->getVolume();
 
 #if 1
-    vol.transform(topMatrix());
+        vol.transform(topMatrix());
 #else
     // not quite working
-    Matrix m = topMatrix();
-    m.invert();
+        Matrix m = topMatrix();
+        m.invert();
 
-    frustum.transform(m);
+        frustum.transform(m);
 #endif
-
+    }
 
     if(_oDrawEnv.getStatCollector() != NULL)
     {
