@@ -154,7 +154,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "SkeletonParentPtr");
+DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(Skeleton *)
@@ -219,6 +219,8 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
 
 void SkeletonBase::classDescInserter(TypeObject &oType)
 {
+    Inherited::classDescInserter(oType);
+
     FieldDescriptionBase *pDesc = NULL;
 
 
@@ -362,7 +364,8 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Skeleton\"\n"
-    "   parent=\"SkeletonParent\"\n"
+    "   parent=\"AttachmentContainer\"\n"
+    "   mixinparent=\"SkeletonParent\"\n"
     "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"

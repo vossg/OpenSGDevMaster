@@ -2,7 +2,8 @@
 
 <FieldContainer
    name="Skeleton"
-   parent="SkeletonParent"
+   parent="AttachmentContainer"
+   mixinparent="SkeletonParent"
    library="Dynamics"
    pointerfieldtypes="both"
    structure="concrete"

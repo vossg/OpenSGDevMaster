@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGSkeletonParent.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGNodeFields.h"              // Roots type
 #include "OSGSkeletonJointFields.h"     // Joints type
@@ -72,6 +72,8 @@
 #include "OSGOSGAnyFields.h"            // JointsChanged type
 
 #include "OSGSkeletonFields.h"
+
+#include "OSGSkeletonParent.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -84,7 +86,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
   public:
 
     typedef SkeletonParent Inherited;
-    typedef SkeletonParent ParentContainer;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
