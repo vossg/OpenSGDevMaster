@@ -248,7 +248,8 @@ ColladaGlobal::doRead(void)
 
     rootN = _rootN;
 
-    _docRoot = NULL;
+    _docRoot    = NULL;
+    _globalsAtt = NULL;
     _instQueue  .clear();
     _loaderState.clear();
     _elemStore  .clear();
