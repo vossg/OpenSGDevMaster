@@ -86,6 +86,10 @@ void TiledQuadTreeTerrain::initMethod(InitPhase ePhase)
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
 
+// file local typedef
+typedef std::vector<NodeUnrecPtr> NodeStore;
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 TiledQuadTreeTerrain::TiledQuadTreeTerrain(void) :
@@ -308,16 +312,18 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-inline void reorderChilds (Node * const parent, Node * order[], Int32 num)
+inline void reorderChilds (Node * const parent, const NodeStore &order, Int32 num)
 {
-   Int32 num2 = num*num;
+    Int32 num2 = num*num;
 
-   for(Int32 i=0; i<num2; ++i) 
-   {
-       parent->addChild(order[i]);
-   }
+    OSG_ASSERT(num2 <= order.size());
+
+    for(Int32 i=0; i<num2; ++i)
+    {
+        parent->addChild(order[i]);
+    }
 }
-inline void subAllChilds (Node * const parent, Node * order[], Int32 num)
+inline void subAllChilds (Node * const parent, const NodeStore &order, Int32 num)
 {
    //Int32 num2 = num*num;
     while (parent->getNChildren() > 0) 
@@ -326,7 +332,7 @@ inline void subAllChilds (Node * const parent, Node * order[], Int32 num)
     }
 }
 
-inline void caseChilds_n1n1(Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_n1n1(Node * const parent, NodeStore &order, Int32 num)
 {
    Int32 num2 = num*num-num;
    Int32 i, j, k;
@@ -347,7 +353,7 @@ inline void caseChilds_n1n1(Node * const parent, Node * order[], Int32 num)
    subAllChilds(parent, order, num);
 }
 
-inline void caseChilds_n10 (Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_n10 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 i, j, k;
 
@@ -363,7 +369,7 @@ inline void caseChilds_n10 (Node * const parent, Node * order[], Int32 num)
     subAllChilds(parent, order, num);
 }
 
-inline void caseChilds_n1p1 (Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_n1p1 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 i, j, k;
 
@@ -384,7 +390,7 @@ inline void caseChilds_n1p1 (Node * const parent, Node * order[], Int32 num)
     subAllChilds(parent, order, num);
 }
 
-inline void caseChilds_0n1 (Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_0n1 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 num2 = num*num-num;
     Int32 i, j, k;
@@ -404,7 +410,7 @@ inline void caseChilds_0n1 (Node * const parent, Node * order[], Int32 num)
     subAllChilds(parent, order, num);
 }
 
-inline void caseChilds_0p1 (Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_0p1 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 i, j, k;
 
@@ -424,7 +430,7 @@ inline void caseChilds_0p1 (Node * const parent, Node * order[], Int32 num)
     subAllChilds(parent, order, num);
 }
 
-inline void caseChilds_p1n1 (Node * const parent, Node * order[], Int32 num)
+inline void caseChilds_p1n1 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 num2 = num*num-num;
     Int32 i, j, k;
@@ -444,7 +450,8 @@ inline void caseChilds_p1n1 (Node * const parent, Node * order[], Int32 num)
     }
     subAllChilds(parent, order, num);
 }
-inline void caseChilds_p10 (Node * const parent, Node * order[], Int32 num)
+
+inline void caseChilds_p10 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 i, j, k;
 
@@ -458,7 +465,8 @@ inline void caseChilds_p10 (Node * const parent, Node * order[], Int32 num)
     }
    subAllChilds(parent, order, num);
 }
-inline void caseChilds_p1p1 (Node * const parent, Node * order[], Int32 num)
+
+inline void caseChilds_p1p1 (Node * const parent, NodeStore &order, Int32 num)
 {
     Int32 i, j, k;
 
@@ -557,9 +565,8 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
           
           Int32 i, j;
 
-          NodePtr order[49];
-
-          assert(roi*roi <= 49);
+          NodeStore order;
+          order.resize(roi * roi, NULL);
 
           switch (x - getCurrentX()) 
           {
@@ -1318,9 +1325,8 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
           
           Int32 i, j;
 
-          Node *order[49];
-
-          assert(roi*roi <= 49);
+          NodeStore order;
+          order.resize(roi * roi, NULL);
 
           switch (x - getCurrentX()) 
           {

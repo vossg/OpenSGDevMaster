@@ -1775,7 +1775,7 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
 {  
     if(getWidth() > 0) 
     { // dynamic tesselation
-//        Time startTime = getSystemTime();
+        // Time startTime = getSystemTime();
         //--- create Terrain Mesh ---------------------------------------------
 
         GeoUInt32Property *len = 
@@ -1837,12 +1837,12 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
 #endif
             
         }
-//        Time endTime = getSystemTime();
+        // Time endTime = getSystemTime();
         
-//        SNOTICE << "terrain time:     " 
-//                << endTime-startTime 
-//                << " ms" 
-//                << std::endl;
+        // SNOTICE << "terrain time:     "
+        //         << endTime-startTime
+        //         << " ms"
+        //         << std::endl;
     }
     
     return Action::Continue;

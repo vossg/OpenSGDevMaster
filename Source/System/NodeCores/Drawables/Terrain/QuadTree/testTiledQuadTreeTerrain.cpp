@@ -133,7 +133,8 @@ key(unsigned char key, int x, int y)
     {
         case 27:    
             delete mgr;
-            scene = NULL;
+            mgr     = NULL;
+            scene   = NULL;
             terrain = NULL;
 
             OSG::osgExit();
@@ -227,9 +228,7 @@ OSG::MaterialTransitPtr makeTexture (const char* texname)
    return OSG::MaterialTransitPtr(texMatPtr);
 }
 
-
-// Initialize GLUT & OpenSG and set up the scene
-int main (int argc, char **argv)
+void doMain(int argc, char *argv[])
 {
     // OSG init
     OSG::osgInit(argc,argv);
@@ -302,6 +301,12 @@ int main (int argc, char **argv)
     walker.setPersonDimensions(3,1,1);
 
     mgr->showAll();
+}
+
+// Initialize GLUT & OpenSG and set up the scene
+int main (int argc, char *argv[])
+{
+    doMain(argc, argv);
 
     // GLUT main loop
     glutMainLoop();
