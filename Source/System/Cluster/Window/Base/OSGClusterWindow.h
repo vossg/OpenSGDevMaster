@@ -53,6 +53,7 @@ class Connection;
 class ClusterServer;
 class RemoteAspect;
 class ClusterNetwork;
+OSG_GEN_MEMOBJPTR(ClusterNetwork);
 class RenderActionBase;
 
 class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
@@ -233,8 +234,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name               private members                                */
     /*! \{                                                                 */
 
-    connectioncbfp  _connectionFP;
-    ClusterNetwork *_network;
+    connectioncbfp       _connectionFP;
+    ClusterNetworkRefPtr _network;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

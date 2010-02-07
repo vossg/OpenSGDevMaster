@@ -908,9 +908,6 @@ ClusterWindow::ClusterWindow(const ClusterWindow &source) :
 
 ClusterWindow::~ClusterWindow(void)
 {
-    if(_network)
-        subRef(_network);
-
     _network = NULL;
 }
 
@@ -921,12 +918,11 @@ ClusterWindow::~ClusterWindow(void)
  */
 ClusterNetwork *ClusterWindow::getNetwork(void)
 {
-    if(!_network)
+    if(_network == NULL)
     {
         _network = ClusterNetwork::getInstance(this->getId());
-
-        addRef(_network);
     }
+
     return _network;
 }
 

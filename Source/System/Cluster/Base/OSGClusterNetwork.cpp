@@ -110,7 +110,7 @@ ClusterNetwork::~ClusterNetwork(void)
 
     _connection.clear();
 
-    ConnectionInfoMapT::iterator ci=_map.find(_id);
+    ConnectionInfoMapT::iterator ci = _map.find(_id);
 
     if(ci != _map.end())
     {
@@ -531,7 +531,7 @@ ClusterNetwork *ClusterNetwork::getInstance(UInt32 clusterWindowId)
     ConnectionInfoMapT::iterator ci=_map.find(clusterWindowId);
     if(ci==_map.end())
     {
-        ClusterNetwork *ciP=new ClusterNetwork(clusterWindowId);
+        ClusterNetwork *ciP = new ClusterNetwork(clusterWindowId);
         _map[clusterWindowId]=ciP;
         return ciP;
     }

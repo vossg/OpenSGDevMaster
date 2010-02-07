@@ -44,6 +44,8 @@
 
 #include "OSGClusterDef.h"
 #include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 #include "OSGGroupConnection.h"
 #include "OSGPointConnection.h"
 
@@ -53,6 +55,9 @@
 OSG_BEGIN_NAMESPACE
 
 class RemoteAspect;
+class ClusterNetwork;
+OSG_GEN_MEMOBJPTR(ClusterNetwork);
+
 
 class OSG_CLUSTER_DLLMAPPING ClusterNetwork : public MemoryObject
 {
@@ -60,8 +65,9 @@ class OSG_CLUSTER_DLLMAPPING ClusterNetwork : public MemoryObject
 
   public:
 
-    typedef std::vector<Connection *>         ConnectionsT;
-    typedef std::map<UInt32,ClusterNetwork *> ConnectionInfoMapT;
+    typedef std::vector<Connection     *> ConnectionsT;
+    typedef std::map   <UInt32,
+                        ClusterNetwork *> ConnectionInfoMapT;
 
     enum 
     {
