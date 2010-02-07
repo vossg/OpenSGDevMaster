@@ -416,15 +416,58 @@ void SceneGraphPrinter::printUpTree(std::ostream &os)
     os << std::flush;
 }
 
+void
+SceneGraphPrinter::addPrintFunc(const FieldContainerType &fcType,
+                                const CorePrintFunction  &printFunc)
+{
+    _printFuncMap[fcType.getId()] = printFunc;
+}
+
+void
+SceneGraphPrinter::subPrintFunc(const FieldContainerType &fcType)
+{
+    PrintFuncMapIt pfIt = _printFuncMap.find(fcType.getId());
+
+    if(pfIt != _printFuncMap.end())
+        _printFuncMap.erase(pfIt);
+}
+
+void
+SceneGraphPrinter::incIndent(void)
+{
+    _indent += 2;
+}
+
+void
+SceneGraphPrinter::decIndent(void)
+{
+    _indent -= 2;
+}
+
+std::ostream &
+SceneGraphPrinter::indentStream(void)
+{
+    for(UInt32 i = 0; i < _indent; ++i)
+        (*_pStream) << " ";
+
+    return *_pStream;
+}
+
+std::ostream &
+SceneGraphPrinter::getStream(void)
+{
+    return *_pStream;
+}
+
 Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
 {
     if(node == NULL)
         return Action::Continue;
 
-    std::ostream &os = *_pStream;
+    std::ostream &os = getStream();
     incIndent();
 
-    indentStream(os)
+    indentStream()
             <<   "[" << node
             << "] [" << node->getId()
             << "] [" << (getName(node) ? getName(node) : "<unnamed>")
@@ -464,6 +507,17 @@ Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
     }
 
     os << "\n";
+
+    // if there is a print function registered for this core type call it
+    PrintFuncMapConstIt pfIt = _printFuncMap.find(core->getType().getId());
+
+    if(pfIt != _printFuncMap.end())
+    {
+        incIndent();
+        (pfIt->second)(this, core);
+        decIndent();
+    }
+
     return Action::Continue;
 }
 
@@ -478,22 +532,5 @@ Action::ResultE SceneGraphPrinter::traverseLeave(
     return Action::Continue;
 }
 
-void SceneGraphPrinter::incIndent(void)
-{
-    _indent += 2;
-}
-
-void SceneGraphPrinter::decIndent(void)
-{
-    _indent -= 2;
-}
-
-std::ostream &SceneGraphPrinter::indentStream(std::ostream &os)
-{
-    for(UInt32 i = 0; i < _indent; ++i)
-        os << " ";
-
-    return os;
-}
 
 OSG_END_NAMESPACE

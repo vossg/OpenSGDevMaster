@@ -48,6 +48,7 @@
 #include "OSGAction.h"
 
 #include <iosfwd>
+#include <map>
 
 OSG_BEGIN_NAMESPACE
 
@@ -88,25 +89,60 @@ class OSG_SYSTEM_DLLMAPPING MemoryConsumption
 
 class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
 {
+    /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
     typedef SceneGraphPrinter Self;
 
+    typedef boost::function<void (SceneGraphPrinter *,
+                                  NodeCore          * )>  CorePrintFunction;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
     SceneGraphPrinter(Node *root);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Printing                                                     */
+    /*! \{                                                                 */
 
     void printDownTree(std::ostream &os);
     void printUpTree  (std::ostream &os);
 
-  private:
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Core Print Function                                          */
+    /*! \{                                                                 */
+
+    void addPrintFunc(const FieldContainerType &fcTpye,
+                      const CorePrintFunction  &printFunc);
+    void subPrintFunc(const FieldContainerType &fcTpye   );
+
+    void          incIndent   (void);
+    void          decIndent   (void);
+    std::ostream &indentStream(void);
+    std::ostream &getStream   (void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    typedef std::map<UInt32, CorePrintFunction> PrintFuncMap;
+    typedef PrintFuncMap::iterator              PrintFuncMapIt;
+    typedef PrintFuncMap::const_iterator        PrintFuncMapConstIt;
+
     Node         *_pRoot;
     std::ostream *_pStream;
     UInt32        _indent;
+    PrintFuncMap  _printFuncMap;
 
     Action::ResultE traverseEnter(Node *node                     );
     Action::ResultE traverseLeave(Node *node, Action::ResultE res);
-
-    void          incIndent   (void            );
-    void          decIndent   (void            );
-    std::ostream &indentStream(std::ostream &os);
 };
 
 
