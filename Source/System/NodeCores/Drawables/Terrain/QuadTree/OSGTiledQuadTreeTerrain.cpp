@@ -314,11 +314,11 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
 inline void reorderChilds (Node * const parent, const NodeStore &order, Int32 num)
 {
-    Int32 num2 = num*num;
+    UInt32 num2 = num*num;
 
     OSG_ASSERT(num2 <= order.size());
 
-    for(Int32 i=0; i<num2; ++i)
+    for(UInt32 i=0; i<num2; ++i)
     {
         parent->addChild(order[i]);
     }
