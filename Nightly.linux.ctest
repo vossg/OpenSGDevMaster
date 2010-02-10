@@ -1,0 +1,35 @@
+
+SET (CTEST_SOURCE_DIRECTORY "/data/Builds/Nightly/Source")
+SET (CTEST_BINARY_DIRECTORY "/data/Builds/Nightly/Build")
+
+SET (CTEST_CVS_COMMAND "/usr/bin/svn")
+SET (CTEST_CVS_CHECKOUT  "${CTEST_CVS_COMMAND} co http://www.opensg.org/svn_repo/trunk ${CTEST_SOURCE_DIRECTORY}")
+
+# which ctest command to use for running the dashboard
+SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
+
+# what cmake command to use for configuring this dashboard
+SET (CTEST_CMAKE_COMMAND "/usr/bin/cmake")
+
+# should ctest wipe the binary tree before running
+SET (CTEST_START_WITH_EMPTY_BINARY_DIRECTORY TRUE)
+
+# this is the initial cache to use for the binary tree, be careful to escape
+# any quotes inside of this string if you use it
+SET (CTEST_INITIAL_CACHE "
+BUILD_TESTING:BOOL=ON
+CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+OSGBUILD_ENABLE_PACKAGING:BOOL=ON
+OSGBUILD_EXAMPLES_ADVANCED:BOOL=ON
+OSGBUILD_EXAMPLES_SIMPLE:BOOL=ON
+OSGBUILD_TESTS:BOOL=ON
+OSGBUILD_UNITTESTS:BOOL=ON
+
+SITE:STRING=dream2
+BUILDNAME:STRING=FC11-gcc441
+CVSCOMMAND:FILEPATH=/usr/bin/svn
+")
+
+# set any extra environment variables to use during the execution of the script here:
+SET (CTEST_ENVIRONMENT
+)
