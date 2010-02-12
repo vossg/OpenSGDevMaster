@@ -1022,15 +1022,19 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         if(pWin == NULL)
             continue;
 
-#ifdef OSG_DEBUG
         if(osgId + num > pWin->_mfGlObjectLastReinitialize.size())
         {
+            // this can happen if a GLObject is temporarily created in one
+            // aspect, used there and then discarded without ever being
+            // synced to other aspects.
+
+#ifdef OSG_DEBUG
             FWARNING(("Window::destroyGLObject: id %d + num %d exceed "
                       "registered objects size %d!\n", osgId, num, 
                       pWin->_mfGlObjectLastReinitialize.size()));
-            return;
-        }
 #endif
+            continue;
+        }
 
         // has the object been used in this context at all?
         if(pWin->getGlObjectLastReinitialize(osgId) != 0) 
