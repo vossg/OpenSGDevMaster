@@ -218,12 +218,12 @@ void ClusterNetwork::setMainConnection(Connection *connection)
 
 void ClusterNetwork::setConnection(UInt32 id,Connection *connection)
 {
-    while(id<_connection.size())
+    if(id >= _connection.size())
     {
-        _connection.push_back(NULL);
+        _connection.resize(id + 1, NULL);
     }
 
-    _connection[id]=connection;
+    _connection[id] = connection;
 }
 
 /*-------------------------------------------------------------------------*/
