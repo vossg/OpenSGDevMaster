@@ -417,8 +417,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                  static element                              */
     /*! \{                                                                 */
 
-    static Int32 _formatDic[][2];
-    static Int32 _typeDic  [][2];
+    static UInt32 _formatDic[][2];
+    static Int32  _typeDic  [][2];
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

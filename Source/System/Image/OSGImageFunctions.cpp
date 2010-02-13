@@ -867,7 +867,7 @@ bool createPhongVolume ( Image   *image,
 bool createNormalizationCubeMap(std::vector<Image *> imageVec,
                                 UInt32 size)
 {
-    int i, j;
+    UInt32 i, j;
     
     if (imageVec.size() < 6)
     {
@@ -1493,8 +1493,8 @@ bool convertCrossToCubeMap(Image const *pIn,
         return false;
     }
 
-    int face_width =  pIn->getWidth()  / 3;
-    int face_height = pIn->getHeight() / 4;
+    OSG::UInt32 face_width =  pIn->getWidth()  / 3;
+    OSG::UInt32 face_height = pIn->getHeight() / 4;
 
 
     pOut->set(pIn->getPixelFormat(),
@@ -1518,7 +1518,7 @@ bool convertCrossToCubeMap(Image const *pIn,
     // - X
     for(j = 0; j < face_height; j++) 
     {
-        for(int i = 0;  i < face_width; i++) 
+        for(OSG::UInt32 i = 0;  i < face_width; i++) 
         {
             *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
                            (i * 3) +
@@ -1536,7 +1536,7 @@ bool convertCrossToCubeMap(Image const *pIn,
     // +X
     for (j=0; j < face_height; j++) 
     {
-        for (int i = 0;  i < face_width; i++) 
+        for (OSG::UInt32 i = 0;  i < face_width; i++) 
         {
             *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
                            (2 * face_width + i) * 3 +

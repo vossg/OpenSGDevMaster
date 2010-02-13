@@ -85,7 +85,7 @@ OSG_USING_NAMESPACE
   Internaly used in the createData() method.
  */
 
-Int32 Image::_formatDic[][2] =
+UInt32 Image::_formatDic[][2] =
 {
     { OSG_A_PF,      1 },
     { OSG_I_PF,      1 },
@@ -307,7 +307,7 @@ void Image::dump(      UInt32    ,
 
 UInt8  Image::getComponents(void) const
 {
-    Int32 mapSizeFormat = sizeof(_formatDic) / sizeof(UInt32[2]);
+    UInt16 mapSizeFormat = sizeof(_formatDic) / sizeof(UInt32[2]);
 
     for(UInt16 i = 0; i < mapSizeFormat; i++)
     {
@@ -731,9 +731,9 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
 
     // TODO !!! code all the cases !!!
 
-    if(getSize()   &&
-       pixelFormat &&
-       (destination != NULL || (pixelFormat != getPixelFormat())))
+    if(getSize()    != 0              &&
+       pixelFormat  != OSG_INVALID_PF &&
+       (destination != 0 || (pixelFormat != static_cast<Image::PixelFormat>(getPixelFormat()))))
     {
 
         dest->set(pixelFormat, 
@@ -2215,7 +2215,7 @@ void Image::swapDataEndian(void)
 {
     UChar8 *data     = editData();
 
-    Int32   size     = getSize() / getComponentSize();
+    UInt32  size     = getSize() / getComponentSize();
     UInt16 *dataUC16 = reinterpret_cast<UInt16 *>(data);
     UInt32 *dataUC32 = reinterpret_cast<UInt32 *>(data);
     Real32 *dataF32  = reinterpret_cast<Real32 *>(data);
@@ -2319,7 +2319,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     const UChar8 *sourceData = getData();
           UChar8 *destData   = dest->editData();
 
-    Int32 sourceSize = getSize() / getComponentSize();
+    UInt32 sourceSize = getSize() / getComponentSize();
 
     const UInt16 *sourceDataUC16 = reinterpret_cast<const UInt16 *>(sourceData);
           UInt16 *destDataUC16   = reinterpret_cast<      UInt16 *>(destData  );
@@ -2338,7 +2338,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             {
                 case OSG_UINT16_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataUC16[i] = UInt16(sourceData[i]<<8);
                     }
@@ -2346,7 +2346,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_UINT32_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataUC32[i] = UInt32(sourceData[i]<<24);
                     }
@@ -2354,7 +2354,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT32_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataF32[i] = Real32(sourceData[i]/255.0);
                     }
@@ -2362,7 +2362,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT16_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] = Real16(sourceData[i]/255.0);
                     }
@@ -2415,7 +2415,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_UINT32_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataUC32[i] = UInt32(sourceDataUC16[i]<<16);
                     }
@@ -2423,7 +2423,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT32_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataF32[i] = Real32(sourceDataUC16[i]/65535.0);
                     }
@@ -2432,7 +2432,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT16_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] = Real16(sourceDataUC16[i]/255.0);
                     }
@@ -2515,7 +2515,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                 break;
 
                 case OSG_FLOAT32_IMAGEDATA:
-                    for(int i = 0; i < sourceSize; i++)
+                    for(UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataF32[i] =
                             (Real32(sourceDataUC32[i])) / 4294967295.0;
@@ -2524,7 +2524,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT16_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] =
                             (Real16(sourceDataUC32[i])) / REAL16_MAX;
@@ -2543,7 +2543,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             {
                 case OSG_UINT8_IMAGEDATA:
 
-                    for(int i = 0; i < sourceSize; i++)
+                    for(UInt32 i = 0; i < sourceSize; i++)
                     {
                         destData[i] = UInt8(sourceDataF32[i]*255.0);
                     }
@@ -2551,7 +2551,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_UINT16_IMAGEDATA:
 
-                    for(int i = 0; i < sourceSize; i++)
+                    for(UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataUC16[i] =
                             UInt16(sourceDataF32[i] * 65535.0);
@@ -2559,7 +2559,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     break;
 
                 case OSG_UINT32_IMAGEDATA:
-                    for(int i = 0; i < sourceSize; i++)
+                    for(UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataUC32[i] =
                             UInt32(sourceDataF32[i] * 4294967295.0);
@@ -2568,7 +2568,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_FLOAT16_IMAGEDATA:
 
-                    for (int i = 0; i < sourceSize; i++)
+                    for (UInt32 i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] =
                             Real16(sourceDataF32[i]); // half-constructor
@@ -3022,7 +3022,7 @@ bool Image::subImage(Int32  offX,
         {
             for(UInt32 x = xMin; x < xMax; x++)
             {
-                for(UInt32 i = 0; i < getBpp(); i++)
+                for(Int32 i = 0; i < getBpp(); i++)
                 {
                     dest[destIdx] = src[((z * getHeight() + y) *
                                          getWidth() + x) * getBpp() + i];
@@ -3119,11 +3119,11 @@ bool Image::slice(Int32  offX,
         // ensure destination data is zero
         memset(dest, 0, destImage->getSize());
 
-        for(UInt32 z = 0; z < getDepth(); z++)
+        for(Int32 z = 0; z < getDepth(); z++)
         {
-            for(UInt32 x = 0; x < getWidth(); x++)
+            for(Int32 x = 0; x < getWidth(); x++)
             {
-                for(UInt32 i = 0; i < getBpp(); i++)
+                for(Int32 i = 0; i < getBpp(); i++)
                 {
                     dest[(z * getWidth() + x) * getBpp() + i] =
                         src[((z * getHeight() + offY) * getWidth() + x) *
@@ -3152,11 +3152,11 @@ bool Image::slice(Int32  offX,
         // ensure destination data is zero
         memset(dest, 0, destImage->getSize());
 
-        for(UInt32 z = 0; z < getDepth(); z++)
+        for(Int32 z = 0; z < getDepth(); z++)
         {
-            for(UInt32 y = 0; y < getHeight(); y++)
+            for(Int32 y = 0; y < getHeight(); y++)
             {
-                for(UInt32 i = 0; i < getBpp(); i++)
+                for(Int32 i = 0; i < getBpp(); i++)
                 {
                     dest[(z * getHeight() + y) * getBpp() + i] =
                         src[((z * getHeight() + y) * getWidth() + offX) *
