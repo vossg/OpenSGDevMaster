@@ -751,7 +751,16 @@ void ChangeList::merge(ChangeList &other)
     }
 }
 
-void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
+/*! Fills this changelist with entries that represent the current state of
+    the system starting at the container with the given id.
+    Prototypes are skipped unless skipPrototypes is false.
+
+    For every container a 'Create' entry and a 'Change' entry (marking all fields
+    as modified) is added and as many 'AddReference' entries as the ref count
+    of the container.
+ */
+void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId,
+                                      bool   skipPrototypes     )
 {
     this->clear();
 
@@ -768,22 +777,31 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
         FieldContainer *pContainer = 
             FieldContainerFactory::the()->getContainer(i);
 
-        if(pContainer != NULL)
+        // skip destroyed FC
+        if(pContainer == NULL)
+          continue;
+
+        // skip prototypes - unless requested
+        if(skipPrototypes == true &&
+           (pContainer->getType().getPrototype() == pContainer ||
+            pContainer->getType().getPrototype() == NULL         ))
         {
-            this->addCreated(i, TypeTraits<BitVector>::BitsClear);
-
-            for(Int32 j = 0; j < pContainer->getRefCount(); ++j)
-                this->addAddRefd(i);
-
-            ContainerChangeEntry *pEntry = this->getNewEntry();
-
-            pEntry->uiEntryDesc   = ContainerChangeEntry::Change;
-            pEntry->pFieldFlags   = pContainer->getFieldFlags();
-            pEntry->uiContainerId = i;
-            pEntry->whichField    = FieldBits::AllFields;
-            pEntry->pList         = this;                
+            continue;
         }
-    } 
+
+        this->addCreated(i, TypeTraits<BitVector>::BitsClear);
+
+        for(Int32 j = 0; j < pContainer->getRefCount(); ++j)
+            this->addAddRefd(i);
+
+        ContainerChangeEntry *pEntry = this->getNewEntry();
+
+        pEntry->uiEntryDesc   = ContainerChangeEntry::Change;
+        pEntry->pFieldFlags   = pContainer->getFieldFlags();
+        pEntry->uiContainerId = i;
+        pEntry->whichField    = FieldBits::AllFields;
+        pEntry->pList         = this;
+    }
 }
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO

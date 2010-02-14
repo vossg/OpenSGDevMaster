@@ -149,7 +149,8 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    void fillFromCurrentState(UInt32 uiFieldContainerId);
+    void fillFromCurrentState(UInt32 uiFieldContainerId = 0,
+                              bool   skipPrototypes     = true);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
