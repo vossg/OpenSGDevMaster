@@ -35,7 +35,8 @@
 #endif
 
 #if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic warning "-Wold-style-cast"
+// CDash balks even if they're just warnings... :(
+#pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
 // local glut window
@@ -268,7 +269,7 @@ int main(int argc,char **argv)
                             noDecorAtom, 
                             32,
                             PropModeReplace, 
-                            (unsigned char *) &oHints, 4);
+                            reinterpret_cast<unsigned char *>(&oHints), 4);
 
         }
         
@@ -285,7 +286,7 @@ int main(int argc,char **argv)
         XEvent        event;
 
         XMapWindow(dpy, hwin);
-        XIfEvent(dpy, &event, wait_for_map_notify, (char *)hwin);
+        XIfEvent(dpy, &event, wait_for_map_notify, reinterpret_cast<char *>(hwin));
 
         if(fullscreen == true)
         {
