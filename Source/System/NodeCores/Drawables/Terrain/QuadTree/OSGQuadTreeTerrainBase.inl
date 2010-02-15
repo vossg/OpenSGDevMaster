@@ -117,7 +117,7 @@ void QuadTreeTerrainBase::setHeightScale(const Real32 value)
 //! Get the value of the QuadTreeTerrain::_sfWidth field.
 
 inline
-UInt32 &QuadTreeTerrainBase::editWidth(void)
+Int32 &QuadTreeTerrainBase::editWidth(void)
 {
     editSField(WidthFieldMask);
 
@@ -126,14 +126,14 @@ UInt32 &QuadTreeTerrainBase::editWidth(void)
 
 //! Get the value of the QuadTreeTerrain::_sfWidth field.
 inline
-      UInt32  QuadTreeTerrainBase::getWidth(void) const
+      Int32  QuadTreeTerrainBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
 //! Set the value of the QuadTreeTerrain::_sfWidth field.
 inline
-void QuadTreeTerrainBase::setWidth(const UInt32 value)
+void QuadTreeTerrainBase::setWidth(const Int32 value)
 {
     editSField(WidthFieldMask);
 
@@ -142,7 +142,7 @@ void QuadTreeTerrainBase::setWidth(const UInt32 value)
 //! Get the value of the QuadTreeTerrain::_sfLevel field.
 
 inline
-UInt32 &QuadTreeTerrainBase::editLevel(void)
+Int32 &QuadTreeTerrainBase::editLevel(void)
 {
     editSField(LevelFieldMask);
 
@@ -151,14 +151,14 @@ UInt32 &QuadTreeTerrainBase::editLevel(void)
 
 //! Get the value of the QuadTreeTerrain::_sfLevel field.
 inline
-      UInt32  QuadTreeTerrainBase::getLevel(void) const
+      Int32  QuadTreeTerrainBase::getLevel(void) const
 {
     return _sfLevel.getValue();
 }
 
 //! Set the value of the QuadTreeTerrain::_sfLevel field.
 inline
-void QuadTreeTerrainBase::setLevel(const UInt32 value)
+void QuadTreeTerrainBase::setLevel(const Int32 value)
 {
     editSField(LevelFieldMask);
 

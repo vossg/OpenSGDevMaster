@@ -51,7 +51,7 @@ Terrain node core.
 	</Field>
 	<Field
 		name="width"
-		type="UInt32"
+		type="Int32"
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
@@ -61,7 +61,7 @@ Terrain node core.
 	</Field>
 	<Field
 		name="level"
-		type="UInt32"
+		type="Int32"
 		cardinality="single"
 		visibility="internal"
 		defaultValue="1"

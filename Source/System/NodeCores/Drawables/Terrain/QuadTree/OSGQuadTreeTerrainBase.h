@@ -178,8 +178,8 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     typedef SFReal32          SFHeightScaleType;
     typedef MFReal32          MFHeightErrorType;
     typedef MFReal32          MFHeightQuadType;
-    typedef SFUInt32          SFWidthType;
-    typedef SFUInt32          SFLevelType;
+    typedef SFInt32           SFWidthType;
+    typedef SFInt32           SFLevelType;
     typedef SFReal32          SFDetailType;
     typedef SFInt32           SFBorderDetailType;
     typedef SFReal32          SFVertexSpacingType;
@@ -419,8 +419,8 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     SFReal32          _sfHeightScale;
     MFReal32          _mfHeightError;
     MFReal32          _mfHeightQuad;
-    SFUInt32          _sfWidth;
-    SFUInt32          _sfLevel;
+    SFInt32           _sfWidth;
+    SFInt32           _sfLevel;
     SFReal32          _sfDetail;
     SFInt32           _sfBorderDetail;
     SFReal32          _sfVertexSpacing;
@@ -522,11 +522,11 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
 
-                  SFUInt32            *editSFWidth          (void);
-            const SFUInt32            *getSFWidth           (void) const;
+                  SFInt32             *editSFWidth          (void);
+            const SFInt32             *getSFWidth           (void) const;
 
-                  SFUInt32            *editSFLevel          (void);
-            const SFUInt32            *getSFLevel           (void) const;
+                  SFInt32             *editSFLevel          (void);
+            const SFInt32             *getSFLevel           (void) const;
             const SFUnrecGeoVectorPropertyPtr *getSFHeightVertices  (void) const;
                   SFUnrecGeoVectorPropertyPtr *editSFHeightVertices (void);
 
@@ -540,11 +540,11 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
             const SFReal32            *getSFEyeHeight       (void) const;
 
 
-                  UInt32              &editWidth          (void);
-                  UInt32               getWidth           (void) const;
+                  Int32               &editWidth          (void);
+                  Int32                getWidth           (void) const;
 
-                  UInt32              &editLevel          (void);
-                  UInt32               getLevel           (void) const;
+                  Int32               &editLevel          (void);
+                  Int32                getLevel           (void) const;
 
                   GeoVectorProperty * getHeightVertices (void) const;
 
@@ -562,8 +562,8 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWidth          (const UInt32 value);
-            void setLevel          (const UInt32 value);
+            void setWidth          (const Int32 value);
+            void setLevel          (const Int32 value);
             void setHeightVertices (GeoVectorProperty * const value);
             void setBoundMin       (const Pnt3f &value);
             void setBoundMax       (const Pnt3f &value);

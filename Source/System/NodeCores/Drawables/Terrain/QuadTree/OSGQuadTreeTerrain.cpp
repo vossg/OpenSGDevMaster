@@ -621,9 +621,9 @@ ImageTransitPtr QuadTreeTerrain::createNormalMap () const
 
    vnum = inum = 0;
 
-   for(UInt32 z = 0; z < getWidth(); z++) 
+   for(Int32 z = 0; z < getWidth(); z++) 
    {
-       for (UInt32 x = 0; x < getWidth(); x++, vnum++) 
+       for (Int32 x = 0; x < getWidth(); x++, vnum++) 
        {
            Vec3f tanx, tany, norm;
 
@@ -1387,8 +1387,8 @@ void QuadTreeTerrain::createFanAround (Int32 x,
 
     pos[c][1] = hC;
     ind.push_back(c);
-    Int32 last  = C;
-    Int32 first = C;
+    UInt32 last  = C;
+    UInt32 first = C;
 
     if(corners[NW]) 
     {
@@ -1897,9 +1897,9 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             editMFHeightError()->resize(getWidth()*getWidth());
             editMFHeightQuad() ->resize(getWidth()*getWidth());
 
-            for(UInt32 i=0; i<getWidth(); ++i) 
+            for(Int32 i=0; i<getWidth(); ++i) 
             {
-                for(UInt32 j=0; j<getWidth(); ++j) 
+                for(Int32 j=0; j<getWidth(); ++j) 
                 {
                     editHeightQuad(j*getWidth() + i) = 
                         TypeTraits<Real32>::getMax();
@@ -1909,7 +1909,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             //--- fill Vertices and TexCoords arrays with values -------------
             Int32  vnum = 0;                                 // vertex number
             
-            UInt32 x, z;
+            Int32 x, z;
             
             GeoPnt3fPropertyUnrecPtr  pos = GeoPnt3fProperty ::create();
             GeoUInt32PropertyUnrecPtr ind = GeoUInt32Property::create();
@@ -1989,7 +1989,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
         }
 
         UInt32 vnum = 0;
-        UInt32 x, z;
+        Int32 x, z;
         Real32 s, t;                                     // tex coords
 
         tex->editFieldPtr()->clear();

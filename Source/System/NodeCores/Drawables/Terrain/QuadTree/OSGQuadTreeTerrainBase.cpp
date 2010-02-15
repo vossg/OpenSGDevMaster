@@ -100,11 +100,11 @@ OSG_BEGIN_NAMESPACE
     Vertex indices used in current tesselation (encoding terrain quadtree).
 */
 
-/*! \var UInt32          QuadTreeTerrainBase::_sfWidth
+/*! \var Int32           QuadTreeTerrainBase::_sfWidth
     Width and height of dataset.
 */
 
-/*! \var UInt32          QuadTreeTerrainBase::_sfLevel
+/*! \var Int32           QuadTreeTerrainBase::_sfLevel
     Levels of terrain quadtree.
 */
 
@@ -256,8 +256,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
         "width",
         "Width and height of dataset.\n",
         WidthFieldId, WidthFieldMask,
@@ -268,8 +268,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
         "level",
         "Levels of terrain quadtree.\n",
         LevelFieldId, LevelFieldMask,
@@ -562,7 +562,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"width\"\n"
-    "\t\ttype=\"UInt32\"\n"
+    "\t\ttype=\"Int32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
@@ -572,7 +572,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"level\"\n"
-    "\t\ttype=\"UInt32\"\n"
+    "\t\ttype=\"Int32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"1\"\n"
@@ -831,27 +831,27 @@ const MFReal32 *QuadTreeTerrainBase::getMFHeightQuad(void) const
 }
 
 
-SFUInt32 *QuadTreeTerrainBase::editSFWidth(void)
+SFInt32 *QuadTreeTerrainBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);
 
     return &_sfWidth;
 }
 
-const SFUInt32 *QuadTreeTerrainBase::getSFWidth(void) const
+const SFInt32 *QuadTreeTerrainBase::getSFWidth(void) const
 {
     return &_sfWidth;
 }
 
 
-SFUInt32 *QuadTreeTerrainBase::editSFLevel(void)
+SFInt32 *QuadTreeTerrainBase::editSFLevel(void)
 {
     editSField(LevelFieldMask);
 
     return &_sfLevel;
 }
 
-const SFUInt32 *QuadTreeTerrainBase::getSFLevel(void) const
+const SFInt32 *QuadTreeTerrainBase::getSFLevel(void) const
 {
     return &_sfLevel;
 }
@@ -1534,8 +1534,8 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     _sfHeightScale            (Real32(1.0f)),
     _mfHeightError            (),
     _mfHeightQuad             (),
-    _sfWidth                  (UInt32(0)),
-    _sfLevel                  (UInt32(1)),
+    _sfWidth                  (Int32(0)),
+    _sfLevel                  (Int32(1)),
     _sfDetail                 (Real32(22.0f)),
     _sfBorderDetail           (Int32(0)),
     _sfVertexSpacing          (Real32(0.1f)),
@@ -1712,8 +1712,8 @@ EditFieldHandlePtr QuadTreeTerrainBase::editHandleHeightQuad     (void)
 
 GetFieldHandlePtr QuadTreeTerrainBase::getHandleWidth           (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
              &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId),
              const_cast<QuadTreeTerrainBase *>(this)));
@@ -1723,8 +1723,8 @@ GetFieldHandlePtr QuadTreeTerrainBase::getHandleWidth           (void) const
 
 EditFieldHandlePtr QuadTreeTerrainBase::editHandleWidth          (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
              &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId),
              this));
@@ -1737,8 +1737,8 @@ EditFieldHandlePtr QuadTreeTerrainBase::editHandleWidth          (void)
 
 GetFieldHandlePtr QuadTreeTerrainBase::getHandleLevel           (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
              &_sfLevel,
              this->getType().getFieldDesc(LevelFieldId),
              const_cast<QuadTreeTerrainBase *>(this)));
@@ -1748,8 +1748,8 @@ GetFieldHandlePtr QuadTreeTerrainBase::getHandleLevel           (void) const
 
 EditFieldHandlePtr QuadTreeTerrainBase::editHandleLevel          (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
              &_sfLevel,
              this->getType().getFieldDesc(LevelFieldId),
              this));

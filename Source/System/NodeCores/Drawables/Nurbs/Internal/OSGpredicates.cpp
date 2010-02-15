@@ -552,6 +552,11 @@ long my_random ()
     return res;
 }
 #endif
+
+//#########################################################
+#if 0 // NOT USED RIGHT NOW, TURNED OFF TO PREVENT WARNINGS
+//#########################################################
+
 /*****************************************************************************/
 /*                                                                           */
 /*  doublerand()   Generate a double with random 53-bit significand and a    */
@@ -703,6 +708,8 @@ static float uniformfloatrand()
     return result;
 }
 
+#endif
+
 /*****************************************************************************/
 /*                                                                           */
 /*  exactinit()   Initialize the variables used for exact arithmetic.        */
@@ -768,6 +775,11 @@ void OSG::exactinit()
     isperrboundB   = ( 5.0 +   72.0 * epsilon) * epsilon;
     isperrboundC   = (71.0 + 1408.0 * epsilon) * epsilon * epsilon;
 }
+
+
+//#########################################################
+#if 0 // NOT USED RIGHT NOW, TURNED OFF TO PREVENT WARNINGS
+//#########################################################
 
 /*****************************************************************************/
 /*                                                                           */
@@ -1147,6 +1159,11 @@ static int fast_expansion_sum(int elen, REAL *e, int flen, REAL *f, REAL *h)    
     return hindex + 1;
 }
 
+//#########################################################
+#endif
+//#########################################################
+
+
 /*****************************************************************************/
 /*                                                                           */
 /*  fast_expansion_sum_zeroelim()   Sum two expansions, eliminating zero     */
@@ -1252,6 +1269,11 @@ static int fast_expansion_sum_zeroelim(int elen, REAL *e, int flen, REAL *f, REA
     }
     return hindex;
 }
+
+
+//#########################################################
+#if 0
+//#########################################################
 
 /*****************************************************************************/
 /*                                                                           */
@@ -1466,6 +1488,10 @@ static int scale_expansion(int elen, REAL *e, REAL b, REAL *h)            /* e a
     return elen + elen;
 }
 
+//#########################################################
+#endif
+//#########################################################
+
 /*****************************************************************************/
 /*                                                                           */
 /*  scale_expansion_zeroelim()   Multiply an expansion by a scalar,          */
@@ -1531,6 +1557,11 @@ static int scale_expansion_zeroelim(int elen, REAL *e, REAL b, REAL *h)   /* e a
     return hindex;
 }
 
+
+//#########################################################
+#if 0
+//#########################################################
+
 /*****************************************************************************/
 /*                                                                           */
 /*  compress()   Compress an expansion.                                      */
@@ -1589,6 +1620,10 @@ static int compress(int elen, REAL *e, REAL *h)                         /* e and
     h[top] = Q;
     return top + 1;
 }
+
+//#########################################################
+#endif
+//#########################################################
 
 /*****************************************************************************/
 /*                                                                           */
