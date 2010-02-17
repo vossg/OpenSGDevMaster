@@ -233,7 +233,7 @@ void keyboard(unsigned char k, int x, int y)
         std::cout << "Number of nodes before splitting: " << c.getCount()
                   << std::endl;
         
-        OSG::SplitGraphOpRefPtr spo = new OSG::SplitGraphOp;
+        OSG::SplitGraphOpRefPtr spo = OSG::SplitGraphOp::create();
         spo->setMaxPolygons(50);
         spo->traverse(scene);
         

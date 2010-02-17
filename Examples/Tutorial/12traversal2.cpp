@@ -95,14 +95,18 @@ OSG::NodeTransitPtr createScenegraph(const char* filename)
     //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
     
     // define the Graph Op Sequence here
-    OSG::GraphOpSeq *graphOperator = new OSG::GraphOpSeq;
+    OSG::GraphOpSeqRefPtr graphOperator = OSG::GraphOpSeq::create();
+    OSG::GraphOpRefPtr    go;
     
     //first we verify the geometry
-    graphOperator->addGraphOp(new OSG::VerifyGeoGraphOp);
+    go = OSG::VerifyGeoGraphOp::create();
+    graphOperator->addGraphOp(go);
     //merge identical field containers
-    graphOperator->addGraphOp(new OSG::SharePtrGraphOp);
+    go = OSG::SharePtrGraphOp::create();
+    graphOperator->addGraphOp(go);
     //verify again
-    graphOperator->addGraphOp(new OSG::VerifyGeoGraphOp);
+    go = OSG::VerifyGeoGraphOp::create();
+    graphOperator->addGraphOp(go);
     
     std::cout << "Loading " << filename << " now" << std::endl;
     
@@ -229,7 +233,7 @@ void keyboard(unsigned char k, int x, int y)
         std::cout << "Number of nodes before splitting: " << c.getCount()
                   << std::endl;
         
-        OSG::SplitGraphOpRefPtr spo = new OSG::SplitGraphOp;
+        OSG::SplitGraphOpRefPtr spo = OSG::SplitGraphOp::create();
         spo->setMaxPolygons(50);
         spo->traverse(scene);
         

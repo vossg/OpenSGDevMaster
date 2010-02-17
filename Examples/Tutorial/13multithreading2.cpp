@@ -17,9 +17,9 @@ OSG::SimpleSceneManager *mgr;
 
 OSG::TransformMTRecPtr  trans;
 OSG::NodeMTRecPtr       scene;
-OSG::Thread            *animationThread;
-OSG::Thread            *applicationThread;
-OSG::Barrier           *syncBarrier;
+OSG::ThreadRefPtr       animationThread;
+OSG::ThreadRefPtr       applicationThread;
+OSG::BarrierRefPtr      syncBarrier;
 
 int setupGLUT(int *argc, char *argv[]);
 
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
         //synchronize threads
         
         //instead of NULL you could provide a name
-        syncBarrier = OSG::Barrier::get(NULL);
+        syncBarrier = OSG::Barrier::get("syncBarrier", true);
         
         mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
@@ -117,9 +117,9 @@ int main(int argc, char **argv)
             dynamic_cast<OSG::Thread *>(OSG::ThreadManager::getAppThread());
         
         //create the thread that will run generation of new matrices
-        animationThread = 
-            dynamic_cast<OSG::Thread *>(
-                OSG::ThreadManager::the()->getThread("anim"));
+        animationThread =
+            OSG::dynamic_pointer_cast<OSG::Thread>(
+                OSG::ThreadManager::the()->getThread("anim", true));
         
         //do it...
         animationThread->runFunction(rotate, 1, NULL);

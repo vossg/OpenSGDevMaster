@@ -48,13 +48,13 @@ int main(int argc, char **argv)
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        OSG::Thread* threadOne = 
-            dynamic_cast<OSG::Thread *>(
-                OSG::ThreadManager::the()->getThread("One"));
+        OSG::ThreadRefPtr threadOne =
+            OSG::dynamic_pointer_cast<OSG::Thread>(
+                OSG::ThreadManager::the()->getThread("One", false));
 
-        OSG::Thread* threadTwo = 
-            dynamic_cast<OSG::Thread *>(
-                OSG::ThreadManager::the()->getThread("Two"));
+        OSG::ThreadRefPtr threadTwo =
+            OSG::dynamic_pointer_cast<OSG::Thread>(
+                OSG::ThreadManager::the()->getThread("Two", false));
         
         threadOne->runFunction(printA, 1, NULL);
         threadTwo->runFunction(printB, 1, NULL);
