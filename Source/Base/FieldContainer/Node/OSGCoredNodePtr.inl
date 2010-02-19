@@ -208,6 +208,24 @@ inline typename CoredNodeRefPtr<CoreT>::Self &
     return *this;
 }
 
+template<class CoreT> 
+inline typename CoredNodeRefPtr<CoreT>::Self &
+    CoredNodeRefPtr<CoreT>::operator =(NodeTransitPtr pNode)
+{
+    setNode(pNode);
+
+    if(_pNode != NULL)
+    {
+        setCore(dynamic_cast<CorePtr>(_pNode->getCore()));
+    }
+    else
+    {
+        setCore(CorePtr(NULL));
+    }
+
+    return *this;
+}
+
 template<class CoreT>
 inline typename CoredNodeRefPtr<CoreT>::Self &
     CoredNodeRefPtr<CoreT>::operator =(CorePtr pCore)
@@ -248,6 +266,15 @@ template <class CoreT> inline
 void CoredNodeRefPtr<CoreT>::setNode(Node * const pNode)
 {
     if(_pNode == pNode)
+        return;
+        
+    _pNode = pNode;
+}
+
+template <class CoreT> inline 
+void CoredNodeRefPtr<CoreT>::setNode(NodeTransitPtr pNode)
+{
+    if(pNode == _pNode)
         return;
         
     _pNode = pNode;

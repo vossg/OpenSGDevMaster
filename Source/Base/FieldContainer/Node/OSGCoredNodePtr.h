@@ -112,6 +112,7 @@ class CoredNodeRefPtr
     /*! \{                                                                 */
     
     Self &operator =(Node           *pNode);
+    Self &operator =(NodeTransitPtr  pNode);
     Self &operator =(CorePtr         pCore);
     Self &operator =(CoreTransitPtr  pCore);
     Self &operator =(Self    const  &pCNRP);
@@ -123,12 +124,13 @@ class CoredNodeRefPtr
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    void setNode   (Node     * const pNode);
-    
-    void setCore   (NodeCore * const pCore);
-    void setCore   (CorePtr          pCore);
+    void setNode   (Node           * const pNode);
+    void setNode   (NodeTransitPtr         pNode);
 
-    void updateNode(void                  );
+    void setCore   (NodeCore       * const pCore);
+    void setCore   (CorePtr                pCore);
+
+    void updateNode(void                        );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
