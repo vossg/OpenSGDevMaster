@@ -10,30 +10,30 @@ IF(OSGZLibSrcDir)
 #  SET(${PROJECT_NAME}SharedTargetMini osgminizip)
   SET(${PROJECT_NAME}StaticTargetMini libosgminizip)
 
-  SET(OSG_ZLIB_SRCS ${OSGZLibSrcDir}/adler32.c 
-                    ${OSGZLibSrcDir}/compress.c 
-                    ${OSGZLibSrcDir}/crc32.c 
-                    ${OSGZLibSrcDir}/deflate.c 
-                    ${OSGZLibSrcDir}/gzio.c 
-                    ${OSGZLibSrcDir}/infback.c 
-                    ${OSGZLibSrcDir}/inffast.c 
-                    ${OSGZLibSrcDir}/inflate.c 
-                    ${OSGZLibSrcDir}/inftrees.c 
-                    ${OSGZLibSrcDir}/trees.c 
-                    ${OSGZLibSrcDir}/uncompr.c 
-                    ${OSGZLibSrcDir}/zutil.c)
+  SET(OSG_ZLIB_SRCS ${OSGZLibSrcDir}/source/adler32.c 
+                    ${OSGZLibSrcDir}/source/compress.c 
+                    ${OSGZLibSrcDir}/source/crc32.c 
+                    ${OSGZLibSrcDir}/source/deflate.c 
+                    ${OSGZLibSrcDir}/source/gzio.c 
+                    ${OSGZLibSrcDir}/source/infback.c 
+                    ${OSGZLibSrcDir}/source/inffast.c 
+                    ${OSGZLibSrcDir}/source/inflate.c 
+                    ${OSGZLibSrcDir}/source/inftrees.c 
+                    ${OSGZLibSrcDir}/source/trees.c 
+                    ${OSGZLibSrcDir}/source/uncompr.c 
+                    ${OSGZLibSrcDir}/source/zutil.c)
 
-  SET(OSG_MINIZIP_SRCS ${OSGZLibSrcDir}/contrib/minizip/zip.c
-                       ${OSGZLibSrcDir}/contrib/minizip/unzip.c
-                       ${OSGZLibSrcDir}/contrib/minizip/ioapi.c)
+  SET(OSG_MINIZIP_SRCS ${OSGZLibSrcDir}/source/contrib/minizip/zip.c
+                       ${OSGZLibSrcDir}/source/contrib/minizip/unzip.c
+                       ${OSGZLibSrcDir}/source/contrib/minizip/ioapi.c)
 
-  SET(OSG_ZLIB_HDR ${OSGZLibSrcDir}/zlib.h 
-                   ${OSGZLibSrcDir}/zconf.h
-                   ${OSGZLibSrcDir}/contrib/minizip/zip.h
-                   ${OSGZLibSrcDir}/contrib/minizip/unzip.h
-                   ${OSGZLibSrcDir}/contrib/minizip/ioapi.h)
+  SET(OSG_ZLIB_HDR ${OSGZLibSrcDir}/source/zlib.h 
+                   ${OSGZLibSrcDir}/source/zconf.h
+                   ${OSGZLibSrcDir}/source/contrib/minizip/zip.h
+                   ${OSGZLibSrcDir}/source/contrib/minizip/unzip.h
+                   ${OSGZLibSrcDir}/source/contrib/minizip/ioapi.h)
 
-  INCLUDE_DIRECTORIES(${OSGZLibSrcDir})
+  INCLUDE_DIRECTORIES(${OSGZLibSrcDir}/source)
 
   IF(BUILD_SHARED_LIBS)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTarget} SHARED ${OSG_ZLIB_SRCS})
@@ -98,7 +98,7 @@ IF(OSGZLibSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
-  SET(OSG_ZLIB_INCLUDE_DIR ${OSGZLibSrcDir} CACHE PATH "")
+  SET(OSG_ZLIB_INCLUDE_DIR ${OSGZLibSrcDir}/source CACHE PATH "")
   SET(OSG_ZLIB_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "")
   SET(OSG_ZLIB_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 

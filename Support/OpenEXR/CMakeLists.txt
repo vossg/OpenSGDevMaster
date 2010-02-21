@@ -274,7 +274,7 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
 #                          COMPILE_DEFINITIONS "OPENEXR_DLL")
 
 #    SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTargetIlmImf} PROPERTIES
-#                          COMPILE_FLAGS "-DOPENEXR_DLL -I${OSGOpenExrSrcDir}/IlmBase/Half -I${OSGOpenExrSrcDir}/IlmBase/Iex -I${OSGOpenExrSrcDir}/IlmBase/Imath -I${OSGOpenExrSrcDir}/IlmBase/IlmThread -I${OSGOpenExrSrcDir}/OpenExr/IlmImf -DZLIB_DLL -I${OSGZLibSrcDir}")
+#                          COMPILE_FLAGS "-DOPENEXR_DLL -I${OSGOpenExrSrcDir}/IlmBase/Half -I${OSGOpenExrSrcDir}/IlmBase/Iex -I${OSGOpenExrSrcDir}/IlmBase/Imath -I${OSGOpenExrSrcDir}/IlmBase/IlmThread -I${OSGOpenExrSrcDir}/OpenExr/IlmImf -DZLIB_DLL -I${OSG_ZLIB_INCLUDE_DIR}")
 
 #    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTargetIlmImf} ${${PROJECT_NAME}SharedTargetHalf})
 #    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTargetIlmImf} ${${PROJECT_NAME}SharedTargetIlmThread})
@@ -347,7 +347,7 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
                           DEBUG_POSTFIX "D")
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmImf} PROPERTIES
-                          COMPILE_FLAGS "-I${OSGOpenExrSrcDir}/IlmBase/Half -I${OSGOpenExrSrcDir}/IlmBase/Iex -I${OSGOpenExrSrcDir}/IlmBase/Imath -I${OSGOpenExrSrcDir}/IlmBase/IlmThread -I${OSGOpenExrSrcDir}/OpenExr/IlmImf -I${OSGZLibSrcDir}")
+                          COMPILE_FLAGS "-I${OSGOpenExrSrcDir}/IlmBase/Half -I${OSGOpenExrSrcDir}/IlmBase/Iex -I${OSGOpenExrSrcDir}/IlmBase/Imath -I${OSGOpenExrSrcDir}/IlmBase/IlmThread -I${OSGOpenExrSrcDir}/OpenExr/IlmImf -I${OSG_ZLIB_INCLUDE_DIR}")
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIlmImf}
                 CONFIGURATIONS Release Debug

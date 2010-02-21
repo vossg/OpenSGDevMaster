@@ -763,11 +763,11 @@ IF(OSG_DOXY_INPUTS)
 ENDIF(OSG_DOXY_INPUTS)
 
 
-ADD_CUSTOM_TARGET(DocUpload COMMAND unison -batch -ui text opensg_doc)
-ADD_DEPENDENCIES(DocUpload Doc)
-
-
 IF(DOXYGEN_EXECUTABLE)
+  ADD_CUSTOM_TARGET(DocUpload COMMAND unison -batch -ui text opensg_doc)
+  ADD_DEPENDENCIES(DocUpload Doc)
+
+
   ADD_CUSTOM_TARGET(DocSyncGV 
                     COMMAND rsync html -av --delete html rsync://tombstone.camtech.ntu.edu.sg/opensgdoc
                     WORKING_DIRECTORY Doc)
