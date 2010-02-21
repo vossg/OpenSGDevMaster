@@ -6,8 +6,12 @@ find_package(Subversion)
 
 SET (CTEST_SVN_COMMAND ${Subversion_SVN_EXECUTABLE})
 
+SET (CTEST_CHECKOUT_COMMAND "${CTEST_SVN_COMMAND} co http://www.opensg.org/svn_repo/trunk ${CTEST_SOURCE_DIRECTORY}")
+
 # which ctest command to use for running the dashboard
-SET (CTEST_COMMAND "/usr/bin/ctest -D Experimental")
+SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
+
+SET (CTEST_NIGHTLY_START_TIME "01:00:00 CDT")
 
 # what cmake command to use for configuring this dashboard
 SET (CTEST_CMAKE_GENERATOR "Unix Makefiles")
@@ -41,7 +45,7 @@ SET (CTEST_BUILDNAME "FC11-gcc441")
 SET (CTEST_ENVIRONMENT
 )
 
-SET (MODEL "Experimental")
+SET (MODEL "Nightly")
 
 ctest_start(${MODEL})
 
