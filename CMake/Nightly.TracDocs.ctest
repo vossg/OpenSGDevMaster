@@ -1,0 +1,46 @@
+
+SET (CTEST_SOURCE_DIRECTORY "/data/Builds/Nightly_Docs/Source")
+SET (CTEST_BINARY_DIRECTORY "/data/Builds/Nightly_Docs/Build")
+
+find_package(Subversion)
+
+SET (CTEST_SVN_COMMAND ${Subversion_SVN_EXECUTABLE})
+
+# which ctest command to use for running the dashboard
+SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
+
+# what cmake command to use for configuring this dashboard
+SET (CTEST_CMAKE_GENERATOR "Unix Makefiles")
+
+# should ctest wipe the binary tree before running
+SET (CTEST_START_WITH_EMPTY_BINARY_DIRECTORY FALSE)
+
+# this is the initial cache to use for the binary tree, be careful to escape
+# any quotes inside of this string if you use it
+SET (CTEST_INITIAL_CACHE "
+BUILD_TESTING:BOOL=OFF
+CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+OSGBUILD_ENABLE_PACKAGING:BOOL=OFF
+OSGBUILD_EXAMPLES_ADVANCED:BOOL=OFF
+OSGBUILD_EXAMPLES_SIMPLE:BOOL=OFF
+OSGBUILD_TESTS:BOOL=OFF
+OSGBUILD_UNITTESTS:BOOL=OFF
+
+OSG_DOXY_DOC_TYPE:STRING=Trac
+
+SITE:STRING=destiny
+BUILDNAME:STRING=Doc
+")
+
+SET (MODEL "Nightly")
+
+ctest_start(${MODEL})
+
+ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}" RETURN_VALUE NUMBER_FILES)
+
+ctest_configure(BUILD "${CTEST_BINARY_DIRECTORY}")
+
+SET (CTEST_BUILD_TARGET "DocUpload")
+ctest_build(BUILD "${CTEST_BINARY_DIRECTORY}")
+
+ctest_submit()
