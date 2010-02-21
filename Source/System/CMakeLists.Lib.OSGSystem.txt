@@ -110,6 +110,12 @@ IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/densehashtable.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/hash_fun.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")\n\n")
+
+    IF(NOT OSG_ENABLE_SCANPARSE_REGEN)
+      FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "LIST(APPEND ${PROJECT_NAME}_HDR
+            \"${CMAKE_SOURCE_DIR}/Source/System/FileIO/ScanParseSkel/prebuild/OSGScanParseSkelParser.hpp\")\n\n")
+    ENDIF(NOT OSG_ENABLE_SCANPARSE_REGEN)
 ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
 
