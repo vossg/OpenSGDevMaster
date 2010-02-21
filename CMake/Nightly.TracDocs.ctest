@@ -6,6 +6,8 @@ find_package(Subversion)
 
 SET (CTEST_SVN_COMMAND ${Subversion_SVN_EXECUTABLE})
 
+SET (CTEST_CHECKOUT_COMMAND "${CTEST_SVN_COMMAND} co http://www.opensg.org/svn_repo/trunk ${CTEST_SOURCE_DIRECTORY}")
+
 # which ctest command to use for running the dashboard
 SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
 
