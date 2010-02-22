@@ -69,6 +69,18 @@ EditFieldHandlePtr
     return returnValue;
 }
 
+template <class AttachmentDescT> inline
+void
+SimpleAttachment<AttachmentDescT>::SFieldValFunctions::syncField(
+    StoredFieldType   *pField,
+    StoredFieldType   *pSourceField,
+    ConstFieldMaskArg  syncMode,
+    UInt32             uiSyncInfo,
+    AspectOffsetStore &oOffsets   )
+{
+    pField->syncWith(*pSourceField);
+}
+
 
 template <class AttachmentDescT> inline
 typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
@@ -99,6 +111,19 @@ EditFieldHandlePtr
     return returnValue;
 }
 
+template <class AttachmentDescT> inline
+void
+SimpleAttachment<AttachmentDescT>::SFieldPtrFunctions::syncField(
+    StoredFieldType   *pField,
+    StoredFieldType   *pSourceField,
+    ConstFieldMaskArg  syncMode,
+    UInt32             uiSyncInfo,
+    AspectOffsetStore &oOffsets   )
+{
+    pField->syncWith(*pSourceField);
+}
+
+
 
 template <class AttachmentDescT> inline
 typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
@@ -128,6 +153,17 @@ EditFieldHandlePtr
     return returnValue;
 }
 
+template <class AttachmentDescT> inline
+void
+SimpleAttachment<AttachmentDescT>::MFieldValFunctions::syncField(
+    StoredFieldType   *pField,
+    StoredFieldType   *pSourceField,
+    ConstFieldMaskArg  syncMode,
+    UInt32             uiSyncInfo,
+    AspectOffsetStore &oOffsets   )
+{
+    pField->syncWith(*pSourceField, syncMode, uiSyncInfo, oOffsets);
+}
 
 template <class AttachmentDescT> inline
 typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
@@ -156,6 +192,18 @@ EditFieldHandlePtr
         boost::bind(&SimpleAttachment::addPointerValue, pThis, _1));
 
     return returnValue;
+}
+
+template <class AttachmentDescT> inline
+void
+SimpleAttachment<AttachmentDescT>::MFieldPtrFunctions::syncField(
+    StoredFieldType   *pField,
+    StoredFieldType   *pSourceField,
+    ConstFieldMaskArg  syncMode,
+    UInt32             uiSyncInfo,
+    AspectOffsetStore &oOffsets   )
+{
+    pField->syncWith(*pSourceField, syncMode, uiSyncInfo, oOffsets);
 }
 
 
@@ -222,6 +270,15 @@ void SimpleAttachment<AttachmentDescT>::execSync(
                         oOffsets,
                         syncMode,
                         uiSyncInfo);
+
+    if(FieldBits::NoField != (SimpleFieldMask & whichField))
+    {
+        FieldFunctions::syncField(&_field,
+                                  &(pFrom->_field),
+                                  syncMode,
+                                  uiSyncInfo,
+                                  oOffsets   );
+    }
 }
 
 template <class AttachmentDescT> inline

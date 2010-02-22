@@ -92,6 +92,12 @@ class SimpleAttachment : public Attachment
 
         static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
                                                   SimpleAttachment *pThis);
+
+        static void               syncField(StoredFieldType   *pField,
+                                            StoredFieldType   *pSourceField,
+                                            ConstFieldMaskArg  syncMode,
+                                            UInt32             uiSyncInfo,
+                                            AspectOffsetStore &oOffsets     );
     };
 
     /*! \nohierarchy */
@@ -103,6 +109,12 @@ class SimpleAttachment : public Attachment
 
         static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
                                                   SimpleAttachment *pThis);
+
+        static void               syncField(StoredFieldType   *pField,
+                                            StoredFieldType   *pSourceField,
+                                            ConstFieldMaskArg  syncMode,
+                                            UInt32             uiSyncInfo, 
+                                            AspectOffsetStore &oOffsets     );
     };
 
     /*! \nohierarchy */
@@ -114,17 +126,29 @@ class SimpleAttachment : public Attachment
 
         static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
                                                   SimpleAttachment *pThis);
+
+        static void               syncField(StoredFieldType   *pField,
+                                            StoredFieldType   *pSourceField,
+                                            ConstFieldMaskArg  syncMode,
+                                            UInt32             uiSyncInfo,
+                                            AspectOffsetStore &oOffsets     );
     };
 
     /*! \nohierarchy */
     struct MFieldPtrFunctions
     {
-        static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
-                                                  SimpleAttachment *pThis );
+        static StoredFieldType   *editFieldPtr   (StoredFieldType   *pField,
+                                                  SimpleAttachment  *pThis );
 
 
-        static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
-                                                  SimpleAttachment *pThis);
+        static EditFieldHandlePtr editHandleField(StoredFieldType   *pField,
+                                                  SimpleAttachment  *pThis);
+
+        static void               syncField(StoredFieldType   *pField,
+                                            StoredFieldType   *pSourceField,
+                                            ConstFieldMaskArg  syncMode,
+                                            UInt32             uiSyncInfo,
+                                            AspectOffsetStore &oOffsets     );
     };
 
 
