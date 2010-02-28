@@ -188,14 +188,14 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
                                Int32  iPixelTop,
                                bool   bFull        );
 
-    Int32 getPixelLeft        (void                );
-    Int32 getPixelRight       (void                );
-    Int32 getPixelBottom      (void                );
-    Int32 getPixelTop         (void                );
+    Int32 getPixelLeft        (void                ) const;
+    Int32 getPixelRight       (void                ) const;
+    Int32 getPixelBottom      (void                ) const;
+    Int32 getPixelTop         (void                ) const;
 
-    Int32 getPixelWidth       (void                );
-    Int32 getPixelHeight      (void                );
-    bool  getFull             (void                );
+    Int32 getPixelWidth       (void                ) const;
+    Int32 getPixelHeight      (void                ) const;
+    bool  getFull             (void                ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

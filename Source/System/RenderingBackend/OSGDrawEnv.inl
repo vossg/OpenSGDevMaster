@@ -416,43 +416,43 @@ void DrawEnv::setViewportDimension (Int32  iPixelLeft,
 }
 
 inline
-Int32 DrawEnv::getPixelLeft(void)
+Int32 DrawEnv::getPixelLeft(void) const
 {
     return _iPixelLeft;
 }
 
 inline
-Int32 DrawEnv::getPixelRight(void)
+Int32 DrawEnv::getPixelRight(void) const
 {
     return _iPixelRight;
 }
 
 inline
-Int32 DrawEnv::getPixelBottom(void)
+Int32 DrawEnv::getPixelBottom(void) const
 {
     return _iPixelBottom;
 }
 
 inline
-Int32 DrawEnv::getPixelTop(void)
+Int32 DrawEnv::getPixelTop(void) const
 {
     return _iPixelTop;
 }
 
 inline
-Int32 DrawEnv::getPixelWidth(void)
+Int32 DrawEnv::getPixelWidth(void) const
 {
     return _iPixelRight - _iPixelLeft + 1;
 }
 
 inline
-Int32 DrawEnv::getPixelHeight(void)
+Int32 DrawEnv::getPixelHeight(void) const
 {
     return _iPixelTop - _iPixelBottom + 1;
 }
 
 inline
-bool DrawEnv::getFull(void)
+bool DrawEnv::getFull(void) const
 {
     return _bFull;
 }
