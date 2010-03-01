@@ -212,7 +212,13 @@ bool SphereVolume::operator ==(const SphereVolume &rhs) const
 void SphereVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
                         const BitVector OSG_CHECK_ARG(bvFlags)) const
 {
-    PLOG << "Sphere(" << _center << "|" << _radius << ")";
+    print(PLOG);
+}
+
+void SphereVolume::print(std::ostream &os) const
+{
+    os << "Sphere (" << _center << "|" << _radius << ") ";
+    printState(os);
 }
 
 OSG_END_NAMESPACE

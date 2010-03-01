@@ -44,6 +44,8 @@
 #include "OSGVector.h"
 #include "OSGMatrixFwd.h"
 
+#include <iosfwd>
+
 OSG_BEGIN_NAMESPACE
 
 class Line;
@@ -136,8 +138,9 @@ class OSG_BASE_DLLMAPPING Volume
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const = 0;
+    virtual void dump (      UInt32     uiIndent = 0,
+                       const BitVector  bvFlags  = 0) const = 0;
+    virtual void print(std::ostream    &os          ) const = 0;
 
     /*! \}                                                                 */
 
@@ -156,6 +159,13 @@ class OSG_BASE_DLLMAPPING Volume
 
     Volume(void);
     Volume(const Volume &obj);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Helper                                  */
+    /*! \{                                                                 */
+
+    void printState(std::ostream &os) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -179,6 +189,9 @@ typedef Volume* VolumeP;
  */
 OSG_BASE_DLLMAPPING 
 void volDump(Volume *vol);
+
+
+std::ostream& operator<<(std::ostream& os, const Volume& vol);
 
 OSG_END_NAMESPACE
 

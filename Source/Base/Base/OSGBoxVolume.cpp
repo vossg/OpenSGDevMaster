@@ -435,9 +435,14 @@ BoxVolume &BoxVolume::operator =(const BoxVolume &b1)
 void BoxVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
                      const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
-    PLOG << "Box(" << _min << "|" << _max << ")";
+    print(PLOG);
 }
 
+void BoxVolume::print(std::ostream &os) const
+{
+    os << "Box(" << _min << "|" << _max << ")";
+    printState(os);
+}
 
 //! Equality comparisons
 

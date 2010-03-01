@@ -37,10 +37,9 @@
 \*---------------------------------------------------------------------------*/
 
 #include "OSGConfig.h"
-
 #include "OSGVolume.h"
 
-OSG_USING_NAMESPACE
+#include <ostream>
 
 //! helper functions to dump a volume. Useful for debugger.
 
@@ -50,7 +49,6 @@ void volDump(Volume *vol)
 {
     vol->dump();
 }
-OSG_END_NAMESPACE
 
 bool Volume::operator ==(const Volume &other) const
 {
@@ -62,3 +60,21 @@ bool Volume::operator !=(const Volume &other) const
     return !(*this == other);
 }
 
+void Volume::printState(std::ostream &os) const
+{
+    os << "("
+       << ((_state & OSGVALID)    ? "V" : "_")
+       << ((_state & OSGEMPTY)    ? "E" : "_")
+       << ((_state & OSGSTATIC)   ? "S" : "_")
+       << ((_state & OSGINFINITE) ? "I" : "_")
+       << ")";
+}
+
+std::ostream &operator<<(std::ostream &os, const Volume& vol)
+{
+    vol.print(os);
+
+    return os;
+}
+
+OSG_END_NAMESPACE

@@ -196,13 +196,16 @@ void CylinderVolume::transform(const Matrixr &mtx)
 void CylinderVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
                           const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
-    PLOG << "Cylinder(" 
-         << _axisPos 
-         << "|" 
-         << _axisDir
-         << "|" 
-         << _radius
-         << ")";
+    print(PLOG);
+}
+
+void CylinderVolume::print(std::ostream &os) const
+{
+    os << "Cylinder (" << _axisPos
+       << "|"          << _axisDir
+       << "|"          << _radius
+       << ")";
+    printState(os);
 }
 
 /*---------------------------------------------------------------------------*/

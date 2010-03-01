@@ -203,6 +203,22 @@ void PolytopeVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     // not implemented...
 }
 
+void PolytopeVolume::print(std::ostream &os) const
+{
+    os << "Polytope (";
+
+    for(UInt16 i = 0; i < _numPlanes; ++i)
+    {
+        if(i > 0)
+            os << "|";
+
+        os << _planes[i].getNormal()             << ":"
+           << _planes[i].getDistanceFromOrigin();
+    }
+
+    os << ") ";
+    printState(os);
+}
 
 
 /***************************************************************************\

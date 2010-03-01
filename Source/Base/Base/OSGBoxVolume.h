@@ -185,8 +185,9 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual void dump (      UInt32     uiIndent = 0,
+                       const BitVector  bvFlags  = 0) const;
+    virtual void print(std::ostream    &os          ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

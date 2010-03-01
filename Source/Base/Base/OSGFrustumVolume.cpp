@@ -426,7 +426,7 @@ void FrustumVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
                          const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
 #if 1
-fprintf(stderr,"Frustum:(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)"
+    fprintf(stderr,"Frustum:(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)"
                 "(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)\n",
                 _planeVec[0].getNormal()[0],
                 _planeVec[0].getNormal()[1],
@@ -455,23 +455,28 @@ fprintf(stderr,"Frustum:(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)"
                 
 
 #else 
-    PLOG << "Frustum("
-             << _planeVec[0].getNormal() << ":" 
-             << _planeVec[0].getDistanceFromOrigin() << "|"
-             << _planeVec[1].getNormal() << ":" 
-             << _planeVec[1].getDistanceFromOrigin() << "|"
-             << _planeVec[2].getNormal() << ":" 
-             << _planeVec[2].getDistanceFromOrigin() << "|"
-             << _planeVec[3].getNormal() << ":" 
-             << _planeVec[3].getDistanceFromOrigin() << "|"
-             << _planeVec[4].getNormal() << ":" 
-             << _planeVec[4].getDistanceFromOrigin() << "|"
-             << _planeVec[5].getNormal() << ":" 
-             << _planeVec[5].getDistanceFromOrigin() << "|"
-             << ")";
+    print(PLOG);
 #endif
 }
 
+void FrustumVolume::print(std::ostream &os) const
+{
+    os << "Frustum ("
+       << _planeVec[0].getNormal()             << ":"
+       << _planeVec[0].getDistanceFromOrigin() << "|"
+       << _planeVec[1].getNormal()             << ":"
+       << _planeVec[1].getDistanceFromOrigin() << "|"
+       << _planeVec[2].getNormal()             << ":"
+       << _planeVec[2].getDistanceFromOrigin() << "|"
+       << _planeVec[3].getNormal()             << ":"
+       << _planeVec[3].getDistanceFromOrigin() << "|"
+       << _planeVec[4].getNormal()             << ":"
+       << _planeVec[4].getDistanceFromOrigin() << "|"
+       << _planeVec[5].getNormal()             << ":"
+       << _planeVec[5].getDistanceFromOrigin()
+       << ") ";
+    printState(os);
+}
 
 
 /*! Check the volume against the frustum, but only against the given planes.
