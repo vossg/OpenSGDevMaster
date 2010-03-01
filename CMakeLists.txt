@@ -751,6 +751,7 @@ ELSEIF(OSG_DOXY_DOC_TYPE STREQUAL "Trac")
     SET(OSG_DOXY_HTML_HEADER "${CMAKE_SOURCE_DIR}/Doc/TracHeader.html")
     SET(OSG_DOXY_HTML_FOOTER "${CMAKE_SOURCE_DIR}/Doc/TracFooter.html")
     SET(OSG_DOXY_SEARCHENGINE "NO")
+    
 ENDIF(OSG_DOXY_DOC_TYPE STREQUAL "User")
 
 # write doxygen config file
@@ -1063,15 +1064,18 @@ IF(OSGBUILD_ENABLE_PACKAGING)
 
     IF(WIN32)
         SET(CPACK_GENERATOR "ZIP")
+        SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.zip")
     ELSE(WIN32)
-        SET(CPACK_GENERATOR "TBZ2")
-#        SET(CPACK_GENERATOR "RPM")
+#        SET(CPACK_GENERATOR "TBZ2")
+        SET(CPACK_GENERATOR "RPM")
+        SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.rpm")
     ENDIF(WIN32)
 
     INCLUDE(CPack)
         
-    ADD_CUSTOM_TARGET(PackageUpload COMMAND scp -i /home/reiners/.ssh/opensgupload_dirk "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${CMAKE_BUILD_TYPE}.tar.bz2" reiners@localhost:/var/tmp/opensg_upload)
-    ADD_DEPENDENCIES(PackageUpload "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${CMAKE_BUILD_TYPE}.tar.bz2")
+    # For some reason using ${CPACK_OUTPUT_FILE_NAME} in here doesn't work, and neither does setting PACKAGE to it. :(
+    ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
+    ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
 
 ENDIF(OSGBUILD_ENABLE_PACKAGING)
 
