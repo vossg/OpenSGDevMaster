@@ -241,7 +241,7 @@ external.</li>
 name is guessed, using the name <tt>OSG<type>Fields.h</tt>. For type names
 ending in \c Ptr (the default for FieldContainerPtr types) the \c Ptr is
 removed. This works for all system types and for standard user-defined types.
-For other types, just enter the header file name into this field, excluding the "
+For other types, just enter the header file name into this field, excluding the \"
 delimiters. </li>
 
 <li>The default value of the Field. Used to initialize the Field, and put

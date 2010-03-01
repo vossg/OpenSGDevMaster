@@ -266,7 +266,7 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
     Logging is controlled by several environment variables.
     - OSG_LOG_LEVEL_STARTUP:
         The level a message has to have to be emitted during system startup,
-        one of: "log", "fatal", "warning", "notice", debug_gv", "info", "debug"
+        one of: "log", "fatal", "warning", "notice", "debug_gv", "info", "debug"
     - OSG_LOG_LEVEL:
         The level a message has to have to be emitted, one of "log", "fatal",
         "warning", "notice", "debug_gv","info", "debug"

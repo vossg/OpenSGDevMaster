@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Vec4f           ClipPlaneChunkBase::_sfEquation
     Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
-    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d "= 0.
+    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d <= 0.
 */
 
 /*! \var bool            ClipPlaneChunkBase::_sfEnable
