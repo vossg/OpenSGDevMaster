@@ -1062,19 +1062,38 @@ IF(OSGBUILD_ENABLE_PACKAGING)
     SET(CPACK_RESOURCE_FILE_LICENSE       "${CMAKE_SOURCE_DIR}/COPYING")
     SET(CPACK_PACKAGE_FILE_NAME           "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${CMAKE_BUILD_TYPE}")
 
+    # Date macro by Benoit RAT (www.neub.co.nr)
+    MACRO (TODAY RESULT)
+        IF (WIN32)
+            EXECUTE_PROCESS(COMMAND "date" "/T" OUTPUT_VARIABLE ${RESULT})
+            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" ${RESULT} ${${RESULT}})
+        ELSEIF(UNIX)
+            EXECUTE_PROCESS(COMMAND "date" "+%d/%m/%Y" OUTPUT_VARIABLE ${RESULT})
+            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" ${RESULT} ${${RESULT}})
+        ELSE (WIN32)
+            MESSAGE(SEND_ERROR "date not implemented")
+            SET(${RESULT} 000000)
+        ENDIF (WIN32)
+    ENDMACRO (TODAY)
+
+    TODAY(DATE)
+
     IF(WIN32)
         SET(CPACK_GENERATOR "ZIP")
         SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.zip")
+        SET(OUTFILE "${CPACK_PACKAGE_FILE_NAME}-${DATE}.zip")
     ELSE(WIN32)
 #        SET(CPACK_GENERATOR "TBZ2")
         SET(CPACK_GENERATOR "RPM")
         SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.rpm")
+        SET(OUTFILE "${CPACK_PACKAGE_FILE_NAME}-${DATE}.rpm")
     ENDIF(WIN32)
 
     INCLUDE(CPack)
-        
+
+
     # For some reason using ${CPACK_OUTPUT_FILE_NAME} in here doesn't work, and neither does setting PACKAGE to it. :(
-    ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
+    ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "quiet=1" -F "out=${OUTFILE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
     ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
 
 ENDIF(OSGBUILD_ENABLE_PACKAGING)

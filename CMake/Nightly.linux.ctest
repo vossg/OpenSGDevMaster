@@ -18,9 +18,6 @@ SET (CTEST_CMAKE_GENERATOR "Unix Makefiles")
 
 SET (CTEST_BUILD_FLAGS "-j10")
 
-# should ctest wipe the binary tree before running
-SET (CTEST_START_WITH_EMPTY_BINARY_DIRECTORY FALSE)
-
 # this is the initial cache to use for the binary tree, be careful to escape
 # any quotes inside of this string if you use it
 SET (CTEST_INITIAL_CACHE "
@@ -36,20 +33,18 @@ OSGBUILD_UPLOAD_PACKAGE:BOOL=ON
 
 SITE:STRING=$ENV{SITE}
 BUILDNAME:STRING=$ENV{BUILD_NAME}
+OPENSG_UPLOAD_CODE:STRING=$ENV{UPLOAD_CODE}
 ")
 
 SET (OPENSG_UPLOAD_CODE "$ENV{UPLOAD_CODE}")
-
 SET (CTEST_SITE "$ENV{SITE}")
 SET (CTEST_BUILD_NAME "$ENV{BUILD_NAME}")
 
-# set any extra environment variables to use during the execution of the script here:
-SET (CTEST_ENVIRONMENT
-)
+##ctest_empty_binary_directory(${CTEST_BINARY_DIRECTORY})
 
-SET (MODEL "Nightly")
+file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "${CTEST_INITIAL_CACHE}")
 
-ctest_start(${MODEL})
+ctest_start("Nightly")
 
 ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}" RETURN_VALUE NUMBER_FILES)
 
