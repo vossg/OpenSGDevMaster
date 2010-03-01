@@ -14,9 +14,6 @@ SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
 # what cmake command to use for configuring this dashboard
 SET (CTEST_CMAKE_GENERATOR "Unix Makefiles")
 
-# should ctest wipe the binary tree before running
-SET (CTEST_START_WITH_EMPTY_BINARY_DIRECTORY FALSE)
-
 # this is the initial cache to use for the binary tree, be careful to escape
 # any quotes inside of this string if you use it
 SET (CTEST_INITIAL_CACHE "
@@ -34,9 +31,9 @@ OSG_DOXY_DOC_TYPE:STRING=Trac
 SET (CTEST_SITE "destiny")
 SET (CTEST_BUILD_NAME "Doc")
 
-SET (MODEL "Nightly")
+file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "${CTEST_INITIAL_CACHE}")
 
-ctest_start(${MODEL})
+ctest_start("Nightly")
 
 ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}" RETURN_VALUE NUMBER_FILES)
 
