@@ -113,6 +113,11 @@ class TransformationMatrix
                          const VectorType3f         &vector2,
                          const VectorType3f         &vector3);
 
+    TransformationMatrix(const VectorType           &vector1,
+                         const VectorType           &vector2,
+                         const VectorType           &vector3,
+                         const VectorType           &vector4 );
+
     TransformationMatrix(const VectorType3f         &vector1,
                          const VectorType3f         &vector2,
                          const VectorType3f         &vector3,

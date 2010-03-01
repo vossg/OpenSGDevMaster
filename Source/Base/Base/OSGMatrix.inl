@@ -115,6 +115,21 @@ TransformationMatrix<ValueTypeT>::TransformationMatrix(
     _matrix[0].setValue(vector1);
     _matrix[1].setValue(vector2);
     _matrix[2].setValue(vector3);
+
+    _matrix[3][3] = TypeTraits<ValueType>::getOneElement();
+}
+
+template <class ValueTypeT> inline
+TransformationMatrix<ValueTypeT>::TransformationMatrix(
+    const VectorType &vector1,
+    const VectorType &vector2,
+    const VectorType &vector3,
+    const VectorType &vector4)
+{
+    _matrix[0].setValue(vector1);
+    _matrix[1].setValue(vector2);
+    _matrix[2].setValue(vector3);
+    _matrix[3].setValue(vector4);
 }
 
 template<class ValueTypeT> inline
