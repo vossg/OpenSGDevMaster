@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -62,7 +62,7 @@
 #include "OSGStageDrawableBase.h"
 #include "OSGStageDrawable.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StageDrawable *>::_type("StageDrawablePtr", "DrawablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StageDrawable *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StageDrawable *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StageDrawable *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StageDrawableBase::classDescInserter(TypeObject &oType)
 {
@@ -213,19 +235,5 @@ void StageDrawableBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StageDrawable *>::_type("StageDrawablePtr", "DrawablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StageDrawable *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           StageDrawable *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           StageDrawable *,
-                           0);
 
 OSG_END_NAMESPACE

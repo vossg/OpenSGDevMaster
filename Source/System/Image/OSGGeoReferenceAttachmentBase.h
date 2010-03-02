@@ -65,8 +65,8 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGSysFields.h" // Datum type
-#include "OSGVecFields.h" // EllipsoidAxis type
+#include "OSGSysFields.h"               // Datum type
+#include "OSGVecFields.h"               // EllipsoidAxis type
 
 #include "OSGGeoReferenceAttachmentFields.h"
 
