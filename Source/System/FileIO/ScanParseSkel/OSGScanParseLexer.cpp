@@ -36,9 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-/*! \file OSG.cpp
-    \ingroup Grp Lib
-    \ingroup Grp
+/*! \file OSGScanParseLexer.cpp
+    \ingroup GrpSystemFileIOScanParse
  */
 
 //---------------------------------------------------------------------------

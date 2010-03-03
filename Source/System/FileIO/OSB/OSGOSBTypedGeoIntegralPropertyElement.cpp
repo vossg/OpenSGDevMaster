@@ -47,7 +47,7 @@ OSG_USING_NAMESPACE
 /* OSBTypedGeoIntegralPropertyElement                                     */
 /*-------------------------------------------------------------------------*/
 
-/*! \class OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>
+/*! \class OSBTypedGeoIntegralPropertyElement
     A specialization of this template is registered for each specialization of
     TypedGeoIntegralProperty.
  */

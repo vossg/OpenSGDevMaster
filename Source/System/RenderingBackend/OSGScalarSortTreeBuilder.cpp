@@ -51,7 +51,7 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::ScalarSortTreeBuilder
-    \ingroup 
+    \ingroup GrpSystemRenderingBackend
  */
 
 ScalarSortTreeBuilder ScalarSortTreeBuilder::Proto;

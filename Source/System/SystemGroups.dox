@@ -29,7 +29,7 @@ using namespace OSG;
 /*! \defgroup GrpSystemRenderingBackend Rendering Backend
     \ingroup GrpSystemAction
     
-    See \ref PageBaseField for details.
+    See \ref PageRenderingBackend for details.
 */
 
 /*! \defgroup GrpSystemIntersectAction Intersect Action

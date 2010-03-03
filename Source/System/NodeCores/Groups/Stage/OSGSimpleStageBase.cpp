@@ -98,7 +98,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Real32          SimpleStageBase::_sfBottom
     The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values "1 are absolute pixel coordinates, value == -1 means the
+    the Window, values <1 are absolute pixel coordinates, value == -1 means the
     bottom border. All other values are illegal.
 */
 

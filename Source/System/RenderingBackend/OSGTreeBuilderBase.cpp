@@ -51,7 +51,7 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::TreeBuilderBase
-    \ingroup 
+    \ingroup GrpSystemRenderingBackend
  */
 
 const TreeBuilderBase TreeBuilderBase::Proto;

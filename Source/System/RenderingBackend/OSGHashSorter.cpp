@@ -48,7 +48,7 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::HashSorter
-    \ingroup 
+    \ingroup GrpSystemRenderingBackend
  */
 
 /*-------------------------------------------------------------------------*/

@@ -65,7 +65,7 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::OcclusionCullingTreeBuilder
-    \ingroup 
+    \ingroup GrpSystemRenderingBackend
  */
 
 OcclusionCullingTreeBuilder OcclusionCullingTreeBuilder::Proto;

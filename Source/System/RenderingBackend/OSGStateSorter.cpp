@@ -52,7 +52,7 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::StateSorter
-    \ingroup 
+    \ingroup GrpSystemRenderingBackend
  */
 
 /*-------------------------------------------------------------------------*/

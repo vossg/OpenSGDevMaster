@@ -42,7 +42,7 @@ OSG_BEGIN_NAMESPACE
 /* OSBElementRegistrationHelper<ElementTypeT>                              */
 /*-------------------------------------------------------------------------*/
 
-/*! \class OSG::OSBElementRegistrationHelper<ElementTypeT>
+/*! \class OSG::OSBElementRegistrationHelper
     Helper class to register an element for an OpenSG type. The usual way to
     use this, is to put a static member of this type into the element.
 
@@ -69,7 +69,7 @@ OSBElementRegistrationHelper<ElementTypeT>::OSBElementRegistrationHelper(
 /* OSBDefaultElementRegistrationHelper<ElementTypeT>                       */
 /*-------------------------------------------------------------------------*/
 
-/*! \class OSG::OSBDefaultElementRegistrationHelper<ElementTypeT>
+/*! \class OSG::OSBDefaultElementRegistrationHelper
     Helper class to register an element as the default element, if no
     specific element is registered for a type. The usual way to
     use this, is to put a static member of this type into the element.

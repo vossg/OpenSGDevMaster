@@ -61,14 +61,14 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum OSG::Navigator::Mode
+/*! \enum OSG::NavigatorBase::Mode
 
     The navigation mode, i.e. the actual active low-level navigator.
     The NONE case is also used for the purpose of matrix consistency.
 */
 
 
-/*! \enum OSG::Navigator::State
+/*! \enum OSG::NavigatorBase::State
 
     The navigation state, mainly needed for correct interpretation of mouse
     motions, which have to be interpreted differently for  different states. 
@@ -108,7 +108,7 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum OSG::Navigator::MouseButton
+/*! \enum OSG::NavigatorBase::MouseButton
 
     Abstraction enumeration for mouse buttons, to keep the Navigator
     independent of the actual Window System.
@@ -125,7 +125,7 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum OSG::Navigator::Key
+/*! \enum OSG::NavigatorBase::Key
 
     Abstraction enumeration for keys, to keep the Navigator
     independent of the actual Window System.

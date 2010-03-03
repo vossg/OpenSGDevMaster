@@ -397,12 +397,6 @@ typedef void   (OSG_APIENTRY *OSGglGenerateMipmapProc    )(GLenum target    );
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef void (OSG_APIENTRY *OSGglFramebufferRenderbufferProc)(
-    GLenum   target, 
-    GLenum   attachment, 
-    GLenum   renderbuffertarget, 
-    GLuint   renderbuffer);
-
 typedef void (OSG_APIENTRY *OSGglGenRenderbuffersProc       )(
     GLsizei  n, 
     GLuint  *renderbuffers);
