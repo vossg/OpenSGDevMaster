@@ -75,12 +75,16 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ScaleManipulator
-    The ScaleHandle is used for scaleing objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.
+    The ScaleHandle is used for scaling objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
+
+/*! \var bool            ScaleManipulatorBase::_sfUniform
+    Uniform/Non-uniform scaling.
+*/
 
 
 /***************************************************************************\
@@ -99,6 +103,20 @@ OSG_FIELDTRAITS_GETTYPE(ScaleManipulator *)
 
 void ScaleManipulatorBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "uniform",
+        "Uniform/Non-uniform scaling.\n",
+        UniformFieldId, UniformFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ScaleManipulator::editHandleUniform),
+        static_cast<FieldGetMethodSig >(&ScaleManipulator::getHandleUniform));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -126,9 +144,20 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"true\"\n"
     ">\n"
-    "The ScaleHandle is used for scaleing objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.\n"
+    "The ScaleHandle is used for scaling objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.\n"
+    "    <Field\n"
+    "       name=\"uniform\"\n"
+    "       type=\"bool\"\n"
+    "       category=\"data\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "       defaultValue=\"false\"\n"
+    "       >\n"
+    "      Uniform/Non-uniform scaling.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
-    "The ScaleHandle is used for scaleing objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.\n"
+    "The ScaleHandle is used for scaling objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -151,6 +180,19 @@ UInt32 ScaleManipulatorBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFBool *ScaleManipulatorBase::editSFUniform(void)
+{
+    editSField(UniformFieldMask);
+
+    return &_sfUniform;
+}
+
+const SFBool *ScaleManipulatorBase::getSFUniform(void) const
+{
+    return &_sfUniform;
+}
+
+
 
 
 
@@ -161,6 +203,10 @@ UInt32 ScaleManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (UniformFieldMask & whichField))
+    {
+        returnValue += _sfUniform.getBinSize();
+    }
 
     return returnValue;
 }
@@ -170,6 +216,10 @@ void ScaleManipulatorBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (UniformFieldMask & whichField))
+    {
+        _sfUniform.copyToBin(pMem);
+    }
 }
 
 void ScaleManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
@@ -177,6 +227,10 @@ void ScaleManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (UniformFieldMask & whichField))
+    {
+        _sfUniform.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
@@ -301,12 +355,14 @@ FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 ScaleManipulatorBase::ScaleManipulatorBase(void) :
-    Inherited()
+    Inherited(),
+    _sfUniform                (bool(false))
 {
 }
 
 ScaleManipulatorBase::ScaleManipulatorBase(const ScaleManipulatorBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfUniform                (source._sfUniform                )
 {
 }
 
@@ -317,6 +373,31 @@ ScaleManipulatorBase::~ScaleManipulatorBase(void)
 {
 }
 
+
+GetFieldHandlePtr ScaleManipulatorBase::getHandleUniform         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUniform,
+             this->getType().getFieldDesc(UniformFieldId),
+             const_cast<ScaleManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ScaleManipulatorBase::editHandleUniform        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUniform,
+             this->getType().getFieldDesc(UniformFieldId),
+             this));
+
+
+    editSField(UniformFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

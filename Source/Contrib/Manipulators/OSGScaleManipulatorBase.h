@@ -65,6 +65,7 @@
 
 #include "OSGManipulator.h" // Parent
 
+#include "OSGSysFields.h"               // Uniform type
 
 #include "OSGScaleManipulatorFields.h"
 
@@ -90,6 +91,18 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
 
   public:
 
+    enum
+    {
+        UniformFieldId = Inherited::NextFieldId,
+        NextFieldId = UniformFieldId + 1
+    };
+
+    static const OSG::BitVector UniformFieldMask =
+        (TypeTraits<BitVector>::One << UniformFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFUniformType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -108,6 +121,31 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFBool              *editSFUniform        (void);
+            const SFBool              *getSFUniform         (void) const;
+
+
+                  bool                &editUniform        (void);
+                  bool                 getUniform         (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setUniform        (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,6 +197,13 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFBool            _sfUniform;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -183,6 +228,8 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleUniform         (void) const;
+    EditFieldHandlePtr editHandleUniform        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

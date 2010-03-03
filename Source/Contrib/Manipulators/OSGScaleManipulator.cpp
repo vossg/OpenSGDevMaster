@@ -150,7 +150,15 @@ void ScaleManipulator::doMovement(      Transform    *t,
                                   const Quaternion   &scaleOrientation)
 {
     Vec3f scale(1.0f, 1.0f, 1.0f);
-    scale[coord] += value;
+
+    if(getUniform() == true)
+    {
+        scale += Vec3f(value, value, value);
+    }
+    else
+    {
+        scale[coord] += value;
+    }
 
     Matrix ma, mb, mc, md, me;
 

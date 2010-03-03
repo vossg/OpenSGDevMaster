@@ -73,6 +73,31 @@ OSG::UInt16 ScaleManipulatorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the ScaleManipulator::_sfUniform field.
+
+inline
+bool &ScaleManipulatorBase::editUniform(void)
+{
+    editSField(UniformFieldMask);
+
+    return _sfUniform.getValue();
+}
+
+//! Get the value of the ScaleManipulator::_sfUniform field.
+inline
+      bool  ScaleManipulatorBase::getUniform(void) const
+{
+    return _sfUniform.getValue();
+}
+
+//! Set the value of the ScaleManipulator::_sfUniform field.
+inline
+void ScaleManipulatorBase::setUniform(const bool value)
+{
+    editSField(UniformFieldMask);
+
+    _sfUniform.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -84,6 +109,9 @@ void ScaleManipulatorBase::execSync (      ScaleManipulatorBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (UniformFieldMask & whichField))
+        _sfUniform.syncWith(pFrom->_sfUniform);
 }
 #endif
 
