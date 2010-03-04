@@ -44,7 +44,7 @@ SET (CTEST_BUILD_NAME "$ENV{BUILD_NAME}")
 
 file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "${CTEST_INITIAL_CACHE}")
 
-ctest_start("Nightly")
+ctest_start(Nightly)
 
 ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}" RETURN_VALUE NUMBER_FILES)
 

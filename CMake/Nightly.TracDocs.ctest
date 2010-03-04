@@ -11,6 +11,8 @@ SET (CTEST_CHECKOUT_COMMAND "${CTEST_SVN_COMMAND} co http://www.opensg.org/svn_r
 # which ctest command to use for running the dashboard
 SET (CTEST_COMMAND "/usr/bin/ctest -D Nightly")
 
+SET (CTEST_NIGHTLY_START_TIME "01:00:00 CDT")
+
 # what cmake command to use for configuring this dashboard
 SET (CTEST_CMAKE_GENERATOR "Unix Makefiles")
 
@@ -33,7 +35,7 @@ SET (CTEST_BUILD_NAME "Doc")
 
 file(WRITE "${CTEST_BINARY_DIRECTORY}/CMakeCache.txt" "${CTEST_INITIAL_CACHE}")
 
-ctest_start("Nightly")
+ctest_start(Nightly)
 
 ctest_update(SOURCE "${CTEST_SOURCE_DIRECTORY}" RETURN_VALUE NUMBER_FILES)
 
