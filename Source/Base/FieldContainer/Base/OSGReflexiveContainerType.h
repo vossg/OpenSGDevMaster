@@ -122,7 +122,9 @@ class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    BitVector getUnmarkedOnCreate(void);
+    BitVector getUnmarkedOnCreate        (      void                  ) const;
+    void      setFieldsUnmarkedOnCreate  (const BitVector bvFieldMasks);
+    void      clearFieldsUnmarkedOnCreate(const BitVector bvFieldMasks);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,6 +165,8 @@ class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
+
+    void dumpFieldInfo(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

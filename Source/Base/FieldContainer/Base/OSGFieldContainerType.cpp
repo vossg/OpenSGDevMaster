@@ -122,17 +122,151 @@ FieldContainerType::~FieldContainerType(void)
 {
 }
 
+bool FieldContainerType::setPrototype(FieldContainer *pPrototype)
+{
+    bool returnValue = false;
+
+    if(this->isAbstract() == false)
+    {
+        if(pPrototype != NULL)
+        {
+            TypePredicates::IsBaseOf baseTypePred(pPrototype->getType());
+
+            if(baseTypePred(this) == true)
+            {
+                pPrototype->addReferenceUnrecorded();
+            
+                _pPrototype->subReferenceUnrecorded();
+
+                _pPrototype = pPrototype;
+
+                returnValue = true;
+            }
+            else
+            {
+                FWARNING(("can not set unrelated container of type %s "
+                          "as prototype for type %s\n",
+                          pPrototype->getType().getCName(),
+                          this->getCName()));
+            }
+        }
+        else
+        {
+            FWARNING(("can not delete prototype of a concrete object\n"));
+        }
+    }
+    else
+    {
+        FWARNING(("can not set prototype of an abstract object\n"));
+    }
+
+    return returnValue;
+}
+
 FieldContainerTransitPtr FieldContainerType::createContainer(void) const
 {
     FieldContainerTransitPtr fc(NULL);
 
-    if(isAbstract() == false)
+    if(this->isAbstract() == false)
     {
         fc = _pPrototype->shallowCopy();
     }
 
     return fc;
 }
+
+void FieldContainerType::markFieldsThreadLocal(const BitVector bvFieldMasks)
+{
+    if(_pPrototype != NULL)
+    {
+        BitVector bCurrent = 0x0002;
+
+        for(UInt32 i = 1; i <= this->getNumFieldDescs(); ++i)
+        {
+            FieldDescriptionBase *pDesc = this->getFieldDesc(i);
+        
+            if(0x0000 != (bCurrent & bvFieldMasks) && pDesc != NULL)
+            {
+                pDesc->setFlags(pDesc->getFlags() | Field::FThreadLocal);
+
+                _pPrototype->_pFieldFlags->_bThreadLocalFlags &=
+                    ~pDesc->getFieldMask();
+            }
+            
+            bCurrent <<= 1;
+        }
+    }
+}
+
+void FieldContainerType::unmarkFieldsThreadLocal(const BitVector bvFieldMasks)
+{
+    if(_pPrototype != NULL)
+    {
+        BitVector bCurrent = 0x0002;
+
+        for(UInt32 i = 1; i <= this->getNumFieldDescs(); ++i)
+        {
+            FieldDescriptionBase *pDesc = this->getFieldDesc(i);
+
+            if(0x0000 != (bCurrent & bvFieldMasks) && pDesc != NULL)
+            {
+                pDesc->setFlags(pDesc->getFlags() & ~Field::FThreadLocal);
+
+                _pPrototype->_pFieldFlags->_bThreadLocalFlags |=
+                    pDesc->getFieldMask();
+            }
+
+            bCurrent <<= 1;
+        }
+    }
+}
+
+void FieldContainerType::markFieldsClusterLocal(const BitVector bvFieldMasks)
+{
+    if(_pPrototype != NULL)
+    {
+        BitVector bCurrent = 0x0002;
+
+        for(UInt32 i = 1; i <= this->getNumFieldDescs(); ++i)
+        {
+            FieldDescriptionBase *pDesc = this->getFieldDesc(i);
+            
+            if(0x0000 != (bCurrent & bvFieldMasks) && pDesc != NULL)
+            {
+                pDesc->setFlags(pDesc->getFlags() | Field::FClusterLocal);
+
+                _pPrototype->_pFieldFlags->_bClusterLocalFlags &=
+                    ~pDesc->getFieldMask();
+            }
+
+            bCurrent <<= 1;
+        }
+    }
+}
+
+void FieldContainerType::unmarkFieldsClusterLocal(const BitVector bvFieldMasks)
+{
+    if(_pPrototype != NULL)
+    {
+        BitVector bCurrent = 0x0002;
+
+        for(UInt32 i = 1; i <= this->getNumFieldDescs(); ++i)
+        {
+            FieldDescriptionBase *pDesc = this->getFieldDesc(i);
+
+            if(0x0000 != (bCurrent & bvFieldMasks) && pDesc != NULL)
+            {
+                pDesc->setFlags(pDesc->getFlags() & ~Field::FClusterLocal);
+
+                _pPrototype->_pFieldFlags->_bClusterLocalFlags |=
+                    pDesc->getFieldMask();
+            }
+
+            bCurrent <<= 1;
+        }
+    }
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainer *FieldContainerType::createAspectCopy(

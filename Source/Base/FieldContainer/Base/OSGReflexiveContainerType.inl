@@ -88,9 +88,23 @@ UInt32 ReflexiveContainerType::getNumFieldDescs(void) const
 }
 
 inline
-BitVector ReflexiveContainerType::getUnmarkedOnCreate(void)
+BitVector ReflexiveContainerType::getUnmarkedOnCreate(void) const
 {
     return _bvUnmarkedOnCreate;
+}
+
+inline
+void ReflexiveContainerType::setFieldsUnmarkedOnCreate(
+    const BitVector bvFieldMasks)
+{
+    _bvUnmarkedOnCreate &= ~bvFieldMasks;
+}
+
+inline
+void ReflexiveContainerType::clearFieldsUnmarkedOnCreate(
+    const BitVector bvFieldMasks)
+{
+    _bvUnmarkedOnCreate |= bvFieldMasks;
 }
 
 OSG_END_NAMESPACE

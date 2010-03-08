@@ -201,6 +201,7 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 
           bool         isInternal     (void                        ) const;
 
+          void         setFlags       (UInt32 uiFlags              );
           UInt32       getFlags       (void                        ) const;
 
           bool         isValid        (void                        ) const;
@@ -221,68 +222,10 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \name                  Set from String                             */
     /*! \{                                                                 */
 
-#if 0
-    virtual void pushValueFromCString(const Char8        *str,
-                                            Field        *pField) const;
-
-    virtual void pushValueFromCString(const Char8        *str,
-                                            Field        *pField) const = 0;
-
-    virtual void pushValueToCString  (const Field        *pField,
-                                            Char8        *str   ) const = 0;
-
-
-    virtual void pushValueFromString (const std::string  &in,
-                                            Field        *pField) const = 0;
-
-    virtual void pushValueToString   (const Field        *pField,
-                                            std::string  &out   ) const = 0;
-
-
-    virtual void pushValueFromStream (      std::istream &str,
-                                            Field        *pField) const = 0;
-
-    virtual void pushValueToStream   (const Field        *pField,
-                                            OutStream    &str   ) const = 0;
-
-    virtual void pushSizeToStream    (const Field        *pField,
-                                            OutStream    &str   ) const = 0;
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Set from Field                           */
     /*! \{                                                                 */
-
-#if 0
-    virtual void copyValues  (const Field *pSrc,
-                                    Field *pDst  ) const;
-    virtual void copyValues  (const Field *pSrc,
-                                    Field *pDst  ) const = 0;
-
-    virtual void cloneValuesV(
-        const Field         *pSrc,
-        const UInt32         fieldId,
-              FCPtrConstArg  pDst,
-        const TypePtrVector &shareTypes     = TypePtrVector(),
-        const TypePtrVector &ignoreTypes    = TypePtrVector(),
-        const TypeIdVector  &shareGroupIds  = TypeIdVector (),
-        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const;
-
-    virtual void shareValuesV(
-        const Field         *pSrc,
-        const UInt32         fieldId,
-              FCPtrConstArg  pDst,
-        const TypePtrVector &cloneTypes     = TypePtrVector(),
-        const TypePtrVector &ignoreTypes    = TypePtrVector(),
-        const TypeIdVector  &cloneGroupIds  = TypeIdVector (),
-        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
-    /*! \{                                                                 */
-#endif
 
     virtual Field *createField(void          ) const = 0;
     virtual void   destroyField(Field *pField) const = 0;
@@ -305,18 +248,6 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     virtual 
         EditFieldHandlePtr createEditHandler(      Field          *pField,
                                                    FieldContainer *pCnt  ) = 0;
-
-#if 0
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
-    /*! \{                                                                 */
-
-    virtual bool equal(const Field *lhs,
-                       const Field *rhs) const = 0;
-
-#endif
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

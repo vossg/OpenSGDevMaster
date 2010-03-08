@@ -127,11 +127,16 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     std::string     getFcdXML       (void) const;
     std::string     getDocumentation(void) const;
 
-    //bool              setPrototype(FieldContainerPtr pPrototype);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    bool setPrototype(FieldContainer *pPrototype);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
+    /*! \name                    Create                                    */
     /*! \{                                                                 */
 
     FieldContainerTransitPtr createContainer(void) const;
@@ -140,6 +145,12 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+
+    void markFieldsThreadLocal   (const BitVector bvFieldMasks);
+    void unmarkFieldsThreadLocal (const BitVector bvFieldMasks);
+
+    void markFieldsClusterLocal  (const BitVector bvFieldMasks);
+    void unmarkFieldsClusterLocal(const BitVector bvFieldMasks);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

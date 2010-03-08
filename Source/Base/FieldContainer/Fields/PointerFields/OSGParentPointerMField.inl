@@ -1060,6 +1060,9 @@ void ParentPointerMField<PtrTypeT,
 {
     this->ptrStoreAssign(source.begin(),
                          source.end  ());
+
+
+    _vParentPos = source._vParentPos;
 }
                    
 OSG_END_NAMESPACE

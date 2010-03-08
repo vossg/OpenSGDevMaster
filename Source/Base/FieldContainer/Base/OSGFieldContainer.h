@@ -195,6 +195,22 @@ class FieldContainer : public ReflexiveContainer
 
           bool        isMTLocal    (void) const;
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Field Flags                                */
+    /*! \{                                                                 */
+
+    OSG_BASE_DLLMAPPING
+    void markFieldsThreadLocal   (const BitVector bvFieldMasks);
+    OSG_BASE_DLLMAPPING
+    void unmarkFieldsThreadLocal (const BitVector bvFieldMasks);
+
+    OSG_BASE_DLLMAPPING
+    void markFieldsClusterLocal  (const BitVector bvFieldMasks);
+    OSG_BASE_DLLMAPPING
+    void unmarkFieldsClusterLocal(const BitVector bvFieldMasks);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
@@ -229,8 +245,11 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void dump         (      UInt32    uiIndent = 0,
+                               const BitVector bvFlags  = 0) const;
+
+    OSG_BASE_DLLMAPPING
+            void dumpFieldInfo(void                        ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

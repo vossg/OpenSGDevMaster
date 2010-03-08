@@ -407,4 +407,50 @@ bool ReflexiveContainerType::subDescription(UInt32 uiFieldId)
     return returnValue;
 }
 
+#define WS20 "                    "
+
+void ReflexiveContainerType::dumpFieldInfo(void) const
+{
+    fprintf(stderr, "Dump type (%s) Field Info\n", this->getCName());
+
+
+    for(UInt32 i = 1; i <= this->getNumFieldDescs(); ++i)
+    {
+        FieldDescriptionBase *pDesc = this->getFieldDesc(i);
+
+        if(pDesc != NULL)
+        {
+            UInt32 uiTmp = 
+                (_bvUnmarkedOnCreate & pDesc->getFieldMask()) == 0x0000;
+
+            fprintf(stderr, WS20"                                  cr : %x\r", 
+                    uiTmp);
+
+
+            uiTmp = (pDesc->getFlags() & Field::FClusterLocal) != 0x0000;
+
+            fprintf(stderr, WS20"                          cl : %x\r",
+                    uiTmp);
+
+
+            uiTmp = (pDesc->getFlags() & Field::FThreadLocal) != 0x0000;
+
+            fprintf(stderr, WS20"                  tl : %x\r",
+                    uiTmp);
+
+
+            fprintf(stderr, "(%d) : %s :\r", 
+                    i, 
+                    pDesc->getCName());
+
+
+            fprintf(stderr, "\n");
+        }
+        else
+        {
+            fprintf(stderr, "(%d) : NULL\n", i);
+        }
+    }
+}
+
 OSG_END_NAMESPACE

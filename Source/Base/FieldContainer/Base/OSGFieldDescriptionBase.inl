@@ -117,6 +117,12 @@ bool FieldDescriptionBase::isMField(void) const
 }
 
 inline
+void FieldDescriptionBase::setFlags(UInt32 uiFlags)
+{
+    _uiFieldFlags = uiFlags;
+}
+
+inline
 UInt32 FieldDescriptionBase::getFlags(void) const
 {
     return _uiFieldFlags;

@@ -107,6 +107,86 @@ void FieldContainer::dump(      UInt32    uiIndent,
          << std::endl;
 }
 
+#define WS30 "                              "
+
+void FieldContainer::dumpFieldInfo(void) const
+{
+    const TypeObject &oType = this->getType();
+
+    fprintf(stderr, "Dump Container (%s) Field Info\n",
+            oType.getCName());
+
+    for(UInt32 i = 1; i <= oType.getNumFieldDescs(); ++i)
+    {
+        FieldDescriptionBase *pDesc = oType.getFieldDesc(i);
+
+        if(pDesc != NULL)
+        {
+            UInt32 uiTmp  = (_bvChanged & pDesc->getFieldMask()) != 0x0000;
+            UInt32 uiTmp1 = 0x0000;
+
+            fprintf(stderr, WS30"                                  ch : %x\r", 
+                    uiTmp);
+
+
+            uiTmp  = (pDesc->getFlags() & Field::FClusterLocal) != 0x0000;
+            uiTmp1 = (_pFieldFlags->_bClusterLocalFlags & 
+                       pDesc      ->getFieldMask()       ) == 0x0000;
+
+            fprintf(stderr, WS30"                     cl : %x | %x\r",
+                    uiTmp,
+                    uiTmp1);
+
+
+            uiTmp  = (pDesc->getFlags() & Field::FThreadLocal) != 0x0000;
+            uiTmp1 = (_pFieldFlags->_bThreadLocalFlags & 
+                       pDesc      ->getFieldMask()     ) == 0x0000;
+
+            fprintf(stderr, WS30"        tl : %x | %x\r",
+                    uiTmp,
+                    uiTmp1);
+
+
+            fprintf(stderr, "(%d) : %s :\r", 
+                    i, 
+                    pDesc->getCName());
+
+
+            fprintf(stderr, "\n");
+
+#if 0
+            fprintf(stderr, "0x%016"PRIx64" 0x%016"PRIx64"\n",
+                    _pFieldFlags->_bClusterLocalFlags,
+                    pDesc      ->getFieldMask());
+#endif
+        }
+        else
+        {
+            fprintf(stderr, "(%d) : NULL\n", i);
+        }
+    }
+}
+
+void FieldContainer::markFieldsThreadLocal(const BitVector bvFieldMasks)
+{
+    _pFieldFlags->_bThreadLocalFlags &= ~bvFieldMasks;
+}
+
+void FieldContainer::unmarkFieldsThreadLocal(const BitVector bvFieldMasks)
+{
+    _pFieldFlags->_bThreadLocalFlags |= bvFieldMasks;
+}
+
+void FieldContainer::markFieldsClusterLocal(const BitVector bvFieldMasks)
+{
+    _pFieldFlags->_bClusterLocalFlags &= ~bvFieldMasks;
+}
+
+void FieldContainer::unmarkFieldsClusterLocal(const BitVector bvFieldMasks)
+{
+    _pFieldFlags->_bClusterLocalFlags |= bvFieldMasks;
+}
+
 
 void FieldContainer::copyFromBin(BinaryDataHandler  &,
                                  ConstFieldMaskArg   whichField)
