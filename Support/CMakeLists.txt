@@ -77,11 +77,16 @@ FIND_PACKAGE(OpenGL)
 
 OSG_CONFIGURE_BOOST()
 
+IF(OSGGlutSrcDir AND OSGFreeGlutSrcDir)
+  MESSAGE(FATAL_ERROR "choose either glut or freeglut")
+ENDIF(OSGGlutSrcDir AND OSGFreeGlutSrcDir)
+
 IF(WIN32)
   ADD_SUBDIRECTORY(zlib)
   ADD_SUBDIRECTORY(libpng)
   ADD_SUBDIRECTORY(libjpeg)
   ADD_SUBDIRECTORY(freeglut)
+  ADD_SUBDIRECTORY(glut)
   ADD_SUBDIRECTORY(libtiff)
   ADD_SUBDIRECTORY(pcre)
   ADD_SUBDIRECTORY(libiconv)

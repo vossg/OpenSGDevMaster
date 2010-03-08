@@ -4,8 +4,8 @@ IF(OSGFreeGlutSrcDir)
 
   PROJECT(OSGFreeGlut)
 
-  SET(${PROJECT_NAME}SharedTarget osgfreeglut)
-  SET(${PROJECT_NAME}StaticTarget libosgfreeglut)
+  SET(${PROJECT_NAME}SharedTarget osgglut)
+  SET(${PROJECT_NAME}StaticTarget libosgglut)
 
   SET(OSG_FREEGLUT_SRCS ${OSGFreeGlutSrcDir}/src/freeglut_callbacks.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_cursor.c

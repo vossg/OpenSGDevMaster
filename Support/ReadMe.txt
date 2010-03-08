@@ -55,7 +55,12 @@ http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libpng-1.2.37-source.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libjpeg-6b-source.zip
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
-http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz\?download
+
+ http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz\?download
+
+ or
+
+ http://www.xmission.com/~nate/glut/glut-3.7.6-src.zip
 
 http://nchc.dl.sourceforge.net/sourceforge/collada-dom/collada-dom-2.2.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libxml2-2.7.3-src.zip
