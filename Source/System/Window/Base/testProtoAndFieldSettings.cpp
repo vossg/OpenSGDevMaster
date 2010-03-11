@@ -427,17 +427,96 @@ void testPrototypeReplacement(void)
     pTr           = NULL;
 }
 
+
+void testPrototypeReplacementWithFlags(void)
+{
+    fprintf(stderr, "====================================================\n");
+    fprintf(stderr, "replace proto with flags\n");
+    fprintf(stderr, "====================================================\n");
+
+    OSG::FieldContainer *pMCProto =
+        OSG::MatrixCamera::getClassType().getPrototype();
+
+    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+
+
+    OSG::MatrixCameraUnrecPtr pMatrixCam = OSG::MatrixCamera::create();
+    OSG::UInt32               rc         = 0;
+
+    fprintf(stderr, "tmp matrix cam ptr %p\n",
+            pMatrixCam.get());
+
+
+    OSG::MatrixCamera::getClassType().dumpFieldInfo();
+
+    pMatrixCam->dumpFieldInfo();
+
+    fprintf(stderr, "====================================================\n");
+    fprintf(stderr, "A|\n");
+    fprintf(stderr, "====================================================\n");
+
+    OSG::MatrixCameraUnrecPtr pNewMatrixCam = OSG::MatrixCamera::create();
+
+    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+
+    pNewMatrixCam->markFieldsThreadLocal(
+        OSG::MatrixCamera::NearFieldMask |
+        OSG::MatrixCamera::ProjectionMatrixFieldMask);
+
+    pNewMatrixCam->markFieldsClusterLocal(
+        OSG::MatrixCamera::NearFieldMask |
+        OSG::MatrixCamera::ProjectionMatrixFieldMask);
+
+    OSG::MatrixCamera::getClassType().dumpFieldInfo();
+
+    pNewMatrixCam->dumpFieldInfo();
+
+    fprintf(stderr, "====================================================\n");
+    fprintf(stderr, "set same type proto\n");
+    fprintf(stderr, "====================================================\n");
+
+    rc = OSG::MatrixCamera::getClassType().setPrototype(pNewMatrixCam);
+
+    fprintf(stderr, "set proto result %d\n", rc);
+    
+    pMCProto = OSG::MatrixCamera::getClassType().getPrototype();
+
+    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+
+    OSG::MatrixCamera::getClassType().dumpFieldInfo();
+
+    pNewMatrixCam->dumpFieldInfo();
+    pMCProto->dumpFieldInfo();
+
+
+    fprintf(stderr, "====================================================\n");
+    fprintf(stderr, "B|\n");
+    fprintf(stderr, "====================================================\n");
+
+    pNewMatrixCam = OSG::MatrixCamera::create();
+
+    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+
+    OSG::MatrixCamera::getClassType().dumpFieldInfo();
+
+    pNewMatrixCam->dumpFieldInfo();
+
+    pMatrixCam    = NULL;
+    pNewMatrixCam = NULL;
+}
+
 int main (int argc, char **argv)
 {
     OSG::osgInit(argc, argv);
 
-    testClassType();
-    testCreateMarking();
-    testClusterLocalType();
-    testThreadLocalType();
-    testClusterLocalContainer();
-    testThreadLocalContainer();
-    testPrototypeReplacement();
+//    testClassType();
+//    testCreateMarking();
+//    testClusterLocalType();
+//    testThreadLocalType();
+//    testClusterLocalContainer();
+//    testThreadLocalContainer();
+//    testPrototypeReplacement();
+    testPrototypeReplacementWithFlags();
 
     OSG::osgExit();
 
