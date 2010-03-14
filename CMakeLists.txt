@@ -634,6 +634,7 @@ FIND_PACKAGE(Doxygen)
 
 IF(NOT WIN32)
     IF(OSG_BUILD_DEPENDEND)
+        MESSAGE(STATUS "Load reference settings")
         INCLUDE(${OSG_REFERENCE_DIR}/CMake.settings)
         # Needed to get the correct vtk/boost settings
         FIND_PACKAGE(VTK)
