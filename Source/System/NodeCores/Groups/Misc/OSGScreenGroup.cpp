@@ -194,7 +194,6 @@ void ScreenGroup::calcMatrix(      RenderAction *pAction,
 
 Action::ResultE ScreenGroup::intersectEnter(Action *action)
 {
-#if 0
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m(_camTransform);
 
@@ -203,41 +202,28 @@ Action::ResultE ScreenGroup::intersectEnter(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-#ifndef OSG_2_PREP
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
-#else
     m.multFull(ia->getLine().getPosition (), pos);
     m.mult    (ia->getLine().getDirection(), dir);
-#endif
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
-#endif
 
     return Action::Continue;
 }
 
 Action::ResultE ScreenGroup::intersectLeave(Action *action)
 {
-#if 0
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m(_camTransform);
 
     Pnt3f pos;
     Vec3f dir;
 
-#ifndef OSG_2_PREP
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
-#else
     m.multFull(ia->getLine().getPosition (), pos);
     m.mult    (ia->getLine().getDirection(), dir);
-#endif
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
-#endif
 
     return Action::Continue;
 }
