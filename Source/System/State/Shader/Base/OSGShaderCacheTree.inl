@@ -333,6 +333,9 @@ ObjectT *ShaderCacheTreeV0<ObjectT, LevelBits>::find(const IdStore &vIds)
     UInt32    uiCurrBits = 0x0000;
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
 
+    if(pCurrNode == NULL)
+        return NULL;
+
     for(; uiCurrId < uiLastId; ++uiCurrId)
     {
         UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
@@ -1162,6 +1165,9 @@ ObjectT *ShaderCacheTreeV1<ObjectT, LevelBits>::find(const IdStore &vIds)
     UInt32    uiCurrBits = 0x0000;
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
 
+    if(pCurrNode == NULL)
+        return;
+
     for(; uiCurrId < uiLastId; ++uiCurrId)
     {
         UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
@@ -1853,6 +1859,9 @@ ObjectT *ShaderCacheTreeV2<ObjectT, LevelBits>::find(const IdStore &vIds)
     UInt32    uiCurrBits = 0x0000;
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
     TreeNode *pNextNode  = NULL;
+
+    if(pCurrNode == NULL)
+        return NULL;
 
     for(; uiCurrId < uiLastId; ++uiCurrId)
     {
@@ -2782,6 +2791,9 @@ ObjectT *ShaderCacheTreeV3<ObjectT, LevelBits>::find(const IdStore &vIds)
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
     TreeNode *pNextNode  = NULL;
 
+    if(pCurrNode == NULL)
+        return NULL;
+
     for(; uiCurrId < uiLastId; ++uiCurrId)
     {
         UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
@@ -3284,7 +3296,9 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 #define OSG_DUMP_LEVELENTRIES
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+void ShaderCacheTreeV3<ObjectT, 
+                       LevelBits>::dumpDot(const Char8 *szFilename, 
+                                                 bool   dumpEmptyLevelEntries)
 {
     FILE *pOut = fopen(szFilename, "w");
 
@@ -3309,7 +3323,8 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
             }
             else
             {
-//                fprintf(pOut, "<l%d> NIL", i);
+                if(dumpEmptyLevelEntries == true)
+                    fprintf(pOut, "<l%d> NIL", i);
             }
             
             if(i == _vLevelEntries.size() - 1)
@@ -3318,7 +3333,7 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
             }
             else
             {
-                if(_vLevelEntries[i] != NULL)
+                if(_vLevelEntries[i] != NULL || dumpEmptyLevelEntries == true)
                     fprintf(pOut, "|");
             }
         }

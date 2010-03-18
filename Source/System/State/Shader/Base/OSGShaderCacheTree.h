@@ -709,7 +709,8 @@ class ShaderCacheTreeV3
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    void dumpDot(const Char8 *szFilename);
+    void dumpDot(const Char8 *szFilename, 
+                       bool   dumpEmptyLevelEntries = false);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
