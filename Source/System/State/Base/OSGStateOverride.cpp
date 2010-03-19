@@ -246,7 +246,11 @@ void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
                 
                 _uiKeyMask &= ~Key1Mask;
             }
-            
+            else
+            {
+                uiKey1 = 0;
+            }
+
             if(uiKey2 != InvalidKey && uiKey2 == uiSlot)
             {
                 uiKey2 = 
@@ -254,13 +258,21 @@ void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
                 
                 _uiKeyMask &= ~Key2Mask;
             }
-            
+            else
+            {
+                uiKey2 = 0;
+            }
+
             if(uiKey3 != InvalidKey && uiKey3 == uiSlot)
             {
                 uiKey3 = 
                     (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
                 
                 _uiKeyMask &= ~Key3Mask;
+            }
+            else
+            {
+                uiKey3 = 0;
             }
             
             _uiSortKey = 

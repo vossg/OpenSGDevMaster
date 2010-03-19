@@ -592,6 +592,7 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
     if(uiProgId != pEnv->getActiveShader())
     {
+#if 0
         FragmentShaderIt fIt  = _mfFragmentShader.begin();
         FragmentShaderIt fEnd = _mfFragmentShader.end  ();
 
@@ -615,6 +616,7 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
         {
             (*vIt)->validate(pEnv);
         }
+#endif
 
         UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
                                                  pEnv, 

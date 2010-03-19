@@ -229,7 +229,7 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind = 0;
     UInt32                    i;
-    UInt32                    cind = osgMin(State::SkipNumChunks, 
+    SizeT                     cind = osgMin(State::SkipNumChunks, 
                                             pState->getMFChunks()->size());
     StateChunk               *n    = NULL;
 
@@ -271,6 +271,8 @@ void DrawEnv::changeTo(State         *pState,
 
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
+
+    cind = osgMax(cind, State::SkipNumChunks);
 
     for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
@@ -322,7 +324,7 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind = 0;
     UInt32                    i;
-    UInt32                    cind = osgMin(State::SkipNumChunks, 
+    SizeT                     cind = osgMin(State::SkipNumChunks, 
                                             pState->getMFChunks()->size());
     StateChunk               *n    = NULL;
 
@@ -363,6 +365,8 @@ void DrawEnv::changeTo(State         *pState,
 
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
+
+    cind = osgMax(cind, State::SkipNumChunks);
 
     for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
@@ -426,7 +430,7 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind  = 0;
     UInt32                    i;
-    UInt32                    cind = osgMin(State::SkipNumChunks, 
+    SizeT                     cind = osgMin(State::SkipNumChunks, 
                                             pState->getMFChunks()->size());
     StateChunk               *n    = NULL;
 
@@ -472,9 +476,10 @@ void DrawEnv::changeTo(State         *pState,
     }
 
 
-
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
+
+    cind = osgMax(cind, State::SkipNumChunks);
 
     for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
