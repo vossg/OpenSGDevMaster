@@ -143,6 +143,14 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Extend                                  */
     /*! \{                                                                 */
 
+    Pnt3r &editMin(void);    
+    Pnt3r &editMax(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Extend                                  */
+    /*! \{                                                                 */
+
     virtual void extendBy(const Pnt3r     &pt    );
     virtual void extendBy(const Volume    &volume);
             void extendBy(const BoxVolume &bb    );

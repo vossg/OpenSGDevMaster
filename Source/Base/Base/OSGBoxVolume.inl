@@ -174,6 +174,18 @@ void BoxVolume::setBounds(const Pnt3r &min, const Pnt3r &max)
     Volume::setInfinite(false);
 }
 
+inline
+Pnt3r &BoxVolume::editMin(void)
+{
+    return _min;
+}
+
+
+inline
+Pnt3r &BoxVolume::editMax(void)
+{
+    return _max;
+}
 
 inline
 void BoxVolume::extendBy(const BoxVolume &volume)
