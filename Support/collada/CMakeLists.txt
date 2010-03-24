@@ -1,14 +1,37 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+IF(WIN32)
+  IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+    SET(_OSG_COLLADA_PRECOND TRUE)
+  ELSE()
+    SET(_OSG_COLLADA_PRECOND FALSE)
+  ENDIF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+ELSE(WIN32)
+  FIND_PACKAGE(LibXml2)
+
+  IF(OSGColladaSrcDir AND LIBXML2_FOUND)
+    SET(_OSG_COLLADA_PRECOND TRUE)
+  ELSE()
+    SET(_OSG_COLLADA_PRECOND FALSE)
+  ENDIF(OSGColladaSrcDir AND LIBXML2_FOUND)
+ENDIF(WIN32)
+
+
+IF(_OSG_COLLADA_PRECOND)
 
   PROJECT(OSGCollada)
 
   SET(${PROJECT_NAME}SharedTarget_14 osgcollada14dom22)
-  SET(${PROJECT_NAME}StaticTarget_14 libosgcollada14dom22)
-
   SET(${PROJECT_NAME}SharedTarget_15 osgcollada15dom22)
-  SET(${PROJECT_NAME}StaticTarget_15 libosgcollada15dom22)
+
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget_14 libosgcollada14dom22)
+    SET(${PROJECT_NAME}StaticTarget_15 libosgcollada15dom22)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget_14 osgcollada14dom22lib)
+    SET(${PROJECT_NAME}StaticTarget_15 osgcollada15dom22lib)
+  ENDIF(WIN32)
+
 
   SET(OSG_COLLADADAE_SRCS ${OSGColladaSrcDir}/dom/src/dae/dae.cpp
                           ${OSGColladaSrcDir}/dom/src/dae/daeArray.cpp
@@ -43,7 +66,9 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
                           ${OSGColladaSrcDir}/dom/src/dae/domAny.cpp
                           ${OSGColladaSrcDir}/dom/src/modules/STLDatabase/daeSTLDatabase.cpp
                           ${OSGColladaSrcDir}/dom/src/modules/stdErrPlugin/stdErrPlugin.cpp
-                          ${OSGColladaSrcDir}/dom/src/modules/LIBXMLPlugin/daeLIBXMLPlugin.cpp)
+                          ${OSGColladaSrcDir}/dom/src/modules/LIBXMLPlugin/daeLIBXMLPlugin.cpp
+                          ${OSGColladaSrcDir}/dom/external-libs/minizip/src/ioapi.c
+                          ${OSGColladaSrcDir}/dom/external-libs/minizip/src/unzip.c)
 
 
   SET(OSG_COLLADADAE_HDR ${OSGColladaSrcDir}/dom/include/dae/daeArray.h
@@ -917,12 +942,17 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
   INCLUDE_DIRECTORIES(${OSG_BOOST_INCDIRS})
   INCLUDE_DIRECTORIES(${OSGColladaSrcDir}/dom/include)
 
-  INCLUDE_DIRECTORIES(${OSGPcreSrcDir})
-  INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/pcre)
-  INCLUDE_DIRECTORIES(${OSGLibXml2SrcDir}/include)
-  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source/include)
-  INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
-  INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR}/contrib/minizip)
+  IF(WIN32)
+    INCLUDE_DIRECTORIES(${OSGPcreSrcDir})
+    INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/pcre)
+    INCLUDE_DIRECTORIES(${OSGLibXml2SrcDir}/include)
+    INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source/include)
+    INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
+    INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR}/contrib/minizip)
+  ELSE(WIN32)
+    INCLUDE_DIRECTORIES(${OSGColladaSrcDir}/dom/external-libs/minizip/include)
+    INCLUDE_DIRECTORIES(${LIBXML2_INCLUDE_DIR})
+  ENDIF(WIN32)
 
   IF(BUILD_SHARED_LIBS)
 
@@ -932,9 +962,11 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
                                                   ${OSG_COLLADA14_SRCS}
                                                   ${OSG_COLLADADAE_SRCS})
 
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_14} PROPERTIES
-                          DEFINE_SYMBOL DOM_EXPORT
-                          DEBUG_POSTFIX "D")
+    IF(WIN32)
+      SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_14} PROPERTIES
+                            DEFINE_SYMBOL DOM_EXPORT
+                            DEBUG_POSTFIX "D")
+    ENDIF(WIN32)
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_14} PROPERTIES
                           COMPILE_FLAGS -I${OSGColladaSrcDir}/dom/include/1.4)
@@ -942,18 +974,31 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
     SET(OSGCOLLADA_DEF_SHARED ${OSGCOLLADA_DEF};DOM_DYNAMIC)
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_14} PROPERTIES
-                          COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_SHARED}")
+                          COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_SHARED};COLLADA14")
 
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} osgxml2)
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} osgpcrecpp)
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} libosgminizip)
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} ${OSG_BOOST_LIBS})
+    IF(WIN32)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} osgxml2)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} osgpcrecpp)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} libosgminizip)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} ${OSG_BOOST_LIBS})
+    ELSE(WIN32)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} ${LIBXML2_LIBRARIES})
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} pcrecpp)
+    ENDIF(WIN32)
 
-    INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+    IF(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib
+                  ARCHIVE DESTINATION lib)
+    ELSE(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    ENDIF(WIN32)
 
     ## 1.5 ##
 
@@ -963,9 +1008,11 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
                                                     ${OSG_COLLADA15_SRCS}
                                                     ${OSG_COLLADADAE_SRCS})
 
-      SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_15} PROPERTIES
-                            DEFINE_SYMBOL DOM_EXPORT
-                            DEBUG_POSTFIX "D")
+      IF(WIN32)
+        SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_15} PROPERTIES
+                              DEFINE_SYMBOL DOM_EXPORT
+                              DEBUG_POSTFIX "D")
+      ENDIF(WIN32)
 
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_15} PROPERTIES
                             COMPILE_FLAGS -I${OSGColladaSrcDir}/dom/include/1.5)
@@ -973,18 +1020,30 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
       SET(OSGCOLLADA_DEF_SHARED ${OSGCOLLADA_DEF};DOM_DYNAMIC)
 
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_15} PROPERTIES
-                            COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_SHARED}")
+                            COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_SHARED};COLLADA15")
 
-      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgxml2)
-      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgpcrecpp)
-      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} libosgminizip)
-      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} ${OSG_BOOST_LIBS})
+      IF(WIN32)
+        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgxml2)
+        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgpcrecpp)
+        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} libosgminizip)
+        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} ${OSG_BOOST_LIBS})
+      ELSE(WIN32)
+        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} pcrecpp)
+      ENDIF(WIN32)
 
-      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_15}
-                  CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
+      IF(WIN32)
+        INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_15}
+                    CONFIGURATIONS Release Debug
+                    RUNTIME DESTINATION bin
+                    LIBRARY DESTINATION lib
+                    ARCHIVE DESTINATION lib)
+      ELSE(WIN32)
+        INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_15}
+                    CONFIGURATIONS Release Debug
+                    RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                    LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                    ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+      ENDIF(WIN32)
     ENDIF(OSG_BUILD_COLLADADOM_15)
 
   ENDIF(BUILD_SHARED_LIBS)
@@ -996,22 +1055,32 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
     ADD_LIBRARY(${${PROJECT_NAME}StaticTarget_14} STATIC ${OSG_COLLADA14_SRCS}
                                                          ${OSG_COLLADADAE_SRCS})
 
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_14} PROPERTIES
-                          DEBUG_POSTFIX "D")
+    IF(WIN32)
+      SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_14} PROPERTIES
+                            DEBUG_POSTFIX "D")
 
-    SET(OSGCOLLADA_DEF_STATIC ${OSGCOLLADA_DEF};PCRE_STATIC)
+      SET(OSGCOLLADA_DEF_STATIC ${OSGCOLLADA_DEF};PCRE_STATIC)
+    ENDIF(WIN32)
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_14} PROPERTIES
-                          COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_STATIC}")
+                          COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_STATIC};COLLADA14")
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_14} PROPERTIES
                           COMPILE_FLAGS -I${OSGColladaSrcDir}/dom/include/1.4)
 
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+    IF(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib
+                  ARCHIVE DESTINATION lib)
+    ELSE(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    ENDIF(WIN32)
 
     ## 1.5 
 
@@ -1020,22 +1089,32 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
       ADD_LIBRARY(${${PROJECT_NAME}StaticTarget_15} STATIC ${OSG_COLLADA15_SRCS}
                                                            ${OSG_COLLADADAE_SRCS})
 
-      SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_15} PROPERTIES
-                            DEBUG_POSTFIX "D")
+      IF(WIN32)
+        SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_15} PROPERTIES
+                              DEBUG_POSTFIX "D")
 
-      SET(OSGCOLLADA_DEF_STATIC ${OSGCOLLADA_DEF};PCRE_STATIC)
+        SET(OSGCOLLADA_DEF_STATIC ${OSGCOLLADA_DEF};PCRE_STATIC)
+      ENDIF(WIN32)
 
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_15} PROPERTIES
-                            COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_STATIC}")
+                            COMPILE_DEFINITIONS "${OSGCOLLADA_DEF_STATIC};COLLADA15")
  
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_15} PROPERTIES
                             COMPILE_FLAGS -I${OSGColladaSrcDir}/dom/include/1.5)
 
-      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_15}
-                      CONFIGURATIONS Release Debug
-                      RUNTIME DESTINATION bin
-                      LIBRARY DESTINATION lib
-                      ARCHIVE DESTINATION lib)
+      IF(WIN32)
+        INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_15}
+                        CONFIGURATIONS Release Debug
+                        RUNTIME DESTINATION bin
+                        LIBRARY DESTINATION lib
+                        ARCHIVE DESTINATION lib)
+      ELSE(WIN32)
+        INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_15}
+                        CONFIGURATIONS Release Debug
+                        RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                        LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                        ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+      ENDIF(WIN32)
 
     ENDIF(OSG_BUILD_COLLADADOM_15)
 
@@ -1071,6 +1150,6 @@ IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir
                         WORLD_READ)
   ENDIF(OSG_BUILD_COLLADADOM_15)
 
-ELSE(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+ELSE(_OSG_COLLADA_PRECOND)
   SET(OSGColladaSrcDir "" CACHE PATH "")
-ENDIF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+ENDIF(_OSG_COLLADA_PRECOND)

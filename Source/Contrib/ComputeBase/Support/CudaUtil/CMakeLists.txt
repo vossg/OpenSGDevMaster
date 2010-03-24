@@ -142,7 +142,7 @@ IF(OSGNVidiaSDKSrcDir)
                     RUNTIME DESTINATION bin
                     LIBRARY DESTINATION lib
                     ARCHIVE DESTINATION lib)
-    ELSE(WIN32)
+  ELSE(WIN32)
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                     RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
                     LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
