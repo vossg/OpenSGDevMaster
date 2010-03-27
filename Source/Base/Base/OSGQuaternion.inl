@@ -81,6 +81,56 @@ QuaternionBase<ValueTypeT>
     return returnValue;
 }
 
+//! Returns the nlerp betweet rot0 and rot1 at t
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::nlerp(const QuaternionBase &rot0,
+                                      const QuaternionBase &rot1,
+                                      const ValueTypeT      t   )
+{
+    QuaternionBase returnValue;
+
+    nlerp(rot0, rot1, returnValue, t);
+
+    return returnValue;
+}
+
+//! Returns the inverse betweet rot0 and rot1 at t
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::inverse(const QuaternionBase &val)
+{
+    return val.inverse();
+}
+
+//! Returns the conj betweet rot0 and rot1 at t
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::conj(const QuaternionBase &val)
+{
+    return val.conj();
+}
+
+//! Returns the exp betweet rot0 and rot1 at t
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::exp(const QuaternionBase &val)
+{
+    return val.exp();
+}
+
+//! Returns the log betweet rot0 and rot1 at t
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::log(const QuaternionBase &val)
+{
+    return val.log();
+}
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
@@ -94,6 +144,26 @@ QuaternionBase<ValueTypeT>::QuaternionBase(void)
     _quat[3] = TypeTraits<ValueTypeT>::getOneElement();
 }
 
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>::QuaternionBase(const ValueTypeT*     values)
+{
+    for(UInt32 i = 0; i < 4; i++)
+    {
+        _quat[i] = values[i];
+    }
+}
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>::QuaternionBase(const  ValueTypeT  x,
+                                           const  ValueTypeT  y,
+                                           const  ValueTypeT  z,
+                                           const  ValueTypeT  w)
+{
+    _quat[0] = x;
+    _quat[1] = y;
+    _quat[2] = z;
+    _quat[3] = w;
+}
 
 template <class ValueTypeT> inline
 QuaternionBase<ValueTypeT>::QuaternionBase(const QuaternionBase &source)
@@ -839,7 +909,7 @@ void QuaternionBase<ValueTypeT>::invert(void)
 
     conjThis();
 
-    ValueTypeT LengthSqrInv(static_cast<ValueTypeT>(1.0)/LengthSqr);
+    ValueTypeT LengthSqrInv(static_cast<ValueTypeT>(1.0f)/LengthSqr);
 
     _quat[0] * LengthSqrInv;
     _quat[1] * LengthSqrInv;
@@ -857,13 +927,13 @@ void QuaternionBase<ValueTypeT>::expThis(void)
                                 _quat[2] * _quat[2] ));
     ValueTypeT Length2;
 
-    if( Length1 > static_cast<ValueTypeT>(0.0) )
+    if( Length1 > static_cast<ValueTypeT>(0.0f) )
     {
         Length2 = osgSin( Length1 )/Length1;
     }
     else
     {
-        Length2 = static_cast<ValueTypeT>(1.0);
+        Length2 = static_cast<ValueTypeT>(1.0f);
     }
 
     _quat[0] *= Length2;
@@ -886,13 +956,13 @@ void QuaternionBase<ValueTypeT>::logThis(void)
    }
    else
    {
-      Length = static_cast<ValueTypeT>(1.570796326794897);
+      Length = static_cast<ValueTypeT>(1.570796326794897f);
    }
    
     _quat[0] *= Length;
     _quat[1] *= Length;
     _quat[2] *= Length;
-    _quat[3] = static_cast<ValueTypeT>(0.0);
+    _quat[3] = static_cast<ValueTypeT>(0.0f);
 }
 
 //! Returns the inverse of a rotation
@@ -1191,44 +1261,44 @@ QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::squad( const std::vector<
     UInt8 i(1);
 
     //Get the Tangent Quats
-    QuaternionBase Ti = ( log( inverse(Q[i])*Q[i+1] ) + log( inverse(Q[i-1])*Q[i] ) )/static_cast<ValueTypeT>(2.0);
+    QuaternionBase Ti = ( log( inverse(Q[i])*Q[i+1] ) + log( inverse(Q[i-1])*Q[i] ) )/static_cast<ValueTypeT>(2.0f);
 
 
     //Get the Scaling values
     ValueTypeT Fnegi;
     if(t[i-1] == t[i+1])
     {
-        Fnegi = 0.0;
+        Fnegi = 0.0f;
     }
     else
     {
-        Fnegi = static_cast<ValueTypeT>(2.0) * (t[i+1] - t[i])/(t[i+1] - t[i-1]);
+        Fnegi = static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i])/(t[i+1] - t[i-1]);
     }
 
     QuaternionBase TanIncoming( Fnegi * Ti );
 
-    QuaternionBase ai = Q[i] * exp( (TanIncoming - log(inverse(Q[i])*Q[i+1]))/static_cast<ValueTypeT>(2.0) );
+    QuaternionBase ai = Q[i] * exp( (TanIncoming - log(inverse(Q[i])*Q[i+1]))/static_cast<ValueTypeT>(2.0f) );
 
     //bi+1
-    QuaternionBase Tiplus1 = ( log( inverse(Q[i+1])*Q[i+2] ) + log( inverse(Q[i])*Q[i+1] ) )/static_cast<ValueTypeT>(2.0);
+    QuaternionBase Tiplus1 = ( log( inverse(Q[i+1])*Q[i+2] ) + log( inverse(Q[i])*Q[i+1] ) )/static_cast<ValueTypeT>(2.0f);
 
     //Get the Scaling values
     ValueTypeT Fposiplus1;
     if(t[i+2] == t[i])
     {
-        Fposiplus1 = 0.0;
+        Fposiplus1 = 0.0f;
     }
     else
     {
-        Fposiplus1 = static_cast<ValueTypeT>(2.0) * (t[i+1] - t[i])/(t[i+2] - t[i]);
+        Fposiplus1 = static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i])/(t[i+2] - t[i]);
     }
 
     QuaternionBase TanOutgoingplus1( Fposiplus1 * Tiplus1 );
 
-    QuaternionBase biplus1 = Q[i+1] * exp( (log(inverse(Q[i])*Q[i+1]) - TanOutgoingplus1)/static_cast<ValueTypeT>(2.0) );
+    QuaternionBase biplus1 = Q[i+1] * exp( (log(inverse(Q[i])*Q[i+1]) - TanOutgoingplus1)/static_cast<ValueTypeT>(2.0f) );
 
     //slerps
-    return slerp( slerp(Q[i], Q[i+1], s), slerp(ai, biplus1, s), (static_cast<ValueTypeT>(2.0)*s*(static_cast<ValueTypeT>(1.0)-s)) );
+    return slerp( slerp(Q[i], Q[i+1], s), slerp(ai, biplus1, s), (static_cast<ValueTypeT>(2.0f)*s*(static_cast<ValueTypeT>(1.0f)-s)) );
 }
 
 template <class ValueTypeT> inline
@@ -1243,7 +1313,7 @@ void QuaternionBase<ValueTypeT>::nlerp(const QuaternionBase &rot0,
                                              QuaternionBase &result,
                                        const ValueTypeT      t     )
 {
-    result = rot0*(static_cast<ValueTypeT>(1.0)-t) + rot1*t;
+    result = rot0*(static_cast<ValueTypeT>(1.0f)-t) + rot1*t;
     result.normalize();
 }
 
@@ -1257,11 +1327,11 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
 {
     ValueTypeT rot1q[4];
 
-    Real64     omega;
-    Real64     cosom;
-    Real64     sinom;
-    Real64     scalerot0;
-    Real64     scalerot1;
+    ValueTypeT     omega;
+    ValueTypeT     cosom;
+    ValueTypeT     sinom;
+    ValueTypeT     scalerot0;
+    ValueTypeT     scalerot1;
 
     UInt32     i;
     UInt32     j;
@@ -1274,7 +1344,7 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
         rot0._quat[3] * rot1._quat[3];
 
     // adjust signs if necessary
-    if(cosom < 0.0)
+    if(cosom < 0.0f)
     {
         cosom = -cosom;
 
@@ -1292,18 +1362,18 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
     }
 
     // calculate interpolating coeffs
-    if ((1.0 - cosom) > 0.00001)
+    if ((1.0f - cosom) > 0.00001f)
     {
         // standard case
         omega = osgACos(cosom);
         sinom = osgSin(omega);
-        scalerot0 = osgSin((1.0 - t) * omega) / sinom;
+        scalerot0 = osgSin((1.0f - t) * omega) / sinom;
         scalerot1 = osgSin(t * omega) / sinom;
     }
     else
     {
         // rot0 and rot1 very close - just do linear interp.
-        scalerot0 = 1.0 - t;
+        scalerot0 = 1.0f - t;
         scalerot1 = t;
     }
 

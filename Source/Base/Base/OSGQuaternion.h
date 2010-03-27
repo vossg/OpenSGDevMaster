@@ -89,7 +89,14 @@ class QuaternionBase
     static       QuaternionBase slerp    (const QuaternionBase &rot0,
                                           const QuaternionBase &rot1,
                                           const ValueTypeT      t       );
+    static       QuaternionBase nlerp    (const QuaternionBase &rot0,
+                                          const QuaternionBase &rot1,
+                                          const ValueTypeT      t       );
 
+    static QuaternionBase  inverse   (const QuaternionBase& val);
+    static QuaternionBase  log   (const QuaternionBase& val);
+    static QuaternionBase  exp   (const QuaternionBase& val);
+    static QuaternionBase  conj   (const QuaternionBase& val);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -102,6 +109,11 @@ class QuaternionBase
                                const ValueTypeT      angle              );
                 QuaternionBase(const VectorType     &rotateFrom,
                                const VectorType     &rotateTo           );
+                QuaternionBase(const ValueTypeT*     values             );
+                QuaternionBase(const  ValueTypeT  x,
+                               const  ValueTypeT  y,
+                               const  ValueTypeT  z,
+                               const  ValueTypeT  w                     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
