@@ -36,6 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#include "OSGMatrix.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \class QuaternionBase
@@ -54,6 +56,7 @@ OSG_BEGIN_NAMESPACE
 /*                            Class Get                                    */
 
 //! Identity quaternion
+
 
 template <class ValueTypeT>
 QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::_identity;
@@ -400,6 +403,81 @@ void QuaternionBase<ValueTypeT>::setValue(const MatrixType &matrix)
     }
 }
 
+template <> inline
+void QuaternionBase<Fixed32>::setValue(const TransformationMatrix<Fixed32> &matrix)
+{
+    Fixed32 tr;
+    Fixed32 s;
+    Fixed32 qt[3];
+
+    UInt32 i;
+    UInt32 j;
+    UInt32 k;
+
+    UInt32 nxt[3] = { 1, 2, 0};
+
+    tr = matrix[0][0] + matrix[1][1] + matrix[2][2];
+
+    if(tr > 0.0)
+    {
+        s = osgSqrt(tr + 1.0);
+
+        _quat[3] = ValueType(s * 0.5);
+
+        s = 0.5 / s;
+        _quat[0] = ValueType((matrix[1][2] - matrix[2][1]) * s);
+        _quat[1] = ValueType((matrix[2][0] - matrix[0][2]) * s);
+        _quat[2] = ValueType((matrix[0][1] - matrix[1][0]) * s);
+    }
+    else
+    {
+        if(matrix[1][1] > matrix[0][0])
+            i = 1;
+        else
+            i = 0;
+
+        if(matrix[2][2] > matrix[i][i])
+            i = 2;
+
+        j = nxt[i];
+        k = nxt[j];
+
+        s = osgSqrt(matrix[i][i] - (matrix[j][j] + matrix[k][k]) + 1.0 );
+
+        qt[i] = s * 0.5;
+        s     = 0.5 / s;
+
+        _quat[3] = ValueType((matrix[j][k] - matrix[k][j]) * s);
+
+        qt[j] = (matrix[i][j] + matrix[j][i]) * s;
+        qt[k] = (matrix[i][k] + matrix[k][i]) * s;
+
+        _quat[0] = ValueType(qt[0]);
+        _quat[1] = ValueType(qt[1]);
+        _quat[2] = ValueType(qt[2]);
+    }
+
+    if(_quat[3] > 1.0 || _quat[3] < -1.0)
+    {
+        const ValueType errThreshold = 1 + (Eps * 100);
+
+        if(_quat[3] > errThreshold || _quat[3] < -errThreshold)
+        {
+            fprintf(stderr,
+                    "\nMatToQuat: BUG: |quat[4]| (%f) >> 1.0 !\n\n",
+                    Fixed32::toFloat(_quat[3]));
+        }
+
+        if(_quat[3] > 1.0)
+        {
+            _quat[3] = 1.0;
+        }
+        else
+        {
+            _quat[3] = -1.0;
+        }
+    }
+}
 /*! \brief Sets value of quaternion from 3D rotation axis vector and angle in
     degrees
 */

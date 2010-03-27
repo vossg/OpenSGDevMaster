@@ -63,6 +63,7 @@ class OSG_BASE_DLLMAPPING Fixed32
 
     Fixed32(void);
     Fixed32(const Real32 source);
+    Fixed32(const Real64 source);
     Fixed32(const UInt32 source);
     Fixed32(const Fixed32 &source);
 
@@ -112,6 +113,7 @@ class OSG_BASE_DLLMAPPING Fixed32
     static Fixed32 tan(Fixed32 rhs);
 
     static Real32 toFloat(Fixed32 rhs);
+    static Real64 toDouble(Fixed32 rhs);
   protected:
 
     Fixed32(const Int32 source);

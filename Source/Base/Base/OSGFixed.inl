@@ -61,6 +61,13 @@ Fixed32::Fixed32(const Real32 source) :
 }
 
 inline
+Fixed32::Fixed32(const Real64 source) :
+    _value(Int32(source * 65536.0f))
+{
+    
+}
+
+inline
 Fixed32::Fixed32(const UInt32 source) :
     _value(source << 16)
 {
@@ -249,6 +256,12 @@ inline
 Real32 Fixed32::toFloat(Fixed32 rhs)
 {
     return Real32(rhs._value) / Real32(1 << 16);
+}
+
+inline
+Real64 Fixed32::toDouble(Fixed32 rhs)
+{
+    return Real64(rhs._value) / Real64(1 << 16);
 }
 
 inline
