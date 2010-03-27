@@ -211,10 +211,10 @@ class Field(FCDElement):
         return self["access"] == "public";
 
     def isPublicRead(self):
-        return self["publicRead"] == "true" or isPublic();
+        return self["publicRead"] == "true" or self.isPublic();
 
     def isPublicWrite(self):
-        return isPublic();
+        return self.isPublic();
 
     def hasAccess(self):
         return self["access"] != "none";
@@ -410,7 +410,7 @@ class Field(FCDElement):
                 self.getFCD("access"));
 
         #Public Read
-        if self.getFCD("publicRead") == "true" or self["isPublic"]:
+        if self.getFCD("publicRead") == "true" or self["access"] == "public":
             self["publicRead"] = "true";
             self["isPublicRead"] = True;
         else:
@@ -418,7 +418,7 @@ class Field(FCDElement):
             self["isPublicRead"] = False;
 
         #Public Write
-        if "isPublic" in self and self["isPublic"]:
+        if "isPublic" in self and self["access"] == "public":
             self["isPublicWrite"] = True;
         else:
             self["isPublicWrite"] = False;
