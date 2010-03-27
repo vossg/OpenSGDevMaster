@@ -1621,6 +1621,18 @@ typename Vector<ValueTypeT, SizeI>::RealReturnType
     return rDot;
 }
 
+template <class  ValueTypeT,
+          UInt32 SizeI      > inline
+Vector<ValueTypeT, SizeI>
+    Vector<ValueTypeT, SizeI>::reflect(const Vector &Normal) const
+{
+   Vector<ValueTypeT, SizeI> Result;
+
+   Result = *this - (2.0f * (this->dot(Normal)) * Normal);
+
+   return Result;
+}
+
 //! Returns the corrosponding point by adding it to zero
 
 template <class  ValueTypeT,

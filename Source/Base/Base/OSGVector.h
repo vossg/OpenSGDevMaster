@@ -660,6 +660,8 @@ class Vector : public Point<ValueTypeT, SizeI>
 
     RealReturnType projectTo    (const Vector    &toVec);
 
+    Vector reflect(const Vector& Normal) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Conv                                    */
