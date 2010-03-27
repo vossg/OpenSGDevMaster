@@ -1027,6 +1027,23 @@ Point <ValueTypeT, SizeI>
     return returnValue;
 }
 
+//! Component wise binary scalar division
+
+template <class  ValueTypeT,
+          UInt32 SizeI      > inline
+Point <ValueTypeT, SizeI>
+    Point<ValueTypeT, SizeI>::operator / (const ValueType rVal) const
+{
+    Point<ValueTypeT, SizeI> returnValue;
+
+    for(UInt32 i = 0; i < Self::_uiSize; i++)
+    {
+        returnValue[i] = Self::_values[i] / rVal;
+    }
+
+    return returnValue;
+}
+
 //! Nondestructive unary negation, returns new point
 
 template <class  ValueTypeT,
@@ -1706,6 +1723,23 @@ Vector <ValueTypeT, SizeI>
     return returnValue;
 }
 
+
+//! Component wise binary scalar division
+
+template <class  ValueTypeT,
+          UInt32 SizeI      > inline
+Vector <ValueTypeT, SizeI>
+    Vector<ValueTypeT, SizeI>::operator / (const ValueType rVal) const
+{
+    Vector<ValueTypeT, SizeI> returnValue;
+
+    for(UInt32 i = 0; i < Self::_uiSize; i++)
+    {
+        returnValue[i] = Self::_values[i] / rVal;
+    }
+
+    return returnValue;
+}
 
 //! Component wise binary scalar multiplication
 

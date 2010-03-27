@@ -503,6 +503,8 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>
 
     Point      operator * (const ValueType   val) const;
 
+    Point      operator / (const ValueType   val) const;
+
     Point      operator - (void                 );
 
     void       operator +=(const VectorType &vec);
@@ -682,6 +684,7 @@ class Vector : public Point<ValueTypeT, SizeI>
     Vector operator + (const Vector    &vec) const;
 
     Vector operator * (const ValueType  val) const;
+    Vector operator / (const ValueType  val) const;
 
     Vector operator - (      void          ) const;
 
