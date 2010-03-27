@@ -4,7 +4,11 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
+@@if hasAuthors
+ *   contact:  @!Authors!@*
+@@else // hasAuthors
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+@@endif // hasAuthors
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\

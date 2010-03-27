@@ -211,7 +211,6 @@ class Field(FCDElement):
         return self["access"] == "public";
 
     def isPublicRead(self):
-        print("isPublicRead(self)", self["publicRead"] == "true" or isPublic());
         return self["publicRead"] == "true" or isPublic();
 
     def isPublicWrite(self):

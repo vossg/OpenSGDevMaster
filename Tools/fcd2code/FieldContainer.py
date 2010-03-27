@@ -44,6 +44,7 @@ class FieldContainer(FCDElement):
         self.setFCD("parentFields",               "none",   True);
         self.setFCD("docGroupBase",               "",       True);
         self.setFCD("realparent",                 "",       True);
+        self.setFCD("authors",                "",       True);
     #
     # Access fields
     
@@ -61,6 +62,9 @@ class FieldContainer(FCDElement):
     
     def isDecoratable(self):
         return self["isDecoratable"];
+
+    def hasAuthors(self):
+        return len(self["authors"]) != 0;
     
     def setupFieldContainer(self):
         self["Classname"]   = self.getFCD("name");
@@ -110,6 +114,15 @@ class FieldContainer(FCDElement):
             self["Classname"] = "<UNDEF>";
             self["CLASSNAME"] = "<UNDEF>";
         
+        if self.getFCD("authors") != "":
+            self["hasAuthors"] = True;
+            self["authors"] = self.getFCD("authors");
+            self["Authors"] = self.getFCD("authors");
+        else:
+            self["hasAuthors"] = False;
+            self["authors"] = "";
+            self["Authors"] = "";
+            
         if self.getFCD("parent") != "":
             self["Parent"] = self.getFCD("parent");
         else:
