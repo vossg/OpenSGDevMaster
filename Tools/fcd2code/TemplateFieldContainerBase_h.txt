@@ -190,36 +190,44 @@ class @!Classname!@Base : public @!Parent!@
     @!MethodType:7!@       const SFUnrec@!Parent!@Ptr *getSFDecoratee(void) const;
     @@endif // isDecorator
     @@BeginFieldLoop@@
-        @@if field.isPublic
+        @@if field.isPublicRead
             @@if field.isPtrField
     @!field.MethodType:7!@ const @!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@(void) const;
                 @@if field.ptrFieldStandardAccess
+                    @@if field.isPublicWrite
     @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+                    @@endif // field.isPublicWrite
                 @@endif
                 @@if field.isSField
                     @@if field.ptrFieldNullCheckAccess
+                        @@if field.isPublicWrite
     @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+                        @@endif // field.isPublicWrite
                     @@endif
                 @@endif
             @@else // field.isPtrField
 
+                @@if field.isPublicWrite
     @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+                @@endif // field.isPublicWrite
     @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
             @@endif // field.isPtrField
-        @@endif // field.isPublic
+        @@endif // field.isPublicRead
     @@EndFieldLoop@@
 
     @@if isDecorator
     @!MethodType:7!@             @!Parent!@ *getDecoratee(void) const;
     @@endif // isDecorator
     @@BeginFieldLoop@@
-        @@if field.isPublic
+        @@if field.isPublicRead
             @@if field.isSField
 
                 @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@ get@!field.Name:15!@(void) const;
                 @@else // field.isPtrField
+                    @@if field.isPublicWrite
     @!field.MethodType:7!@       @!field.FullType:19!@ &edit@!field.Name:15!@(void);
+                    @@endif // field.isPublicWrite
     @!field.MethodType:7!@ @!field.RetConst!@ @!field.FullType:19!@ @!field.RetRef!@get@!field.Name:15!@ (void) const;
                 @@endif // field.isPtrField
             @@else // field.isSField
@@ -227,11 +235,13 @@ class @!Classname!@Base : public @!Parent!@
                 @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@ get@!field.Name:15!@(const UInt32 index) const;
                 @@else // field.isPtrField
+                    @@if field.isPublicWrite
     @!field.MethodType:7!@       @!field.FullType:19!@ &edit@!field.Name:15!@(const UInt32 index);
+                    @@endif // field.isPublicWrite
     @!field.MethodType:7!@ @!field.RetConst!@ @!field.FullType:19!@ @!field.RetRef!@get@!field.Name:15!@ (const UInt32 index) const;
                 @@endif // field.isPtrField
             @@endif // field.isSField
-        @@endif // field.isPublic
+        @@endif // field.isPublicRead
     @@EndFieldLoop@@
 
     /*! \}                                                                 */
@@ -436,7 +446,9 @@ class @!Classname!@Base : public @!Parent!@
     @@BeginFieldLoop@@
         @@if field.isProtected
             @@if field.isPtrField
+                @@if !field.isPublicRead
     @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+                @@endif
                 @@if field.ptrFieldStandardAccess
     @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
                 @@endif
@@ -448,7 +460,9 @@ class @!Classname!@Base : public @!Parent!@
             @@else // field.isPtrField
 
     @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+                @@if !field.isPublicRead
     @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+                @@endif
             @@endif // field.isPtrField
         @@endif // field.isProtected
     @@EndFieldLoop@@
@@ -458,18 +472,26 @@ class @!Classname!@Base : public @!Parent!@
             @@if field.isSField
 
                 @@if field.isPtrField
+                    @@if !field.isPublicRead
     @!field.MethodType:7!@       @!field.FullType!@ get@!field.Name:15!@(void) const;
+                    @@endif
                 @@else // field.isPtrField
     @!field.MethodType:7!@       @!field.FullType:19!@ &edit@!field.Name:15!@(void);
+                    @@if !field.isPublicRead
     @!field.MethodType:7!@ @!field.RetConst!@ @!field.FullType:19!@ @!field.RetRef!@get@!field.Name:15!@ (void) const;
+                    @@endif
                 @@endif // field.isPtrField
             @@else // field.isSField
 
                 @@if field.isPtrField
+                    @@if !field.isPublicRead
     @!field.MethodType:7!@       @!field.Type!@ get@!field.Name:15!@(const UInt32 index) const;
+                    @@endif
                 @@else // field.isPtrField
     @!field.MethodType:7!@       @!field.FullType:19!@ &edit@!field.Name:15!@(const UInt32 index);
+                    @@if !field.isPublicRead
     @!field.MethodType:7!@ @!field.RetConst!@ @!field.FullType:19!@ @!field.RetRef!@get@!field.Name:15!@ (const UInt32 index) const;
+                    @@endif
                 @@endif // field.isPtrField
             @@endif // field.isSField
         @@endif // field.isProtected

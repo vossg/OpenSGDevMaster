@@ -225,7 +225,7 @@ class FieldContainer(FCDElement):
             if field.isProtected():
                 self["hasProtectedFields"] = True;
             
-            if field.isPublic():
+            if field.isPublic() or field.isPublicRead():
                 self["hasPublicFields"] = True;
             
             if field.isPtrField() and field.hasAccess():

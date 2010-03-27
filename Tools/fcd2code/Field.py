@@ -165,6 +165,8 @@ class Field(FCDElement):
         self.setFCD("removeToSet",                    "false",    True);
         self.setFCD("pod",                            "(AUTO)",   True);
 
+        self.setFCD("publicRead",                     "false",   True);
+
         self.setFCD("clearMField",                    "true",     True);
       
         # are mf access functions for ptr field available (they might be user generated)
@@ -207,6 +209,13 @@ class Field(FCDElement):
     
     def isPublic(self):
         return self["access"] == "public";
+
+    def isPublicRead(self):
+        print("isPublicRead(self)", self["publicRead"] == "true" or isPublic());
+        return self["publicRead"] == "true" or isPublic();
+
+    def isPublicWrite(self):
+        return isPublic();
 
     def hasAccess(self):
         return self["access"] != "none";
@@ -400,6 +409,20 @@ class Field(FCDElement):
         else:
             self.m_log.warning("finalize: \"access\" has invalid value: >%s<", 
                 self.getFCD("access"));
+
+        #Public Read
+        if self.getFCD("publicRead") == "true" or self["isPublic"]:
+            self["publicRead"] = "true";
+            self["isPublicRead"] = True;
+        else:
+            self["publicRead"] = "false";
+            self["isPublicRead"] = False;
+
+        #Public Write
+        if "isPublic" in self and self["isPublic"]:
+            self["isPublicWrite"] = True;
+        else:
+            self["isPublicWrite"] = False;
                  
         if self.getFCD("description").strip() == "":
             self["Description"]     = "";
