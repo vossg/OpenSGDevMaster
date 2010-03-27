@@ -75,7 +75,6 @@ OutStream::~OutStream(void)
 {
 }
 
-inline
 OutStream &OutStream::operator<<(const Fixed32 &val)
 {
     (*_pBaseStream) << val.getValue();

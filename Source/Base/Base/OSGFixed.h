@@ -111,9 +111,8 @@ class OSG_BASE_DLLMAPPING Fixed32
     static Fixed32 cos(Fixed32 rhs);
     static Fixed32 tan(Fixed32 rhs);
 
-  protected:
-
     static Real32 toFloat(Fixed32 rhs);
+  protected:
 
     Fixed32(const Int32 source);
 
