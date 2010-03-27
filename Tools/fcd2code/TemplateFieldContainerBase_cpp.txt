@@ -1321,7 +1321,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
             @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
-@!field.Type!@ &@!Classname!@Base::edit@!field.Name!@(void)
+@!field.FullType!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
     editSField(@!field.Name!@FieldMask);
 
@@ -1329,14 +1329,14 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 }
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-@!field.RetConst!@ @!field.Type!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(void) const
+@!field.RetConst!@ @!field.FullType!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
 
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ @!field.ArgRef!@value)
+void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRef!@value)
 {
     editSField(@!field.Name!@FieldMask);
 
