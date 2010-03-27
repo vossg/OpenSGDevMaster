@@ -48,6 +48,7 @@
 #include "OSGMatrixFwd.h"
 
 #include <iostream>
+#include <vector>
 #include <iomanip>
 
 OSG_BEGIN_NAMESPACE
@@ -198,18 +199,34 @@ class QuaternionBase
     /*! \name                    Simple Math                               */
     /*! \{                                                                 */
 
-          ValueTypeT      length    (void                        ) const;
-          void            normalize (void                        );
+          ValueTypeT      length        (void                        ) const;
+          ValueTypeT      lengthSquared (void                        ) const;
+          void            normalize     (void                        );
+          ValueTypeT      dot           (const QuaternionBase &rValue) const;
 
           void            invert    (void                        );
-    const QuaternionBase  inverse   (void                        ) const;
+          QuaternionBase  inverse   (void                        ) const;
 
           void            multVec   (const VectorType &src,
                                            VectorType &dst       ) const;
 
           void            scaleAngle(      ValueTypeT scaleFactor);
 
+          //Spherical interpolation between two quaternions
+          //slerp is Not commutitive
+          //slerp has constant velocity with respect to t
+          //slerp is torque-minimal
           void            slerpThis (const QuaternionBase &rot0,
+                                     const QuaternionBase &rot1,
+                                     const ValueTypeT      t     );
+
+          //Normalized linear interpolation between two quaternions
+          //nlerp is commutitive
+          //nlerp does Not have constant velocity with respect to t
+          //nlerp is torque-minimal
+          //For small interpolations there is little difference between
+          //slerp,log-lerp, and nlerp.  nlerp is the fastest.
+          void            nlerpThis (const QuaternionBase &rot0,
                                      const QuaternionBase &rot1,
                                      const ValueTypeT      t     );
 
@@ -218,6 +235,14 @@ class QuaternionBase
 
           bool            equals    (const QuaternionBase &rot,
                                      const ValueTypeT tolerance  ) const;
+
+          QuaternionBase  conj   (void                        ) const;
+          QuaternionBase  exp    (void                        ) const;
+          QuaternionBase  log    (void                        ) const;
+
+          void            conjThis   (void                        );
+          void            expThis    (void                        );
+          void            logThis    (void                        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,7 +258,13 @@ class QuaternionBase
     /*! \{                                                                 */
 
     void operator *=(const QuaternionBase &other);
+    QuaternionBase operator*(const QuaternionBase &rValue) const;
+    QuaternionBase operator+(const QuaternionBase &rValue) const;
+    QuaternionBase operator-(const QuaternionBase &rValue) const;
+    QuaternionBase operator/(const QuaternionBase &rValue) const;
 
+    QuaternionBase operator*(const ValueTypeT &rightScalor) const;
+    QuaternionBase operator/(const ValueTypeT &rightScalor) const;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Assignment                                 */
@@ -250,11 +281,24 @@ class QuaternionBase
     bool operator != (const QuaternionBase &other) const;
 
     /*! \}                                                                 */
+    static void squad( const std::vector<QuaternionBase>& Q,
+                       const std::vector<Real32>& t, const Real32& s,
+                       QuaternionBase &result
+                       );
+
+    static QuaternionBase squad( const std::vector<QuaternionBase>& Q,
+                                 const std::vector<Real32>& t, const Real32& s
+                                 );
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
     static void slerp(const QuaternionBase &rot0,
+                      const QuaternionBase &rot1,
+                            QuaternionBase &result,
+                      const ValueTypeT      t);
+
+    static void nlerp(const QuaternionBase &rot0,
                       const QuaternionBase &rot1,
                             QuaternionBase &result,
                       const ValueTypeT      t);
@@ -278,6 +322,14 @@ class QuaternionBase
 
            ValueTypeT     _quat[4];
 };
+
+/*! \relates QuaternionBase
+ */
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    operator *(const ValueTypeT                val,
+               const QuaternionBase<ValueTypeT> &quat );
 
 /*! \relates QuaternionBase
  */

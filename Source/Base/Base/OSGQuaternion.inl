@@ -776,6 +776,26 @@ ValueTypeT QuaternionBase<ValueTypeT>::length(void) const
                    _quat[3] * _quat[3]);
 }
 
+//Length Squared of the quaternion
+template <class ValueTypeT> inline
+ValueTypeT QuaternionBase<ValueTypeT>::lengthSquared(void) const
+{
+    return _quat[0] * _quat[0] +
+           _quat[1] * _quat[1] +
+           _quat[2] * _quat[2] +
+           _quat[3] * _quat[3];
+}
+
+//dot product between two quaternions
+template <class ValueTypeT> inline
+ValueTypeT QuaternionBase<ValueTypeT>::dot(const QuaternionBase &rValue) const
+{
+    return _quat[0] * rValue._quat[0] +
+           _quat[1] * rValue._quat[1] +
+           _quat[2] * rValue._quat[2] +
+           _quat[3] * rValue._quat[3];
+}
+
 //! Norm the quaternion to be of unit length
 
 template <class ValueTypeT> inline
@@ -798,21 +818,87 @@ void QuaternionBase<ValueTypeT>::normalize(void)
     }
 }
 
+//! Changes a rotation to be its conjugate
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::conjThis(void)
+{
+    _quat[0] = -_quat[0];
+    _quat[1] = -_quat[1];
+    _quat[2] = -_quat[2];
+}
+
 //! Changes a rotation to be its inverse
 
 template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::invert(void)
 {
-    _quat[0] = -_quat[0];
-    _quat[1] = -_quat[1];
-    _quat[2] = -_quat[2];
-//    _quat[3] =  _quat[3];
+    ValueTypeT LengthSqr(lengthSquared());
+
+    if(LengthSqr < static_cast<ValueTypeT>(Eps))  { return; }
+
+    conjThis();
+
+    ValueTypeT LengthSqrInv(static_cast<ValueTypeT>(1.0)/LengthSqr);
+
+    _quat[0] * LengthSqrInv;
+    _quat[1] * LengthSqrInv;
+    _quat[2] * LengthSqrInv;
+    _quat[3] * LengthSqrInv;
+}
+
+//! calculates the exp of this quaternion
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::expThis(void)
+{
+    ValueTypeT Length1(osgSqrt( _quat[0] * _quat[0] +
+                                _quat[1] * _quat[1] +
+                                _quat[2] * _quat[2] ));
+    ValueTypeT Length2;
+
+    if( Length1 > static_cast<ValueTypeT>(0.0) )
+    {
+        Length2 = osgSin( Length1 )/Length1;
+    }
+    else
+    {
+        Length2 = static_cast<ValueTypeT>(1.0);
+    }
+
+    _quat[0] *= Length2;
+    _quat[1] *= Length2;
+    _quat[2] *= Length2;
+    _quat[3] = osgCos(Length1);
+}
+//! calculates the exp of this quaternion
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::logThis(void)
+{
+    ValueTypeT Length(osgSqrt( _quat[0] * _quat[0] +
+                               _quat[1] * _quat[1] +
+                               _quat[2] * _quat[2] ));
+   
+   if( osgAbs(_quat[3]) > static_cast<ValueTypeT>(Eps) )
+   {
+      Length = osgATan( Length/_quat[3] );
+   }
+   else
+   {
+      Length = static_cast<ValueTypeT>(1.570796326794897);
+   }
+   
+    _quat[0] *= Length;
+    _quat[1] *= Length;
+    _quat[2] *= Length;
+    _quat[3] = static_cast<ValueTypeT>(0.0);
 }
 
 //! Returns the inverse of a rotation
 
 template <class ValueTypeT> inline
-const QuaternionBase<ValueTypeT>QuaternionBase<ValueTypeT>::inverse(void) const
+QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::inverse(void) const
 {
     QuaternionBase returnValue(*this);
 
@@ -821,6 +907,41 @@ const QuaternionBase<ValueTypeT>QuaternionBase<ValueTypeT>::inverse(void) const
     return returnValue;
 }
 
+//! Returns the conj of a rotation
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::conj(void) const
+{
+    QuaternionBase returnValue(*this);
+
+    returnValue.conjThis();
+
+    return returnValue;
+}
+
+//! Returns the exp of a rotation
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>QuaternionBase<ValueTypeT>::exp(void) const
+{
+    QuaternionBase returnValue(*this);
+
+    returnValue.expThis();
+
+    return returnValue;
+}
+
+//! Returns the log of a rotation
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>QuaternionBase<ValueTypeT>::log(void) const
+{
+    QuaternionBase returnValue(*this);
+
+    returnValue.logThis();
+
+    return returnValue;
+}
 //! Puts the given vector through this rotation
 
 // this one should be optimized a little bit too (GV)
@@ -884,6 +1005,14 @@ void QuaternionBase<ValueTypeT>::slerpThis(const QuaternionBase &rot0,
 }
 
 template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::nlerpThis(const QuaternionBase &rot0,
+                                           const QuaternionBase &rot1,
+                                           const ValueTypeT      t)
+{
+    nlerp(rot0, rot1, *this, t);
+}
+
+template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::mult(const QuaternionBase &other)
 {
     mult(_quat, other._quat);
@@ -935,6 +1064,91 @@ void QuaternionBase<ValueTypeT>::operator *=(const QuaternionBase &other)
     mult(_quat, other._quat);
 }
 
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator*(const QuaternionBase &rValue) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+    Result *= rValue;
+    return Result;
+}
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator+(const QuaternionBase &rValue) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+
+    Result._quat[0] += rValue._quat[0];
+    Result._quat[1] += rValue._quat[1];
+    Result._quat[2] += rValue._quat[2];
+    Result._quat[3] += rValue._quat[3];
+
+    return Result;
+}
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator-(const QuaternionBase &rValue) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+
+    Result._quat[0] -= rValue._quat[0];
+    Result._quat[1] -= rValue._quat[1];
+    Result._quat[2] -= rValue._quat[2];
+    Result._quat[3] -= rValue._quat[3];
+
+    return Result;
+}
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator/(const QuaternionBase &rValue) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+
+    Result *= rValue.inverse();
+
+    return Result;
+}
+
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator*(const ValueTypeT &rightScalor) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+
+    Result._quat[0] *= rightScalor;
+    Result._quat[1] *= rightScalor;
+    Result._quat[2] *= rightScalor;
+    Result._quat[3] *= rightScalor;
+
+    return Result;
+}
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT>
+    QuaternionBase<ValueTypeT>::operator/(const ValueTypeT &rightScalor) const
+{
+    QuaternionBase<ValueTypeT> Result(*this);
+
+    Result._quat[0] /= rightScalor;
+    Result._quat[1] /= rightScalor;
+    Result._quat[2] /= rightScalor;
+    Result._quat[3] /= rightScalor;
+
+    return Result;
+}
+
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT> operator *(const ValueTypeT                val,
+                                      const QuaternionBase<ValueTypeT> &quat )
+{
+    return quat * val;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
@@ -970,6 +1184,68 @@ bool QuaternionBase<ValueTypeT>::operator !=(const QuaternionBase &other) const
 
 /*-------------------------------------------------------------------------*/
 /*                               Helper                                    */
+
+template <class ValueTypeT> inline
+QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::squad( const std::vector<QuaternionBase>& Q, const std::vector<Real32>& t, const Real32& s)
+{
+    UInt8 i(1);
+
+    //Get the Tangent Quats
+    QuaternionBase Ti = ( log( inverse(Q[i])*Q[i+1] ) + log( inverse(Q[i-1])*Q[i] ) )/static_cast<ValueTypeT>(2.0);
+
+
+    //Get the Scaling values
+    ValueTypeT Fnegi;
+    if(t[i-1] == t[i+1])
+    {
+        Fnegi = 0.0;
+    }
+    else
+    {
+        Fnegi = static_cast<ValueTypeT>(2.0) * (t[i+1] - t[i])/(t[i+1] - t[i-1]);
+    }
+
+    QuaternionBase TanIncoming( Fnegi * Ti );
+
+    QuaternionBase ai = Q[i] * exp( (TanIncoming - log(inverse(Q[i])*Q[i+1]))/static_cast<ValueTypeT>(2.0) );
+
+    //bi+1
+    QuaternionBase Tiplus1 = ( log( inverse(Q[i+1])*Q[i+2] ) + log( inverse(Q[i])*Q[i+1] ) )/static_cast<ValueTypeT>(2.0);
+
+    //Get the Scaling values
+    ValueTypeT Fposiplus1;
+    if(t[i+2] == t[i])
+    {
+        Fposiplus1 = 0.0;
+    }
+    else
+    {
+        Fposiplus1 = static_cast<ValueTypeT>(2.0) * (t[i+1] - t[i])/(t[i+2] - t[i]);
+    }
+
+    QuaternionBase TanOutgoingplus1( Fposiplus1 * Tiplus1 );
+
+    QuaternionBase biplus1 = Q[i+1] * exp( (log(inverse(Q[i])*Q[i+1]) - TanOutgoingplus1)/static_cast<ValueTypeT>(2.0) );
+
+    //slerps
+    return slerp( slerp(Q[i], Q[i+1], s), slerp(ai, biplus1, s), (static_cast<ValueTypeT>(2.0)*s*(static_cast<ValueTypeT>(1.0)-s)) );
+}
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::squad( const std::vector<QuaternionBase>& Q, const std::vector<Real32>& t, const Real32& s, QuaternionBase& Result )
+{
+    Result = squad(Q,t,s);
+}
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::nlerp(const QuaternionBase &rot0,
+                                       const QuaternionBase &rot1,
+                                             QuaternionBase &result,
+                                       const ValueTypeT      t     )
+{
+    result = rot0*(static_cast<ValueTypeT>(1.0)-t) + rot1*t;
+    result.normalize();
+}
 
 //! The actual internal slerp code
 
