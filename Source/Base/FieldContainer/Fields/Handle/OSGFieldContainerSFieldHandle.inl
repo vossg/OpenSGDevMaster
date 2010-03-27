@@ -100,6 +100,12 @@ void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
     OSG_ASSERT(false);
 }
 
+inline
+UInt32 GetSFieldHandle<FieldContainerPtrSFieldBase>::getSize(void) const
+{
+    return 1;
+}
+
 /*---------------------------------------------------------------------------*/
 /* Comparison                                                                */
 
@@ -209,6 +215,12 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
     FWARNING(("illegal pushSizeToStream called for %s\n", 
               this->getName().c_str()));
     OSG_ASSERT(false);
+}
+
+inline
+UInt32 EditSFieldHandle<FieldContainerPtrSFieldBase>::getSize(void) const
+{
+    return 1;
 }
 
 inline

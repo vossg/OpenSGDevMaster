@@ -95,6 +95,7 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 
     virtual void pushValueToStream(OutStream &str) const;
     virtual void pushSizeToStream (OutStream &str) const;
+    virtual UInt32 getSize          (void          ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,6 +207,7 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
     virtual void pushValueToStream   (      OutStream &str) const;
     virtual void pushSizeToStream    (      OutStream &str) const;
+    virtual UInt32 getSize          (void          ) const;
     
     virtual void pushValueFromCString(const Char8     *str);
         

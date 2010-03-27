@@ -76,6 +76,11 @@ FieldType::Cardinality FieldHandle::getCardinality(void) const
 }
 
 
+inline
+FieldType::Class FieldHandle::getClass(void) const
+{
+    return getType().getClass();
+}
 
 inline
 std::string FieldHandle::getName(void) const
@@ -233,6 +238,12 @@ GetMapFieldHandle::~GetMapFieldHandle(void)
 {
 }
 
+inline
+UInt32 GetMapFieldHandle::getSize(void) const
+{
+    return 1;
+}
+
 /*---------------------------------------------------------------------*/
 
 inline
@@ -256,6 +267,12 @@ EditMapFieldHandle::EditMapFieldHandle(
 inline
 EditMapFieldHandle::~EditMapFieldHandle(void)
 {
+}
+
+inline
+UInt32 EditMapFieldHandle::getSize(void) const
+{
+    return 1;
 }
 
 /*---------------------------------------------------------------------*/
@@ -304,6 +321,12 @@ template<class FieldT> inline
 void EditSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 {
     static_cast<FieldT *>(_pField)->pushSizeToStream(str);
+}
+
+template<class FieldT> inline
+UInt32 EditSFieldHandle<FieldT>::getSize(void) const
+{
+    return 1;
 }
 
 template<class FieldT> inline
@@ -431,6 +454,12 @@ void EditMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
+UInt32 EditMFieldHandle<FieldT>::getSize(void) const
+{
+    return static_cast<FieldT const *>(_pField)->getSize();
+}
+
+template<class FieldT> inline
 bool EditMFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditMFieldHandle>(rhs);
@@ -555,6 +584,12 @@ void GetSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
+UInt32 GetSFieldHandle<FieldT>::getSize(void) const
+{
+    return 1;
+}
+
+template<class FieldT> inline
 bool GetSFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
@@ -634,6 +669,12 @@ template<class FieldT> inline
 void GetMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 {
     static_cast<FieldT const *>(_pField)->pushSizeToStream(str);
+}
+
+template<class FieldT> inline
+UInt32 GetMFieldHandle<FieldT>::getSize(void) const
+{
+    return static_cast<FieldT const *>(_pField)->getSize();
 }
 
 template<class FieldT> inline
