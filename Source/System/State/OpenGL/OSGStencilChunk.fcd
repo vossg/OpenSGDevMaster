@@ -4,7 +4,7 @@
 	name="StencilChunk"
 	parent="StateChunk"
 	library="State"
-	pointerfieldtypes="none"
+    pointerfieldtypes="both"
 	structure="concrete"
 	systemcomponent="true"
 	parentsystemcomponent="true"

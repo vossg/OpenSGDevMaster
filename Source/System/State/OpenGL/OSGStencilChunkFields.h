@@ -87,16 +87,132 @@ struct FieldTraits<StencilChunk *> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStencilChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStencilChunkPtr"; }
 };
 
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecStencilChunkPtr"; 
+}
 
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakStencilChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StencilChunk *, 0>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdStencilChunkPtr"; 
+}
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
+typedef PointerSField<StencilChunk *,
+                      RecordedRefCountPolicy  > SFRecStencilChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
+typedef PointerSField<StencilChunk *,
+                      UnrecordedRefCountPolicy> SFUnrecStencilChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
+typedef PointerSField<StencilChunk *,
+                      WeakRefCountPolicy      > SFWeakStencilChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
+typedef PointerSField<StencilChunk *,
+                      NoRefCountPolicy        > SFUncountedStencilChunkPtr;
+
+
+/*! \ingroup GrpStateFieldMFields */
+typedef PointerMField<StencilChunk *,
+                      RecordedRefCountPolicy  > MFRecStencilChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
+typedef PointerMField<StencilChunk *,
+                      UnrecordedRefCountPolicy> MFUnrecStencilChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
+typedef PointerMField<StencilChunk *,
+                      WeakRefCountPolicy      > MFWeakStencilChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
+typedef PointerMField<StencilChunk *,
+                      NoRefCountPolicy        > MFUncountedStencilChunkPtr;
+
 
 
 
 #else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecStencilChunkPtr : 
+    public PointerSField<StencilChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecStencilChunkPtr : 
+    public PointerSField<StencilChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakStencilChunkPtr :
+    public PointerSField<StencilChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedStencilChunkPtr :
+    public PointerSField<StencilChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecStencilChunkPtr :
+    public PointerMField<StencilChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecStencilChunkPtr :
+    public PointerMField<StencilChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakStencilChunkPtr :
+    public PointerMField<StencilChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedStencilChunkPtr :
+    public PointerMField<StencilChunk *,
+                         NoRefCountPolicy        > {};
 
 
 

@@ -135,6 +135,14 @@ DataType FieldTraits<StencilChunk *>::_type("StencilChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StencilChunk *)
 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StencilChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StencilChunk *,
+                           0);
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -265,7 +273,7 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     "\tname=\"StencilChunk\"\n"
     "\tparent=\"StateChunk\"\n"
     "\tlibrary=\"State\"\n"
-    "\tpointerfieldtypes=\"none\"\n"
+    "    pointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
