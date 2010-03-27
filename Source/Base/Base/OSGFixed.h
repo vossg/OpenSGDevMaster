@@ -105,15 +105,16 @@ class OSG_BASE_DLLMAPPING Fixed32
     Int32 getValue(void      ) const;
     void  setValue(Int32 iVal);
 
-    static Fixed32 abs(Fixed32 rhs);
+    static Fixed32 abs (Fixed32 rhs);
     static Fixed32 sqrt(Fixed32 rhs);
 
     static Fixed32 sin(Fixed32 rhs);
     static Fixed32 cos(Fixed32 rhs);
     static Fixed32 tan(Fixed32 rhs);
 
-    static Real32 toFloat(Fixed32 rhs);
+    static Real32 toFloat (Fixed32 rhs);
     static Real64 toDouble(Fixed32 rhs);
+
   protected:
 
     Fixed32(const Int32 source);

@@ -95,14 +95,14 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<FieldContainerPtrSFieldBase> :
 
     virtual void pushValueToStream(OutStream &str) const;
     virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Comparison                                                   */
     /*! \{                                                                 */
 
-    virtual bool equal(Inherited::Ptr rhs) const;
+    virtual bool   equal(Inherited::Ptr rhs) const;
+    virtual UInt32 size (void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -183,7 +183,6 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     virtual void pushValueToStream   (      OutStream &str) const;
     virtual void pushSizeToStream    (      OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
 
     virtual void pushValueFromCString(const Char8     *str);
     
@@ -192,7 +191,8 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
     /*! \name Comparison                                                   */
     /*! \{                                                                 */
 
-    virtual bool equal(Inherited::Ptr rhs) const;
+    virtual bool   equal(Inherited::Ptr rhs) const;
+    virtual UInt32 size (void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

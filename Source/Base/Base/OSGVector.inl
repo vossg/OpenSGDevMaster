@@ -1049,7 +1049,7 @@ Point <ValueTypeT, SizeI>
 template <class  ValueTypeT,
           UInt32 SizeI      > inline
 Point<ValueTypeT, SizeI>
-    Point<ValueTypeT, SizeI>::operator -(void)
+    Point<ValueTypeT, SizeI>::operator -(void) const
 {
     Point<ValueTypeT, SizeI> returnValue;
 

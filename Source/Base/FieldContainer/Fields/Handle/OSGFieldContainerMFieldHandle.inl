@@ -97,12 +97,6 @@ void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushSizeToStream(
 }
 
 inline
-UInt32 GetMFieldHandle<FieldContainerPtrMFieldBase>::getSize(void) const
-{
-    return static_cast<const FieldContainerPtrMFieldBase *>(_pField)->getSize();
-}
-
-inline
 bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(
     Inherited::Ptr rhs) const
 {
@@ -205,12 +199,6 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::pushSizeToStream(
     FWARNING(("illegal pushSizeToStream called for %s\n", 
               this->getName().c_str()));
     OSG_ASSERT(false);
-}
-
-inline
-UInt32 EditMFieldHandle<FieldContainerPtrMFieldBase>::getSize(void) const
-{
-    return static_cast<const FieldContainerPtrMFieldBase *>(_pField)->getSize();
 }
 
 inline

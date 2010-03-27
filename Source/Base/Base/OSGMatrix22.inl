@@ -39,7 +39,10 @@
 OSG_BEGIN_NAMESPACE
 
 template<class FloatTypeT> inline
-Matrix22<FloatTypeT>::Matrix22(FloatTypeT a11, FloatTypeT a12, FloatTypeT a21, FloatTypeT a22)
+Matrix22<FloatTypeT>::Matrix22(FloatTypeT a11, 
+                               FloatTypeT a12, 
+                               FloatTypeT a21, 
+                               FloatTypeT a22)
 {
     _Values[0] = a11;
     _Values[1] = a12;
@@ -50,31 +53,40 @@ Matrix22<FloatTypeT>::Matrix22(FloatTypeT a11, FloatTypeT a12, FloatTypeT a21, F
 template<class FloatTypeT> inline
 FloatTypeT Matrix22<FloatTypeT>::det(void) const
 {
-    return _Values[0]*_Values[3] - _Values[1]*_Values[2];
+    return _Values[0] * _Values[3] - _Values[1] * _Values[2];
 }
 
 template<class FloatTypeT> inline
 Matrix22<FloatTypeT> Matrix22<FloatTypeT>::inverse(void) const
 {
-    return Matrix22<FloatTypeT>(_Values[3], -_Values[1], -_Values[2], _Values[0]);
+    return Matrix22<FloatTypeT>( _Values[3], 
+                                -_Values[1], 
+                                -_Values[2], 
+                                 _Values[0]);
 }
 
 template<class FloatTypeT> inline
-typename Matrix22<FloatTypeT>::VectorType Matrix22<FloatTypeT>::mult(const VectorType& src) const
+typename Matrix22<FloatTypeT>::VectorType 
+    Matrix22<FloatTypeT>::mult(const VectorType &src) const
 {
-    return VectorType(_Values[0]*src[0] + _Values[1]*src[1], _Values[2]*src[0]+_Values[3]*src[1]);
+    return VectorType(_Values[0] * src[0] + _Values[1] * src[1], 
+                      _Values[2] * src[0] + _Values[3] * src[1]);
 }
 
 template<class FloatTypeT> inline
-typename Matrix22<FloatTypeT>::VectorType Matrix22<FloatTypeT>::operator*(const VectorType& src) const
+typename Matrix22<FloatTypeT>::VectorType 
+    Matrix22<FloatTypeT>::operator*(const VectorType &src) const
 {
-    return VectorType(_Values[0]*src[0] + _Values[1]*src[1], _Values[2]*src[0]+_Values[3]*src[1]);
+    return VectorType(_Values[0] * src[0] + _Values[1] * src[1], 
+                      _Values[2] * src[0] + _Values[3] * src[1]);
 }
 
 template<class FloatTypeT> inline
-typename Matrix22<FloatTypeT>::PointType Matrix22<FloatTypeT>::operator*(const PointType& src) const
+typename Matrix22<FloatTypeT>::PointType 
+    Matrix22<FloatTypeT>::operator*(const PointType &src) const
 {
-    return PointType(_Values[0]*src[0] + _Values[1]*src[1], _Values[2]*src[0]+_Values[3]*src[1]);
+    return PointType(_Values[0] * src[0] + _Values[1] * src[1], 
+                     _Values[2] * src[0] + _Values[3] * src[1]);
 }
 
 OSG_END_NAMESPACE

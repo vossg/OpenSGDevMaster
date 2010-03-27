@@ -472,20 +472,20 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>
     /*! \name                   Common Math                                */
     /*! \{                                                                 */
 
-          bool            isZero  (      void                     ) const;
+          bool            isZero  (      void                 ) const;
 
-          void            negate  (      void                     );
+          void            negate  (      void                 );
 
           bool            equals  (const Point      &pnt,
-                                   const ValueType       tolerance) const;
+                                   const ValueType   tolerance) const;
 
-          VectorType     &subZero (      void                     );
-    const VectorType     &subZero (      void                     ) const;
+          VectorType     &subZero (      void                 );
+    const VectorType     &subZero (      void                 ) const;
 
-          RealReturnType  dist    (const Point &pnt      ) const;
-          RealReturnType  dist2   (const Point &pnt      ) const;
+          RealReturnType  dist    (const Point      &pnt      ) const;
+          RealReturnType  dist2   (const Point      &pnt      ) const;
 
-          RealReturnType  maxValue(      void                     ) const;
+          RealReturnType  maxValue(      void                 ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -505,7 +505,7 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>
 
     Point      operator / (const ValueType   val) const;
 
-    Point      operator - (void                 );
+    Point      operator - (      void           ) const;
 
     void       operator +=(const VectorType &vec);
     void       operator -=(const VectorType &vec);
@@ -643,26 +643,26 @@ class Vector : public Point<ValueTypeT, SizeI>
     /*! \name                   Common Math                                */
     /*! \{                                                                 */
 
-    RealReturnType length       (      void            ) const;
-    RealReturnType squareLength (      void            ) const;
+    RealReturnType length       (      void             ) const;
+    RealReturnType squareLength (      void             ) const;
 
-    void           normalize    (      void            );
+    void           normalize    (      void             );
 
-    Vector         cross        (const Vector    &vec  ) const;
-    Vector         operator %   (const Vector    &vec  ) const;
+    Vector         cross        (const Vector    &vec   ) const;
+    Vector         operator %   (const Vector    &vec   ) const;
 
-    void           crossThis    (const Vector    &vec  );
+    void           crossThis    (const Vector    &vec   );
 
-    ValueType      dot          (const Vector    &vec  ) const;
-    ValueType      operator *   (const Vector    &vec  ) const;
-    ValueType      dot          (const PointType &pnt  ) const;
-    ValueType      operator *   (const PointType &pnt  ) const;
+    ValueType      dot          (const Vector    &vec   ) const;
+    ValueType      operator *   (const Vector    &vec   ) const;
+    ValueType      dot          (const PointType &pnt   ) const;
+    ValueType      operator *   (const PointType &pnt   ) const;
 
-    RealReturnType enclosedAngle(const Vector    &vec  ) const;
+    RealReturnType enclosedAngle(const Vector    &vec   ) const;
 
-    RealReturnType projectTo    (const Vector    &toVec);
+    RealReturnType projectTo    (const Vector    &toVec );
 
-    Vector reflect(const Vector& Normal) const;
+    Vector         reflect      (const Vector    &Normal) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

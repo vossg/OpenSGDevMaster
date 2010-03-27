@@ -127,60 +127,60 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt           (OSG::Matrix &result,
     \relatesalso TransformationMatrix
  */
 OSG_BASE_DLLMAPPING bool MatrixProjection       (OSG::Matrix &result, 
-                                                 OSG::Real32 rLeft,
-                                                 OSG::Real32 rRight, 
-                                                 OSG::Real32 rBottom,
-                                                 OSG::Real32 rTop,  
-                                                 OSG::Real32 rNear,
-                                                 OSG::Real32 rFar          );
+                                                 OSG::Real32  rLeft,
+                                                 OSG::Real32  rRight, 
+                                                 OSG::Real32  rBottom,
+                                                 OSG::Real32  rTop,  
+                                                 OSG::Real32  rNear,
+                                                 OSG::Real32  rFar         );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void makeViewFromUVND       (Matrix& Result,
-                                                 const Vec3f& U,
-                                                 const Vec3f& V,
-                                                 const Vec3f& N,
-                                                 const Vec3f& D);
+OSG_BASE_DLLMAPPING void makeViewFromUVND       (      Matrix &Result,
+                                                 const Vec3f  &U,
+                                                 const Vec3f  &V,
+                                                 const Vec3f  &N,
+                                                 const Vec3f  &D           );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void makeViewFromUVNP       (Matrix& Result,
-                                                 const Vec3f& U,
-                                                 const Vec3f& V,
-                                                 const Vec3f& N,
-                                                 const Pnt3f& P);
+OSG_BASE_DLLMAPPING void makeViewFromUVNP       (      Matrix &Result,
+                                                 const Vec3f  &U,
+                                                 const Vec3f  &V,
+                                                 const Vec3f  &N,
+                                                 const Pnt3f  &P           );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void getUVNDFromMat         (const Matrix& Mat,
-                                                 Vec3f& U,
-                                                 Vec3f& V,
-                                                 Vec3f& N,
-                                                 Vec3f& D);
+OSG_BASE_DLLMAPPING void getUVNDFromMat         (const Matrix &Mat,
+                                                       Vec3f  &U,
+                                                       Vec3f  &V,
+                                                       Vec3f  &N,
+                                                       Vec3f  &D           );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void getUVNPFromMat         (const Matrix& Mat,
-                                                 Vec3f& U,
-                                                 Vec3f& V,
-                                                 Vec3f& N,
-                                                 Pnt3f& P);
+OSG_BASE_DLLMAPPING void getUVNPFromMat         (const Matrix &Mat,
+                                                       Vec3f  &U,
+                                                       Vec3f  &V,
+                                                       Vec3f  &N,
+                                                       Pnt3f  &P           );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void getPFromViewMat        (Pnt3f& P,
-                                                 const Matrix& Mat);
+OSG_BASE_DLLMAPPING void getPFromViewMat        (      Pnt3f  &P,
+                                                 const Matrix &Mat         );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING void setViewMatEyePos       (Matrix& Result,
-                                                 const Pnt3f& P);
+OSG_BASE_DLLMAPPING void setViewMatEyePos       (      Matrix &Result,
+                                                 const Pnt3f  &P           );
 
 /*! \} 
  */

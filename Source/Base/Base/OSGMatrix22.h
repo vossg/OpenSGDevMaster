@@ -1,4 +1,3 @@
-
 /*---------------------------------------------------------------------------*\
  *                                OpenSG                                     *
  *                                                                           *
@@ -36,12 +35,12 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+
 #ifndef _OSGMATRIX22_H_
 #define _OSGMATRIX22_H_
 #ifdef __sgi
 #pragma once
 #endif
-
 
 #include <cstdlib>
 #include <cstdio>
@@ -58,22 +57,27 @@ OSG_BEGIN_NAMESPACE
 template <class FloatTypeT>
 class Matrix22
 {
-public:
-	typedef Vector< Real32, 2 > VectorType;
-	typedef Point< Real32, 2 > PointType;
+  public:
 
-	Matrix22(FloatTypeT a11, FloatTypeT a12, FloatTypeT a21, FloatTypeT a22);
+    typedef Vector<Real32, 2> VectorType;
+    typedef Point <Real32, 2> PointType;
 
-	FloatTypeT det(void) const;
-	
-	Matrix22<FloatTypeT > inverse(void) const;
-	
-	VectorType mult(const VectorType& src) const;
 
-	VectorType operator*(const VectorType& src) const;
-	PointType operator*(const PointType& src) const;
-private:
-	FloatTypeT _Values[4];
+    Matrix22(FloatTypeT a11, FloatTypeT a12, FloatTypeT a21, FloatTypeT a22);
+    
+
+    FloatTypeT            det       (      void           ) const;
+    
+    Matrix22<FloatTypeT > inverse   (      void           ) const;
+    
+    VectorType            mult      (const VectorType &src) const;
+    
+    VectorType            operator *(const VectorType &src) const;
+    PointType             operator *(const PointType  &src) const;
+
+  private:
+    
+    FloatTypeT _Values[4];
 };
 
 typedef Matrix22<Real32> Matrix22f;

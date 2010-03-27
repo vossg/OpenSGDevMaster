@@ -84,19 +84,19 @@ class QuaternionBase
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static const QuaternionBase &identity(void                          );
+    static const QuaternionBase &identity(void                      );
 
     static       QuaternionBase slerp    (const QuaternionBase &rot0,
                                           const QuaternionBase &rot1,
-                                          const ValueTypeT      t       );
+                                          const ValueTypeT      t   );
     static       QuaternionBase nlerp    (const QuaternionBase &rot0,
                                           const QuaternionBase &rot1,
-                                          const ValueTypeT      t       );
+                                          const ValueTypeT      t   );
 
-    static QuaternionBase  inverse   (const QuaternionBase& val);
-    static QuaternionBase  log   (const QuaternionBase& val);
-    static QuaternionBase  exp   (const QuaternionBase& val);
-    static QuaternionBase  conj   (const QuaternionBase& val);
+    static       QuaternionBase  inverse (const QuaternionBase &val );
+    static       QuaternionBase  log     (const QuaternionBase &val );
+    static       QuaternionBase  exp     (const QuaternionBase &val );
+    static       QuaternionBase  conj    (const QuaternionBase &val );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -211,50 +211,40 @@ class QuaternionBase
     /*! \name                    Simple Math                               */
     /*! \{                                                                 */
 
-          ValueTypeT      length        (void                        ) const;
-          ValueTypeT      lengthSquared (void                        ) const;
-          void            normalize     (void                        );
-          ValueTypeT      dot           (const QuaternionBase &rValue) const;
+          ValueTypeT     length       (      void                       ) const;
+          ValueTypeT     lengthSquared(      void                       ) const;
+          void           normalize    (      void                       );
+          ValueTypeT     dot          (const QuaternionBase &rValue     ) const;
 
-          void            invert    (void                        );
-          QuaternionBase  inverse   (void                        ) const;
+          void           invert       (      void                       );
+          QuaternionBase inverse      (      void                       ) const;
 
-          void            multVec   (const VectorType &src,
-                                           VectorType &dst       ) const;
+          void           multVec      (const VectorType     &src,
+                                              VectorType    &dst        ) const;
 
-          void            scaleAngle(      ValueTypeT scaleFactor);
+          void           scaleAngle   (      ValueTypeT      scaleFactor);
 
-          //Spherical interpolation between two quaternions
-          //slerp is Not commutitive
-          //slerp has constant velocity with respect to t
-          //slerp is torque-minimal
-          void            slerpThis (const QuaternionBase &rot0,
-                                     const QuaternionBase &rot1,
-                                     const ValueTypeT      t     );
+          void           slerpThis    (const QuaternionBase &rot0,
+                                       const QuaternionBase &rot1,
+                                       const ValueTypeT      t          );
 
-          //Normalized linear interpolation between two quaternions
-          //nlerp is commutitive
-          //nlerp does Not have constant velocity with respect to t
-          //nlerp is torque-minimal
-          //For small interpolations there is little difference between
-          //slerp,log-lerp, and nlerp.  nlerp is the fastest.
-          void            nlerpThis (const QuaternionBase &rot0,
-                                     const QuaternionBase &rot1,
-                                     const ValueTypeT      t     );
+          void           nlerpThis    (const QuaternionBase &rot0,
+                                       const QuaternionBase &rot1,
+                                       const ValueTypeT      t          );
 
-          void            mult      (const QuaternionBase &other );
-          void            multLeft  (const QuaternionBase &other );
+          void           mult         (const QuaternionBase &other      );
+          void           multLeft     (const QuaternionBase &other      );
 
-          bool            equals    (const QuaternionBase &rot,
-                                     const ValueTypeT tolerance  ) const;
+          bool           equals       (const QuaternionBase &rot,
+                                       const ValueTypeT      tolerance  ) const;
 
-          QuaternionBase  conj   (void                        ) const;
-          QuaternionBase  exp    (void                        ) const;
-          QuaternionBase  log    (void                        ) const;
+          QuaternionBase conj         (      void                       ) const;
+          QuaternionBase exp          (      void                       ) const;
+          QuaternionBase log          (      void                       ) const;
 
-          void            conjThis   (void                        );
-          void            expThis    (void                        );
-          void            logThis    (void                        );
+          void           conjThis     (      void                       );
+          void           expThis      (      void                       );
+          void           logThis      (      void                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,20 +259,20 @@ class QuaternionBase
     /*! \name                   Math Operators                             */
     /*! \{                                                                 */
 
-    void operator *=(const QuaternionBase &other);
-    QuaternionBase operator*(const QuaternionBase &rValue) const;
-    QuaternionBase operator+(const QuaternionBase &rValue) const;
-    QuaternionBase operator-(const QuaternionBase &rValue) const;
-    QuaternionBase operator/(const QuaternionBase &rValue) const;
+    void           operator *=(const QuaternionBase &other      );
+    QuaternionBase operator * (const QuaternionBase &rValue     ) const;
+    QuaternionBase operator + (const QuaternionBase &rValue     ) const;
+    QuaternionBase operator - (const QuaternionBase &rValue     ) const;
+    QuaternionBase operator / (const QuaternionBase &rValue     ) const;
 
-    QuaternionBase operator*(const ValueTypeT &rightScalor) const;
-    QuaternionBase operator/(const ValueTypeT &rightScalor) const;
+    QuaternionBase operator * (const ValueTypeT     &rightScalor) const;
+    QuaternionBase operator / (const ValueTypeT     &rightScalor) const;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Assignment                                 */
     /*! \{                                                                 */
 
-    QuaternionBase& operator = (const QuaternionBase &source);
+    QuaternionBase &operator =(const QuaternionBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,14 +283,17 @@ class QuaternionBase
     bool operator != (const QuaternionBase &other) const;
 
     /*! \}                                                                 */
-    static void squad( const std::vector<QuaternionBase>& Q,
-                       const std::vector<Real32>& t, const Real32& s,
-                       QuaternionBase &result
-                       );
+    /*---------------------------------------------------------------------*/
 
-    static QuaternionBase squad( const std::vector<QuaternionBase>& Q,
-                                 const std::vector<Real32>& t, const Real32& s
-                                 );
+    static void           squad(const std::vector<QuaternionBase> &Q,
+                                const std::vector<Real32        > &t, 
+                                const      Real32                 &s,
+                                           QuaternionBase         &result);
+
+    static QuaternionBase squad(const std::vector<QuaternionBase> &Q,
+                                const std::vector<Real32        > &t, 
+                                const      Real32                 &s     );
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:

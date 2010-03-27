@@ -112,7 +112,8 @@ class OSG_BASE_DLLMAPPING FieldHandle
 
     virtual void   pushValueToStream(OutStream &str) const = 0;
     virtual void   pushSizeToStream (OutStream &str) const = 0;
-    virtual UInt32 getSize          (void          ) const = 0;
+
+    virtual UInt32 size             (void          ) const = 0;
 };
 
 
@@ -275,8 +276,6 @@ class GetMapFieldHandle : public GetFieldHandle
     
     void operator =(const GetMapFieldHandle &source);
 
-    virtual UInt32 getSize          (void          ) const;
-
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -313,9 +312,11 @@ class GetMapFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void                ) = 0;
-    virtual void flatten(MapList       &vList) = 0;
-    virtual void flatten(ContainerList &vList) = 0;
+    virtual bool   empty  (void                ) = 0;
+    virtual void   flatten(MapList       &vList) = 0;
+    virtual void   flatten(ContainerList &vList) = 0;
+
+    virtual UInt32 size   (void                ) const;
 
     /*---------------------------------------------------------------------*/
 };
@@ -336,8 +337,6 @@ class EditMapFieldHandle : public EditFieldHandle
   private:
     
     void operator =(const EditMapFieldHandle &source);
-
-    virtual UInt32 getSize          (void          ) const;
 
     /*=========================  PROTECTED  ===============================*/
 
@@ -381,9 +380,11 @@ class EditMapFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void                ) = 0;
-    virtual void flatten(MapList       &vList) = 0;
-    virtual void flatten(ContainerList &vList) = 0;
+    virtual bool   empty  (void                ) = 0;
+    virtual void   flatten(MapList       &vList) = 0;
+    virtual void   flatten(ContainerList &vList) = 0;
+
+    virtual UInt32 size   (void                ) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -395,7 +396,7 @@ class EditMapFieldHandle : public EditFieldHandle
 
     virtual void fillFrom   (const std::vector<UInt16>      &vBindings,
                              const std::vector<UInt32>      &vIds,
-                             const std::map<UInt32, UInt32> &vIdMap       ) = 0;
+                             const std::map<UInt32, UInt32> &vIdMap        )= 0;
 
     /*---------------------------------------------------------------------*/
 };
@@ -448,9 +449,9 @@ class EditSFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual void pushValueToStream(OutStream &str) const;
-    virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
+    virtual void   pushValueToStream(OutStream &str) const;
+    virtual void   pushSizeToStream (OutStream &str) const;
+    virtual UInt32 size             (void          ) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -525,9 +526,9 @@ class EditMFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual void pushValueToStream(OutStream &str) const;
-    virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
+    virtual void   pushValueToStream(OutStream &str) const;
+    virtual void   pushSizeToStream (OutStream &str) const;
+    virtual UInt32 size             (void          ) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -600,9 +601,9 @@ class GetSFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual void pushValueToStream(OutStream &str) const;
-    virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
+    virtual void   pushValueToStream(OutStream &str) const;
+    virtual void   pushSizeToStream (OutStream &str) const;
+    virtual UInt32 size             (void          ) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -660,9 +661,9 @@ class GetMFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual void pushValueToStream(OutStream &str) const;
-    virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
+    virtual void   pushValueToStream(OutStream &str) const;
+    virtual void   pushSizeToStream (OutStream &str) const;
+    virtual UInt32 size             (void          ) const;
 
     /*---------------------------------------------------------------------*/
 

@@ -100,12 +100,6 @@ void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
     OSG_ASSERT(false);
 }
 
-inline
-UInt32 GetSFieldHandle<FieldContainerPtrSFieldBase>::getSize(void) const
-{
-    return 1;
-}
-
 /*---------------------------------------------------------------------------*/
 /* Comparison                                                                */
 
@@ -127,6 +121,12 @@ bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
         static_cast<FieldContainerPtrSFieldBase const *>(pOther->_pField);
 
     return (*pLhs) == (*pRhs);
+}
+
+inline
+UInt32 GetSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
+{
+    return 1;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -217,11 +217,6 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
     OSG_ASSERT(false);
 }
 
-inline
-UInt32 EditSFieldHandle<FieldContainerPtrSFieldBase>::getSize(void) const
-{
-    return 1;
-}
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushValueFromCString(
@@ -253,6 +248,12 @@ bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(
         static_cast<FieldContainerPtrSFieldBase *>(pOther->_pField);
 
     return (*pLhs) == (*pRhs);
+}
+
+inline
+UInt32 EditSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
+{
+    return 1;
 }
 
 /*---------------------------------------------------------------------------*/

@@ -95,8 +95,6 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 
     virtual void pushValueToStream(OutStream &str) const;
     virtual void pushSizeToStream (OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Comparison                                                   */
@@ -110,7 +108,6 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
     /*! \{                                                                 */
     
     virtual FieldContainer *get    (UInt32          index     ) const = 0;
-    virtual UInt32          size   (void                      ) const = 0;
     virtual Int32           find   (FieldContainer *existingFC) const = 0;
 
     const FieldContainerPtrMFieldBase *getField   (void);
@@ -186,7 +183,6 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     /*! \{                                                                 */
 
     virtual FieldContainer *get (UInt32          index     ) const = 0;
-    virtual UInt32          size(void                      ) const = 0;
     virtual Int32           find(FieldContainer *existingFC) const = 0;
     
     virtual bool add          (FieldContainer *newFC      ) const = 0;
@@ -205,11 +201,10 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     /*! \name Stream/String IO                                             */
     /*! \{                                                                 */
 
-    virtual void pushValueToStream   (      OutStream &str) const;
-    virtual void pushSizeToStream    (      OutStream &str) const;
-    virtual UInt32 getSize          (void          ) const;
+    virtual void   pushValueToStream   (      OutStream &str) const;
+    virtual void   pushSizeToStream    (      OutStream &str) const;
     
-    virtual void pushValueFromCString(const Char8     *str);
+    virtual void   pushValueFromCString(const Char8     *str);
         
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

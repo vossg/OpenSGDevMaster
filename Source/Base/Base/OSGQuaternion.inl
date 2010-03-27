@@ -404,7 +404,8 @@ void QuaternionBase<ValueTypeT>::setValue(const MatrixType &matrix)
 }
 
 template <> inline
-void QuaternionBase<Fixed32>::setValue(const TransformationMatrix<Fixed32> &matrix)
+void QuaternionBase<Fixed32>::setValue(
+    const TransformationMatrix<Fixed32> &matrix)
 {
     Fixed32 tr;
     Fixed32 s;
@@ -425,6 +426,7 @@ void QuaternionBase<Fixed32>::setValue(const TransformationMatrix<Fixed32> &matr
         _quat[3] = ValueType(s * 0.5);
 
         s = 0.5 / s;
+
         _quat[0] = ValueType((matrix[1][2] - matrix[2][1]) * s);
         _quat[1] = ValueType((matrix[2][0] - matrix[0][2]) * s);
         _quat[2] = ValueType((matrix[0][1] - matrix[1][0]) * s);
@@ -486,7 +488,7 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const VectorType &axis,
                                                          ValueTypeT  angle)
 {
-  setValueAsAxisRad(axis[0], axis[1], axis[2], angle);
+    setValueAsAxisRad(axis[0], axis[1], axis[2], angle);
 }
 
 /*! \brief Sets value of quaternion from 3D rotation axis vector and angle in
@@ -497,7 +499,7 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const VectorType &axis,
                                                          ValueTypeT  angle)
 {
-  setValueAsAxisDeg(axis[0], axis[1], axis[2], angle);
+    setValueAsAxisDeg(axis[0], axis[1], axis[2], angle);
 }
 
 //! Sets rotation to rotate one direction vector to another
@@ -676,10 +678,10 @@ void QuaternionBase<ValueTypeT>::setValueAsQuat(const Char8 *str)
         }
     }
 
-  _quat[0] = vec[0];
-  _quat[1] = vec[1];
-  _quat[2] = vec[2];
-  _quat[3] = vec[3];
+    _quat[0] = vec[0];
+    _quat[1] = vec[1];
+    _quat[2] = vec[2];
+    _quat[3] = vec[3];
 }
 
 //! Sets rotation by three given euler angles
@@ -812,16 +814,16 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::getValueAsAxisRad(VectorType &axis,
                                                    ValueTypeT &radians) const
 {
-  ValueTypeT x;
-  ValueTypeT y;
-  ValueTypeT z;
-  ValueTypeT w;
+    ValueTypeT x;
+    ValueTypeT y;
+    ValueTypeT z;
+    ValueTypeT w;
 
-  getValueAsAxisRad(x, y, z, w);
+    getValueAsAxisRad(x, y, z, w);
 
-  axis.setValues(x, y, z);
+    axis.setValues(x, y, z);
 
-  radians = w;
+    radians = w;
 }
 
 //! Returns corresponding 3D rotation axis vector and angle in degrees
@@ -830,16 +832,16 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(VectorType &axis,
                                                    ValueTypeT &degrees) const
 {
-  ValueTypeT x;
-  ValueTypeT y;
-  ValueTypeT z;
-  ValueTypeT w;
+    ValueTypeT x;
+    ValueTypeT y;
+    ValueTypeT z;
+    ValueTypeT w;
 
-  getValueAsAxisDeg(x, y, z, w);
+    getValueAsAxisDeg(x, y, z, w);
 
-  axis.setValues(x, y, z);
+    axis.setValues(x, y, z);
 
-  degrees = w;
+    degrees = w;
 }
 
 //! Fills corresponding 4x4 rotation matrix
@@ -983,16 +985,19 @@ void QuaternionBase<ValueTypeT>::invert(void)
 {
     ValueTypeT LengthSqr(lengthSquared());
 
-    if(LengthSqr < static_cast<ValueTypeT>(Eps))  { return; }
+    if(LengthSqr < static_cast<ValueTypeT>(Eps))  
+    { 
+        return; 
+    }
 
     conjThis();
 
-    ValueTypeT LengthSqrInv(static_cast<ValueTypeT>(1.0f)/LengthSqr);
+    ValueTypeT LengthSqrInv(static_cast<ValueTypeT>(1.0f) / LengthSqr);
 
-    _quat[0] * LengthSqrInv;
-    _quat[1] * LengthSqrInv;
-    _quat[2] * LengthSqrInv;
-    _quat[3] * LengthSqrInv;
+    _quat[0] *= LengthSqrInv;
+    _quat[1] *= LengthSqrInv;
+    _quat[2] *= LengthSqrInv;
+    _quat[3] *= LengthSqrInv;
 }
 
 //! calculates the exp of this quaternion
@@ -1000,14 +1005,14 @@ void QuaternionBase<ValueTypeT>::invert(void)
 template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::expThis(void)
 {
-    ValueTypeT Length1(osgSqrt( _quat[0] * _quat[0] +
-                                _quat[1] * _quat[1] +
-                                _quat[2] * _quat[2] ));
+    ValueTypeT Length1(osgSqrt(_quat[0] * _quat[0] +
+                               _quat[1] * _quat[1] +
+                               _quat[2] * _quat[2] ));
     ValueTypeT Length2;
 
-    if( Length1 > static_cast<ValueTypeT>(0.0f) )
+    if(Length1 > static_cast<ValueTypeT>(0.0f))
     {
-        Length2 = osgSin( Length1 )/Length1;
+        Length2 = osgSin(Length1) / Length1;
     }
     else
     {
@@ -1024,17 +1029,17 @@ void QuaternionBase<ValueTypeT>::expThis(void)
 template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::logThis(void)
 {
-    ValueTypeT Length(osgSqrt( _quat[0] * _quat[0] +
-                               _quat[1] * _quat[1] +
-                               _quat[2] * _quat[2] ));
+    ValueTypeT Length(osgSqrt(_quat[0] * _quat[0] +
+                              _quat[1] * _quat[1] +
+                              _quat[2] * _quat[2] ));
    
-   if( osgAbs(_quat[3]) > static_cast<ValueTypeT>(Eps) )
+   if(osgAbs(_quat[3]) > static_cast<ValueTypeT>(Eps))
    {
-      Length = osgATan( Length/_quat[3] );
+       Length = osgATan( Length/_quat[3] );
    }
    else
    {
-      Length = static_cast<ValueTypeT>(1.570796326794897f);
+       Length = static_cast<ValueTypeT>(1.570796326794897f);
    }
    
     _quat[0] *= Length;
@@ -1090,6 +1095,7 @@ QuaternionBase<ValueTypeT>QuaternionBase<ValueTypeT>::log(void) const
 
     return returnValue;
 }
+
 //! Puts the given vector through this rotation
 
 // this one should be optimized a little bit too (GV)
@@ -1144,6 +1150,11 @@ void QuaternionBase<ValueTypeT>::scaleAngle(ValueTypeT scaleFactor)
     setValueAsAxisRad(axis, radians * scaleFactor);
 }
 
+//Spherical interpolation between two quaternions
+//slerp is Not commutitive
+//slerp has constant velocity with respect to t
+//slerp is torque-minimal
+
 template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::slerpThis(const QuaternionBase &rot0,
                                            const QuaternionBase &rot1,
@@ -1151,6 +1162,13 @@ void QuaternionBase<ValueTypeT>::slerpThis(const QuaternionBase &rot0,
 {
     slerp(rot0, rot1, *this, t);
 }
+
+//Normalized linear interpolation between two quaternions
+//nlerp is commutitive
+//nlerp does Not have constant velocity with respect to t
+//nlerp is torque-minimal
+//For small interpolations there is little difference between
+//slerp,log-lerp, and nlerp.  nlerp is the fastest.
 
 template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::nlerpThis(const QuaternionBase &rot0,
@@ -1334,53 +1352,75 @@ bool QuaternionBase<ValueTypeT>::operator !=(const QuaternionBase &other) const
 /*                               Helper                                    */
 
 template <class ValueTypeT> inline
-QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::squad( const std::vector<QuaternionBase>& Q, const std::vector<Real32>& t, const Real32& s)
+QuaternionBase<ValueTypeT> QuaternionBase<ValueTypeT>::squad(
+    const std::vector<QuaternionBase> &Q, 
+    const std::vector<Real32        > &t, 
+    const      Real32                 &s)
 {
     UInt8 i(1);
 
     //Get the Tangent Quats
-    QuaternionBase Ti = ( log( inverse(Q[i])*Q[i+1] ) + log( inverse(Q[i-1])*Q[i] ) )/static_cast<ValueTypeT>(2.0f);
+    QuaternionBase Ti = 
+        (log(inverse(Q[i    ]) * Q[i + 1]) + 
+         log(inverse(Q[i - 1]) * Q[i    ])) / static_cast<ValueTypeT>(2.0f);
 
 
     //Get the Scaling values
     ValueTypeT Fnegi;
-    if(t[i-1] == t[i+1])
+
+    if(t[i - 1] == t[i + 1])
     {
         Fnegi = 0.0f;
     }
     else
     {
-        Fnegi = static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i])/(t[i+1] - t[i-1]);
+        Fnegi = 
+            static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i]) / (t[i+1] - t[i-1]);
     }
 
-    QuaternionBase TanIncoming( Fnegi * Ti );
+    QuaternionBase TanIncoming(Fnegi * Ti);
 
-    QuaternionBase ai = Q[i] * exp( (TanIncoming - log(inverse(Q[i])*Q[i+1]))/static_cast<ValueTypeT>(2.0f) );
+    QuaternionBase ai = 
+        Q[i] * exp((TanIncoming - log(inverse(Q[i]) * Q[i + 1])) / 
+                   static_cast<ValueTypeT>(2.0f)                 );
 
     //bi+1
-    QuaternionBase Tiplus1 = ( log( inverse(Q[i+1])*Q[i+2] ) + log( inverse(Q[i])*Q[i+1] ) )/static_cast<ValueTypeT>(2.0f);
+    QuaternionBase Tiplus1 = 
+        (log(inverse(Q[i + 1]) * Q[i + 2]) + 
+         log(inverse(Q[i    ]) * Q[i + 1]) )/static_cast<ValueTypeT>(2.0f);
 
     //Get the Scaling values
     ValueTypeT Fposiplus1;
-    if(t[i+2] == t[i])
+
+    if(t[i + 2] == t[i])
     {
         Fposiplus1 = 0.0f;
     }
     else
     {
-        Fposiplus1 = static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i])/(t[i+2] - t[i]);
+        Fposiplus1 = 
+            static_cast<ValueTypeT>(2.0f) * (t[i+1] - t[i]) / (t[i+2] - t[i]);
     }
 
-    QuaternionBase TanOutgoingplus1( Fposiplus1 * Tiplus1 );
+    QuaternionBase TanOutgoingplus1(Fposiplus1 * Tiplus1);
 
-    QuaternionBase biplus1 = Q[i+1] * exp( (log(inverse(Q[i])*Q[i+1]) - TanOutgoingplus1)/static_cast<ValueTypeT>(2.0f) );
+    QuaternionBase biplus1 = 
+        Q[i+1] * exp((log(inverse(Q[i]) * Q[i + 1]) - TanOutgoingplus1) / 
+                     static_cast<ValueTypeT>(2.0f)                      );
 
     //slerps
-    return slerp( slerp(Q[i], Q[i+1], s), slerp(ai, biplus1, s), (static_cast<ValueTypeT>(2.0f)*s*(static_cast<ValueTypeT>(1.0f)-s)) );
+    return slerp(slerp(Q[i], Q[i+1], s), 
+                 slerp(ai, biplus1, s), 
+                 (static_cast<ValueTypeT>(2.0f) * s * 
+                  (static_cast<ValueTypeT>(1.0f) - s) ));
 }
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::squad( const std::vector<QuaternionBase>& Q, const std::vector<Real32>& t, const Real32& s, QuaternionBase& Result )
+void QuaternionBase<ValueTypeT>::squad( 
+    const std::vector<QuaternionBase> &Q, 
+    const std::vector<Real32        > &t, 
+    const      Real32                 &s, 
+               QuaternionBase         &Result)
 {
     Result = squad(Q,t,s);
 }
@@ -1391,7 +1431,8 @@ void QuaternionBase<ValueTypeT>::nlerp(const QuaternionBase &rot0,
                                              QuaternionBase &result,
                                        const ValueTypeT      t     )
 {
-    result = rot0*(static_cast<ValueTypeT>(1.0f)-t) + rot1*t;
+    result = rot0 * (static_cast<ValueTypeT>(1.0f) - t) + rot1 * t;
+
     result.normalize();
 }
 
@@ -1460,6 +1501,7 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
         result[i] = ValueTypeT(scalerot0 * rot0._quat[i] +
                                scalerot1 * rot1q[i]);
 }
+
 /*! \brief \internal Take the give buffers as quaternions and write the
     result to the current.
  */
