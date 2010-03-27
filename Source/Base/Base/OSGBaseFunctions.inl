@@ -2079,7 +2079,7 @@ TypeT osgMax(const TypeT lValue, const TypeT rValue)
 template <class TypeT> inline
 TypeT osgClamp(const TypeT minVal, const TypeT val, const TypeT maxVal)
 {
-    OSG_ASSERT(minVal < maxVal);
+    OSG_ASSERT(minVal <= maxVal);
 
     return ((val > minVal) ? ((val < maxVal) ? val : maxVal) : minVal);
 }
