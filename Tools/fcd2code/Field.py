@@ -129,7 +129,9 @@ includeTable = {
     "Pnt4r"        : "Vec",
     "Pnt4fx"       : "Vec",
     "Pnt4d"        : "Vec",
-    "Pnt4ld"       : "Vec"
+    "Pnt4ld"       : "Vec",
+
+    "VoidP"        : "Sys"
 }
 
 class Field(FCDElement):

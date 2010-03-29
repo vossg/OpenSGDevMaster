@@ -571,6 +571,13 @@ typedef size_t SizeT;
 
 typedef UInt8 *MemoryHandle;
 
+/*! \var void *VoidP;
+ *  Handle to raw memory
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
+typedef void *VoidP;
+
 #include "OSGFixed.h"
 
 #ifdef OSG_FLOAT_PROFILE

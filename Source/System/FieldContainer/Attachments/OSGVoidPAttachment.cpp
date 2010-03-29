@@ -91,14 +91,15 @@ void *getVoidP(AttachmentContainer * const pContainer)
    
     // Get attachment pointer
     Attachment *att = 
-        pContainer->findAttachment(VoidP::getClassType().getGroupId());
+        pContainer->findAttachment(
+            VoidPAttachment::getClassType().getGroupId());
 
     if(att == NULL)
         return NULL;
    
     // Cast to name pointer                           
 
-    VoidP *voidP = dynamic_cast<VoidP *>(att);
+    VoidPAttachment *voidP = dynamic_cast<VoidPAttachment *>(att);
 
     if(voidP == NULL)
         return NULL;
@@ -123,19 +124,20 @@ void setVoidP(AttachmentContainer * const  pContainer,
    
     // Get attachment pointer
 
-    VoidPUnrecPtr  voidP = NULL;
-    Attachment    *att   = 
-        pContainer->findAttachment(VoidP::getClassType().getGroupId());
+    VoidPAttachmentUnrecPtr  voidP = NULL;
+    Attachment              *att   = 
+        pContainer->findAttachment(
+            VoidPAttachment::getClassType().getGroupId());
     
     if(att == NULL)
     {
-        voidP = VoidP::create();
+        voidP = VoidPAttachment::create();
 
         pContainer->addAttachment(voidP);
     }
     else
     {   
-        voidP = dynamic_cast<VoidP *>(att);
+        voidP = dynamic_cast<VoidPAttachment *>(att);
 
         if(voidP == NULL)
         {

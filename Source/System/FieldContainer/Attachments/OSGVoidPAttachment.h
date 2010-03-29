@@ -89,12 +89,12 @@ struct VoidPAttachmentDesc
 /*! \ingroup GrpSystemFieldContainer
  */
 
-typedef SimpleAttachment<VoidPAttachmentDesc> VoidP;
+typedef SimpleAttachment<VoidPAttachmentDesc> VoidPAttachment;
 
 /*! \ingroup GrpSystemFieldContainer
  */
 
-OSG_GEN_CONTAINERPTR(VoidP)  
+OSG_GEN_CONTAINERPTR(VoidPAttachment)  
 
 #ifdef WIN32
 template <> OSG_SYSTEM_DLLMAPPING
