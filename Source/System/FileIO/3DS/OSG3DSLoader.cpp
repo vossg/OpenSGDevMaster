@@ -1673,21 +1673,33 @@ void L3DS::ReadFaceList(const LChunk &chunk, LMesh &mesh)
     {
         switch (ch.id)
         {
-        case TRI_MAT_GROUP:
-            ReadASCIIZ(str, 20);
-            mat_id = FindMaterial(str)->GetID();
-            mesh.AddMaterial(mat_id);
-            count = ReadShort();
-            for (i=0; i<count; i++)
+            case TRI_MAT_GROUP:
             {
-                t = ReadShort();
-                mesh.GetTri(t).materialId = mat_id;
+                ReadASCIIZ(str, 20);
+                
+                LMaterial *pMat = FindMaterial(str);
+
+                if(pMat != NULL)
+                {
+                    mat_id = pMat->GetID();
+                    
+                    mesh.AddMaterial(mat_id);
+                }
+
+                count = ReadShort();
+                for (i=0; i<count; i++)
+                {
+                    t = ReadShort();
+                    if(pMat != NULL)
+                        mesh.GetTri(t).materialId = mat_id;
+                }
             }
             break;
-        case TRI_SMOOTH_GROUP:
-            for (i=0; i<mesh.GetTriangleCount(); i++)
-                mesh.GetTri(i).smoothingGroups = ulong(ReadInt());
-            break;
+
+            case TRI_SMOOTH_GROUP:
+                for (i=0; i<mesh.GetTriangleCount(); i++)
+                    mesh.GetTri(i).smoothingGroups = ulong(ReadInt());
+                break;
         }
         SkipChunk(ch);
         ch = ReadChunk();
