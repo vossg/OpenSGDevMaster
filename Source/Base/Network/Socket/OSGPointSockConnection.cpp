@@ -108,11 +108,11 @@ Connection::Channel PointSockConnection::connectPoint(
     {
         _socket = socket;
         _pointToPoint = true;
-        return true;
+        return 0;
     }
     else
     {
-        return false;
+        return -1;
     }
 }
 
@@ -131,11 +131,11 @@ Connection::Channel PointSockConnection::connectGroup(
     {
         _socket = socket;
         _pointToPoint = false;
-        return true;
+        return 0;
     }
     else
     {
-        return false;
+        return -1;
     }
 }
 
