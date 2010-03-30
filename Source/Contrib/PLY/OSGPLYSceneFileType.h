@@ -80,7 +80,8 @@ class OSG_CONTRIBPLY_DLLMAPPING PLYSceneFileType : public SceneFileType
     /*! \{                                                                 */
 
     virtual NodeTransitPtr read(      std::istream &is,
-                                const Char8        *fileNameOrExtension) const;
+                                const Char8        *fileNameOrExtension,
+                                      Resolver      resolver  = NULL   ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

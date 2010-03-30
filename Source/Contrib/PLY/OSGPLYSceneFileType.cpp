@@ -114,8 +114,9 @@ static PlyProperty face_props[] = { /* list of property information for a vertex
 
 
 NodeTransitPtr PLYSceneFileType::read(
-    std::istream& is, 
-    const Char8* /*fileNameOrExtension*/) const
+          std::istream &is, 
+    const Char8 *,  /*fileNameOrExtension*/
+          Resolver      resolver) const
 {
     std::vector<std::string> elems;
     PlyFile* ply = ply_read(&is, elems);
