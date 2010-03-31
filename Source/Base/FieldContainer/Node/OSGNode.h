@@ -123,13 +123,13 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    NodeCore *getCore(void                 );
-    NodeCore *getCore(void                 ) const;
+    NodeCore  *getCore(void                 ) const;
+    template <class CoreTypeT>
+    CoreTypeT *getCore(void                 ) const;
 
     void      setCore(NodeCore * const core);
-    
     template <class ObjectT>
-    void        setCore(TransitPtr<ObjectT>  core);
+    void      setCore(TransitPtr<ObjectT>  core);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

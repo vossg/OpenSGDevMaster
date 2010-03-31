@@ -41,15 +41,23 @@ OSG_BEGIN_NAMESPACE
 OSG_FIELD_CONTAINER_INL_DEF(Node)
 
 inline
-NodeCore *Node::getCore(void)
+NodeCore *Node::getCore(void) const
 {
     return _sfCore.getValue();
 }
 
-inline
-NodeCore *Node::getCore(void) const
+template <class CoreTypeT>
+CoreTypeT *Node::getCore(void) const
 {
-    return _sfCore.getValue();
+    CoreTypeT *retVal = dynamic_cast<CoreTypeT *>(getCore());
+
+    if(retVal == NULL && getCore() != NULL)
+    {
+        SWARNING << "Node::getCore<CoreTypeT>: Casting the core failed!"
+                 << std::endl;
+    }
+
+    return retVal;
 }
 
 template<class ObjectT> inline
