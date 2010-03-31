@@ -277,6 +277,9 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     osgGlAttachShader(uiProgram, uiShader);
             }
 
+            // parameters must be set before linking
+            updateParameters(pEnv, uiProgram);
+
             osgGlLinkProgram(uiProgram);
 
             GLint  iInfoLength;
@@ -351,8 +354,6 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                          osgGlUseProgram,
                          ShaderProgram::getFuncIdUseProgram());
 
-            updateParameters(pEnv, uiProgram);
-        
             pEnv->setActiveShader(uiProgram);
             osgGlUseProgram      (uiProgram);
         
@@ -489,7 +490,8 @@ void ShaderExecutableChunk::changed(ConstFieldMaskArg whichField,
                                 GeometryInputTypeFieldMask   | 
                                 GeometryOutputTypeFieldMask  )))
     {
-        Window::refreshGLObject(this->getGLId());
+        // changing parameters requires re-linking the shader
+        Window::reinitializeGLObject(this->getGLId());
     }
 
     if(bMarkChanged == true)
