@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="MaterialChunkOverrideGroup"
+   parent="ChunkOverrideGroup"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   authors="Johannes Brunen"
+   >
+  MaterialChunkOverrideGroup is a ChunkOverrideGroup  node that takes a
+  material  instead of individual chunks. If the material can't be finalized
+  to a ChunkMaterial the class behaves exactly as the MaterialGroup class,
+  i.e. overwriting the complete material instead of individual chunks.
+
+  <Field
+	 name="material"
+	 type="Material"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+	 >
+  </Field>
+</FieldContainer>

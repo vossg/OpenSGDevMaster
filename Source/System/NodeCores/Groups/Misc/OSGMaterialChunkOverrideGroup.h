@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *   contact:  Johannes Brunen                                               *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,25 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHUNKBLOCK_H_
-#define _OSGCHUNKBLOCK_H_
+#ifndef _OSGMATERIALCHUNKOVERRIDEGROUP_H_
+#define _OSGMATERIALCHUNKOVERRIDEGROUP_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGChunkBlockBase.h"
-#include "OSGState.h"
+#include "OSGMaterialChunkOverrideGroupBase.h"
+#include "OSGAction.h"
+#include "OSGMaterial.h"
 
 OSG_BEGIN_NAMESPACE
 
-template <class Desc>
-class MapCacheHandlerMixin;
-
-/*! \brief ChunkBlock class. See \ref
-           PageSystemChunkBlock for a description.
+/*! \brief MaterialChunkOverrideGroup class. See \ref
+           PageContribDataSolidMaterialChunkOverrideGroup for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
+class OSG_GROUP_DLLMAPPING MaterialChunkOverrideGroup : 
+    public MaterialChunkOverrideGroupBase
 {
   protected:
 
@@ -62,8 +61,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 
   public:
 
-    typedef ChunkBlockBase Inherited;
-    typedef ChunkBlock     Self;
+    typedef MaterialChunkOverrideGroupBase Inherited;
+    typedef MaterialChunkOverrideGroup     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -78,36 +77,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool addChunk   (StateChunk *chunk, 
-                     Int32       slot = State::AutoSlotReplace);
-
-    bool subChunk   (StateChunk *chunk, 
-                     Int32       slot = State::AutoSlotReplace);
-
-    void clearChunks(void                                     );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    Int32       find(      StateChunk      *chunk);
-    StateChunk *find(const StateChunkClass &type, 
-                           Int32            slot =State::AutoSlotReplace);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    MFUnrecStateChunkPtr::const_iterator beginChunks(void) const;
-    MFUnrecStateChunkPtr::const_iterator endChunks  (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
@@ -116,40 +85,21 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 
   protected:
 
-    // Variables should all be in ChunkBlockBase.
+    // Variables should all be in MaterialChunkOverrideGroupBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ChunkBlock(void);
-    ChunkBlock(const ChunkBlock &source);
+    MaterialChunkOverrideGroup(void);
+    MaterialChunkOverrideGroup(const MaterialChunkOverrideGroup &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ChunkBlock(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
-    /*! \{                                                                 */
-
-#if 0
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToChunks    (StateChunk * const value   );
-    void removeFromChunks(UInt32             uiIndex );
-    void removeFromChunks(StateChunk * const value   );
+    virtual ~MaterialChunkOverrideGroup(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,25 +109,72 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Render                                     */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    using Inherited::addChunkBlock;
+    using Inherited::subChunkBlock;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    using Inherited::findChunkBlock;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_category                              */
+    /*! \{                                                                 */
+
+    using Inherited::getSFChunkBlockStore;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Rendering                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    using Inherited::addChunk;
+    using Inherited::subChunk;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    using Inherited::find;
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class ChunkBlockBase;
-
-    template <class Desc>
-    friend class MapCacheHandlerMixin;
+    friend class MaterialChunkOverrideGroupBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ChunkBlock &source);
+    void operator =(const MaterialChunkOverrideGroup &source);
 };
 
-typedef ChunkBlock *ChunkBlockP;
+typedef MaterialChunkOverrideGroup *MaterialChunkOverrideGroupP;
 
 OSG_END_NAMESPACE
 
-#include "OSGChunkBlockBase.inl"
-#include "OSGChunkBlock.inl"
+#include "OSGMaterialChunkOverrideGroupBase.inl"
+#include "OSGMaterialChunkOverrideGroup.inl"
 
-#endif /* _OSGCHUNKBLOCK_H_ */
+#endif /* _OSGMATERIALCHUNKOVERRIDEGROUP_H_ */

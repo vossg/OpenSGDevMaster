@@ -348,7 +348,7 @@ int main(int argc, char **argv)
         threadsafe. Stay tuned.
         */
         
-        OSG::VoidPRefPtr myvoid = OSG::VoidP::create();
+        OSG::VoidPAttachmentRefPtr myvoid = OSG::VoidPAttachment::create();
         OSG::UInt32 dummy = 1234;
         
         myvoid->editFieldPtr()->setValue(&dummy);
@@ -357,11 +357,12 @@ int main(int argc, char **argv)
         scene->addAttachment(myvoid);
     
         // and check if it's still there       
-        a = scene->findAttachment(OSG::VoidP::getClassType());
+        a = scene->findAttachment(OSG::VoidPAttachment::getClassType());
         
         if(a != NULL)
         {
-            OSG::VoidPRefPtr m = OSG::dynamic_pointer_cast<OSG::VoidP>(a);
+            OSG::VoidPAttachmentRefPtr m = 
+                OSG::dynamic_pointer_cast<OSG::VoidPAttachment>(a);
             
             SLOG << "Node voidp value: " 
                 << *(static_cast<OSG::UInt32 *>(m->getField().getValue()))
