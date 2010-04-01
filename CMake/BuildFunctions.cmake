@@ -112,6 +112,7 @@ MACRO(OSG_ADD_PROJECT PNAME)
     PROJECT(${PNAME})
     IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
+        SET(${PROJECT_NAME}_SOURCE_GROUPS "" CACHE INTERNAL "" FORCE)
     ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 ENDMACRO(OSG_ADD_PROJECT)
 
@@ -456,13 +457,13 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
 
     IF(BASE_MM)
         FOREACH(BaseMMFile ${BASE_MM})
-	    STRING(REGEX REPLACE mm$ cpp BaseMMFileCPP ${BaseMMFile})
-	    LIST(APPEND BASE_MM_CPP ${BaseMMFileCPP})
-	ENDFOREACH()
+        STRING(REGEX REPLACE mm$ cpp BaseMMFileCPP ${BaseMMFile})
+        LIST(APPEND BASE_MM_CPP ${BaseMMFileCPP})
+    ENDFOREACH()
     ENDIF(BASE_MM)
 
     IF(BASE_MM_CPP)
-	    LIST(REMOVE_ITEM LOCAL_SRC ${BASE_MM_CPP})
+        LIST(REMOVE_ITEM LOCAL_SRC ${BASE_MM_CPP})
     ENDIF(BASE_MM_CPP)
 
     IF(${PROJECT_NAME}_EXCL_FILES)
@@ -525,7 +526,49 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_MOC \"${LOCAL_MOC}\")\n\n")
     ENDIF(LOCAL_MOC)
+    
+    # Add the source files to the source group
+    #Strip the path down to a relative one
+    IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
+                           ${CMAKE_CURRENT_SOURCE_DIR}/Source 
+                           ${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME})
+    ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
+                           ${CMAKE_SOURCE_DIR}/Source 
+                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+    ELSE()
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
+                           ${CMAKE_SOURCE_DIR}/Source 
+                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+    ENDIF()
+    
+    IF(THE_SOURCE_GROUP)
+         STRING(REPLACE "/" "\\" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
+    ELSE(THE_SOURCE_GROUP)
+         SET(THE_SOURCE_GROUP "\\")
+    ENDIF(THE_SOURCE_GROUP)
+    
+    
+    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUPS ${THE_SOURCE_GROUP})
+    SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS} 
+                                      CACHE INTERNAL "" FORCE)
+    
+    STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
+    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP} 
+                ${LOCAL_SRC} 
+                ${LOCAL_HDR} 
+                ${LOCAL_INL} 
+                ${LOCAL_INS} 
+                ${LOCAL_FCD} 
+                ${LOCAL_LL} 
+                ${LOCAL_YY} 
+                ${LOCAL_MOC})
 
+    SET(${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP} 
+          ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}} 
+          CACHE INTERNAL "" FORCE)
+    
     # unittests
     IF(LOCAL_UNITTEST_SRC)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -742,7 +785,15 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
-
+    
+    #Add Source Files to Source Groups
+    #Loop through all of the groups for this Project
+    FOREACH(PROJECT_SOURCE_GROUP_NAME ${${PROJECT_NAME}_SOURCE_GROUPS})
+        STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${PROJECT_SOURCE_GROUP_NAME})
+        SOURCE_GROUP(${PROJECT_SOURCE_GROUP_NAME} FILES 
+                     ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}})
+    ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
+    
     ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC}
                                 ${${PROJECT_NAME}_HDR}
                                 ${${PROJECT_NAME}_INL}
