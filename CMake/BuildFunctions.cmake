@@ -186,6 +186,8 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
 
     SET(${PROJECT_NAME}_EXCL_FILES)
+
+    SET(${PROJECT_NAME}_BASE_DIR)
 ENDMACRO(OSG_SELECT_PROJECT)
 
 #############################################################################
@@ -413,6 +415,8 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     OSG_MSG("Adding directory: ${DIRNAME}")
 
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+        SET(_OSG_CURR_DIRNAME "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+
         FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
         FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h")
@@ -427,6 +431,8 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
         FILE(GLOB BASE_MM            "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+        SET(_OSG_CURR_DIRNAME "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+
         FILE(GLOB LOCAL_SRC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
                                      "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
         FILE(GLOB LOCAL_HDR          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h")
@@ -441,6 +447,8 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
                                      "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.mm")
         FILE(GLOB BASE_MM            "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSE()
+        SET(_OSG_CURR_DIRNAME "${DIRNAME}")
+
         # Guess it's an absolute dir we got as the rel one is not there
         FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" "${DIRNAME}/OSG*.mm")
         FILE(GLOB LOCAL_HDR          "${DIRNAME}/OSG*.h")
@@ -527,28 +535,37 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
              "LIST(APPEND ${PROJECT_NAME}_MOC \"${LOCAL_MOC}\")\n\n")
     ENDIF(LOCAL_MOC)
     
-    # Add the source files to the source group
-    #Strip the path down to a relative one
-    IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+    IF(NOT ${PROJECT_NAME}_BASE_DIR)
+      # Add the source files to the source group
+      #Strip the path down to a relative one
+      IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
         FILE(RELATIVE_PATH THE_SOURCE_GROUP 
                            ${CMAKE_CURRENT_SOURCE_DIR}/Source 
                            ${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME})
-    ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+      ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
         FILE(RELATIVE_PATH THE_SOURCE_GROUP 
                            ${CMAKE_SOURCE_DIR}/Source 
                            ${CMAKE_SOURCE_DIR}/${DIRNAME})
+      ELSE()
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
+                           ${CMAKE_SOURCE_DIR}/Source 
+                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+      ENDIF()
     ELSE()
         FILE(RELATIVE_PATH THE_SOURCE_GROUP 
-                           ${CMAKE_SOURCE_DIR}/Source 
-                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+                           ${${PROJECT_NAME}_BASE_DIR}/ 
+                           ${_OSG_CURR_DIRNAME})
     ENDIF()
-    
+
     IF(THE_SOURCE_GROUP)
          STRING(REPLACE "/" "\\" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
     ELSE(THE_SOURCE_GROUP)
-         SET(THE_SOURCE_GROUP "\\")
+         SET(THE_SOURCE_GROUP "Source")
     ENDIF(THE_SOURCE_GROUP)
     
+    IF(${THE_SOURCE_GROUP} STREQUAL "\\")
+         SET(THE_SOURCE_GROUP "Source")
+    ENDIF()
     
     LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUPS ${THE_SOURCE_GROUP})
     SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS} 

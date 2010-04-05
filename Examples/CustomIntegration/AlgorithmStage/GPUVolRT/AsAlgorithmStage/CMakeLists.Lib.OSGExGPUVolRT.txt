@@ -39,6 +39,8 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 # collect sources
 ##############################################################################
 
+SET(${PROJECT_NAME}_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
 OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}")
 
 ##############################################################################
