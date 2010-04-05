@@ -248,6 +248,12 @@ void ShaderProgramVariables::clearVariables(void)
         _pVarAccess->updateMap();
 }
 
+const ShaderVariable *
+    ShaderProgramVariables::getVariable(const Char8 *name) const
+{
+    return _pVarAccess->getVariable(name);
+}
+
 void ShaderProgramVariables::markAllChanged(void)
 {
     std::fill(editMFVariableChanged()->begin(),

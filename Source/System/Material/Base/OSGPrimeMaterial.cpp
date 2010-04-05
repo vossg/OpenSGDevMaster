@@ -131,7 +131,8 @@ UInt32 PrimeMaterial::getNPasses(void)
     return 1;
 }
 
-PrimeMaterial *PrimeMaterial::finalize(MaterialMapKey)
+PrimeMaterial *PrimeMaterial::finalize(MaterialMapKey,
+                                       Window         *)
 {
     return this;
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="CgFXPassChunk"
+   parent="FullStateChunk"
+   library="ContribCgFX"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   >
+  <Field
+	 name="material"
+	 type="CgFXMaterial"
+	 category="weakpointer"
+	 cardinality="single"
+	 visibility="external"
+	 access="protected"
+	 defaultValue="NULL"
+	 >
+  </Field>
+<!--
+  <Field
+	 name="GLId"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="public"
+	 >
+  </Field> -->
+</FieldContainer>

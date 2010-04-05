@@ -119,6 +119,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                       Typedefs                               */
     /*! \{                                                                 */
 
+    typedef UIntPointer                               GLObjectId;
+
     typedef boost::function<UInt32 (DrawEnv *, 
                                     UInt32,
                                     GLObjectStatusE,
@@ -203,15 +205,19 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name               GL object handling                             */
     /*! \{                                                                 */
 
-           UInt32 validateGLObject        (UInt32   osgId,
-                                           DrawEnv *pEnv,
-                                           UInt32   uiOptions = 0);
-           void   validateAllGLObjects    (void);
+    UInt32     validateGLObject    (UInt32      osgId,
+                                    DrawEnv    *pEnv,
+                                    UInt32      uiOptions = 0);
+    void       validateAllGLObjects(void);
+    
+    void       setGLObjectId       (UInt32      osgId,
+                                    GLObjectId  id2          );
+    GLObjectId getGLObjectId       (UInt32      osgId        );
 
-           void   setGLObjectId           (UInt32   osgId,
-                                           UInt32   id2          );
-           UInt32 getGLObjectId           (UInt32   osgId        );
-
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name            static GL object handling                         */
+    /*! \{                                                                 */
 
     static UInt32 getGLObjectsSize        (void                  );
 
@@ -273,13 +279,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    void setPartitionDrawMode(UInt32 uiMode      );
-    void setDrawerType       (UInt32 uiDrawerType);
-    void setKeepContextActive(bool   bVal        );
+    void   setPartitionDrawMode(UInt32 uiMode      );
+    void   setDrawerType       (UInt32 uiDrawerType);
+    void   setKeepContextActive(bool   bVal        );
 
-    UInt32 getPartitionDrawMode(void) const;
-    UInt32 getDrawerType       (void) const;
-    bool   getKeepContextActive(void) const;
+    UInt32 getPartitionDrawMode(void               ) const;
+    UInt32 getDrawerType       (void               ) const;
+    bool   getKeepContextActive(void               ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -519,7 +525,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     std::vector<UInt32             >  _lastValidate;
-    std::vector<UInt32             >  _ids;
+    std::vector<GLObjectId         >  _ids;
 
     UInt32                            _glVersion;
     std::vector<std::string        >  _extensions;

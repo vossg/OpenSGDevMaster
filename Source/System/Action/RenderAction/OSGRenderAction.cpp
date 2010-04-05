@@ -57,6 +57,9 @@
 #include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
 #ifdef OSG_NEW_SHADER
+#include "OSGShaderExecutableChunk.h"
+#include "OSGShaderExecutableVarChunk.h"
+#else
 #include "OSGSimpleSHLChunk.h"
 #endif
 #include "OSGVolumeDraw.h"
@@ -286,35 +289,17 @@ RenderAction::RenderAction(void) :
 
     setNumBuffers(1);
 
-
-    FieldContainerType *pSHLType  = 
-        FieldContainerFactory::the()->findType("SHLChunk");
-
-    StateChunk         *pSHLProto = NULL;
-
-    if(pSHLType != NULL)
-    {
-        pSHLProto = dynamic_cast<StateChunk *>(pSHLType->getPrototype());
-    }
-
+    UInt32 uiTId = TextureBaseChunk         ::getStaticClassId() & 0x000003FF;
+    UInt32 uiMId = MaterialChunk            ::getStaticClassId() & 0x000003FF;
 
 #ifdef OSG_NEW_SHADER
-    UInt32 uiSId = SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
+    UInt32 uiShId = ShaderExecutableChunk   ::getStaticClassId() & 0x000003FF;
+           uiMId  = ShaderExecutableVarChunk::getStaticClassId() & 0x000003FF;
 #else
-    UInt32 uiSId = 0x00;
+    UInt32 uiShId = SimpleSHLChunk          ::getStaticClassId() & 0x000003FF;
 #endif
 
-    UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
-    UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
-
-    if(pSHLProto != NULL)
-    {
-        uiSId = pSHLProto->getClassId();
-    }
-
-//    _uiKeyGen = (uiTId | (uiMId << 10) | (State::Key1Mask << 20));
-
-    _uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
+    _uiKeyGen = ( (uiShId) | (uiTId << 10) | (uiMId      << 20) );
 
 /*
     fprintf(stderr, "CreateKeyGen (RT) (%p) from %d %d %d -> %08x\n",
@@ -904,7 +889,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
     if(pMat == NULL)
         return;
 
-    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp);
+    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp, _pWindow);
 
     if(pPrimeMat == NULL)
         return;

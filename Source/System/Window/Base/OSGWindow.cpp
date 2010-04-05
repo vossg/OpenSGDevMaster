@@ -1552,7 +1552,8 @@ void OSG::Window::doFrameExit(void)
             continue;
         }
 
-        FDEBUG(("Window::doFrameExit: Destroying GLObject %d (%d) - GL id %d\n",
+        FDEBUG(("Window::doFrameExit: Destroying GLObject %d (%d) - GL id %"
+                PRIUSize"\n",
                 i, n, getGLObjectId(i)));
            
         UInt32 rc = obj->getRefCounter();

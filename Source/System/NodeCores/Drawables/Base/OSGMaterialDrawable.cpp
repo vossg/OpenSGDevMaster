@@ -95,12 +95,14 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         if(this->getMaterial() != NULL)
         {
             pPrimeMat = 
-                this->getMaterial()->finalize(a->getRenderProperties());
+                this->getMaterial()->finalize(a->getRenderProperties(),
+                                              a->getWindow()          );
         }
     }
     else
     {
-        pPrimeMat = m->finalize(a->getRenderProperties());
+        pPrimeMat = m->finalize(a->getRenderProperties(),
+                                a->getWindow          ());
     }
 
     if(pPrimeMat == NULL)

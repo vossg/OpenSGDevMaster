@@ -135,7 +135,8 @@ ActionBase::ResultE MaterialChunkOverrideGroup::renderEnter(Action *action)
 
     if(pAction != NULL && pMaterial != NULL)
     {
-        pMaterial = pMaterial->finalize(pAction->getRenderProperties());
+        pMaterial = pMaterial->finalize(pAction->getRenderProperties(),
+                                        pAction->getWindow          ());
 
         if(pMaterial) 
         {
@@ -190,7 +191,8 @@ ActionBase::ResultE MaterialChunkOverrideGroup::renderLeave(Action *action)
 
     if(pAction != NULL && pMaterial != NULL)
     {
-        pMaterial = pMaterial->finalize(pAction->getRenderProperties());
+        pMaterial = pMaterial->finalize(pAction->getRenderProperties(),
+                                        pAction->getWindow          ());
 
         if(pMaterial != NULL) 
         {

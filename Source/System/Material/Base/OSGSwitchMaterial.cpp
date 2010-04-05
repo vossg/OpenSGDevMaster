@@ -185,7 +185,8 @@ bool SwitchMaterial::isTransparent(void) const
 
 /*! Check if the Material (i.e. any of its materials) is transparent..
 */
-PrimeMaterial *SwitchMaterial::finalize(MaterialMapKey oKey) 
+PrimeMaterial *SwitchMaterial::finalize(MaterialMapKey  oKey,
+                                        Window         *pWin) 
 {
     UInt32 choice = getChoice();
 
@@ -202,7 +203,7 @@ PrimeMaterial *SwitchMaterial::finalize(MaterialMapKey oKey)
     }
 
     if(_mfMaterials[choice] != NULL)
-        return _mfMaterials[choice]->finalize(oKey);
+        return _mfMaterials[choice]->finalize(oKey, pWin);
 
     return NULL;
 }

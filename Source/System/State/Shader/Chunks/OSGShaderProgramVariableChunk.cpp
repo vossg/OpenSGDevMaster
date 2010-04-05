@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
 
 StateChunkClass ShaderProgramVariableChunk::_class("ShaderProgramVariable", 
                                                    1, 
-                                                   6);
+                                                   5);
 
 volatile UInt16 ShaderProgramVariableChunk::_uiChunkCounter = 1;
 

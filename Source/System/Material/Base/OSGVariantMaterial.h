@@ -108,6 +108,9 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+    virtual PrimeMaterial *finalize(MapCacheKey  oKey,
+                                    Window      *pWin);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */

@@ -108,6 +108,13 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    const ShaderVariable *getVariable(const Char8 *name) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     void markAllChanged(void);
 
     /*! \}                                                                 */

@@ -1219,7 +1219,7 @@ void VRMLWriteAction::writeMaterial(Geometry        *pGeo,
         return;
     }
 
-    PrimeMaterial *pPrimeMat = pMat->finalize(0x0000);
+    PrimeMaterial *pPrimeMat = pMat->finalize(0x0000, NULL);
 
     pPrimeMat->rebuildState();
     State *st = pPrimeMat->getState();

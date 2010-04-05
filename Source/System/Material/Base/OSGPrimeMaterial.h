@@ -74,7 +74,8 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterial : public PrimeMaterialBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual PrimeMaterial *finalize(MaterialMapKey oKey);
+    virtual PrimeMaterial *finalize(MaterialMapKey  oKey,
+                                    Window         *pWin);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

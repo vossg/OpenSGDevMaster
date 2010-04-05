@@ -196,7 +196,7 @@ const std::vector<std::string> &Window::getIgnoredExtensions(void)
 }
 
 inline 
-void Window::setGLObjectId(UInt32 osgId, UInt32 id2)
+void Window::setGLObjectId(UInt32 osgId, GLObjectId id2)
 {
     if(osgId < _ids.size())
     {
@@ -221,7 +221,7 @@ void Window::setGLObjectId(UInt32 osgId, UInt32 id2)
 }
 
 inline
-UInt32 Window::getGLObjectId(UInt32 osgId)
+Window::GLObjectId Window::getGLObjectId(UInt32 osgId)
 {
     if(osgId < _ids.size())
         return _ids[osgId];

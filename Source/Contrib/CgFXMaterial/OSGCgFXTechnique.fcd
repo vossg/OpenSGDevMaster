@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="CgFXTechnique"
+   parent="PrimeMaterial"
+   library="ContribCgFX"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   >
+  <Field
+	 name="renderPassStates"
+	 type="State"
+	 category="pointer"
+	 cardinality="multi"
+	 visibility="external"
+	 access="protected"
+	 pushToFieldAs="addPassState"
+	 insertIntoMFieldAs="insertPassState"
+	 replaceInMFieldIndexAs="replacePassState"
+	 replaceInMFieldObjectAs="replacePassStateByObj"
+	 removeFromMFieldIndexAs="subPassState"
+	 removeFromMFieldObjectAs="subPassStateByObj"
+	 clearFieldAs="clearPassStates"
+	 ptrFieldAccess = "nullCheck"
+	 >
+  </Field>
+</FieldContainer>

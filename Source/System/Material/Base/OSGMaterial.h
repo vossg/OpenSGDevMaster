@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 
 class MaterialDrawable;
 class DrawEnv;
+class Window;
 class PrimeMaterial;
 
 template <class Desc>
@@ -102,8 +103,9 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-    virtual PrimeMaterial *finalize     (MaterialMapKey oKey)       = 0;
-    virtual bool           isTransparent(void               ) const = 0;
+    virtual PrimeMaterial *finalize     (MaterialMapKey  oKey,
+                                         Window         *pWin)       = 0;
+    virtual bool           isTransparent(void                ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

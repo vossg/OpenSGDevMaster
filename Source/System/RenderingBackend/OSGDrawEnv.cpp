@@ -45,6 +45,7 @@
 #include "OSGState.h"
 #include "OSGStateOverride.h"
 #include "OSGBaseFunctions.h"
+#include "OSGFullStateChunk.h"
 
 OSG_USING_NAMESPACE
 
@@ -146,6 +147,186 @@ Matrixr DrawEnv::calcTileDecorationMatrix(void) const
 
     return result;
 }
+
+void DrawEnv::deactivateState(void)
+{
+    if(_pActiveState == NULL)
+        return;
+
+    StateChunk *pChunk = _pActiveState->getChunk(State::FullStateIndex);
+
+    if(pChunk != NULL)
+    {
+        FullStateChunk *pFullChunk = 
+            dynamic_cast<FullStateChunk *>(pChunk);
+
+        OSG_ASSERT(pFullChunk != NULL);
+
+        pFullChunk->deactivate(this, _pActiveState, _pActiveStateOverride);
+    }
+    else
+    {
+        if(_pActiveStateOverride != NULL)
+        {
+            deactivate(_pActiveState, _pActiveStateOverride);
+        }
+        else
+        {
+            deactivate(_pActiveState);
+        }
+    }
+
+    _pActiveState         = NULL;
+    _pActiveStateOverride = NULL;
+}
+
+void DrawEnv::activateState(State         *pNewState,
+                            StateOverride *pNewStateOverride)
+{
+    if(pNewState != NULL)
+    {
+        StateChunk *pNewChunk = pNewState->getChunk(State::FullStateIndex);
+
+        if(_pActiveState != NULL)
+        {
+            StateChunk *pActiveChunk = 
+                _pActiveState->getChunk(State::FullStateIndex);
+
+            if(pNewChunk != NULL && pActiveChunk != NULL)
+            {
+                FullStateChunk *pFullChunk = 
+                    dynamic_cast<FullStateChunk *>(pNewChunk);
+
+                OSG_ASSERT(pFullChunk != NULL);
+
+                pFullChunk->changeFrom( this,
+                                        pNewState,
+                                        pNewStateOverride,
+                                       _pActiveState,
+                                       _pActiveStateOverride);
+                
+                _pActiveState         = pNewState;
+                _pActiveStateOverride = pNewStateOverride;
+            }
+            else if(pNewChunk != NULL && pActiveChunk == NULL)
+            {
+                FullStateChunk *pFullChunk = 
+                    dynamic_cast<FullStateChunk *>(pNewChunk);
+
+                OSG_ASSERT(pFullChunk != NULL);
+
+                if(_pActiveStateOverride != NULL)
+                {
+                    deactivate(_pActiveState, _pActiveStateOverride);
+                }
+                else
+                {
+                    deactivate(_pActiveState);
+                }
+
+                pFullChunk->activate(this, pNewState, pNewStateOverride);
+
+                _pActiveState         = pNewState;
+                _pActiveStateOverride = pNewStateOverride;
+            }
+            else if(pNewChunk == NULL && pActiveChunk != NULL)
+            {
+                FullStateChunk *pFullChunk = 
+                    dynamic_cast<FullStateChunk *>(pActiveChunk);
+
+                OSG_ASSERT(pFullChunk != NULL);
+
+                pFullChunk->deactivate(this, 
+                                       _pActiveState, _pActiveStateOverride);
+        
+                if(pNewStateOverride != NULL)
+                {
+                    activate(pNewState, pNewStateOverride);
+                }
+                else
+                {
+                    activate(pNewState);
+                }
+
+                _pActiveState         = pNewState;
+                _pActiveStateOverride = pNewStateOverride;
+            }
+            else
+            {
+                if(pNewState         != _pActiveState        ||
+                   pNewStateOverride != _pActiveStateOverride )
+                {
+                    if(pNewStateOverride != NULL)
+                    {
+                        if(_pActiveStateOverride != NULL)
+                        {
+                            changeTo( pNewState,     pNewStateOverride,
+                                     _pActiveState, _pActiveStateOverride);
+                        }
+                        else
+                        {
+                            changeTo( pNewState,     pNewStateOverride,
+                                     _pActiveState                    );
+                        }
+                    }
+                    else if(_pActiveStateOverride != NULL)
+                    {
+                        changeTo( pNewState, 
+                                 _pActiveState, 
+                                 _pActiveStateOverride);
+                    }
+                    else
+                    {
+                        changeTo(pNewState, _pActiveState);
+                    }
+                    
+                    _pActiveState         = pNewState;
+                    _pActiveStateOverride = pNewStateOverride;
+                }
+                else
+                {
+                    if(_pActiveStateOverride != NULL)
+                    {
+                        updateChunk(_pActiveState, 
+                                    _pActiveStateOverride);
+                    }
+                    else
+                    {
+                        updateChunk(_pActiveState);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(pNewChunk != NULL)
+            {
+                FullStateChunk *pFullChunk = 
+                    dynamic_cast<FullStateChunk *>(pNewChunk);
+
+                OSG_ASSERT(pFullChunk != NULL);
+
+                pFullChunk->activate(this, pNewState, pNewStateOverride);
+            }
+            else
+            {
+                if(pNewStateOverride != NULL)
+                {
+                    activate(pNewState, pNewStateOverride);
+                }
+                else
+                {
+                    activate(pNewState);
+                }
+            }
+
+            _pActiveState         = pNewState;
+            _pActiveStateOverride = pNewStateOverride;
+        }
+    }
+}
+
+
 
 void DrawEnv::activate(State *pState)
 {

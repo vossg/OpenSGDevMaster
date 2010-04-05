@@ -72,13 +72,16 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     static const UInt32 Key3Mask       = 0x3FF00000;
 
     static const UInt32 DefaultKeyMask = 0x80000000;
+    static const UInt32 FullStateMask  = 0x40000000;
 
 #ifdef OSG_NEW_SHADER
     static const size_t SkipNumChunks  = 2;
     static const size_t UpdateChunk    = 2;
+    static const UInt32 FullStateIndex = 2;
 #else
     static const size_t SkipNumChunks  = 0;
     static const size_t UpdateChunk    = 0;
+    static const UInt32 FullStateIndex = 0;
 #endif
 
     /*---------------------------------------------------------------------*/

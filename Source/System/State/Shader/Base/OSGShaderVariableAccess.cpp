@@ -283,6 +283,25 @@ bool ShaderVariableAccess::subVariable(const Char8   *name,
     return true;
 }
 
+const ShaderVariable *
+    ShaderVariableAccess::getVariable(const Char8 *name) const
+{
+    if(name == NULL)
+        return NULL;
+
+    VariableConstIt it = _mVarMap.find(name);
+    
+    if(it == _mVarMap.end())
+        return NULL;
+
+    if((*it).second.first != -1)
+    {
+        return _oVariables.getVariables((*it).second.first);
+    }
+
+    return NULL;
+}
+
 void ShaderVariableAccess::updateMap(void)
 {
     if(_uiMapsize == _oVariables.getMFVariables()->size())

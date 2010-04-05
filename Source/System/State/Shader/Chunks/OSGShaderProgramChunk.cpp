@@ -58,7 +58,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ShaderProgramChunk::_class("ShaderProgram", 1, 5);
+StateChunkClass ShaderProgramChunk::_class("ShaderProgram", 1, 4);
 volatile UInt16 ShaderProgramChunk::_uiChunkCounter = 1;
 
 UInt32 ShaderProgramChunk::_extSHL = Window::invalidExtensionID;

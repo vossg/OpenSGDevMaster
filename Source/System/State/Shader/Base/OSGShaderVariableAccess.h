@@ -142,6 +142,13 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableAccess
                            MFInt32        *pProcVarLoc);
     
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Access                                     */
+    /*! \{                                                                 */
+
+    const ShaderVariable *getVariable(const Char8 *name) const;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -163,7 +170,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableAccess
 
     typedef std::map<std::string, IntPair> VariableMap;
 
-    typedef VariableMap::iterator VariableIt;
+    typedef VariableMap::      iterator VariableIt;
+    typedef VariableMap::const_iterator VariableConstIt;
 
     VariableMap _mVarMap;
     UInt32      _uiMapsize;
