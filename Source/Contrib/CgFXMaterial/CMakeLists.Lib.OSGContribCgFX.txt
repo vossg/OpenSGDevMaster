@@ -1,5 +1,10 @@
 
 OSG_ADD_PROJECT("OSGContribCgFX")
+
+IF(NOT CG_LIBRARIES_FOUND)
+    SET(OSGBUILD_${PROJECT_NAME} OFF)
+ENDIF(NOT CG_LIBRARIES_FOUND)
+
 OSG_SELECT_PROJECT()
 
 ##############################################################################
