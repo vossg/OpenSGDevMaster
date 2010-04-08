@@ -967,7 +967,8 @@ void ShaderExecutableChunk::updateVariables(DrawEnv *pEnv,
 
         *mVarChgIt = false;
 
-        OSG_SHLVARIABLE_SWITCH
+        osgUniformShaderVariableSwitch(pEnv,    pVar,
+                                       *mLocIt, uiProgram, warnUnknown);
     }
 }
 

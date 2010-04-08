@@ -264,7 +264,8 @@ void SimpleSHLVariableChunk::updateVariables(DrawEnv *pEnv)
         if(pVar == NULL)
             continue;
 
-        OSG_SHLVARIABLE_SWITCH
+        osgUniformShaderVariableSwitch(pEnv,    pVar,
+                                       *mLocIt, uiProgram, warnUnknown);
     }
 }
 
