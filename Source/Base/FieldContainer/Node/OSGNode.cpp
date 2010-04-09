@@ -527,7 +527,6 @@ void Node::updateVolume(void)
 Node::Node(void) :
      Inherited (                            ),
     _sfVolume  (                            ),
-    _sfTravMask(TypeTraits<UInt32>::getMax()),
     _sfParent  (NULL                        ),
     _mfChildren(this, 
                 ChildrenFieldId, 
@@ -535,7 +534,8 @@ Node::Node(void) :
     _sfCore    (NULL, 
                 this, 
                 CoreFieldId,
-                NodeCore::ParentsFieldId    )
+                NodeCore::ParentsFieldId    ),
+    _sfTravMask(TypeTraits<UInt32>::getMax())
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(0)
 #endif
@@ -546,8 +546,6 @@ Node::Node(const Node &source) :
      Inherited    (source                   ),
     _sfVolume     (                         ),
 
-    _sfTravMask   (source._sfTravMask       ),
-
     _sfParent     (NULL                     ),
     _mfChildren   (this, 
                    ChildrenFieldId, 
@@ -556,7 +554,9 @@ Node::Node(const Node &source) :
     _sfCore       (NULL, 
                    this, 
                    CoreFieldId, 
-                   NodeCore::ParentsFieldId )
+                   NodeCore::ParentsFieldId ),
+
+    _sfTravMask   (source._sfTravMask       )
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(source._occlusionMask)
 #endif

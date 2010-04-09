@@ -290,12 +290,12 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 
     SFBoxVolume             _sfVolume;
 
-    SFUInt32                _sfTravMask;
-
     SFParentNodePtr         _sfParent;
     MFUnrecChildNodePtr     _mfChildren;
 
     SFUnrecChildNodeCorePtr _sfCore;
+
+    SFUInt32                _sfTravMask;
 
 #ifdef OSG_1_COMPAT
     UInt8                   _occlusionMask;
