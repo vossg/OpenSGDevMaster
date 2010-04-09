@@ -42,11 +42,10 @@
 #pragma once
 #endif
 
-#include "OSGDataSlotPool.h"
-#include "OSGComputeElementIdPool.h"
+#include "OSGTraversalValidationHandlerMixin.h"
+
 #include "OSGComputeElementData.h"
 #include "OSGHardwareContext.h"
-#include "OSGOSGAnyFields.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -54,14 +53,15 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpLibOSGBase
  */
 template <class ParentT>
-class ComputeElementHandlerMixin  : public ParentT
+class ComputeElementHandlerMixin  : 
+    public TraversalValidationHandlerMixin<ParentT>
 {
     /*==========================  PRIVATE  ================================*/
 
-  private:
+  protected:
 
-    typedef ParentT                               Inherited;
-    typedef HardwareContext::Inherited::Inherited DataSlotHandler;
+    typedef          TraversalValidationHandlerMixin<ParentT> Inherited;
+    typedef typename Inherited::DataSlotHandler               DataSlotHandler;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -71,28 +71,15 @@ class ComputeElementHandlerMixin  : public ParentT
 
     typedef typename ParentT::Desc                       Desc;
     typedef typename Desc::TypeObject                    TypeObject;
-
+    
 #if 0
     typedef          StageValidator::ValidationStatus  ValidationStatus;
 #endif
-
-    enum UpdateMode
-    {
-        PerVisit     = 0x0001,
-
-        OnRequest    = 0x0002
-    };
 
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
-
-    OSG_RC_FIRST_FIELD_DECL(UpdateMode                   );
-
-    OSG_RC_FIELD_DECL      (RequestRun,        UpdateMode);
-    OSG_RC_FIELD_DECL      (DestroyedFunctors, RequestRun);
-    OSG_RC_LAST_FIELD_DECL (DestroyedFunctors            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -103,19 +90,6 @@ class ComputeElementHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    void   addDestroyedFunctor     (ChangedFunctor    func,
-                                    std::string       createSymbol);
-
-    template<class FunctorT>
-    void   subDestroyedFunctor     (FunctorT          func        );
-
-    template<class FunctorT>
-    bool   hasDestroyedFunctor     (FunctorT          func        );
-
-    void   clearDestroyedFunctors  (void                          );
-
-    void   clearDestroyedFunctorFor(DataSlotHandler  *pHandler    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,12 +127,6 @@ class ComputeElementHandlerMixin  : public ParentT
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-          void      setUpdateMode   (UpdateMode eMode);
-          UInt32    getUpdateMode   (void            ) const;
-
-          SFUInt32 *editSFUpdateMode(void            );
-    const SFUInt32 *getSFUpdateMode (void            ) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
@@ -168,12 +136,6 @@ class ComputeElementHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
-
-    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
-    virtual void   copyToBin  (BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-    virtual void   copyFromBin(BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,10 +169,6 @@ class ComputeElementHandlerMixin  : public ParentT
 
   protected:
 
-    Int32  _iDataSlotId;
-    Int32  _iElementId;
-
-
 #if 0
     StageValidator::ValidationStatus _tmpStatus;
 #endif
@@ -228,10 +186,6 @@ class ComputeElementHandlerMixin  : public ParentT
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32                 _sfUpdateMode;
-    SFOSGAny                 _sfRequestRun;
-    MFChangedFunctorCallback _mfDestroyedFunctors;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -247,22 +201,11 @@ class ComputeElementHandlerMixin  : public ParentT
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    static void classDescInserter(TypeObject &oType);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    void execSync  (      Self              *pFrom,
-                          ConstFieldMaskArg  whichField,
-                          AspectOffsetStore &oOffsets,
-                          ConstFieldMaskArg  syncMode  ,
-                    const UInt32             uiSyncInfo);
-#endif
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -272,29 +215,11 @@ class ComputeElementHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    EditFieldHandlePtr editHandleUpdateMode       (void);
-    GetFieldHandlePtr  getHandleUpdateMode        (void) const;
-
-    GetFieldHandlePtr  getHandleRequestRun        (void) const;
-
-    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
-    EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
-
-            void onCreateAspect (const Self   *createAspect,
-                                 const Self   *source      = NULL);
-
-            void onCreate       (const Self   *source      = NULL);
-
-    virtual void onDestroy      (      UInt32  uiContainerId     );
-
-    virtual void onDestroyAspect(      UInt32  uiContainerId,
-                                       UInt32  uiAspect          );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

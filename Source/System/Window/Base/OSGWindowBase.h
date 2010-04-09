@@ -100,8 +100,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
         WidthFieldId = Inherited::NextFieldId,
         HeightFieldId = WidthFieldId + 1,
         PortFieldId = HeightFieldId + 1,
-        ResizePendingFieldId = PortFieldId + 1,
-        GlObjectEventCounterFieldId = ResizePendingFieldId + 1,
+        GlObjectEventCounterFieldId = PortFieldId + 1,
         GlObjectLastRefreshFieldId = GlObjectEventCounterFieldId + 1,
         GlObjectLastReinitializeFieldId = GlObjectLastRefreshFieldId + 1,
         DrawerIdFieldId = GlObjectLastReinitializeFieldId + 1,
@@ -121,8 +120,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
         (TypeTraits<BitVector>::One << HeightFieldId);
     static const OSG::BitVector PortFieldMask =
         (TypeTraits<BitVector>::One << PortFieldId);
-    static const OSG::BitVector ResizePendingFieldMask =
-        (TypeTraits<BitVector>::One << ResizePendingFieldId);
     static const OSG::BitVector GlObjectEventCounterFieldMask =
         (TypeTraits<BitVector>::One << GlObjectEventCounterFieldId);
     static const OSG::BitVector GlObjectLastRefreshFieldMask =
@@ -151,7 +148,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     typedef SFUInt16          SFWidthType;
     typedef SFUInt16          SFHeightType;
     typedef MFUnrecChildViewportPtr MFPortType;
-    typedef SFBool            SFResizePendingType;
     typedef SFUInt32          SFGlObjectEventCounterType;
     typedef MFUInt32          MFGlObjectLastRefreshType;
     typedef MFUInt32          MFGlObjectLastReinitializeType;
@@ -195,9 +191,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
             const SFUInt16            *getSFHeight          (void) const;
             const MFUnrecChildViewportPtr *getMFPort           (void) const;
 
-                  SFBool              *editSFResizePending  (void);
-            const SFBool              *getSFResizePending   (void) const;
-
                   SFInt32             *editSFDrawerId       (void);
             const SFInt32             *getSFDrawerId        (void) const;
 
@@ -227,9 +220,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
 
                   Viewport * getPort           (const UInt32 index) const;
 
-                  bool                &editResizePending  (void);
-                  bool                 getResizePending   (void) const;
-
                   Int32               &editDrawerId       (void);
                   Int32                getDrawerId        (void) const;
 
@@ -257,7 +247,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
 
             void setWidth          (const UInt16 value);
             void setHeight         (const UInt16 value);
-            void setResizePending  (const bool value);
             void setDrawerId       (const Int32 value);
             void setRequestMajor   (const Int32 value);
             void setRequestMinor   (const Int32 value);
@@ -317,7 +306,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
     MFUnrecChildViewportPtr _mfPort;
-    SFBool            _sfResizePending;
     SFUInt32          _sfGlObjectEventCounter;
     MFUInt32          _mfGlObjectLastRefresh;
     MFUInt32          _mfGlObjectLastReinitialize;
@@ -371,8 +359,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     EditFieldHandlePtr editHandleHeight         (void);
     GetFieldHandlePtr  getHandlePort            (void) const;
     EditFieldHandlePtr editHandlePort           (void);
-    GetFieldHandlePtr  getHandleResizePending   (void) const;
-    EditFieldHandlePtr editHandleResizePending  (void);
     GetFieldHandlePtr  getHandleGlObjectEventCounter (void) const;
     EditFieldHandlePtr editHandleGlObjectEventCounter(void);
     GetFieldHandlePtr  getHandleGlObjectLastRefresh (void) const;

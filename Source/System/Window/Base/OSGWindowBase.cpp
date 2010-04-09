@@ -107,10 +107,6 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var bool            WindowBase::_sfResizePending
-    
-*/
-
 /*! \var UInt32          WindowBase::_sfGlObjectEventCounter
     Counter for GL object events. Needed for multi-aspect updates.
     Is used in glObjectLastRefresh and glObjectLastReinitialize.
@@ -218,18 +214,6 @@ void WindowBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FNullCheckAccess),
         static_cast<FieldEditMethodSig>(&Window::editHandlePort),
         static_cast<FieldGetMethodSig >(&Window::getHandlePort));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFBool::Description(
-        SFBool::getClassType(),
-        "resizePending",
-        "",
-        ResizePendingFieldId, ResizePendingFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Window::editHandleResizePending),
-        static_cast<FieldGetMethodSig >(&Window::getHandleResizePending));
 
     oType.addInitialDesc(pDesc);
 
@@ -438,14 +422,6 @@ WindowBase::TypeObject WindowBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
-    "\t\tname=\"resizePending\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
     "\t\tname=\"glObjectEventCounter\"\n"
     "\t\ttype=\"UInt32\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -625,19 +601,6 @@ const MFUnrecChildViewportPtr *WindowBase::getMFPort(void) const
 {
     return &_mfPort;
 }
-
-SFBool *WindowBase::editSFResizePending(void)
-{
-    editSField(ResizePendingFieldMask);
-
-    return &_sfResizePending;
-}
-
-const SFBool *WindowBase::getSFResizePending(void) const
-{
-    return &_sfResizePending;
-}
-
 
 SFUInt32 *WindowBase::editSFGlObjectEventCounter(void)
 {
@@ -899,10 +862,6 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfPort.getBinSize();
     }
-    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
-    {
-        returnValue += _sfResizePending.getBinSize();
-    }
     if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
     {
         returnValue += _sfGlObjectEventCounter.getBinSize();
@@ -968,10 +927,6 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfPort.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
-    {
-        _sfResizePending.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
     {
         _sfGlObjectEventCounter.copyToBin(pMem);
@@ -1035,10 +990,6 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfPort.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
-    {
-        _sfResizePending.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
     {
         _sfGlObjectEventCounter.copyFromBin(pMem);
@@ -1097,7 +1048,6 @@ WindowBase::WindowBase(void) :
     _mfPort                   (this,
                           PortFieldId,
                           Viewport::ParentFieldId),
-    _sfResizePending          (),
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
     _mfGlObjectLastReinitialize(),
@@ -1119,7 +1069,6 @@ WindowBase::WindowBase(const WindowBase &source) :
     _mfPort                   (this,
                           PortFieldId,
                           Viewport::ParentFieldId),
-    _sfResizePending          (source._sfResizePending          ),
     _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
     _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
     _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize),
@@ -1307,31 +1256,6 @@ EditFieldHandlePtr WindowBase::editHandlePort           (void)
                     static_cast<Window *>(this)));
 
     editMField(PortFieldMask, _mfPort);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr WindowBase::getHandleResizePending   (void) const
-{
-    SFBool::GetHandlePtr returnValue(
-        new  SFBool::GetHandle(
-             &_sfResizePending,
-             this->getType().getFieldDesc(ResizePendingFieldId),
-             const_cast<WindowBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr WindowBase::editHandleResizePending  (void)
-{
-    SFBool::EditHandlePtr returnValue(
-        new  SFBool::EditHandle(
-             &_sfResizePending,
-             this->getType().getFieldDesc(ResizePendingFieldId),
-             this));
-
-
-    editSField(ResizePendingFieldMask);
 
     return returnValue;
 }

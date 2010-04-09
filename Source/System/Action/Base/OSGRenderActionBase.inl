@@ -146,9 +146,9 @@ Material *RenderActionBase::getGlobalOverride(void) const
 }
 
 inline
-StageValidator *RenderActionBase::getStageValidator(void)
+TraversalValidator *RenderActionBase::getTravValidator(void)
 {
-    return _pStageValidator;
+    return _pTravValidator;
 }
 
 inline

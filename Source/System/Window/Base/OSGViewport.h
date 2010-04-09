@@ -54,7 +54,7 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
-class StageValidator;
+class TraversalValidator;
 class FrameBufferObject;
 
 /*! \brief Viewport base class. See \ref 
@@ -119,7 +119,7 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    StageValidator *getStageValidator(void);
+    TraversalValidator *getTravValidator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,7 +143,7 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
  protected:
 
-    StageValidator         *_pStageValidator;
+    TraversalValidator     *_pTravValidator;
     ViewportDrawTaskRefPtr  _pForegroundTask;
 
     /*---------------------------------------------------------------------*/

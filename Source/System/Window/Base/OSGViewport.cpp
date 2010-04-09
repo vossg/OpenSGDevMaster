@@ -61,7 +61,7 @@
 #include "OSGCamera.h"
 #include "OSGForeground.h"
 
-#include "OSGStageValidator.h"
+#include "OSGTraversalValidator.h"
 
 OSG_USING_NAMESPACE
 
@@ -97,7 +97,7 @@ void Viewport::onCreateAspect(const Viewport *createAspect,
     if(GlobalSystemState != Running)
         return;
 
-    _pStageValidator = new StageValidator;
+    _pTravValidator = new TraversalValidator;
 }
 
 void Viewport::onDestroy(UInt32 uiContainerId)
@@ -108,9 +108,9 @@ void Viewport::onDestroy(UInt32 uiContainerId)
 void Viewport::onDestroyAspect(UInt32    uiContainerId,
                                UInt32    uiAspect     )
 {
-    delete _pStageValidator;
+    delete _pTravValidator;
 
-    _pStageValidator = NULL;
+    _pTravValidator  = NULL;
     _pForegroundTask = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
@@ -124,7 +124,7 @@ void Viewport::onDestroyAspect(UInt32    uiContainerId,
 
 Viewport::Viewport(void) :
      Inherited      (    ),
-    _pStageValidator(NULL),
+    _pTravValidator (NULL),
     _pForegroundTask(NULL)
 
 {
@@ -132,7 +132,7 @@ Viewport::Viewport(void) :
 
 Viewport::Viewport(const Viewport &source) :
      Inherited      (source),
-    _pStageValidator(NULL  ),
+    _pTravValidator (NULL  ),
     _pForegroundTask(NULL  )
 
 {
@@ -334,7 +334,7 @@ void Viewport::deactivate(void)
 
 void Viewport::render(RenderActionBase *action)
 {
-    _pStageValidator->incEventCounter();
+    _pTravValidator->incEventCounter();
  
     if(this->getTravMask() == 0x0000)
         return;

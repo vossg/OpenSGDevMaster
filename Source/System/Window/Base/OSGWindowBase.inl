@@ -123,31 +123,6 @@ void WindowBase::setHeight(const UInt16 value)
 
     _sfHeight.setValue(value);
 }
-//! Get the value of the Window::_sfResizePending field.
-
-inline
-bool &WindowBase::editResizePending(void)
-{
-    editSField(ResizePendingFieldMask);
-
-    return _sfResizePending.getValue();
-}
-
-//! Get the value of the Window::_sfResizePending field.
-inline
-      bool  WindowBase::getResizePending(void) const
-{
-    return _sfResizePending.getValue();
-}
-
-//! Set the value of the Window::_sfResizePending field.
-inline
-void WindowBase::setResizePending(const bool value)
-{
-    editSField(ResizePendingFieldMask);
-
-    _sfResizePending.setValue(value);
-}
 //! Get the value of the Window::_sfGlObjectEventCounter field.
 
 inline
@@ -408,9 +383,6 @@ void WindowBase::execSync (      WindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-
-    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
-        _sfResizePending.syncWith(pFrom->_sfResizePending);
 
     if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
         _sfGlObjectEventCounter.syncWith(pFrom->_sfGlObjectEventCounter);

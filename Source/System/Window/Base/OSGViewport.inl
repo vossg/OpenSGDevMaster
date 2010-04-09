@@ -74,9 +74,9 @@ void Viewport::setSize(Real32 left,
 }
 
 inline
-StageValidator *Viewport::getStageValidator(void)
+TraversalValidator *Viewport::getTravValidator(void)
 {
-    return _pStageValidator;
+    return _pTravValidator;
 }
 
 OSG_END_NAMESPACE

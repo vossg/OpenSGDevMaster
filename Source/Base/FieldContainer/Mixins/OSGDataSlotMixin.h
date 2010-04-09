@@ -54,13 +54,26 @@ template <class ParentT>
 class DataSlotMixin : public ParentT
 {
     /*==========================  PUBLIC  =================================*/
-
+    
   public:
 
-    typedef ParentT                Inherited;
-    typedef DataSlotMixin<ParentT> Self;
+    typedef          ParentT                        Inherited;
 
-    typedef boost::function<void (Self *)> DestroyFunctor;
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef typename Inherited::Desc                Desc;
+
+    /*==========================  PUBLIC  =================================*/
+    
+  public:
+
+    typedef          DataSlotMixin<ParentT>         Self;
+
+    typedef          boost::function<void (Self *)> DestroyFunctor;
+
+    typedef typename Desc::DataSlotIdPool           DataSlotIdPool;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -153,8 +166,6 @@ class DataSlotMixin : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
-
-    typedef typename Inherited::Desc                   Desc;
 
     typedef typename Desc     ::DataStore              DataStore;
 

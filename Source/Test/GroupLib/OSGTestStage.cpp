@@ -143,7 +143,7 @@ ActionBase::ResultE TestStage::renderEnter(Action *action)
     
     Stage::ValidationStatus eStatus = this->validateOnEnter(a);
 
-    if(eStatus == StageValidator::Run)
+    if(eStatus == TraversalValidator::Run)
     {
         this->pushPartition(a);
         {
@@ -185,9 +185,9 @@ ActionBase::ResultE TestStage::renderLeave(Action *action)
     }
 #endif
 
-    StageValidator::ValidationStatus eStatus = this->validateOnLeave(a);
+    TraversalValidator::ValidationStatus eStatus = this->validateOnLeave(a);
 
-    if(eStatus == StageValidator::Run)
+    if(eStatus == TraversalValidator::Run)
     {
         this->popPartition(a);
     }

@@ -189,13 +189,7 @@ void MyOSGQGLWidget::paintGL ( void )
 
 void MyOSGQGLWidget::resizeGL ( int w, int h )
 {   
-   if ( ! osgWin->isResizePending() )
-   {
-        osgWin->resize( w, h );
-#if 0
-        osgWin->resizeGL(); // handle resize events
-#endif
-   }
+    osgWin->resize( w, h );
 }
 
 void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )

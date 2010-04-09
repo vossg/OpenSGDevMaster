@@ -36,126 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#include <cstdlib>
+#include <cstdio>
 
-OSG_BEGIN_NAMESPACE
+#include "OSGConfig.h"
 
-inline
-void StageValidator::incEventCounter(void)
+#include "OSGTraversalValidator.h"
+
+OSG_USING_NAMESPACE
+
+/*! \class OSG::DrawEnv
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+TraversalValidator::TraversalValidator(void) :
+    _uiEventCounter(0),
+    _vStatusStore  ( )
 {
-    ++_uiEventCounter;
 }
 
-inline
-StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId,
-                                                          UInt16 uiCurrentTrav)
+TraversalValidator::~TraversalValidator(void) 
 {
-    if(iStageId < 0)
-        return Self::Unknown;
-
-    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
-    {
-        StageStatus tmpStat;
-        
-        tmpStat._uiLastEvent      = 0;
-        tmpStat._eStatus          = Self::Unknown;
-        tmpStat._uiFinishedInTrav = 0;
-
-        _vStatusStore.resize(iStageId + 1, tmpStat);
-    }
-
-    StageStatus            &oStat       = _vStatusStore[iStageId];
-    Self::ValidationStatus  returnValue = Self::Finished;
-
-    if(oStat._uiLastEvent < _uiEventCounter)
-    {
-        oStat._uiLastEvent = _uiEventCounter;
-        oStat._eStatus     = Self::Running;
-
-        returnValue = Self::Run;
-    }
-    else
-    {
-        if(oStat._uiLastEvent == _uiEventCounter)
-        {
-            if(oStat._eStatus == StageValidator::Running)
-            {
-                oStat._eStatus          = StageValidator::Finished;
-                oStat._uiFinishedInTrav = uiCurrentTrav;
-
-                returnValue = Self::Run;
-            }
-            else if(oStat._eStatus == StageValidator::Finished)
-            {
-                if(oStat._uiFinishedInTrav != uiCurrentTrav)
-                {
-                    returnValue = StageValidator::Inactive;
-                }
-            }
-        }
-    }
-
-    return returnValue;
 }
-
-inline
-StageValidator::ValidationStatus StageValidator::checkRunRequest(Int32 iStageId)
-{
-    if(iStageId < 0)
-        return Self::Unknown;
-
-    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
-    {
-        StageStatus tmpStat;
-        
-        tmpStat._uiLastEvent = 0;
-        tmpStat._eStatus     = Self::Unknown;
-
-        _vStatusStore.resize(iStageId + 1, tmpStat);
-    }
-
-    StageStatus            &oStat       = _vStatusStore[iStageId];
-    Self::ValidationStatus  returnValue = Self::Inactive;
-
-    if(oStat._uiLastEvent == 0)
-    {
-        oStat._uiLastEvent = _uiEventCounter;
-        oStat._eStatus     = Self::Running;
-
-        returnValue = Self::Run;
-    }
-    else
-    {
-        if(oStat._uiLastEvent == _uiEventCounter)
-        {
-            if(oStat._eStatus == StageValidator::Running)
-            {
-                oStat._eStatus = StageValidator::Finished;
-                
-                returnValue = Self::Run;
-            }
-        }
-    }
-
-    return returnValue;
-}
-
-inline
-void StageValidator::requestRun(Int32 iStageId)
-{
-    if(iStageId < 0)
-        return;
-
-    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
-    {
-        StageStatus tmpStat;
-        
-        tmpStat._uiLastEvent = 0;
-        tmpStat._eStatus     = Self::Unknown;
-
-        _vStatusStore.resize(iStageId + 1, tmpStat);
-    }
-
-    _vStatusStore[iStageId]._uiLastEvent = 0;
-}
-
-OSG_END_NAMESPACE

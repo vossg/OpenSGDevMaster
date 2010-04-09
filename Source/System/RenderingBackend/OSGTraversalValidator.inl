@@ -36,43 +36,128 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGHARDWARECONTEXTPARENT_H_
-#define _OSGHARDWARECONTEXTPARENT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGAttachmentContainer.h"
-#include "OSGContainerMixinHead.h"
-#include "OSGDataSlotMixin.h"
-#include "OSGDataSlotPool.h"
 
 OSG_BEGIN_NAMESPACE
 
-struct HardwareContextDataSlotDesc
+inline
+void TraversalValidator::incEventCounter(void)
 {
-    typedef AttachmentContainer        ParentT;
-    typedef MFUnrecFieldContainerPtr   DataStore;
-    typedef FieldContainer::TypeObject TypeObject;
+    ++_uiEventCounter;
+}
 
-    typedef ContextDataSlotPool        DataSlotIdPool;
+inline
+TraversalValidator::ValidationStatus 
+    TraversalValidator::validate(Int32 iElementId,
+                                 UInt16 uiCurrentTrav)
+{
+    if(iElementId < 0)
+        return Self::Unknown;
 
-    static void dumpElement(const FieldContainer *pVal)
+    if(_vStatusStore.size() <= static_cast<UInt32>(iElementId))
     {
-        fprintf(stderr, "%p", pVal);
+        TraversalStatus tmpStat;
+        
+        tmpStat._uiLastEvent      = 0;
+        tmpStat._eStatus          = Self::Unknown;
+        tmpStat._uiFinishedInTrav = 0;
 
-        if(pVal != NULL)
+        _vStatusStore.resize(iElementId + 1, tmpStat);
+    }
+
+    TraversalStatus        &oStat       = _vStatusStore[iElementId];
+    Self::ValidationStatus  returnValue = Self::Finished;
+
+    if(oStat._uiLastEvent < _uiEventCounter)
+    {
+        oStat._uiLastEvent = _uiEventCounter;
+        oStat._eStatus     = Self::Running;
+
+        returnValue = Self::Run;
+    }
+    else
+    {
+        if(oStat._uiLastEvent == _uiEventCounter)
         {
-            fprintf(stderr, " (%s)", pVal->getType().getCName());
+            if(oStat._eStatus == TraversalValidator::Running)
+            {
+                oStat._eStatus          = TraversalValidator::Finished;
+                oStat._uiFinishedInTrav = uiCurrentTrav;
+
+                returnValue = Self::Run;
+            }
+            else if(oStat._eStatus == TraversalValidator::Finished)
+            {
+                if(oStat._uiFinishedInTrav != uiCurrentTrav)
+                {
+                    returnValue = TraversalValidator::Inactive;
+                }
+            }
         }
     }
-};
 
-typedef DataSlotMixin< 
-            ContainerMixinHead < 
-                HardwareContextDataSlotDesc > > HardwareContextParent;
+    return returnValue;
+}
+
+inline
+TraversalValidator::ValidationStatus 
+    TraversalValidator::checkRunRequest(Int32 iElementId)
+{
+    if(iElementId < 0)
+        return Self::Unknown;
+
+    if(_vStatusStore.size() <= static_cast<UInt32>(iElementId))
+    {
+        TraversalStatus tmpStat;
+        
+        tmpStat._uiLastEvent = 0;
+        tmpStat._eStatus     = Self::Unknown;
+
+        _vStatusStore.resize(iElementId + 1, tmpStat);
+    }
+
+    TraversalStatus        &oStat       = _vStatusStore[iElementId];
+    Self::ValidationStatus  returnValue = Self::Inactive;
+
+    if(oStat._uiLastEvent == 0)
+    {
+        oStat._uiLastEvent = _uiEventCounter;
+        oStat._eStatus     = Self::Running;
+
+        returnValue = Self::Run;
+    }
+    else
+    {
+        if(oStat._uiLastEvent == _uiEventCounter)
+        {
+            if(oStat._eStatus == TraversalValidator::Running)
+            {
+                oStat._eStatus = TraversalValidator::Finished;
+                
+                returnValue = Self::Run;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+inline
+void TraversalValidator::requestRun(Int32 iElementId)
+{
+    if(iElementId < 0)
+        return;
+
+    if(_vStatusStore.size() <= static_cast<UInt32>(iElementId))
+    {
+        TraversalStatus tmpStat;
+        
+        tmpStat._uiLastEvent = 0;
+        tmpStat._eStatus     = Self::Unknown;
+
+        _vStatusStore.resize(iElementId + 1, tmpStat);
+    }
+
+    _vStatusStore[iElementId]._uiLastEvent = 0;
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGHARDWARECONTEXTPARENT_H_ */
-

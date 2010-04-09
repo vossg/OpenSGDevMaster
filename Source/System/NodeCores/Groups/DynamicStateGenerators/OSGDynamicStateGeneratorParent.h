@@ -44,13 +44,17 @@
 
 #include "OSGChunkOverrideGroup.h"
 #include "OSGStageHandlerMixin.h"
+#include "OSGStageIdPool.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct DynStateDesc
 {
-    typedef ChunkOverrideGroup         ParentT;
-    typedef FieldContainer::TypeObject TypeObject;
+    typedef ChunkOverrideGroup          ParentT;
+    typedef FieldContainer::TypeObject  TypeObject;
+    typedef StageIdPool                 ElementIdPool;
+
+    typedef RenderActionBase::Inherited DataSlotHandler;
 };
 
 typedef StageHandlerMixin< 

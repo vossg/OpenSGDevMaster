@@ -64,7 +64,7 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
-class StageValidator;
+class TraversalValidator;
 class ShaderCache;
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
@@ -235,8 +235,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                 Size handling                                */
     /*! \{                                                                 */
 
-            bool isResizePending(void         );
-
     virtual void resize         (int width,
                                  int height   );
 
@@ -292,10 +290,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-           ShaderCache    *getShaderCache   (void          );
-           StageValidator *getStageValidator(void          );
+           ShaderCache        *getShaderCache  (void          );
+           TraversalValidator *getTravValidator(void          );
     
-    static void            requestStageRun  (Int32 iStageId);
+    static void                requestStageRun (Int32 iStageId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -379,7 +377,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     virtual void doFrameInit         (bool reinitExtFuctions = false);
     virtual void doFrameExit         (void                          );
 
-    virtual void doResizeGL          (void                          );
     virtual void doRenderAllViewports(RenderActionBase *action      );
 
 
@@ -540,7 +537,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     UInt32                            _numAvailConstants;
 
     Int32                             _windowId;
-    StageValidator                   *_pStageValidator;
+    TraversalValidator               *_pTravValidator;
     ShaderCache                      *_pShaderCache;
 
     WindowDrawTaskRefPtr              _pInitTask;

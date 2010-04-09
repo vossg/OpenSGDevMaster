@@ -44,13 +44,17 @@
 
 #include "OSGLightEngine.h"
 #include "OSGStageHandlerMixin.h"
+#include "OSGStageIdPool.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct ShadowMapEngineDesc
 {
-    typedef LightEngine                ParentT;
-    typedef FieldContainer::TypeObject TypeObject;
+    typedef LightEngine                 ParentT;
+    typedef FieldContainer::TypeObject  TypeObject;
+    typedef StageIdPool                 ElementIdPool;
+
+    typedef RenderActionBase::Inherited DataSlotHandler;
 };
 
 typedef ContainerMixinHead<ShadowMapEngineDesc> SMEMixinParent;

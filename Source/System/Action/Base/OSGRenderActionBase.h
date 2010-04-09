@@ -49,6 +49,7 @@
 
 #include "OSGMixinHead.h"
 #include "OSGDataSlotMixin.h"
+#include "OSGDataSlotPool.h"
 
 #include "OSGRenderPartitionBase.h"
 #include "OSGRenderPropertiesPool.h"
@@ -62,13 +63,16 @@ class Background;
 class Window;
 class StatCollector;
 class Material;
-class StageValidator;
+class TraversalValidator;
 
 struct RenderDataSlotDesc
 {
     typedef Action                   ParentT;
     typedef MFUnrecFieldContainerPtr DataStore;
     
+    typedef ActionDataSlotPool       DataSlotIdPool;
+
+
     static void dumpElement(const FieldContainer *pVal)
     {
         fprintf(stderr, "%p", pVal);
@@ -186,14 +190,14 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    StageValidator *getStageValidator(void      );
-    UInt16          getFrameTravCount(void      );
+    TraversalValidator *getTravValidator (void      );
+    UInt16              getFrameTravCount(void      );
 
-    void            setDrawerId      (Int32 iId );
-    Int32           getDrawerId      (void      );
+    void                setDrawerId      (Int32 iId );
+    Int32               getDrawerId      (void      );
 
-    void            setDrawableId    (Int32 iId );
-    Int32           getDrawableId    (void      );
+    void                setDrawableId    (Int32 iId );
+    Int32               getDrawableId    (void      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,32 +257,32 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    Camera         *_pCamera;
-    Background     *_pBackground;
-    Window         *_pWindow;
-    Viewport       *_pViewport;
-    Material       *_pGlobalOverride;
+    Camera             *_pCamera;
+    Background         *_pBackground;
+    Window             *_pWindow;
+    Viewport           *_pViewport;
+    Material           *_pGlobalOverride;
 
-    StatCollector  *_pStatistics;
-    StageValidator *_pStageValidator;
+    StatCollector      *_pStatistics;
+    TraversalValidator *_pTravValidator;
 
-    bool            _bUseGLFinish;
+    bool                _bUseGLFinish;
 
     // frustum culling attributes
     
-    bool            _bFrustumCulling;
-    bool            _bVolumeDrawing;
-    bool            _bAutoFrustum;
-    bool            _bCorrectTwoSidedLighting;
+    bool                _bFrustumCulling;
+    bool                _bVolumeDrawing;
+    bool                _bAutoFrustum;
+    bool                _bCorrectTwoSidedLighting;
 
-    FrustumVolume   _oFrustum;
+    FrustumVolume       _oFrustum;
 
-    UInt16          _uiFrameTravCount;
+    UInt16              _uiFrameTravCount;
 
-    Int32           _iDrawerId;
-    Int32           _iDrawableId;
-    RenderPropType  _oCurrentRenderProp;
-    bool            _bDrawPartPar;
+    Int32               _iDrawerId;
+    Int32               _iDrawableId;
+    RenderPropType      _oCurrentRenderProp;
+    bool                _bDrawPartPar;
 
     /*==========================  PRIVATE  ================================*/
 

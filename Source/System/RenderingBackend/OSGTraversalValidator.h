@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTAGEVALIDATOR_H_
-#define _OSGSTAGEVALIDATOR_H_
+#ifndef _OSGTRAVERSALVALIDATOR_H_
+#define _OSGTRAVERSALVALIDATOR_H_
 
 #ifdef __sgi
 #pragma once
@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-class OSG_SYSTEM_DLLMAPPING StageValidator
+class OSG_SYSTEM_DLLMAPPING TraversalValidator
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -73,8 +73,8 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    StageValidator(void);
-    ~StageValidator(void);
+    TraversalValidator(void);
+    ~TraversalValidator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,16 +93,16 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    ValidationStatus validate       (Int32 iStageId,
+    ValidationStatus validate       (Int32 iElementId,
                                      UInt16 uiCurrentTrav);
-    ValidationStatus checkRunRequest(Int32 iStageId      );
+    ValidationStatus checkRunRequest(Int32 iElementId    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void requestRun(Int32 iStageId);
+    void requestRun(Int32 iElementId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -129,16 +129,16 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
 
   protected:
 
-    typedef StageValidator Self;
+    typedef TraversalValidator Self;
 
-    struct StageStatus
+    struct TraversalStatus
     {
         UInt32           _uiLastEvent;
         ValidationStatus _eStatus;
         UInt16           _uiFinishedInTrav;
     };
 
-    typedef std::vector<StageStatus> StatusStore;
+    typedef std::vector<TraversalStatus> StatusStore;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -158,13 +158,13 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
   private:
 
     /*! \brief prohibit default function (move to 'public' if needed) */
-    StageValidator(const StageValidator &source);
+    TraversalValidator(const TraversalValidator &source);
     /*! \brief prohibit default function (move to 'public' if needed) */
-    void operator =(const StageValidator &source);
+    void operator =(const TraversalValidator &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGStageValidator.inl"
+#include "OSGTraversalValidator.inl"
 
-#endif /* _OSGSTAGEVALIDATOR_H_ */
+#endif /* _OSGTRAVERSALVALIDATOR_H_ */

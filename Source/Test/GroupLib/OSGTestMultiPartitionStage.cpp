@@ -140,9 +140,9 @@ ActionBase::ResultE TestMultiPartitionStage::renderEnter(Action *action)
     }
 #endif
 
-    StageValidator::ValidationStatus eStatus = this->validateOnEnter(a);
+    TraversalValidator::ValidationStatus eStatus = this->validateOnEnter(a);
 
-    if(eStatus == StageValidator::Run)
+    if(eStatus == TraversalValidator::Run)
     {
         if(this->getUseGroup() == true)
         {

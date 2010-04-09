@@ -56,14 +56,6 @@ init(void), activate(void), deactivate(void) and swap(void).
 	>
 	</Field>
 	<Field
-		name="resizePending"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-	>
-	</Field>
-	<Field
 		name="glObjectEventCounter"
 		type="UInt32"
 		cardinality="single"

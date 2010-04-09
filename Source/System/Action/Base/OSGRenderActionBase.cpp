@@ -51,7 +51,7 @@
 #include "OSGStatCollector.h"
 #include "OSGDrawable.h"
 #include "OSGVolumeDraw.h"
-#include "OSGStageValidator.h"
+#include "OSGTraversalValidator.h"
 #include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
@@ -84,7 +84,7 @@ RenderActionBase::RenderActionBase(void) :
     _pViewport                (NULL  ),
     _pGlobalOverride          (NULL  ),
     _pStatistics              (NULL  ),
-    _pStageValidator          (NULL  ),
+    _pTravValidator           (NULL  ),
 
     _bUseGLFinish             (false ),
 
@@ -99,7 +99,7 @@ RenderActionBase::RenderActionBase(void) :
     _oCurrentRenderProp       (0x0000),
     _bDrawPartPar             (false )
 {
-    _pStageValidator = new StageValidator();
+    _pTravValidator = new TraversalValidator();
 }
 
 RenderActionBase::RenderActionBase(const RenderActionBase &source) :
@@ -111,7 +111,7 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pViewport               (source._pViewport               ),
     _pGlobalOverride         (source._pGlobalOverride         ),
     _pStatistics             (NULL                            ),
-    _pStageValidator         (NULL                            ),
+    _pTravValidator          (NULL                            ),
 
     _bUseGLFinish            (source._bUseGLFinish            ),
 
@@ -128,7 +128,7 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 
-    _pStageValidator = new StageValidator();
+    _pTravValidator = new TraversalValidator();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -138,7 +138,7 @@ RenderActionBase::~RenderActionBase(void)
 {
     OSG::subRef(_pStatistics);
 
-    delete _pStageValidator;
+    delete _pTravValidator;
 }
 
 ActionBase::ResultE RenderActionBase::start(void)
@@ -173,7 +173,7 @@ ActionBase::ResultE RenderActionBase::start(void)
         }
     }
 
-    _pStageValidator->incEventCounter();
+    _pTravValidator->incEventCounter();
 
 //    _iDrawerId   = (_pWindow   != NULL) ? _pWindow  ->getDrawerId  () : 0;
 //    _iDrawableId = (_pViewport != NULL) ? _pViewport->getDrawableId() : 0;

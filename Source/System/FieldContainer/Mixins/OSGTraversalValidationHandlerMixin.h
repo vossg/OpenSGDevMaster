@@ -36,59 +36,82 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTAGEHANDLERMIXIN_H_
-#define _OSGSTAGEHANDLERMIXIN_H_
+#ifndef _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_
+#define _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGTraversalValidationHandlerMixin.h"
+#include "OSGOSGAnyFields.h"
 
-#include "OSGTraversalValidator.h"
-#include "OSGStageData.h"
-#include "OSGRenderAction.h"
+#include <boost/bind.hpp>
 
-#include "OSGMultiCore.h"
+#if 0
+#include "OSGDataSlotPool.h"
+#include "OSGStageIdPool.h"
 #include "OSGWindow.h"
 #include "OSGViewport.h"
+#include "OSGStageValidator.h"
+#include "OSGStageData.h"
+#include "OSGMultiCore.h"
+
+#include "OSGRenderAction.h"
+#endif
 
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerMixins
-    \ingroup GrpLibOSGBase
+    \ingroup GrpLibOSGSystem
  */
-
 template <class ParentT>
-class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
+class TraversalValidationHandlerMixin  : public ParentT
 {
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef          TraversalValidationHandlerMixin<ParentT> Self;
+
+    typedef typename ParentT::Desc                            Desc;
+    typedef typename Desc::TypeObject                         TypeObject;
+
     /*==========================  PRIVATE  ================================*/
 
   protected:
 
-    typedef          TraversalValidationHandlerMixin<ParentT> Inherited;
-    typedef typename Inherited::DataSlotHandler               DataSlotHandler;
+    typedef ParentT                                  Inherited;
+    typedef typename Desc::DataSlotHandler           DataSlotHandler;
+    typedef typename DataSlotHandler::DataSlotIdPool DataSlotIdPool;
+    typedef typename Desc::ElementIdPool             ElementIdPool;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef          StageHandlerMixin<ParentT>           Self;
+#if 0
+    typedef          StageValidator::ValidationStatus  ValidationStatus;
+#endif
 
-    typedef typename ParentT::Desc                        Desc;
-    typedef typename Desc::TypeObject                     TypeObject;
-
-    typedef          TraversalValidator::ValidationStatus ValidationStatus;
-
-    enum GroupMode 
+    enum UpdateMode
     {
-        NoPartitionGroup = 0x0000,
-        InPartitionGroup = 0x0001,
-        InPartitionList  = 0x0002
+        PerWindow    = 0x0001,
+        PerViewport  = 0x0002,
+        PerTraversal = 0x0003,
+
+        PerVisit     = 0x0004,
+
+        OnRequest    = 0x0005
     };
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
+
+    OSG_RC_FIRST_FIELD_DECL(UpdateMode                   );
+
+    OSG_RC_FIELD_DECL      (RequestRun,        UpdateMode);
+    OSG_RC_FIELD_DECL      (DestroyedFunctors, RequestRun);
+    OSG_RC_LAST_FIELD_DECL (DestroyedFunctors            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -100,12 +123,27 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    void   addDestroyedFunctor     (ChangedFunctor    func,
+                                    std::string       createSymbol);
+
+    template<class FunctorT>
+    void   subDestroyedFunctor     (FunctorT          func        );
+
+    template<class FunctorT>
+    bool   hasDestroyedFunctor     (FunctorT          func        );
+
+    void   clearDestroyedFunctors  (void                          );
+
+    void   clearDestroyedFunctorFor(DataSlotHandler  *pHandler    );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
+#if 0
     bool requestRun(void);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,30 +159,26 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+#if 0
     ValidationStatus validateOnEnter(RenderActionBase *pAction);
     ValidationStatus validateOnLeave(RenderActionBase *pAction);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void pushPartition      (RenderActionBase          *pAction,
-                             UInt32                     uiCopyOnPush = 0x0000, 
-                             RenderPartitionBase::Mode  eMode        = 
-                                            RenderPartitionBase::StateSorting);
-    void popPartition       (RenderActionBase          *pAction);
-
-    void beginPartitionGroup(RenderActionBase          *pAction);
-    void endPartitionGroup  (RenderActionBase          *pAction);
-
-    void beginPartitions    (RenderActionBase          *pAction);
-    void endPartitions      (RenderActionBase          *pAction);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+
+          void      setUpdateMode   (UpdateMode eMode);
+          UInt32    getUpdateMode   (void            ) const;
+
+          SFUInt32 *editSFUpdateMode(void            );
+    const SFUInt32 *getSFUpdateMode (void            ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,14 +190,16 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
+    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual void   copyToBin  (BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+    virtual void   copyFromBin(BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
-
-    void setData(StageData        *pData, 
-                 Int32             iDataSlotId,
-                 RenderActionBase *pAction    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -188,60 +224,93 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
 
   protected:
 
-    TraversalValidator::ValidationStatus _tmpStatus;
+    Int32  _iDataSlotId;
+    Int32  _iElementId;
+
+#if 0
+    StageValidator::ValidationStatus _tmpStatus;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
+#if 0
     ValidationStatus validate(RenderActionBase *pAction);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFUInt32                 _sfUpdateMode;
+    SFOSGAny                 _sfRequestRun;
+    MFChangedFunctorCallback _mfDestroyedFunctors;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    StageHandlerMixin(void);
-    StageHandlerMixin(const StageHandlerMixin &source);
+    TraversalValidationHandlerMixin(void);
+    TraversalValidationHandlerMixin(const Self &source);
 
-    virtual ~StageHandlerMixin(void);
+    virtual ~TraversalValidationHandlerMixin(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
+    static void classDescInserter(TypeObject &oType);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    void execSync  (      Self              *pFrom,
+                          ConstFieldMaskArg  whichField,
+                          AspectOffsetStore &oOffsets,
+                          ConstFieldMaskArg  syncMode  ,
+                    const UInt32             uiSyncInfo);
+#endif
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    Action::ResultE recurseFromThis(RenderAction *action);
-
-    Action::ResultE recurseFrom    (RenderAction *action,
-                                    NodeCore     *pFrom );
-
-    Action::ResultE recurse        (RenderAction *action,
-                                    Node         *node  );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
+
+    EditFieldHandlePtr editHandleUpdateMode       (void);
+    GetFieldHandlePtr  getHandleUpdateMode        (void) const;
+
+    GetFieldHandlePtr  getHandleRequestRun        (void) const;
+
+    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
+    EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
+
+            void onCreateAspect (const Self   *createAspect,
+                                 const Self   *source      = NULL);
+
+            void onCreate       (const Self   *source      = NULL);
+
+    virtual void onDestroy      (      UInt32  uiContainerId     );
+
+    virtual void onDestroyAspect(      UInt32  uiContainerId,
+                                       UInt32  uiAspect          );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -249,11 +318,11 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const StageHandlerMixin &source);
+    void operator =(const TraversalValidationHandlerMixin &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGStageHandlerMixin.inl"
+#include "OSGTraversalValidationHandlerMixin.inl"
 
-#endif /* _OSGSTAGEHANDLERMIXIN_H_ */
+#endif /* _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_ */

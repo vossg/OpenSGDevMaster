@@ -78,7 +78,7 @@
 
 #include "OSGRenderActionBase.h"
 
-#include "OSGStageValidator.h"
+#include "OSGTraversalValidator.h"
 
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
@@ -328,7 +328,7 @@ OSG::Window::Window(void) :
     _availConstants     (    ),
     _numAvailConstants  (    ),
     _windowId           (  -1),
-    _pStageValidator    (NULL),
+    _pTravValidator     (NULL),
     _pShaderCache       (NULL),
 
     _pWaitTask          (NULL),
@@ -356,7 +356,7 @@ OSG::Window::Window(const Window &source) :
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
     _windowId           (                            -1),
-    _pStageValidator    (NULL                          ),
+    _pTravValidator     (NULL                          ),
     _pShaderCache       (NULL                          ),
     _pWaitTask          (NULL                          ),
     _pSwapTask          (NULL                          ),
@@ -419,9 +419,9 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
         _windowId = createAspect->_windowId;
     }
 
-    _pStageValidator = new StageValidator;
+    _pTravValidator = new TraversalValidator;
 #ifdef OSG_NEW_SHADER
-    _pShaderCache    = new ShaderCache;
+    _pShaderCache   = new ShaderCache;
 #endif
 }
 
@@ -469,19 +469,19 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
 void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
                                   UInt32  uiAspect     )
 {
-    delete _pStageValidator;
+    delete _pTravValidator;
 #ifdef OSG_NEW_SHADER
     delete _pShaderCache;
 #endif
 
-    _pStageValidator = NULL;
-    _pShaderCache    = NULL;
+    _pTravValidator = NULL;
+    _pShaderCache   = NULL;
 
-    _pWaitTask       = NULL;
-    _pSwapTask       = NULL;
-    _pFrameInitTask  = NULL;
-    _pFrameExitTask  = NULL;
-    _pActivateTask   = NULL;
+    _pWaitTask      = NULL;
+    _pSwapTask      = NULL;
+    _pFrameInitTask = NULL;
+    _pFrameExitTask = NULL;
+    _pActivateTask  = NULL;
 
     if(_pAspectStore->getRefCount() == 1 && _pContextThread != NULL)
     {
@@ -1519,7 +1519,7 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
     }
 #endif
 
-    _pStageValidator->incEventCounter();
+    _pTravValidator->incEventCounter();
 }
 
 /*! Do everything that needs to be done after the Window is redrawn. This
@@ -2289,7 +2289,6 @@ void OSG::Window::resize( int width, int height )
 {
     setWidth        (width );
     setHeight       (height);
-    setResizePending(true  );
 }
     
 
@@ -2349,23 +2348,6 @@ void OSG::Window::init(GLInitFunctor oFunc)
     }
 }
 
-
-/*! Resize function. 
-
-    This function needs to be called before a Window's Viewports are rendered,
-    to ensure that eventual pending resizes are handled correctly. 
- */   
-
-void OSG::Window::doResizeGL( void )
-{
-    if(isResizePending() == true)
-    {
-        glViewport(0, 0, getWidth(), getHeight());
-
-        setResizePending(false);
-    }
-}
-
 void OSG::Window::requestStageRun(Int32 iStageId)
 {
     if(iStageId < 0)
@@ -2384,7 +2366,7 @@ void OSG::Window::requestStageRun(Int32 iStageId)
         if(pWin == NULL)
             continue;
 
-        pWin->_pStageValidator->requestRun(iStageId);
+        pWin->_pTravValidator->requestRun(iStageId);
     }
 }
 

@@ -49,12 +49,6 @@ void Window::setSize(UInt16 width, UInt16 height)
     setWidth(width);
 }
 
-inline 
-bool Window::isResizePending(void)
-{
-    return _sfResizePending.getValue();
-}
-
 /*! Check if the window has the indicated extension.
     \warning No error checks are done on the passed index!
  */
@@ -336,9 +330,9 @@ UInt32 Window::GLObject::decRefCounter(void)
 }    
 
 inline
-StageValidator *Window::getStageValidator(void)
+TraversalValidator *Window::getTravValidator(void)
 {
-    return _pStageValidator;
+    return _pTravValidator;
 }
 
 inline

@@ -44,13 +44,17 @@
 
 #include "OSGGroup.h"
 #include "OSGComputeElementHandlerMixin.h"
+#include "OSGComputeElementIdPool.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct ComputeElementDesc
 {
-    typedef Group                      ParentT;
-    typedef FieldContainer::TypeObject TypeObject;
+    typedef Group                                 ParentT;
+    typedef FieldContainer::TypeObject            TypeObject;
+    typedef ComputeElementIdPool                  ElementIdPool;
+
+    typedef HardwareContext::Inherited::Inherited DataSlotHandler;
 };
 
 typedef ComputeElementHandlerMixin< 

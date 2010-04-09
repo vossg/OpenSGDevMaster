@@ -400,7 +400,7 @@ int init(int argc, char **argv)
     OSG::NodeUnrecPtr file = NULL;
     
     if(argc > 1)
-        file = OSG::SceneFileHandler::the()->read(argv[1], NULL);
+        file = OSG::SceneFileHandler::the()->read(argv[1], NULL, NULL);
     
     if ( file == NULL )
     {
@@ -428,7 +428,7 @@ int init(int argc, char **argv)
 
     OSG::GraphOpRefPtr op = OSG::GraphOpFactory::the()->create("Stripe");
 
-    op->traverse(file);
+//    op->traverse(file);
 //   createOptimizedPrimitives(pGeo);
 //    createSharedIndex(pGeo);
     
