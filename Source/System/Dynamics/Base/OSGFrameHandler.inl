@@ -42,7 +42,7 @@ OSG_BEGIN_NAMESPACE
 
 inline bool
 FrameHandler::FrameTaskLess::operator() (FrameTaskInterface *lhs,
-                                         FrameTaskInterface *rhs )
+                                         FrameTaskInterface *rhs)
 {
     return (lhs->getPriority() < rhs->getPriority());
 }

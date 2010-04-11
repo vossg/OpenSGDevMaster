@@ -118,17 +118,17 @@ bool FrameHandler::releaseGlobalInstance(void)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-FrameHandler::FrameHandler(void)
-    : Inherited                 ()
-    , _mfFrameTasks             ()
-    , _mfUninitializedFrameTasks()
+FrameHandler::FrameHandler(void) :
+     Inherited                (),
+    _mfFrameTasks             (),
+    _mfUninitializedFrameTasks()
 {
 }
 
-FrameHandler::FrameHandler(const FrameHandler &source)
-    : Inherited                 (source)
-    , _mfFrameTasks             (      )
-    , _mfUninitializedFrameTasks(      )
+FrameHandler::FrameHandler(const FrameHandler &source) :
+     Inherited                (source),
+    _mfFrameTasks             (      ),
+    _mfUninitializedFrameTasks(      )
 {
 }
 

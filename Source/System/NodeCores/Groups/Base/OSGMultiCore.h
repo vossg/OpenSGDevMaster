@@ -153,8 +153,8 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    ActionBase::ResultE renderEnter    (Action *action                 );
+    ActionBase::ResultE renderLeave    (Action *action                 );
 
     ActionBase::ResultE actionEnterFrom(Action *action, NodeCore *pFrom);
     ActionBase::ResultE actionLeaveFrom(Action *action, NodeCore *pFrom);

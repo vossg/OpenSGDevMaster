@@ -85,7 +85,7 @@ OSG_USING_NAMESPACE
 /*! \brief the prototype which is copied to create new actions
  */
 
-RenderAction *RenderAction::_pPrototype = NULL;
+RenderAction         *RenderAction::_pPrototype            = NULL;
 
 /*! \brief Default functors for instantiation
  */
@@ -1145,14 +1145,12 @@ Real32 RenderAction::getScreenLODDegradationFactor(void)
 \*-------------------------------------------------------------------------*/
 
 
-Action::FunctorStore *
-    RenderAction::getDefaultEnterFunctors(void)
+Action::FunctorStore *RenderAction::getDefaultEnterFunctors(void)
 {
     return _vDefaultEnterFunctors;
 }
 
-Action::FunctorStore *
-    RenderAction::getDefaultLeaveFunctors(void)
+Action::FunctorStore *RenderAction::getDefaultLeaveFunctors(void)
 {
     return _vDefaultLeaveFunctors;
 }

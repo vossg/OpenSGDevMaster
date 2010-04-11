@@ -380,14 +380,12 @@ bool IntersectAction::operator != (const IntersectAction &other) const
 \*-------------------------------------------------------------------------*/
 
 
-Action::FunctorStore *
-    IntersectAction::getDefaultEnterFunctors(void)
+Action::FunctorStore *IntersectAction::getDefaultEnterFunctors(void)
 {
     return _defaultEnterFunctors;
 }
 
-Action::FunctorStore *
-    IntersectAction::getDefaultLeaveFunctors(void)
+Action::FunctorStore *IntersectAction::getDefaultLeaveFunctors(void)
 {
     return _defaultLeaveFunctors;
 }

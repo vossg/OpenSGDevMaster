@@ -302,7 +302,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //   class variables
     //-----------------------------------------------------------------------
 
-    static RenderAction  *_pPrototype;
+    static RenderAction          *_pPrototype;
 
     static Action::FunctorStore  *_vDefaultEnterFunctors;
     static Action::FunctorStore  *_vDefaultLeaveFunctors;

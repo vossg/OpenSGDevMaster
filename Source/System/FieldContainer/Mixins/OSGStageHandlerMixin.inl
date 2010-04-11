@@ -347,8 +347,7 @@ void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
 /*                             Assignment                                  */
 
 template <class ParentT> inline
-Action::ResultE 
-StageHandlerMixin<ParentT>::recurseFromThis(Action *action)
+Action::ResultE StageHandlerMixin<ParentT>::recurseFromThis(Action *action)
 {
     Action::ResultE  returnValue = Action::Continue;
 
@@ -384,9 +383,8 @@ StageHandlerMixin<ParentT>::recurseFromThis(Action *action)
 }
 
 template <class ParentT> inline
-Action::ResultE 
-    StageHandlerMixin<ParentT>::recurseFrom(Action   *action,
-                                            NodeCore *pFrom )
+Action::ResultE StageHandlerMixin<ParentT>::recurseFrom(Action   *action,
+                                                        NodeCore *pFrom )
 {
     Action::ResultE  returnValue = Action::Continue;
 

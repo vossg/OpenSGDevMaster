@@ -329,7 +329,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
 
     // the prototype which is copied to create new actions
-    static Action * _prototype;
+    static Action       *_prototype;
     
     // default functors for instantiation
     static FunctorStore *_defaultEnterFunctors;

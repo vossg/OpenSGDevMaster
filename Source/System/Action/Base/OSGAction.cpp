@@ -66,7 +66,7 @@ The action base class.
 \***************************************************************************/
 
 
-Action *Action::_prototype = NULL;
+Action               *Action::_prototype            = NULL;
 
 Action::FunctorStore *Action::_defaultEnterFunctors = NULL;
 Action::FunctorStore *Action::_defaultLeaveFunctors = NULL;
@@ -420,8 +420,7 @@ ActionBase::ResultE Action::recurse(Node * const node)
     return result;
 }
 
-ActionBase::ResultE
-Action::recurseNoCallback(Node * const node)
+ActionBase::ResultE Action::recurseNoCallback(Node * const node)
 {
     if(node == NULL)
         return Continue;
@@ -454,7 +453,7 @@ Action::recurseNoCallback(Node * const node)
             node->getMFChildren()->begin();
 
         Node::MFChildrenType::const_iterator cEnd =
-            node->getMFChildren()->end();
+            node->getMFChildren()->end  ();
 
         for( ; cIt != cEnd; ++cIt)
         {
@@ -474,10 +473,9 @@ Action::recurseNoCallback(Node * const node)
     return result;
 }
 
-Action::ResultE
-Action::recurseMultiCoreFrom(Node      * const node,
-                             MultiCore * const mcore,
-                             NodeCore  * const from)
+Action::ResultE Action::recurseMultiCoreFrom(Node      * const node,
+                                             MultiCore * const mcore,
+                                             NodeCore  * const from )
 {
     if(node == NULL)
         return Continue;
@@ -513,7 +511,7 @@ Action::recurseMultiCoreFrom(Node      * const node,
     else if(! _useNewList) // new list is empty, but not used?
     {
         Node::MFChildrenType::const_iterator it =
-          node->getMFChildren()->begin();
+            node->getMFChildren()->begin();
         Node::MFChildrenType::const_iterator en =
             node->getMFChildren()->end  ();
 

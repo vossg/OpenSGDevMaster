@@ -124,7 +124,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
                                                        bool                 >
     {
         inline bool operator() (FrameTaskInterface *lhs,
-                                FrameTaskInterface *rhs );
+                                FrameTaskInterface *rhs);
     };
 
     InterfaceStore _mfFrameTasks;
