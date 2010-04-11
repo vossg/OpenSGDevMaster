@@ -96,10 +96,10 @@ void DataSlotMixin<ParentT>::clearData(FieldContainer    *pContainer,
         _mfData.replace(iSlotId, NULL);
     }
 
-    typename FunctorStore::iterator       cfIt = 
+    typename DestroyFunctorStore::iterator       cfIt = 
         _mfDestroyedFunctors.begin();
 
-    typename FunctorStore::const_iterator cfEnd= 
+    typename DestroyFunctorStore::const_iterator cfEnd= 
         _mfDestroyedFunctors.end();
 
     while(cfIt != cfEnd)

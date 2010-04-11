@@ -172,15 +172,15 @@ class DataSlotMixin : public ParentT
     typedef          std::pair<      DestroyFunctor,
                                const FieldContainer *> DestroyedFunctorElem;
 
-    typedef          std::vector<DestroyedFunctorElem> FunctorStore;
+    typedef          std::vector<DestroyedFunctorElem> DestroyFunctorStore;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    DataStore    _mfData;
-    FunctorStore _mfDestroyedFunctors;
+    DataStore           _mfData;
+    DestroyFunctorStore _mfDestroyedFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
