@@ -465,15 +465,13 @@ void FieldContainer::onDestroy(UInt32)
 inline
 void FieldContainer::initMethod(InitPhase ePhase)
 {
-    FINFO(("FieldContainer initMethod called (%d)\n", 
-           ePhase));
+    FDEBUG(("FieldContainer initMethod called (%d)\n", ePhase));
 }
 
 inline
 void FieldContainer::exitMethod(InitPhase ePhase)
 {
-    FINFO(("FieldContainer initMethod called (%d)\n", 
-           ePhase));
+    FDEBUG(("FieldContainer exitMethod called (%d)\n", ePhase));
 }
 
 inline
