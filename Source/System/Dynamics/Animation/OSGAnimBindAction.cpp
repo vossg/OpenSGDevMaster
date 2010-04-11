@@ -182,7 +182,8 @@ AnimBindAction::bindFields(AttachmentContainer *attCon)
         if(blender == NULL)
         {
             blender = dsIt->second->createBlender();
-            (*targetAtt->editMFBlenders())[fId] = blender;
+//            (*targetAtt->editMFBlenders())[fId] = blender;
+            targetAtt->editMFBlenders()->replace(fId, blender);
         }
 
         blender->addChannel(channel                 );

@@ -119,7 +119,7 @@ AnimTemplate::findTargetId(const std::string &targetId, Int32 offset) const
 
     Int32 index = -1;
 
-    if(offset >= 0 && offset < _mfSources.size())
+    if(offset >= 0 && offset < Int32(_mfSources.size()))
     {
         MFTargetIdsType::const_iterator idIt  = _mfTargetIds.begin();
         MFTargetIdsType::const_iterator idEnd = _mfTargetIds.end  ();

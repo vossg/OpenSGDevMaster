@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -63,7 +63,7 @@
 #include "OSGAnimChannelBase.h"
 #include "OSGAnimChannel.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -455,15 +455,6 @@ bool AnimChannelBase::unlinkParent(
 }
 
 
-void AnimChannelBase::onCreate(const AnimChannel *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        AnimChannel *pThis = static_cast<AnimChannel *>(this);
-    }
-}
 
 GetFieldHandlePtr AnimChannelBase::getHandleAnimation       (void) const
 {

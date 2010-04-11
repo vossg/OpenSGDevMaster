@@ -44,13 +44,17 @@
 
 #include "OSGAttachmentContainer.h"
 #include "OSGStageHandlerMixin.h"
+#include "OSGStageIdPool.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct SkeletonDesc
 {
-    typedef AttachmentContainer        ParentT;
-    typedef FieldContainer::TypeObject TypeObject;
+    typedef AttachmentContainer         ParentT;
+    typedef FieldContainer::TypeObject  TypeObject;
+    typedef StageIdPool                 ElementIdPool;
+
+    typedef RenderActionBase::Inherited DataSlotHandler;
 };
 
 typedef ContainerMixinHead<SkeletonDesc> SkeletonMixinParent;

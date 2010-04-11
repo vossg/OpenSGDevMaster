@@ -157,8 +157,10 @@ ColladaAnimation::createInstance(ColladaInstInfo *colInstInfo)
 
     ColladaAnimationInstInfo *colAnimInstInfo =
         dynamic_cast<ColladaAnimationInstInfo *>(colInstInfo);
+#if 0
     ColladaAnimationClip     *colAnimClip     =
         dynamic_cast<ColladaAnimationClip *>(colInstInfo->getColInstParent());
+#endif
     AnimKeyFrameTemplate     *animTmpl        =
         colAnimInstInfo->getTemplate();
 
@@ -441,7 +443,8 @@ ColladaAnimation::handleInput(
     dsInfo._lastKey  = std::distance(inputStore.begin(), endIt  );
 
     OSG_COLLADA_LOG(("ColladaAnimation::handleInput: "
-                     "Using key range [%d %d] [%f %f] [%f %f] of [0 %d]\n",
+                     "Using key range [%d %d] [%f %f] [%f %f] of [0 %"
+                     PRISize"]\n",
                      dsInfo._firstKey, dsInfo._lastKey,
                      inputStore[dsInfo._firstKey   ],
                      inputStore[dsInfo._lastKey - 1],
@@ -492,7 +495,10 @@ ColladaAnimation::handleOutput(
 
     if(matrixDS != NULL)
     {
+#if defined(OSG_USE_COLLADA_ANIMCLIP_INSTANCE_HACK)
         bool                              noAnim = true;
+#endif
+
         ColladaSource::MatrixStoreConstIt matIt  =
             smIt->second->getMatrixStore().begin() + dsInfo._firstKey;
         ColladaSource::MatrixStoreConstIt matEnd =

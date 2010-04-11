@@ -739,7 +739,7 @@ void keyboard(unsigned char k, int , int )
         if(anims.empty() == false)
         {
             currAnim += 1;
-            if(currAnim >= anims.size())
+            if(currAnim >= OSG::Int32(anims.size()))
                 currAnim = 0;
 
             std::cout << "Current anim [" << currAnim << "] - ["

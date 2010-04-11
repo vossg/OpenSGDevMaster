@@ -160,11 +160,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -218,7 +213,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const AnimChannel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

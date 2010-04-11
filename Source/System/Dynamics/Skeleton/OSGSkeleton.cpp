@@ -282,8 +282,11 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
         return Action::Continue;
     }
 
-    (*mfJoints      )[jointId] = joint;
-    (*mfParentJoints)[jointId] = parentJoint;
+//    (*mfJoints      )[jointId] = joint;
+//    (*mfParentJoints)[jointId] = parentJoint;
+
+    mfJoints      ->replace(jointId, joint      );
+    mfParentJoints->replace(jointId, parentJoint);
 
     jointStack->push_back(joint);
 

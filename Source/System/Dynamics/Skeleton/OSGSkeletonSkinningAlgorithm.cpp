@@ -128,7 +128,7 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
     const Skeleton::MFJointMatricesType *jointMats    =
         skel->getMFJointMatrices();
 
-    Real32 axisLen   = 1.f;
+//    Real32 axisLen   = 1.f;
     UInt32 numJoints = joints->size();
 
 #ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
