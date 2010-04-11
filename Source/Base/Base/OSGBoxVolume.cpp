@@ -144,35 +144,13 @@ void BoxVolume::extendBy(const Pnt3r &pt)
         return;
     }
 
-    if(pt[0] < _min[0])
-    {
-        _min[0] = pt[0];
-    }
-    else
-    {
-        if(pt[0] > _max[0])
-            _max[0] = pt[0];
-    }
+    _min[0] = osgMin(pt[0], _min[0]);
+    _min[1] = osgMin(pt[1], _min[1]);
+    _min[2] = osgMin(pt[2], _min[2]);
 
-    if(pt[1] < _min[1])
-    {
-        _min[1] = pt[1];
-    }
-    else
-    {
-        if(pt[1] > _max[1])
-            _max[1] = pt[1];
-    }
-
-    if(pt[2] < _min[2])
-    {
-        _min[2] = pt[2];
-    }
-    else
-    {
-        if(pt[2] > _max[2])
-            _max[2] = pt[2];
-    }
+    _max[0] = osgMax(pt[0], _max[0]);
+    _max[1] = osgMax(pt[1], _max[1]);
+    _max[2] = osgMax(pt[2], _max[2]);
 }
 
 
@@ -258,162 +236,36 @@ bool BoxVolume::isOnSurface (const Pnt3r &point) const
 
 void BoxVolume::transform(const Matrixr &m)
 {
-    Real xmin;
-    Real ymin;
-    Real zmin;
-    Real xmax;
-    Real ymax;
-    Real zmax;
-    Real a;
-    Real b;
-
     if(isEmpty() == true)
         return;
 
-    xmin = xmax = m[3][0];
-    ymin = ymax = m[3][1];
-    zmin = zmax = m[3][2];
+    Pnt3f  newMin(m[3][0], m[3][1], m[3][2]);
+    Pnt3f  newMax(m[3][0], m[3][1], m[3][2]);
+    Real32 a;
+    Real32 b;
 
-    //
-    // calculate xmin and xmax of new tranformed BBox
-    //
+    for(UInt32 i = 0; i < 3; ++i)
+    {
+        for(UInt32 j = 0; j < 3; ++j)
+        {
+            a = _max[j] * m[j][i];
+            b = _min[j] * m[j][i];
 
-    a = _max[0] * m[0][0];
-    b = _min[0] * m[0][0];
-
-    if(a >= b)
-    {
-        xmax += a;
-        xmin += b;
-    }
-    else
-    {
-        xmax += b;
-        xmin += a;
-    }
-
-    a = _max[1] * m[1][0];
-    b = _min[1] * m[1][0];
-
-    if(a >= b) 
-    {
-        xmax += a;
-        xmin += b;
-    }
-    else
-    {
-        xmax += b;
-        xmin += a;
-    }
-    
-    a = _max[2] * m[2][0];
-    b = _min[2] * m[2][0];
-
-    if(a >= b)
-    {
-        xmax += a;
-        xmin += b;
-    }
-    else
-    {
-        xmax += b;
-        xmin += a;
+            if(a >= b)
+            {
+                newMax[i] += a;
+                newMin[i] += b;
+            }
+            else
+            {
+                newMax[i] += b;
+                newMin[i] += a;
+            }
+        }
     }
 
-    //
-    // calculate ymin and ymax of new tranformed BBox
-    //
-
-    a = _max[0] * m[0][1];
-    b = _min[0] * m[0][1];
-
-    if(a >= b)
-    {
-        ymax += a;
-        ymin += b;
-    }
-    else
-    {
-        ymax += b;
-        ymin += a;
-    }
-
-    a = _max[1] * m[1][1];
-    b = _min[1] * m[1][1];
-
-    if(a >= b)
-    {
-        ymax += a;
-        ymin += b;
-    }
-    else
-    {
-        ymax += b;
-        ymin += a;
-    }
-
-    a = _max[2] * m[2][1];
-    b = _min[2] * m[2][1];
-
-    if(a >= b)
-    {
-        ymax += a;
-        ymin += b;
-    }
-    else
-    {
-        ymax += b;
-        ymin += a;
-    }
-
-    //
-    // calculate zmin and zmax of new tranformed BBox
-    //
-
-    a = _max[0] * m[0][2];
-    b = _min[0] * m[0][2];
-
-    if(a >= b) 
-    {
-        zmax += a;
-        zmin += b;
-    }
-    else
-    {
-        zmax += b;
-        zmin += a;
-    }
-
-    a = _max[1] * m[1][2];
-    b = _min[1] * m[1][2];
-
-    if(a >= b)
-    {
-        zmax += a;
-        zmin += b;
-    }
-    else
-    {
-        zmax += b;
-        zmin += a;
-    }
-
-    a = _max[2] * m[2][2];
-    b = _min[2] * m[2][2];
-
-    if(a >= b)
-    {
-        zmax += a;
-        zmin += b;
-    }
-    else
-    {
-        zmax += b;
-        zmin += a;
-    }
-
-    _min.setValues(xmin, ymin, zmin);
-    _max.setValues(xmax, ymax, zmax);
+    _min = newMin;
+    _max = newMax;
 }
 
 //! Assignment operator
