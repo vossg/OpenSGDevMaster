@@ -52,6 +52,7 @@
 #include "OSGColorMaskChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGPolygonChunk.h"
+#include "OSGRenderAction.h"
 #include "OSGShaderProgram.h"
 
 #include "OSGBlendChunk.h"

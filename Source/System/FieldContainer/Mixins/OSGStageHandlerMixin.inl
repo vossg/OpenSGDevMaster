@@ -348,7 +348,7 @@ void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
 
 template <class ParentT> inline
 Action::ResultE 
-    StageHandlerMixin<ParentT>::recurseFromThis(RenderAction *action)
+StageHandlerMixin<ParentT>::recurseFromThis(Action *action)
 {
     Action::ResultE  returnValue = Action::Continue;
 
@@ -369,12 +369,12 @@ Action::ResultE
         }
         else
         {
-            returnValue = action->recurseNoNodeCallbacks(pActNode);
+            returnValue = action->recurseNoCallback(pActNode);
         }
     }
     else
     {
-        returnValue = action->recurseNoNodeCallbacks(pActNode);
+        returnValue = action->recurseNoCallback(pActNode);
     }
 
     action->setActNode  (pActNode  );
@@ -385,8 +385,8 @@ Action::ResultE
 
 template <class ParentT> inline
 Action::ResultE 
-    StageHandlerMixin<ParentT>::recurseFrom(RenderAction *action,
-                                            NodeCore     *pFrom )
+    StageHandlerMixin<ParentT>::recurseFrom(Action   *action,
+                                            NodeCore *pFrom )
 {
     Action::ResultE  returnValue = Action::Continue;
 
@@ -407,12 +407,12 @@ Action::ResultE
         }
         else
         {
-            returnValue = action->recurseNoNodeCallbacks(pActNode);
+            returnValue = action->recurseNoCallback(pActNode);
         }
     }
     else
     {
-        returnValue = action->recurseNoNodeCallbacks(pActNode);
+        returnValue = action->recurseNoCallback(pActNode);
     }
 
     action->setActNode  (pActNode  );
@@ -422,8 +422,8 @@ Action::ResultE
 }
 
 template <class ParentT> inline
-Action::ResultE StageHandlerMixin<ParentT>::recurse (RenderAction *action,
-                                                     Node         *node  )
+Action::ResultE StageHandlerMixin<ParentT>::recurse(Action *action,
+                                                    Node   *node  )
 {
     Node           *pActNode   = action->getActNode  ();
     FieldContainer *pActParent = action->getActParent();

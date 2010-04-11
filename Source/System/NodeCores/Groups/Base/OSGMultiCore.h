@@ -156,8 +156,8 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
 
-    ActionBase::ResultE renderEnterFrom(Action *action, NodeCore *pFrom);
-    ActionBase::ResultE renderLeaveFrom(Action *action, NodeCore *pFrom);
+    ActionBase::ResultE actionEnterFrom(Action *action, NodeCore *pFrom);
+    ActionBase::ResultE actionLeaveFrom(Action *action, NodeCore *pFrom);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,7 +173,7 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
 
     friend class FieldContainer;
     friend class MultiCoreBase;
-    friend class RenderAction;
+    friend class Action;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MultiCore &source);

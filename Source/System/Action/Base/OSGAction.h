@@ -251,7 +251,11 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     virtual ResultE stop (ResultE res); // res is the exit code of the action
     
     // recurse through the node
-    ResultE recurse(Node * const node);
+    ResultE recurse             (Node      * const node );
+    ResultE recurseNoCallback   (Node      * const node );
+    ResultE recurseMultiCoreFrom(Node      * const node,
+                                 MultiCore * const core,
+                                 NodeCore  * const from );
    
     // call the _newList list of nodes
     

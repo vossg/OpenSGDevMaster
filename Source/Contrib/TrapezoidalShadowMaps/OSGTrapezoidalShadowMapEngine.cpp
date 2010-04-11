@@ -50,6 +50,7 @@
 #include "OSGMatrixUtility.h"
 #include "OSGColorMaskChunk.h"
 #include "OSGPolygonChunk.h"
+#include "OSGRenderAction.h"
 
 #include <boost/cast.hpp>
 

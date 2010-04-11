@@ -380,11 +380,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 //            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
 //    virtual void draw(DrawTreeNode *pRoot);
 
+#if 0
     ResultE recurseNoNodeCallbacks(Node * const node);
 
     ResultE recurseMultiCoreFrom(Node      * const pNode,
                                  MultiCore * const pCore,
                                  NodeCore  * const pFrom);
+#endif
 
   private:
 

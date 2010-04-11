@@ -46,7 +46,7 @@
 
 #include "OSGTraversalValidator.h"
 #include "OSGStageData.h"
-#include "OSGRenderAction.h"
+#include "OSGRenderActionBase.h"
 
 #include "OSGMultiCore.h"
 #include "OSGWindow.h"
@@ -226,13 +226,13 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    Action::ResultE recurseFromThis(RenderAction *action);
+    Action::ResultE recurseFromThis(Action   *action );
 
-    Action::ResultE recurseFrom    (RenderAction *action,
-                                    NodeCore     *pFrom );
+    Action::ResultE recurseFrom    (Action   *action,
+                                    NodeCore *pFrom  );
 
-    Action::ResultE recurse        (RenderAction *action,
-                                    Node         *node  );
+    Action::ResultE recurse        (Action   *action,
+                                    Node     *node   );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */

@@ -52,6 +52,7 @@
 #include "OSGOrthographicCamera.h"
 #include "OSGPointLight.h"
 #include "OSGRenderBuffer.h"
+#include "OSGRenderAction.h"
 #include "OSGSolidBackground.h"
 #include "OSGSpotLight.h"
 #include "OSGTransform.h"

@@ -36,6 +36,7 @@
 
 #include "OSGLog.h"
 #include "OSGFieldContainer.h"
+#include "OSGMultiCore.h"
 #include "OSGNodeCore.h"
 #include "OSGAction.h"
 
@@ -336,8 +337,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
     
     if(core == NULL)
     {
-        SWARNING << "recurse: core is Null,  don't know what to do!" 
-                 << std::endl;
+        SWARNING << "Action::recurse: core is NULL, "
+                 << "aborting traversal." << std::endl;
         return Quit;                    
     }
     
@@ -381,12 +382,14 @@ ActionBase::ResultE Action::recurse(Node * const node)
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        MFUnrecChildNodePtr::const_iterator it = node->getMFChildren()->begin();
-        MFUnrecChildNodePtr::const_iterator en = node->getMFChildren()->end  ();
+        Node::MFChildrenType::const_iterator cIt =
+            node->getMFChildren()->begin();
+        Node::MFChildrenType::const_iterator cEnd =
+            node->getMFChildren()->end  ();
 
-        for(; it != en; ++it)
+        for(; cIt != cEnd; ++cIt)
         {
-            result = recurse(*it);
+            result = recurse(*cIt);
             
             if(result != Continue)
                 break;
@@ -416,6 +419,134 @@ ActionBase::ResultE Action::recurse(Node * const node)
         
     return result;
 }
+
+ActionBase::ResultE
+Action::recurseNoCallback(Node * const node)
+{
+    if(node == NULL)
+        return Continue;
+
+    if((node->getTravMask() & getTravMask()) == 0)
+        return Continue;
+
+    NodeCore *core = node->getCore();
+
+    if(core == NULL)
+    {
+        SWARNING << "Action::recurseNoCallback: core is NULL, "
+                 << "aborting traversal." << std::endl;
+        return Quit;
+    }
+
+    Action::ResultE result = Action::Continue;
+
+    _actList   = NULL;
+    _actNode   = node;
+    _actParent = node;
+
+    if(! _newList.empty())
+    {
+        result = callNewList();
+    }
+    else if(! _useNewList) // new list is empty, but not used?
+    {
+        Node::MFChildrenType::const_iterator cIt =
+            node->getMFChildren()->begin();
+
+        Node::MFChildrenType::const_iterator cEnd =
+            node->getMFChildren()->end();
+
+        for( ; cIt != cEnd; ++cIt)
+        {
+            result = recurse(*cIt);
+
+            if(result != Continue)
+                break;
+        }
+    }
+
+    _actNode   = node;
+    _actParent = node;
+
+    if(result == Skip)
+        return Continue;
+
+    return result;
+}
+
+Action::ResultE
+Action::recurseMultiCoreFrom(Node      * const node,
+                             MultiCore * const mcore,
+                             NodeCore  * const from)
+{
+    if(node == NULL)
+        return Continue;
+
+    if((node->getTravMask() & getTravMask()) == 0)
+        return Continue;
+
+    OSG_ASSERT(node->getCore() == mcore);
+
+    Action::ResultE result = Continue;
+
+    _actList   = NULL;
+    _actNode   = node;
+    _actParent = node;
+
+    result = mcore->actionEnterFrom(this, from);
+
+    _actNode   = node;
+    _actParent = node;
+
+    if(result != Continue)
+    {
+        if(result == Skip)
+            return Continue;
+    
+        return result;
+    }
+    
+    if(! _newList.empty())
+    {
+        result = callNewList();
+    }
+    else if(! _useNewList) // new list is empty, but not used?
+    {
+        Node::MFChildrenType::const_iterator it = 
+          node->getMFChildren()->begin();
+        Node::MFChildrenType::const_iterator en = 
+            node->getMFChildren()->end  ();
+
+        for(; it != en; ++it)
+        {
+            result = recurse(*it);
+            
+            if(result != Continue)
+                break;
+        }
+    }   
+    
+    _actNode   = node;
+    _actParent = node;
+
+    if(result == Continue)
+    {
+        result = mcore->actionLeaveFrom(this, from);
+    }
+    else
+    {
+        mcore->actionLeaveFrom(this, from);
+    }
+
+    _actNode   = node;
+    _actParent = node;
+
+    if(result == Skip)
+        return Continue;
+        
+    return result;
+}
+
 
 // call the _newList objects
 ActionBase::ResultE Action::callNewList(void)

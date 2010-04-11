@@ -64,7 +64,6 @@
 #endif
 #include "OSGVolumeDraw.h"
 #include "OSGTreeBuilderBase.h"
-#include "OSGMultiCore.h"
 #include "OSGPrimeMaterial.h"
 
 OSG_USING_NAMESPACE
@@ -457,6 +456,7 @@ UInt32 RenderAction::getCurrentBuffer(void)
 
 /*-------------------------- your_category---------------------------------*/
 
+#if 0
 ActionBase::ResultE RenderAction::recurseNoNodeCallbacks(Node * const node)
 {
     if(node == NULL)
@@ -596,6 +596,7 @@ Action::ResultE RenderAction::recurseMultiCoreFrom(Node      * const pNode,
         
     return result;
 }
+#endif
 
 void RenderAction::frameInit(void)
 {

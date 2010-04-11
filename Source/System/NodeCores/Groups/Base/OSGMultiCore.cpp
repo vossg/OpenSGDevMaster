@@ -213,7 +213,7 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE MultiCore::renderEnterFrom(Action   *action,
+ActionBase::ResultE MultiCore::actionEnterFrom(Action   *action,
                                                NodeCore *pFrom )
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
@@ -252,7 +252,7 @@ ActionBase::ResultE MultiCore::renderEnterFrom(Action   *action,
     return returnValue;
 }
 
-ActionBase::ResultE MultiCore::renderLeaveFrom(Action   *action,
+ActionBase::ResultE MultiCore::actionLeaveFrom(Action   *action,
                                                NodeCore *pFrom )
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
