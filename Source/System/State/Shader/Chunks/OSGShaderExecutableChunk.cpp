@@ -561,15 +561,14 @@ void ShaderExecutableChunk::activate(DrawEnv    *pEnv,
     if(uiProgId == 0)
         return;
 
-    pEnv->setActiveShader(uiProgId);
-
     if(0x0000 == (uiValRes & ProgActive))
     {
         OSGGETGLFUNC(OSGglUseProgramProc,
                      osgGlUseProgram,
                      ShaderProgram::getFuncIdUseProgram());
 
-        osgGlUseProgram(uiProgId);
+        pEnv->setActiveShader(uiProgId);
+        osgGlUseProgram      (uiProgId);
     }
 
     updateProceduralVariables(pEnv, ShaderProcVariable::SHDAll);
@@ -628,15 +627,14 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
         if(uiProgId == 0)
             return;
 
-        pEnv->setActiveShader(uiProgId);
-
         if(0x0000 == (uiValRes & ProgActive))
         {
             OSGGETGLFUNC(OSGglUseProgramProc,
                          osgGlUseProgram,
                          ShaderProgram::getFuncIdUseProgram());
 
-            osgGlUseProgram(uiProgId);
+            pEnv->setActiveShader(uiProgId);
+            osgGlUseProgram      (uiProgId);
         }
 
         if(_sfPointSize.getValue() == true)
@@ -666,8 +664,6 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
     if(pEnv->getWindow()->getGLObjectId(getGLId()) == 0)
         return;
 
-    pEnv->setActiveShader(0);
-
     OSGGETGLFUNC(OSGglUseProgramProc,
                  osgGlUseProgram,
                  ShaderProgram::getFuncIdUseProgram());
@@ -677,7 +673,8 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
         glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
     }
 
-    osgGlUseProgram(0);
+    pEnv->setActiveShader(0);
+    osgGlUseProgram      (0);
 }
 
 void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
