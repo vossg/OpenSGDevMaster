@@ -81,7 +81,7 @@ Action::FunctorStore *Action::_defaultLeaveFunctors = NULL;
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
-void Action::registerEnterDefault(const FieldContainerType &type, 
+void Action::registerEnterDefault(const FieldContainerType &type,
                                   const Action::Functor    &func)
 {
     if(_defaultEnterFunctors == NULL)
@@ -98,11 +98,11 @@ void Action::registerEnterDefault(const FieldContainerType &type,
         _defaultEnterFunctors->push_back(&NodeCore::defaultEnter);
     }
 #endif
-    
+
     (*_defaultEnterFunctors)[type.getId()] = func;
 }
 
-void Action::registerLeaveDefault(const FieldContainerType &type, 
+void Action::registerLeaveDefault(const FieldContainerType &type,
                                   const Action::Functor    &func)
 {
     if(_defaultLeaveFunctors == NULL)
@@ -119,7 +119,7 @@ void Action::registerLeaveDefault(const FieldContainerType &type,
         _defaultLeaveFunctors->push_back(&NodeCore::defaultLeave);
     }
 #endif
-    
+
     (*_defaultLeaveFunctors)[type.getId()] = func;
 }
 
@@ -157,7 +157,7 @@ Action *Action::getPrototype(void)
 /** \brief Constructor
  */
 
-Action::Action(void) : 
+Action::Action(void) :
     _enterFunctors(                            ),
     _leaveFunctors(                            ),
     _actNode      (NULL                        ),
@@ -200,7 +200,7 @@ Action::Action(const Action & source) :
 Action *Action::create(void)
 {
     Action *act;
-    
+
     if(_prototype)
     {
         act = new Action(*_prototype);
@@ -226,7 +226,7 @@ Action::~Action(void)
 
 /*-------------------------- your_category---------------------------------*/
 
-void Action::registerEnterFunction(const FieldContainerType &type, 
+void Action::registerEnterFunction(const FieldContainerType &type,
                                    const Action::Functor    &func)
 {
 #ifndef OSG_EMBEDDED
@@ -240,11 +240,11 @@ void Action::registerEnterFunction(const FieldContainerType &type,
         _enterFunctors.push_back(&NodeCore::defaultEnter);
     }
 #endif
-    
+
     _enterFunctors[type.getId()] = func;
 }
 
-void Action::registerLeaveFunction(const FieldContainerType &type, 
+void Action::registerLeaveFunction(const FieldContainerType &type,
                                    const Action::Functor    &func)
 {
 #ifndef OSG_EMBEDDED
@@ -258,7 +258,7 @@ void Action::registerLeaveFunction(const FieldContainerType &type,
         _leaveFunctors.push_back(&NodeCore::defaultLeave);
     }
 #endif
-    
+
     _leaveFunctors[type.getId()] = func;
 }
 
@@ -270,33 +270,33 @@ ActionBase::ResultE Action::apply(std::vector<Node *>::iterator begin,
                                   std::vector<Node *>::iterator end)
 {
     Action::ResultE res = Continue;
-    
+
     // call the start function and its' returns
 
     if((res = callStart()) != Continue)
-        return res;     
-    
+        return res;
+
     // call the given nodes
-    
+
     for(; begin != end; ++begin)
     {
         if(*begin == NULL)
         {
             SWARNING << "apply: encountered NullNode!" << std::endl;
-            return Quit;            
+            return Quit;
         }
         else
         {
             res = recurse(*begin);
-            
+
             if(res != Continue)
                 break;
         }
     }
-        
+
     // call the stop function and its' returns
-    res = callStop(res);  
-    
+    res = callStop(res);
+
     return res;
 }
 
@@ -305,7 +305,7 @@ ActionBase::ResultE Action::apply(Node * const node)
     if(node == NULL)
     {
         SWARNING << "apply: node is Null!" << std::endl;
-        return Quit;            
+        return Quit;
     }
 
     std::vector<Node *> nodeList;
@@ -334,14 +334,14 @@ ActionBase::ResultE Action::recurse(Node * const node)
 #endif
 
     NodeCore *core = node->getCore();
-    
+
     if(core == NULL)
     {
         SWARNING << "Action::recurse: core is NULL, "
                  << "aborting traversal." << std::endl;
-        return Quit;                    
+        return Quit;
     }
-    
+
     Action::ResultE result = Continue;
 
     _actList   = NULL;
@@ -359,7 +359,7 @@ ActionBase::ResultE Action::recurse(Node * const node)
     {
         if(result == Skip)
             return Continue;
-    
+
         return result;
     }
 
@@ -372,10 +372,10 @@ ActionBase::ResultE Action::recurse(Node * const node)
     {
         if(result == Skip)
             return Continue;
-    
+
         return result;
     }
-    
+
     if(! _newList.empty())
     {
         result = callNewList();
@@ -390,12 +390,12 @@ ActionBase::ResultE Action::recurse(Node * const node)
         for(; cIt != cEnd; ++cIt)
         {
             result = recurse(*cIt);
-            
+
             if(result != Continue)
                 break;
         }
-    }   
-    
+    }
+
     _actNode   = node;
     _actParent = node;
 
@@ -416,7 +416,7 @@ ActionBase::ResultE Action::recurse(Node * const node)
 
     if(result == Skip)
         return Continue;
-        
+
     return result;
 }
 
@@ -502,30 +502,30 @@ Action::recurseMultiCoreFrom(Node      * const node,
     {
         if(result == Skip)
             return Continue;
-    
+
         return result;
     }
-    
+
     if(! _newList.empty())
     {
         result = callNewList();
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        Node::MFChildrenType::const_iterator it = 
+        Node::MFChildrenType::const_iterator it =
           node->getMFChildren()->begin();
-        Node::MFChildrenType::const_iterator en = 
+        Node::MFChildrenType::const_iterator en =
             node->getMFChildren()->end  ();
 
         for(; it != en; ++it)
         {
             result = recurse(*it);
-            
+
             if(result != Continue)
                 break;
         }
-    }   
-    
+    }
+
     _actNode   = node;
     _actParent = node;
 
@@ -543,7 +543,7 @@ Action::recurseMultiCoreFrom(Node      * const node,
 
     if(result == Skip)
         return Continue;
-        
+
     return result;
 }
 
@@ -585,7 +585,7 @@ ActionBase::ResultE Action::callStart(void)
     ResultE       res          = Continue;
     FunctorStore *defaultEnter = getDefaultEnterFunctors();
     FunctorStore *defaultLeave = getDefaultLeaveFunctors();
-    
+
     // new default enter functor registered since this action was created
     if(defaultEnter          != NULL &&
        _enterFunctors.size() <  defaultEnter->size())
@@ -617,17 +617,17 @@ ActionBase::ResultE Action::callStart(void)
     }
 
     // call the start and see if it returns some nodes
-    
+
     _newList.clear();
 
     if((res = start()) != Continue)
-        return res;     
-    
+        return res;
+
     // got some nodes? call them
-    
+
     if(! _newList.empty())
         res = callNewList();
-    
+
     // return the result
 
     return res;
@@ -638,12 +638,12 @@ ActionBase::ResultE Action::callStart(void)
 ActionBase::ResultE Action::callStop(ResultE res)
 {
     // call the start and see if it returns some nodes
-    
+
     _newList.clear();
 
     if((res = stop(res)) != Continue)
-        return res;     
-            
+        return res;
+
     if(! _newList.empty())
         res = callNewList();
 
@@ -726,13 +726,13 @@ Action::FunctorStore *Action::getDefaultLeaveFunctors(void)
 
 // default Action function: just call all kids
 
-ActionBase::ResultE Action::_defaultEnterFunction(NodeCore * const, 
+ActionBase::ResultE Action::_defaultEnterFunction(NodeCore * const,
                                                   Action   *      )
 {
     return Continue;
 }
 
-ActionBase::ResultE Action::_defaultLeaveFunction(NodeCore * const, 
+ActionBase::ResultE Action::_defaultLeaveFunction(NodeCore * const,
                                                   Action   *      )
 {
     return Continue;
@@ -744,14 +744,14 @@ OSG_BEGIN_NAMESPACE
 
 /*
 inline
-ActionBase::ResultE doCallEnter(NodePtrConstArg       node, 
+ActionBase::ResultE doCallEnter(NodePtrConstArg       node,
                                 TraverseEnterFunctor &func)
 {
     return func.call(node);
 }
 
 inline
-ActionBase::ResultE doCallLeave(NodePtrConstArg       node, 
+ActionBase::ResultE doCallLeave(NodePtrConstArg       node,
                                 ActionBase::ResultE   res,
                                 TraverseLeaveFunctor &func)
 {
@@ -762,52 +762,52 @@ ActionBase::ResultE doCallLeave(NodePtrConstArg       node,
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList, 
+ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList,
                                    TraverseEnterFunctor  func    )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
     std::vector<Node *>::const_iterator it = nodeList.begin();
     std::vector<Node *>::const_iterator en = nodeList.end  ();
-    
+
     for(; it != en; ++it)
     {
         res = traverse((*it), func);
-        
+
         if(res == ActionBase::Quit)
             break;
     }
-        
+
     return res;
 }
 
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
+ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
                                    TraverseEnterFunctor  func    )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
     MFUnrecChildNodePtr::const_iterator it = nodeList.begin();
     MFUnrecChildNodePtr::const_iterator en = nodeList.end  ();
-    
+
     for(; it != en; ++it)
     {
         res = traverse((*it), func);
-        
+
         if(res == ActionBase::Quit)
             break;
     }
-        
+
     return res;
 }
 
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(Node                 * const node, 
+ActionBase::ResultE traverse(Node                 * const node,
                              TraverseEnterFunctor         func )
 {
     ActionBase::ResultE res = ActionBase::Continue;
-    
+
     res = func(node);
 
     if(node == NULL)
@@ -815,94 +815,94 @@ ActionBase::ResultE traverse(Node                 * const node,
 
     switch(res)
     {
-        case ActionBase::Skip:      
+        case ActionBase::Skip:
             return Action::Continue;
 
-        case ActionBase::Continue:  
-            return traverse(*(node->getMFChildren()), 
+        case ActionBase::Continue:
+            return traverse(*(node->getMFChildren()),
                             func                    );
 
-        default:                
+        default:
             break;
     }
-                 
+
     return res;
 }
-                            
+
 /*! Simple tree traversal function. Calls enter before entering a node,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(const std::vector<Node *> &nodeList, 
-                                   TraverseEnterFunctor  enter, 
+ActionBase::ResultE traverse(const std::vector<Node *> &nodeList,
+                                   TraverseEnterFunctor  enter,
                                    TraverseLeaveFunctor  leave )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
     std::vector<Node *>::const_iterator it = nodeList.begin();
     std::vector<Node *>::const_iterator en = nodeList.end  ();
-    
+
     for(; it != en; ++it)
     {
         res = traverse((*it), enter, leave);
-        
+
         if(res == Action::Quit)
             break;
     }
-        
+
     return res;
 }
 
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
-                                   TraverseEnterFunctor  enter, 
+ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
+                                   TraverseEnterFunctor  enter,
                                    TraverseLeaveFunctor  leave )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
     MFUnrecChildNodePtr::const_iterator it = nodeList.begin();
     MFUnrecChildNodePtr::const_iterator en = nodeList.end  ();
-    
+
     for(; it != en; ++it)
     {
         res = traverse((*it), enter, leave);
-        
+
         if(res == Action::Quit)
             break;
     }
-        
+
     return res;
 }
 
-                            
+
 /*! Simple tree traversal function. Calls enter before entering a node,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(Node                 * const node, 
-                             TraverseEnterFunctor         enter, 
+ActionBase::ResultE traverse(Node                 * const node,
+                             TraverseEnterFunctor         enter,
                              TraverseLeaveFunctor         leave)
 {
     ActionBase::ResultE res = ActionBase::Continue;
-    
+
     res = enter(node);
-    
+
     switch(res)
     {
-        case ActionBase::Skip:      
+        case ActionBase::Skip:
             res = Action::Continue;
             break;
 
-        case ActionBase::Continue:  
-            res = traverse(*(node->getMFChildren()), 
-                           enter, 
+        case ActionBase::Continue:
+            res = traverse(*(node->getMFChildren()),
+                           enter,
                            leave                   );
 
-        default:                
+        default:
             break;
     }
-     
+
     res = leave(node, res);
-                
+
     return res;
 }
 
