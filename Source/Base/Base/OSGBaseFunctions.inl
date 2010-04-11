@@ -1936,25 +1936,6 @@ OSG::Real128 osgceil(const OSG::Real128 rValue)
 /*! \name mod                                                          */
 /*! \{                                                                 */
 
-/*! \param[in] lValue 
-    \param[in] rValue 
-    \return lValue % rValue
-
-    \note This function forwards to an appropriate C++ or C library function,
-    hence exhibits the respective error behavior.
- */
-
-/*! \ingroup GrpBaseBaseMathFn
- */
-template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType
-    osgMod(const FloatTypeT lValue, const FloatTypeT rValue)
-{
-    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
-
-    return  OSG::osgMod(RealType(lValue), RealType(rValue));
-}
-
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline 
@@ -1977,6 +1958,25 @@ OSG::Real64 osgMod(const OSG::Real64 lValue, const OSG::Real64 rValue)
 #else
     return fmod(lValue, rValue);
 #endif
+}
+
+/*! \param[in] lValue 
+    \param[in] rValue 
+    \return lValue % rValue
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+ */
+
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgMod(const FloatTypeT lValue, const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  OSG::osgMod(RealType(lValue), RealType(rValue));
 }
 
 /*! \}                                                                 */
