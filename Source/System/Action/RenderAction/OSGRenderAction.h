@@ -302,10 +302,10 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //   class variables
     //-----------------------------------------------------------------------
 
-    static RenderAction          *_pPrototype;
+    static RenderAction  *_pPrototype;
 
-    static std::vector<Functor>  *_vDefaultEnterFunctors;
-    static std::vector<Functor>  *_vDefaultLeaveFunctors;
+    static Action::FunctorStore  *_vDefaultEnterFunctors;
+    static Action::FunctorStore  *_vDefaultLeaveFunctors;
 
 
     //-----------------------------------------------------------------------
@@ -374,8 +374,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     // access default functors
 
-    virtual std::vector<Functor> *getDefaultEnterFunctors(void);
-    virtual std::vector<Functor> *getDefaultLeaveFunctors(void);
+    virtual Action::FunctorStore *getDefaultEnterFunctors(void);
+    virtual Action::FunctorStore *getDefaultLeaveFunctors(void);
 
 //            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
 //    virtual void draw(DrawTreeNode *pRoot);

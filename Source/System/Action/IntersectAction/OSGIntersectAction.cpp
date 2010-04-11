@@ -74,10 +74,10 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-IntersectAction              *IntersectAction::_prototype            = NULL;
+IntersectAction      *IntersectAction::_prototype            = NULL;
 
-std::vector<Action::Functor> *IntersectAction::_defaultEnterFunctors = NULL;
-std::vector<Action::Functor> *IntersectAction::_defaultLeaveFunctors = NULL;
+Action::FunctorStore *IntersectAction::_defaultEnterFunctors = NULL;
+Action::FunctorStore *IntersectAction::_defaultLeaveFunctors = NULL;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -114,7 +114,7 @@ void IntersectAction::registerEnterDefault(const FieldContainerType &type,
 {
     if(! _defaultEnterFunctors)
     {
-        _defaultEnterFunctors = new std::vector<Action::Functor>;
+        _defaultEnterFunctors = new FunctorStore;
 
         addPostFactoryExitFunction(&IntersectAction::terminateEnter);
     }
@@ -133,7 +133,7 @@ void IntersectAction::registerLeaveDefault(const FieldContainerType &type,
 {
     if(! _defaultLeaveFunctors)
     {
-        _defaultLeaveFunctors = new std::vector<Action::Functor>;
+        _defaultLeaveFunctors = new FunctorStore;
 
         addPostFactoryExitFunction(&IntersectAction::terminateLeave);
     }
@@ -380,13 +380,13 @@ bool IntersectAction::operator != (const IntersectAction &other) const
 \*-------------------------------------------------------------------------*/
 
 
-std::vector<IntersectAction::Functor> *
+Action::FunctorStore *
     IntersectAction::getDefaultEnterFunctors(void)
 {
     return _defaultEnterFunctors;
 }
 
-std::vector<IntersectAction::Functor> *
+Action::FunctorStore *
     IntersectAction::getDefaultLeaveFunctors(void)
 {
     return _defaultLeaveFunctors;

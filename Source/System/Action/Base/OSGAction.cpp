@@ -84,7 +84,7 @@ void Action::registerEnterDefault(const FieldContainerType &type,
                                   const Action::Functor    &func)
 {
     if(_defaultEnterFunctors == NULL)
-        _defaultEnterFunctors = new std::vector<Action::Functor>;
+        _defaultEnterFunctors = new FunctorStore;
 
 #ifndef OSG_EMBEDDED
     while(type.getId() >= _defaultEnterFunctors->size())
@@ -105,7 +105,7 @@ void Action::registerLeaveDefault(const FieldContainerType &type,
                                   const Action::Functor    &func)
 {
     if(_defaultLeaveFunctors == NULL)
-        _defaultLeaveFunctors = new std::vector<Action::Functor>;
+        _defaultLeaveFunctors = new FunctorStore;
 
 #ifndef OSG_EMBEDDED
     while(type.getId() >= _defaultLeaveFunctors->size())
@@ -578,12 +578,12 @@ bool Action::operator != (const Action &other)
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
 
-Action::FunctorStore* Action::getDefaultEnterFunctors(void)
+Action::FunctorStore *Action::getDefaultEnterFunctors(void)
 {
     return _defaultEnterFunctors;
 }
 
-Action::FunctorStore* Action::getDefaultLeaveFunctors(void)
+Action::FunctorStore *Action::getDefaultLeaveFunctors(void)
 {
     return _defaultLeaveFunctors;
 }

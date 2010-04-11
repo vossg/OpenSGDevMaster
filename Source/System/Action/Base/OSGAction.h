@@ -217,6 +217,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //   types                                                               
     //-----------------------------------------------------------------------
 
+    typedef std::vector<Functor> FunctorStore;
+
     //-----------------------------------------------------------------------
     //   class variables                                                     
     //-----------------------------------------------------------------------
@@ -328,8 +330,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     static Action * _prototype;
     
     // default functors for instantiation
-    static std::vector<Functor> *_defaultEnterFunctors;
-    static std::vector<Functor> *_defaultLeaveFunctors;
+    static FunctorStore *_defaultEnterFunctors;
+    static FunctorStore *_defaultLeaveFunctors;
     
     //-----------------------------------------------------------------------
     //   class functions                                                     

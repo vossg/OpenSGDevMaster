@@ -91,10 +91,8 @@ RenderAction *RenderAction::_pPrototype = NULL;
 /*! \brief Default functors for instantiation
  */
 
-std::vector<
-    Action::Functor> *RenderAction::_vDefaultEnterFunctors = NULL;
-std::vector<
-    Action::Functor> *RenderAction::_vDefaultLeaveFunctors = NULL;
+Action::FunctorStore *RenderAction::_vDefaultEnterFunctors = NULL;
+Action::FunctorStore *RenderAction::_vDefaultLeaveFunctors = NULL;
 
 
 StatElemDesc<StatTimeElem> RenderAction::statDrawTime     (
@@ -165,7 +163,7 @@ void RenderAction::registerEnterDefault(
 {
     if(_vDefaultEnterFunctors == NULL)
     {
-        _vDefaultEnterFunctors = new std::vector<Action::Functor>;
+        _vDefaultEnterFunctors = new Action::FunctorStore;
 
         addPostFactoryExitFunction(&RenderAction::terminateEnter);
     }
@@ -186,7 +184,7 @@ void RenderAction::registerLeaveDefault(
 {
     if(_vDefaultLeaveFunctors == NULL)
     {
-        _vDefaultLeaveFunctors = new std::vector<Action::Functor>;
+        _vDefaultLeaveFunctors = new Action::FunctorStore;
 
         addPostFactoryExitFunction(&RenderAction::terminateLeave);
     }
@@ -1288,13 +1286,13 @@ Real32 RenderAction::getScreenLODDegradationFactor(void)
 \*-------------------------------------------------------------------------*/
 
 
-std::vector<Action::Functor> *
+Action::FunctorStore *
     RenderAction::getDefaultEnterFunctors(void)
 {
     return _vDefaultEnterFunctors;
 }
 
-std::vector<Action::Functor> *
+Action::FunctorStore *
     RenderAction::getDefaultLeaveFunctors(void)
 {
     return _vDefaultLeaveFunctors;

@@ -210,8 +210,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 
     // access default functors
 
-    virtual std::vector<Functor>* getDefaultEnterFunctors(void);
-    virtual std::vector<Functor>* getDefaultLeaveFunctors(void);
+    virtual FunctorStore *getDefaultEnterFunctors(void);
+    virtual FunctorStore *getDefaultLeaveFunctors(void);
 
   private:
 
@@ -241,8 +241,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     static IntersectAction * _prototype;
 
     // default functors for instantiation
-    static std::vector<Functor> *_defaultEnterFunctors;
-    static std::vector<Functor> *_defaultLeaveFunctors;
+    static FunctorStore *_defaultEnterFunctors;
+    static FunctorStore *_defaultLeaveFunctors;
     
     //-----------------------------------------------------------------------
     //   class functions                                                     
