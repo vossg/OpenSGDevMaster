@@ -1230,6 +1230,19 @@ void QuaternionBase<ValueTypeT>::operator *=(const QuaternionBase &other)
     mult(_quat, other._quat);
 }
 
+/*! Adds \a other to this quaternion.
+  
+    \note The resulting quaternion is not renormalized.
+ */
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::operator +=(const QuaternionBase &other)
+{
+    for(UInt32 i = 0; i < 4; ++i)
+    {
+        _quat[i] += other._quat[i];
+    }
+}
+
 template <class ValueTypeT> inline
 QuaternionBase<ValueTypeT>
     QuaternionBase<ValueTypeT>::operator*(const QuaternionBase &rValue) const

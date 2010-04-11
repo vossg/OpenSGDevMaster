@@ -260,6 +260,8 @@ class QuaternionBase
     /*! \{                                                                 */
 
     void           operator *=(const QuaternionBase &other      );
+    void           operator +=(const QuaternionBase &other      );
+
     QuaternionBase operator * (const QuaternionBase &rValue     ) const;
     QuaternionBase operator + (const QuaternionBase &rValue     ) const;
     QuaternionBase operator - (const QuaternionBase &rValue     ) const;
@@ -267,6 +269,7 @@ class QuaternionBase
 
     QuaternionBase operator * (const ValueTypeT     &rightScalor) const;
     QuaternionBase operator / (const ValueTypeT     &rightScalor) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Assignment                                 */
