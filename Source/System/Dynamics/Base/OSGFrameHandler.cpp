@@ -118,17 +118,17 @@ bool FrameHandler::releaseGlobalInstance(void)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-FrameHandler::FrameHandler(void) :
-     Inherited                (),
-    _mfFrameTasks             (),
-    _mfUninitializedFrameTasks()
+FrameHandler::FrameHandler(void)
+    : Inherited                 ()
+    , _mfFrameTasks             ()
+    , _mfUninitializedFrameTasks()
 {
 }
 
-FrameHandler::FrameHandler(const FrameHandler &source) :
-     Inherited                (source),
-    _mfFrameTasks             (      ),
-    _mfUninitializedFrameTasks(      )
+FrameHandler::FrameHandler(const FrameHandler &source)
+    : Inherited                 (source)
+    , _mfFrameTasks             (      )
+    , _mfUninitializedFrameTasks(      )
 {
 }
 
@@ -234,11 +234,19 @@ void FrameHandler::frame(void)
 
     ++(editSFFrameCount()->getValue());
 
-    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
-    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
+    Int32                 currPrio = TypeTraits<Int32>::getMin();
+
+    InterfaceStoreConstIt tIt      = getMFFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd     = getMFFrameTasks()->end  ();
 
     while(tIt != tEnd)
     {
+        if((*tIt)->getPriority() > currPrio)
+        {
+            currPrio = (*tIt)->getPriority();
+            commitChanges();
+        }
+
         (*tIt)->frame(_sfTimeStamp.getValue(), _sfFrameCount.getValue());
         
         ++tIt;
@@ -274,7 +282,10 @@ const FrameHandler::InterfaceStore *
 
 void FrameHandler::pushToFrameTasks(FrameTaskInterface * const value)
 {
-    _mfFrameTasks.push_back(value);
+    InterfaceStoreIt tIt = std::lower_bound(_mfFrameTasks.begin(),
+                                            _mfFrameTasks.end  (), value);
+
+    _mfFrameTasks.insert(tIt, value);
 }
 
 void FrameHandler::pushToUninitializedFrameTasks(

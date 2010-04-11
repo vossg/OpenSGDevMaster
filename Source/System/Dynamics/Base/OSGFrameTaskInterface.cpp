@@ -96,4 +96,9 @@ void FrameTaskInterface::shutdown(void)
 {
 }
 
+Int32 FrameTaskInterface::getPriority(void) const
+{
+    return 0;
+}
+
 OSG_END_NAMESPACE

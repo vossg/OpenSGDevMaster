@@ -71,9 +71,11 @@ class OSG_DYNAMICS_DLLMAPPING FrameTaskInterface
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual bool init    (void                      );
-    virtual void frame   (Time oTime, UInt32 uiFrame) = 0;
-    virtual void shutdown(void                      );
+    virtual bool  init       (void                      );
+    virtual void  frame      (Time oTime, UInt32 uiFrame) = 0;
+    virtual void  shutdown   (void                      );
+
+    virtual Int32 getPriority(void                      ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

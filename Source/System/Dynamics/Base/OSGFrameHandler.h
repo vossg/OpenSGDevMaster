@@ -119,6 +119,14 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     typedef InterfaceStore::iterator          InterfaceStoreIt;
     typedef InterfaceStore::const_iterator    InterfaceStoreConstIt;
 
+    struct FrameTaskLess : public std::binary_function<FrameTaskInterface *, 
+                                                       FrameTaskInterface *,
+                                                       bool                 >
+    {
+        inline bool operator() (FrameTaskInterface *lhs,
+                                FrameTaskInterface *rhs );
+    };
+
     InterfaceStore _mfFrameTasks;
     InterfaceStore _mfUninitializedFrameTasks;
 
