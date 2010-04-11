@@ -190,14 +190,14 @@ bool FrameHandler::init(void)
     return returnValue;
 }
 
-void FrameHandler::frame(void)
+void FrameHandler::frame(Time frameTime)
 {
     if(_mfUninitializedFrameTasks.size() != 0)
     {
         this->init();
     }
 
-    setCurrTime(getSystemTime());
+    setCurrTime(frameTime);
     
     if(osgAbs(_sfStartTime.getValue()) < 0.00001)
     {
@@ -234,8 +234,31 @@ void FrameHandler::frame(void)
 
     ++(editSFFrameCount()->getValue());
 
-    Int32                 currPrio = TypeTraits<Int32>::getMin();
+    callTasks();
+}
 
+void FrameHandler::frame(void)
+{
+    frame(getSystemTime());
+}
+
+void FrameHandler::shutdown(void)
+{
+    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
+
+    while(tIt != tEnd)
+    {
+        (*tIt)->shutdown();
+        
+        ++tIt;
+    }
+}
+
+void
+FrameHandler::callTasks(void)
+{
+    Int32                 currPrio = TypeTraits<Int32>::getMin();
     InterfaceStoreConstIt tIt      = getMFFrameTasks()->begin();
     InterfaceStoreConstIt tEnd     = getMFFrameTasks()->end  ();
 
@@ -248,20 +271,6 @@ void FrameHandler::frame(void)
         }
 
         (*tIt)->frame(_sfTimeStamp.getValue(), _sfFrameCount.getValue());
-        
-        ++tIt;
-    }
-    
-}
-
-void FrameHandler::shutdown(void)
-{
-    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
-    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
-
-    while(tIt != tEnd)
-    {
-        (*tIt)->shutdown();
         
         ++tIt;
     }
@@ -283,7 +292,8 @@ const FrameHandler::InterfaceStore *
 void FrameHandler::pushToFrameTasks(FrameTaskInterface * const value)
 {
     InterfaceStoreIt tIt = std::lower_bound(_mfFrameTasks.begin(),
-                                            _mfFrameTasks.end  (), value);
+                                            _mfFrameTasks.end  (), value,
+                                            FrameTaskLess()              );
 
     _mfFrameTasks.insert(tIt, value);
 }

@@ -72,7 +72,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Instance                                  */
     /*! \{                                                                 */
 
     static void          setGlobalInstance(FrameHandler *pHandler);
@@ -80,7 +80,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                      Tasks                                   */
     /*! \{                                                                 */
 
     void addTask   (FrameTaskInterface *pTask);
@@ -88,12 +88,13 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                      Frame                                   */
     /*! \{                                                                 */
     
-    bool init    (void);
-    void frame   (void);
-    void shutdown(void);
+    bool init    (void          );
+    void frame   (void          );
+    void frame   (Time frameTime);
+    void shutdown(void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -113,8 +114,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     static bool                 _bRegistersInstanceRelease;
     static FrameHandlerUnrecPtr _pGlobalInstance;
 
-    static bool releaseGlobalInstance(void);
-
     typedef std::vector<FrameTaskInterface *> InterfaceStore;
     typedef InterfaceStore::iterator          InterfaceStoreIt;
     typedef InterfaceStore::const_iterator    InterfaceStoreConstIt;
@@ -126,6 +125,11 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
         inline bool operator() (FrameTaskInterface *lhs,
                                 FrameTaskInterface *rhs);
     };
+
+    static bool releaseGlobalInstance(void);
+
+    void callTasks(void);
+
 
     InterfaceStore _mfFrameTasks;
     InterfaceStore _mfUninitializedFrameTasks;
