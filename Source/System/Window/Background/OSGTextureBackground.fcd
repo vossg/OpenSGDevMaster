@@ -21,6 +21,7 @@ camera with known intrinsic parameters.
 		cardinality="single"
 		visibility="external"
 		access="public"
+		defaultValue="1.f, 1.f, 1.f, 0.f"
 	>
 	</Field>
 	<Field

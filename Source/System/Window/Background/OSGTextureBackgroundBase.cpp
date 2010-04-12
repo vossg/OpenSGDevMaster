@@ -259,6 +259,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"1.f, 1.f, 1.f, 0.f\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -668,7 +669,7 @@ FieldContainerTransitPtr TextureBackgroundBase::shallowCopy(void) const
 
 TextureBackgroundBase::TextureBackgroundBase(void) :
     Inherited(),
-    _sfColor                  (),
+    _sfColor                  (Color4f(1.f, 1.f, 1.f, 0.f)),
     _sfTexture                (NULL),
     _mfTexCoords              (),
     _sfRadialDistortion       (Real32(0)),
