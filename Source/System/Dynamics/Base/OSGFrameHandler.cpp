@@ -199,10 +199,9 @@ void FrameHandler::frame(Time frameTime)
 
     setCurrTime(frameTime);
     
-    if(osgAbs(_sfStartTime.getValue()) < 0.00001)
+    if(_sfStartTime.getValue() < 0.0)
     {
         setStartTime(_sfCurrTime.getValue());
-        
         setLastTime(0.f);
     }
     

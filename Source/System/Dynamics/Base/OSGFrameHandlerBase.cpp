@@ -297,7 +297,7 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     "\t cardinality=\"single\"\n"
     "\t visibility=\"internal\"\n"
     "\t access=\"public\"\n"
-    "     defaultValue=\"0.0\"\n"
+    "        defaultValue=\"-1.0\"\n"
     "\t >\n"
     "  </Field>\n"
     "\n"
@@ -748,7 +748,7 @@ FieldContainerTransitPtr FrameHandlerBase::shallowCopy(void) const
 FrameHandlerBase::FrameHandlerBase(void) :
     Inherited(),
     _sfFrameCount             (UInt64(0)),
-    _sfStartTime              (Time(0.0)),
+    _sfStartTime              (Time(-1.0)),
     _sfLastTime               (Time(0.0)),
     _sfCurrTime               (Time(0.0)),
     _sfTimeStamp              (Time(0.0)),
