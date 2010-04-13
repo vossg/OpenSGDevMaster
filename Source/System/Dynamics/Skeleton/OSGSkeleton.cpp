@@ -139,6 +139,7 @@ Skeleton::renderEnter(Action *action, NodeCore *parent)
     matWorldInv.invertFrom(ract->topMatrix());
 
     bool frustCull = ract->getFrustumCulling();
+    ract->getActivePartition()->setFrustumCulling(false);
     ract->setFrustumCulling(false      );
     ract->pushMatrix       (matWorldInv);
     ract->useNodeList      (true       );
@@ -154,6 +155,7 @@ Skeleton::renderEnter(Action *action, NodeCore *parent)
 
     ract->popMatrix        (         );
     ract->setFrustumCulling(frustCull);
+    ract->getActivePartition()->setFrustumCulling(frustCull);
 
     // mark skin volume invalid (the volume will lag a frame
     // behind the skeleton - not sure how to avoid that) -- cneumann
