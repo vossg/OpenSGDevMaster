@@ -123,7 +123,7 @@ ActionBase::ResultE GroupingStage::renderEnter(Action *action)
     FrameBufferObject *pTarget     = pParentPart->getRenderTarget();
 #endif
 
-    a->pushPartition(RenderPartition::CopyAll);
+    this->pushPartition(a, RenderPartition::CopyAll);
 
     RenderPartition   *pPart   = a->getActivePartition();
 
@@ -246,7 +246,7 @@ ActionBase::ResultE GroupingStage::renderLeave(Action *action)
     if(a == NULL)
         return ActionBase::Continue;
 
-    a->popPartition();
+    this->popPartition(a);
 
     return ActionBase::Continue;
 }

@@ -407,7 +407,7 @@ void ShaderShadowMapEngine::handlePointLightEnter(
         Matrixr matWorldToLightFace(matWorldToLight);
         matWorldToLightFace.multLeft(_matCubeFaceInv[i]);
 
-        ract->pushPartition();
+        this->pushPartition(ract);
         {
             RenderPartition   *part   = ract->getActivePartition( );
             Window            *win    = ract->getWindow         ( );
@@ -442,7 +442,7 @@ void ShaderShadowMapEngine::handlePointLightEnter(
             part->overrideMaterial(NULL,
                                    ract->getActNode           ( ) );
         }
-        ract->popPartition();
+        this->popPartition(ract);
     }
 }
 
@@ -571,7 +571,7 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
 
     commitChanges();
 
-    ract->pushPartition();
+    this->pushPartition(ract);
     {
         RenderPartition   *part   = ract->getActivePartition( );
         Window            *win    = ract->getWindow         ( );
@@ -606,7 +606,7 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
         part->overrideMaterial(NULL,
                                ract->getActNode           ( ) );
     }
-    ract->popPartition();
+    this->popPartition(ract);
 }
 
 void ShaderShadowMapEngine::handleSpotLightEnter(
@@ -675,7 +675,7 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
 
     commitChanges();
 
-    ract->pushPartition();
+    this->pushPartition(ract);
     {
         RenderPartition   *part   = ract->getActivePartition( );
         Window            *win    = ract->getWindow         ( );
@@ -710,7 +710,7 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
         part->overrideMaterial(NULL,
                                ract->getActNode           ( ) );
     }
-    ract->popPartition();
+    this->popPartition(ract);
 }
 
 /*! Calculates \a matWorldToLight and \a matEyeToLight for a directional light

@@ -134,7 +134,7 @@ void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
             if(_pStage->getGlobalShadowIntensity() != 0.0 ||
                vLights[i].second->getShadowIntensity() != 0.0)
             {
-                a->pushPartition();
+                _pStage->pushPartition(a);
                 {
                     RenderPartition   *pPart    = a->getActivePartition();
 
@@ -204,7 +204,7 @@ void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                         a->popMatrix();
                     }
                 }
-                a->popPartition();
+                _pStage->popPartition(a);
             }
         }
     }
@@ -235,13 +235,14 @@ void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 void PCSSShadowMapHandler::createColorMapFBO(RenderAction *a,
                                              DrawEnv      *pEnv)
 {
-    a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewing     |
-                      RenderPartition::CopyProjection  |
-                      RenderPartition::CopyFrustum     |
-                      RenderPartition::CopyNearFar     |
-                      RenderPartition::CopyViewportSize),
-                     RenderPartition::StateSorting);
+    _pStage->pushPartition(a,
+                           (RenderPartition::CopyWindow      |
+                            RenderPartition::CopyViewing     |
+                            RenderPartition::CopyProjection  |
+                            RenderPartition::CopyFrustum     |
+                            RenderPartition::CopyNearFar     |
+                            RenderPartition::CopyViewportSize),
+                           RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
 
@@ -267,9 +268,7 @@ void PCSSShadowMapHandler::createColorMapFBO(RenderAction *a,
             a->popMatrix();
         }
     }
-    a->popPartition();
-
-
+    _pStage->popPartition(a);
 }
 
 void PCSSShadowMapHandler::createShadowFactorMapFBO(
@@ -443,13 +442,14 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
         _vShadowCmat[uiActiveLightCount]->addChunk(
             _shadowFactorMapO);
 
-        a->pushPartition((RenderPartition::CopyWindow      |
-                          RenderPartition::CopyViewing     |
-                          RenderPartition::CopyProjection  |
-                          RenderPartition::CopyFrustum     |
-                          RenderPartition::CopyNearFar     |
-                          RenderPartition::CopyViewportSize),
-                         RenderPartition::StateSorting);
+        _pStage->pushPartition(a,
+                               (RenderPartition::CopyWindow      |
+                                RenderPartition::CopyViewing     |
+                                RenderPartition::CopyProjection  |
+                                RenderPartition::CopyFrustum     |
+                                RenderPartition::CopyNearFar     |
+                                RenderPartition::CopyViewportSize),
+                               RenderPartition::StateSorting);
         {
             RenderPartition *pPart = a->getActivePartition();
 
@@ -485,7 +485,7 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
                 a->popMatrix();
             }
         }
-        a->popPartition();
+        _pStage->popPartition(a);
 
         _firstRun = 0;
     }

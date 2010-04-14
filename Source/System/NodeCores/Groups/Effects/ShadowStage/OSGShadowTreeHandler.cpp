@@ -568,10 +568,11 @@ void ShadowTreeHandler::setupDrawCombineMap2(Action  *pAction)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(pAction);
     
-    a->pushPartition((RenderPartition::CopyWindow       |
-                      RenderPartition::CopyViewportSize |
-                      RenderPartition::CopyTarget       ),
-                     RenderPartition::SimpleCallback);
+    _pStage->pushPartition(a,
+                           (RenderPartition::CopyWindow       |
+                            RenderPartition::CopyViewportSize |
+                            RenderPartition::CopyTarget       ),
+                           RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
 
@@ -598,7 +599,7 @@ void ShadowTreeHandler::setupDrawCombineMap2(Action  *pAction)
         
         pPart->dropFunctor(f);
     }
-    a->popPartition();
+    _pStage->popPartition(a);
 }
 
 void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
@@ -665,10 +666,11 @@ void ShadowTreeHandler::setupDrawCombineMap1(Action  *pAction)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(pAction);
     
-    a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewportSize |
-                      RenderPartition::CopyTarget       ),
-                     RenderPartition::SimpleCallback);
+    _pStage->pushPartition(a,
+                           (RenderPartition::CopyWindow      |
+                            RenderPartition::CopyViewportSize |
+                            RenderPartition::CopyTarget       ),
+                           RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
 
@@ -695,7 +697,7 @@ void ShadowTreeHandler::setupDrawCombineMap1(Action  *pAction)
         
         pPart->dropFunctor(f);
     }
-    a->popPartition();
+    _pStage->popPartition(a);
 }
 
 void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemStageDrawable for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING StageDrawable : public StageDrawableBase
+class OSG_DRAWABLE_DLLMAPPING StageDrawable : public StageDrawableBase
 {
   protected:
 

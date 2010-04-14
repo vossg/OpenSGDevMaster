@@ -184,126 +184,133 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
         pData = this->initData(a);
     }
 
-    a->beginPartitionGroup();
+    TraversalValidator::ValidationStatus eStatus = this->validateOnEnter(a);
+
+    if(eStatus == TraversalValidator::Run)
     {
-        FrameBufferObject *pTarget  = this->getRenderTarget();
+        this->beginPartitionGroup(a);
+        {
+            FrameBufferObject *pTarget  = this->getRenderTarget();
                 
-        if(pTarget == NULL)
-        {
-            pTarget  = pData->getRenderTarget();
-        }
-
-        Pnt3f oOrigin;
-
-        if(this->getOriginMode() == CubeMapGenerator::UseStoredValue)
-        {
-            oOrigin = this->getOrigin();
-        }
-        else if(this->getOriginMode() == CubeMapGenerator::UseBeacon)
-        {
-            fprintf(stderr, "CubemapGen::UseBeacon NYI\n");
-        }
-        else if(this->getOriginMode() == 
-                                       CubeMapGenerator::UseCurrentVolumeCenter)
-        {
-            BoxVolume oWorldVol;
-
-            commitChanges();
-
-            pActNode->updateVolume();
-
-            pActNode->getWorldVolume(oWorldVol);
-                
-            oWorldVol.getCenter(oOrigin);
-        }
-        else if(this->getOriginMode() == 
-                                       CubeMapGenerator::UseParentsVolumeCenter)
-        {
-            fprintf(stderr, "CubemapGen::UseParentsCenter NYI\n");
-        }
-
-        Camera *pCam = pData->getCamera();
-
-        for(UInt32 i = 0; i < 6; ++i)
-        {
-            a->pushPartition();
+            if(pTarget == NULL)
             {
-                RenderPartition   *pPart    = a->getActivePartition();
-                
-                pPart->setVolumeDrawing(false);
+                pTarget  = pData->getRenderTarget();
+            }
 
-                pPart->setRenderTarget(pTarget       );
-                pPart->setWindow      (a->getWindow());
+            Pnt3f oOrigin;
 
-                pPart->calcViewportDimension(0,
-                                             0,
-                                             1,
-                                             1,
-                                             this->getWidth (),
-                                             this->getHeight());
-                
-                Matrix m, t;
-            
-                // set the projection
-                pCam->getProjection          (m, 
-                                              pPart->getViewportWidth (), 
-                                              pPart->getViewportHeight());
-                
-                pCam->getProjectionTranslation(t, 
-                                               pPart->getViewportWidth (), 
-                                               pPart->getViewportHeight());
-                
-                pPart->setupProjection(m, t);
-            
-                m = transforms[i];
-            
-                m[3][0] = oOrigin[0];
-                m[3][1] = oOrigin[1];
-                m[3][2] = oOrigin[2];
+            if(this->getOriginMode() == CubeMapGenerator::UseStoredValue)
+            {
+                oOrigin = this->getOrigin();
+            }
+            else if(this->getOriginMode() == CubeMapGenerator::UseBeacon)
+            {
+                fprintf(stderr, "CubemapGen::UseBeacon NYI\n");
+            }
+            else if(this->getOriginMode() == 
+                                       CubeMapGenerator::UseCurrentVolumeCenter)
+            {
+                BoxVolume oWorldVol;
 
-                m.invert();
+                commitChanges();
 
-                pPart->setupViewing(m);
-            
-                pPart->setNear     (pCam->getNear());
-                pPart->setFar      (pCam->getFar ());
+                pActNode->updateVolume();
                 
-                pPart->calcFrustum();
+                pActNode->getWorldVolume(oWorldVol);
                 
-                if(this->getBackground() == NULL)
+                oWorldVol.getCenter(oOrigin);
+            }
+            else if(this->getOriginMode() == 
+                                       CubeMapGenerator::UseParentsVolumeCenter)
+            {
+                fprintf(stderr, "CubemapGen::UseParentsCenter NYI\n");
+            }
+
+            Camera *pCam = pData->getCamera();
+
+            for(UInt32 i = 0; i < 6; ++i)
+            {
+                this->pushPartition(a);
                 {
-                    pPart->setBackground(pBack);
-                }
-                else
-                {
-                    pPart->setBackground(this->getBackground());
-                }
-
-               
-                pActNode->setTravMask(0);
+                    RenderPartition   *pPart    = a->getActivePartition();
                 
-                if(this->getRoot() != NULL)
-                {
-                    this->recurse(a, this->getRoot());
-                }
-                else
-                {
-                    this->recurse(a, pPort->getRoot());
-                }
+                    pPart->setVolumeDrawing(false);
 
-                pActNode->setTravMask(~0);
+                    pPart->setRenderTarget(pTarget       );
+                    pPart->setWindow      (a->getWindow());
 
-                pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
+                    pPart->calcViewportDimension(0,
+                                                 0,
+                                                 1,
+                                                 1,
+                                                 this->getWidth (),
+                                                 this->getHeight());
+                
+                    Matrix m, t;
+            
+                    // set the projection
+                    pCam->getProjection          (m, 
+                                                  pPart->getViewportWidth (), 
+                                                  pPart->getViewportHeight());
+                
+                    pCam->getProjectionTranslation(t, 
+                                                   pPart->getViewportWidth (), 
+                                                   pPart->getViewportHeight());
+                
+                    pPart->setupProjection(m, t);
+            
+                    m = transforms[i];
+            
+                    m[3][0] = oOrigin[0];
+                    m[3][1] = oOrigin[1];
+                    m[3][2] = oOrigin[2];
+
+                    m.invert();
+
+                    pPart->setupViewing(m);
+            
+                    pPart->setNear     (pCam->getNear());
+                    pPart->setFar      (pCam->getFar ());
+                    
+                    pPart->calcFrustum();
+                
+                    if(this->getBackground() == NULL)
+                    {
+                        pPart->setBackground(pBack);
+                    }
+                    else
+                    {
+                        pPart->setBackground(this->getBackground());
+                    }
+
+                    fprintf(stderr, "Gen cubemap face %d\n",
+                            i);
+
+                    pActNode->setTravMask(0);
+                
+                    if(this->getRoot() != NULL)
+                    {
+                        this->recurse(a, this->getRoot());
+                    }
+                    else
+                    {
+                        this->recurse(a, pPort->getRoot());
+                    }
+
+                    pActNode->setTravMask(~0);
+
+                    pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
 
 #ifdef OSG_DEBUGX
-                std::string szMessage("CubeX\n");
-                pPart->setDebugString(szMessage          );
+                    std::string szMessage("CubeX\n");
+                    pPart->setDebugString(szMessage          );
 #endif
+                }
+                this->popPartition(a);
             }
-            a->popPartition();
         }
+        this->endPartitionGroup(a);
     }
-    a->endPartitionGroup();
 
     OSG_ASSERT(pActNode == a->getActNode());
 
@@ -333,6 +340,10 @@ ActionBase::ResultE CubeMapGenerator::renderLeave(Action *action)
     Action::ResultE returnValue = Action::Continue;
 
     returnValue = Inherited::renderLeave(action);
+
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    this->validateOnLeave(a);
 
     return returnValue;
 }

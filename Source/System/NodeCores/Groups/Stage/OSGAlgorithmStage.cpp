@@ -130,8 +130,9 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
         uiCopyOnPush |= RenderPartition::CopyViewing;
     }
 
-    a->pushPartition(uiCopyOnPush, 
-                     RenderPartition::SimpleCallback);
+    this->pushPartition(a,
+                        uiCopyOnPush, 
+                        RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
 
@@ -231,7 +232,7 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
             pAlgorithm->renderEnter(a);
         }
     }
-    a->popPartition();
+    this->popPartition(a);
 
     return Action::Skip;
 }

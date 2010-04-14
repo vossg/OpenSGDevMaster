@@ -584,7 +584,8 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
 
             commitChanges();
 
-            ract->pushPartition(RenderPartition::CopyNothing,
+            this->pushPartition(ract,
+                                RenderPartition::CopyNothing,
                                 RenderPartition::SimpleCallback);
             {
                 RenderPartition   *part   = ract->getActivePartition(       );
@@ -611,7 +612,7 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
 
                 part->dropFunctor(emptyCubeFaceDraw);
             }
-            ract->popPartition();
+            this->popPartition(ract);
         }
         else
         {
@@ -619,7 +620,7 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
         
             commitChanges();
 
-            ract->pushPartition();
+            this->pushPartition(ract);
             {
                 RenderPartition   *part   = ract->getActivePartition(       );
                 Window            *win    = ract->getWindow         (       );
@@ -652,7 +653,7 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
                 part->overrideMaterial(NULL,
                                        ract->getActNode           (       ) );
             }
-            ract->popPartition();
+            this->popPartition(ract);
         }
     }
 
@@ -747,8 +748,8 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
     updateLightPassMaterial(data, 0, matNT);
 
     commitChanges();
-
-    ract->pushPartition();
+    
+    this->pushPartition(ract);
     {
         RenderPartition   *part   = ract->getActivePartition( );
         Window            *win    = ract->getWindow         ( );
@@ -781,7 +782,7 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
         part->overrideMaterial(NULL,
                                ract->getActNode           ( ) );
     }
-    ract->popPartition();
+    this->popPartition(ract);
 }
 
 /*! Calculate the vertices (\a intVerts) and center (\a intCenter) of

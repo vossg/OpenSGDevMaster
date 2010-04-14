@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -68,17 +68,19 @@
 
 #include "OSGStageDrawableFields.h"
 
+#include "OSGStageDrawableParent.h"
+
 OSG_BEGIN_NAMESPACE
 
 class StageDrawable;
 
 //! \brief StageDrawable Base Class.
 
-class OSG_SYSTEM_DLLMAPPING StageDrawableBase : public Drawable
+class OSG_DRAWABLE_DLLMAPPING StageDrawableBase : public StageDrawableParent
 {
   public:
 
-    typedef Drawable Inherited;
+    typedef StageDrawableParent Inherited;
     typedef Drawable ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;

@@ -134,7 +134,7 @@ ActionBase::ResultE SimpleStage::renderEnter(Action *action)
         SWARNING << "SimpleStage::renderEnter: No camera!" << std::endl;
     }
 
-    a->pushPartition();
+    this->pushPartition(a);
     
     RenderPartition   *pPart   = a->getActivePartition();
     
@@ -152,7 +152,7 @@ ActionBase::ResultE SimpleStage::renderLeave(Action *action)
     if(a == NULL)
         return ActionBase::Continue;
 
-    a->popPartition();
+    this->popPartition(a);
 
     return ActionBase::Continue;
 }

@@ -169,7 +169,7 @@ ActionBase::ResultE RenderCallbackStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    a->popPartition();
+    this->popPartition(a);
 
     return ActionBase::Continue;
 }

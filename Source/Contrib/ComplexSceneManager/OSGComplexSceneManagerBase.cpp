@@ -112,6 +112,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            ComplexSceneManagerBase::_sfDumpFrameStart
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -215,6 +219,18 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandlePaused));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "dumpFrameStart",
+        "",
+        DumpFrameStartFieldId, DumpFrameStartFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleDumpFrameStart),
+        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleDumpFrameStart));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -315,6 +331,16 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"paused\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"dumpFrameStart\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
@@ -438,6 +464,19 @@ const SFBool *ComplexSceneManagerBase::getSFPaused(void) const
 }
 
 
+SFBool *ComplexSceneManagerBase::editSFDumpFrameStart(void)
+{
+    editSField(DumpFrameStartFieldMask);
+
+    return &_sfDumpFrameStart;
+}
+
+const SFBool *ComplexSceneManagerBase::getSFDumpFrameStart(void) const
+{
+    return &_sfDumpFrameStart;
+}
+
+
 
 
 void ComplexSceneManagerBase::pushToGlobals(FieldContainer * const value)
@@ -529,6 +568,10 @@ UInt32 ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPaused.getBinSize();
     }
+    if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
+    {
+        returnValue += _sfDumpFrameStart.getBinSize();
+    }
 
     return returnValue;
 }
@@ -566,6 +609,10 @@ void ComplexSceneManagerBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfPaused.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
+    {
+        _sfDumpFrameStart.copyToBin(pMem);
+    }
 }
 
 void ComplexSceneManagerBase::copyFromBin(BinaryDataHandler &pMem,
@@ -600,6 +647,10 @@ void ComplexSceneManagerBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PausedFieldMask & whichField))
     {
         _sfPaused.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
+    {
+        _sfDumpFrameStart.copyFromBin(pMem);
     }
 }
 
@@ -705,7 +756,8 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(void) :
     _sfTimeScale              (Time(1.0)),
     _sfConstantTimeStep       (Time(0.0)),
     _sfConstantTime           (bool(false)),
-    _sfPaused                 (bool(false))
+    _sfPaused                 (bool(false)),
+    _sfDumpFrameStart         (bool(false))
 {
 }
 
@@ -717,7 +769,8 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(const ComplexSceneManagerBase &
     _sfTimeScale              (source._sfTimeScale              ),
     _sfConstantTimeStep       (source._sfConstantTimeStep       ),
     _sfConstantTime           (source._sfConstantTime           ),
-    _sfPaused                 (source._sfPaused                 )
+    _sfPaused                 (source._sfPaused                 ),
+    _sfDumpFrameStart         (source._sfDumpFrameStart         )
 {
 }
 
@@ -938,6 +991,31 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandlePaused         (void)
 
 
     editSField(PausedFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComplexSceneManagerBase::getHandleDumpFrameStart  (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfDumpFrameStart,
+             this->getType().getFieldDesc(DumpFrameStartFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComplexSceneManagerBase::editHandleDumpFrameStart (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfDumpFrameStart,
+             this->getType().getFieldDesc(DumpFrameStartFieldId),
+             this));
+
+
+    editSField(DumpFrameStartFieldMask);
 
     return returnValue;
 }

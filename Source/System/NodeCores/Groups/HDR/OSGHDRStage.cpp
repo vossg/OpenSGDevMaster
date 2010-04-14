@@ -139,9 +139,9 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
 
     a->disableDefaultPartition();
 
-    a->beginPartitionGroup();
+    this->beginPartitionGroup(a);
     {
-        a->pushPartition();
+        this->pushPartition(a);
         {
             RenderPartition   *pPart    = a->getActivePartition();
             FrameBufferObject *pTarget  = this->getRenderTarget();
@@ -222,11 +222,12 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
             
             this->recurseFromThis(a);
         }
-        a->popPartition();
+        this->popPartition(a);
         
-        a->pushPartition((RenderPartition::CopyWindow      |
-                          RenderPartition::CopyViewportSize),
-                         RenderPartition::SimpleCallback);
+        this->pushPartition(a,
+                            (RenderPartition::CopyWindow      |
+                             RenderPartition::CopyViewportSize),
+                            RenderPartition::SimpleCallback    );
         {
             RenderPartition *pPart  = a->getActivePartition();
 
@@ -253,9 +254,9 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
                 
             pPart->dropFunctor(f);
         }
-        a->popPartition();
+        this->popPartition(a);
     }
-    a->endPartitionGroup();
+    this->endPartitionGroup(a);
 
     return Action::Skip;
 }

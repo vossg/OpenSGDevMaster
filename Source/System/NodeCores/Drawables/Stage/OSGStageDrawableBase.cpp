@@ -107,6 +107,8 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void StageDrawableBase::classDescInserter(TypeObject &oType)
 {
+    Inherited::classDescInserter(oType);
+
 }
 
 
@@ -124,15 +126,16 @@ StageDrawableBase::TypeObject StageDrawableBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"StageDrawable\"\n"
-    "\tparent=\"Drawable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
+    "   name=\"StageDrawable\"\n"
+    "   parent=\"Drawable\"\n"
+    "   mixinparent=\"StageDrawableParent\"\n"
+    "   library=\"Drawable\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   >\n"
     "</FieldContainer>\n",
     ""
     );

@@ -103,7 +103,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         ConstantTimeStepFieldId = TimeScaleFieldId + 1,
         ConstantTimeFieldId = ConstantTimeStepFieldId + 1,
         PausedFieldId = ConstantTimeFieldId + 1,
-        NextFieldId = PausedFieldId + 1
+        DumpFrameStartFieldId = PausedFieldId + 1,
+        NextFieldId = DumpFrameStartFieldId + 1
     };
 
     static const OSG::BitVector GlobalsFieldMask =
@@ -120,6 +121,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         (TypeTraits<BitVector>::One << ConstantTimeFieldId);
     static const OSG::BitVector PausedFieldMask =
         (TypeTraits<BitVector>::One << PausedFieldId);
+    static const OSG::BitVector DumpFrameStartFieldMask =
+        (TypeTraits<BitVector>::One << DumpFrameStartFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -130,6 +133,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     typedef SFTime            SFConstantTimeStepType;
     typedef SFBool            SFConstantTimeType;
     typedef SFBool            SFPausedType;
+    typedef SFBool            SFDumpFrameStartType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -174,6 +178,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   SFBool              *editSFPaused         (void);
             const SFBool              *getSFPaused          (void) const;
 
+                  SFBool              *editSFDumpFrameStart (void);
+            const SFBool              *getSFDumpFrameStart  (void) const;
+
 
                   FieldContainer * getGlobals        (const UInt32 index) const;
 
@@ -194,6 +201,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   bool                &editPaused         (void);
                   bool                 getPaused          (void) const;
 
+                  bool                &editDumpFrameStart (void);
+                  bool                 getDumpFrameStart  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -205,6 +215,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
             void setConstantTimeStep(const Time &value);
             void setConstantTime   (const bool value);
             void setPaused         (const bool value);
+            void setDumpFrameStart (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -282,6 +293,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     SFTime            _sfConstantTimeStep;
     SFBool            _sfConstantTime;
     SFBool            _sfPaused;
+    SFBool            _sfDumpFrameStart;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -324,6 +336,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     EditFieldHandlePtr editHandleConstantTime   (void);
     GetFieldHandlePtr  getHandlePaused          (void) const;
     EditFieldHandlePtr editHandlePaused         (void);
+    GetFieldHandlePtr  getHandleDumpFrameStart  (void) const;
+    EditFieldHandlePtr editHandleDumpFrameStart (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

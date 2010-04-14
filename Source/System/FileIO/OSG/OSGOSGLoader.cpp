@@ -83,7 +83,7 @@
 #include "OSGMaterialMapFields.h"
 #include "OSGChunkBlockMapFields.h"
 
-//#include "OSGSimpleAttachments.h"
+#include "OSGFieldContainerUtils.h"
 
 
 
@@ -658,6 +658,7 @@ UInt32 OSGLoader::getFieldType(const Char8 *szFieldname)
     return returnValue;
 }
 
+
 void OSGLoader::addRoute(const Char8  *szOutNodename,
                          const Char8  *szOutFieldname,
                          const Char8  *szInNodename,
@@ -670,7 +671,15 @@ void OSGLoader::addRoute(const Char8  *szOutNodename,
     }
 
     FieldContainer *pSrcNode = getReference(szOutNodename);
-    FieldContainer *pDstNode = getReference(szInNodename);
+    FieldContainer *pDstNode = getReference(szInNodename );
+
+    if(pSrcNode == NULL)
+    {
+        pSrcNode = resolveFieldPath(szOutNodename, 
+                                    boost::bind(&OSGLoader::getReference,
+                                                this,
+                                                _1));
+    }
 
     AttachmentContainer *pSrc = dynamic_cast<AttachmentContainer *>(pSrcNode);
 
@@ -678,6 +687,14 @@ void OSGLoader::addRoute(const Char8  *szOutNodename,
     {
         FWARNING(("Unknow src node %s\n", szOutNodename));
         return;
+    }
+
+    if(pDstNode == NULL)
+    {
+        pDstNode = resolveFieldPath(szInNodename, 
+                                    boost::bind(&OSGLoader::getReference,
+                                                this,
+                                                _1));
     }
 
     if(pDstNode == NULL)

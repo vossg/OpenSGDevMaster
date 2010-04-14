@@ -172,7 +172,7 @@ ActionBase::ResultE DeferredShadingStage::renderEnter(Action *action)
 
     updateStageData(data, target, parentPart);
 
-    ract->beginPartitionGroup();
+    this->beginPartitionGroup(ract);
     {
         // render the tree below this to gBufferTarget using gBufferShader
         scheduleGBufferPass(ract);
@@ -180,7 +180,7 @@ ActionBase::ResultE DeferredShadingStage::renderEnter(Action *action)
         // render a quad to this stage's target using shadingShader
         scheduleShadingPass(ract);
     }
-    ract->endPartitionGroup();
+    this->endPartitionGroup(ract);
 
     commitChanges();
 
@@ -662,7 +662,7 @@ void DeferredShadingStage::scheduleGBufferPass(RenderAction *ract)
         }
     }
 
-    ract->pushPartition();
+    this->pushPartition(ract);
     {
         RenderPartition *part = ract->getActivePartition();
 
@@ -681,7 +681,7 @@ void DeferredShadingStage::scheduleGBufferPass(RenderAction *ract)
         if(shader != NULL)
             part->popState();
     }
-    ract->popPartition();
+    this->popPartition(ract);
 
     // create shadow maps
     lIt  = _mfLights.begin();
@@ -700,7 +700,8 @@ void DeferredShadingStage::scheduleShadingPass(RenderAction *ract)
 #endif
     DSStageData     *data       = ract->getData<DSStageData *>(_iDataSlotId);
 
-    ract->pushPartition((RenderPartition::CopyWindow      |
+    this->pushPartition(ract,
+                        (RenderPartition::CopyWindow      |
                          RenderPartition::CopyViewportSize) );
     {
         RenderPartition *part = ract->getActivePartition();
@@ -725,7 +726,7 @@ void DeferredShadingStage::scheduleShadingPass(RenderAction *ract)
             part->dropFunctor(f, *sIt, (*sIt)->getSortKey());
         }
     }
-    ract->popPartition();
+    this->popPartition(ract);
 }
 
 Action::ResultE DeferredShadingStage::executeShadingPass(DrawEnv *drawEnv)

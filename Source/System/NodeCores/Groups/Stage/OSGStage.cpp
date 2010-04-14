@@ -125,7 +125,7 @@ ActionBase::ResultE Stage::renderEnter(Action *action)
         pTarget = pParentPart->getRenderTarget();
     }
 
-    a->pushPartition();
+    this->pushPartition(a);
 
     RenderPartition   *pPart    = a->getActivePartition();
     Viewport          *pPort    = a->getViewport();
@@ -201,7 +201,7 @@ ActionBase::ResultE Stage::renderLeave(Action *action)
     if(a == NULL)
         return ActionBase::Continue;
 
-    a->popPartition();
+    this->popPartition(a);
 
     return ActionBase::Continue;
 }

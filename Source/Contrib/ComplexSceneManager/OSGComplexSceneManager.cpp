@@ -906,6 +906,13 @@ void ComplexSceneManager::frame(void)
     }
 #endif
 
+    if(_sfDumpFrameStart.getValue() == true)
+    {
+        fprintf(stderr, "=================================================\n");
+        fprintf(stderr, "Render Frame\n");
+        fprintf(stderr, "=================================================\n");
+    }
+
     FrameHandler::the()->frame();
 
     SystemTime = FrameHandler::the()->getTimeStamp();

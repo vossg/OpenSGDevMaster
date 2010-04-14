@@ -475,12 +475,12 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 #endif
         ract->getActivePartition()->disable();
 
-        ract->beginPartitionGroup();
+        this->beginPartitionGroup(ract);
         {
             pTreeHandler->render(ract,
                                  &(ract->getActivePartition()->getDrawEnv()));
         }
-        ract->endPartitionGroup();
+        this->endPartitionGroup(ract);
 
         returnValue = ActionBase::Skip;
     }

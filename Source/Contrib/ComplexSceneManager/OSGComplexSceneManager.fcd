@@ -92,4 +92,14 @@
 	>
 	</Field>
 
+	<Field
+		name="dumpFrameStart"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
+
 </FieldContainer>

@@ -191,7 +191,7 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                 if(vLights[i].second->getType() != PointLight::getClassType() ||
                    vRealPLight[i]               == false                       )
                 {
-                    a->pushPartition();
+                    _pStage->pushPartition(a);
                     {
                         RenderPartition   *pPart    = a->getActivePartition();
 
@@ -261,7 +261,7 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                             a->popMatrix();
                         }
                     }
-                    a->popPartition();
+                    _pStage->popPartition(a);
                 }
                 else
                 {
@@ -303,7 +303,7 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                         _matrixDeco->setDecoratee    ( vLCams[i]    );
                         _matrixDeco->setPreProjection(_aCubeTrans[j]);
 
-                        a->pushPartition();
+                        _pStage->pushPartition(a);
                         {
                             RenderPartition   *pPart = a->getActivePartition();
 
@@ -373,9 +373,9 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                                 a->popMatrix();
                             }
                         }
-                        a->popPartition();
+                        _pStage->popPartition(a);
                     }
-                                    }
+                }
             }
         }
     }
@@ -414,13 +414,14 @@ void DitherShadowMapHandler::createShadowMapsFBO(
 void DitherShadowMapHandler::createColorMapFBO(RenderAction *a,
                                                DrawEnv      *pEnv)
 {
-    a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewing     |
-                      RenderPartition::CopyProjection  |
-                      RenderPartition::CopyFrustum     |
-                      RenderPartition::CopyNearFar     |
-                      RenderPartition::CopyViewportSize),
-                     RenderPartition::StateSorting);
+    _pStage->pushPartition(a,
+                           (RenderPartition::CopyWindow      |
+                            RenderPartition::CopyViewing     |
+                            RenderPartition::CopyProjection  |
+                            RenderPartition::CopyFrustum     |
+                            RenderPartition::CopyNearFar     |
+                            RenderPartition::CopyViewportSize),
+                           RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
 
@@ -446,7 +447,7 @@ void DitherShadowMapHandler::createColorMapFBO(RenderAction *a,
             a->popMatrix();
         }
     }
-    a->popPartition();
+    _pStage->popPartition(a);
 }
 
 void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
@@ -649,13 +650,14 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                 else
                     dBuffers = GL_COLOR_ATTACHMENT2_EXT;
 
-                a->pushPartition((RenderPartition::CopyWindow      |
-                                  RenderPartition::CopyViewing     |
-                                  RenderPartition::CopyProjection  |
-                                  RenderPartition::CopyFrustum     |
-                                  RenderPartition::CopyNearFar     |
-                                  RenderPartition::CopyViewportSize),
-                                 RenderPartition::StateSorting);
+                _pStage->pushPartition(a,
+                                       (RenderPartition::CopyWindow      |
+                                        RenderPartition::CopyViewing     |
+                                        RenderPartition::CopyProjection  |
+                                        RenderPartition::CopyFrustum     |
+                                        RenderPartition::CopyNearFar     |
+                                        RenderPartition::CopyViewportSize),
+                                       RenderPartition::StateSorting);
                 {
                     RenderPartition *pPart = a->getActivePartition();
 
@@ -699,7 +701,7 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                         a->popMatrix();
                     }
                 }
-                a->popPartition();
+                _pStage->popPartition(a);
 
                 _firstRun = 0;
 
@@ -1085,13 +1087,14 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                 ++uiVarCount4;
             }
 
-            a->pushPartition((RenderPartition::CopyWindow      |
-                              RenderPartition::CopyViewing     |
-                              RenderPartition::CopyProjection  |
-                              RenderPartition::CopyFrustum     |
-                              RenderPartition::CopyNearFar     |
-                              RenderPartition::CopyViewportSize),
-                             RenderPartition::StateSorting);
+            _pStage->pushPartition(a,
+                                   (RenderPartition::CopyWindow      |
+                                    RenderPartition::CopyViewing     |
+                                    RenderPartition::CopyProjection  |
+                                    RenderPartition::CopyFrustum     |
+                                    RenderPartition::CopyNearFar     |
+                                    RenderPartition::CopyViewportSize),
+                                   RenderPartition::StateSorting);
             {
                 RenderPartition *pPart = a->getActivePartition();
                 
@@ -1133,7 +1136,7 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                     a->popMatrix();
                 }
             }
-            a->popPartition();
+            _pStage->popPartition(a);
 
             _firstRun = 0;
             if(_activeFactorMap == 0)

@@ -65,6 +65,9 @@ class StatCollector;
 class Material;
 class TraversalValidator;
 
+template <class ParentT>
+class StageHandlerMixin;
+
 struct RenderDataSlotDesc
 {
     typedef Action                   ParentT;
@@ -87,6 +90,8 @@ struct RenderDataSlotDesc
 typedef DataSlotMixin< 
             MixinHead < 
                 RenderDataSlotDesc > > RenderActionBaseParent;
+
+
 
 /*! \brief Base class using the render action interface of window
  */
@@ -217,15 +222,6 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \{                                                                 */
 
     // tmp for testing
-
-    virtual void  pushPartition        (UInt32                    uiCopyOnPush,
-                                        RenderPartitionBase::Mode eMode   )= 0;
-
-    virtual void  popPartition         (void                              )= 0;
-
-    virtual void  beginPartitionGroup  (void                              )= 0;
-    virtual void  endPartitionGroup    (void                              )= 0;
-
     virtual Int32 getActivePartitionIdx(void                              )= 0;
     virtual Int32 getLastPartitionIdx  (void                              )= 0;
 
@@ -235,6 +231,9 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    template <class ParentT>
+    friend class StageHandlerMixin;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -249,6 +248,15 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*---------------------------------------------------------------------*/
     /*! \name                   Internal updates                           */
     /*! \{                                                                 */
+
+    // tmp for testing
+    virtual void  pushPartition        (UInt32                    uiCopyOnPush,
+                                        RenderPartitionBase::Mode eMode   )= 0;
+
+    virtual void  popPartition         (void                              )= 0;
+
+    virtual void  beginPartitionGroup  (void                              )= 0;
+    virtual void  endPartitionGroup    (void                              )= 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

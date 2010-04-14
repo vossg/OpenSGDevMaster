@@ -214,6 +214,31 @@ void ComplexSceneManagerBase::setPaused(const bool value)
 
     _sfPaused.setValue(value);
 }
+//! Get the value of the ComplexSceneManager::_sfDumpFrameStart field.
+
+inline
+bool &ComplexSceneManagerBase::editDumpFrameStart(void)
+{
+    editSField(DumpFrameStartFieldMask);
+
+    return _sfDumpFrameStart.getValue();
+}
+
+//! Get the value of the ComplexSceneManager::_sfDumpFrameStart field.
+inline
+      bool  ComplexSceneManagerBase::getDumpFrameStart(void) const
+{
+    return _sfDumpFrameStart.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfDumpFrameStart field.
+inline
+void ComplexSceneManagerBase::setDumpFrameStart(const bool value)
+{
+    editSField(DumpFrameStartFieldMask);
+
+    _sfDumpFrameStart.setValue(value);
+}
 
 //! Get the value of the \a index element the ComplexSceneManager::_mfGlobals field.
 inline
@@ -256,6 +281,9 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 
     if(FieldBits::NoField != (PausedFieldMask & whichField))
         _sfPaused.syncWith(pFrom->_sfPaused);
+
+    if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
+        _sfDumpFrameStart.syncWith(pFrom->_sfDumpFrameStart);
 }
 #endif
 

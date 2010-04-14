@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="StageDrawable"
+   parent="Drawable"
+   mixinparent="StageDrawableParent"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   >
+</FieldContainer>

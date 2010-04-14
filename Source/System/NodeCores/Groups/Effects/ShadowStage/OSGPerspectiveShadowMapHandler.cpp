@@ -840,7 +840,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                     _matrixCam2->setProjectionMatrix(_perspectiveLPM[i]);
                     _matrixCam2->setModelviewMatrix (_perspectiveLVM[i]);
 
-                    a->pushPartition();
+                    _pStage->pushPartition(a);
                     {
                         RenderPartition   *pPart    = a->getActivePartition();
 
@@ -910,8 +910,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                             a->popMatrix();
                         }
                     }
-                    a->popPartition();
-
+                    _pStage->popPartition(a);
                 }
                 else
                 {
@@ -953,7 +952,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                         _matrixDeco->setDecoratee    (vLCams[i]     );
                         _matrixDeco->setPreProjection(_aCubeTrans[j]);
 
-                        a->pushPartition();
+                        _pStage->pushPartition(a);
                         {
                             RenderPartition   *pPart = a->getActivePartition();
 
@@ -1025,8 +1024,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                                 a->popMatrix();
                             }
                         }
-                        a->popPartition();
-
+                        _pStage->popPartition(a);
                     }
                 }
             }
@@ -1062,13 +1060,14 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 void PerspectiveShadowMapHandler::createColorMapFBO(RenderAction *a,
                                                     DrawEnv      *pEnv)
 {
-    a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewing     |
-                      RenderPartition::CopyProjection  |
-                      RenderPartition::CopyFrustum     |
-                      RenderPartition::CopyNearFar     |
-                      RenderPartition::CopyViewportSize),
-                     RenderPartition::StateSorting);
+    _pStage->pushPartition(a,
+                           (RenderPartition::CopyWindow      |
+                            RenderPartition::CopyViewing     |
+                            RenderPartition::CopyProjection  |
+                            RenderPartition::CopyFrustum     |
+                            RenderPartition::CopyNearFar     |
+                            RenderPartition::CopyViewportSize),
+                           RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
 
@@ -1094,7 +1093,7 @@ void PerspectiveShadowMapHandler::createColorMapFBO(RenderAction *a,
             a->popMatrix();
         }
     }
-    a->popPartition();
+    _pStage->popPartition(a);
 
 }
 
@@ -1280,13 +1279,14 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                 else
                     dBuffers = GL_COLOR_ATTACHMENT2_EXT;
 
-                a->pushPartition((RenderPartition::CopyWindow      |
-                                  RenderPartition::CopyViewing     |
-                                  RenderPartition::CopyProjection  |
-                                  RenderPartition::CopyFrustum     |
-                                  RenderPartition::CopyNearFar     |
-                                  RenderPartition::CopyViewportSize),
-                                 RenderPartition::StateSorting);
+                _pStage->pushPartition(a,
+                                       (RenderPartition::CopyWindow      |
+                                        RenderPartition::CopyViewing     |
+                                        RenderPartition::CopyProjection  |
+                                        RenderPartition::CopyFrustum     |
+                                        RenderPartition::CopyNearFar     |
+                                        RenderPartition::CopyViewportSize),
+                                       RenderPartition::StateSorting);
                 {
                     RenderPartition *pPart = a->getActivePartition();
 
@@ -1326,7 +1326,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                         a->popMatrix();
                     }
                 }
-                a->popPartition();
+                _pStage->popPartition(a);
 
                 _firstRun = 0;
 
@@ -1816,13 +1816,14 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
             }
 
 
-            a->pushPartition((RenderPartition::CopyWindow      |
-                              RenderPartition::CopyViewing     |
-                              RenderPartition::CopyProjection  |
-                              RenderPartition::CopyFrustum     |
-                              RenderPartition::CopyNearFar     |
-                              RenderPartition::CopyViewportSize),
-                             RenderPartition::StateSorting);
+            _pStage->pushPartition(a,
+                                   (RenderPartition::CopyWindow      |
+                                    RenderPartition::CopyViewing     |
+                                    RenderPartition::CopyProjection  |
+                                    RenderPartition::CopyFrustum     |
+                                    RenderPartition::CopyNearFar     |
+                                    RenderPartition::CopyViewportSize),
+                                   RenderPartition::StateSorting);
             {
                 RenderPartition *pPart = a->getActivePartition();
                 
@@ -1862,7 +1863,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                     a->popMatrix();
                 }
             }
-            a->popPartition();
+            _pStage->popPartition(a);
 
             _firstRun = 0;
             if(_activeFactorMap == 0)

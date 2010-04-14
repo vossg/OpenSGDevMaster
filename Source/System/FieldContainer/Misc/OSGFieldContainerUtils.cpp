@@ -532,5 +532,152 @@ Action::ResultE SceneGraphPrinter::traverseLeave(
     return Action::Continue;
 }
 
+struct FieldPathEntry
+{
+    std::string szName;
+    Int32       iIndex;
+};
+
+void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
+                    const Char8                       *szFieldPath)
+{
+    std::string tmpName(szFieldPath);
+
+    std::string::size_type sStart    = 0;
+    std::string::size_type sEnd      = 0;
+    std::string::size_type sLength   = 0;
+    std::string::size_type sLastChar = 0;
+    FieldPathEntry         tmpEntry;
+
+    std::string            szIdx;
+
+    do
+    {
+        sEnd = tmpName.find("/", sStart);
+
+        if(sEnd != std::string::npos)
+        {
+            sLength = sEnd - sStart;
+        }
+        else
+        {
+            sLength = tmpName.length() - sStart;
+        }
+ 
+        sLastChar = sStart + sLength - 1;
+
+        vSplitPath.push_back(tmpEntry);
+
+        vSplitPath.back().iIndex = -1;
+
+        if(tmpName[sLastChar] == ')')
+        {
+            std::string::size_type sIdxStart = 
+                tmpName.rfind('(', sLastChar); //, sLength);
+
+            if(sIdxStart == std::string::npos)
+            {
+                vSplitPath.clear();
+
+                return;
+            }
+
+            tmpName[sIdxStart] = '$';
+            tmpName[sLastChar] = '$';
+
+            sLength -= sLastChar - sIdxStart + 1;
+
+            ++sIdxStart;
+
+            szIdx.assign(tmpName,
+                         sIdxStart,
+                         sLastChar - sIdxStart);
+
+            vSplitPath.back().iIndex = 
+                TypeTraits<UInt32>::getFromCString(szIdx.c_str());
+        }
+
+        vSplitPath.back().szName.assign(tmpName, sStart, sLength);
+
+        sStart = sEnd + 1;
+    }
+    while(sEnd != std::string::npos);
+}
+
+FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
+                                 FieldContainer              *pRoot     )
+{
+    if(pRoot == NULL)
+        return NULL;
+
+    FieldContainer *returnValue = pRoot;
+
+    OSG::GetFieldHandlePtr fHandle;
+
+    for(UInt32 i = 1; i < vSplitPath.size(); ++i)
+    {
+        fHandle = returnValue->getField(vSplitPath[i].szName.c_str());
+
+        if(fHandle == NULL || fHandle->isValid() == false) 
+        {
+            FWARNING(("Unknown field '%s'\n", 
+                      vSplitPath[i].szName.c_str()));
+
+            returnValue = NULL;
+
+            break;
+        }
+
+        OSG::FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
+            boost::dynamic_pointer_cast<
+              OSG::FieldContainerPtrSFieldBase::GetHandle>(fHandle);
+            
+        OSG::FieldContainerPtrMFieldBase::GetHandlePtr mfFCPtr = 
+            boost::dynamic_pointer_cast<
+                OSG::FieldContainerPtrMFieldBase::GetHandle>(fHandle);
+
+        if(sfFCPtr != NULL && sfFCPtr->isValid() == true)
+        {
+            returnValue = (*sfFCPtr)->getValue();
+        }
+        else if(mfFCPtr != NULL && mfFCPtr->isValid() == true)
+        {
+            UInt32 uiIndex = 
+                vSplitPath[i].iIndex == -1 ? 0 : vSplitPath[i].iIndex;
+
+            if(uiIndex >= mfFCPtr->size())
+            {
+                FWARNING(("Unknown index %d to large for field '%s'\n", 
+                          uiIndex,
+                          vSplitPath[i].szName.c_str()));
+                
+                returnValue = NULL;
+                
+                break;
+            }
+
+            returnValue = (**mfFCPtr)[uiIndex];
+        }
+    }
+
+    return returnValue;
+}
+
+FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
+                                       ContainerResolver  oResolver )
+{
+    std::vector<FieldPathEntry> vSplitPath;
+
+    splitFieldPath(vSplitPath, szNodeName);
+
+    if(vSplitPath.size() == 0)
+        return NULL;
+
+    FieldContainer *returnValue = oResolver(vSplitPath[0].szName.c_str());
+
+    returnValue = resolveFieldPath(vSplitPath, returnValue);
+
+    return returnValue;
+}
 
 OSG_END_NAMESPACE

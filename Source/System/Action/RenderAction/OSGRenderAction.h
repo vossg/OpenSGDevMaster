@@ -63,9 +63,6 @@ OSG_BEGIN_NAMESPACE
 class State;
 class MultiCore;
 
-template <class ParentT>
-class StageHandlerMixin;
-
 //---------------------------------------------------------------------------
 //   Types
 //---------------------------------------------------------------------------
@@ -199,16 +196,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     void      setKeyGen(UInt32 uiKeyGen);
 
     /*------------------------- comparison ----------------------------------*/
-
-
-    void pushPartition           (UInt32                uiCopyOnPush = 0x0000, 
-                                  RenderPartition::Mode eMode        = 
-                                                RenderPartition::StateSorting);
-
-    void popPartition            (void                                       );
-
-    void beginPartitionGroup     (void                                       );
-    void endPartitionGroup       (void                                       );
 
     Int32 getActivePartitionIdx  (void                                       );
     Int32 getLastPartitionIdx    (void                                       );
@@ -379,6 +366,15 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
 //            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
 //    virtual void draw(DrawTreeNode *pRoot);
+
+    void pushPartition           (UInt32                uiCopyOnPush = 0x0000, 
+                                  RenderPartition::Mode eMode        = 
+                                                RenderPartition::StateSorting);
+
+    void popPartition            (void                                       );
+
+    void beginPartitionGroup     (void                                       );
+    void endPartitionGroup       (void                                       );
 
   private:
 

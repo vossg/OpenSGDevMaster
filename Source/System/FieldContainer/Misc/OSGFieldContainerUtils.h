@@ -145,6 +145,20 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
     Action::ResultE traverseLeave(Node *node, Action::ResultE res);
 };
 
+struct FieldPathEntry;
+
+typedef boost::function<
+          FieldContainer * (const Char8 *szName)> ContainerResolver;
+
+OSG_SYSTEM_DLLMAPPING
+void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
+                    const Char8                       *szFieldPath);
+
+FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
+                                 FieldContainer              *pRoot     );
+
+FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
+                                       ContainerResolver  oResolver );
 
 OSG_END_NAMESPACE
 

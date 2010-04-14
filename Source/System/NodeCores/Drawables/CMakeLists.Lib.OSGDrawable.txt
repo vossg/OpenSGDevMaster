@@ -7,10 +7,9 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGState)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGState OSGGroup)
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGFileIO
-                                     OSGGroup
                                      OSGImageFileIO
                                      OSGUtil
                                      OSGWindowGLUT)
@@ -40,6 +39,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("Source/System/Material/Simple")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Stage")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Base")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Base/WS")

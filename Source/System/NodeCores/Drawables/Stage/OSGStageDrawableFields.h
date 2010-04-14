@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -68,8 +68,8 @@ class StageDrawable;
 
 OSG_GEN_CONTAINERPTR(StageDrawable);
 
-/*! \ingroup GrpSystemFieldTraits
-    \ingroup GrpLibOSGSystem
+/*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
 template <>
 struct FieldTraits<StageDrawable *> :
@@ -85,7 +85,7 @@ struct FieldTraits<StageDrawable *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StageDrawable *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<StageDrawable *,
                       RecordedRefCountPolicy  > SFRecStageDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<StageDrawable *,
                       UnrecordedRefCountPolicy> SFUnrecStageDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<StageDrawable *,
                       WeakRefCountPolicy      > SFWeakStageDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<StageDrawable *,
                       NoRefCountPolicy        > SFUncountedStageDrawablePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<StageDrawable *,
                       RecordedRefCountPolicy  > MFRecStageDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<StageDrawable *,
                       UnrecordedRefCountPolicy> MFUnrecStageDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<StageDrawable *,
                       WeakRefCountPolicy      > MFWeakStageDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<StageDrawable *,
                       NoRefCountPolicy        > MFUncountedStageDrawablePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StageDrawable *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecStageDrawablePtr : 
     public PointerSField<StageDrawable *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecStageDrawablePtr : 
     public PointerSField<StageDrawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakStageDrawablePtr :
     public PointerSField<StageDrawable *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedStageDrawablePtr :
     public PointerSField<StageDrawable *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecStageDrawablePtr :
     public PointerMField<StageDrawable *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecStageDrawablePtr :
     public PointerMField<StageDrawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakStageDrawablePtr :
     public PointerMField<StageDrawable *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedStageDrawablePtr :
     public PointerMField<StageDrawable *,
                          NoRefCountPolicy        > {};

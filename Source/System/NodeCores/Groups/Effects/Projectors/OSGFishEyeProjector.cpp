@@ -462,7 +462,7 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
         pData = this->initData(a);
     }
 
-    a->beginPartitionGroup();
+    this->beginPartitionGroup(a);
     {
 
         FrameBufferObject *pTarget  = pData->getRenderTarget();
@@ -484,7 +484,7 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
 
         for(UInt32 i = 0; i < 4; ++i)
         {
-            a->pushPartition();
+            this->pushPartition(a);
             {
                 RenderPartition   *pPart    = a->getActivePartition();
                 
@@ -542,14 +542,15 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
                 pPart->setDebugString(szMessage          );
 #endif
             }
-            a->popPartition();
+            this->popPartition(a);
         }
 
 
         
-        a->pushPartition((RenderPartition::CopyWindow      |
-                          RenderPartition::CopyViewportSize),
-                         RenderPartition::SimpleCallback);
+        this->pushPartition(a,
+                            (RenderPartition::CopyWindow      |
+                             RenderPartition::CopyViewportSize),
+                            RenderPartition::SimpleCallback);
         {
             RenderPartition *pPart  = a->getActivePartition();
 
@@ -576,9 +577,9 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
                 
             pPart->dropFunctor(f);
         }
-        a->popPartition();
+        this->popPartition(a);
     }
-    a->endPartitionGroup();
+    this->endPartitionGroup(a);
 
     return Action::Skip;
 }

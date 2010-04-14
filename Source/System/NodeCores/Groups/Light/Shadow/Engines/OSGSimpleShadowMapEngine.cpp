@@ -372,7 +372,7 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
                                         RenderAction  *pAction,
                                         EngineDataPtr  pEngineData)
 {
-    pAction->pushPartition();
+    this->pushPartition(pAction);
 
     RenderPartition   *pPart   = pAction    ->getActivePartition();
     Viewport          *pPort   = pAction    ->getViewport       ();
@@ -485,20 +485,21 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
     pAction->popState();
 
     pAction->overrideMaterial(NULL, pActNode);
-
-    pAction->popPartition();
+    
+    this->popPartition(pAction);
 }
 
 void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
                                           RenderAction  *pAction,
                                           EngineDataPtr  pEngineData)
 {
-    pAction->pushPartition((RenderPartition::CopyViewing      |
-                            RenderPartition::CopyProjection   |
-                            RenderPartition::CopyWindow       |
-                            RenderPartition::CopyViewportSize |
-                            RenderPartition::CopyFrustum      |
-                            RenderPartition::CopyNearFar      ));
+    this->pushPartition(pAction,
+                        (RenderPartition::CopyViewing      |
+                         RenderPartition::CopyProjection   |
+                         RenderPartition::CopyWindow       |
+                         RenderPartition::CopyViewportSize |
+                         RenderPartition::CopyFrustum      |
+                         RenderPartition::CopyNearFar      ));
     
     LightChunk   *pChunk      = pEngineData->getLightChunk();
 
@@ -527,19 +528,20 @@ void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
 
     pAction->popState();
     
-    pAction->popPartition ();
+    this->popPartition(pAction);
 }
 
 void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
                                         RenderAction  *pAction,
                                         EngineDataPtr  pEngineData)
 {
-    pAction->pushPartition((RenderPartition::CopyViewing      |
-                            RenderPartition::CopyProjection   |
-                            RenderPartition::CopyWindow       |
-                            RenderPartition::CopyViewportSize |
-                            RenderPartition::CopyFrustum      |
-                            RenderPartition::CopyNearFar      ));
+    this->pushPartition(pAction,
+                        (RenderPartition::CopyViewing      |
+                         RenderPartition::CopyProjection   |
+                         RenderPartition::CopyWindow       |
+                         RenderPartition::CopyViewportSize |
+                         RenderPartition::CopyFrustum      |
+                         RenderPartition::CopyNearFar      ));
     
     FrameBufferObject *pTarget = pEngineData->getRenderTarget();
 
@@ -686,7 +688,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
  
     pAction->popState();
 
-    pAction->popPartition ();
+    this->popPartition(pAction);
 }
 
 

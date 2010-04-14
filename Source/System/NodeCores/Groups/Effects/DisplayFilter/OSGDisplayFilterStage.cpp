@@ -408,9 +408,9 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
 
     ract->disableDefaultPartition();
 
-    ract->beginPartitionGroup();
+    this->beginPartitionGroup(ract);
     {
-        ract->pushPartition();
+        this->pushPartition(ract);
         {
             RenderPartition   *pPart    = ract ->getActivePartition();
             FrameBufferObject *pTarget  = pData->getTarget();
@@ -480,9 +480,10 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
             
             this->recurseFromThis(ract);
         }
-        ract->popPartition();
+        this->popPartition(ract);
         
-        ract->pushPartition((RenderPartition::CopyWindow      |
+        this->pushPartition(ract,
+                            (RenderPartition::CopyWindow      |
                              RenderPartition::CopyViewportSize),
                             RenderPartition::SimpleCallback);
         {
@@ -506,9 +507,9 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 
             pPart->dropFunctor(f);
         }
-        ract->popPartition();
+        this->popPartition(ract);
     }
-    ract->endPartitionGroup();
+    this->endPartitionGroup(ract);
 
     return Action::Skip;
 }

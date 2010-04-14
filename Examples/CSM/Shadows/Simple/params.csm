@@ -2,6 +2,7 @@
 --global ./global-effect.osg
 --system ../../Common/system-native.osg
 #--system ../../Common/system-passive.osg
+--global ./keys.osg
 --global ./hlight_off.osg
 --data   ./scene.wrl
 #--data ./plane_t.wrl
