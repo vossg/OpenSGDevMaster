@@ -64,7 +64,7 @@ typedef StageHandlerMixin<SMEMixinParent> ShadowMapEngineParent;
 #ifdef WIN32
 template <> inline
 Action::ResultE 
-    StageHandlerMixin<SMEMixinParent>::recurseFromThis(RenderAction *)
+    StageHandlerMixin<SMEMixinParent>::recurseFromThis(Action *)
 {
     OSG_ASSERT(false);
     return Action::Continue;
