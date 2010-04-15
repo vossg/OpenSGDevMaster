@@ -18,6 +18,6 @@ MESSAGE(STATUS "Cg Status: Cg: ${OSG_WITH_CG}")
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/FindCg.cmake"
         DESTINATION share/OpenSG/cmake)
 
-INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/ConfigurePackages.OSGContribCCgFX.cmake"
+INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/ConfigurePackages.OSGContribCgFX.cmake"
         DESTINATION share/OpenSG/cmake)
 
