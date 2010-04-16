@@ -93,7 +93,9 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
     /*! \name                     Playback                                 */
     /*! \{                                                                 */
 
-    Real32 getLength(void) const;
+    const std::string &getName  (void) const;
+    Real32             getLength(void) const;
+    bool               isPlaying(void) const;
 
 
     void start    (Time startTime);

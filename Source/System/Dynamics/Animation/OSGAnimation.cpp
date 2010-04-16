@@ -150,18 +150,6 @@ AnimTimeSensor *Animation::getTimeSensor(void) const
     return Inherited::getTimeSensor();
 }
 
-Real32 Animation::getLength(void) const
-{
-    Real32 length = 0.f;
-
-    if(_sfTemplate.getValue() != NULL)
-    {
-        length = _sfTemplate.getValue()->getLength();
-    }
-
-    return length;
-}
-
 /*! Start playing this animation once at the given point in time.
     Does not reset the animation.
  */

@@ -182,9 +182,14 @@ AnimBindAction::bindFields(AttachmentContainer *attCon)
         if(blender == NULL)
         {
             blender = dsIt->second->createBlender();
-//            (*targetAtt->editMFBlenders())[fId] = blender;
             targetAtt->editMFBlenders()->replace(fId, blender);
         }
+
+        // on create all fields are marked as changed - this causes
+        // the blender to write to its destination even though
+        // it has no valid input data - avoid it by committing before
+        // connecting the blender to its dest
+        commitChanges();
 
         blender->addChannel(channel                 );
         blender->connectTo (attCon, fDesc->getName());

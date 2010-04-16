@@ -40,4 +40,35 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline const std::string &
+Animation::getName(void) const
+{
+    OSG_ASSERT(_sfTemplate.getValue() != NULL);
+
+    return _sfTemplate.getValue()->getName();
+}
+
+inline Real32
+Animation::getLength(void) const
+{
+    Real32 length = 0.f;
+
+    if(_sfTemplate.getValue() != NULL)
+    {
+        length = _sfTemplate.getValue()->getLength();
+    }
+
+    return length;
+}
+
+inline bool
+Animation::isPlaying(void) const
+{
+    OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
+
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
+
+    return ((ts->getEnabled() == true) && (ts->getIsActive() == true));
+}
+
 OSG_END_NAMESPACE
