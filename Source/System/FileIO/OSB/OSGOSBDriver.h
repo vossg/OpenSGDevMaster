@@ -58,6 +58,15 @@ class OSG_FILEIO_DLLMAPPING OSBDriver
     static bool           write(      Node              * const  node,
                                       std::ostream              &outStream,
                                 const IOFileTypeBase::OptionSet &options   );
+
+    static FieldContainerTransitPtr
+        readFC (      std::istream              &inStream,
+                const IOFileTypeBase::OptionSet &options   );
+
+    static bool
+        writeFC(      FieldContainer * const     fc,
+                      std::ostream              &outStream,
+                const IOFileTypeBase::OptionSet &options   );
 };
 
 OSG_END_NAMESPACE

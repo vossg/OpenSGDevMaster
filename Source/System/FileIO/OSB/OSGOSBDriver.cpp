@@ -41,7 +41,7 @@
 #include "OSGOSBElementFactory.h"
 #include "OSGOSBRootElement.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /* OSBDriver                                                              */
@@ -60,26 +60,10 @@ OSG_USING_NAMESPACE
     \return On success a Node * to the root of the read scene,
      NULL otherwise.
  */
-NodeTransitPtr OSBDriver::read(      std::istream              &inStream, 
+NodeTransitPtr OSBDriver::read(      std::istream              &inStream,
                                const IOFileTypeBase::OptionSet &options  )
 {
-    NodeTransitPtr  node(NULL);
-    OSBRootElement *root = dynamic_cast<OSBRootElement *>(
-        OSBElementFactory::the()->acquire("RootElement", 0));
-
-    root->initialiseRead(inStream);
-    root->editOptions   (        ).init(options);
-
-    root->read    ("");
-    root->postRead(  );
-
-    node = dynamic_cast<Node *>(root->getContainer());
-
-    root->terminateRead();
-
-    OSBElementFactory::the()->release(root);
-
-    return node;
+    return dynamic_pointer_cast<Node>(readFC(inStream, options));
 }
 
 /*! Writes the scene with root \a node to \a outStream in OSB format.
@@ -91,18 +75,57 @@ NodeTransitPtr OSBDriver::read(      std::istream              &inStream,
     \return true.
     \todo Should only return true if write was successful.
  */
-bool OSBDriver::write(      Node              * const  node, 
-                            std::ostream              &outStream, 
+bool OSBDriver::write(      Node              * const  node,
+                            std::ostream              &outStream,
                       const IOFileTypeBase::OptionSet &options   )
 {
-    OSBRootElement *root = dynamic_cast<OSBRootElement *>(
+    return writeFC(node, outStream, options);
+}
+
+/*! Reads from \a inStream which must provide access to an ".osb" file.
+
+    \param[in] inStream Stream to read data from.
+    \param[in] optionStr String that holds the options for the read operation.
+
+    \return On success a pointer to the container read from the file.
+     NULL otherwise.
+ */
+FieldContainerTransitPtr
+OSBDriver::readFC(      std::istream              &inStream,
+                  const IOFileTypeBase::OptionSet &options  )
+{
+    FieldContainerTransitPtr  retVal;
+    OSBRootElement           *root   = dynamic_cast<OSBRootElement *>(
+        OSBElementFactory::the()->acquire("RootElement", 0));
+
+    root->initialiseRead(inStream);
+    root->editOptions   (        ).init(options);
+
+    root->read    ("");
+    root->postRead(  );
+
+    retVal = root->getContainer();
+
+    root->terminateRead();
+
+    OSBElementFactory::the()->release(root);
+
+    return retVal;
+}
+
+bool
+OSBDriver::writeFC(      FieldContainer * const     fc,
+                         std::ostream              &outStream,
+                   const IOFileTypeBase::OptionSet &options   )
+{
+   OSBRootElement *root = dynamic_cast<OSBRootElement *>(
         OSBElementFactory::the()->acquire("RootElement", 0));
 
     root->initialiseWrite(outStream);
     root->editOptions    (         ).init(options);
 
-    root->preWrite(node);
-    root->write   (    );
+    root->preWrite(fc);
+    root->write   (  );
 
     root->terminateWrite();
 
@@ -110,3 +133,5 @@ bool OSBDriver::write(      Node              * const  node,
 
     return true;
 }
+
+OSG_END_NAMESPACE
