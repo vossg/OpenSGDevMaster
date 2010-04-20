@@ -37,11 +37,11 @@ ENDMACRO(OSG_OPTIONAL_INCLUDE)
 # Useful to get all the include dirs needed by a lib during the build.
 
 FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST OUTDEPMISSINGLIST)
-    
+
     SET(_DEPLIST        ${BASELIST})
     SET(_DEPLISTNEW                )
     SET(_DEPMISSINGLIST            )
-    
+
     # CMake has no do{ }while, duplicate the while loop body once
     # outside the while loop:
 
@@ -69,7 +69,7 @@ FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST OUTDEPMISSINGLIST)
 
     # keep iterating as long as new elements are added
     WHILE(${_DEPLISTNEWLEN} GREATER ${_DEPLISTLEN})
-        
+
         SET(_DEPLIST    ${_DEPLISTNEW})
         SET(_DEPLISTNEW               )
 
@@ -262,7 +262,7 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     IF(${PROJECT_NAME}_ADD_LIB)
       LIST(APPEND ${PROJECT_NAME}_DEP_LIB ${${PROJECT_NAME}_ADD_LIB})
     ENDIF(${PROJECT_NAME}_ADD_LIB)
-    
+
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "SET(${PROJECT_NAME}_DEP_LIB ${${PROJECT_NAME}_DEP_LIB})\n")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -301,7 +301,7 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
         "LIST(APPEND STORED_PROJECTS ${PROJECT_NAME})\n\n")
 
-    
+
 
     #########################################################################
     # Store dependencies for osg2-config.
@@ -534,26 +534,26 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_MOC \"${LOCAL_MOC}\")\n\n")
     ENDIF(LOCAL_MOC)
-    
+
     IF(NOT ${PROJECT_NAME}_BASE_DIR)
       # Add the source files to the source group
       #Strip the path down to a relative one
       IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
-                           ${CMAKE_CURRENT_SOURCE_DIR}/Source 
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                           ${CMAKE_CURRENT_SOURCE_DIR}/Source
                            ${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME})
       ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
-                           ${CMAKE_SOURCE_DIR}/Source 
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                           ${CMAKE_SOURCE_DIR}/Source
                            ${CMAKE_SOURCE_DIR}/${DIRNAME})
       ELSE()
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
-                           ${CMAKE_SOURCE_DIR}/Source 
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                           ${CMAKE_SOURCE_DIR}/Source
                            ${CMAKE_SOURCE_DIR}/${DIRNAME})
       ENDIF()
     ELSE()
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP 
-                           ${${PROJECT_NAME}_BASE_DIR}/ 
+        FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                           ${${PROJECT_NAME}_BASE_DIR}/
                            ${_OSG_CURR_DIRNAME})
     ENDIF()
 
@@ -562,30 +562,30 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     ELSE(THE_SOURCE_GROUP)
          SET(THE_SOURCE_GROUP "Source")
     ENDIF(THE_SOURCE_GROUP)
-    
+
     IF(${THE_SOURCE_GROUP} STREQUAL "\\")
          SET(THE_SOURCE_GROUP "Source")
     ENDIF()
-    
+
     LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUPS ${THE_SOURCE_GROUP})
-    SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS} 
+    SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS}
                                       CACHE INTERNAL "" FORCE)
-    
+
     STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
-    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP} 
-                ${LOCAL_SRC} 
-                ${LOCAL_HDR} 
-                ${LOCAL_INL} 
-                ${LOCAL_INS} 
-                ${LOCAL_FCD} 
-                ${LOCAL_LL} 
-                ${LOCAL_YY} 
+    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
+                ${LOCAL_SRC}
+                ${LOCAL_HDR}
+                ${LOCAL_INL}
+                ${LOCAL_INS}
+                ${LOCAL_FCD}
+                ${LOCAL_LL}
+                ${LOCAL_YY}
                 ${LOCAL_MOC})
 
-    SET(${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP} 
-          ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}} 
+    SET(${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
+          ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}}
           CACHE INTERNAL "" FORCE)
-    
+
     # unittests
     IF(LOCAL_UNITTEST_SRC)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -678,7 +678,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
               SET(FCDRoot "")
               SET(FCDTemp -t ${FCDBaseDir})
             ENDIF(NOT EXISTS FCDPath AND OpenSG_DIR)
-            
+
             IF(NOT EXISTS ${FCDDir}/${FCDClassHdr} AND
                NOT EXISTS ${FCDDir}/${FCDClassCpp} AND
                NOT EXISTS ${FCDDir}/${FCDClassInl} AND
@@ -693,7 +693,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                IF(_OSG_IGNORE_CLASSWRITE EQUAL -1)
                  MESSAGE(STATUS "writing ${FCDDir}/${FCDClassHdr} ${FCDDir}/${FCDClassCpp} ${FCDDir}/${FCDClassInl}")
 
-                 EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -f -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp}) 
+                 EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -f -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp})
                ENDIF(_OSG_IGNORE_CLASSWRITE EQUAL -1)
 
             ENDIF()
@@ -738,7 +738,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
             LIST(APPEND ${PROJECT_NAME}_SRC ${MOCOutFile})
         ENDFOREACH(MOCFile)
     ENDIF(${PROJECT_NAME} STREQUAL "OSGWindowQT4")
-    
+
     ############
     # Flex/Bison
     ############
@@ -802,15 +802,15 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
-    
+
     #Add Source Files to Source Groups
     #Loop through all of the groups for this Project
     FOREACH(PROJECT_SOURCE_GROUP_NAME ${${PROJECT_NAME}_SOURCE_GROUPS})
         STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${PROJECT_SOURCE_GROUP_NAME})
-        SOURCE_GROUP(${PROJECT_SOURCE_GROUP_NAME} FILES 
+        SOURCE_GROUP(${PROJECT_SOURCE_GROUP_NAME} FILES
                      ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}})
     ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
-    
+
     ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC}
                                 ${${PROJECT_NAME}_HDR}
                                 ${${PROJECT_NAME}_INL}
@@ -882,7 +882,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
             APPEND PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_DEFS})
     ENDIF(${PROJECT_NAME}_DEP_DEFS)
 
-    IF(${PROJECT_NAME}_CXXFLAGS)    
+    IF(${PROJECT_NAME}_CXXFLAGS)
       SET_PROPERTY(TARGET ${PROJECT_NAME}
                     APPEND PROPERTY COMPILE_FLAGS ${${PROJECT_NAME}_CXXFLAGS})
     ENDIF(${PROJECT_NAME}_CXXFLAGS)
@@ -899,7 +899,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         ELSE(OSG_INSTALL_SUBDIR)
             SET(_OSG_ISC "")
         ENDIF(OSG_INSTALL_SUBDIR)
-        
+
         IF(OSG_USE_SEPARATE_LIBDIRS)
           SET(_OSG_TARGET_BINDIR_REL bin/${_OSG_ISC}rel)
           SET(_OSG_TARGET_BINDIR_DBG bin/${_OSG_ISC}debug)
@@ -926,7 +926,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS Release
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
                 COMPONENT release_runtimes)
-                
+
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
@@ -934,12 +934,12 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 COMPONENT release_libraries)
 
         INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS Debug 
+                CONFIGURATIONS Debug
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
                 COMPONENT debug_runtimes)
 
         INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS Debug 
+                CONFIGURATIONS Debug
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
                 ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
                 COMPONENT debug_libraries)
@@ -966,24 +966,24 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
                 COMPONENT debug_opt_libraries)
 
-        
+
         IF(OSG_INSTALL_PDB_FILES)
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Release_LOCATION)
 
           STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
 
-          INSTALL(FILES ${_TMPVAL1} 
+          INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS Release
                   DESTINATION ${_OSG_TARGET_BINDIR_REL}
                   COMPONENT release_program_db)
- 
- 
+
+
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Debug_LOCATION)
 
           STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
 
-          INSTALL(FILES ${_TMPVAL1} 
+          INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS Debug
                   DESTINATION ${_OSG_TARGET_BINDIR_DBG}
                   COMPONENT debug_program_db)
@@ -993,7 +993,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
 
-          INSTALL(FILES ${_TMPVAL1} 
+          INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS ReleaseNoOpt
                   DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
                   COMPONENT release_no_opt_program_db)
@@ -1003,7 +1003,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
 
-          INSTALL(FILES ${_TMPVAL1} 
+          INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS DebugOpt
                   DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
                   COMPONENT debug_opt_program_db)
@@ -1015,7 +1015,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS MinSizeRel
                 RUNTIME DESTINATION lib/minsizerel
                 COMPONENT release_minsize_runtimes)
-                
+
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS MinSizeRel
                 LIBRARY DESTINATION lib/minsizerel
@@ -1172,7 +1172,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
                 PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_DEFS})
         ENDIF(${PROJECT_NAME}_DEP_DEFS)
 
-        IF(${PROJECT_NAME}_CXXFLAGS)    
+        IF(${PROJECT_NAME}_CXXFLAGS)
           SET_PROPERTY(TARGET ${EXE}
                        APPEND PROPERTY COMPILE_FLAGS ${${PROJECT_NAME}_CXXFLAGS})
         ENDIF(${PROJECT_NAME}_CXXFLAGS)
@@ -1429,7 +1429,7 @@ MACRO(OSG_FIND_PACKAGE NAME)
 
     IF(${NAME}_FOUND)
         OSG_ADD_OPT(${NAME}_LIBRARIES)
-        OSG_ADD_OPT(${NAME}_INCLUDE_DIR)        
+        OSG_ADD_OPT(${NAME}_INCLUDE_DIR)
     ENDIF(${NAME}_FOUND)
 
     OSG_ADD_OPT(${NAME}_FOUND)
@@ -1444,12 +1444,12 @@ MACRO(OSG_BOOST_DEP_SETUP)
     IF(Boost_FOUND)
 
         # Hide settings
-        SET(Boost_FILESYSTEM_LIBRARY ${Boost_FILESYSTEM_LIBRARY} 
+        SET(Boost_FILESYSTEM_LIBRARY ${Boost_FILESYSTEM_LIBRARY}
                                      CACHE INTERNAL "")
-        SET(Boost_FILESYSTEM_LIBRARY_DEBUG ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
+        SET(Boost_FILESYSTEM_LIBRARY_DEBUG ${Boost_FILESYSTEM_LIBRARY_DEBUG}
                                            CACHE INTERNAL "")
-        SET(Boost_FILESYSTEM_LIBRARY_RELEASE 
-           ${Boost_FILESYSTEM_LIBRARY_RELEASE}  
+        SET(Boost_FILESYSTEM_LIBRARY_RELEASE
+           ${Boost_FILESYSTEM_LIBRARY_RELEASE}
            CACHE INTERNAL "")
 
         SET(Boost_INCLUDE_DIR ${Boost_INCLUDE_DIR}
