@@ -925,26 +925,46 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
+                COMPONENT release_runtimes)
+                
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Release
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL})
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
+                COMPONENT release_libraries)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Debug 
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+                COMPONENT debug_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Debug 
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG})
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+                COMPONENT debug_libraries)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS ReleaseNoOpt
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
+                COMPONENT release_no_opt_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS ReleaseNoOpt
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO})
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
+                COMPONENT release_no_opt_libraries)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS DebugOpt
                 RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+                COMPONENT debug_opt_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS DebugOpt
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO})
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+                COMPONENT debug_opt_libraries)
 
         
         IF(OSG_INSTALL_PDB_FILES)
@@ -955,7 +975,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1} 
                   CONFIGURATIONS Release
-                  DESTINATION ${_OSG_TARGET_BINDIR_REL})
+                  DESTINATION ${_OSG_TARGET_BINDIR_REL}
+                  COMPONENT release_program_db)
  
  
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Debug_LOCATION)
@@ -964,7 +985,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1} 
                   CONFIGURATIONS Debug
-                  DESTINATION ${_OSG_TARGET_BINDIR_DBG})
+                  DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+                  COMPONENT debug_program_db)
 
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} ReleaseNoOpt_LOCATION)
@@ -973,7 +995,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1} 
                   CONFIGURATIONS ReleaseNoOpt
-                  DESTINATION ${_OSG_TARGET_BINDIR_RELNO})
+                  DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
+                  COMPONENT release_no_opt_program_db)
 
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} DebugOpt_LOCATION)
@@ -982,7 +1005,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1} 
                   CONFIGURATIONS DebugOpt
-                  DESTINATION ${_OSG_TARGET_BINDIR_DBGO})
+                  DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+                  COMPONENT debug_opt_program_db)
 
         ENDIF(OSG_INSTALL_PDB_FILES)
 
@@ -990,38 +1014,51 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS MinSizeRel
                 RUNTIME DESTINATION lib/minsizerel
+                COMPONENT release_minsize_runtimes)
+                
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS MinSizeRel
                 LIBRARY DESTINATION lib/minsizerel
-                ARCHIVE DESTINATION lib/minsizerel)
+                ARCHIVE DESTINATION lib/minsizerel
+                COMPONENT release_minsize_libraries)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS RelWithDebInfo
                 RUNTIME DESTINATION lib/relwithdbg
-                LIBRARY DESTINATION lib/relwithdbg
-                ARCHIVE DESTINATION lib/relwithdbg)
+                COMPONENT release_with_debinfo_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS RelWithDebInfo
+                RUNTIME DESTINATION lib/relwithdbg
+                COMPONENT release_with_debinfo_libraries)
     ELSE(WIN32)
         INSTALL(TARGETS ${PROJECT_NAME}
                 RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
                 LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                COMPONENT libraries)
     ENDIF(WIN32)
 
     INSTALL(FILES ${${PROJECT_NAME}_HDR}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ)
+                        WORLD_READ
+                COMPONENT code_headers)
 
     INSTALL(FILES ${${PROJECT_NAME}_INL}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ)
+                        WORLD_READ
+                COMPONENT code_headers)
 
     INSTALL(FILES ${${PROJECT_NAME}_INS}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ)
+                        WORLD_READ
+                COMPONENT code_headers)
 
 ENDFUNCTION(OSG_SETUP_LIBRARY_BUILD)
 

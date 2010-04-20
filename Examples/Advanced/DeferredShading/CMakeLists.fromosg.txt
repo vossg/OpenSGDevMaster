@@ -24,8 +24,19 @@ SET(OSG_COMPONENTS OSGBase
                    OSGSystem
                    OSGUtil
                    OSGWindow
-                   OSGWindowX
                    OSGWindowGLUT)
+
+IF(UNIX)
+    IF(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowCarbon)
+    ELSE(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowX)
+    ENDIF(APPLE)
+ENDIF(UNIX)
+
+IF(WIN32)
+    LIST(APPEND OSG_COMPONENTS OSGWindowWIN32)
+ENDIF(WIN32)
 
 SET(DEP_INCLUDE_DIRS)
 SET(DEP_LIBRARY_DIRS)
@@ -78,4 +89,21 @@ FOREACH(SRC ${SRCFILES})
         TARGET_LINK_LIBRARIES(${EXE} ${OSGDEP})
     ENDFOREACH()
 
+    #Install
+    IF(OSG_INSTALL_EXAMPLES)
+        INSTALL(TARGETS ${EXE}
+                DESTINATION share/OpenSG/Examples/Advanced
+                COMPONENT examples_advanced)
+        INSTALL(FILES "${SRC}"
+                DESTINATION share/OpenSG/Examples/Advanced
+                COMPONENT examples_advanced)
+    ENDIF()
 ENDFOREACH(SRC)
+
+#GLSL files
+IF(OSG_INSTALL_EXAMPLES)
+    FILE(GLOB GLSLFILES "*.glsl")
+    INSTALL(FILES ${GLSLFILES}
+            DESTINATION share/OpenSG/Examples/Advanced
+            COMPONENT examples_advanced)
+ENDIF()

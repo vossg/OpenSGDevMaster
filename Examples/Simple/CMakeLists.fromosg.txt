@@ -96,4 +96,23 @@ FOREACH(SRC ${SRCFILES})
         SET_PROPERTY(TARGET ${EXE}
                      APPEND PROPERTY COMPILE_FLAGS ${OSG_ADD_CXX_FLAGS_GV})
     ENDIF()
+    
+    
+    #Install
+    IF(OSG_INSTALL_EXAMPLES)
+        INSTALL(TARGETS ${EXE}
+                DESTINATION share/OpenSG/Examples/Simple
+                COMPONENT examples_basic)
+        INSTALL(FILES "${SRC}"
+                DESTINATION share/OpenSG/Examples/Simple
+                COMPONENT examples_basic)
+    ENDIF()
 ENDFOREACH(SRC)
+    
+
+IF(OSG_INSTALL_EXAMPLES)
+    INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Examples/Tutorial/Data"
+            DESTINATION share/OpenSG/Examples/Simple
+            COMPONENT examples_basic)
+ENDIF()
+
