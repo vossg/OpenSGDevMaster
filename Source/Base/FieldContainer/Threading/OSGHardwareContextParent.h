@@ -58,14 +58,9 @@ struct HardwareContextDataSlotDesc
 
     typedef ContextDataSlotPool        DataSlotIdPool;
 
-    static void dumpElement(const FieldContainer *pVal)
+    static void dumpElement(const HardwareContextData *pVal)
     {
         fprintf(stderr, "%p", pVal);
-
-        if(pVal != NULL)
-        {
-            fprintf(stderr, " (%s)", pVal->getType().getCName());
-        }
     }
 };
 
