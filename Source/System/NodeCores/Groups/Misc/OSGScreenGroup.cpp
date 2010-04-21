@@ -119,9 +119,9 @@ ScreenGroup::~ScreenGroup(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ScreenGroup::changed(BitVector whichField, 
-                          UInt32    origin,
-                          BitVector details)
+void ScreenGroup::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }

@@ -67,9 +67,9 @@ class OSG_GROUP_DLLMAPPING ScreenGroup : public ScreenGroupBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(BitVector  whichField, 
-                         UInt32     origin,
-                         BitVector  detail    );
+    virtual void changed(ConstFieldMaskArg  whichField, 
+                         UInt32             origin,
+                         BitVector          detail    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
