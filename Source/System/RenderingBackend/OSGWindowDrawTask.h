@@ -44,7 +44,6 @@
 #endif
 
 #include "OSGDrawTask.h"
-#include "OSGBarrier.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -214,17 +213,16 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
 typedef RefCountPtr<ViewportDrawTask,
                     MemObjRefCountPolicy> ViewportDrawTaskRefPtr;
 
-class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
+class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public BlockingDrawTask
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
     static const UInt32 Callback            = Inherited::LastType + 1;
-    static const UInt32 CallbackWithBarrier = Inherited::LastType + 2;
-    static const UInt32 LastType            = CallbackWithBarrier;
+    static const UInt32 LastType            = Callback;
 
-    typedef DrawTask Inherited;
+    typedef BlockingDrawTask Inherited;
 
     typedef boost::function<void (HardwareContext *, 
                                   DrawEnv         *)> CallbackFunctor;
@@ -248,15 +246,12 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void activateBarrier(bool bVal);
-    void setCallback    (const CallbackFunctor &fCallback);
+    void setCallback(const CallbackFunctor &fCallback);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
-
-    void waitForBarrier(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -280,7 +275,6 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
     /*! \{                                                                 */
 
     CallbackFunctor _fCallback;
-    BarrierRefPtr   _pBarrier;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

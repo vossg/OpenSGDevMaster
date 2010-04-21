@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,16 +36,75 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGHARDWARECONTEXTDATA_H_
+#define _OSGHARDWARECONTEXTDATA_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGMemoryObject.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline
-UInt32 HardwareContext::getInitState(void)
-{
-    return _uiInitState;
-}
+class HardwareContext;
 
+/*! \class HardwareContextData 
+    Memory, simple reference counted memory object. Parent of
+    everything that should be shared, but must not be thread safe.
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
+    \ingroup GrpLibOSGBase
+ */
+
+class OSG_BASE_DLLMAPPING HardwareContextData : public MemoryObject
+{
+
+    /*==========================  PUBLIC  =================================*/
+
+    typedef MemoryObject Inherited;
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                                                              */
+    /*! \{                                                                 */
+
+    virtual void releaseResources(HardwareContext *pContext);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+ 
+    HardwareContextData(void);
+    HardwareContextData(const  HardwareContextData &source);
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~HardwareContextData(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const HardwareContextData &source);
+};
+ 
 OSG_END_NAMESPACE
+
+#include "OSGHardwareContextData.inl"
+
+#endif /* _OSGHARDWARECONTEXTDATA_H_ */

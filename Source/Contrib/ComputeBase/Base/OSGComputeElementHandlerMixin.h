@@ -142,9 +142,9 @@ class ComputeElementHandlerMixin  :
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    void setData(MemoryObject       *pData, 
-                 Int32               iDataSlotId,
-                 HardwareContext    *pContext   );
+    void setData(HardwareContextData *pData, 
+                 Int32                iDataSlotId,
+                 HardwareContext     *pContext   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

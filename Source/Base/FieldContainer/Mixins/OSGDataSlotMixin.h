@@ -149,9 +149,9 @@ class DataSlotMixin : public ParentT
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    void clearData(FieldContainer    *pContainer, 
-                   ConstFieldMaskArg  whichField,
-                   Int32              iSlotId   );
+    virtual void clearData(FieldContainer    *pContainer, 
+                           ConstFieldMaskArg  whichField,
+                           Int32              iSlotId   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

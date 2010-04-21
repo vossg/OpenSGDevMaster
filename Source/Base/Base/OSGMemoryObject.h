@@ -98,11 +98,8 @@ class OSG_BASE_DLLMAPPING MemoryObject
   public:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
+    /*! \name                                                              */
     /*! \{                                                                 */
-
-    virtual ~MemoryObject(void); 
-
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -115,6 +112,12 @@ class OSG_BASE_DLLMAPPING MemoryObject
  
     MemoryObject(void);
     MemoryObject(const  MemoryObject &source);
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~MemoryObject(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

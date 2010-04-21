@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+class HardwareTask;
+class BlockingTask;
+
 /*! \brief HardwareContext class. See \ref
            PageBaseHardwareContext for a description.
 */
@@ -61,6 +64,13 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
 
     typedef HardwareContextBase Inherited;
     typedef HardwareContext     Self;
+
+    enum InitState
+    {
+        OpenGLInitialized = 0x0001,
+        CudaInitialized   = 0x0002,
+        OpenCLInitialized = 0x0004
+    };
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -79,6 +89,21 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void submitTask       (HardwareContextTask *pTask) = 0;
+    virtual void submitTaskAndWait(BlockingTask        *pTask) = 0;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    void setCudaInit(void);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -86,6 +111,7 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
     // Variables should all be in HardwareContextBase.
 
     HardwareContextThreadRefPtr _pContextThread;
+    UInt32                      _uiInitState;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -116,6 +142,24 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
     void onDestroyAspect(      UInt32           uiContainerId,
                                UInt32           uiAspect     );
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void   setOpenGLInit(void);
+
+    UInt32 getInitState (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    virtual void clearData(FieldContainer    *pContainer, 
+                           ConstFieldMaskArg  whichField,
+                           Int32              iSlotId   );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */

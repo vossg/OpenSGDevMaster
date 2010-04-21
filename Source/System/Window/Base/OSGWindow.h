@@ -311,7 +311,16 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
            void queueTask          (DrawTask *pTask);
     static void queueGlobalTask    (DrawTask *pTask);
 
+ 
            void clearDrawTasks     (void           );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
+
+    virtual void submitTask       (HardwareContextTask *pTask);
+    virtual void submitTaskAndWait(BlockingTask        *pTask);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

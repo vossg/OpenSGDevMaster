@@ -157,10 +157,124 @@ class OSG_SYSTEM_DLLMAPPING DrawTask : public HardwareContextTask
     void operator =(const DrawTask &source);
 };
 
+
+/*! \ingroup GrpSystemRenderingBackend
+*/
+
+class OSG_SYSTEM_DLLMAPPING BlockingDrawTask : public DrawTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef DrawTask Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    void activateBarrier(bool bVal);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void setNumWaitFor (UInt32 uiWaitees);
+    void waitForBarrier(void            );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Debugging                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent) = 0;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    bool          _bBarrierActive;
+    BarrierRefPtr _pBarrier;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    BlockingDrawTask(UInt32 uiTaskType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~BlockingDrawTask(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    BlockingDrawTask(const BlockingDrawTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const BlockingDrawTask &source);
+};
+
 typedef RefCountPtr<DrawTask,
                     MemObjRefCountPolicy> DrawTaskRefPtr;
 
-typedef TransitPtr<DrawTask> DrawTaskTransitPtr;
+typedef RefCountPtr<BlockingDrawTask,
+                    MemObjRefCountPolicy> BlockingDrawTaskRefPtr;
+
+typedef TransitPtr<DrawTask        > DrawTaskTransitPtr;
+typedef TransitPtr<BlockingDrawTask> BlockingDrawTaskTransitPtr;
 
 template <>
 struct FieldTraits<DrawTaskRefPtr, 0> : 

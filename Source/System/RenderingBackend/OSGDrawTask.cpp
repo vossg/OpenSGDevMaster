@@ -73,6 +73,59 @@ OSG_FIELDTRAITS_GETTYPE(DrawTaskRefPtr)
 OSG_FIELD_DLLEXPORT_DEF1(MField, DrawTaskRefPtr);
 
 
+/*! \class OSG::DrawTask
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+BlockingDrawTask::BlockingDrawTask(UInt32 uiTaskType) :
+     Inherited     (uiTaskType),
+    _bBarrierActive(false     ),
+    _pBarrier      (NULL      )
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+BlockingDrawTask::~BlockingDrawTask(void)
+{
+    _pBarrier = NULL;
+}
+
+void BlockingDrawTask::activateBarrier(bool bVal)
+{
+    _bBarrierActive = bVal;
+
+    if(_bBarrierActive == true && _pBarrier == NULL)
+    {
+        _pBarrier = Barrier::get(NULL, false);
+        _pBarrier->setNumWaitFor(2);
+    }
+}
+
+void BlockingDrawTask::setNumWaitFor(UInt32 uiWaitees)
+{
+    if(_pBarrier != NULL && uiWaitees != 0)
+    {
+        _pBarrier->setNumWaitFor(uiWaitees);
+    }
+}
+
+void BlockingDrawTask::waitForBarrier(void)
+{
+    if(_bBarrierActive == false)
+    {
+        return;
+    }
+
+    OSG_ASSERT(_pBarrier != NULL);
+
+    _pBarrier->enter();
+}
+
 OSG_END_NAMESPACE
 
 

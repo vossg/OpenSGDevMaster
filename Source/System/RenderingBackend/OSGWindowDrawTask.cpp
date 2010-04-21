@@ -45,6 +45,11 @@
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
 
+#ifdef OSG_WITH_CUDA
+#include <cuda_runtime_api.h>
+#include <cuda_gl_interop.h>
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::WindowDrawTask
@@ -98,9 +103,10 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             if(_bCreatePrivateContext == true)
                 pWindow->init();
 
-            pWindow->doActivate();
-            pWindow->doFrameInit(_bReinitExtFunctions);
-            pWindow->setupGL ();
+            pWindow->doActivate   ();
+            pWindow->doFrameInit  (_bReinitExtFunctions);
+            pWindow->setupGL      ();
+            pWindow->setOpenGLInit();
 
             if(_oInitFunc)
             {
@@ -147,6 +153,8 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 
             if(pWindow->getKeepContextActive() == false)
                 pWindow->doDeactivate();
+
+            commitChangesAndClear();
         }
         break;
 
@@ -179,6 +187,18 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 
         case EndThread:
         {
+            if(pWindow->getKeepContextActive() == false)
+                pWindow->doActivate();
+
+            pWindow->doFrameExit();
+            
+#ifdef OSG_WITH_CUDA
+            if(0x0000 != (pWindow->getInitState() & 
+                          HardwareContext::CudaInitialized))
+            {
+                cudaThreadExit();
+            }
+#endif
             pWindow->doDeactivate();
             pWindow->_pContextThread->endRunning();
         }
@@ -334,26 +354,19 @@ void ViewportDrawTask::dump(UInt32 uiIndent)
 
 CallbackDrawTask::CallbackDrawTask(UInt32 uiType) :
      Inherited(uiType),
-    _fCallback(      ),
-    _pBarrier (NULL  )
+    _fCallback(      )
 {
-    _pBarrier = Barrier::get(NULL, false);
-    _pBarrier->setNumWaitFor(2);
 }
 
 CallbackDrawTask::CallbackDrawTask(const CallbackFunctor &fCallback, 
                                          UInt32            uiType  ) :
      Inherited (uiType   ),
-    _fCallback (fCallback),
-    _pBarrier  (NULL     )
+    _fCallback (fCallback)
 {
-    _pBarrier = Barrier::get(NULL, false);
-    _pBarrier->setNumWaitFor(2);
 }
 
 CallbackDrawTask::~CallbackDrawTask(void)
 {
-    _pBarrier = NULL;
 }
 
 void CallbackDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
@@ -372,18 +385,9 @@ void CallbackDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             _fCallback(pContext, pEnv);
 
             Inherited::finalizeContext(pWindow);
-        }
-        break;
-
-        case CallbackWithBarrier:
-        {
-            Inherited::setupContext(pWindow);
-
-            _fCallback(pContext, pEnv);
-
-            Inherited::finalizeContext(pWindow);
-
-            _pBarrier->enter();
+            
+            if(_bBarrierActive == true)
+                _pBarrier->enter();
         }
         break;
 
@@ -392,27 +396,11 @@ void CallbackDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
     }
 }
 
-void CallbackDrawTask::activateBarrier(bool bVal)
-{
-    if(bVal == true)
-        _uiTypeTask = CallbackWithBarrier;
-    else
-        _uiTypeTask = Callback;
-}
-
 void CallbackDrawTask::setCallback(const CallbackFunctor &fCallback)
 {
     _fCallback = fCallback;
 }
 
-
-void CallbackDrawTask::waitForBarrier(void)
-{
-    OSG_ASSERT(_uiTypeTask == CallbackWithBarrier);
-    OSG_ASSERT(_pBarrier   != NULL               );
-
-    _pBarrier->enter();
-}
 
 void CallbackDrawTask::dump(UInt32 uiIndent)
 {
@@ -423,13 +411,8 @@ void CallbackDrawTask::dump(UInt32 uiIndent)
     {
         case Callback:
         {
-            fprintf(stderr, "Callback\n");
-        }
-        break;
-
-        case CallbackWithBarrier:
-        {
-            fprintf(stderr, "CallbackWithBarrier\n");
+            fprintf(stderr, "Callback, barrier active : %d\n",
+                    UInt32(_bBarrierActive));
         }
         break;
 

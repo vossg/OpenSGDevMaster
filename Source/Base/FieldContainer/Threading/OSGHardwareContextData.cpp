@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,16 +36,44 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#include "OSGHardwareContextData.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline
-UInt32 HardwareContext::getInitState(void)
+/*! class MemoryObject
+ */
+
+/*! \var Int32 MemoryObject::_refCount
+ *  \brief reference count
+ */
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+HardwareContextData::~HardwareContextData(void)
 {
-    return _uiInitState;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                        Reference Counting                               */
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+HardwareContextData::HardwareContextData(void) :
+    Inherited()
+{
+}
+
+HardwareContextData::HardwareContextData(const HardwareContextData &source) :
+    Inherited(source)
+{
+}
+
+void HardwareContextData::releaseResources(HardwareContext *pContext)
+{
+    fprintf(stderr, "HardwareContextData::releaseResources\n");
 }
 
 OSG_END_NAMESPACE
+

@@ -46,14 +46,14 @@
 #include "OSGContainerMixinHead.h"
 #include "OSGDataSlotMixin.h"
 #include "OSGDataSlotPool.h"
-#include "OSGMemoryObjectMFields.h"
+#include "OSGHardwareContextDataMFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct HardwareContextDataSlotDesc
 {
     typedef AttachmentContainer        ParentT;
-    typedef MFMemoryObjectPtr          DataStore;
+    typedef MFHardwareContextDataPtr   DataStore;
     typedef FieldContainer::TypeObject TypeObject;
 
     typedef ContextDataSlotPool        DataSlotIdPool;

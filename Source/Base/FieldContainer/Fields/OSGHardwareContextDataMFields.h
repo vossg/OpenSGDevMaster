@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,16 +36,36 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGHARDWARECONTEXTDATAMFIELDS_H_
+#define _OSGHARDWARECONTEXTDATAMFIELDS_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGMField.h"
+
+#include "OSGHardwareContextDataFieldTraits.h"
+
+#include "OSGMemObjPointerMField.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline
-UInt32 HardwareContext::getInitState(void)
-{
-    return _uiInitState;
-}
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+typedef MemObjPointerMField<HardwareContextData *,
+                            MemObjRefCountPolicy > MFHardwareContextDataPtr;
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
+struct MFHardwareContextDataPtr : 
+    public MemObjPointerMField<HardwareContextData *,
+                               MemObjRefCountPolicy > {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
+
+#endif /* _OSGHARDWARECONTEXTDATAMFIELDS_H_ */

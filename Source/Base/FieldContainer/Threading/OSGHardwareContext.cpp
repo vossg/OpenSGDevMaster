@@ -84,18 +84,30 @@ void HardwareContext::initMethod(InitPhase ePhase)
 
 HardwareContext::HardwareContext(void) :
      Inherited     (    ),
-    _pContextThread(NULL)
+    _pContextThread(NULL),
+    _uiInitState   (0   )
 {
 }
 
 HardwareContext::HardwareContext(const HardwareContext &source) :
      Inherited     (source),
-    _pContextThread(NULL  )
+    _pContextThread(NULL  ),
+    _uiInitState   (0     )
 {
 }
 
 HardwareContext::~HardwareContext(void)
 {
+}
+
+void HardwareContext::setOpenGLInit(void)
+{
+    _uiInitState |= OpenGLInitialized;
+}
+
+void HardwareContext::setCudaInit(void)
+{
+    _uiInitState |= CudaInitialized;
 }
 
 void HardwareContext::onCreate(const HardwareContext *source)
@@ -144,6 +156,22 @@ void HardwareContext::dump(      UInt32    ,
                            const BitVector ) const
 {
     SLOG << "Dump HardwareContext NI" << std::endl;
+}
+
+void HardwareContext::clearData(FieldContainer    *pContainer, 
+                                ConstFieldMaskArg  whichField,
+                                Int32              iSlotId   )
+{
+    if(iSlotId < 0)
+        return;
+
+    if(_mfData.size() > static_cast<UInt32>(iSlotId))
+    {
+        if(_mfData[iSlotId] != NULL)
+            _mfData[iSlotId]->releaseResources(this);
+    }
+
+    Inherited::clearData(pContainer, whichField, iSlotId);
 }
 
 OSG_END_NAMESPACE

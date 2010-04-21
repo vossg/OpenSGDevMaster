@@ -59,6 +59,9 @@
 #include "OSGMemoryObjectSFields.h"
 #include "OSGMemoryObjectMFields.h"
 
+#include "OSGHardwareContextDataSFields.h"
+#include "OSGHardwareContextDataMFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<FieldContainer          *>::_type(
@@ -89,6 +92,10 @@ DataType FieldTraits<MemoryObject           *>::_type(
     "MemoryObjectPtr",
     NULL);
 
+DataType FieldTraits<HardwareContextData    *>::_type(
+    "HardwareContextDataPtr",
+    "MemoryObjectPtr");
+
 OSG_FIELDTRAITS_GETTYPE   (FieldContainer         *)
 
 OSG_FIELDTRAITS_GETTYPE   (Attachment             *)
@@ -96,6 +103,7 @@ OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
 OSG_FIELDTRAITS_GETTYPE   (Node                   *)
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
 OSG_FIELDTRAITS_GETTYPE   (MemoryObject           *)
+OSG_FIELDTRAITS_GETTYPE   (HardwareContextData    *)
 
 DataType &FieldTraits< FieldContainer *>::getMapType(void)
 {                                                           
@@ -211,6 +219,17 @@ OSG_EXPORT_PTR_SFIELD(MemObjPointerSField,
                       0);
 OSG_EXPORT_PTR_MFIELD(MemObjPointerMField, 
                       MemoryObject *, 
+                      MemObjRefCountPolicy,
+                      0);
+
+// HardwareContextData
+
+OSG_EXPORT_PTR_SFIELD(MemObjPointerSField,
+                      HardwareContextData *, 
+                      MemObjRefCountPolicy,
+                      0);
+OSG_EXPORT_PTR_MFIELD(MemObjPointerMField, 
+                      HardwareContextData *, 
                       MemObjRefCountPolicy,
                       0);
 

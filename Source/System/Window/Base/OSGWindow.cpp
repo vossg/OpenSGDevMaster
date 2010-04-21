@@ -2433,6 +2433,9 @@ void Window::queueTask(DrawTask *pTask)
 
 void OSG::Window::queueGlobalTask(DrawTask *pTask)
 {
+    if(pTask == NULL)
+        return;
+
     WindowStore::const_iterator winIt  = _allWindows.begin();
     WindowStore::const_iterator winEnd = _allWindows.end  ();
 
@@ -2444,6 +2447,45 @@ void OSG::Window::queueGlobalTask(DrawTask *pTask)
             continue;
 
         pWin->queueTask(pTask);
+    }
+}
+
+void Window::submitTask(HardwareContextTask *pTask)
+{
+    if(pTask == NULL)
+        return;
+
+    OSG_ASSERT(_pContextThread != NULL);
+
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == ParallelPartitionDraw)
+    {
+        _pContextThread->queueTask(pTask);
+    }
+    else
+    {
+        pTask->execute(this, &_oEnv);
+    }
+}
+
+void Window::submitTaskAndWait(BlockingTask *pTask)
+{
+    if(pTask == NULL)
+        return;
+
+    OSG_ASSERT(_pContextThread != NULL);
+
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == ParallelPartitionDraw)
+    {
+        pTask->activateBarrier(true);
+        pTask->setNumWaitFor(2);
+
+        _pContextThread->queueTask(pTask);
+
+        pTask->waitForBarrier();
+    }
+    else
+    {
+        pTask->execute(this, &_oEnv);
     }
 }
 

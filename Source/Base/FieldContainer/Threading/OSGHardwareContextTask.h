@@ -48,6 +48,7 @@
 #include "OSGBaseDef.h"
 #include "OSGLock.h"
 #include "OSGSemaphore.h"
+#include "OSGBarrier.h"
 #include "OSGMField.h"
 
 #include <deque>
@@ -165,10 +166,206 @@ class OSG_BASE_DLLMAPPING HardwareContextTask : public MemoryObject
     void operator =(const HardwareContextTask &source);
 };
 
+/*! \ingroup GrpSystemRenderingBackend
+*/
+
+class OSG_BASE_DLLMAPPING BlockingTask : public HardwareContextTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef HardwareContextTask Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    void activateBarrier(bool bVal);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void setNumWaitFor (UInt32 uiWaitees);
+    void waitForBarrier(void            );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Debugging                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent) = 0;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    bool          _bBarrierActive;
+    BarrierRefPtr _pBarrier;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    BlockingTask(UInt32 uiTaskType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~BlockingTask(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    BlockingTask(const BlockingTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const BlockingTask &source);
+};
+
+class OSG_BASE_DLLMAPPING CallbackTask : public BlockingTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    static const UInt32 Callback            = Inherited::LastType + 1;
+    static const UInt32 LastType            = Callback;
+
+    typedef BlockingTask Inherited;
+
+    typedef boost::function<void (HardwareContext *, 
+                                  DrawEnv         *)> CallbackFunctor;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    CallbackTask(UInt32 uiType);
+    CallbackTask(const CallbackFunctor &fCallback, UInt32 uiType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void setCallback(const CallbackFunctor &fCallback);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    CallbackFunctor _fCallback;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~CallbackTask(void);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    CallbackTask(const CallbackTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const CallbackTask &source);
+};
+
 typedef RefCountPtr<HardwareContextTask,
                     MemObjRefCountPolicy> HardwareContextTaskRefPtr;
+typedef RefCountPtr<BlockingTask,
+                    MemObjRefCountPolicy> BlockingTaskRefPtr;
+typedef RefCountPtr<CallbackTask,
+                    MemObjRefCountPolicy> CallbackTaskRefPtr;
 
 typedef TransitPtr<HardwareContextTask> HardwareContextTaskTransitPtr;
+typedef TransitPtr<BlockingTask>        BlockingTaskTransitPtr;
+typedef TransitPtr<CallbackTask>        CallbackTaskTransitPtr;
 
 template <>
 struct FieldTraits<HardwareContextTaskRefPtr, 0> : 
