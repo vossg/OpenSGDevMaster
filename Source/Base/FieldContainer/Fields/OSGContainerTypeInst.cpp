@@ -56,6 +56,9 @@
 #include "OSGNodeSFields.h"
 #include "OSGNodeMFields.h"
 
+#include "OSGMemoryObjectSFields.h"
+#include "OSGMemoryObjectMFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<FieldContainer          *>::_type(
@@ -82,12 +85,17 @@ DataType FieldTraits<ChangedFunctorCallback  >::_type(
     "ChangedFunctorCallback",
     NULL);
  
+DataType FieldTraits<MemoryObject           *>::_type(
+    "MemoryObjectPtr",
+    NULL);
+
 OSG_FIELDTRAITS_GETTYPE   (FieldContainer         *)
 
 OSG_FIELDTRAITS_GETTYPE   (Attachment             *)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
 OSG_FIELDTRAITS_GETTYPE   (Node                   *)
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
+OSG_FIELDTRAITS_GETTYPE   (MemoryObject           *)
 
 DataType &FieldTraits< FieldContainer *>::getMapType(void)
 {                                                           
@@ -194,5 +202,16 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);
+
+// MemoryObject
+
+OSG_EXPORT_PTR_SFIELD(MemObjPointerSField,
+                      MemoryObject *, 
+                      MemObjRefCountPolicy,
+                      0);
+OSG_EXPORT_PTR_MFIELD(MemObjPointerMField, 
+                      MemoryObject *, 
+                      MemObjRefCountPolicy,
+                      0);
 
 OSG_END_NAMESPACE

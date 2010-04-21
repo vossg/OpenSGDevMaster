@@ -38,122 +38,128 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerSFieldCommon
+/*-------------------------------------------------------------------------*/
+/* MemObjPointerSField<PtrTypeT,                                           */
+/*                     NamespaceI  >                                       */
+/*-------------------------------------------------------------------------*/
 
- */
+/*-------------------------------------------------------------------------*/
+/* Class Type                                                              */
 
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(void) :
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+MemObjPointerSField<PtrTypeT,
+                    RefCountPolicy,
+                    NamespaceI    >::MemObjPointerSField(void) : 
     Inherited()
 {
 }
 
-template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(const Self &source) :
-    Inherited()
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+MemObjPointerSField<PtrTypeT,
+                    RefCountPolicy,
+                    NamespaceI    >::MemObjPointerSField(const Self &source) :
+     Inherited(source)
 {
-    _fieldValue = source._fieldValue;
-
-    AccessHandler::onAdd(this, _fieldValue);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(const_value value) :
-    Inherited()
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+MemObjPointerSField<PtrTypeT,
+                    RefCountPolicy,
+                    NamespaceI    >::MemObjPointerSField(const_value value) :
+    Inherited(value)
 {
-    _fieldValue = value;
-
-    AccessHandler::onAdd(this, _fieldValue);
 }
 
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::~PointerSFieldCommon(void)
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+MemObjPointerSField<PtrTypeT, 
+                    RefCountPolicy,
+                    NamespaceI    >::~MemObjPointerSField(void)
 {
-    AccessHandler::onSub(this, _fieldValue);
 }
 
 /*-------------------------------------------------------------------------*/
-/* Store Interface                                                         */
+/* Access                                                                  */
 
-/*-------------------------------------------------------------------------*/
-/* Reading Values                                                          */
-
-template <class AccessHandlerT, Int32 NamespaceI> inline 
-typename PointerSFieldCommon<AccessHandlerT,
-                             NamespaceI    >::value_type 
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI    >::ptrStoreGet(void) const
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+typename MemObjPointerSField<PtrTypeT,
+                             RefCountPolicy,
+                             NamespaceI    >::const_value
+    MemObjPointerSField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::getValue(void) const
 {
-    return AccessHandler::validate(_fieldValue);
+    return static_cast<const_value>(this->ptrStoreGet());
 }
 
-/*-------------------------------------------------------------------------*/
-/* Changing Values                                                         */
-
-template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI     >::ptrStoreSet(const_value pNewObj)
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void MemObjPointerSField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::setValue(const_value value)
 {
-    AccessHandler::onReplace(this, _fieldValue, pNewObj);
-    
-    _fieldValue = pNewObj;
+    this->ptrStoreSet(value);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI    >::ptrStoreClear(void)
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void MemObjPointerSField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::setValue(const Self &source)
 {
-    AccessHandler::onSub(this, _fieldValue);
-    
-    _fieldValue = NULL;
+    this->ptrStoreSet(source.ptrStoreGet());
 }
 
-/*-------------------------------------------------------------------------*/
-/* Binary IO                                                               */
-
-        
-template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void MemObjPointerSField<PtrTypeT,
+                         RefCountPolicy,
                          NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
-    FieldContainer *pNewObj = NULL;
-    
-    PtrBaseTraitsType::copyFromBin  ( pMem, 
-                                      pNewObj   );
-
-    AccessHandler    ::onSyncReplace( this, 
-                                     _fieldValue, 
-                                      pNewObj   );
-    
-    _fieldValue = pNewObj;
+    Inherited::copyFromBin(pMem);
 }
-
-/*-------------------------------------------------------------------------*/
-/* MT Sync                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI     >::syncWith(Self &source)
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void MemObjPointerSField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::syncWith(Self &source)
 {
-    FieldContainer *pNewObj = convertToCurrentAspect(source.ptrStoreGet());
-    
-    AccessHandler::onSyncReplace( this, 
-                                 _fieldValue, 
-                                  pNewObj);
-    
-    _fieldValue = pNewObj;
+    Inherited::syncWith(source);
 }
 #endif
+
+/*-------------------------------------------------------------------------*/
+/* Assignment                                                              */
+
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void MemObjPointerSField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::operator =(const Self &other)
+{
+    this->ptrStoreSet(other.ptrStoreGet());
+}
 
 OSG_END_NAMESPACE

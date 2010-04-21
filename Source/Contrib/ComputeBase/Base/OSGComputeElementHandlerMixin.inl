@@ -61,15 +61,14 @@ void ComputeElementHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-
 template <class ParentT> inline
 void ComputeElementHandlerMixin<ParentT>::setData(
-    ComputeElementData *pData, 
-    Int32               iDataSlotId,
-    HardwareContext    *pContext)
+    MemoryObject    *pData, 
+    Int32            iDataSlotId,
+    HardwareContext *pContext)
 {
-    ComputeElementData *pStoredData = 
-        pContext->template getData<ComputeElementData *>(this->_iDataSlotId);
+    MemoryObject *pStoredData = 
+        pContext->template getData<MemoryObject *>(this->_iDataSlotId);
 
     OSG_ASSERT(iDataSlotId == this->_iDataSlotId);
 

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,44 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGHARDWARECONTEXTPARENT_H_
-#define _OSGHARDWARECONTEXTPARENT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGAttachmentContainer.h"
-#include "OSGContainerMixinHead.h"
-#include "OSGDataSlotMixin.h"
-#include "OSGDataSlotPool.h"
-#include "OSGMemoryObjectMFields.h"
+#include "OSGMemObjPointerMFieldBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-struct HardwareContextDataSlotDesc
+FieldType MemObjPointerMFieldBase::_fieldType(
+    "MemoryObjectPtrMFieldBase",
+    "Field",                    
+    MFieldTraits::getType (),   
+    FieldType::MultiField,
+    FieldType::PtrField);
+
+
+const FieldType &MemObjPointerMFieldBase::getClassType(void)
 {
-    typedef AttachmentContainer        ParentT;
-    typedef MFMemoryObjectPtr          DataStore;
-    typedef FieldContainer::TypeObject TypeObject;
-
-    typedef ContextDataSlotPool        DataSlotIdPool;
-
-    static void dumpElement(const FieldContainer *pVal)
-    {
-        fprintf(stderr, "%p", pVal);
-
-        if(pVal != NULL)
-        {
-            fprintf(stderr, " (%s)", pVal->getType().getCName());
-        }
-    }
-};
-
-typedef DataSlotMixin< 
-            ContainerMixinHead < 
-                HardwareContextDataSlotDesc > > HardwareContextParent;
+    return _fieldType;
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGHARDWARECONTEXTPARENT_H_ */
-

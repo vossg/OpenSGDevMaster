@@ -1443,6 +1443,10 @@ MACRO(OSG_BOOST_DEP_SETUP)
 
     IF(Boost_FOUND)
 
+        IF(${Boost_MINOR_VERSION} GREATER 34)
+          FIND_PACKAGE(Boost COMPONENTS system)
+        ENDIF(${Boost_MINOR_VERSION} GREATER 34)
+
         # Hide settings
         SET(Boost_FILESYSTEM_LIBRARY ${Boost_FILESYSTEM_LIBRARY}
                                      CACHE INTERNAL "")
@@ -1468,22 +1472,32 @@ MACRO(OSG_BOOST_DEP_SETUP)
             LINK_DIRECTORIES   (${Boost_LIBRARY_DIRS})
         ENDIF(UNIX)
 
-        ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+        IF(NOT Boost_USE_STATIC_LIBS)
+          ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+        ENDIF(NOT Boost_USE_STATIC_LIBS)
 
         IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
            CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
 
+          IF(${Boost_MINOR_VERSION} GREATER 34)
+            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
+                               ${Boost_SYSTEM_LIBRARY_DEBUG})
+          ELSE()
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
+          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
         ELSE()
 
+          IF(${Boost_MINOR_VERSION} GREATER 34)
+            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE} 
+                               ${Boost_SYSTEM_LIBRARY_RELEASE})
+          ELSE()
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
         ENDIF()
 
         SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})
-
-
 
     ENDIF(Boost_FOUND)
 ENDMACRO(OSG_BOOST_DEP_SETUP)

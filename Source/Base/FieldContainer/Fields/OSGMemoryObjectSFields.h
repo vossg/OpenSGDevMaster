@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,79 +36,36 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGMEMORYOBJECTSFIELDS_H_
+#define _OSGMEMORYOBJECTSFIELDS_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-#include <cstdlib>
-#include <cstdio>
+#include "OSGSField.h"
 
-#include "OSGConfig.h"
+#include "OSGMemoryObjectFieldTraits.h"
 
-#include "OSGComputeElementData.h"
+#include "OSGMemObjPointerSField.h"
 
 OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGComputeElementDataBase.cpp file.
-// To modify it, please change the .fcd file (OSGComputeElementData.fcd) and
-// regenerate the base file.
 
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+typedef MemObjPointerSField<MemoryObject *,
+                            MemObjRefCountPolicy> SFMemoryObjectPtr;
 
-void ComputeElementData::initMethod(InitPhase ePhase)
-{
-    Inherited::initMethod(ePhase);
+#else // these are the doxygen hacks
 
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
+struct SFMemoryObjectPtr : 
+    public MemObjPointerSField<MemoryObject *,
+                               MemObjRefCountPolicy> {};
 
-
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-ComputeElementData::ComputeElementData(void) :
-    Inherited()
-{
-}
-
-ComputeElementData::ComputeElementData(const ComputeElementData &source) :
-    Inherited(source)
-{
-}
-
-ComputeElementData::~ComputeElementData(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void ComputeElementData::changed(ConstFieldMaskArg whichField, 
-                                 UInt32            origin,
-                                 BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void ComputeElementData::dump(      UInt32    ,
-                              const BitVector ) const
-{
-    SLOG << "Dump ComputeElementData NI" << std::endl;
-}
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
+
+#endif /* _OSGMEMORYOBJECTSFIELDS_H_ */

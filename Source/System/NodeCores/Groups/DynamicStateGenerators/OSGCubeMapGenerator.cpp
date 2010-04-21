@@ -283,9 +283,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                         pPart->setBackground(this->getBackground());
                     }
 
-                    fprintf(stderr, "Gen cubemap face %d\n",
-                            i);
-
                     pActNode->setTravMask(0);
                 
                     if(this->getRoot() != NULL)

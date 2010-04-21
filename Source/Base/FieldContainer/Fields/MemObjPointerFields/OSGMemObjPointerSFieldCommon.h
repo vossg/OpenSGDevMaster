@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,96 +36,119 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOMPUTEELEMENTDATA_H_
-#define _OSGCOMPUTEELEMENTDATA_H_
+#ifndef _OSGMEMOBJPOINTERSFIELDCOMMON_H_
+#define _OSGMEMOBJPOINTERSFIELDCOMMON_H_
+
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGComputeElementDataBase.h"
+#include "OSGConfig.h"
+#include "OSGMemObjPointerSFieldBase.h"
+#include "OSGBinaryDataHandler.h"
+
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ComputeElementData class. See \ref
-           PageGroupComputeElementData for a description.
-*/
+// forward declarations
+template <Int32 NamespaceI>
+class MemObjPointerFieldTraitsBase;
 
-class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeElementData : 
-    public ComputeElementDataBase
+/*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
+ */
+
+template <class AccessHandlerT,
+          Int32 NamespaceI     = 0>
+class MemObjPointerSFieldCommon : public MemObjPointerSFieldBase
 {
-  protected:
-
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ComputeElementDataBase Inherited;
-    typedef ComputeElementData     Self;
-
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name Public Types                                                 */
     /*! \{                                                                 */
+    
+
+    typedef          MemObjPointerSFieldBase             Inherited;
+    typedef          MemObjPointerSFieldCommon           Self;
+
+    typedef typename Inherited::const_value              const_value;
+    typedef typename Inherited::value_type               value_type;
+
+    typedef typename Inherited::StoredType               StoredType;
+
+    typedef          AccessHandlerT                      AccessHandler;
+
+    typedef          FieldTraitsFCPtrBase<
+                         MemoryObject *, 
+                         NamespaceI       >              PtrBaseTraitsType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name Constants                                                    */
     /*! \{                                                                 */
-
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         detail);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
-
+    
+    static const Int32 Namespace = NamespaceI;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in ComputeElementDataBase.
-
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+    
+             MemObjPointerSFieldCommon(      void               );
+             MemObjPointerSFieldCommon(const Self        &source);
+    explicit MemObjPointerSFieldCommon(      const_value  value );
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+    
+    ~MemObjPointerSFieldCommon(void);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Store Interface                                              */
+    /*! \{                                                                 */
+    
+    value_type  ptrStoreGet  (void               ) const;
+    
+    void        ptrStoreSet  (const_value pNewObj);
+    void        ptrStoreClear(void               );
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
     /*! \{                                                                 */
 
-    ComputeElementData(void);
-    ComputeElementData(const ComputeElementData &source);
+    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name MT Sync                                                      */
     /*! \{                                                                 */
 
-    virtual ~ComputeElementData(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class ComputeElementDataBase;
-
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComputeElementData &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGComputeElementDataBase.inl"
-#include "OSGComputeElementData.inl"
+#include "OSGMemObjPointerSFieldCommon.inl"
 
-#endif /* _OSGCOMPUTEELEMENTDATA_H_ */
+#endif // _OSGMEMOBJPOINTERSFIELDCOMMON_H_

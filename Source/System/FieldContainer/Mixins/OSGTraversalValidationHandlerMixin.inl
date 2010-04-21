@@ -83,15 +83,13 @@ void TraversalValidationHandlerMixin<ParentT>::classDescInserter(
     oType.addInitialDesc(pDesc);
 }
 
-#if 0
 template <class ParentT> inline
-bool StageHandlerMixin<ParentT>::requestRun(void)
+bool TraversalValidationHandlerMixin<ParentT>::requestRun(void)
 {
     Self::editSField(RequestRunFieldMask);
 
     return true;
 }
-#endif
 
 template <class ParentT> inline
 void TraversalValidationHandlerMixin<ParentT>::changed(
@@ -99,105 +97,53 @@ void TraversalValidationHandlerMixin<ParentT>::changed(
     UInt32            origin,
     BitVector         details)
 {
-#if 0
     if(0x0000 != (whichField & RequestRunFieldMask))
     {
-        Window::requestStageRun(_iStageId);
+        Window::requestStageRun(this->_iElementId);
     }
-#endif
 
     Inherited::changed(whichField, origin, details);
 }
 
-#if 0
 template <class ParentT> inline
-typename StageHandlerMixin<ParentT>::ValidationStatus 
-    StageHandlerMixin<ParentT>::validate(RenderActionBase *pAction)
+typename TraversalValidationHandlerMixin<ParentT>::ValidationStatus 
+    TraversalValidationHandlerMixin<ParentT>::validate(
+        RenderActionBase *pAction)
 {
  
-    StageValidator *pVal = NULL;
+    TraversalValidator *pVal = NULL;
 
     if(_sfUpdateMode.getValue() == Self::PerWindow)
     {
         Window *pWin = pAction->getWindow();
 
-        pVal = pWin->getStageValidator();
+        pVal = pWin->getTravValidator();
     }
     else if(_sfUpdateMode.getValue() == Self::PerViewport)
     {
         Viewport *pVP = pAction->getViewport();
 
-        pVal = pVP->getStageValidator();
+        pVal = pVP->getTravValidator();
     }
     else if(_sfUpdateMode.getValue() == Self::PerTraversal)
     {
-        pVal = pAction->getStageValidator();
+        pVal = pAction->getTravValidator();
     }
     else if(_sfUpdateMode.getValue() == Self::OnRequest)
     {
         Window *pWin = pAction->getWindow();
 
-        pVal = pWin->getStageValidator();
+        pVal = pWin->getTravValidator();
 
-        return pVal->checkRunRequest(_iStageId);
+        return pVal->checkRunRequest(this->_iElementId);
     }
     else
     {
-        return StageValidator::Run;
+        return TraversalValidator::Run;
     }
 
-    return pVal->validate(_iStageId, pAction->getFrameTravCount());
+    return pVal->validate(this->_iElementId, pAction->getFrameTravCount());
 }
-#endif
-
-#if 0
-template <class ParentT> inline
-typename StageHandlerMixin<ParentT>::ValidationStatus 
-    StageHandlerMixin<ParentT>::validateOnEnter(
-        RenderActionBase *pAction)
-{
-    StageValidator::ValidationStatus returnValue = Self::validate(pAction);
-
-    StageDataUnrecPtr pData = 
-        pAction->template getData<StageData *>(_iDataSlotId);
-
-    if(pData == NULL)
-    {
-        pData = StageData::createLocal();
-
-        pAction->setData(pData, _iDataSlotId);
-    }
-
-    if(returnValue == StageValidator::Finished)
-    {
-        if(pData != NULL)
-        {           
-            Int32 iPartBegin = pData->getPartitionRangeBegin();
-            Int32 iPartEnd   = pData->getPartitionRangeEnd  ();
-            
-            while(iPartBegin <= iPartEnd)
-            {
-                pAction->readdPartitionByIndex(iPartBegin);
-                
-                ++iPartBegin;
-            }
-        }
-    }
-
-    return returnValue;
-}
-#endif
-
-#if 0
-template <class ParentT> inline
-typename StageHandlerMixin<ParentT>::ValidationStatus 
-    StageHandlerMixin<ParentT>::validateOnLeave(
-        RenderActionBase *pAction)
-{
-    return Self::validate(pAction);
-}
-#endif
-
 
 template <class ParentT> inline
 void TraversalValidationHandlerMixin<ParentT>::addDestroyedFunctor(

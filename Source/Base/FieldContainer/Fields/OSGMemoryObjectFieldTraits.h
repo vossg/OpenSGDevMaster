@@ -36,131 +36,109 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGMEMORYOBJECTFIELDTRAITS_H_
+#define _OSGMEMORYOBJECTFIELDTRAITS_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGFieldTraits.h"
+#include "OSGMemoryObject.h"
+
+//#include "OSGRefCountPolicies.h"
+
 OSG_BEGIN_NAMESPACE
 
-template <class ParentT>
-template <class ValuePtr>  inline
-ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId) const
+
+/*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
+ */
+
+template <>
+struct FieldTraits<MemoryObject *> : 
+    public FieldTraitsPODTemplateBase<MemoryObject *>
 {
-    ValuePtr returnValue = NULL;
+  private:
 
-    if(iSlotId >= 0 && static_cast<UInt32>(iSlotId) < _mfData.size())
+    static  DataType            _type;
+    
+  public:
+
+    typedef FieldTraits<MemoryObject *>  Self;
+    typedef MemoryObject *               ArgumentType;
+    typedef MemoryObject *               FieldTypeT;
+
+    enum             { Convertible = Self::NotConvertible              };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType     &getType   (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8        *getSName  (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8        *getMName  (void);
+
+
+    static       MemoryObject *getDefault(void) { return NULL; }
+    
+    // Binary
+    
+    // TODO Is it correct to just ignore these for binary ??
+    
+    static UInt32 getBinSize(MemoryObject * const &)
     {
-        StoredType pTmp = _mfData[iSlotId];
-
-        returnValue = dynamic_cast<ValuePtr>(pTmp);
+        return 0;
     }
 
-    return returnValue;
-}
-
-template <class ParentT> inline
-void DataSlotMixin<ParentT>::setData(StoredType pData, Int32 iSlotId)
-{
-    if(iSlotId < 0)
-        return;
-
-    if(_mfData.size() <= static_cast<UInt32>(iSlotId))
+    static UInt32 getBinSize(MemoryObject* const*,
+                             UInt32              )
     {
-        _mfData.resize(iSlotId + 1, NULL);
+        return 0;
     }
 
-    _mfData.replace(iSlotId, pData);
-}
-
-template <class ParentT> inline
-void DataSlotMixin<ParentT>::dumpStore(void)
-{
-    for(UInt32 i = 0; i < _mfData.size(); ++i)
+    static void copyToBin(BinaryDataHandler &,
+                          MemoryObject      * const & )
     {
-        fprintf(stderr, "(%d) : ", i);
-        Desc::dumpElement(_mfData[i]);
-        fprintf(stderr, "\n");
-    }
-}
-
-template <class ParentT> inline
-void DataSlotMixin<ParentT>::clearData(FieldContainer    *pContainer, 
-                                       ConstFieldMaskArg  whichField,
-                                       Int32              iSlotId   )
-{
-    fprintf(stderr, "Clear Data %p %d\n",
-            pContainer,
-            iSlotId);
-
-    if(iSlotId < 0)
-        return;
-
-    if(_mfData.size() > static_cast<UInt32>(iSlotId))
-    {
-        _mfData.replace(iSlotId, NULL);
     }
 
-    typename DestroyFunctorStore::iterator       cfIt = 
-        _mfDestroyedFunctors.begin();
-
-    typename DestroyFunctorStore::const_iterator cfEnd= 
-        _mfDestroyedFunctors.end();
-
-    while(cfIt != cfEnd)
+    static void copyToBin(BinaryDataHandler &,
+                          MemoryObject      * const *,
+                          UInt32                      )
     {
-        if((*cfIt).second == pContainer)
-        {
-            cfIt  = _mfDestroyedFunctors.erase(cfIt);
-            cfEnd = _mfDestroyedFunctors.end();
-        }
-        else
-        {
-            ++cfIt;
-        }
-    }
-}
-
-template <class ParentT> inline
-DataSlotMixin<ParentT>::DataSlotMixin(void) :
-     Inherited          (),
-    _mfData             (),
-    _mfDestroyedFunctors()
-{
-}
-
-template <class ParentT> inline
-DataSlotMixin<ParentT>::DataSlotMixin(const DataSlotMixin &source) :
-     Inherited          (source),
-    _mfData             (      ),
-    _mfDestroyedFunctors(      )
-{
-}
-
-template <class ParentT> inline
-void DataSlotMixin<ParentT>::addDestroyedFunctorFor(      DestroyFunctor  func,
-                                                    const FieldContainer *pCnt)
-{
-    DestroyedFunctorElem tmpElem;
-
-    tmpElem.first  = func;
-    tmpElem.second = pCnt;
-
-    _mfDestroyedFunctors.push_back(tmpElem);
-}
-
-template <class ParentT> inline
-DataSlotMixin<ParentT>::~DataSlotMixin(void)
-{
-    for(UInt32 i = 0; i < _mfData.size(); ++i)
-    {
-        _mfData.replace(i, NULL);
     }
 
-    for(UInt32 i = 0; i < _mfDestroyedFunctors.size(); ++i)
+    static void copyFromBin(BinaryDataHandler &,
+                            MemoryObject      * const & )
     {
-        fprintf(stderr, "DF (%d) (%p)\n",
-                i, this);
-
-        (_mfDestroyedFunctors[i].first)(this);
     }
+
+    static void copyFromBin(BinaryDataHandler &,
+                            MemoryObject      * const *,
+                            UInt32                      )
+    {
+    }
+};
+
+
+
+template<> inline
+const Char8 *FieldTraits<MemoryObject *, 
+                         0             >::getMName<MemObjRefCountPolicy>(
+                             void)
+{
+    return "MFMemoryObjectPtr"; 
 }
+
+template<> inline
+const Char8 *FieldTraits<MemoryObject *, 
+                         0             >::getSName<MemObjRefCountPolicy>(
+                             void)
+{
+    return "SFMemoryObjectPtr"; 
+}
+
 
 OSG_END_NAMESPACE
 
-
+#endif /* _OSGMEMORYOBJECTFIELDTRAITS_H_ */

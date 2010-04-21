@@ -63,7 +63,10 @@ class DataSlotMixin : public ParentT
 
   protected:
 
-    typedef typename Inherited::Desc                Desc;
+    typedef typename Inherited::Desc                         Desc;
+    typedef typename Desc     ::DataStore                    DataStore;
+    typedef typename DataStore::value_type                   StoredType;
+    typedef typename boost::remove_pointer<StoredType>::type StoredBaseType;
 
     /*==========================  PUBLIC  =================================*/
     
@@ -87,7 +90,7 @@ class DataSlotMixin : public ParentT
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    void setData(FieldContainer *pData, Int32 iSlotId);
+    void setData(StoredType pData, Int32 iSlotId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +151,7 @@ class DataSlotMixin : public ParentT
 
     void clearData(FieldContainer    *pContainer, 
                    ConstFieldMaskArg  whichField,
-                   Int32              iSlotId);
+                   Int32              iSlotId   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,8 +169,6 @@ class DataSlotMixin : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
-
-    typedef typename Desc     ::DataStore              DataStore;
 
     typedef          std::pair<      DestroyFunctor,
                                const FieldContainer *> DestroyedFunctorElem;

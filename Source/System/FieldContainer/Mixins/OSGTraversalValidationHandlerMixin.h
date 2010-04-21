@@ -46,17 +46,9 @@
 
 #include <boost/bind.hpp>
 
-#if 0
-#include "OSGDataSlotPool.h"
-#include "OSGStageIdPool.h"
 #include "OSGWindow.h"
-#include "OSGViewport.h"
-#include "OSGStageValidator.h"
-#include "OSGStageData.h"
-#include "OSGMultiCore.h"
-
-#include "OSGRenderAction.h"
-#endif
+#include "OSGTraversalValidator.h"
+#include "OSGRenderActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -88,9 +80,7 @@ class TraversalValidationHandlerMixin  : public ParentT
 
   public:
 
-#if 0
-    typedef          StageValidator::ValidationStatus  ValidationStatus;
-#endif
+    typedef TraversalValidator::ValidationStatus  ValidationStatus;
 
     enum UpdateMode
     {
@@ -141,9 +131,7 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-#if 0
     bool requestRun(void);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -158,11 +146,6 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
-
-#if 0
-    ValidationStatus validateOnEnter(RenderActionBase *pAction);
-    ValidationStatus validateOnLeave(RenderActionBase *pAction);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -227,17 +210,11 @@ class TraversalValidationHandlerMixin  : public ParentT
     Int32  _iDataSlotId;
     Int32  _iElementId;
 
-#if 0
-    StageValidator::ValidationStatus _tmpStatus;
-#endif
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-#if 0
     ValidationStatus validate(RenderActionBase *pAction);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

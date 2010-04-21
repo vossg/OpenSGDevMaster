@@ -38,7 +38,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerSFieldCommon
+/*! \class MemObjPointerSFieldCommon
 
  */
 
@@ -46,15 +46,16 @@ OSG_BEGIN_NAMESPACE
 /* Constructors                                                            */
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(void) :
+MemObjPointerSFieldCommon<AccessHandlerT,
+                          NamespaceI    >::MemObjPointerSFieldCommon(void) :
     Inherited()
 {
 }
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(const Self &source) :
+MemObjPointerSFieldCommon<AccessHandlerT,
+                          NamespaceI    >::MemObjPointerSFieldCommon(
+                              const Self &source) :
     Inherited()
 {
     _fieldValue = source._fieldValue;
@@ -63,8 +64,9 @@ PointerSFieldCommon<AccessHandlerT,
 }
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerSFieldCommon(const_value value) :
+MemObjPointerSFieldCommon<AccessHandlerT,
+                          NamespaceI    >::MemObjPointerSFieldCommon(
+                              const_value value) :
     Inherited()
 {
     _fieldValue = value;
@@ -76,8 +78,8 @@ PointerSFieldCommon<AccessHandlerT,
 /* Destructor                                                              */
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
-PointerSFieldCommon<AccessHandlerT,
-                    NamespaceI    >::~PointerSFieldCommon(void)
+MemObjPointerSFieldCommon<AccessHandlerT,
+                          NamespaceI    >::~MemObjPointerSFieldCommon(void)
 {
     AccessHandler::onSub(this, _fieldValue);
 }
@@ -89,10 +91,10 @@ PointerSFieldCommon<AccessHandlerT,
 /* Reading Values                                                          */
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
-typename PointerSFieldCommon<AccessHandlerT,
-                             NamespaceI    >::value_type 
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI    >::ptrStoreGet(void) const
+typename MemObjPointerSFieldCommon<AccessHandlerT,
+                                   NamespaceI    >::value_type 
+    MemObjPointerSFieldCommon<AccessHandlerT,
+                              NamespaceI    >::ptrStoreGet(void) const
 {
     return AccessHandler::validate(_fieldValue);
 }
@@ -101,8 +103,8 @@ typename PointerSFieldCommon<AccessHandlerT,
 /* Changing Values                                                         */
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI     >::ptrStoreSet(const_value pNewObj)
+void MemObjPointerSFieldCommon<AccessHandlerT,
+                               NamespaceI    >::ptrStoreSet(const_value pNewObj)
 {
     AccessHandler::onReplace(this, _fieldValue, pNewObj);
     
@@ -110,8 +112,8 @@ void PointerSFieldCommon<AccessHandlerT,
 }
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI    >::ptrStoreClear(void)
+void MemObjPointerSFieldCommon<AccessHandlerT,
+                               NamespaceI    >::ptrStoreClear(void)
 {
     AccessHandler::onSub(this, _fieldValue);
     
@@ -123,10 +125,11 @@ void PointerSFieldCommon<AccessHandlerT,
 
         
 template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
+void MemObjPointerSFieldCommon<AccessHandlerT,
+                               NamespaceI    >::copyFromBin(
+                                   BinaryDataHandler &pMem)
 {
-    FieldContainer *pNewObj = NULL;
+    MemoryObject *pNewObj = NULL;
     
     PtrBaseTraitsType::copyFromBin  ( pMem, 
                                       pNewObj   );
@@ -143,10 +146,10 @@ void PointerSFieldCommon<AccessHandlerT,
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AccessHandlerT, Int32 NamespaceI> inline 
-void PointerSFieldCommon<AccessHandlerT,
-                         NamespaceI     >::syncWith(Self &source)
+void MemObjPointerSFieldCommon<AccessHandlerT,
+                               NamespaceI     >::syncWith(Self &source)
 {
-    FieldContainer *pNewObj = convertToCurrentAspect(source.ptrStoreGet());
+    MemoryObject *pNewObj = convertToCurrentAspect(source.ptrStoreGet());
     
     AccessHandler::onSyncReplace( this, 
                                  _fieldValue, 

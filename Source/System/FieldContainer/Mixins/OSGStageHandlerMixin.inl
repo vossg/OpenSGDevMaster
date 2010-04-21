@@ -39,63 +39,11 @@
 OSG_BEGIN_NAMESPACE
 
 template <class ParentT> inline
-bool StageHandlerMixin<ParentT>::requestRun(void)
-{
-    Self::editSField(Inherited::RequestRunFieldMask);
-
-    return true;
-}
-
-template <class ParentT> inline
 void StageHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
                                          UInt32            origin,
                                          BitVector         details)
 {
-    if(0x0000 != (whichField & Inherited::RequestRunFieldMask))
-    {
-        Window::requestStageRun(this->_iElementId);
-    }
-
     Inherited::changed(whichField, origin, details);
-}
-
-template <class ParentT> inline
-typename StageHandlerMixin<ParentT>::ValidationStatus 
-    StageHandlerMixin<ParentT>::validate(RenderActionBase *pAction)
-{
- 
-    TraversalValidator *pVal = NULL;
-
-    if(this->_sfUpdateMode.getValue() == Self::PerWindow)
-    {
-        Window *pWin = pAction->getWindow();
-
-        pVal = pWin->getTravValidator();
-    }
-    else if(this->_sfUpdateMode.getValue() == Self::PerViewport)
-    {
-        Viewport *pVP = pAction->getViewport();
-
-        pVal = pVP->getTravValidator();
-    }
-    else if(this->_sfUpdateMode.getValue() == Self::PerTraversal)
-    {
-        pVal = pAction->getTravValidator();
-    }
-    else if(this->_sfUpdateMode.getValue() == Self::OnRequest)
-    {
-        Window *pWin = pAction->getWindow();
-
-        pVal = pWin->getTravValidator();
-
-        return pVal->checkRunRequest(this->_iElementId);
-    }
-    else
-    {
-        return TraversalValidator::Run;
-    }
-
-    return pVal->validate(this->_iElementId, pAction->getFrameTravCount());
 }
 
 template <class ParentT> inline

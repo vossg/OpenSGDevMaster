@@ -44,12 +44,9 @@
 
 #include "OSGTraversalValidationHandlerMixin.h"
 
-#include "OSGTraversalValidator.h"
 #include "OSGStageData.h"
-#include "OSGRenderActionBase.h"
 
 #include "OSGMultiCore.h"
-#include "OSGWindow.h"
 #include "OSGViewport.h"
 
 OSG_BEGIN_NAMESPACE
@@ -77,7 +74,7 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     typedef typename ParentT::Desc                        Desc;
     typedef typename Desc::TypeObject                     TypeObject;
 
-    typedef          TraversalValidator::ValidationStatus ValidationStatus;
+    typedef typename Inherited::ValidationStatus          ValidationStatus;
 
     enum GroupMode 
     {
@@ -104,8 +101,6 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-
-    bool requestRun(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -193,8 +188,6 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
-
-    ValidationStatus validate(RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
