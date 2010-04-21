@@ -1068,9 +1068,9 @@ INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
 # Images/Icons
 ##################
 
-INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Data/Images"
-        DESTINATION share/OpenSG
-        COMPONENT data_images)
+#INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Data/Images"
+#        DESTINATION share/OpenSG
+#        COMPONENT data_images)
 
 ##################
 # Packaging
@@ -1207,7 +1207,8 @@ IF(OSGBUILD_ENABLE_PACKAGING)
     IF(WIN32)
         INCLUDE(InstallRequiredSystemLibraries)
         IF(OSGBUILD_PACKAGE_TYPE STREQUAL "NSIS")
-            IF(MSVC)
+            IF(MSVC AND (${CMAKE_VERSION} VERSION_GREATER "2.8.0" OR
+                         ${CMAKE_VERSION} VERSION_EQUAL   "2.8.0"   ))
                  include(CMakeDetermineVSServicePack)
                  DetermineVSServicePack( my_service_pack )
 
