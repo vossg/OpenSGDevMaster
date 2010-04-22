@@ -485,12 +485,25 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
 
     if(_pAspectStore->getRefCount() == 1 && _pContextThread != NULL)
     {
-        fprintf(stderr, "Terminate context thread %p\n", this);
+        if(_pContextThread->isRunning() == true)
+        {
+            fprintf(stderr, "Terminate context thread %p\n", this);
 
-        _pContextThread->queueTask(
-            new WindowDrawTask(WindowDrawTask::EndThread));
+            _pContextThread->queueTask(
+                new WindowDrawTask(WindowDrawTask::EndThread));
 
-        Thread::join(_pContextThread);
+            Thread::join(_pContextThread);
+        }
+        else
+        {
+            if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                       SequentialPartitionDraw)
+            {
+                doActivate  ();
+                doFrameExit (); // after frame cleanup: delete dead GL objects
+                doDeactivate();
+            }
+        }
     }
 
     _pContextThread = NULL;
@@ -1289,12 +1302,25 @@ void OSG::Window::doTerminate(void)
 {
     if(_pContextThread != NULL)
     {
-        fprintf(stderr, "Terminate draw thread %p\n", this);
+        if(_pContextThread->isRunning() == true)
+        {
+            fprintf(stderr, "Terminate draw thread %p\n", this);
 
-        _pContextThread->queueTask(
-            new WindowDrawTask(WindowDrawTask::EndThread));
+            _pContextThread->queueTask(
+                new WindowDrawTask(WindowDrawTask::EndThread));
 
-        Thread::join(_pContextThread);
+            Thread::join(_pContextThread);
+        }
+        else
+        {
+            if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                       SequentialPartitionDraw)
+            {
+                doActivate  ();
+                doFrameExit (); // after frame cleanup: delete dead GL objects
+                doDeactivate();
+            }
+        }
     }
 
     _pContextThread = NULL;
