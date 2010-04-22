@@ -299,6 +299,16 @@ void CSMDrawManager::shutdown(void)
         _pSyncLock    = NULL;
 #endif
     }
+    else
+    {
+        MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+        MFUnrecCSMDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
+
+        for(; dIt != dEnd; ++dIt)
+        {
+            (*dIt)->shutdown();
+        }
+    }
 }
 
 void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
