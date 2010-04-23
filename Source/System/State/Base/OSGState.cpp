@@ -60,50 +60,6 @@
 #include "OSGSimpleSHLChunk.h"
 #endif
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
-OSG_BEGIN_NAMESPACE
-
-template<typename _InputIterator, typename _Function>
-_Function for_each_iterator(_InputIterator __first, 
-                            _InputIterator __last, 
-                            _Function      __f)
-{
-#ifndef WIN32
-    // concept requirements
-    __glibcxx_function_requires(_InputIteratorConcept<_InputIterator>)
-    __glibcxx_requires_valid_range(__first, __last);
-#endif
-
-    for ( ; __first != __last; ++__first)
-        __f(__first);
-
-    return __f;
-}
-
-/*! \nohierarchy
- */
-
-struct ClearSlot : public std::unary_function<MFUnrecStateChunkPtr::iterator &, 
-                                              void>
-{
-    MFUnrecStateChunkPtr &_mfChunks;
-
-    ClearSlot(MFUnrecStateChunkPtr &mfChunks) :
-        _mfChunks(mfChunks)
-    {
-    }
-
-    void operator() (MFUnrecStateChunkPtr::iterator &slotIt)
-    {
-        _mfChunks.replace(slotIt, NULL);
-    }
-};
-
-OSG_END_NAMESPACE
-
-#endif
-
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -581,9 +537,7 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    OSG::for_each_iterator(_mfChunks.begin_nc(), 
-                           _mfChunks.end_nc  (),
-                           ClearSlot(_mfChunks));
+    _mfChunks.clear();
 }
 
 bool State::isTransparent(void) const
