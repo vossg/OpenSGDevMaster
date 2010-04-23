@@ -58,7 +58,7 @@ class PoolDefaultTag;
     \nohierarchy
 */
 
-class SimplePoolBase
+class OSG_BASE_DLLMAPPING SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
   public:

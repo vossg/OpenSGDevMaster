@@ -48,10 +48,10 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
+#include "OSGBaseFunctions.h"
 #include "OSGPool.h"
 #include "OSGRenderTreeNode.h"
 
-#include <backward/hash_fun.h>
 #include "google/dense_hash_map"
 
 OSG_BEGIN_NAMESPACE
