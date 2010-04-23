@@ -666,8 +666,9 @@ void DeferredShadingStage::scheduleGBufferPass(RenderAction *ract)
     {
         RenderPartition *part = ract->getActivePartition();
 
-//         part->setDebugString("DeferredShadingStage::GBufferPartition");
-
+#ifdef OSG_DEBUG
+        part->setDebugString("DeferredShadingStage::GBufferPartition");
+#endif
         setupGBufferPartition(part, ract, data);
 
         if(shader != NULL)
@@ -706,8 +707,9 @@ void DeferredShadingStage::scheduleShadingPass(RenderAction *ract)
     {
         RenderPartition *part = ract->getActivePartition();
 
-//         part->setDebugString("DeferredShadingStage::ShadingPartition");
-
+#ifdef OSG_DEBUG
+        part->setDebugString("DeferredShadingStage::ShadingPartition");
+#endif
         setupShadingPartition(part, ract, data);
 
         RenderPartition::DrawFunctor f =

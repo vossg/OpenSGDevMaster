@@ -114,14 +114,18 @@ GlobalValues *gv;
 
 const std::string dsGBufferVPFile         ("DSGBuffer.vp.glsl"         );
 const std::string dsGBufferFPFile         ("DSGBuffer.fp.glsl"         );
+
 const std::string dsAmbientVPFile         ("DSAmbient.vp.glsl"         );
 const std::string dsAmbientFPFile         ("DSAmbient.fp.glsl"         );
+
 const std::string dsDirLightVPFile        ("DSDirLight.vp.glsl"        );
 const std::string dsDirLightFPFile        ("DSDirLight.fp.glsl"        );
 const std::string dsDirLightShadowFPFile  ("DSDirLightShadow.fp.glsl"  );
+
 const std::string dsPointLightVPFile      ("DSPointLight.vp.glsl"      );
 const std::string dsPointLightFPFile      ("DSPointLight.fp.glsl"      );
 const std::string dsPointLightShadowFPFile("DSPointLightShadow.fp.glsl");
+
 const std::string dsSpotLightVPFile       ("DSSpotLight.vp.glsl"       );
 const std::string dsSpotLightFPFile       ("DSSpotLight.fp.glsl"       );
 const std::string dsSpotLightShadowFPFile ("DSSpotLightShadow.fp.glsl" );
