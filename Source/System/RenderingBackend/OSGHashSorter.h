@@ -48,7 +48,7 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
-#include "OSGBaseFunctions.h"
+#include "OSGDeprecatedCPP.h"
 #include "OSGPool.h"
 #include "OSGRenderTreeNode.h"
 
