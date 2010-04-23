@@ -84,7 +84,8 @@ OSG_BEGIN_NAMESPACE
 inline
 void StateSorter::setNodePool(RenderTreeNodePool *pNodePool)
 {
-    _pNodePool = pNodePool;
+    _pNodePool     = pNodePool;
+    _uiNodePoolIdx = pNodePool->registerType<RenderTreeNode>();
 }
 
 inline

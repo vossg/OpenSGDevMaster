@@ -194,7 +194,7 @@ class OSG_DRAWABLE_DLLMAPPING Surface : public SurfaceBase
 
     void adjustVolume(Volume & volume);
 
-    virtual Action::ResultE drawPrimitives(DrawEnv *pEnv);
+    virtual void drawPrimitives(DrawEnv *pEnv);
 
     /*==========================  PRIVATE  ================================*/
   private:

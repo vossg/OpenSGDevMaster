@@ -2845,7 +2845,7 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
 
 /*! Low-level Draw method that pumps OpenGL commands.
 */
-Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
+void Particles::drawPrimitives(DrawEnv *pEnv)
 {
     // some variables for faster access
           GeoVectorProperty *pos  = getPositions();
@@ -2864,7 +2864,7 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
                     "(p:%d s:%d c:%d)!\n",
                     pos->getSize(), size->size(),
                   (col != NULL)? int(col->getSize()) : -1));
-        return Action::Continue;
+        return;
     }
 
     ParticlesDrawer *drawer = findDrawer();
@@ -2872,7 +2872,7 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
     if(drawer == NULL)
     {
         FWARNING(("Particles 0x%p: couldn't find drawer!\n", this));
-        return Action::Continue;;
+        return;
     }
 
     const Int32 *index = NULL;
@@ -2958,7 +2958,7 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
     if(freeIndex)
         delete [] index;
 
-    return Action::Continue;
+    return;
 }
 
 /*! find the drawer object for the actual configuration of parameters */

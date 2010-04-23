@@ -43,13 +43,10 @@
 #endif
 
 #include "OSGConfig.h"
-
 #include "OSGMultiPool.h"
 
 OSG_BEGIN_NAMESPACE
 
-template <class ValueT, class PoolTag, class RefCountPolicy, class LockPolicy> 
-class SimplePool;
 
 class  PoolDefaultTag;
 class  NoLockPolicy;
@@ -60,17 +57,16 @@ class  RenderAction;
 class  RenderPartitionBase;
 struct NoRefCountPolicy;
 
-typedef SimplePool<RenderTreeNode, 
+typedef MultiPool< NoRefCountPolicy,
+                   NoLockPolicy     >  RenderTreeNodePool;
+
+typedef SimplePool<StateOverride,
                    PoolDefaultTag,
                    NoRefCountPolicy,
-                   NoLockPolicy   > RenderTreeNodePool;
+                   NoLockPolicy     >  StateOverridePool;
 
-typedef SimplePool<StateOverride  , 
-                   PoolDefaultTag,
-                   NoRefCountPolicy,
-                   NoLockPolicy   > StateOverridePool;
-
-typedef MultiPool <TreeBuilderBase                > TreeBuilderPool;
+typedef MultiPool< NoRefCountPolicy,
+                   NoLockPolicy     >  TreeBuilderPool;
 
 OSG_END_NAMESPACE
 

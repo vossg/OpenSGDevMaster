@@ -44,7 +44,8 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGStateSortTreeBuilder.h"
 #include "OSGBaseFunctions.h"
-#include "OSGRenderPartitionBase.h"
+#include "OSGRenderActionBase.h"
+#include "OSGRenderPartition.h"
 #include "OSGStateOverride.h"
 
 //#define OSG_DUMP_SORTING
@@ -55,15 +56,14 @@ OSG_USING_NAMESPACE
     \ingroup 
  */
 
-StateSortTreeBuilder StateSortTreeBuilder::Proto;
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 
-StateSortTreeBuilder::StateSortTreeBuilder(void) :
-    _oSorter(),
-    _mFallbackSorter()
+StateSortTreeBuilder::StateSortTreeBuilder(void)
+    : _pRoot          (NULL)
+    , _oSorter        ()
+    , _mFallbackSorter()
 {
 }
 
@@ -71,17 +71,125 @@ StateSortTreeBuilder::~StateSortTreeBuilder(void)
 {
 }
 
+void
+StateSortTreeBuilder::setNodePool(RenderTreeNodePool *pNodePool)
+{
+    _pNodePool     = pNodePool;
+    _uiNodePoolIdx = pNodePool->registerType<RenderTreeNode>();
+}
 
 void StateSortTreeBuilder::reset(void)
 {
     TreeBuilderBase::reset();
 
-    _mFallbackSorter.clear();
+    _pRoot = NULL;
 
-    _oSorter.reset();
+    _oSorter        .reset();
+    _mFallbackSorter.clear();
 }
 
+void StateSortTreeBuilder::add(RenderActionBase    *pAction,
+                               RenderPartitionBase *pPart,
+                               DrawFunctor         &drawFunc,
+                               State               *pState,
+                               StateOverride       *pStateOverride)
+{
+    if(_pRoot == NULL)
+    {
+        _pRoot = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
+        RenderTreeNode *pL1Root =
+            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+
+        _oSorter.setupLevel1Root(pL1Root);
+        _pRoot->addChild        (pL1Root);
+    }
+
+    RenderPartition *pRPart = dynamic_cast<RenderPartition *>(pPart);
+    RenderTreeNode  *pNode  = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+
+    pNode->setNode         (pAction->getActNode());
+    pNode->setFunctor      (drawFunc             );
+    pNode->setState        (pState               );
+    pNode->setStateOverride(pStateOverride       );
+    // light state
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
+    pNode->setMatrixStore(pRPart->getMatrixStackTop());
+#else
+    Matrix4f tmpMat;
+    tmpMat.convertFrom(pRPart->getModelViewMatrix());
+    
+    MatrixStore tmpMS (pRPart->getMatrixStackTop().first, tmpMat);
+
+    pNode->setMatrixStore(tmpMS);
+#endif
+
+    UInt32 keyGen  = pRPart->getKeyGen();
+    UInt32 sortKey = pState->getSortKey(keyGen);
+
+    if(pStateOverride != NULL)
+    {
+        pStateOverride->updateSortKey(sortKey, keyGen);
+    }
+
+    if(sortKey > State::DefaultKeyMask)
+    {
+        MapSorterIt     msIt     = _mFallbackSorter.lower_bound(sortKey);
+        RenderTreeNode *pMatRoot = NULL;
+
+        if(msIt == _mFallbackSorter.end() || msIt->first != sortKey)
+        {
+            pMatRoot = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+
+            pMatRoot->setState        (pState        );
+            pMatRoot->setStateOverride(pStateOverride);
+
+            _mFallbackSorter.insert(msIt,
+                                    MapSorter::value_type(sortKey, pMatRoot));
+
+            _pRoot->addChild(pMatRoot);
+        }
+        else
+        {
+            pMatRoot = msIt->second;
+        }
+
+        pMatRoot->addChild(pNode);
+    }
+    else
+    {
+        UInt32 key1 =  sortKey & State::Key1Mask;
+        UInt32 key2 = (sortKey & State::Key2Mask) >> 10;
+        UInt32 key3 = (sortKey & State::Key3Mask) >> 20;
+
+        RenderTreeNode *pMatRoot = _oSorter.find(key1,
+                                                 key2,
+                                                 key3);
+
+        if(pMatRoot == NULL)
+        {
+            pMatRoot = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+
+            _oSorter.insert( key1,
+                             key2,
+                             key3,
+                             pMatRoot,
+                            _pNodePool);
+        }
+
+        pMatRoot->addChild(pNode);
+    }
+}
+
+void StateSortTreeBuilder::draw(DrawEnv &denv, RenderPartitionBase *pPart)
+{
+    _uiActiveMatrix = 0;
+
+    Inherited::drawNode(_pRoot, denv, pPart);
+}
+
+#if 0
 void StateSortTreeBuilder::add(RenderActionBase    *pAction,
                                RenderPartitionBase *part,
                                RenderTreeNode      *pNode,
@@ -91,9 +199,14 @@ void StateSortTreeBuilder::add(RenderActionBase    *pAction,
 {
     if(_pRoot == NULL)
     {
-        _pRoot = _pNodePool->create();
+        _pRoot                  =
+            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+        RenderTreeNode *pL1Root =
+            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
-        _pRoot->addChild(_oSorter.setupLevel1Root(_pNodePool));
+        _oSorter.setupLevel1Root(pL1Root);
+
+        _pRoot->addChild(pL1Root);
     }
 
     UInt32 uiSortKey = pState->getSortKey(uiKeyGen);
@@ -112,7 +225,7 @@ void StateSortTreeBuilder::add(RenderActionBase    *pAction,
 
         if(msIt == _mFallbackSorter.end() || msIt->first != uiSortKey)
         {
-            pMatElem = _pNodePool->create();
+            pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
             pMatElem->setState        (pState        );
             pMatElem->setStateOverride(pStateOverride);
@@ -154,7 +267,7 @@ void StateSortTreeBuilder::add(RenderActionBase    *pAction,
 
         if(pMatElem == NULL)
         {
-            pMatElem = _pNodePool->create();
+            pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
 //                pMatElem->setState        (pState        );
 //                pMatElem->setStateOverride(pStateOverride);
@@ -176,3 +289,4 @@ void StateSortTreeBuilder::add(RenderActionBase    *pAction,
         pNode->setStateOverride(pStateOverride);
     }
 }
+#endif

@@ -129,12 +129,12 @@ void RenderTreeNode::insertChildAfter(RenderTreeNode *pCurrent,
 inline
 void RenderTreeNode::setFunctor(DrawFunctor &func)
 {
-    _functor=func;
-    _hasFunctor=true;
+    _functor = func;
 }
 
 inline
-Material::DrawFunctor &RenderTreeNode::getFunctor(void)
+RenderTreeNode::DrawFunctor &
+RenderTreeNode::getFunctor(void)
 {
     return _functor;
 }
@@ -142,7 +142,7 @@ Material::DrawFunctor &RenderTreeNode::getFunctor(void)
 inline
 bool RenderTreeNode::hasFunctor(void)
 {
-    return _hasFunctor;
+    return !_functor.empty();
 }
 
 inline
@@ -194,43 +194,6 @@ Real32 RenderTreeNode::getScalar(void)
 }
 
 inline
-void RenderTreeNode::setVol(const BoxVolume &vol)
-{
-    _bVol = vol;
-}
-
-inline
-BoxVolume RenderTreeNode::getVol(void)
-{
-    return _bVol;
-}
-
-inline
-void  RenderTreeNode::setResultNum(UInt32 uiResNum)
-{
-    _resultNum = uiResNum;
-}
-
-inline
-UInt32 RenderTreeNode::getResultNum(void)
-{
-    return _resultNum;
-}
-
-inline
-void  RenderTreeNode::setIsRendered(bool bRendered)
-{
-    _isRendered = bRendered;
-}
-
-inline
-bool RenderTreeNode::getIsRendered(void)
-{
-    return _isRendered;
-}
-
-
-inline
 void RenderTreeNode::setLightState(UInt32 state)
 {
     _lightState = state;
@@ -254,6 +217,9 @@ Node *RenderTreeNode::getNode(void)
     return _node;
 }
 
+/*! \note Not virtual, because the pools always have a pointer
+          of the exact type and we avoid the virtual call overhead.
+ */
 inline
 void RenderTreeNode::reset(void)
 {
@@ -262,14 +228,14 @@ void RenderTreeNode::reset(void)
     _pBrother       = NULL;
     _pState         = NULL;
     _pStateOverride = NULL;
-    _hasFunctor     = false;
+    _functor.clear();
 
     _oMatrixStore.first = 0;
     _oMatrixStore.second.setIdentity();
 
     _rScalarVal  = 0.f;
-
     _lightState  = 0;
+    _node        = NULL;
 }
 
 OSG_END_NAMESPACE

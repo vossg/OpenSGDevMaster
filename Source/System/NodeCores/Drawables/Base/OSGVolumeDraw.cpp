@@ -54,6 +54,7 @@
 #include "OSGCylinderVolume.h"
 #include "OSGRenderAction.h"
 #include "OSGPrimeMaterial.h"
+#include "OSGDrawEnv.h"
 
 #include "OSGVolumeDraw.h"
 
@@ -295,7 +296,7 @@ class VolumeDrawWrapper
         VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
                                                         col   );
 
-        Material::DrawFunctor func;
+        DrawEnv::DrawFunctor func;
 
         func = boost::bind(&VolumeDrawWrapper::draw, vdw, _1);
     
@@ -324,7 +325,7 @@ class VolumeDrawWrapper
         VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
                                                         col   );
 
-        Material::DrawFunctor func;
+        DrawEnv::DrawFunctor func;
 
         func = boost::bind(&VolumeDrawWrapper::draw, vdw, _1);
     

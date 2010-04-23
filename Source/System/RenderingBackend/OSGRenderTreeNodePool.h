@@ -43,11 +43,12 @@
 #endif
 
 #include "OSGRenderTreeNode.h"
-#include "OSGSimplePool.h"
+#include "OSGMultiPool.h"
 
 OSG_BEGIN_NAMESPACE
 
-typedef SimplePool<RenderTreeNode> RenderTreeNodePool;
+typedef MultiPool< NoRefCountPolicy,
+                   NoLockPolicy   >  RenderTreeNodePool;
 
 OSG_END_NAMESPACE
 

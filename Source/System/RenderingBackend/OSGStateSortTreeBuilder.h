@@ -77,9 +77,7 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   constants                                                             
     //-----------------------------------------------------------------------
-    
-    static StateSortTreeBuilder Proto;
-  
+
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
@@ -87,6 +85,8 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
+
+    typedef TreeBuilderBase  Inherited;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -100,12 +100,17 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
+             StateSortTreeBuilder(void);
+    virtual ~StateSortTreeBuilder(void);
+
     /*------------------------- your_category -------------------------------*/
 
     /*------------------------- your_operators ------------------------------*/
 
     /*------------------------- assignment ----------------------------------*/
   
+    virtual void setNodePool(RenderTreeNodePool *pNodePool);
+
     /*------------------------- comparison ----------------------------------*/
 
     virtual void reset(void);
@@ -113,11 +118,13 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     /*------------------------- comparison ----------------------------------*/
 
     virtual void add(RenderActionBase    *pAction,
-                     RenderPartitionBase *part,
-                     RenderTreeNode      *pNode,
+                     RenderPartitionBase *pPart,
+                     DrawFunctor         &drawFunc,
                      State               *pState,
-                     StateOverride       *pStateOverride,
-                     UInt32               uiKeyGen      );
+                     StateOverride       *pStateOverride);
+
+    virtual void draw(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -142,8 +149,9 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //   class variables                                                     
     //-----------------------------------------------------------------------
 
-    Sorter              _oSorter;
-    MapSorter           _mFallbackSorter;
+    RenderTreeNode *_pRoot;
+    Sorter          _oSorter;
+    MapSorter       _mFallbackSorter;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -156,9 +164,6 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
-
-    StateSortTreeBuilder(void);
-    virtual ~StateSortTreeBuilder(void);
 
   private:
 
@@ -173,8 +178,6 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   friend classes                                                      
     //-----------------------------------------------------------------------
-
-    friend class MultiPool<TreeBuilderBase>::TypeStore;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

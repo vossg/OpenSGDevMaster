@@ -41,146 +41,156 @@ OSG_BEGIN_NAMESPACE
 /*! \class MultiPool
 
 MultiPool is a pool class that can handle multiple, different types of
-elements. It is useful for managing a pool where it's not clear which of 
+elements. It is useful for managing a pool where it's not clear which of
 a variety of types might be used. Other than that it is very similar to
 SimplePool.
 
-A difference is that because it can handle multiple types, there is no
-argument-less create(). create() needs to be called with a reference to an
-instance of the class to create. (I'd love to use a type_info for this, but
-that can't be used for creating instances. :( ). The best way to supply this
-is a static instance, e.g. called Proto, that is accessible from the class
-(see the OSGMultiPoolTest.cpp unit tests for an example). Make sure you don't
-make the Proto const, or you won't be able to create non-const objects!
+Internally there is a SimplePool for each type that is to be allocated from
+the MultiPool and a map from std::type_info* to an index indentifying the
+pool for each type.
+To achieve highest performance types should be registered with registerType()
+first before creating objects of that type. The return value of registerType()
+should then be passed to create() to avoid looking up the correct pool for
+the given type.
 
-The stored types need to be derived from a common base class (which needs to
-be used as the template argument of MultiPool). This base class needs to
-have a default constructor, a virtual destructor and a virtual void reset();
-method that is called when an instance is reused. reset() can be made private,
-if MultiPool<>::TypeStore is made a friend.
+It is possible to make multiple calls to registerType() with the same type
+argument, all calls return the same pool index. The first call to
+unregisterType() will destroy (not only free) all objects of the given type.
 
 */
 
-template<class ValueBaseT>
-template<class ParameterT> inline
-ParameterT *MultiPool<ValueBaseT>::create(ParameterT &oParam)
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+inline bool
+MultiPool<RefCountPolicyT, LockPolicyT>::TypeInfoCmp::operator()(
+    const std::type_info *lhs, const std::type_info *rhs) const
 {
-    TypesStoreIt el = _typesStore.find(typeid(ParameterT).name());
+    return lhs->before(*rhs);
+}
+
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+MultiPool<RefCountPolicyT, LockPolicyT>::MultiPool(void)
+  : _typeIdxMap()
+  , _pools     ()
+{
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+MultiPool<RefCountPolicyT, LockPolicyT>::~MultiPool(void)
+{
+    PoolStoreIt pIt  = _pools.begin();
+    PoolStoreIt pEnd = _pools.end  ();
     
-    if(el == _typesStore.end())
+    for(; pIt != pEnd; ++pIt)
     {
-        // New type
-        _typesStore[typeid(ParameterT).name()] = 
-                new TypeStore(sizeof(ParameterT));
-        el = _typesStore.find(typeid(ParameterT).name());
-    }
-    
-    return el->second->create(oParam);
-}
-
-template<class ValueBaseT>
-void MultiPool<ValueBaseT>::freeAll(void)
-{
-    for(TypesStoreIt it = _typesStore.begin();
-        it != _typesStore.end(); ++it)
-    {
-        it->second->freeAll();
+        delete (*pIt);
     }
 }
 
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-template<class ValueBaseT>
-MultiPool<ValueBaseT>::MultiPool(void) :
-    _typesStore()
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+template <class ValueTypeT      >
+UInt32
+MultiPool<RefCountPolicyT, LockPolicyT>::registerType(void)
 {
-}
+    typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
 
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
+    UInt32       retVal = _pools.size();
+    TypeIdxMapIt tIt    = _typeIdxMap.find(&typeid(ValueTypeT));
 
-template<class ValueBaseT>
-MultiPool<ValueBaseT>::~MultiPool(void)
-{
-    for(TypesStoreIt it  = _typesStore.begin();
-                     it != _typesStore.end(); 
-                   ++it)
+    if(tIt != _typeIdxMap.end())
     {
-        delete it->second;
-    }
-}
-
-
-// MultiPool Helper class TypeStore
-        
-template<class ValueBaseT>
-MultiPool<ValueBaseT>::TypeStore::TypeStore(int size) :
-    _instSize(size),
-    _currentFreeElement(0),
-    _currentInitElement(0),
-    _data()
-{            
-}
-
-template<class ValueBaseT>
-MultiPool<ValueBaseT>::TypeStore::~TypeStore()
-{
-    UInt32 ind = 0;
-
-    for(std::vector<UInt8*>::iterator it = _data.begin();
-        it != _data.end(); ++it)
-    {
-        UInt8 *p = *it;
-
-        for(UInt32 i = 0; i < BLOCKSIZE && ind < _currentInitElement; 
-            ++i, p += _instSize, ++ind)
-        {
-            reinterpret_cast<ValueBaseT *>(p)->~ValueBaseT();
-        }
-
-        delete [] *it;
-    }
-}
-
-template<class ValueBaseT>
-void MultiPool<ValueBaseT>::TypeStore::freeAll(void)
-{
-    _currentFreeElement = 0;
-}
-
-template<class ValueBaseT>
-template<class ParameterT>
-ParameterT *MultiPool<ValueBaseT>::TypeStore::create(ParameterT &oParam)
-{
-    OSG_ASSERT((sizeof(ParameterT) == _instSize));
-
-    UInt32 bind = _currentFreeElement / BLOCKSIZE;
-    UInt32 offset = (_currentFreeElement % BLOCKSIZE) * _instSize;    
-
-    if(bind >= _data.size())
-    {
-        // Need new block
-        _data.push_back(new UInt8 [BLOCKSIZE * _instSize]);
-    }
-
-    ParameterT *p = reinterpret_cast<ParameterT *>
-                            (_data[bind] + offset);
-
-    if(_currentFreeElement >= _currentInitElement)
-    {
-        // Construct
-        new(p) ParameterT();
-        ++_currentInitElement;
+        retVal = (*tIt).second;
     }
     else
     {
-        // Reset
-        p->reset();
+        _pools     .push_back(new SimplePoolType);
+        _typeIdxMap.insert   (
+            typename TypeIdxMap::value_type(&typeid(ValueTypeT),
+                                            retVal             ));
     }
 
-    ++_currentFreeElement;
-    return p;
+    return retVal;
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+template <class ValueTypeT      >
+void
+MultiPool<RefCountPolicyT, LockPolicyT>::unregisterType(void)
+{
+    typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
+
+    TypeIdxMapIt tIt = _typeIdxMap.find(&typeid(ValueTypeT));
+
+    if(tIt != _typeIdxMap.end())
+    {
+        SimplePoolType *pool = getTypedPool<ValueTypeT>((*tIt).second);
+
+        pool->destroyAll();
+
+        _pools[(*tIt).second] = NULL;
+        _typeIdxMap.erase(tIt);
+
+        delete pool;
+    }
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+template <class ValueTypeT      >
+inline ValueTypeT *
+MultiPool<RefCountPolicyT, LockPolicyT>::create(void)
+{
+    typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
+
+    UInt32          poolIdx = registerType<ValueTypeT>();
+    SimplePoolType *pool    = getTypedPool<ValueTypeT>(poolIdx);
+
+    return pool->create();
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+template <class ValueTypeT      >
+inline ValueTypeT *
+MultiPool<RefCountPolicyT, LockPolicyT>::create(UInt32 poolIdx)
+{
+    typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
+
+    SimplePoolType *pool = getTypedPool<ValueTypeT>(poolIdx);
+
+    return pool->create();
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+inline void
+MultiPool<RefCountPolicyT, LockPolicyT>::freeAll(void)
+{
+    PoolStoreIt pIt  = _pools.begin();
+    PoolStoreIt pEnd = _pools.end  ();
+    
+    for(; pIt != pEnd; ++pIt)
+    {
+        (*pIt)->freeAll();
+    }
+}
+
+template <class RefCountPolicyT,
+          class LockPolicyT     >
+template <class ValueTypeT      >
+inline
+typename MultiPool<RefCountPolicyT,
+                   LockPolicyT     >::template SimplePoolTypeBuilder<ValueTypeT>::Type *
+MultiPool<RefCountPolicyT, LockPolicyT>::getTypedPool(UInt32 poolIdx)
+{
+    typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
+
+    return dynamic_cast<SimplePoolType *>(_pools[poolIdx]);
 }
 
 

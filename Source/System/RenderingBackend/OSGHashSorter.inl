@@ -117,12 +117,11 @@ void HashSorter::Level1Sorter::init(void)
 }
 
 inline
-RenderTreeNode *HashSorter::Level1Sorter::setupRoot(RenderTreeNodePool *pPool)
+void HashSorter::Level1Sorter::setupRoot(RenderTreeNode *pRoot)
 {
-    if(_pRoot == NULL)
-        _pRoot = pPool->create();
+    OSG_ASSERT(_pRoot == NULL);
 
-    return _pRoot;
+    _pRoot = pRoot;
 }
 
 inline
@@ -159,9 +158,9 @@ void HashSorter::reset(void)
 }
 
 inline
-RenderTreeNode *HashSorter::setupLevel1Root(RenderTreeNodePool *pPool)
+void HashSorter::setupLevel1Root(RenderTreeNode *pRoot)
 {
-    return _oLevel1Sorter.setupRoot(pPool);
+    return _oLevel1Sorter.setupRoot(pRoot);
 }
 
 

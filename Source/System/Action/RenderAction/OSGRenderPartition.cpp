@@ -58,7 +58,7 @@
 #include "OSGFrameBufferAttachment.h"
 
 #include "OSGStateSortTreeBuilder.h"
-#include "OSGScalarSortTreeBuilder.h"
+#include "OSGDepthSortTreeBuilder.h"
 #include "OSGOcclusionCullingTreeBuilder.h"
 
 #include "OSGDrawableStatsAttachment.h"
@@ -160,8 +160,8 @@ RenderPartition::RenderPartition(Mode eMode) :
 
     _pNodePool               (     NULL),
 
-    _mMatRoots               (         ),
-    _mTransMatRoots          (         ),
+    _mMatTrees               (         ),
+    _mTransMatTrees          (         ),
 
     _uiActiveMatrix          (        0),
 
@@ -249,10 +249,10 @@ void RenderPartition::reset(Mode eMode)
         _modelViewMatrixStack.clear();
 
 
-        std::for_each(_mMatRoots     .begin(),
-                      _mMatRoots     .end(), ResetSecond());
-        std::for_each(_mTransMatRoots.begin(),
-                      _mTransMatRoots.end(), ResetSecond());
+        std::for_each(_mMatTrees     .begin(),
+                      _mMatTrees     .end(), ResetSecond());
+        std::for_each(_mTransMatTrees.begin(),
+                      _mTransMatTrees.end(), ResetSecond());
 
 
         _bSortTrans       = true;
@@ -475,8 +475,8 @@ void RenderPartition::doExecution   (void)
     }
     else
     {
-        BuildKeyMapIt      mapIt  = _mMatRoots.begin();
-        BuildKeyMapConstIt mapEnd = _mMatRoots.end  ();
+        BuildKeyMapIt      mapIt  = _mMatTrees.begin();
+        BuildKeyMapConstIt mapEnd = _mMatTrees.end  ();
 
         _uiNumMatrixChanges = 0;
 
@@ -490,8 +490,8 @@ void RenderPartition::doExecution   (void)
             ++mapIt;
         }
 
-        mapIt  = _mTransMatRoots.begin();
-        mapEnd = _mTransMatRoots.end  ();
+        mapIt  = _mTransMatTrees.begin();
+        mapEnd = _mTransMatTrees.end  ();
 
         if(!_bZWriteTrans)
             glDepthMask(false);
@@ -734,6 +734,154 @@ bool RenderPartition::pushShaderState(State *pState)
     return statePushed;
 }
 
+void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
+                                  State       *pState,
+                                  Int32        iSortKey,
+                                  bool         bIgnoreOverrides)
+{
+    if(_eMode == SimpleCallback)
+        return;
+
+    RenderAction  *ract    = dynamic_cast<RenderAction *>(_oDrawEnv.getAction());
+    Node          *actNode = ract   ->getActNode();
+    NodeCore      *actCore = actNode->getCore   ();
+
+    bool           bOverrodeState = false;
+    StateOverride *pStateOverride = NULL;
+
+    DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
+
+    if(st == NULL)
+    {
+        DrawableStatsAttachment::addTo(actCore);
+
+        st = DrawableStatsAttachment::get(actCore);
+    }
+
+    st->validate();
+
+    if(_oDrawEnv.getStatCollector() != NULL)
+    {
+        _oDrawEnv.getStatCollector()->getElem(
+            RenderAction::statNTriangles)->add(st->getTriangles());
+    }
+
+    _uiNumTriangles += st->getTriangles();
+
+    #ifdef OSG_NEW_SHADER
+    bOverrodeState = pushShaderState(pState);
+#endif // OSG_NEW_SHADER
+
+    if(_sStateOverrides.top()->empty() == false &&
+       bIgnoreOverrides                == false   )
+    {
+        pStateOverride = _sStateOverrides.top();
+    }
+
+    bool bTransparent =
+        (pState->isTransparent()                                         ) ||
+        (pStateOverride != NULL ? pStateOverride->isTransparent() : false);
+
+    if(_bSortTrans == true && bTransparent == true)
+    {
+        BuildKeyMapIt mapIt = _mTransMatTrees.lower_bound(iSortKey);
+
+        if(mapIt == _mTransMatTrees.end() || mapIt->first != iSortKey)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<DepthSortTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+
+            mapIt = _mTransMatTrees.insert(
+                mapIt, BuildKeyMap::value_type(iSortKey, pBuilder));
+        }
+
+        if(mapIt->second == NULL)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<DepthSortTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+            
+            mapIt->second = pBuilder;
+        }
+
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           drawFunc,
+                           pState,
+                           pStateOverride);
+    }
+    else if(ract != NULL && ract->getOcclusionCulling() == true)
+    {
+        BuildKeyMapIt mapIt = _mMatTrees.lower_bound(iSortKey);
+
+        if(mapIt == _mMatTrees.end() || mapIt->first != iSortKey)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<OcclusionCullingTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+
+            mapIt = _mMatTrees.insert(mapIt,
+                                      std::make_pair(iSortKey, pBuilder));
+        }
+
+        if(mapIt->second == NULL)
+        {
+            mapIt->second =
+                _pTreeBuilderPool->create<OcclusionCullingTreeBuilder>();
+
+            mapIt->second->setNodePool(_pNodePool);
+        }
+       
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           drawFunc,
+                           pState,
+                           pStateOverride);
+    }
+    else
+    {
+        BuildKeyMapIt mapIt = _mMatTrees.lower_bound(iSortKey);
+
+        if(mapIt == _mMatTrees.end() || mapIt->first != iSortKey)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<StateSortTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+
+            mapIt = _mMatTrees.insert(
+                mapIt, BuildKeyMap::value_type(iSortKey, pBuilder));
+        }
+
+        if(mapIt->second == NULL)
+        {
+            mapIt->second = 
+                _pTreeBuilderPool->create<StateSortTreeBuilder>();
+
+            mapIt->second->setNodePool(_pNodePool);
+        }
+
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           drawFunc,
+                           pState,
+                           pStateOverride);
+    }
+
+#ifdef OSG_NEW_SHADER
+    if(bOverrodeState == true)
+    {
+        this->popState();
+    }
+#endif
+}
+
+// ==============================================
+#if 0
 void RenderPartition::dropFunctor(DrawFunctor &func,
                                   State       *pState,
                                   Int32        iSortKey,
@@ -750,6 +898,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     // Add Stats
     DrawableStatsAttachment *st;
     bool                     bOverrodeState = false;
+    StateOverride           *pStateOverride = NULL;
 
     st = DrawableStatsAttachment::get(actCore);
 
@@ -774,17 +923,55 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     bOverrodeState = pushShaderState(pState);
 #endif // OSG_NEW_SHADER
 
-    bool bTransparent = ( pState               ->isTransparent() |
-                         _sStateOverrides.top()->isTransparent() );
+    if(_sStateOverrides.top()->empty() == false &&
+       bIgnoreOverrides                == false   )
+    {
+        pStateOverride = _sStateOverrides.top();
+    }
+
+    bool bTransparent =
+        (pState->isTransparent()                                         ) ||
+        (pStateOverride != NULL ? pStateOverride->isTransparent() : false);
 
     if(_bSortTrans == true && bTransparent == true)
     {
+        BuildKeyMapIt mapIt = _mTransMatTrees.lower_bound(iSortKey);
+
+        if(mapIt == _mTransMatTrees.end() || mapIt->first != iSortKey)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<DepthSortTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+
+            mapIt = _mTransMatTrees.insert(
+                mapIt, BuildKeyMap::value_type(iSortKey, pBuilder));
+        }
+
+        if(mapIt->second == NULL)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create<DepthSortTreeBuilder>();
+
+            pBuilder->setNodePool(_pNodePool);
+            
+            mapIt->second = pBuilder;
+        }
+
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           func,
+                           pState,
+                           pStateOverride);
+
+
+#if 0
         BuildKeyMapIt mapIt = _mTransMatRoots.lower_bound(iSortKey);
 
         if(mapIt == _mTransMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
-                _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
+                _pTreeBuilderPool->create<ScalarSortTreeBuilder>();
 
             pBuilder->setNodePool(_pNodePool);
 
@@ -795,12 +982,18 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         if(mapIt->second == NULL)
         {
             mapIt->second =
-                _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
+                _pTreeBuilderPool->create<ScalarSortTreeBuilder>();
 
             mapIt->second->setNodePool(_pNodePool);
         }
 
-        RenderTreeNode *pNewElem = _pNodePool->create();
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           func,
+                           _uiKeyGen);
+
+
+        RenderTreeNode *pNewElem = _pNodePool->create<RenderTreeNode>();
 
         Pnt3f         objPos;
 
@@ -845,6 +1038,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
                             NULL,
                             NULL,
                             0);
+#endif
     }
     else if(rt != NULL && rt->getOcclusionCulling() == true)
     {
@@ -853,7 +1047,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
-                _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
+                _pTreeBuilderPool->create<OcclusionCullingTreeBuilder>();
 
             pBuilder->setNodePool(_pNodePool);
 
@@ -864,12 +1058,12 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         if(mapIt->second == NULL)
         {
             mapIt->second =
-                _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
+                _pTreeBuilderPool->create<OcclusionCullingTreeBuilder>();
 
             mapIt->second->setNodePool(_pNodePool);
         }
 
-        RenderTreeNode  *pNewElem = _pNodePool->create();
+        RenderTreeNode  *pNewElem = _pNodePool->create<RenderTreeNode>();
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         Pnt3f            objPos;
@@ -958,23 +1152,31 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
-                _pTreeBuilderPool->create(StateSortTreeBuilder::Proto);
+                _pTreeBuilderPool->create<StateSortTreeBuilder>();
 
             pBuilder->setNodePool(_pNodePool);
 
-            mapIt = _mMatRoots.insert(mapIt,
-                                      std::make_pair(iSortKey, pBuilder));
+            mapIt = _mMatRoots.insert(
+                mapIt, BuildKeyMap::value_type(iSortKey, pBuilder));
         }
 
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pTreeBuilderPool->create(
-                StateSortTreeBuilder::Proto);
+            mapIt->second = 
+                _pTreeBuilderPool->create<StateSortTreeBuilder>();
 
             mapIt->second->setNodePool(_pNodePool);
         }
 
-        RenderTreeNode *pNewElem  = _pNodePool->create();
+        mapIt->second->add(_oDrawEnv.getAction(),
+                           this,
+                           drawFunc,
+                           pState,
+                           pStateOverride);
+
+
+#if 0
+        RenderTreeNode *pNewElem  = _pNodePool->create<RenderTreeNode>();
         StateOverride  *pOverride = NULL;
 
         pNewElem->setNode       (&*actNode         );
@@ -1006,6 +1208,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
                             pState,
                             pOverride,
                            _uiKeyGen );
+#endif
     }
 
 #ifdef OSG_NEW_SHADER
@@ -1015,6 +1218,8 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     }
 #endif
 }
+#endif
+// ==============================================
 
 void RenderPartition::pushState(void)
 {

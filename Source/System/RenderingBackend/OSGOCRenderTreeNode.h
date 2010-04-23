@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *                    Copyright (C) 2010 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,120 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMULTIPOOL_H_
-#define _OSGMULTIPOOL_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGOCRENDERTREENODE_H_
+#define _OSGOCRENDERTREENODE_H_
 
-#include "OSGBaseTypes.h"
-#include "OSGSimplePool.h"
-
-#include <vector>
-#include <map>
-#include <typeinfo>
+#include "OSGRenderTreeNode.h"
+#include "OSGBoxVolume.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseBasePools
-    \ingroup GrpBaseBase
-    \ingroup GrpLibOSGBase
-    \brief Pool that can store different types.
-    class
+/*! \ingroup GrpSystemRenderingBackend
+*/
 
-    \nohierarchy
- */
-
-template <class RefCountPolicyT = NoRefCountPolicy,
-          class LockPolicyT     = NoLockPolicy     >
-class MultiPool
+class OSG_SYSTEM_DLLMAPPING OCRenderTreeNode : public RenderTreeNode
 {
     /*==========================  PUBLIC  =================================*/
   public:
     /*---------------------------------------------------------------------*/
-    /*! \name                     Types                                    */
+    /*! \name                      Types                                   */
     /*! \{                                                                 */
-
-    typedef RefCountPolicyT   RefCountPolicy;
-    typedef LockPolicyT       LockPolicy;
+    
+    typedef RenderTreeNode  Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name             Constructors, Destructor                         */
+    /*! \name          Constructors & Destructor                           */
     /*! \{                                                                 */
 
-     MultiPool(void);
-    ~MultiPool(void);
+             OCRenderTreeNode(void);
+    virtual ~OCRenderTreeNode(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Register                                 */
+    /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    template <class ValueTypeT>
-    UInt32 registerType(void);
+    void             setVolume    (const BoxVolume &vol      );
+    const BoxVolume &getVolume    (void                      ) const;
 
-    template <class ValueTypeT>
-    void unregisterType(void);
+    void             setResultNum (UInt32           resultNum);
+    UInt32           getResultNum (void                      ) const;
+
+    void             setIsRendered(bool             value    );
+    bool             getIsRendered(void                      ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Create                                  */
+    /*! \name                     Reset                                    */
     /*! \{                                                                 */
 
-    template <class ValueTypeT>
-    ValueTypeT *create (void);
-
-    template <class ValueTypeT>
-    ValueTypeT *create (UInt32 typeIdx);
-
-    void        freeAll(void);
-
+    void reset(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
-    struct TypeInfoCmp
-    {
-        bool operator()(const std::type_info* lhs,
-                        const std::type_info* rhs) const;
-    };
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
 
-    typedef          std::map   <const std::type_info *, UInt32,
-                                 TypeInfoCmp                   > TypeIdxMap;
-    typedef typename TypeIdxMap::iterator                        TypeIdxMapIt;
-
-    typedef          std::vector<SimplePoolBase *              > PoolStore;
-    typedef typename PoolStore::iterator                         PoolStoreIt;
-
-    struct MultiPoolTag;
-
-    template <class ValueTypeT>
-    struct SimplePoolTypeBuilder
-    {
-        typedef SimplePool<ValueTypeT,
-                           MultiPoolTag,
-                           RefCountPolicyT,
-                           LockPolicyT     > Type;
-    };
-
-    template <class ValueTypeT>
-    typename SimplePoolTypeBuilder<ValueTypeT>::Type *getTypedPool(UInt32 poolIdx);
-
-    TypeIdxMap _typeIdxMap;
-    PoolStore  _pools;
+    BoxVolume _bVol;
+    UInt32    _resultNum;
+    bool      _isRendered;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    MultiPool(const MultiPool &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const MultiPool &source);
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    OCRenderTreeNode(const OCRenderTreeNode &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const OCRenderTreeNode &source);  
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGMultiPool.inl"
+#include "OSGOCRenderTreeNode.inl"
 
-#endif /* _OSGMULTIPOOL_H_ */
+#endif // _OSGOCRENDERTREENODE_H_

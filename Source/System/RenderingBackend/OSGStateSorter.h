@@ -161,6 +161,7 @@ class OSG_SYSTEM_DLLMAPPING StateSorter
     //-----------------------------------------------------------------------
 
     RenderTreeNodePool *_pNodePool;
+    UInt32              _uiNodePoolIdx;
     RenderTreeNode     *_pRoot;
 
     Sorter              _oSorter;

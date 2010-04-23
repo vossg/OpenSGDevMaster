@@ -222,7 +222,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                     Actions                                  */
     /*! \{                                                                 */
 
-    virtual Action::ResultE drawPrimitives      (DrawEnv        *pEnv  );
+    virtual void            drawPrimitives      (DrawEnv        *pEnv  );
 
             Action::ResultE intersect           (Action         *action);
 

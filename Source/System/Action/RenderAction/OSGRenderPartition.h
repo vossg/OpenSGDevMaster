@@ -118,7 +118,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*! DrawFunctor is the signature for the methods that are called 
         from within the draw tree
     */
-    typedef Material::DrawFunctor                   DrawFunctor;
+    typedef DrawEnv::DrawFunctor                    DrawFunctor;
 
     /*! SimpleDrawCallback is the type of functions that are used for simple
         partitions (i.e. the ones that only call one function and do not draw
@@ -129,12 +129,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*! BuildKeyMap is used to index from the material's sortKey to the 
         StateSorter that keeps the tree for that sort key
      */
-    typedef std::map<Int32, 
-	                 TreeBuilderBase *>                 BuildKeyMap;
-    typedef std::map<Int32, 
-                     TreeBuilderBase *>::iterator       BuildKeyMapIt;
-    typedef std::map<Int32, 
-                     TreeBuilderBase *>::const_iterator BuildKeyMapConstIt;
+    typedef std::map<Int32, TreeBuilderBase *>      BuildKeyMap;
+    typedef BuildKeyMap::iterator                   BuildKeyMapIt;
+    typedef BuildKeyMap::const_iterator             BuildKeyMapConstIt;
 
     /*! VisibilityStack keeps track of the planes of the current frustum that
         need to be tested. If a bounding volume is inside all
@@ -218,6 +215,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     DrawEnv &getDrawEnv(void);
 
+    UInt32   getKeyGen (void) const;
+
     /*------------------------- your_operators ------------------------------*/
 
     void   setNear(Real32 camNear);
@@ -275,13 +274,15 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*------------------------- assignment ----------------------------------*/
 
     template<class MatrixType>
-          void    pushMatrix        (const MatrixType &matrix);
-          void    popMatrix         (      void              );
+          void         pushMatrix        (const MatrixType &matrix);
+          void         popMatrix         (      void              );
 
-    const Matrix &topMatrix         (      void              );
+    const Matrix      &topMatrix         (      void              );
 
-    const Matrix &getModelMatrix    (      void              ) const;
-    const Matrix &getModelViewMatrix(      void              ) const;
+    const Matrix      &getModelMatrix    (      void              ) const;
+    const Matrix      &getModelViewMatrix(      void              ) const;
+
+    const MatrixStore &getMatrixStackTop (      void              ) const;
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -412,8 +413,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     RenderTreeNodePool *_pNodePool;
 
-    BuildKeyMap          _mMatRoots;
-    BuildKeyMap          _mTransMatRoots;
+    BuildKeyMap          _mMatTrees;
+    BuildKeyMap          _mTransMatTrees;
 
     // Active Elements
 

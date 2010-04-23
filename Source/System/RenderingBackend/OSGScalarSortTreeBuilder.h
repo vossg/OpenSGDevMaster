@@ -79,8 +79,6 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //   constants                                                             
     //-----------------------------------------------------------------------
    
-    static ScalarSortTreeBuilder Proto;
-    
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
@@ -88,6 +86,8 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
+
+    typedef TreeBuilderBase  Inherited;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -101,24 +101,25 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
+             ScalarSortTreeBuilder(void);
+    virtual ~ScalarSortTreeBuilder(void);
+
     /*------------------------- your_category -------------------------------*/
 
     /*------------------------- your_operators ------------------------------*/
 
     /*------------------------- assignment ----------------------------------*/
   
+    virtual void setNodePool(RenderTreeNodePool *pNodePool);
+
     /*------------------------- comparison ----------------------------------*/
 
     virtual void reset(void);
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void add(RenderActionBase    *pAction,
-                     RenderPartitionBase *part,
-                     RenderTreeNode      *pNode,
-                     State               *pState,
-                     StateOverride       *pStateOverride,
-                     UInt32               uiKeyGen      );
+    virtual void draw(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -142,16 +143,17 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //   class functions                                                     
     //-----------------------------------------------------------------------
 
+     void addNode(RenderTreeNode *pNode);
+
     //-----------------------------------------------------------------------
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
+    RenderTreeNode *_pRoot;
+
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
-
-    ScalarSortTreeBuilder(void);
-    virtual ~ScalarSortTreeBuilder(void);
 
   private:
 
@@ -166,8 +168,6 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   friend classes                                                      
     //-----------------------------------------------------------------------
-
-    friend class MultiPool<TreeBuilderBase>::TypeStore;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

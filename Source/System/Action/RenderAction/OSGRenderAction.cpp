@@ -728,10 +728,10 @@ void RenderAction::drawBuffer(UInt32 buf)
     }
 }
 
-void RenderAction::dropFunctor(Material::DrawFunctor &func,
-                               State                 *pState,
-                               UInt32                 uiSortKey,
-                               bool                   bIgnoreOverrides)
+void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
+                               State                *pState,
+                               UInt32                uiSortKey,
+                               bool                  bIgnoreOverrides)
 {
     _pActivePartition->dropFunctor(func, 
                                    pState, 
@@ -739,9 +739,9 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
                                    bIgnoreOverrides);
 }
 
-void RenderAction::dropFunctor(Material::DrawFunctor &func,
-                               Material              *pMat,
-                               bool                   bIgnoreOverrides)
+void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
+                               Material             *pMat,
+                               bool                  bIgnoreOverrides)
 {
     if(pMat == NULL)
         return;

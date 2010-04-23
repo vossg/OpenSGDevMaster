@@ -61,14 +61,16 @@ OSG_USING_NAMESPACE
 /*----------------------- constructors & destructors ----------------------*/
 
 //! Constructor
-MaterialDrawable::MaterialDrawable(void) :
-    Inherited()
+MaterialDrawable::MaterialDrawable(void)
+    : Inherited()
+    , _drawFunc()
 {
 }
 
 //! Copy Constructor
-MaterialDrawable::MaterialDrawable(const MaterialDrawable &source) :
-    Inherited(source)
+MaterialDrawable::MaterialDrawable(const MaterialDrawable &source)
+    : Inherited(source)
+    , _drawFunc()
 {
 }
 
@@ -81,11 +83,7 @@ MaterialDrawable::~MaterialDrawable(void)
 
 Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-    
-    Material::DrawFunctor func;
-
-    func = boost::bind(&MaterialDrawable::drawPrimitives, this, _1);
+    RenderAction  *a = dynamic_cast<RenderAction *>(action);
 
     Material      *m         = a->getMaterial();
     PrimeMaterial *pPrimeMat = NULL;
@@ -120,7 +118,7 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         
         if(st != NULL)
         {
-            a->dropFunctor(func, 
+            a->dropFunctor(_drawFunc, 
                            st, 
                            pPrimeMat->getSortKey() + uiPass);
         }
@@ -156,16 +154,25 @@ Action::ResultE MaterialDrawable::renderActionLeaveHandler(Action *action)
 }
 
 //! initialize the static features of the class, e.g. action callbacks
-Action::ResultE MaterialDrawable::drawPrimitives(DrawEnv *)
+void MaterialDrawable::drawPrimitives(DrawEnv *)
 {
     FWARNING (("You should overload drawPrimitives in your code\n"));
 
-    return Action::Continue;
+    return;
 }
 
 void MaterialDrawable::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+}
+
+void
+MaterialDrawable::onCreateAspect(const FieldContainer *createAspect,
+                                 const FieldContainer *source       )
+{
+    Inherited::onCreateAspect(createAspect, source);
+
+    _drawFunc = boost::bind(&MaterialDrawable::drawPrimitives, this, _1);
 }
 
 //! react to field changes

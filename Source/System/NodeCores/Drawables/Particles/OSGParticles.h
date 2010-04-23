@@ -109,7 +109,7 @@ class OSG_DRAWABLE_DLLMAPPING Particles : public ParticlesBase
     /*! \name                       Draw                                   */
     /*! \{                                                                 */
 
-    Action::ResultE drawPrimitives(DrawEnv *pEnv);
+    virtual void drawPrimitives(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

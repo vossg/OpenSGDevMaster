@@ -2001,9 +2001,9 @@ void Surface::flip(void)
         _trimmedSurface->flip();
 }
 
-Action::ResultE Surface::drawPrimitives(DrawEnv *pEnv)
+void Surface::drawPrimitives(DrawEnv *pEnv)
 {
     pEnv->getWindow()->validateGLObject(getSurfaceGLId(), pEnv);
 
-    return Inherited::drawPrimitives(pEnv);
+    Inherited::drawPrimitives(pEnv);
 }

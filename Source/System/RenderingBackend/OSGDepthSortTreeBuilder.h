@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                Copyright (C) 2010 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,41 +36,61 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
+#ifndef _OSGDEPTHSORTTREEBUILDER_H_
+#define _OSGDEPTHSORTTREEBUILDER_H_
 
 #include "OSGConfig.h"
+#include "OSGSystemDef.h"
+#include "OSGScalarSortTreeBuilder.h"
 
-#include "OSGRenderTreeNode.h"
-#include "OSGBaseFunctions.h"
+OSG_BEGIN_NAMESPACE
 
-OSG_USING_NAMESPACE
-
-/*! \class OSG::RenderTreeNode
-    \ingroup GrpSystemRenderingBackend
- */
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-RenderTreeNode::RenderTreeNode(void) :
-    _pFirstChild   (NULL ),
-    _pLastChild    (NULL ),
-    _pBrother      (NULL ),
-    _pState        (NULL ),
-    _pStateOverride(NULL),
-    _functor       (     ),
-    _oMatrixStore  (     ),
-    _rScalarVal    (0.f  ),
-    _lightState    (0    ),
-    _node          (NULL )
+class OSG_SYSTEM_DLLMAPPING DepthSortTreeBuilder : public ScalarSortTreeBuilder
 {
-    _oMatrixStore.first = 0;
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Types                                   */
+    /*! \{                                                                 */
 
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
+    typedef ScalarSortTreeBuilder  Inherited;
 
-RenderTreeNode::~RenderTreeNode(void)
-{
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name            Constructors & Destructor                         */
+    /*! \{                                                                 */
+    
+             DepthSortTreeBuilder(void);
+    virtual ~DepthSortTreeBuilder(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Tree Operations                               */
+    /*! \{                                                                 */
+
+    virtual void add(RenderActionBase    *pAction,
+                     RenderPartitionBase *pPart,
+                     DrawFunctor         &drawFunc,
+                     State               *pState,
+                     StateOverride       *pStateOverride);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name                                                              */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    DepthSortTreeBuilder(const DepthSortTreeBuilder &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =     (const DepthSortTreeBuilder &source);
+};
+
+OSG_END_NAMESPACE
+
+#endif // _OSGDEPTHSORTTREEBUILDER_H_

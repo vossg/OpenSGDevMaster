@@ -381,7 +381,7 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 
 }
 
-Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
+void Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     bool          usesShader = false;
     
@@ -473,7 +473,6 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
         }
     }
 */
-    return Action::Continue;
 }
 
 /*! The IntersectAction callback for Geometry. It computes if the ray used in

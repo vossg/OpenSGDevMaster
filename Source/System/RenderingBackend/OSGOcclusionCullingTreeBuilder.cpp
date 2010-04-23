@@ -49,6 +49,7 @@
 #include "OSGBaseFields.h"
 #include "OSGRenderTreeNodePool.h"
 #include "OSGOcclusionCullingTreeBuilder.h"
+#include "OSGOCRenderTreeNode.h"
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
 #include "OSGRenderPartitionBase.h"
@@ -67,8 +68,6 @@ OSG_USING_NAMESPACE
 /*! \class OSG::OcclusionCullingTreeBuilder
     \ingroup GrpSystemRenderingBackend
  */
-
-OcclusionCullingTreeBuilder OcclusionCullingTreeBuilder::Proto;
 
 UInt32 OcclusionCullingTreeBuilder::_extOcclusionQuery= Window::invalidExtensionID;
 UInt32 OcclusionCullingTreeBuilder::_funcGenQueriesARB= Window::invalidFunctionID;
@@ -105,7 +104,7 @@ State         *OcclusionCullingTreeBuilder::_testingState;
 
 OcclusionCullingTreeBuilder::SortModeE OcclusionCullingTreeBuilder::_sortMode = 
     OcclusionCullingTreeBuilder::ModeAdaptiveBucket;
-UInt32 OcclusionCullingTreeBuilder::_nBuckets = 1000;
+UInt32 OcclusionCullingTreeBuilder::_numBuckets = 1000;
 
 
 // Some typedefs to clean up OpenGL extension handling
@@ -149,56 +148,36 @@ bool OcclusionCullingTreeBuilder::staticInit(void)
 
 
 OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
-    : uNumNodes      (0),
-      _numTestSamples(0),
-      _isOccSetup    (false),
-      _currSample    (0),
-      _rt            (NULL)
+    : Inherited            ()
+    , _pRoot               (NULL)
+    , _testSamples         ()
+    , _numTestSamples      ()
+    , _occInitialized      (false)
+    , _currSample          (0)
+    , _testedNodes         (0)
+    , _inTesting           (false)
+    , _buckets             (_numBuckets)
+    , _bucketsWork         (_numBuckets)
+    , _bucketLow           (0.f)
+    , _bucketHigh          (0.f)
+    , _bucketScale         (0.f)
+    , _testNodes           ()
+    , _testPendingNodes    ()
+    , _worldToScreen       ()
+    , _vpWidth             ()
+    , _vpHeight            ()
+    , _ract                (NULL)
+    , _minFeatureSize      (0)
+    , _visPixelThreshold   (0)
+    , _coveredProbThreshold(0.f)
+    , _minTriangleCount    (0)
 {
-    _buckets.clear();
-    _buckets.resize(_nBuckets);   
-    _bucketsWork.clear();
-    _bucketsWork.resize(_nBuckets);   
 }
 
 OcclusionCullingTreeBuilder::~OcclusionCullingTreeBuilder(void)
 {
     // Should delete queries here, but those need GL context...
 }
-
-
-void OcclusionCullingTreeBuilder::reset(void)
-{
-    TreeBuilderBase::reset();
-    uNumNodes=0;
-    
-    if(_buckets.size() != _nBuckets)
-    {    
-        _buckets.resize(_nBuckets);
-        _bucketsWork.resize(_nBuckets);
-    }
-    
-    std::vector<RenderTreeNode*>::iterator it, e; 
-    
-    for(it = _buckets.begin(), e = _buckets.end();
-        it != e; ++it)
-    {
-        *it = NULL;
-    }
-    
-    for(it = _bucketsWork.begin(), e = _bucketsWork.end();
-        it != e; ++it)
-    {
-        *it = NULL;
-    }
-    
-    _bucketLow   = 0.f;
-    _bucketHigh  = 0.f;
-    _bucketScale = 0.f;
-
-    _rt = NULL;
-}
-
 
 /*! Set the sorting mode for the front to back sorter.
 */
@@ -215,30 +194,66 @@ OcclusionCullingTreeBuilder::SortModeE
 */
 UInt32 OcclusionCullingTreeBuilder::setNBuckets(UInt32 nbuckets)
 {
-    UInt32 o = _nBuckets;
-    _nBuckets = nbuckets;
+    UInt32 o = _numBuckets;
+    _numBuckets = nbuckets;
     
     return o;
 }
 
-
-inline 
-void OcclusionCullingTreeBuilder::enterTesting(DrawEnv             &denv, 
-                                               RenderPartitionBase *part)
+void OcclusionCullingTreeBuilder::setNodePool(RenderTreeNodePool *pNodePool)
 {
-    if(!_inTesting)
-    {
-        _inTesting = true;
-
-        denv.activateState(_testingState, NULL);
-    }   
+    _pNodePool     = pNodePool;
+    _uiNodePoolIdx = pNodePool->registerType<OCRenderTreeNode>();
 }
 
-inline 
-void OcclusionCullingTreeBuilder::leaveTesting(DrawEnv             &denv, 
-                                               RenderPartitionBase *part)
+void OcclusionCullingTreeBuilder::reset(void)
 {
-    _inTesting = false;
+    Inherited::reset();
+
+    _numNodes = 0;
+    _pRoot    = NULL;
+    
+    if(_buckets.size() != _numBuckets)
+    {    
+        _buckets    .resize(_numBuckets);
+        _bucketsWork.resize(_numBuckets);
+    }
+    
+    std::vector<OCRenderTreeNode*>::iterator it, e; 
+    
+    for(it = _buckets.begin(), e = _buckets.end(); it != e; ++it)
+    {
+        *it = NULL;
+    }
+    
+    for(it = _bucketsWork.begin(), e = _bucketsWork.end(); it != e; ++it)
+    {
+        *it = NULL;
+    }
+    
+    _bucketLow   = 0.f;
+    _bucketHigh  = 0.f;
+    _bucketScale = 0.f;
+
+    _ract = NULL;
+}
+
+void OcclusionCullingTreeBuilder::add(RenderActionBase    *pAction,
+                                      RenderPartitionBase *pPart,
+                                      DrawFunctor         &drawFunc,
+                                      State               *pState,
+                                      StateOverride       *pStateOverride)
+{
+    OSG_ASSERT((_ract == NULL) || (_ract == pAction));
+
+    _ract = dynamic_cast<RenderAction *>(pAction);
+
+    OSG_ASSERT(_ract != NULL);
+
+    OCRenderTreeNode *pNode = createNode(pAction, pPart, drawFunc,
+                                         pState,  pStateOverride);
+
+    addNode(pNode);
 }
 
 void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv, 
@@ -251,7 +266,7 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     if(_sortMode == ModeAdaptiveBucket)
     {
         // Merge all the buckets to a tree
-        for(UInt32 i = 0; i < _nBuckets; ++i)
+        for(UInt32 i = 0; i < _numBuckets; ++i)
         {
             if(_buckets[i] != NULL)
             {
@@ -264,15 +279,18 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     {
         // Don't have it, just draw the whole tree.
         SLOG << "Missing OCC GL extensions!!" << endLog;
-        TreeBuilderBase::draw(denv,part);
+
+        _uiActiveMatrix = 0;
+        Inherited::drawNode(_pRoot, denv, part);
+
         return;
     }
 
 //SETUP
 // done in add, action should never change
-//    _rt = dynamic_cast<RenderAction*>(denv.getAction());
+//    _ract = dynamic_cast<RenderAction*>(denv.getAction());
     
-    if(!_rt)
+    if(!_ract)
     {
         FFATAL(("OcclusionCullingTreeBuilder::draw: Action in denv is not a "
                 "RenderAction!\n"));
@@ -281,17 +299,17 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
 
     _uiActiveMatrix = 0;
     Real32 screenCoveredPercentage = 0.f;
-    if(_rt->getOcclusionCullingQueryBufferSize() != _numTestSamples || !_isOccSetup)
+    if(_ract->getOcclusionCullingQueryBufferSize() != _numTestSamples || !_occInitialized)
     {
-        _numTestSamples = _rt->getOcclusionCullingQueryBufferSize();
+        _numTestSamples = _ract->getOcclusionCullingQueryBufferSize();
         //std::cout << "Buf size: " << _numTestSamples << std::endl;
         _testSamples.resize(_numTestSamples);
-        //std::cout << "Performing OCC on " << uNumNodes << " nodes." << std::endl;
+        //std::cout << "Performing OCC on " << _numNodes << " nodes." << std::endl;
 
         GenQueryT genquer = reinterpret_cast<GenQueryT>(
             win->getFunction(_funcGenQueriesARB));
         genquer(_numTestSamples, &(_testSamples.front()));
-        _isOccSetup = true;
+        _occInitialized = true;
     }
     
     if(!_isOccStateCreated)
@@ -322,35 +340,31 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
         commitChanges();
     }
     
-    //glGenQueriesARB(uNumNodes, queries);
+    //glGenQueriesARB(_numNodes, queries);
     //std::cout << "Calculated Pixels" << std::endl;
 
-    
-//    Viewport* vp = denv.getViewport();
-    _vpWidth = denv.getPixelWidth();
+    _vpWidth  = denv.getPixelWidth();
     _vpHeight = denv.getPixelHeight();
 
-//    vp->getCamera()->getWorldToScreen(_worldToScreen, *vp);
-    
     _worldToScreen = denv.getVPWorldToScreen();
     
     _testingState = &*_testingStatePtr;
 
 
-    _minFeatureSize = _rt->getOcclusionCullingMinimumFeatureSize();
-    _visPixelThreshold = _rt->getOcclusionCullingVisibilityThreshold();
-    _coveredProbThreshold = _rt->getOcclusionCullingCoveredThreshold();
-    _minTriangleCount = _rt->getOcclusionCullingMinimumTriangleCount();
+    _minFeatureSize = _ract->getOcclusionCullingMinimumFeatureSize();
+    _visPixelThreshold = _ract->getOcclusionCullingVisibilityThreshold();
+    _coveredProbThreshold = _ract->getOcclusionCullingCoveredThreshold();
+    _minTriangleCount = _ract->getOcclusionCullingMinimumTriangleCount();
     _inTesting = false;
     
     _currSample = 0;
 //DRAW / TEST / RE-DRAW ON BUFFER FULL
     testNode(_pRoot, denv, part, screenCoveredPercentage);
     
-    StatCollector *sc = _rt->getStatCollector();
+    StatCollector *sc = _ract->getStatCollector();
     if(sc != NULL)
-        sc->getElem(statNOccNodes    )->add(uNumNodes);
-    uNumNodes=0;
+        sc->getElem(statNOccNodes)->add(_numNodes);
+    _numNodes=0;
     _uiActiveMatrix = 0;
     
     leaveTesting(denv, part);
@@ -377,13 +391,13 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
 
    // screen_covered_percentage = 1.0;
    // drawNode(_pRoot, denv, part, screen_covered_percentage);
-    uNumNodes=0;
+    _numNodes=0;
     _currSample = 0;
     //std::cout << "Frame End" << std::endl;
 #endif
 }
 
-void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode, 
+void OcclusionCullingTreeBuilder::testNode(OCRenderTreeNode   *pNode, 
                                            DrawEnv             &denv, 
                                            RenderPartitionBase *part, 
                                            Real32              &scr_percent)
@@ -408,9 +422,9 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode,
             ++part->_uiNumMatrixChanges;
         }
 
-        const BoxVolume &volume = pNode->getVol();
+        const BoxVolume &volume = pNode->getVolume();
         Pnt3r min,max;
-        //volume.transform(_accMatrix);
+
         volume.getBounds(min, max);
         Pnt3r p[8];
         p[0].setValues(min[0],min[1],min[2]);
@@ -494,15 +508,15 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode,
 
                     if(cbb * _vpWidth * _vpHeight < _minFeatureSize) //small feature culling
                     {                
-                        StatCollector *sc = _rt->getStatCollector();
+                        StatCollector *sc = _ract->getStatCollector();
                         if(sc != NULL)
                             sc->getElem(statNOccTriangles)->
                                 add(triangles);
-                        if(_rt->getOcclusionCullingDebug() && pNode->getNode())
+                        if(_ract->getOcclusionCullingDebug() && pNode->getNode())
                         {
                             pNode->getNode()->setTravMask(
                                 pNode->getNode()->getTravMask() | 
-                                _rt->getOcclusionCulledDebugMask()
+                                _ract->getOcclusionCulledDebugMask()
                                 ); 
                         }
                         pNode->setIsRendered(true);
@@ -540,14 +554,17 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode,
 //DRAW CHILDREN OR GO TO TOP AND DO IT AGAIN
         if(pNode->getFirstChild() != NULL)
         {
-            testNode(pNode->getFirstChild(), denv, part, scr_percent);
+            OCRenderTreeNode *child =
+                static_cast<OCRenderTreeNode *>(pNode->getFirstChild());
+
+            testNode(child, denv, part, scr_percent);
         }
         
-        pNode = pNode->getBrother();
+        pNode = static_cast<OCRenderTreeNode *>(pNode->getBrother());
     }
 }
 
-void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode      *pNode, 
+void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode, 
                                                DrawEnv             &denv, 
                                                RenderPartitionBase *part)
 {
@@ -564,15 +581,15 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode      *pNode,
     pNode->setIsRendered(false);
 
 
-    if(_rt->getOcclusionCullingDebug() && pNode->getNode())
+    if(_ract->getOcclusionCullingDebug() && pNode->getNode())
     {
         pNode->getNode()->setTravMask(
             pNode->getNode()->getTravMask() | 
-            _rt->getOcclusionTestedDebugMask()
+            _ract->getOcclusionTestedDebugMask()
             ); 
     }
 
-    const BoxVolume &volume = pNode->getVol();
+    const BoxVolume &volume = pNode->getVolume();
     Pnt3r min,max;
     volume.getBounds(min, max);
     static GLfloat n[6][3] = {
@@ -599,7 +616,7 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode      *pNode,
     }
     _currSample++;
 
-    StatCollector *sc = _rt->getStatCollector();
+    StatCollector *sc = _ract->getStatCollector();
     if(sc != NULL)
         sc->getElem(statNOccTests    )->inc();
 
@@ -630,7 +647,7 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode      *pNode,
     _testPendingNodes.push(pNode);
 }
 
-void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode      *pNode, 
+void OcclusionCullingTreeBuilder::drawNode(OCRenderTreeNode   *pNode, 
                                            DrawEnv             &denv, 
                                            RenderPartitionBase *part)
 {   
@@ -663,11 +680,11 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode      *pNode,
 
     pNode->setIsRendered(true);
 
-    if(_rt->getOcclusionCullingDebug() && pNode->getNode())
+    if(_ract->getOcclusionCullingDebug() && pNode->getNode())
     {
         pNode->getNode()->setTravMask(
             pNode->getNode()->getTravMask() | 
-            _rt->getOcclusionVisibleDebugMask()
+            _ract->getOcclusionVisibleDebugMask()
             ); 
     }
 
@@ -701,7 +718,7 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode      *pNode,
 void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv, 
                                                   RenderPartitionBase *part)
 {
-    RenderTreeNode* pNode;
+    OCRenderTreeNode* pNode;
     while (!_testPendingNodes.empty())
     {
         pNode = _testPendingNodes.front();
@@ -728,7 +745,7 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
             }
             else
             {
-                StatCollector *sc = _rt->getStatCollector();
+                StatCollector *sc = _ract->getStatCollector();
                 if(sc != NULL)
                     sc->getElem(statNOccInvisible)->inc();
 
@@ -741,11 +758,11 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
                     sc->getElem(statNOccTriangles)->
                         add(st->getTriangles());
                 
-                if(_rt->getOcclusionCullingDebug() && pNode->getNode())
+                if(_ract->getOcclusionCullingDebug() && pNode->getNode())
                 {
                     pNode->getNode()->setTravMask(
                         pNode->getNode()->getTravMask() | 
-                        _rt->getOcclusionCulledDebugMask()
+                        _ract->getOcclusionCulledDebugMask()
                         ); 
                 }
             }
@@ -755,176 +772,253 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
     }
 }
 
-void OcclusionCullingTreeBuilder::add(RenderActionBase    *pAction,
-                                      RenderPartitionBase *part,
-                                      RenderTreeNode      *pNode,
-                                      State               *pState,
-                                      StateOverride       *pStateOverride,
-                                      UInt32               uiKeyGen      )
+OCRenderTreeNode *
+OcclusionCullingTreeBuilder::createNode(RenderActionBase    *pAction,
+                                        RenderPartitionBase *pPart,
+                                        DrawFunctor         &drawFunc,
+                                        State               *pState,
+                                        StateOverride       *pStateOverride)
 {
-    OSG_ASSERT((_rt == NULL) || (_rt == pAction));
+    RenderPartition  *pRPart = dynamic_cast<RenderPartition *>(pPart);
+    OCRenderTreeNode *pNode  = _pNodePool->create<OCRenderTreeNode>(_uiNodePoolIdx);
 
-    _rt = dynamic_cast<RenderAction *>(pAction);
-    
-    if(_rt && _rt->getOcclusionCullingDebug() && pNode->getNode())
+    Node            *actNode = _ract->getActNode();
+    const BoxVolume &objVol  = actNode->getVolume();
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
+    Pnt3r objPos(TypeTraits<Real>::getMax(),
+                 TypeTraits<Real>::getMax(),
+                 TypeTraits<Real>::getMax() );
+    Pnt3r volVert[8];
+#else
+    Pnt3d objPos(TypeTraits<Real64>::getMax(),
+                 TypeTraits<Real64>::getMax(),
+                 TypeTraits<Real64>::getMax() );
+    Pnt3r volVert[8];
+#endif
+
+    Pnt3r volMin;
+    Pnt3r volMax;
+
+    objVol.getBounds(volMin, volMax);
+
+    volVert[0].setValues(volMin[0], volMin[1], volMin[2]);
+    volVert[1].setValues(volMax[0], volMin[1], volMin[2]);
+    volVert[2].setValues(volMin[0], volMax[1], volMin[2]);
+    volVert[3].setValues(volMin[0], volMin[1], volMax[2]);
+    volVert[4].setValues(volMax[0], volMax[1], volMin[2]);
+    volVert[5].setValues(volMax[0], volMin[1], volMax[2]);
+    volVert[6].setValues(volMin[0], volMax[1], volMax[2]);
+    volVert[7].setValues(volMax[0], volMax[1], volMax[2]);
+
+    for(UInt32 i = 0; i < 8; ++i)
     {
-        // Start with clean travmask
-        pNode->getNode()->setTravMask(0x0); 
+        pRPart->getModelViewMatrix().mult(volVert[i], volVert[i]);
+
+        if(volVert[i][2] < objPos[2])
+            objPos = volVert[i];
     }
-    
-    // Assumed to be between 0 and 1 for bucket sort
-    float val = pNode->getScalar();
-    
+
+    pNode->setScalar( (-objPos[2]       - pRPart->getNear()) /
+                      (pRPart->getFar() - pRPart->getNear())  );
+
+    pNode->setFunctor      (drawFunc);
+    pNode->setState        (pState);
+    pNode->setStateOverride(pStateOverride);
+    // light state
+    pNode->setNode         (_ract->getActNode());
+    pNode->setVolume       (objVol             );
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
+    pNode->setMatrixStore  (pRPart->getMatrixStackTop());
+#else
+    Matrix4f tmpMat;
+    tmpMat.convertFrom(pRPart->getModelViewMatrix());
+    MatrixStore tmpMS (pRPart->getMatrixStackTop().first, tmpMat);
+
+    pNode->setMatrixStore(tmpMS);
+#endif
+
+    return pNode;
+}
+
+void OcclusionCullingTreeBuilder::addNode(OCRenderTreeNode *pNode)
+{
+    Real32 val = pNode->getScalar();
+
     if(_pRoot == NULL)
     {
-        _pRoot = _pNodePool->create();
-        _bucketLow = val;
-        _bucketHigh = val + 0.1;
-        _bucketScale = (_nBuckets + 1) / (_bucketHigh - _bucketLow);
+        _pRoot = _pNodePool->create<OCRenderTreeNode>(_uiNodePoolIdx);
+
+        _bucketLow   = val;
+        _bucketHigh  = val + 0.1;
+        _bucketScale = (_numBuckets + 1) / (_bucketHigh - _bucketLow);
     }
 
     switch(_sortMode)
     {
-        case ModeAdaptiveBucket:
-        { 
-            UInt32 index = osgClamp(0u, static_cast<UInt32>((val - _bucketLow) * _bucketScale), _nBuckets - 1);
-
-            // Do we need to rescale buckets?
-            if(/*index < 0 || */ index >= _nBuckets)
-            {
-                Real32 newLow  = osgMin(val, _bucketLow);
-                Real32 newHigh = osgMax(val, _bucketHigh);
-                Real32 newScale = (_nBuckets + 1) / (newHigh - newLow);
-
-                // Only want to scale in exponential steps to reduce number
-                // of rescales
-                Real32 rescale = _bucketScale / newScale;
-                UInt32 step = osgNextPower2(static_cast<int>(osgCeil(rescale)));
-
-                newScale = _bucketScale / step;
-                Real32 d = (_nBuckets - 1) / newScale;
-                newLow  = osgMax(newLow - d / 2.f, 0.f);
-                newHigh = osgMin(newLow + d      , 1.f);
-
-    #if 0        
-                std::cout << "ABS: (" << _bucketLow << " - " << _bucketHigh 
-                          << ") => (" << newLow << " - " << newHigh
-                          << ")" << std::endl;
-    #endif                  
-                // Move bucket contents around
-                Real32 iter = _bucketLow;
-                Real32 istep = 1.f / _bucketScale;
-
-                for(UInt32 i = 0; i < _nBuckets; ++i, iter += istep)
-                {
-                    if(_buckets[i] == NULL)
-                        continue;
-
-                    int index = static_cast<int>((iter - newLow) * newScale);
-
-                    if(_bucketsWork[index] == NULL)
-                    {
-                        _bucketsWork[index] = _buckets[i];
-                    }
-                    else // Need to merge
-                    {
-                        _bucketsWork[index]->addChild(_buckets[i]);
-                    }
-                    _buckets[i] = NULL;
-                }
-
-                // Now swap the data
-                _buckets.swap(_bucketsWork);
-
-                _bucketLow   = newLow;
-                _bucketHigh  = newHigh;
-                _bucketScale = newScale;
-
-                index = osgClamp(0u, static_cast<UInt32>((val - _bucketLow) * _bucketScale), _nBuckets - 1);
-            }
-
-            if(_buckets[index] == NULL) // First node in bucket
-            {
-                _buckets[index] = pNode;
-            }
-            else
-            {
-                _buckets[index]->addChild(pNode);
-            }
-            uNumNodes++;
-        }
+    case ModeAdaptiveBucket:
+        addNodeAdaptiveBucketMode(pNode);
         break;
 
-        case ModeBucket:
+    case ModeBucket:
+        addNodeBucketMode(pNode);
+        break;
+
+    case ModeScalar:
+        addNodeScalarMode(pNode);
+        break;
+
+    default:
+        SFATAL << "OcclusionCullingTreeBuilder::addNode: Unknown sort mode '"
+               << _sortMode << "'." << std::endl;
+        break;
+    }
+
+}
+
+void
+OcclusionCullingTreeBuilder::addNodeAdaptiveBucketMode(OCRenderTreeNode *pNode)
+{
+    Real32 val       = pNode->getScalar();
+    Int32  bucketIdx = static_cast<Int32>((val - _bucketLow) * _bucketScale);
+
+    bucketIdx = osgClamp<Int32>(0, bucketIdx, _numBuckets - 1);
+
+    // XXX with the above osgClamp this never triggers... ?? --cneumann
+    if(bucketIdx < 0 || bucketIdx >= _numBuckets)
+    {
+        Real32 newLow   = osgMin(val, _bucketLow );
+        Real32 newHigh  = osgMax(val, _bucketHigh);
+        Real32 newScale = (_numBuckets + 1) / (newHigh - newLow);
+
+        // only rescale in exponential steps to reduce the
+        // number of rescales
+        Real32 rescale  = _bucketScale / newScale;
+        UInt32 step     = osgNextPower2(static_cast<UInt32>(osgCeil(rescale)));
+
+        SLOG <<   "OCTB::addABM: old: " << _bucketLow << " - " << _bucketHigh << " - " << _bucketScale
+             << "\n              new: " << newLow     << " - " << newHigh     << " - " << newScale
+             << "\n rescale " << rescale << " step " << step
+             << std::endl;
+
+        newScale = _bucketScale / step;
+        Real32 d = (_numBuckets - 1) / newScale;
+        newLow  = osgMax(newLow - d / 2.f, 0.f);
+        newHigh = osgMin(newLow + d,       1.f);
+
+        // move bucket contents
+        Real32 iter  = _bucketLow;
+        Real32 istep = 1.f / _bucketScale;
+
+        for(UInt32 i = 0; i < _numBuckets; ++i, iter += istep)
         {
-            int index = osgClamp(0u, static_cast<UInt32>(val * _nBuckets), _nBuckets - 1);
+            if(_buckets[i] == NULL)
+                continue;
 
-            if(_buckets[index] == NULL) // First node in bucket
+            UInt32 index = static_cast<UInt32>((iter - newLow) * newScale);
+
+            if(_bucketsWork[index] == NULL)
             {
-                _pRoot->addChild(pNode);
-                _buckets[index] = pNode;
+                _bucketsWork[index] = _buckets[i];
             }
             else
             {
-                _buckets[index]->addChild(pNode);
+                _bucketsWork[index]->addChild(_buckets[i]);
             }
-            uNumNodes++;
-        }
-        break;
 
-        case ModeScalar:
+            _buckets[i] = NULL;
+        }
+
+        _buckets.swap(_bucketsWork);
+
+        _bucketLow   = newLow;
+        _bucketHigh  = newHigh;
+        _bucketScale = newScale;
+
+        bucketIdx = osgClamp<Int32>(
+            0,
+            static_cast<Int32>((val - _bucketLow) * _bucketScale),
+            _numBuckets - 1);
+    }
+
+    if(_buckets[bucketIdx] == NULL)
+    {
+        _buckets[bucketIdx] = pNode;
+    }
+    else
+    {
+        _buckets[bucketIdx]->addChild(pNode);
+    }
+
+    ++_numNodes;
+}
+
+void OcclusionCullingTreeBuilder::addNodeBucketMode(OCRenderTreeNode *pNode)
+{
+    Real32 val       = pNode->getScalar();
+    Int32  bucketIdx = osgClamp<Int32>(0,
+                                       static_cast<Int32>(val * _numBuckets),
+                                       _numBuckets - 1);
+
+    if(_buckets[bucketIdx] == NULL)
+    {
+        _pRoot->addChild(pNode);
+        _buckets[bucketIdx] = pNode;
+    }
+    else
+    {
+        _buckets[bucketIdx]->addChild(pNode);
+    }
+
+    ++_numNodes;
+}
+
+void OcclusionCullingTreeBuilder::addNodeScalarMode(OCRenderTreeNode *pNode)
+{
+    if(_pRoot->getFirstChild() == NULL)
+    {
+        _pRoot->addChild(pNode);
+        ++_numNodes;
+    }
+    else
+    {
+        RenderTreeNode *pCurrent = _pRoot->getFirstChild();
+        RenderTreeNode *pLast    = NULL;
+        bool            found    = false;
+
+        do
         {
-            if(_pRoot->getFirstChild() == NULL)
+            if(pNode->getScalar() > pCurrent->getScalar())
             {
-                _pRoot->addChild(pNode);
-                uNumNodes++;
+                pLast    = pCurrent;
+                pCurrent = pCurrent->getBrother();
             }
             else
             {
-                RenderTreeNode *pCurrent = _pRoot->getFirstChild();
-
-                RenderTreeNode *pLast    = NULL;
-                bool            bFound   = false;
-
-                do
-                {
-                    if(pNode->getScalar() > pCurrent->getScalar())
-                    {
-                        pLast    = pCurrent;
-                        pCurrent = pCurrent->getBrother();
-                    }
-                    else
-                    {
-                        bFound = true;
-                    }
-
-                } while(bFound   == false && 
-                        pCurrent != NULL    );
-
-                if(bFound == true)
-                {
-                    if(pLast == NULL)
-                    {
-                        _pRoot->insertFirstChild(pNode);
-                    }
-                    else
-                    {
-                        _pRoot->insertChildAfter(pLast, pNode);
-                    }
-                    uNumNodes++;
-                }
-                else
-                {
-                    _pRoot->addChild(pNode);
-                    uNumNodes++;
-                }
+                found = true;
             }
         }
-        break;
+        while(found == false && pCurrent != NULL);
 
-        default:
-            FFATAL(("Unknown sort mode %d!\n", _sortMode));
-            break;
+        if(found == true)
+        {
+            if(pLast == NULL)
+            {
+                _pRoot->insertFirstChild(pNode);
+            }
+            else
+            {
+                _pRoot->insertChildAfter(pLast, pNode);
+            }
+
+            ++_numNodes;
+        }
+        else
+        {
+            _pRoot->addChild(pNode);
+            ++_numNodes;
+        }
     }
 }
 

@@ -51,6 +51,7 @@
 #include "OSGRenderActionFwd.h"
 #include "OSGRenderActionBase.h"
 #include "OSGRenderPartition.h"
+#include "OSGDrawEnv.h"
 #include "OSGMaterial.h"
 #include "OSGRenderActionTask.h"
 
@@ -145,14 +146,14 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- your_operators ------------------------------*/
 
-    void dropFunctor(Material::DrawFunctor &func,
-                     State                 *pState,
-                     UInt32                 uiSortKey,
-                     bool                   bIgnoreOverrides = false);
+    void dropFunctor(DrawEnv::DrawFunctor &func,
+                     State                *pState,
+                     UInt32                uiSortKey,
+                     bool                  bIgnoreOverrides = false);
 
-    void dropFunctor(Material::DrawFunctor &func,
-                     Material              *pMat,
-                     bool                   bIgnoreOverrides = false);
+    void dropFunctor(DrawEnv::DrawFunctor &func,
+                     Material             *pMat,
+                     bool                  bIgnoreOverrides = false);
 
     /*---------------------------- state ------------------------------------*/
 

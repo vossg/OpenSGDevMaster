@@ -82,8 +82,6 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //   constants                                                             
     //-----------------------------------------------------------------------
   
-    static const TreeBuilderBase Proto;
-   
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
@@ -91,6 +89,8 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
+
+    typedef DrawEnv::DrawFunctor  DrawFunctor;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -110,7 +110,8 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
 
     /*------------------------- assignment ----------------------------------*/
     
-    void setNodePool(RenderTreeNodePool *pNodePool);
+    virtual void                setNodePool(RenderTreeNodePool *pNodePool);
+            RenderTreeNodePool *getNodePool(void                         );
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -119,18 +120,15 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     /*------------------------- comparison ----------------------------------*/
 
     virtual void add(RenderActionBase    *pAction,
-                     RenderPartitionBase *part,
-                     RenderTreeNode      *pNode,
+                     RenderPartitionBase *pPart,
+                     DrawFunctor         &drawFunc,
                      State               *pState,
-                     StateOverride       *pStateOverride,
-                     UInt32               uiKeyGen      );
+                     StateOverride       *pStateOverride) = 0;
 
     /*-------------------------- comparison ---------------------------------*/
 
-    RenderTreeNode *getRoot(void);
-
     virtual void draw(DrawEnv             &denv, 
-                      RenderPartitionBase *part);
+                      RenderPartitionBase *part) = 0;
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -177,7 +175,7 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //-----------------------------------------------------------------------
 
     RenderTreeNodePool *_pNodePool;
-    RenderTreeNode     *_pRoot;
+    UInt32              _uiNodePoolIdx;
 
     UInt32              _uiActiveMatrix;
     UInt32              _uiMatrixId;
@@ -189,8 +187,8 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    TreeBuilderBase(void);
-    virtual ~TreeBuilderBase(void);
+             TreeBuilderBase(void);
+    virtual ~TreeBuilderBase(void) = 0;
 
   private:
 
@@ -205,8 +203,6 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //-----------------------------------------------------------------------
     //   friend classes                                                      
     //-----------------------------------------------------------------------
-
-    friend class MultiPool<TreeBuilderBase>::TypeStore;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

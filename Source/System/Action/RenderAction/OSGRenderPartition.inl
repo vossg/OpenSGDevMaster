@@ -85,6 +85,12 @@ DrawEnv &RenderPartition::getDrawEnv(void)
     return _oDrawEnv;
 }
 
+inline UInt32
+RenderPartition::getKeyGen(void) const
+{
+    return _uiKeyGen;
+}
+
 /*------------- constructors & destructors --------------------------------*/
 
 /*------------------------------ access -----------------------------------*/
@@ -280,6 +286,12 @@ inline
 const Matrix &RenderPartition::getModelViewMatrix(void) const
 {
     return _modelViewMatrix.second;
+}
+
+inline const RenderPartition::MatrixStore &
+RenderPartition::getMatrixStackTop(void) const
+{
+    return _modelViewMatrix;
 }
 
 inline 

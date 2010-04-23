@@ -49,18 +49,20 @@
 #include <map>
 #include <queue>
 
+#include "OSGTreeBuilderBase.h"
 #include "OSGHashSorter.h"
 #include "OSGStatElemDesc.h"
 #include "OSGStatIntElem.h"
 #include "OSGStatRealElem.h"
-
-#include "OSGTreeBuilderBase.h"
+#include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
 //  Forward References
 //---------------------------------------------------------------------------
+
+class OCRenderTreeNode;
 
 //---------------------------------------------------------------------------
 //   Types
@@ -82,8 +84,6 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   constants                                                             
     //-----------------------------------------------------------------------
-   
-    static OcclusionCullingTreeBuilder Proto;
 
     static StatElemDesc<StatIntElem>  statNOccNodes;
     static StatElemDesc<StatIntElem>  statNOccTests;
@@ -99,32 +99,33 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //   types                                                               
     //-----------------------------------------------------------------------
 
+    typedef TreeBuilderBase  Inherited;
+
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
 
     //! Sorting mode to use
-    typedef enum { 
-        ModeScalar, //!< Use standard scalar sort
-        ModeBucket, //!< Use fixed bucket sorting
+    enum SortModeE
+    { 
+        ModeScalar,         //!< Use standard scalar sort
+        ModeBucket,         //!< Use fixed bucket sorting
         ModeAdaptiveBucket  //!< Use adaptive bucket sorting
-    } SortModeE;   
-    
-    static SortModeE setSortMode(SortModeE mode);
-    
-    static UInt32 setNBuckets(UInt32 nbuckets);
-    
+    };   
+   
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
 
-    virtual void draw(DrawEnv             &denv, 
-                      RenderPartitionBase *part);
+    static SortModeE setSortMode(SortModeE mode    );
+    static UInt32    setNBuckets(UInt32    nbuckets);
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
+             OcclusionCullingTreeBuilder(void);
+    virtual ~OcclusionCullingTreeBuilder(void);
 
     /*------------------------- your_category -------------------------------*/
 
@@ -132,6 +133,8 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
 
     /*------------------------- assignment ----------------------------------*/
   
+    virtual void setNodePool(RenderTreeNodePool *pNodePool);
+
     /*------------------------- comparison ----------------------------------*/
 
     virtual void reset(void);
@@ -139,11 +142,13 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     /*------------------------- comparison ----------------------------------*/
 
     virtual void add(RenderActionBase    *pAction,
-                     RenderPartitionBase *part,
-                     RenderTreeNode      *pNode,
+                     RenderPartitionBase *pPart,
+                     DrawFunctor         &drawFunc,
                      State               *pState,
-                     StateOverride       *pStateOverride,
-                     UInt32               uiKeyGen      );
+                     StateOverride       *pStateOverride);
+
+    virtual void draw(DrawEnv             &denv,
+                      RenderPartitionBase *pPart);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -177,18 +182,30 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    void testNode       (RenderTreeNode      *pNode, 
+    void testNode       (OCRenderTreeNode    *pNode, 
                          DrawEnv             &denv, 
                          RenderPartitionBase *part, 
                          Real32              &scr_percent);
-    void drawNode       (RenderTreeNode      *pNode, 
+    void drawTestNode   (OCRenderTreeNode    *pNode, 
                          DrawEnv             &denv, 
                          RenderPartitionBase *part);
-    void drawTestNode   (RenderTreeNode      *pNode, 
+    void drawNode       (OCRenderTreeNode    *pNode, 
                          DrawEnv             &denv, 
                          RenderPartitionBase *part);
     void drawTestResults(DrawEnv             &denv, 
                          RenderPartitionBase *part);
+
+    OCRenderTreeNode *createNode(RenderActionBase    *pAction,
+                                 RenderPartitionBase *pPart,
+                                 DrawFunctor         &drawFunc,
+                                 State               *pState,
+                                 StateOverride       *pStateOverride);
+
+    void addNode                  (OCRenderTreeNode *pNode);
+    void addNodeAdaptiveBucketMode(OCRenderTreeNode *pNode);
+    void addNodeBucketMode        (OCRenderTreeNode *pNode);
+    void addNodeScalarMode        (OCRenderTreeNode *pNode);
+
 
     inline 
     void enterTesting(DrawEnv             &denv, 
@@ -197,9 +214,6 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     inline 
     void leaveTesting(DrawEnv             &denv, 
                       RenderPartitionBase *part);
-
-    OcclusionCullingTreeBuilder(void);
-    virtual ~OcclusionCullingTreeBuilder(void);
 
   private:
 
@@ -215,9 +229,6 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //   friend classes                                                      
     //-----------------------------------------------------------------------
 
-    friend class MultiPool<TreeBuilderBase>::TypeStore;
-    UInt32 uNumNodes;
-
     static UInt32 _extOcclusionQuery;
 
     static UInt32 _funcGenQueriesARB;
@@ -229,26 +240,29 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     static StateMTRecPtr           _testingStatePtr;
     static State                  *_testingState;
 
+    static UInt32       _numBuckets;  //!< number of buckets for approximate sorting
+    static SortModeE    _sortMode;  //!< Sorting mode to use
+
+    OCRenderTreeNode   *_pRoot;
 
     std::vector<GLuint> _testSamples;
-    UInt32  _numTestSamples;
-    bool    _isOccSetup;
-    UInt32  _currSample; //!< Last current sample test number
-    //UInt32  _currSampleBack; //!< Last number we can test to
-    UInt32  _testedNodes; //!< Number of OC tested nodes
-    bool    _inTesting;  //!< Whether in testing mode or not
+    UInt32              _numTestSamples;
+    bool                _occInitialized;
+
+    UInt32              _currSample;  //!< Last current sample test number
+    UInt32              _testedNodes; //!< Number of OC tested nodes
+    bool                _inTesting;   //!< Whether in testing mode or not
     
-    static UInt32     _nBuckets;  //!< number of buckets for approximate sorting
-    static SortModeE  _sortMode;  //!< Sorting mode to use
     
-    std::vector<RenderTreeNode*> _buckets; //!< buckets for approximate sorting
-    std::vector<RenderTreeNode*> _bucketsWork; //!< work copy of buckets
-    Real32 _bucketLow;                     //!< value for lowest bucket
-    Real32 _bucketHigh;                    //!< value for highest bucket
-    Real32 _bucketScale;                   //!< 1 / all buckets width
+    std::vector<OCRenderTreeNode*> _buckets;     //!< buckets for approximate sorting
+    std::vector<OCRenderTreeNode*> _bucketsWork; //!< work copy of buckets
+    Real32 _bucketLow;                           //!< value for lowest bucket
+    Real32 _bucketHigh;                          //!< value for highest bucket
+    Real32 _bucketScale;                         //!< 1 / all buckets width
    
-    std::vector<RenderTreeNode*> _testNodes; //!< Nodes currently being tested
-    std::queue<RenderTreeNode*> _testPendingNodes; //!< Nodes with tests pending
+    std::vector<OCRenderTreeNode*> _testNodes;        //!< Nodes currently being tested
+    std::queue <OCRenderTreeNode*> _testPendingNodes; //!< Nodes with tests pending
+    UInt32                         _numNodes;
 
     //-----------------------------------------------------------------------
     //   traversal data cache                                                    
@@ -257,7 +271,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     Matrix                  _worldToScreen;
     Int32                   _vpWidth;
     Int32                   _vpHeight;
-    RenderAction           *_rt;
+    RenderAction           *_ract;
     UInt32                 _minFeatureSize;
     UInt32                 _visPixelThreshold;
     Real32                 _coveredProbThreshold;

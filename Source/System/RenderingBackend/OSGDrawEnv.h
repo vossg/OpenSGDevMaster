@@ -49,6 +49,8 @@
 #include "OSGGLEXT.h"
 #include "OSGStatCollector.h"
 
+#include <boost/function.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
@@ -65,9 +67,15 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*==========================  PUBLIC  =================================*/
 
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
 
-    typedef RenderActionBase RAction;
+    typedef boost::function<void (DrawEnv *)>  DrawFunctor;
 
+    typedef RenderActionBase                   RAction;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */

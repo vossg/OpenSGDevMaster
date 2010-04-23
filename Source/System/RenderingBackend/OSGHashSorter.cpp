@@ -74,21 +74,19 @@ RenderTreeNode *HashSorter::find(UInt16 uiKey1,
 {
     RenderTreeNode *returnValue = NULL;
 
-    Level1Sorter::It  l1It = _oLevel1Sorter._mLevelMap.find(uiKey1);
-
-    Level2Sorter     *pL2  = 
+    Level1Sorter::LevelMapIt  l1It = _oLevel1Sorter._mLevelMap.find(uiKey1);
+    Level2Sorter             *pL2  = 
         (l1It != _oLevel1Sorter._mLevelMap.end()) ? l1It->second : NULL;
     
     if(pL2 != NULL)
     {
-        Level2Sorter::It  l2It = pL2->_mLevelMap.find(uiKey2);
-
-        Level3Sorter     *pL3  = 
+        Level2Sorter::LevelMapIt  l2It = pL2->_mLevelMap.find(uiKey2);
+        Level3Sorter             *pL3  = 
             (l2It != pL2->_mLevelMap.end()) ? l2It->second : NULL;
 
         if(pL3 != NULL)
         {
-            Level3Sorter::It l3It = pL3->_mLevelMap.find(uiKey3);
+            Level3Sorter::LevelMapIt l3It = pL3->_mLevelMap.find(uiKey3);
 
             returnValue = 
                 (l3It != pL3->_mLevelMap.end()) ? l3It->second : NULL;
@@ -104,12 +102,11 @@ void HashSorter::insert(UInt16              uiKey1,
                         RenderTreeNode     *pNode,
                         RenderTreeNodePool *pPool )
 {
-    Level1Sorter::It  l1It = _oLevel1Sorter._mLevelMap.find(uiKey1);
-
-    Level2Sorter     *pL2  = 
+    Level1Sorter::LevelMapIt  l1It = _oLevel1Sorter._mLevelMap.find(uiKey1);
+    Level2Sorter             *pL2  = 
         (l1It != _oLevel1Sorter._mLevelMap.end()) ? l1It->second : NULL;
 
-    Level3Sorter   *pL3  = NULL;
+    Level3Sorter             *pL3  = NULL;
 
     if(pL2 == NULL)
     {
@@ -118,7 +115,7 @@ void HashSorter::insert(UInt16              uiKey1,
         if(pL2->_pRoot == NULL)
             pL2->_pRoot = pNode;
 
-        pL2->_pRoot = pPool->create();
+        pL2->_pRoot = pPool->create<RenderTreeNode>();
         
         _oLevel1Sorter._pRoot->addChild(pL2->_pRoot);
         
@@ -126,7 +123,7 @@ void HashSorter::insert(UInt16              uiKey1,
     }
     else
     {
-        Level2Sorter::It  l2It = pL2->_mLevelMap.find(uiKey2);
+        Level2Sorter::LevelMapIt  l2It = pL2->_mLevelMap.find(uiKey2);
 
         pL3 = (l2It != pL2->_mLevelMap.end()) ? l2It->second : NULL; 
     }

@@ -95,6 +95,26 @@ OSG_BEGIN_NAMESPACE
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
 
+inline 
+void OcclusionCullingTreeBuilder::enterTesting(DrawEnv             &denv, 
+                                               RenderPartitionBase *part)
+{
+    if(!_inTesting)
+    {
+        _inTesting = true;
+
+        denv.activateState(_testingState, NULL);
+    }   
+}
+
+inline 
+void OcclusionCullingTreeBuilder::leaveTesting(DrawEnv             &denv, 
+                                               RenderPartitionBase *part)
+{
+    _inTesting = false;
+}
+
+
 /*-------------------------------------------------------------------------*\
  -  private                                                                -
 \*-------------------------------------------------------------------------*/

@@ -49,7 +49,9 @@
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGPool.h"
+#include "OSGRenderTreeNode.h"
 
+#include <backward/hash_fun.h>
 #include "google/dense_hash_map"
 
 OSG_BEGIN_NAMESPACE
@@ -100,7 +102,7 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
 
     /*------------------------- your_category -------------------------------*/
 
-    HashSorter(void);
+     HashSorter(void);
     ~HashSorter(void);
 
     /*------------------------- your_operators ------------------------------*/
@@ -125,7 +127,7 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
 
     /*-------------------------- comparison ---------------------------------*/
 
-    RenderTreeNode *setupLevel1Root(RenderTreeNodePool *pPool);
+    void setupLevel1Root(RenderTreeNode *pRoot);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -142,9 +144,8 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
     struct Level3Sorter
     {
         typedef google::dense_hash_map<UInt16, 
-                                       RenderTreeNode *>           LevelMap;
-        typedef google::dense_hash_map<UInt16, 
-                                       RenderTreeNode *>::iterator It;
+                                       RenderTreeNode *>  LevelMap;
+        typedef LevelMap::iterator                        LevelMapIt;
 
 
         RenderTreeNode *_pRoot;
@@ -159,9 +160,8 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
     struct Level2Sorter
     {
         typedef google::dense_hash_map<UInt16, 
-                                       Level3Sorter *>           LevelMap;
-        typedef google::dense_hash_map<UInt16, 
-                                       Level3Sorter *>::iterator It;
+                                       Level3Sorter *>  LevelMap;
+        typedef LevelMap::iterator                      LevelMapIt;
 
 
         RenderTreeNode *_pRoot;
@@ -175,20 +175,17 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
 
     struct Level1Sorter
     {
-        typedef HashSorter::Level2Sorter Level2Sorter;
-
+        typedef HashSorter::Level2Sorter                Level2Sorter;
         typedef google::dense_hash_map<UInt16, 
-                                       Level2Sorter *>           LevelMap;
-
-        typedef google::dense_hash_map<UInt16, 
-                                       Level2Sorter *>::iterator It;
+                                       Level2Sorter *>  LevelMap;
+        typedef LevelMap::iterator                      LevelMapIt;
 
         RenderTreeNode *_pRoot;
         LevelMap        _mLevelMap;
 
-        void            clear    (void                     );
-        void            init     (void                     );
-        RenderTreeNode *setupRoot(RenderTreeNodePool *pPool);
+        void            clear    (void                 );
+        void            init     (void                 );
+        void            setupRoot(RenderTreeNode *pRoot);
     };
 
     static void initLevel2Sorter(Level2Sorter *pElement);

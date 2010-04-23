@@ -38,9 +38,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 template <class PoolTag, class LockPolicy> inline
-SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void) :
-    _currentValue(0)
+SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void)
+    : Inherited    ()
+    , _currentValue(0)
 {
     initializeValue();
 }
@@ -48,7 +50,6 @@ SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void) :
 template <class PoolTag, class LockPolicy> inline
 SimplePool<Int32, PoolTag, LockPolicy>::~SimplePool(void)
 {
-    
 }
 
 template <class PoolTag, class LockPolicy> inline
@@ -66,148 +67,139 @@ void SimplePool<Int32, PoolTag, LockPolicy>::release(Int32)
 {
 }
 
-    
+
 template <class PoolTag, class LockPolicy> inline
 void SimplePool<Int32, PoolTag, LockPolicy>::printStat(void)
 {
     fprintf(stderr, "\n%d\n", _currentValue());
 }
 
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy> inline
-ValueT *SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::create(void)
-{
-    ValueT *returnValue = NULL;
-
-    if(_currentFreeElement != _elementStore.end())
-    {
-        returnValue = *_currentFreeElement;
-
-        ++_currentFreeElement;
-
-        returnValue->reset();
-
-        ++_uiReused;
-    }
-    else
-    {
-        returnValue = new ValueT();
-
-        RefCountPolicy::addRef(returnValue);
-
-        _elementStore.push_back(returnValue);
-
-        _currentFreeElement = _elementStore.end();
-
-        ++_uiAllocated;
-    }
-    
-    return returnValue;
-}
-
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy>
-template<class ParameterT> inline
-ValueT *SimplePool<ValueT, 
-                   PoolTag, 
-                   RefCountPolicy, 
-                   LockPolicy    >::create(ParameterT oParam)
-{
-    ValueT *returnValue = NULL;
-
-    if(_currentFreeElement != _elementStore.end())
-    {
-        returnValue = *_currentFreeElement;
-
-        ++_currentFreeElement;
-
-        returnValue->reset(oParam);
-
-        ++_uiReused;
-    }
-    else
-    {
-        returnValue = new ValueT(oParam);
-
-        RefCountPolicy::addRef(returnValue);
-
-        _elementStore.push_back(returnValue);
-
-        _currentFreeElement = _elementStore.end();
-
-        ++_uiAllocated;
-    }
-    
-    return returnValue;
-}
-
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy> inline
-void SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::freeAll(void)
-{
-    _currentFreeElement = _elementStore.begin();
-
-    _uiAllocated = 0;
-    _uiReused    = 0;
-}
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy> inline
-SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::SimplePool(void) :
-    _elementStore      ( ),
-    _currentFreeElement( ),
-    _uiAllocated       (0),
-    _uiReused          (0)
+template <class ValueTypeT,
+          class PoolTagT,
+          class RefCountPolicyT,
+          class LockPolicyT     >
+SimplePool<ValueTypeT,      PoolTagT,
+           RefCountPolicyT, LockPolicyT>::SimplePool(void)
+    : Inherited()
+    , _values  ()
 {
-    _currentFreeElement = _elementStore.end();
 }
 
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy> inline
-SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::~SimplePool(void)
+template <class ValueTypeT,
+          class PoolTagT,
+          class RefCountPolicyT,
+          class LockPolicyT     >
+SimplePool<ValueTypeT,      PoolTagT,
+           RefCountPolicyT, LockPolicyT>::~SimplePool(void)
 {
+    destroyAll();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Create                                   */
+
+template <class ValueTypeT,
+          class PoolTagT,
+          class RefCountPolicyT,
+          class LockPolicyT     >
+inline
+typename SimplePool<ValueTypeT,      PoolTagT,
+                    RefCountPolicyT, LockPolicyT>::ValueType *
+SimplePool<ValueTypeT,      PoolTagT,
+           RefCountPolicyT, LockPolicyT>::create(void)
+{
+    ValueType *retVal = NULL;
+
+    if(_nextFreeElement < _values.size())
+    {
+        retVal = _values[_nextFreeElement];
+        retVal->reset();
+
+        ++_nextFreeElement;
+        ++_numReused;
+    }
+    else
+    {
+        retVal = new ValueType();
+        RefCountPolicy::addRef(retVal);
+
+        _values.push_back(retVal);
+
+        _nextFreeElement = _values.size();
+        ++_numAllocated;
+    }
+
+    return retVal;
+}
+
+template <class ValueTypeT,
+          class PoolTagT,
+          class RefCountPolicyT,
+          class LockPolicyT     >
+template <class Param0T         >
+inline
+typename SimplePool<ValueTypeT,      PoolTagT,
+                    RefCountPolicyT, LockPolicyT>::ValueType *
+SimplePool<ValueTypeT,      PoolTagT,
+           RefCountPolicyT, LockPolicyT>::create(Param0T param0)
+{
+    ValueType *retVal = NULL;
+
+    if(_nextFreeElement < _values.size())
+    {
+        retVal = _values[_nextFreeElement];
+        retVal->reset(param0);
+
+        ++_nextFreeElement;
+        ++_numReused;
+    }
+    else
+    {
+        retVal = new ValueType(param0);
+        RefCountPolicy::addRef(retVal);
+
+        _values.push_back(retVal);
+
+        _nextFreeElement = _values.size();
+        ++_numAllocated;
+    }
+
+    return retVal;
+}
+
+template <class ValueTypeT,
+          class PoolTagT,
+          class RefCountPolicyT,
+          class LockPolicyT     >
+void
+SimplePool<ValueTypeT,      PoolTagT,
+           RefCountPolicyT, LockPolicyT>::destroyAll(void)
+{
+    ValueStoreIt vIt  = _values.begin();
+    ValueStoreIt vEnd = _values.end  ();
+
     if(RefCountPolicy::NotCounting == true)
     {
-        for(UInt32 i = 0; i < _elementStore.size(); ++i)
+        for(; vIt != vEnd; ++vIt)
         {
-            delete _elementStore[i];
+            delete *vIt;
         }
     }
     else
     {
-        for(UInt32 i = 0; i < _elementStore.size(); ++i)
+        for(; vIt != vEnd; ++vIt)
         {
-            RefCountPolicy::subRef(_elementStore[i]);
+            RefCountPolicy::subRef(*vIt);
         }
     }
-}
 
-template <class ValueT, 
-          class PoolTag, 
-          class RefCountPolicy, 
-          class LockPolicy> inline
-void SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::printStat(void)
-{
-    fprintf(stderr, "\n%d | %d | %d\n", 
-            _uiAllocated, 
-            _uiReused, 
-            _elementStore.size());
+    _values.clear();
 }
 
 OSG_END_NAMESPACE

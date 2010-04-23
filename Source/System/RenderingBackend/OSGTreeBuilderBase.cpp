@@ -54,15 +54,17 @@ OSG_USING_NAMESPACE
     \ingroup GrpSystemRenderingBackend
  */
 
-const TreeBuilderBase TreeBuilderBase::Proto;
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 
-TreeBuilderBase::TreeBuilderBase(void) :
-    _pNodePool      (NULL    ),
-    _pRoot          (NULL    )
+TreeBuilderBase::TreeBuilderBase(void)
+  : _pNodePool      (NULL)
+  , _uiNodePoolIdx  (0   )
+  , _uiActiveMatrix (0   )
+  , _uiMatrixId     (0   )
+  , _currMatrix     (    )
+  , _accMatrix      (    )
 {
 }
 
@@ -70,35 +72,14 @@ TreeBuilderBase::~TreeBuilderBase(void)
 {
 }
 
+void TreeBuilderBase::setNodePool(RenderTreeNodePool *pNodePool)
+{
+    _pNodePool = pNodePool;
+}
 
 void TreeBuilderBase::reset(void)
 {
-    _pRoot = NULL;
     _uiMatrixId = 0;
-}
-
-
-void TreeBuilderBase::add(RenderActionBase    *pAction,
-                          RenderPartitionBase *part,
-                          RenderTreeNode      *pNode,
-                          State               *pState,
-                          StateOverride       *pStateOverride,
-                          UInt32               uiKeyGen      )
-{
-    if(_pRoot == NULL)
-    {
-        _pRoot = _pNodePool->create();
-    }
-    
-    _pRoot->addChild(pNode);
-}
-
-
-void TreeBuilderBase::draw(DrawEnv &denv, RenderPartitionBase *part)
-{
-    _uiActiveMatrix = 0;
-    
-    drawNode(_pRoot, denv, part);
 }
 
 void TreeBuilderBase::drawNode(RenderTreeNode      *pNode, 

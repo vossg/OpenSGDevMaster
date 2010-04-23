@@ -54,13 +54,13 @@ OSG_USING_NAMESPACE
     \ingroup GrpSystemRenderingBackend
  */
 
-ScalarSortTreeBuilder ScalarSortTreeBuilder::Proto;
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 
 ScalarSortTreeBuilder::ScalarSortTreeBuilder(void)
+    : Inherited()
+    , _pRoot   (NULL)
 {
 }
 
@@ -68,23 +68,35 @@ ScalarSortTreeBuilder::~ScalarSortTreeBuilder(void)
 {
 }
 
+void
+ScalarSortTreeBuilder::setNodePool(RenderTreeNodePool *pNodePool)
+{
+    Inherited::setNodePool(pNodePool);
+
+    _uiNodePoolIdx = _pNodePool->registerType<RenderTreeNode>();
+}
 
 void ScalarSortTreeBuilder::reset(void)
 {
     TreeBuilderBase::reset();
+
+    _pRoot = NULL;
 }
 
+void
+ScalarSortTreeBuilder::draw(DrawEnv &denv, RenderPartitionBase *pPart)
+{
+    _uiActiveMatrix = 0;
 
-void ScalarSortTreeBuilder::add(RenderActionBase    *pAction,
-                                RenderPartitionBase *part,
-                                RenderTreeNode      *pNode,
-                                State               *pState,
-                                StateOverride       *pStateOverride,
-                                UInt32               uiKeyGen      )
+    Inherited::drawNode(_pRoot, denv, pPart);
+}
+
+void
+ScalarSortTreeBuilder::addNode(RenderTreeNode *pNode)
 {
     if(_pRoot == NULL)
     {
-        _pRoot = _pNodePool->create();
+        _pRoot = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
     }
 
     if(_pRoot->getFirstChild() == NULL)
@@ -94,9 +106,8 @@ void ScalarSortTreeBuilder::add(RenderActionBase    *pAction,
     else
     {
         RenderTreeNode *pCurrent = _pRoot->getFirstChild();
-
         RenderTreeNode *pLast    = NULL;
-        bool            bFound   = false;
+        bool            found    = false;
 
         do
         {
@@ -107,13 +118,12 @@ void ScalarSortTreeBuilder::add(RenderActionBase    *pAction,
             }
             else
             {
-                bFound = true;
+                found = true;
             }
+        }
+        while(found == false && pCurrent != NULL);
 
-        } while(bFound   == false && 
-                pCurrent != NULL    );
-
-        if(bFound == true)
+        if(found == true)
         {
             if(pLast == NULL)
             {

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                    Copyright (C) 2010 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,41 +36,20 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
+#include "OSGOCRenderTreeNode.h"
 
-#include "OSGConfig.h"
+OSG_BEGIN_NAMESPACE
 
-#include "OSGRenderTreeNode.h"
-#include "OSGBaseFunctions.h"
-
-OSG_USING_NAMESPACE
-
-/*! \class OSG::RenderTreeNode
-    \ingroup GrpSystemRenderingBackend
- */
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-RenderTreeNode::RenderTreeNode(void) :
-    _pFirstChild   (NULL ),
-    _pLastChild    (NULL ),
-    _pBrother      (NULL ),
-    _pState        (NULL ),
-    _pStateOverride(NULL),
-    _functor       (     ),
-    _oMatrixStore  (     ),
-    _rScalarVal    (0.f  ),
-    _lightState    (0    ),
-    _node          (NULL )
-{
-    _oMatrixStore.first = 0;
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-RenderTreeNode::~RenderTreeNode(void)
+OCRenderTreeNode::OCRenderTreeNode(void)
+    : Inherited  ()
+    , _bVol      ()
+    , _resultNum (0)
+    , _isRendered(false)
 {
 }
+
+OCRenderTreeNode::~OCRenderTreeNode(void)
+{
+}
+
+OSG_END_NAMESPACE

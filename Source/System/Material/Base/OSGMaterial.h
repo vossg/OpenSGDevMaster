@@ -69,9 +69,6 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-    typedef boost::function<Action::ResultE (DrawEnv *)> DrawFunctor;
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Constants                                 */
     /*! \{                                                                 */

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                    Copyright (C) 2010 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,41 +36,55 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
+OSG_BEGIN_NAMESPACE
 
-#include "OSGConfig.h"
+inline void
+OCRenderTreeNode::setVolume(const BoxVolume &vol)
+{
+    _bVol = vol;
+}
 
-#include "OSGRenderTreeNode.h"
-#include "OSGBaseFunctions.h"
+inline const BoxVolume &
+OCRenderTreeNode::getVolume(void) const
+{
+    return _bVol;
+}
 
-OSG_USING_NAMESPACE
+inline void
+OCRenderTreeNode::setResultNum(UInt32 resultNum)
+{
+    _resultNum = resultNum;
+}
 
-/*! \class OSG::RenderTreeNode
-    \ingroup GrpSystemRenderingBackend
+inline UInt32
+OCRenderTreeNode::getResultNum(void) const
+{
+    return _resultNum;
+}
+
+inline void
+OCRenderTreeNode::setIsRendered(bool value)
+{
+    _isRendered = value;
+}
+
+inline bool
+OCRenderTreeNode::getIsRendered(void) const
+{
+    return _isRendered;
+}
+
+/*! \note Not virtual, because the pools always have a pointer
+          of the exact type and we avoid the virtual call overhead.
  */
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-RenderTreeNode::RenderTreeNode(void) :
-    _pFirstChild   (NULL ),
-    _pLastChild    (NULL ),
-    _pBrother      (NULL ),
-    _pState        (NULL ),
-    _pStateOverride(NULL),
-    _functor       (     ),
-    _oMatrixStore  (     ),
-    _rScalarVal    (0.f  ),
-    _lightState    (0    ),
-    _node          (NULL )
+inline void
+OCRenderTreeNode::reset(void)
 {
-    _oMatrixStore.first = 0;
+    Inherited::reset();
+
+    _bVol.setEmpty();
+    _resultNum  = 0;
+    _isRendered = false;
 }
 
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-RenderTreeNode::~RenderTreeNode(void)
-{
-}
+OSG_END_NAMESPACE

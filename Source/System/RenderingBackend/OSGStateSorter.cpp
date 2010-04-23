@@ -80,9 +80,14 @@ void StateSorter::add(RenderTreeNode *pNode,
 {
     if(_pRoot == NULL)
     {
-        _pRoot = _pNodePool->create();
+        _pRoot                  =
+            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
+        RenderTreeNode *pL1Root =
+            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
-        _pRoot->addChild(_oSorter.setupLevel1Root(_pNodePool));
+        _oSorter.setupLevel1Root(pL1Root);
+
+        _pRoot->addChild(pL1Root);
     }
 
     if(_eSortMode == StateKey)
@@ -103,7 +108,7 @@ void StateSorter::add(RenderTreeNode *pNode,
 
             if(msIt == _mFallbackSorter.end() || msIt->first != uiSortKey)
             {
-                pMatElem = _pNodePool->create();
+                pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
         
                 pMatElem->setState        (pState        );
                 pMatElem->setStateOverride(pStateOverride);
@@ -145,7 +150,7 @@ void StateSorter::add(RenderTreeNode *pNode,
 
             if(pMatElem == NULL)
             {
-                pMatElem = _pNodePool->create();
+                pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
         
 //                pMatElem->setState        (pState        );
 //                pMatElem->setStateOverride(pStateOverride);

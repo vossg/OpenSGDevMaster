@@ -44,8 +44,8 @@
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGMaterial.h"
 #include "OSGRenderingBackendFwd.h"
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -59,13 +59,29 @@ class State;
 class OSG_SYSTEM_DLLMAPPING RenderTreeNode
 {
     /*==========================  PUBLIC  =================================*/
-
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Types                                   */
+    /*! \{                                                                 */
 
-    typedef Material::DrawFunctor     DrawFunctor;
-//    typedef RenderAction::MatrixStore MatrixStore;
+    typedef DrawEnv::DrawFunctor      DrawFunctor;
     typedef std::pair<UInt32, Matrix> MatrixStore;
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    RenderTreeNode(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~RenderTreeNode(void); 
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
@@ -78,12 +94,12 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
     void            insertChildAfter(RenderTreeNode    *pCurrent, 
                                      RenderTreeNode    *pChild        );
 
-    RenderTreeNode *getBrother      (void);
+    RenderTreeNode *getBrother      (void                             );
     void            setBrother      (RenderTreeNode    *pBrother      );
     void            insertBrother   (RenderTreeNode    *pBrother      );
 
     void            setFunctor      (DrawFunctor       &func          );
-    DrawFunctor    &getFunctor(void                                   );
+    DrawFunctor    &getFunctor      (void                             );
     bool            hasFunctor      (void                             );
     
     void            setState        (State             *pState        );
@@ -97,15 +113,6 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
 
     void            setScalar       (Real32             rScalar       );
     Real32          getScalar       (void                             );
-
-    void            setVol          (const BoxVolume   &vol           );
-    BoxVolume       getVol          (void                             );
-
-    void            setIsRendered   (bool               bRendered     );   
-    bool            getIsRendered   (void                             );
-
-    void            setResultNum    (UInt32             uiResNum      );
-    UInt32          getResultNum    (void                             );
 
     void            setLightState   (UInt32             state         );
     UInt32          getLightState   (void                             );
@@ -133,47 +140,19 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
     StateOverride  *_pStateOverride;
 
     DrawFunctor     _functor;
-    bool            _hasFunctor;
     
     MatrixStore     _oMatrixStore;        
 
     //! Scalar value for sorting. Expected to be in 0..1
     Real32          _rScalarVal;    
 
-    BoxVolume       _bVol;
-
-    bool            _isRendered;
-
-    UInt32          _resultNum;
-
     UInt32          _lightState;
     
     Node           *_node;
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    RenderTreeNode(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~RenderTreeNode(void); 
-
-    /*! \}                                                                 */
-
     /*==========================  PRIVATE  ================================*/
-
   private:
-
-    friend class SimplePool<RenderTreeNode, 
-                            PoolDefaultTag, 
-                            NoRefCountPolicy,
-                            NoLockPolicy    >;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     RenderTreeNode(const RenderTreeNode &source);

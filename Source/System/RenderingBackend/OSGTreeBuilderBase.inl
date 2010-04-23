@@ -81,19 +81,7 @@ OSG_BEGIN_NAMESPACE
 
 /*------------- constructors & destructors --------------------------------*/
 
-inline
-void TreeBuilderBase::setNodePool(RenderTreeNodePool *pNodePool)
-{
-    _pNodePool = pNodePool;
-}
-
 /*------------------------------ access -----------------------------------*/
-
-inline
-RenderTreeNode *TreeBuilderBase::getRoot(void)
-{
-    return _pRoot;
-}
 
 /*---------------------------- properties ---------------------------------*/
 

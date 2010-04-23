@@ -45,6 +45,7 @@
 #include "OSGMaterialDrawableBase.h"
 
 #include "OSGAction.h"
+#include "OSGDrawEnv.h"
 #include "OSGMaterial.h"
 
 OSG_BEGIN_NAMESPACE
@@ -70,7 +71,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 
     // draw the OpenGL primitives
 
-    virtual Action::ResultE drawPrimitives          (DrawEnv *pEnv  );
+    virtual void            drawPrimitives          (DrawEnv *pEnv  );
 
             Action::ResultE renderActionEnterHandler(Action  *action);
             Action::ResultE renderActionLeaveHandler(Action  *action);
@@ -98,6 +99,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 
     // Variables should all be in MaterialDrawableBase.
 
+    DrawEnv::DrawFunctor _drawFunc;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -118,6 +121,9 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+           void onCreateAspect(const FieldContainer *createAspect,
+                               const FieldContainer *source      = NULL);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

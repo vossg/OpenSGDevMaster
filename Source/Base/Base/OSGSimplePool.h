@@ -45,6 +45,7 @@
 #include "OSGLockPolicies.h"
 #include "OSGBaseRefCountPoliciesFwd.h"
 
+#include <iosfwd>
 #include <vector>
 
 OSG_BEGIN_NAMESPACE
@@ -57,16 +58,70 @@ class PoolDefaultTag;
     \nohierarchy
 */
 
-template <class ValueT, 
-          class PoolTag        = PoolDefaultTag,
-          class RefCountPolicy = NoRefCountPolicy,
-          class LockPolicy     = NoLockPolicy    >
-class SimplePool 
+class SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
-
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name            Constructors, Destructor                          */
+    /*! \{                                                                 */
 
+             SimplePoolBase(void);
+    virtual ~SimplePoolBase(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Free                                   */
+    /*! \{                                                                 */
+
+    void freeAll(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       stat                                   */
+    /*! \{                                                                 */
+
+    void printStat(std::ostream &os);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    UInt32 _nextFreeElement;
+    UInt32 _numAllocated;
+    UInt32 _numReused;
+
+    /*==========================  PRIVATE  ================================*/
+  private:
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SimplePoolBase(const SimplePoolBase &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator=(const SimplePoolBase &source);
+};
+
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+*/
+
+template <class ValueTypeT,
+          class PoolTagT        = PoolDefaultTag,
+          class RefCountPolicyT = NoRefCountPolicy,
+          class LockPolicyT     = NoLockPolicy    >
+class SimplePool : public SimplePoolBase
+{
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
+
+    typedef SimplePoolBase   Inherited;
+    typedef ValueTypeT       ValueType;
+    typedef RefCountPolicyT  RefCountPolicy;
+    typedef LockPolicyT      LockPolicy;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -82,47 +137,33 @@ class SimplePool
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      create                                  */
+    /*! \name                    Create                                    */
     /*! \{                                                                 */
 
-    ValueT *create(void);
+    ValueType *create(void);
 
-    template<class ParameterT>
-    ValueT *create(ParameterT oParam);
+    template<class Param0T>
+    ValueType *create(Param0T param0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       free                                   */
+    /*! \name                     Destroy                                  */
     /*! \{                                                                 */
-    
-    void freeAll(void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       stat                                   */
-    /*! \{                                                                 */
-    
-    void printStat(void);
+    void destroyAll(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
 
-    typedef          std::vector<ValueT *>           ValueStore;
+    typedef          std::vector<ValueType *>  ValueStore;
+    typedef typename ValueStore::iterator      ValueStoreIt;
 
-    typedef typename std::vector<ValueT *>::iterator ValueStoreIt;
-
-    
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    ValueStore   _elementStore;
-    ValueStoreIt _currentFreeElement;
-
-    UInt32       _uiAllocated;
-    UInt32       _uiReused;
+    ValueStore _values;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -141,12 +182,19 @@ class SimplePool
     \nohierarchy
 */
 
-template<class PoolTag, class LockPolicy>
-class SimplePool<Int32, PoolTag, LockPolicy>
+template<class PoolTagT, class LockPolicyT>
+class SimplePool<Int32, PoolTagT, LockPolicyT> : public SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
-
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
+
+    typedef SimplePoolBase    Inherited;
+    typedef Int32             ValueType;
+    typedef NoRefCountPolicy  RefCountPolicy;
+    typedef LockPolicyT       LockPolicy;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -173,14 +221,14 @@ class SimplePool<Int32, PoolTag, LockPolicy>
     /*---------------------------------------------------------------------*/
     /*! \name                       free                                   */
     /*! \{                                                                 */
-    
+
 //    void freeAll(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       stat                                   */
     /*! \{                                                                 */
-    
+
     void printStat(void);
 
     /*! \}                                                                 */
