@@ -48,7 +48,7 @@
 
 //#define OSG_DUMP_SORTING
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::TreeBuilderBase
     \ingroup GrpSystemRenderingBackend
@@ -58,13 +58,13 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 
-TreeBuilderBase::TreeBuilderBase(void)
-  : _pNodePool      (NULL)
-  , _uiNodePoolIdx  (0   )
-  , _uiActiveMatrix (0   )
-  , _uiMatrixId     (0   )
-  , _currMatrix     (    )
-  , _accMatrix      (    )
+TreeBuilderBase::TreeBuilderBase(void) :
+    _pNodePool      (NULL),
+    _uiNodePoolIdx  (0   ),
+    _uiActiveMatrix (0   ),
+    _uiMatrixId     (0   ),
+    _currMatrix     (    ),
+    _accMatrix      (    )
 {
 }
 
@@ -82,8 +82,8 @@ void TreeBuilderBase::reset(void)
     _uiMatrixId = 0;
 }
 
-void TreeBuilderBase::drawNode(RenderTreeNode      *pNode, 
-                               DrawEnv             &denv, 
+void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
+                               DrawEnv             &denv,
                                RenderPartitionBase *part)
 {
     while (pNode != NULL)
@@ -104,9 +104,9 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
 
             ++part->_uiNumMatrixChanges;
 
-            // Negative scaled matrices in conjunction with double sided 
+            // Negative scaled matrices in conjunction with double sided
             // lighting
-            // gives wrong render results cause the lighting itselfs gets 
+            // gives wrong render results cause the lighting itselfs gets
             // inverted. This corrects this behavior.
 
             if(part->_bCorrectNegScale)
@@ -143,7 +143,7 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
         {
             drawNode(pNode->getFirstChild(), denv, part);
         }
-        
+
         pNode = pNode->getBrother();
     }
 }
@@ -158,3 +158,5 @@ const Matrix &TreeBuilderBase::topMatrix(void)
 {
     return _accMatrix;
 }
+
+OSG_END_NAMESPACE

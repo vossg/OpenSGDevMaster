@@ -40,9 +40,9 @@ OSG_BEGIN_NAMESPACE
 
 
 template <class PoolTag, class LockPolicy> inline
-SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void)
-    : Inherited    ()
-    , _currentValue(0)
+SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void) :
+    Inherited    ( ),
+    _currentValue(0)
 {
     initializeValue();
 }
@@ -82,9 +82,9 @@ template <class ValueTypeT,
           class RefCountPolicyT,
           class LockPolicyT     >
 SimplePool<ValueTypeT,      PoolTagT,
-           RefCountPolicyT, LockPolicyT>::SimplePool(void)
-    : Inherited()
-    , _values  ()
+           RefCountPolicyT, LockPolicyT>::SimplePool(void) :
+    Inherited(),
+    _values  ()
 {
 }
 

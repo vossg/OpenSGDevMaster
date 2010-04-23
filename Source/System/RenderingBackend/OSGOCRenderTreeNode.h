@@ -54,7 +54,7 @@ class OSG_SYSTEM_DLLMAPPING OCRenderTreeNode : public RenderTreeNode
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
-    
+
     typedef RenderTreeNode  Inherited;
 
     /*! \}                                                                 */
@@ -63,7 +63,7 @@ class OSG_SYSTEM_DLLMAPPING OCRenderTreeNode : public RenderTreeNode
     /*! \{                                                                 */
 
              OCRenderTreeNode(void);
-    virtual ~OCRenderTreeNode(void); 
+    virtual ~OCRenderTreeNode(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -104,7 +104,7 @@ class OSG_SYSTEM_DLLMAPPING OCRenderTreeNode : public RenderTreeNode
     /*! \brief prohibit default function (move to 'public' if needed) */
     OCRenderTreeNode(const OCRenderTreeNode &source);
     /*! \brief prohibit default function (move to 'public' if needed) */
-    void operator =(const OCRenderTreeNode &source);  
+    void operator =(const OCRenderTreeNode &source);
 };
 
 OSG_END_NAMESPACE

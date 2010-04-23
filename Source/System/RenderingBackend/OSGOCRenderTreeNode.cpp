@@ -40,11 +40,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-OCRenderTreeNode::OCRenderTreeNode(void)
-    : Inherited  ()
-    , _bVol      ()
-    , _resultNum (0)
-    , _isRendered(false)
+OCRenderTreeNode::OCRenderTreeNode(void) :
+    Inherited  (),
+    _bVol      (),
+    _resultNum (0),
+    _isRendered(false)
 {
 }
 

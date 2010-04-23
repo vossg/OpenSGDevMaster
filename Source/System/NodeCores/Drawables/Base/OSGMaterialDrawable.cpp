@@ -61,16 +61,16 @@ OSG_USING_NAMESPACE
 /*----------------------- constructors & destructors ----------------------*/
 
 //! Constructor
-MaterialDrawable::MaterialDrawable(void)
-    : Inherited()
-    , _drawFunc()
+MaterialDrawable::MaterialDrawable(void) :
+    Inherited(),
+    _drawFunc()
 {
 }
 
 //! Copy Constructor
-MaterialDrawable::MaterialDrawable(const MaterialDrawable &source)
-    : Inherited(source)
-    , _drawFunc()
+MaterialDrawable::MaterialDrawable(const MaterialDrawable &source) :
+    Inherited(source),
+    _drawFunc()
 {
 }
 
@@ -118,7 +118,7 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         
         if(st != NULL)
         {
-            a->dropFunctor(_drawFunc, 
+            a->dropFunctor(_drawFunc,
                            st, 
                            pPrimeMat->getSortKey() + uiPass);
         }

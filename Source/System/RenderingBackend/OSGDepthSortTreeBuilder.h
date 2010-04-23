@@ -59,7 +59,7 @@ class OSG_SYSTEM_DLLMAPPING DepthSortTreeBuilder : public ScalarSortTreeBuilder
     /*---------------------------------------------------------------------*/
     /*! \name            Constructors & Destructor                         */
     /*! \{                                                                 */
-    
+
              DepthSortTreeBuilder(void);
     virtual ~DepthSortTreeBuilder(void);
 

@@ -42,10 +42,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-SimplePoolBase::SimplePoolBase(void)
-  : _nextFreeElement(0)
-  , _numAllocated   (0)
-  , _numReused      (0)
+SimplePoolBase::SimplePoolBase(void) :
+    _nextFreeElement(0),
+    _numAllocated   (0),
+    _numReused      (0)
 {
 }
 

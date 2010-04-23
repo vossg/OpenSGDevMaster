@@ -48,7 +48,7 @@
 
 //#define OSG_DUMP_SORTING
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::ScalarSortTreeBuilder
     \ingroup GrpSystemRenderingBackend
@@ -58,9 +58,9 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 
-ScalarSortTreeBuilder::ScalarSortTreeBuilder(void)
-    : Inherited()
-    , _pRoot   (NULL)
+ScalarSortTreeBuilder::ScalarSortTreeBuilder(void) :
+    Inherited(),
+    _pRoot   (NULL)
 {
 }
 
@@ -140,3 +140,5 @@ ScalarSortTreeBuilder::addNode(RenderTreeNode *pNode)
         }
     }
 }
+
+OSG_END_NAMESPACE

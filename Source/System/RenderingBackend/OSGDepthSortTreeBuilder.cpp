@@ -42,8 +42,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-DepthSortTreeBuilder::DepthSortTreeBuilder(void)
-    : Inherited()
+DepthSortTreeBuilder::DepthSortTreeBuilder(void) :
+    Inherited()
 {
 }
 

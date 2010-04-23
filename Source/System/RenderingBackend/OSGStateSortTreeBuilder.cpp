@@ -50,7 +50,7 @@
 
 //#define OSG_DUMP_SORTING
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::StateSortTreeBuilder
     \ingroup 
@@ -60,10 +60,10 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 
-StateSortTreeBuilder::StateSortTreeBuilder(void)
-    : _pRoot          (NULL)
-    , _oSorter        ()
-    , _mFallbackSorter()
+StateSortTreeBuilder::StateSortTreeBuilder(void) :
+     _pRoot          (NULL),
+     _oSorter        (),
+     _mFallbackSorter()
 {
 }
 
@@ -189,104 +189,4 @@ void StateSortTreeBuilder::draw(DrawEnv &denv, RenderPartitionBase *pPart)
     Inherited::drawNode(_pRoot, denv, pPart);
 }
 
-#if 0
-void StateSortTreeBuilder::add(RenderActionBase    *pAction,
-                               RenderPartitionBase *part,
-                               RenderTreeNode      *pNode,
-                               State               *pState,
-                               StateOverride       *pStateOverride,
-                               UInt32               uiKeyGen      )
-{
-    if(_pRoot == NULL)
-    {
-        _pRoot                  =
-            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
-        RenderTreeNode *pL1Root =
-            _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
-
-        _oSorter.setupLevel1Root(pL1Root);
-
-        _pRoot->addChild(pL1Root);
-    }
-
-    UInt32 uiSortKey = pState->getSortKey(uiKeyGen);
-
-    if(pStateOverride != NULL)
-    {
-        pStateOverride->updateSortKey(uiSortKey, uiKeyGen);
-    }
-
-    // Default Mat Id sorting
-    if(uiSortKey > State::DefaultKeyMask)
-    {
-        MapSorterIt msIt = _mFallbackSorter.lower_bound(uiSortKey);
-
-        RenderTreeNode *pMatElem = NULL;
-
-        if(msIt == _mFallbackSorter.end() || msIt->first != uiSortKey)
-        {
-            pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
-
-            pMatElem->setState        (pState        );
-            pMatElem->setStateOverride(pStateOverride);
-
-            _mFallbackSorter.insert(msIt, std::make_pair(uiSortKey, 
-                                                         pMatElem ));
-
-            _pRoot->addChild(pMatElem);
-        }
-        else
-        {
-            pMatElem = msIt->second;
-        }
-
-
-        pMatElem->addChild(pNode);
-    }
-    else
-    {
-#ifdef OSG_DUMP_SORTING
-        fprintf(stderr, "Sort by chunk\n");
-#endif
-
-        UInt32 uiKey1 =  uiSortKey & State::Key1Mask;
-        UInt32 uiKey2 = (uiSortKey & State::Key2Mask) >> 10;
-        UInt32 uiKey3 = (uiSortKey & State::Key3Mask) >> 20;
-
-#ifdef OSG_DUMP_SORTING
-        fprintf(stderr, "Got Keys %d %d %d\n", uiKey1, uiKey2, uiKey3);
-#endif
-
-        RenderTreeNode *pMatElem = _oSorter.find(uiKey1,
-                                                 uiKey2,
-                                                 uiKey3);
-
-#ifdef OSG_DUMP_SORTING
-        fprintf(stderr, "got %p\n", pMatElem);
-#endif
-
-        if(pMatElem == NULL)
-        {
-            pMatElem = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
-
-//                pMatElem->setState        (pState        );
-//                pMatElem->setStateOverride(pStateOverride);
-
-            _oSorter.insert( uiKey1,
-                             uiKey2,
-                             uiKey3,
-                             pMatElem,
-                            _pNodePool);
-
-#ifdef OSG_DUMP_SORTING
-            fprintf(stderr, "Insert %p\n", pMatElem);
-#endif
-        }
-
-        pMatElem->addChild(pNode);
-
-        pNode->setState        (pState        );
-        pNode->setStateOverride(pStateOverride);
-    }
-}
-#endif
+OSG_END_NAMESPACE
