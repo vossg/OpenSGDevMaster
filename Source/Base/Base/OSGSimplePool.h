@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGLockPolicies.h"
-#include "OSGRefCountPolicies.h"
+#include "OSGBaseRefCountPoliciesFwd.h"
 
 #include <vector>
 

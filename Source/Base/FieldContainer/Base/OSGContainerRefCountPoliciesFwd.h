@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *              Copyright (C) 2010 by the OpenSG Forum                       *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,81 +36,18 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERMFIELDS_H_
-#define _OSGFIELDCONTAINERMFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCONTAINERREFCOUNTPOLICIESFWD_H_
+#define _OSGCONTAINERREFCOUNTPOLICIESFWD_H_
 
-#include "OSGMField.h"
-
-#include "OSGFieldContainerFieldTraits.h"
-
-#include "OSGPointerMField.h"
-#include "OSGParentPointerMField.h"
-#include "OSGChildPointerMField.h"
-
-#include "OSGFieldContainerMFieldHandle.h"  
-
-#include "OSGBaseRefCountPolicies.h"
-#include "OSGContainerRefCountPolicies.h"
+#include "OSGConfig.h"
+#include "OSGBaseDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      RecordedRefCountPolicy  > MFRecFieldContainerPtr;
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      UnrecordedRefCountPolicy> MFUnrecFieldContainerPtr;
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      WeakRefCountPolicy      > MFWeakFieldContainerPtr;
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      NoRefCountPolicy        > MFUncountedFieldContainerPtr;
-
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef 
-    ParentPointerMField<FieldContainer *, 
-                        NoRefCountPolicy,
-                        1                > MFParentFieldContainerPtr;
-
-#else // these are the doxygen hacks
-
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFRecFieldContainerPtr : 
-    public PointerMField<FieldContainer *,
-                         RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFUnrecFieldContainerPtr :
-    public PointerMField<FieldContainer *,
-                         UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFWeakFieldContainerPtr : 
-    public PointerMField<FieldContainer *,
-                         WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFUncountedFieldContainerPtr :
-    public : PointerMField<FieldContainer *,
-                           NoRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFParentFieldContainerPtr :
-    public ParentPointerMField<FieldContainer *, 
-                               NoRefCountPolicy,
-                               1                 > {};
-
-#endif // these are the doxygen hacks
+struct OSG_BASE_DLLMAPPING RecordedRefCountPolicy;
+struct OSG_BASE_DLLMAPPING UnrecordedRefCountPolicy;
+struct OSG_BASE_DLLMAPPING WeakRefCountPolicy;
 
 OSG_END_NAMESPACE
 
-#include "OSGFieldContainerMFields.inl"
-
-#endif /* _OSGFIELDCONTAINERMFIELDS_H_ */
+#endif // _OSGCONTAINERREFCOUNTPOLICIESFWD_H_

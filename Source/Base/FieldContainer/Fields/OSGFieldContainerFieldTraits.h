@@ -48,7 +48,8 @@
 #include "OSGContainerForwards.h"
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.h"
-#include "OSGRefCountPolicies.h"
+#include "OSGBaseRefCountPoliciesFwd.h"
+#include "OSGContainerRefCountPoliciesFwd.h"
 
 OSG_BEGIN_NAMESPACE
 

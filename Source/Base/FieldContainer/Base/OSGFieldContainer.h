@@ -600,7 +600,8 @@ OSG_END_NAMESPACE
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"
 
-#include "OSGRefCountPolicies.h"
+#include "OSGBaseRefCountPolicies.h"
+#include "OSGContainerRefCountPolicies.h"
 
 #if defined(OSG_1_COMPAT)
 #include "OSGContainerPtrFuncs.h"

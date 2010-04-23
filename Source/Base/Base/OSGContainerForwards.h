@@ -44,6 +44,8 @@
 #endif
 
 #include "OSGFieldForwards.h"
+#include "OSGBaseRefCountPoliciesFwd.h"
+#include "OSGContainerRefCountPoliciesFwd.h"
 
 #include "boost/shared_ptr.hpp"
 
@@ -114,11 +116,6 @@ class DrawEnv;
 
 struct ContainerChangeEntry;
 
-struct NoRefCountPolicy;
-struct RecordedRefCountPolicy;
-struct UnrecordedRefCountPolicy;
-struct WeakRefCountPolicy;
-
 template<class ObjT> 
 class TransitPtr;
 
@@ -170,26 +167,6 @@ typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod )(void) const;
 typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
     UInt32) const;
-
-#if 0
-template <class TargetT, class SourceT>
-TargetT *dynamic_pointer_cast(SourceT *pIn)
-{
-    return dynamic_cast<TargetT *>(pIn);
-}
-
-template <class TargetT, class SourceT>
-TargetT dynamic_pointer_cast(SourceT *pIn)
-{
-//    return dynamic_cast<TargetT *>(pIn);
-}
-
-template <class TargetT, class SourceT>
-TargetT *static_pointer_cast(SourceT *pIn)
-{
-    return static_cast<TargetT *>(pIn);
-}
-#endif
 
 namespace FCLocal
 {

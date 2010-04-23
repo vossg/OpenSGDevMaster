@@ -58,8 +58,6 @@
 #include "OSGPointerSField.h"
 #include "OSGPointerMField.h"
 
-#include "OSGRefCountPolicies.h"
-
 OSG_BEGIN_NAMESPACE
 
 class FieldDescriptionBase;

@@ -52,7 +52,8 @@
 
 #include "OSGFieldContainerSFieldHandle.h"
 
-#include "OSGRefCountPolicies.h"
+#include "OSGBaseRefCountPolicies.h"
+#include "OSGContainerRefCountPolicies.h"
 
 OSG_BEGIN_NAMESPACE
 

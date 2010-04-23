@@ -42,7 +42,12 @@
 #pragma once
 #endif
 
+#include "OSGConfig.h"
+#include "OSGBaseDef.h"
+
 #include "OSGAtomic.h"
+#include "OSGBaseRefCountPoliciesFwd.h"
+
 
 OSG_BEGIN_NAMESPACE
 
@@ -174,70 +179,12 @@ OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"
 
-OSG_BEGIN_NAMESPACE
-
-/*! \ingroup GrpBaseBase
-    \ingroup GrpBaseBaseMemory
-    \ingroup GrpBaseBaseRefCounting
-    \ingroup GrpLibOSGBase
-    \nohierarchy
- */
-
-struct MemObjRefCountPolicy
-{
-    static const bool NotCounting = false;
-
-    static void addRef(MemoryObject * const objectP)
-    {
-        if(objectP != NULL)
-            objectP->addRef();
-    }
-    static void subRef(MemoryObject * const objectP)
-    {
-        if(objectP != NULL)
-            objectP->subRef();
-    }
-
-    template <class StoreT, class SourceT> 
-    static void setRefd(StoreT  &pTarget,
-                        SourceT  pSource)
-    {
-        MemObjRefCountPolicy::addRef(pSource);
-        MemObjRefCountPolicy::subRef(pTarget);
-    
-        pTarget = pSource;
-    }
-
-    template<class T>
-    static T *validate(T *pIn)
-    {
-        return pIn;
-    }
-
-    template<class T>
-    static T &dereference(T *pIn)
-    {
-        return *pIn;
-    }
-
-    template<class T, class U>
-    static void convertTransitPtr(T *&pOut, U *&pIn)
-    {
-        MemObjRefCountPolicy::subRef(pOut);
-
-        pOut = pIn;
-        pIn  = NULL;
-    } 
-};
-
 #define OSG_GEN_INTERNAL_MEMOBJPTR(CLASST)                              \
     typedef TransitPtr < CLASST                      > ObjTransitPtr;   \
     typedef RefCountPtr< CLASST, MemObjRefCountPolicy> ObjRefPtr
 
-#define OSG_GEN_MEMOBJPTR(CLASST)                                       \
-    typedef TransitPtr < CLASST > CLASST##TransitPtr;                   \
+#define OSG_GEN_MEMOBJPTR(CLASST)                                           \
+    typedef TransitPtr < CLASST                       > CLASST##TransitPtr; \
     typedef RefCountPtr< CLASST, MemObjRefCountPolicy > CLASST##RefPtr
-
-OSG_END_NAMESPACE
 
 #endif /* _OSGMEMORYOBJECT_H_ */

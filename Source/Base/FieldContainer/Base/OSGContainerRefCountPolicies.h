@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *              Copyright (C) 2010 by the OpenSG Forum                       *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,81 +36,97 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERMFIELDS_H_
-#define _OSGFIELDCONTAINERMFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCONTAINERREFCOUNTPOLICIES_H_
+#define _OSGCONTAINERREFCOUNTPOLICIES_H_
 
-#include "OSGMField.h"
-
-#include "OSGFieldContainerFieldTraits.h"
-
-#include "OSGPointerMField.h"
-#include "OSGParentPointerMField.h"
-#include "OSGChildPointerMField.h"
-
-#include "OSGFieldContainerMFieldHandle.h"  
-
-#include "OSGBaseRefCountPolicies.h"
-#include "OSGContainerRefCountPolicies.h"
+#include "OSGConfig.h"
+#include "OSGBaseDef.h"
+#include "OSGContainerRefCountPoliciesFwd.h"
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
+struct OSG_BASE_DLLMAPPING RecordedRefCountPolicy
+{
+    static const bool NotCounting = false;
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      RecordedRefCountPolicy  > MFRecFieldContainerPtr;
+    static inline void addRef(FieldContainer * const pObject);
+    static inline void subRef(FieldContainer * const pObject);
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      UnrecordedRefCountPolicy> MFUnrecFieldContainerPtr;
+    template <class DestT, class SourceT>
+    static inline void setRefd(DestT   *&pDest, SourceT *pSource);
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      WeakRefCountPolicy      > MFWeakFieldContainerPtr;
+    template <class ObjT>
+    static inline ObjT *validate(ObjT *pObject);
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef PointerMField<FieldContainer *,
-                      NoRefCountPolicy        > MFUncountedFieldContainerPtr;
+    template <class ObjT>
+    static inline ObjT &dereference(ObjT *pObject);
+
+    template <class DestT, class SourceT>
+    static inline void convertTransitPtr(DestT *&pDest, SourceT *&pSource);
+};
 
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef 
-    ParentPointerMField<FieldContainer *, 
-                        NoRefCountPolicy,
-                        1                > MFParentFieldContainerPtr;
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
 
-#else // these are the doxygen hacks
+struct OSG_BASE_DLLMAPPING UnrecordedRefCountPolicy
+{
+    static const bool NotCounting = false;
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFRecFieldContainerPtr : 
-    public PointerMField<FieldContainer *,
-                         RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFUnrecFieldContainerPtr :
-    public PointerMField<FieldContainer *,
-                         UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFWeakFieldContainerPtr : 
-    public PointerMField<FieldContainer *,
-                         WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFUncountedFieldContainerPtr :
-    public : PointerMField<FieldContainer *,
-                           NoRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
-struct MFParentFieldContainerPtr :
-    public ParentPointerMField<FieldContainer *, 
-                               NoRefCountPolicy,
-                               1                 > {};
+    static inline void addRef(FieldContainer * const pObject);
+    static inline void subRef(FieldContainer * const pObject);
 
-#endif // these are the doxygen hacks
+    template <class DestT, class SourceT>
+    static inline void setRefd(DestT   *&pDest, SourceT *pSource);
+
+    template <class ObjT>
+    static inline ObjT *validate(ObjT *pObject);
+
+    template <class ObjT>
+    static inline ObjT &dereference(ObjT *pObject);
+
+    template <class DestT, class SourceT>
+    static inline void convertTransitPtr(DestT *&pDest, SourceT *&pSource);
+};
+
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+
+struct OSG_BASE_DLLMAPPING WeakRefCountPolicy
+{
+    static const bool NotCounting = false;
+
+    static inline void addRef(FieldContainer * const pObject);
+    static inline void subRef(FieldContainer * const pObject);
+
+    template <class DestT, class SourceT>
+    static inline void setRefd(DestT   *&pDest, SourceT *pSource);
+
+    template <class ObjT>
+    static inline ObjT *validate(ObjT *pObject);
+
+    template <class ObjT>
+    static inline ObjT &dereference(ObjT *pObject);
+
+    template <class DestT, class SourceT>
+    static inline void convertTransitPtr(DestT *&pDest, SourceT *&pSource);
+};
 
 OSG_END_NAMESPACE
 
-#include "OSGFieldContainerMFields.inl"
+#include "OSGContainerRefCountPolicies.inl"
 
-#endif /* _OSGFIELDCONTAINERMFIELDS_H_ */
+#endif // _OSGCONTAINERREFCOUNTPOLICIES_H_
