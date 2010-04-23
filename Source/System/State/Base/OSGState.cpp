@@ -230,7 +230,7 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 {
     std::cerr << "State at " << this << std::endl;
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFChunksType::const_iterator it;
     UInt32 cind;
 
     for(it = _mfChunks.begin(), cind = 0; it != _mfChunks.end(); ++it, ++cind)
@@ -256,8 +256,8 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void State::activate(DrawEnv *pEnv) const
 {
-    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
+    MFChunksType::const_iterator cIt  = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind  = 0;
     UInt32                               cind = osgMin(State::SkipNumChunks,
                                                        _mfChunks.size()    );
@@ -283,8 +283,8 @@ void State::activate(DrawEnv *pEnv) const
 
 void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 {
-    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
+    MFChunksType::const_iterator cIt  = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind  = 0;
     UInt32                               i;
     UInt32                               cind = osgMin(State::SkipNumChunks,
@@ -343,8 +343,8 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 
 void State::deactivate(DrawEnv *pEnv) const
 {
-    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
+    MFChunksType::const_iterator cIt  = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind  = 0;
     UInt32                               cind = osgMin(State::SkipNumChunks,
                                                        _mfChunks.size()    );
@@ -537,15 +537,21 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    _mfChunks.clear();
+    MFChunksType::iterator chunksIt  = _mfChunks.begin();
+    MFChunksType::iterator chunksEnd = _mfChunks.end  ();
+
+    for(; chunksIt != chunksEnd; ++chunksIt)
+    {
+        (*chunksIt) = NULL;
+    }
 }
 
 bool State::isTransparent(void) const
 {
     bool returnValue = false;
 
-    MFUnrecStateChunkPtr::const_iterator chunksIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
+    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
+    MFChunksType::const_iterator chunksEnd = _mfChunks.end();
 
     for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
     {
