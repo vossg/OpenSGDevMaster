@@ -537,12 +537,12 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFChunksType::iterator chunksIt  = _mfChunks.begin();
-    MFChunksType::iterator chunksEnd = _mfChunks.end  ();
+    MFChunksType::iterator chunksIt  = _mfChunks.begin_nc();
+    MFChunksType::iterator chunksEnd = _mfChunks.end_nc  ();
 
     for(; chunksIt != chunksEnd; ++chunksIt)
     {
-        (*chunksIt) = NULL;
+        _mfChunks.replace(chunksIt, NULL);
     }
 }
 

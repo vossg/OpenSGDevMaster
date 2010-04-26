@@ -891,7 +891,7 @@ OcclusionCullingTreeBuilder::addNodeAdaptiveBucketMode(OCRenderTreeNode *pNode)
     bucketIdx = osgClamp<Int32>(0, bucketIdx, _numBuckets - 1);
 
     // XXX with the above osgClamp this never triggers... ?? --cneumann
-    if(bucketIdx < 0 || bucketIdx >= _numBuckets)
+    if(bucketIdx < 0 || bucketIdx >= Int32(_numBuckets))
     {
         Real32 newLow   = osgMin(val, _bucketLow );
         Real32 newHigh  = osgMax(val, _bucketHigh);
