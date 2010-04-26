@@ -188,6 +188,13 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_EXCL_FILES)
 
     SET(${PROJECT_NAME}_BASE_DIR)
+
+    SET(${PROJECT_NAME}_SRC_PATTERNS)
+    SET(${PROJECT_NAME}_HDR_PATTERNS)
+    SET(${PROJECT_NAME}_INL_PATTERNS)
+
+    SET(${PROJECT_NAME}_SUFFIX)
+
 ENDMACRO(OSG_SELECT_PROJECT)
 
 #############################################################################
@@ -414,13 +421,32 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
 
     OSG_MSG("Adding directory: ${DIRNAME}")
 
+    SET(_OSG_ADD_SRC_LOOKUP)
+    SET(_OSG_ADD_HDR_LOOKUP)
+    SET(_OSG_ADD_INL_LOOKUP)
+
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
         SET(_OSG_CURR_DIRNAME "${CMAKE_SOURCE_DIR}/${DIRNAME}")
 
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_HDR_PATTERNS})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_INL_PATTERNS})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
         FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
-                                     "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
-        FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h")
-        FILE(GLOB LOCAL_INL          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.inl")
+                                     "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
+                                      ${_OSG_ADD_SRC_LOOKUP}                )
+        FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h"
+                                      ${_OSG_ADD_HDR_LOOKUP}               )
+        FILE(GLOB LOCAL_INL          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
+                                      ${_OSG_ADD_INL_LOOKUP}                 )
         FILE(GLOB LOCAL_INS          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
         FILE(GLOB LOCAL_FCD          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
         FILE(GLOB LOCAL_LL           "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
@@ -433,10 +459,25 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
         SET(_OSG_CURR_DIRNAME "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
 
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_HDR_PATTERNS})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_INL_PATTERNS})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
         FILE(GLOB LOCAL_SRC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
-                                     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
-        FILE(GLOB LOCAL_HDR          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h")
-        FILE(GLOB LOCAL_INL          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.inl")
+                                     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
+                                      ${_OSG_ADD_SRC_LOOKUP}                        )
+        FILE(GLOB LOCAL_HDR          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h"
+                                     ${_OSG_ADD_HDR_LOOKUP}                        )
+        FILE(GLOB LOCAL_INL          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
+                                     ${_OSG_ADD_INL_LOOKUP}                          )
         FILE(GLOB LOCAL_INS          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
         FILE(GLOB LOCAL_FCD          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
         FILE(GLOB LOCAL_LL           "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
@@ -449,10 +490,26 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     ELSE()
         SET(_OSG_CURR_DIRNAME "${DIRNAME}")
 
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_HDR_PATTERNS})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_INL_PATTERNS})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${DIRNAME}/${_OSG_FILE_PATTERN}")
+        ENDFOREACH()
+
         # Guess it's an absolute dir we got as the rel one is not there
-        FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" "${DIRNAME}/OSG*.mm")
-        FILE(GLOB LOCAL_HDR          "${DIRNAME}/OSG*.h")
-        FILE(GLOB LOCAL_INL          "${DIRNAME}/OSG*.inl")
+        FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" 
+                                     "${DIRNAME}/OSG*.mm"
+                                      ${_OSG_ADD_SRC_LOOKUP})
+        FILE(GLOB LOCAL_HDR          "${DIRNAME}/OSG*.h"
+                                      ${_OSG_ADD_HDR_LOOKUP})
+        FILE(GLOB LOCAL_INL          "${DIRNAME}/OSG*.inl"
+                                      ${_OSG_ADD_INL_LOOKUP})
         FILE(GLOB LOCAL_INS          "${DIRNAME}/OSG*.ins")
         FILE(GLOB LOCAL_FCD          "${DIRNAME}/OSG*.fcd")
         FILE(GLOB LOCAL_LL           "${DIRNAME}/OSG*.ll")
@@ -835,6 +892,11 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         DEBUGOPT_POSTFIX "DO"
         RELEASENOOPT_POSTFIX "RN")
 
+    IF(${PROJECT_NAME}_SUFFIX)
+      SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
+                            SUFFIX ${${PROJECT_NAME}_SUFFIX})
+
+    ENDIF(${PROJECT_NAME}_SUFFIX)
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
         "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST DEP_MISSING_LIST)
