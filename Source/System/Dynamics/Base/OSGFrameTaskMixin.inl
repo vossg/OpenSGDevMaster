@@ -62,6 +62,11 @@ FrameTaskMixin<ParentT>::FrameTaskMixin(const FrameTaskMixin &source) :
 template <class ParentT> inline
 FrameTaskMixin<ParentT>::~FrameTaskMixin(void)
 {
+    // Don't add the prototype instances to the list
+    if(GlobalSystemState < Shutdown && FrameHandler::the() != NULL)
+    {
+        FrameHandler::the()->removeTask(this);
+    }
 }
 
 template <class ParentT> inline
