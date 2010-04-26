@@ -128,6 +128,9 @@ class ContainerFactory : public FactoryBase
     ContainerTransitPtr createFieldContainer(const Char8 *szName);
 #endif
 
+    virtual bool initializePendingElements           (void);
+    virtual bool initializePendingElementsFactoryPost(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
@@ -222,13 +225,10 @@ class ContainerFactory : public FactoryBase
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual bool initializePendingElements(void);
-
     virtual bool initialize(void);
     virtual bool terminate (void);
 
-    virtual bool initializeFactoryPost               (void);
-    virtual bool initializePendingElementsFactoryPost(void);
+    virtual bool initializeFactoryPost(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
