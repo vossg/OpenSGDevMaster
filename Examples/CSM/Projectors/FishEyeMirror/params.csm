@@ -1,5 +1,6 @@
 --global ./local-setup.osg
 --global ../FishEye/global-effect.osg
 --system ../../Common/system-native.osg
+--global ../FishEye/keys.osg
 --data   ./scene.wrl
 --global ../../Common/simple_mouse.osg

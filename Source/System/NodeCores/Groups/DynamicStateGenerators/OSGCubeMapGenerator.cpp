@@ -228,6 +228,8 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
             Camera *pCam = pData->getCamera();
 
+            pActNode->setTravMask(0);
+
             for(UInt32 i = 0; i < 6; ++i)
             {
                 this->pushPartition(a);
@@ -282,8 +284,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                     {
                         pPart->setBackground(this->getBackground());
                     }
-
-                    pActNode->setTravMask(0);
                 
                     if(this->getRoot() != NULL)
                     {
@@ -294,8 +294,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                         this->recurse(a, pPort->getRoot());
                     }
 
-                    pActNode->setTravMask(~0);
-
                     pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
 
 #ifdef OSG_DEBUGX
@@ -305,25 +303,13 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                 }
                 this->popPartition(a);
             }
+
+            pActNode->setTravMask(~0);
         }
         this->endPartitionGroup(a);
     }
 
     OSG_ASSERT(pActNode == a->getActNode());
-
-    if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
-    {
-        Matrix m = a->getActivePartition()->getCameraToWorld();
-
-        m[3][0] = 0.f;
-        m[3][1] = 0.f;
-        m[3][2] = 0.f;
-
-        CubeMapGeneratorStageData *pData = 
-            a->getData<CubeMapGeneratorStageData *>(_iDataSlotId);
-
-        pData->getTexTransform()->setMatrix(m);
-    }
 
     returnValue = Inherited::renderEnter(action);
 
@@ -427,6 +413,8 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTexGen->setGenFuncR(GL_REFLECTION_MAP);
 
         pCubeTexTrans = TextureTransformChunk::createLocal();
+
+        pCubeTexTrans->setUseCameraBeacon(true);
     }
 
 
