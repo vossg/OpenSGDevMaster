@@ -101,6 +101,7 @@ RemoteAspect::RemoteAspect(UInt32 aspectId) :
  */
 RemoteAspect::~RemoteAspect(void)
 {
+#if 0 // it's the applications responsibility to clean up
     FieldContainerFactoryBase *pFactory = FieldContainerFactory::the();
     IdSetT::iterator           i;
 
@@ -134,6 +135,7 @@ RemoteAspect::~RemoteAspect(void)
             } while(fcPtr != NULL);
         }
     }
+#endif
 }
 
 /*-------------------------------------------------------------------------*/
