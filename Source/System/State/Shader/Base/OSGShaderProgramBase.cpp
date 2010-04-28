@@ -252,7 +252,7 @@ void ShaderProgramBase::classDescInserter(TypeObject &oType)
         "",
         DestroyedFunctorsFieldId, DestroyedFunctorsFieldMask,
         true,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&ShaderProgram::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderProgram::invalidGetField));
 
@@ -377,6 +377,7 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "\t visibility=\"internal\"\n"
     "\t access=\"none\"\n"
     "     defaultHeader=\"OSGChangedFunctorMFields.h\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "\t >\n"
     "  </Field> \n"
     " \n"

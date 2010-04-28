@@ -13,25 +13,25 @@
    docGroupBase="GrpSystemShader"
    >
   <Field
-	 name="variables"
-	 type="ShaderProgramVariables"
-	 cardinality="single"
-	 visibility="external"
-	 access="public"
+     name="variables"
+     type="ShaderProgramVariables"
+     cardinality="single"
+     visibility="external"
+     access="public"
      category="childpointer"
      childParentType="FieldContainer"
      linkParentField="Parents"
-	 >
-	fragment program object
+     >
   </Field>
 
   <Field
-	 name="destroyedFunctors"
-	 type="ChangedFunctorCallback"
-	 cardinality="multi"
-	 visibility="internal"
-	 access="none"
+     name="destroyedFunctors"
+     type="ChangedFunctorCallback"
+     cardinality="multi"
+     visibility="internal"
+     access="none"
      defaultHeader="OSGChangedFunctorMFields.h"
-	 >
+     fieldFlags="FClusterLocal"
+     >
   </Field> 
 </FieldContainer>

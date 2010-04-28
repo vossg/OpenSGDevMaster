@@ -485,16 +485,15 @@ void ShaderProgram::onDestroyAspect(UInt32 uiContainerId,
 
 void ShaderProgram::resolveLinks(void)
 {
-    MFChangedFunctorCallback::iterator       cfIt = 
+    MFDestroyedFunctorsType::const_iterator dfIt  =
         _mfDestroyedFunctors.begin();
-
-    MFChangedFunctorCallback::const_iterator cfEnd= 
+    MFDestroyedFunctorsType::const_iterator dfEnd =
         _mfDestroyedFunctors.end();
 
-    for(; cfIt != cfEnd; ++cfIt)
+    for(; dfIt != dfEnd; ++dfIt)
     {
-        if(cfIt->_func)
-            (cfIt->_func)(this, 0x0000);
+        if(dfIt->_func.empty() == false)
+            (dfIt->_func)(this, 0x0000);
     }
 
     Inherited::resolveLinks();

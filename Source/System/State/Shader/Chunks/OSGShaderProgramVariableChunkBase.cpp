@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var ShaderProgramVariables * ShaderProgramVariableChunkBase::_sfVariables
-    fragment program object
+    
 */
 
 /*! \var ChangedFunctorCallback ShaderProgramVariableChunkBase::_mfDestroyedFunctors
@@ -123,7 +123,7 @@ void ShaderProgramVariableChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecChildShaderProgramVariablesPtr::Description(
         SFUnrecChildShaderProgramVariablesPtr::getClassType(),
         "variables",
-        "fragment program object\n",
+        "",
         VariablesFieldId, VariablesFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -138,7 +138,7 @@ void ShaderProgramVariableChunkBase::classDescInserter(TypeObject &oType)
         "",
         DestroyedFunctorsFieldId, DestroyedFunctorsFieldMask,
         true,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&ShaderProgramVariableChunk::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderProgramVariableChunk::invalidGetField));
 
@@ -172,26 +172,26 @@ ShaderProgramVariableChunkBase::TypeObject ShaderProgramVariableChunkBase::_type
     "   docGroupBase=\"GrpSystemShader\"\n"
     "   >\n"
     "  <Field\n"
-    "\t name=\"variables\"\n"
-    "\t type=\"ShaderProgramVariables\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
+    "     name=\"variables\"\n"
+    "     type=\"ShaderProgramVariables\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
     "     category=\"childpointer\"\n"
     "     childParentType=\"FieldContainer\"\n"
     "     linkParentField=\"Parents\"\n"
-    "\t >\n"
-    "\tfragment program object\n"
+    "     >\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
-    "\t name=\"destroyedFunctors\"\n"
-    "\t type=\"ChangedFunctorCallback\"\n"
-    "\t cardinality=\"multi\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t access=\"none\"\n"
+    "     name=\"destroyedFunctors\"\n"
+    "     type=\"ChangedFunctorCallback\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"none\"\n"
     "     defaultHeader=\"OSGChangedFunctorMFields.h\"\n"
-    "\t >\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
+    "     >\n"
     "  </Field> \n"
     "</FieldContainer>\n",
     ""

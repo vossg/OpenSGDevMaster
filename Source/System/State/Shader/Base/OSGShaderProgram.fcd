@@ -104,6 +104,7 @@
 	 visibility="internal"
 	 access="none"
      defaultHeader="OSGChangedFunctorMFields.h"
+     fieldFlags="FClusterLocal"
 	 >
   </Field> 
  
