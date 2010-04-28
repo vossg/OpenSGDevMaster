@@ -1638,8 +1638,6 @@ inline void
 
     if(w == TypeTraits<ValueType>::getZeroElement())
     {
-        FWARNING(("TransformationMatrix<>::multFull(Vec3, Vec3): w == 0.0\n"));
-    
         vecOut.setValues(
             (_matrix[0][0] * vecIn[0] +
              _matrix[1][0] * vecIn[1] +
