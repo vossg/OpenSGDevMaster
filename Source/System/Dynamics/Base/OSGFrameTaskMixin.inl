@@ -71,9 +71,11 @@ void FrameTaskMixin<ParentT>::dump(      UInt32    uiIndent,
 }
 
 template <class ParentT> inline
-void FrameTaskMixin<ParentT>::onCreate (const FrameTaskMixin *source)
+void FrameTaskMixin<ParentT>::onCreateAspect(
+    const FieldContainer *createAspect,
+    const FrameTaskMixin *source       )
 {
-    Inherited::onCreate(source);
+    Inherited::onCreateAspect(createAspect, source);
 
     // Don't add the prototype instances to the list
     if(GlobalSystemState != Running || FrameHandler::the() == NULL)
@@ -83,7 +85,8 @@ void FrameTaskMixin<ParentT>::onCreate (const FrameTaskMixin *source)
 }
 
 template <class ParentT> inline
-void FrameTaskMixin<ParentT>::onDestroy(UInt32 uiContainerId)
+void FrameTaskMixin<ParentT>::onDestroyAspect(
+    UInt32 uiContainerId, UInt32 uiAspect)
 {
     // Don't add the prototype instances to the list
     if(GlobalSystemState < Shutdown && FrameHandler::the() != NULL)
@@ -91,9 +94,8 @@ void FrameTaskMixin<ParentT>::onDestroy(UInt32 uiContainerId)
         FrameHandler::the()->removeTask(this);
     }
 
-    Inherited::onDestroy(uiContainerId);
+    Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
-
 
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */

@@ -168,9 +168,10 @@ class FrameTaskMixin  : public ParentT, public FrameTaskInterface
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-            void onCreate       (const Self   *source      = NULL);
-
-    virtual void onDestroy      (      UInt32  uiContainerId     );
+            void onCreateAspect (const FieldContainer *createAspect,
+                                 const Self           *source       = NULL);
+    virtual void onDestroyAspect(      UInt32          uiContainerId,
+                                       UInt32          uiAspect           );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

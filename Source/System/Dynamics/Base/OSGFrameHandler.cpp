@@ -59,7 +59,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 bool                 FrameHandler::_bRegistersInstanceRelease = false;
-FrameHandlerUnrecPtr FrameHandler::_pGlobalInstance           = NULL;
+FrameHandlerMTRefPtr FrameHandler::_pGlobalInstance           = NULL;
 
 /***************************************************************************\
  *                           Class methods                                 *
