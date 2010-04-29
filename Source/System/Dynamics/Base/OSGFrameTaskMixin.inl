@@ -81,7 +81,8 @@ void FrameTaskMixin<ParentT>::onCreateAspect(
     if(GlobalSystemState != Running || FrameHandler::the() == NULL)
         return;
 
-    FrameHandler::the()->addTask(this);
+    if(this == createAspect)
+        FrameHandler::the()->addTask(this);
 }
 
 template <class ParentT> inline

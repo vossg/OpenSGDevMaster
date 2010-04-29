@@ -112,7 +112,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     // Variables should all be in FrameHandlerBase.
 
     static bool                 _bRegistersInstanceRelease;
-    static FrameHandlerMTRefPtr _pGlobalInstance;
+    static FrameHandlerUnrecPtr _pGlobalInstance;
 
     typedef std::vector<FrameTaskInterface *> InterfaceStore;
     typedef InterfaceStore::iterator          InterfaceStoreIt;
