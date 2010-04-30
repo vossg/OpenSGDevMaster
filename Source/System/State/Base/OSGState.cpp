@@ -140,7 +140,6 @@ State::State(const State &source) :
 
 State::~State(void)
 {
-//    clearChunks();
 }
 
 void State::rebuildSortKey(void)
@@ -590,4 +589,11 @@ bool State::operator == (const State &OSG_CHECK_ARG(other)) const
 bool State::operator != (const State &other) const
 {
     return ! (*this == other);
+}
+
+void State::resolveLinks(void)
+{
+    clearChunks();
+
+    Inherited::resolveLinks();
 }

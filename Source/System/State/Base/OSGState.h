@@ -216,6 +216,8 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 
     const MFUnrecStateChunkPtr *getMFChunks(void) const;
 
+    virtual void resolveLinks(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
