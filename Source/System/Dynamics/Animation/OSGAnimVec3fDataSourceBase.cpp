@@ -144,7 +144,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         ValuesFieldId, ValuesFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleValues),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleValues));
 
@@ -156,7 +156,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsXFieldId, InTangentsXFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleInTangentsX),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleInTangentsX));
 
@@ -168,7 +168,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsYFieldId, InTangentsYFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleInTangentsY),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleInTangentsY));
 
@@ -180,7 +180,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsZFieldId, InTangentsZFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleInTangentsZ),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleInTangentsZ));
 
@@ -192,7 +192,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsXFieldId, OutTangentsXFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleOutTangentsX),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleOutTangentsX));
 
@@ -204,7 +204,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsYFieldId, OutTangentsYFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleOutTangentsY),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleOutTangentsY));
 
@@ -216,7 +216,7 @@ void AnimVec3fDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsZFieldId, OutTangentsZFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fDataSource::editHandleOutTangentsZ),
         static_cast<FieldGetMethodSig >(&AnimVec3fDataSource::getHandleOutTangentsZ));
 
@@ -258,7 +258,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -268,7 +268,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -278,7 +278,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -288,7 +288,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -298,7 +298,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -308,7 +308,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -318,7 +318,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

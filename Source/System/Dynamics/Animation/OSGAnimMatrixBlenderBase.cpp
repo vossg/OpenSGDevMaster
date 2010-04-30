@@ -125,7 +125,7 @@ void AnimMatrixBlenderBase::classDescInserter(TypeObject &oType)
         "",
         ChannelsFieldId, ChannelsFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixBlender::editHandleChannels),
         static_cast<FieldGetMethodSig >(&AnimMatrixBlender::getHandleChannels));
 
@@ -137,7 +137,7 @@ void AnimMatrixBlenderBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixBlender::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimMatrixBlender::getHandleOutValue));
 
@@ -179,7 +179,7 @@ AnimMatrixBlenderBase::TypeObject AnimMatrixBlenderBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "    </Field>\n"
     "  <Field\n"
@@ -189,7 +189,7 @@ AnimMatrixBlenderBase::TypeObject AnimMatrixBlenderBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

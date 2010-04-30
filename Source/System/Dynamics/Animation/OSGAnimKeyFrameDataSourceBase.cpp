@@ -124,7 +124,7 @@ void AnimKeyFrameDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InValuesFieldId, InValuesFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimKeyFrameDataSource::editHandleInValues),
         static_cast<FieldGetMethodSig >(&AnimKeyFrameDataSource::getHandleInValues));
 
@@ -136,7 +136,7 @@ void AnimKeyFrameDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InterpolationModesFieldId, InterpolationModesFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimKeyFrameDataSource::editHandleInterpolationModes),
         static_cast<FieldGetMethodSig >(&AnimKeyFrameDataSource::getHandleInterpolationModes));
 
@@ -178,7 +178,7 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -188,7 +188,7 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

@@ -22,7 +22,7 @@
      visibility="internal"
      access="public"
      defaultValue="NULL"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
   <Field
@@ -32,7 +32,7 @@
      cardinality="single"
      visibility="internal"
      access="public"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
 </FieldContainer>

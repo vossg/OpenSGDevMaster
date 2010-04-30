@@ -118,9 +118,14 @@ void AnimChannel::changed(ConstFieldMaskArg whichField,
  */
 bool AnimChannel::getEnabled(void) const
 {
-    OSG_ASSERT(_sfAnimation.getValue() != NULL);
+    bool retVal = false;
 
-    return _sfAnimation.getValue()->getEnabled();
+    if(_sfAnimation.getValue() != NULL)
+    {
+        retVal = _sfAnimation.getValue()->getEnabled();
+    }
+
+    return retVal;
 }
 
 void AnimChannel::dump(      UInt32    ,

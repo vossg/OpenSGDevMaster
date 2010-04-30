@@ -125,7 +125,7 @@ void AnimVec3fBlenderBase::classDescInserter(TypeObject &oType)
         "",
         ChannelsFieldId, ChannelsFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fBlender::editHandleChannels),
         static_cast<FieldGetMethodSig >(&AnimVec3fBlender::getHandleChannels));
 
@@ -137,7 +137,7 @@ void AnimVec3fBlenderBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fBlender::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimVec3fBlender::getHandleOutValue));
 
@@ -179,7 +179,7 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "    </Field>\n"
     "  <Field\n"
@@ -189,7 +189,7 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

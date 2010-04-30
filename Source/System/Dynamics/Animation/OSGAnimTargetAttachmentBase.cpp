@@ -125,7 +125,7 @@ void AnimTargetAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         TargetIdFieldId, TargetIdFieldMask,
         false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimTargetAttachment::editHandleTargetId),
         static_cast<FieldGetMethodSig >(&AnimTargetAttachment::getHandleTargetId));
 
@@ -137,7 +137,7 @@ void AnimTargetAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         BlendersFieldId, BlendersFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimTargetAttachment::editHandleBlenders),
         static_cast<FieldGetMethodSig >(&AnimTargetAttachment::getHandleBlenders));
 
@@ -175,6 +175,7 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -184,6 +185,7 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

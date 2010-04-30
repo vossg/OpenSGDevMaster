@@ -22,7 +22,7 @@
      visibility="internal"
      access="public"
      defaultValue="NULL"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
   <Field
@@ -33,7 +33,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.f, 0.f, 0.f"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
 </FieldContainer>

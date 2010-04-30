@@ -125,7 +125,7 @@ void AnimMatrixChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimMatrixChannel::getHandleData));
 
@@ -137,7 +137,7 @@ void AnimMatrixChannelBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixChannel::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimMatrixChannel::getHandleOutValue));
 
@@ -180,7 +180,7 @@ AnimMatrixChannelBase::TypeObject AnimMatrixChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -191,7 +191,7 @@ AnimMatrixChannelBase::TypeObject AnimMatrixChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.f, 0.f, 0.f\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

@@ -24,7 +24,7 @@
      cardinality="single"
      visibility="external"
      access="none"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
   <Field
@@ -35,7 +35,7 @@
      visibility="external"
      access="public"
      defaultValue="1.f"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
   <Field
@@ -46,7 +46,7 @@
      visibility="external"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FClusterLocal, FThreadLocal"
      >
   </Field>
 </FieldContainer>
