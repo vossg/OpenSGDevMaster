@@ -380,7 +380,8 @@ void TrackballEngine::rotate(Real32 fromX, Real32 fromY, Real32 toX, Real32 toY)
 
     Real32 rTmp;
 
-    if(osgAbs(fromX - toX) > Eps || osgAbs(fromY - toY) > Eps)
+    if(osgAbs(fromX - toX) > TypeTraits<Real32>::getDefaultEps() ||
+       osgAbs(fromY - toY) > TypeTraits<Real32>::getDefaultEps()   )
     {
         vP1.setValues(fromX, fromY, projectToSphere(_rRadius, fromX, fromY));
         vP2.setValues(toX, toY, projectToSphere(_rRadius, toX, toY));

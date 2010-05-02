@@ -159,7 +159,7 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
         return;
     }
 
-    if(fov <= Eps)
+    if(fov <= TypeTraits<Real32>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: fov " << fov << " very small!\n"
                  << std::endl;
@@ -167,7 +167,7 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
         return;
     }
 
-    if(osgAbs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < TypeTraits<Real32>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -175,7 +175,7 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
         return;
     }
 
-    if(aspect < Eps)
+    if(aspect < TypeTraits<Real32>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: aspect ratio " << aspect
                  << " very small!\n" << std::endl;

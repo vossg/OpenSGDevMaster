@@ -240,7 +240,7 @@ void TextureBackground::clear(DrawEnv  *pEnv)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
     }
-    if(osgAbs(getRadialDistortion())<Eps)
+    if(osgAbs(getRadialDistortion()) < TypeTraits<Real32>::getDefaultEps())
     {
 	    if(getMFTexCoords()->size() < 4)
 	    {

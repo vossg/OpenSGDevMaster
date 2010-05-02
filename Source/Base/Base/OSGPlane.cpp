@@ -170,7 +170,7 @@ bool Plane::intersect(const Plane &pl, Line &is) const
 
     Real len = dir.length();
 
-    if(len < Eps) 
+    if(len < TypeTraits<Real>::getDefaultEps())
         return false;
 
     /* Determine intersection point with the best suited coordinate plane. */
@@ -374,7 +374,8 @@ void Plane::transform(const Matrixr &matrix)
     UInt32 uiValNorm  = getMaxIndexAbs3(_normalVec);
     UInt32 uiValPoint = getMaxIndexAbs3( trans);
 
-    if(trans[uiValPoint] >  Eps || trans[uiValPoint] < -Eps)
+    if(trans[uiValPoint] >  TypeTraits<Real>::getDefaultEps() ||
+       trans[uiValPoint] < -TypeTraits<Real>::getDefaultEps()   )
     {
         if((_normalVec[uiValNorm ] < 0.f &&
              trans    [uiValPoint] < 0.f ) ||

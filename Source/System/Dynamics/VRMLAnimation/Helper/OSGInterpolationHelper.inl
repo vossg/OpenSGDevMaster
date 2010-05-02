@@ -73,7 +73,8 @@ void InterpolationHelper<MFReal32,
                              const MFQuaternion &mfKeyValues,
                                    SFQuaternion &fValue  )
 {
-    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) <
+       TypeTraits<Real32>::getDefaultEps()                  )
     {
         return;
     }
@@ -106,7 +107,8 @@ void InterpolationHelper<MFReal32,
                              const MFVec3f  &mfKeyValues,
                                    SFVec3f  &fValue  )
 {
-    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) <
+       TypeTraits<Real32>::getDefaultEps()                  )
     {
         return;
     }
@@ -176,7 +178,8 @@ void InterpolationHelper<MFReal32,
                              const MFPnt3f  &mfKeyValues,
                                    MFPnt3f  &fValue  )
 {
-    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) <
+       TypeTraits<Real32>::getDefaultEps()                  )
     {
         return;
     }
@@ -225,7 +228,8 @@ void InterpolationHelper<MFReal32,
                              const MFReal32 &mfKeyValues,
                                    SFReal32 &fValue  )
 {
-    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) <
+       TypeTraits<Real32>::getDefaultEps()                  )
     {
         return;
     }

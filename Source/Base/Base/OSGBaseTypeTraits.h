@@ -244,6 +244,11 @@ struct TypeTraits<UInt8> : public TypeTraitsTemplateBase<UInt8>
     static const  UInt8              BitsClear = 0x00;
 
 
+    static        UInt8              getDefaultEps(void)
+    {
+        return 0;
+    }
+
     static        UInt8              getZeroElement(void)
     {
         return 0;
@@ -337,6 +342,11 @@ struct TypeTraits<Int8> : public TypeTraitsTemplateBase<Int8>
     static const  Int8               BitsClear   =  0x00;
 
 
+    static        Int8               getDefaultEps(void)
+    {
+        return 0;
+    }
+
     static        Int8               getZeroElement(void)
     {
         return 0;
@@ -424,6 +434,11 @@ struct TypeTraits<UInt16> : public TypeTraitsTemplateBase<UInt16>
     static const  UInt16             BitsClear   = 0x0000;
 
 
+    static        UInt16             getDefaultEps(void)
+    {
+        return 0;
+    }
+
     static        UInt16             getZeroElement(void)
     {
         return 0;
@@ -510,6 +525,11 @@ struct TypeTraits<Int16> : public TypeTraitsTemplateBase<Int16>
     static const  Int16              BitsClear   =  0x0000;
 
 
+    static        Int16              getDefaultEps(void)
+    {
+        return 0;
+    }
+
     static        Int16              getZeroElement(void)
     {
         return 0;
@@ -590,6 +610,11 @@ struct TypeTraits<UInt32> : public TypeTraitsTemplateBase<UInt32>
     static const  UInt32             BitsSet     = 0xFFFFFFFF;
     static const  UInt32             BitsClear   = 0x00000000;
 
+
+    static        UInt32             getDefaultEps(void)
+    {
+        return 0;
+    }
 
     static        UInt32             getZeroElement(void)
     {
@@ -673,6 +698,10 @@ struct TypeTraits<Int32> : public TypeTraitsTemplateBase<Int32>
     static const  Int32              BitsSet     =  0xFFFFFFFF;
     static const  Int32              BitsClear   =  0x00000000;
 
+    static        Int32              getDefaultEps(void)
+    {
+        return 0;
+    }
 
     static        Int32              getZeroElement(void)
     {
@@ -756,8 +785,12 @@ struct TypeTraits<UInt64> : public TypeTraitsTemplateBase<UInt64>
 
     static const  UInt64             Zero        = OSGLL(0x0000000000000000);
     static const  UInt64             One         = OSGLL(0x0000000000000001);
- 
 
+
+    static        UInt64             getDefaultEps(void)
+    {
+        return 0;
+    }
 
     static        UInt64             getZeroElement(void)
     {
@@ -848,6 +881,11 @@ struct TypeTraits<Int64> : public TypeTraitsTemplateBase<Int64>
     static const  Int64              BitsClear   =  OSGLL(0x0000000000000000);
 
 
+    static        Int64              getDefaultEps(void)
+    {
+        return 0;
+    }
+
     static        Int64              getZeroElement(void)
     {
         return 0;
@@ -933,6 +971,11 @@ struct TypeTraits<Real16> : public TypeTraitsTemplateBase<Real16>
     static const  bool               IsPOD       = true;
     static const  MathTypeProperties MathProp    = RealValue;
 
+    static        Real16             getDefaultEps(void)
+    {
+        return Real16(1E-06f);
+    }
+
     static        Real16             getZeroElement(void)
     {
         return Real16(0.f);
@@ -1010,6 +1053,11 @@ struct TypeTraits<Real32> : public TypeTraitsTemplateBase<Real32>
     static        Real32             ZeroEps(void)
     {
         return 1E-30f;
+    }
+
+    static        Real32             getDefaultEps(void)
+    {
+        return 1E-06f;
     }
 
     static        Real32             getZeroElement(void)
@@ -1093,22 +1141,27 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
         return Fixed32(0.00009f);
     }
 
-    static        Fixed32             getZeroElement(void)
+    static        Fixed32            getDefaultEps (void)
+    {
+        return Fixed32(1E-06f);
+    }
+
+    static        Fixed32            getZeroElement(void)
     {
         return Fixed32(0.f);
     }
 
-    static        Fixed32             getOneElement (void)
+    static        Fixed32            getOneElement (void)
     {
         return Fixed32(1.f);
     }
 
-    static        Fixed32             getMax        (void)
+    static        Fixed32            getMax        (void)
     {
         return Fixed32(REAL16_MAX);
     }
 
-    static        Fixed32             getMin        (void)
+    static        Fixed32            getMin        (void)
     {
         return Fixed32(-REAL16_MAX);
     }
@@ -1206,6 +1259,11 @@ struct TypeTraits<Real64> : public TypeTraitsTemplateBase<Real64>
     static        Real64             ZeroEps(void)
     {
         return 1E-30;
+    }
+
+    static        Real64             getDefaultEps (void)
+    {
+        return 1E-12;
     }
 
     static        Real64             getZeroElement(void)

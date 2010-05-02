@@ -158,10 +158,15 @@ bool SphereVolume::intersect(const Volume &volume) const
 
 bool SphereVolume::isOnSurface (const Pnt3r &point) const
 {
-    if(osgAbs((point - _center).length() - _radius) < Eps)
+    if(osgAbs((point - _center).length() - _radius) <
+       TypeTraits<Real>::getDefaultEps())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 

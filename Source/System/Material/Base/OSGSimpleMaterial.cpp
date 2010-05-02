@@ -204,7 +204,8 @@ void SimpleMaterial::rebuildState(void)
 
 bool SimpleMaterial::isTransparent(void) const
 {
-    return ((getTransparency() > Eps) || (Inherited::isTransparent()));
+    return ((getTransparency() > TypeTraits<Real>::getDefaultEps()) || 
+            (Inherited::isTransparent()                           )   );
 }
 
 /*------------------------------- dump ----------------------------------*/

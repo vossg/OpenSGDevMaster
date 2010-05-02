@@ -822,8 +822,9 @@ bool Point<ValueTypeT, SizeI>::isZero(void) const
 
     for(UInt32 i = 0; i < Self::_uiSize; i++)
     {
-        returnValue &= ((Self::_values[i] <=  Eps) &&
-                        (Self::_values[i] >= -Eps));
+        returnValue &= 
+            ((Self::_values[i] <=  TypeTraits<ValueTypeT>::getDefaultEps()) &&
+             (Self::_values[i] >= -TypeTraits<ValueTypeT>::getDefaultEps())   );
     }
 
     return returnValue;
@@ -1164,7 +1165,7 @@ template <class  ValueTypeT,
           UInt32 SizeI      > inline
 bool Point<ValueTypeT, SizeI>::operator == (const Point &other) const
 {
-    return Self::equals(other, ValueTypeT(Eps));
+    return Self::equals(other, TypeTraits<ValueTypeT>::getDefaultEps());
 }
 
 //! Not equal operator, using Eps as the tolerance
@@ -1432,7 +1433,7 @@ void Vector<ValueTypeT, SizeI>::normalize(void)
 {
     ValueTypeT rLength = ValueTypeT(length());
 
-    if(osgAbs(rLength) < Eps)
+    if(osgAbs(rLength) < TypeTraits<ValueTypeT>::getDefaultEps())
     {
         rLength = TypeTraits<ValueTypeT>::getOneElement();
     }
@@ -1590,11 +1591,11 @@ typename Vector<ValueTypeT, SizeI>::RealReturnType
         returnValue  = dot(vec);
         returnValue /= (length() * vec.length());
 
-        if((returnValue - Eps) < -1.)
+        if((returnValue - TypeTraits<ValueTypeT>::getDefaultEps()) < -1.)
         {
             returnValue = Pi;
         }
-        else if((returnValue + Eps) > 1.)
+        else if((returnValue + TypeTraits<ValueTypeT>::getDefaultEps()) > 1.)
         {
             returnValue = TypeTraits<RealReturnType>::getZeroElement();
         }
@@ -1615,11 +1616,11 @@ typename Vector<ValueTypeT, SizeI>::RealReturnType
     RealReturnType rDot       = this ->dot(toVec);
     RealReturnType rSquareDot = toVec .dot(toVec);
 
-    if(rSquareDot > Eps)
+    if(rSquareDot > TypeTraits<ValueTypeT>::getDefaultEps())
     {
         rDot /= rSquareDot;
 
-        if(osgAbs(rDot) > Eps)
+        if(osgAbs(rDot) > TypeTraits<ValueTypeT>::getDefaultEps())
         {
             *this  = toVec;
             *this *= ValueTypeT(rDot);
@@ -1823,7 +1824,7 @@ template <class  ValueTypeT,
           UInt32 SizeI      > inline
 bool Vector<ValueTypeT, SizeI>::operator == (const Vector &other) const
 {
-    return Self::equals(other, ValueTypeT(Eps));
+    return Self::equals(other, TypeTraits<ValueTypeT>::getDefaultEps());
 }
 
 //! Not eual operator, using Eps as the tolerance

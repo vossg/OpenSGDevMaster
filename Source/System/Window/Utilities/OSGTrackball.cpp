@@ -124,8 +124,8 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
     Vec3f  gDiff;
     Real32 rTmp;
 
-    if( (osgAbs(rLastX - rCurrentX) > Eps) ||
-        (osgAbs(rLastY - rCurrentY) > Eps))
+    if( (osgAbs(rLastX - rCurrentX) > TypeTraits<Real32>::getDefaultEps()) ||
+        (osgAbs(rLastY - rCurrentY) > TypeTraits<Real32>::getDefaultEps())   )
     {
         /*
          * First, figure out z-coordinates for projection of P1 and P2 to

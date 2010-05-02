@@ -514,7 +514,7 @@ ColladaEffect::createInstanceProfileCommon(
                                  colVal[3] * transVal,
                                  colVal[3] * transVal );
 
-                if(constCol[0] < (1.f - Eps))
+                if(constCol[0] < (1.f - TypeTraits<Real32>::getDefaultEps()))
                 {
                     if(blendChunk == NULL)
                         blendChunk = BlendChunk::create();
@@ -537,7 +537,9 @@ ColladaEffect::createInstanceProfileCommon(
                                  colVal[2]         * transVal,
                                  luminance(colVal) * transVal );
 
-                if(constCol[0] > Eps || constCol[1] > Eps || constCol[2] > Eps)
+                if(constCol[0] > TypeTraits<Real32>::getDefaultEps() ||
+                   constCol[1] > TypeTraits<Real32>::getDefaultEps() ||
+                   constCol[2] > TypeTraits<Real32>::getDefaultEps()   )
                 {
                     if(blendChunk == NULL)
                         blendChunk = BlendChunk::create();
@@ -639,7 +641,7 @@ ColladaEffect::createInstanceProfileCommon(
 
         Color4f constCol(transVal, transVal, transVal, transVal);
 
-        if(constCol[0] < (1.f - Eps))
+        if(constCol[0] < (1.f - TypeTraits<Real32>::getDefaultEps()))
         {
             if(blendChunk == NULL)
                 blendChunk = BlendChunk::create();

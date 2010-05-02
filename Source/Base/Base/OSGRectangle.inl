@@ -353,19 +353,19 @@ typename Rectangle2<T>::PointType Rectangle2<T>::getSize(void) const
 template<typename T> inline  
 bool Rectangle2<T>::operator ==(const Rectangle2 &rhs) const
 {
-    if(fabsf(x0 - rhs.x0) > Eps)
+    if(fabsf(x0 - rhs.x0) > TypeTraits<T>::getDefaultEps())
     {
         return false;
     }
-    if(fabsf(y0 - rhs.y0) > Eps)
+    if(fabsf(y0 - rhs.y0) > TypeTraits<T>::getDefaultEps())
     {
         return false;
     }
-    if(fabsf(x1 - rhs.x1) > Eps)
+    if(fabsf(x1 - rhs.x1) > TypeTraits<T>::getDefaultEps())
     {
         return false;
     }
-    if(fabsf(y1 - rhs.y1) > Eps)
+    if(fabsf(y1 - rhs.y1) > TypeTraits<T>::getDefaultEps())
     {
         return false;
     }

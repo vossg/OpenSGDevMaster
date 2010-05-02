@@ -241,9 +241,9 @@ bool Line::intersect(const SphereVolume &sphere,
 
     t2 = b + d;
 
-    if( t1 < Eps )
+    if( t1 < TypeTraits<Real>::getDefaultEps() )
     {
-        if( t2 < Eps /*|| t2 > 1*/)
+        if( t2 < TypeTraits<Real>::getDefaultEps() /*|| t2 > 1*/)
         {
             return false;
         }
@@ -541,7 +541,7 @@ bool Line::intersect(const BoxVolume &box,
     Real in  = 0.f;
     Real out = Inf;
 
-    if(_dir[0] > Eps)
+    if(_dir[0] > TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[0];
     
@@ -554,7 +554,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     }
-    else if(_dir[0] < -Eps)
+    else if(_dir[0] < -TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[0];
     
@@ -572,7 +572,7 @@ bool Line::intersect(const BoxVolume &box,
         return false;
     }
     
-    if(_dir[1] > Eps)
+    if(_dir[1] > TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[1];
     
@@ -585,10 +585,10 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     
-        if(in-out >= Eps)
+        if(in-out >= TypeTraits<Real>::getDefaultEps())
             return false;
     }
-    else if(_dir[1] < -Eps)
+    else if(_dir[1] < -TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[1];
     
@@ -601,7 +601,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     
-        if(in-out >= Eps)
+        if(in-out >= TypeTraits<Real>::getDefaultEps())
             return false;
     }
     else if(_pos[1] < low[1] || _pos[1] > high[1])
@@ -609,7 +609,7 @@ bool Line::intersect(const BoxVolume &box,
         return false;
     }
     
-    if(_dir[2] > Eps)
+    if(_dir[2] > TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[2];
     
@@ -622,7 +622,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     }
-    else if(_dir[2] < -Eps)
+    else if(_dir[2] < -TypeTraits<Real>::getDefaultEps())
     {
         r = 1.f / _dir[2];
     
@@ -656,7 +656,7 @@ bool Line::intersect(const BoxVolume &box,
 
     // And now something completely different...
 
-    return in-out < Eps;
+    return in-out < TypeTraits<Real>::getDefaultEps();
 
     // To get you even more confused: It also works if you leave it
     // as "enter-exit" but declare in/out as Real64.

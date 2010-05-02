@@ -337,7 +337,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
             glEnd();
         }
 
-        //if(osgAbs(_mfSkyAngle[j] - Pi) > Eps)
+        //if(osgAbs(_mfSkyAngle[j] - Pi) > TypeTraits<Real32>::getDefaultEps())
         {
             glBegin(GL_TRIANGLE_FAN);
             glColor4fv(

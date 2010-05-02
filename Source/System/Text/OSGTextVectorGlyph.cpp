@@ -600,7 +600,8 @@ void TextVectorGlyph::computeContourOrientations() const
         Vec2f testNormal = en1 + en2;
         testNormal.normalize();
         // calculate the displacement of vertex 0 along its mean edge normal
-        Vec2f testPoint = outline.coords[start + 1] + testNormal * (1000.f * Eps);
+        Vec2f testPoint = outline.coords[start + 1] +
+            testNormal * (1000.f * TypeTraits<Real32>::getDefaultEps());
 
         if (isInteriorPoint(testPoint, outline, GLU_TESS_WINDING_NONZERO))
             _contourOrientations.push_back(CW);

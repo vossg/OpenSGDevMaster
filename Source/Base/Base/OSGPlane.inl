@@ -57,7 +57,7 @@ bool Plane::isOnPlane(const Pnt3r &point) const
 {
     Real scalar = _normalVec.dot(point) - _distance;
 
-    return osgAbs(scalar) < Eps ? true : false;
+    return osgAbs(scalar) < TypeTraits<Real>::getDefaultEps() ? true : false;
 }
 
 

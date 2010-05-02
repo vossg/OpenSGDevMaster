@@ -2822,7 +2822,7 @@ template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::operator == (
     const TransformationMatrix &other) const
 {
-    return equals(other, Eps);
+    return equals(other, TypeTraits<ValueTypeT>::getDefaultEps());
 }
 
 /*! \brief not equal, returns true if all matrix elements are not equal with

@@ -751,7 +751,8 @@ void SimpleSceneManager::showAll(void)
     _root->getVolume().getBounds( min, max );
     Vec3f d = max - min;
 
-    if(d.length() < Eps) // Nothing loaded? Use a unity box
+    // Nothing loaded? Use a unity box
+    if(d.length() < TypeTraits<Real32>::getDefaultEps())
     {
         min.setValues(-1.f,-1.f,-1.f);
         max.setValues( 1.f, 1.f, 1.f);

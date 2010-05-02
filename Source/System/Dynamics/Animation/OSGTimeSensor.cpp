@@ -234,7 +234,8 @@ void TimeSensor::frame(Time tTime, UInt32 uiFrame)
                                  (_sfFraction     .getValue() *
                                   _sfCycleInterval.getValue() ));
                     
-                    if(_sfCycleTime.getValue() > Eps)
+                    if(_sfCycleTime.getValue() >
+                       TypeTraits<Time>::getDefaultEps())
                     {
                         setIsActive(true);
                     }

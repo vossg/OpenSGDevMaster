@@ -136,7 +136,7 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrixr &result,
         error = true;
     }
 
-    if(rFovy <= Eps)
+    if(rFovy <= TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: fovy " << rFovy << " very small!\n"
                  << std::endl;
@@ -144,7 +144,7 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrixr &result,
         error = true;
     }
 
-    if(osgAbs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -152,7 +152,7 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrixr &result,
         error = true;
     }
 
-    if(rAspect < Eps)
+    if(rAspect < TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: aspect ratio " << rAspect
                  << " very small!\n" << std::endl;
@@ -208,7 +208,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection,
         error = true;
     }
 
-    if(rFovy <= Eps)
+    if(rFovy <= TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: fovy " << rFovy << " very small!\n"
                  << std::endl;
@@ -216,7 +216,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection,
         error = true;
     }
 
-    if(osgAbs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -224,7 +224,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection,
         error = true;
     }
 
-    if(rAspect < Eps)
+    if(rAspect < TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: aspect ratio " << rAspect
                  << " very small!\n"                   << std::endl;
@@ -232,7 +232,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection,
         error = true;
     }
 
-    if(rZeroparallax < Eps)
+    if(rZeroparallax < TypeTraits<Real>::getDefaultEps())
     {
         SWARNING << "MatrixPerspective: zero parallax " << rZeroparallax
                  << " very small, setting to 1!\n"      << std::endl;
@@ -301,7 +301,7 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(OSG::Matrix &result,
 
     right = up.cross(view);
 
-    if(right.dot(right) < Eps)
+    if(right.dot(right) < TypeTraits<Real>::getDefaultEps())
     {
         return true;
     }
@@ -342,7 +342,7 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(OSG::Matrix &result,
 
     right = up.cross(view);
 
-    if(right.dot(right) < Eps)
+    if(right.dot(right) < TypeTraits<Real>::getDefaultEps())
     {
         return true;
     }

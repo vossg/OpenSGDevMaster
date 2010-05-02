@@ -678,7 +678,7 @@ Real32 calcTexS(Vec3f &n, Real32 theta)
 
     Real32 phi = osgATan2(-n[2], n[0]) - HalfPi;
 
-    if (phi <= -Eps)
+    if (phi <= -TypeTraits<Real32>::getDefaultEps())
         phi += TwoPi;
     phi /= TwoPi;
 
@@ -897,63 +897,6 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     geo->setIndex(tcindex, Geometry::TexCoordsIndex);
     geo->setTypes(types);
     geo->setLengths(lens);
-
-
-#if 0 // not sure what this was needed for??? *DR*
-    // now check triangles
-    beginEditCP(geo);
-
-    for (TriangleIterator ti = geo->beginTriangles();
-                          ti != geo->endTriangles(); ++ti)
-    {
-        Vec3f q[3];
-        q[0] = ti.getNormal(0);
-        q[1] = ti.getNormal(1);
-        q[2] = ti.getNormal(2);
-
-        if  ( (osgAbs(q[0][0]) <= 0.01 && q[0][2] >= Eps) ||
-              (osgAbs(q[1][0]) <= 0.01 && q[1][2] >= Eps) ||
-              (osgAbs(q[2][0]) <= 0.01 && q[2][2] >= Eps) )
-        {
-            for (UInt16 i=0; i<3; i++)
-            {
-                Vec3f norm(q[i]);
-
-                if (osgAbs(norm[0]) <= Eps && norm[2] <= Eps)
-                {
-                    Real32 theta = ti.getTexCoords(i).y();
-
-                    if( !(q[0][0] <= -Eps ||
-                          q[1][0] <= -Eps ||
-                          q[2][0] <= -Eps  ) )
-                    {
-                        Vec2f texCoord(1, theta);
-
-                        if(osgAbs(osgAbs(norm[1]) - 1) <= Eps)
-                            texCoord[0] = 0.5;
-
-                        tex->push_back(texCoord);
-
-                        tcindex->setValue( tex->size() - 1, ti.getTexCoordsIndex(i));
-                    }
-                    else
-                    {
-                        Vec2f texCoord(0, theta);
-
-                        if (osgAbs(osgAbs(norm[1]) - 1) <= Eps)
-                            texCoord[0] = 0.5;
-
-                        tex->push_back(texCoord);
-
-                        index->setValue( tex->size() - 1, ti.getTexCoordsIndex(i));
-                    }
-                }
-            }
-        }
-    }
-
-    endEditCP(geo);
-#endif
 
     return geo;
 }

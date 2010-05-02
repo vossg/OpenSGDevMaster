@@ -2238,10 +2238,14 @@ bool TextureObjChunk::operator == (const StateChunk &other) const
 
 
         returnValue &=
-           ((        getEnvScaleRGB  () - tother->getEnvScaleRGB  ()) < Eps) &&
-           ((tother->getEnvScaleRGB  () -         getEnvScaleRGB  ()) < Eps) &&
-           ((        getEnvScaleAlpha() - tother->getEnvScaleAlpha()) < Eps) &&
-           ((tother->getEnvScaleAlpha() -         getEnvScaleAlpha()) < Eps);
+            ((        getEnvScaleRGB  () - tother->getEnvScaleRGB  ()) <
+             TypeTraits<Real>::getDefaultEps()                          ) &&
+            ((tother->getEnvScaleRGB  () -         getEnvScaleRGB  ()) <
+             TypeTraits<Real>::getDefaultEps()                          ) &&
+            ((        getEnvScaleAlpha() - tother->getEnvScaleAlpha()) <
+             TypeTraits<Real>::getDefaultEps()                          ) &&
+            ((tother->getEnvScaleAlpha() -         getEnvScaleAlpha()) <
+             TypeTraits<Real>::getDefaultEps()                          );
 
 
     }

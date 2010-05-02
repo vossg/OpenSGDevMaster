@@ -793,7 +793,7 @@ void ShaderShadowMapEngine::calcPointLightRange(
     Real kL = pointL->getLinearAttenuation   ();
     Real kC = pointL->getConstantAttenuation ();
 
-    if(osgAbs(kQ) > Eps)
+    if(osgAbs(kQ) > TypeTraits<Real>::getDefaultEps())
     {
         Real det = kL * kL  - 4.f * kQ * (kC - 1.f / lightThreshold);
 
@@ -817,7 +817,7 @@ void ShaderShadowMapEngine::calcPointLightRange(
             }
         }
     }
-    else if(osgAbs(kL) > Eps)
+    else if(osgAbs(kL) > TypeTraits<Real>::getDefaultEps())
     {
         Real r = (1.f / lightThreshold - kC) / kL;
 

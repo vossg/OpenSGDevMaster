@@ -272,7 +272,7 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const ValueTypeT x,
 {
     ValueTypeT rTmp = osgSqrt(x * x + y * y + z * z);
 
-    if(rTmp > Eps)
+    if(rTmp > TypeTraits<ValueTypeT>::getDefaultEps())
     {
         rTmp = osgSin(w / 2.0f) / rTmp;
 
@@ -383,7 +383,9 @@ void QuaternionBase<ValueTypeT>::setValue(const MatrixType &matrix)
 
     if(_quat[3] > 1.0 || _quat[3] < -1.0)
     {
-        const ValueTypeT errThreshold = 1 + (Eps * 100);
+        const ValueTypeT errThreshold =
+            TypeTraits<ValueTypeT>::getOneElement() +
+            100 * TypeTraits<ValueTypeT>::getDefaultEps();
 
         if(_quat[3] > errThreshold || _quat[3] < -errThreshold)
         {
@@ -461,7 +463,9 @@ void QuaternionBase<Fixed32>::setValue(
 
     if(_quat[3] > 1.0 || _quat[3] < -1.0)
     {
-        const ValueType errThreshold = 1 + (Eps * 100);
+        const ValueType errThreshold =
+            TypeTraits<ValueType>::getOneElement() +
+            100 * TypeTraits<ValueType>::getDefaultEps();
 
         if(_quat[3] > errThreshold || _quat[3] < -errThreshold)
         {
@@ -519,12 +523,14 @@ void QuaternionBase<ValueTypeT>::setValue(const VectorType &rotateFrom,
     cost = from.dot(to);
 
     // check for degeneracies
-    if(cost > 0.99999)
+    if(cost > (TypeTraits<ValueTypeT>::getOneElement() - 
+               TypeTraits<ValueTypeT>::getDefaultEps()  ))
     {   // vectors are parallel
         setIdentity();
         return;
     }
-    else if(cost < -0.99999)
+    else if(cost < (-TypeTraits<ValueTypeT>::getOneElement() +
+                     TypeTraits<ValueTypeT>::getDefaultEps()  ))
     {
         // vectors are opposite
         // find an axis to rotate around, which should be
@@ -774,7 +780,7 @@ void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(ValueTypeT &x,
 
     len = q.length();
 
-    if(len > Eps)
+    if(len > TypeTraits<ValueTypeT>::getDefaultEps())
     {
         q *= (TypeTraits<ValueTypeT>::getOneElement() / len);
 
@@ -953,7 +959,7 @@ void QuaternionBase<ValueTypeT>::normalize(void)
 {
     ValueTypeT rLength = length();
 
-    if(osgAbs(rLength) < Eps)
+    if(osgAbs(rLength) < TypeTraits<ValueTypeT>::getDefaultEps())
     {
         rLength =  TypeTraits<ValueTypeT>::getOneElement();
     }
@@ -985,9 +991,9 @@ void QuaternionBase<ValueTypeT>::invert(void)
 {
     ValueTypeT LengthSqr(lengthSquared());
 
-    if(LengthSqr < static_cast<ValueTypeT>(Eps))  
-    { 
-        return; 
+    if(LengthSqr < TypeTraits<ValueTypeT>::getDefaultEps())
+    {
+        return;
     }
 
     conjThis();
@@ -1033,14 +1039,14 @@ void QuaternionBase<ValueTypeT>::logThis(void)
                               _quat[1] * _quat[1] +
                               _quat[2] * _quat[2] ));
    
-   if(osgAbs(_quat[3]) > static_cast<ValueTypeT>(Eps))
-   {
-       Length = osgATan( Length/_quat[3] );
-   }
-   else
-   {
-       Length = static_cast<ValueTypeT>(1.570796326794897f);
-   }
+    if(osgAbs(_quat[3]) > TypeTraits<ValueTypeT>::getDefaultEps())
+    {
+        Length = osgATan( Length/_quat[3] );
+    }
+    else
+    {
+        Length = static_cast<ValueTypeT>(1.570796326794897f);
+    }
    
     _quat[0] *= Length;
     _quat[1] *= Length;
@@ -1352,7 +1358,7 @@ QuaternionBase<ValueTypeT> &
 template <class ValueTypeT> inline
 bool QuaternionBase<ValueTypeT>::operator ==(const QuaternionBase &other) const
 {
-    return equals(other, Eps);
+    return equals(other, TypeTraits<ValueTypeT>::getDefaultEps());
 }
 
 template <class ValueTypeT> inline

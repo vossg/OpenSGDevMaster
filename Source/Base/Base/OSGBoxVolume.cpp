@@ -208,20 +208,20 @@ bool BoxVolume::intersect(const BoxVolume &volume) const
 
 bool BoxVolume::isOnSurface (const Pnt3r &point) const
 {
-    if(((osgAbs(point[0] - _min[0]) < Eps           ||
-         osgAbs(point[0] - _max[0]) < Eps             ) &&
-        (point[1] >= _min[1] && point[1] <= _max[1] &&
-         point[2] >= _min[2] && point[2] <= _max[2]   )   ) ||
+    if(((osgAbs(point[0] - _min[0]) < TypeTraits<Real>::getDefaultEps() ||
+         osgAbs(point[0] - _max[0]) < TypeTraits<Real>::getDefaultEps()   ) &&
+        (point[1] >= _min[1] && point[1] <= _max[1]                     &&
+         point[2] >= _min[2] && point[2] <= _max[2]                   )   ) ||
 
-       ((osgAbs(point[1] - _min[1]) < Eps           ||
-         osgAbs(point[1] - _max[1]) < Eps             ) &&
-        (point[0] >= _min[0] && point[0] <= _max[1] &&
-         point[2] >= _min[2] && point[2] <= _max[2]   )   ) ||
+       ((osgAbs(point[1] - _min[1]) < TypeTraits<Real>::getDefaultEps() ||
+         osgAbs(point[1] - _max[1]) < TypeTraits<Real>::getDefaultEps()   ) &&
+        (point[0] >= _min[0] && point[0] <= _max[1]                     &&
+         point[2] >= _min[2] && point[2] <= _max[2]                    )   ) ||
 
-       ((osgAbs(point[2] - _min[2]) < Eps           ||
-         osgAbs(point[2] - _max[2]) < Eps             ) &&
-        (point[1] >= _min[1] && point[1] <= _max[1] &&
-         point[0] >= _min[0] && point[0] <= _max[0]   )   )   )
+       ((osgAbs(point[2] - _min[2]) < TypeTraits<Real>::getDefaultEps() ||
+         osgAbs(point[2] - _max[2]) < TypeTraits<Real>::getDefaultEps()   ) &&
+        (point[1] >= _min[1] && point[1] <= _max[1]                     &&
+         point[0] >= _min[0] && point[0] <= _max[0]                   )   )   )
     {
         return true;
     }

@@ -173,7 +173,7 @@ ActionBase::ResultE Transform::intersectEnter(Action *action)
     
     Real32 length = dir.length();
 
-    if(length < Eps)
+    if(length < TypeTraits<Real32>::getDefaultEps())
         SWARNING << "Transform::intersectEnter: Near-zero scale!" << std::endl;
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());

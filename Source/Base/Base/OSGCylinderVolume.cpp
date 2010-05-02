@@ -156,8 +156,9 @@ bool CylinderVolume::isOnSurface(const Pnt3r &point) const
 
     bool onplane = bottom.isOnPlane(point) || top.isOnPlane(point);
 
-    return  ( onplane &&  dist <= _radius            ) ||
-            (!onplane && osgAbs(dist - _radius) < Eps);
+    return
+      ( onplane && dist                   <= _radius                          ) ||
+      (!onplane && osgAbs(dist - _radius) <  TypeTraits<Real>::getDefaultEps());
 }
 
 /*-------------------------- transformation -------------------------------*/

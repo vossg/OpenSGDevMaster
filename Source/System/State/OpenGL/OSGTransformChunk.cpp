@@ -167,7 +167,8 @@ bool TransformChunk::operator == (const StateChunk &other) const
     if(tother == this)
         return true;
 
-    return getMatrix().equals( tother->getMatrix(), Eps );
+    return getMatrix().equals(tother->getMatrix(),
+                              TypeTraits<Real>::getDefaultEps());
 }
 
 bool TransformChunk::operator != (const StateChunk &other) const

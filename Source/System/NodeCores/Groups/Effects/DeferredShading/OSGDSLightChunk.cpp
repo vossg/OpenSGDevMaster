@@ -281,11 +281,16 @@ bool DSLightChunk::operator == (const StateChunk &other) const
     if(tother == this)
         return true;
 
-    if(!getAmbient  ().equals(tother->getAmbient  (), Eps) ||
-       !getDiffuse  ().equals(tother->getDiffuse  (), Eps) ||
-       !getSpecular ().equals(tother->getSpecular (), Eps) ||
-       !getPosition ().equals(tother->getPosition (), Eps) ||
-       !getDirection().equals(tother->getDirection(), Eps) ||
+    if(!getAmbient  ().equals(tother->getAmbient  (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getDiffuse  ().equals(tother->getDiffuse  (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getSpecular ().equals(tother->getSpecular (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getPosition ().equals(tother->getPosition (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getDirection().equals(tother->getDirection(),
+                              TypeTraits<Real>::getDefaultEps()) ||
 
         getConstantAttenuation () != tother->getConstantAttenuation () ||
         getLinearAttenuation   () != tother->getLinearAttenuation   () ||

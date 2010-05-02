@@ -1254,15 +1254,15 @@ void VRMLWriteAction::writeMaterial(Geometry        *pGeo,
 
     Real32 rAmbient = 0.f;
 
-    if(osgAbs(mChunk->getDiffuse()[0]) > Eps)
+    if(osgAbs(mChunk->getDiffuse()[0]) > TypeTraits<Real32>::getDefaultEps())
     {
         rAmbient = mChunk->getAmbient()[0] / mChunk->getDiffuse()[0];
     }
-    else if(osgAbs(mChunk->getDiffuse()[1]) > Eps)
+    else if(osgAbs(mChunk->getDiffuse()[1]) > TypeTraits<Real32>::getDefaultEps())
     {
         rAmbient = mChunk->getAmbient()[1] / mChunk->getDiffuse()[1];
     }
-    else if(osgAbs(mChunk->getDiffuse()[2]) > Eps)
+    else if(osgAbs(mChunk->getDiffuse()[2]) > TypeTraits<Real32>::getDefaultEps())
     {
         rAmbient = mChunk->getAmbient()[2] / mChunk->getDiffuse()[2];
     }

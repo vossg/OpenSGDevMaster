@@ -573,7 +573,7 @@ Real32 MaterialChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
 
 bool MaterialChunk::isTransparent(void) const
 {
-    return(getDiffuse()[3] <(1.f - Eps));
+    return(getDiffuse()[3] <(1.f - TypeTraits<Real>::getDefaultEps()));
 }
 
 
@@ -592,12 +592,16 @@ bool MaterialChunk::operator ==(const StateChunk &other) const
     if(tother == this)
         return true;
 
-    if(!getAmbient  ().equals(tother->getAmbient  (), Eps) ||
-       !getDiffuse  ().equals(tother->getDiffuse  (), Eps) ||
-       !getSpecular ().equals(tother->getSpecular (), Eps) ||
-       !getEmission ().equals(tother->getEmission (), Eps) ||
-        getShininess()     != tother->getShininess()       ||
-        getLit()           != tother->getLit()             ||
+    if(!getAmbient  ().equals(tother->getAmbient  (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getDiffuse  ().equals(tother->getDiffuse  (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getSpecular ().equals(tother->getSpecular (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+       !getEmission ().equals(tother->getEmission (),
+                              TypeTraits<Real>::getDefaultEps()) ||
+        getShininess()     != tother->getShininess()             ||
+        getLit()           != tother->getLit()                   ||
         getColorMaterial() != tother->getColorMaterial()
       )
         return false;
