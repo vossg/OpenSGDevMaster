@@ -3693,7 +3693,7 @@ void mergeGeoTypes(
 {
     GeoIntegralPropertyUnrecPtr dstTypes;
     UInt32                      dstFormat;
-    
+
     calcMergePropertyType(srcGeo1->getSFTypes()->getValue(),
                           srcGeo2->getSFTypes()->getValue(), false, dstFormat);
     dstTypes = GeoPropertyFactory::the()->create(dstFormat);
@@ -4305,6 +4305,22 @@ void mergeGeoMIMI(
  */
 bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
 {
+    if(geo1->getTypes() == NULL || geo2->getTypes() == NULL)
+    {
+        SWARNING << "mergeableGeo: Geometry without types, can not merge."
+                 << std::endl;
+
+        return false;
+    }
+
+    if(geo1->getLengths() == NULL || geo2->getLengths() == NULL)
+    {
+        SWARNING << "mergeableGeo: Geometry without lengths, can not merge."
+                 << std::endl;
+
+        return false;
+    }
+
     const Geometry::MFPropertiesType &prop1 = *(geo1->getMFProperties());
     const Geometry::MFPropertiesType &prop2 = *(geo2->getMFProperties());
     
@@ -4396,6 +4412,22 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
 GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
 {
     GeometryUnrecPtr returnValue;
+
+    if(geo1->getTypes() == NULL || geo2->getTypes() == NULL)
+    {
+        SWARNING << "mergeGeo: Geometry without types, can not merge."
+                 << std::endl;
+
+        return GeometryTransitPtr();
+    }
+
+    if(geo1->getLengths() == NULL || geo2->getLengths() == NULL)
+    {
+        SWARNING << "mergeGeo: Geometry without lengths, can not merge."
+                 << std::endl;
+
+        return GeometryTransitPtr();
+    }
 
     const Geometry::MFPropertiesType &prop1 = *(geo1->getMFProperties());
     const Geometry::MFPropertiesType &prop2 = *(geo2->getMFProperties());
