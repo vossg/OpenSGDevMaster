@@ -448,6 +448,20 @@ typedef GLenum (OSG_APIENTRY *OSGglCheckFramebufferStatusProc)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name Point Sprites                                                      */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void   (OSG_APIENTRY *OSGglPointParameterfProc       )(
+          GLenum  pname,
+          GLfloat param );
+
+typedef void   (OSG_APIENTRY *OSGglPointParameterfvProc       )(
+          GLenum   pname,
+    const GLfloat *params);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

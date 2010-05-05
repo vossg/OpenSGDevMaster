@@ -187,10 +187,10 @@ class OSG_STATE_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _nvPointSprite;
-    static UInt32 _nvTextureShader;
-    static UInt32 _nvTextureShader2;
-    static UInt32 _nvTextureShader3;
+    static UInt32 _extPointSprite;
+    static UInt32 _extTextureShader;
+    static UInt32 _extTextureShader2;
+    static UInt32 _extTextureShader3;
     static UInt32 _extTextureLodBias;
 
     void handleTextureShader(Window *win, GLenum bindtarget);

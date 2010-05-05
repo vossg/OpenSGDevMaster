@@ -20,7 +20,7 @@ ARB_point_parameters extension (OSG::PointChunk::_sfMinSize,
 OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
 OSG::PointChunk::_sfConstantAttenuation, 
 OSG::PointChunk::_sfLinearAttenuation,
-OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
+OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite
 (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
 	<Field
 		name="size"
@@ -112,7 +112,7 @@ OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
 		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
-	Flag to enable point sprites, see NV_point_sprite for details.
+	Flag to enable point sprites, see ARB_point_sprite for details.
 	</Field>
 	<Field
 		name="rMode"

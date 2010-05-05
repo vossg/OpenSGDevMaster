@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
 
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
@@ -65,10 +66,11 @@ OSG_USING_NAMESPACE
 
 StateChunkClass PointChunk::_class("Point");
 
-UInt32 PointChunk::_arbPointParameters;
-UInt32 PointChunk::_nvPointSprite;
-UInt32 PointChunk::_funcPointParameterf;
-UInt32 PointChunk::_funcPointParameterfv;
+UInt32 PointChunk::_extPointParameters     = Window::invalidExtensionID;
+UInt32 PointChunk::_extPointSpriteARB      = Window::invalidExtensionID;
+UInt32 PointChunk::_extPointSpriteNV       = Window::invalidExtensionID;
+UInt32 PointChunk::_funcIdPointParameterf  = Window::invalidFunctionID;
+UInt32 PointChunk::_funcIdPointParameterfv = Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -77,6 +79,22 @@ UInt32 PointChunk::_funcPointParameterfv;
 void PointChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+        _extPointParameters     =
+            Window::registerExtension("GL_ARB_point_parameters");
+        _extPointSpriteARB      =
+            Window::registerExtension("GL_ARB_point_sprite");
+        _extPointSpriteNV       =
+            Window::registerExtension("GL_NV_point_sprite");
+        _funcIdPointParameterf  =
+            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glPointParameterfARB",
+                                      _extPointParameters);
+        _funcIdPointParameterfv =
+            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glPointParameterfvARB",
+                                      _extPointParameters);
+    }
 }
 
 /***************************************************************************\
@@ -87,31 +105,11 @@ void PointChunk::initMethod(InitPhase ePhase)
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
 
-#ifndef GL_VERSION_1_4
-# define GL_FUNC_POINT_PARAMETERF  OSG_DLSYM_UNDERSCORE"glPointParameterfEXT"
-# define GL_FUNC_POINT_PARAMETERFV OSG_DLSYM_UNDERSCORE"glPointParameterfvEXT"
-#else
-# define GL_FUNC_POINT_PARAMETERF  OSG_DLSYM_UNDERSCORE"glPointParameterf"
-# define GL_FUNC_POINT_PARAMETERFV OSG_DLSYM_UNDERSCORE"glPointParameterfv"
-#endif
-
 /*----------------------- constructors & destructors ----------------------*/
 
 PointChunk::PointChunk(void) :
     Inherited()
 {
-    _arbPointParameters   =
-        Window::registerExtension("GL_EXT_point_parameters");
-    _nvPointSprite        =
-        Window::registerExtension("GL_NV_point_sprite");
-    _funcPointParameterf  =
-        Window::registerFunction (GL_FUNC_POINT_PARAMETERF,  
-                                  _arbPointParameters, 
-                                  0x0104);
-    _funcPointParameterfv =
-        Window::registerFunction (GL_FUNC_POINT_PARAMETERFV, 
-                                  _arbPointParameters, 
-                                  0x0104);
 }
 
 PointChunk::PointChunk(const PointChunk &source) :
@@ -158,56 +156,53 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_arbPointParameters))
+        if(pEnv->getWindow()->hasExtension(_extPointParameters))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                        GLfloat param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+            OSGGETGLFUNC(OSGglPointParameterfProc,
+                         osgGlPointParameterf,
+                         _funcIdPointParameterf);
+            OSGGETGLFUNC(OSGglPointParameterfvProc,
+                         osgGlPointParameterfv,
+                         _funcIdPointParameterfv);
 
-            // get "glPointParameterfvARB" function pointer
-            void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                                                 const GLfloat *param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      const GLfloat *param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
-
-            pointparameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
-            pointparameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
-            pointparameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
-                            getFadeThreshold());
+            osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
+            osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
+            osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
+                                 getFadeThreshold());
             
-            GLfloat att[3] = { getConstantAttenuation(),
-                               getLinearAttenuation(),
+            GLfloat att[3] = { getConstantAttenuation (),
+                               getLinearAttenuation   (),
                                getQuadraticAttenuation() };
             
-            pointparameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+            osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
         }
         
     }
 #endif
 
-#if GL_NV_point_sprite
+#if GL_ARB_point_sprite
     if(getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_nvPointSprite))
+        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      GLfloat param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+#if GL_NV_point_sprite
+            if(pEnv->getWindow()->hasExtension(_extPointSpriteNV))
+            {
+                OSGGETGLFUNC(OSGglPointParameterfProc,
+                             osgGlPointParameterf,
+                             _funcIdPointParameterf);
 
-            pointparameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+            }
+#endif
             
-            glEnable(GL_POINT_SPRITE_NV);
+            glEnable(GL_POINT_SPRITE_ARB);
         }
         
     }
 #endif
 
-#if ! defined(GL_ARB_point_parameters) && ! defined(GL_NV_point_sprite)
+#if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)
     pEnv;
 #endif
 }
@@ -233,90 +228,81 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_arbPointParameters))
+        if(pEnv->getWindow()->hasExtension(_extPointParameters))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      GLfloat param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+            OSGGETGLFUNC(OSGglPointParameterfProc,
+                         osgGlPointParameterf,
+                         _funcIdPointParameterf);
+            OSGGETGLFUNC(OSGglPointParameterfvProc,
+                         osgGlPointParameterfv,
+                         _funcIdPointParameterfv);
 
-            // get "glPointParameterfvARB" function pointer
-            void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                  const GLfloat *param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      const GLfloat *param)>(
-                pEnv->getWindow()->getFunction( _funcPointParameterfv ));
-
-            pointparameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
-            pointparameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
-            pointparameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
-                            getFadeThreshold());
+            osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
+            osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
+            osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
+                                 getFadeThreshold());
             
-            GLfloat att[3] = { getConstantAttenuation(),
-                               getLinearAttenuation(),
+            GLfloat att[3] = { getConstantAttenuation (),
+                               getLinearAttenuation   (),
                                getQuadraticAttenuation() };
             
-            pointparameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+            osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
         }
         
     }
     else if(old->getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_arbPointParameters))
+        if(pEnv->getWindow()->hasExtension(_extPointParameters))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      GLfloat param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+            OSGGETGLFUNC(OSGglPointParameterfProc,
+                         osgGlPointParameterf,
+                         _funcIdPointParameterf);
+            OSGGETGLFUNC(OSGglPointParameterfvProc,
+                         osgGlPointParameterfv,
+                         _funcIdPointParameterfv);
 
-            // get "glPointParameterfvARB" function pointer
-            void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                                                 const GLfloat *param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      const GLfloat *param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
-
-            pointparameterf(GL_POINT_SIZE_MIN_ARB, 0);
-            pointparameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
-            pointparameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
+            osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
+            osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
+            osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
             
             GLfloat att[3] = { 1, 0, 0 };
             
-            pointparameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+            osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
         }
     }
 #endif
 
-#if GL_NV_point_sprite
+#if GL_ARB_point_sprite
     if(getSprite() && !old->getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_nvPointSprite))
+        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      GLfloat param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+#if GL_NV_point_sprite
+            if(pEnv->getWindow()->hasExtension(_extPointSpriteNV))
+            {
+                OSGGETGLFUNC(OSGglPointParameterfProc,
+                             osgGlPointParameterf,
+                             _funcIdPointParameterf);
 
-            pointparameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+            }
+#endif
             
-            glEnable(GL_POINT_SPRITE_NV);
+            glEnable(GL_POINT_SPRITE_ARB);
         }
         
     }
     else if(!getSprite() && old->getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_nvPointSprite))
+        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
         {
-           glDisable(GL_POINT_SPRITE_NV);
+           glDisable(GL_POINT_SPRITE_ARB);
         }
         
     }
 #endif
 
-#if ! defined(GL_ARB_point_parameters) && ! defined(GL_NV_point_sprite)
+#if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)
     pEnv;
 #endif
 }
@@ -332,45 +318,39 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_arbPointParameters))
+        if(pEnv->getWindow()->hasExtension(_extPointParameters))
         {
-            // get "glPointParameterfARB" function pointer
-            void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      GLfloat param)>(
-                pEnv->getWindow()->getFunction( _funcPointParameterf ));
-            // get "glPointParameterfvARB" function pointer
-
-            void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                                                 const GLfloat *param) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
-                                                      const GLfloat *param)>(
-                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
-
-            pointparameterf(GL_POINT_SIZE_MIN_ARB, 0);
-            pointparameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
-            pointparameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
+            OSGGETGLFUNC(OSGglPointParameterfProc,
+                         osgGlPointParameterf,
+                         _funcIdPointParameterf);
+            OSGGETGLFUNC(OSGglPointParameterfvProc,
+                         osgGlPointParameterfv,
+                         _funcIdPointParameterfv);
+ 
+            osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
+            osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
+            osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
             
             GLfloat att[3] = { 1, 0, 0 };
             
-            pointparameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+            osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
         }
         
     }
 #endif
 
-#if GL_NV_point_sprite
+#if GL_ARB_point_sprite
     if(getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_nvPointSprite))
+        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
         {
-            glDisable(GL_POINT_SPRITE_NV);
+            glDisable(GL_POINT_SPRITE_ARB);
         }
         
     }
 #endif
 
-#if ! defined(GL_ARB_point_parameters) && ! defined(GL_NV_point_sprite)
+#if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)
     pEnv;
 #endif
 }

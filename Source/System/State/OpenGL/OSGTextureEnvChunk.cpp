@@ -72,10 +72,10 @@ OSG_USING_NAMESPACE
 
 StateChunkClass TextureEnvChunk::_class("TextureEnv", osgMaxTexImages, 20);
 
-UInt32 TextureEnvChunk::_nvPointSprite           = Window::invalidExtensionID;
-UInt32 TextureEnvChunk::_nvTextureShader         = Window::invalidExtensionID;
-UInt32 TextureEnvChunk::_nvTextureShader2        = Window::invalidExtensionID;
-UInt32 TextureEnvChunk::_nvTextureShader3        = Window::invalidExtensionID;
+UInt32 TextureEnvChunk::_extPointSprite          = Window::invalidExtensionID;
+UInt32 TextureEnvChunk::_extTextureShader        = Window::invalidExtensionID;
+UInt32 TextureEnvChunk::_extTextureShader2       = Window::invalidExtensionID;
+UInt32 TextureEnvChunk::_extTextureShader3       = Window::invalidExtensionID;
 UInt32 TextureEnvChunk::_extTextureLodBias       = Window::invalidExtensionID;
 
 /***************************************************************************\
@@ -92,13 +92,13 @@ void TextureEnvChunk::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        _nvPointSprite     =
-            Window::registerExtension("GL_NV_point_sprite"     );
-        _nvTextureShader   =
+        _extPointSprite     =
+            Window::registerExtension("GL_ARB_point_sprite"    );
+        _extTextureShader   =
             Window::registerExtension("GL_NV_texture_shader"   );
-        _nvTextureShader2  =
+        _extTextureShader2  =
             Window::registerExtension("GL_NV_texture_shader2"  );
-        _nvTextureShader3  =
+        _extTextureShader3  =
             Window::registerExtension("GL_NV_texture_shader3"  );
         _extTextureLodBias  = 
             Window::registerExtension("GL_EXT_texture_lod_bias");
@@ -149,7 +149,7 @@ const StateChunkClass *TextureEnvChunk::getClass(void) const
 
 void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
 {
-    if(!win->hasExtension(_nvTextureShader))
+    if(!win->hasExtension(_extTextureShader))
     {
         if(getShaderOperation() != GL_NONE)
             FINFO(("NV Texture Shaders not supported on Window %p!\n", win));
@@ -167,7 +167,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     if(getShaderOperation() == GL_NONE)
         return;
 
-    if(bindtarget == GL_TEXTURE_3D && !win->hasExtension(_nvTextureShader2))
+    if(bindtarget == GL_TEXTURE_3D && !win->hasExtension(_extTextureShader2))
     {
         FINFO(("NV Texture Shaders 2 not supported on Window %p!\n", win));
         return;
@@ -570,12 +570,12 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(TextureBaseChunk::activateTexture(win, idx) == true)
         return;
 
-#ifdef GL_NV_point_sprite
-    if(getPointSprite() && win->hasExtension(_nvPointSprite))
+#ifdef GL_ARB_point_sprite
+    if(getPointSprite() && win->hasExtension(_extPointSprite))
     {
         if(idx < static_cast<UInt32>(ntexcoords))
         {
-            glTexEnvi(GL_POINT_SPRITE_NV, GL_COORD_REPLACE_NV, GL_TRUE);
+            glTexEnvi(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
         }
     }
 #endif
@@ -679,7 +679,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
         if(idx                                 == 0       &&
            getShaderOperation()                != GL_NONE && 
-           win->hasExtension(_nvTextureShader) == true      )
+           win->hasExtension(_extTextureShader) == true      )
         {
             glEnable(GL_TEXTURE_SHADER_NV);
         }
@@ -741,21 +741,21 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
     if(TextureBaseChunk::activateTexture(win, idx))
         return; // trying to use too many textures
 
-#ifdef GL_NV_point_sprite
+#ifdef GL_ARB_point_sprite
     if(idx < ntexcoords)
     {
         if(oldp->getPointSprite() != getPointSprite() &&
-           win->hasExtension(_nvPointSprite))
+           win->hasExtension(_extPointSprite))
         {
-            glTexEnvi(GL_POINT_SPRITE_NV, 
-                      GL_COORD_REPLACE_NV,
+            glTexEnvi(GL_POINT_SPRITE_ARB,
+                      GL_COORD_REPLACE_ARB,
                       getPointSprite());
         }
     }
 #endif
 
 #ifndef OSG_EMBEDDED
-	if(oldp->getLodBias() != getLodBias() &&
+    if(oldp->getLodBias() != getLodBias() &&
        win->hasExtension(_extTextureLodBias))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, 
@@ -851,7 +851,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
                       getEnvOperand2Alpha());
         }
 
-        if(win->hasExtension(_nvTextureShader))
+        if(win->hasExtension(_extTextureShader))
         {
             if(      getShaderOperation() != GL_NONE &&
                oldp->getShaderOperation() == GL_NONE   )
@@ -920,9 +920,9 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     bool isActive = false;
 
-#ifdef GL_NV_point_sprite
+#ifdef GL_ARB_point_sprite
     if(getPointSprite() &&
-       win->hasExtension(_nvPointSprite) &&
+       win->hasExtension(_extPointSprite) &&
        idx < static_cast<UInt32>(ntexcoords) )
     {
         if(!isActive)
@@ -931,7 +931,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
             isActive = true;
         }
 
-        glTexEnvi(GL_POINT_SPRITE_NV, GL_COORD_REPLACE_NV, GL_FALSE);
+        glTexEnvi(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_FALSE);
     }
 #endif
 
@@ -973,7 +973,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     
 #ifndef OSG_EMBEDDED
 	if(getShaderOperation() != GL_NONE &&
-       win->hasExtension(_nvTextureShader))
+       win->hasExtension(_extTextureShader))
     {
         glTexEnvi(GL_TEXTURE_SHADER_NV, GL_SHADER_OPERATION_NV, GL_NONE);
 

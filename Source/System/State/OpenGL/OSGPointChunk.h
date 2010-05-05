@@ -160,10 +160,11 @@ class OSG_STATE_DLLMAPPING PointChunk : public PointChunkBase
     /*! \name            OpenGL Extension Handling                         */
     /*! \{                                                                 */
 
-    static UInt32 _arbPointParameters;
-    static UInt32 _nvPointSprite;
-    static UInt32 _funcPointParameterf;
-    static UInt32 _funcPointParameterfv;
+    static UInt32 _extPointParameters;
+    static UInt32 _extPointSpriteARB;
+    static UInt32 _extPointSpriteNV;
+    static UInt32 _funcIdPointParameterf;
+    static UInt32 _funcIdPointParameterfv;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
