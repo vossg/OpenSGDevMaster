@@ -138,7 +138,7 @@ bool CSMDrawManager::init(void)
 
     if(_sfParallel.getValue() == true)
     {
-        _pThread   = Thread::getCurrent();
+        _pThread   = dynamic_cast<OSG::Thread *>(Thread::getCurrent());
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
         _pSyncLock = Lock::get("DM::synclock", false);

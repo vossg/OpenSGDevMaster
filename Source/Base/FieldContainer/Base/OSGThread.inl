@@ -339,11 +339,10 @@ BitVector Thread::getCurrentLocalFlags(void)
     return Inherited::getCurrentLocalFlags();
 }
 
-
 inline
-Thread *Thread::getCurrent(void)
+ThreadBase *Thread::getCurrent(void)
 {
-    return static_cast<Thread *>(Inherited::getCurrent());
+    return static_cast<ThreadBase *>(Inherited::getCurrent());
 }
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO

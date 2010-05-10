@@ -171,6 +171,7 @@ class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
   private:
 
     friend class ThreadManager;
+    friend class Thread;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     ThreadCommonBase(const ThreadCommonBase &source);
@@ -301,6 +302,8 @@ class PThreadBase : public ThreadCommonBase
 
 typedef PThreadBase ThreadBase;
 
+OSG_GEN_MEMOBJPTR(ThreadBase);
+
 #endif /* OSG_USE_PTHREADS */
 
 
@@ -386,6 +389,8 @@ class SprocBase : public ThreadCommonBase
 };
 
 typedef SprocBase ThreadBase;
+
+OSG_GEN_MEMOBJPTR(ThreadBase);
 
 #endif /* OSG_USE_SPROC */
 
@@ -549,6 +554,8 @@ class WinThreadBase : public ThreadCommonBase
 
 typedef WinThreadBase ThreadBase;
 
+OSG_GEN_MEMOBJPTR(ThreadBase);
+
 #endif /* OSG_USE_WINTHREADS */
 
 
@@ -603,7 +610,7 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
     /*! \name                      Run                                     */
     /*! \{                                                                 */
 
-    static Thread        *getCurrent(      void              );
+    static ThreadBase    *getCurrent(      void              );
 
 
     static ObjTransitPtr  get       (const Char8     *szName,
