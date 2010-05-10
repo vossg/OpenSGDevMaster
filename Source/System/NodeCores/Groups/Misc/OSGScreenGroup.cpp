@@ -43,7 +43,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGScreenGroup.h"
 #include "OSGIntersectAction.h"

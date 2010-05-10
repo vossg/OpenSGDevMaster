@@ -46,7 +46,7 @@
 #include <vector>
 #include <map>
 
-#include <OSGCG.h>
+#include "OSGCG.h"
 
 #include "OSGCgFXPassChunkBase.h"
 
@@ -193,7 +193,7 @@ typedef CgFXPassChunk *CgFXPassChunkP;
 
 OSG_END_NAMESPACE
 
-#include <OSGCgFXPassChunkBase.inl>
-#include <OSGCgFXPassChunk.inl>
+#include "OSGCgFXPassChunkBase.inl"
+#include "OSGCgFXPassChunk.inl"
 
 #endif /* _OSGCGFXPASSCHUNK_H_ */

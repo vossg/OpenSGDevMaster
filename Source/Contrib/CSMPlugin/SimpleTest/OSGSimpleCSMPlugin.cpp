@@ -39,7 +39,7 @@
 #include "OSGSimpleCSMPlugin.h"
 
 #include "OSGComplexSceneManager.h"
-#include <OSGOSGSceneFileType.h>
+#include "OSGOSGSceneFileType.h"
 
 #include "OSGBaseInitFunctions.h"
 #include "OSGGLU.h"

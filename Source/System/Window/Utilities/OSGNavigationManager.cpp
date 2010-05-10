@@ -43,15 +43,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
-#include <OSGImageFileType.h>
-#include <OSGSolidBackground.h>
-#include <OSGViewport.h>
-#include <OSGDrawable.h>
-#include <OSGTransform.h>
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
+#include "OSGImageFileType.h"
+#include "OSGSolidBackground.h"
+#include "OSGViewport.h"
+#include "OSGDrawable.h"
+#include "OSGTransform.h"
 
-#include <OSGNavigationManager.h>
+#include "OSGNavigationManager.h"
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
 #pragma warning (disable : 383)

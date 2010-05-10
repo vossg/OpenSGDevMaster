@@ -116,6 +116,6 @@ struct OSG_BASE_DLLMAPPING MemObjRefCountPolicy
 
 OSG_END_NAMESPACE
 
-#include <OSGBaseRefCountPolicies.inl>
+#include "OSGBaseRefCountPolicies.inl"
 
 #endif // _OSGBASEREFCOUNTPOLICIES_H_

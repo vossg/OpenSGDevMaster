@@ -50,7 +50,7 @@
 
 // CgFX
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGCgFXPassChunk.h"
 #include "OSGCgFXMaterial.h"
