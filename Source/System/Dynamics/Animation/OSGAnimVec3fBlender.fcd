@@ -21,7 +21,7 @@
      cardinality="multi"
      visibility="external"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
     </Field>
   <Field
@@ -31,7 +31,7 @@
      cardinality="single"
      visibility="external"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
 </FieldContainer>

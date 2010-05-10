@@ -21,7 +21,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -31,7 +31,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -41,7 +41,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -51,7 +51,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -61,7 +61,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -71,7 +71,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -81,7 +81,7 @@
      cardinality="multi"
      visibility="internal"
      access="public"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
 </FieldContainer>

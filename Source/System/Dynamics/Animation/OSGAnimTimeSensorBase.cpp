@@ -162,7 +162,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         EnabledFieldId, EnabledFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleEnabled),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleEnabled));
 
@@ -174,7 +174,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         IsActiveFieldId, IsActiveFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleIsActive),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleIsActive));
 
@@ -186,7 +186,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         LoopFieldId, LoopFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleLoop),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleLoop));
 
@@ -198,7 +198,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         ForwardFieldId, ForwardFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleForward),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleForward));
 
@@ -210,7 +210,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StartTimeFieldId, StartTimeFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleStartTime),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleStartTime));
 
@@ -222,7 +222,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StopTimeFieldId, StopTimeFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleStopTime),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleStopTime));
 
@@ -234,7 +234,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         TimeFieldId, TimeFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleTime),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleTime));
 
@@ -246,7 +246,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         CycleLengthFieldId, CycleLengthFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleCycleLength),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleCycleLength));
 
@@ -258,7 +258,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         TimeScaleFieldId, TimeScaleFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleTimeScale),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleTimeScale));
 
@@ -270,7 +270,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         FractionFieldId, FractionFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleFraction),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleFraction));
 
@@ -282,7 +282,7 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         AnimTimeFieldId, AnimTimeFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTimeSensor::editHandleAnimTime),
         static_cast<FieldGetMethodSig >(&AnimTimeSensor::getHandleAnimTime));
 
@@ -326,7 +326,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"true\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -337,7 +337,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"false\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -348,7 +348,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"false\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -359,7 +359,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"true\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "\n"
@@ -371,7 +371,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -382,7 +382,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -393,7 +393,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -404,7 +404,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "\n"
@@ -416,7 +416,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"1.f\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -427,7 +427,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.f\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -438,7 +438,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.f\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

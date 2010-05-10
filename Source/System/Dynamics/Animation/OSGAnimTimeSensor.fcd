@@ -23,7 +23,7 @@
      visibility="internal"
      access="public"
      defaultValue="true"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -34,7 +34,7 @@
      visibility="internal"
      access="public"
      defaultValue="false"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -45,7 +45,7 @@
      visibility="internal"
      access="public"
      defaultValue="false"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -56,7 +56,7 @@
      visibility="internal"
      access="public"
      defaultValue="true"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
 
@@ -68,7 +68,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -79,7 +79,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -90,7 +90,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -101,7 +101,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
 
@@ -113,7 +113,7 @@
      visibility="internal"
      access="public"
      defaultValue="1.f"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -124,7 +124,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.f"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
   <Field
@@ -135,7 +135,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.f"
-     fieldFlags="FClusterLocal, FThreadLocal"
+     fieldFlags="FClusterLocal"
      >
   </Field>
 </FieldContainer>

@@ -152,7 +152,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         ValuesFieldId, ValuesFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleValues),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleValues));
 
@@ -164,7 +164,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsXFieldId, InTangentsXFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleInTangentsX),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleInTangentsX));
 
@@ -176,7 +176,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsYFieldId, InTangentsYFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleInTangentsY),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleInTangentsY));
 
@@ -188,7 +188,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsZFieldId, InTangentsZFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleInTangentsZ),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleInTangentsZ));
 
@@ -200,7 +200,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         InTangentsWFieldId, InTangentsWFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleInTangentsW),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleInTangentsW));
 
@@ -212,7 +212,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsXFieldId, OutTangentsXFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleOutTangentsX),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleOutTangentsX));
 
@@ -224,7 +224,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsYFieldId, OutTangentsYFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleOutTangentsY),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleOutTangentsY));
 
@@ -236,7 +236,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsZFieldId, OutTangentsZFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleOutTangentsZ),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleOutTangentsZ));
 
@@ -248,7 +248,7 @@ void AnimQuaternionDataSourceBase::classDescInserter(TypeObject &oType)
         "",
         OutTangentsWFieldId, OutTangentsWFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionDataSource::editHandleOutTangentsW),
         static_cast<FieldGetMethodSig >(&AnimQuaternionDataSource::getHandleOutTangentsW));
 
@@ -290,7 +290,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -300,7 +300,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -310,7 +310,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -320,7 +320,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "    <Field\n"
@@ -330,7 +330,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -340,7 +340,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -350,7 +350,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -360,7 +360,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -370,7 +370,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

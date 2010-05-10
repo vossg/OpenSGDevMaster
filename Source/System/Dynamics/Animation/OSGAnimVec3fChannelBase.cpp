@@ -125,7 +125,7 @@ void AnimVec3fChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimVec3fChannel::getHandleData));
 
@@ -137,7 +137,7 @@ void AnimVec3fChannelBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fChannel::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimVec3fChannel::getHandleOutValue));
 
@@ -180,7 +180,7 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -191,7 +191,7 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.f, 0.f, 0.f\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

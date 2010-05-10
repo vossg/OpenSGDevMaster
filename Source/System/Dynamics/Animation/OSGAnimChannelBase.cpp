@@ -147,7 +147,7 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
         "",
         AnimationFieldId, AnimationFieldMask,
         false,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&AnimChannel::invalidEditField),
         static_cast     <FieldGetMethodSig >(&AnimChannel::invalidGetField));
 
@@ -159,7 +159,7 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
         "",
         WeightFieldId, WeightFieldMask,
         false,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimChannel::editHandleWeight),
         static_cast<FieldGetMethodSig >(&AnimChannel::getHandleWeight));
 
@@ -171,7 +171,7 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
         "",
         InValueFieldId, InValueFieldMask,
         false,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimChannel::editHandleInValue),
         static_cast<FieldGetMethodSig >(&AnimChannel::getHandleInValue));
 
@@ -216,7 +216,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"none\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -227,7 +227,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"1.f\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -238,7 +238,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

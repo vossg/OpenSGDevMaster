@@ -125,7 +125,7 @@ void AnimQuaternionBlenderBase::classDescInserter(TypeObject &oType)
         "",
         ChannelsFieldId, ChannelsFieldMask,
         false,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionBlender::editHandleChannels),
         static_cast<FieldGetMethodSig >(&AnimQuaternionBlender::getHandleChannels));
 
@@ -137,7 +137,7 @@ void AnimQuaternionBlenderBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         false,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionBlender::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimQuaternionBlender::getHandleOutValue));
 
@@ -179,7 +179,7 @@ AnimQuaternionBlenderBase::TypeObject AnimQuaternionBlenderBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "    </Field>\n"
     "  <Field\n"
@@ -189,7 +189,7 @@ AnimQuaternionBlenderBase::TypeObject AnimQuaternionBlenderBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

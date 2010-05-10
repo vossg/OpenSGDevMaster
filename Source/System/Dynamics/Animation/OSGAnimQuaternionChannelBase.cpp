@@ -125,7 +125,7 @@ void AnimQuaternionChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimQuaternionChannel::getHandleData));
 
@@ -137,7 +137,7 @@ void AnimQuaternionChannelBase::classDescInserter(TypeObject &oType)
         "",
         OutValueFieldId, OutValueFieldMask,
         true,
-        (Field::FClusterLocal | Field::FThreadLocal),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionChannel::editHandleOutValue),
         static_cast<FieldGetMethodSig >(&AnimQuaternionChannel::getHandleOutValue));
 
@@ -180,7 +180,7 @@ AnimQuaternionChannelBase::TypeObject AnimQuaternionChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -190,7 +190,7 @@ AnimQuaternionChannelBase::TypeObject AnimQuaternionChannelBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal, FThreadLocal\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
