@@ -2408,6 +2408,11 @@ void OSG::Window::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void Window::resolveLinks(void)
 {
+    if(_pShaderCache != NULL)
+    {
+        _pShaderCache->clear();
+    }
+
     Inherited::resolveLinks();
 }
 

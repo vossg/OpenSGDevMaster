@@ -100,6 +100,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderCache
     void addShaderVar(const IdStore                  &vIds,
                             ShaderExecutableVarChunk *pVar   );
 
+    void clear       (      void                             );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */

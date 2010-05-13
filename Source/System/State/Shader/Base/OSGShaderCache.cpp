@@ -63,37 +63,7 @@ ShaderCache::ShaderCache(void) :
 
 ShaderCache::~ShaderCache(void)
 {
-#ifdef OSG_SHC_USE_REF
-    ShaderStore::const_iterator sIt  = _vShaderStore.begin();
-    ShaderStore::const_iterator sEnd = _vShaderStore.end  ();
-
-#ifdef OSG_SHC_REF_CLEANUP
-    for(; sIt != sEnd; ++sIt)
-    {
-        clearShRemoveCallback(sIt->second);
-    }
-#endif
-#endif
-
-    _oExeTree.destroy(boost::bind(&ShaderCache::clearShRemoveCallback,
-                                   this,
-                                  _1));
-
-#ifdef OSG_SHC_USE_REF
-    ShaderVarStore::const_iterator vIt  = _vShaderVarStore.begin();
-    ShaderVarStore::const_iterator vEnd = _vShaderVarStore.end  ();
-
-#ifdef OSG_SHC_REF_CLEANUP
-    for(; vIt != vEnd; ++vIt)
-    {
-        clearVaRemoveCallback(vIt->second);
-    }
-#endif
-#endif
-
-    _oVarTree.destroy(boost::bind(&ShaderCache::clearVaRemoveCallback,
-                                   this,
-                                  _1));
+    clear();
 }
 
 #if defined(OSG_SHC_USE_REF) && !defined(OSG_SHC_MODE_0)
@@ -316,6 +286,41 @@ void ShaderCache::addShaderVar(const IdStore                  &vIds,
         updateRemoveCallback(pVar);
 #endif
     }
+}
+
+void ShaderCache::clear(void)
+{
+#ifdef OSG_SHC_USE_REF
+    ShaderStore::const_iterator sIt  = _vShaderStore.begin();
+    ShaderStore::const_iterator sEnd = _vShaderStore.end  ();
+
+#ifdef OSG_SHC_REF_CLEANUP
+    for(; sIt != sEnd; ++sIt)
+    {
+        clearShRemoveCallback(sIt->second);
+    }
+#endif
+#endif
+
+    _oExeTree.destroy(boost::bind(&ShaderCache::clearShRemoveCallback,
+                                   this,
+                                  _1));
+
+#ifdef OSG_SHC_USE_REF
+    ShaderVarStore::const_iterator vIt  = _vShaderVarStore.begin();
+    ShaderVarStore::const_iterator vEnd = _vShaderVarStore.end  ();
+
+#ifdef OSG_SHC_REF_CLEANUP
+    for(; vIt != vEnd; ++vIt)
+    {
+        clearVaRemoveCallback(vIt->second);
+    }
+#endif
+#endif
+
+    _oVarTree.destroy(boost::bind(&ShaderCache::clearVaRemoveCallback,
+                                   this,
+                                  _1));
 }
 
 void ShaderCache::dump(void)
