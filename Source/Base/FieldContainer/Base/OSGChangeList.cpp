@@ -557,7 +557,7 @@ void ChangeList::doApply(bool bClear)
                 pSrc,
                 pSrc != NULL ? pSrc->getType().getCName() : "null",
                 pDst,
-                pDst != NULL ? pSrc->getType().getCName() : "null");
+                pDst != NULL ? pDst->getType().getCName() : "null");
 #endif
 
         if(pDst == NULL && 
@@ -589,7 +589,7 @@ void ChangeList::doApply(bool bClear)
                 pSrc,
                 pSrc != NULL ? pSrc->getType().getCName() : "null",
                 pDst,
-                pDst != NULL ? pSrc->getType().getCName() : "null",
+                pDst != NULL ? pDst->getType().getCName() : "null",
                 _uiAspect,
                 Thread::getCurrentAspect(),
                 pHandler);
