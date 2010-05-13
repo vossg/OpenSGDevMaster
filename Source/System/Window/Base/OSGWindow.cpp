@@ -326,7 +326,6 @@ OSG::Window::Window(void) :
     _availExtensions    (    ),
     _extFunctions       (    ),
     _availConstants     (    ),
-    _numAvailConstants  (    ),
     _windowId           (  -1),
     _pTravValidator     (NULL),
     _pShaderCache       (NULL),
@@ -354,7 +353,6 @@ OSG::Window::Window(const Window &source) :
     _availExtensions    (                              ),
     _extFunctions       (                              ),
     _availConstants     (                              ),
-    _numAvailConstants  (                             0),
     _windowId           (                            -1),
     _pTravValidator     (NULL                          ),
     _pShaderCache       (NULL                          ),
@@ -1526,22 +1524,25 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
 
 #ifndef OSG_EMBEDDED
     // any new constants registered ? 
-    while(_registeredConstants.size() > _numAvailConstants)
-    {   
-        for(std::vector<GLenum>::iterator it = _registeredConstants.begin() + 
-                                               _numAvailConstants;
-            it != _registeredConstants.end();
-            ++it)
-        {
-            Vec2f val(unknownConstant, unknownConstant); 
-            glGetFloatv(*it, static_cast<GLfloat*>(val.getValues()));
-            _availConstants[*it] = val;
-            FDEBUG(("Window(%p): Constant 0x%x value is %.3f %.3f\n", this,
-                    *it, val[0], val[1]));
-        }
-        _numAvailConstants = _registeredConstants.size();
+    while(_registeredConstants.size() > _availConstants.size())
+    {
+        std::vector<GLenum>::const_iterator cIt  =
+            _registeredConstants.begin() + _availConstants.size();
+        std::vector<GLenum>::const_iterator cEnd =
+            _registeredConstants.end  ();
 
-        glGetError(); // clear the error flag 
+        for(; cIt != cEnd; ++cIt)
+        {
+            Vec2f val(unknownConstant, unknownConstant);
+
+            glGetFloatv(*cIt, static_cast<GLfloat *>(val.getValues()));
+            _availConstants[*cIt] = val;
+
+            FDEBUG(("Window(%p): Constant 0x%x value is %.3f %.3f\n", this,
+                    *cIt, val[0], val[1]));
+        }
+
+        glGetError();
     }
 #endif
 

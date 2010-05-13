@@ -543,7 +543,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     std::vector<GLExtensionFunction>  _extFunctions;
 
     ConstHash                         _availConstants;
-    UInt32                            _numAvailConstants;
 
     Int32                             _windowId;
     TraversalValidator               *_pTravValidator;
