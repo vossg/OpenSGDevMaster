@@ -665,8 +665,7 @@ void BalancedMultiWindow::createLoadGroups(void)
         // only if something changed
         ChangeList *changeList = OSG::Thread::getCurrentChangeList();
 
-        if(changeList->getNumCreated  () == 0 &&
-           changeList->getNumDestroyed() == 0)
+        if(changeList->getNumCreated() == 0)
         {
             _rebuildLoadGroups = false;
         }

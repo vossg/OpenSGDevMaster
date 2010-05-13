@@ -205,8 +205,8 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    UInt32 getNumCreated  (void) const;
-    UInt32 getNumDestroyed(void) const;
+    UInt32 getNumCreated(void) const;
+    UInt32 getNumChanged(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
