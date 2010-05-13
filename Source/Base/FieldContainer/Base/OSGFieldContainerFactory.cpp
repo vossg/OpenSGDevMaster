@@ -266,6 +266,10 @@ Int32 FieldContainerFactoryBase::findContainer(ContainerPtr ptr) const
 
 void FieldContainerFactoryBase::dump(void)
 {
+#ifndef OSG_EMBEDDED
+    _pStoreLock->acquire();
+#endif
+
     ContainerStoreIt sI = _vContainerStore.begin();
     ContainerStoreIt sE = _vContainerStore.end  ();
     
@@ -296,6 +300,10 @@ void FieldContainerFactoryBase::dump(void)
             }
         }
     }
+
+#ifndef OSG_EMBEDDED
+    _pStoreLock->release();
+#endif
 }
 
 DerivedFieldContainerTypeIterator 
