@@ -222,9 +222,6 @@ SkeletonJoint::animBindEnter(Action *action)
     AnimBindAction  *bindAct =
         boost::polymorphic_downcast<AnimBindAction *>(action);
 
-    SLOG << "SkeletonJoint::animBindEnter: jointId ["
-         << _sfJointId.getValue() << "]" << std::endl;
-
     bindAct->bindFields(this);
 
     return res;
