@@ -383,6 +383,9 @@ NodeTransitPtr OFFSceneFileType::read(      std::istream &is,
         calcVertexNormals(geo);
 
     SceneFileHandler::the()->updateReadProgress(100);
+
+    commitChanges();
+
     return root;
 }
 

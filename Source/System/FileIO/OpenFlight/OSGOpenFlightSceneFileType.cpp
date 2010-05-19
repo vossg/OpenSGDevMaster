@@ -114,16 +114,6 @@ NodeTransitPtr OpenFlightSceneFileType::read(      std::istream &is,
                                              const Char8        *,
                                                    Resolver      resolver) const
 {
-#if 0
-    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors);
-
-    NodeTransitPtr returnValue = _pFile->scanStream(is, resolver);
-
-    delete _pFile;
-
-    commitChanges();
-#endif
-
     NodeTransitPtr returnValue(NULL);
 
     OFDatabase *pDB = new OFDatabase;
@@ -136,6 +126,8 @@ NodeTransitPtr OpenFlightSceneFileType::read(      std::istream &is,
     }
 
     delete pDB;
+
+    commitChanges();
 
     return returnValue;
 }

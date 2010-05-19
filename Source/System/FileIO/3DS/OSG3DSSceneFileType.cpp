@@ -108,7 +108,9 @@ NodeTransitPtr A3DSSceneFileType::read(      std::istream &is,
     }
 
     _materials.clear();
-    
+ 
+    commitChanges();
+   
     return root;
 }
 

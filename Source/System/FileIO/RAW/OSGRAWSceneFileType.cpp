@@ -236,6 +236,8 @@ NodeTransitPtr RAWSceneFileType::read(      std::istream &is,
         SNOTICE << triCount << " triangle read " << std::endl;
     }
 
+    commitChanges();
+
     return root;
 }
 

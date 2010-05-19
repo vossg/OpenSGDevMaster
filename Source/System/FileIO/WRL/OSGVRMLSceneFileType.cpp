@@ -112,6 +112,8 @@ NodeTransitPtr VRMLSceneFileType::read(      std::istream &is,
 
     delete loader;
 
+    commitChanges();
+
     return root;
 }
 

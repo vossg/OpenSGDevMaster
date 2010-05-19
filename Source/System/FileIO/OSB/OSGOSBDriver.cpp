@@ -110,6 +110,8 @@ OSBDriver::readFC(      std::istream              &inStream,
 
     OSBElementFactory::the()->release(root);
 
+    commitChanges();
+
     return retVal;
 }
 

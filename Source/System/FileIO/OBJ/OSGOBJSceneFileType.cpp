@@ -480,8 +480,11 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
     }
 
 #ifndef OSG_EMBEDDED
-	SceneFileHandler::the()->updateReadProgress(100);
+    SceneFileHandler::the()->updateReadProgress(100);
 #endif
+
+    commitChanges();
+
     return NodeTransitPtr(rootPtr);
 }
 

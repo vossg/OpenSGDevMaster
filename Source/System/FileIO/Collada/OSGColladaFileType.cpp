@@ -83,6 +83,8 @@ ColladaFileType::read(
 
     rootN = colGlobal->read(is, fileNameOrExtension);
 
+    commitChanges();
+
     return rootN;
 }
                       

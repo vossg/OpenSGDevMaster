@@ -197,8 +197,9 @@ NodeTransitPtr STLSceneFileType::read(      std::istream &is,
         root->setCore(geo);
     }
 
-    return root;
+    commitChanges();
 
+    return root;
 }
 
 bool STLSceneFileType::isASCII(std::istream &is, const Char8* fileNameOrExtension) const
