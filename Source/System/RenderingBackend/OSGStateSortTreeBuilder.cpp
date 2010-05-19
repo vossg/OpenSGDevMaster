@@ -108,11 +108,11 @@ void StateSortTreeBuilder::add(RenderActionBase    *pAction,
     RenderPartition *pRPart = dynamic_cast<RenderPartition *>(pPart);
     RenderTreeNode  *pNode  = _pNodePool->create<RenderTreeNode>(_uiNodePoolIdx);
 
-    pNode->setNode         (pAction->getActNode());
-    pNode->setFunctor      (drawFunc             );
-    pNode->setState        (pState               );
-    pNode->setStateOverride(pStateOverride       );
-    // light state
+    pNode->setNode         (pAction->getActNode()  );
+    pNode->setFunctor      (drawFunc               );
+    pNode->setState        (pState                 );
+    pNode->setStateOverride(pStateOverride         );
+    pNode->setLightState   (pRPart->getLightState());
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     pNode->setMatrixStore(pRPart->getMatrixStackTop());

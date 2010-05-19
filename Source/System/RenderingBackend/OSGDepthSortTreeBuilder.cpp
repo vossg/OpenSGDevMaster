@@ -83,8 +83,9 @@ DepthSortTreeBuilder::add(RenderActionBase    *pAction,
     pNode->setMatrixStore(tmpMS    );
 #endif
 
-    pNode->setState        (pState        );
-    pNode->setStateOverride(pStateOverride);
+    pNode->setState        (pState                 );
+    pNode->setStateOverride(pStateOverride         );
+    pNode->setLightState   (pRPart->getLightState());
 
     pNode->setNode   (pActNode);
     pNode->setFunctor(drawFunc);

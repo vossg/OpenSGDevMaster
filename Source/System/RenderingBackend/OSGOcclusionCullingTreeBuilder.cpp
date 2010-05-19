@@ -827,12 +827,12 @@ OcclusionCullingTreeBuilder::createNode(RenderActionBase    *pAction,
     pNode->setScalar( (-objPos[2]       - pRPart->getNear()) /
                       (pRPart->getFar() - pRPart->getNear())  );
 
-    pNode->setFunctor      (drawFunc);
-    pNode->setState        (pState);
-    pNode->setStateOverride(pStateOverride);
-    // light state
-    pNode->setNode         (_ract->getActNode());
-    pNode->setVolume       (objVol             );
+    pNode->setFunctor      (drawFunc               );
+    pNode->setState        (pState                 );
+    pNode->setStateOverride(pStateOverride         );
+    pNode->setLightState   (pRPart->getLightState());
+    pNode->setNode         (_ract->getActNode()    );
+    pNode->setVolume       (objVol                 );
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     pNode->setMatrixStore  (pRPart->getMatrixStackTop());

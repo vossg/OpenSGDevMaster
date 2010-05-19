@@ -303,8 +303,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
    
     /*-------------------------- comparison ---------------------------------*/
 
-    Int32 allocateLightIndex(void);
-    void  releaseLightIndex (void);
+    Int32  allocateLightIndex(void);
+    void   releaseLightIndex (void);
+    UInt32 getLightState     (void) const;
 
     /*-------------------------- comparison ---------------------------------*/
 

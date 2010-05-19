@@ -349,6 +349,12 @@ Real32 RenderPartition::getFar(void)
 }
 
 inline
+UInt32 RenderPartition::getLightState(void) const
+{
+    return _uiLightState;
+}
+
+inline
 void RenderPartition::setKeyGen(UInt32 uiKeyGen)
 {
     _uiKeyGen = uiKeyGen;

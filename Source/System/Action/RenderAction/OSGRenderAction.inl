@@ -85,6 +85,12 @@ OSG_BEGIN_NAMESPACE
 
 /*---------------------------- properties ---------------------------------*/
 
+inline
+UInt32 RenderAction::getLightState(void) const
+{
+    return _pActivePartition->getLightState();
+}
+
 template<class MatrixType> inline
 void RenderAction::pushMatrix(const MatrixType &matrix)
 {
