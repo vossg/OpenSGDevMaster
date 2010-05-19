@@ -251,6 +251,8 @@ NodeTransitPtr SceneFileHandlerBase::read(
         SWARNING << "could not read unknown file format" << std::endl;
     }
 
+    commitChanges();
+
     return NodeTransitPtr(scene);
 }
 
@@ -292,6 +294,8 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         {
             SWARNING << "Couldn't open file " << fileName << std::endl;
         }
+
+        commitChanges();
 
         return returnValue;
     }
@@ -360,6 +364,8 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         SWARNING << "could not read "       << fullFilePath
                  << "; unknown file format" << std::endl;
     }
+
+    commitChanges();
 
     return NodeTransitPtr(scene);
 }
