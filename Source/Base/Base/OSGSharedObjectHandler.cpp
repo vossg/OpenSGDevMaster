@@ -175,10 +175,28 @@ bool SharedObject::open()
 
     if(_pHandle == NULL)
     {
-        fprintf(stderr, "%s\n", dlerror()); // Why not using log? !!! DR
+        SFATAL << "SharedObject::open: Could not open shared object '"
+               << _szName << "':  " << dlerror() << std::endl;
     }
 #else
-    _pHandle = LoadLibrary(libName);
+    if(libName != NULL)
+    {
+        _pHandle = LoadLibrary(libName);
+    }
+    else
+    {
+        Char8 moduleName[1024];
+
+        GetModuleFileName(NULL, moduleName, 1024);
+
+        _pHandle = LoadLibrary(moduleName);
+    }
+
+    if(_pHandle == NULL)
+    {
+        SFATAL << "SharedObject::open: Could not open shared object '"
+               << _szName << "'." << std::endl;
+    }
 #endif
 
     return (_pHandle != NULL);
