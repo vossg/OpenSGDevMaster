@@ -730,7 +730,7 @@ Real32 QuadTreeTerrain::calcD2Value (Int32 centerX,
     Int32 sw = s - rx;
     Int32 se = s + rx;
     Int32 ne = n + rx;
-  
+
     // shortcut
     const GeoPnt3fProperty::StoredFieldType &v = 
         dynamic_cast<GeoPnt3fProperty *>(getHeightVertices())->getField(); 
@@ -1883,8 +1883,18 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             getHeightData()->reformat(Image::OSG_L_PF);
         }
         {
+            if((getHeightData()->getWidth() != getHeightData()->getHeight()) ||
+               (osgIsPower2(getHeightData()->getWidth() - 1) == false)        )
+            {
+                SWARNING << "QuadTreeTerrain: SFHeightData must be "
+                         << "of size 2^n+1 x 2^n+1 - size is "
+                         << getHeightData()->getWidth() << " x "
+                         << getHeightData()->getHeight()
+                         << std::endl;
+            }
+
             setWidth(getHeightData()->getWidth());
-            assert(getHeightData()->getHeight() == getWidth());
+            OSG_ASSERT(getHeightData()->getHeight() == getWidth());
             setLevel(UInt32(osgLog ((getWidth() - 1.0f)) / osgLog(2.0f)));
             
             SLOG << "found data width=" 

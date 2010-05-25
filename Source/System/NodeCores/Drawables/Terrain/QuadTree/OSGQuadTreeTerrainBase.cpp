@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Image *         QuadTreeTerrainBase::_sfHeightData
-    Terrain height as image.
+    Terrain height as image, must be of size 2^n+1 x 2^n+1.
 */
 
 /*! \var Real32          QuadTreeTerrainBase::_sfHeightScale
@@ -211,7 +211,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecImagePtr::Description(
         SFUnrecImagePtr::getClassType(),
         "heightData",
-        "Terrain height as image.\n",
+        "Terrain height as image, must be of size 2^n+1 x 2^n+1.\n",
         HeightDataFieldId, HeightDataFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -530,7 +530,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
-    "\tTerrain height as image.\n"
+    "\tTerrain height as image, must be of size 2^n+1 x 2^n+1.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"heightScale\"\n"

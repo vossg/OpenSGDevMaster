@@ -19,7 +19,7 @@ Terrain node core.
 		visibility="external"
 		access="public"
 	>
-	Terrain height as image.
+	Terrain height as image, must be of size 2^n+1 x 2^n+1.
 	</Field>
 	<Field
 		name="heightScale"
