@@ -254,6 +254,8 @@ void RenderBuffer::handleDestroyGL(DrawEnv                 *pEnv,
                      _uiFuncDeleteRenderbuffers   );
 
         osgGlDeleteRenderbuffersProc(1, &uiBufferId);
+
+        pWindow->setGLObjectId(osgid, 0);
     }
     else if(mode == Window::finaldestroy)
     {

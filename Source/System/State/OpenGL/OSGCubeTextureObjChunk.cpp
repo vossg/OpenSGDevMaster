@@ -267,6 +267,7 @@ void CubeTextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
     if(mode == Window::destroy)
     {
         glDeleteTextures(1, &id);
+        win->setGLObjectId(osgid, 0);
     }
     else if(mode == Window::finaldestroy)
     {

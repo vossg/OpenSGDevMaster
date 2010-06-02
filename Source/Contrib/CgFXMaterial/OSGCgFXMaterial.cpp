@@ -207,9 +207,11 @@ void CgFXMaterial::handleDestroyGL(DrawEnv                 *pEnv,
                                    UInt32                   osgId, 
                                    Window::GLObjectStatusE  mode)
 {
+    Window* win = pEnv->getWindow();
+
     if(mode == Window::destroy)
     {
-        Window::GLObjectId glId = pEnv->getWindow()->getGLObjectId(osgId);
+        Window::GLObjectId glId = win->getGLObjectId(osgId);
 
         CGcontext pCGcontext = reinterpret_cast<CGcontext>(glId);
 
@@ -220,6 +222,8 @@ void CgFXMaterial::handleDestroyGL(DrawEnv                 *pEnv,
         {
             cgDestroyContext(pCGcontext);
         }
+
+        win->setGLObjectId(osgId, 0);
     }
 }
 

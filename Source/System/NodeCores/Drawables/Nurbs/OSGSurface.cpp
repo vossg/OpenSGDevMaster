@@ -1889,6 +1889,8 @@ void Surface::handleDestroyGL(DrawEnv                *pEnv,
         glid = pWin->getGLObjectId(id);
 
         glDeleteLists(glid, 1);
+
+        pWin->setGLObjectId(id, 0);
     }
     else if(mode == Window::finaldestroy)
     {

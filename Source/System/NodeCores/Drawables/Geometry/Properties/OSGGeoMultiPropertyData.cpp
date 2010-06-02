@@ -234,6 +234,8 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
 
         GLuint buf = id;
         _glDeleteBuffers(1, &buf);
+
+        win->setGLObjectId(id, 0);
     }
     else if(mode == Window::finaldestroy)
     {

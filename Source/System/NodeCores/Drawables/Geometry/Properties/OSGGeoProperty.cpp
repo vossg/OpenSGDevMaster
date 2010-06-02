@@ -330,6 +330,8 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
         glid = win->getGLObjectId(id);
 
         osgGlDeleteBuffers(1, &glid);
+
+        win->setGLObjectId(id, 0);
     }
     else if(mode == Window::finaldestroy)
     {
