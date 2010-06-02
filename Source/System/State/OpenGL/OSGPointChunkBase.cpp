@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
     OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
     OSG::PointChunk::_sfConstantAttenuation, 
     OSG::PointChunk::_sfLinearAttenuation,
-    OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
+    OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite
     (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
  */
 
@@ -129,7 +129,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var bool            PointChunkBase::_sfSprite
-    Flag to enable point sprites, see NV_point_sprite for details.
+    Flag to enable point sprites, see ARB_point_sprite for details.
 */
 
 /*! \var GLenum          PointChunkBase::_sfRMode
@@ -263,7 +263,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "sprite",
-        "Flag to enable point sprites, see NV_point_sprite for details.\n",
+        "Flag to enable point sprites, see ARB_point_sprite for details.\n",
         SpriteFieldId, SpriteFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -319,7 +319,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, \n"
     "OSG::PointChunk::_sfConstantAttenuation, \n"
     "OSG::PointChunk::_sfLinearAttenuation,\n"
-    "OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite\n"
+    "OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite\n"
     "(OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).\n"
     "\t<Field\n"
     "\t\tname=\"size\"\n"
@@ -411,7 +411,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
-    "\tFlag to enable point sprites, see NV_point_sprite for details.\n"
+    "\tFlag to enable point sprites, see ARB_point_sprite for details.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"rMode\"\n"
@@ -434,7 +434,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, \n"
     "OSG::PointChunk::_sfConstantAttenuation, \n"
     "OSG::PointChunk::_sfLinearAttenuation,\n"
-    "OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite\n"
+    "OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite\n"
     "(OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).\n"
     );
 

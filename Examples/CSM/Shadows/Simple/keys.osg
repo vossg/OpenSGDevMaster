@@ -91,4 +91,4 @@ ROUTE ModeDown.signalPressed  TO ShadowModeCounter.decTrigger
 
 ROUTE ShadowModeCounter.value    TO GlobalEffect2.shadowMode
 
-ROUTE KeyC.stateFlipFlop TO ColFilter .enabled
+ROUTE KeyC.stateFlipFlop TO GlobalEffect1/colorFilter.enabled
