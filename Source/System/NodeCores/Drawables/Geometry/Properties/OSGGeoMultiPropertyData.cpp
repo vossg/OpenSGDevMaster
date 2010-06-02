@@ -51,6 +51,8 @@
 #include "OSGGeoMultiPropertyData.h"
 #include "OSGDrawEnv.h"
 
+#include "OSGGLFuncProtos.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -181,29 +183,17 @@ UInt32 GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
     if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
-        // get "glBindBufferARB" function pointer
-        void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
-                                                  GLuint buffer)>(
-                win->getFunction(_funcBindBuffer));
+        OSGGETGLFUNCBYID(OSGglBindBufferARB, osgGlBindBufferARB,
+                         _funcBindBuffer,    win                );
+        OSGGETGLFUNCBYID(OSGglBufferDataARB, osgGlBufferDataARB,
+                         _funcBufferData,    win                );
 
-        // get "glBufferDataARB" function pointer
-        void (OSG_APIENTRY*_glBufferDataARB)(GLenum target, 
-                                             long size, 
-                                             const void *data,
-                                             GLenum usage) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
-                                                  long size, 
-                                                  const void *data,
-                                                  GLenum usage)>(
-                win->getFunction(_funcBufferData));
-    
-        _glBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
-        _glBufferDataARB(GL_ARRAY_BUFFER_ARB, 
-                            _mfIData.size(), 
-                            &_mfIData[0], 
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
+        osgGlBufferDataARB(GL_ARRAY_BUFFER_ARB,
+                            _mfIData.size(),
+                            &_mfIData[0],
                             GL_STATIC_DRAW_ARB);
-        _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     }
     else
     {
@@ -226,14 +216,11 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
     
     if(mode == Window::destroy)
     {   
-        // get "glDeleteBuffersARB" function pointer
-        void (OSG_APIENTRY*_glDeleteBuffers)(GLsizei n, const GLuint *buffers) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLsizei n, 
-                                                  const GLuint *buffers)>(
-                win->getFunction(_funcDeleteBuffers));
+        OSGGETGLFUNCBYID(OSGglDeleteBuffersARB, osgGlDeleteBuffers,
+                         _funcDeleteBuffers,    win                );
 
         GLuint buf = id;
-        _glDeleteBuffers(1, &buf);
+        osgGlDeleteBuffers(1, &buf);
 
         win->setGLObjectId(id, 0);
     }
