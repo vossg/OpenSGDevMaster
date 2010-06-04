@@ -10,21 +10,25 @@ OSG_SELECT_PROJECT()
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGDynamics
                                 OSGGroup
-                                OSGState)
+                                OSGState
+                                OSGContribCgFX)
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGImageFileIO
                                      OSGUtil
                                      OSGWindowGLUT)
 
 # dependencies - External
-# SET(${PROJECT_NAME}_DEP_LIB)
+# SET(${PROJECT_NAME}_DEP_LIB    CG_LIBRARIES)
 # SET(${PROJECT_NAME}_DEP_LIBDIR)
-# SET(${PROJECT_NAME}_DEP_INCDIR)
+# SET(${PROJECT_NAME}_DEP_INCDIR CG_INCLUDE_DIR)
 
 IF(COLLADA_FOUND)
     SET(${PROJECT_NAME}_DEP_INCDIR COLLADA_DAE_INCLUDE_DIR
                                    COLLADA_DOM_INCLUDE_DIR)
     SET(${PROJECT_NAME}_DEP_LIB    OSG_COLLADA_LIBS OSG_BOOST_LIBS)
 ENDIF(COLLADA_FOUND)
+
+SET(${PROJECT_NAME}_DEP_LIB    ${${PROJECT_NAME}_DEP_LIB}    CG_LIBRARIES)
+SET(${PROJECT_NAME}_DEP_INCDIR ${${PROJECT_NAME}_DEP_INCDIR} CG_INCLUDE_DIR)
 
 # SET(${PROJECT_NAME}_DEP_TEST_LIB OSG_GLUT_LIBS)
 # SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)

@@ -48,6 +48,8 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderProgramVariables;
 
+class ColladaEffect;
+
 /*! \brief ShaderParameter class. See \ref 
            PageSystemShaderParameter for a description.
     \ingroup GrpSystemShaderBase
@@ -177,6 +179,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
     friend class FieldContainer;
     friend class ShaderVariableBase;
     friend class ShaderProgramVariables;
+
+    friend class ColladaEffect;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderVariable &source);

@@ -50,17 +50,21 @@
 #include "OSGColladaSurface.h"
 #include "OSGMaterial.h"
 
+#include "OSGShaderVariables.h"
+#include "OSGCgFXMaterial.h"
+
 #include <dom/domImage.h>
 #include <dom/domFx_sampler2D_common.h>
 #include <dom/domFx_surface_common.h>
 #include <dom/domCommon_color_or_texture_type.h>
 #include <dom/domCommon_float_or_param_type.h>
 #include <dom/domCommon_transparent_type.h>
+#include <dom/domProfile_CG.h>
 
 // forward decl
 class domProfile_COMMON;
 class domProfile_GLSL;
-class domProfile_CG;
+//class domProfile_CG;
 class domEffect;
 class domInstance_effect;
 
@@ -280,6 +284,29 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
                     UInt32                &texCount       );
 
     Real32 luminance(const Color4f &col);
+
+	std::string	buildCgFXCode( domProfile_CG *prof );
+
+	std::string	extractCgBindParams( 
+		domProfile_CG::domTechnique::domPass::domShader*	shader );
+
+	std::string	extractCgStates( 
+		domProfile_CG::domTechnique::domPassRef		pass );
+
+	std::string getFuncTypeString			(domGl_func_type			func);
+	std::string getBlendEquationString		(domGl_blend_equation_type	eq);
+	std::string getBlendFuncTypeString		(domGl_blend_type			func);
+	std::string getFaceTypeString			(domGl_face_type			face);
+	std::string getMaterialModeTypeString	(domGl_material_type		mat);
+	std::string getLogicOpTypeString		(domGl_logic_op_type		logicOp);
+	std::string getStencilOpTypeString		(domGl_stencil_op_type		stopType);
+	std::string getBoolStringRep			(std::string stateName, UInt32 idx, bool state);
+	std::string getBoolStringRep			(std::string stateName, bool state);
+
+	std::string	fixFilepath( std::string filepath );
+	std::string	fixImageFilepath( std::string imgPath);
+
+	bool isCGSampler( domFx_basic_type_commonRef param );
 
     static ColladaElementRegistrationHelper _regHelper;
 
