@@ -433,6 +433,9 @@ ColladaLight::createInstanceCommon(
         {
             setName(lightN, light->getName());
         }
+
+        getGlobal()->getStatCollector()->getElem(
+            ColladaGlobal::statNLightCreated)->inc();    
     }
 
     return lightN;

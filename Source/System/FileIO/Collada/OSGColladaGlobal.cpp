@@ -76,6 +76,14 @@ StatElemDesc<StatIntElem> ColladaGlobal::statNMaterialUsed(
     "Collada::NMaterialUsed",
     "Number of OpenSG materials in the scene created by the collada loader",
     StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNLightCreated(
+    "Collada::NLightCreated",
+    "Number of OpenSG lights created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNLightUsed(
+    "Collada::NLightUsed",
+    "Number of OpenSG lights in the scene created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
 StatElemDesc<StatIntElem> ColladaGlobal::statNTextureCreated(
     "Collada::NTextureCreated",
     "Number of OpenSG textures created by the collada loader",
@@ -202,6 +210,8 @@ ColladaGlobal::doRead(void)
     _statColl->getElem(statNGeometryUsed,    true);
     _statColl->getElem(statNMaterialCreated, true);
     _statColl->getElem(statNMaterialUsed,    true);
+    _statColl->getElem(statNLightCreated,    true);
+    _statColl->getElem(statNLightUsed,       true);
     _statColl->getElem(statNTextureCreated,  true);
     _statColl->getElem(statNTextureUsed,     true);
 
