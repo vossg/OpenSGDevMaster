@@ -101,6 +101,12 @@ const FieldDescriptionBase *FieldHandle::getDescription(void)
     return _pDescription;
 }
 
+inline
+void FieldHandle::pushIndexedValueToStream(OutStream &str, UInt32 index) const
+{
+    pushValueToStream(str);
+}
+
 /*---------------------------------------------------------------------*/
 
 inline
@@ -199,6 +205,26 @@ inline
 FieldContainer *EditFieldHandle::getContainer(void)
 {
     return _pContainer;
+}
+
+inline
+void EditFieldHandle::pushIndexedValueFromCString(const Char8  *str,
+                                                        UInt32  index)
+{
+    pushValueFromCString(str);
+}
+
+inline
+void EditFieldHandle::removeIndex(UInt32 index)
+{
+    //Do nothing as general case
+}
+
+inline
+void EditFieldHandle::insertIndexedValueFromCString(const Char8  *str,
+                                                          UInt32  index)
+{
+    //Do nothing as general case
 }
 
 inline
@@ -355,6 +381,15 @@ void EditSFieldHandle<FieldT>::pushValueFromCString(
 }
 
 template<class FieldT> inline
+void EditSFieldHandle<FieldT>::pushIndexedValueFromCString(const Char8  *str,
+                                                                 UInt32  index)
+{
+    FieldT *pField = static_cast<FieldT *>(_pField);
+
+    pField->setValueFromCString(str);
+}
+
+template<class FieldT> inline
 void EditSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 {
     typename GetSFieldHandle<FieldT>::Ptr pSource = 
@@ -448,7 +483,14 @@ void EditMFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
 }
 
 template<class FieldT> inline
-void EditMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
+void EditMFieldHandle<FieldT>::pushIndexedValueToStream(OutStream &str, 
+                                                        UInt32     index) const
+{
+    static_cast<const FieldT *>(_pField)->pushIndexedValueToStream(str, index);
+}
+
+template<class FieldT> inline
+void EditMFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
 {
     static_cast<FieldT *>(_pField)->pushSizeToStream(str);
 }
@@ -483,6 +525,36 @@ void EditMFieldHandle<FieldT>::pushValueFromCString(
 
     pField->addValueFromCString(str);
 }
+
+template<class FieldT> inline
+void EditMFieldHandle<FieldT>::pushIndexedValueFromCString(const Char8  *str, 
+                                                                 UInt32  index)
+{
+    FieldT *pField = static_cast<FieldT *>(_pField);
+
+    pField->pushIndexedValueFromCString(str, index);
+}
+
+template<class FieldT> inline
+void EditMFieldHandle<FieldT>::removeIndex(UInt32 index)
+{
+    static_cast<FieldT *>(_pField)->erase(index);
+}
+
+template<class FieldT> inline
+void EditMFieldHandle<FieldT>::insertIndexedValueFromCString(
+    const Char8  *str,
+          UInt32  index)
+{
+    FieldT *pField = static_cast<FieldT *>(_pField);
+
+    pField->addValueFromCString(str);
+    FieldT::iterator Pos(pField->begin());
+    Pos += index;
+    pField->insert(Pos, pField->back());
+    pField->erase(pField->size()-1);
+}
+
 
 template<class FieldT> inline
 void EditMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
@@ -663,6 +735,13 @@ template<class FieldT> inline
 void GetMFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
 {
     static_cast<FieldT const *>(_pField)->pushValuesToStream(str);
+}
+
+template<class FieldT> inline
+void GetMFieldHandle<FieldT>::pushIndexedValueToStream(OutStream &str, 
+                                                       UInt32     index) const
+{
+    static_cast<const FieldT *>(_pField)->pushIndexedValueToStream(str, index);
 }
 
 template<class FieldT> inline

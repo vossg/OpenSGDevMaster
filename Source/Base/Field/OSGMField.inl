@@ -191,6 +191,42 @@ void MField<ValueT,
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 void MField<ValueT, 
             iNamespace, 
+            AllocT    >::pushIndexedValueFromCString(Char8  const *str, 
+                                                     UInt32        index)
+{
+    ValueT tmpVal;
+
+    typedef typename boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::FromStringConvertible)>, 
+        MFieldTraits, 
+        StringConversionError<ValueT,
+                              iNamespace> >::type Converter;
+    
+    Converter::getFromCString(tmpVal, str);
+    
+    _values[index] = tmpVal;
+}
+
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::pushIndexedValueToStream(OutStream &str, 
+                                                  UInt32     index) const
+{
+    typedef typename boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::ToStreamConvertible)>, 
+        MFieldTraits, 
+        StreamConversionError<ValueT,
+                              iNamespace> >::type Converter;
+
+    Converter::putToStream(_values[index], str);
+}
+
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
             AllocT    >::pushValuesToStream(OutStream &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
