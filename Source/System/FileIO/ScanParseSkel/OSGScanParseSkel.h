@@ -179,7 +179,8 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     /*! \name                     Prototypes                               */
     /*! \{                                                                 */
 
-    virtual bool verifyHeader             (const Char8 *szHeader);
+    virtual bool verifyHeader             (const Char8 *szHeader   );
+    virtual bool checkHeader              (      void              );
 
     virtual void beginProto               (const Char8 *szProtoname);
     virtual void endProtoInterface        (void);

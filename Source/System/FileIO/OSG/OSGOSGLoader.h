@@ -106,6 +106,8 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                Skel replacements                             */
     /*! \{                                                                 */
 
+    virtual bool    checkHeader       (      void                     );
+
     virtual void    beginNode         (const Char8  *szNodeTypename,
                                        const Char8  *szNodename       );
 

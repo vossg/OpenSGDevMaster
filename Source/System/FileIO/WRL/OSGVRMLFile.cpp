@@ -159,6 +159,11 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
     return returnValue;
 }
 
+bool VRMLFile::checkHeader(void)
+{
+    return true;
+}
+
 void VRMLFile::handleError(const Char8 *szErrorText)
 {
     Inherited::handleError(szErrorText);

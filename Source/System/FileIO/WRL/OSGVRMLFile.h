@@ -114,6 +114,8 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*! \name                   Skel replacements                          */
     /*! \{                                                                 */
 
+    virtual bool   checkHeader   (      void                      );
+
     virtual void   handleError   (const Char8  *szErrorText);
 
     virtual void   beginProto            (const Char8 *szProtoname);

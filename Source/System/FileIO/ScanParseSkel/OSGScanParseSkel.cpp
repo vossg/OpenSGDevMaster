@@ -186,6 +186,11 @@ bool ScanParseSkel::verifyHeader(const Char8 *szHeader)
     return returnValue;
 }
 
+bool ScanParseSkel::checkHeader(void)
+{
+    return false;
+}
+
 void ScanParseSkel::beginProto(const Char8 *)
 {
 }

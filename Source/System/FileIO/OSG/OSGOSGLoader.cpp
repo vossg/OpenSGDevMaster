@@ -443,6 +443,11 @@ FieldContainerTransitPtr OSGLoader::scanStreamContainer(std::istream &is,
     return returnValue;
 }
 
+bool OSGLoader::checkHeader(void)
+{
+    return true;
+}
+
 #if defined(OSG_WIN32_ICL)
 #pragma warning (disable : 383)
 #endif
