@@ -549,9 +549,7 @@ void EditMFieldHandle<FieldT>::insertIndexedValueFromCString(
     FieldT *pField = static_cast<FieldT *>(_pField);
 
     pField->addValueFromCString(str);
-    FieldT::iterator Pos(pField->begin());
-    Pos += index;
-    pField->insert(Pos, pField->back());
+    pField->insert(index, pField->back());
     pField->erase(pField->size()-1);
 }
 

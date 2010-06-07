@@ -219,6 +219,8 @@ class MField : public Field
     
     void                   clear    (void                              );
     
+    iterator               insert   (size_type    index,
+                                     ArgumentType value                );
     iterator               insert   (iterator     pos,
                                      ArgumentType value                );
     void                   insert   (iterator     pos,
