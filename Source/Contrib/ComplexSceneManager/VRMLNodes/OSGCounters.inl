@@ -298,6 +298,7 @@ typename CounterImpl<Desc>::ObjTransitPtr
 template<class Desc> inline
 typename CounterImpl<Desc>::ObjTransitPtr CounterImpl<Desc>::create(void)
 {
+#if 0
     ObjTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
@@ -309,6 +310,9 @@ typename CounterImpl<Desc>::ObjTransitPtr CounterImpl<Desc>::create(void)
     }
 
     return fc;
+#else
+    return createLocal();
+#endif
 }
 
 template<class Desc> inline
@@ -328,6 +332,7 @@ typename CounterImpl<Desc>::Self *
 template<class Desc> inline
 typename CounterImpl<Desc>::Self *CounterImpl<Desc>::createEmpty(void)
 {
+#if 0
     Self *returnValue;
 
     newPtr<Self>(returnValue, Thread::getCurrentLocalFlags());
@@ -336,6 +341,9 @@ typename CounterImpl<Desc>::Self *CounterImpl<Desc>::createEmpty(void)
         ~Thread::getCurrentLocalFlags();
 
     return returnValue;
+#else
+    return createEmptyLocal();
+#endif
 }
 
 
@@ -372,6 +380,7 @@ FieldContainerTransitPtr
 template<class Desc> inline
 FieldContainerTransitPtr CounterImpl<Desc>::shallowCopy(void) const
 {
+#if 0
     Self *tmpPtr;
 
     newPtr(tmpPtr,
@@ -383,6 +392,9 @@ FieldContainerTransitPtr CounterImpl<Desc>::shallowCopy(void) const
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
+#else
+    return shallowCopyLocal();
+#endif
 }
 
 

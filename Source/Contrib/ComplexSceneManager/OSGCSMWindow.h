@@ -201,6 +201,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void terminateGLContext(void) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     bool requestStereoVisual(void);
 
     /*! \}                                                                 */

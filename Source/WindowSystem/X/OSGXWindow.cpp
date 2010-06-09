@@ -261,8 +261,10 @@ void XWindow::terminate(void)
     if(getDisplay() != NULL && getContext() != NULL)
     {
         this->doDeactivate();
-        
+
         glXDestroyContext(getDisplay(), getContext());
+
+        setContext(NULL);
     }
 }
 
@@ -319,6 +321,11 @@ bool XWindow::doSwap(void)
 {
     glXSwapBuffers(getDisplay(), getWindow());
     return true;
+}
+
+bool XWindow::hasContext(void)
+{
+    return (this->getContext() != NULL);
 }
 
 void XWindow::onDestroy(UInt32 uiContainerId)

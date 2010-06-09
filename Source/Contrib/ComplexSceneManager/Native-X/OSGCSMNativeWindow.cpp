@@ -294,6 +294,11 @@ void CSMNativeWindow::dump(      UInt32    ,
 
 void CSMNativeWindow::resolveLinks(void)
 {
+    Inherited::resolveLinks();
+}
+
+void CSMNativeWindow::terminateGLContext(void)
+{
     if(_pXWindow != NULL)
     {
         _pXWindow->terminate();
@@ -309,9 +314,10 @@ void CSMNativeWindow::resolveLinks(void)
         }
 
         XCloseDisplay(_pDisplay);
-    }
 
-    Inherited::resolveLinks();
+        _pXWindow->setDisplay(NULL);
+        _pXWindow->setWindow (0   );
+    }
 }
 
 #ifdef OSG_DEBUG_OLD_C_CASTS

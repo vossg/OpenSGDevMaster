@@ -251,14 +251,16 @@ PrimeMaterial *getDefaultUnlitMaterial(void)
 
 bool subRefDefaultMaterial     (void)
 {
-    _defaultMaterial = NULL;
+//    _defaultMaterial = NULL;
+    _defaultMaterial.shutdownSetNull();
 
     return true;
 }
 
 bool subRefDefaultUnlitMaterial(void)
 {
-    _defaultUnlitMaterial = NULL;
+//    _defaultUnlitMaterial = NULL;
+    _defaultMaterial.shutdownSetNull();
 
     return true;
 }

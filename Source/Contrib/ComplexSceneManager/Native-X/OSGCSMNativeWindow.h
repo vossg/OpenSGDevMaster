@@ -131,7 +131,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    virtual void resolveLinks(void);
+    virtual void resolveLinks      (void);
+    virtual void terminateGLContext(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

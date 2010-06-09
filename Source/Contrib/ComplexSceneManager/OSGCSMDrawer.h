@@ -107,7 +107,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void resolveLinks(void);
+    virtual void resolveLinks       (void);
+    virtual void terminateGLContexts(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

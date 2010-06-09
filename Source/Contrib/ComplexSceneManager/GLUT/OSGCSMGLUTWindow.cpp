@@ -166,6 +166,10 @@ CSMGLUTWindow::~CSMGLUTWindow(void)
 {
 }
 
+void CSMGLUTWindow::terminateGLContext(void)
+{
+}
+
 /*----------------------------- class specific ----------------------------*/
 
 void CSMGLUTWindow::changed(ConstFieldMaskArg whichField, 

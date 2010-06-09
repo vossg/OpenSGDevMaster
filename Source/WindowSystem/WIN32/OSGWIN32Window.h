@@ -128,6 +128,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     virtual void doDeactivate(void);
     virtual bool doSwap      (void);
 
+    virtual bool hasContext  (void);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

@@ -286,4 +286,8 @@ void CSMClusterWindow::dump(      UInt32    ,
     SLOG << "Dump CSMClusterWindow NI" << std::endl;
 }
 
+void CSMClusterWindow::terminateGLContext(void)
+{
+}
+
 OSG_END_NAMESPACE

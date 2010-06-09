@@ -127,6 +127,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindow : public CSMClusterWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void terminateGLContext(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

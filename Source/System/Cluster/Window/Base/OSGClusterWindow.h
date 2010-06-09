@@ -216,7 +216,9 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     virtual void  doDeactivate        (void                          );
     virtual bool  doSwap              (void                          );
 
-    virtual void  doRenderAllViewports(RenderActionBase *action);
+    virtual void  doRenderAllViewports(RenderActionBase *action      );
+
+    virtual bool  hasContext          (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

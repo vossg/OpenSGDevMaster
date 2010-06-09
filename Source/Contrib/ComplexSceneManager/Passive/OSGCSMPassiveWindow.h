@@ -122,6 +122,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindow : public CSMPassiveWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void terminateGLContext(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void csmGlutKeyHandler        (UChar8 key, 
                                           Int32, 
                                           Int32       );

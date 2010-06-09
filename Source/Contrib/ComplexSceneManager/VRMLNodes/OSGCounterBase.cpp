@@ -176,7 +176,7 @@ CounterBase::TypeObject CounterBase::_type(
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
-    "    isBundle=\"false\"\n"
+    "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
     ">\n"
     "\t<Field\n"
@@ -371,17 +371,7 @@ CounterTransitPtr CounterBase::createDependent(BitVector bFlags)
 //! create a new instance of the class
 CounterTransitPtr CounterBase::create(void)
 {
-    CounterTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Counter>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
 Counter *CounterBase::createEmptyLocal(BitVector bFlags)
@@ -398,14 +388,7 @@ Counter *CounterBase::createEmptyLocal(BitVector bFlags)
 //! create an empty new instance of the class, do not copy the prototype
 Counter *CounterBase::createEmpty(void)
 {
-    Counter *returnValue;
-
-    newPtr<Counter>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 
@@ -439,17 +422,7 @@ FieldContainerTransitPtr CounterBase::shallowCopyDependent(
 
 FieldContainerTransitPtr CounterBase::shallowCopy(void) const
 {
-    Counter *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const Counter *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 

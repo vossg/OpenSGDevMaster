@@ -138,6 +138,8 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     virtual void doDeactivate(void);
     virtual bool doSwap      (void);
 
+    virtual bool hasContext  (void);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

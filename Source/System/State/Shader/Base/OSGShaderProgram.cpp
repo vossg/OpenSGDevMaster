@@ -535,7 +535,8 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
             }
 #endif
 
-            if(uiShader == 0)
+//            if(uiShader == 0)
+            if(mode == Window::initialize)
             {      
                 OSGGETGLFUNC(OSGglCreateShaderProc,
                              osgGlCreateShader,

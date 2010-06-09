@@ -630,6 +630,11 @@ void ClusterWindow::doRenderAllViewports(RenderActionBase *action)
     }
 }
 
+bool ClusterWindow::hasContext(void)
+{
+    return true;
+}
+
 void ClusterWindow::doFrameInit(bool reinitExtFuctions)
 {
     Connection   *connection   = getNetwork()->getMainConnection();

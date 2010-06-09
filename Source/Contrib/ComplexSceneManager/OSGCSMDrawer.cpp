@@ -572,6 +572,22 @@ void CSMDrawer::runParallel(void)
     _pSyncBarrier->enter(_uiSyncCount);
                 
 
+    // gl takedown
+    _pSyncBarrier->enter(_uiSyncCount);
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock->acquire();
+#endif
+
+    _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock->release();
+#endif
+
+    _pSyncBarrier->enter(_uiSyncCount);
+
+
     // Windows
     _pSyncBarrier->enter(_uiSyncCount);
 
@@ -669,6 +685,18 @@ void CSMDrawer::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+void CSMDrawer::terminateGLContexts(void)
+{
+    MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
+    MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
+
+    while(winIt != winEnd)
+    {
+        (*winIt)->terminateGLContext();
+        
+        ++winIt;
+    }
+}
 
 
 /***************************************************************************\

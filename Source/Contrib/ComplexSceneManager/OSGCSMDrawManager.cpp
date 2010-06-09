@@ -245,6 +245,27 @@ void CSMDrawManager::shutdown(void)
         _pThread->getChangeList()->clear();
 
 
+        // release gl contexts
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->terminateGLContexts();
+            
+            ++dIt;
+        }
+
+        // sync gl takedown
+
+        commitChanges();
+
+        _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        _pThread->getChangeList()->clear();
+
+
         // release windows
 
         dIt  = getMFDrawer()->begin();

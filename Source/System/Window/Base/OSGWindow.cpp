@@ -294,9 +294,16 @@ bool OSG::Window::cleanup(void)
     _GLObjectLock     = NULL;
 #endif
 
+    GLObject *pCurr = NULL;
+
     for(UInt32 i = 0; i < _glObjects.size(); ++i)
     {
-        delete _glObjects[i];
+        if(_glObjects[i] != pCurr)
+        {
+            pCurr = _glObjects[i];
+
+            delete _glObjects[i];
+        }
     }
 
     return true;
@@ -495,7 +502,8 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
         else
         {
             if((_sfDrawMode.getValue() & PartitionDrawMask) == 
-                                                       SequentialPartitionDraw)
+                                                     SequentialPartitionDraw &&
+               this->hasContext() == true)
             {
                 doActivate  ();
                 doFrameExit (); // after frame cleanup: delete dead GL objects
@@ -1038,10 +1046,11 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
             // this can happen if a GLObject is temporarily created in one
             // aspect, used there and then discarded without ever being
             // synced to other aspects.
+            // if it can happen and nothing is wrong we don't warn. (GV)
 
-#ifdef OSG_DEBUG
-            FWARNING(("Window::destroyGLObject: id %d + num %d exceed "
-                      "registered objects size %d!\n", osgId, num, 
+#ifdef OSG_DEBUGX
+            FWARNING(("Window(%p)::destroyGLObject: id %d + num %d exceed "
+                      "registered objects size %d!\n", pWin, osgId, num, 
                       pWin->_mfGlObjectLastReinitialize.size()));
 #endif
             continue;
@@ -1591,6 +1600,11 @@ void OSG::Window::doFrameExit(void)
             _glObjects[i]->getDestroyFunctor()(&_oEnv, i, destroy);
             doResetGLObjectStatus(i, n);
 
+            for(UInt32 j = 0; j < n ; j++)
+            {
+                this->setGLObjectId(i+j, 0);
+            }   
+
             if((rc = _glObjects[ i ]->decRefCounter()) <= 0)
             {           
                 // call functor with the final-flag
@@ -1606,7 +1620,6 @@ void OSG::Window::doFrameExit(void)
             for(UInt32 j = 0; j < n ; j++)
             {
                 _glObjects[i+j] = NULL;
-                this->setGLObjectId(i+j, 0);
             }   
         }
 
@@ -2405,6 +2418,18 @@ void OSG::Window::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
                        const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
     SLOG << "Dump Window NI" << std::endl;
+}
+
+void Window::staticDump(void)
+{
+    fprintf(stderr, "Window::sdump %zd %zd\n",
+            _glObjects.size(),
+            _glObjects.capacity());
+
+    for(UInt32 i = 0; i < _glObjects.size(); ++i)
+    {
+        fprintf(stderr, "gl[%d] = %p\n", i, _glObjects[i]);
+    }
 }
 
 void Window::resolveLinks(void)

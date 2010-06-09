@@ -412,6 +412,26 @@ void MTRefCountPtr<ObjectT, RefCountPolicyT>::set(Object * const objectPtr)
 }
 #endif
 
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+void MTRefCountPtr<ObjectT, RefCountPolicyT>::shutdownSetNull(void)
+{
+    if(_pAspectStore != NULL)
+    {
+        UInt32 uiSize = _pAspectStore->getNumAspects();
+
+        for(UInt32 i = 0; i < uiSize; ++i)
+        {
+            if(_pAspectStore->getPtr(i) != NULL)
+            {
+                RefCountPolicy::subRef(_pAspectStore->getPtr(i));
+            }
+        }
+
+        _pAspectStore = NULL;
+    }    
+}
+
 #if defined(OSG_1_COMPAT)
 template <class ObjectT, 
           class RefCountPolicyT> inline

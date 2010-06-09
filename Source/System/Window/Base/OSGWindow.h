@@ -327,11 +327,12 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void dump      (      UInt32    uiIndent = 0,
+                            const BitVector bvFlags  = 0) const;
+
+    static  void staticDump(void                        );
 
     /*! \}                                                                 */
-
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -388,6 +389,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     virtual void doRenderAllViewports(RenderActionBase *action      );
 
+    virtual bool hasContext          (void                          ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -11,7 +11,7 @@
     decoratable="false"
     useLocalIncludes="false"
     isNodeCore="false"
-    isBundle="false"
+    isBundle="true"
     parentFields="none"
 >
 	<Field

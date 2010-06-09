@@ -114,6 +114,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void terminateGLContext(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

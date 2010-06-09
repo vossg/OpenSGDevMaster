@@ -190,6 +190,10 @@ CSMPassiveWindow::~CSMPassiveWindow(void)
 {
 }
 
+void CSMPassiveWindow::terminateGLContext(void)
+{
+}
+
 /*----------------------------- class specific ----------------------------*/
 
 void CSMPassiveWindow::changed(ConstFieldMaskArg whichField, 
