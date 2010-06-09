@@ -385,7 +385,10 @@ void OSG_APIENTRY CSMNativeWindow::win32MainLoop(void)
 void CSMNativeWindow::resolveLinks(void)
 {
     Inherited::resolveLinks();
+}
 
+void CSMNativeWindow::terminateGLContext(void)
+{
     DestroyWindow(_pHWND);
 
     _pHWND = NULL;

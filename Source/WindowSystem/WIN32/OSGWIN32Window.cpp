@@ -210,7 +210,7 @@ bool WIN32Window::doSwap(void)
     return SwapBuffers(getHdc());
 }
 
-bool WIN32WIndow::hasContext(void)
+bool WIN32Window::hasContext(void)
 {
     return (this->getHglrc() != NULL);
 }
