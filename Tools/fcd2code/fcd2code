@@ -255,15 +255,24 @@ class FCDProcess:
             
             self.m_log.info("filling template for file: %s", impName);
             outLines = TemplateFiller(tmplCPP).fill(lookupDicts);
-            TemplateWriter(impName, outLines).write();
+            if not os.path.exists(impName):
+                TemplateWriter(impName, outLines).write();
+            else:
+                self.m_log.error("Warning: did not write \"%s\", because that file already exists.  Delete it and run again if you want to overwrite it.", impName);
         
             self.m_log.info("filling template for file: %s", inlName);
             outLines = TemplateFiller(tmplINL).fill(lookupDicts);
-            TemplateWriter(inlName, outLines).write();
+            if not os.path.exists(inlName):
+                TemplateWriter(inlName, outLines).write();
+            else:
+                self.m_log.error("Warning: did not write \"%s\", because that file already exists.  Delete it and run again if you want to overwrite it.", inlName);
             
             self.m_log.info("filling template for file: %s", decName);
             outLines = TemplateFiller(tmplH).fill(lookupDicts);
-            TemplateWriter(decName, outLines).write();
+            if not os.path.exists(decName):
+                TemplateWriter(decName, outLines).write();
+            else:
+                self.m_log.error("Warning: did not write \"%s\", because that file already exists.  Delete it and run again if you want to overwrite it.", decName);
             
             # for a decoratable container Foo also write FooDecorator classes.
             if fieldContainer["isDecoratable"] == True:
