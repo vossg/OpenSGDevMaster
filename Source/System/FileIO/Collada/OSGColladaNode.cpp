@@ -172,9 +172,9 @@ ColladaNode::createInstance(ColladaInstanceElement *colInstElem)
 
     NodeUnrecPtr retVal = NULL;
 
-    if(getInstStore().empty() == true)
+    if(_topN->getParent() != NULL)
     {
-        retVal = _topN;
+        retVal = cloneTree(_topN);
     }
     else
     {
