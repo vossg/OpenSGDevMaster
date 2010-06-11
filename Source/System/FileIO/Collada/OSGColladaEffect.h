@@ -303,6 +303,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 	std::string getBoolStringRep			(std::string stateName, UInt32 idx, bool state);
 	std::string getBoolStringRep			(std::string stateName, bool state);
 
+	bool isGlobalMatrix(std::string matrixName);
 	std::string	fixFilepath( std::string filepath );
 	std::string	fixImageFilepath( std::string imgPath);
 

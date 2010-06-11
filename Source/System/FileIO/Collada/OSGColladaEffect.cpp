@@ -1251,26 +1251,26 @@ ColladaEffect::createInstanceProfileCG(
 
 	if(materialInitialized)
 	{
-		// Since the CgFXMaterial isn't initialized (i.e., the code is compiled)
+		// Since the CgFXMaterial isn't initialized (i.e., the code compiled)
 		// until commitChanges() is called, we call it here so that we can update 
 		// the variables according to their values in the .cgfx code
 		OSG::commitChanges();
 
 		// In the event that there are samplers/texture, we handle them separately from the uniform variables
 		// for now, if we find one, we'll just push it onto a vector and handle it later.
-		std::vector<domCg_newparamRef> samplerParams;
-		std::vector<domCg_newparamRef> surfaceParams;
+		std::vector<domInstance_effect::domSetparamRef> samplerParams;
+		std::vector<domInstance_effect::domSetparamRef> surfaceParams;
 		// now update the variables.  Supported types are those supported by the ShaderProgramVariable class
 		bool adjusted(false);
 		ShaderProgramVariables* vars = ShaderProgramVariables::createEmpty();
 		domCg_newparam_Array params = prof->getNewparam_array();
 		
-		domInstance_effect::domSetparam_Array setParams = instEffect->getSetparam_array(); //<------ this will have the necessary values!
+		domInstance_effect::domSetparam_Array setParams = instEffect->getSetparam_array(); //this will have the "updated" values
 		int numParams(params.getCount());
 		for(UInt32 i(0); i < setParams.getCount(); ++i)
 		{	// We only handle types that CgFXMaterial handles
 			// This is ugly, the collada DOM doesn't have a way to easily determine what type of parameter
-			// a newparam is holding.  Unless I'm too stupid to figure out how (very possible)
+			// a newparam is holding.  
 			//domCg_param_typeRef curParam = params[i]->getCg_param_type();
 			domFx_basic_type_commonRef curParam = setParams[i]->getFx_basic_type_common();
 			std::string name = setParams[i]->getRef();
@@ -1312,21 +1312,24 @@ ColladaEffect::createInstanceProfileCG(
 			}
 			else if(curParam->getFloat4x4() != NULL)
 			{
-				domFloat4x4 val = curParam->getFloat4x4()->getValue();
-				Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
-						   val.get(4),val.get(5),val.get(6),val.get(7),
-						   val.get(8),val.get(9),val.get(10),val.get(11),
-						   val.get(12),val.get(13),val.get(14),val.get(15));
+				if(!isGlobalMatrix(name))
+				{ // don't need to update global matrices
+					domFloat4x4 val = curParam->getFloat4x4()->getValue();
+					Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
+							   val.get(4),val.get(5),val.get(6),val.get(7),
+							   val.get(8),val.get(9),val.get(10),val.get(11),
+							   val.get(12),val.get(13),val.get(14),val.get(15));
 
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),tmp);
+					newCgFXmat->updateUniformVariable(setParams[i]->getRef(),tmp);
+				}
 			} 
 			else if(curParam->getSurface() != NULL)
 			{
-				surfaceParams.push_back(params[i]);
+				surfaceParams.push_back(setParams[i]);
 			}
 			else if(isCGSampler(curParam))
 			{
-				samplerParams.push_back(params[i]);
+				samplerParams.push_back(setParams[i]);
 			} else
 			{
 				SWARNING << "Profile_CG variable " << setParams[i]->getRef() 
@@ -1341,7 +1344,8 @@ ColladaEffect::createInstanceProfileCG(
 		// now we need to handle samplers/surfaces
 		for(UInt32 i(0); i < surfaceParams.size(); i++)
 		{
-			domCg_surface_typeRef surf = surfaceParams[i]->getCg_param_type()->getSurface();
+
+			domFx_surface_commonRef surf = surfaceParams[i]->getFx_basic_type_common()->getSurface();
 			// Checking if there is an associated image to init this surface from.
 			// There is no guarantee of an associated type for a <surface> in the Cg scope,
 			// so we just check what the associated image is.
@@ -1351,7 +1355,7 @@ ColladaEffect::createInstanceProfileCG(
 				domImage* image = daeSafeCast<domImage>(inits[j]->getValue().getElement());
 				if(image != NULL) 
 				{
-					imgPaths[surfaceParams[i]->getSid()] =
+					imgPaths[surfaceParams[i]->getRef()] =
 					//	image->getInit_from()->getValue().getURI() // can be used to get absolute filepath
 						image->getInit_from()->getValue().getOriginalURI();
 				}
@@ -1363,32 +1367,32 @@ ColladaEffect::createInstanceProfileCG(
 		for(UInt32 i(0); i < samplerParams.size(); i++)
 		{
 			std::string sourceName;
-			domCg_sampler1DRef samp1d = samplerParams[i]->getCg_param_type()->getSampler1D();	
+			domFx_sampler1D_commonRef samp1d = samplerParams[i]->getFx_basic_type_common()->getSampler1D();	
 			if(samp1d != NULL)
 			{
 				sourceName = samp1d->getSource()->getValue();
 			}
-			domCg_sampler2DRef samp2d = samplerParams[i]->getCg_param_type()->getSampler2D();	
+			domFx_sampler2D_commonRef samp2d = samplerParams[i]->getFx_basic_type_common()->getSampler2D();	
 			if(samp2d != NULL)
 			{
 				sourceName = samp2d->getSource()->getValue();
 			}
-			domCg_sampler3DRef samp3d = samplerParams[i]->getCg_param_type()->getSampler3D();	
+			domFx_sampler3D_commonRef samp3d = samplerParams[i]->getFx_basic_type_common()->getSampler3D();	
 			if(samp3d != NULL)
 			{
 				sourceName = samp3d->getSource()->getValue();
 			}
-			domCg_samplerCUBERef sampCube = samplerParams[i]->getCg_param_type()->getSamplerCUBE();	
+			domFx_samplerCUBE_commonRef sampCube = samplerParams[i]->getFx_basic_type_common()->getSamplerCUBE();	
 			if(sampCube != NULL)
 			{
 				sourceName = sampCube->getSource()->getValue();
 			}
-			domCg_samplerRECTRef sampRect = samplerParams[i]->getCg_param_type()->getSamplerRECT();	
+			domFx_samplerRECT_commonRef sampRect = samplerParams[i]->getFx_basic_type_common()->getSamplerRECT();	
 			if(sampRect != NULL)
 			{
 				sourceName = sampRect->getSource()->getValue();
 			}
-			domCg_samplerDEPTHRef sampDepth = samplerParams[i]->getCg_param_type()->getSamplerDEPTH();	
+			domFx_samplerDEPTH_commonRef sampDepth = samplerParams[i]->getFx_basic_type_common()->getSamplerDEPTH();	
 			if(sampDepth != NULL)
 			{	
 				sourceName = sampDepth->getSource()->getValue();
@@ -1400,8 +1404,7 @@ ColladaEffect::createInstanceProfileCG(
 				// we have the new path of the file
 				// read and set the textures
 				// this is copied straight from the CgFXMaterial.cpp file
-				
-			
+
 				Int32 uiSamplerId = -1;
 
                 ImageUnrecPtr pImg = 
@@ -1411,22 +1414,37 @@ ColladaEffect::createInstanceProfileCG(
                 {
                     TextureObjChunkUnrecPtr pTexO = TextureObjChunk::create();
 
-                    setName(pTexO, samplerParams[i]->getSid());
+                    setName(pTexO, samplerParams[i]->getRef());
 
                     pTexO->setImage(pImg);
 
                     CgFXVariableTexObjUnrecPtr pVar = 
                         CgFXVariableTexObj::create();
 
-                    pVar->setName (samplerParams[i]->getSid());
+                    pVar->setName (samplerParams[i]->getRef());
                     pVar->setValue(uiSamplerId);
 
                     newCgFXmat->addVariable   (pVar );
                     newCgFXmat->pushToTextures(pTexO); 
                 }
-			}
+			} // end if(!szFilename.empty())
+		} // end for(samplerParams.size())
+		// set the technique for this effect
+		domInstance_effect::domTechnique_hint_Array techHnts = instEffect->getTechnique_hint_array();
+		std::string techName;
+		for(UInt32 i(0); i < techHnts.getCount(); i++)
+		{
+			// we are interested in "ref", which is the name of the technique this CgFXMaterial is to use.
+			// if there are more than 1, we use the last one listed
+			techName = techHnts[i]->getRef();
+		}
+
+		if(techName.compare("") != 0 && techHnts.getCount() > 0)
+		{ // a name was given for which technique to use, so we will use it
+			newCgFXmat->setActiveTechnique(techName);
 		}
 	}// end if(materialInitialized)
+	
 		OSG::commitChanges();
 
     return MaterialTransitPtr(newCgFXmat);
@@ -1443,7 +1461,19 @@ bool ColladaEffect::isCGSampler(domFx_basic_type_commonRef param)
 		else return false;
 }
 
-
+bool ColladaEffect::isGlobalMatrix(std::string matrixName)
+{
+	static std::string worldMatrixNames[] = {"WvpXf","WorldXf","ViewIXf","WorldITXf",
+											"gWvpXf","gWorldXf","gViewIXf","gWorldITXf",
+											"WorldViewProjXf","gWorldViewProjXf","ViewInvXf",
+											"gViewInvXf"};
+	
+	for(int i(0); i < 12; i++)
+	{
+		if( worldMatrixNames[i].compare(matrixName) == 0 ) return true;
+	}
+	return false;
+}
 
 /*
  *	Generates   techniques, passes, and bindings embedded in the COLLADA file are 
@@ -1453,7 +1483,7 @@ bool ColladaEffect::isCGSampler(domFx_basic_type_commonRef param)
 std::string ColladaEffect::buildCgFXCode(domProfile_CG *prof)
 {
 	std::stringstream buf;
-	buf << std::endl; // start off with a newline
+	buf << std::endl;
 	// getting the techniques. There must be at least one
 	domProfile_CG::domTechnique_Array techs = prof->getTechnique_array();
 	for(UInt32 i(0); i < techs.getCount(); i++) 
@@ -2681,7 +2711,7 @@ std::string	ColladaEffect::fixImageFilepath( std::string imgPath)
 		imgPath = imgPath.substr(4);
 		imgPath = fixFilepath(imgPath);
 	}
-	return imgPath;
+	return fixFilepath(imgPath);
 }
 
 
