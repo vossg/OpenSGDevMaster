@@ -181,6 +181,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     // index of the technique in _mfTechniques to use for this material
     UInt32      _pTechIdx; 
+	bool        _mDelayTextureExtraction;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -234,7 +235,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     void readEffectFile        (      void                      );
     void processEffectString   (      void                      );
 
-    void extractParameters     (      CGparameter     pBaseParam);
+    void extractParameters     (      void						);
     void updateUniformVariables(      void                      );
 
     template<class ValueT>

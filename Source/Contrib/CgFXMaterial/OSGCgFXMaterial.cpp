@@ -98,10 +98,11 @@ void CgFXMaterial::resolveLinks(void)
 /*----------------------- constructors & destructors ----------------------*/
 
 CgFXMaterial::CgFXMaterial(void) :
-     Inherited (    ),
-    _pCGcontext(NULL),
-    _pCGeffect (NULL),
-    _pTechIdx  (   0)
+     Inherited              (     ),
+    _pCGcontext             (NULL ),
+    _pCGeffect              (NULL ),
+    _pTechIdx               (    0),
+    _mDelayTextureExtraction(false)
 {
     this->markFieldsThreadLocal ((Self::MapCacheFieldMask        | 
                                   Self::FallbackMaterialFieldMask));
@@ -110,10 +111,11 @@ CgFXMaterial::CgFXMaterial(void) :
 }
 
 CgFXMaterial::CgFXMaterial(const CgFXMaterial &source) :
-     Inherited (source          ),
-    _pCGcontext(NULL            ),
-    _pCGeffect (NULL            ),
-    _pTechIdx  (source._pTechIdx)
+     Inherited              (source                         ),
+    _pCGcontext             (NULL                           ),
+    _pCGeffect              (NULL                           ),
+    _pTechIdx               (source._pTechIdx               ),
+    _mDelayTextureExtraction(source._mDelayTextureExtraction)
 {
     this->markFieldsThreadLocal ((Self::MapCacheFieldMask        | 
                                   Self::FallbackMaterialFieldMask));
@@ -492,18 +494,9 @@ void CgFXMaterial::processEffectString(void)
         }
     }
 
-    CGparameter pParam = cgGetFirstEffectParameter(_pCGeffect);
-
-    if(pParam != NULL)
-    {
-#if OSG_CGFX_DUMP_DEBUG
-        fprintf(stderr, "Effect parameter : \n");
-#endif
-
-        editStateVariables() = 0x0000;
-
-        extractParameters(pParam);
-    }
+    // we might not want to extract the parameters just yet, 
+    // check if this is the case and if so, skip parameter extraction
+    extractParameters();
 
     CGtechnique pCGTech = cgGetFirstTechnique(_pCGeffect);
 
@@ -529,19 +522,23 @@ bool CgFXMaterial::setActiveTechnique(std::string techniqueName)
     // is this a valid technique name?
     CGtechnique pTech = cgGetNamedTechnique(_pCGeffect, techniqueName.c_str());
 
-    if(tech != NULL)
-    { // if so, set it as the technique to use for this material
+    if(pTech != NULL)
+    { // if so, find the index of the technique to use for this material
 
         for(_pTechIdx = 0; _pTechIdx < _mfTechniques.size(); ++_pTechIdx)
         {
-            if(tech == _mfTechniques[_pTechIdx]->_pCGTechnique)
+            if(pTech == _mfTechniques[_pTechIdx]->_pCGTechnique)
             {
                 setTreatTechniquesAsVariants(true);
+
                 return true;
             }
         }
-    }
-    
+
+    // if the technique name wasn't valid, we just use
+    // the default behavior (use the first valid technique)
+    setTreatTechniquesAsVariants(false);
+
     return false;
 }
 
@@ -566,13 +563,24 @@ std::vector<std::string> CgFXMaterial::getAvailableTechniques()
     return techNames;
 }
 
-void CgFXMaterial::extractParameters(CGparameter pBaseParam)
+void CgFXMaterial::extractParameters(void)
 {
+
 #if OSG_CGFX_DUMP_DEBUG
     checkForCgError("extract precheck", _pCGcontext);
 #endif
 
-    CGparameter pParam = pBaseParam;
+     CGparameter pParam = cgGetFirstEffectParameter(_pCGeffect);
+
+    if(pParam != NULL)
+    {
+
+#if OSG_CGFX_DUMP_DEBUG
+        fprintf(stderr, "Effect parameter : \n");
+#endif
+
+        editStateVariables() = 0x0000;
+    }
 
     while(pParam)
     {
@@ -1090,94 +1098,98 @@ void CgFXMaterial::extractParameters(CGparameter pBaseParam)
             case CG_SAMPLERRECT:
             case CG_SAMPLERCUBE:
             {
-                std::string  szFilename;
-
-                CGannotation pAnno = cgGetNamedParameterAnnotation(pParam, 
-                                                                   "File");
-                if(pAnno == NULL)
+                if(_mDelayTextureExtraction == false)
                 {
-                    pAnno = cgGetNamedParameterAnnotation(pParam, 
-                                                          "ResourceName");
-                }
+                    std::string  szFilename;
 
-                if(pAnno != NULL)
-                {
-                    szFilename = cgGetStringAnnotationValue(pAnno);
-                }
-
-#if 0
-                fprintf(stderr, "Got filename from sampler %s\n",
-                        szFilename.c_str());
-#endif
-
-                if(szFilename.empty())
-                {
-                    CGstateassignment pSamplerState = 
-                        cgGetFirstSamplerStateAssignment(pParam);
-
-                    if(pSamplerState != NULL)
+                    CGannotation pAnno = cgGetNamedParameterAnnotation(pParam, 
+                                                                       "File");
+                    if(pAnno == NULL)
                     {
-                        // cgGetSamplerStateAssignmentValue
-                        CGparameter pTParam = 
-                            cgGetTextureStateAssignmentValue(pSamplerState);
+                        pAnno = cgGetNamedParameterAnnotation(pParam, 
+                                                              "ResourceName");
+                    }
 
-                        if(pTParam != NULL)
+                    if(pAnno != NULL)
+                    {
+                        szFilename = cgGetStringAnnotationValue(pAnno);
+                    }
+
+    #if 0
+                    fprintf(stderr, "Got filename from sampler %s\n",
+                            szFilename.c_str());
+    #endif
+
+                    if(szFilename.empty())
+                    {
+                        CGstateassignment pSamplerState = 
+                            cgGetFirstSamplerStateAssignment(pParam);
+
+                        if(pSamplerState != NULL)
                         {
-                            CGtype pTParamType = cgGetParameterType(pTParam);
-                        
-                            // get tweakable parameters
-                            if(cgGetFirstParameterAnnotation(pTParam) != NULL &&
-                               pTParamType == CG_TEXTURE                       )
+                            // cgGetSamplerStateAssignmentValue
+                            CGparameter pTParam = 
+                                cgGetTextureStateAssignmentValue(pSamplerState);
+
+                            if(pTParam != NULL)
                             {
-                                CGannotation pAnno = 
-                                    cgGetNamedParameterAnnotation(pTParam, 
-                                                                  "File");
-                                if(pAnno == NULL)
+                                CGtype pTParamType = 
+                                    cgGetParameterType(pTParam);
+                            
+                                // get tweakable parameters
+                                if(cgGetFirstParameterAnnotation(pTParam) != 
+                                                                        NULL &&
+                                   pTParamType == CG_TEXTURE                  )
                                 {
-                                    pAnno = 
-                                        cgGetNamedParameterAnnotation(
-                                            pTParam, 
-                                            "ResourceName");
-                                }
-                                
-                                if(pAnno != NULL)
-                                {
-                                    szFilename = 
-                                        cgGetStringAnnotationValue(pAnno);
+                                    CGannotation pAnno = 
+                                        cgGetNamedParameterAnnotation(pTParam, 
+                                                                      "File");
+                                    if(pAnno == NULL)
+                                    {
+                                        pAnno = 
+                                            cgGetNamedParameterAnnotation(
+                                                pTParam, 
+                                                "ResourceName");
+                                    }
+                                    
+                                    if(pAnno != NULL)
+                                    {
+                                        szFilename = 
+                                            cgGetStringAnnotationValue(pAnno);
+                                    }
                                 }
                             }
                         }
                     }
+    #if 0
+                    fprintf(stderr, "Got filename from sampler state %s\n",
+                            szFilename.c_str());
+    #endif
+
+                    Int32 uiSamplerId = -1;
+
+                    ImageUnrecPtr pImg = 
+                        ImageFileHandler::the()->read(szFilename.c_str());
+
+                    if(pImg != NULL)
+                    {
+                        TextureObjChunkUnrecPtr pTexO = 
+                            TextureObjChunk::create();
+
+                        setName(pTexO, szParamName);
+
+                        pTexO->setImage(pImg);
+
+                        CgFXVariableTexObjUnrecPtr pVar = 
+                            CgFXVariableTexObj::create();
+
+                        pVar->setName (szParamName);
+                        pVar->setValue(uiSamplerId);
+
+                        this->addVariable   (pVar );
+                        this->pushToTextures(pTexO);
+                    }
                 }
-                
-#if 0
-                fprintf(stderr, "Got filename from sampler state %s\n",
-                        szFilename.c_str());
-#endif
-
-                Int32 uiSamplerId = -1;
-
-                ImageUnrecPtr pImg = 
-                    ImageFileHandler::the()->read(szFilename.c_str());
-
-                if(pImg != NULL)
-                {
-                    TextureObjChunkUnrecPtr pTexO = TextureObjChunk::create();
-
-                    setName(pTexO, szParamName);
-
-                    pTexO->setImage(pImg);
-
-                    CgFXVariableTexObjUnrecPtr pVar = 
-                        CgFXVariableTexObj::create();
-
-                    pVar->setName (szParamName);
-                    pVar->setValue(uiSamplerId);
-
-                    this->addVariable   (pVar );
-                    this->pushToTextures(pTexO);
-                }
-
             }
             break;
             
