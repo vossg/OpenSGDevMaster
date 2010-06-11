@@ -416,6 +416,20 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                                          pEnv->getWorldToScreen().getValues());
             }
             break;
+    
+            case CgFXMaterial::CgTimeMask:
+            {
+                CGparameter pTime = 
+                    cgGetNamedEffectParameter(
+                        pEffect,
+                        vStateVarNames[
+                            CgFXMaterial::CgTime].c_str());
+
+                OSG_ASSERT(pTime != NULL);
+
+                cgSetParameter1f(pTime, Real32(OSG::getSystemTime()));
+            }
+            break;
 
             default:
                 break;

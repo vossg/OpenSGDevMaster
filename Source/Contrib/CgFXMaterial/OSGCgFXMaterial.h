@@ -85,7 +85,9 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
         CgViewI                = 0x0009,
         CgViewIT               = 0x000A,
 
-        CgViewProjection       = 0x000B
+        CgViewProjection       = 0x000B,
+
+        CgTime                 = 0x000C
     };
 
     static const UInt32 CgProjectionMask          = 0x0001 << CgProjection;
@@ -106,8 +108,10 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     static const UInt32 CgViewProjectionMask      = 0x0001 << CgViewProjection;
 
+    static const UInt32 CgTimeMask                = 0x0001 << CgTime;
 
-    static const UInt32 NumStateVars = CgViewProjection + 1;
+
+    static const UInt32 NumStateVars = CgTime + 1;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -153,6 +157,14 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                 Parameter Access                             */
+    /*! \{                                                                 */
+
+    bool                     setActiveTechnique    (std::string techniqueName);
+    std::vector<std::string> getAvailableTechniques(void                     );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
 
@@ -166,6 +178,9 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     CGeffect    _pCGeffect;
 
     std::string _vStateVarNames[NumStateVars];
+
+    // index of the technique in _mfTechniques to use for this material
+    UInt32      _pTechIdx; 
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
