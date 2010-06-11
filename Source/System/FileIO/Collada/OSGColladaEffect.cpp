@@ -1253,45 +1253,46 @@ ColladaEffect::createInstanceProfileCG(
 	{
 		// Since the CgFXMaterial isn't initialized (i.e., the code compiled)
 		// until commitChanges() is called, we call it here so that we can update 
-		// the variables according to their values in the .cgfx code
+		// the variables according to their values in the COLLADA file
+		newCgFXmat->_mDelayTextureExtraction = true;
 		OSG::commitChanges();
 
 		// In the event that there are samplers/texture, we handle them separately from the uniform variables
 		// for now, if we find one, we'll just push it onto a vector and handle it later.
 		std::vector<domInstance_effect::domSetparamRef> samplerParams;
 		std::vector<domInstance_effect::domSetparamRef> surfaceParams;
-		// now update the variables.  Supported types are those supported by the ShaderProgramVariable class
-		bool adjusted(false);
-		ShaderProgramVariables* vars = ShaderProgramVariables::createEmpty();
-		domCg_newparam_Array params = prof->getNewparam_array();
-		
-		domInstance_effect::domSetparam_Array setParams = instEffect->getSetparam_array(); //this will have the "updated" values
-		int numParams(params.getCount());
+		std::vector<domInstance_effect::domSetparamRef> matrixParams;
+
+		// now update the variables, updated values come from the setparam array
+		// Supported types are those supported by the ShaderProgramVariable class
+		domInstance_effect::domSetparam_Array setParams = instEffect->getSetparam_array(); 
+
 		for(UInt32 i(0); i < setParams.getCount(); ++i)
 		{	// We only handle types that CgFXMaterial handles
 			// This is ugly, the collada DOM doesn't have a way to easily determine what type of parameter
-			// a newparam is holding.  
-			//domCg_param_typeRef curParam = params[i]->getCg_param_type();
+			// a <setparam> is holding.  
 			domFx_basic_type_commonRef curParam = setParams[i]->getFx_basic_type_common();
-			std::string name = setParams[i]->getRef();
 			if(curParam == NULL) continue;
+
+			std::string paramName = setParams[i]->getRef();
+			
 			if(curParam->getBool() != NULL)
 			{
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),(bool)curParam->getBool()->getValue());
+				newCgFXmat->addUniformVariable(paramName.c_str(),(bool)curParam->getBool()->getValue());
 			}
 			else if(curParam->getInt() != NULL)
 			{
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),(Int32)curParam->getInt()->getValue());
+				newCgFXmat->addUniformVariable(paramName.c_str(),(Int32)curParam->getInt()->getValue());
 			}
 			else if(curParam->getFloat() != NULL)
 			{	
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),(Real32)curParam->getFloat()->getValue());
+				newCgFXmat->addUniformVariable(paramName.c_str(),(Real32)curParam->getFloat()->getValue());
 			}
 			else if(curParam->getFloat2() != NULL)
 			{
 				Vec2f val(curParam->getFloat2()->getValue()[0],
 						  curParam->getFloat2()->getValue()[1]);
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),val);
+				newCgFXmat->addUniformVariable(paramName.c_str(),val);
 			}
 			else if(curParam->getFloat3() != NULL)
 			{
@@ -1299,7 +1300,7 @@ ColladaEffect::createInstanceProfileCG(
 				Vec3f val(curParam->getFloat3()->getValue()[0],
 						  curParam->getFloat3()->getValue()[1],
 						  curParam->getFloat3()->getValue()[2]);
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),val);
+				newCgFXmat->addUniformVariable(paramName.c_str(),val);
 			}
 			else if(curParam->getFloat4() != NULL)
 			{
@@ -1308,37 +1309,58 @@ ColladaEffect::createInstanceProfileCG(
 						  curParam->getFloat4()->getValue()[1],
 						  curParam->getFloat4()->getValue()[2],
 						  curParam->getFloat4()->getValue()[3]);
-				newCgFXmat->updateUniformVariable(setParams[i]->getRef(),val);
+				newCgFXmat->addUniformVariable(paramName.c_str(),val);
 			}
 			else if(curParam->getFloat4x4() != NULL)
 			{
-				if(!isGlobalMatrix(name))
-				{ // don't need to update global matrices
-					domFloat4x4 val = curParam->getFloat4x4()->getValue();
-					Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
-							   val.get(4),val.get(5),val.get(6),val.get(7),
-							   val.get(8),val.get(9),val.get(10),val.get(11),
-							   val.get(12),val.get(13),val.get(14),val.get(15));
-
-					newCgFXmat->updateUniformVariable(setParams[i]->getRef(),tmp);
-				}
+				// set matrices later, after checking if they are state matrices,
+				// which we don't want to set.
+				matrixParams.push_back(setParams[i]);
 			} 
 			else if(curParam->getSurface() != NULL)
-			{
+			{	// handle surfaces later...
 				surfaceParams.push_back(setParams[i]);
 			}
 			else if(isCGSampler(curParam))
-			{
+			{	// handle samplers later
 				samplerParams.push_back(setParams[i]);
 			} else
 			{
-				SWARNING << "Profile_CG variable " << setParams[i]->getRef() 
+				SWARNING << "Profile_CG variable " << paramName
 						 << "'s type is not supported by CgFXMaterial, and will be ignored." 
 						 << std::endl;
 				
 			} // end if/else chain
 		}// end for(params.getCount())		
-		
+
+		// now checking the matrices to make sure they are not state matrices
+		// before setting them
+		domCg_newparam_Array newParams = prof->getNewparam_array();
+		for(UInt32 i(0); i < matrixParams.size(); i++)
+		{
+			std::string matrixName = matrixParams[i]->getRef();
+			for(UInt32 j(0); j < newParams.getCount(); j++)
+			{
+				std::string newParamName = newParams[j]->getSid();
+				if(newParamName.compare(matrixName) == 0)
+				{
+					// now check the semantic property of the newParam, 
+					// to see if it is a state matrix
+					if(!isStateMatrix(newParams[j]->getSemantic()->getValue()))
+					{ // not a state matrix? then set the new value
+						domFloat4x4 val = matrixParams[i]->getFx_basic_type_common()->getFloat4x4()->getValue();
+						Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
+								   val.get(4),val.get(5),val.get(6),val.get(7),
+								   val.get(8),val.get(9),val.get(10),val.get(11),
+								   val.get(12),val.get(13),val.get(14),val.get(15));
+
+						newCgFXmat->addUniformVariable(matrixName.c_str(),tmp);
+						break;
+					}
+				} // end if(!isStateMatrix)
+			} //end for(newParams.size())
+		} // end for(matrixParams.size())
+	
 		std::map<std::string,std::string> imgPaths; //pairs from the name of the surface to its filepath
 
 		// now we need to handle samplers/surfaces
@@ -1351,7 +1373,7 @@ ColladaEffect::createInstanceProfileCG(
 			// so we just check what the associated image is.
 			domFx_surface_init_from_common_Array inits = surf->getFx_surface_init_common()->getInit_from_array();
 			for(UInt32 j(0); j < inits.getCount(); j++)
-			{ // there can be only one?
+			{ // there can be only one
 				domImage* image = daeSafeCast<domImage>(inits[j]->getValue().getElement());
 				if(image != NULL) 
 				{
@@ -1461,16 +1483,26 @@ bool ColladaEffect::isCGSampler(domFx_basic_type_commonRef param)
 		else return false;
 }
 
-bool ColladaEffect::isGlobalMatrix(std::string matrixName)
+/*
+*	Checks whether a semantic represents a state matrix
+*
+*/
+bool ColladaEffect::isStateMatrix(std::string semantic)
 {
-	static std::string worldMatrixNames[] = {"WvpXf","WorldXf","ViewIXf","WorldITXf",
-											"gWvpXf","gWorldXf","gViewIXf","gWorldITXf",
-											"WorldViewProjXf","gWorldViewProjXf","ViewInvXf",
-											"gViewInvXf"};
+	if(semantic.length() < 4) return false; // early out
+
+	static std::string stateMatrixNames[] = {
+		"TIME","VIEWPROJECTION","VIEWINVERSETRANSPOSE","VIEWIT","VIEWINVERSE","VIEWI",
+		"VIEW","MODELVIEWINVERSETRANSPOSE","MODELVIEWIT","MODELVIEWINVERSE",
+		"MODELVIEWI","MODELVIEW","WORLDVIEWINVERSETRANSPOSE","WORLDVIEWIT",
+		"WORLDVIEWINVERSE","WORLDVIEWI","WORLDVIEW","MODELINVERSERTRANSPOSE","MODELIT",
+		"MODELINVERSE","MODELI","MODEL","WORLDINVERSETRANSPOSE","WORLDIT","WORLDINVERSE",
+		"WORLDI","WORLD","MODELVIEWPROJECTION","WORLDVIEWPROJECTION","PROJECTION"
+		};
 	
-	for(int i(0); i < 12; i++)
+	for(int i(0); i < 30; i++)
 	{
-		if( worldMatrixNames[i].compare(matrixName) == 0 ) return true;
+		if( osgStringCaseCmp(stateMatrixNames[i].c_str(),semantic.c_str()) == 0 ) return true;
 	}
 	return false;
 }
@@ -1541,6 +1573,7 @@ std::string ColladaEffect::buildCgFXCode(domProfile_CG *prof)
 		buf << " } " << std::endl;
 
 	}
+	
 	return buf.str();
 }
 
