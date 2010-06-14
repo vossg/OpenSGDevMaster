@@ -40,4 +40,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+void WIN32Window::setContext(const HGLRC &val)
+{
+    Inherited::setHglrc(val);
+}
+
 OSG_END_NAMESPACE

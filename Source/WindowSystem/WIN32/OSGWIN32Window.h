@@ -87,6 +87,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
+    void setContext(const HGLRC &val);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
