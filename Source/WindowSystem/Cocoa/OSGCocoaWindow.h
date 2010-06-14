@@ -84,7 +84,8 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
+    virtual void init     (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void terminate(void                                 );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -122,6 +123,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     virtual void doActivate  (void);
     virtual void doDeactivate(void);
     virtual bool doSwap      (void);
+    virtual bool hasContext  (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

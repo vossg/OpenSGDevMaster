@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,18 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNATIVEWINDOW_H_
-#define _OSGNATIVEWINDOW_H_
+#ifndef _OSGCOCOAWINDOWWRAPPER_H_
+#define _OSGCOCOAWINDOWWRAPPER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCarbonWindow.h"
+#include "OSGConfig.h"
 
-OSG_BEGIN_NAMESPACE
+// Forget everything if we're not doing a Mac OS compile
+#ifdef __APPLE__
 
-typedef CarbonWindow NativeWindow;
+#include "OSGWindowCocoaDef.h"
 
-OSG_END_NAMESPACE
+#include "OSGWindowFields.h"
 
-#endif // _OSGNATIVEWINDOW_H_
+#ifndef __OBJC__
+struct NSOpenGLContext;
+#else
+@class NSOpenGLContext;
+#endif
+
+typedef NSOpenGLContext *NSOpenGLContextP;
+
+NSOpenGLContextP cocoaWrapperCurrentContext(void);
+
+#endif /* __APPLE__ */
+
+#endif /* _OSGCOCOAWINDOWWRAPPER_H_ */
+
+

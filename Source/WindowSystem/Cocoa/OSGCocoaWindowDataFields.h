@@ -53,10 +53,13 @@
 
 #include "OSGWindowFields.h"
 
-#import <Cocoa/Cocoa.h>
-#import <AppKit/NSOpenGL.h>
+#ifndef __OBJC__
+struct NSOpenGLContext;
+#else
+@class NSOpenGLContext;
+#endif
 
-typedef NSOpenGLContext* NSOpenGLContextP;
+typedef NSOpenGLContext *NSOpenGLContextP;
 
 /*! The field types for the local types needed by the CocoaWindow class */
 

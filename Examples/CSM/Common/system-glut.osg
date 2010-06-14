@@ -114,7 +114,7 @@ ComplexSceneManager
              position 200, 200
              decorEnabled TRUE
 
-             partitionDrawMode 0x0002
+#             partitionDrawMode 0x0002
 
              renderOptions DEF WinRenderOpts RenderOptions
              {

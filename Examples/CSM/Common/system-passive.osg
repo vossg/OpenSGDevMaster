@@ -100,7 +100,7 @@ ComplexSceneManager
            {
              viewportScale 0.7 0.7
 
-             partitionDrawMode 0x0002
+#             partitionDrawMode 0x0002
 
              renderOptions DEF WinRenderOpts RenderOptions
              {

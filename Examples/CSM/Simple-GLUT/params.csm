@@ -1,0 +1,4 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-glut.osg
+--data   ../Simple/tie.wrl
+--global ../Common/simple_mouse.osg

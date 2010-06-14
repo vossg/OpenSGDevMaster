@@ -125,6 +125,9 @@ void CarbonWindow::init(GLInitFunctor oFunc)
     Inherited::init(oFunc);
 }
 
+void CarbonWindow::terminate(void)
+{
+}
 
 // activate the window: bind the OGL context
 void CarbonWindow::doActivate( void )
@@ -145,6 +148,10 @@ bool CarbonWindow::doSwap( void )
     return true;
 }
 
+bool CarbonWindow::hasContext(void)
+{
+    return (this->getContext() != NULL);
+}
 
 OSG_END_NAMESPACE
 

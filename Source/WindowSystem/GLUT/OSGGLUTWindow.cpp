@@ -64,7 +64,7 @@
 #include <GL/glx.h>
 #endif
 #ifdef __APPLE__
-#include <AGL/agl.h>
+#include "OSGCocoaWindowWrapper.h"
 #endif
 
 OSG_BEGIN_NAMESPACE
@@ -134,9 +134,7 @@ void GLUTWindow::init(GLInitFunctor oFunc)
     Inherited::setHglrc(wglGetCurrentContext());
     Inherited::setHwnd (WindowFromDC(Inherited::getHdc()));
 #elif defined(__APPLE__)
-    glutSetWindow(getGlutId());
-
-    Inherited::setContext(aglGetCurrentContext());
+    Inherited::setContext(cocoaWrapperCurrentContext());
 #else
     glutSetWindow(getGlutId());
 

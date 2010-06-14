@@ -500,6 +500,10 @@ void CSMNativeWindow::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+void CSMNativeWindow::terminateGLContext(void)
+{
+}
+
 // A magic method that allows applications to react to events even
 // when they are not organized in a bundle
 static void osx_AllowForeground(void)

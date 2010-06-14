@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,94 +36,18 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGNATIVEWINDOW_H_
+#define _OSGNATIVEWINDOW_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGCSMNativeWindow.h"
-#include "OSGComplexSceneManager.h"
+#include "OSGCocoaWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGCSMNativeWindowBase.cpp file.
-// To modify it, please change the .fcd file (OSGCSMNativeWindow.fcd) and
-// regenerate the base file.
-
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-void CSMNativeWindow::initMethod(InitPhase ePhase)
-{
-    Inherited::initMethod(ePhase);
-
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
-
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-CSMNativeWindow::CSMNativeWindow(void) :
-    Inherited()
-{
-}
-
-CSMNativeWindow::CSMNativeWindow(const CSMNativeWindow &source) :
-    Inherited(source)
-{
-}
-
-CSMNativeWindow::~CSMNativeWindow(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void CSMNativeWindow::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void CSMNativeWindow::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump CSMNativeWindow NI" << std::endl;
-}
-
-void CSMNativeWindow::resolveLinks(void)
-{
-}
-
-void CSMNativeWindow::terminateGLContext(void)
-{
-}
-
-bool CSMNativeWindow::init(void)
-{
-    FFATAL(("No native window available !! Terminating\n"));
-
-    return false;
-}
+typedef CocoaWindow NativeWindow;
 
 OSG_END_NAMESPACE
+
+#endif // _OSGNATIVEWINDOW_H_
