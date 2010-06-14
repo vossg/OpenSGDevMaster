@@ -56,8 +56,9 @@ class RenderActionTask : public DrawTask
 
   public:
 
-    static const UInt32 HandleGLFinish = Inherited::LastType + 1;
-    static const UInt32 LastType       = HandleGLFinish;
+    static const UInt32 HandleGLFinish       = Inherited::LastType + 1;
+    static const UInt32 HandleGLFinishNoWait = Inherited::LastType + 2;
+    static const UInt32 LastType             = HandleGLFinishNoWait;
 
     typedef DrawTask Inherited;
 

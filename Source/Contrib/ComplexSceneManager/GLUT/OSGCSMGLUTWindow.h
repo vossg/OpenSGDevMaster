@@ -95,6 +95,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
     static bool           _bGLUTInitialized;
     static CSMGLUTWindow *_pGLUTWindow;
 
+           Int32          _iGlutWinId;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */

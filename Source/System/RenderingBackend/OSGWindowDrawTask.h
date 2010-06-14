@@ -55,13 +55,14 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
 
   public:
 
-    static const UInt32 Init          = Inherited::LastType + 1;
-    static const UInt32 Activate      = Inherited::LastType + 2;
-    static const UInt32 FrameInit     = Inherited::LastType + 3;
-    static const UInt32 FrameExit     = Inherited::LastType + 4;
-    static const UInt32 Swap          = Inherited::LastType + 5;
-    static const UInt32 WaitAtBarrier = Inherited::LastType + 6;
-    static const UInt32 LastType      = WaitAtBarrier;
+    static const UInt32 Init              = Inherited::LastType + 1;
+    static const UInt32 Activate          = Inherited::LastType + 2;
+    static const UInt32 FrameInit         = Inherited::LastType + 3;
+    static const UInt32 FrameExit         = Inherited::LastType + 4;
+    static const UInt32 Swap              = Inherited::LastType + 5;
+    static const UInt32 WaitAtBarrier     = Inherited::LastType + 6;
+    static const UInt32 DeactivateAndWait = Inherited::LastType + 7;
+    static const UInt32 LastType          = DeactivateAndWait;
 
     typedef boost::function<void (void)> GLInitFunctor;
     typedef DrawTask                     Inherited;

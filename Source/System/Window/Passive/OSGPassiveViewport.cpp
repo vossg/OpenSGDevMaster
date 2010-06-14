@@ -51,6 +51,9 @@
 #include "OSGForeground.h"
 #include "OSGPassiveViewport.h"
 
+#include "OSGRenderActionBase.h"
+#include "OSGPassiveWindow.h"
+
 OSG_USING_NAMESPACE
 
 /***************************************************************************\
@@ -68,17 +71,20 @@ programs. See \ref PageSystemWindowViewports for a description.
 /*----------------------- constructors & destructors ----------------------*/
 
 PassiveViewport::PassiveViewport(void) :
-    Inherited()
+     Inherited      (    ),
+    _pDeactivateTask(NULL)
 {
 }
 
 PassiveViewport::PassiveViewport(const PassiveViewport &source) :
-    Inherited(source)
+     Inherited      (source),
+    _pDeactivateTask(NULL  )
 {
 }
 
 PassiveViewport::~PassiveViewport(void)
 {
+    _pDeactivateTask = NULL;
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -118,6 +124,29 @@ void PassiveViewport::render(RenderActionBase *action)
         SWARNING << "Viewport::render: no root!" << std::endl;
         return;
     }
+    if ( action->getWindow() == NULL)
+    {
+        SWARNING << "Viewport::render: no window!" << std::endl;
+        return;
+    }
+
+    Window *pWin  = action->getWindow();
+
+    if((pWin->getDrawMode() & Window::PartitionDrawMask) == 
+                                                 Window::ParallelPartitionDraw)
+    {
+        if(_pDeactivateTask == NULL)
+        {
+            _pDeactivateTask = 
+                new WindowDrawTask(WindowDrawTask::DeactivateAndWait);
+        }
+
+        pWin->_pContextThread->queueTask(_pDeactivateTask);
+
+        _pDeactivateTask->waitForBarrier();
+
+        pWin->doActivate();
+    }
 
     GLint vp[4];
 
@@ -128,6 +157,13 @@ void PassiveViewport::render(RenderActionBase *action)
     setRight     (Real32(vp[0] + vp[2] - 1));
     setTop       (Real32(vp[1] + vp[3] - 1)); 
 
+    if((pWin->getDrawMode() & Window::PartitionDrawMask) == 
+                                                 Window::ParallelPartitionDraw)
+    {
+        pWin->doDeactivate();
+
+        pWin->_pContextThread->queueTask(pWin->_pActivateTask);
+    }
 #endif
 
     Inherited::render(action);

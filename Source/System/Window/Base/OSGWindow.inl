@@ -373,25 +373,6 @@ void Window::setDrawerType(UInt32 uiDrawerType)
 }
 
 inline
-void Window::setKeepContextActive(bool bVal)
-{
-    editSField(DrawModeFieldMask);
-
-    if(bVal == true)
-    {
-        _sfDrawMode.setValue(
-            (_sfDrawMode.getValue() & ~ContextMask) | KeepContextActive);
-
-    }
-    else
-    {
-        _sfDrawMode.setValue(
-            (_sfDrawMode.getValue() & ~ContextMask) | CycleContext);
-
-    }
-}
-
-inline
 UInt32 Window::getPartitionDrawMode(void) const
 {
     return _sfDrawMode.getValue() & PartitionDrawMask;
@@ -404,23 +385,13 @@ UInt32 Window::getDrawerType(void) const
 }
 
 inline
-bool Window::getKeepContextActive(void) const
-{
-    return (_sfDrawMode.getValue() & ContextMask) == KeepContextActive;
-}
-
-inline
 void DrawTask::setupContext(Window *pWindow)
 {
-    if(pWindow->getKeepContextActive() == false)
-        pWindow->doActivate();
 }
 
 inline
 void DrawTask::finalizeContext(Window *pWindow)
 {
-    if(pWindow->getKeepContextActive() == false)
-        pWindow->doDeactivate();
 }
 
 OSG_END_NAMESPACE

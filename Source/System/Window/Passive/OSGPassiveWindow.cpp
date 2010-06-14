@@ -46,6 +46,8 @@
 #include "OSGConfig.h"
 
 #include "OSGPassiveWindow.h"
+#include "OSGRenderActionBase.h"
+#include "OSGRenderActionTask.h"
 
 #ifdef OSG_USE_GLX
 #include <GL/glx.h>
@@ -87,11 +89,17 @@ void PassiveWindow::initMethod (InitPhase ePhase)
 PassiveWindow::PassiveWindow(void) :
     Inherited()
 {
+    _sfDrawMode.setValue(
+        (_sfDrawMode.getValue()  & ~Window::ContextMask   ) | 
+        (Window::ExternalContext |  Window::PassiveContext) );
 }
 
 PassiveWindow::PassiveWindow(const PassiveWindow &source) :
     Inherited(source)
 {
+    _sfDrawMode.setValue(
+        (_sfDrawMode.getValue()  & ~Window::ContextMask   ) | 
+        (Window::ExternalContext |  Window::PassiveContext) );
 }
 
 PassiveWindow::~PassiveWindow(void)
@@ -133,30 +141,11 @@ void PassiveWindow::init(GLInitFunctor oFunc)
     Window::init(oFunc);
 }
 
-/*! Do nothing, GL context is managed by application
- */
 void PassiveWindow::terminate(void)
 {
-}
+    Window::doTerminate();
 
-/* Do nothing, has to be setup when we come here.
- */
-void PassiveWindow::activate(void)
-{
+    Inherited::setContext(NULL);
 }
-
-/* Do nothing, has to be setup when we come here.
- */
-void PassiveWindow::deactivate(void)
-{
-}
-    
-/* Do nothing, has to be done manually for this class.
- */
-bool PassiveWindow::swap(void)
-{
-    return true;
-}
-
 
 

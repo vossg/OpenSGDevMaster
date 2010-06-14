@@ -127,36 +127,6 @@ void CocoaWindow::init(GLInitFunctor oFunc)
     this->doDeactivate();
 }
 
-// activate the window: bind the OGL context
-void CocoaWindow::activate( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doActivate();
-    }
-}
-
-// activate the window: bind the OGL context
-void CocoaWindow::deactivate( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doDeactivate();
-    }
-}
-
-// swap front and back buffers
-bool CocoaWindow::swap( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doSwap();
-    }
-}
-
 
 // activate the window: bind the OGL context
 void CocoaWindow::doActivate( void )

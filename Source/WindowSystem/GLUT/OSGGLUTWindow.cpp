@@ -57,6 +57,8 @@
 #include "OSGCamera.h"
 #include "OSGBackground.h"
 #include "OSGGLUTWindow.h"
+#include "OSGRenderActionBase.h"
+#include "OSGRenderActionTask.h"
 
 #ifdef OSG_USE_GLX
 #include <GL/glx.h>
@@ -78,12 +80,18 @@ OSG_BEGIN_NAMESPACE
 GLUTWindow::GLUTWindow(void) :
     Inherited()
 {
+    _sfDrawMode.setValue(
+        (_sfDrawMode.getValue()  & ~Window::ContextMask) | 
+        (Window::ExternalContext &  Window::ContextMask) );
 }
 
 //! Copy Constructor
 GLUTWindow::GLUTWindow(const GLUTWindow &source) :
     Inherited(source)
 {
+    _sfDrawMode.setValue(
+        (_sfDrawMode.getValue()  & ~Window::ContextMask) | 
+        (Window::ExternalContext &  Window::ContextMask) );
 }
 
 //! Destructor
@@ -150,6 +158,13 @@ void GLUTWindow::activate(void)
 
         Inherited::doActivate();
     }
+}
+
+void GLUTWindow::terminate(void)
+{
+    Window::doTerminate();
+
+    Inherited::setContext(NULL);
 }
 
 OSG_END_NAMESPACE

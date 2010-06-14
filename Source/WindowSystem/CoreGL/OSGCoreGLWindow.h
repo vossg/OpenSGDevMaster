@@ -84,10 +84,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (GLInitFunctor oFunc = GLInitFunctor());
-    virtual void activate  (void                                 );
-    virtual void deactivate(void                                 );
-    virtual bool swap      (void                                 );
+    virtual bool swap(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

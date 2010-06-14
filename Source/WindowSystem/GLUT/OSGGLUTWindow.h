@@ -84,8 +84,9 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void activate  (void);
-   
+    virtual void activate (void);
+    virtual void terminate(void);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

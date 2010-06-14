@@ -594,6 +594,10 @@ bool ClusterWindow::swap(void)
     return this->doSwap();
 }
 
+void ClusterWindow::terminate (void)
+{
+}
+
 void ClusterWindow::doActivate(void)
 {
 }

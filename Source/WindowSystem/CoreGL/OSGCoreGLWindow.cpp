@@ -123,35 +123,6 @@ void CoreGLWindow::init(GLInitFunctor oFunc)
     Inherited::init(oFunc);
 }
 
-// activate the window: bind the OGL context
-void CoreGLWindow::activate( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doActivate();
-    }
-}
-
-// activate the window: bind the OGL context
-void CoreGLWindow::deactivate( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doDeactivate();
-    }
-}
-
-// swap front and back buffers
-bool CoreGLWindow::swap( void )
-{
-    if((_sfDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        this->doSwap();
-    }
-}
 
 // activate the window: bind the OGL context
 void CoreGLWindow::doActivate( void )

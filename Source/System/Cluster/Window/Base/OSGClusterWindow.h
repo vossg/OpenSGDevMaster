@@ -107,6 +107,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     virtual void deactivate(void);
     virtual bool swap      (void);
 
+    virtual void terminate (void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name            asynchronous initialization                       */

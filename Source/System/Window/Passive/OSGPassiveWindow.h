@@ -78,7 +78,12 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     /*---------------------------------------------------------------------*/
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
-    
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Redefined                               */
+    /*! \{                                                                 */
+
     virtual void init     (GLInitFunctor oFunc = GLInitFunctor());
     virtual void terminate(void                                 );
 
@@ -87,10 +92,6 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
-   
     /*! \}                                                                 */  
     /*=========================  PROTECTED  ===============================*/
 
@@ -117,7 +118,7 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
+   /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
@@ -126,6 +127,7 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     
     friend class FieldContainer;
     friend class PassiveWindowBase;
+    friend class PassiveViewport;
 
     static void initMethod(InitPhase ePhase);
     

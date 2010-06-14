@@ -67,6 +67,7 @@ WindowDrawTask::WindowDrawTask(UInt32 uiType) :
     switch(_uiTypeTask)
     {
         case WaitAtBarrier:
+        case DeactivateAndWait:
 #ifdef OSG_SWAP_BARRIER
         case Swap:
 #endif
@@ -112,9 +113,6 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             {
                 _oInitFunc();
             }
-
-            if(pWindow->getKeepContextActive() == false)
-                pWindow->doDeactivate();
         }
         break;
 
@@ -124,8 +122,7 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             fprintf(stderr, "Activate\n");
             fflush(stderr);
 #endif
-            if(pWindow->getKeepContextActive() == false)
-                pWindow->doActivate();
+            pWindow->doActivate();
         }
         break;
 
@@ -135,9 +132,6 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             fprintf(stderr, "FrameInit\n");
             fflush(stderr);
 #endif
-
-            if(pWindow->getKeepContextActive() == false)
-                pWindow->doActivate();
 
             pWindow->doFrameInit();
         }
@@ -151,9 +145,6 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 #endif
             pWindow->doFrameExit();
 
-            if(pWindow->getKeepContextActive() == false)
-                pWindow->doDeactivate();
-
             commitChangesAndClear();
         }
         break;
@@ -164,6 +155,19 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             fprintf(stderr, "WaitAtBarrier\n");
             fflush(stderr);
 #endif
+            OSG_ASSERT(_pBarrier != NULL);
+            _pBarrier->enter();
+        }
+        break;
+
+        case DeactivateAndWait:
+        {
+#ifdef OSG_DUMP_WINTASK
+            fprintf(stderr, "DeactivateAndWait\n");
+            fflush(stderr);
+#endif
+            pWindow->doDeactivate();
+
             OSG_ASSERT(_pBarrier != NULL);
             _pBarrier->enter();
         }
@@ -187,9 +191,10 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 
         case EndThread:
         {
-            if(pWindow->getKeepContextActive() == false)
-                pWindow->doActivate();
-
+#ifdef OSG_DUMP_WINTASK
+            fprintf(stderr, "EndThread\n");
+            fflush(stderr);
+#endif
             pWindow->doFrameExit();
             
 #ifdef OSG_WITH_CUDA
@@ -211,9 +216,11 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 
 void WindowDrawTask::waitForBarrier(void)
 {
-    OSG_ASSERT((_uiTypeTask == WaitAtBarrier) ||
-               (_uiTypeTask == Swap         )  );
-    OSG_ASSERT(_pBarrier    != NULL            );
+    OSG_ASSERT((_uiTypeTask == WaitAtBarrier    ) ||
+               (_uiTypeTask == Swap             ) ||
+               (_uiTypeTask == DeactivateAndWait)  );
+
+    OSG_ASSERT(_pBarrier    != NULL                );
 
     _pBarrier->enter();
 }
@@ -265,6 +272,12 @@ void WindowDrawTask::dump(UInt32 uiIndent)
         break;
 
         case WaitAtBarrier:
+        {
+            fprintf(stderr, "WaitAtBarrier\n");
+        }
+        break;
+
+        case DeactivateAndWait:
         {
             fprintf(stderr, "WaitAtBarrier\n");
         }

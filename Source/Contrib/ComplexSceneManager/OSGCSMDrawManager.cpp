@@ -329,6 +329,21 @@ void CSMDrawManager::shutdown(void)
         {
             (*dIt)->shutdown();
         }
+
+        commitChanges();
+
+        AttachmentContainer::resolveLinks();
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->terminateGLContexts();
+            
+            ++dIt;
+        }
+
+        commitChanges();
     }
 }
 

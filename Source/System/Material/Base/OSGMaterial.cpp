@@ -260,7 +260,7 @@ bool subRefDefaultMaterial     (void)
 bool subRefDefaultUnlitMaterial(void)
 {
 //    _defaultUnlitMaterial = NULL;
-    _defaultMaterial.shutdownSetNull();
+    _defaultUnlitMaterial.shutdownSetNull();
 
     return true;
 }

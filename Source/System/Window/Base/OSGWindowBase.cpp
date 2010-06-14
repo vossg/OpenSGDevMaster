@@ -510,7 +510,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"internal\"\n"
     "\t   access=\"public\"\n"
-    "       defaultValue=\"(Window::SequentialPartitionDraw | Window::StdDrawer | Window::KeepContextActive)\"\n"
+    "       defaultValue=\"(Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext)\"\n"
     "       >\n"
     "    </Field>\n"
     "    <Field\n"
@@ -1056,7 +1056,7 @@ WindowBase::WindowBase(void) :
     _sfRequestMinor           (Int32(0)),
     _sfContextFlags           (Int32(0)),
     _sfRenderOptions          (NULL),
-    _sfDrawMode               (UInt32((Window::SequentialPartitionDraw | Window::StdDrawer | Window::KeepContextActive))),
+    _sfDrawMode               (UInt32((Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext))),
     _sfRendererInfo           (std::string("unknown")),
     _mfDrawTasks              ()
 {

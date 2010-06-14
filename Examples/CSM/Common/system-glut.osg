@@ -96,15 +96,28 @@ ComplexSceneManager
       {
         windows
         [
-           DEF MainWindow CSMPassiveWindow
+           DEF MainWindow CSMGLUTWindow
            {
-             viewportScale 0.7 0.7
+#             ignoreExtensions [ "ALL" ]
+#             ignoreExtensions [ "GL_ARB_framebuffer_object",
+#                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
+#             requestMajor 3
+#             requestMinor 0
+
+#             enableForwardCompatContext TRUE
+#             enableDebugContext         TRUE
+
+             requestSamples 4
+             enableFSAA     TRUE
+
+             size 512 512
+             position 200, 200
+             decorEnabled TRUE
 
              partitionDrawMode 0x0002
 
              renderOptions DEF WinRenderOpts RenderOptions
              {
-#               useGLFinish TRUE;
              }
 
              viewports
@@ -114,7 +127,6 @@ ComplexSceneManager
                  root       USE RootNode
                  camera     USE PerspCamGL
                  background USE BGnd
-                 passive    TRUE
 
                  foregrounds
                  [

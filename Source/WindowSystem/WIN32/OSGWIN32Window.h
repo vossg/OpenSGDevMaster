@@ -87,10 +87,6 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

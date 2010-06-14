@@ -75,10 +75,6 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

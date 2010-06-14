@@ -84,11 +84,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindow : public CarbonWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (GLInitFunctor oFunc = GLInitFunctor());
-
-    virtual void activate  (void                                 );
-    virtual void deactivate(void                                 );
-    virtual bool swap      (void                                 );
+    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

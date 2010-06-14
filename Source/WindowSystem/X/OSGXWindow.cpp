@@ -268,32 +268,6 @@ void XWindow::terminate(void)
     }
 }
 
-void XWindow::activate(void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        this->doActivate();
-    }
-}
-
-void XWindow::deactivate(void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        this->doDeactivate();
-    }
-}
-
-bool XWindow::swap(void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        return this->doSwap();
-    }
-
-    return false;
-}
-
 // activate the window: bind the OGL context    
 void XWindow::doActivate(void)
 {

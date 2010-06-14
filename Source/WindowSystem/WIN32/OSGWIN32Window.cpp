@@ -147,31 +147,6 @@ void WIN32Window::terminate(void)
      }
 }
 
-void WIN32Window::activate  (void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        this->doActivate();
-    }
-}
-
-void WIN32Window::deactivate(void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        this->doDeactivate();
-    }
-}
-
-bool WIN32Window::swap      (void)
-{
-    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
-    {
-        return this->doSwap();
-    }
-
-    return false;
-}
 
 /*! activate the window: set the HDC and bind the OGL context
 */

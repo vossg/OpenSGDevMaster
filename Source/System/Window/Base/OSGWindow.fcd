@@ -144,7 +144,7 @@ init(void), activate(void), deactivate(void) and swap(void).
 	   cardinality="single"
 	   visibility="internal"
 	   access="public"
-       defaultValue="(Window::SequentialPartitionDraw | Window::StdDrawer | Window::KeepContextActive)"
+       defaultValue="(Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext)"
        >
     </Field>
     <Field
