@@ -4,8 +4,11 @@ IF(OSGLibMiniSrcDir)
 
   PROJECT(OSGLibMini)
 
-  SET(${PROJECT_NAME}SharedTarget osgmini)
-  SET(${PROJECT_NAME}StaticTarget libosgmini)
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget libosgmini)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget osgmini)
+  ENDIF(WIN32)
 
   SET(OSG_LIBMINI_SRCS ${OSGLibMiniSrcDir}/mini.cpp 
                        ${OSGLibMiniSrcDir}/miniOGL.cpp
@@ -115,7 +118,9 @@ IF(OSGLibMiniSrcDir)
 
   IF(EXISTS ${OSGLibMiniSrcDir}/GL)
     EXECUTE_PROCESS(
-      COMMAND "${CMAKE_COMMAND}" -E rename "${OSGLibMiniSrcDir}/GL" "${OSGLibMiniSrcDir}/GL.org")
+      COMMAND "${CMAKE_COMMAND}" -E copy_directory "${OSGLibMiniSrcDir}/GL" "${OSGLibMiniSrcDir}/GL.org")
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E remove_directory "${OSGLibMiniSrcDir}/GL")
   ENDIF()
 
   IF(WIN32)
