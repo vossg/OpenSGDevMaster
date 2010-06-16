@@ -1514,8 +1514,9 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
                 _commonExtensions[s] = false;
                 FPDEBUG(("IGN "));
             }
+
+            FPDEBUG(("\n"));
         }
-        FPDEBUG(("\n"));
         staticRelease();
     }
     
