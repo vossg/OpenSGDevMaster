@@ -358,19 +358,36 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
             case 14: 
             case 15:
             {
-                OSGGETGLFUNCBYID( OSGglClientActiveTextureARB,
-                                  osgGlClientActiveTextureARB,
-                                 _funcglClientActiveTextureARB,
-                                  win);
+                if(win->hasExtension(_extMultitexture))
+                {
+                    OSGGETGLFUNCBYID( OSGglClientActiveTextureARB,
+                                      osgGlClientActiveTextureARB,
+                                      _funcglClientActiveTextureARB,
+                                      win);
 
-                osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
+                    osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
 
-                glTexCoordPointer(getDimension(), 
-                                  getFormat   (),
-                                  getStride   (),
-                                  pData         );
+                    glTexCoordPointer(getDimension(),
+                                      getFormat   (),
+                                      getStride   (),
+                                      pData         );
 
-                glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                }
+                else if(slot == 8)
+                {
+                    glTexCoordPointer(getDimension(),
+                                      getFormat   (),
+                                      getStride   (),
+                                      pData         );
+
+                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                }
+                else
+                {
+                    SWARNING << "GeoVectorProperty::activate: Window "
+                             << "has no Multi Texture extension" << std::endl;
+                }
             }
             break;
 
@@ -447,14 +464,26 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
             case 14: 
             case 15:
             {
-                OSGGETGLFUNCBYID( OSGglClientActiveTextureARB,
-                                  osgGlClientActiveTextureARB,
-                                 _funcglClientActiveTextureARB,
-                                  win);
+                if(win->hasExtension(_extMultitexture))
+                {
+                    OSGGETGLFUNCBYID( OSGglClientActiveTextureARB,
+                                      osgGlClientActiveTextureARB,
+                                      _funcglClientActiveTextureARB,
+                                      win);
                 
-                osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
+                    osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
 
-                glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                }
+                else if(slot == 8)
+                {
+                    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                }
+                else
+                {
+                    SWARNING << "GeoVectorProperty::deactivate: Window "
+                             << "has no Multi Texture extension" << std::endl;
+                }
             }
             break;
 
