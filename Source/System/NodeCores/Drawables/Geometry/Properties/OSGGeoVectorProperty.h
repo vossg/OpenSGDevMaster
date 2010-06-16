@@ -153,16 +153,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name       Some special case methods for efficiency               */
-    /*! \{                                                                 */
-
-#if 0
-    virtual void getValue(      Vec3f    &val, const UInt32 index ) const;
-    virtual void setValue(const Vec3f    &val, const UInt32 index );
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
