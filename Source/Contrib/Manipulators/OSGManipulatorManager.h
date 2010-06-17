@@ -55,25 +55,29 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
  public:
     enum    ManipulatorType { ROTATE, SCALE, TRANSLATE };
 
-    NodeTransitPtr createManipulator(const ManipulatorType  type);
-    void           changeManipulator(const ManipulatorType  type);
-    bool           activate         (      Node            *n   );
+     ManipulatorManager();
+    ~ManipulatorManager();
+
+    Node*           createManipulator(const ManipulatorType  type);
+    void            changeManipulator(const ManipulatorType  type);
+    ManipulatorType getCurrentType   (                           ) const;
+    bool            activate         (      Node            *n   );
     
-    void           setTarget        (      Node     * const value);
-    void           setViewport      (      Viewport * const value);
-    bool           isActive         (      void                  );
+    void            setTarget        (      Node     * const value);
+    void            setViewport      (      Viewport * const value);
+    bool            isActive         (      void                  );
     
-    void           mouseMove         (const Int16  x,
-                                      const Int16  y);
-    void           mouseButtonPress  (const UInt16 button,
-                                      const Int16  x,
-                                      const Int16  y     );
-    void           mouseButtonRelease(const UInt16 button,
-                                      const Int16  x,
-                                      const Int16  y     );
+    void            mouseMove         (const Int16  x,
+                                       const Int16  y);
+    void            mouseButtonPress  (const UInt16 button,
+                                       const Int16  x,
+                                       const Int16  y     );
+    void            mouseButtonRelease(const UInt16 button,
+                                       const Int16  x,
+                                       const Int16  y     );
 private:
 
-    ManipulatorUnrecPtr  _maniC;
+    NodeUnrecPtr         _maniN;
     ManipulatorType      _currentType;
     NodeUnrecPtr         _target;
     ViewportUnrecPtr     _viewport;

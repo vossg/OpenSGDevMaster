@@ -41,8 +41,6 @@
 //---------------------------------------------------------------------------
 
 #include "OSGConfig.h"
-#include "OSGBaseTypes.h"
-
 #include "OSGManipulatorManager.h"
 
 OSG_BEGIN_NAMESPACE
@@ -51,113 +49,159 @@ OSG_BEGIN_NAMESPACE
 // Manipulators. Damit besteht ein Problem mit Multi-Parents, das nicht waere,
 // wenn der ManipulatorManager sich den Node merken wuerde!?!
 
-NodeTransitPtr ManipulatorManager::createManipulator(const ManipulatorType type)
+ManipulatorManager::ManipulatorManager()
+    : _maniN      (),
+      _currentType(),
+      _target     (),
+      _viewport   ()
 {
-    NodeTransitPtr maniN = Node::create();
-    
+}
+
+ManipulatorManager::~ManipulatorManager()
+{
+    _maniN    = NULL;
+    _target   = NULL;
+    _viewport = NULL;
+}
+
+Node* ManipulatorManager::createManipulator(const ManipulatorType type)
+{
+    ManipulatorUnrecPtr mani;
+  
     switch (type)
     {
         case ROTATE:
-            _maniC = RotateManipulator::create();
+            mani = RotateManipulator::create();
             break;
         case SCALE:
-            _maniC = ScaleManipulator::create();
+            mani = ScaleManipulator::create();
             break;
         case TRANSLATE:
-            _maniC = MoveManipulator::create();    
+            mani = MoveManipulator::create();    
             break;
     }
     
     _currentType = type;
 
-    maniN->setCore(_maniC);
+    _maniN = makeNodeFor(mani);
     commitChanges();
 
-    return maniN;
+    return _maniN;
 }
 
 // TODO: 
 void ManipulatorManager::changeManipulator(const ManipulatorType type)
 {
-    if (type != _currentType)
+    if(type != _currentType)
     {
-        if ( ! _maniC->getParents().empty() )
+        ManipulatorUnrecPtr mani;
+  
+        switch (type)
         {
-            Node *maniN = dynamic_cast<Node *>(_maniC->getParents()[0]);
-
-            _maniC = NULL;
-
-            switch (type)
-            {
-                case TRANSLATE:
-                    _maniC = MoveManipulator::create();
-                    break;
-                case ROTATE:
-                    _maniC = RotateManipulator::create();
-                    break;
-                case SCALE:
-                    _maniC = ScaleManipulator::create();
-                    break;
-            }
-            
-            _currentType = type;
-
-            maniN->setCore(_maniC);
-
-            // Calling commitChanges() here seems to be critical for making
-            // this method behave at all.
-            commitChanges();
-
-            _maniC->setTarget  (_target  );
-            _maniC->setViewport(_viewport);
-
-            commitChanges();
+        case ROTATE:
+            mani = RotateManipulator::create();
+            break;
+        case SCALE:
+            mani = ScaleManipulator::create();
+            break;
+        case TRANSLATE:
+            mani = MoveManipulator::create();    
+            break;
         }
+
+        _currentType = type;
+
+        _maniN->setCore(mani);
+
+        commitChanges();
+
+        mani->setTarget  (_target  );
+        mani->setViewport(_viewport);
     }
+}
+
+ManipulatorManager::ManipulatorType
+ManipulatorManager::getCurrentType() const
+{
+    return _currentType;
 }
 
 void ManipulatorManager::setTarget(Node * const value)
 {
-    _maniC->setTarget(value);
-    _target = value;
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    if(mani != NULL)
+    {
+        mani->setTarget(value);
+        _target = value;
+    }
+    else
+    {
+        SWARNING << "ManipulatorManager::setTarget: No active manipulator."
+                 << std::endl;
+    }
 }
 
 void ManipulatorManager::setViewport(Viewport * const value)
 {
-    _maniC->setViewport(value);
-    _viewport = value;
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    if(mani != NULL)
+    {
+        mani->setViewport(value);
+        _viewport = value;
+    }
+    else
+    {
+        SWARNING << "ManipulatorManager::setViewport: No active manipulator."
+                 << std::endl;
+    }
 }
 
 bool ManipulatorManager::isActive()
 {
-    return _maniC->getActive();
+    bool         retVal = false;
+    Manipulator* mani   = _maniN->getCore<Manipulator>();
+
+    if(mani != NULL)
+        retVal = mani->getActive();
+
+    return retVal;
 }
 
 void ManipulatorManager::mouseMove(const Int16 x,
                                    const Int16 y)
 {
-    _maniC->mouseMove(x, y);
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    mani->mouseMove(x, y);
 }
 
 void ManipulatorManager::mouseButtonPress(const UInt16 uiButton,
                                           const Int16 x,
                                           const Int16 y      )
 {
-    _maniC->mouseButtonPress(uiButton, x, y);
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    mani->mouseButtonPress(uiButton, x, y);
 }
 
 void ManipulatorManager::mouseButtonRelease(const UInt16 uiButton,
                                             const Int16 x,
                                             const Int16 y      )
 {
-    _maniC->mouseButtonRelease(uiButton, x, y);
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    mani->mouseButtonRelease(uiButton, x, y);
 }
 
 bool ManipulatorManager::activate(Node *n)
 {
-    if ( _maniC->hasSubHandle(n) )
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+
+    if(mani->hasSubHandle(n) )
     {
-        _maniC->setActiveSubHandle(n);
+        mani->setActiveSubHandle(n);
         return true;
     }
     else
