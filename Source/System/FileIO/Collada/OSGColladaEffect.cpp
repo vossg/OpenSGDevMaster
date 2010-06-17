@@ -1346,17 +1346,23 @@ ColladaEffect::createInstanceProfileCG(
 				{
 					// now check the semantic property of the newParam, 
 					// to see if it is a state matrix
-					if(!isStateMatrix(newParams[j]->getSemantic()->getValue()))
-					{ // not a state matrix? then set the new value
-						domFloat4x4 val = matrixParams[i]->getFx_basic_type_common()->getFloat4x4()->getValue();
-						Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
-								   val.get(4),val.get(5),val.get(6),val.get(7),
-								   val.get(8),val.get(9),val.get(10),val.get(11),
-								   val.get(12),val.get(13),val.get(14),val.get(15));
+					if(newParams[j]->getSemantic() != NULL)
+					{
+						if(isStateMatrix(newParams[j]->getSemantic()->getValue()))
+						{ // is it a state matrix? then don't set the new values
+							break;
+						}
+					} 
+					
+					domFloat4x4 val = matrixParams[i]->getFx_basic_type_common()->getFloat4x4()->getValue();
+					Matrix tmp(val.get(0),val.get(1),val.get(2),val.get(3),
+							   val.get(4),val.get(5),val.get(6),val.get(7),
+							   val.get(8),val.get(9),val.get(10),val.get(11),
+							   val.get(12),val.get(13),val.get(14),val.get(15));
 
-						newCgFXmat->addUniformVariable(matrixName.c_str(),tmp);
-						break;
-					}
+					newCgFXmat->addUniformVariable(matrixName.c_str(),tmp);
+					break;
+					 
 				} // end if(!isStateMatrix)
 			} //end for(newParams.size())
 		} // end for(matrixParams.size())
