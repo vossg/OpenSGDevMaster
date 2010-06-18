@@ -347,7 +347,7 @@ namespace
                 xformScaleN->      getCore()->clearChangedFunctors();
             }
 
-            use_changed_functor_ != use_changed_functor_;
+            use_changed_functor_ = !use_changed_functor_;
         }
 
         void dump_xforms()
