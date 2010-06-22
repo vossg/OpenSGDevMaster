@@ -2621,19 +2621,33 @@ size_t osgnextpower2<size_t>(size_t rValue)
 /*! \{                                                                 */
 
 inline 
-int osgLog2Int(OSG::Real32 v) 
+OSG::Int32 osgLog2Int(OSG::Real32 v)
 {
-	return ((*reinterpret_cast<Int32 *>(&v)) >> 23) - 127;
+    union
+    {
+        OSG::Real32 realVal;
+        OSG::Int32  intVal;
+    } data;
+
+    data.realVal = v;
+
+    return (data.intVal >> 23) - 127;
 }
 
 inline 
 OSG::Int32 osgRound2Int(OSG::Real64 val) 
 {
 #ifdef OSG_FAST_INT
-	val		= val + OSG_DOUBLEMAGIC;
-	return (reinterpret_cast<long*>(&val))[0];
+    union
+    {
+        OSG::Real64 realVal;
+        OSG::Int64  intVal;
+    } data;
+
+    data.realVal = val + OSG_DOUBLEMAGIC;
+    return data.intVal;
 #else
-	return int (val + OSG_DOUBLEMAGICROUNDEPS);
+	return static_cast<OSG::Int32>(val + OSG_DOUBLEMAGICROUNDEPS);
 #endif
 }
 
