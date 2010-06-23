@@ -2742,7 +2742,7 @@ std::string ColladaEffect::fixFilepath(std::string filepath)
 	return filepath;
 }
 
-// re-formats an image filepath so that it can 
+// re-formats an image filepath so that it can be read properly
 std::string	ColladaEffect::fixImageFilepath( std::string imgPath)
 {
 	if(imgPath.substr(0,5) == "file:")

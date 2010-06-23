@@ -91,6 +91,10 @@ class OSG_FILEIO_DLLMAPPING ColladaImage : public ColladaElement
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
+	  // filepath helper functions
+	std::string	fixFilepath( std::string filepath );
+	std::string	fixImageFilepath( std::string imgPath);
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
