@@ -198,6 +198,9 @@ class QuaternionBase
                                         ValueTypeT &radians) const;
           void       getValueAsAxisDeg (VectorType &axis, 
                                         ValueTypeT &degrees) const;
+          
+          void       getEulerAngleRad  (VectorType &euler  ) const;
+          void       getEulerAngleDeg  (VectorType &euler  ) const;
           void       getValue          (MatrixType &matrix ) const;
           void       getValuesOnly     (MatrixType &matrix ) const;
 
