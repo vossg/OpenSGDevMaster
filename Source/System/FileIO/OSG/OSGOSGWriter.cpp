@@ -45,6 +45,7 @@
 
 #include "OSGAttachmentMapSFields.h"
 #include "OSGAttachment.h"
+#include "OSGNameAttachment.h"
 
 #include <boost/bind.hpp>
 
@@ -144,28 +145,18 @@ void OSGWriter::write(std::vector<FieldContainer *> containers)
 
 void OSGWriter::FCInfoHelper::setName(FieldContainer * const pFC)
 {
-#ifdef FIXME
-    const FieldContainerType& fcType = pFC->getType();
+    AttachmentContainer *pAttCon = dynamic_cast<AttachmentContainer *>(pFC);
 
-    AttachmentContainer *pAttCon;
-    Name                *pNameAtt;
-
-    if(fcType.isDerivedFrom(AttachmentContainer::getClassType()))
+    if(pAttCon != NULL)
     {
-        pAttCon = AttachmentContainerPtr::dcast(pFC);
-        if(pAttCon != NULL)
-        {
-            pNameAtt = NamePtr::dcast(pAttCon->findAttachment(
-                Name::getClassType().getGroupId()));
+        const Char8 *szName = getName(pAttCon);
 
-            if(pNameAtt != NULL)
-            {
-                containerName = pNameAtt->getFieldPtr()->getValue().c_str();
-                return;
-            }
+        if(szName != NULL)
+        {
+            containerName = szName;
+            return;
         }
     }
-#endif
 
     //no NameAttachment. Build name from Type and Id
     containerName = pFC->getTypeName();

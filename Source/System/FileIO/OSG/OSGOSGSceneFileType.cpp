@@ -121,6 +121,11 @@ NodeTransitPtr OSGSceneFileType::read(      std::istream &is,
 
     NodeTransitPtr returnValue = _pFile->scanStream(is, resolver);
 
+    if(returnValue->getNChildren() == 1)
+    {
+        returnValue = returnValue->getChild(0);
+    }
+
     delete _pFile;
 
     commitChanges();
