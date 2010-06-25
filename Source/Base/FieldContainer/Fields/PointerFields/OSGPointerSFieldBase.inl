@@ -66,7 +66,7 @@ PointerSFieldBase::~PointerSFieldBase(void)
 inline 
 PointerSFieldBase::value_type PointerSFieldBase::getValue(void) const
 {
-    return _fieldValue;
+    return WeakRefCountPolicy::validate(_fieldValue);
 }
 
 inline
