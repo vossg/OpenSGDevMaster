@@ -81,37 +81,37 @@ void PointerMFieldBase::copyToBin(BinaryDataHandler &pMem) const
 inline 
 PointerMFieldBase::const_iterator PointerMFieldBase::begin(void) const
 {
-    return _ptrStore.begin();
+    return const_iterator(_ptrStore.begin());
 }
 
 inline 
 PointerMFieldBase::const_iterator PointerMFieldBase::end(void) const
 {
-    return _ptrStore.end();
+    return const_iterator(_ptrStore.end());
 }
     
 inline 
 PointerMFieldBase::const_reverse_iterator PointerMFieldBase::rbegin(void) const
 {
-    return _ptrStore.rbegin();
+    return const_reverse_iterator(_ptrStore.rbegin());
 }
 
 inline 
 PointerMFieldBase::const_reverse_iterator PointerMFieldBase::rend(void) const
 {
-    return _ptrStore.rend();
+    return const_reverse_iterator(_ptrStore.rend());
 }
 
 inline 
 PointerMFieldBase::value_type PointerMFieldBase::front(void) const
 {
-    return _ptrStore.front();
+    return WeakRefCountPolicy::validate(_ptrStore.front());
 }
 
 inline 
 PointerMFieldBase::value_type PointerMFieldBase::back(void) const
 {
-    return _ptrStore.back();
+    return WeakRefCountPolicy::validate(_ptrStore.back());
 }
 
 inline 
@@ -142,7 +142,7 @@ inline
 PointerMFieldBase::difference_type 
     PointerMFieldBase::findIndex(const_value value) const
 {
-    const_iterator it = std::find(_ptrStore.begin(), _ptrStore.end(), value);
+    StorageConstIt it = std::find(_ptrStore.begin(), _ptrStore.end(), value);
 
     if(it != _ptrStore.end())
     {
@@ -164,14 +164,14 @@ inline
 PointerMFieldBase::value_type 
     PointerMFieldBase::operator[](UInt32 const index) const
 {
-    return _ptrStore[index];
+    return WeakRefCountPolicy::validate(_ptrStore[index]);
 }
 
 inline 
 PointerMFieldBase::value_type 
     PointerMFieldBase::at(UInt32 const index) const
 {
-    return _ptrStore.at(index);
+    return WeakRefCountPolicy::validate(_ptrStore.at(index));
 }
     
 inline
@@ -265,6 +265,141 @@ typename PointerMFieldBase::rebindStore<TargetStoredTypeT>::type const &
     return
         reinterpret_cast<typename rebindStore<TargetStoredTypeT>::type const &>(
             _ptrStore);
+}
+
+/*---------------------------------------------------------------------------*/
+/* PointerMFieldBaseConstIterator                                            */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
+
+inline
+PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(void)
+  : Inherited()
+{
+}
+
+inline
+PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(
+    const Self &source)
+
+  : Inherited(source)
+{
+}
+
+/* explicit */ inline
+PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(
+    const StorageConstIt &storeIt)
+
+  : Inherited(storeIt)
+{
+}
+
+/*---------------------------------------------------------------------------*/
+/* Destructor                                                                */
+
+inline
+PointerMFieldBaseConstIterator::~PointerMFieldBaseConstIterator(void)
+{
+}
+
+/*-----------------------------------------------------------------------------*/
+/* Access Operators                                                            */
+
+inline PointerMFieldBaseConstIterator::const_value
+PointerMFieldBaseConstIterator::operator *(void) const
+{
+    return WeakRefCountPolicy::validate(this->Inherited::operator*());
+}
+
+inline PointerMFieldBaseConstIterator::const_value
+PointerMFieldBaseConstIterator::operator [](const difference_type offset) const
+{
+    return *(*this + offset);
+}
+
+/*-----------------------------------------------------------------------------*/
+/* Operators                                                                   */
+
+inline PointerMFieldBaseConstIterator::Self&
+PointerMFieldBaseConstIterator::operator ++(void)
+{
+    this->Inherited::operator++();
+
+    return *this;
+}
+
+inline PointerMFieldBaseConstIterator::Self
+PointerMFieldBaseConstIterator::operator ++(int)
+{
+    Self retVal = *this;
+
+    this->Inherited::operator++();
+
+    return retVal;
+}
+
+inline PointerMFieldBaseConstIterator::Self&
+PointerMFieldBaseConstIterator::operator --(void)
+{
+    this->Inherited::operator--();
+
+    return *this;
+}
+
+inline PointerMFieldBaseConstIterator::Self
+PointerMFieldBaseConstIterator::operator --(int)
+{
+    Self retVal = *this;
+
+    this->Inherited::operator--();
+
+    return retVal;
+}
+
+inline PointerMFieldBaseConstIterator::Self&
+PointerMFieldBaseConstIterator::operator +=(const difference_type offset)
+{
+    this->Inherited::operator+=(offset);
+
+    return *this;
+}
+
+inline PointerMFieldBaseConstIterator::Self
+PointerMFieldBaseConstIterator::operator +(const difference_type offset) const
+{
+    Self retVal = *this;
+
+    return retVal += offset;
+}
+
+inline PointerMFieldBaseConstIterator::Self&
+PointerMFieldBaseConstIterator::operator -=(const difference_type offset)
+{
+    this->Inherited::operator-=(offset);
+
+    return *this;
+}
+
+inline PointerMFieldBaseConstIterator::Self
+PointerMFieldBaseConstIterator::operator -(const difference_type offset) const
+{
+    Self retVal = *this;
+
+    return retVal -= offset;
+}
+
+inline bool
+PointerMFieldBaseConstIterator::operator ==(const Self& rhs) const
+{
+    return *(static_cast<const Inherited *>(this)) == rhs;
+}
+
+inline bool
+PointerMFieldBaseConstIterator::operator !=(const Self& rhs) const
+{
+    return ! (*this == rhs);
 }
 
 OSG_END_NAMESPACE

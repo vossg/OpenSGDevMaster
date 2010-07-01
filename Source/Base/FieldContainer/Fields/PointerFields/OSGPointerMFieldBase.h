@@ -49,6 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class PointerMFieldBaseConstIterator;
+
 /*! \ingroup GrpBaseFieldContainerFields
     \ingroup GrpLibOSGBase
  */
@@ -66,14 +68,14 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     typedef Field                                       Inherited;
     typedef PointerMFieldBase                           Self;
     
-    // storage
-    typedef       FieldContainer                *       StoredType;
+    // storage types
+    typedef FieldContainer                      *       StoredType;
     typedef MFieldVector<StoredType>                    StorageType;
-
-    typedef StorageType::const_iterator                 const_iterator;
-    typedef StorageType::const_reverse_iterator         const_reverse_iterator;
-
     typedef StorageType::const_iterator                 StorageConstIt;
+
+    // std library types
+    typedef PointerMFieldBaseConstIterator              const_iterator;
+    typedef std::reverse_iterator<const_iterator>       const_reverse_iterator;
 
     typedef FieldContainer                      * const const_value;
     typedef FieldContainer                      *       value_type;
@@ -83,7 +85,6 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
 
 
     typedef FieldTraits<FieldContainer *, 0>            MFieldTraits;
-
 
     // handles
     typedef EditMFieldHandle <Self      >               EditHandle;
@@ -249,6 +250,89 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
 };
 
 typedef PointerMFieldBase FieldContainerPtrMFieldBase;
+
+
+/*---------------------------------------------------------------------------*/
+/* PointerMFieldBaseConstIterator                                            */
+/*---------------------------------------------------------------------------*/
+
+class OSG_BASE_DLLMAPPING PointerMFieldBaseConstIterator :
+    protected PointerMFieldBase::StorageConstIt
+{
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Public Types                                                 */
+    /*! \{                                                                 */
+
+    typedef PointerMFieldBaseConstIterator     Self;
+    typedef PointerMFieldBase::StorageConstIt  Inherited;
+
+    typedef PointerMFieldBase                  MFieldType;
+
+    // store types
+    typedef MFieldType::StoredType             StoredType;
+    typedef MFieldType::StorageType            StorageType;
+    typedef MFieldType::StorageConstIt         StorageConstIt;
+
+    typedef MFieldType::const_value            const_value;
+
+    // std library types
+    typedef Inherited::iterator_category       iterator_category;
+    typedef Inherited::difference_type         difference_type;
+    typedef Inherited::value_type              value_type;
+    typedef Inherited::pointer                 pointer;
+    typedef Inherited::reference               reference;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+
+             PointerMFieldBaseConstIterator(      void                   );
+             PointerMFieldBaseConstIterator(const Self           &source );
+    explicit PointerMFieldBaseConstIterator(const StorageConstIt &storeIt);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+
+    ~PointerMFieldBaseConstIterator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access Operators                                             */
+    /*! \{                                                                 */
+
+    const_value operator * (      void                  ) const;
+    const_value operator [](const difference_type offset) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
+
+    Self& operator ++(      void                  );
+    Self  operator ++(      int                   );
+
+    Self& operator --(      void                  );
+    Self  operator --(      int                   );
+
+    Self& operator +=(const difference_type offset);
+    Self  operator + (const difference_type offset) const;
+
+    Self& operator -=(const difference_type offset);
+    Self  operator - (const difference_type offset) const;
+
+    bool operator == (const Self&           rhs   ) const;
+    bool operator != (const Self&           rhs   ) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+};
+
 
 OSG_END_NAMESPACE
 
