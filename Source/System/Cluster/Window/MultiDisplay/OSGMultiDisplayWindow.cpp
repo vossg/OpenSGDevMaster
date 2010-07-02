@@ -210,8 +210,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
             else
             {
                 serverPort = serverWindow->getPort()[sv];
-                if(serverWindow->getPort()[sv]->getType() !=
-                        clientPort->getType())
+                if(serverPort->getType() != clientPort->getType())
                 {
                     // there is a viewport with the wrong type
                     subRefCP(serverWindow->getPort()[sv]);
@@ -270,21 +269,18 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
                 deco = dynamic_cast<TileCameraDecoratorPtr>(
                     serverPort->getCamera());
 
-                if(serverWindow->getPort()[sv]->getType() != 
-                       clientPort->getType())
+                if(serverPort->getType() != clientPort->getType())
                 {
                     // there is a viewport with the wrong type
                     serverPort =
                         dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
-                    serverWindow->replacePort(sv, 
-                                              serverPort);//[sv] = serverPort;
+                    if(deco == NULL)
+                        deco = TileCameraDecorator::create();
+
                     serverPort->setCamera(deco);
-                }
-                else
-                {
-                    deco = dynamic_cast<TileCameraDecoratorPtr>(
-                        serverPort->getCamera());
+
+                    serverWindow->replacePort(sv, serverPort);
                 }
             }
 
