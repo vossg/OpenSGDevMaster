@@ -105,6 +105,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     Window       *getServerWindow (void);
 
     RemoteAspect *getRemoteAspect (void) const;
+    UInt32        getServerId     (void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
