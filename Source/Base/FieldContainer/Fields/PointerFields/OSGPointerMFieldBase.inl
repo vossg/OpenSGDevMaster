@@ -93,13 +93,13 @@ PointerMFieldBase::const_iterator PointerMFieldBase::end(void) const
 inline 
 PointerMFieldBase::const_reverse_iterator PointerMFieldBase::rbegin(void) const
 {
-    return const_reverse_iterator(_ptrStore.rbegin());
+    return const_reverse_iterator(end());
 }
 
 inline 
 PointerMFieldBase::const_reverse_iterator PointerMFieldBase::rend(void) const
 {
-    return const_reverse_iterator(_ptrStore.rend());
+    return const_reverse_iterator(begin());
 }
 
 inline 
