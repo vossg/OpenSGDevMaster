@@ -312,8 +312,8 @@ class OSG_BASE_DLLMAPPING PointerMFieldBaseConstIterator :
     /*! \name Access Operators                                             */
     /*! \{                                                                 */
 
-    const_value operator * (      void                  ) const;
-    const_value operator [](const difference_type offset) const;
+    value_type operator * (      void                  ) const;
+    value_type operator [](const difference_type offset) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

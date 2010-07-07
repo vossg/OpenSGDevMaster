@@ -275,24 +275,25 @@ typename PointerMFieldBase::rebindStore<TargetStoredTypeT>::type const &
 /* Constructors                                                              */
 
 inline
-PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(void)
-  : Inherited()
+PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(void) :
+    Inherited()
 {
 }
 
 inline
 PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(
-    const Self &source)
+    const Self &source) :
 
-  : Inherited(source)
+    Inherited(source)
 {
 }
 
-/* explicit */ inline
+/* explicit */ 
+inline
 PointerMFieldBaseConstIterator::PointerMFieldBaseConstIterator(
-    const StorageConstIt &storeIt)
+    const StorageConstIt &storeIt) :
 
-  : Inherited(storeIt)
+    Inherited(storeIt)
 {
 }
 
@@ -304,34 +305,39 @@ PointerMFieldBaseConstIterator::~PointerMFieldBaseConstIterator(void)
 {
 }
 
-/*-----------------------------------------------------------------------------*/
-/* Access Operators                                                            */
+/*---------------------------------------------------------------------------*/
+/* Access Operators                                                          */
 
-inline PointerMFieldBaseConstIterator::const_value
-PointerMFieldBaseConstIterator::operator *(void) const
+inline 
+PointerMFieldBaseConstIterator::value_type
+    PointerMFieldBaseConstIterator::operator *(void) const
 {
     return WeakRefCountPolicy::validate(this->Inherited::operator*());
 }
 
-inline PointerMFieldBaseConstIterator::const_value
-PointerMFieldBaseConstIterator::operator [](const difference_type offset) const
+inline 
+PointerMFieldBaseConstIterator::value_type
+    PointerMFieldBaseConstIterator::operator [](
+        const difference_type offset) const
 {
     return *(*this + offset);
 }
 
-/*-----------------------------------------------------------------------------*/
-/* Operators                                                                   */
+/*---------------------------------------------------------------------------*/
+/* Operators                                                                 */
 
-inline PointerMFieldBaseConstIterator::Self&
-PointerMFieldBaseConstIterator::operator ++(void)
+inline 
+PointerMFieldBaseConstIterator::Self &
+    PointerMFieldBaseConstIterator::operator ++(void)
 {
     this->Inherited::operator++();
 
     return *this;
 }
 
-inline PointerMFieldBaseConstIterator::Self
-PointerMFieldBaseConstIterator::operator ++(int)
+inline 
+PointerMFieldBaseConstIterator::Self
+    PointerMFieldBaseConstIterator::operator ++(int)
 {
     Self retVal = *this;
 
@@ -340,16 +346,18 @@ PointerMFieldBaseConstIterator::operator ++(int)
     return retVal;
 }
 
-inline PointerMFieldBaseConstIterator::Self&
-PointerMFieldBaseConstIterator::operator --(void)
+inline 
+PointerMFieldBaseConstIterator::Self &
+    PointerMFieldBaseConstIterator::operator --(void)
 {
     this->Inherited::operator--();
 
     return *this;
 }
 
-inline PointerMFieldBaseConstIterator::Self
-PointerMFieldBaseConstIterator::operator --(int)
+inline 
+PointerMFieldBaseConstIterator::Self
+    PointerMFieldBaseConstIterator::operator --(int)
 {
     Self retVal = *this;
 
@@ -358,46 +366,52 @@ PointerMFieldBaseConstIterator::operator --(int)
     return retVal;
 }
 
-inline PointerMFieldBaseConstIterator::Self&
-PointerMFieldBaseConstIterator::operator +=(const difference_type offset)
+inline 
+PointerMFieldBaseConstIterator::Self &
+    PointerMFieldBaseConstIterator::operator +=(const difference_type offset)
 {
     this->Inherited::operator+=(offset);
 
     return *this;
 }
 
-inline PointerMFieldBaseConstIterator::Self
-PointerMFieldBaseConstIterator::operator +(const difference_type offset) const
+inline 
+PointerMFieldBaseConstIterator::Self
+    PointerMFieldBaseConstIterator::operator +(
+        const difference_type offset) const
 {
     Self retVal = *this;
 
     return retVal += offset;
 }
 
-inline PointerMFieldBaseConstIterator::Self&
-PointerMFieldBaseConstIterator::operator -=(const difference_type offset)
+inline 
+PointerMFieldBaseConstIterator::Self &
+    PointerMFieldBaseConstIterator::operator -=(const difference_type offset)
 {
     this->Inherited::operator-=(offset);
 
     return *this;
 }
 
-inline PointerMFieldBaseConstIterator::Self
-PointerMFieldBaseConstIterator::operator -(const difference_type offset) const
+inline 
+PointerMFieldBaseConstIterator::Self
+    PointerMFieldBaseConstIterator::operator -(
+        const difference_type offset) const
 {
     Self retVal = *this;
 
     return retVal -= offset;
 }
 
-inline bool
-PointerMFieldBaseConstIterator::operator ==(const Self& rhs) const
+inline 
+bool PointerMFieldBaseConstIterator::operator ==(const Self& rhs) const
 {
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-inline bool
-PointerMFieldBaseConstIterator::operator !=(const Self& rhs) const
+inline 
+bool PointerMFieldBaseConstIterator::operator !=(const Self& rhs) const
 {
     return ! (*this == rhs);
 }
