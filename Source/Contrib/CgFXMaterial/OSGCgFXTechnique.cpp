@@ -131,6 +131,9 @@ void CgFXTechnique::rebuildState(void)
 
 bool CgFXTechnique::isTransparent(void) const
 {
+    // not sure, CHECK_TOOLBOX_MERGE
+    //return true;
+    
     return false;
 }
 
@@ -221,7 +224,7 @@ bool CgFXTechnique::validate(CgFXMaterial *pMat,
             int count = 0;
             
             while(pPass)
-            {	
+            {
                 StateUnrecPtr         pState = State        ::create();
                 CgFXPassChunkUnrecPtr pChunk = CgFXPassChunk::create();
 
