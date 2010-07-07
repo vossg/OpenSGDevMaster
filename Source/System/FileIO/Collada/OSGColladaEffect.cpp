@@ -1686,7 +1686,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		domGl_pipeline_settings::domCull_faceRef cf = states[i]->getCull_face();
 		if(cf != NULL)
 		{
-			buf << " CullFace = " << getFaceTypeString(cf->getValue())<< "); ";
+			buf << " CullFace = " << getFaceTypeString(cf->getValue())<< "; ";
 			continue;
 		}
 
@@ -1820,7 +1820,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		if(la != NULL)
 		{
 			domFloat4 ambient = la->getValue();
-			buf << " LightAmbient" << la->getIndex() << " = float4(" << ambient[0] 
+			buf << " LightAmbient" << "[" << la->getIndex() << "] = float4(" << ambient[0] 
 				<< "," << ambient[1] << "," << ambient[2] << "," << ambient[3] << "); ";
 			continue;
 		}
@@ -1829,7 +1829,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		if(ld != NULL)
 		{
 			domFloat4 diffuse = ld->getValue();
-			buf << " LightDiffuse" << ld->getIndex() << " = float4(" << diffuse[0] 
+			buf << " LightDiffuse" << "[" << ld->getIndex() << "] = float4(" << diffuse[0] 
 				<< "," << diffuse[1] << "," << diffuse[2] << "," << diffuse[3] << "); ";
 			continue;
 		}
@@ -1838,7 +1838,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		if(ld != NULL)
 		{
 			domFloat4 specular = ls->getValue();
-			buf << " LightSpecular" << ls->getIndex() << " = float4(" << specular[0] 
+			buf << " LightSpecular" << "[" << ls->getIndex() << "] = float4(" << specular[0] 
 				<< "," << specular[1] << "," << specular[2] << "," << specular[3] << "); ";
 			continue;
 		}
@@ -1847,7 +1847,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		if(lp != NULL)
 		{
 			domFloat4 position = lp->getValue();
-			buf << " LightPosition" << lp->getIndex() << " = float4(" << position[0] 
+			buf << " LightPosition" << "[" << lp->getIndex() << "] = float4(" << position[0] 
 				<< "," << position[1] << "," << position[2] << "," << position[3] << "); ";
 			continue;
 		}
@@ -1856,7 +1856,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 			states[i]->getLight_constant_attenuation();
 		if(lca != NULL)
 		{
-			buf << " LightConstantAttenuation" << lca->getIndex() << " = " 
+			buf << " LightConstantAttenuation" << "[" << lca->getIndex() << "] = " 
 				<< lca->getValue() << "; ";
 			continue;
 		}
@@ -1865,7 +1865,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 			states[i]->getLight_linear_attenuation();
 		if(lla != NULL)
 		{
-			buf << " LightLinearAttenuation" << lla->getIndex() << " = " 
+			buf << " LightLinearAttenuation" << "[" << lla->getIndex() << "] = " 
 				<< lla->getValue() << "; ";
 			continue;
 		}
@@ -1874,7 +1874,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 			states[i]->getLight_quadratic_attenuation();
 		if(lqa != NULL)
 		{
-			buf << " LightQuadraticAttenuation" << lqa->getIndex() << " = " 
+			buf << " LightQuadraticAttenuation" << "[" << lqa->getIndex() << "] = " 
 				<< lqa->getValue() << "; ";
 			continue;
 		}
@@ -1883,7 +1883,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 			states[i]->getLight_spot_cutoff();
 		if(lsc != NULL)
 		{
-			buf << " LightSpotCutoff" << lsc->getIndex() << " = " 
+			buf << " LightSpotCutoff" << "[" << lsc->getIndex() << "] = " 
 				<< lsc->getValue() << "; ";
 			continue;
 		}
@@ -1892,7 +1892,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 			states[i]->getLight_spot_exponent();
 		if(lse != NULL)
 		{
-			buf << " LightSpotExponent" << lse->getIndex() << " = " 
+			buf << " LightSpotExponent" << "[" << lse->getIndex() << "] = " 
 				<< lse->getValue() << "; ";
 			continue;
 		}
@@ -1902,7 +1902,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 		if(lsd != NULL)
 		{
 			domFloat3 direction = lsd->getValue();
-			buf << " LightSpotDirection" << lsd->getIndex() << " = float3(" << direction[0] 
+			buf << " LightSpotDirection" << "[" << lsd->getIndex() << "] = float3(" << direction[0] 
 				<< "," << direction[1] << "," << direction[2] << "); ";
 			continue;
 		}
@@ -2440,7 +2440,7 @@ std::string ColladaEffect::extractCgStates(domProfile_CG::domTechnique::domPassR
 std::string ColladaEffect::getBoolStringRep(std::string stateName, UInt32 idx, bool state)
 {
 	std::stringstream buf;
-	buf << stateName << idx << " = " << ((state)?("true"):("false")) << "; ";
+	buf << stateName << "[" << idx << "] = " << ((state)?("true"):("false")) << "; ";
 	return buf.str();
 }
 
