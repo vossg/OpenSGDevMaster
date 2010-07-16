@@ -158,8 +158,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
 
     /*------------------------- assignment ----------------------------------*/
     
-    bool getCorrectNegScale(void     );
+    bool getCorrectNegScale(void     ) const;
     void setCorrectNegScale(bool bVal);
+
+    bool getZWriteTrans    (void     ) const;
+    void setZWriteTrans    (bool bVal);
 
     /*------------------------- comparison ----------------------------------*/
 

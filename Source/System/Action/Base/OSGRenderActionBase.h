@@ -154,6 +154,9 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     // control drawing of checked volumes
     virtual bool getVolumeDrawing          (void            ) const;
     virtual void setVolumeDrawing          (bool val = false);
+
+    virtual bool getZWriteTrans            (void            ) const;
+    virtual void setZWriteTrans            (bool val = false);
     
     // control automatic frustum calculation
             bool                 getAutoFrustum   (void                ) const;
@@ -163,17 +166,6 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     virtual const FrustumVolume &getFrustum       (void                ) const;
     virtual void                 setFrustum       (FrustumVolume &frust);    
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Lights                                     */
-    /*! \{                                                                 */
-
-#if 0
-           // select all visible nodes
-            UInt32  selectVisibles(void      );
-
-    virtual bool    isVisible     (Node *node) = 0;
-#endif
 
     /*----------- multi-frame buffering / split cull/draw -------------------*/
 
@@ -280,6 +272,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     
     bool                _bFrustumCulling;
     bool                _bVolumeDrawing;
+    bool                _bZWriteTrans;
     bool                _bAutoFrustum;
     bool                _bCorrectTwoSidedLighting;
 

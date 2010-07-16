@@ -90,7 +90,7 @@ void RenderPartitionBase::setTaskType(UInt32 uiTaskType)
 /*------------------------------ access -----------------------------------*/
 
 inline
-bool RenderPartitionBase::getCorrectNegScale(void)
+bool RenderPartitionBase::getCorrectNegScale(void) const
 {
     return _bCorrectNegScale;
 }
@@ -99,6 +99,18 @@ inline
 void RenderPartitionBase::setCorrectNegScale(bool bVal)
 {
     _bCorrectNegScale = bVal;
+}
+
+inline
+bool RenderPartitionBase::getZWriteTrans(void) const
+{
+    return _bZWriteTrans;
+}
+
+inline
+void RenderPartitionBase::setZWriteTrans(bool bVal)
+{
+    _bZWriteTrans = bVal;
 }
 
 /*---------------------------- properties ---------------------------------*/

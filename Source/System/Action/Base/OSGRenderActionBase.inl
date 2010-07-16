@@ -114,6 +114,12 @@ bool RenderActionBase::getVolumeDrawing(void) const
 {
     return _bVolumeDrawing;
 }
+
+inline
+bool RenderActionBase::getZWriteTrans(void) const
+{
+    return _bZWriteTrans;
+}
     
 inline
 bool RenderActionBase::getAutoFrustum(void) const

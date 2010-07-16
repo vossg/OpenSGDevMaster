@@ -90,8 +90,9 @@ RenderActionBase::RenderActionBase(void) :
 
     _bFrustumCulling          (true  ),
     _bVolumeDrawing           (false ),
+    _bZWriteTrans             (false ),
     _bAutoFrustum             (true  ),
-     _bCorrectTwoSidedLighting(false ),
+    _bCorrectTwoSidedLighting (false ),
     _oFrustum                 (      ),
     _uiFrameTravCount         (0     ),
     _iDrawerId                (-1    ),
@@ -117,6 +118,7 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
 
     _bFrustumCulling         (source._bFrustumCulling         ),
     _bVolumeDrawing          (source._bVolumeDrawing          ),
+    _bZWriteTrans            (source._bZWriteTrans            ),
     _bAutoFrustum            (source._bAutoFrustum            ),
     _bCorrectTwoSidedLighting(source._bCorrectTwoSidedLighting),
     _oFrustum                (source._oFrustum                ),
@@ -242,20 +244,25 @@ void RenderActionBase::setCorrectTwoSidedLighting(bool val)
     _bCorrectTwoSidedLighting = val;
 }
 
-// automatically calc the frustum at the beginning of the traversal
-// default true
-
-void RenderActionBase::setAutoFrustum(bool val)
-{
-    _bAutoFrustum = val;
-}
-
 // draw the tested volumes
 // default false
 
 void RenderActionBase::setVolumeDrawing(bool val)
 {
     _bVolumeDrawing = val;
+}
+
+void RenderActionBase::setZWriteTrans(bool val)
+{
+    _bZWriteTrans = val;
+}
+
+// automatically calc the frustum at the beginning of the traversal
+// default true
+
+void RenderActionBase::setAutoFrustum(bool val)
+{
+    _bAutoFrustum = val;
 }
 
 // explicitly set the frustum
@@ -265,43 +272,5 @@ void RenderActionBase::setFrustum(FrustumVolume &oFrustum)
     _oFrustum = oFrustum;
 }
 
-
-#if 0
-// select all visible nodes
-UInt32 RenderActionBase::selectVisibles(void)
-{
-    if(getFrustumCulling() == false)
-        return getNNodes();
-
-    useNodeList();
-
-    Color3f col;
-
-    UInt32 count = 0;
-
-    for(UInt32 i = 0; i < getNNodes(); i++)
-    {
-        if(isVisible(getCPtr(getNode(i))))
-        {
-            col.setValuesRGB(0,1,0);
-
-            addNode(getNode(i));
-
-            ++count;
-        }
-        else
-        {
-            col.setValuesRGB(1,0,0);
-        }
-
-        if(getVolumeDrawing())
-        {
-            dropVolume(this, getNode(i), col);
-        }
-    }
-
-    return count;
-}
-#endif
 
 OSG_END_NAMESPACE
