@@ -485,6 +485,8 @@ void RenderPartition::doExecution   (void)
         mapIt  = _mTransMatTrees.begin();
         mapEnd = _mTransMatTrees.end  ();
 
+        _oDrawEnv.deactivateState();
+
         if(!_bZWriteTrans)
             glDepthMask(false);
 
