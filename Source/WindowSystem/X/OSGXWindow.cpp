@@ -273,6 +273,26 @@ void XWindow::doActivate(void)
 {
     Bool res;
 
+#ifdef OSG_DEBUG
+    if(getDisplay() == NULL)
+    {
+        SWARNING << "XWindow::doActivate: Display is NULL, can not activate context."
+                 << std::endl;
+    }
+
+    if(getWindow() == NULL)
+    {
+        SWARNING << "XWindow::doActivate: Window is NULL, can not activate context."
+                 << std::endl;
+    }
+
+    if(getContext() == NULL)
+    {
+        SWARNING << "XWindow::doActivate: Context is NULL, can not activate context."
+                 << std::endl;
+    }
+#endif
+
     res = glXMakeCurrent(getDisplay(), getWindow(), getContext());
     
     if(res != True)
