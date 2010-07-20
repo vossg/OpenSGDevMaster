@@ -722,20 +722,22 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
 
     if(osgId >= _lastValidate.size()) // can happen if multi-threading
     {
-/*
-        _lastValidate.insert(_lastValidate.end(), 
-                             osgId + 1 - _lastValidate.size(),
-                             0);
- */
         _lastValidate.resize(osgId + 1, 0);
     }
     
     if(osgId >= _mfGlObjectLastReinitialize.size())
     {
-        editMField( GlObjectLastReinitializeFieldId, 
-                   _mfGlObjectLastReinitialize     );
+        editMField( GlObjectLastReinitializeFieldId,
+                   _mfGlObjectLastReinitialize      );
 
         _mfGlObjectLastReinitialize.resize(osgId + 1, 0);
+    }
+
+    if(osgId >= _mfGlObjectLastRefresh.size())
+    {
+        editMField(GlObjectLastRefreshFieldId, _mfGlObjectLastRefresh);
+
+        _mfGlObjectLastRefresh.resize(osgId + 1, 0);
     }
 
     FDEBUG(("Window 0x%p (event %d,ri:%d,rf:%d): "
