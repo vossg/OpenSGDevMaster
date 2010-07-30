@@ -410,26 +410,41 @@ std::string getCallStack();
 inline
 bool osgIsBigEndian(void);
 
-template <class ValueTypeT> inline 
+template <class ValueTypeT> inline
 ValueTypeT osgSwapBytes(ValueTypeT src);
 
-template <class TypeT> inline 
-TypeT osgHostToBigEndian(TypeT src);
+inline
+OSG::UInt32 osgSwapBytesFP(OSG::Real32 src);
 
-template <class TypeT> inline 
-TypeT osgHostToLittleEndian(TypeT src);
+inline
+OSG::Real32 osgSwapBytesFP(OSG::UInt32 src);
 
-template <class TypeT> inline 
-TypeT osgBigEndianToHost(TypeT src);
+inline
+OSG::UInt64 osgSwapBytesFP(OSG::Real64 src);
 
-template <class TypeT> inline 
-TypeT osgLittleEndianToHost(TypeT src);
+inline
+OSG::Real64 osgSwapBytesFP(OSG::UInt64 src);
 
-template <class TypeT> inline 
-TypeT osgHostToNet(const TypeT src);
+template <OSG::UInt8 ElemSize> inline
+void osgSwapMem(void *mem, OSG::UInt32 count);
 
-template <class TypeT> inline 
-TypeT osgNetToHost(const TypeT src);
+template <class TypeT> inline
+TypeT       osgHostToNet  (const TypeT       src);
+
+inline
+OSG::UInt32 osgHostToNetFP(const OSG::Real32 src);
+
+inline
+OSG::UInt64 osgHostToNetFP(const OSG::Real64 src);
+
+template <class TypeT> inline
+TypeT       osgNetToHost  (const TypeT       src);
+
+inline
+OSG::Real32 osgNetToHostFP(const OSG::UInt32 src);
+
+inline
+OSG::Real64 osgNetToHostFP(const OSG::UInt64 src);
 
 // host to network
 

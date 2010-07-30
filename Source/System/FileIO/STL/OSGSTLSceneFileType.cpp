@@ -334,14 +334,19 @@ bool STLSceneFileType::readBinary(std::istream &is, STLFaceList& theFaces, std::
 
 Real32 STLSceneFileType::readFloat(std::istream& is, bool bigEndian) const
 {
-    Real32 result   = 0.f;
-    char   buffer[4];
-
-    is.read(&buffer[0], 4);
-    std::memcpy(reinterpret_cast<char *>(&result), buffer, 4);
+    Real32 result = 0.f;
 
     if(bigEndian)
-        result = osgNetToHost(result);
+    {
+        UInt32 buffer;
+
+        is.read(reinterpret_cast<char *>(&buffer), sizeof(Real32));
+        result = osgNetToHostFP(buffer);
+    }
+    else
+    {
+        is.read(reinterpret_cast<char *>(&result), sizeof(Real32));
+    }
 
     return result;
 }

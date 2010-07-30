@@ -2848,13 +2848,11 @@ bool osgIsBigEndian(void)
 #ifdef OSG_LONGLONG_HAS_LL
 
 #define OSG_UINT64_LITERAL(value) value##ULL
-
 #define OSG_INT64_LITERAL(value) value##LL
 
 #else
 
 #define OSG_UINT64_LITERAL(value) value##U
-
 #define OSG_INT64_LITERAL(value) value
 
 #endif
@@ -2934,198 +2932,122 @@ OSG::Int64 osgSwapBytes<Int64>(OSG::Int64 src)
     return static_cast<Int64>(osgSwapBytes<UInt64>(static_cast<UInt64>(src)));
 }
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <> inline 
-OSG::Real32 osgSwapBytes<Real32>(OSG::Real32 src)
-{
-    UInt8* pStart = reinterpret_cast<UInt8*>(&src);
-    UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real32);
+/*! Reverse the bytes of the floating point value \a src.
 
-    std::reverse(pStart, pEnd);
-
-    return src;
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <> inline 
-OSG::Real64 osgSwapBytes<Real64>(OSG::Real64 src)
-{
-    UInt8* pStart = reinterpret_cast<UInt8*>(&src);
-    UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real64);
-
-    std::reverse(pStart, pEnd);
-
-    return src;
-}
-
-/*! Convert a value from host byte order to big endian byte order.
-
-    \param[in] src Input value in host byte order.
-    \return The input converted to big endian byte order.
-
-    \note An actual conversion only happens on little endian architectures.
+    \note It does not return a floating point value, to avoid the value being
+          passed through a 387 FPU register - the excess precision of the 387
+          causes certain values (NaN) to be garbled and after the reversal
+          the bit pattern of a regular value might be the same as a NaN.
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT> inline 
-TypeT osgHostToBigEndian(TypeT src)
+inline
+OSG::UInt32 osgSwapBytesFP(OSG::Real32 src)
 {
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return osgSwapBytes(src);
-#else
-    return src;
-#endif
+    union
+    {
+        OSG::Real32 floatVal;
+        OSG::UInt32 intVal;
+    } unionVal;
+
+    unionVal.floatVal = src;
+    unionVal.intVal   = osgSwapBytes(unionVal.intVal);
+
+    return unionVal.intVal;
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <> inline 
-OSG::Real128 osgHostToBigEndian<Real128>(OSG::Real128 src)
+inline
+OSG::Real32 osgSwapBytesFP(OSG::UInt32 src)
 {
-#if BYTE_ORDER == LITTLE_ENDIAN
-    char *p = reinterpret_cast<char*>(&src);
+    union
+    {
+        OSG::Real32 floatVal;
+        OSG::UInt32 intVal;
+    } unionVal;
 
-    std::swap(p[0], p[15]);
-    std::swap(p[1], p[14]);
-    std::swap(p[2], p[13]);
-    std::swap(p[3], p[12]);
-    std::swap(p[4], p[11]);
-    std::swap(p[5], p[10]);
-    std::swap(p[6], p[9]);
-    std::swap(p[7], p[8]);
+    unionVal.intVal = osgSwapBytes(src);
 
-    return src;
-#else
-    return src;
-#endif
+    return unionVal.floatVal;
 }
 
-/*! Convert a value from host byte order to little endian byte order.
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::UInt64 osgSwapBytesFP(OSG::Real64 src)
+{
+    union
+    {
+        OSG::Real64 floatVal;
+        OSG::UInt64 intVal;
+    } unionVal;
 
-    \param[in] src Input value in host byte order.
-    \return The input converted to little endian byte order.
+    unionVal.floatVal = src;
+    unionVal.intVal   = osgSwapBytes(unionVal.intVal);
 
-    \note An actual conversion only happens on big endian architectures.
+    return unionVal.intVal;
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::Real64 osgSwapBytesFP(OSG::UInt64 src)
+{
+    union
+    {
+        OSG::Real64 floatVal;
+        OSG::UInt64 intVal;
+    } unionVal;
+
+    unionVal.intVal = osgSwapBytes(src);
+
+    return unionVal.floatVal;
+}
+
+/*! Reverses bytes of the \a count values of size \a ElemSize pointed to by
+    \a mem.
+
+    \warning Be sure you know what you are doing when using these functions,
+             as they make aliasing rule violiations very easy/likely.
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT> inline 
-TypeT osgHostToLittleEndian(TypeT src)
+template <> inline
+void osgSwapMem<2>(void *mem, OSG::UInt32 count)
 {
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return osgSwapBytes(src);
-#endif
+    OSG::UInt16 *p = static_cast<OSG::UInt16 *>(mem);
+
+    for(OSG::UInt32 i = 0; i < count; ++i)
+    {
+        p[i] = osgSwapBytes(p[i]);
+    }
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <> inline 
-OSG::Real128 osgHostToLittleEndian<Real128>(OSG::Real128 src)
+template <> inline
+void osgSwapMem<4>(void *mem, OSG::UInt32 count)
 {
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    char *p = reinterpret_cast<char*>(&src);
+    OSG::UInt32 *p = static_cast<OSG::UInt32 *>(mem);
 
-    std::swap(p[0], p[15]);
-    std::swap(p[1], p[14]);
-    std::swap(p[2], p[13]);
-    std::swap(p[3], p[12]);
-    std::swap(p[4], p[11]);
-    std::swap(p[5], p[10]);
-    std::swap(p[6], p[9]);
-    std::swap(p[7], p[8]);
-
-    return src;
-#endif
-}
-
-/*! Convert a value from big endian byte order to host byte order.
-
-    \param[in] src Input value in big endian byte order.
-    \return The input converted to host byte order.
-
-    \note An actual conversion only happens on little endian architectures.
-
-    \ingroup GrpBaseBaseMiscFn
- */
-template <class TypeT> inline 
-TypeT osgBigEndianToHost(TypeT src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return osgSwapBytes(src);
-#else
-    return src;
-#endif
+    for(OSG::UInt32 i = 0; i < count; ++i)
+    {
+        p[i] = osgSwapBytes(p[i]);
+    }
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <> inline 
-OSG::Real128 osgBigEndianToHost<Real128>(OSG::Real128 src)
+template <> inline
+void osgSwapMem<8>(void *mem, OSG::UInt32 count)
 {
-#if BYTE_ORDER == LITTLE_ENDIAN
-    char *p = reinterpret_cast<char*>(&src);
+    OSG::UInt64 *p = static_cast<OSG::UInt64 *>(mem);
 
-    std::swap(p[0], p[15]);
-    std::swap(p[1], p[14]);
-    std::swap(p[2], p[13]);
-    std::swap(p[3], p[12]);
-    std::swap(p[4], p[11]);
-    std::swap(p[5], p[10]);
-    std::swap(p[6], p[9]);
-    std::swap(p[7], p[8]);
-
-    return src;
-#else
-    return src;
-#endif
-}
-
-/*! Convert a value from little endian byte order to host byte order.
-
-    \param[in] src Input value in little endian byte order.
-    \return The input converted to host byte order.
-
-    \note An actual conversion only happens on big endian architectures.
-
-    \ingroup GrpBaseBaseMiscFn
- */
-template <class TypeT> inline 
-TypeT osgLittleEndianToHost(TypeT src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return osgSwapBytes(src);
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <> inline 
-OSG::Real128 osgLittleEndianToHost<Real128>(OSG::Real128 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    char *p = reinterpret_cast<char*>(&src);
-
-    std::swap(p[0], p[15]);
-    std::swap(p[1], p[14]);
-    std::swap(p[2], p[13]);
-    std::swap(p[3], p[12]);
-    std::swap(p[4], p[11]);
-    std::swap(p[5], p[10]);
-    std::swap(p[6], p[9]);
-    std::swap(p[7], p[8]);
-
-    return src;
-#endif
+    for(OSG::UInt64 i = 0; i < count; ++i)
+    {
+        p[i] = osgSwapBytes(p[i]);
+    }
 }
 
 /*! Convert a value from host byte order to network byte order.
@@ -3141,7 +3063,51 @@ OSG::Real128 osgLittleEndianToHost<Real128>(OSG::Real128 src)
 template <class TypeT> inline 
 TypeT osgHostToNet(const TypeT src)
 {
-    return OSG::osgHostToBigEndian(src);
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytes(src);
+#else
+    return src;
+#endif
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::UInt32 osgHostToNetFP(const OSG::Real32 src)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytesFP(src);
+#else
+    union
+    {
+        OSG::Real32 floatVal;
+        OSG::UInt32 intVal;
+    } unionVal;
+
+    unionVal.floatVal = src;
+
+    return unionVal.intVal;
+#endif
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::UInt64 osgHostToNetFP(const OSG::Real64 src)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytesFP(src);
+#else
+    union
+    {
+        OSG::Real64 floatVal;
+        OSG::UInt64 intVal;
+    } unionVal;
+
+    unionVal.floatVal = src;
+
+    return unionVal.intVal;
+#endif
 }
 
 /*! Convert a value from network byte order to host byte order.
@@ -3157,7 +3123,51 @@ TypeT osgHostToNet(const TypeT src)
 template <class TypeT> inline 
 TypeT osgNetToHost(const TypeT src)
 {
-    return OSG::osgBigEndianToHost(src);
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytes(src);
+#else
+    return src;
+#endif
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::Real32 osgNetToHostFP(const OSG::UInt32 src)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytesFP(src);
+#else
+    union
+    {
+        OSG::Real32 floatVal;
+        OSG::UInt32 intVal;
+    } unionVal;
+
+    unionVal.intVal = src;
+
+    return unionVal.floatVal;
+#endif
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::Real64 osgNetToHostFP(const OSG::UInt64 src)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    return OSG::osgSwapBytesFP(src);
+#else
+    union
+    {
+        OSG::Real64 floatVal;
+        OSG::UInt64 intVal;
+    } unionVal;
+
+    unionVal.intVal = src;
+
+    return unionVal.floatVal;
+#endif
 }
 
 // host to network
@@ -3231,7 +3241,13 @@ OSG::UInt64 osghtonll(OSG::UInt64 src)
 inline
 OSG::Real32 osghtonf(OSG::Real32 src)
 {
-    return OSG::osgHostToNet<Real32>(src);
+#if BYTE_ORDER == LITTLE_ENDIAN
+    UInt8 *p = reinterpret_cast<UInt8 *>(&src);
+    std::swap(p[0], p[3]);
+    std::swap(p[1], p[2]);
+#endif
+
+    return src;
 }
 
 /*! Convert a Real64 from host byte order to network byte order.
@@ -3249,7 +3265,15 @@ OSG::Real32 osghtonf(OSG::Real32 src)
 inline
 OSG::Real64 osghtond(OSG::Real64 src)
 {
-    return OSG::osgHostToNet<Real64>(src);
+#if BYTE_ORDER == LITTLE_ENDIAN
+    UInt8 *p = reinterpret_cast<UInt8 *>(&src);
+    std::swap(p[0], p[7]);
+    std::swap(p[1], p[6]);
+    std::swap(p[2], p[5]);
+    std::swap(p[3], p[4]);
+#endif
+
+    return src;
 }
 
 /*! Convert a Real128 from host byte order to network byte order.
@@ -3267,7 +3291,19 @@ OSG::Real64 osghtond(OSG::Real64 src)
 inline
 OSG::Real128 osghtondd(OSG::Real128 src)
 {
-    return OSG::osgHostToNet<Real128>(src);
+#if BYTE_ORDER == LITTLE_ENDIAN
+    UInt8 *p = reinterpret_cast<UInt8 *>(&src);
+    std::swap(p[0], p[15]);
+    std::swap(p[1], p[14]);
+    std::swap(p[2], p[13]);
+    std::swap(p[3], p[12]);
+    std::swap(p[4], p[11]);
+    std::swap(p[5], p[10]);
+    std::swap(p[6], p[9]);
+    std::swap(p[7], p[8]);
+#endif
+
+    return src;
 }
 
 // network to host
@@ -3287,7 +3323,7 @@ OSG::Real128 osghtondd(OSG::Real128 src)
 inline
 UInt16 osgntohs(UInt16 src)
 {
-    return OSG::osgNetToHost<UInt16>(src);
+    return osghtons(src);
 }
 
 /*! Convert a UInt32 from network byte order to host byte order.
@@ -3305,7 +3341,7 @@ UInt16 osgntohs(UInt16 src)
 inline
 OSG::UInt32 osgntohl(OSG::UInt32 src)
 {
-    return OSG::osgNetToHost<UInt32>(src);
+    return osgntohl(src);
 }
 
 /*! Convert a UInt64 from network byte order to host byte order.
@@ -3323,7 +3359,7 @@ OSG::UInt32 osgntohl(OSG::UInt32 src)
 inline
 OSG::UInt64 osgntohll(OSG::UInt64 src)
 {
-    return OSG::osgNetToHost<UInt64>(src);
+    return osghtonll(src);
 }
 
 /*! Convert a Real32 from network byte order to host byte order.
@@ -3341,7 +3377,7 @@ OSG::UInt64 osgntohll(OSG::UInt64 src)
 inline
 OSG::Real32 osgntohf(OSG::Real32 src)
 {
-    return OSG::osgNetToHost<Real32>(src);
+    return osghtonf(src);
 }
 
 /*! Convert a OSG::Real64 from network byte order to host byte order.
@@ -3359,7 +3395,7 @@ OSG::Real32 osgntohf(OSG::Real32 src)
 inline
 OSG::Real64 osgntohd(OSG::Real64 src)
 {
-    return OSG::osgNetToHost<Real64>(src);
+    return osghtond(src);
 }
 
 /*! Convert a Real128 from network byte order to host byte order.
@@ -3377,9 +3413,8 @@ OSG::Real64 osgntohd(OSG::Real64 src)
 inline
 OSG::Real128 osgntohdd(OSG::Real128 src)
 {
-    return OSG::osgNetToHost<Real128>(src);
+    return osghtondd(src);
 }
-
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

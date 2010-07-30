@@ -801,9 +801,7 @@ bool DBImageFileType::read(      Image       *pImage,
                         &clampMin<Int16, -100, 0> >(pImage);
                     break;
                 case 2:
-                    swapAndConvertImageByteOrder< 
-                         Real32,
-                        &doNothing<Real32> >(pImage);
+                    swapImageByteOrder<Real32>(pImage);
                     break;
                 default:
                     break;

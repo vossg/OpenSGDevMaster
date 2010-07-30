@@ -324,7 +324,7 @@ UInt32 OFRecord::readVal(std::istream &is, ValueT &val)
 {
     is.read(reinterpret_cast<char *>(&val), sizeof(ValueT));
 
-    val = osgBigEndianToHost(val);
+    val = osgNetToHost<ValueT>(val);
 
     return sizeof(ValueT);
 }
@@ -343,6 +343,28 @@ UInt32 OFRecord::readVal<UInt8>(std::istream &is, UInt8 &val)
     is.read(reinterpret_cast<char *>(&val), sizeof(UInt8));
 
     return sizeof(UInt8);
+}
+
+template <>
+UInt32 OFRecord::readVal<Real32>(std::istream &is, Real32 &val)
+{
+    UInt32 v;
+    is.read(reinterpret_cast<char *>(&v), sizeof(UInt32));
+
+    val = osgNetToHostFP(v);
+
+    return sizeof(Real32);
+}
+
+template <>
+UInt32 OFRecord::readVal<Real64>(std::istream &is, Real64 &val)
+{
+    UInt64 v;
+    is.read(reinterpret_cast<char *>(&v), sizeof(UInt64));
+
+    val = osgNetToHostFP(v);
+
+    return sizeof(Real64);
 }
 
 OFRecord::OFRecord(const OFRecordHeader &oHeader) :
@@ -986,10 +1008,7 @@ bool OFVertexPaletteRecord::read(std::istream &is, OFDatabase &oDB)
     static std::vector<char> tmpBuf;
 
     Int32 iFullLength;
-
-    is.read(reinterpret_cast<char *>(&iFullLength), 4);
-
-    iFullLength = osgBigEndianToHost(iFullLength);
+    Inherited::readVal(is, iFullLength);
 
     Int32          iRead = 0;
 

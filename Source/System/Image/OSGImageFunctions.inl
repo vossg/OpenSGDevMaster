@@ -195,14 +195,10 @@ void swapImageByteOrder(Image * const pImage)
     if(pImage == NULL)
         return;
 
-    ValueT *pData = reinterpret_cast<ValueT *>(pImage->editData());
+    void   *pData  = static_cast<void *>(pImage->editData());
+    UInt32  uiSize = pImage->getSize() / sizeof(ValueT);
 
-    UInt32 uiSize = pImage->getSize() / sizeof(ValueT);
-
-    for(UInt32 i = 0; i < uiSize; ++i)
-    {
-        pData[i] = osgSwapBytes<ValueT>(pData[i]);
-    }
+    osgSwapMem<sizeof(ValueT)>(pData, uiSize);
 }
 
 template<class ValueT, ValueT (*ConvF)(ValueT)> inline
@@ -211,13 +207,13 @@ void swapAndConvertImageByteOrder(Image * const pImage)
     if(pImage == NULL)
         return;
 
-    ValueT *pData = reinterpret_cast<ValueT *>(pImage->editData());
-
-    UInt32 uiSize = pImage->getSize() / sizeof(ValueT);
+    ValueT *pData  = reinterpret_cast<ValueT *>(pImage->editData());
+    UInt32  uiSize = pImage->getSize() / sizeof(ValueT);
 
     for(UInt32 i = 0; i < uiSize; ++i)
     {
-        pData[i] = ConvF(osgSwapBytes<ValueT>(pData[i]));
+        osgSwapMem<sizeof(ValueT)>(&pData[i], 1);
+        pData[i] = ConvF(pData[i]);
     }
 }
 

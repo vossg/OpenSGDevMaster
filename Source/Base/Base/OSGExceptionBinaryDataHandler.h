@@ -116,7 +116,6 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void putValue  (const Fixed32      &value              );
     void putValue  (const Real32       &value              );
     void putValue  (const Real64       &value              );
-    void putValue  (const Real128      &value              );
     void putValue  (const std::string  &value              );
 #ifdef OSG_GLENUM_NEQ_UINT32
     void putValue  (const GLenum       &value              );
@@ -135,7 +134,6 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void putValues (const Fixed32      *value, UInt32 size);
     void putValues (const Real32       *value, UInt32 size);
     void putValues (const Real64       *value, UInt32 size);
-    void putValues (const Real128      *value, UInt32 size);
     void putValues (const std::string  *value, UInt32 size);
 #ifdef OSG_GLENUM_NEQ_UINT32
     void putValues (const GLenum       *value, UInt32 size);
@@ -162,7 +160,6 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void getValue   (Fixed32      &value             ) throw (ReadError);
     void getValue   (Real32       &value             ) throw (ReadError);
     void getValue   (Real64       &value             ) throw (ReadError);
-    void getValue   (Real128      &value             ) throw (ReadError);
     void getValue   (std::string  &value             ) throw (ReadError);
 #ifdef OSG_GLENUM_NEQ_UINT32
     void getValue   (GLenum       &value             ) throw (ReadError);
@@ -181,7 +178,6 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void getValues  (Fixed32      *value, UInt32 size) throw (ReadError);
     void getValues  (Real32       *value, UInt32 size) throw (ReadError);
     void getValues  (Real64       *value, UInt32 size) throw (ReadError);
-    void getValues  (Real128      *value, UInt32 size) throw (ReadError);
     void getValues  (std::string  *value, UInt32 size) throw (ReadError);
 #ifdef OSG_GLENUM_NEQ_UINT32
     void getValues  (GLenum       *value, UInt32 size) throw (ReadError);

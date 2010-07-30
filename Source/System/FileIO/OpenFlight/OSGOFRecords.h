@@ -79,8 +79,8 @@ struct OFRecordHeader
         is.read(reinterpret_cast<char *>(&sOpCode), 2);
         is.read(reinterpret_cast<char *>(&sLength), 2);
 
-        sOpCode = osgBigEndianToHost(sOpCode);
-        sLength = osgBigEndianToHost(sLength);
+        sOpCode = osgNetToHost(sOpCode);
+        sLength = osgNetToHost(sLength);
 
 //        fprintf(stderr, "opcode %hu, length %hu\n", sOpCode, sLength);
 
