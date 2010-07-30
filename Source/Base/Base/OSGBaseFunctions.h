@@ -446,8 +446,8 @@ OSG::Real32 osgNetToHostFP(const OSG::UInt32 src);
 inline
 OSG::Real64 osgNetToHostFP(const OSG::UInt64 src);
 
+#ifdef OSG_1_COMPAT
 // host to network
-
 inline
 OSG::UInt16 osghtons  (OSG::UInt16  src);
 
@@ -467,7 +467,6 @@ inline
 OSG::Real128 osghtondd(OSG::Real128 src);
 
 // network to host
-
 inline
 OSG::UInt16 osgntohs (OSG::UInt16  src);
 
@@ -485,6 +484,7 @@ OSG::Real64 osgntohd (OSG::Real64  src);
 
 inline
 OSG::Real128 osgntohd(OSG::Real128 src);
+#endif // OSG_1_COMPAT
 
 /*---------------------------------------------------------------------*/
 /*                   Case String Runtime Functions                     */

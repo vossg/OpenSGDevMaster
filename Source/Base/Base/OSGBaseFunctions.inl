@@ -3170,6 +3170,8 @@ OSG::Real64 osgNetToHostFP(const OSG::UInt64 src)
 #endif
 }
 
+
+#ifdef OSG_1_COMPAT
 // host to network
 
 /*! Convert a UInt16 from host byte order to network byte order.
@@ -3415,6 +3417,7 @@ OSG::Real128 osgntohdd(OSG::Real128 src)
 {
     return osghtondd(src);
 }
+#endif // OSG_1_COMPAT
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
