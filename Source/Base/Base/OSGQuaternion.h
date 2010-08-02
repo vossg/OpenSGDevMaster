@@ -120,7 +120,7 @@ class QuaternionBase
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~QuaternionBase(void);
+    ~QuaternionBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
