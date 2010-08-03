@@ -50,6 +50,7 @@
 #include "OSGFileSystem.h"
 
 #include "OSGImageFileHandler.h"
+#include "OSGFilePathAttachment.h"
 
 #include "OSGSingletonHolder.ins"
 
@@ -339,6 +340,10 @@ ImageTransitPtr ImageFileHandlerBase::read(const Char8 *fileName,
     {
         image = NULL;
     }
+    else
+    {
+        FilePathAttachment::setFilePath(image, BoostPath(fileName));
+    }
 
     return ImageTransitPtr(image);
 }
@@ -392,6 +397,7 @@ bool ImageFileHandlerBase::read(      Image *pImage,
             pImage->setAttachmentField(_fileNameKey, fileName);
             pImage->setAttachmentField(_fullFilePathKey, fullFilePath);
 
+            FilePathAttachment::setFilePath(pImage, BoostPath(fileName));
 
             // converting the path to a absolute path.
             std::string abspath;

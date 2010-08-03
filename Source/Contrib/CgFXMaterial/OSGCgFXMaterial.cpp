@@ -1236,6 +1236,9 @@ void CgFXMaterial::updateUniformVariables(void)
     checkForCgError("update precheck", _pCGcontext);
 #endif
 
+	if(_pCGeffect == NULL) 
+        return; // can't update variables w/out a program.
+
     const ShaderProgramVariables::MFVariablesType       *pMFVars   = NULL;
           ShaderProgramVariables::MFVariableChangedType *pMFVarChg = NULL;
 
