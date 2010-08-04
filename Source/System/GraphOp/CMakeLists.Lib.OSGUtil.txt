@@ -74,6 +74,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 OSG_ADD_DIRECTORY("Source/System/GraphOp")
 OSG_ADD_DIRECTORY("Source/System/Statistics/Foregrounds")
 OSG_ADD_DIRECTORY("Source/System/Window/Utilities")
+OSG_ADD_DIRECTORY("Source/System/Sort")
 
 ##############################################################################
 # setup python bindings
