@@ -1996,118 +1996,147 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {
+        editSField(EnvModeFieldMask);
         _sfEnvMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvColorFieldMask & whichField))
     {
+        editSField(EnvColorFieldMask);
         _sfEnvColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvCombineRGBFieldMask & whichField))
     {
+        editSField(EnvCombineRGBFieldMask);
         _sfEnvCombineRGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvCombineAlphaFieldMask & whichField))
     {
+        editSField(EnvCombineAlphaFieldMask);
         _sfEnvCombineAlpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvScaleRGBFieldMask & whichField))
     {
+        editSField(EnvScaleRGBFieldMask);
         _sfEnvScaleRGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvScaleAlphaFieldMask & whichField))
     {
+        editSField(EnvScaleAlphaFieldMask);
         _sfEnvScaleAlpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource0RGBFieldMask & whichField))
     {
+        editSField(EnvSource0RGBFieldMask);
         _sfEnvSource0RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource1RGBFieldMask & whichField))
     {
+        editSField(EnvSource1RGBFieldMask);
         _sfEnvSource1RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource2RGBFieldMask & whichField))
     {
+        editSField(EnvSource2RGBFieldMask);
         _sfEnvSource2RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource0AlphaFieldMask & whichField))
     {
+        editSField(EnvSource0AlphaFieldMask);
         _sfEnvSource0Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource1AlphaFieldMask & whichField))
     {
+        editSField(EnvSource1AlphaFieldMask);
         _sfEnvSource1Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvSource2AlphaFieldMask & whichField))
     {
+        editSField(EnvSource2AlphaFieldMask);
         _sfEnvSource2Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand0RGBFieldMask & whichField))
     {
+        editSField(EnvOperand0RGBFieldMask);
         _sfEnvOperand0RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand1RGBFieldMask & whichField))
     {
+        editSField(EnvOperand1RGBFieldMask);
         _sfEnvOperand1RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand2RGBFieldMask & whichField))
     {
+        editSField(EnvOperand2RGBFieldMask);
         _sfEnvOperand2RGB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand0AlphaFieldMask & whichField))
     {
+        editSField(EnvOperand0AlphaFieldMask);
         _sfEnvOperand0Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand1AlphaFieldMask & whichField))
     {
+        editSField(EnvOperand1AlphaFieldMask);
         _sfEnvOperand1Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvOperand2AlphaFieldMask & whichField))
     {
+        editSField(EnvOperand2AlphaFieldMask);
         _sfEnvOperand2Alpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
+        editSField(PointSpriteFieldMask);
         _sfPointSprite.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
     {
+        editSField(ShaderOperationFieldMask);
         _sfShaderOperation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderInputFieldMask & whichField))
     {
+        editSField(ShaderInputFieldMask);
         _sfShaderInput.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOffsetMatrixFieldMask & whichField))
     {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
         _mfShaderOffsetMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOffsetScaleFieldMask & whichField))
     {
+        editSField(ShaderOffsetScaleFieldMask);
         _sfShaderOffsetScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOffsetBiasFieldMask & whichField))
     {
+        editSField(ShaderOffsetBiasFieldMask);
         _sfShaderOffsetBias.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderRGBADotProductFieldMask & whichField))
     {
+        editSField(ShaderRGBADotProductFieldMask);
         _sfShaderRGBADotProduct.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderCullModesFieldMask & whichField))
     {
+        editSField(ShaderCullModesFieldMask);
         _sfShaderCullModes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderConstEyeFieldMask & whichField))
     {
+        editSField(ShaderConstEyeFieldMask);
         _sfShaderConstEye.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LodBiasFieldMask & whichField))
     {
+        editSField(LodBiasFieldMask);
         _sfLodBias.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
     {
+        editSField(NPOTMatrixScaleFieldMask);
         _sfNPOTMatrixScale.copyFromBin(pMem);
     }
 }

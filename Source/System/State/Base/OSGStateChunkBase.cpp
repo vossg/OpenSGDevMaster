@@ -237,6 +237,7 @@ void StateChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (IgnoreFieldMask & whichField))
     {
+        editSField(IgnoreFieldMask);
         _sfIgnore.copyFromBin(pMem);
     }
 }

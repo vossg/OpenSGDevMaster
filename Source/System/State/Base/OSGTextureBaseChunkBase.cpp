@@ -249,6 +249,7 @@ void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {
+        editSField(TargetFieldMask);
         _sfTarget.copyFromBin(pMem);
     }
 }

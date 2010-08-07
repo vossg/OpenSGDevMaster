@@ -321,14 +321,17 @@ void InsertTestTaskBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
     {
+        editSField(MessageFieldMask);
         _sfMessage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WindowFieldMask & whichField))
     {
+        editSField(WindowFieldMask);
         _sfWindow.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TriggerFieldMask & whichField))
     {
+        editSField(TriggerFieldMask);
         _sfTrigger.copyFromBin(pMem);
     }
 }

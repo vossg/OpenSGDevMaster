@@ -328,14 +328,17 @@ void CSMPerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
     {
+        editSField(EyeSeparationFieldMask);
         _sfEyeSeparation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ZeroParallaxFieldMask & whichField))
     {
+        editSField(ZeroParallaxFieldMask);
         _sfZeroParallax.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeadBeaconFieldMask & whichField))
     {
+        editSField(HeadBeaconFieldMask);
         _sfHeadBeacon.copyFromBin(pMem);
     }
 }

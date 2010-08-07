@@ -299,6 +299,7 @@ void ShaderParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParametersFieldMask & whichField))
     {
+        editMField(ParametersFieldMask, _mfParameters);
         _mfParameters.copyFromBin(pMem);
     }
 }

@@ -600,38 +600,47 @@ void HDRStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ToneMappingMaterialFieldMask & whichField))
     {
+        editSField(ToneMappingMaterialFieldMask);
         _sfToneMappingMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlurRenderTargetFieldMask & whichField))
     {
+        editSField(BlurRenderTargetFieldMask);
         _sfBlurRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlurMaterialFieldMask & whichField))
     {
+        editSField(BlurMaterialFieldMask);
         _sfBlurMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HBlurShaderFieldMask & whichField))
     {
+        editSField(HBlurShaderFieldMask);
         _sfHBlurShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VBlurShaderFieldMask & whichField))
     {
+        editSField(VBlurShaderFieldMask);
         _sfVBlurShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShrinkRenderTargetFieldMask & whichField))
     {
+        editSField(ShrinkRenderTargetFieldMask);
         _sfShrinkRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShrinkMaterialFieldMask & whichField))
     {
+        editSField(ShrinkMaterialFieldMask);
         _sfShrinkMaterial.copyFromBin(pMem);
     }
 }

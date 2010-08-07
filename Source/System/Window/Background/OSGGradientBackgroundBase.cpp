@@ -383,18 +383,22 @@ void GradientBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editMField(ColorFieldMask, _mfColor);
         _mfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionFieldMask & whichField))
     {
+        editMField(PositionFieldMask, _mfPosition);
         _mfPosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormPositionFieldMask & whichField))
     {
+        editSField(NormPositionFieldMask);
         _sfNormPosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StyleFieldMask & whichField))
     {
+        editSField(StyleFieldMask);
         _sfStyle.copyFromBin(pMem);
     }
 }

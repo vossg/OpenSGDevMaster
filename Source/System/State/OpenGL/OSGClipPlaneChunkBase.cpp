@@ -357,14 +357,17 @@ void ClipPlaneChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EquationFieldMask & whichField))
     {
+        editSField(EquationFieldMask);
         _sfEquation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnableFieldMask & whichField))
     {
+        editSField(EnableFieldMask);
         _sfEnable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
+        editSField(BeaconFieldMask);
         _sfBeacon.copyFromBin(pMem);
     }
 }

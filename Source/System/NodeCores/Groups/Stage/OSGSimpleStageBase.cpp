@@ -489,26 +489,32 @@ void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (LeftFieldMask & whichField))
     {
+        editSField(LeftFieldMask);
         _sfLeft.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RightFieldMask & whichField))
     {
+        editSField(RightFieldMask);
         _sfRight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BottomFieldMask & whichField))
     {
+        editSField(BottomFieldMask);
         _sfBottom.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TopFieldMask & whichField))
     {
+        editSField(TopFieldMask);
         _sfTop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
+        editSField(BackgroundFieldMask);
         _sfBackground.copyFromBin(pMem);
     }
 }

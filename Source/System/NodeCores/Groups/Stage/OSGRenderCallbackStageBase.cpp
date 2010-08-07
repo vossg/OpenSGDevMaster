@@ -254,10 +254,12 @@ void RenderCallbackStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
     {
+        editMField(PreRenderCallbacksFieldMask, _mfPreRenderCallbacks);
         _mfPreRenderCallbacks.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
     {
+        editMField(PostRenderCallbacksFieldMask, _mfPostRenderCallbacks);
         _mfPostRenderCallbacks.copyFromBin(pMem);
     }
 }

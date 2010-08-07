@@ -295,6 +295,7 @@ void MultiPassMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
     {
+        editMField(MaterialsFieldMask, _mfMaterials);
         _mfMaterials.copyFromBin(pMem);
     }
 }

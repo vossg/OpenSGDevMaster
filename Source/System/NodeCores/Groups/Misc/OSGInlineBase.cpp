@@ -325,14 +325,17 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
     {
+        editMField(UrlFieldMask, _mfUrl);
         _mfUrl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LoadedFieldMask & whichField))
     {
+        editSField(LoadedFieldMask);
         _sfLoaded.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
+        editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
 }

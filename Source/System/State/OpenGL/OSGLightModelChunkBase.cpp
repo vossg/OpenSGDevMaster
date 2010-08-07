@@ -332,14 +332,17 @@ void LightModelChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {
+        editSField(AmbientFieldMask);
         _sfAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorControlFieldMask & whichField))
     {
+        editSField(ColorControlFieldMask);
         _sfColorControl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LocalViewerFieldMask & whichField))
     {
+        editSField(LocalViewerFieldMask);
         _sfLocalViewer.copyFromBin(pMem);
     }
 }

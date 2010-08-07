@@ -386,18 +386,22 @@ void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (HwndFieldMask & whichField))
     {
+        editSField(HwndFieldMask);
         _sfHwnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HdcFieldMask & whichField))
     {
+        editSField(HdcFieldMask);
         _sfHdc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HglrcFieldMask & whichField))
     {
+        editSField(HglrcFieldMask);
         _sfHglrc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (Dummy0FieldMask & whichField))
     {
+        editSField(Dummy0FieldMask);
         _sfDummy0.copyFromBin(pMem);
     }
 }

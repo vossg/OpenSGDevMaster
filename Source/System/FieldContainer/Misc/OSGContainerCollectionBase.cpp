@@ -332,10 +332,12 @@ void ContainerCollectionBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
+        editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
+        editMField(ContainersFieldMask, _mfContainers);
         _mfContainers.copyFromBin(pMem);
     }
 }

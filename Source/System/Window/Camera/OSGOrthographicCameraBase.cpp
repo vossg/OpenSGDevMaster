@@ -324,14 +324,17 @@ void OrthographicCameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VerticalSizeFieldMask & whichField))
     {
+        editSField(VerticalSizeFieldMask);
         _sfVerticalSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalSizeFieldMask & whichField))
     {
+        editSField(HorizontalSizeFieldMask);
         _sfHorizontalSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
+        editSField(AspectFieldMask);
         _sfAspect.copyFromBin(pMem);
     }
 }

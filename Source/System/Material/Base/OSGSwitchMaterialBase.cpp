@@ -338,10 +338,12 @@ void SwitchMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
     {
+        editMField(MaterialsFieldMask, _mfMaterials);
         _mfMaterials.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
     {
+        editSField(ChoiceFieldMask);
         _sfChoice.copyFromBin(pMem);
     }
 }

@@ -1132,42 +1132,52 @@ void VTKPolyDataMapperBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
+        editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
     {
+        editMField(GeoRootsFieldMask, _mfGeoRoots);
         _mfGeoRoots.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometriesFieldMask & whichField))
     {
+        editMField(GeometriesFieldMask, _mfGeometries);
         _mfGeometries.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
     {
+        editMField(MaterialsFieldMask, _mfMaterials);
         _mfMaterials.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
     {
+        editMField(MaterialChunksFieldMask, _mfMaterialChunks);
         _mfMaterialChunks.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editMField(PositionsFieldMask, _mfPositions);
         _mfPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LengthFieldMask & whichField))
     {
+        editMField(LengthFieldMask, _mfLength);
         _mfLength.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TypesFieldMask & whichField))
     {
+        editMField(TypesFieldMask, _mfTypes);
         _mfTypes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorsFieldMask & whichField))
     {
+        editMField(ColorsFieldMask, _mfColors);
         _mfColors.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormalsFieldMask & whichField))
     {
+        editMField(NormalsFieldMask, _mfNormals);
         _mfNormals.copyFromBin(pMem);
     }
 }

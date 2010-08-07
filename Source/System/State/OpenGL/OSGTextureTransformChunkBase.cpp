@@ -251,6 +251,7 @@ void TextureTransformChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UseCameraBeaconFieldMask & whichField))
     {
+        editSField(UseCameraBeaconFieldMask);
         _sfUseCameraBeacon.copyFromBin(pMem);
     }
 }

@@ -287,10 +287,12 @@ void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
     {
+        editSField(SubTreeRootFieldMask);
         _sfSubTreeRoot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SubTreeTravMaskFieldMask & whichField))
     {
+        editSField(SubTreeTravMaskFieldMask);
         _sfSubTreeTravMask.copyFromBin(pMem);
     }
 }

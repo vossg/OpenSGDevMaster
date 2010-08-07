@@ -282,10 +282,12 @@ void ImageComposerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StatisticsFieldMask & whichField))
     {
+        editSField(StatisticsFieldMask);
         _sfStatistics.copyFromBin(pMem);
     }
 }

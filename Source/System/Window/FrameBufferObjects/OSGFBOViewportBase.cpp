@@ -241,6 +241,7 @@ void FBOViewportBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FrameBufferObjectFieldMask & whichField))
     {
+        editSField(FrameBufferObjectFieldMask);
         _sfFrameBufferObject.copyFromBin(pMem);
     }
 }

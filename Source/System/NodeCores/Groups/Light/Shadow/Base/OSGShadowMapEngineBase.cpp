@@ -473,26 +473,32 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {
+        editSField(ShadowTexChunkFieldMask);
         _sfShadowTexChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
     {
+        editSField(OffsetBiasFieldMask);
         _sfOffsetBias.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
     {
+        editSField(OffsetFactorFieldMask);
         _sfOffsetFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowTravMaskFieldMask & whichField))
     {
+        editSField(ShadowTravMaskFieldMask);
         _sfShadowTravMask.copyFromBin(pMem);
     }
 }

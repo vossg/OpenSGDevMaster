@@ -244,6 +244,7 @@ void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
     {
+        editSField(FallbackChunkBlockFieldMask);
         _sfFallbackChunkBlock.copyFromBin(pMem);
     }
 }

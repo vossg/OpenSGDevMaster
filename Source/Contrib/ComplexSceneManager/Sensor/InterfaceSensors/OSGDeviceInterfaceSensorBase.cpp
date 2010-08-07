@@ -299,10 +299,12 @@ void DeviceInterfaceSensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (InterfaceNameFieldMask & whichField))
     {
+        editSField(InterfaceNameFieldMask);
         _sfInterfaceName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OptionsFieldMask & whichField))
     {
+        editSField(OptionsFieldMask);
         _sfOptions.copyFromBin(pMem);
     }
 }

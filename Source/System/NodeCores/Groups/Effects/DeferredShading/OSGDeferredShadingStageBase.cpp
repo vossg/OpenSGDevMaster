@@ -590,26 +590,32 @@ void DeferredShadingStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PixelFormatsFieldMask & whichField))
     {
+        editMField(PixelFormatsFieldMask, _mfPixelFormats);
         _mfPixelFormats.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PixelTypesFieldMask & whichField))
     {
+        editMField(PixelTypesFieldMask, _mfPixelTypes);
         _mfPixelTypes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GBufferProgramFieldMask & whichField))
     {
+        editSField(GBufferProgramFieldMask);
         _sfGBufferProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AmbientProgramFieldMask & whichField))
     {
+        editSField(AmbientProgramFieldMask);
         _sfAmbientProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightProgramsFieldMask & whichField))
     {
+        editMField(LightProgramsFieldMask, _mfLightPrograms);
         _mfLightPrograms.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightsFieldMask & whichField))
     {
+        editMField(LightsFieldMask, _mfLights);
         _mfLights.copyFromBin(pMem);
     }
 }

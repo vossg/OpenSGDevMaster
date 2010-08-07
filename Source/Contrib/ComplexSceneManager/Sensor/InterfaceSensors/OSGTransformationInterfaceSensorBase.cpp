@@ -422,22 +422,27 @@ void TransformationInterfaceSensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TransformationFieldMask & whichField))
     {
+        editSField(TransformationFieldMask);
         _sfTransformation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TranslationFieldMask & whichField))
     {
+        editSField(TranslationFieldMask);
         _sfTranslation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RotationFieldMask & whichField))
     {
+        editSField(RotationFieldMask);
         _sfRotation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RotationScaleFieldMask & whichField))
     {
+        editSField(RotationScaleFieldMask);
         _sfRotationScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TranslationScaleFieldMask & whichField))
     {
+        editSField(TranslationScaleFieldMask);
         _sfTranslationScale.copyFromBin(pMem);
     }
 }

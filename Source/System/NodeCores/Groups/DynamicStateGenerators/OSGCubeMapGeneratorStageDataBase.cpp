@@ -277,10 +277,12 @@ void CubeMapGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexTransformFieldMask & whichField))
     {
+        editSField(TexTransformFieldMask);
         _sfTexTransform.copyFromBin(pMem);
     }
 }

@@ -237,6 +237,7 @@ void PointLightBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PositionFieldMask & whichField))
     {
+        editSField(PositionFieldMask);
         _sfPosition.copyFromBin(pMem);
     }
 }

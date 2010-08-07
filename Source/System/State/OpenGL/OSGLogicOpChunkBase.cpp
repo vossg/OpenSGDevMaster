@@ -243,6 +243,7 @@ void LogicOpChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (LogicOpFieldMask & whichField))
     {
+        editSField(LogicOpFieldMask);
         _sfLogicOp.copyFromBin(pMem);
     }
 }

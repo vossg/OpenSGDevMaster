@@ -222,6 +222,7 @@ void ComputeCallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CallbackFieldMask & whichField))
     {
+        editSField(CallbackFieldMask);
         _sfCallback.copyFromBin(pMem);
     }
 }

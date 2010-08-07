@@ -378,18 +378,22 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DisplayFieldMask & whichField))
     {
+        editSField(DisplayFieldMask);
         _sfDisplay.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WindowFieldMask & whichField))
     {
+        editSField(WindowFieldMask);
         _sfWindow.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ContextFieldMask & whichField))
     {
+        editSField(ContextFieldMask);
         _sfContext.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FbConfigIdFieldMask & whichField))
     {
+        editSField(FbConfigIdFieldMask);
         _sfFbConfigId.copyFromBin(pMem);
     }
 }

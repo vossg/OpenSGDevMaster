@@ -389,18 +389,22 @@ void LinuxEventOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DeviceFieldMask & whichField))
     {
+        editSField(DeviceFieldMask);
         _sfDevice.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TRangeFieldMask & whichField))
     {
+        editSField(TRangeFieldMask);
         _sfTRange.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RRangeFieldMask & whichField))
     {
+        editSField(RRangeFieldMask);
         _sfRRange.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
     {
+        editSField(BufferSizeFieldMask);
         _sfBufferSize.copyFromBin(pMem);
     }
 }

@@ -596,38 +596,47 @@ void CSMTrackballBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModifierMaskFieldMask & whichField))
     {
+        editSField(ModifierMaskFieldMask);
         _sfModifierMask.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProcessingFieldMask & whichField))
     {
+        editSField(ProcessingFieldMask);
         _sfProcessing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TranslationScaleFactorFieldMask & whichField))
     {
+        editSField(TranslationScaleFactorFieldMask);
         _sfTranslationScaleFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MatrixResultFieldMask & whichField))
     {
+        editSField(MatrixResultFieldMask);
         _sfMatrixResult.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ReferencePositionFieldMask & whichField))
     {
+        editSField(ReferencePositionFieldMask);
         _sfReferencePosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ReferenceMatrixFieldMask & whichField))
     {
+        editSField(ReferenceMatrixFieldMask);
         _sfReferenceMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransformCenterFieldMask & whichField))
     {
+        editSField(TransformCenterFieldMask);
         _sfTransformCenter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WorldDiagFieldMask & whichField))
     {
+        editSField(WorldDiagFieldMask);
         _sfWorldDiag.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
+        editSField(MouseDataFieldMask);
         _sfMouseData.copyFromBin(pMem);
     }
 }

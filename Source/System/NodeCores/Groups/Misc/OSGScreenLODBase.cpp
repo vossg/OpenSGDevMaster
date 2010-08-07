@@ -247,6 +247,7 @@ void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
     {
+        editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
         _mfCoverageOverride.copyFromBin(pMem);
     }
 }

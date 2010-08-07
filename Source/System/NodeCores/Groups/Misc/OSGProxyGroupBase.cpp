@@ -744,50 +744,62 @@ void ProxyGroupBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UrlFieldMask & whichField))
     {
+        editSField(UrlFieldMask);
         _sfUrl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
+        editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StateFieldMask & whichField))
     {
+        editSField(StateFieldMask);
         _sfState.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConcurrentLoadFieldMask & whichField))
     {
+        editSField(ConcurrentLoadFieldMask);
         _sfConcurrentLoad.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VolumeFieldMask & whichField))
     {
+        editSField(VolumeFieldMask);
         _sfVolume.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IndicesFieldMask & whichField))
     {
+        editSField(IndicesFieldMask);
         _sfIndices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TrianglesFieldMask & whichField))
     {
+        editSField(TrianglesFieldMask);
         _sfTriangles.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editSField(PositionsFieldMask);
         _sfPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometriesFieldMask & whichField))
     {
+        editSField(GeometriesFieldMask);
         _sfGeometries.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AbsoluteUrlFieldMask & whichField))
     {
+        editSField(AbsoluteUrlFieldMask);
         _sfAbsoluteUrl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InlineFieldMask & whichField))
     {
+        editMField(InlineFieldMask, _mfInline);
         _mfInline.copyFromBin(pMem);
     }
 }

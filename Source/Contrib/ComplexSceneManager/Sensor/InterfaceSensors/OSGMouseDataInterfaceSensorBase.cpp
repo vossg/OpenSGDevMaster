@@ -228,6 +228,7 @@ void MouseDataInterfaceSensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
+        editSField(MouseDataFieldMask);
         _sfMouseData.copyFromBin(pMem);
     }
 }

@@ -417,22 +417,27 @@ void GeoReferenceAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DatumFieldMask & whichField))
     {
+        editSField(DatumFieldMask);
         _sfDatum.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EllipsoidAxisFieldMask & whichField))
     {
+        editSField(EllipsoidAxisFieldMask);
         _sfEllipsoidAxis.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginFieldMask & whichField))
     {
+        editSField(OriginFieldMask);
         _sfOrigin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PixelSizeFieldMask & whichField))
     {
+        editSField(PixelSizeFieldMask);
         _sfPixelSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NoDataValueFieldMask & whichField))
     {
+        editSField(NoDataValueFieldMask);
         _sfNoDataValue.copyFromBin(pMem);
     }
 }

@@ -464,26 +464,32 @@ void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (HServersFieldMask & whichField))
     {
+        editSField(HServersFieldMask);
         _sfHServers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VServersFieldMask & whichField))
     {
+        editSField(VServersFieldMask);
         _sfVServers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ManageClientViewportsFieldMask & whichField))
     {
+        editSField(ManageClientViewportsFieldMask);
         _sfManageClientViewports.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (XOverlapFieldMask & whichField))
     {
+        editSField(XOverlapFieldMask);
         _sfXOverlap.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (YOverlapFieldMask & whichField))
     {
+        editSField(YOverlapFieldMask);
         _sfYOverlap.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaxDepthFieldMask & whichField))
     {
+        editSField(MaxDepthFieldMask);
         _sfMaxDepth.copyFromBin(pMem);
     }
 }

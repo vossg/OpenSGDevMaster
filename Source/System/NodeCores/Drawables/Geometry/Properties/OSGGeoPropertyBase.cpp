@@ -381,18 +381,22 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UseVBOFieldMask & whichField))
     {
+        editSField(UseVBOFieldMask);
         _sfUseVBO.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UsageFieldMask & whichField))
     {
+        editSField(UsageFieldMask);
         _sfUsage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VboUsageFieldMask & whichField))
     {
+        editSField(VboUsageFieldMask);
         _sfVboUsage.copyFromBin(pMem);
     }
 }

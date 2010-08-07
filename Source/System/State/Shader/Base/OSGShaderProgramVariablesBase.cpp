@@ -345,14 +345,17 @@ void ShaderProgramVariablesBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editMField(VariablesFieldMask, _mfVariables);
         _mfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProceduralVariablesFieldMask & whichField))
     {
+        editMField(ProceduralVariablesFieldMask, _mfProceduralVariables);
         _mfProceduralVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableChangedFieldMask & whichField))
     {
+        editMField(VariableChangedFieldMask, _mfVariableChanged);
         _mfVariableChanged.copyFromBin(pMem);
     }
 }

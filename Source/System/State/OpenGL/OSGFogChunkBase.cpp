@@ -444,22 +444,27 @@ void FogChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {
+        editSField(ModeFieldMask);
         _sfMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StartFieldMask & whichField))
     {
+        editSField(StartFieldMask);
         _sfStart.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EndFieldMask & whichField))
     {
+        editSField(EndFieldMask);
         _sfEnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DensityFieldMask & whichField))
     {
+        editSField(DensityFieldMask);
         _sfDensity.copyFromBin(pMem);
     }
 }

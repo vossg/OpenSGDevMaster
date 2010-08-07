@@ -228,6 +228,7 @@ void ShaderProgramFileBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ProgramUrlFieldMask & whichField))
     {
+        editSField(ProgramUrlFieldMask);
         _sfProgramUrl.copyFromBin(pMem);
     }
 }

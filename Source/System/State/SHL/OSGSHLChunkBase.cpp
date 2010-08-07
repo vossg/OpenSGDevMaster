@@ -561,26 +561,32 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
+        editSField(CgFrontEndFieldMask);
         _sfCgFrontEnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointSizeFieldMask & whichField))
     {
+        editSField(PointSizeFieldMask);
         _sfPointSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
     {
+        editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
         _mfProgramParameterNames.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
     {
+        editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
         _mfProgramParameterValues.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UnknownParameterWarningFieldMask & whichField))
     {
+        editSField(UnknownParameterWarningFieldMask);
         _sfUnknownParameterWarning.copyFromBin(pMem);
     }
 }

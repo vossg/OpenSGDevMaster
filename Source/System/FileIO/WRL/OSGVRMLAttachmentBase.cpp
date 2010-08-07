@@ -232,6 +232,7 @@ void VRMLAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VrmlNodeTypenameFieldMask & whichField))
     {
+        editSField(VrmlNodeTypenameFieldMask);
         _sfVrmlNodeTypename.copyFromBin(pMem);
     }
 }

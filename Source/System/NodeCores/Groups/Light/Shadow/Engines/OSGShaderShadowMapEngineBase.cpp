@@ -442,22 +442,27 @@ void ShaderShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShadowVertexProgramFieldMask & whichField))
     {
+        editSField(ShadowVertexProgramFieldMask);
         _sfShadowVertexProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowFragmentProgramFieldMask & whichField))
     {
+        editSField(ShadowFragmentProgramFieldMask);
         _sfShadowFragmentProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
     {
+        editSField(ForceTextureUnitFieldMask);
         _sfForceTextureUnit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowNearFieldMask & whichField))
     {
+        editSField(ShadowNearFieldMask);
         _sfShadowNear.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowFarFieldMask & whichField))
     {
+        editSField(ShadowFarFieldMask);
         _sfShadowFar.copyFromBin(pMem);
     }
 }

@@ -281,10 +281,12 @@ void GeoMultiPropertyDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (IDataFieldMask & whichField))
     {
+        editMField(IDataFieldMask, _mfIData);
         _mfIData.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
 }

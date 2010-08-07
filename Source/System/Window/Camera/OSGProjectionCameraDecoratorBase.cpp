@@ -550,30 +550,37 @@ void ProjectionCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UserFieldMask & whichField))
     {
+        editSField(UserFieldMask);
         _sfUser.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SurfaceFieldMask & whichField))
     {
+        editMField(SurfaceFieldMask, _mfSurface);
         _mfSurface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LeftFieldMask & whichField))
     {
+        editSField(LeftFieldMask);
         _sfLeft.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BottomFieldMask & whichField))
     {
+        editSField(BottomFieldMask);
         _sfBottom.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormalFieldMask & whichField))
     {
+        editSField(NormalFieldMask);
         _sfNormal.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
 }

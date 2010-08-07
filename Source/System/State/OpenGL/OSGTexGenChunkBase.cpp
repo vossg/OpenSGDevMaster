@@ -882,58 +882,72 @@ void TexGenChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GenFuncSFieldMask & whichField))
     {
+        editSField(GenFuncSFieldMask);
         _sfGenFuncS.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncTFieldMask & whichField))
     {
+        editSField(GenFuncTFieldMask);
         _sfGenFuncT.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncRFieldMask & whichField))
     {
+        editSField(GenFuncRFieldMask);
         _sfGenFuncR.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncQFieldMask & whichField))
     {
+        editSField(GenFuncQFieldMask);
         _sfGenFuncQ.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncSPlaneFieldMask & whichField))
     {
+        editSField(GenFuncSPlaneFieldMask);
         _sfGenFuncSPlane.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncTPlaneFieldMask & whichField))
     {
+        editSField(GenFuncTPlaneFieldMask);
         _sfGenFuncTPlane.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncRPlaneFieldMask & whichField))
     {
+        editSField(GenFuncRPlaneFieldMask);
         _sfGenFuncRPlane.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GenFuncQPlaneFieldMask & whichField))
     {
+        editSField(GenFuncQPlaneFieldMask);
         _sfGenFuncQPlane.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SBeaconFieldMask & whichField))
     {
+        editSField(SBeaconFieldMask);
         _sfSBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TBeaconFieldMask & whichField))
     {
+        editSField(TBeaconFieldMask);
         _sfTBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RBeaconFieldMask & whichField))
     {
+        editSField(RBeaconFieldMask);
         _sfRBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (QBeaconFieldMask & whichField))
     {
+        editSField(QBeaconFieldMask);
         _sfQBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyeModelViewMatrixFieldMask & whichField))
     {
+        editSField(EyeModelViewMatrixFieldMask);
         _sfEyeModelViewMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyeModelViewModeFieldMask & whichField))
     {
+        editSField(EyeModelViewModeFieldMask);
         _sfEyeModelViewMode.copyFromBin(pMem);
     }
 }

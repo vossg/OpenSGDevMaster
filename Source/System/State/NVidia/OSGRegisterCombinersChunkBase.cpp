@@ -1675,126 +1675,157 @@ void RegisterCombinersChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (Color0FieldMask & whichField))
     {
+        editSField(Color0FieldMask);
         _sfColor0.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (Color1FieldMask & whichField))
     {
+        editSField(Color1FieldMask);
         _sfColor1.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorSumClampFieldMask & whichField))
     {
+        editSField(ColorSumClampFieldMask);
         _sfColorSumClamp.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableArgbFieldMask & whichField))
     {
+        editMField(VariableArgbFieldMask, _mfVariableArgb);
         _mfVariableArgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableBrgbFieldMask & whichField))
     {
+        editMField(VariableBrgbFieldMask, _mfVariableBrgb);
         _mfVariableBrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableCrgbFieldMask & whichField))
     {
+        editMField(VariableCrgbFieldMask, _mfVariableCrgb);
         _mfVariableCrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableDrgbFieldMask & whichField))
     {
+        editMField(VariableDrgbFieldMask, _mfVariableDrgb);
         _mfVariableDrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableAalphaFieldMask & whichField))
     {
+        editMField(VariableAalphaFieldMask, _mfVariableAalpha);
         _mfVariableAalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableBalphaFieldMask & whichField))
     {
+        editMField(VariableBalphaFieldMask, _mfVariableBalpha);
         _mfVariableBalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableCalphaFieldMask & whichField))
     {
+        editMField(VariableCalphaFieldMask, _mfVariableCalpha);
         _mfVariableCalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableDalphaFieldMask & whichField))
     {
+        editMField(VariableDalphaFieldMask, _mfVariableDalpha);
         _mfVariableDalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputABrgbFieldMask & whichField))
     {
+        editMField(OutputABrgbFieldMask, _mfOutputABrgb);
         _mfOutputABrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputCDrgbFieldMask & whichField))
     {
+        editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
         _mfOutputCDrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputSumrgbFieldMask & whichField))
     {
+        editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
         _mfOutputSumrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScalergbFieldMask & whichField))
     {
+        editMField(ScalergbFieldMask, _mfScalergb);
         _mfScalergb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BiasrgbFieldMask & whichField))
     {
+        editMField(BiasrgbFieldMask, _mfBiasrgb);
         _mfBiasrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputABalphaFieldMask & whichField))
     {
+        editMField(OutputABalphaFieldMask, _mfOutputABalpha);
         _mfOutputABalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputCDalphaFieldMask & whichField))
     {
+        editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
         _mfOutputCDalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutputSumalphaFieldMask & whichField))
     {
+        editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
         _mfOutputSumalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DotABrgbFieldMask & whichField))
     {
+        editMField(DotABrgbFieldMask, _mfDotABrgb);
         _mfDotABrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DotCDrgbFieldMask & whichField))
     {
+        editMField(DotCDrgbFieldMask, _mfDotCDrgb);
         _mfDotCDrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MuxSumrgbFieldMask & whichField))
     {
+        editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
         _mfMuxSumrgb.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScalealphaFieldMask & whichField))
     {
+        editMField(ScalealphaFieldMask, _mfScalealpha);
         _mfScalealpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BiasalphaFieldMask & whichField))
     {
+        editMField(BiasalphaFieldMask, _mfBiasalpha);
         _mfBiasalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MuxSumalphaFieldMask & whichField))
     {
+        editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
         _mfMuxSumalpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableEFieldMask & whichField))
     {
+        editMField(VariableEFieldMask, _mfVariableE);
         _mfVariableE.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableFFieldMask & whichField))
     {
+        editMField(VariableFFieldMask, _mfVariableF);
         _mfVariableF.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableGFieldMask & whichField))
     {
+        editMField(VariableGFieldMask, _mfVariableG);
         _mfVariableG.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CombinerColor0FieldMask & whichField))
     {
+        editMField(CombinerColor0FieldMask, _mfCombinerColor0);
         _mfCombinerColor0.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CombinerColor1FieldMask & whichField))
     {
+        editMField(CombinerColor1FieldMask, _mfCombinerColor1);
         _mfCombinerColor1.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PerStageConstantsFieldMask & whichField))
     {
+        editSField(PerStageConstantsFieldMask);
         _sfPerStageConstants.copyFromBin(pMem);
     }
 }

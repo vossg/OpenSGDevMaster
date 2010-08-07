@@ -235,6 +235,7 @@ void GLUTWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GlutIdFieldMask & whichField))
     {
+        editSField(GlutIdFieldMask);
         _sfGlutId.copyFromBin(pMem);
     }
 }

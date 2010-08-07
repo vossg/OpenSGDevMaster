@@ -288,10 +288,12 @@ void StageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
+        editSField(RenderTargetFieldMask);
         _sfRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InheritedTargetFieldMask & whichField))
     {
+        editSField(InheritedTargetFieldMask);
         _sfInheritedTarget.copyFromBin(pMem);
     }
 }

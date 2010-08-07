@@ -240,6 +240,7 @@ void TileableBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TileFieldMask & whichField))
     {
+        editSField(TileFieldMask);
         _sfTile.copyFromBin(pMem);
     }
 }

@@ -233,6 +233,7 @@ void ResolutionDisplayFilterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DownScaleFieldMask & whichField))
     {
+        editSField(DownScaleFieldMask);
         _sfDownScale.copyFromBin(pMem);
     }
 }

@@ -241,6 +241,7 @@ void DynamicStateGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
+        editSField(RenderTargetFieldMask);
         _sfRenderTarget.copyFromBin(pMem);
     }
 }

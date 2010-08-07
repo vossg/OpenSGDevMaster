@@ -609,38 +609,47 @@ void TimeSensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsActiveFieldMask & whichField))
     {
+        editSField(IsActiveFieldMask);
         _sfIsActive.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LoopFieldMask & whichField))
     {
+        editSField(LoopFieldMask);
         _sfLoop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FractionFieldMask & whichField))
     {
+        editSField(FractionFieldMask);
         _sfFraction.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
+        editSField(StartTimeFieldMask);
         _sfStartTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StopTimeFieldMask & whichField))
     {
+        editSField(StopTimeFieldMask);
         _sfStopTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CycleTimeFieldMask & whichField))
     {
+        editSField(CycleTimeFieldMask);
         _sfCycleTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeFieldMask & whichField))
     {
+        editSField(TimeFieldMask);
         _sfTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CycleIntervalFieldMask & whichField))
     {
+        editSField(CycleIntervalFieldMask);
         _sfCycleInterval.copyFromBin(pMem);
     }
 }

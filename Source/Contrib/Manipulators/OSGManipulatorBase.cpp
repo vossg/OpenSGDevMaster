@@ -926,66 +926,82 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {
+        editSField(TargetFieldMask);
         _sfTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
     {
+        editSField(ActiveSubHandleFieldMask);
         _sfActiveSubHandle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LastMousePosFieldMask & whichField))
     {
+        editSField(LastMousePosFieldMask);
         _sfLastMousePos.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ViewportFieldMask & whichField))
     {
+        editSField(ViewportFieldMask);
         _sfViewport.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveFieldMask & whichField))
     {
+        editSField(ActiveFieldMask);
         _sfActive.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LengthFieldMask & whichField))
     {
+        editSField(LengthFieldMask);
         _sfLength.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
     {
+        editSField(HandleXNodeFieldMask);
         _sfHandleXNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HandleYNodeFieldMask & whichField))
     {
+        editSField(HandleYNodeFieldMask);
         _sfHandleYNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HandleZNodeFieldMask & whichField))
     {
+        editSField(HandleZNodeFieldMask);
         _sfHandleZNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
     {
+        editSField(TransXNodeFieldMask);
         _sfTransXNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransYNodeFieldMask & whichField))
     {
+        editSField(TransYNodeFieldMask);
         _sfTransYNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransZNodeFieldMask & whichField))
     {
+        editSField(TransZNodeFieldMask);
         _sfTransZNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaterialXFieldMask & whichField))
     {
+        editSField(MaterialXFieldMask);
         _sfMaterialX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaterialYFieldMask & whichField))
     {
+        editSField(MaterialYFieldMask);
         _sfMaterialY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaterialZFieldMask & whichField))
     {
+        editSField(MaterialZFieldMask);
         _sfMaterialZ.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
     {
+        editSField(AxisLinesNFieldMask);
         _sfAxisLinesN.copyFromBin(pMem);
     }
 }

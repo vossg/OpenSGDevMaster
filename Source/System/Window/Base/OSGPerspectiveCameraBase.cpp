@@ -346,14 +346,17 @@ void PerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FovFieldMask & whichField))
     {
+        editSField(FovFieldMask);
         _sfFov.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FovModeFieldMask & whichField))
     {
+        editSField(FovModeFieldMask);
         _sfFovMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
+        editSField(AspectFieldMask);
         _sfAspect.copyFromBin(pMem);
     }
 }

@@ -62,7 +62,7 @@
 #include "OSGCocoaWindowBase.h"
 #include "OSGCocoaWindow.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var NSOpenGLContextP CocoaWindowBase::_sfContext
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CocoaWindow *>::_type("CocoaWindowPtr", "WindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CocoaWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CocoaWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CocoaWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CocoaWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -135,7 +157,7 @@ CocoaWindowBase::TypeObject CocoaWindowBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
-    "\t\theader=\"OSGCocoaWindowDataFields.h\"\n"
+    "\t\tfieldHeader=\"OSGCocoaWindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -212,6 +234,7 @@ void CocoaWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ContextFieldMask & whichField))
     {
+        editSField(ContextFieldMask);
         _sfContext.copyFromBin(pMem);
     }
 }
@@ -422,19 +445,5 @@ void CocoaWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CocoaWindow *>::_type("CocoaWindowPtr", "WindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CocoaWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CocoaWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CocoaWindow *,
-                           0);
 
 OSG_END_NAMESPACE

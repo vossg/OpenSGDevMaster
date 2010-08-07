@@ -234,6 +234,7 @@ void CoreGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ContextFieldMask & whichField))
     {
+        editSField(ContextFieldMask);
         _sfContext.copyFromBin(pMem);
     }
 }

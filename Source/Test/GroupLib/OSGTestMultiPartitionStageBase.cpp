@@ -363,18 +363,22 @@ void TestMultiPartitionStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
     {
+        editSField(MessageFieldMask);
         _sfMessage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NumPartitionsFieldMask & whichField))
     {
+        editSField(NumPartitionsFieldMask);
         _sfNumPartitions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OrderFieldMask & whichField))
     {
+        editMField(OrderFieldMask, _mfOrder);
         _mfOrder.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseGroupFieldMask & whichField))
     {
+        editSField(UseGroupFieldMask);
         _sfUseGroup.copyFromBin(pMem);
     }
 }

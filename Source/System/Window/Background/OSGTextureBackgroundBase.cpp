@@ -518,30 +518,37 @@ void TextureBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {
+        editSField(TextureFieldMask);
         _sfTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
     {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
         _mfTexCoords.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RadialDistortionFieldMask & whichField))
     {
+        editSField(RadialDistortionFieldMask);
         _sfRadialDistortion.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CenterOfDistortionFieldMask & whichField))
     {
+        editSField(CenterOfDistortionFieldMask);
         _sfCenterOfDistortion.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorFieldMask & whichField))
     {
+        editSField(HorFieldMask);
         _sfHor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VertFieldMask & whichField))
     {
+        editSField(VertFieldMask);
         _sfVert.copyFromBin(pMem);
     }
 }

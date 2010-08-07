@@ -1046,70 +1046,87 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
+        editSField(ParentFieldMask);
         _sfParent.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ViewportsFieldMask & whichField))
     {
+        editMField(ViewportsFieldMask, _mfViewports);
         _mfViewports.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
+        editSField(MouseDataFieldMask);
         _sfMouseData.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
+        editSField(SizeFieldMask);
         _sfSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionFieldMask & whichField))
     {
+        editSField(PositionFieldMask);
         _sfPosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
     {
+        editSField(DecorEnabledFieldMask);
         _sfDecorEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
     {
+        editSField(RequestMajorFieldMask);
         _sfRequestMajor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
     {
+        editSField(RequestMinorFieldMask);
         _sfRequestMinor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnableForwardCompatContextFieldMask & whichField))
     {
+        editSField(EnableForwardCompatContextFieldMask);
         _sfEnableForwardCompatContext.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
     {
+        editSField(EnableDebugContextFieldMask);
         _sfEnableDebugContext.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
     {
+        editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
         _mfIgnoreExtensions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
     {
+        editSField(RequestSamplesFieldMask);
         _sfRequestSamples.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnableFSAAFieldMask & whichField))
     {
+        editSField(EnableFSAAFieldMask);
         _sfEnableFSAA.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
     {
+        editSField(FsaaHintFieldMask);
         _sfFsaaHint.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
+        editSField(RenderOptionsFieldMask);
         _sfRenderOptions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
     {
+        editSField(PartitionDrawModeFieldMask);
         _sfPartitionDrawMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
+        editSField(DumpContainerFieldMask);
         _sfDumpContainer.copyFromBin(pMem);
     }
 }

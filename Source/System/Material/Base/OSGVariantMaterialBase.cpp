@@ -232,6 +232,7 @@ void VariantMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FallbackMaterialFieldMask & whichField))
     {
+        editSField(FallbackMaterialFieldMask);
         _sfFallbackMaterial.copyFromBin(pMem);
     }
 }

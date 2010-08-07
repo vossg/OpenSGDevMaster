@@ -356,14 +356,17 @@ void FileGrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
+        editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameFieldMask & whichField))
     {
+        editSField(FrameFieldMask);
         _sfFrame.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IncrementFieldMask & whichField))
     {
+        editSField(IncrementFieldMask);
         _sfIncrement.copyFromBin(pMem);
     }
 }

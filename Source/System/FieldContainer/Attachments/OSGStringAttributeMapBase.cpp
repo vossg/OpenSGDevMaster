@@ -282,10 +282,12 @@ void StringAttributeMapBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (KeysFieldMask & whichField))
     {
+        editMField(KeysFieldMask, _mfKeys);
         _mfKeys.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {
+        editMField(ValuesFieldMask, _mfValues);
         _mfValues.copyFromBin(pMem);
     }
 }

@@ -275,10 +275,12 @@ void ShaderProgramVariableChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
     {
+        editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
         _mfDestroyedFunctors.copyFromBin(pMem);
     }
 }

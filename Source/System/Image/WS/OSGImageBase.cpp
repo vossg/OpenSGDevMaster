@@ -1377,102 +1377,127 @@ void ImageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
     {
+        editMField(ParentsFieldMask, _mfParents);
         _mfParents.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DimensionFieldMask & whichField))
     {
+        editSField(DimensionFieldMask);
         _sfDimension.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DepthFieldMask & whichField))
     {
+        editSField(DepthFieldMask);
         _sfDepth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BppFieldMask & whichField))
     {
+        editSField(BppFieldMask);
         _sfBpp.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MipMapCountFieldMask & whichField))
     {
+        editSField(MipMapCountFieldMask);
         _sfMipMapCount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
+        editSField(FrameCountFieldMask);
         _sfFrameCount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameDelayFieldMask & whichField))
     {
+        editSField(FrameDelayFieldMask);
         _sfFrameDelay.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PixelFormatFieldMask & whichField))
     {
+        editSField(PixelFormatFieldMask);
         _sfPixelFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PixelFieldMask & whichField))
     {
+        editMField(PixelFieldMask, _mfPixel);
         _mfPixel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameSizeFieldMask & whichField))
     {
+        editSField(FrameSizeFieldMask);
         _sfFrameSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
+        editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DataTypeFieldMask & whichField))
     {
+        editSField(DataTypeFieldMask);
         _sfDataType.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ComponentSizeFieldMask & whichField))
     {
+        editSField(ComponentSizeFieldMask);
         _sfComponentSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SideCountFieldMask & whichField))
     {
+        editSField(SideCountFieldMask);
         _sfSideCount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SideSizeFieldMask & whichField))
     {
+        editSField(SideSizeFieldMask);
         _sfSideSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceCompressedDataFieldMask & whichField))
     {
+        editSField(ForceCompressedDataFieldMask);
         _sfForceCompressedData.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceAlphaChannelFieldMask & whichField))
     {
+        editSField(ForceAlphaChannelFieldMask);
         _sfForceAlphaChannel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceColorChannelFieldMask & whichField))
     {
+        editSField(ForceColorChannelFieldMask);
         _sfForceColorChannel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
     {
+        editSField(ForceAlphaBinaryFieldMask);
         _sfForceAlphaBinary.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResXFieldMask & whichField))
     {
+        editSField(ResXFieldMask);
         _sfResX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResYFieldMask & whichField))
     {
+        editSField(ResYFieldMask);
         _sfResY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResUnitFieldMask & whichField))
     {
+        editSField(ResUnitFieldMask);
         _sfResUnit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClearOnLoadFieldMask & whichField))
     {
+        editSField(ClearOnLoadFieldMask);
         _sfClearOnLoad.copyFromBin(pMem);
     }
 }

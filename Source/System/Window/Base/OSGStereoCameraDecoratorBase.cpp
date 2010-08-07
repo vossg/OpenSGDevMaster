@@ -295,10 +295,12 @@ void StereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (LeftEyeFieldMask & whichField))
     {
+        editSField(LeftEyeFieldMask);
         _sfLeftEye.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
     {
+        editSField(EyeSeparationFieldMask);
         _sfEyeSeparation.copyFromBin(pMem);
     }
 }

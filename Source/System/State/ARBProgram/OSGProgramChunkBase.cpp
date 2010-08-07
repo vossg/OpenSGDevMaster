@@ -407,18 +407,22 @@ void ProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ProgramFieldMask & whichField))
     {
+        editSField(ProgramFieldMask);
         _sfProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParamValuesFieldMask & whichField))
     {
+        editMField(ParamValuesFieldMask, _mfParamValues);
         _mfParamValues.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParamNamesFieldMask & whichField))
     {
+        editMField(ParamNamesFieldMask, _mfParamNames);
         _mfParamNames.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
 }

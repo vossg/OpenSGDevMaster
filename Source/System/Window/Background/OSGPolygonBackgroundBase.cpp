@@ -610,38 +610,47 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {
+        editSField(MaterialFieldMask);
         _sfMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
     {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
         _mfTexCoords.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editMField(PositionsFieldMask, _mfPositions);
         _mfPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormalizedXFieldMask & whichField))
     {
+        editSField(NormalizedXFieldMask);
         _sfNormalizedX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
     {
+        editSField(NormalizedYFieldMask);
         _sfNormalizedY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
     {
+        editSField(AspectHeightFieldMask);
         _sfAspectHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
     {
+        editSField(AspectWidthFieldMask);
         _sfAspectWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScaleFieldMask & whichField))
     {
+        editSField(ScaleFieldMask);
         _sfScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CleanupFieldMask & whichField))
     {
+        editSField(CleanupFieldMask);
         _sfCleanup.copyFromBin(pMem);
     }
 }

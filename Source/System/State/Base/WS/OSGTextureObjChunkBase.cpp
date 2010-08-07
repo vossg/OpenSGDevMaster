@@ -1611,106 +1611,132 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {
+        editSField(ImageFieldMask);
         _sfImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
     {
+        editSField(InternalFormatFieldMask);
         _sfInternalFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
     {
+        editSField(ExternalFormatFieldMask);
         _sfExternalFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScaleFieldMask & whichField))
     {
+        editSField(ScaleFieldMask);
         _sfScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameFieldMask & whichField))
     {
+        editSField(FrameFieldMask);
         _sfFrame.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MinFilterFieldMask & whichField))
     {
+        editSField(MinFilterFieldMask);
         _sfMinFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MagFilterFieldMask & whichField))
     {
+        editSField(MagFilterFieldMask);
         _sfMagFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WrapSFieldMask & whichField))
     {
+        editSField(WrapSFieldMask);
         _sfWrapS.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WrapTFieldMask & whichField))
     {
+        editSField(WrapTFieldMask);
         _sfWrapT.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WrapRFieldMask & whichField))
     {
+        editSField(WrapRFieldMask);
         _sfWrapR.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PriorityFieldMask & whichField))
     {
+        editSField(PriorityFieldMask);
         _sfPriority.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
     {
+        editSField(DirtyLeftFieldMask);
         _sfDirtyLeft.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
     {
+        editSField(DirtyMinXFieldMask);
         _sfDirtyMinX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
     {
+        editSField(DirtyMaxXFieldMask);
         _sfDirtyMaxX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
     {
+        editSField(DirtyMinYFieldMask);
         _sfDirtyMinY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
     {
+        editSField(DirtyMaxYFieldMask);
         _sfDirtyMaxY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
     {
+        editSField(DirtyMinZFieldMask);
         _sfDirtyMinZ.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
     {
+        editSField(DirtyMaxZFieldMask);
         _sfDirtyMaxZ.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
     {
+        editSField(AnisotropyFieldMask);
         _sfAnisotropy.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderColorFieldMask & whichField))
     {
+        editSField(BorderColorFieldMask);
         _sfBorderColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CompareModeFieldMask & whichField))
     {
+        editSField(CompareModeFieldMask);
         _sfCompareMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
     {
+        editSField(CompareFuncFieldMask);
         _sfCompareFunc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DepthModeFieldMask & whichField))
     {
+        editSField(DepthModeFieldMask);
         _sfDepthMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
     {
+        editSField(BorderWidthFieldMask);
         _sfBorderWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
     {
+        editSField(SkipMipMapLevelsFieldMask);
         _sfSkipMipMapLevels.copyFromBin(pMem);
     }
 }

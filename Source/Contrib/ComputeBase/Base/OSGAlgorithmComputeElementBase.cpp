@@ -228,6 +228,7 @@ void AlgorithmComputeElementBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
     {
+        editSField(AlgorithmFieldMask);
         _sfAlgorithm.copyFromBin(pMem);
     }
 }

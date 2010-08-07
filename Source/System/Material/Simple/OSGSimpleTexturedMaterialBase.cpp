@@ -483,22 +483,27 @@ void SimpleTexturedMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {
+        editSField(ImageFieldMask);
         _sfImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MinFilterFieldMask & whichField))
     {
+        editSField(MinFilterFieldMask);
         _sfMinFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MagFilterFieldMask & whichField))
     {
+        editSField(MagFilterFieldMask);
         _sfMagFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {
+        editSField(EnvModeFieldMask);
         _sfEnvMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnvMapFieldMask & whichField))
     {
+        editSField(EnvMapFieldMask);
         _sfEnvMap.copyFromBin(pMem);
     }
 }

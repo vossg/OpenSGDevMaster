@@ -326,14 +326,17 @@ void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
     {
+        editSField(VertexProgramFieldMask);
         _sfVertexProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
     {
+        editSField(FragmentProgramFieldMask);
         _sfFragmentProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
     {
+        editSField(GeometryProgramFieldMask);
         _sfGeometryProgram.copyFromBin(pMem);
     }
 }

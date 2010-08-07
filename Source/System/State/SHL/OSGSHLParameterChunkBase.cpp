@@ -235,6 +235,7 @@ void SHLParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SHLChunkFieldMask & whichField))
     {
+        editSField(SHLChunkFieldMask);
         _sfSHLChunk.copyFromBin(pMem);
     }
 }

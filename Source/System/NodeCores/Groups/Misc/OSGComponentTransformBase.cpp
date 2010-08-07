@@ -407,22 +407,27 @@ void ComponentTransformBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CenterFieldMask & whichField))
     {
+        editSField(CenterFieldMask);
         _sfCenter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RotationFieldMask & whichField))
     {
+        editSField(RotationFieldMask);
         _sfRotation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScaleFieldMask & whichField))
     {
+        editSField(ScaleFieldMask);
         _sfScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScaleOrientationFieldMask & whichField))
     {
+        editSField(ScaleOrientationFieldMask);
         _sfScaleOrientation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TranslationFieldMask & whichField))
     {
+        editSField(TranslationFieldMask);
         _sfTranslation.copyFromBin(pMem);
     }
 }

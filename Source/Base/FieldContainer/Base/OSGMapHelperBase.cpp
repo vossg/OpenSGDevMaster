@@ -278,10 +278,12 @@ void MapHelperBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (KeysFieldMask & whichField))
     {
+        editMField(KeysFieldMask, _mfKeys);
         _mfKeys.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ContainerFieldMask & whichField))
     {
+        editSField(ContainerFieldMask);
         _sfContainer.copyFromBin(pMem);
     }
 }

@@ -351,10 +351,12 @@ void TextureSelectChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
     {
+        editSField(ChoiceFieldMask);
         _sfChoice.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexturesFieldMask & whichField))
     {
+        editMField(TexturesFieldMask, _mfTextures);
         _mfTextures.copyFromBin(pMem);
     }
 }

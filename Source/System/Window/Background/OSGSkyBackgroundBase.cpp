@@ -1172,82 +1172,102 @@ void SkyBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SkyColorFieldMask & whichField))
     {
+        editMField(SkyColorFieldMask, _mfSkyColor);
         _mfSkyColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkyAngleFieldMask & whichField))
     {
+        editMField(SkyAngleFieldMask, _mfSkyAngle);
         _mfSkyAngle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GroundColorFieldMask & whichField))
     {
+        editMField(GroundColorFieldMask, _mfGroundColor);
         _mfGroundColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GroundAngleFieldMask & whichField))
     {
+        editMField(GroundAngleFieldMask, _mfGroundAngle);
         _mfGroundAngle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SphereResFieldMask & whichField))
     {
+        editSField(SphereResFieldMask);
         _sfSphereRes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackTextureFieldMask & whichField))
     {
+        editSField(BackTextureFieldMask);
         _sfBackTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BottomTextureFieldMask & whichField))
     {
+        editSField(BottomTextureFieldMask);
         _sfBottomTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrontTextureFieldMask & whichField))
     {
+        editSField(FrontTextureFieldMask);
         _sfFrontTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LeftTextureFieldMask & whichField))
     {
+        editSField(LeftTextureFieldMask);
         _sfLeftTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RightTextureFieldMask & whichField))
     {
+        editSField(RightTextureFieldMask);
         _sfRightTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TopTextureFieldMask & whichField))
     {
+        editSField(TopTextureFieldMask);
         _sfTopTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BoxInsideFieldMask & whichField))
     {
+        editSField(BoxInsideFieldMask);
         _sfBoxInside.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TopTexCoordFieldMask & whichField))
     {
+        editMField(TopTexCoordFieldMask, _mfTopTexCoord);
         _mfTopTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BottomTexCoordFieldMask & whichField))
     {
+        editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
         _mfBottomTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RightTexCoordFieldMask & whichField))
     {
+        editMField(RightTexCoordFieldMask, _mfRightTexCoord);
         _mfRightTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LeftTexCoordFieldMask & whichField))
     {
+        editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
         _mfLeftTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrontTexCoordFieldMask & whichField))
     {
+        editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
         _mfFrontTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackTexCoordFieldMask & whichField))
     {
+        editMField(BackTexCoordFieldMask, _mfBackTexCoord);
         _mfBackTexCoord.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
+        editSField(BeaconFieldMask);
         _sfBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseVRMLCubeTextureSemanticsFieldMask & whichField))
     {
+        editSField(UseVRMLCubeTextureSemanticsFieldMask);
         _sfUseVRMLCubeTextureSemantics.copyFromBin(pMem);
     }
 }

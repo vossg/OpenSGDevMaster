@@ -229,6 +229,7 @@ void ScaleManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UniformFieldMask & whichField))
     {
+        editSField(UniformFieldMask);
         _sfUniform.copyFromBin(pMem);
     }
 }

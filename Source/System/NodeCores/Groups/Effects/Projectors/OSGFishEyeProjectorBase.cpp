@@ -837,54 +837,67 @@ void FishEyeProjectorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {
+        editSField(ModeFieldMask);
         _sfMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometriesFieldMask & whichField))
     {
+        editMField(GeometriesFieldMask, _mfGeometries);
         _mfGeometries.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShowDomeIntensityFieldMask & whichField))
     {
+        editSField(ShowDomeIntensityFieldMask);
         _sfShowDomeIntensity.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResolutionFieldMask & whichField))
     {
+        editSField(ResolutionFieldMask);
         _sfResolution.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MeshRefinementLevelFieldMask & whichField))
     {
+        editSField(MeshRefinementLevelFieldMask);
         _sfMeshRefinementLevel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
     {
+        editSField(BufferFormatFieldMask);
         _sfBufferFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DomeRadiusFieldMask & whichField))
     {
+        editSField(DomeRadiusFieldMask);
         _sfDomeRadius.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MirrorRadiusFieldMask & whichField))
     {
+        editSField(MirrorRadiusFieldMask);
         _sfMirrorRadius.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MirrorPosFieldMask & whichField))
     {
+        editSField(MirrorPosFieldMask);
         _sfMirrorPos.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProjectorPosFieldMask & whichField))
     {
+        editSField(ProjectorPosFieldMask);
         _sfProjectorPos.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectRatioFieldMask & whichField))
     {
+        editSField(AspectRatioFieldMask);
         _sfAspectRatio.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ThrowDistFieldMask & whichField))
     {
+        editSField(ThrowDistFieldMask);
         _sfThrowDist.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShowMeshFieldMask & whichField))
     {
+        editSField(ShowMeshFieldMask);
         _sfShowMesh.copyFromBin(pMem);
     }
 }

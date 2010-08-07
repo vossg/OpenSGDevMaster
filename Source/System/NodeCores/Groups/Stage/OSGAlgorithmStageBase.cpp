@@ -366,18 +366,22 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
     {
+        editSField(AlgorithmFieldMask);
         _sfAlgorithm.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
     {
+        editSField(ProjectionModeFieldMask);
         _sfProjectionMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CopyViewingFieldMask & whichField))
     {
+        editSField(CopyViewingFieldMask);
         _sfCopyViewing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {
+        editSField(ProjectionMatrixFieldMask);
         _sfProjectionMatrix.copyFromBin(pMem);
     }
 }

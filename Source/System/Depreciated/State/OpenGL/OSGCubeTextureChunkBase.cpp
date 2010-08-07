@@ -452,22 +452,27 @@ void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PosZImageFieldMask & whichField))
     {
+        editSField(PosZImageFieldMask);
         _sfPosZImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PosXImageFieldMask & whichField))
     {
+        editSField(PosXImageFieldMask);
         _sfPosXImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NegXImageFieldMask & whichField))
     {
+        editSField(NegXImageFieldMask);
         _sfNegXImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PosYImageFieldMask & whichField))
     {
+        editSField(PosYImageFieldMask);
         _sfPosYImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NegYImageFieldMask & whichField))
     {
+        editSField(NegYImageFieldMask);
         _sfNegYImage.copyFromBin(pMem);
     }
 }

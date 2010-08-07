@@ -267,6 +267,7 @@ void ForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ActiveFieldMask & whichField))
     {
+        editSField(ActiveFieldMask);
         _sfActive.copyFromBin(pMem);
     }
 }

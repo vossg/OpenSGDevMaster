@@ -229,6 +229,7 @@ void ChunkBlockBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
+        editMField(ChunksFieldMask, _mfChunks);
         _mfChunks.copyFromBin(pMem);
     }
 }

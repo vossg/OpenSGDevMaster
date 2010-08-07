@@ -324,10 +324,12 @@ void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SortKeyFieldMask & whichField))
     {
+        editSField(SortKeyFieldMask);
         _sfSortKey.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
     {
+        editSField(TransparencyModeFieldMask);
         _sfTransparencyMode.copyFromBin(pMem);
     }
 }

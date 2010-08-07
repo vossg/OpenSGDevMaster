@@ -341,14 +341,17 @@ void MatrixCameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {
+        editSField(ProjectionMatrixFieldMask);
         _sfProjectionMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
     {
+        editSField(ModelviewMatrixFieldMask);
         _sfModelviewMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseBeaconFieldMask & whichField))
     {
+        editSField(UseBeaconFieldMask);
         _sfUseBeacon.copyFromBin(pMem);
     }
 }

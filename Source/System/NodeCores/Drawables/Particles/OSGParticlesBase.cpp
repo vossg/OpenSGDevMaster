@@ -850,54 +850,67 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {
+        editSField(ModeFieldMask);
         _sfMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editSField(PositionsFieldMask);
         _sfPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizesFieldMask & whichField))
     {
+        editMField(SizesFieldMask, _mfSizes);
         _mfSizes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SecPositionsFieldMask & whichField))
     {
+        editSField(SecPositionsFieldMask);
         _sfSecPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorsFieldMask & whichField))
     {
+        editSField(ColorsFieldMask);
         _sfColors.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NormalsFieldMask & whichField))
     {
+        editSField(NormalsFieldMask);
         _sfNormals.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IndicesFieldMask & whichField))
     {
+        editMField(IndicesFieldMask, _mfIndices);
         _mfIndices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureZsFieldMask & whichField))
     {
+        editMField(TextureZsFieldMask, _mfTextureZs);
         _mfTextureZs.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawOrderFieldMask & whichField))
     {
+        editSField(DrawOrderFieldMask);
         _sfDrawOrder.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DynamicFieldMask & whichField))
     {
+        editSField(DynamicFieldMask);
         _sfDynamic.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PumpFieldMask & whichField))
     {
+        editSField(PumpFieldMask);
         _sfPump.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BspFieldMask & whichField))
     {
+        editSField(BspFieldMask);
         _sfBsp.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NumParticlesFieldMask & whichField))
     {
+        editSField(NumParticlesFieldMask);
         _sfNumParticles.copyFromBin(pMem);
     }
 }

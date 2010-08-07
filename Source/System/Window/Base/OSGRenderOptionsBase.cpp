@@ -1620,126 +1620,157 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
     {
+        editSField(RenderPropertiesFieldMask);
         _sfRenderProperties.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseGLFinishFieldMask & whichField))
     {
+        editSField(UseGLFinishFieldMask);
         _sfUseGLFinish.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
+        editSField(StatisticFieldMask);
         _sfStatistic.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PolygonModeFieldMask & whichField))
     {
+        editSField(PolygonModeFieldMask);
         _sfPolygonMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TwoSidedLightingFieldMask & whichField))
     {
+        editSField(TwoSidedLightingFieldMask);
         _sfTwoSidedLighting.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpecTexLightingFieldMask & whichField))
     {
+        editSField(SpecTexLightingFieldMask);
         _sfSpecTexLighting.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SortTransFieldMask & whichField))
     {
+        editSField(SortTransFieldMask);
         _sfSortTrans.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ZWriteTransFieldMask & whichField))
     {
+        editSField(ZWriteTransFieldMask);
         _sfZWriteTrans.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LocalLightsFieldMask & whichField))
     {
+        editSField(LocalLightsFieldMask);
         _sfLocalLights.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CorrectTwoSidedLightingFieldMask & whichField))
     {
+        editSField(CorrectTwoSidedLightingFieldMask);
         _sfCorrectTwoSidedLighting.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OcclusionCullingFieldMask & whichField))
     {
+        editSField(OcclusionCullingFieldMask);
         _sfOcclusionCulling.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OcclusionCullingModeFieldMask & whichField))
     {
+        editSField(OcclusionCullingModeFieldMask);
         _sfOcclusionCullingMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OcclusionCullingPixelsFieldMask & whichField))
     {
+        editSField(OcclusionCullingPixelsFieldMask);
         _sfOcclusionCullingPixels.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
     {
+        editSField(AntialiasingFieldMask);
         _sfAntialiasing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AntialiasingDistanceFieldMask & whichField))
     {
+        editSField(AntialiasingDistanceFieldMask);
         _sfAntialiasingDistance.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AntialiasingScaleFieldMask & whichField))
     {
+        editSField(AntialiasingScaleFieldMask);
         _sfAntialiasingScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AntialiasingTriggerFieldMask & whichField))
     {
+        editSField(AntialiasingTriggerFieldMask);
         _sfAntialiasingTrigger.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrustumCullingFieldMask & whichField))
     {
+        editSField(FrustumCullingFieldMask);
         _sfFrustumCulling.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
     {
+        editSField(BackfaceCullingFieldMask);
         _sfBackfaceCulling.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmallFeatureCullingFieldMask & whichField))
     {
+        editSField(SmallFeatureCullingFieldMask);
         _sfSmallFeatureCulling.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmallFeaturePixelsFieldMask & whichField))
     {
+        editSField(SmallFeaturePixelsFieldMask);
         _sfSmallFeaturePixels.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
     {
+        editSField(SmallFeatureThresholdFieldMask);
         _sfSmallFeatureThreshold.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
     {
+        editSField(FirstFrameFieldMask);
         _sfFirstFrame.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DepthOnlyPassFieldMask & whichField))
     {
+        editSField(DepthOnlyPassFieldMask);
         _sfDepthOnlyPass.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightModelAmbientFieldMask & whichField))
     {
+        editSField(LightModelAmbientFieldMask);
         _sfLightModelAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FogColorFieldMask & whichField))
     {
+        editSField(FogColorFieldMask);
         _sfFogColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FogRangeFieldMask & whichField))
     {
+        editSField(FogRangeFieldMask);
         _sfFogRange.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FogDensityFieldMask & whichField))
     {
+        editSField(FogDensityFieldMask);
         _sfFogDensity.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FogModeFieldMask & whichField))
     {
+        editSField(FogModeFieldMask);
         _sfFogMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MultiSampleFieldMask & whichField))
     {
+        editSField(MultiSampleFieldMask);
         _sfMultiSample.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MultiSampleFilterModeFieldMask & whichField))
     {
+        editSField(MultiSampleFilterModeFieldMask);
         _sfMultiSampleFilterMode.copyFromBin(pMem);
     }
 }

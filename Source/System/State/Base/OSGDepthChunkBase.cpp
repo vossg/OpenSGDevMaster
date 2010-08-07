@@ -442,22 +442,27 @@ void DepthChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnableFieldMask & whichField))
     {
+        editSField(EnableFieldMask);
         _sfEnable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FuncFieldMask & whichField))
     {
+        editSField(FuncFieldMask);
         _sfFunc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NearFieldMask & whichField))
     {
+        editSField(NearFieldMask);
         _sfNear.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FarFieldMask & whichField))
     {
+        editSField(FarFieldMask);
         _sfFar.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ReadOnlyFieldMask & whichField))
     {
+        editSField(ReadOnlyFieldMask);
         _sfReadOnly.copyFromBin(pMem);
     }
 }

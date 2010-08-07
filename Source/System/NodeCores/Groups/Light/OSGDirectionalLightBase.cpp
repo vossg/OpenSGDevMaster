@@ -228,6 +228,7 @@ void DirectionalLightBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DirectionFieldMask & whichField))
     {
+        editSField(DirectionFieldMask);
         _sfDirection.copyFromBin(pMem);
     }
 }

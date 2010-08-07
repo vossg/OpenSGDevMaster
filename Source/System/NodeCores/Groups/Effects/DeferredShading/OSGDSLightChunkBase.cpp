@@ -233,6 +233,7 @@ void DSLightChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EffectiveRangeFieldMask & whichField))
     {
+        editSField(EffectiveRangeFieldMask);
         _sfEffectiveRange.copyFromBin(pMem);
     }
 }

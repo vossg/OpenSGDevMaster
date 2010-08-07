@@ -696,42 +696,52 @@ void PointChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
+        editSField(SizeFieldMask);
         _sfSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmoothFieldMask & whichField))
     {
+        editSField(SmoothFieldMask);
         _sfSmooth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MinSizeFieldMask & whichField))
     {
+        editSField(MinSizeFieldMask);
         _sfMinSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaxSizeFieldMask & whichField))
     {
+        editSField(MaxSizeFieldMask);
         _sfMaxSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
     {
+        editSField(ConstantAttenuationFieldMask);
         _sfConstantAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
     {
+        editSField(LinearAttenuationFieldMask);
         _sfLinearAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
     {
+        editSField(QuadraticAttenuationFieldMask);
         _sfQuadraticAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FadeThresholdFieldMask & whichField))
     {
+        editSField(FadeThresholdFieldMask);
         _sfFadeThreshold.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpriteFieldMask & whichField))
     {
+        editSField(SpriteFieldMask);
         _sfSprite.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RModeFieldMask & whichField))
     {
+        editSField(RModeFieldMask);
         _sfRMode.copyFromBin(pMem);
     }
 }

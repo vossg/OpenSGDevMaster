@@ -377,10 +377,12 @@ void DistanceLODBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CenterFieldMask & whichField))
     {
+        editSField(CenterFieldMask);
         _sfCenter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RangeFieldMask & whichField))
     {
+        editMField(RangeFieldMask, _mfRange);
         _mfRange.copyFromBin(pMem);
     }
 }

@@ -411,18 +411,22 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
     {
+        editSField(ClearStencilBitFieldMask);
         _sfClearStencilBit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DepthFieldMask & whichField))
     {
+        editSField(DepthFieldMask);
         _sfDepth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
     {
+        editSField(ClearDepthFieldMask);
         _sfClearDepth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClearColorFieldMask & whichField))
     {
+        editSField(ClearColorFieldMask);
         _sfClearColor.copyFromBin(pMem);
     }
 }

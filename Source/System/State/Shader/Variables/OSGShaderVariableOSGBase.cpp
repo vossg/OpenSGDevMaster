@@ -236,6 +236,7 @@ void ShaderVariableOSGBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (OsgVarTypeFieldMask & whichField))
     {
+        editSField(OsgVarTypeFieldMask);
         _sfOsgVarType.copyFromBin(pMem);
     }
 }

@@ -292,10 +292,12 @@ void GrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {
+        editSField(ImageFieldMask);
         _sfImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AutoResizeFieldMask & whichField))
     {
+        editSField(AutoResizeFieldMask);
         _sfAutoResize.copyFromBin(pMem);
     }
 }

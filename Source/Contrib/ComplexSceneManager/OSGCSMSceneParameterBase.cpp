@@ -419,22 +419,27 @@ void CSMSceneParameterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SceneRefFieldMask & whichField))
     {
+        editSField(SceneRefFieldMask);
         _sfSceneRef.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DistScaleFieldMask & whichField))
     {
+        editSField(DistScaleFieldMask);
         _sfDistScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SceneDiagFieldMask & whichField))
     {
+        editSField(SceneDiagFieldMask);
         _sfSceneDiag.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InitViewPosFieldMask & whichField))
     {
+        editSField(InitViewPosFieldMask);
         _sfInitViewPos.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SceneCenterFieldMask & whichField))
     {
+        editSField(SceneCenterFieldMask);
         _sfSceneCenter.copyFromBin(pMem);
     }
 }

@@ -954,66 +954,82 @@ void SurfaceBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DimUFieldMask & whichField))
     {
+        editSField(DimUFieldMask);
         _sfDimU.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DimVFieldMask & whichField))
     {
+        editSField(DimVFieldMask);
         _sfDimV.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KnotsUFieldMask & whichField))
     {
+        editMField(KnotsUFieldMask, _mfKnotsU);
         _mfKnotsU.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KnotsVFieldMask & whichField))
     {
+        editMField(KnotsVFieldMask, _mfKnotsV);
         _mfKnotsV.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ControlPointsFieldMask & whichField))
     {
+        editSField(ControlPointsFieldMask);
         _sfControlPoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ErrorFieldMask & whichField))
     {
+        editSField(ErrorFieldMask);
         _sfError.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NumCurvesFieldMask & whichField))
     {
+        editSField(NumCurvesFieldMask);
         _sfNumCurves.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KnotLengthsFieldMask & whichField))
     {
+        editMField(KnotLengthsFieldMask, _mfKnotLengths);
         _mfKnotLengths.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DimensionsFieldMask & whichField))
     {
+        editMField(DimensionsFieldMask, _mfDimensions);
         _mfDimensions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CurveControlPointsFieldMask & whichField))
     {
+        editMField(CurveControlPointsFieldMask, _mfCurveControlPoints);
         _mfCurveControlPoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KnotsFieldMask & whichField))
     {
+        editMField(KnotsFieldMask, _mfKnots);
         _mfKnots.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CurvesPerLoopFieldMask & whichField))
     {
+        editMField(CurvesPerLoopFieldMask, _mfCurvesPerLoop);
         _mfCurvesPerLoop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsDelaunayFieldMask & whichField))
     {
+        editSField(IsDelaunayFieldMask);
         _sfIsDelaunay.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureControlPointsFieldMask & whichField))
     {
+        editSField(TextureControlPointsFieldMask);
         _sfTextureControlPoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DirtyMaskFieldMask & whichField))
     {
+        editSField(DirtyMaskFieldMask);
         _sfDirtyMask.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SurfaceGLIdFieldMask & whichField))
     {
+        editSField(SurfaceGLIdFieldMask);
         _sfSurfaceGLId.copyFromBin(pMem);
     }
 }

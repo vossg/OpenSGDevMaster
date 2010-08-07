@@ -807,50 +807,62 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FormatsFieldMask & whichField))
     {
+        editMField(FormatsFieldMask, _mfFormats);
         _mfFormats.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
+        editSField(SizeFieldMask);
         _sfSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
     {
+        editSField(ShadowColorFieldMask);
         _sfShadowColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
     {
+        editSField(BgColorFieldMask);
         _sfBgColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
     {
+        editSField(FamilyFieldMask);
         _sfFamily.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
     {
+        editSField(ShadowOffsetFieldMask);
         _sfShadowOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
     {
+        editSField(HorizontalAlignFieldMask);
         _sfHorizontalAlign.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
     {
+        editSField(VerticalAlignFieldMask);
         _sfVerticalAlign.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderColorFieldMask & whichField))
     {
+        editSField(BorderColorFieldMask);
         _sfBorderColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
     {
+        editSField(BorderOffsetFieldMask);
         _sfBorderOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
     {
+        editSField(TextMarginFieldMask);
         _sfTextMargin.copyFromBin(pMem);
     }
 }

@@ -417,22 +417,27 @@ void BillboardBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AxisOfRotationFieldMask & whichField))
     {
+        editSField(AxisOfRotationFieldMask);
         _sfAxisOfRotation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FocusOnCameraFieldMask & whichField))
     {
+        editSField(FocusOnCameraFieldMask);
         _sfFocusOnCamera.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlignToScreenFieldMask & whichField))
     {
+        editSField(AlignToScreenFieldMask);
         _sfAlignToScreen.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MinAngleFieldMask & whichField))
     {
+        editSField(MinAngleFieldMask);
         _sfMinAngle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaxAngleFieldMask & whichField))
     {
+        editSField(MaxAngleFieldMask);
         _sfMaxAngle.copyFromBin(pMem);
     }
 }

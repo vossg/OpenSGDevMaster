@@ -411,22 +411,27 @@ void SortFirstWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CompressionFieldMask & whichField))
     {
+        editSField(CompressionFieldMask);
         _sfCompression.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SubtileSizeFieldMask & whichField))
     {
+        editSField(SubtileSizeFieldMask);
         _sfSubtileSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ComposeFieldMask & whichField))
     {
+        editSField(ComposeFieldMask);
         _sfCompose.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RegionFieldMask & whichField))
     {
+        editMField(RegionFieldMask, _mfRegion);
         _mfRegion.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseFaceDistributionFieldMask & whichField))
     {
+        editSField(UseFaceDistributionFieldMask);
         _sfUseFaceDistribution.copyFromBin(pMem);
     }
 }

@@ -948,58 +948,72 @@ void TiledQuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
     {
+        editMField(HeightTilesFieldMask, _mfHeightTiles);
         _mfHeightTiles.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
     {
+        editMField(HeightTexturesFieldMask, _mfHeightTextures);
         _mfHeightTextures.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeXFieldMask & whichField))
     {
+        editSField(SizeXFieldMask);
         _sfSizeX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeYFieldMask & whichField))
     {
+        editSField(SizeYFieldMask);
         _sfSizeY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
     {
+        editSField(HeightScaleFieldMask);
         _sfHeightScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
     {
+        editSField(VertexSpacingFieldMask);
         _sfVertexSpacing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
     {
+        editSField(GeoMorphingFieldMask);
         _sfGeoMorphing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DetailFieldMask & whichField))
     {
+        editSField(DetailFieldMask);
         _sfDetail.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CurrentXFieldMask & whichField))
     {
+        editSField(CurrentXFieldMask);
         _sfCurrentX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CurrentYFieldMask & whichField))
     {
+        editSField(CurrentYFieldMask);
         _sfCurrentY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeROIFieldMask & whichField))
     {
+        editSField(SizeROIFieldMask);
         _sfSizeROI.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UpdateFieldMask & whichField))
     {
+        editSField(UpdateFieldMask);
         _sfUpdate.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
     {
+        editSField(UpdateTerrainFieldMask);
         _sfUpdateTerrain.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
     {
+        editSField(PerPixelLightingFieldMask);
         _sfPerPixelLighting.copyFromBin(pMem);
     }
 }

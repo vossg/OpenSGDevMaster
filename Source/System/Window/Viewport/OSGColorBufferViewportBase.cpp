@@ -394,18 +394,22 @@ void ColorBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RedFieldMask & whichField))
     {
+        editSField(RedFieldMask);
         _sfRed.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlueFieldMask & whichField))
     {
+        editSField(BlueFieldMask);
         _sfBlue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GreenFieldMask & whichField))
     {
+        editSField(GreenFieldMask);
         _sfGreen.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
+        editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
     }
 }

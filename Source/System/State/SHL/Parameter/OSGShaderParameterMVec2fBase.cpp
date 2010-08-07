@@ -234,6 +234,7 @@ void ShaderParameterMVec2fBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {
+        editMField(ValueFieldMask, _mfValue);
         _mfValue.copyFromBin(pMem);
     }
 }

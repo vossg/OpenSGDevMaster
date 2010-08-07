@@ -664,38 +664,47 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
+        editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
+        editSField(BackgroundFieldMask);
         _sfBackground.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
     {
+        editMField(ForegroundsFieldMask, _mfForegrounds);
         _mfForegrounds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
     {
+        editSField(LeftBottomFieldMask);
         _sfLeftBottom.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RightTopFieldMask & whichField))
     {
+        editSField(RightTopFieldMask);
         _sfRightTop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
+        editSField(RenderOptionsFieldMask);
         _sfRenderOptions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StereoModeFieldMask & whichField))
     {
+        editSField(StereoModeFieldMask);
         _sfStereoMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PassiveFieldMask & whichField))
     {
+        editSField(PassiveFieldMask);
         _sfPassive.copyFromBin(pMem);
     }
 }

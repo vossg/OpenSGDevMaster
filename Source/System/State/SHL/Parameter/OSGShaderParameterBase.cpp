@@ -285,10 +285,12 @@ void ShaderParameterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
+        editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
     {
+        editMField(ParentsFieldMask, _mfParents);
         _mfParents.copyFromBin(pMem);
     }
 }

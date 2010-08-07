@@ -300,10 +300,12 @@ void StereoBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (LeftBufferFieldMask & whichField))
     {
+        editSField(LeftBufferFieldMask);
         _sfLeftBuffer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RightBufferFieldMask & whichField))
     {
+        editSField(RightBufferFieldMask);
         _sfRightBuffer.copyFromBin(pMem);
     }
 }

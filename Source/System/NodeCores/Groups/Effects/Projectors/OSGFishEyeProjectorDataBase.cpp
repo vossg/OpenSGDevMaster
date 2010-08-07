@@ -472,22 +472,27 @@ void FishEyeProjectorDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
+        editSField(RenderTargetFieldMask);
         _sfRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexturesFieldMask & whichField))
     {
+        editMField(TexturesFieldMask, _mfTextures);
         _mfTextures.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureResFieldMask & whichField))
     {
+        editSField(TextureResFieldMask);
         _sfTextureRes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureFormatFieldMask & whichField))
     {
+        editSField(TextureFormatFieldMask);
         _sfTextureFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
 }

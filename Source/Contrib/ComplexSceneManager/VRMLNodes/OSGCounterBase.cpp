@@ -324,14 +324,17 @@ void CounterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (IncTriggerFieldMask & whichField))
     {
+        editSField(IncTriggerFieldMask);
         _sfIncTrigger.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DecTriggerFieldMask & whichField))
     {
+        editSField(DecTriggerFieldMask);
         _sfDecTrigger.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResetTriggerFieldMask & whichField))
     {
+        editSField(ResetTriggerFieldMask);
         _sfResetTrigger.copyFromBin(pMem);
     }
 }

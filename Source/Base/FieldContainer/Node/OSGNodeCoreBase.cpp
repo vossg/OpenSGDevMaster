@@ -280,6 +280,7 @@ void NodeCoreBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
     {
+        editMField(ParentsFieldMask, _mfParents);
         _mfParents.copyFromBin(pMem);
     }
 }

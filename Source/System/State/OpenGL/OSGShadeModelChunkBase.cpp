@@ -231,6 +231,7 @@ void ShadeModelChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShadeModelFieldMask & whichField))
     {
+        editSField(ShadeModelFieldMask);
         _sfShadeModel.copyFromBin(pMem);
     }
 }

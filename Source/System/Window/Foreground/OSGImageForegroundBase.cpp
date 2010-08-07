@@ -351,10 +351,12 @@ void ImageForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ImagesFieldMask & whichField))
     {
+        editMField(ImagesFieldMask, _mfImages);
         _mfImages.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editMField(PositionsFieldMask, _mfPositions);
         _mfPositions.copyFromBin(pMem);
     }
 }

@@ -414,22 +414,27 @@ void BalancedMultiWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (BalanceFieldMask & whichField))
     {
+        editSField(BalanceFieldMask);
         _sfBalance.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BestCutFieldMask & whichField))
     {
+        editSField(BestCutFieldMask);
         _sfBestCut.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShowBalancingFieldMask & whichField))
     {
+        editSField(ShowBalancingFieldMask);
         _sfShowBalancing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TileSizeFieldMask & whichField))
     {
+        editSField(TileSizeFieldMask);
         _sfTileSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShortFieldMask & whichField))
     {
+        editSField(ShortFieldMask);
         _sfShort.copyFromBin(pMem);
     }
 }

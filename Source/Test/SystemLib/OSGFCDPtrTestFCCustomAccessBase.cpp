@@ -1219,98 +1219,122 @@ void FCDPtrTestFCCustomAccessBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FieldSFPub_ptrFieldMask & whichField))
     {
+        editSField(FieldSFPub_ptrFieldMask);
         _sfFieldSFPub_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPub_weakptrFieldMask & whichField))
     {
+        editSField(FieldSFPub_weakptrFieldMask);
         _sfFieldSFPub_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPub_mpchildptrFieldMask & whichField))
     {
+        editSField(FieldSFPub_mpchildptrFieldMask);
         _sfFieldSFPub_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPro_ptrFieldMask & whichField))
     {
+        editSField(FieldSFPro_ptrFieldMask);
         _sfFieldSFPro_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPro_weakptrFieldMask & whichField))
     {
+        editSField(FieldSFPro_weakptrFieldMask);
         _sfFieldSFPro_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPro_mpchildptrFieldMask & whichField))
     {
+        editSField(FieldSFPro_mpchildptrFieldMask);
         _sfFieldSFPro_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFNo_ptrFieldMask & whichField))
     {
+        editSField(FieldSFNo_ptrFieldMask);
         _sfFieldSFNo_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFNo_weakptrFieldMask & whichField))
     {
+        editSField(FieldSFNo_weakptrFieldMask);
         _sfFieldSFNo_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFNo_mpchildptrFieldMask & whichField))
     {
+        editSField(FieldSFNo_mpchildptrFieldMask);
         _sfFieldSFNo_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPub_ptrFieldMask & whichField))
     {
+        editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
         _mfFieldMFPub_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPub_weakptrFieldMask & whichField))
     {
+        editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
         _mfFieldMFPub_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPub_mpchildptrFieldMask & whichField))
     {
+        editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
         _mfFieldMFPub_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPro_ptrFieldMask & whichField))
     {
+        editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
         _mfFieldMFPro_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPro_weakptrFieldMask & whichField))
     {
+        editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
         _mfFieldMFPro_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPro_mpchildptrFieldMask & whichField))
     {
+        editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
         _mfFieldMFPro_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNo_ptrFieldMask & whichField))
     {
+        editMField(FieldMFNo_ptrFieldMask, _mfFieldMFNo_ptr);
         _mfFieldMFNo_ptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNo_weakptrFieldMask & whichField))
     {
+        editMField(FieldMFNo_weakptrFieldMask, _mfFieldMFNo_weakptr);
         _mfFieldMFNo_weakptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNo_mpchildptrFieldMask & whichField))
     {
+        editMField(FieldMFNo_mpchildptrFieldMask, _mfFieldMFNo_mpchildptr);
         _mfFieldMFNo_mpchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPub_spchildptrFieldMask & whichField))
     {
+        editSField(FieldSFPub_spchildptrFieldMask);
         _sfFieldSFPub_spchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFPro_spchildptrFieldMask & whichField))
     {
+        editSField(FieldSFPro_spchildptrFieldMask);
         _sfFieldSFPro_spchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFNo_spchildptrFieldMask & whichField))
     {
+        editSField(FieldSFNo_spchildptrFieldMask);
         _sfFieldSFNo_spchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPub_spchildptrFieldMask & whichField))
     {
+        editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
         _mfFieldMFPub_spchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPro_spchildptrFieldMask & whichField))
     {
+        editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
         _mfFieldMFPro_spchildptr.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNo_spchildptrFieldMask & whichField))
     {
+        editMField(FieldMFNo_spchildptrFieldMask, _mfFieldMFNo_spchildptr);
         _mfFieldMFNo_spchildptr.copyFromBin(pMem);
     }
 }

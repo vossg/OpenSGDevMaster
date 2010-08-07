@@ -235,6 +235,7 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
 }

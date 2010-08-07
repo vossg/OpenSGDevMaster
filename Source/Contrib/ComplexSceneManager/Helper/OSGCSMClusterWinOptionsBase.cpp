@@ -236,6 +236,7 @@ void CSMClusterWinOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
+        editSField(ParentFieldMask);
         _sfParent.copyFromBin(pMem);
     }
 }

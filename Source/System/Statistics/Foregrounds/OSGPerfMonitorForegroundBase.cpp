@@ -569,34 +569,42 @@ void PerfMonitorForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {
+        editSField(ModeFieldMask);
         _sfMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaxSizeFieldMask & whichField))
     {
+        editSField(MaxSizeFieldMask);
         _sfMaxSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
     {
+        editSField(BgColorFieldMask);
         _sfBgColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
     {
+        editSField(FamilyFieldMask);
         _sfFamily.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderColorFieldMask & whichField))
     {
+        editSField(BorderColorFieldMask);
         _sfBorderColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
     {
+        editSField(BorderOffsetFieldMask);
         _sfBorderOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
     {
+        editSField(TextMarginFieldMask);
         _sfTextMargin.copyFromBin(pMem);
     }
 }

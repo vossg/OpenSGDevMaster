@@ -547,30 +547,37 @@ void DrawableStatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VerticesFieldMask & whichField))
     {
+        editSField(VerticesFieldMask);
         _sfVertices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointsFieldMask & whichField))
     {
+        editSField(PointsFieldMask);
         _sfPoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LinesFieldMask & whichField))
     {
+        editSField(LinesFieldMask);
         _sfLines.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TrianglesFieldMask & whichField))
     {
+        editSField(TrianglesFieldMask);
         _sfTriangles.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
     {
+        editSField(ProcessedAttributeBytesFieldMask);
         _sfProcessedAttributeBytes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StoredAttributeBytesFieldMask & whichField))
     {
+        editSField(StoredAttributeBytesFieldMask);
         _sfStoredAttributeBytes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ValidFieldMask & whichField))
     {
+        editSField(ValidFieldMask);
         _sfValid.copyFromBin(pMem);
     }
 }

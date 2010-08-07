@@ -249,6 +249,7 @@ void ShaderProcVariableBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DependencyFieldMask & whichField))
     {
+        editSField(DependencyFieldMask);
         _sfDependency.copyFromBin(pMem);
     }
 }

@@ -338,14 +338,17 @@ void SpotLightBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DirectionFieldMask & whichField))
     {
+        editSField(DirectionFieldMask);
         _sfDirection.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpotExponentFieldMask & whichField))
     {
+        editSField(SpotExponentFieldMask);
         _sfSpotExponent.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpotCutOffFieldMask & whichField))
     {
+        editSField(SpotCutOffFieldMask);
         _sfSpotCutOff.copyFromBin(pMem);
     }
 }

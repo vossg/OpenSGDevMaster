@@ -598,38 +598,47 @@ void ShaderProgramBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShaderTypeFieldMask & whichField))
     {
+        editSField(ShaderTypeFieldMask);
         _sfShaderType.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProgramFieldMask & whichField))
     {
+        editSField(ProgramFieldMask);
         _sfProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
     {
+        editMField(ParameterFieldMask, _mfParameter);
         _mfParameter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
+        editSField(CgFrontEndFieldMask);
         _sfCgFrontEnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointSizeFieldMask & whichField))
     {
+        editSField(PointSizeFieldMask);
         _sfPointSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
     {
+        editMField(ParentsFieldMask, _mfParents);
         _mfParents.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
     {
+        editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
         _mfDestroyedFunctors.copyFromBin(pMem);
     }
 }

@@ -378,18 +378,22 @@ void ColorMaskChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MaskRFieldMask & whichField))
     {
+        editSField(MaskRFieldMask);
         _sfMaskR.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaskGFieldMask & whichField))
     {
+        editSField(MaskGFieldMask);
         _sfMaskG.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaskBFieldMask & whichField))
     {
+        editSField(MaskBFieldMask);
         _sfMaskB.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaskAFieldMask & whichField))
     {
+        editSField(MaskAFieldMask);
         _sfMaskA.copyFromBin(pMem);
     }
 }

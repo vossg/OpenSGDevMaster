@@ -614,38 +614,47 @@ void SimpleSHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
     {
+        editSField(VertexProgramFieldMask);
         _sfVertexProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
     {
+        editSField(GeometryProgramFieldMask);
         _sfGeometryProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
     {
+        editSField(FragmentProgramFieldMask);
         _sfFragmentProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
+        editSField(CgFrontEndFieldMask);
         _sfCgFrontEnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableLocationsFieldMask & whichField))
     {
+        editMField(VariableLocationsFieldMask, _mfVariableLocations);
         _mfVariableLocations.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProceduralVariableLocationsFieldMask & whichField))
     {
+        editMField(ProceduralVariableLocationsFieldMask, _mfProceduralVariableLocations);
         _mfProceduralVariableLocations.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointSizeFieldMask & whichField))
     {
+        editSField(PointSizeFieldMask);
         _sfPointSize.copyFromBin(pMem);
     }
 }

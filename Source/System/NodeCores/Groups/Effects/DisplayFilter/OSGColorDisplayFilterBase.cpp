@@ -562,34 +562,42 @@ void ColorDisplayFilterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GammaFieldMask & whichField))
     {
+        editSField(GammaFieldMask);
         _sfGamma.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {
+        editSField(MatrixFieldMask);
         _sfMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorTableWidthFieldMask & whichField))
     {
+        editSField(ColorTableWidthFieldMask);
         _sfColorTableWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorTableHeightFieldMask & whichField))
     {
+        editSField(ColorTableHeightFieldMask);
         _sfColorTableHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorTableDepthFieldMask & whichField))
     {
+        editSField(ColorTableDepthFieldMask);
         _sfColorTableDepth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorTableFieldMask & whichField))
     {
+        editMField(ColorTableFieldMask, _mfColorTable);
         _mfColorTable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TableImageFieldMask & whichField))
     {
+        editSField(TableImageFieldMask);
         _sfTableImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FilterShaderFieldMask & whichField))
     {
+        editSField(FilterShaderFieldMask);
         _sfFilterShader.copyFromBin(pMem);
     }
 }

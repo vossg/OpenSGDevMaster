@@ -432,18 +432,22 @@ void DisplayFilterStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
     {
+        editSField(ResolutionFilterFieldMask);
         _sfResolutionFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFilterFieldMask & whichField))
     {
+        editSField(ColorFilterFieldMask);
         _sfColorFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DistortionFilterFieldMask & whichField))
     {
+        editSField(DistortionFilterFieldMask);
         _sfDistortionFilter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FilterGroupsFieldMask & whichField))
     {
+        editMField(FilterGroupsFieldMask, _mfFilterGroups);
         _mfFilterGroups.copyFromBin(pMem);
     }
 }

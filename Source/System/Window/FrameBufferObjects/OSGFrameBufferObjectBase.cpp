@@ -630,34 +630,42 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
     {
+        editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
         _mfColorAttachments.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
     {
+        editMField(DrawBuffersFieldMask, _mfDrawBuffers);
         _mfDrawBuffers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DepthAttachmentFieldMask & whichField))
     {
+        editSField(DepthAttachmentFieldMask);
         _sfDepthAttachment.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilAttachmentFieldMask & whichField))
     {
+        editSField(StencilAttachmentFieldMask);
         _sfStencilAttachment.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
     {
+        editSField(PostProcessOnDeactivateFieldMask);
         _sfPostProcessOnDeactivate.copyFromBin(pMem);
     }
 }

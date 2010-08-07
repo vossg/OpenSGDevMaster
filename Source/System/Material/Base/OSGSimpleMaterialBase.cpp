@@ -587,34 +587,42 @@ void SimpleMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {
+        editSField(AmbientFieldMask);
         _sfAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DiffuseFieldMask & whichField))
     {
+        editSField(DiffuseFieldMask);
         _sfDiffuse.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpecularFieldMask & whichField))
     {
+        editSField(SpecularFieldMask);
         _sfSpecular.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShininessFieldMask & whichField))
     {
+        editSField(ShininessFieldMask);
         _sfShininess.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EmissionFieldMask & whichField))
     {
+        editSField(EmissionFieldMask);
         _sfEmission.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransparencyFieldMask & whichField))
     {
+        editSField(TransparencyFieldMask);
         _sfTransparency.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LitFieldMask & whichField))
     {
+        editSField(LitFieldMask);
         _sfLit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
     {
+        editSField(ColorMaterialFieldMask);
         _sfColorMaterial.copyFromBin(pMem);
     }
 }

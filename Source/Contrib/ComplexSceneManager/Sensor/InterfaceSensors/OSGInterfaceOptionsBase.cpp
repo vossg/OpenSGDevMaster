@@ -285,10 +285,12 @@ void InterfaceOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
+        editSField(ParentFieldMask);
         _sfParent.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NapTimeFieldMask & whichField))
     {
+        editSField(NapTimeFieldMask);
         _sfNapTime.copyFromBin(pMem);
     }
 }

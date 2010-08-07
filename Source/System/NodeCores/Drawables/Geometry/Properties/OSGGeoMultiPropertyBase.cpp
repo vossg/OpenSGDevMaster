@@ -530,30 +530,37 @@ void GeoMultiPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ContainerFieldMask & whichField))
     {
+        editSField(ContainerFieldMask);
         _sfContainer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetFieldMask & whichField))
     {
+        editSField(OffsetFieldMask);
         _sfOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IFormatFieldMask & whichField))
     {
+        editSField(IFormatFieldMask);
         _sfIFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IDimensionFieldMask & whichField))
     {
+        editSField(IDimensionFieldMask);
         _sfIDimension.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ISizeFieldMask & whichField))
     {
+        editSField(ISizeFieldMask);
         _sfISize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (INormalizeFieldMask & whichField))
     {
+        editSField(INormalizeFieldMask);
         _sfINormalize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IStrideFieldMask & whichField))
     {
+        editSField(IStrideFieldMask);
         _sfIStride.copyFromBin(pMem);
     }
 }

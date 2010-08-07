@@ -465,26 +465,32 @@ void DisplayFilterStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {
+        editSField(TargetFieldMask);
         _sfTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BaseMaterialFieldMask & whichField))
     {
+        editSField(BaseMaterialFieldMask);
         _sfBaseMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFilterShaderFieldMask & whichField))
     {
+        editSField(ColorFilterShaderFieldMask);
         _sfColorFilterShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFilterTextureFieldMask & whichField))
     {
+        editSField(ColorFilterTextureFieldMask);
         _sfColorFilterTexture.copyFromBin(pMem);
     }
 }

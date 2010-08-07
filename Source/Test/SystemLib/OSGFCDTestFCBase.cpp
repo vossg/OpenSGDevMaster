@@ -466,26 +466,32 @@ void FCDTestFCBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FieldSFPubFieldMask & whichField))
     {
+        editSField(FieldSFPubFieldMask);
         _sfFieldSFPub.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFProFieldMask & whichField))
     {
+        editSField(FieldSFProFieldMask);
         _sfFieldSFPro.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldSFNoFieldMask & whichField))
     {
+        editSField(FieldSFNoFieldMask);
         _sfFieldSFNo.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFPubFieldMask & whichField))
     {
+        editMField(FieldMFPubFieldMask, _mfFieldMFPub);
         _mfFieldMFPub.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFProFieldMask & whichField))
     {
+        editMField(FieldMFProFieldMask, _mfFieldMFPro);
         _mfFieldMFPro.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNoFieldMask & whichField))
     {
+        editMField(FieldMFNoFieldMask, _mfFieldMFNo);
         _mfFieldMFNo.copyFromBin(pMem);
     }
 }

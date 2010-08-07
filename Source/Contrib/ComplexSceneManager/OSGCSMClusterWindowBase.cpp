@@ -627,38 +627,47 @@ void CSMClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {
+        editSField(ClientWindowFieldMask);
         _sfClientWindow.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderClientFieldMask & whichField))
     {
+        editSField(RenderClientFieldMask);
         _sfRenderClient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServersFieldMask & whichField))
     {
+        editMField(ServersFieldMask, _mfServers);
         _mfServers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
     {
+        editMField(ServerIdsFieldMask, _mfServerIds);
         _mfServerIds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServerRowsFieldMask & whichField))
     {
+        editSField(ServerRowsFieldMask);
         _sfServerRows.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
     {
+        editSField(ConnectionTypeFieldMask);
         _sfConnectionType.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClusterModeFieldMask & whichField))
     {
+        editSField(ClusterModeFieldMask);
         _sfClusterMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ComposerFieldMask & whichField))
     {
+        editSField(ComposerFieldMask);
         _sfComposer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OptionsFieldMask & whichField))
     {
+        editSField(OptionsFieldMask);
         _sfOptions.copyFromBin(pMem);
     }
 }

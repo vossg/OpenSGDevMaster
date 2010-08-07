@@ -863,58 +863,72 @@ void ClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ServersFieldMask & whichField))
     {
+        editMField(ServersFieldMask, _mfServers);
         _mfServers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
     {
+        editMField(ServerIdsFieldMask, _mfServerIds);
         _mfServerIds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
     {
+        editSField(ConnectionTypeFieldMask);
         _sfConnectionType.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionInterfaceFieldMask & whichField))
     {
+        editSField(ConnectionInterfaceFieldMask);
         _sfConnectionInterface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionDestinationFieldMask & whichField))
     {
+        editSField(ConnectionDestinationFieldMask);
         _sfConnectionDestination.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionParamsFieldMask & whichField))
     {
+        editSField(ConnectionParamsFieldMask);
         _sfConnectionParams.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServicePortFieldMask & whichField))
     {
+        editSField(ServicePortFieldMask);
         _sfServicePort.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServiceAddressFieldMask & whichField))
     {
+        editSField(ServiceAddressFieldMask);
         _sfServiceAddress.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServiceInterfaceFieldMask & whichField))
     {
+        editSField(ServiceInterfaceFieldMask);
         _sfServiceInterface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {
+        editSField(ClientWindowFieldMask);
         _sfClientWindow.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InterleaveFieldMask & whichField))
     {
+        editSField(InterleaveFieldMask);
         _sfInterleave.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
+        editSField(FrameCountFieldMask);
         _sfFrameCount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ComposerFieldMask & whichField))
     {
+        editSField(ComposerFieldMask);
         _sfComposer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AutostartFieldMask & whichField))
     {
+        editMField(AutostartFieldMask, _mfAutostart);
         _mfAutostart.copyFromBin(pMem);
     }
 }

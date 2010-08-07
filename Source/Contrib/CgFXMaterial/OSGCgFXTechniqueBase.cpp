@@ -337,6 +337,7 @@ void CgFXTechniqueBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderPassStatesFieldMask & whichField))
     {
+        editMField(RenderPassStatesFieldMask, _mfRenderPassStates);
         _mfRenderPassStates.copyFromBin(pMem);
     }
 }

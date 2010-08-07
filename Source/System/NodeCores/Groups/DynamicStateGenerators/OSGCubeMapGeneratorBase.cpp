@@ -791,50 +791,62 @@ void CubeMapGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
+        editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ExcludeFieldMask & whichField))
     {
+        editMField(ExcludeFieldMask, _mfExclude);
         _mfExclude.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {
+        editSField(TextureFieldMask);
         _sfTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureSizeFieldMask & whichField))
     {
+        editSField(TextureSizeFieldMask);
         _sfTextureSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextureFormatFieldMask & whichField))
     {
+        editSField(TextureFormatFieldMask);
         _sfTextureFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
+        editSField(BeaconFieldMask);
         _sfBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginFieldMask & whichField))
     {
+        editSField(OriginFieldMask);
         _sfOrigin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginModeFieldMask & whichField))
     {
+        editSField(OriginModeFieldMask);
         _sfOriginMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexUnitFieldMask & whichField))
     {
+        editSField(TexUnitFieldMask);
         _sfTexUnit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SetupModeFieldMask & whichField))
     {
+        editSField(SetupModeFieldMask);
         _sfSetupMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
+        editSField(BackgroundFieldMask);
         _sfBackground.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
 }

@@ -398,14 +398,17 @@ void CSMDrawerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (WindowsFieldMask & whichField))
     {
+        editMField(WindowsFieldMask, _mfWindows);
         _mfWindows.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
     {
+        editSField(DisplayStringFieldMask);
         _sfDisplayString.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
+        editSField(AspectFieldMask);
         _sfAspect.copyFromBin(pMem);
     }
 }

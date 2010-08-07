@@ -292,10 +292,12 @@ void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
+        editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
     }
 }

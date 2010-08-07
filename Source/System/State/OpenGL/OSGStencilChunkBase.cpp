@@ -591,34 +591,42 @@ void StencilChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (StencilFuncFieldMask & whichField))
     {
+        editSField(StencilFuncFieldMask);
         _sfStencilFunc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilValueFieldMask & whichField))
     {
+        editSField(StencilValueFieldMask);
         _sfStencilValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilMaskFieldMask & whichField))
     {
+        editSField(StencilMaskFieldMask);
         _sfStencilMask.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilOpFailFieldMask & whichField))
     {
+        editSField(StencilOpFailFieldMask);
         _sfStencilOpFail.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilOpZFailFieldMask & whichField))
     {
+        editSField(StencilOpZFailFieldMask);
         _sfStencilOpZFail.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StencilOpZPassFieldMask & whichField))
     {
+        editSField(StencilOpZPassFieldMask);
         _sfStencilOpZPass.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClearBufferFieldMask & whichField))
     {
+        editSField(ClearBufferFieldMask);
         _sfClearBuffer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BitMaskFieldMask & whichField))
     {
+        editSField(BitMaskFieldMask);
         _sfBitMask.copyFromBin(pMem);
     }
 }

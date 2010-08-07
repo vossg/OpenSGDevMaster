@@ -650,30 +650,37 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TypesFieldMask & whichField))
     {
+        editSField(TypesFieldMask);
         _sfTypes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LengthsFieldMask & whichField))
     {
+        editSField(LengthsFieldMask);
         _sfLengths.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PropertiesFieldMask & whichField))
     {
+        editMField(PropertiesFieldMask, _mfProperties);
         _mfProperties.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
     {
+        editMField(PropIndicesFieldMask, _mfPropIndices);
         _mfPropIndices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
     {
+        editSField(DlistCacheFieldMask);
         _sfDlistCache.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
     {
+        editSField(ClassicGLIdFieldMask);
         _sfClassicGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
     {
+        editSField(AttGLIdFieldMask);
         _sfAttGLId.copyFromBin(pMem);
     }
 }

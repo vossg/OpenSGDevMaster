@@ -725,46 +725,57 @@ void LightBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {
+        editSField(AmbientFieldMask);
         _sfAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DiffuseFieldMask & whichField))
     {
+        editSField(DiffuseFieldMask);
         _sfDiffuse.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpecularFieldMask & whichField))
     {
+        editSField(SpecularFieldMask);
         _sfSpecular.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
+        editSField(BeaconFieldMask);
         _sfBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OnFieldMask & whichField))
     {
+        editSField(OnFieldMask);
         _sfOn.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
     {
+        editSField(ConstantAttenuationFieldMask);
         _sfConstantAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
     {
+        editSField(LinearAttenuationFieldMask);
         _sfLinearAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
     {
+        editSField(QuadraticAttenuationFieldMask);
         _sfQuadraticAttenuation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightEngineFieldMask & whichField))
     {
+        editSField(LightEngineFieldMask);
         _sfLightEngine.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowIntensityFieldMask & whichField))
     {
+        editSField(ShadowIntensityFieldMask);
         _sfShadowIntensity.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
     {
+        editSField(ShadowModeFieldMask);
         _sfShadowMode.copyFromBin(pMem);
     }
 }

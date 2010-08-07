@@ -229,6 +229,7 @@ void ImageFileBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
     {
+        editSField(UrlFieldMask);
         _sfUrl.copyFromBin(pMem);
     }
 }

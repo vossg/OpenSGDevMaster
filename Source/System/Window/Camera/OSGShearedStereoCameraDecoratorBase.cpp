@@ -291,10 +291,12 @@ void ShearedStereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ZeroParallaxDistanceFieldMask & whichField))
     {
+        editSField(ZeroParallaxDistanceFieldMask);
         _sfZeroParallaxDistance.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OverlapFieldMask & whichField))
     {
+        editSField(OverlapFieldMask);
         _sfOverlap.copyFromBin(pMem);
     }
 }

@@ -760,46 +760,57 @@ void PolygonChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CullFaceFieldMask & whichField))
     {
+        editSField(CullFaceFieldMask);
         _sfCullFace.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrontFaceFieldMask & whichField))
     {
+        editSField(FrontFaceFieldMask);
         _sfFrontFace.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FrontModeFieldMask & whichField))
     {
+        editSField(FrontModeFieldMask);
         _sfFrontMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackModeFieldMask & whichField))
     {
+        editSField(BackModeFieldMask);
         _sfBackMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmoothFieldMask & whichField))
     {
+        editSField(SmoothFieldMask);
         _sfSmooth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
     {
+        editSField(OffsetFactorFieldMask);
         _sfOffsetFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
     {
+        editSField(OffsetBiasFieldMask);
         _sfOffsetBias.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetPointFieldMask & whichField))
     {
+        editSField(OffsetPointFieldMask);
         _sfOffsetPoint.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetLineFieldMask & whichField))
     {
+        editSField(OffsetLineFieldMask);
         _sfOffsetLine.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetFillFieldMask & whichField))
     {
+        editSField(OffsetFillFieldMask);
         _sfOffsetFill.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StippleFieldMask & whichField))
     {
+        editMField(StippleFieldMask, _mfStipple);
         _mfStipple.copyFromBin(pMem);
     }
 }

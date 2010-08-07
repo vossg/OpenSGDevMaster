@@ -321,14 +321,17 @@ void StageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
     {
+        editSField(PartitionRangeBeginFieldMask);
         _sfPartitionRangeBegin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PartitionRangeEndFieldMask & whichField))
     {
+        editSField(PartitionRangeEndFieldMask);
         _sfPartitionRangeEnd.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GroupModeFieldMask & whichField))
     {
+        editSField(GroupModeFieldMask);
         _sfGroupMode.copyFromBin(pMem);
     }
 }

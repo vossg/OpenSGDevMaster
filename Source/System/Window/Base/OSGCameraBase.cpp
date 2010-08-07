@@ -341,14 +341,17 @@ void CameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
+        editSField(BeaconFieldMask);
         _sfBeacon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (NearFieldMask & whichField))
     {
+        editSField(NearFieldMask);
         _sfNear.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FarFieldMask & whichField))
     {
+        editSField(FarFieldMask);
         _sfFar.copyFromBin(pMem);
     }
 }

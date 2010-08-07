@@ -1141,74 +1141,92 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (OffBiasFieldMask & whichField))
     {
+        editSField(OffBiasFieldMask);
         _sfOffBias.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffFactorFieldMask & whichField))
     {
+        editSField(OffFactorFieldMask);
         _sfOffFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MapSizeFieldMask & whichField))
     {
+        editSField(MapSizeFieldMask);
         _sfMapSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightNodesFieldMask & whichField))
     {
+        editMField(LightNodesFieldMask, _mfLightNodes);
         _mfLightNodes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ExcludeNodesFieldMask & whichField))
     {
+        editMField(ExcludeNodesFieldMask, _mfExcludeNodes);
         _mfExcludeNodes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MapAutoUpdateFieldMask & whichField))
     {
+        editSField(MapAutoUpdateFieldMask);
         _sfMapAutoUpdate.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
     {
+        editSField(ShadowModeFieldMask);
         _sfShadowMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowSmoothnessFieldMask & whichField))
     {
+        editSField(ShadowSmoothnessFieldMask);
         _sfShadowSmoothness.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowOnFieldMask & whichField))
     {
+        editSField(ShadowOnFieldMask);
         _sfShadowOn.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AutoSearchForLightsFieldMask & whichField))
     {
+        editSField(AutoSearchForLightsFieldMask);
         _sfAutoSearchForLights.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GlobalShadowIntensityFieldMask & whichField))
     {
+        editSField(GlobalShadowIntensityFieldMask);
         _sfGlobalShadowIntensity.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FboOnFieldMask & whichField))
     {
+        editSField(FboOnFieldMask);
         _sfFboOn.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AutoExcludeTransparentNodesFieldMask & whichField))
     {
+        editSField(AutoExcludeTransparentNodesFieldMask);
         _sfAutoExcludeTransparentNodes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DisableOccludedLightsFieldMask & whichField))
     {
+        editSField(DisableOccludedLightsFieldMask);
         _sfDisableOccludedLights.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RedFieldMask & whichField))
     {
+        editSField(RedFieldMask);
         _sfRed.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlueFieldMask & whichField))
     {
+        editSField(BlueFieldMask);
         _sfBlue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GreenFieldMask & whichField))
     {
+        editSField(GreenFieldMask);
         _sfGreen.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
+        editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
     }
 }

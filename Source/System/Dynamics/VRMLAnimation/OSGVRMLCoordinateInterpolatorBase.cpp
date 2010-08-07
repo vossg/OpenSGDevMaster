@@ -278,10 +278,12 @@ void VRMLCoordinateInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
+        editMField(KeyValueFieldMask, _mfKeyValue);
         _mfKeyValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
+        editMField(OutValueFieldMask, _mfOutValue);
         _mfOutValue.copyFromBin(pMem);
     }
 }

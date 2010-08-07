@@ -278,10 +278,12 @@ void VRMLOrientationInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
+        editMField(KeyValueFieldMask, _mfKeyValue);
         _mfKeyValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
+        editSField(OutValueFieldMask);
         _sfOutValue.copyFromBin(pMem);
     }
 }

@@ -605,38 +605,47 @@ void FrameHandlerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
+        editSField(FrameCountFieldMask);
         _sfFrameCount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
+        editSField(StartTimeFieldMask);
         _sfStartTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LastTimeFieldMask & whichField))
     {
+        editSField(LastTimeFieldMask);
         _sfLastTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CurrTimeFieldMask & whichField))
     {
+        editSField(CurrTimeFieldMask);
         _sfCurrTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeStampFieldMask & whichField))
     {
+        editSField(TimeStampFieldMask);
         _sfTimeStamp.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
     {
+        editSField(TimeScaleFieldMask);
         _sfTimeScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConstantTimeStepFieldMask & whichField))
     {
+        editSField(ConstantTimeStepFieldMask);
         _sfConstantTimeStep.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConstantTimeFieldMask & whichField))
     {
+        editSField(ConstantTimeFieldMask);
         _sfConstantTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PausedFieldMask & whichField))
     {
+        editSField(PausedFieldMask);
         _sfPaused.copyFromBin(pMem);
     }
 }

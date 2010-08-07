@@ -295,10 +295,12 @@ void SimpleSHLVariableChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableLocationsFieldMask & whichField))
     {
+        editMField(VariableLocationsFieldMask, _mfVariableLocations);
         _mfVariableLocations.copyFromBin(pMem);
     }
 }

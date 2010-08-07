@@ -243,6 +243,7 @@ void TransformChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {
+        editSField(MatrixFieldMask);
         _sfMatrix.copyFromBin(pMem);
     }
 }

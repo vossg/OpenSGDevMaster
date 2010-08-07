@@ -318,14 +318,17 @@ void BinarySwapComposerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShortFieldMask & whichField))
     {
+        editSField(ShortFieldMask);
         _sfShort.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
+        editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TileSizeFieldMask & whichField))
     {
+        editSField(TileSizeFieldMask);
         _sfTileSize.copyFromBin(pMem);
     }
 }

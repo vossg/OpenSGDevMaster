@@ -340,6 +340,7 @@ void GlobalsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
     {
+        editMField(ElementsFieldMask, _mfElements);
         _mfElements.copyFromBin(pMem);
     }
 }

@@ -643,26 +643,32 @@ void ShaderProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VertexShaderFieldMask & whichField))
     {
+        editMField(VertexShaderFieldMask, _mfVertexShader);
         _mfVertexShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
+        editMField(GeometryShaderFieldMask, _mfGeometryShader);
         _mfGeometryShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FragmentShaderFieldMask & whichField))
     {
+        editMField(FragmentShaderFieldMask, _mfFragmentShader);
         _mfFragmentShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryVerticesOutFieldMask & whichField))
     {
+        editSField(GeometryVerticesOutFieldMask);
         _sfGeometryVerticesOut.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryInputTypeFieldMask & whichField))
     {
+        editSField(GeometryInputTypeFieldMask);
         _sfGeometryInputType.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryOutputTypeFieldMask & whichField))
     {
+        editSField(GeometryOutputTypeFieldMask);
         _sfGeometryOutputType.copyFromBin(pMem);
     }
 }

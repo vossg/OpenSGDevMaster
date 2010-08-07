@@ -233,6 +233,7 @@ void OffCenterPerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PrincipalPointFieldMask & whichField))
     {
+        editSField(PrincipalPointFieldMask);
         _sfPrincipalPoint.copyFromBin(pMem);
     }
 }

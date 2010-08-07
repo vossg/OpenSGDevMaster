@@ -328,6 +328,7 @@ void CameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DecorateeFieldMask & whichField))
     {
+        editSField(DecorateeFieldMask);
         _sfDecoratee.copyFromBin(pMem);
     }
 }

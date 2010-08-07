@@ -318,14 +318,17 @@ void ParallelComposerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShortFieldMask & whichField))
     {
+        editSField(ShortFieldMask);
         _sfShort.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
+        editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PcLibPathFieldMask & whichField))
     {
+        editSField(PcLibPathFieldMask);
         _sfPcLibPath.copyFromBin(pMem);
     }
 }

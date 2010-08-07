@@ -980,58 +980,72 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
+        editSField(HeightFieldMask);
         _sfHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PortFieldMask & whichField))
     {
+        editMField(PortFieldMask, _mfPort);
         _mfPort.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
     {
+        editSField(GlObjectEventCounterFieldMask);
         _sfGlObjectEventCounter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
     {
+        editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
         _mfGlObjectLastRefresh.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
     {
+        editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
         _mfGlObjectLastReinitialize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
     {
+        editSField(DrawerIdFieldMask);
         _sfDrawerId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
     {
+        editSField(RequestMajorFieldMask);
         _sfRequestMajor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
     {
+        editSField(RequestMinorFieldMask);
         _sfRequestMinor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
     {
+        editSField(ContextFlagsFieldMask);
         _sfContextFlags.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
+        editSField(RenderOptionsFieldMask);
         _sfRenderOptions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
+        editSField(DrawModeFieldMask);
         _sfDrawMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RendererInfoFieldMask & whichField))
     {
+        editSField(RendererInfoFieldMask);
         _sfRendererInfo.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawTasksFieldMask & whichField))
     {
+        editMField(DrawTasksFieldMask, _mfDrawTasks);
         _mfDrawTasks.copyFromBin(pMem);
     }
 }

@@ -247,6 +247,7 @@ void QT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GlWidgetFieldMask & whichField))
     {
+        editSField(GlWidgetFieldMask);
         _sfGlWidget.copyFromBin(pMem);
     }
 }

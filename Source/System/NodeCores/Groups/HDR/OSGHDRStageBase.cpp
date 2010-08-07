@@ -460,26 +460,32 @@ void HDRStageBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ExposureFieldMask & whichField))
     {
+        editSField(ExposureFieldMask);
         _sfExposure.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlurWidthFieldMask & whichField))
     {
+        editSField(BlurWidthFieldMask);
         _sfBlurWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlurAmountFieldMask & whichField))
     {
+        editSField(BlurAmountFieldMask);
         _sfBlurAmount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EffectAmountFieldMask & whichField))
     {
+        editSField(EffectAmountFieldMask);
         _sfEffectAmount.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GammaFieldMask & whichField))
     {
+        editSField(GammaFieldMask);
         _sfGamma.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
     {
+        editSField(BufferFormatFieldMask);
         _sfBufferFormat.copyFromBin(pMem);
     }
 }

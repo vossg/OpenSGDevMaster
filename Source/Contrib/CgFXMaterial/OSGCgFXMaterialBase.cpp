@@ -765,42 +765,52 @@ void CgFXMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TreatTechniquesAsVariantsFieldMask & whichField))
     {
+        editSField(TreatTechniquesAsVariantsFieldMask);
         _sfTreatTechniquesAsVariants.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EffectFileFieldMask & whichField))
     {
+        editSField(EffectFileFieldMask);
         _sfEffectFile.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EffectStringFieldMask & whichField))
     {
+        editSField(EffectStringFieldMask);
         _sfEffectString.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CompilerOptionsFieldMask & whichField))
     {
+        editMField(CompilerOptionsFieldMask, _mfCompilerOptions);
         _mfCompilerOptions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
+        editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VariableNamesFieldMask & whichField))
     {
+        editMField(VariableNamesFieldMask, _mfVariableNames);
         _mfVariableNames.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StateVariablesFieldMask & whichField))
     {
+        editSField(StateVariablesFieldMask);
         _sfStateVariables.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TechniquesFieldMask & whichField))
     {
+        editMField(TechniquesFieldMask, _mfTechniques);
         _mfTechniques.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexturesFieldMask & whichField))
     {
+        editMField(TexturesFieldMask, _mfTextures);
         _mfTextures.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
 }

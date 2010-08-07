@@ -238,6 +238,7 @@ void SwitchBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
     {
+        editSField(ChoiceFieldMask);
         _sfChoice.copyFromBin(pMem);
     }
 }

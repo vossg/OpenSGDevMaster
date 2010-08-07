@@ -385,18 +385,22 @@ void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {
+        editSField(TextureFieldMask);
         _sfTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexTargetFieldMask & whichField))
     {
+        editSField(TexTargetFieldMask);
         _sfTexTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LevelFieldMask & whichField))
     {
+        editSField(LevelFieldMask);
         _sfLevel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
     {
+        editSField(ZoffsetFieldMask);
         _sfZoffset.copyFromBin(pMem);
     }
 }

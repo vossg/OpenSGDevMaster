@@ -290,10 +290,12 @@ void MultiSwitchBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ChoicesFieldMask & whichField))
     {
+        editMField(ChoicesFieldMask, _mfChoices);
         _mfChoices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SwitchModeFieldMask & whichField))
     {
+        editSField(SwitchModeFieldMask);
         _sfSwitchMode.copyFromBin(pMem);
     }
 }

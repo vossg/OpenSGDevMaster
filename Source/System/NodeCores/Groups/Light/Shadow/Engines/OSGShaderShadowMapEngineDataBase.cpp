@@ -631,26 +631,32 @@ void ShaderShadowMapEngineDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderTargetsFieldMask & whichField))
     {
+        editMField(RenderTargetsFieldMask, _mfRenderTargets);
         _mfRenderTargets.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowTexBuffersFieldMask & whichField))
     {
+        editMField(ShadowTexBuffersFieldMask, _mfShadowTexBuffers);
         _mfShadowTexBuffers.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {
+        editSField(ShadowTexChunkFieldMask);
         _sfShadowTexChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShadowTexImageFieldMask & whichField))
     {
+        editSField(ShadowTexImageFieldMask);
         _sfShadowTexImage.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightPassMaterialsFieldMask & whichField))
     {
+        editMField(LightPassMaterialsFieldMask, _mfLightPassMaterials);
         _mfLightPassMaterials.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
+        editSField(BackgroundFieldMask);
         _sfBackground.copyFromBin(pMem);
     }
 }

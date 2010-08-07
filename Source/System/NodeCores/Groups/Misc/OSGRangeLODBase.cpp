@@ -318,14 +318,17 @@ void RangeLODBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CenterFieldMask & whichField))
     {
+        editSField(CenterFieldMask);
         _sfCenter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SwitchInFieldMask & whichField))
     {
+        editSField(SwitchInFieldMask);
         _sfSwitchIn.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SwitchOutFieldMask & whichField))
     {
+        editSField(SwitchOutFieldMask);
         _sfSwitchOut.copyFromBin(pMem);
     }
 }

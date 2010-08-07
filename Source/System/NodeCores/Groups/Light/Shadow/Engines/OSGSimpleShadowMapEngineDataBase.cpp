@@ -560,34 +560,42 @@ void SimpleShadowMapEngineDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
+        editSField(CameraFieldMask);
         _sfCamera.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
+        editSField(RenderTargetFieldMask);
         _sfRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexChunkFieldMask & whichField))
     {
+        editSField(TexChunkFieldMask);
         _sfTexChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexBufferFieldMask & whichField))
     {
+        editSField(TexBufferFieldMask);
         _sfTexBuffer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LightChunkFieldMask & whichField))
     {
+        editSField(LightChunkFieldMask);
         _sfLightChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlendChunkFieldMask & whichField))
     {
+        editSField(BlendChunkFieldMask);
         _sfBlendChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexGenChunkFieldMask & whichField))
     {
+        editSField(TexGenChunkFieldMask);
         _sfTexGenChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PolyChunkFieldMask & whichField))
     {
+        editSField(PolyChunkFieldMask);
         _sfPolyChunk.copyFromBin(pMem);
     }
 }

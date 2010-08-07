@@ -427,18 +427,22 @@ void CSMDrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
     {
+        editMField(DrawerFieldMask, _mfDrawer);
         _mfDrawer.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParallelFieldMask & whichField))
     {
+        editSField(ParallelFieldMask);
         _sfParallel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SyncBarrierNameFieldMask & whichField))
     {
+        editSField(SyncBarrierNameFieldMask);
         _sfSyncBarrierName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SwapBarrierNameFieldMask & whichField))
     {
+        editSField(SwapBarrierNameFieldMask);
         _sfSwapBarrierName.copyFromBin(pMem);
     }
 }

@@ -338,14 +338,17 @@ void RenderBufferBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
+        editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
     {
+        editSField(InternalFormatFieldMask);
         _sfInternalFormat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {
+        editSField(ImageFieldMask);
         _sfImage.copyFromBin(pMem);
     }
 }

@@ -297,6 +297,7 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CoresFieldMask & whichField))
     {
+        editMField(CoresFieldMask, _mfCores);
         _mfCores.copyFromBin(pMem);
     }
 }

@@ -380,18 +380,22 @@ void TextureGrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {
+        editSField(TextureFieldMask);
         _sfTexture.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AutoResizeFieldMask & whichField))
     {
+        editSField(AutoResizeFieldMask);
         _sfAutoResize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BindTargetFieldMask & whichField))
     {
+        editSField(BindTargetFieldMask);
         _sfBindTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CopyTargetFieldMask & whichField))
     {
+        editSField(CopyTargetFieldMask);
         _sfCopyTarget.copyFromBin(pMem);
     }
 }

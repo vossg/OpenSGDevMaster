@@ -293,14 +293,17 @@ void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CallbackFieldMask & whichField))
     {
+        editSField(CallbackFieldMask);
         _sfCallback.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderEnterFieldMask & whichField))
     {
+        editSField(RenderEnterFieldMask);
         _sfRenderEnter.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderLeaveFieldMask & whichField))
     {
+        editSField(RenderLeaveFieldMask);
         _sfRenderLeave.copyFromBin(pMem);
     }
 }

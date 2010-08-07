@@ -272,10 +272,12 @@ void DynamicStateGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
+        editSField(RenderTargetFieldMask);
         _sfRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
+        editMField(ChunksFieldMask, _mfChunks);
         _mfChunks.copyFromBin(pMem);
     }
 }

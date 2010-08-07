@@ -853,58 +853,72 @@ void MaterialChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DiffuseFieldMask & whichField))
     {
+        editSField(DiffuseFieldMask);
         _sfDiffuse.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {
+        editSField(AmbientFieldMask);
         _sfAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpecularFieldMask & whichField))
     {
+        editSField(SpecularFieldMask);
         _sfSpecular.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EmissionFieldMask & whichField))
     {
+        editSField(EmissionFieldMask);
         _sfEmission.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShininessFieldMask & whichField))
     {
+        editSField(ShininessFieldMask);
         _sfShininess.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LitFieldMask & whichField))
     {
+        editSField(LitFieldMask);
         _sfLit.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
     {
+        editSField(ColorMaterialFieldMask);
         _sfColorMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackMaterialFieldMask & whichField))
     {
+        editSField(BackMaterialFieldMask);
         _sfBackMaterial.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackDiffuseFieldMask & whichField))
     {
+        editSField(BackDiffuseFieldMask);
         _sfBackDiffuse.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackAmbientFieldMask & whichField))
     {
+        editSField(BackAmbientFieldMask);
         _sfBackAmbient.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackSpecularFieldMask & whichField))
     {
+        editSField(BackSpecularFieldMask);
         _sfBackSpecular.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackEmissionFieldMask & whichField))
     {
+        editSField(BackEmissionFieldMask);
         _sfBackEmission.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackShininessFieldMask & whichField))
     {
+        editSField(BackShininessFieldMask);
         _sfBackShininess.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BackColorMaterialFieldMask & whichField))
     {
+        editSField(BackColorMaterialFieldMask);
         _sfBackColorMaterial.copyFromBin(pMem);
     }
 }

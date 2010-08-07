@@ -1311,98 +1311,122 @@ void QuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (HeightDataFieldMask & whichField))
     {
+        editSField(HeightDataFieldMask);
         _sfHeightData.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
     {
+        editSField(HeightScaleFieldMask);
         _sfHeightScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
     {
+        editMField(HeightErrorFieldMask, _mfHeightError);
         _mfHeightError.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
     {
+        editMField(HeightQuadFieldMask, _mfHeightQuad);
         _mfHeightQuad.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LevelFieldMask & whichField))
     {
+        editSField(LevelFieldMask);
         _sfLevel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DetailFieldMask & whichField))
     {
+        editSField(DetailFieldMask);
         _sfDetail.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BorderDetailFieldMask & whichField))
     {
+        editSField(BorderDetailFieldMask);
         _sfBorderDetail.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
     {
+        editSField(VertexSpacingFieldMask);
         _sfVertexSpacing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HeightVerticesFieldMask & whichField))
     {
+        editSField(HeightVerticesFieldMask);
         _sfHeightVertices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
     {
+        editSField(GeoMorphingFieldMask);
         _sfGeoMorphing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BoundMinFieldMask & whichField))
     {
+        editSField(BoundMinFieldMask);
         _sfBoundMin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BoundMaxFieldMask & whichField))
     {
+        editSField(BoundMaxFieldMask);
         _sfBoundMax.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyePointFieldMask & whichField))
     {
+        editSField(EyePointFieldMask);
         _sfEyePoint.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyeHeightFieldMask & whichField))
     {
+        editSField(EyeHeightFieldMask);
         _sfEyeHeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EyePointValidFieldMask & whichField))
     {
+        editSField(EyePointValidFieldMask);
         _sfEyePointValid.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginXFieldMask & whichField))
     {
+        editSField(OriginXFieldMask);
         _sfOriginX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginYFieldMask & whichField))
     {
+        editSField(OriginYFieldMask);
         _sfOriginY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginTexXFieldMask & whichField))
     {
+        editSField(OriginTexXFieldMask);
         _sfOriginTexX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OriginTexYFieldMask & whichField))
     {
+        editSField(OriginTexYFieldMask);
         _sfOriginTexY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexSpacingFieldMask & whichField))
     {
+        editSField(TexSpacingFieldMask);
         _sfTexSpacing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexYSpacingFieldMask & whichField))
     {
+        editSField(TexYSpacingFieldMask);
         _sfTexYSpacing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
     {
+        editSField(UpdateTerrainFieldMask);
         _sfUpdateTerrain.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
     {
+        editSField(PerPixelLightingFieldMask);
         _sfPerPixelLighting.copyFromBin(pMem);
     }
 }

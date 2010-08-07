@@ -323,14 +323,17 @@ void DistortionDisplayFilterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RowsFieldMask & whichField))
     {
+        editSField(RowsFieldMask);
         _sfRows.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColumnsFieldMask & whichField))
     {
+        editSField(ColumnsFieldMask);
         _sfColumns.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
     {
+        editMField(PositionsFieldMask, _mfPositions);
         _mfPositions.copyFromBin(pMem);
     }
 }

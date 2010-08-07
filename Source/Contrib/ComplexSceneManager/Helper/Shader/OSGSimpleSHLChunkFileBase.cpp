@@ -318,14 +318,17 @@ void SimpleSHLChunkFileBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VertexProgramUrlFieldMask & whichField))
     {
+        editSField(VertexProgramUrlFieldMask);
         _sfVertexProgramUrl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryProgramUrlFieldMask & whichField))
     {
+        editSField(GeometryProgramUrlFieldMask);
         _sfGeometryProgramUrl.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FragmentProgramUrlFieldMask & whichField))
     {
+        editSField(FragmentProgramUrlFieldMask);
         _sfFragmentProgramUrl.copyFromBin(pMem);
     }
 }

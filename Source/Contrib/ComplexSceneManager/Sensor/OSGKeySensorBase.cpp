@@ -416,22 +416,27 @@ void KeySensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
+        editSField(KeyFieldMask);
         _sfKey.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StateRawFieldMask & whichField))
     {
+        editSField(StateRawFieldMask);
         _sfStateRaw.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StateFlipFlopFieldMask & whichField))
     {
+        editSField(StateFlipFlopFieldMask);
         _sfStateFlipFlop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SignalPressedFieldMask & whichField))
     {
+        editSField(SignalPressedFieldMask);
         _sfSignalPressed.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SignalReleasedFieldMask & whichField))
     {
+        editSField(SignalReleasedFieldMask);
         _sfSignalReleased.copyFromBin(pMem);
     }
 }

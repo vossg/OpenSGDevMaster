@@ -222,6 +222,7 @@ void ShaderValueVariableBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (VariableIdxFieldMask & whichField))
     {
+        editMField(VariableIdxFieldMask, _mfVariableIdx);
         _mfVariableIdx.copyFromBin(pMem);
     }
 }

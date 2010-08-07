@@ -234,6 +234,7 @@ void ShaderParameterMatrixBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {
+        editSField(ValueFieldMask);
         _sfValue.copyFromBin(pMem);
     }
 }

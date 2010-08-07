@@ -370,14 +370,17 @@ void SortLastWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (GroupNodesFieldMask & whichField))
     {
+        editMField(GroupNodesFieldMask, _mfGroupNodes);
         _mfGroupNodes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GroupLengthsFieldMask & whichField))
     {
+        editMField(GroupLengthsFieldMask, _mfGroupLengths);
         _mfGroupLengths.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GroupsChangedFieldMask & whichField))
     {
+        editSField(GroupsChangedFieldMask);
         _sfGroupsChanged.copyFromBin(pMem);
     }
 }

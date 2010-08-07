@@ -280,10 +280,12 @@ void SimpleShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
     {
+        editSField(ShadowColorFieldMask);
         _sfShadowColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
     {
+        editSField(ForceTextureUnitFieldMask);
         _sfForceTextureUnit.copyFromBin(pMem);
     }
 }

@@ -246,6 +246,7 @@ void MaterialChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {
+        editSField(MaterialFieldMask);
         _sfMaterial.copyFromBin(pMem);
     }
 }

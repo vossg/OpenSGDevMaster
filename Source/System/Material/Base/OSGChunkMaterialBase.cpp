@@ -305,10 +305,12 @@ void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
+        editMField(ChunksFieldMask, _mfChunks);
         _mfChunks.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SlotsFieldMask & whichField))
     {
+        editMField(SlotsFieldMask, _mfSlots);
         _mfSlots.copyFromBin(pMem);
     }
 }

@@ -340,10 +340,12 @@ void StatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
     {
+        editMField(ElementIDsFieldMask, _mfElementIDs);
         _mfElementIDs.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CollectorFieldMask & whichField))
     {
+        editSField(CollectorFieldMask);
         _sfCollector.copyFromBin(pMem);
     }
 }

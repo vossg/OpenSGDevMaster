@@ -234,6 +234,7 @@ void DisplayFilterBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
 }

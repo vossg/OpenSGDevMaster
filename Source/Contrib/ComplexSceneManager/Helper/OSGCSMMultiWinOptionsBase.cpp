@@ -457,26 +457,32 @@ void CSMMultiWinOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (XOverlapFieldMask & whichField))
     {
+        editSField(XOverlapFieldMask);
         _sfXOverlap.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (YOverlapFieldMask & whichField))
     {
+        editSField(YOverlapFieldMask);
         _sfYOverlap.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ManageClientViewportsFieldMask & whichField))
     {
+        editSField(ManageClientViewportsFieldMask);
         _sfManageClientViewports.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BalanceFieldMask & whichField))
     {
+        editSField(BalanceFieldMask);
         _sfBalance.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BestCutFieldMask & whichField))
     {
+        editSField(BestCutFieldMask);
         _sfBestCut.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShowBalancingFieldMask & whichField))
     {
+        editSField(ShowBalancingFieldMask);
         _sfShowBalancing.copyFromBin(pMem);
     }
 }

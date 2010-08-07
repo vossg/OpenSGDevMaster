@@ -407,18 +407,22 @@ void LineChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
+        editSField(WidthFieldMask);
         _sfWidth.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StippleRepeatFieldMask & whichField))
     {
+        editSField(StippleRepeatFieldMask);
         _sfStippleRepeat.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StipplePatternFieldMask & whichField))
     {
+        editSField(StipplePatternFieldMask);
         _sfStipplePattern.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SmoothFieldMask & whichField))
     {
+        editSField(SmoothFieldMask);
         _sfSmooth.copyFromBin(pMem);
     }
 }

@@ -236,6 +236,7 @@ void CSMPassiveWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ViewportScaleFieldMask & whichField))
     {
+        editSField(ViewportScaleFieldMask);
         _sfViewportScale.copyFromBin(pMem);
     }
 }

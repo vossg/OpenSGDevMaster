@@ -511,26 +511,32 @@ void MatrixCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (PreViewingFieldMask & whichField))
     {
+        editSField(PreViewingFieldMask);
         _sfPreViewing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PostViewingFieldMask & whichField))
     {
+        editSField(PostViewingFieldMask);
         _sfPostViewing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PreProjectionTranslationFieldMask & whichField))
     {
+        editSField(PreProjectionTranslationFieldMask);
         _sfPreProjectionTranslation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PostProjectionTranslationFieldMask & whichField))
     {
+        editSField(PostProjectionTranslationFieldMask);
         _sfPostProjectionTranslation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PreProjectionFieldMask & whichField))
     {
+        editSField(PreProjectionFieldMask);
         _sfPreProjection.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PostProjectionFieldMask & whichField))
     {
+        editSField(PostProjectionFieldMask);
         _sfPostProjection.copyFromBin(pMem);
     }
 }

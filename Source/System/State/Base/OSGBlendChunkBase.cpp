@@ -615,34 +615,42 @@ void BlendChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SrcFactorFieldMask & whichField))
     {
+        editSField(SrcFactorFieldMask);
         _sfSrcFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DestFactorFieldMask & whichField))
     {
+        editSField(DestFactorFieldMask);
         _sfDestFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EquationFieldMask & whichField))
     {
+        editSField(EquationFieldMask);
         _sfEquation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
+        editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaFuncFieldMask & whichField))
     {
+        editSField(AlphaFuncFieldMask);
         _sfAlphaFunc.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaValueFieldMask & whichField))
     {
+        editSField(AlphaValueFieldMask);
         _sfAlphaValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaSrcFactorFieldMask & whichField))
     {
+        editSField(AlphaSrcFactorFieldMask);
         _sfAlphaSrcFactor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlphaDestFactorFieldMask & whichField))
     {
+        editSField(AlphaDestFactorFieldMask);
         _sfAlphaDestFactor.copyFromBin(pMem);
     }
 }
