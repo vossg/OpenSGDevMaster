@@ -615,12 +615,18 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 @@if isDecorator
     if(FieldBits::NoField != (DecorateeFieldMask & whichField))
     {
+        editSField(DecorateeFieldMask);
         _sfDecoratee.copyFromBin(pMem);
     }
 @@else // isDecorator
     @@BeginFieldLoop@@
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
+    @@if field.isSField
+        editSField(@!field.Name!@FieldMask);
+    @@else
+        editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+    @@endif
         _@!field.VarName!@.copyFromBin(pMem);
     }
     @@EndFieldLoop@@
