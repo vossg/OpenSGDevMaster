@@ -181,11 +181,11 @@ void AttachmentContainer::addAttachment(
 
     if(this->isMTLocal())
     {
-        pAttachment->addReferenceRecorded();
+        pAttachment->addReferenceUnrecorded();
     }
     else
     {
-        pAttachment->addReferenceUnrecorded();
+        pAttachment->addReferenceRecorded();
     }
 
     pAttachment->linkParent(this, 
@@ -203,11 +203,11 @@ void AttachmentContainer::addAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceRecorded();
+            (*fcI).second->subReferenceUnrecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecorded();
+            (*fcI).second->subReferenceRecorded();
         }
 
         (*fcI).second = pAttachment;
@@ -254,11 +254,11 @@ void AttachmentContainer::subAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceRecorded();
+            (*fcI).second->subReferenceUnrecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecorded();
+            (*fcI).second->subReferenceRecorded();
         }
 
         _sfAttachments.getValue().erase(fcI);
@@ -362,11 +362,11 @@ void AttachmentContainer::execSync(
         {
             if(this->isMTLocal())
             {
-                (*fcI).second->subReferenceRecorded();
+                (*fcI).second->subReferenceUnrecorded();
             }
             else
             {
-                (*fcI).second->subReferenceUnrecorded();
+                (*fcI).second->subReferenceRecorded();
             }
             
             ++fcI;
@@ -392,11 +392,11 @@ void AttachmentContainer::resolveLinks(void)
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceRecorded();
+            (*fcI).second->subReferenceUnrecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecorded();
+            (*fcI).second->subReferenceRecorded();
         }
 
         ++fcI;
