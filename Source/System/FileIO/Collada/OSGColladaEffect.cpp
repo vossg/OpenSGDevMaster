@@ -1254,8 +1254,7 @@ ColladaEffect::createInstanceProfileCG(
 		// Since the CgFXMaterial isn't initialized (i.e., the code compiled)
 		// until commitChanges() is called, we call it here so that we can update 
 		// the variables according to their values in the COLLADA file
-		newCgFXmat->_mDelayTextureExtraction = true;
-		OSG::commitChanges();
+		newCgFXmat->setParameterValueSource(CgFXMaterial::CURRENT);
 
 		// In the event that there are samplers/texture, we handle them separately from the uniform variables
 		// for now, if we find one, we'll just push it onto a vector and handle it later.
@@ -1389,8 +1388,7 @@ ColladaEffect::createInstanceProfileCG(
 				}
 			}
 		}
-		// clear out texures so there isn't any confusion...
-		newCgFXmat->clearTextures();
+
 		// now we update the samplers' texture references
 		for(UInt32 i(0); i < samplerParams.size(); i++)
 		{
@@ -1430,33 +1428,22 @@ ColladaEffect::createInstanceProfileCG(
 			if(!szFilename.empty())
 			{
 				// we have the new path of the file
-				// read and set the textures
-				// this is copied straight from the CgFXMaterial.cpp file
-
+				// set it as a variable, so it will be initialized later
+				// by the material when it is initialized
 				Int32 uiSamplerId = -1;
 
-                ImageUnrecPtr pImg = 
-                    ImageFileHandler::the()->read(fixImageFilepath(szFilename).c_str());
+                CgFXVariableTexObjUnrecPtr pVar = 
+                    CgFXVariableTexObj::create();
 
-                if(pImg != NULL)
-                {
-                    TextureObjChunkUnrecPtr pTexO = TextureObjChunk::create();
+                pVar->setName (samplerParams[i]->getRef());
+                pVar->setValue(uiSamplerId);
+				pVar->setFilePath(szFilename);
 
-                    setName(pTexO, samplerParams[i]->getRef());
+                newCgFXmat->addVariable   (pVar );
 
-                    pTexO->setImage(pImg);
-
-                    CgFXVariableTexObjUnrecPtr pVar = 
-                        CgFXVariableTexObj::create();
-
-                    pVar->setName (samplerParams[i]->getRef());
-                    pVar->setValue(uiSamplerId);
-
-                    newCgFXmat->addVariable   (pVar );
-                    newCgFXmat->pushToTextures(pTexO); 
-                }
 			} // end if(!szFilename.empty())
 		} // end for(samplerParams.size())
+
 		// set the technique for this effect
 		domInstance_effect::domTechnique_hint_Array techHnts = instEffect->getTechnique_hint_array();
 		std::string techName;
