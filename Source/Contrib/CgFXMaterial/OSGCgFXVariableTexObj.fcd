@@ -1,24 +1,33 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="CgFXVariableTexObj"
-   parent="ShaderValueVariable"
-   library="ContribCgFX"
-   pointerfieldtypes="both"
-   structure="concrete"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   docGroupBase="GrpSystemShader"
-   >
+    name="CgFXVariableTexObj"
+    parent="ShaderValueVariable"
+    library="ContribCgFX"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemShader"
+    >
   <Field
-	 name="value"
-	 type="Int32"
-	 cardinality="single"
-	 visibility="external"
-	 access="public"
-	 >
-	parameter value
+      name="value"
+      type="Int32"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+    parameter value
+  </Field>
+  <Field
+      name="filePath"
+      type="std::string"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+    filepath of this texture
   </Field>
 </FieldContainer>

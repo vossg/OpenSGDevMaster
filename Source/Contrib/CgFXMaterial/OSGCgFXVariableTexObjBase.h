@@ -66,6 +66,7 @@
 #include "OSGShaderValueVariable.h" // Parent
 
 #include "OSGSysFields.h"               // Value type
+#include "OSGBaseFields.h"              // FilePath type
 
 #include "OSGCgFXVariableTexObjFields.h"
 
@@ -95,15 +96,19 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
     enum
     {
         ValueFieldId = Inherited::NextFieldId,
-        NextFieldId = ValueFieldId + 1
+        FilePathFieldId = ValueFieldId + 1,
+        NextFieldId = FilePathFieldId + 1
     };
 
     static const OSG::BitVector ValueFieldMask =
         (TypeTraits<BitVector>::One << ValueFieldId);
+    static const OSG::BitVector FilePathFieldMask =
+        (TypeTraits<BitVector>::One << FilePathFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFInt32           SFValueType;
+    typedef SFString          SFFilePathType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -132,9 +137,15 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
                   SFInt32             *editSFValue          (void);
             const SFInt32             *getSFValue           (void) const;
 
+                  SFString            *editSFFilePath       (void);
+            const SFString            *getSFFilePath        (void) const;
+
 
                   Int32               &editValue          (void);
                   Int32                getValue           (void) const;
+
+                  std::string         &editFilePath       (void);
+            const std::string         &getFilePath        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,6 +153,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
     /*! \{                                                                 */
 
             void setValue          (const Int32 value);
+            void setFilePath       (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,6 +214,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
     /*! \{                                                                 */
 
     SFInt32           _sfValue;
+    SFString          _sfFilePath;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -231,6 +244,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
 
     GetFieldHandlePtr  getHandleValue           (void) const;
     EditFieldHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleFilePath        (void) const;
+    EditFieldHandlePtr editHandleFilePath       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

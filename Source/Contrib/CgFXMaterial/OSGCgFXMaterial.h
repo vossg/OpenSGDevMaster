@@ -90,6 +90,12 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
         CgTime                 = 0x000C
     };
 
+    enum ParamValueSource 
+    {
+        DEFAULT, 
+        CURRENT 
+    };
+
     static const UInt32 CgProjectionMask          = 0x0001 << CgProjection;
     static const UInt32 CgModelViewProjectionMask = 
         0x0001 << CgModelViewProjection;
@@ -181,7 +187,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     // index of the technique in _mfTechniques to use for this material
     UInt32      _pTechIdx; 
-	bool        _mDelayTextureExtraction;
+    bool        _mDelayTextureExtraction;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -235,7 +241,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     void readEffectFile        (      void                      );
     void processEffectString   (      void                      );
 
-    void extractParameters     (      void						);
+    void extractParameters     (      void                      );
     void updateUniformVariables(      void                      );
 
     template<class ValueT>

@@ -29,7 +29,23 @@
         visibility="external"
         access="public"
         >
-    cgfx file
+      cgfx file
+    </Field>
+    <Field
+        name="ParameterValueSource"
+        type="UInt8"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="CgFXMaterial::DEFAULT"
+        >
+      Source to use for parameters when initializing the material.
+      DEFAULT: Uses the values that are read in from the .cgfx file or code
+      string. Will overwrite the current value for the corresponding 
+      ShaderProgramVariable if there is one.
+      CURRENT: Checks if the material already has a ShaderProgramVariable of
+      the same name, and if it does, it uses that value instead of the default
+      value. 
     </Field>
     <Field
         name="effectString"

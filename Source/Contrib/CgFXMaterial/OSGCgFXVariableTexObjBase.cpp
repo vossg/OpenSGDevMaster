@@ -85,6 +85,10 @@ OSG_BEGIN_NAMESPACE
     parameter value
 */
 
+/*! \var std::string     CgFXVariableTexObjBase::_sfFilePath
+    filepath of this texture
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -128,6 +132,18 @@ void CgFXVariableTexObjBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CgFXVariableTexObj::getHandleValue));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "filePath",
+        "filepath of this texture\n",
+        FilePathFieldId, FilePathFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CgFXVariableTexObj::editHandleFilePath),
+        static_cast<FieldGetMethodSig >(&CgFXVariableTexObj::getHandleFilePath));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -164,6 +180,15 @@ CgFXVariableTexObjBase::TypeObject CgFXVariableTexObjBase::_type(
     "\t access=\"public\"\n"
     "\t >\n"
     "\tparameter value\n"
+    "  </Field>\n"
+    "   <Field\n"
+    "\t name=\"filePath\"\n"
+    "\t type=\"std::string\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tfilepath of this texture\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -202,6 +227,19 @@ const SFInt32 *CgFXVariableTexObjBase::getSFValue(void) const
 }
 
 
+SFString *CgFXVariableTexObjBase::editSFFilePath(void)
+{
+    editSField(FilePathFieldMask);
+
+    return &_sfFilePath;
+}
+
+const SFString *CgFXVariableTexObjBase::getSFFilePath(void) const
+{
+    return &_sfFilePath;
+}
+
+
 
 
 
@@ -216,6 +254,10 @@ UInt32 CgFXVariableTexObjBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfValue.getBinSize();
     }
+    if(FieldBits::NoField != (FilePathFieldMask & whichField))
+    {
+        returnValue += _sfFilePath.getBinSize();
+    }
 
     return returnValue;
 }
@@ -229,6 +271,10 @@ void CgFXVariableTexObjBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfValue.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (FilePathFieldMask & whichField))
+    {
+        _sfFilePath.copyToBin(pMem);
+    }
 }
 
 void CgFXVariableTexObjBase::copyFromBin(BinaryDataHandler &pMem,
@@ -240,6 +286,10 @@ void CgFXVariableTexObjBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ValueFieldMask);
         _sfValue.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FilePathFieldMask & whichField))
+    {
+        _sfFilePath.copyFromBin(pMem);
     }
 }
 
@@ -366,13 +416,15 @@ FieldContainerTransitPtr CgFXVariableTexObjBase::shallowCopy(void) const
 
 CgFXVariableTexObjBase::CgFXVariableTexObjBase(void) :
     Inherited(),
-    _sfValue                  ()
+    _sfValue                  (),
+    _sfFilePath               ()
 {
 }
 
 CgFXVariableTexObjBase::CgFXVariableTexObjBase(const CgFXVariableTexObjBase &source) :
     Inherited(source),
-    _sfValue                  (source._sfValue                  )
+    _sfValue                  (source._sfValue                  ),
+    _sfFilePath               (source._sfFilePath               )
 {
 }
 
@@ -405,6 +457,31 @@ EditFieldHandlePtr CgFXVariableTexObjBase::editHandleValue          (void)
 
 
     editSField(ValueFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CgFXVariableTexObjBase::getHandleFilePath        (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfFilePath,
+             this->getType().getFieldDesc(FilePathFieldId),
+             const_cast<CgFXVariableTexObjBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CgFXVariableTexObjBase::editHandleFilePath       (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfFilePath,
+             this->getType().getFieldDesc(FilePathFieldId),
+             this));
+
+
+    editSField(FilePathFieldMask);
 
     return returnValue;
 }

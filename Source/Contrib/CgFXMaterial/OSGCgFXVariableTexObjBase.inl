@@ -99,6 +99,31 @@ void CgFXVariableTexObjBase::setValue(const Int32 value)
 
     _sfValue.setValue(value);
 }
+//! Get the value of the CgFXVariableTexObj::_sfFilePath field.
+
+inline
+std::string &CgFXVariableTexObjBase::editFilePath(void)
+{
+    editSField(FilePathFieldMask);
+
+    return _sfFilePath.getValue();
+}
+
+//! Get the value of the CgFXVariableTexObj::_sfFilePath field.
+inline
+const std::string &CgFXVariableTexObjBase::getFilePath(void) const
+{
+    return _sfFilePath.getValue();
+}
+
+//! Set the value of the CgFXVariableTexObj::_sfFilePath field.
+inline
+void CgFXVariableTexObjBase::setFilePath(const std::string &value)
+{
+    editSField(FilePathFieldMask);
+
+    _sfFilePath.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -113,6 +138,9 @@ void CgFXVariableTexObjBase::execSync (      CgFXVariableTexObjBase *pFrom,
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
         _sfValue.syncWith(pFrom->_sfValue);
+
+    if(FieldBits::NoField != (FilePathFieldMask & whichField))
+        _sfFilePath.syncWith(pFrom->_sfFilePath);
 }
 #endif
 
