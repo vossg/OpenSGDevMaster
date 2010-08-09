@@ -77,10 +77,10 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
                                        const Int16  y     );
 private:
 
-    NodeUnrecPtr         _maniN;
-    ManipulatorType      _currentType;
-    NodeUnrecPtr         _target;
-    ViewportUnrecPtr     _viewport;
+    NodeRefPtr         _maniN;
+    ManipulatorType    _currentType;
+    NodeRefPtr         _target;
+    ViewportRefPtr     _viewport;
 };
 
 OSG_END_NAMESPACE

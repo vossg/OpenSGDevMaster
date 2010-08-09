@@ -148,16 +148,11 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     Pnt2f calcScreenProjection(const Pnt3f    &,
                                      Viewport * const port);
 
-    NodeUnrecPtr            _activeParent;
+    NodeRefPtr              _activeParent;
     ExternalUpdateHandler*  _externalUpdateHandler;
 
     /*==========================  PRIVATE  ================================*/
   private:
-
-    ComponentTransformUnrecPtr _transHandleXC;
-    ComponentTransformUnrecPtr _transHandleYC;
-    ComponentTransformUnrecPtr _transHandleZC;
-
     friend class FieldContainer;
     friend class ManipulatorBase;
 

@@ -268,18 +268,18 @@ void Manipulator::onCreate(const Manipulator* source)
 
     pNode = Node::create();
     setTransXNode(pNode);
-    _transHandleXC = ComponentTransform::create();
+    OSG::ComponentTransformUnrecPtr transHandleXC = ComponentTransform::create();
 
     pNode = makeHandleGeo();
     setHandleXNode(pNode);
     pMat = SimpleMaterial::create();
     setMaterialX  (pMat );
 
-    getTransXNode()->setCore (_transHandleXC  );
+    getTransXNode()->setCore (transHandleXC   );
     getTransXNode()->addChild(getHandleXNode());
 
-    _transHandleXC->setTranslation(Vec3f(getLength()[0], 0, 0)                   );
-    _transHandleXC->setRotation   (Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
+    transHandleXC->setTranslation(Vec3f(getLength()[0], 0, 0)                   );
+    transHandleXC->setRotation   (Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
     simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialX());
 
@@ -294,17 +294,17 @@ void Manipulator::onCreate(const Manipulator* source)
 
     pNode = Node::create();
     setTransYNode(pNode);
-    _transHandleYC = ComponentTransform::create();
+    OSG::ComponentTransformUnrecPtr transHandleYC = ComponentTransform::create();
     pNode = makeHandleGeo();
     setHandleYNode(pNode);
     pMat = SimpleMaterial::create();
     setMaterialY(pMat);
 
-    getTransYNode()->setCore (_transHandleYC  );
+    getTransYNode()->setCore (transHandleYC   );
     getTransYNode()->addChild(getHandleYNode());
 
-    _transHandleYC->setTranslation(Vec3f(0, getLength()[1], 0)                    );
-//    _transHandleYC->setRotation   ( Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
+    transHandleYC->setTranslation(Vec3f(0, getLength()[1], 0)                    );
+//    transHandleYC->setRotation   ( Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
     simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialY());
     simpleMat->setDiffuse(Color3f(0, 1, 0));
@@ -318,17 +318,17 @@ void Manipulator::onCreate(const Manipulator* source)
 
     pNode = Node::create();
     setTransZNode(pNode);
-    _transHandleZC = ComponentTransform::create();
+    OSG::ComponentTransformUnrecPtr transHandleZC = ComponentTransform::create();
     pNode = makeHandleGeo();
     setHandleZNode(pNode);
     pMat = SimpleMaterial::create();
     setMaterialZ  (pMat);
 
-    getTransZNode()->setCore (_transHandleZC);
+    getTransZNode()->setCore (transHandleZC   );
     getTransZNode()->addChild(getHandleZNode());
 
-    _transHandleZC->setTranslation(Vec3f(0, 0, getLength()[2])                  );
-    _transHandleZC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
+    transHandleZC->setTranslation(Vec3f(0, 0, getLength()[2])                  );
+    transHandleZC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
 
     simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialZ());
     simpleMat->setDiffuse(Color3f(0, 0, 1));
@@ -349,10 +349,6 @@ void Manipulator::resolveLinks(void)
     Inherited::resolveLinks();
 
     _activeParent  = NULL;
-
-    _transHandleXC = NULL;
-    _transHandleYC = NULL;
-    _transHandleZC = NULL;
 }
 
 Pnt2f Manipulator::calcScreenProjection(const Pnt3f    &       p,
