@@ -91,6 +91,22 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
 
     // Variables should all be in QuadTreeTerrainBase.
 
+    enum CompassDirection
+    {
+      NW = 0,
+      W  = 1,
+      SW = 2,
+      S  = 3,
+      SE = 4,
+      E  = 5,
+      NE = 6,
+      N  = 7,
+      C  = 8
+    };
+
+    static const Real32           _minGlobalRes;
+    static SimpleSHLChunkMTRecPtr _shlChunk;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -197,6 +213,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
