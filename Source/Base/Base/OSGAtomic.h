@@ -62,38 +62,31 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(WIN32)
 
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
+
 inline 
 RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
                                       RefCountStore  rcDelta)
 {
-#if 0
-    RefCountStore ret = *pValue;
-    
-    *pValue += rcDelta;
-    
-    return ret;
-#endif
-
     return boost::detail::atomic_exchange_and_add(pValue, rcDelta);
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline 
 void osgAtomicIncrement(RefCountStore *pValue)
 {
-#if 0
-    ++(*pValue);
-#endif
-
     boost::detail::atomic_increment(pValue);
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline 
 void osgAtomicDecrement(RefCountStore *pValue)
 {
-#if 0
-    --(*pValue);
-#endif
-
     __asm__
     (
         "lock\n\t"
@@ -103,6 +96,9 @@ void osgAtomicDecrement(RefCountStore *pValue)
         "cc" // clobbers
     );
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline
 void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
@@ -114,6 +110,9 @@ void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
 #endif
 }
 
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
+
 inline
 void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 {
@@ -124,40 +123,36 @@ void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 
 #else // !defined(WIN32)
 
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
+
 inline 
 RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
                                       RefCountStore  rcDelta)
 {
-#if 0
-    RefCountStore ret = *pValue;
-    
-    *pValue += rcDelta;
-    
-    return ret;
-#endif
-
     return _InterlockedExchangeAdd(pValue, rcDelta);
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline 
 void osgAtomicIncrement(RefCountStore *pValue)
 {
-#if 0
-    ++(*pValue);
-#endif
-    
     _InterlockedIncrement(pValue);
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline 
 void osgAtomicDecrement(RefCountStore *pValue)
 {
-#if 0
-    ++(*pValue);
-#endif
-    
     _InterlockedDecrement(pValue);
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline
 void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
@@ -166,6 +161,9 @@ void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
         (tmpVal & uiMask) != 0x0000; 
         tmpVal = _InterlockedOr((long *) pLock, uiMask));
 }
+
+/*! \ingroup GrpBaseBaseAtomicFn
+ */
 
 inline
 void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)

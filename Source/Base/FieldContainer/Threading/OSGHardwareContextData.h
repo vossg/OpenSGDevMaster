@@ -51,8 +51,8 @@ class HardwareContext;
 /*! \class HardwareContextData 
     Memory, simple reference counted memory object. Parent of
     everything that should be shared, but must not be thread safe.
-    \ingroup GrpBaseBase
-    \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
     \ingroup GrpLibOSGBase
  */
 

@@ -49,7 +49,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
  */
 

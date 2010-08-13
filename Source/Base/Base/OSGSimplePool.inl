@@ -38,7 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-
 template <class PoolTag, class LockPolicy> inline
 SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void) :
     Inherited    ( ),
@@ -63,7 +62,7 @@ Int32 SimplePool<Int32, PoolTag, LockPolicy>::create(void)
 }
 
 template <class PoolTag, class LockPolicy> inline
-void SimplePool<Int32, PoolTag, LockPolicy>::release(Int32)
+void SimplePool<Int32, PoolTag, LockPolicy>::release(Int32 uiVal)
 {
 }
 

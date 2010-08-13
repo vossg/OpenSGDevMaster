@@ -61,7 +61,9 @@ class PoolDefaultTag;
 class OSG_BASE_DLLMAPPING SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name            Constructors, Destructor                          */
     /*! \{                                                                 */
@@ -85,13 +87,17 @@ class OSG_BASE_DLLMAPPING SimplePoolBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     UInt32 _nextFreeElement;
     UInt32 _numAllocated;
     UInt32 _numReused;
 
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     SimplePoolBase(const SimplePoolBase &source);
     /*!\brief prohibit default function (move to 'public' if needed) */
@@ -111,7 +117,9 @@ template <class ValueTypeT,
 class SimplePool : public SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Types                                    */
     /*! \{                                                                 */
@@ -154,6 +162,7 @@ class SimplePool : public SimplePoolBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef          std::vector<ValueType *>  ValueStore;
@@ -186,7 +195,9 @@ template<class PoolTagT, class LockPolicyT>
 class SimplePool<Int32, PoolTagT, LockPolicyT> : public SimplePoolBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Types                                    */
     /*! \{                                                                 */

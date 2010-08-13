@@ -36,6 +36,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*---------------------------------------------------------------------*/
+/*! \name linear euqation systems                                      */
+/*! \{                                                                 */
+
 // Solves a system of linear equations of: 2 equations and 2 variables
 //
 //  Equation AX = B
@@ -48,7 +52,10 @@ OSG_BEGIN_NAMESPACE
 //  0 for 0 solutions,
 //  1 for 1 solution
 
-template <class FloatTypeT>
+/*! \ingroup GrpBaseBaseMathFn
+ */
+
+template <class FloatTypeT> inline
 Int8 solveLinearSystem2(FloatTypeT  A11, 
                         FloatTypeT  A12, 
                         FloatTypeT  A21, 
@@ -90,7 +97,15 @@ Int8 solveLinearSystem2(FloatTypeT  A11,
 	return 1;
 }
 
-template<class ValueTypeT, UInt32 SizeI>
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name intersections                                                */
+/*! \{                                                                 */
+
+/*! \ingroup GrpBaseBaseMathFn
+ */
+
+template<class ValueTypeT, UInt32 SizeI> inline
 Int8 intersectLines(const OSG::Point <ValueTypeT, SizeI> &p1,
                     const OSG::Vector<ValueTypeT, SizeI> &v1,
 
@@ -129,6 +144,9 @@ Int8 intersectLines(const OSG::Point <ValueTypeT, SizeI> &p1,
             break;
 	}
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

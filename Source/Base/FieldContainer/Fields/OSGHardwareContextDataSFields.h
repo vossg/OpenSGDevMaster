@@ -53,13 +53,13 @@ OSG_BEGIN_NAMESPACE
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseMemoryObjectsFieldSFields */
 typedef MemObjPointerSField<HardwareContextData *,
                             MemObjRefCountPolicy > SFHardwareContextDataPtr;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseMemoryObjectsFieldSFields \ingroup GrpLibOSGBase */
 struct SFHardwareContextDataPtr : 
     public MemObjPointerSField<HardwareContextData *,
                                MemObjRefCountPolicy > {};

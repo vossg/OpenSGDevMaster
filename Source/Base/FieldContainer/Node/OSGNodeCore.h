@@ -50,8 +50,8 @@ OSG_BEGIN_NAMESPACE
 /*! \brief NodeCore class. See \ref
            PageBaseNodeCore for a description.
 
-   \ingroup GrpBaseFieldContainerNodes
-   \ingroup GrpLibOSGBase
+    \ingroup GrpBaseFieldContainerNodes
+    \ingroup GrpLibOSGBase
     \includebasedoc
 */
 

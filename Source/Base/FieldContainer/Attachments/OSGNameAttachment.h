@@ -54,8 +54,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
+/*! \ingroup GrpBaseFieldContainerAttachments
+    \nohierarchy
  */
 
 struct NameAttachmentDesc
@@ -85,15 +85,21 @@ struct NameAttachmentDesc
     static InitContainerF     getInitMethod(void) { return NULL;  }
 };
 
-/*! \ingroup GrpSystemFieldContainer
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpBaseFieldContainerAttachments
  */
-
 typedef SimpleAttachment<NameAttachmentDesc> Name;
-
-/*! \ingroup GrpSystemFieldContainer
+#else
+/*! \ingroup GrpBaseFieldContainerAttachments
+    \ingroup GrpLibOSGBase
  */
+class Name : public SimpleAttachment<NameAttachmentDesc> {};
+#endif
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 OSG_GEN_CONTAINERPTR(Name)  
+#endif
+
 
 #ifdef WIN32
 template <> OSG_BASE_DLLMAPPING
@@ -109,20 +115,23 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
     SimpleAttachment<NameAttachmentDesc>::getClassType(void);
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerAttachments
+    \relatesalso OSG::Name
  */
 
 OSG_BASE_DLLMAPPING
 const Char8 *getName(AttachmentContainer * const container);
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerAttachments
+    \relatesalso OSG::Name
  */
 
 OSG_BASE_DLLMAPPING
       void   setName(AttachmentContainer * const  container, 
                      std::string           const  &name     );
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerAttachments
+    \relatesalso OSG::Name
  */
 
 OSG_BASE_DLLMAPPING

@@ -515,7 +515,8 @@ void MField<ValueT, iNamespace, AllocT>::push_back(ArgumentType value)
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-void MField<ValueT, iNamespace, AllocT>::resize(size_type newsize, ValueT t)
+void MField<ValueT, iNamespace, AllocT>::resize(size_type  newsize, 
+                                                StoredType t      )
 {
     _values.resize(newsize, t);
 }

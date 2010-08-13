@@ -38,7 +38,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \var RefCountStore OSG::AspectStore::_refCount
+/*! \var RefCountStore AspectStore::_refCount
  *  \brief reference count
  */
 

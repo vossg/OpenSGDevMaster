@@ -48,7 +48,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief GlobalsAttachment class. See \ref
            PageBaseGlobalsAttachment for a description.
-*/
+
+    \ingroup GrpBaseFieldContainerAttachments
+    \ingroup GrpLibOSGBase
+    \includebasedoc
+ */
 
 class OSG_BASE_DLLMAPPING GlobalsAttachment : public GlobalsAttachmentBase
 {

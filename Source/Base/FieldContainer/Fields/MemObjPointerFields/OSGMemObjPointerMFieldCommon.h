@@ -49,11 +49,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-//template <Int32 NamespaceI>
-//class PointerFieldTraitsBase;
-
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
  */
 

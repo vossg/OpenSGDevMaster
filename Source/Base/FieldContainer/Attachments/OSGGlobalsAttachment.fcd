@@ -12,6 +12,7 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    isNodeCore="false"
+   docGroupBase="GrpBaseFieldContainer"
    >
   attached to the root node by the loader infrastructure if the file
   contains elements outside the main graph.

@@ -68,7 +68,7 @@ class GlobalsAttachment;
 
 OSG_GEN_CONTAINERPTR(GlobalsAttachment);
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<NoRefCountPolicy>(voi
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
 struct FieldTraits<GlobalsAttachment *, 1> :
@@ -217,7 +217,7 @@ const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<NoRefCountPolicy>(voi
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
 struct FieldTraits<GlobalsAttachment *, 2> : 
@@ -251,56 +251,56 @@ struct FieldTraits<GlobalsAttachment *, 2> :
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
                       RecordedRefCountPolicy  > SFRecGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
                       WeakRefCountPolicy      > SFWeakGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
                       NoRefCountPolicy        > SFUncountedGlobalsAttachmentPtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
                       RecordedRefCountPolicy  > MFRecGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
                       WeakRefCountPolicy      > MFWeakGlobalsAttachmentPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
                       NoRefCountPolicy        > MFUncountedGlobalsAttachmentPtr;
 
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ChildPointerSField<
           GlobalsAttachment *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildGlobalsAttachmentPtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField<
           GlobalsAttachment *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildGlobalsAttachmentPtr;
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ParentPointerSField<
           GlobalsAttachment *, 
           NoRefCountPolicy,
           2    > SFParentGlobalsAttachmentPtr;
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ParentPointerMField<
           GlobalsAttachment *, 
           NoRefCountPolicy,
@@ -310,44 +310,44 @@ typedef ParentPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecGlobalsAttachmentPtr : 
     public PointerSField<GlobalsAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecGlobalsAttachmentPtr : 
     public PointerSField<GlobalsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakGlobalsAttachmentPtr :
     public PointerSField<GlobalsAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedGlobalsAttachmentPtr :
     public PointerSField<GlobalsAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecGlobalsAttachmentPtr :
     public PointerMField<GlobalsAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecGlobalsAttachmentPtr :
     public PointerMField<GlobalsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakGlobalsAttachmentPtr :
     public PointerMField<GlobalsAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedGlobalsAttachmentPtr :
     public PointerMField<GlobalsAttachment *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecChildGlobalsAttachmentPtr :
     public ChildPointerSField<
         GlobalsAttachment *, 
@@ -355,7 +355,7 @@ struct SFUnrecChildGlobalsAttachmentPtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecChildGlobalsAttachmentPtr :
     public ChildPointerMField<
         GlobalsAttachment *, 
@@ -363,14 +363,14 @@ struct MFUnrecChildGlobalsAttachmentPtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFParentGlobalsAttachmentPtr :
     public ParentPointerSField<
         GlobalsAttachment *, 
         NoRefCountPolicy,
         2    > {};
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentGlobalsAttachmentPtr :
     public  ParentPointerMField<
         GlobalsAttachment *, 

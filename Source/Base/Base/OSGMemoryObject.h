@@ -92,6 +92,7 @@ void clearRef(T *&pObject);
     everything that should be shared, but must not be thread safe.
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseMemoryObjectsBase
     \ingroup GrpLibOSGBase
  */
 

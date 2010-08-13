@@ -183,6 +183,7 @@ HardwareContextBase::TypeObject HardwareContextBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   isNodeCore=\"false\"\n"
+    "   docGroupBase=\"GrpBaseHardwareContext\"\n"
     "   >\n"
     "</FieldContainer>\n",
     ""

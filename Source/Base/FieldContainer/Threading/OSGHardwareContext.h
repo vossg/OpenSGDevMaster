@@ -52,6 +52,11 @@ class BlockingTask;
 
 /*! \brief HardwareContext class. See \ref
            PageBaseHardwareContext for a description.
+
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
+    \includebasedoc
+
 */
 
 class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase

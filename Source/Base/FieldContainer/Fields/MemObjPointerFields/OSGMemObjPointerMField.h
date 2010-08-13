@@ -70,7 +70,7 @@ class MemObjPointerMFieldConstIterator;
 /* PointerMFieldIterator<PtrTypeT>                                           */
 /*---------------------------------------------------------------------------*/
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
     \nohierarchy
  */
@@ -262,7 +262,7 @@ MemObjPointerMFieldIterator<PtrTypeT,
 /* PointerMFieldConstIterator<PtrTypeT>                                      */
 /*---------------------------------------------------------------------------*/
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
     \nohierarchy
  */
@@ -451,11 +451,12 @@ MemObjPointerMFieldConstIterator<PtrTypeT, RefCountPolicyT, iNamespace>
 
 
 #ifndef OSG_CLEAN_FCFIELDS
+
 /*-------------------------------------------------------------------------*/
 /* WeakMFieldReferenceProxy<PtrTypeT>                                      */
 /*-------------------------------------------------------------------------*/
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
     \nohierarchy
  */
@@ -529,7 +530,7 @@ class MemObjPointerMFieldReferenceProxy
 /* WeakPointerMField<FieldConfigT>                                           */
 /*---------------------------------------------------------------------------*/
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
  */
 

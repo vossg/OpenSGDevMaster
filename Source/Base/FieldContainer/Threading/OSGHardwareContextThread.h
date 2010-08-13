@@ -45,11 +45,15 @@
 #include "OSGBaseDef.h"
 #include "OSGThread.h"
 #include "OSGHardwareContextTask.h"
-//#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
 class HardwareContext;
+
+/*! \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
+*/
 
 class OSG_BASE_DLLMAPPING HardwareContextThread : public Thread
 {

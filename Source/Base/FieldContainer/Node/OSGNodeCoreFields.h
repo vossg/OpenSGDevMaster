@@ -68,7 +68,7 @@ class NodeCore;
 
 OSG_GEN_CONTAINERPTR(NodeCore);
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
 struct FieldTraits<NodeCore *, 1> :
@@ -217,7 +217,7 @@ const Char8 *FieldTraits<NodeCore *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
 struct FieldTraits<NodeCore *, 2> : 
@@ -251,56 +251,56 @@ struct FieldTraits<NodeCore *, 2> :
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
                       RecordedRefCountPolicy  > SFRecNodeCorePtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
                       UnrecordedRefCountPolicy> SFUnrecNodeCorePtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
                       WeakRefCountPolicy      > SFWeakNodeCorePtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
                       NoRefCountPolicy        > SFUncountedNodeCorePtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
                       RecordedRefCountPolicy  > MFRecNodeCorePtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
                       UnrecordedRefCountPolicy> MFUnrecNodeCorePtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
                       WeakRefCountPolicy      > MFWeakNodeCorePtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
                       NoRefCountPolicy        > MFUncountedNodeCorePtr;
 
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ChildPointerSField<
           NodeCore *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildNodeCorePtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField<
           NodeCore *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildNodeCorePtr;
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ParentPointerSField<
           NodeCore *, 
           NoRefCountPolicy,
           2    > SFParentNodeCorePtr;
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ParentPointerMField<
           NodeCore *, 
           NoRefCountPolicy,
@@ -310,44 +310,44 @@ typedef ParentPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecNodeCorePtr : 
     public PointerSField<NodeCore *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecNodeCorePtr : 
     public PointerSField<NodeCore *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakNodeCorePtr :
     public PointerSField<NodeCore *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedNodeCorePtr :
     public PointerSField<NodeCore *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecNodeCorePtr :
     public PointerMField<NodeCore *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecNodeCorePtr :
     public PointerMField<NodeCore *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakNodeCorePtr :
     public PointerMField<NodeCore *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedNodeCorePtr :
     public PointerMField<NodeCore *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecChildNodeCorePtr :
     public ChildPointerSField<
         NodeCore *, 
@@ -355,7 +355,7 @@ struct SFUnrecChildNodeCorePtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecChildNodeCorePtr :
     public ChildPointerMField<
         NodeCore *, 
@@ -363,14 +363,14 @@ struct MFUnrecChildNodeCorePtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFParentNodeCorePtr :
     public ParentPointerSField<
         NodeCore *, 
         NoRefCountPolicy,
         2    > {};
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentNodeCorePtr :
     public  ParentPointerMField<
         NodeCore *, 

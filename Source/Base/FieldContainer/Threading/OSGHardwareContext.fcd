@@ -12,5 +12,6 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    isNodeCore="false"
+   docGroupBase="GrpBaseHardwareContext"
    >
 </FieldContainer>

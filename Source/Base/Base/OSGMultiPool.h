@@ -54,10 +54,8 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpBaseBasePools
     \ingroup GrpBaseBase
     \ingroup GrpLibOSGBase
-    \brief Pool that can store different types.
-    class
-
     \nohierarchy
+    \brief Pool that can store different types.
  */
 
 template <class RefCountPolicyT = NoRefCountPolicy,
@@ -65,7 +63,9 @@ template <class RefCountPolicyT = NoRefCountPolicy,
 class MultiPool
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Types                                    */
     /*! \{                                                                 */
@@ -108,7 +108,12 @@ class MultiPool
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+    
+    /*! \nohierarchy
+     */
+
     struct TypeInfoCmp
     {
         bool operator()(const std::type_info* lhs,
@@ -124,6 +129,9 @@ class MultiPool
 
     struct MultiPoolTag;
 
+    /*! \nohierarchy
+     */
+
     template <class ValueTypeT>
     struct SimplePoolTypeBuilder
     {
@@ -134,14 +142,17 @@ class MultiPool
     };
 
     template <class ValueTypeT>
-    typename SimplePoolTypeBuilder<ValueTypeT>::Type *getTypedPool(UInt32 poolIdx);
+    typename SimplePoolTypeBuilder<
+               ValueTypeT>::Type *getTypedPool(UInt32 poolIdx);
 
     TypeIdxMap _typeIdxMap;
     PoolStore  _pools;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     MultiPool(const MultiPool &source);
     /*!\brief prohibit default function (move to 'public' if needed) */

@@ -46,7 +46,7 @@
 #include "OSGConfig.h"
 #include "OSGGroupConnection.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /** \class OSG::GroupConnection
  **/
@@ -186,7 +186,8 @@ void GroupConnection::delChannelIndex(ChannelIndex index)
 /*-------------------------------------------------------------------------*/
 /*                      channel / index mapping                            */
 
-GroupConnection::ChannelIndex GroupConnection::channelToIndex(Channel channel) const
+GroupConnection::ChannelIndex 
+    GroupConnection::channelToIndex(Channel channel) const
 {
     return _channelToIndex[channel];
 }
@@ -195,3 +196,5 @@ Connection::Channel GroupConnection::indexToChannel(ChannelIndex index) const
 {
     return _indexToChannel[index];
 }
+
+OSG_END_NAMESPACE

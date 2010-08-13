@@ -56,6 +56,7 @@ class TransitPtr;
     \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseMemoryObjectsBase
     \ingroup GrpLibOSGBase
     \nohierarchy
  */

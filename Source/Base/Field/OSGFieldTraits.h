@@ -126,7 +126,6 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
 
 
     typedef      ValueT                            ValueType;
-    typedef      FieldDescriptionBase              FieldDescParent;
 
     typedef      OSG_STL_DEFAULT_ALLOCATOR(ValueT) MFAlloc;
 
@@ -466,16 +465,6 @@ struct FieldTraitsVec4TemplateBase :
     }
 };
 
-/*! \ingroup GrpBaseField
-    \ingroup GrpLibOSGBase 
- */
-
-struct FieldDescBase
-{
-    static  const Int32                iNamespace = 0;
-
-    typedef       FieldDescriptionBase Parent;
-};
 
 /*! \ingroup GrpBaseFieldTraits
     \ingroup GrpLibOSGBase 

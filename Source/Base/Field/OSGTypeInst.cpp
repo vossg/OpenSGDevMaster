@@ -111,6 +111,7 @@ DataType FieldTraits<Vec1fx       >::_type("Vec1fx",       "BaseType"    );
 DataType FieldTraits<Vec1d        >::_type("Vec1d" ,       "BaseType"    );
 DataType FieldTraits<Vec1ld       >::_type("Vec1ld",       "BaseType"    );
 
+#ifndef OSG_DOXYGEN_REC_MACRO_PROBS
 DataType FieldTraits<Vec2ub       >::_type("Vec2ub",       "BaseType"    );
 #ifndef OSG_NO_INT8_PNT
 DataType FieldTraits<Vec2b        >::_type("Vec2b" ,       "BaseType"    );
@@ -187,6 +188,7 @@ DataType FieldTraits<Pnt4f        >::_type("Pnt4f" ,       "BaseType"    );
 DataType FieldTraits<Pnt4fx       >::_type("Pnt4fx" ,      "BaseType"    );
 DataType FieldTraits<Pnt4d        >::_type("Pnt4d" ,       "BaseType"    );
 DataType FieldTraits<Pnt4ld       >::_type("Pnt4ld",       "BaseType"    );
+#endif
 
 DataType FieldTraits<Matrix       >::_type("Matrix"    ,   "BaseType"    );
 DataType FieldTraits<Matrix4d     >::_type("Matrix4d"  ,   "BaseType"    );
@@ -233,6 +235,7 @@ OSG_FIELDTRAITS_GETTYPE   (Vec1fx         )
 OSG_FIELDTRAITS_GETTYPE   (Vec1d          )
 OSG_FIELDTRAITS_GETTYPE   (Vec1ld         )
 
+#ifndef OSG_DOXYGEN_REC_MACRO_PROBS
 OSG_FIELDTRAITS_GETTYPE   (Vec2ub         )
 #ifndef OSG_NO_INT8_PNT
 OSG_FIELDTRAITS_GETTYPE   (Vec2b          )
@@ -309,6 +312,7 @@ OSG_FIELDTRAITS_GETTYPE   (Pnt4f          )
 OSG_FIELDTRAITS_GETTYPE   (Pnt4fx         )
 OSG_FIELDTRAITS_GETTYPE   (Pnt4d          )
 OSG_FIELDTRAITS_GETTYPE   (Pnt4ld         )
+#endif
 
 OSG_FIELDTRAITS_GETTYPE   (Matrix         )
 OSG_FIELDTRAITS_GETTYPE   (Matrix4d       )

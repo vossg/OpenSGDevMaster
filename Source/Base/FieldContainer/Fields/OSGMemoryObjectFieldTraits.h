@@ -45,12 +45,9 @@
 #include "OSGFieldTraits.h"
 #include "OSGMemoryObject.h"
 
-//#include "OSGRefCountPolicies.h"
-
 OSG_BEGIN_NAMESPACE
 
-
-/*! \ingroup GrpBaseFieldContainerFieldTraits
+/*! \ingroup GrpBaseMemoryObjectsFieldTraits
     \ingroup GrpLibOSGBase
  */
 

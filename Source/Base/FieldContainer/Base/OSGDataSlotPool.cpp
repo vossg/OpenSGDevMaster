@@ -49,8 +49,6 @@
 #include "OSGDataSlotPool.h"
 #include "OSGTaggedSingletonHolder.ins"
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
 
 OSG_TAGGEDSINGLETON_INST(DataSlotPoolBase, 

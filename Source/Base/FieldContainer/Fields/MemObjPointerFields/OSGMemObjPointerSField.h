@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 /* WeakMemObjPointerSField<FieldConfigT>                                     */
 /*---------------------------------------------------------------------------*/
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
  */
 

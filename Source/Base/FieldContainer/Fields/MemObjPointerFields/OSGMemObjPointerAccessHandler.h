@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 class MemObjPointerMFieldBase;
 class MemObjPointerSFieldBase;
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
     \nohierarchy
  */
@@ -127,15 +127,6 @@ class MemObjPointerAccessHandler
         return RefCountPolicyType::validate(pObject);
     }
 };
-
-#if 0
-/*! \ingroup GrpBaseFieldContainerFields */
-typedef PointerAccessHandler<NoRefCountPolicy        > NoRefCountAccessHandler;
-/*! \ingroup GrpBaseFieldContainerFields */
-typedef PointerAccessHandler<WeakRefCountPolicy      > WeakAccessHandler;
-/*! \ingroup GrpBaseFieldContainerFields */
-typedef PointerAccessHandler<UnrecordedRefCountPolicy> UnrecordedAccessHandler;
-#endif
 
 OSG_END_NAMESPACE
 

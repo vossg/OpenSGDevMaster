@@ -300,8 +300,9 @@ void HardwareContextTaskQueue::runAndClearQueue(HardwareContext *pContext,
     _qTaskStore.clear();
 }
 
-DataType FieldTraits<HardwareContextTaskRefPtr>::_type(
-    "HardwareContextTaskRefPtr", NULL);
+DataType FieldTraits<
+             HardwareContextTaskRefPtr>::_type("HardwareContextTaskRefPtr", 
+                                               NULL);
 
 OSG_FIELDTRAITS_GETTYPE(HardwareContextTaskRefPtr)
 

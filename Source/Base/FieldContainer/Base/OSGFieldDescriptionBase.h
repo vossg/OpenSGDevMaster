@@ -371,7 +371,7 @@ template<class    DescT,
          enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy                     = NoRefCounts, 
          enum     FieldType::Class       eFieldClass = FieldType::ValueField>
-class FieldDescription : public DescT::FieldDescParent
+class FieldDescription : public FieldDescriptionBase
 {
   protected:
 
@@ -381,7 +381,7 @@ class FieldDescription : public DescT::FieldDescParent
                                       eFieldClass> Self;
 
 
-    typedef typename DescT::FieldDescParent       Inherited;
+    typedef FieldDescriptionBase                              Inherited;
 
     typedef typename
         boost::mpl::if_c<

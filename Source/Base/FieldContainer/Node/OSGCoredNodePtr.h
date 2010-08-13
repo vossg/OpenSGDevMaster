@@ -44,8 +44,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerNodes
     \ingroup GrpLibOSGBase
+    \nohierarchy
  */
 
 template <class CoreT>
@@ -141,8 +142,9 @@ class CoredNodeRefPtr
     CoreRefPtr _pCore;
 };
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerNodes
     \ingroup GrpLibOSGBase
+    \nohierarchy
  */
 
 template <class CoreT>

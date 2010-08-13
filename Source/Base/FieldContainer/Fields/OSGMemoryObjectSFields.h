@@ -53,13 +53,13 @@ OSG_BEGIN_NAMESPACE
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseMemoryObjectsFieldSFields */
 typedef MemObjPointerSField<MemoryObject *,
                             MemObjRefCountPolicy> SFMemoryObjectPtr;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseMemoryObjectsFieldSFields \ingroup GrpLibOSGBase */
 struct SFMemoryObjectPtr : 
     public MemObjPointerSField<MemoryObject *,
                                MemObjRefCountPolicy> {};

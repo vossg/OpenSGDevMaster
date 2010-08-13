@@ -47,7 +47,36 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*---------------------------------------------------------------------*/
+/*! \name Tags                                                         */
+/*! \{                                                                 */
+
+/*! \struct OSG::DataSlotPoolTag
+    \ingroup GrpBaseFieldContainerHelperPools
+    \nohierarchy
+ */
 struct DataSlotPoolTag;
+
+/*! \struct OSG::ActionSlotTag
+    \ingroup GrpBaseFieldContainerHelperPools
+    \nohierarchy
+ */
+struct ActionSlotTag;
+
+/*! \struct OSG::ContextSlotTag
+    \ingroup GrpBaseFieldContainerHelperPools
+    \nohierarchy
+ */
+struct ContextSlotTag;
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Pools                                                        */
+/*! \{                                                                 */
+
+/*! \typedef OSG::SimpleReusePool<OSG::Int32, OSG::DataSlotPoolTag, OSG::SingleLockPolicy> DataSlotPoolBase;
+    \ingroup GrpBaseFieldContainerHelperPools
+ */
 
 typedef SimpleReusePool<Int32, 
                         DataSlotPoolTag, 
@@ -61,15 +90,24 @@ void SimpleReusePool<Int32,
     _currentValue = 0;
 }
 
-struct ActionSlotTag;
+
+/*! \typedef OSG::TaggedSingletonHolder<OSG::DataSlotPoolBase, OSG::ActionSlotTag> ActionDataSlotPool;
+    \ingroup GrpBaseFieldContainerHelperPools
+ */
 
 typedef TaggedSingletonHolder<DataSlotPoolBase, 
                               ActionSlotTag   > ActionDataSlotPool;
 
-struct ContextSlotTag;
+
+/*! \typedef OSG::TaggedSingletonHolder<OSG::DataSlotPoolBase, OSG::ContextSlotTag> ContextDataSlotPool;
+    \ingroup GrpBaseFieldContainerHelperPools
+ */
 
 typedef TaggedSingletonHolder<DataSlotPoolBase, 
                               ContextSlotTag   > ContextDataSlotPool;
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

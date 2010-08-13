@@ -58,7 +58,9 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 class HardwareContext;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING HardwareContextTask : public MemoryObject
@@ -166,7 +168,9 @@ class OSG_BASE_DLLMAPPING HardwareContextTask : public MemoryObject
     void operator =(const HardwareContextTask &source);
 };
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING BlockingTask : public HardwareContextTask
@@ -275,6 +279,11 @@ class OSG_BASE_DLLMAPPING BlockingTask : public HardwareContextTask
     void operator =(const BlockingTask &source);
 };
 
+/*! \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
+*/
+
 class OSG_BASE_DLLMAPPING CallbackTask : public BlockingTask
 {
     /*==========================  PUBLIC  =================================*/
@@ -356,23 +365,55 @@ class OSG_BASE_DLLMAPPING CallbackTask : public BlockingTask
     void operator =(const CallbackTask &source);
 };
 
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef RefCountPtr<HardwareContextTask,
                     MemObjRefCountPolicy> HardwareContextTaskRefPtr;
+
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef RefCountPtr<BlockingTask,
                     MemObjRefCountPolicy> BlockingTaskRefPtr;
+
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef RefCountPtr<CallbackTask,
                     MemObjRefCountPolicy> CallbackTaskRefPtr;
 
+
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef TransitPtr<HardwareContextTask> HardwareContextTaskTransitPtr;
+
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef TransitPtr<BlockingTask>        BlockingTaskTransitPtr;
+
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef TransitPtr<CallbackTask>        CallbackTaskTransitPtr;
 
+/*! \ingroup GrpBaseHardwareContextFieldTraits
+    \ingroup GrpLibOSGBase
+ */
+
 template <>
-struct FieldTraits<HardwareContextTaskRefPtr, 0> : 
-    public FieldTraitsTemplateBase<HardwareContextTaskRefPtr, 0>
+struct FieldTraits<HardwareContextTaskRefPtr> : 
+    public FieldTraitsTemplateBase<HardwareContextTaskRefPtr>
 {
-    static  DataType                       _type;                       
-    typedef FieldTraits<HardwareContextTaskRefPtr, 0>  Self;
+  private:
+
+    static  DataType                               _type;
+
+  public:
+
+    typedef FieldTraits<HardwareContextTaskRefPtr>  Self;
 
     enum { Convertible = Self::NotConvertible };
 
@@ -406,9 +447,18 @@ struct FieldTraits<HardwareContextTaskRefPtr, 0> :
     }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef MField<HardwareContextTaskRefPtr, 0> MFHardwareContextTask;
+#else // these are the doxygen hacks
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
+typedef MFHardwareContextTask : public MField<HardwareContextTaskRefPtr, 0> {};
+#endif // these are the doxygen hacks
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseMemoryObjectsBase
+    \ingroup GrpBaseHardwareContext
+    \ingroup GrpLibOSGBase
+    \nohierarchy
 */
 
 class OSG_BASE_DLLMAPPING HardwareContextTaskQueue

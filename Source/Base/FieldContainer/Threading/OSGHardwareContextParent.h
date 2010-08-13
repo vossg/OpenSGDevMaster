@@ -50,6 +50,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseHardwareContext
+    \nohierarchy
+*/
+
 struct HardwareContextDataSlotDesc
 {
     typedef AttachmentContainer        ParentT;

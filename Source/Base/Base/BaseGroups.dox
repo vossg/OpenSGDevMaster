@@ -129,6 +129,12 @@ using namespace OSG;
     ToDo
 */
 
+/*! \defgroup GrpBaseBaseAtomicFn Atomic Functions
+    \ingroup GrpBaseBaseFn
+
+    ToDo
+*/
+
 /*! \defgroup GrpBaseBaseMiscFn Miscellaneous Functions
     \ingroup GrpBaseBaseFn
 
@@ -186,6 +192,21 @@ using namespace OSG;
 
     ToDo
 */
+
+/*! \defgroup GrpBaseHardwareContext Hardware Contexts
+    \ingroup GrpBase
+ */
+
+/*! \defgroup GrpBaseHardwareContextFieldTraits Hardware Context Field Traits
+    \ingroup GrpBaseHardwareContext
+ */
+
+/*! \defgroup GrpBaseHardwareContextFieldSFields Hardware Context Single-Fields
+    \ingroup GrpBaseHardwareContext
+ */
+/*! \defgroup GrpBaseHardwareContextFieldMFields Hardware Context Multi-Fields
+    \ingroup GrpBaseHardwareContext
+ */
 
 /*! \defgroup GrpBaseStatistics Statistics
     \ingroup GrpBase
@@ -320,6 +341,10 @@ communication. This objects are mainly used by OpenSG-Cluster support
     \ingroup GrpBaseFieldContainer
  */
 
+/*! \defgroup GrpBaseFieldContainerAttachments Field Container Attachments
+    \ingroup GrpBaseFieldContainer
+ */
+
 /*! \defgroup GrpBaseFieldContainerMixins Field Container Mixins
     \ingroup GrpBaseFieldContainer
  */
@@ -332,9 +357,39 @@ communication. This objects are mainly used by OpenSG-Cluster support
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerFuncs Container Functions
+/*! \defgroup GrpBaseFieldContainerHelperPools Field Container Pools
+    \ingroup GrpBaseFieldContainerHelper
+ */
+
+/*! \defgroup GrpBaseFieldContainerFuncs Field Container Functions
     \ingroup GrpBaseFieldContainer
  */
+
+
+
+/*! \defgroup GrpBaseMemoryObjects Memory Objects
+    \ingroup GrpBase
+ */
+
+/*! \defgroup GrpBaseMemoryObjectsBase Memory Objects Base
+    \ingroup GrpBaseMemoryObjects
+ */
+
+/*! \defgroup GrpBaseMemoryObjectsFields Memory Objects Fields
+    \ingroup GrpBaseMemoryObjects
+ */
+
+/*! \defgroup GrpBaseMemoryObjectsFieldTraits Memory Objects Field Traits
+    \ingroup GrpBaseMemoryObjectsFields
+ */
+
+/*! \defgroup GrpBaseMemoryObjectsFieldSFields Memory Objects Single-Fields
+    \ingroup GrpBaseMemoryObjectsFields
+ */
+/*! \defgroup GrpBaseMemoryObjectsFieldMFields Memory Objects Multi-Fields
+    \ingroup GrpBaseMemoryObjectsFields
+ */
+
 
 #if 0
 /*! \defgroup GrpSystemMultithreading Multithreading

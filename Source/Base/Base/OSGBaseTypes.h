@@ -553,9 +553,21 @@ typedef long double Real128;
 typedef UInt64 BitVector;
 
 #ifndef OSG_WIN_TYPES
+
+/*! \var UInt32 RefCountStore;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
 typedef Int32 RefCountStore;
+
 #else
+
+/*! \var long RefCountStore;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
 typedef long RefCountStore;
+
 #endif
 
 /*! \var size_t SizeT;

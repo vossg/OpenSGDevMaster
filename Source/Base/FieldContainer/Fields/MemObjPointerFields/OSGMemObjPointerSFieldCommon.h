@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
 template <Int32 NamespaceI>
 class MemObjPointerFieldTraitsBase;
 
-/*! \ingroup GrpBaseFieldContainerFields
+/*! \ingroup GrpBaseMemoryObjectsFields
     \ingroup GrpLibOSGBase
  */
 

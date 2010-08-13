@@ -203,6 +203,7 @@ NodeCoreBase::TypeObject NodeCoreBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpBaseFieldContainer\"\n"
     "   >\n"
     "  Abstract base type for all cores, which define the behavior (semantics) of\n"
     "  the node(s) they belong to.\n"

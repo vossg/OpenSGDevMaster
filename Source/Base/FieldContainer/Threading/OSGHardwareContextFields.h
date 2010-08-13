@@ -68,7 +68,7 @@ class HardwareContext;
 
 OSG_GEN_CONTAINERPTR(HardwareContext);
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseHardwareContextFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<HardwareContext *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseHardwareContextFieldTraits
  */
 template <>
 struct FieldTraits<HardwareContext *, 1> :
@@ -217,7 +217,7 @@ const Char8 *FieldTraits<HardwareContext *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseHardwareContextFieldTraits
  */
 template <>
 struct FieldTraits<HardwareContext *, 2> : 
@@ -251,56 +251,56 @@ struct FieldTraits<HardwareContext *, 2> :
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
                       RecordedRefCountPolicy  > SFRecHardwareContextPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
                       UnrecordedRefCountPolicy> SFUnrecHardwareContextPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
                       WeakRefCountPolicy      > SFWeakHardwareContextPtr;
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
                       NoRefCountPolicy        > SFUncountedHardwareContextPtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
                       RecordedRefCountPolicy  > MFRecHardwareContextPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
                       UnrecordedRefCountPolicy> MFUnrecHardwareContextPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
                       WeakRefCountPolicy      > MFWeakHardwareContextPtr;
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
                       NoRefCountPolicy        > MFUncountedHardwareContextPtr;
 
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef ChildPointerSField<
           HardwareContext *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildHardwareContextPtr;
 
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef ChildPointerMField<
           HardwareContext *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildHardwareContextPtr;
 
 
-/*! \ingroup GrpBaseFieldSFields */
+/*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef ParentPointerSField<
           HardwareContext *, 
           NoRefCountPolicy,
           2    > SFParentHardwareContextPtr;
 
-/*! \ingroup GrpBaseFieldMFields */
+/*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef ParentPointerMField<
           HardwareContext *, 
           NoRefCountPolicy,
@@ -310,44 +310,44 @@ typedef ParentPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecHardwareContextPtr : 
     public PointerSField<HardwareContext *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecHardwareContextPtr : 
     public PointerSField<HardwareContext *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakHardwareContextPtr :
     public PointerSField<HardwareContext *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedHardwareContextPtr :
     public PointerSField<HardwareContext *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecHardwareContextPtr :
     public PointerMField<HardwareContext *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecHardwareContextPtr :
     public PointerMField<HardwareContext *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakHardwareContextPtr :
     public PointerMField<HardwareContext *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedHardwareContextPtr :
     public PointerMField<HardwareContext *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecChildHardwareContextPtr :
     public ChildPointerSField<
         HardwareContext *, 
@@ -355,7 +355,7 @@ struct SFUnrecChildHardwareContextPtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecChildHardwareContextPtr :
     public ChildPointerMField<
         HardwareContext *, 
@@ -363,14 +363,14 @@ struct MFUnrecChildHardwareContextPtr :
         1             > {};
 
 
-/*! \ingroup GrpBaseFieldSFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
 struct SFParentHardwareContextPtr :
     public ParentPointerSField<
         HardwareContext *, 
         NoRefCountPolicy,
         2    > {};
 
-/*! \ingroup GrpBaseFieldMFields \ingroup GrpLibOSGBase */
+/*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentHardwareContextPtr :
     public  ParentPointerMField<
         HardwareContext *, 

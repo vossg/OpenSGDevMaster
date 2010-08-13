@@ -74,6 +74,13 @@ struct FieldContainerFactoryDesc
     }
 };
 
+/*! \brief Accessible via #TypeFactory
+    \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+
 class OSG_BASE_DLLMAPPING DerivedFieldContainerTypeIterator
 {
   public:

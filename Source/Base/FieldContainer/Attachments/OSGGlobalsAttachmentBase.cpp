@@ -201,6 +201,7 @@ GlobalsAttachmentBase::TypeObject GlobalsAttachmentBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   isNodeCore=\"false\"\n"
+    "   docGroupBase=\"GrpBaseFieldContainer\"\n"
     "   >\n"
     "  attached to the root node by the loader infrastructure if the file\n"
     "  contains elements outside the main graph.\n"

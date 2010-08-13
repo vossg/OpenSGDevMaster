@@ -256,6 +256,11 @@ typedef PointerMFieldBase FieldContainerPtrMFieldBase;
 /* PointerMFieldBaseConstIterator                                            */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+
 class OSG_BASE_DLLMAPPING PointerMFieldBaseConstIterator :
     protected PointerMFieldBase::StorageConstIt
 {

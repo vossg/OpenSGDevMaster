@@ -279,10 +279,12 @@ void GPUVolRTV2Base::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (StepsizeFieldMask & whichField))
     {
+        editSField(StepsizeFieldMask);
         _sfStepsize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ToggleVisualsFieldMask & whichField))
     {
+        editSField(ToggleVisualsFieldMask);
         _sfToggleVisuals.copyFromBin(pMem);
     }
 }

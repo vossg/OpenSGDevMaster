@@ -54,6 +54,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+
 template <class FloatTypeT>
 class Matrix22
 {
@@ -80,9 +86,26 @@ class Matrix22
     FloatTypeT _Values[4];
 };
 
+/*---------------------------------------------------------------------*/
+/*! \name Matrix Types                                                */
+/*! \{                                                                 */
+
+/*! \var typedef Matrix22<Real32> Matrix22f;
+    \brief Matrix2f
+    \ingroup GrpBaseBaseMathObj
+ */
+
 typedef Matrix22<Real32> Matrix22f;
 
+/*! \var typedef Matrix22<Real64> Matrix22d;
+    \brief Matrix2d
+    \ingroup GrpBaseBaseMathObj
+ */
+
 typedef Matrix22<Real64> Matrix22d;
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

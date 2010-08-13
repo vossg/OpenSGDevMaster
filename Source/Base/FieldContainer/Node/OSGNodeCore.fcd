@@ -12,6 +12,7 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    isNodeCore="true"
+   docGroupBase="GrpBaseFieldContainer"
    >
   Abstract base type for all cores, which define the behavior (semantics) of
   the node(s) they belong to.

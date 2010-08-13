@@ -280,7 +280,7 @@ void XWindow::doActivate(void)
                  << std::endl;
     }
 
-    if(getWindow() == NULL)
+    if(getWindow() == 0)
     {
         SWARNING << "XWindow::doActivate: Window is NULL, can not activate context."
                  << std::endl;
