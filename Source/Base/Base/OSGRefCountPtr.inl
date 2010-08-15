@@ -168,6 +168,7 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
     return *this;
 }
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template <class ObjectT, 
           class RefCountPolicyT> inline
 RefCountPtr<ObjectT, RefCountPolicyT>::operator 
@@ -175,6 +176,7 @@ RefCountPtr<ObjectT, RefCountPolicyT>::operator
 {
     return RefCountPolicy::validate(_pObj);
 }
+#endif
 
 template <class ObjectT, 
           class RefCountPolicyT> inline

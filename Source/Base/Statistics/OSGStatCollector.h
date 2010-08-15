@@ -128,9 +128,11 @@ class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
     virtual ~StatCollector(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Operators                                */
+    /*! \{                                                                 */
 
-
-    const StatCollector& operator =(const StatCollector &source);
+    const StatCollector &operator =(const StatCollector &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

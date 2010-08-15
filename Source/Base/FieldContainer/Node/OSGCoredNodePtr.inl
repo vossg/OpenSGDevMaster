@@ -175,6 +175,7 @@ CoredNodeRefPtr<CoreT>::operator Node *(void)
     return _pNode;
 }
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template<class CoreT> inline
 CoredNodeRefPtr<CoreT>::operator typename CoredNodeRefPtr<CoreT>::CorePtr(void)
 {
@@ -185,6 +186,7 @@ CoredNodeRefPtr<CoreT>::operator typename CoredNodeRefPtr<CoreT>::CorePtr(void)
 
     return _pCore;
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
@@ -436,6 +438,7 @@ CoredNodeMTRefPtr<CoreT>::operator Node *(void)
     return _pNode;
 }
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template<class CoreT> inline
 CoredNodeMTRefPtr<CoreT>::operator 
     typename CoredNodeMTRefPtr<CoreT>::CorePtr(void)
@@ -447,6 +450,7 @@ CoredNodeMTRefPtr<CoreT>::operator
 
     return _pCore;
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */

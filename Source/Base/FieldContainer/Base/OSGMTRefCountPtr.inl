@@ -362,6 +362,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::operator =(
     return *this;
 }
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template <class ObjectT, 
           class RefCountPolicyT> inline
 MTRefCountPtr<ObjectT, RefCountPolicyT>::operator 
@@ -369,6 +370,7 @@ typename MTRefCountPtr<ObjectT, RefCountPolicyT>::Object *(void) const
 {
     return this->get();
 }
+#endif
 
 template <class ObjectT, 
           class RefCountPolicyT> inline

@@ -61,6 +61,7 @@ Int32 SimplePool<Int32, PoolTag, LockPolicy>::create(void)
     return returnValue;
 }
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template <class PoolTag, class LockPolicy> inline
 void SimplePool<Int32, PoolTag, LockPolicy>::release(Int32 uiVal)
 {
@@ -72,6 +73,7 @@ void SimplePool<Int32, PoolTag, LockPolicy>::printStat(void)
 {
     fprintf(stderr, "\n%d\n", _currentValue());
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */

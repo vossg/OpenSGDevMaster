@@ -673,6 +673,7 @@ ChildMFieldReferenceProxy<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
+#ifndef OSG_DOXYGEN_IGNORE_RECOG_PROBS
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
 ChildMFieldReferenceProxy<PtrTypeT,
                           RefCountPolicy,
@@ -683,6 +684,7 @@ ChildMFieldReferenceProxy<PtrTypeT,
 {
     return static_cast<const_value>(AccessHandler::validate(*_storeIter));
 }
+#endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
 typename ChildMFieldReferenceProxy<PtrTypeT,

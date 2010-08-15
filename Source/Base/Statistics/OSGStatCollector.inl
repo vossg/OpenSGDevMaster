@@ -37,6 +37,7 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
@@ -51,6 +52,7 @@ OSG_BEGIN_NAMESPACE
 
     \return Number of StatElems this collector can currently store.
  */
+
 inline
 UInt32 StatCollector::getNumOfElems(void) const
 {
@@ -65,6 +67,7 @@ UInt32 StatCollector::getNumOfElems(void) const
     \warning It does not test if there actually is a StatElem with this id in
     this collector, only if there can be one.
  */
+
 inline
 bool StatCollector::isValidID(Int32 elemId) const
 {
@@ -81,6 +84,7 @@ bool StatCollector::isValidID(Int32 elemId) const
     element (because you explicitly created it outside the testing loop)
     you can set it to false and speed up the whole function a bit.
 */
+
 inline
 StatElem *StatCollector::getElem(Int32 elemId, bool create)
 {
@@ -113,6 +117,7 @@ StatElem *StatCollector::getElem(Int32 elemId, bool create)
     \param[in] elemId Id of the StatElem to return.
     \return StatElem with given id, or NULL if it does not exist.
 */
+
 inline StatElem *StatCollector::getElem(Int32 elemId) const
 {
     return isValidID(elemId) ? _elemVec[elemId] : NULL;
@@ -129,6 +134,7 @@ inline StatElem *StatCollector::getElem(Int32 elemId) const
     \param[in] create If true, not existing StatElem will be created.
     \return StatElem for the given descriptor, or NULL if it does not exist.
  */
+
 inline
 StatElem *StatCollector::getElem(StatElemDescBase &desc, bool create)
 {
@@ -148,6 +154,7 @@ StatElem *StatCollector::getElem(StatElemDescBase &desc, bool create)
     \param[in] create If true, not existing StatElem will be created.
     \return StatElem for the given descriptor, or NULL if it does not exist.
  */
+
 template<class T> inline
 T *StatCollector::getElem(StatElemDesc<T> &desc, bool create)
 {

@@ -1400,24 +1400,26 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = DOC_LEVEL=3                                                    \
-                         DOC_LEVEL_NAME=dev                                             \
-                         OSG_DOC_LEVEL=3                                                \
-                         OSG_DOC_LEVEL_NAME=dev                                         \
-                         OSG_DOC_DEV                                                    \
-                         OSG_DOC_EXT                                                    \
-                         OSG_DOC_DEV_TRAITS                                             \
-                         "OSG_BEGIN_NAMESPACE=namespace OSG {"                          \
-                         OSG_END_NAMESPACE=}                                            \
-                         "OSG_USING_NAMESPACE=namespace OSG {} using namespace OSG;"    \
-                         OSG_DEBUG_ARG                                                  \
-                         OSG_DO_DOC                                                     \
-                         DOXYGEN_SHOULD_SKIP_THIS                                       \
-                         __GNUC__                                                       \
-                         __linux                                                        \
-                         OSG_UNUSED_ATTRIB=                                             \
-                         OSG_APIENTRY=                                                  \
-                         OSG_DOXYGEN_REC_MACRO_PROBS=1
+PREDEFINED = DOC_LEVEL=3                                                    \
+             DOC_LEVEL_NAME=dev                                             \
+             OSG_DOC_LEVEL=3                                                \
+             OSG_DOC_LEVEL_NAME=dev                                         \
+             OSG_DOC_DEV                                                    \
+             OSG_DOC_EXT                                                    \
+             OSG_DOC_DEV_TRAITS                                             \
+             "OSG_BEGIN_NAMESPACE=namespace OSG {"                          \
+             OSG_END_NAMESPACE=}                                            \
+             "OSG_USING_NAMESPACE=namespace OSG {} using namespace OSG;"    \
+             OSG_DEBUG_ARG                                                  \
+             OSG_DO_DOC                                                     \
+             DOXYGEN_SHOULD_SKIP_THIS                                       \
+             __GNUC__                                                       \
+             __linux                                                        \
+             OSG_UNUSED_ATTRIB=                                             \
+             OSG_APIENTRY=                                                  \
+                                                                            \
+             OSG_DOXYGEN_REC_MACRO_PROBS=1                                  \
+             OSG_DOXYGEN_IGNORE_RECOG_PROBS=1
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
