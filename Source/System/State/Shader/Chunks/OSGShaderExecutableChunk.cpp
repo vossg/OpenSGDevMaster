@@ -686,7 +686,8 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pVar = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pVar);
     }

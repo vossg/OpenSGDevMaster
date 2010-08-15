@@ -659,7 +659,7 @@ bool RenderPartition::pushShaderState(State *pState)
 
         if(pShader == NULL)
         {
-            pShader = ShaderExecutableChunk::create();
+            pShader = ShaderExecutableChunk::createLocal();
 
             typedef StateOverride::ProgramChunkStore ProgChunkStore;
 
@@ -696,7 +696,7 @@ bool RenderPartition::pushShaderState(State *pState)
 
         if(pShaderVar == NULL)
         {
-            pShaderVar = ShaderExecutableVarChunk::create();
+            pShaderVar = ShaderExecutableVarChunk::createLocal();
 
             typedef StateOverride::ProgramVarChunkStore ProgVarChunkStore;
 
