@@ -25,7 +25,7 @@
 
      pushToFieldAs="addVariable"
      removeFromMFieldIndexAs="subVariable"
-     clearFieldAs="clearVariables"        
+     clearFieldAs="clearVariables"
      >
   </Field>
 
@@ -42,7 +42,7 @@
 
      pushToFieldAs="addProceduralVariable"
      removeFromMFieldIndexAs="subProceduralVariable"
-     clearFieldAs="clearProceduralVariables"        
+     clearFieldAs="clearProceduralVariables"
      >
   </Field>
 

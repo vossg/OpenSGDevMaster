@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="ShaderValueVariable"
-   parent="ShaderVariable"
-   library="System"
-   pointerfieldtypes="both"
-   structure="abstract"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   docGroupBase="GrpSystemShader"
-   >
-  <Field
+     name="ShaderValueVariable"
+     parent="ShaderVariable"
+     library="System"
+     pointerfieldtypes="both"
+     structure="abstract"
+     systemcomponent="true"
+     parentsystemcomponent="true"
+     decoratable="false"
+     useLocalIncludes="false"
+     docGroupBase="GrpSystemShader"
+     >
+    <Field
 	 name="variableIdx"
 	 type="UInt16"
 	 cardinality="multi"
 	 visibility="internal"
 	 access="none"
+         fieldFlags="FClusterLocal"
 	 >
-  </Field> 
+    </Field>
 </FieldContainer>

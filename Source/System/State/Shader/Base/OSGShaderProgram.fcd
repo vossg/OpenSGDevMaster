@@ -1,111 +1,112 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="ShaderProgram"
-   parent="FieldContainer"
-   library="System"
-   structure="concrete"
-   pointerfieldtypes="both"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   docGroupBase="GrpSystemShader"
-   >
-
-  <Field
-     name="shaderType"
-     type="GLenum"
-     cardinality="single"
-     visibility="external"
-     defaultValue="GL_NONE"
-     defaultHeader="&quot;OSGGL.h&quot;"
-     access="public"
+     name="ShaderProgram"
+     parent="FieldContainer"
+     library="System"
+     structure="concrete"
+     pointerfieldtypes="both"
+     systemcomponent="true"
+     parentsystemcomponent="true"
+     decoratable="false"
+     useLocalIncludes="false"
+     docGroupBase="GrpSystemShader"
      >
-  </Field>
 
-  <Field
-     name="program"
-     type="std::string"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     >
-  </Field>
+    <Field
+         name="shaderType"
+         type="GLenum"
+         cardinality="single"
+         visibility="external"
+         defaultValue="GL_NONE"
+         defaultHeader="&quot;OSGGL.h&quot;"
+         access="public"
+         >
+    </Field>
 
-  <Field
-	 name="GLId"
-	 type="UInt32"
-	 cardinality="single"
-	 visibility="internal"
-	 access="public"
-	 defaultValue="0"
-     fieldFlags="FClusterLocal"
-	 >
-  </Field>
+    <Field
+         name="program"
+         type="std::string"
+         cardinality="single"
+         visibility="external"
+         access="public"
+         >
+    </Field>
 
-  <Field
-	 name="variables"
-	 type="ShaderProgramVariables"
-	 cardinality="single"
-	 visibility="external"
-	 access="public"
-     category="childpointer"
-     childParentType="FieldContainer"
-     linkParentField="Parents"
-	 >
-	fragment program object
-  </Field>
+    <Field
+         name="GLId"
+         type="UInt32"
+         cardinality="single"
+         visibility="internal"
+         access="public"
+         defaultValue="0"
+         fieldFlags="FClusterLocal"
+         >
+    </Field>
 
-  <Field
-     name="parameter"
-     type="ShaderParameter"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     >
-  </Field>
+    <Field
+         name="variables"
+         type="ShaderProgramVariables"
+         cardinality="single"
+         visibility="external"
+         access="public"
+         category="childpointer"
+         childParentType="FieldContainer"
+         linkParentField="Parents"
+         >
+        fragment program object
+    </Field>
 
-  <Field
-	 name="cgFrontEnd"
-	 type="bool"
-	 cardinality="single"
-	 visibility="external"
-	 defaultValue="false"
-	 access="public"
-	 >
-  </Field>
-  
-  <Field
-	 name="pointSize"
-	 type="bool"
-	 cardinality="single"
-	 visibility="external"
-	 defaultValue="false"
-	 access="public"
-	 >
-	Flag to set whether the shader can change the point size.
-  </Field>
+    <Field
+         name="parameter"
+         type="ShaderParameter"
+         cardinality="multi"
+         visibility="external"
+         access="public"
+         >
+    </Field>
 
-  <Field
-	 name="parents"
-	 type="FieldContainer"
-	 cardinality="multi"
-	 visibility="internal"
-	 access="none"
-     category="parentpointer"
-	 >
-  </Field> 
- 
-  <Field
-	 name="destroyedFunctors"
-	 type="ChangedFunctorCallback"
-	 cardinality="multi"
-	 visibility="internal"
-	 access="none"
-     defaultHeader="OSGChangedFunctorMFields.h"
-     fieldFlags="FClusterLocal"
-	 >
-  </Field> 
- 
+    <Field
+         name="cgFrontEnd"
+         type="bool"
+         cardinality="single"
+         visibility="external"
+         defaultValue="false"
+         access="public"
+         >
+    </Field>
+
+    <Field
+         name="pointSize"
+         type="bool"
+         cardinality="single"
+         visibility="external"
+         defaultValue="false"
+         access="public"
+         >
+        Flag to set whether the shader can change the point size.
+    </Field>
+
+    <Field
+         name="parents"
+         type="FieldContainer"
+         cardinality="multi"
+         visibility="internal"
+         access="none"
+         category="parentpointer"
+         fieldFlags="FClusterLocal"
+         >
+    </Field>
+
+    <Field
+         name="destroyedFunctors"
+         type="ChangedFunctorCallback"
+         cardinality="multi"
+         visibility="internal"
+         access="none"
+         defaultHeader="OSGChangedFunctorMFields.h"
+         fieldFlags="FClusterLocal"
+         >
+    </Field>
+
 </FieldContainer>

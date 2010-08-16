@@ -120,7 +120,7 @@ void ShaderValueVariableBase::classDescInserter(TypeObject &oType)
         "",
         VariableIdxFieldId, VariableIdxFieldMask,
         true,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&ShaderValueVariable::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderValueVariable::invalidGetField));
 
@@ -142,25 +142,26 @@ ShaderValueVariableBase::TypeObject ShaderValueVariableBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"ShaderValueVariable\"\n"
-    "   parent=\"ShaderVariable\"\n"
-    "   library=\"System\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   structure=\"abstract\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   decoratable=\"false\"\n"
-    "   useLocalIncludes=\"false\"\n"
-    "   docGroupBase=\"GrpSystemShader\"\n"
-    "   >\n"
-    "  <Field\n"
+    "     name=\"ShaderValueVariable\"\n"
+    "     parent=\"ShaderVariable\"\n"
+    "     library=\"System\"\n"
+    "     pointerfieldtypes=\"both\"\n"
+    "     structure=\"abstract\"\n"
+    "     systemcomponent=\"true\"\n"
+    "     parentsystemcomponent=\"true\"\n"
+    "     decoratable=\"false\"\n"
+    "     useLocalIncludes=\"false\"\n"
+    "     docGroupBase=\"GrpSystemShader\"\n"
+    "     >\n"
+    "    <Field\n"
     "\t name=\"variableIdx\"\n"
     "\t type=\"UInt16\"\n"
     "\t cardinality=\"multi\"\n"
     "\t visibility=\"internal\"\n"
     "\t access=\"none\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
     "\t >\n"
-    "  </Field> \n"
+    "    </Field> \n"
     "</FieldContainer>\n",
     ""
     );

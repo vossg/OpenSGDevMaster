@@ -798,7 +798,7 @@ void ShaderProgramVariables::onCreateAspect(
 
     _pVarAccess = new ShaderVariableAccess(*this);
 }
-    
+
 void ShaderProgramVariables::onDestroyAspect(UInt32 uiContainerId,
                                              UInt32 uiAspect     )
 {
