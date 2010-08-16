@@ -16,8 +16,9 @@
       name="value"
       type="Int32"
       cardinality="single"
-      visibility="external"
+      visibility="internal"
       access="public"
+      defaultValue="-1"
       >
     parameter value
   </Field>

@@ -1172,7 +1172,8 @@ void CgFXMaterial::extractParameters(void)
             {
                 CgFXVariableTexObjUnrecPtr pVar; 
                 std::string                szFilename;
-                bool                       varInitialized = false;
+                bool                       varIsInitialized = false;
+                bool                       readFile         = true;
 
                 if(this->getParameterValueSource() == CURRENT)
                 {
@@ -1183,11 +1184,22 @@ void CgFXMaterial::extractParameters(void)
                                 this->getVariable(
                                     szParamName.c_str()))->getFilePath();
 
-                        varInitialized = true;
+                        varIsInitialized = true;
+
+                        for(UInt32 i = 0; i < getMFTextures()->size(); ++i)
+                        {
+                            if(szParamName.compare(
+                                   getName(getTextures(i))) == 0)
+                            {   // image file is already loaded and ready to
+                                // use, so skip reading it again. 
+                                readFile = false;
+                                break;
+                            }
+                        }
                     }
                 }
 
-                if(szFilename.empty() == true)
+                if(szFilename.empty())
                 {
                     CGannotation pAnno = cgGetNamedParameterAnnotation(pParam, 
                                                                        "File");
@@ -1243,29 +1255,33 @@ void CgFXMaterial::extractParameters(void)
                     }
                 }
 
-                Int32 uiSamplerId = -1;
-
-                ImageUnrecPtr pImg = 
-                    ImageFileHandler::the()->read(szFilename.c_str());
-
-                if(pImg != NULL)
+                if(readFile)
                 {
-                    TextureObjChunkUnrecPtr pTexO = TextureObjChunk::create();
+                    Int32 uiSamplerId = -1;
 
-                    setName(pTexO, szParamName);
+                    ImageUnrecPtr pImg = 
+                        ImageFileHandler::the()->read(szFilename.c_str());
 
-                    pTexO->setImage(pImg);
-
-                    if(varInitialized == false)
+                    if(pImg != NULL)
                     {
-                        pVar = CgFXVariableTexObj::create();
+                        TextureObjChunkUnrecPtr pTexO = 
+                            TextureObjChunk::create();
 
-                        pVar->setName    (szParamName);
-                        pVar->setValue   (uiSamplerId);
-                        this->addVariable(pVar       );
+                        setName(pTexO, szParamName);
+
+                        pTexO->setImage(pImg);
+
+                        if(varInitialized == false)
+                        {
+                            pVar = CgFXVariableTexObj::create();
+
+                            pVar->setName    (szParamName);
+                            pVar->setValue   (uiSamplerId);
+                            this->addVariable(pVar       );
+                        }
+
+                        this->pushToTextures(pTexO);
                     }
-
-                    this->pushToTextures(pTexO);
                 }
             }
             break;

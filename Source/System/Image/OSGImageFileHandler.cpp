@@ -340,10 +340,6 @@ ImageTransitPtr ImageFileHandlerBase::read(const Char8 *fileName,
     {
         image = NULL;
     }
-    else
-    {
-        FilePathAttachment::setFilePath(image, BoostPath(fileName));
-    }
 
     return ImageTransitPtr(image);
 }
@@ -397,7 +393,7 @@ bool ImageFileHandlerBase::read(      Image *pImage,
             pImage->setAttachmentField(_fileNameKey, fileName);
             pImage->setAttachmentField(_fullFilePathKey, fullFilePath);
 
-            FilePathAttachment::setFilePath(pImage, BoostPath(fileName));
+            FilePathAttachment::setFilePath(pImage, BoostPath(fullFilePath));
 
             // converting the path to a absolute path.
             std::string abspath;
