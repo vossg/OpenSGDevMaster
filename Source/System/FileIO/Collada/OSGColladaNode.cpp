@@ -738,10 +738,86 @@ ColladaNode::handleScale(domScale *scale, InstData &instData)
 void
 ColladaNode::handleSkew(domSkew *skew, InstData &instData)
 {
+	/* 
+	 * Implemented in accordance with the RenderMan specification.
+	 * See http://www.koders.com/cpp/fidA08C276050F880D11C2E49280DD9997478DC5BA1.aspx for
+	 * the implementation that this was copied from.
+	 * (If the url is invalid, this implementation was copied from the GNU GMAN project,
+	 * in the gmanmatrix4.cpp file.)
+	 *
+	 */
     if(skew == NULL)
         return;
+	
+   // SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
+	Real32 angle,an1,an2,rx,ry,alpha;
+	Matrix m;
+	Vec3f a1,a2,n1,n2;
 
-    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
+	domFloat7 elems = skew->getValue();
+	angle = elems[0];
+	Vec3f a(elems[1],elems[2],elems[3]), b(elems[4],elems[5],elems[6]);
+	b.normalize();
+	a1 = b * a.dot(b);
+	a2 = a - a1;
+	a2.normalize();
+
+	an1 = a.dot(a2);
+	an2 = a.dot(b);
+
+	angle = osgDegree2Rad(angle);
+	rx = an1*osgCos(angle) - an2*osgSin(angle);
+	ry = an1*osgSin(angle) + an2*osgCos(angle);
+
+	if(rx <= 0.0f)
+	{  // skew angle too large, and we can't calculate the skew matrix
+		SWARNING << "ColladaNode::handleSkew: Skew Angle too large! ( rx = " 
+				 << rx << " )" << std::endl;
+		return; 
+	}
+
+	// are A and B parallel?
+	if(OSG::osgAbs(an1) < 0.000001) 
+		alpha = 0.0f;
+	else 
+		alpha = ry/rx - an2/an1;
+	
+	m[0][0] = a2.x() * b.x() * alpha + 1.0f;
+	m[1][0] = a2.y() * b.x() * alpha;
+	m[2][0] = a2.z() * b.x() * alpha;
+
+	m[0][1] = a2.x() * b.y() * alpha;
+	m[1][1] = a2.y() * b.y() * alpha + 1.0f;
+	m[2][1] = a2.z() * b.y() * alpha;
+
+	m[0][2] = a2.x() * b.z() * alpha;
+	m[1][2] = a2.y() * b.z() * alpha;
+	m[2][2] = a2.z() * b.z() * alpha + 1.0f;
+
+	domNodeRef        node   = getDOMElementAs<domNode>();
+
+    TransformUnrecPtr xform = Transform::create();
+	NodeUnrecPtr      xformN = makeNodeFor(xform);
+
+	xform->setMatrix(m);
+
+	 if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
+       node->getName()                                       != NULL   )
+    {
+        std::string nodeName = node->getName();
+
+        if(skew->getSid() != NULL && 
+			getGlobal()->getOptions()->getFlattenNodeXForms() == false)
+        {
+            nodeName.append("."                );
+            nodeName.append(skew->getSid());
+        }
+
+        setName(xformN, nodeName);
+    }
+
+    appendXForm(xformN);
+
 }
 
 void
