@@ -104,8 +104,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
         EffectStringFieldId = EffectFileFieldId + 1,
         CompilerOptionsFieldId = EffectStringFieldId + 1,
         VariablesFieldId = CompilerOptionsFieldId + 1,
-        VariableNamesFieldId = VariablesFieldId + 1,
-        StateVariablesFieldId = VariableNamesFieldId + 1,
+        SelectedTechniqueFieldId = VariablesFieldId + 1,
+        StateVariablesFieldId = SelectedTechniqueFieldId + 1,
         TechniquesFieldId = StateVariablesFieldId + 1,
         TexturesFieldId = TechniquesFieldId + 1,
         GLIdFieldId = TexturesFieldId + 1,
@@ -124,8 +124,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
         (TypeTraits<BitVector>::One << CompilerOptionsFieldId);
     static const OSG::BitVector VariablesFieldMask =
         (TypeTraits<BitVector>::One << VariablesFieldId);
-    static const OSG::BitVector VariableNamesFieldMask =
-        (TypeTraits<BitVector>::One << VariableNamesFieldId);
+    static const OSG::BitVector SelectedTechniqueFieldMask =
+        (TypeTraits<BitVector>::One << SelectedTechniqueFieldId);
     static const OSG::BitVector StateVariablesFieldMask =
         (TypeTraits<BitVector>::One << StateVariablesFieldId);
     static const OSG::BitVector TechniquesFieldMask =
@@ -143,7 +143,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     typedef SFString          SFEffectStringType;
     typedef MFString          MFCompilerOptionsType;
     typedef SFUnrecChildShaderProgramVariablesPtr SFVariablesType;
-    typedef MFString          MFVariableNamesType;
+    typedef SFString          SFSelectedTechniqueType;
     typedef SFUInt32          SFStateVariablesType;
     typedef MFUnrecCgFXTechniquePtr MFTechniquesType;
     typedef MFUnrecTextureObjChunkPtr MFTexturesType;
@@ -290,7 +290,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     SFString          _sfEffectString;
     MFString          _mfCompilerOptions;
     SFUnrecChildShaderProgramVariablesPtr _sfVariables;
-    MFString          _mfVariableNames;
+    SFString          _sfSelectedTechnique;
     SFUInt32          _sfStateVariables;
     MFUnrecCgFXTechniquePtr _mfTechniques;
     MFUnrecTextureObjChunkPtr _mfTextures;
@@ -343,8 +343,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     EditFieldHandlePtr editHandleCompilerOptions(void);
     GetFieldHandlePtr  getHandleVariables       (void) const;
     EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableNames   (void) const;
-    EditFieldHandlePtr editHandleVariableNames  (void);
+    GetFieldHandlePtr  getHandleSelectedTechnique (void) const;
+    EditFieldHandlePtr editHandleSelectedTechnique(void);
     GetFieldHandlePtr  getHandleStateVariables  (void) const;
     EditFieldHandlePtr editHandleStateVariables (void);
     GetFieldHandlePtr  getHandleTechniques      (void) const;
@@ -362,8 +362,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
             const SFUnrecChildShaderProgramVariablesPtr *getSFVariables       (void) const;
                   SFUnrecChildShaderProgramVariablesPtr *editSFVariables      (void);
 
-                  MFString            *editMFVariableNames  (void);
-            const MFString            *getMFVariableNames   (void) const;
+                  SFString            *editSFSelectedTechnique(void);
+            const SFString            *getSFSelectedTechnique (void) const;
 
                   SFUInt32            *editSFStateVariables (void);
             const SFUInt32            *getSFStateVariables  (void) const;
@@ -375,8 +375,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
 
                   ShaderProgramVariables * getVariables      (void) const;
 
-                  std::string         &editVariableNames  (const UInt32 index);
-            const std::string         &getVariableNames   (const UInt32 index) const;
+                  std::string         &editSelectedTechnique(void);
+            const std::string         &getSelectedTechnique (void) const;
 
                   UInt32              &editStateVariables (void);
                   UInt32               getStateVariables  (void) const;
@@ -391,6 +391,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     /*! \{                                                                 */
 
             void setVariables      (ShaderProgramVariables * const value);
+            void setSelectedTechnique(const std::string &value);
             void setStateVariables (const UInt32 value);
 
     /*! \}                                                                 */

@@ -12,117 +12,116 @@
     useLocalIncludes="false"
     fieldsUnmarkedOnCreate="TreatTechniquesAsVariantsFieldMask"
     >
-    <Field
-        name="treatTechniquesAsVariants"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        access="public"
-        defaultValue="false"
-        >
+  <Field
+      name="treatTechniquesAsVariants"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="false"
+      >
     effect compiler options
-    </Field>
-    <Field
-        name="effectFile"
-        type="std::string"
-        cardinality="single"
-        visibility="external"
-        access="public"
-        >
-      cgfx file
-    </Field>
-    <Field
-        name="ParameterValueSource"
-        type="UInt8"
-        cardinality="single"
-        visibility="external"
-        access="public"
-        defaultValue="CgFXMaterial::DEFAULT"
-        >
-      Source to use for parameters when initializing the material.
-      DEFAULT: Uses the values that are read in from the .cgfx file or code
-      string. Will overwrite the current value for the corresponding 
-      ShaderProgramVariable if there is one.
-      CURRENT: Checks if the material already has a ShaderProgramVariable of
-      the same name, and if it does, it uses that value instead of the default
-      value. 
-    </Field>
-    <Field
-        name="effectString"
-        type="std::string"
-        cardinality="single"
-        visibility="external"
-        access="public"
-        >
+  </Field>
+  <Field
+      name="effectFile"
+      type="std::string"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
     cgfx file
-    </Field>
-    <Field
-        name="compilerOptions"
-        type="std::string"
-        cardinality="multi"
-        visibility="external"
-        access="public"
-        >
+  </Field>
+  <Field
+      name="ParameterValueSource"
+      type="UInt8"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="CgFXMaterial::DEFAULT"
+      >
+    Source to use for parameters when initializing the material.
+    DEFAULT: Uses the values that are read in from the .cgfx file or code
+    string. Will overwrite the current value for the corresponding 
+    ShaderProgramVariable if there is one.
+    CURRENT: Checks if the material already has a ShaderProgramVariable of
+    the same name, and if it does, it uses that value instead of the default
+    value. 
+  </Field>
+  <Field
+      name="effectString"
+      type="std::string"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+    cgfx file
+  </Field>
+  <Field
+      name="compilerOptions"
+      type="std::string"
+      cardinality="multi"
+      visibility="external"
+      access="public"
+      >
     effect compiler options
-    </Field>
-    <Field
-        name="variables"
-        type="ShaderProgramVariables"
-        cardinality="single"
-        visibility="external"
-        access="protected"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-        >
-    </Field>
-    <Field
-        name="variableNames"
-        type="std::string"
-        cardinality="multi"
-        visibility="internal"
-        access="protected"
-        >
-    </Field>
-    <Field
-        name="stateVariables"
-        type="UInt32"
-        category="data"
-        cardinality="single"
-        visibility="internal"
-        access="protected"
-        defaultValue="0"
-        >
-    </Field>
-
-    <Field
-        name="techniques"
-        type="CgFXTechnique"
-        cardinality="multi"
-        visibility="internal"
-        access="protected"
-        category="pointer"
-        fieldFlags="FStdAccess, FClusterLocal, FThreadLocal"
-        >
-    </Field>
-    <Field
-        name="textures"
-        type="TextureObjChunk"
-        category="pointer"
-        cardinality="multi"
-        visibility="external"
-        access="protected"
-        >
-    </Field>
-    <Field
-        name="GLId"
-        type="GLenum"
-        cardinality="single"
-        visibility="internal"
-        access="public"
-        defaultValue="0"
-        fieldFlags="FClusterLocal"
-        >
-        The OpenGL texture id for this texture.
-    </Field>
+  </Field>
+  <Field
+      name="variables"
+      type="ShaderProgramVariables"
+      cardinality="single"
+      visibility="external"
+      access="protected"
+      category="childpointer"
+      childParentType="FieldContainer"
+      linkParentField="Parents"
+      >
+  </Field>
+  <Field
+      name="selectedTechnique"
+      type="std::string"
+      cardinality="single"
+      visibility="external"
+      access="protected"
+      >
+  </Field>
+  <Field
+      name="stateVariables"
+      type="UInt32"
+      category="data"
+      cardinality="single"
+      visibility="internal"
+      access="protected"
+      defaultValue="0"
+      >
+  </Field>
+  <Field
+      name="techniques"
+      type="CgFXTechnique"
+      cardinality="multi"
+      visibility="internal"
+      access="protected"
+      category="pointer"
+      fieldFlags="FStdAccess, FClusterLocal, FThreadLocal"
+      >
+  </Field>
+  <Field
+      name="textures"
+      type="TextureObjChunk"
+      category="pointer"
+      cardinality="multi"
+      visibility="external"
+      access="protected"
+      >
+  </Field>
+  <Field
+      name="GLId"
+      type="GLenum"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      defaultValue="0"
+      fieldFlags="FClusterLocal"
+      >
+    The OpenGL texture id for this texture.
+  </Field>
 </FieldContainer>

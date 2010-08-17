@@ -190,6 +190,31 @@ void CgFXMaterialBase::setVariables(ShaderProgramVariables * const value)
 
     _sfVariables.setValue(value);
 }
+//! Get the value of the CgFXMaterial::_sfSelectedTechnique field.
+
+inline
+std::string &CgFXMaterialBase::editSelectedTechnique(void)
+{
+    editSField(SelectedTechniqueFieldMask);
+
+    return _sfSelectedTechnique.getValue();
+}
+
+//! Get the value of the CgFXMaterial::_sfSelectedTechnique field.
+inline
+const std::string &CgFXMaterialBase::getSelectedTechnique(void) const
+{
+    return _sfSelectedTechnique.getValue();
+}
+
+//! Set the value of the CgFXMaterial::_sfSelectedTechnique field.
+inline
+void CgFXMaterialBase::setSelectedTechnique(const std::string &value)
+{
+    editSField(SelectedTechniqueFieldMask);
+
+    _sfSelectedTechnique.setValue(value);
+}
 //! Get the value of the CgFXMaterial::_sfStateVariables field.
 
 inline
@@ -257,22 +282,6 @@ std::string &CgFXMaterialBase::editCompilerOptions(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the CgFXMaterial::_mfVariableNames field.
-inline
-const std::string &CgFXMaterialBase::getVariableNames(const UInt32 index) const
-{
-    return _mfVariableNames[index];
-}
-
-inline
-std::string &CgFXMaterialBase::editVariableNames(const UInt32 index)
-{
-    editMField(VariableNamesFieldMask, _mfVariableNames);
-
-    return _mfVariableNames[index];
-}
-
-
 //! Get the value of the \a index element the CgFXMaterial::_mfTechniques field.
 inline
 CgFXTechnique * CgFXMaterialBase::getTechniques(const UInt32 index) const
@@ -319,11 +328,8 @@ void CgFXMaterialBase::execSync (      CgFXMaterialBase *pFrom,
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
         _sfVariables.syncWith(pFrom->_sfVariables);
 
-    if(FieldBits::NoField != (VariableNamesFieldMask & whichField))
-        _mfVariableNames.syncWith(pFrom->_mfVariableNames,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (SelectedTechniqueFieldMask & whichField))
+        _sfSelectedTechnique.syncWith(pFrom->_sfSelectedTechnique);
 
     if(FieldBits::NoField != (StateVariablesFieldMask & whichField))
         _sfStateVariables.syncWith(pFrom->_sfStateVariables);
