@@ -60,9 +60,11 @@ class OSG_UTIL_DLLMAPPING LODSetupGraphOp : public GraphOp
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
+
     typedef GraphOp                                 Inherited;
     typedef LODSetupGraphOp                            Self;
-	typedef std::vector<std::string>				SearchNameVec;
+
+	
     OSG_GEN_INTERNAL_MEMOBJPTR(LODSetupGraphOp);
 	
 	
@@ -78,8 +80,7 @@ class OSG_UTIL_DLLMAPPING LODSetupGraphOp : public GraphOp
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    static  ObjTransitPtr     create(std::string SearchName = "_col",
-                          UInt32 NewTraversalMask = 0);
+    static  ObjTransitPtr     create();
 
     virtual GraphOpTransitPtr clone (void );
 
@@ -94,14 +95,18 @@ class OSG_UTIL_DLLMAPPING LODSetupGraphOp : public GraphOp
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
+ 
+	/*! Adds a level of detail to search for in the graph op. Will overwrite previous entries if one with the same value of LOD is preset
+	* @param LOD Index corresponding to the Level of Detail this set represents. 0 = highest level of detail
+	* @param Range Minimum distance at which this LOD should be used
+	* @param SearchName Substring which to check for in a node's name to determine if it is the geometry that should be used for this LOD set. 
+	* @return True of the set was added, false if not.
+	*/
+	void addLODInfo(Int32 LOD, Real32 Range, std::string SearchName);
 
-    void setSearchStrings(SearchNameVec SearchName);
-	void addSearchString(std::string SearchName);
-    void setNewTravMask(UInt32 NewTraversalMask);
-
-	/*! Returns the LOD nodes that were created. 
+	/*! Returns the number of LOD nodes that were created. Only accurate after the graph op has been completed.
 	 *
-	 *	@return Only accurate after the graph op has been completed.
+	 *	@return Number of LOD nodes created.
 	 */
 	UInt32 getNumLODSMade( void );
 
@@ -112,6 +117,32 @@ class OSG_UTIL_DLLMAPPING LODSetupGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
 protected:
 
+	// Gets the range value for a given LOD.
+	Real32 getRange(Int32 LOD);
+
+	typedef std::pair<Int32,Node *> LODPair; // value for a level of detail and it's corresponding node
+
+	struct LODInfo
+	{
+		Int32 mLOD; // value for this level of detail. 0 = highest level of detail
+		Real32 mRange; // distance for which to activate this LOD
+		std::string mTag; // name tag to search for in node's name
+
+		LODInfo(Int32 LOD, Real32 Range, std::string Tag );
+		LODInfo();
+	};
+
+	struct LODSet
+	{
+		std::string mBaseName; // common name to all nodes in this set
+		std::vector<LODPair> mLODPairs;  // array of pointers to nodes for this set of LOD nodes
+
+		void addLODPair(Int32 LOD, Node *node);
+	};
+
+
+	std::vector<LODInfo> _mLODs; 
+	std::vector<LODSet> _mSets; 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
@@ -122,13 +153,9 @@ protected:
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
-	
-	// The strings to search for in node names to determine if an LOD node 
-	// should be created.
-	SearchNameVec _searchNames;
-	
+
 	// The number of LOD nodes created.
-	UInt32 _numMade;
+	UInt32 _totalNumMade;
 	
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);

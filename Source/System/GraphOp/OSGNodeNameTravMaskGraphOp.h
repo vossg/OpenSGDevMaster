@@ -50,9 +50,9 @@
 OSG_BEGIN_NAMESPACE
 
 //! \ingroup GrpSystemRenderingBackend
-//! CollisionMeshGraphOp class
+//! NodeNameTravMaskGraphOp class
 
-class OSG_UTIL_DLLMAPPING CollisionMeshGraphOp : public GraphOp
+class OSG_UTIL_DLLMAPPING NodeNameTravMaskGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -61,15 +61,15 @@ class OSG_UTIL_DLLMAPPING CollisionMeshGraphOp : public GraphOp
     /*! \{                                                                 */
 
     typedef GraphOp                                 Inherited;
-    typedef CollisionMeshGraphOp                            Self;
+    typedef NodeNameTravMaskGraphOp                            Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(CollisionMeshGraphOp);
+    OSG_GEN_INTERNAL_MEMOBJPTR(NodeNameTravMaskGraphOp);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static const char *getClassname(void) { return "CollisionMeshGraphOp"; };
+    static const char *getClassname(void) { return "NodeNameTravMaskGraphOp"; };
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -113,9 +113,9 @@ protected:
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-             CollisionMeshGraphOp(      std::string SearchName = "_col",
+             NodeNameTravMaskGraphOp(      std::string SearchName = "_col",
                           UInt32 NewTraversalMask = 0);
-    virtual ~CollisionMeshGraphOp(void                                );
+    virtual ~NodeNameTravMaskGraphOp(void                                );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -129,9 +129,9 @@ private:
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
-typedef CollisionMeshGraphOp *CollisionMeshGraphOpP;
+typedef NodeNameTravMaskGraphOp *NodeNameTravMaskGraphOpP;
 
-OSG_GEN_MEMOBJPTR(CollisionMeshGraphOp);
+OSG_GEN_MEMOBJPTR(NodeNameTravMaskGraphOp);
 
 
 OSG_END_NAMESPACE

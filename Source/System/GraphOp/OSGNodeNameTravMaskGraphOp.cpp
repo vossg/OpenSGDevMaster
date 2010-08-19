@@ -41,7 +41,7 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include "OSGCollisionMeshGraphOp.h"
+#include "OSGNodeNameTravMaskGraphOp.h"
 #include "OSGGraphOpFactory.h"
 #include "OSGNameAttachment.h"
 #include <string>
@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::CollisionMeshGraphOp
+/*! \class OSG::NodeNameTravMaskGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
     A class used to optimize geometries a bit.
@@ -65,7 +65,7 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpRefPtr newOp = CollisionMeshGraphOp::create();
+        GraphOpRefPtr newOp = NodeNameTravMaskGraphOp::create();
 
         GraphOpFactory::the()->registerOp(newOp);
         return true;
@@ -86,7 +86,7 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-CollisionMeshGraphOp::CollisionMeshGraphOp(      std::string SearchName,
+NodeNameTravMaskGraphOp::NodeNameTravMaskGraphOp(      std::string SearchName,
                           UInt32 NewTraversalMask ) :
     _searchName(SearchName),
 	_travMaskValue(NewTraversalMask),
@@ -94,28 +94,28 @@ CollisionMeshGraphOp::CollisionMeshGraphOp(      std::string SearchName,
 {
 }
 
-CollisionMeshGraphOp::~CollisionMeshGraphOp(void)
+NodeNameTravMaskGraphOp::~NodeNameTravMaskGraphOp(void)
 {
 }
 
-CollisionMeshGraphOpTransitPtr
-CollisionMeshGraphOp::create(std::string SearchName,
+NodeNameTravMaskGraphOpTransitPtr
+NodeNameTravMaskGraphOp::create(std::string SearchName,
                              UInt32 NewTraversalMask )
 {
-    return CollisionMeshGraphOpTransitPtr(new CollisionMeshGraphOp(SearchName,NewTraversalMask));
+    return NodeNameTravMaskGraphOpTransitPtr(new NodeNameTravMaskGraphOp(SearchName,NewTraversalMask));
 }
 
-GraphOpTransitPtr CollisionMeshGraphOp::clone(void)
+GraphOpTransitPtr NodeNameTravMaskGraphOp::clone(void)
 {
-    return GraphOpTransitPtr(new CollisionMeshGraphOp());
+    return GraphOpTransitPtr(new NodeNameTravMaskGraphOp());
 }
 
-bool CollisionMeshGraphOp::traverse(Node *root)
+bool NodeNameTravMaskGraphOp::traverse(Node *root)
 {
     return GraphOp::traverse(root);
 }
 
-void CollisionMeshGraphOp::setParams(const std::string params)
+void NodeNameTravMaskGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);   
     
@@ -125,32 +125,32 @@ void CollisionMeshGraphOp::setParams(const std::string params)
     std::string out = ps.getUnusedParams();
     if(out.length())
     {
-        FWARNING(("CollisionMeshGraphOp doesn't have parameters '%s'.\n",
+        FWARNING(("NodeNameTravMaskGraphOp doesn't have parameters '%s'.\n",
                 out.c_str()));
     }
 }
 
-std::string CollisionMeshGraphOp::usage(void)
+std::string NodeNameTravMaskGraphOp::usage(void)
 {
     return 
-    "Collision Mesh: Changes traversal masks of nodes containing a given string in their name\n"
+    "NodeNameTravMask: Changes traversal masks of nodes containing a given string in their name\n"
     "Params: name (type, default)\n"
     "  NewTraversalMask (UInt32, 0): Value to set the traversal mask to if it contains SearchName\n"
 	"  SearchName (string, \"_col\"): Name to search for in the node's name.";
 }
 
-void CollisionMeshGraphOp::setSearchString(std::string SearchName)
+void NodeNameTravMaskGraphOp::setSearchString(std::string SearchName)
 {
 	_searchName = SearchName;
 }
 
-void CollisionMeshGraphOp::setNewTravMask(UInt32 NewTraversalMask)
+void NodeNameTravMaskGraphOp::setNewTravMask(UInt32 NewTraversalMask)
 {
 	_travMaskValue = NewTraversalMask;
 }
 
 
-UInt32 CollisionMeshGraphOp::getNumChanged( void )
+UInt32 NodeNameTravMaskGraphOp::getNumChanged( void )
 {
 	return _numChanged;
 }
@@ -165,7 +165,7 @@ UInt32 CollisionMeshGraphOp::getNumChanged( void )
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-Action::ResultE CollisionMeshGraphOp::traverseEnter(Node * const node)
+Action::ResultE NodeNameTravMaskGraphOp::traverseEnter(Node * const node)
 {
 	const Char8 * namePtr = OSG::getName(node);
 
@@ -183,7 +183,7 @@ Action::ResultE CollisionMeshGraphOp::traverseEnter(Node * const node)
     return Action::Continue;    
 }
 
-Action::ResultE CollisionMeshGraphOp::traverseLeave(Node * const node, Action::ResultE res)
+Action::ResultE NodeNameTravMaskGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
 	return res;
 }
