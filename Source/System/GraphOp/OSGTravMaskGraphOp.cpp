@@ -41,7 +41,7 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include "OSGNodeNameTravMaskGraphOp.h"
+#include "OSGTravMaskGraphOp.h"
 #include "OSGGraphOpFactory.h"
 #include "OSGNameAttachment.h"
 #include <string>
@@ -53,10 +53,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::NodeNameTravMaskGraphOp
+/*! \class OSG::TravMaskGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
-    A class used to optimize geometries a bit.
+    A class used to change traversal masks of nodes meeting certain criteria.
 
 */
 
@@ -65,7 +65,7 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpRefPtr newOp = NodeNameTravMaskGraphOp::create();
+        GraphOpRefPtr newOp = TravMaskGraphOp::create();
 
         GraphOpFactory::the()->registerOp(newOp);
         return true;
@@ -86,73 +86,119 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-NodeNameTravMaskGraphOp::NodeNameTravMaskGraphOp(      std::string SearchName,
-                          UInt32 NewTraversalMask ) :
-    _searchName(SearchName),
-	_travMaskValue(NewTraversalMask),
-	_numChanged(0)
+std::string mSearchName;
+UInt32 mNewTravMask;
+
+UInt32 mNodeCoreTypeID;
+UInt32 mCurTravMask;
+
+bool mCheckName;
+bool mCheckCurTravMask;
+bool mCheckNodeCoreType;
+
+
+TravMaskGraphOp::TravMaskGraphOp() :
+    mSearchName("_Col"),
+	mNewTravMask(1),
+	mNumChanged(0),
+	mNodeCoreTypeID(0),
+	mCurTravMask(1),
+	mCheckName(true),
+	mCheckCurTravMask(false),
+	mCheckNodeCoreType(false)
 {
 }
 
-NodeNameTravMaskGraphOp::~NodeNameTravMaskGraphOp(void)
+TravMaskGraphOp::~TravMaskGraphOp(void)
 {
 }
 
-NodeNameTravMaskGraphOpTransitPtr
-NodeNameTravMaskGraphOp::create(std::string SearchName,
-                             UInt32 NewTraversalMask )
+TravMaskGraphOpTransitPtr
+TravMaskGraphOp::create()
 {
-    return NodeNameTravMaskGraphOpTransitPtr(new NodeNameTravMaskGraphOp(SearchName,NewTraversalMask));
+    return TravMaskGraphOpTransitPtr(new TravMaskGraphOp());
 }
 
-GraphOpTransitPtr NodeNameTravMaskGraphOp::clone(void)
+GraphOpTransitPtr TravMaskGraphOp::clone(void)
 {
-    return GraphOpTransitPtr(new NodeNameTravMaskGraphOp());
+    return GraphOpTransitPtr(new TravMaskGraphOp());
 }
 
-bool NodeNameTravMaskGraphOp::traverse(Node *root)
+bool TravMaskGraphOp::traverse(Node *root)
 {
     return GraphOp::traverse(root);
 }
 
-void NodeNameTravMaskGraphOp::setParams(const std::string params)
+void TravMaskGraphOp::setSearchString(std::string SearchName)
+{
+	mSearchName = SearchName;
+}
+
+void TravMaskGraphOp::setNodeCoreType(UInt32 ClassTypeID)
+{
+	mNodeCoreTypeID = ClassTypeID;
+}
+
+
+void TravMaskGraphOp::setNewTravMask(UInt32 NewTraversalMask)
+{
+	mNewTravMask = NewTraversalMask;
+}
+
+
+void TravMaskGraphOp::setCurrentTravMask(UInt32 CurrentTraversalMask)
+{
+	mCurTravMask = CurrentTraversalMask;
+}
+
+void TravMaskGraphOp::setCheckName(bool CheckName)
+{
+	mCheckName = CheckName;
+}
+
+void TravMaskGraphOp::setCheckNodeCoreType(bool CheckCore)
+{
+	mCheckNodeCoreType = CheckCore;
+}
+
+void TravMaskGraphOp::setCheckCurrentTravMask(bool CheckCurMask)
+{
+	mCheckCurTravMask = CheckCurMask;
+}
+
+void TravMaskGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);   
     
-    ps("NewTraversalMask", _travMaskValue);
-	ps("SearchName", _searchName);
+    ps("NewTraversalMask", mNewTravMask);
+	ps("SearchName", mSearchName);
+	ps("NodeCoreTypeID",mNodeCoreTypeID);
+	ps("CurTraversalMask",mCurTravMask);
+	ps("NodeCoreTypeID",mNodeCoreTypeID);
     
     std::string out = ps.getUnusedParams();
     if(out.length())
     {
-        FWARNING(("NodeNameTravMaskGraphOp doesn't have parameters '%s'.\n",
+        FWARNING(("TravMaskGraphOp doesn't have parameters '%s'.\n",
                 out.c_str()));
     }
 }
 
-std::string NodeNameTravMaskGraphOp::usage(void)
+std::string TravMaskGraphOp::usage(void)
 {
     return 
-    "NodeNameTravMask: Changes traversal masks of nodes containing a given string in their name\n"
+    "NodeNameTravMask: Changes traversal masks of nodes based on certain criteria.\n"
     "Params: name (type, default)\n"
-    "  NewTraversalMask (UInt32, 0): Value to set the traversal mask to if it contains SearchName\n"
-	"  SearchName (string, \"_col\"): Name to search for in the node's name.";
+    "	NewTraversalMask (UInt32, 0): Value to set the traversal mask to if it meets criteria\n"
+	"	SearchName (string, \"_col\"): Name to search for in the node's name."
+	"	NodeCoreTypeID (UInt32, 0): NodeCoreTypeID to check for."
+	"	CurTraversalMask (UInt32, 1): Current Traversal mask to check for."
+	" The default values for this class will hide all nodes whose names end in \"_Col\"";
 }
 
-void NodeNameTravMaskGraphOp::setSearchString(std::string SearchName)
+UInt32 TravMaskGraphOp::getNumChanged( void )
 {
-	_searchName = SearchName;
-}
-
-void NodeNameTravMaskGraphOp::setNewTravMask(UInt32 NewTraversalMask)
-{
-	_travMaskValue = NewTraversalMask;
-}
-
-
-UInt32 NodeNameTravMaskGraphOp::getNumChanged( void )
-{
-	return _numChanged;
+	return mNumChanged;
 }
 
 
@@ -165,25 +211,47 @@ UInt32 NodeNameTravMaskGraphOp::getNumChanged( void )
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-Action::ResultE NodeNameTravMaskGraphOp::traverseEnter(Node * const node)
+Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
 {
-	const Char8 * namePtr = OSG::getName(node);
+	bool setMask(false);
 
-	if(namePtr != NULL)
+	if(mCheckName)
 	{
-		std::string nodeName(namePtr);
-		size_t searchPos = ( nodeName.length() > _searchName.length() + 1 ) ? (nodeName.length() - _searchName.length() - 1) : (0);
-		if(nodeName.find(_searchName, searchPos) != std::string::npos)
+		const Char8 * namePtr = OSG::getName(node);
+
+		if(namePtr != NULL)
 		{
-			node->setTravMask(_travMaskValue);
-			_numChanged++;
+			std::string nodeName(namePtr);
+			size_t searchPos = ( nodeName.length() > mSearchName.length() + 1 ) 
+								? (nodeName.length() - mSearchName.length() - 1) 
+								: (0);
+
+			if(nodeName.find(mSearchName, searchPos) != std::string::npos)
+			{
+				setMask = true;
+			}
 		}
+	}
+
+	if(mCheckCurTravMask && 
+		(node->getTravMask() == mCurTravMask)) 
+			setMask = true;
+
+
+	if(mCheckNodeCoreType && 
+		(node->getCore()->getClassTypeId() == mNodeCoreTypeID)) 
+			setMask = true;
+
+	if(setMask)
+	{
+		node->setTravMask(mNewTravMask);
+		mNumChanged++;
 	}
 
     return Action::Continue;    
 }
 
-Action::ResultE NodeNameTravMaskGraphOp::traverseLeave(Node * const node, Action::ResultE res)
+Action::ResultE TravMaskGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
 	return res;
 }
