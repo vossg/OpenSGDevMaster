@@ -205,6 +205,19 @@ Real32 LODSetupGraphOp::getRange(Int32 LOD)
 void LODSetupGraphOp::LODSet::addLODPair(Int32 LOD, Node *node)
 {
 	mLODPairs.push_back(std::pair<Int32,Node *>(LOD,node));
+	// simple sort to make sure LODs are in order
+	if(mLODPairs.size() > 1)
+	{
+		for(Int32 i(mLODPairs.size() - 1); i >= 1; i--)
+		{
+			if(mLODPairs[i] < mLODPairs[i - 1])
+			{
+				LODPair tmp = mLODPairs[i];
+				mLODPairs[i] = mLODPairs[i-1];
+				mLODPairs[i - 1] = tmp;
+			}
+		}
+	}
 }
 
 /*-------------------------------------------------------------------------*\
@@ -279,6 +292,8 @@ Action::ResultE LODSetupGraphOp::traverseEnter(Node * const node)
 
 			NodeRecPtr newLODNode = Node::create();
 			newLODNode->setCore(TheLODCore);
+			// also set the name of the node now
+			OSG::setName(newLODNode,_mSets[i].mBaseName + "_LODNode");
 			node->addChild(newLODNode);
 
 			bool centerIsSet(false);
@@ -296,6 +311,7 @@ Action::ResultE LODSetupGraphOp::traverseEnter(Node * const node)
 						cur.second->getVolume().getCenter(volCenter);
 						TheLODCore->setCenter(volCenter);
 						centerIsSet = true;
+						
 					}
 				}
 			}
