@@ -334,7 +334,11 @@ void CSMDrawer::runParallel(void)
 
         _pSyncBarrier->enter(_uiSyncCount);
 
+#if 0
         Thread::getCurrentChangeList()->commitChangesAndClear();
+#else
+        Thread::getCurrentChangeList()->commitChanges();
+#endif
     }
 
     if(_pSwapBarrier == NULL)
@@ -354,15 +358,15 @@ void CSMDrawer::runParallel(void)
             {
                 _pSyncBarrier->enter(_uiSyncCount);
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->acquire();
-#endif
+# endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->release();
-#endif
+# endif
 
                 _pSyncBarrier->enter(_uiSyncCount);
                 
@@ -387,15 +391,15 @@ void CSMDrawer::runParallel(void)
             {
                 _pSyncBarrier->enter               (_uiSyncCount);
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->acquire();
-#endif
+# endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->release();
-#endif
+# endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
 
@@ -416,24 +420,39 @@ void CSMDrawer::runParallel(void)
         {
             _pSyncBarrier->enter               (_uiSyncCount);
                 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
             _pSyncLock->acquire();
-#endif
+# endif
 
             _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
             _pSyncLock->release();
-#endif
+# endif
 
             _pSyncBarrier->enter               (_uiSyncCount);
 
+# if 0
             Thread::getCurrentChangeList()->commitChangesAndClear();
 
             if(_bRun == false)
                 break;
 
             this->render();
+# else
+            Thread::getCurrentChangeList()->commitChanges();
+
+            if(_bRun == false)
+            {
+                Thread::getCurrentChangeList()->commitChangesAndClear();
+                
+                break;
+            }
+
+            this->render();
+
+            Thread::getCurrentChangeList()->commitChangesAndClear();
+# endif
 #endif
         }
     }
@@ -454,15 +473,15 @@ void CSMDrawer::runParallel(void)
             {
                 _pSyncBarrier->enter       (_uiSyncCount);
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->acquire();
-#endif
+# endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->release();
-#endif
+# endif
 
                 _pSyncBarrier->enter       (_uiSyncCount);
                 
@@ -493,14 +512,14 @@ void CSMDrawer::runParallel(void)
             {
                 _pSyncBarrier->enter               (_uiSyncCount);
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->acquire();
-#endif
+# endif
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
                 _pSyncLock->release();
-#endif
+# endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
 
@@ -524,17 +543,18 @@ void CSMDrawer::runParallel(void)
         {
             _pSyncBarrier->enter               (_uiSyncCount);
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
             _pSyncLock->acquire();
-#endif
+# endif
             _pSyncFromThread->getChangeList()->applyNoClear();
 
-#ifdef OSG_GLOBAL_SYNC_LOCK
+# ifdef OSG_GLOBAL_SYNC_LOCK
             _pSyncLock->release();
-#endif
+# endif
 
             _pSyncBarrier->enter               (_uiSyncCount);
 
+#if 0
             OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
                 
             if(_bRun == false)
@@ -545,6 +565,24 @@ void CSMDrawer::runParallel(void)
             _pSwapBarrier->enter     (_uiSwapCount);
 
             this->frameFinish        (            );
+# else
+            OSG::Thread::getCurrentChangeList()->commitChanges();
+                
+            if(_bRun == false)
+            {
+                OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+
+                break;
+            }
+
+            this->frameRenderNoFinish(            );
+
+            OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+
+            _pSwapBarrier->enter     (_uiSwapCount);
+
+            this->frameFinish        (            );
+# endif
         }
 #endif
     }

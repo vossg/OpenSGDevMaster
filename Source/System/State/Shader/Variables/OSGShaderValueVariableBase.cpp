@@ -161,7 +161,7 @@ ShaderValueVariableBase::TypeObject ShaderValueVariableBase::_type(
     "\t access=\"none\"\n"
     "         fieldFlags=\"FClusterLocal\"\n"
     "\t >\n"
-    "    </Field> \n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

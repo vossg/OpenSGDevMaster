@@ -1,0 +1,150 @@
+#OSG V1.0 
+
+ComplexSceneManager
+{
+  globals
+  [
+    DEF RootNode Node
+    { 
+      core Group {}
+
+      children
+      [ 
+        DEF CameraRoot Node
+        {
+          core Transform {}
+
+          children 
+          [ 
+          ]
+        },
+
+        DEF GlobalEffectRoot Node
+        {
+          core MultiCore
+          {
+            cores
+            [
+              Group {}
+              USE GlobalEffect1
+            ]
+          }
+
+          children
+          [
+            DEF SceneRoot Node 
+            {
+              core MultiCore
+              {
+                cores
+                [
+                  Group {}
+                  USE SceneEffect1
+                ]
+              }
+
+              children
+              [
+                DEF ZLight Node
+                {
+                  core DirectionalLight
+                  {
+                    ambient    0.24 0.24 0.24 1.0
+                    diffuse    0.80 0.80 0.80 1.0
+                    direction  0.0 0.0 1.0
+                    on         TRUE
+                    beacon     USE CameraRoot
+                  }
+                  children
+                  [
+                    DEF ModelRoot Node
+                    {
+                      core Group {}
+                    }
+                  ]
+                }
+              ]
+            }
+          ] 
+        }
+      ]
+    }
+
+    DEF PerspCamGL CSMPerspectiveCamera
+    {
+      near   0.1
+      far    20000.0
+      fov    60.0
+
+      beacon USE CameraRoot
+    }
+
+  ]
+
+  drawManager DEF DrawManager CSMDrawManager
+  {
+    parallel TRUE
+
+    syncBarrierName "drawSyncBarrier"
+
+    drawer
+    [
+      CSMDrawer
+      {
+        aspect 1
+
+        windows
+        [
+           CSMClusterWindow
+           {
+#             dumpContainer TRUE
+
+             clientWindow DEF MainWindow CSMNativeWindow
+             {
+               size 300 300
+               position 200, 200
+               decorEnabled TRUE
+             }
+
+             servers    
+             [
+               "opensg-tile-0-0", 
+               "opensg-tile-1-0"
+             ]
+             serverIds  
+             [
+               1, 
+               0
+             ]
+
+             serverRows 1
+
+             connectionType "Multicast"
+             clusterMode    "Multi"
+
+             size 600 300
+
+             viewports
+             [
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     USE PerspCamGL
+
+                 background USE BGnd
+
+                 leftBottom 0.0 0.0
+                 rightTop   1.0 1.0
+
+                 foregrounds
+                 [
+                   USE FG0
+                 ]
+               }
+             ]
+           }
+        ]  
+      }
+    ]
+  }
+}

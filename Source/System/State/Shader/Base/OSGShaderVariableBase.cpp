@@ -192,7 +192,7 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     "         >\n"
     "        parameter name\n"
     "    </Field>\n"
-    "    \n"
+    "\n"
     "    <Field\n"
     "         name=\"parents\"\n"
     "         type=\"FieldContainer\"\n"
@@ -202,7 +202,7 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     "         category=\"parentpointer\"\n"
     "         fieldFlags=\"FClusterLocal\"\n"
     "\t >\n"
-    "    </Field> \n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

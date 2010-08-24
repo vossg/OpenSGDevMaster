@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-     name="ShaderVariableOSG"
-     parent="ShaderProcVariable"
-     library="System"
-     pointerfieldtypes="both"
-     structure="concrete"
-     systemcomponent="true"
-     parentsystemcomponent="true"
-     decoratable="false"
-     useLocalIncludes="false"
-     docGroupBase="GrpSystemShader"
+   name="ShaderVariableOSG"
+   parent="ShaderProcVariable"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemShader"
+   >
+  <Field
+     name="osgVarType"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     defaultValue="0"
      >
-    <Field
-	 name="osgVarType"
-	 type="UInt32"
-	 cardinality="single"
-	 visibility="external"
-	 access="protected"
-         defaultValue="0"
-	 >
-	parameter value
-    </Field>
+    parameter value
+  </Field>
 </FieldContainer>

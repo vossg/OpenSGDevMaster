@@ -503,6 +503,10 @@ void ChangeList::doApply(bool bClear)
                 pDst = pSrc->getType().createAspectCopy(pSrc,
                                                         (*ccIt)->uiContainerId);
 
+                Thread::getCurrentChangeList()->addCreated(
+                    (*ccIt)->uiContainerId, 
+                    TypeTraits<BitVector>::BitsClear);
+
 #ifndef SILENT_CPTR
                 fprintf(stderr, "Setup store for %d %p \n",
                         (*ccIt)->uiContainerId,
@@ -570,7 +574,13 @@ void ChangeList::doApply(bool bClear)
                                                         (*cIt)->uiContainerId);
             
                 if(pDst != NULL) 
+                {
+                    Thread::getCurrentChangeList()->addCreated(
+                        (*cIt)->uiContainerId, 
+                        TypeTraits<BitVector>::BitsClear);
+
                     pDst->setupAspectStore(pHandler);
+                }
 
 #ifndef SILENT_CPTR
                 pHandler->dump();

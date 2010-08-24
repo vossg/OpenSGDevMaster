@@ -105,7 +105,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderSHLChunk Shader - SHLChunk
+/*! \defgroup GrpSystemShaderSHLChunk Shader - SimpleSHLChunk
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group

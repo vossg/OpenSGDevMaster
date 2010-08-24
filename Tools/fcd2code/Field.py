@@ -196,7 +196,9 @@ class Field(FCDElement):
         self.setFCD("disallowNULL",                   "false",    True);
         self.setFCD("childParentType",                "",         True);
         self.setFCD("linkParentField",                "XX",       True);
-    
+
+        self.setFCD("interfaceType",                  "",         True);
+
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
     
@@ -359,7 +361,12 @@ class Field(FCDElement):
         self["TypeNamespace"] = TypeNS;
         self["TypeNS"]        = TypeNS;
         self["TypeCaps"]      = TypeCaps;
-        self["FullType"]      = TypeNS + Type;
+
+        if self.getFCD("interfaceType") != "":
+          self["FullType"]    = self.getFCD("interfaceType");
+        else:
+          self["FullType"]    = TypeNS + Type;
+
         self["TypeRaw"]       = TypeRaw;
 
         self["FieldType"]     = FieldType;
