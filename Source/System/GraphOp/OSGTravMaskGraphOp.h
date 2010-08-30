@@ -46,6 +46,7 @@
 #include "OSGGraphOp.h"
 #include "OSGUtilDef.h"
 #include "OSGAction.h"
+#include <boost/xpressive/xpressive_dynamic.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -56,6 +57,16 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
   public:
+    enum BitComparisionOps
+    {
+        BIT_EQUAL     = 0,
+        BIT_AND       = 1,
+        BIT_OR        = 2,
+        BIT_XOR       = 3,
+        BIT_NOT       = 4,
+        BIT_NOT_EQUAL = 5
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -94,47 +105,61 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
 
 	/*! Sets the string to search for in a node's name. 
 	*	Only the end of the node's name is checked.
-	*	@param SearchName String to look for in a node's name. 
+	*	@param MatchName String to look for in a node's name. 
 	*
 	*/
-    void setSearchString(std::string SearchName);
+    void setMatchRegex(const std::string& MatchRegex);
+    void setMatchRegex(const boost::xpressive::cregex& MatchRegex);
+    void setMatchWholeName(bool value);
 
 	/*! Sets the type of node core to search for (based on a node core's type ID)
 	*	@param ClassTypeID ID of the node core type to check for.
 	*/
-	void setNodeCoreType(UInt32 ClassTypeID);
+    void setNodeCoreType(const std::string& TypeName);
+    void setMatchDerivedCoreTypes(bool value);
 
 	/*!	Sets the value which the traversal mask of nodes will be set to IF it
 	*	meets the right criteria.
 	*	@param NewTraversalMask The value which traversal masks will be set to.
 	*/
     void setNewTravMask(UInt32 NewTraversalMask);
+    void setNewTravMaskOperation(UInt8 ApplyNewMaskOperation);
 
 	/*! Sets the value of the traversal mask to check for.
 	*	@param CurrentTraversalMask Value of the traversal mask to check for.
 	*/
-	void setCurrentTravMask(UInt32 CurrentTraversalMask);
+	void setCurrentTravMaskValue(UInt32 CurrentTraversalMask);
+	void setMatchMaskCondition(UInt8 MatchMaskCondition);
 
 	/*! Sets whether or not to check a node's name for the search string.
 	*	If true, and a node's name ends in the search string, the new trav mask
 	*	will be set.
-	*	@param CheckName If true, the name will be checked for the search string.
+	*	@param MatchName If true, the name will be checked for the search string.
 	*/
-	void setCheckName(bool CheckName = true);
+	void setMatchName(bool MatchName = true);
 
 	/*! Sets whether or not to check a node core's type.
 	*	If true, and a node's core type matches the type set in setNodeCoreType, 
 	*	the new trav mask will be set.
-	*	@param CheckCore If true, the node core type will be checked. 
+	*	@param MatchCore If true, the node core type will be checked. 
 	*/
-	void setCheckNodeCoreType(bool CheckCore = true);
+	void setMatchNodeCoreType(bool MatchCore = true);
 
 	/*! Sets whether or not to check a node current traversal mask.
 	*	If true, and a node's traversal mask matches the one set by setCurrentTravMask, 
 	*	the new trav mask will be set.
-	*	@param CheckCore If true, the node's traversal mask will be checked. 
+	*	@param MatchCore If true, the node's traversal mask will be checked. 
 	*/
-	void setCheckCurrentTravMask(bool CheckCurMask = true);
+	void setMatchCurrentTravMask(bool MatchCurMask = true);
+
+	/*! Sets whether or not to apply the travaersal mask to all of the decendents
+    *   of a node that satisfies the selection criteria.  The trversal mask
+    *   of decendents will be set even if they do not match the selection criteria.
+	*	@param MatchCore If true, decendent nodes of nodes that match the selection
+    *          criteria will have their traversal mask set.
+	*/
+	void setApplyMaskToAllDecendents(bool ApplyMaskToAllDecendents);
+	void setApplyToNonMatching(bool ApplyToNonMatching);
 
 	/*! Returns the number of nodes whose traversal masks was changed. 
 	 *
@@ -160,17 +185,28 @@ protected:
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
-	UInt32 mNumChanged;
+    //Name matching criteria
+	bool mMatchName;
+    boost::xpressive::cregex mMatchRegex;
+    bool mMatchWholeName;
 
-	std::string mSearchName;
+    //Type matching criteria
+	bool mMatchNodeCoreType;
+    const FieldContainerType* mNodeCoreType;
+    bool mMatchDerivedCoreTypes;
+
+    //Mask matching criteria
+	bool mMatchCurTravMask;
+	UInt32 mMatchCurTravMaskValue;
+    UInt8  mMatchMaskCondition;
+
+    //Parameters for applying new mask
+    bool mApplyMaskToAllDecendents;
+    bool mApplyToNonMatching;
 	UInt32 mNewTravMask;
+    UInt8  mApplyNewMaskOperation;
 
-	UInt32 mNodeCoreTypeID;
-	UInt32 mCurTravMask;
-
-	bool mCheckName;
-	bool mCheckCurTravMask;
-	bool mCheckNodeCoreType;
+	UInt32 mNumChanged;
 	
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
