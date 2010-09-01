@@ -70,6 +70,11 @@ void VisitSubTree::changed(ConstFieldMaskArg whichField,
                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+
+    if(whichField & SubTreeRootFieldMask)
+    {
+        invalidateVolume();
+    }
 }
 
 //! Set the value of the VisitSubTree::_sfSubTreeRoot field.
