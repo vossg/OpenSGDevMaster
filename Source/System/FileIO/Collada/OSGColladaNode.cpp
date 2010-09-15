@@ -794,6 +794,8 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
 	m[1][2] = a2.y() * b.z() * alpha;
 	m[2][2] = a2.z() * b.z() * alpha + 1.0f;
 
+    std::string xformSID;
+
     if(skew->getSid() != NULL)
         xformSID.assign(skew->getSid());
 

@@ -41,6 +41,7 @@
 #pragma GCC diagnostic ignored "-Wswitch"
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wtype-limits"
 #endif
 
 #include "OSGColladaEffect.h"
@@ -1209,11 +1210,22 @@ ColladaEffect::createInstanceProfileCG(
 			cgfxFileLocation = std::string(cur->getUrl().originalStr());
 			// check if the url points to something in the collada file (denoted by a #).  If it DOESN'T, then it is the file
 			// path to the .cgfx file used for this effect
-			if(cgfxFileLocation[0] != '#')
-			{  /* we assume this is the location of a cgfx file
-				  so we use it to create the material */
-				foundFilepath = true;
-				break;
+	
+			UInt32 loc;
+			if( (loc = cgfxFileLocation.find_last_of('.')) != std::string::npos)
+			{
+				if(cgfxFileLocation.substr(loc).compare(".cgfx") == 0 &&  cgfxFileLocation[0] != '#')
+				{  /* we assume this is the location of a cgfx file
+					  so we use it to create the material */
+					foundFilepath = true;
+					break;
+				}
+				else if(cgfxFileLocation.substr(loc).compare(".cg") == 0)
+				{
+					SWARNING << "ColladaEffect::createInstanceProfileCG: CG effects are not supported. " 
+							 << "Must use CgFX instead."  << std::endl;
+					break;
+				}
 			}
 		}
 		if(foundFilepath)
