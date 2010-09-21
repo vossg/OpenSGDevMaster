@@ -196,16 +196,14 @@ IF(__OpenSG_IN_CACHE)
     FOREACH(COMPONENT ${OpenSG_FIND_COMPONENTS})
         STRING(TOUPPER ${COMPONENT} UPPERCOMPONENT)
 
-        GET_TARGET_PROPERTY(__OpenSG_COMPONENT_IMPORTED ${COMPONENT} IMPORTED)
-
-        IF(NOT __OpenSG_COMPONENT_IMPORTED)
-            # avoid setting up componentes more than once - which is not
-            # allowed for import libraries
+        # avoid setting up componentes more than once - which is not
+        # allowed for import libraries
+        IF(NOT TARGET ${COMPONENT})
             __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT} ${COMPONENT})
-            SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${UPPERCOMPONENT}_LIBRARY})
 
+            SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${UPPERCOMPONENT}_LIBRARY})
             SETUP_OSG_LIB_TARGETS(${COMPONENT} ${UPPERCOMPONENT})
-        ENDIF(NOT __OpenSG_COMPONENT_IMPORTED)
+        ENDIF(NOT TARGET ${COMPONENT})
     ENDFOREACH(COMPONENT)
 
     SET(OpenSG_INCLUDE_DIRS "${OpenSG_INCLUDE_DIR}" "${OpenSG_INCLUDE_DIR}/OpenSG")
