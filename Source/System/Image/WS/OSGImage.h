@@ -70,6 +70,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_I_PF       = GL_INTENSITY,
         OSG_L_PF       = GL_LUMINANCE,
         OSG_LA_PF      = GL_LUMINANCE_ALPHA,
+        OSG_RGB_PF     = GL_RGB,
+        OSG_RGBA_PF    = GL_RGBA,
 /*** BGR ***/
 #if defined(GL_BGR)
         OSG_BGR_PF     = GL_BGR,
@@ -115,9 +117,15 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_RGBA_DXT5  = 0,
 #endif
 
-        OSG_RGB_PF     = GL_RGB,
-        OSG_RGBA_PF    = GL_RGBA,
-						 
+/*** GL_EXT_packed_depth_stencil ***/
+#if defined(GL_DEPTH_STENCIL_EXT)
+        OSG_DEPTH_STENCIL_PF           = GL_DEPTH_STENCIL_EXT,
+#elif defined(GL_DEPTH_STENCIL_NV)
+        OSG_DEPTH_STENCIL_PF           = GL_DEPTH_STENCIL_NV,
+#else
+        OSG_DEPTH_STENCIL_PF           = 0,
+#endif
+
         OSG_ALPHA_INTEGER_PF           = GL_ALPHA_INTEGER_EXT,
         OSG_RGB_INTEGER_PF             = GL_RGB_INTEGER_EXT,
         OSG_RGBA_INTEGER_PF            = GL_RGBA_INTEGER_EXT,
@@ -136,7 +144,16 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_FLOAT16_IMAGEDATA      = GL_HALF_FLOAT_NV,
         OSG_FLOAT32_IMAGEDATA      = GL_FLOAT,
         OSG_INT16_IMAGEDATA        = GL_SHORT,
-        OSG_INT32_IMAGEDATA        = GL_INT
+        OSG_INT32_IMAGEDATA        = GL_INT,
+
+/*** GL_EXT_packed_depth_stencil ***/
+#if defined(GL_UNSIGNED_INT_24_8_EXT)
+        OSG_UINT24_8_IMAGEDATA     = GL_UNSIGNED_INT_24_8_EXT
+#elif defined(GL_UNSIGNED_INT_24_8_NV)
+        OSG_UINT24_8_IMAGEDATA     = GL_UNSIGNED_INT_24_8_NV
+#else
+        OSG_UINT24_8_IMAGEDATA     = GL_NONE
+#endif
     };
 
     enum ResUnit 

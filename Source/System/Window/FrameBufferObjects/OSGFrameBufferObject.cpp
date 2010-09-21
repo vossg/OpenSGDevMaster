@@ -107,6 +107,9 @@ OSG_USING_NAMESPACE
 UInt32 FrameBufferObject::_uiFramebuffer_object_extension = 
     Window::invalidExtensionID;
 
+UInt32 FrameBufferObject::_uiPackedDepthStencilExtension  =
+    Window::invalidExtensionID;
+
 UInt32 FrameBufferObject::_uiFuncGenFramebuffers          = 
     Window::invalidFunctionID;
 
@@ -179,6 +182,8 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
     {
         _uiFramebuffer_object_extension = 
             Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiPackedDepthStencilExtension  =
+            Window::registerExtension("GL_EXT_packed_depth_stencil");
 
         _uiFuncGenFramebuffers =
             Window::registerFunction (
@@ -402,6 +407,33 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
                 continue;
         
             (*attIt)->processPreDeactivate(pEnv, index);
+        }
+
+        if(_sfDepthAttachment  .getValue() != NULL &&
+           _sfStencilAttachment.getValue() != NULL   )
+        {
+            if(_sfDepthAttachment.getValue() == _sfStencilAttachment.getValue())
+            {
+                _sfDepthAttachment.getValue()->processPreDeactivate(
+                    pEnv, GL_NONE);
+            }
+            else
+            {
+                _sfDepthAttachment  .getValue()->processPreDeactivate(
+                    pEnv, GL_NONE);
+                _sfStencilAttachment.getValue()->processPreDeactivate(
+                    pEnv, GL_NONE);
+            }
+        }
+        else if(_sfDepthAttachment.getValue() != NULL)
+        {
+            _sfDepthAttachment  .getValue()->processPreDeactivate(
+                pEnv, GL_NONE);
+        }
+        else if(_sfStencilAttachment.getValue() != NULL)
+        {
+            _sfStencilAttachment.getValue()->processPreDeactivate(
+                pEnv, GL_NONE);
         }
     }
 

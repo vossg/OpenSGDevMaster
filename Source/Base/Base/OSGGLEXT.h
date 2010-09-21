@@ -1972,6 +1972,31 @@ typedef ptrdiff_t GLsizeiptrARB;
 #endif
 
 /*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_packed_depth_stencil                                  */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_EXT_packed_depth_stencil
+#define GL_DEPTH_STENCIL_EXT              0x84F9
+#define GL_UNSIGNED_INT_24_8_EXT          0x84FA
+#define GL_DEPTH24_STENCIL8_EXT           0x88F0
+#define GL_TEXTURE_STENCIL_SIZE_EXT       0x88F1
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_NV_packed_depth_stencil                                   */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_NV_packed_depth_stencil
+#define GL_DEPTH_STENCIL_NV               0x84F9
+#define GL_UNSIGNED_INT_24_8_NV           0x84FA
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 #else
 

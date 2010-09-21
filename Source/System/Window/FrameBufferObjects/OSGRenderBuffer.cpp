@@ -287,7 +287,15 @@ void RenderBuffer::processPreDeactivate (DrawEnv *pEnv, UInt32 index)
             
             pImg->set(pImg->getPixelFormat(),
                       pImg->getWidth      (),
-                      pImg->getHeight     ());
+                      pImg->getHeight     (),
+                      pImg->getDepth      (),
+                      pImg->getMipMapCount(),
+                      pImg->getFrameCount (),
+                      pImg->getFrameDelay (),
+                      NULL,
+                      pImg->getDataType   (),
+                      true,
+                      pImg->getSideCount  () );
         }
        
         // select GL_COLORATTACHMENTn and read data into image

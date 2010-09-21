@@ -99,6 +99,7 @@ UInt32 Image::_formatDic[][2] =
     { OSG_RGBA_DXT1, 4 },
     { OSG_RGBA_DXT3, 4 },
     { OSG_RGBA_DXT5, 4 },
+    { OSG_DEPTH_STENCIL_PF,           1 },
     { OSG_ALPHA_INTEGER_PF,           1 },
     { OSG_RGB_INTEGER_PF,             3 },
     { OSG_RGBA_INTEGER_PF,            4 },
@@ -117,7 +118,8 @@ Int32 Image::_typeDic[][2] =
     { OSG_FLOAT32_IMAGEDATA,     4 },
     { OSG_FLOAT16_IMAGEDATA,     2 },
     { OSG_INT16_IMAGEDATA,       2 },
-    { OSG_INT32_IMAGEDATA,       4 }
+    { OSG_INT32_IMAGEDATA,       4 },
+    { OSG_UINT24_8_IMAGEDATA,    4 }
 };
 
 /*----------------------------- class specific ----------------------------*/
@@ -234,6 +236,9 @@ void Image::dump(      UInt32    ,
         case OSG_RGBA_DXT5:
             pfStr = "RGBA_DXT5";
             break;
+        case OSG_DEPTH_STENCIL_PF:
+            pfStr = "DEPTH_STENCIL";
+            break;
         case OSG_ALPHA_INTEGER_PF:
             pfStr = "ALPHA_INTEGER";
             break;
@@ -282,6 +287,9 @@ void Image::dump(      UInt32    ,
             break;
         case OSG_INT32_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE INT32";
+            break;
+        case OSG_UINT24_8_IMAGEDATA:
+            typeStr = "IMAGEDATA_TYPE UINT24_8";
             break;
 
         default:
