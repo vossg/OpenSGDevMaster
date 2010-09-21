@@ -284,6 +284,13 @@ OSG_CHECK_INSTALL()
 # DEPENDENCIES
 ##############################################################################
 
+# Global include/library dirs, libs and definitions
+SET(OSG_GLOBAL_DEP_INCDIR "")
+SET(OSG_GLOBAL_DEP_LIBDIR "")
+SET(OSG_GLOBAL_DEP_LIBS   "")
+SET(OSG_GLOBAL_DEP_DEFS   "")
+
+
 #IF(WIN32)
   OSG_OPTION(OSG_USE_OSGSUPPORT_LIBS "" OFF)
   OSG_OPTION(OSG_USE_STATIC_SUPPORT_LIBS "" OFF)

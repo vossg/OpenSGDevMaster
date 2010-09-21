@@ -124,6 +124,7 @@ MACRO(OSG_SELECT_PROJECT)
     IF(OSGBUILD_${PROJECT_NAME})
         MESSAGE(STATUS "Processing ${PROJECT_NAME}")
     ELSE(OSGBUILD_${PROJECT_NAME})
+        OSG_MSG("Skipping ${PROJECT_NAME}")
         RETURN()
     ENDIF(OSGBUILD_${PROJECT_NAME})
 
@@ -333,12 +334,62 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
         " ],\n")
 
+    # global dependencies
+    FOREACH(DEPLIB ${OSG_GLOBAL_DEP_LIBS})
+        OSG_EXTRACT_LIB_AND_LIBDIR("${${DEPLIB}}" LIBS LIBDIRS)
+
+        FOREACH(LIB ${LIBS})
+            # if the lib is an import target, get the location and
+            # split that into library name and path
+
+            IF(TARGET ${LIB})
+                GET_TARGET_PROPERTY(_LIB_LOCATION ${LIB} IMPORTED_LOCATION)
+
+                OSG_EXTRACT_LIB_AND_LIBDIR("${_LIB_LOCATION}" _LIBS _LIBDIRS)
+
+                LIST(APPEND DEPLIBS    ${_LIBS})
+                LIST(APPEND DEPLIBDIRS ${_LIBDIRS})
+            ELSE(TARGET ${LIB})
+                LIST(APPEND DEPLIBS ${LIB})
+            ENDIF(TARGET ${LIB})
+        ENDFOREACH(LIB)
+
+        LIST(APPEND DEPLIBDIRS ${LIBDIRS})
+    ENDFOREACH(DEPLIB)
+
+    FOREACH(DEPLIBDIR ${OSG_GLOBAL_DEP_LIBDIR})
+        OSG_EXTRACT_LIBDIR("${${DEPLIBDIR}}" LIBDIRS)
+
+        LIST(APPEND DEPLIBDIRS ${LIBDIRS})
+    ENDFOREACH(DEPLIBDIR)
+
+    FOREACH(DEPINCDIR ${OSG_GLOBAL_DEP_INCDIR})
+        OSG_EXTRACT_INCDIR("${${DEPINCDIR}}" INCDIRS)
+
+        LIST(APPEND DEPINCDIRS ${INCDIRS})
+    ENDFOREACH(DEPINCDIR)
+
     # External libraries this lib depends on
     # we build lists of libs, libdirs and incdirs then write them
     FOREACH(DEPLIB ${${PROJECT_NAME}_DEP_LIB})
         OSG_EXTRACT_LIB_AND_LIBDIR("${${DEPLIB}}" LIBS LIBDIRS)
 
-        LIST(APPEND DEPLIBS ${LIBS})
+        FOREACH(LIB ${LIBS})
+            # if the lib is an import target, get the location and
+            # split that into library name and path
+
+            IF(TARGET ${LIB})
+                GET_TARGET_PROPERTY(_LIB_LOCATION ${LIB} IMPORTED_LOCATION)
+
+                OSG_EXTRACT_LIB_AND_LIBDIR("${_LIB_LOCATION}" _LIBS _LIBDIRS)
+
+                LIST(APPEND DEPLIBS    ${_LIBS})
+                LIST(APPEND DEPLIBDIRS ${_LIBDIRS})
+            ELSE(TARGET ${LIB})
+                LIST(APPEND DEPLIBS ${LIB})
+            ENDIF(TARGET ${LIB})
+        ENDFOREACH(LIB)
+
         LIST(APPEND DEPLIBDIRS ${LIBDIRS})
     ENDFOREACH(DEPLIB)
 
@@ -854,8 +905,13 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     ## LINK_DIRS have to go first, before the ADD_LIB statement
 
+    FOREACH(LIBDIR ${OSG_GLOBAL_DEP_LIBDIR})
+        OSG_MSG("  (global) - library dir ${LIBDIR} = ${${LIBDIR}}")
+        LINK_DIRECTORIES(${${LIBDIR}})
+    ENDFOREACH(LIBDIR)
+
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_LIBDIR})
-        OSG_MSG("  library dir ${LIBDIR} = ${${LIBDIR}}")
+        OSG_MSG("  (global) - library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
@@ -897,6 +953,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                             SUFFIX ${${PROJECT_NAME}_SUFFIX})
 
     ENDIF(${PROJECT_NAME}_SUFFIX)
+
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
         "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST DEP_MISSING_LIST)
@@ -927,19 +984,36 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OSGDEP})
     ENDFOREACH(OSGDEP)
 
+    # dependencies - global
+    FOREACH(INCDIR ${OSG_GLOBAL_DEP_INCDIR})
+        OSG_MSG("  (global) - include dir ${INCDIR} = ${${INCDIR}}")
+        INCLUDE_DIRECTORIES(${${INCDIR}})
+    ENDFOREACH(INCDIR)
+
+    FOREACH(LIB ${OSG_GLOBAL_DEP_LIBS})
+        OSG_MSG("  (global) - library ${LIB} = ${${LIB}}")
+        TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
+    ENDFOREACH(LIB)
+
+    IF(OSG_GLOBAL_DEP_DEFS)
+        OSG_MSG("  (global) - definitions = ${OSG_GLOBAL_DEP_DEFS}")
+        SET_PROPERTY(TARGET ${PROJECT_NAME}
+            APPEND PROPERTY COMPILE_DEFINITIONS ${OSG_GLOBAL_DEP_DEFS})
+    ENDIF(OSG_GLOBAL_DEP_DEFS)
+
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
-        OSG_MSG("  include dir ${INCDIR} = ${${INCDIR}}")
+        OSG_MSG("  (external) - include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIB ${${PROJECT_NAME}_DEP_LIB})
-        OSG_MSG("  library ${LIB} = ${${LIB}}")
+        OSG_MSG("  (external) - library ${LIB} = ${${LIB}}")
         TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
     ENDFOREACH(LIB)
 
     IF(${PROJECT_NAME}_DEP_DEFS)
-        OSG_MSG("  definitions = ${${PROJECT_NAME}_DEP_DEFS}")
+        OSG_MSG("  (external) - definitions = ${${PROJECT_NAME}_DEP_DEFS}")
         SET_PROPERTY(TARGET ${PROJECT_NAME}
             APPEND PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_DEFS})
     ENDIF(${PROJECT_NAME}_DEP_DEFS)
@@ -1169,23 +1243,23 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
 
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
-        OSG_MSG("  include dir ${INCDIR} = ${${INCDIR}}")
+        OSG_MSG("  (external) - include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_LIBDIR})
-        OSG_MSG("  library dir ${LIBDIR} = ${${LIBDIR}}")
+        OSG_MSG("  (external) - library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
     # dependencies - test External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})
-        OSG_MSG("  test - include dir ${INCDIR} = ${${INCDIR}}")
+        OSG_MSG("  (test) - include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_TEST_LIBDIR})
-        OSG_MSG("  test - library dir ${LIBDIR} = ${${LIBDIR}}")
+        OSG_MSG("  (test) - library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
@@ -1220,7 +1294,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         ENDFOREACH(OSGTESTDEP)
 
         FOREACH(LIB ${${PROJECT_NAME}_DEP_TEST_LIB})
-            OSG_MSG("  test - library ${LIB} = ${${LIB}}")
+            OSG_MSG("  (test) - library ${LIB} = ${${LIB}}")
             TARGET_LINK_LIBRARIES(${EXE} ${${LIB}})
         ENDFOREACH(LIB)
 
@@ -1229,7 +1303,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         ENDIF(NOT ${PROJECT_NAME}_NO_LIB)
 
         IF(${PROJECT_NAME}_DEP_DEFS)
-            OSG_MSG("  definitions ${PROJECT_NAME}_DEP_DEFS = ${${PROJECT_NAME}_DEP_DEFS}")
+            OSG_MSG("  (external) - definitions ${PROJECT_NAME}_DEP_DEFS = ${${PROJECT_NAME}_DEP_DEFS}")
             SET_PROPERTY(TARGET ${EXE} APPEND
                 PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_DEFS})
         ENDIF(${PROJECT_NAME}_DEP_DEFS)
@@ -1240,7 +1314,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         ENDIF(${PROJECT_NAME}_CXXFLAGS)
 
         IF(${PROJECT_NAME}_DEP_TEST_DEFS)
-            OSG_MSG("  test - definitions ${PROJECT_NAME}_DEP_TEST_DEFS = ${${PROJECT_NAME}_DEP_TEST_DEFS}")
+            OSG_MSG("  (test) - definitions ${PROJECT_NAME}_DEP_TEST_DEFS = ${${PROJECT_NAME}_DEP_TEST_DEFS}")
             SET_PROPERTY(TARGET ${EXE} APPEND
                 PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_TEST_DEFS})
         ENDIF(${PROJECT_NAME}_DEP_TEST_DEFS)
@@ -1299,12 +1373,12 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
     # dependencies - unittest External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_UNITTEST_INCDIR})
-        OSG_MSG("  unittest - include dir ${INCDIR} = ${${INCDIR}}")
+        OSG_MSG("  (unittest) - include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_UNITTEST_LIBDIR})
-        OSG_MSG("  unittest - library dir ${LIBDIR} = ${${LIBDIR}}")
+        OSG_MSG("  (unittest) - library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
@@ -1330,7 +1404,7 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
     ENDFOREACH(OSGDEP)
 
     FOREACH(LIB ${${PROJECT_NAME}_DEP_UNITTEST_LIB})
-        OSG_MSG("  unittest - library ${LIB} = ${${LIB}}")
+        OSG_MSG("  (unittest) - library ${LIB} = ${${LIB}}")
         TARGET_LINK_LIBRARIES("UnitTest${PROJECT_NAME}" ${${LIB}})
     ENDFOREACH(LIB)
 
