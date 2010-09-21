@@ -341,17 +341,17 @@ void Viewport::render(RenderActionBase *action)
 
     if(getCamera() == NULL)
     {
-        SWARNING << "Viewport::render: no camera!" << std::endl;
+        SWARNING << "Viewport::render: no Camera, can not render!" << std::endl;
         return;
     }
     if(getBackground() == NULL)
     {
-        SWARNING << "Viewport::render: no Background!" << std::endl;
+        SWARNING << "Viewport::render: no Background, can not render!" << std::endl;
         return;
     }
     if(getRoot() == NULL)
     {
-        SWARNING << "Viewport::render: no root!" << std::endl;
+        SWARNING << "Viewport::render: no root, can not render!" << std::endl;
         return;
     }
 
