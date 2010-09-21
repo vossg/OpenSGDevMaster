@@ -1,4 +1,8 @@
 
+##############################################################################
+# ZLIB
+##############################################################################
+
 MACRO(OSG_CONFIGURE_ZLIB)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -56,6 +60,10 @@ MACRO(OSG_CONFIGURE_ZLIB)
 
 ENDMACRO(OSG_CONFIGURE_ZLIB)
 
+##############################################################################
+# GLUT
+##############################################################################
+
 MACRO(OSG_CONFIGURE_GLUT)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -112,6 +120,10 @@ MACRO(OSG_CONFIGURE_GLUT)
 
 ENDMACRO(OSG_CONFIGURE_GLUT)
 
+##############################################################################
+# GDAL
+##############################################################################
+
 MACRO(OSG_CONFIGURE_GDAL)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -158,6 +170,10 @@ MACRO(OSG_CONFIGURE_GDAL)
     ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT GDAL_FOUND)
 
 ENDMACRO(OSG_CONFIGURE_GDAL)
+
+##############################################################################
+# PNG
+##############################################################################
 
 MACRO(OSG_CONFIGURE_PNG)
 
@@ -217,6 +233,10 @@ MACRO(OSG_CONFIGURE_PNG)
 
 ENDMACRO(OSG_CONFIGURE_PNG)
 
+##############################################################################
+# TIFF
+##############################################################################
+
 MACRO(OSG_CONFIGURE_TIFF)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -266,6 +286,9 @@ MACRO(OSG_CONFIGURE_TIFF)
 
 ENDMACRO(OSG_CONFIGURE_TIFF)
 
+##############################################################################
+# OpenEXR
+##############################################################################
 
 MACRO(OSG_CONFIGURE_OPENEXR)
 
@@ -340,6 +363,10 @@ MACRO(OSG_CONFIGURE_OPENEXR)
 
 ENDMACRO(OSG_CONFIGURE_OPENEXR)
 
+##############################################################################
+# JPEG
+##############################################################################
+
 MACRO(OSG_CONFIGURE_JPEG)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -380,127 +407,134 @@ MACRO(OSG_CONFIGURE_JPEG)
 
 ENDMACRO(OSG_CONFIGURE_JPEG)
 
+##############################################################################
+# Collada
+##############################################################################
+
 MACRO(OSG_CONFIGURE_COLLADA)
 
     IF(OSG_USE_OSGSUPPORT_LIBS)
 
-      IF(EXISTS ${OSG_SUPPORT_ROOT}/include/dae.h)
-        SET(COLLADA_DAE_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include CACHE PATH "" FORCE)
-      ENDIF()
-      IF(EXISTS ${OSG_SUPPORT_ROOT}/include/1.4/dom/domTypes.h)
-        SET(COLLADA_DOM_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include/1.4 CACHE PATH "" FORCE)
-      ENDIF()
+        IF(EXISTS ${OSG_SUPPORT_ROOT}/include/dae.h)
+            SET(COLLADA_DAE_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include CACHE PATH "" FORCE)
+        ENDIF()
+        IF(EXISTS ${OSG_SUPPORT_ROOT}/include/1.4/dom/domTypes.h)
+            SET(COLLADA_DOM_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include/1.4 CACHE PATH "" FORCE)
+        ENDIF()
 
-      IF(UNIX)
-        IF(OSG_USE_STATIC_SUPPORT_LIBS)
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.a)
-            SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.a "" CACHE INTERNAL "" FORCE)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.a)
-            SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.a "" CACHE INTERNAL "" FORCE)
-          ENDIF()
-        ELSE(OSG_USE_STATIC_SUPPORT_LIBS)
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so)
-            SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so)
-            SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
-          ENDIF()
-        ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
-      ELSEIF(WIN32)
-        IF(OSG_USE_STATIC_SUPPORT_LIBS)
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22.lib)
-            SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22D.lib)
-            SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22D.lib)
-          ENDIF()
+        IF(UNIX)
+            IF(OSG_USE_STATIC_SUPPORT_LIBS)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.a)
+                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.a "" CACHE INTERNAL "" FORCE)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.a)
+                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.a "" CACHE INTERNAL "" FORCE)
+                ENDIF()
+            ELSE(OSG_USE_STATIC_SUPPORT_LIBS)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so)
+                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so)
+                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
+                ENDIF()
+            ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
+        ELSEIF(WIN32)
+            IF(OSG_USE_STATIC_SUPPORT_LIBS)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22.lib)
+                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22D.lib)
+                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgcollada14dom22D.lib)
+                ENDIF()
 
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgxml2.lib)
-            SET(COLLADA_XML2_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgxml2.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgxml2D.lib)
-            SET(COLLADA_XML2_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgxml2D.lib)
-          ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgxml2.lib)
+                    SET(COLLADA_XML2_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgxml2.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgxml2D.lib)
+                    SET(COLLADA_XML2_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgxml2D.lib)
+                ENDIF()
 
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcrecpp.lib)
-            SET(COLLADA_PCRECPP_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgpcrecpp.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcrecppD.lib)
-            SET(COLLADA_PCRECPP_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgpcrecppD.lib)
-          ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcrecpp.lib)
+                    SET(COLLADA_PCRECPP_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgpcrecpp.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcrecppD.lib)
+                    SET(COLLADA_PCRECPP_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgpcrecppD.lib)
+                ENDIF()
 
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgminizip.lib)
-            SET(COLLADA_MINIZIP_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgminizip.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgminizipD.lib)
-            SET(COLLADA_MINIZIP_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgminizipD.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgiconv.lib)
-            SET(COLLADA_ICONV_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgiconv.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgiconvD.lib)
-            SET(COLLADA_ICONV_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgiconvD.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcre.lib)
-            SET(COLLADA_PCRE_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgpcre.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcreD.lib)
-            SET(COLLADA_PCRE_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgpcreD.lib)
-          ENDIF()
-        ELSE(OSG_USE_STATIC_SUPPORT_LIBS)
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22.lib)
-            SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22.lib)
-          ENDIF()
-          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22D.lib)
-            SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22D.lib)
-          ENDIF()
-        ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
-      ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgminizip.lib)
+                    SET(COLLADA_MINIZIP_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgminizip.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgminizipD.lib)
+                    SET(COLLADA_MINIZIP_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgminizipD.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgiconv.lib)
+                    SET(COLLADA_ICONV_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgiconv.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgiconvD.lib)
+                    SET(COLLADA_ICONV_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgiconvD.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcre.lib)
+                    SET(COLLADA_PCRE_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgpcre.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgpcreD.lib)
+                    SET(COLLADA_PCRE_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgpcreD.lib)
+                ENDIF()
+            ELSE(OSG_USE_STATIC_SUPPORT_LIBS)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22.lib)
+                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22.lib)
+                ENDIF()
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22D.lib)
+                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/osgcollada14dom22D.lib)
+                ENDIF()
+            ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
+        ENDIF()
 
-      SET(OSG_COLLADA_TARGETS )
+        SET(OSG_COLLADA_TARGETS )
 
         #   SET(COLLADA_LIBRARIES ${OSG_COLLADA_TARGETS} CACHE STRING "" FORCE)
 
-      IF(COLLADA_DAE_INCLUDE_DIR AND COLLADA_DOM_INCLUDE_DIR)
-        IF(COLLADA_LIBRARY_DEBUG OR COLLADA_LIBRARY_RELEASE)
-          SET(COLLADA_FOUND TRUE)
+        IF(COLLADA_DAE_INCLUDE_DIR AND COLLADA_DOM_INCLUDE_DIR)
+            IF(COLLADA_LIBRARY_DEBUG OR COLLADA_LIBRARY_RELEASE)
+                SET(COLLADA_FOUND TRUE)
+            ENDIF()
         ENDIF()
-      ENDIF()
 
-      IF(COLLADA_FOUND)
-        OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_LIBRARY)
+        IF(COLLADA_FOUND)
+            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_LIBRARY)
 
-        SET(COLLADA_TARGET_FOUND TRUE)
+            SET(COLLADA_TARGET_FOUND TRUE)
 
-        IF(OSG_USE_STATIC_SUPPORT_LIBS)
-          IF(UNIX)
-          ELSEIF(WIN32)
-            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_XML2_LIBRARY)
-            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_PCRECPP_LIBRARY)
-            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_MINIZIP_LIBRARY)
-            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_ICONV_LIBRARY)
-            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_PCRE_LIBRARY)
-          ENDIF()
-        ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
-      ENDIF(COLLADA_FOUND)
+            IF(OSG_USE_STATIC_SUPPORT_LIBS)
+                IF(UNIX)
+                ELSEIF(WIN32)
+                    OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_XML2_LIBRARY)
+                    OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_PCRECPP_LIBRARY)
+                    OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_MINIZIP_LIBRARY)
+                    OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_ICONV_LIBRARY)
+                    OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_PCRE_LIBRARY)
+                ENDIF()
+            ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
+        ENDIF(COLLADA_FOUND)
 
     ENDIF(OSG_USE_OSGSUPPORT_LIBS)
 
     IF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT COLLADA_FOUND)
 
-      FIND_PACKAGE(Collada)
+        FIND_PACKAGE(Collada)
 
-      SET(OSG_COLLADA_TARGETS)
+        SET(OSG_COLLADA_TARGETS)
 
-      IF(COLLADA_FOUND)
-        OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_LIBRARY)
-      ENDIF(COLLADA_FOUND)
+        IF(COLLADA_FOUND)
+            OSG_ADD_IMPORT_LIB(OSG_COLLADA_TARGETS COLLADA_LIBRARY)
+        ENDIF(COLLADA_FOUND)
 
     ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT COLLADA_FOUND)
 
 ENDMACRO(OSG_CONFIGURE_COLLADA)
 
+##############################################################################
+# Boost
+##############################################################################
 
 MACRO(OSG_CONFIGURE_BOOST)
     SET(Boost_USE_MULTITHREADED ON )
@@ -584,6 +618,10 @@ MACRO(OSG_CONFIGURE_BOOST)
     ENDIF(Boost_FOUND)
 ENDMACRO(OSG_CONFIGURE_BOOST)
 
+##############################################################################
+# Glew
+##############################################################################
+
 MACRO(OSG_CONFIGURE_GLEW)
 
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
@@ -628,6 +666,10 @@ MACRO(OSG_CONFIGURE_GLEW)
 #    ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT GLEW_FOUND)
 
 ENDMACRO(OSG_CONFIGURE_GLEW)
+
+##############################################################################
+# LibMini
+##############################################################################
 
 MACRO(OSG_CONFIGURE_LIBMINI)
 
@@ -679,6 +721,10 @@ MACRO(OSG_CONFIGURE_LIBMINI)
     ENDIF(OSG_LIBMINI_FOUND)
 
 ENDMACRO(OSG_CONFIGURE_LIBMINI)
+
+##############################################################################
+# VTK
+##############################################################################
 
 MACRO(OSG_CONFIGURE_VTK)
     OSG_SET(VTK_NO_LIBRARY_DEPENDS TRUE)
@@ -757,6 +803,9 @@ MACRO(OSG_CONFIGURE_VTK)
     ENDIF(VTK_FOUND)
 ENDMACRO(OSG_CONFIGURE_VTK)
 
+##############################################################################
+# OSG_ADD_GLUTPACKAGE
+##############################################################################
 
 MACRO(OSG_ADD_GLUTPACKAGE OSG_DO_SETUP_TEST)
   IF("${OSG_DO_SETUP_TEST}" STREQUAL "ON" OR "${OSG_DO_SETUP_TEST}" STREQUAL "TRUE")
@@ -776,6 +825,10 @@ MACRO(OSG_ADD_GLUTPACKAGE OSG_DO_SETUP_TEST)
 #    ENDIF()
   ENDIF()
 ENDMACRO(OSG_ADD_GLUTPACKAGE SETUP_TEST)
+
+##############################################################################
+# OSG_ADD_GLEWPACKAGE
+##############################################################################
 
 MACRO(OSG_ADD_GLEWPACKAGE OSG_DO_SETUP_TEST)
   IF("${OSG_DO_SETUP_TEST}" STREQUAL "ON" OR "${OSG_DO_SETUP_TEST}" STREQUAL "TRUE")
