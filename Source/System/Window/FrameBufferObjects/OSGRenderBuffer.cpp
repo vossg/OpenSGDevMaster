@@ -229,8 +229,15 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
 
         osgGlBindRenderbufferProc(GL_RENDERBUFFER_EXT, uiBufferId);
 
+        GLenum internalFormat = getInternalFormat();
+
+        if(internalFormat == GL_NONE && getImage() != NULL)
+        {
+            internalFormat = getImage()->getPixelFormat();
+        }
+
         osgGlRenderbufferStorageProc(GL_RENDERBUFFER_EXT,
-                                     getInternalFormat(), 
+                                     internalFormat,
                                      getWidth(), 
                                      getHeight());
     }
