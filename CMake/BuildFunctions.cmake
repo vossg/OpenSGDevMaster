@@ -1241,6 +1241,17 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         INCLUDE_DIRECTORIES(${${OSGTESTDEP}_INC})
     ENDFOREACH(OSGTESTDEP)
 
+    # dependencies - global
+    FOREACH(INCDIR ${OSG_GLOBAL_DEP_INCDIR})
+        OSG_MSG("  (global) - include dir ${INCDIR} = ${${INCDIR}}")
+        INCLUDE_DIRECTORIES(${${INCDIR}})
+    ENDFOREACH(INCDIR)
+
+    FOREACH(LIBDIR ${OSG_GLOBAL_DEP_LIBDIR})
+        OSG_MSG("  (global) - library dir ${LIBDIR} = ${${LIBDIR}}")
+        LINK_DIRECTORIES(${${LIBDIR}})
+    ENDFOREACH(LIBDIR)
+
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
         OSG_MSG("  (external) - include dir ${INCDIR} = ${${INCDIR}}")
@@ -1370,6 +1381,17 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
         INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
     ENDFOREACH(OSGDEP)
+
+    # dependencies global
+    FOREACH(INCDIR ${OSG_GLOBAL_DEP_INCDIR})
+        OSG_MSG("  (global) - include dir ${INCDIR} = ${${INCDIR}}")
+        INCLUDE_DIRECTORIES(${${INCDIR}})
+    ENDFOREACH(INCDIR)
+
+    FOREACH(LIBDIR ${OSG_GLOBAL_DEP_LIBDIR})
+        OSG_MSG("  (global) - library dir ${LIBDIR} = ${${LIBDIR}}")
+        LINK_DIRECTORIES(${${LIBDIR}})
+    ENDFOREACH(LIBDIR)
 
     # dependencies - unittest External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_UNITTEST_INCDIR})
