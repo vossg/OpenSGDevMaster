@@ -263,6 +263,19 @@ void CgFXMaterial::changed(ConstFieldMaskArg whichField,
         }
     }
 
+    if(0x0000 != (whichField & TechniquesFieldMask) ||
+       0x0000 != (whichField & SortKeyFieldMask))
+    {
+        //Update the sort key of all the techniques
+        MFTechniquesType::const_iterator tIt  = _mfTechniques.begin();
+        MFTechniquesType::const_iterator tEnd = _mfTechniques.end  ();
+       
+        for(; tIt != tEnd; ++tIt)
+        {
+            (*tIt)->setSortKey(getSortKey());
+        }
+    }
+
     Inherited::changed(whichField, origin, detail);
 }
 
