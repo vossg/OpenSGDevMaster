@@ -226,6 +226,9 @@ void SimpleStage::setupPartition(
                                        pPart->getViewportWidth (),
                                        pPart->getViewportHeight());
 
+        pPart->getDrawEnv().setTileFullSize(pCam->tileGetFullSize());
+        pPart->getDrawEnv().setTileRegion  (pCam->tileGetRegion  ());
+
         pPart->setupProjection(m, t);
 
         pCam->getViewing(m,
