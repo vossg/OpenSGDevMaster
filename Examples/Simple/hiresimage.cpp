@@ -102,8 +102,8 @@ const char* output_file_fbo = "fbo_image.ppm";
 // Size factors of the output image with respect to the window dimensions.
 // The actual image size does account for the aspect ratio of the window.
 //
-int fw = 10;   // multiplication factor for the window width
-int fh = 10;   // multiplication factor for the window height
+int fw = 10.5;   // multiplication factor for the window width
+int fh = 10.5;   // multiplication factor for the window height
 
 static void cleanup(void)
 {
@@ -591,7 +591,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     // window.
     //
     Viewport* vp0 = win->getPort(0);
-    CameraUnrecPtr camera = dynamic_pointer_cast<Camera>(deepClone(vp0->getCamera()));
+    CameraUnrecPtr camera = dynamic_pointer_cast<Camera>(vp0->getCamera()->shallowCopy());
     //
     // The stage object does provide a render target for the frame buffer attachment.
     // SimpleStage has a camera, a background and the left, right, top, bottom 
@@ -668,9 +668,14 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
             //
             // Adapt the tile camera decorator boxes to the current tile
             //
-            for (size_t i = 0; i < num_ports; ++i) {
-                Viewport* vp = win->getPort(i);
-                vp->setSize(0, 0, xSize, ySize);
+            for (size_t i = 0; i < num_ports; ++i)
+            {
+                // this tile does not fill the whole FBO - adjust to only render
+                // to a part of it
+                stage->setLeft  (0.f);
+                stage->setRight (xSize / float(winWidth));
+                stage->setBottom(0.f);
+                stage->setTop   (ySize / float(winHeight));
 
                 TileCameraDecorator* decorator = decorators[i].first;
 
@@ -691,10 +696,14 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
             //
             // Copy the image into the tile image stored for later processing
             //
-            if (fbo) {
+            if(fbo)
+            {
                 RenderBuffer* grabber = dynamic_cast<RenderBuffer*>(fbo->getColorAttachments(0));
-                if (grabber)
-                    col_image->setSubData(0, 0, 0, xSize, ySize, 1, grabber->getImage()->getData());
+
+                if(grabber)
+                {
+                    grabber->getImage()->subImage(0, 0, 0, xSize, ySize, 1, col_image);
+                }
             }
 
             vecColImages.push_back(col_image);
