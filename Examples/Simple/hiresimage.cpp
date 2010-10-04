@@ -165,11 +165,17 @@ static void keyboard(unsigned char k, int, int)
 
     case '1':
     {
+        std::cout << "Creating screenshot (Grab FG) "
+                  << width << "x" << height << " in '" << output_file
+                  << std::endl;
         writeHiResScreenShot(output_file, width, height);
     }
     break;
     case '2':
     {
+        std::cout << "Creating screenshot (FBO) "
+                  << width << "x" << height << " in '" << output_file_fbo
+                  << std::endl;
         writeHiResScreenShotFBO(output_file_fbo, width, height);
     }
     break;
