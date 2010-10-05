@@ -554,7 +554,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     // We must setup the internal image formats of the two render buffers accordingly.
     //
     colBuf->setInternalFormat(GL_RGBA);
-    dsBuf ->setInternalFormat(GL_DEPTH24_STENCIL8);
+    dsBuf ->setInternalFormat(GL_DEPTH24_STENCIL8_EXT);
     //
     // we must inform the FBO about the actual used color render buffers.
     //
