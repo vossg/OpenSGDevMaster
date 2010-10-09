@@ -269,6 +269,8 @@ void DrawEnv::activateState(State         *pNewState,
                                         pNewStateOverride,
                                        _pActiveState,
                                        _pActiveStateOverride);
+
+                ++_uiNumStateChanges;
                 
                 _pActiveState         = pNewState;
                 _pActiveStateOverride = pNewStateOverride;
@@ -290,6 +292,8 @@ void DrawEnv::activateState(State         *pNewState,
                 }
 
                 pFullChunk->activate(this, pNewState, pNewStateOverride);
+
+                ++_uiNumStateChanges;
 
                 _pActiveState         = pNewState;
                 _pActiveStateOverride = pNewStateOverride;
@@ -372,6 +376,8 @@ void DrawEnv::activateState(State         *pNewState,
                 OSG_ASSERT(pFullChunk != NULL);
 
                 pFullChunk->activate(this, pNewState, pNewStateOverride);
+
+                ++_uiNumStateChanges;
             }
             else
             {
