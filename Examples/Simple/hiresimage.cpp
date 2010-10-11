@@ -11,7 +11,7 @@
 //
 // Specifically demonstrated is the use of the following classes:
 //      - GrabForeground
-//      - FrameBufferObject, 
+//      - FrameBufferObject,
 //      - RenderBuffer
 //      - SimpleStage
 //      - TileCameraDecorator
@@ -34,6 +34,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <boost/tuple/tuple.hpp>
 
 #ifdef OSG_BUILD_ACTIVE
 // Headers
@@ -41,6 +42,7 @@
 #include <OSGConfig.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGGLUTWindow.h>
+#include <OSGGradientBackground.h>
 #include <OSGGrabForeground.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGSceneFileHandler.h>
@@ -58,6 +60,7 @@
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGGLUTWindow.h>
+#include <OpenSG/OSGGradientBackground.h>
 #include <OpenSG/OSGGrabForeground.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 #include <OpenSG/OSGSceneFileHandler.h>
@@ -102,8 +105,8 @@ const char* output_file_fbo = "fbo_image.ppm";
 // Size factors of the output image with respect to the window dimensions.
 // The actual image size does account for the aspect ratio of the window.
 //
-int fw = 10.5;   // multiplication factor for the window width
-int fh = 10.5;   // multiplication factor for the window height
+float fw = 2.5f;   // multiplication factor for the window width
+float fh = 2.3f;   // multiplication factor for the window height
 
 static void cleanup(void)
 {
@@ -211,7 +214,7 @@ static int doMain(int argc, char *argv[])
 {
     preloadSharedObject("OSGFileIO");
     preloadSharedObject("OSGImageFileIO");
-    
+
     osgInit(argc,argv);
 
     int winid = setupGLUT(&argc, argv);
@@ -241,16 +244,23 @@ static int doMain(int argc, char *argv[])
     {
         scene = SceneFileHandler::the()->read(argv[1]);
     }
-    
+
     commitChanges();
-    
+
     mgr = new SimpleSceneManager;
 
     mgr->setWindow(win);
     mgr->setRoot  (scene);
-    
+
+    GradientBackgroundUnrecPtr background = GradientBackground::create();
+    background->addLine(Color3f(0,0,0), 0);
+    background->addLine(Color3f(1,1,1), 1);
+
+    Viewport* viewport = win->getPort(0);
+    viewport->setBackground(background);
+
     mgr->showAll();
-    
+
     return 0;
 }
 
@@ -288,7 +298,7 @@ static Node* rootNode(Node* node)
 //
 static void writeHiResScreenShot(
     const char* name,
-    UInt32 width, 
+    UInt32 width,
     UInt32 height)
 {
     size_t num_ports = win->getMFPort()->size();
@@ -329,8 +339,8 @@ static void writeHiResScreenShot(
     // into the window. The more tiles we use the bigger the resolution of the
     // final image gets with respect to a provided measure of length.
     //
-    typedef std::pair<TileCameraDecoratorUnrecPtr, bool> PairT;
-    std::vector<PairT> decorators;
+    typedef boost::tuple<TileCameraDecoratorUnrecPtr, bool> TupleT;
+    std::vector<TupleT> decorators;
     decorators.resize(num_ports);
 
     //
@@ -357,7 +367,7 @@ static void writeHiResScreenShot(
         //
         // remember the decorator and the background tile prop setting
         //
-        decorators[i] = std::make_pair(decorator, bTiled);
+        decorators[i] = boost::make_tuple(decorator, bTiled);
     }
 
     //
@@ -382,7 +392,7 @@ static void writeHiResScreenShot(
     //
     // Process from bottom to top
     //
-    for (Int32 yPos = yPosLast; yPos >= 0; yPos -= winHeight) 
+    for (Int32 yPos = yPosLast; yPos >= 0; yPos -= winHeight)
     {
         UInt32 ySize = std::min(winHeight, height - yPos);
 
@@ -396,7 +406,7 @@ static void writeHiResScreenShot(
         //
         // Process from left to right
         //
-        for (UInt32 xPos = 0; xPos < width; xPos += winWidth) 
+        for (UInt32 xPos = 0; xPos < width; xPos += winWidth)
         {
             UInt32 xSize = std::min(winWidth, width - xPos);
             //
@@ -411,7 +421,7 @@ static void writeHiResScreenShot(
                 Viewport* vp = win->getPort(i);
                 vp->setSize(0, 0, xSize, ySize);
 
-                TileCameraDecorator* decorator = decorators[i].first;
+                TileCameraDecorator* decorator = decorators[i].get<0>();
 
                 decorator->setSize( xPos / float(width),
                                     yPos / float(height),
@@ -430,7 +440,7 @@ static void writeHiResScreenShot(
             // Copy the image into the tile image stored for later processing
             //
             col_image->setSubData(0, 0, 0, xSize, ySize, 1, grabber->getImage()->getData());
-            
+
             vecColImages.push_back(col_image);
         }
 
@@ -459,12 +469,12 @@ static void writeHiResScreenShot(
     for (size_t i = 0; i < num_ports; ++i) {
         Viewport* vp = win->getPort(i);
 
-        vp->setCamera(decorators[i].first->getDecoratee());
+        vp->setCamera(decorators[i].get<0>()->getDecoratee());
         vp->setSize(0, 0, 1, 1);
 
         TileableBackground* tbg = dynamic_cast<TileableBackground*>(vp->getBackground());
         if (tbg)
-            tbg->setTile(decorators[i].second);
+            tbg->setTile(decorators[i].get<1>());
     }
 }
 
@@ -496,42 +506,6 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
         return;
 
     //
-    // We tile the final image and render each tile with the screen resolution
-    // into the FBO. The more tiles we use the bigger the resolution of the
-    // final image gets with respect to a provided measure of length.
-    //
-    typedef std::pair<TileCameraDecoratorUnrecPtr, bool> PairT;
-    std::vector<PairT> decorators;
-    decorators.resize(num_ports);
-
-    //
-    // Setup the tile camera decorators for each viewport of the window and
-    // disable the tile property of tileable viewport backgrounds.
-    //
-    for (size_t i = 0; i < num_ports; ++i) {
-        Viewport* vp = win->getPort(i);
-
-        TileCameraDecoratorUnrecPtr decorator = TileCameraDecorator::create();
-
-        decorator->setFullSize (width, height);
-        decorator->setDecoratee(vp->getCamera());
-
-        vp->setCamera(decorator);
-
-        bool bTiled = false;
-        TileableBackground* tbg = dynamic_cast<TileableBackground*>(vp->getBackground());
-        if (tbg) {
-            bTiled = tbg->getTile();
-            tbg->setTile(false);
-        }
-
-        //
-        // remember the decorator and the background tile prop setting
-        //
-        decorators[i] = std::make_pair(decorator, bTiled);
-    }
-
-    //
     // Setup the FBO
     //
     FrameBufferObjectUnrecPtr fbo = FrameBufferObject::create();
@@ -560,7 +534,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     //
     fbo->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
     //
-    // The FBO takes responsibility of the render buffers. Notice, that the shared 
+    // The FBO takes responsibility of the render buffers. Notice, that the shared
     // depth/stencil buffer is provided twice. As the depth render buffer and as the
     // stencil render buffer.
     //
@@ -577,61 +551,102 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     //
     fbo->setPostProcessOnDeactivate(true);
     fbo->getColorAttachments(0)->setReadBack(true);
-    //
-    // The scene manager root node does not provide the illumination of the
-    // scene. This is governed internally by the manager. However, to take
-    // credit of the illumination we scan to the final parent of the scene
-    // graph.
-    //
-    Node* internalRoot = rootNode(mgr->getRoot());
-    //
-    // We would like to render the scene but won't detach it from its parent.
-    // The VisitSubTree allows just that.
-    //
-    VisitSubTreeUnrecPtr visitor = VisitSubTree::create();
-    visitor->setSubTreeRoot(internalRoot);
-    NodeUnrecPtr visit_node = makeNodeFor(visitor);
-    //
-    // We clone the camera of the first viewport and do not swap the buffer on later
-    // rendering. This way the image generation process is not noticable in the
-    // window.
-    //
-    Viewport* vp0 = win->getPort(0);
-    CameraUnrecPtr camera = dynamic_pointer_cast<Camera>(vp0->getCamera()->shallowCopy());
-    //
-    // The stage object does provide a render target for the frame buffer attachment.
-    // SimpleStage has a camera, a background and the left, right, top, bottom 
-    // fields to let you restrict rendering to a sub-rectangle of your FBO, i.e. 
-    // they give you a viewport.
-    //
-    SimpleStageUnrecPtr stage = SimpleStage::create();
-    stage->setRenderTarget(fbo);
-    stage->setCamera      (decorators[0].first);
-    stage->setBackground  (vp0->getBackground());
-    //
-    // Give the stage core a place to live
-    //
-    NodeUnrecPtr stage_node = makeNodeFor(stage);
-    stage_node->addChild(visit_node);
-    //
-    //   root
-    //    |
-    //    +- SimpleStage
-    //            |
-    //            +- VisitSubTree -> ApplicationScene
-    //
-    NodeUnrecPtr root = makeCoredNode<Group>();
-    root->addChild(stage_node);
-    //
-    // Give the root node a place to live, i.e. create a passive
-    // viewport and add it to the window.
-    //
-    ViewportUnrecPtr stage_viewport = PassiveViewport::create();
-    stage_viewport->setRoot      (root);
-    stage_viewport->setBackground(vp0->getBackground());
-    stage_viewport->setCamera    (camera);
 
-    win->addPort(stage_viewport);
+    //
+    // We tile the final image and render each tile with the screen resolution
+    // into the FBO. The more tiles we use the bigger the resolution of the
+    // final image gets with respect to a provided measure of length.
+    //
+    typedef boost::tuple<TileCameraDecoratorUnrecPtr, bool, SimpleStageUnrecPtr, ViewportUnrecPtr> TupleT;
+    std::vector<TupleT> decorators;
+    decorators.resize(num_ports);
+
+    //
+    // Remember the stage viewports for later cleanup
+    //
+    std::stack<ViewportUnrecPtr> stage_viewports;
+
+    //
+    // Setup the tile camera decorators for each viewport of the window and
+    // disable the tile property of tileable viewport backgrounds.
+    //
+    for (size_t i = 0; i < num_ports; ++i) {
+        Viewport* vp = win->getPort(i);
+
+        TileCameraDecoratorUnrecPtr decorator = TileCameraDecorator::create();
+
+        decorator->setFullSize (width, height);
+        decorator->setDecoratee(vp->getCamera());
+
+        vp->setCamera(decorator);
+
+        bool bTiled = false;
+        TileableBackground* tbg = dynamic_cast<TileableBackground*>(vp->getBackground());
+        if (tbg) {
+            bTiled = tbg->getTile();
+            tbg->setTile(false);
+        }
+
+        //
+        // The scene manager root node does not provide the illumination of the
+        // scene. This is governed internally by the manager. However, to take
+        // credit of the illumination we scan to the final parent of the scene
+        // graph.
+        //
+        Node* internalRoot = rootNode(mgr->getRoot());
+        //
+        // We would like to render the scene but won't detach it from its parent.
+        // The VisitSubTree allows just that.
+        //
+        VisitSubTreeUnrecPtr visitor = VisitSubTree::create();
+        visitor->setSubTreeRoot(internalRoot);
+        NodeUnrecPtr visit_node = makeNodeFor(visitor);
+        //
+        // We clone the camera of the first viewport and do not swap the buffer on later
+        // rendering. This way the image generation process is not noticable in the
+        // window.
+        //
+        CameraUnrecPtr camera = dynamic_pointer_cast<Camera>(vp->getCamera()->shallowCopy());
+        //
+        // The stage object does provide a render target for the frame buffer attachment.
+        // SimpleStage has a camera, a background and the left, right, top, bottom
+        // fields to let you restrict rendering to a sub-rectangle of your FBO, i.e.
+        // they give you a viewport.
+        //
+        SimpleStageUnrecPtr stage = SimpleStage::create();
+        stage->setRenderTarget(fbo);
+        stage->setCamera      (decorator);
+        stage->setBackground  (vp->getBackground());
+        //
+        // Give the stage core a place to live
+        //
+        NodeUnrecPtr stage_node = makeNodeFor(stage);
+        stage_node->addChild(visit_node);
+        //
+        //   root
+        //    |
+        //    +- SimpleStage
+        //            |
+        //            +- VisitSubTree -> ApplicationScene
+        //
+        NodeUnrecPtr root = makeCoredNode<Group>();
+        root->addChild(stage_node);
+        //
+        // Give the root node a place to live, i.e. create a passive
+        // viewport and add it to the window.
+        //
+        ViewportUnrecPtr stage_viewport = PassiveViewport::create();
+        stage_viewport->setRoot      (root);
+        stage_viewport->setBackground(vp->getBackground());
+        stage_viewport->setCamera    (camera);
+
+        win->addPort(stage_viewport);
+
+        //
+        // remember the decorator, the background tile prop setting and the stage setup
+        //
+        decorators[i] = boost::make_tuple(decorator, bTiled, stage, stage_viewport);
+    }
 
     //
     // We write the image in simple ppm format. This one starts with a description
@@ -649,7 +664,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     //
     // Process from bottom to top
     //
-    for (Int32 yPos = yPosLast; yPos >= 0; yPos -= winHeight) 
+    for (Int32 yPos = yPosLast; yPos >= 0; yPos -= winHeight)
     {
         UInt32 ySize = std::min(winHeight, height - yPos);
 
@@ -663,7 +678,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
         //
         // Process from left to right
         //
-        for (UInt32 xPos = 0; xPos < width; xPos += winWidth) 
+        for (UInt32 xPos = 0; xPos < width; xPos += winWidth)
         {
             UInt32 xSize = std::min(winWidth, width - xPos);
             //
@@ -676,14 +691,16 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
             //
             for (size_t i = 0; i < num_ports; ++i)
             {
+                //
                 // this tile does not fill the whole FBO - adjust to only render
                 // to a part of it
-                stage->setLeft  (0.f);
-                stage->setRight (xSize / float(winWidth));
-                stage->setBottom(0.f);
-                stage->setTop   (ySize / float(winHeight));
+                //
+                decorators[i].get<2>()->setLeft  (0.f);
+                decorators[i].get<2>()->setRight (xSize / float(winWidth));
+                decorators[i].get<2>()->setBottom(0.f);
+                decorators[i].get<2>()->setTop   (ySize / float(winHeight));
 
-                TileCameraDecorator* decorator = decorators[i].first;
+                TileCameraDecorator* decorator = decorators[i].get<0>();
 
                 decorator->setSize( xPos / float(width),
                                     yPos / float(height),
@@ -714,7 +731,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
 
             vecColImages.push_back(col_image);
         }
-        
+
         //
         // Write the image format header once
         //
@@ -735,17 +752,16 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     //
     // restore window and cleanup
     //
-    win->subPortByObj(stage_viewport);
-
     for (size_t i = 0; i < num_ports; ++i) {
-        Viewport* vp = win->getPort(i);
+        win->subPortByObj(decorators[i].get<3>());
 
-        vp->setCamera(decorators[i].first->getDecoratee());
+        Viewport* vp = win->getPort(i);
+        vp->setCamera(decorators[i].get<0>()->getDecoratee());
         vp->setSize(0, 0, 1, 1);
 
         TileableBackground* tbg = dynamic_cast<TileableBackground*>(vp->getBackground());
         if (tbg)
-            tbg->setTile(decorators[i].second);
+            tbg->setTile(decorators[i].get<1>());
     }
 }
 
@@ -755,7 +771,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
 // or  http://en.wikipedia.org/wiki/Netpbm_format
 //
 static bool writePNMImagesHeader(
-    const std::vector<ImageUnrecPtr>& vecImages, 
+    const std::vector<ImageUnrecPtr>& vecImages,
     UInt32 width, UInt32 height,
     std::ostream  &out)
 {
@@ -775,7 +791,7 @@ static bool writePNMImagesHeader(
             out << "P6" << std::endl;
             break;
     }
-    
+
     out << "# PNMImageFileType write" << std::endl;
     out << width << " " << height << std::endl;
     out << "255" << std::endl;
@@ -787,7 +803,7 @@ static bool writePNMImagesHeader(
 // Write tile images column wise
 //
 static bool writePNMImagesData(
-    const std::vector<ImageUnrecPtr>& vecImages, 
+    const std::vector<ImageUnrecPtr>& vecImages,
     std::ostream  &out)
 {
     if (vecImages.empty()) return false;
@@ -799,7 +815,7 @@ static bool writePNMImagesData(
     Int16 height = first->getHeight();
 
     std::size_t num_images = vecImages.size();
-        
+
     for(Int16 y = height - 1; y >= 0; y--)
     {
         for (std::size_t img_idx = 0; img_idx < num_images; img_idx++)
