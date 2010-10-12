@@ -137,6 +137,14 @@ OSG_BASE_DLLMAPPING bool MatrixProjection       (OSG::Matrix &result,
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
+OSG_BASE_DLLMAPPING void MatrixSkew             (      Matrix &result,
+                                                 const Vec3f  &vRotationAxis,
+                                                 const Vec3f  &vTranslationAxis,
+                                                       Real32  rAngleInRadians);
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
 OSG_BASE_DLLMAPPING void makeViewFromUVND       (      Matrix &Result,
                                                  const Vec3f  &U,
                                                  const Vec3f  &V,
