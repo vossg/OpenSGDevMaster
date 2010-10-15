@@ -226,7 +226,7 @@ void LODSetupGraphOp::LODSet::addLODPair(Int32 LOD, Node *node)
 
 Action::ResultE LODSetupGraphOp::traverseEnter(Node * const node)
 {
-	if(node->getCore()->getClassTypeId() == DistanceLOD::getClassTypeId()) 
+	if(node->getCore()->getType().isDerivedFrom(DistanceLOD::getClassType())) 
 	{
 		return Action::Skip;
 	}
@@ -244,9 +244,12 @@ Action::ResultE LODSetupGraphOp::traverseEnter(Node * const node)
 		if(namePtr != NULL)
 		{
 			std::string curNodeName(namePtr);
+			size_t nameSize(curNodeName.size());
 			for(j = 0; j < _mLODs.size(); j++)
 			{
-				size_t loc = curNodeName.find(_mLODs[j].mTag);
+				// we only check for the tags at the end of the strings
+				size_t searchLoc = (nameSize > _mLODs[j].mTag.size())?(nameSize - _mLODs[j].mTag.size()):(0); 
+				size_t loc = curNodeName.find(_mLODs[j].mTag,searchLoc);
 				if(loc != std::string::npos)
 				{ 
 					std::string baseName(curNodeName);
@@ -284,46 +287,50 @@ Action::ResultE LODSetupGraphOp::traverseEnter(Node * const node)
 	if(_mSets.size() > 0)
 	{
 		
-		for(i = 0; (i < _mSets.size()) && (_mSets[i].mLODPairs.size() > 1); i++)
+		for(i = 0; i < _mSets.size() ; i++)
 		{
-			DistanceLODRecPtr TheLODCore  = DistanceLOD::create();
-
-			MFReal32 *ranges = TheLODCore->editMFRange();
-
-			NodeRecPtr newLODNode = Node::create();
-			newLODNode->setCore(TheLODCore);
-			// also set the name of the node now
-			OSG::setName(newLODNode,_mSets[i].mBaseName + "_LODNode");
-			node->addChild(newLODNode);
-
-			bool centerIsSet(false);
-			for(j = 0; j < _mSets[i].mLODPairs.size(); j++)
+			if(_mSets[i].mLODPairs.size() > 1)
 			{
-				LODPair cur = _mSets[i].mLODPairs[j];
-				if((cur.first != -1) && (cur.second != NULL) && (getRange(cur.first) > 0.0f))
-				{
-					ranges->push_back(getRange(cur.first));
-					newLODNode->addChild(cur.second);
+				DistanceLODRecPtr TheLODCore  = DistanceLOD::create();
 
-					if(!centerIsSet)
+				MFReal32 *ranges = TheLODCore->editMFRange();
+
+				NodeRecPtr newLODNode = Node::create();
+				newLODNode->setCore(TheLODCore);
+				// also set the name of the node now
+				OSG::setName(newLODNode,_mSets[i].mBaseName + "_LODNode");
+				node->addChild(newLODNode);
+
+				bool centerIsSet(false);
+				for(j = 0; j < _mSets[i].mLODPairs.size(); j++)
+				{
+					LODPair cur = _mSets[i].mLODPairs[j];
+					if((cur.first != -1) && (cur.second != NULL) && (getRange(cur.first) > 0.0f))
 					{
-						Pnt3f volCenter;
-						cur.second->getVolume().getCenter(volCenter);
-						TheLODCore->setCenter(volCenter);
-						centerIsSet = true;
-						
+						ranges->push_back(getRange(cur.first));
+						newLODNode->addChild(cur.second);
+
+						if(!centerIsSet)
+						{
+							Pnt3f volCenter;
+							cur.second->getVolume().getCenter(volCenter);
+							TheLODCore->setCenter(volCenter);
+							centerIsSet = true;
+						}
+						madeNow++;
 					}
 				}
 			}
-			
-			madeNow++;
-			
 		}
 		
 		if(madeNow > 0)
 		{
 			_totalNumMade += madeNow;
 			return Action::Skip; 
+		}
+		else
+		{
+
 		}
 		   
 	}

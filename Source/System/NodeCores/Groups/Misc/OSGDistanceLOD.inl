@@ -69,7 +69,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 
         Real32 dist = eyepos.dist(objpos);
 
-        if(numRanges >= numLevels)
+        if(numRanges >= numLevels && numLevels > 1)
             numRanges = numLevels - 1;
 
         if(dist >= (*range)[numRanges - 1])
