@@ -313,7 +313,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         "renderOptions",
         "",
         RenderOptionsFieldId, RenderOptionsFieldMask,
-        true,
+        false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Window::editHandleRenderOptions),
         static_cast<FieldGetMethodSig >(&Window::getHandleRenderOptions));

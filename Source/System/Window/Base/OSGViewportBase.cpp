@@ -369,7 +369,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         "renderOptions",
         "",
         RenderOptionsFieldId, RenderOptionsFieldMask,
-        true,
+        false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Viewport::editHandleRenderOptions),
         static_cast<FieldGetMethodSig >(&Viewport::getHandleRenderOptions));

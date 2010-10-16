@@ -26,7 +26,7 @@
         cardinality="single"
         visibility="external"
         access="public"
-	>
+    >
     </Field>
     <Field
         name="height"
@@ -34,7 +34,7 @@
         cardinality="single"
         visibility="external"
         access="public"
-	>
+    >
     </Field>
     <Field
         name="port"
@@ -53,7 +53,7 @@
         clearFieldAs="clearPorts"        
         ptrFieldAccess = "nullCheck"
         linkParentField="Parent"
-	>
+    >
     </Field>
     <Field
         name="glObjectEventCounter"
@@ -63,8 +63,8 @@
         defaultValue="1"
         access="protected"
         fieldFlags="FClusterLocal, FThreadLocal"
-	>
-	Counter for GL object events. Needed for multi-aspect updates.
+    >
+    Counter for GL object events. Needed for multi-aspect updates.
         Is used in glObjectLastRefresh and glObjectLastReinitialize.
     </Field>
     <Field
@@ -74,8 +74,8 @@
         visibility="internal"
         access="protected"
         fieldFlags="FClusterLocal, FThreadLocal"
-	>
-	Indicates the last refresh for the GL object.
+    >
+    Indicates the last refresh for the GL object.
     </Field>
     <Field
         name="glObjectLastReinitialize"
@@ -84,8 +84,8 @@
         visibility="internal"
         access="protected"
         fieldFlags="FClusterLocal, FThreadLocal"
-	>
-	Indicates the last reinit for the GL object.
+    >
+    Indicates the last reinit for the GL object.
     </Field>
     <Field
         name="drawerId"
@@ -95,7 +95,7 @@
         access="public"
         fieldFlags="FClusterLocal"
         defaultValue="-1"
-	>
+    >
         DrawerId to select window dependent elements (e.g. Distortion filter).
         For cluster window this values equals the clusterId (shl chunk)
     </Field>
@@ -107,7 +107,7 @@
         access="public"
         fieldFlags=""
         defaultValue="-1"
-	>
+    >
     </Field>
     <Field
         name="requestMinor"
@@ -117,7 +117,7 @@
         access="public"
         fieldFlags=""
         defaultValue="0"
-	>
+    >
     </Field>
     <Field
         name="contextFlags"
@@ -127,16 +127,16 @@
         access="public"
         fieldFlags=""
         defaultValue="0"
-	>
+    >
     </Field>
     <Field
         name="renderOptions"
         type="RenderOptionsPtr"
         cardinality="single"
-        visibility="internal"
+        visibility="external"
         access="public"
         defaultValue="NULL"
-	>
+        >
     </Field>
     <Field
         name="ignoreAllExtensions"
@@ -145,7 +145,7 @@
         visibility="internal"
         access="public"
         defaultValue="false"
-	>
+    >
     </Field>
     <Field
         name="drawMode"
