@@ -91,7 +91,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXTechnique : public CgFXTechniqueBase
 
     virtual void    rebuildState (void            );
     virtual bool    isTransparent(void            ) const;
-    virtual UInt32  getNPasses   (void            ) const;
+    virtual UInt32  getNPasses   (void            );
     virtual State  *getState     (UInt32 index = 0);
 
     /*! \}                                                                 */
