@@ -119,6 +119,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     static const UInt32 NumStateVars = CgTime + 1;
 
+    static const std::string FALBACK_MATERIAL_TECHNIQUE_NAME;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -171,6 +173,13 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                 Parameter Access                             */
+    /*! \{                                                                 */
+
+    CgFXTechnique *getTechnique(const std::string &techniqueName) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
 
@@ -188,6 +197,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     // index of the technique in _mfTechniques to use for this material
     UInt32      _pTechIdx; 
     bool        _mDelayTextureExtraction;
+    bool        _bForceUseFallback;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
