@@ -181,6 +181,16 @@ void MapCacheHandlerMixin<Desc>::subElement(MapCacheKey key)
 }
 
 template <class Desc> inline
+void MapCacheHandlerMixin<Desc>::clearElements (void)
+{
+    while(_fMapCache.getValue().size() != 0)
+    {
+        subElement(_fMapCache.getValue().begin()->first);
+    }
+}
+
+
+template <class Desc> inline
 typename MapCacheHandlerMixin<Desc>::MapCacheElement 
     MapCacheHandlerMixin<Desc>::findElement(MapCacheKey key) const
 {

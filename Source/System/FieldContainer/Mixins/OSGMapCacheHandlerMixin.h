@@ -143,10 +143,12 @@ class MapCacheHandlerMixin  : public Desc::ParentT
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    void addElement(MapCacheElement const pElement,
-                    MapCacheKey           key    = 0);
+    void addElement   (MapCacheElement const pElement,
+                       MapCacheKey           key    = 0);
 
-    void subElement(MapCacheKey           key    = 0);
+    void subElement   (MapCacheKey           key    = 0);
+
+    void clearElements(void                            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
