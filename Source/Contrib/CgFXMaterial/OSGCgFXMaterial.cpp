@@ -348,7 +348,8 @@ PrimeMaterial *CgFXMaterial::finalize(MaterialMapKey  oKey,
     }
     else
     {
-        if(_mfTechniques[_pTechIdx]->validate(this, &oEnv) == true)
+        if(_pTechIdx < _mfTechniques.size() && 
+           _mfTechniques[_pTechIdx]->validate(this, &oEnv) == true)
         {   
             return _mfTechniques[_pTechIdx];
         }
@@ -606,11 +607,10 @@ bool CgFXMaterial::setActiveTechnique(const std::string &techniqueName)
 {
     // if we don't have a valid effect yet, store the string and try
     // again after the effect is loaded up.
-    if(_pCGeffect == NULL)
+    if(_pCGeffect == NULL && getSelectedTechnique() != techniqueName)
     {
-        setSelectedTechnique(techniqueName);
+        editSelectedTechnique() = techniqueName;
     }
-
     // is this a valid technique name?
     CGtechnique pTech = cgGetNamedTechnique(_pCGeffect, techniqueName.c_str());
 
