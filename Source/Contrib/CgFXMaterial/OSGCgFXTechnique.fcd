@@ -12,20 +12,20 @@
    useLocalIncludes="false"
    >
   <Field
-	 name="renderPassStates"
-	 type="State"
-	 category="pointer"
-	 cardinality="multi"
-	 visibility="external"
-	 access="protected"
-	 pushToFieldAs="addPassState"
-	 insertIntoMFieldAs="insertPassState"
-	 replaceInMFieldIndexAs="replacePassState"
-	 replaceInMFieldObjectAs="replacePassStateByObj"
-	 removeFromMFieldIndexAs="subPassState"
-	 removeFromMFieldObjectAs="subPassStateByObj"
-	 clearFieldAs="clearPassStates"
-	 ptrFieldAccess = "nullCheck"
-	 >
+     name="renderPassStates"
+     type="State"
+     category="pointer"
+     cardinality="multi"
+     visibility="internal"
+     access="protected"
+     pushToFieldAs="addPassState"
+     insertIntoMFieldAs="insertPassState"
+     replaceInMFieldIndexAs="replacePassState"
+     replaceInMFieldObjectAs="replacePassStateByObj"
+     removeFromMFieldIndexAs="subPassState"
+     removeFromMFieldObjectAs="subPassStateByObj"
+     clearFieldAs="clearPassStates"
+     ptrFieldAccess = "nullCheck"
+     >
   </Field>
 </FieldContainer>
