@@ -191,6 +191,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 receiveNewType(connection, fcFactory);
             }
             break;
+            
             case CREATED:
             {
                 receiveCreated(connection, fcFactory, newContainers);
