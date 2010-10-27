@@ -101,7 +101,6 @@ RemoteAspect::RemoteAspect(UInt32 aspectId) :
  */
 RemoteAspect::~RemoteAspect(void)
 {
-#if 0 // it's the applications responsibility to clean up
     FieldContainerFactoryBase *pFactory = FieldContainerFactory::the();
     IdSetT::iterator           i;
 
@@ -135,7 +134,6 @@ RemoteAspect::~RemoteAspect(void)
             } while(fcPtr != NULL);
         }
     }
-#endif
 }
 
 /*-------------------------------------------------------------------------*/
@@ -193,7 +191,6 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 receiveNewType(connection, fcFactory);
             }
             break;
-
             case CREATED:
             {
                 receiveCreated(connection, fcFactory, newContainers);
