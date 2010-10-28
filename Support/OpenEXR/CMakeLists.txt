@@ -295,6 +295,8 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetHalf} STATIC 
                 ${OSG_OEXR_HALF_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetHalf})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetHalf} PROPERTIES
                           DEBUG_POSTFIX "D")
 
@@ -310,6 +312,8 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetIex} STATIC 
                 ${OSG_OEXR_IEX_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIex})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIex} PROPERTIES
                           DEBUG_POSTFIX "D")
 
@@ -324,6 +328,8 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
 
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetIlmThread} STATIC 
                 ${OSG_OEXR_ITR_SRCS})
+
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIlmThread})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmThread} PROPERTIES
                           DEBUG_POSTFIX "D")
@@ -342,6 +348,8 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
 
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetIlmImf} STATIC 
                 ${OSG_OEXR_IMF_SRCS})
+
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIlmImf})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmImf} PROPERTIES
                           DEBUG_POSTFIX "D")

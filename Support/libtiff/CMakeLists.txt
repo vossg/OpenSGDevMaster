@@ -69,6 +69,8 @@ IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTarget} SHARED ${OSG_TIFFLIB_SRCS}
                                                       ${OSGTiffLibSrcDir}/libtiff/libtiff.def)
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTarget})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES
                           DEBUG_POSTFIX "D")
 
@@ -90,6 +92,8 @@ IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
 
   IF(BUILD_STATIC_LIBS)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_TIFFLIB_SRCS})
+
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
                           DEBUG_POSTFIX "D")

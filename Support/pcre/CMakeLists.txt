@@ -70,6 +70,8 @@ IF(OSGPcreSrcDir)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTargetPcre} SHARED 
                                                    ${OSG_PCRE_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTargetPcre})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTargetPcre} PROPERTIES
                           DEBUG_POSTFIX "D")
 
@@ -81,6 +83,8 @@ IF(OSGPcreSrcDir)
 
     ADD_LIBRARY(${${PROJECT_NAME}SharedTargetPcrecpp} SHARED 
                                                       ${OSG_PCRECPP_SRCS})
+
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTargetPcrecpp})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTargetPcrecpp} PROPERTIES
                           DEBUG_POSTFIX "D")
@@ -98,6 +102,8 @@ IF(OSGPcreSrcDir)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetPcre} STATIC 
                                                    ${OSG_PCRE_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetPcre})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetPcre} PROPERTIES
                           DEBUG_POSTFIX "D"
                           COMPILE_DEFINITIONS PCRE_STATIC)
@@ -110,6 +116,8 @@ IF(OSGPcreSrcDir)
 
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetPcrecpp} STATIC 
                                                       ${OSG_PCRECPP_SRCS})
+
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetPcrecpp})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetPcrecpp} PROPERTIES
                           DEBUG_POSTFIX "D"

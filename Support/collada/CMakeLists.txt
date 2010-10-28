@@ -962,6 +962,8 @@ IF(_OSG_COLLADA_PRECOND)
                                                   ${OSG_COLLADA14_SRCS}
                                                   ${OSG_COLLADADAE_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTarget_14})
+
     IF(WIN32)
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_14} PROPERTIES
                             DEFINE_SYMBOL DOM_EXPORT
@@ -1007,6 +1009,8 @@ IF(_OSG_COLLADA_PRECOND)
       ADD_LIBRARY(${${PROJECT_NAME}SharedTarget_15} SHARED 
                                                     ${OSG_COLLADA15_SRCS}
                                                     ${OSG_COLLADADAE_SRCS})
+
+      ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTarget_15})
 
       IF(WIN32)
         SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget_15} PROPERTIES
@@ -1055,6 +1059,8 @@ IF(_OSG_COLLADA_PRECOND)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTarget_14} STATIC ${OSG_COLLADA14_SRCS}
                                                          ${OSG_COLLADADAE_SRCS})
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget_14})
+
     IF(WIN32)
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_14} PROPERTIES
                             DEBUG_POSTFIX "D")
@@ -1088,6 +1094,8 @@ IF(_OSG_COLLADA_PRECOND)
 
       ADD_LIBRARY(${${PROJECT_NAME}StaticTarget_15} STATIC ${OSG_COLLADA15_SRCS}
                                                            ${OSG_COLLADADAE_SRCS})
+
+      ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget_15})
 
       IF(WIN32)
         SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget_15} PROPERTIES

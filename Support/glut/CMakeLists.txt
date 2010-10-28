@@ -69,6 +69,8 @@ IF(OSGGlutSrcDir)
                 ${OSG_GLUT_SRCS}
                 ${OSGGlutSrcDir}/lib/glut/glut.def)
 
+    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTarget})
+
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES
                           DEFINE_SYMBOL GLUT32_EXPORTS   
                           DEBUG_POSTFIX "D")
