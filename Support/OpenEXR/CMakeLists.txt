@@ -326,43 +326,11 @@ IF(OSGOpenExrSrcDir AND OSGZLibSrcDir)
 
     # IlmThread
 
-    ADD_LIBRARY(${${PROJECT_NAME}StaticTargetIlmThread} STATIC 
-                ${OSG_OEXR_ITR_SRCS})
-
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIlmThread})
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmThread} PROPERTIES
-                          DEBUG_POSTFIX "D")
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmThread} PROPERTIES
-                          COMPILE_FLAGS -I${OSGOpenExrSrcDir}/IlmBase/Iex)
-
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIlmThread}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
-
+    ADD_SUBDIRECTORY(IlmThread)
 
     # IlmImf
 
-    ADD_LIBRARY(${${PROJECT_NAME}StaticTargetIlmImf} STATIC 
-                ${OSG_OEXR_IMF_SRCS})
-
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIlmImf})
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmImf} PROPERTIES
-                          DEBUG_POSTFIX "D")
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmImf} PROPERTIES
-                          COMPILE_FLAGS "-I${OSGOpenExrSrcDir}/IlmBase/Half -I${OSGOpenExrSrcDir}/IlmBase/Iex -I${OSGOpenExrSrcDir}/IlmBase/Imath -I${OSGOpenExrSrcDir}/IlmBase/IlmThread -I${OSGOpenExrSrcDir}/OpenExr/IlmImf -I${OSG_ZLIB_INCLUDE_DIR}")
-
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIlmImf}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
-
+    ADD_SUBDIRECTORY(IlmImf)
 
   ENDIF(BUILD_STATIC_LIBS)
 
