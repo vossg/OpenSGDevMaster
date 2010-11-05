@@ -191,7 +191,7 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
 
 /*! Draw the statistics lines.
 */
-void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
+void SimpleStatisticsForeground::draw(DrawEnv *pEnv)
 {
     if(getActive() == false)
         return;
@@ -203,8 +203,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         (!getCollector()->getNumOfElems() && !getMFElementIDs()->size()))
         return; // nothing to do
 
-    Real32  pw = Real32(pPort->getPixelWidth ());
-    Real32  ph = Real32(pPort->getPixelHeight());
+    Real32  pw = Real32(pEnv->getPixelWidth ());
+    Real32  ph = Real32(pEnv->getPixelHeight());
 
     if(pw < 1 || ph < 1)
         return;

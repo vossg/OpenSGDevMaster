@@ -85,7 +85,7 @@ class OSG_WINDOW_DLLMAPPING GrabForeground : public GrabForegroundBase
     /*! \name                   draw                                       */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *pEnv, Viewport *port);
+    virtual void draw(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

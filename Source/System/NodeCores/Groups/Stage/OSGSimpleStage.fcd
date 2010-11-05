@@ -81,4 +81,13 @@
      >
     The background used to clear this viewport.
   </Field>
+  <Field
+     name="foregrounds"
+     type="ForegroundPtr"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The foregrounds used by this viewport.
+  </Field>
 </FieldContainer>

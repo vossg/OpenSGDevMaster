@@ -86,8 +86,7 @@ class OSG_SYSTEM_DLLMAPPING Foreground : public ForegroundBase
     /*! \name                   draw                                       */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv  *pEnv, 
-                      Viewport *port  ) = 0;
+    virtual void draw(DrawEnv *pEnv) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -96,8 +96,7 @@ void FileGrabForeground::dump(      UInt32    ,
 /*! Grab the image and write it to the file. The name needs to be set.
 */
     
-void FileGrabForeground::draw(DrawEnv  *pEnv, 
-                              Viewport *port)
+void FileGrabForeground::draw(DrawEnv  *pEnv)
 {
     if(getActive() == false)
         return;
@@ -118,7 +117,7 @@ void FileGrabForeground::draw(DrawEnv  *pEnv,
             setImage(iPtr);
     }
     
-    Inherited::draw(pEnv, port);
+    Inherited::draw(pEnv);
     
     Char8 *name = new Char8[getName().size() + 32]; // this is really 
                                                     // arbitrary... :(

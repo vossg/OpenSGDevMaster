@@ -94,7 +94,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     /*! \name                      Draw                                    */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *pEnv, Viewport *pPort);
+    virtual void draw(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

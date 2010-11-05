@@ -85,7 +85,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForeground : public PolygonForegroundBase
     /*! \name                    draw                                      */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *, Viewport *);
+    virtual void draw(DrawEnv *);
 
     /*! \}                                                                 */
      /*=========================  PROTECTED  ===============================*/

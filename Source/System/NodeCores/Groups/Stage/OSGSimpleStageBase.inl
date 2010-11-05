@@ -48,6 +48,7 @@
  *****************************************************************************
 \*****************************************************************************/
 
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -207,6 +208,13 @@ void SimpleStageBase::setBackground(Background * const value)
     _sfBackground.setValue(value);
 }
 
+//! Get the value of the \a index element the SimpleStage::_mfForegrounds field.
+inline
+Foreground * SimpleStageBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -235,6 +243,12 @@ void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
 
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
         _sfBackground.syncWith(pFrom->_sfBackground);
+
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

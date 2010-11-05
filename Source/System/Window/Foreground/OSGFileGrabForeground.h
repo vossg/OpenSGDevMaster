@@ -105,7 +105,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForeground : public FileGrabForegroundBase
     /*! \name                   draw                                       */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *pEnv, Viewport *port);
+    virtual void draw(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

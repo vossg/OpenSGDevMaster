@@ -96,7 +96,7 @@ class OSG_WINDOW_DLLMAPPING ImageForeground : public ImageForegroundBase
     /*! \name                    draw                                      */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *, Viewport *);
+    virtual void draw(DrawEnv *);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

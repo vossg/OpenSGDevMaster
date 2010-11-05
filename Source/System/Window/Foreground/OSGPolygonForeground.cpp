@@ -136,7 +136,7 @@ Real32 PolygonForeground::mapCoordinate(Real32 val, Real32 max, bool norm)
     return val;
 }
     
-void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
+void PolygonForeground::draw(DrawEnv *pEnv)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getActive() == false)
@@ -145,8 +145,8 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if(getMFPositions()->size() == 0) // nothing to render
         return;
 
-    if(pPort->getPixelWidth()  == 0 ||
-       pPort->getPixelHeight() == 0   ) // nothing to render to
+    if(pEnv->getPixelWidth () == 0 ||
+       pEnv->getPixelHeight() == 0   ) // nothing to render to
         return;
         
     bool bUseTC = true;
@@ -170,8 +170,8 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if(getAspectHeight() && getAspectWidth())
     {
         aspectX = 
-            (Real32(pPort->getPixelHeight()) / getAspectHeight()) /
-            (Real32(pPort->getPixelWidth())  / getAspectWidth());
+            (Real32(pEnv->getPixelHeight()) / getAspectHeight()) /
+            (Real32(pEnv->getPixelWidth ()) / getAspectWidth ());
     }
  
     glMatrixMode(GL_MODELVIEW);
@@ -182,10 +182,10 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPushMatrix();
     glLoadIdentity();
     
-	Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
-	
-	UInt32 width  = pPort->getPixelWidth(),
-		   height = pPort->getPixelHeight();
+    Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
+    
+    UInt32 width  = pEnv->getPixelWidth(),
+           height = pEnv->getPixelHeight();
     
     if(pEnv->getTileFullSize()[0] != 0 && getTile() == false)
     {
@@ -208,19 +208,19 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
                 (Real32(width / getAspectWidth()));
 
             t  = Real32(width) * (1 - aspectX) * 0.5f;
-            t *= Real32(pPort->getPixelWidth()) / width;
+            t *= Real32(pEnv->getPixelWidth()) / width;
         }
-		
+        
         Matrix sm = pEnv->calcTileDecorationMatrix();
         
         glLoadMatrixf(sm.getValues());
-        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+        glOrtho(0, pEnv->getPixelWidth(), 0, pEnv->getPixelHeight(), 0, 1);
 
         glTranslatef(t, 0, 0);
         glScalef(aspectX, aspectY, 1);
 
-        float t1 = (1 - sFac) * 0.5f * Real32(pPort->getPixelWidth());
-        float t2 = (1 - sFac) * 0.5f * Real32(pPort->getPixelHeight());
+        float t1 = (1 - sFac) * 0.5f * Real32(pEnv->getPixelWidth ());
+        float t2 = (1 - sFac) * 0.5f * Real32(pEnv->getPixelHeight());
         glTranslatef(t1, t2, 0);
         glScalef(sFac,sFac,1);
     }
@@ -230,7 +230,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         
         glScalef(aspectX, aspectY, 1);
         
-        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+        glOrtho(0, pEnv->getPixelWidth(), 0, pEnv->getPixelHeight(), 0, 1);
     }
 
     getMaterial()->getState()->activate(pEnv);
@@ -253,9 +253,9 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
             glTexCoord3fv( tc[i].getValues() );
         }
 
-        glVertex2f( mapCoordinate(pos[i][0], Real32(pPort->getPixelWidth()),
+        glVertex2f( mapCoordinate(pos[i][0], Real32(pEnv->getPixelWidth()),
                                              getNormalizedX()),
-                    mapCoordinate(pos[i][1], Real32(pPort->getPixelHeight()),
+                    mapCoordinate(pos[i][1], Real32(pEnv->getPixelHeight()),
                                              getNormalizedY()) );
     }
 

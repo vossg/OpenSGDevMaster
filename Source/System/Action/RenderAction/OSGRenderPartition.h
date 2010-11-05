@@ -56,6 +56,7 @@
 
 #include "OSGViewport.h"
 #include "OSGBackground.h"
+#include "OSGForegroundFields.h"
 #include "OSGMaterial.h"
 #include "OSGNamedPool.h"
 
@@ -180,14 +181,17 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*------------------------- your_operators ------------------------------*/
 
 #if 0
-    void      setViewport  (Viewport   *pViewport  );
-    Viewport *getViewport  (void                   );
+    void      setViewport      (Viewport   *pViewport  );
+    Viewport *getViewport      (void                   );
 #endif
 
-    void      setWindow    (Window     *pWindow    );
-    Window   *getWindow    (void                   );
+    void      setWindow        (Window     *pWindow    );
+    Window   *getWindow        (void                   );
 
-    void      setBackground(Background *pBackground);
+    void      setBackground    (Background *pBackground);
+
+    void      pushToForegrounds(Foreground *pForeground);
+    void      clearForegrounds (void                   );
   
     /*------------------------- your_operators ------------------------------*/
 
@@ -404,6 +408,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     SimpleDrawCallback  _oSimpleDrawCallback;
 
     Background         *_pBackground;
+
+    std::vector<Foreground*> _vpForegrounds;
 
     // Transform
 

@@ -86,7 +86,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForeground :
     /*! \name                   draw                                       */
     /*! \{                                                                 */
 
-    virtual void draw(DrawEnv *pEnv, Viewport *port);
+    virtual void draw(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

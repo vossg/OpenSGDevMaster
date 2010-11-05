@@ -194,7 +194,7 @@ void PerfMonitorForeground::initText(const std::string &family, Real32 size)
 }
 
 /** Draw the foreground on the viewport. */
-void PerfMonitorForeground::draw(DrawEnv *pEnv, Viewport *pPort)
+void PerfMonitorForeground::draw(DrawEnv *pEnv)
 {
    // -- Check all early exit and lazy initialization code -- //
    // If we aren't active, then exit immediately

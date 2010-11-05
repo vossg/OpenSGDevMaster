@@ -120,8 +120,7 @@ void TextureGrabForeground::dump(      UInt32    ,
 
 /*! Grab the image to the texture.
 */   
-void TextureGrabForeground::draw(DrawEnv  *pEnv, 
-                                 Viewport *port  )
+void TextureGrabForeground::draw(DrawEnv  *pEnv)
 {
     if(getActive() == false)
         return;
@@ -131,8 +130,8 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
     if(t == NULL)       // No texture, no grab.
         return;
     
-    Int32  pw = port->getPixelWidth(),
-           ph = port->getPixelHeight();
+    Int32  pw = pEnv->getPixelWidth (),
+           ph = pEnv->getPixelHeight();
     
     // Ignore empty viewports
     if(pw < 1 || ph < 1)
@@ -144,7 +143,7 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
     // the 2x2 is because you can't create 0x0 images
 
     if((i->getWidth() <= 1 && i->getHeight() <= 1) ||
-       (getAutoResize() && (osgAbs(i->getWidth()  - pw) > 1 ||
+       (getAutoResize() && (osgAbs(i->getWidth () - pw) > 1 ||
                             osgAbs(i->getHeight() - ph) > 1 ) ) )
     {
         i->set(i->getPixelFormat(), pw, ph);
@@ -200,14 +199,14 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
     else if(copyTarget == GL_TEXTURE_1D)
     {
         glCopyTexSubImage1D(copyTarget, 0, 0, 
-                            port->getPixelLeft(), port->getPixelBottom(), 
+                            pEnv->getPixelLeft(), pEnv->getPixelBottom(), 
                             w);
     }
 #endif
     else
     {
         glCopyTexSubImage2D(copyTarget, 0, 0, 0, 
-                            port->getPixelLeft(), port->getPixelBottom(), 
+                            pEnv->getPixelLeft(), pEnv->getPixelBottom(), 
                             w, h);
     }
     

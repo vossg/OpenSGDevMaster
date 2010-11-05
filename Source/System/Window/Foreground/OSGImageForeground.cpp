@@ -113,7 +113,7 @@ void ImageForeground::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 }
 
 
-void ImageForeground::draw(DrawEnv *, Viewport *vp)
+void ImageForeground::draw(DrawEnv * pEnv)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getActive() == false)
@@ -154,12 +154,10 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
     glEnable(GL_BLEND);
 
     float vpWidth = 1.0, vpHeight = 1.0;
-    if(vp != NULL)
-    {
-        // for absolute pixel position
-        vpWidth  = 1.0/vp->getPixelWidth();
-        vpHeight = 1.0/vp->getPixelHeight();
-    }
+
+    // for absolute pixel position
+    vpWidth  = 1.0 / pEnv->getPixelWidth ();
+    vpHeight = 1.0 / pEnv->getPixelHeight();
 
     for(i = 0; i < getMFPositions()->size(); i++)
     {
@@ -170,10 +168,15 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
 
         Pnt2f p = getPositions(i);
 
-        if( p[0] >= 1.0 || p[1] >= 1.0 )
-            glRasterPos2f(p[0]*vpWidth, p[1]*vpHeight); // absolute position
+        if(p[0] >= 1.0 || p[1] >= 1.0)
+        {
+            glRasterPos2f(p[0] * vpWidth, p[1] * vpHeight); // absolute
+                                                            // position
+        }
         else
+        {
             glRasterPos2f(p[0], p[1]); // relative position
+        }
 
         if(i < this->getMFScales()->size())
         {

@@ -54,6 +54,7 @@
 #include "OSGNode.h"
 #include "OSGCamera.h"
 #include "OSGBackground.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -103,7 +104,7 @@ void GrabForeground::dump(      UInt32    ,
 /*! Grab the image, if it is actually set.
 */   
 
-void GrabForeground::draw(DrawEnv *, Viewport *port)
+void GrabForeground::draw(DrawEnv * pEnv)
 {
     if(getActive() == false)
         return;
@@ -113,8 +114,8 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
     if(i == NULL)       // No image, no grab.
         return;
 
-    Int32 w = osgMax(2, port->getPixelWidth ());
-    Int32 h = osgMax(2, port->getPixelHeight());
+    Int32 w = osgMax(2, pEnv->getPixelWidth ());
+    Int32 h = osgMax(2, pEnv->getPixelHeight());
 
     // If image is smaller than 2x2, resize it to vp size
     // the 2x2 is because you can't create 0x0 images
@@ -133,10 +134,10 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
 
     if ( !getAutoResize() )
     {
-        w = osgMin(Int32(i->getWidth ()), port->getPixelWidth());
-        h = osgMin(Int32(i->getHeight()), port->getPixelHeight());
+        w = osgMin(Int32(i->getWidth ()), pEnv->getPixelWidth ());
+        h = osgMin(Int32(i->getHeight()), pEnv->getPixelHeight());
         
-        if(Int32(i->getWidth()) != port->getPixelWidth())
+        if(Int32(i->getWidth()) != pEnv->getPixelWidth())
         {
             glPixelStorei(GL_PACK_ROW_LENGTH, i->getWidth());
             storeChanged = true;
@@ -144,8 +145,8 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
     }
 #endif
     
-    glReadPixels(port->getPixelLeft(), 
-                 port->getPixelBottom(), 
+    glReadPixels(pEnv->getPixelLeft(), 
+                 pEnv->getPixelBottom(), 
                  w, 
                  h, 
                  i->getPixelFormat(),
