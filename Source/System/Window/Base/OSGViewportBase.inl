@@ -48,6 +48,7 @@
  *****************************************************************************
 \*****************************************************************************/
 
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -247,6 +248,31 @@ void ViewportBase::setTravMask(const UInt32 value)
 
     _sfTravMask.setValue(value);
 }
+//! Get the value of the Viewport::_sfEnabled field.
+
+inline
+bool &ViewportBase::editEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return _sfEnabled.getValue();
+}
+
+//! Get the value of the Viewport::_sfEnabled field.
+inline
+      bool  ViewportBase::getEnabled(void) const
+{
+    return _sfEnabled.getValue();
+}
+
+//! Set the value of the Viewport::_sfEnabled field.
+inline
+void ViewportBase::setEnabled(const bool value)
+{
+    editSField(EnabledFieldMask);
+
+    _sfEnabled.setValue(value);
+}
 //! Get the value of the Viewport::_sfDrawTime field.
 
 inline
@@ -364,6 +390,9 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 
     if(FieldBits::NoField != (TravMaskFieldMask & whichField))
         _sfTravMask.syncWith(pFrom->_sfTravMask);
+
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
 
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
         _sfDrawTime.syncWith(pFrom->_sfDrawTime);

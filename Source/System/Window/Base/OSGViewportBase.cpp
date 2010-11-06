@@ -156,6 +156,10 @@ OSG_BEGIN_NAMESPACE
     The foreground additions to the rendered image.
 */
 
+/*! \var bool            ViewportBase::_sfEnabled
+    Enabled is used to turn drawing on and off of a viewport.
+*/
+
 /*! \var Real32          ViewportBase::_sfDrawTime
     Drawtime of the last frame using this viewport.
 */
@@ -337,6 +341,18 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Viewport::editHandleTravMask),
         static_cast<FieldGetMethodSig >(&Viewport::getHandleTravMask));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enabled",
+        "Enabled is used to turn drawing on and off of a viewport.\n",
+        EnabledFieldId, EnabledFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 
@@ -531,6 +547,16 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t  The foreground additions to the rendered image.\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t   name=\"enabled\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"true\"\n"
+    "\t   >\n"
+    "\t  Enabled is used to turn drawing on and off of a viewport.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t   name=\"drawTime\"\n"
     "\t   type=\"Real32\"\n"
     "\t   cardinality=\"single\"\n"
@@ -554,7 +580,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t   name=\"renderOptions\"\n"
     "\t   type=\"RenderOptionsPtr\"\n"
     "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"internal\"\n"
+    "\t   visibility=\"external\"\n"
     "\t   access=\"public\"\n"
     "       defaultValue=\"NULL\"\n"
     "\t   >\n"
@@ -722,6 +748,19 @@ const SFUInt32 *ViewportBase::getSFTravMask(void) const
 }
 
 
+SFBool *ViewportBase::editSFEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return &_sfEnabled;
+}
+
+const SFBool *ViewportBase::getSFEnabled(void) const
+{
+    return &_sfEnabled;
+}
+
+
 SFReal32 *ViewportBase::editSFDrawTime(void)
 {
     editSField(DrawTimeFieldMask);
@@ -864,6 +903,10 @@ UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfTravMask.getBinSize();
     }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        returnValue += _sfEnabled.getBinSize();
+    }
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
     {
         returnValue += _sfDrawTime.getBinSize();
@@ -924,6 +967,10 @@ void ViewportBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (TravMaskFieldMask & whichField))
     {
         _sfTravMask.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        _sfEnabled.copyToBin(pMem);
     }
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
     {
@@ -993,6 +1040,10 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(TravMaskFieldMask);
         _sfTravMask.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
     {
@@ -1083,7 +1134,6 @@ Viewport *ViewportBase::createEmpty(void)
     return returnValue;
 }
 
-
 FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -1129,7 +1179,6 @@ FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 ViewportBase::ViewportBase(void) :
@@ -1144,6 +1193,7 @@ ViewportBase::ViewportBase(void) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
+    _sfEnabled                (bool(true)),
     _sfDrawTime               (Real32(0.0f)),
     _sfDrawableId             (Int32(-1)),
     _sfRenderOptions          (NULL)
@@ -1162,6 +1212,7 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (source._sfTravMask               ),
+    _sfEnabled                (source._sfEnabled                ),
     _sfDrawTime               (source._sfDrawTime               ),
     _sfDrawableId             (source._sfDrawableId             ),
     _sfRenderOptions          (NULL)
@@ -1543,6 +1594,31 @@ EditFieldHandlePtr ViewportBase::editHandleTravMask       (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ViewportBase::getHandleEnabled         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
+
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ViewportBase::getHandleDrawTime        (void) const
 {
     SFReal32::GetHandlePtr returnValue(
@@ -1620,6 +1696,7 @@ EditFieldHandlePtr ViewportBase::editHandleRenderOptions  (void)
 
     return returnValue;
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

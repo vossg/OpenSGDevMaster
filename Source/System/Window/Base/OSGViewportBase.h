@@ -93,6 +93,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(Viewport);
+    
+    
 
     /*==========================  PUBLIC  =================================*/
 
@@ -110,7 +112,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         BackgroundFieldId = RootFieldId + 1,
         ForegroundsFieldId = BackgroundFieldId + 1,
         TravMaskFieldId = ForegroundsFieldId + 1,
-        DrawTimeFieldId = TravMaskFieldId + 1,
+        EnabledFieldId = TravMaskFieldId + 1,
+        DrawTimeFieldId = EnabledFieldId + 1,
         DrawableIdFieldId = DrawTimeFieldId + 1,
         RenderOptionsFieldId = DrawableIdFieldId + 1,
         NextFieldId = RenderOptionsFieldId + 1
@@ -136,6 +139,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ForegroundsFieldId);
     static const OSG::BitVector TravMaskFieldMask =
         (TypeTraits<BitVector>::One << TravMaskFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector DrawTimeFieldMask =
         (TypeTraits<BitVector>::One << DrawTimeFieldId);
     static const OSG::BitVector DrawableIdFieldMask =
@@ -155,6 +160,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     typedef SFUnrecBackgroundPtr SFBackgroundType;
     typedef MFUnrecForegroundPtr MFForegroundsType;
     typedef SFUInt32          SFTravMaskType;
+    typedef SFBool            SFEnabledType;
     typedef SFReal32          SFDrawTimeType;
     typedef SFInt32           SFDrawableIdType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
@@ -206,6 +212,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   SFUInt32            *editSFTravMask       (void);
             const SFUInt32            *getSFTravMask        (void) const;
 
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
+
                   SFReal32            *editSFDrawTime       (void);
             const SFReal32            *getSFDrawTime        (void) const;
 
@@ -238,6 +247,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   UInt32              &editTravMask       (void);
                   UInt32               getTravMask        (void) const;
 
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
+
                   Real32              &editDrawTime       (void);
                   Real32               getDrawTime        (void) const;
 
@@ -259,6 +271,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setRoot           (Node * const value);
             void setBackground     (Background * const value);
             void setTravMask       (const UInt32 value);
+            void setEnabled        (const bool value);
             void setDrawTime       (const Real32 value);
             void setDrawableId     (const Int32 value);
             void setRenderOptions  (RenderOptions * const value);
@@ -342,6 +355,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     SFUnrecBackgroundPtr _sfBackground;
     MFUnrecForegroundPtr _mfForegrounds;
     SFUInt32          _sfTravMask;
+    SFBool            _sfEnabled;
     SFReal32          _sfDrawTime;
     SFInt32           _sfDrawableId;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
@@ -404,6 +418,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     EditFieldHandlePtr editHandleForegrounds    (void);
     GetFieldHandlePtr  getHandleTravMask        (void) const;
     EditFieldHandlePtr editHandleTravMask       (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
     GetFieldHandlePtr  getHandleDrawTime        (void) const;
     EditFieldHandlePtr editHandleDrawTime       (void);
     GetFieldHandlePtr  getHandleDrawableId      (void) const;

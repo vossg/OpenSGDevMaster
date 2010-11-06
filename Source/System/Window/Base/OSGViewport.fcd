@@ -140,6 +140,16 @@ all the different ClusterWindows!
       The foreground additions to the rendered image.
     </Field>
     <Field
+       name="enabled"
+       type="bool"
+       cardinality="single"
+       visibility="external"
+       access="public"
+       defaultValue="true"
+       >
+      Enabled is used to turn drawing on and off of a viewport.
+    </Field>
+    <Field
        name="drawTime"
        type="Real32"
        cardinality="single"

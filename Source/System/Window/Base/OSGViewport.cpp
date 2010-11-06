@@ -337,7 +337,7 @@ void Viewport::render(RenderActionBase *action)
 {
     _pTravValidator->incEventCounter();
  
-    if(this->getTravMask() == 0x0000)
+    if(getTravMask() == 0x0000 || getEnabled() == false)
         return;
 
     if(getCamera() == NULL)

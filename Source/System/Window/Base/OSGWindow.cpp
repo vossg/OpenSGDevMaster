@@ -1319,10 +1319,10 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
                 reinterpret_cast<const char *>(glGetString(GL_VERSION));
         
 #if defined(OSG_OGL_ES2) && !defined(OSG_OGL_ES2_SIMGL3)
-		UInt32 uiVersionOff = 10;
+        UInt32 uiVersionOff = 10;
 #else
-		UInt32 uiVersionOff = 0;
-#endif		
+        UInt32 uiVersionOff = 0;
+#endif      
         if(version != NULL)
         {
             int major = atoi(version + uiVersionOff);
@@ -1696,7 +1696,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     }
 #elif defined(OSG_EMBEDDED) && defined(WIN32)
 
-	retval = (void(__cdecl*)(void)) eglGetProcAddress(s);
+    retval = (void(__cdecl*)(void)) eglGetProcAddress(s);
 
 #elif defined(WIN32)
 
@@ -2333,13 +2333,13 @@ void OSG::Window::renderAllViewports(RenderActionBase *action)
 
 void OSG::Window::doRenderAllViewports(RenderActionBase *action)
 {
-    MFUnrecChildViewportPtr::const_iterator portIt  = getMFPort()->begin();
-    MFUnrecChildViewportPtr::const_iterator portEnd = getMFPort()->end();
-    Int32                                   iVPId   = 0;
-
     if(action != NULL)
     {
         commitChanges();
+
+        MFUnrecChildViewportPtr::const_iterator portIt  = getMFPort()->begin();
+        MFUnrecChildViewportPtr::const_iterator portEnd = getMFPort()->end  ();
+        Int32                                   iVPId   = 0;
 
         action->setWindow(this);
         
