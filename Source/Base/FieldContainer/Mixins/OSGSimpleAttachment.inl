@@ -47,7 +47,7 @@ typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
         StoredFieldType  *pField,
         SimpleAttachment *pThis )
 {
-    pThis->editSField(SimpleAttachment::SimpleFieldId);
+    pThis->editSField(SimpleAttachment::SimpleFieldMask);
 
     return pField;
 }
@@ -64,7 +64,7 @@ EditFieldHandlePtr
              pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
              pThis));
 
-    pThis->editSField(SimpleAttachment::SimpleFieldId);
+    pThis->editSField(SimpleAttachment::SimpleFieldMask);
 
     return returnValue;
 }
@@ -103,7 +103,7 @@ EditFieldHandlePtr
              pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
              pThis));
 
-    pThis->editSField(SimpleAttachment::SimpleFieldId);
+    pThis->editSField(SimpleAttachment::SimpleFieldMask);
 
     returnValue->setSetMethod(
         boost::bind(&SimpleAttachment::setPointerValue, pThis, _1));
@@ -131,7 +131,7 @@ typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
         StoredFieldType  *pField,
         SimpleAttachment *pThis )
 {
-    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldMask);
 
     return pField;
 }
@@ -148,7 +148,7 @@ EditFieldHandlePtr
              pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
              pThis));
 
-    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldMask);
 
     return returnValue;
 }
@@ -186,7 +186,7 @@ EditFieldHandlePtr
              pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
              pThis));
 
-    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldMask);
 
     returnValue->setSetMethod(
         boost::bind(&SimpleAttachment::addPointerValue, pThis, _1));
