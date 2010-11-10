@@ -49,8 +49,10 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 #include "OSGOgreChunkReader.h"
+#include "OSGGeometry.h"
 #include "OSGGeoIntegralProperty.h"
 #include "OSGGeoVectorProperty.h"
+#include "OSGSkeleton.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -79,7 +81,7 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
 
     Node* getRoot(void);
 
-     void read(void);
+    void read(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -158,6 +160,16 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
         VES_TANGENT             = 9
     };
 
+    enum SubMeshOperation
+    {
+        SMO_POINT_LIST     = 1,
+        SMO_LINE_LIST      = 2,
+        SMO_LINE_STRIP     = 3,
+        SMO_TRIANGLE_LIST  = 4,
+        SMO_TRIANGLE_STRIP = 5,
+        SMO_TRIANGLE_FAN   = 6
+    };
+
     struct VertexElement
     {
         UInt16                    bufferIdx;
@@ -172,9 +184,34 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     typedef std::vector<VertexElement       >  VertexElementStore;
     typedef std::vector<std::vector<UInt32> >  BufferVertexMap;
 
+    struct SubMeshInfo
+    {
+        bool                        sharedVertex;
+        bool                        skelAnim;
+        VertexElementStore          vertexElements;
+        SubMeshOperation            meshOp;
+        std::string                 name;
+
+        GeoIntegralPropertyUnrecPtr propIdx;
+
+        GeometryUnrecPtr            mesh;
+        NodeUnrecPtr                meshN;
+    };
+
+    typedef std::vector<SubMeshInfo>           SubMeshStore;
+
+
+    std::string getVertexElementTypeString    (VertexElementType     veType    );
+    std::string getVertexElementSemanticString(VertexElementSemantic veSemantic);
+    std::string getSubMeshOperationString     (SubMeshOperation      meshOp    );
+
+
     void readMesh                     (void);
-    void readSubMesh                  (VertexElementStore &sharedVertexElements);
-    void readSubMeshOperation         (void);
+    void readSubMesh                  (SubMeshStore       &subMeshInfo,
+                                       VertexElementStore &sharedVertexElements,
+                                       bool                skelAnim             );
+                                       
+    void readSubMeshOperation         (SubMeshOperation   &meshOp        );
     void readSubMeshBoneAssignment    (VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   );
@@ -192,7 +229,7 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
                                        VertexElementStore &vertexElements,
                                        BufferVertexMap    &bufferMap      );
 
-    void readMeshSkeletonLink         (void);
+    void readMeshSkeletonLink         (SubMeshStore       &subMeshInfo    );
     void readMeshBoneAssignment       (VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   );
@@ -201,19 +238,20 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     void readMeshLODManual            (void);
     void readMeshLODGenerated         (void);
     void readMeshBounds               (void);
-    void readSubMeshNameTable         (void);
-    void readSubMeshNameTableElement  (void);
+    void readSubMeshNameTable         (SubMeshStore       &subMeshInfo    );
+    void readSubMeshNameTableElement  (SubMeshStore       &subMeshInfo    );
     void readEdgeLists                (void);
     void readPoses                    (void);
     void readAnimations               (void);
     void readTableExtremes            (void);
 
-    void constructSubMesh             (VertexElementStore  &vertexElements,
-                                       GeoIntegralProperty *propIdx        );
+    void constructSubMesh             (SubMeshInfo        &smInfo,
+                                       VertexElementStore &vertexElements );
 
     static const std::string _versionString;
 
-    NodeUnrecPtr _rootN;
+    NodeUnrecPtr     _rootN;
+    SkeletonUnrecPtr _skel;
 };
 
 OSG_END_NAMESPACE

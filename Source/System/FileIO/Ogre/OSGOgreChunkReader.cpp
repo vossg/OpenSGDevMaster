@@ -75,17 +75,20 @@ OgreChunkReader::skip(std::istream& is, Int32 offset)
 std::string
 OgreChunkReader::readString(std::istream& is)
 {
+    std::string        result;
     std::ostringstream oss;
 
     is.get(*oss.rdbuf(), '\n');
     is.get();                   // remove '\n'
 
-    if(is.peek() == '\r')       // remove '\r' if present
+    result = oss.str();
+
+    if(result.empty() == false && result[result.length() - 1] == '\r')
     {
-        is.get();
+        result.erase(result.length() - 1);
     }
 
-    return oss.str();
+    return result;
 }
 
 bool

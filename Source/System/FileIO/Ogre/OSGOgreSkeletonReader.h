@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-/*! \file OSGOgreSkeletonreader.h
+/*! \file OSGOgreSkeletonReader.h
     \ingroup GrpLoader
  */
 
@@ -50,11 +50,19 @@
 #include "OSGFileIODef.h"
 #include "OSGOgreChunkReader.h"
 
+#include "OSGAnimMatrixDataSource.h"
+#include "OSGAnimQuaternionDataSource.h"
+#include "OSGAnimVec3fDataSource.h"
+#include "OSGAnimTemplate.h"
+#include "OSGGlobalsAttachment.h"
+#include "OSGNode.h"
+#include "OSGSkeleton.h"
+
 OSG_BEGIN_NAMESPACE
 
 class OSG_FILEIO_DLLMAPPING OgreSkeletonReader : public OgreChunkReader
 {
-   /*==========================  PUBLIC  =================================*/
+    /*==========================  PUBLIC  =================================*/
   public:
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
@@ -71,6 +79,16 @@ class OSG_FILEIO_DLLMAPPING OgreSkeletonReader : public OgreChunkReader
     virtual  ~OgreSkeletonReader(void            );
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Read                                                         */
+    /*! \{                                                                 */
+
+    void read(void);
+
+    Skeleton*          getSkeleton(void);
+    GlobalsAttachment* getGlobals (void);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     enum ChunkIds
@@ -84,6 +102,33 @@ class OSG_FILEIO_DLLMAPPING OgreSkeletonReader : public OgreChunkReader
         CHUNK_ANIMATION_TRACK_KEYFRAME = 0x4110,
         CHUNK_ANIMATION_LINK           = 0x5000
     };
+
+    typedef std::vector<NodeUnrecPtr> JointNodeStore;
+
+    static const std::string _versionString;
+    static const std::size_t _boneLengthNoScale;
+    static const std::size_t _keyFrameLengthNoScale;
+
+    void readContent               (void);
+    void readBone                  (JointNodeStore       &joints  );
+    void readBoneParent            (JointNodeStore       &joints  );
+    void readAnimation             (JointNodeStore       &joints  );
+    void readAnimationTrack        (JointNodeStore       &joints,
+                                    AnimTemplate         *animTmpl);
+    // void readAnimationTrackKeyFrame(AnimMatrixDataSource *dataSrc );
+    void readAnimationTrackKeyFrame(AnimVec3fDataSource      *translateSrc,
+                                    AnimVec3fDataSource      *scaleSrc,
+                                    AnimQuaternionDataSource *rotateSrc    );
+    void readAnimationLink         (void);
+
+    void calcInvBindMatrices(JointNodeStore &joints          );
+    void calcInvBindMatrix  (Node           *node,
+                             Vec3f           parentTranslate,
+                             Vec3f           parentScale,
+                             Quaternion      parentRotate    );
+
+    SkeletonUnrecPtr          _skel;
+    GlobalsAttachmentUnrecPtr _globals;
 };
 
 OSG_END_NAMESPACE

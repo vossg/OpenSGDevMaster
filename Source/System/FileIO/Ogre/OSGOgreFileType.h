@@ -36,37 +36,72 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOGRELOG_H_
-#define _OSGOGRELOG_H_
+#ifndef _OSGOGREFILETYPE_H_
+#define _OSGOGREFILETYPE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-/*! \file OSGOgreLog.h
+/*! \file OSGOgreFileType.h
     \ingroup GrpLoader
  */
 
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGLog.h"
+#include "OSGSceneFileType.h"
 
 OSG_BEGIN_NAMESPACE
 
-#define OSG_OGRE_SILENT 1
+class OSG_FILEIO_DLLMAPPING OgreFileType : public SceneFileType
+{
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-#ifndef OSG_OGRE_SILENT
-#define OSG_OGRE_LOG(OSG_MESSAGE)            \
-    FLOG(OSG_MESSAGE)
+    typedef SceneFileType  Inherited;
+    typedef OgreFileType   Self;
 
-#define OSG_OGRE_PLOG(OSG_MESSAGE)           \
-    FPLOG(OSG_MESSAGE)
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Name                                                         */
+    /*! \{                                                                 */
 
-#else
-#define OSG_OGRE_LOG(OSG_MESSAGE)
-#define OSG_OGRE_PLOG(OSG_MESSAGE)
+    virtual const Char8 *getName(void) const;
 
-#endif // OSG_OGRE_SILENT
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Read                                                         */
+    /*! \{                                                                 */
+
+    virtual NodeTransitPtr
+        read(      std::istream &is,
+             const Char8        *fileNameOrExtension,
+                   Resolver      resolver            = NULL) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
+    OgreFileType(const Char8  *suffixArray[],
+                       UInt16  suffixByteCount,
+                       bool    override,
+                       UInt32  overridePriority,
+                       UInt32  flags);
+
+    virtual ~OgreFileType(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static const Char8        *_suffixA[];
+    static       OgreFileType  _the;
+};
 
 OSG_END_NAMESPACE
 
-#endif // _OSGOGRELOG_H_
+#endif // _OSGOGREFILETYPE_H_

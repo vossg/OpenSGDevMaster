@@ -36,37 +36,55 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOGRELOG_H_
-#define _OSGOGRELOG_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGOgreLog.h
-    \ingroup GrpLoader
- */
-
-#include "OSGConfig.h"
-#include "OSGFileIODef.h"
-#include "OSGLog.h"
+#include "OSGOgreFileType.h"
+#include "OSGOgreMeshReader.h"
 
 OSG_BEGIN_NAMESPACE
 
-#define OSG_OGRE_SILENT 1
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
 
-#ifndef OSG_OGRE_SILENT
-#define OSG_OGRE_LOG(OSG_MESSAGE)            \
-    FLOG(OSG_MESSAGE)
+const Char8        *OgreFileType::_suffixA[] = { "mesh" };
+      OgreFileType  OgreFileType::_the(_suffixA,
+                                       sizeof(_suffixA),
+                                       false,
+                                       10,
+                                       OSG_READ_SUPPORTED);
 
-#define OSG_OGRE_PLOG(OSG_MESSAGE)           \
-    FPLOG(OSG_MESSAGE)
+const Char8 *
+OgreFileType::getName(void) const
+{
+    return "Ogre Mesh";
+}
 
-#else
-#define OSG_OGRE_LOG(OSG_MESSAGE)
-#define OSG_OGRE_PLOG(OSG_MESSAGE)
+NodeTransitPtr
+OgreFileType::read(std::istream &is,
+                   const Char8  *fileNameOrExtension,
+                   Resolver      resolver            ) const
+{
+    NodeTransitPtr rootN;
 
-#endif // OSG_OGRE_SILENT
+    OgreMeshReader omr(is);
+    omr.read();
+
+    rootN = omr.getRoot();
+
+    return rootN;
+}
+
+OgreFileType::OgreFileType(
+    const Char8 *suffixArray[], UInt16 suffixByteCount,
+    bool         override,      UInt32 overridePriority,
+    UInt32       flags                                  )
+
+    : Inherited(suffixArray, suffixByteCount,
+                override, overridePriority, flags)
+{
+}
+
+OgreFileType::~OgreFileType(void)
+{
+}
 
 OSG_END_NAMESPACE
-
-#endif // _OSGOGRELOG_H_

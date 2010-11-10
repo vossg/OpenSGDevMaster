@@ -41,8 +41,12 @@
 
 #include "OSGGeometry.h"
 #include "OSGGroup.h"
+#include "OSGNameAttachment.h"
 #include "OSGNode.h"
+#include "OSGOgreSkeletonReader.h"
 #include "OSGPrimeMaterial.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGSkinnedGeometry.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
 
@@ -53,7 +57,8 @@ const std::string OgreMeshReader::_versionString("[MeshSerializer_v1.8]");
 /* explicit */
 OgreMeshReader::OgreMeshReader(std::istream& is)
     : Inherited(is),
-      _rootN   ()
+      _rootN   (),
+      _skel    ()
 {
     _rootN = makeCoredNode<Group>();
 }
@@ -98,6 +103,72 @@ OgreMeshReader::read(void)
     }
 }
 
+std::string
+OgreMeshReader::getVertexElementTypeString(VertexElementType veType)
+{
+    std::string result;
+
+    switch(veType)
+    {
+    case VET_FLOAT1:      result = "VET_FLOAT1";      break;
+    case VET_FLOAT2:      result = "VET_FLOAT2";      break;
+    case VET_FLOAT3:      result = "VET_FLOAT3";      break;
+    case VET_FLOAT4:      result = "VET_FLOAT4";      break;
+    case VET_COLOUR:      result = "VET_COLOUR";      break;
+    case VET_SHORT1:      result = "VET_SHORT1";      break;
+    case VET_SHORT2:      result = "VET_SHORT2";      break;
+    case VET_SHORT3:      result = "VET_SHORT3";      break;
+    case VET_SHORT4:      result = "VET_SHORT4";      break;
+    case VET_UBYTE4:      result = "VET_UBYTE4";      break;
+    case VET_COLOUR_ARGB: result = "VET_COLOUR_ARGB"; break;
+    case VET_COLOUR_ABGR: result = "VET_COLOUR_ABGR"; break;
+    default:              result = "?INVALID?";       break;
+    }
+
+    return result;
+}
+
+std::string
+OgreMeshReader::getVertexElementSemanticString(VertexElementSemantic veSemantic)
+{
+    std::string result;
+
+    switch(veSemantic)
+    {
+    case VES_POSITION:            result = "VES_POSITION";            break;
+    case VES_BLEND_WEIGHTS:       result = "VES_BLEND_WEIGHTS";       break;
+    case VES_BLEND_INDICES:       result = "VES_BLEND_INDICES";       break;
+    case VES_NORMAL:              result = "VES_NORMAL";              break;
+    case VES_DIFFUSE:             result = "VES_DIFFUSE";             break;
+    case VES_SPECULAR:            result = "VES_SPECULAR";            break;
+    case VES_TEXTURE_COORDINATES: result = "VES_TEXTURE_COORDINATES"; break;
+    case VES_BINORMAL:            result = "VES_BINORMAL";            break;
+    case VES_TANGENT:             result = "VES_TANGENT";             break;
+    default:                      result = "?INVALID?";               break;
+    }
+
+    return result;
+}
+
+std::string
+OgreMeshReader::getSubMeshOperationString(SubMeshOperation meshOp)
+{
+    std::string result;
+
+    switch(meshOp)
+    {
+    case SMO_POINT_LIST:     result = "SMO_POINT_LIST";     break;
+    case SMO_LINE_LIST:      result = "SMO_LINE_LIST";      break;
+    case SMO_LINE_STRIP:     result = "SMO_LINE_STRIP";     break;
+    case SMO_TRIANGLE_LIST:  result = "SMO_TRIANGLE_LIST";  break;
+    case SMO_TRIANGLE_STRIP: result = "SMO_TRIANGLE_STRIP"; break;
+    case SMO_TRIANGLE_FAN:   result = "SMO_TRIANGLE_FAN";   break;
+    default:                 result = "?INVALID?";          break;
+    }
+
+    return result;
+}
+
 void
 OgreMeshReader::readMesh(void)
 {
@@ -109,6 +180,7 @@ OgreMeshReader::readMesh(void)
     Int16              boneIdxVE    = -1;
     Int16              boneWeightVE = -1;
     VertexElementStore sharedVertexElements;
+    SubMeshStore       subMeshInfo;
 
     while(_is)
     {
@@ -117,7 +189,7 @@ OgreMeshReader::readMesh(void)
         switch(_header.chunkId)
         {
         case CHUNK_SUBMESH:
-            readSubMesh(sharedVertexElements);
+            readSubMesh(subMeshInfo, sharedVertexElements, skelAnim);
             break;
 
         case CHUNK_GEOMETRY:
@@ -125,7 +197,7 @@ OgreMeshReader::readMesh(void)
             break;
 
         case CHUNK_MESH_SKELETON_LINK:
-            readMeshSkeletonLink();
+            readMeshSkeletonLink(subMeshInfo);
             break;
 
         case CHUNK_MESH_BONE_ASSIGNMENT:
@@ -141,7 +213,7 @@ OgreMeshReader::readMesh(void)
             break;
 
         case CHUNK_SUBMESH_NAME_TABLE:
-            readSubMeshNameTable();
+            readSubMeshNameTable(subMeshInfo);
             break;
 
         case CHUNK_EDGE_LISTS:
@@ -173,23 +245,44 @@ OgreMeshReader::readMesh(void)
             break;
         }
     }
+
+    SubMeshStore::iterator smIt  = subMeshInfo.begin();
+    SubMeshStore::iterator smEnd = subMeshInfo.end  ();
+
+    for(; smIt != smEnd; ++smIt)
+    {
+        if((*smIt).sharedVertex == true)
+        {
+            constructSubMesh(*smIt, sharedVertexElements);
+        }
+        else
+        {
+            constructSubMesh(*smIt, (*smIt).vertexElements);
+        }
+    }
 }
 
 void
-OgreMeshReader::readSubMesh(VertexElementStore &sharedVertexElements)
+OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
+                            VertexElementStore &sharedVertexElements,
+                            bool                skelAnim             )
 {
     OSG_OGRE_LOG(("OgreMeshReader::readSubMesh\n"));
 
-    std::string matName    = readString(_is);
-    bool        sharedVert = readBool  (_is);
-    UInt32      idxCount   = readUInt32(_is);
-    bool        idx32Bit   = readBool  (_is);
+    subMeshInfo.push_back((SubMeshInfo()));
+    SubMeshInfo &smInfo = subMeshInfo.back();
+
+    std::string matName  = readString(_is);
+    smInfo.sharedVertex  = readBool  (_is);
+    UInt32      idxCount = readUInt32(_is);
+    bool        idx32Bit = readBool  (_is);
 
     OSG_OGRE_LOG(("OgreMeshReader::readSubMesh: matName '%s' sharedVert '%d' "
                   "idxCount '%d' idx32Bit '%d'\n",
-                  matName.c_str(), sharedVert, idxCount, idx32Bit));
+                  matName.c_str(), smInfo.sharedVertex, idxCount, idx32Bit));
 
-    GeoIntegralPropertyUnrecPtr propIdx;
+    smInfo.skelAnim = skelAnim;
+    smInfo.meshOp   = SMO_TRIANGLE_LIST;
 
     if(idx32Bit == true)
     {
@@ -199,7 +292,7 @@ OgreMeshReader::readSubMesh(VertexElementStore &sharedVertexElements)
         _is.read(reinterpret_cast<Char8 *>(&pi->editField().front()),
                  idxCount * sizeof(UInt32));
 
-        propIdx = pi;
+        smInfo.propIdx = pi;
     }
     else
     {
@@ -209,14 +302,12 @@ OgreMeshReader::readSubMesh(VertexElementStore &sharedVertexElements)
         _is.read(reinterpret_cast<Char8 *>(&pi->editField().front()),
                  idxCount * sizeof(UInt16));
 
-        propIdx = pi;
+        smInfo.propIdx = pi;
     }
 
-    Int16              boneIdxVE    = -1;
-    Int16              boneWeightVE = -1;
-    VertexElementStore vertexElements;
-
-    bool stop = false;
+    Int16 boneIdxVE    = -1;
+    Int16 boneWeightVE = -1;
+    bool  stop         = false;
 
     while(_is)
     {
@@ -225,15 +316,15 @@ OgreMeshReader::readSubMesh(VertexElementStore &sharedVertexElements)
         switch(_header.chunkId)
         {
         case CHUNK_GEOMETRY:
-            readGeometry(vertexElements);
+            readGeometry(smInfo.vertexElements);
             break;
 
         case CHUNK_SUBMESH_OPERATION:
-            readSubMeshOperation();
+            readSubMeshOperation(smInfo.meshOp);
             break;
 
         case CHUNK_SUBMESH_BONE_ASSIGNMENT:
-            readSubMeshBoneAssignment(vertexElements, boneIdxVE, boneWeightVE);
+            readSubMeshBoneAssignment(smInfo.vertexElements, boneIdxVE, boneWeightVE);
             break;
 
         case CHUNK_SUBMESH_TEXTURE_ALIAS:
@@ -253,27 +344,17 @@ OgreMeshReader::readSubMesh(VertexElementStore &sharedVertexElements)
             break;
         }
     }
-
-    if(sharedVert == true)
-    {
-        constructSubMesh(sharedVertexElements, propIdx);
-    }
-    else
-    {
-        constructSubMesh(vertexElements, propIdx);
-    }
 }
 
 void
-OgreMeshReader::readSubMeshOperation(void)
+OgreMeshReader::readSubMeshOperation(SubMeshOperation &meshOp)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshOperation\n"));
 
-    UInt16 opType = readUInt16(_is);
+    meshOp = static_cast<SubMeshOperation>(readUInt16(_is));
 
-    OSG_OGRE_LOG(("OgreMeshReader::readSubMeshOperation: opType '%d'\n", opType));
-
-    // XXX TODO
+    OSG_OGRE_LOG(("OgreMeshReader::readSubMeshOperation: opType '%s'\n",
+                  getSubMeshOperationString(meshOp).c_str()));
 }
 
 void
@@ -281,11 +362,11 @@ OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
                                           Int16              &boneIdxVE,
                                           Int16              &boneWeightVE   )
 {
-    //OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment\n"));
+    OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment\n"));
 
-    UInt32 vertIdx = readUInt32(_is);
-    UInt16 boneIdx = readUInt16(_is);
-    Real32 weight  = readReal32(_is);
+    UInt32 vertIdx    = readUInt32(_is);
+    UInt16 boneIdx    = readUInt16(_is);
+    Real32 boneWeight = readReal32(_is);
 
     GeoVec4fPropertyUnrecPtr boneIdxProp;
     GeoVec4fPropertyUnrecPtr boneWeightProp;
@@ -327,25 +408,29 @@ OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
     }
 
     boneIdxProp    = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneIdxVE   ].prop);
-    boneWeightProp = dynamic_pointer_cast<GeoVec4fProperty >(vertexElements[boneWeightVE].prop);
+    boneWeightProp = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneWeightVE].prop);
 
     GeoVec4fProperty::StoredFieldType* boneIdxF    = boneIdxProp   ->editFieldPtr();
     GeoVec4fProperty::StoredFieldType* boneWeightF = boneWeightProp->editFieldPtr();
 
     if(vertIdx >= boneIdxF->size())
-        boneIdxF->resize(vertIdx + 1);
+        boneIdxF->resize(vertIdx + 1, Vec4f(-1.f, -1.f, -1.f, -1.f));
 
     if(vertIdx >= boneWeightF->size())
-        boneWeightF->resize(vertIdx + 1);
+        boneWeightF->resize(vertIdx + 1, Vec4f(0.f, 0.f, 0.f, 0.f));
 
     bool found = false;
 
     for(UInt16 i = 0; i < 4; ++i)
     {
-        if((*boneIdxF)[vertIdx][i] == 0.f)
+        if((*boneIdxF)[vertIdx][i] < 0.f)
         {
+            OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment: bone '%u'"
+                          " vertex '%u' weight '%f' - '%u' bones for vertex\n",
+                          boneIdx, vertIdx, boneWeight, i+1));
+
             (*boneIdxF   )[vertIdx][i] = boneIdx;
-            (*boneWeightF)[vertIdx][i] = weight;
+            (*boneWeightF)[vertIdx][i] = boneWeight;
 
             found = true;
             break;
@@ -368,7 +453,8 @@ OgreMeshReader::readSubMeshTextureAlias(void)
     std::string aliasName   = readString(_is);
     std::string textureName = readString(_is);
 
-    // XXX TODO
+    SWARNING << "OgreMeshReader::readSubMeshTextureAlias: CHUNK_SUBMESH_TEXTURE_ALIAS NIY"
+             << std::endl;
 }
 
 void
@@ -460,8 +546,10 @@ OgreMeshReader::readGeometryVertexElement(VertexElementStore &vertexElements,
     vElem.index     = readUInt16(_is);
 
     OSG_OGRE_LOG(("OgreMeshReader::readGeometryVertexElement: "
-                  "bufferIdx '%d' type '%d' semantic '%d' offset '%d' index '%d'\n",
-                  vElem.bufferIdx, vElem.type, vElem.semantic,
+                  "bufferIdx '%d' type '%s' semantic '%s' offset '%d' index '%d'\n",
+                  vElem.bufferIdx,
+                  getVertexElementTypeString    (vElem.type    ).c_str(),
+                  getVertexElementSemanticString(vElem.semantic).c_str(),
                   vElem.offset, vElem.index));
 
     if(vElem.semantic == VES_POSITION)
@@ -478,8 +566,9 @@ OgreMeshReader::readGeometryVertexElement(VertexElementStore &vertexElements,
 
         default:
             SWARNING << "OgreMeshReader::readGeometryVertexElement: "
-                     << "semantic 'VES_POSITION' only supports types "
-                     << "'VET_FLOAT3' and 'VET_FLOAT4'"
+                     << "semantic '" << getVertexElementSemanticString(vElem.semantic)
+                     << "' does not support type '"
+                     << getVertexElementTypeString(vElem.type) << "'"
                      << std::endl;
             break;
         }
@@ -509,8 +598,9 @@ OgreMeshReader::readGeometryVertexElement(VertexElementStore &vertexElements,
 
         default:
             SWARNING << "OgreMeshReader::readGeometryVertexElement: "
-                     << "semantic '" << vElem.semantic
-                     << "' does not support type '" << vElem.type << "'"
+                     << "semantic '" << getVertexElementSemanticString(vElem.semantic)
+                     << "' does not support type '"
+                     << getVertexElementTypeString(vElem.type) << "'"
                      << std::endl;
             break;
         }
@@ -577,27 +667,33 @@ OgreMeshReader::readGeometryVertexBufferData(UInt32              vertCount,
 
             case VET_FLOAT2:
             {
-                Vec2f v(readReal32(_is),
-                        readReal32(_is) );
+                Vec2f v;
+                v[0] = readReal32(_is);
+                v[1] = readReal32(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
 
             case VET_FLOAT3:
             {
-                Vec3f v(readReal32(_is),
-                        readReal32(_is),
-                        readReal32(_is) );
+                Vec3f v;
+                v[0] = readReal32(_is);
+                v[1] = readReal32(_is);
+                v[2] = readReal32(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
 
             case VET_FLOAT4:
             {
-                Vec4f v(readReal32(_is),
-                        readReal32(_is),
-                        readReal32(_is),
-                        readReal32(_is) );
+                Vec4f v;
+                v[0] = readReal32(_is);
+                v[1] = readReal32(_is);
+                v[2] = readReal32(_is);
+                v[3] = readReal32(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
@@ -614,39 +710,51 @@ OgreMeshReader::readGeometryVertexBufferData(UInt32              vertCount,
 
             case VET_SHORT2:
             {
-                Vec2s v(readInt16(_is),
-                        readInt16(_is) );
+                Vec2s v;
+                v[0] = readInt16(_is);
+                v[1] = readInt16(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
 
             case VET_SHORT3:
             {
-                Vec3s v(readInt16(_is),
-                        readInt16(_is),
-                        readInt16(_is) );
+                Vec3s v;
+                v[0] = readInt16(_is);
+                v[1] = readInt16(_is);
+                v[2] = readInt16(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
 
             case VET_SHORT4:
             {
-                Vec4s v(readInt16(_is),
-                        readInt16(_is),
-                        readInt16(_is),
-                        readInt16(_is) );
+                Vec4s v;
+                v[0] = readInt16(_is);
+                v[1] = readInt16(_is);
+                v[2] = readInt16(_is);
+                v[3] = readInt16(_is);
+
                 vertexElements[veIdx].prop->addValue(v);
             }
             break;
 
             case VET_UBYTE4:
                 readUInt32(_is);
+                SWARNING << "OgreMeshReader::readGeometryVertexBufferData: "
+                         << "type VET_UBYTE4 NIY" << std::endl;
                 break;
 
             case VET_COLOUR_ARGB:
+                SWARNING << "OgreMeshReader::readGeometryVertexBufferData: "
+                         << "type VET_COLOUR_ARGB NIY" << std::endl;
                 break;
 
             case VET_COLOUR_ABGR:
+                SWARNING << "OgreMeshReader::readGeometryVertexBufferData: "
+                         << "type VET_COLOUR_ABGR NIY" << std::endl;
                 break;
             }
         }
@@ -654,16 +762,25 @@ OgreMeshReader::readGeometryVertexBufferData(UInt32              vertCount,
 }
 
 void
-OgreMeshReader::readMeshSkeletonLink(void)
+OgreMeshReader::readMeshSkeletonLink(SubMeshStore &subMeshInfo)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink\n"));
 
     std::string skelName = readString(_is);
 
-    OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s'\n",
-                  skelName.c_str()));
+    std::string   skelFile = SceneFileHandler::the()->getPathHandler()->findFile(skelName.c_str());
+    std::ifstream ifs(skelFile.c_str(), std::ios_base::in);
 
-    // XXX TODO
+    OgreSkeletonReader osr(ifs);
+    osr.read();
+
+    _skel = osr.getSkeleton();
+
+    if(osr.getGlobals() != NULL)
+        _rootN->addAttachment(osr.getGlobals());
+
+    OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s' file '%s'\n",
+                  skelName.c_str(), skelFile.c_str()));
 }
 
 void
@@ -757,7 +874,8 @@ OgreMeshReader::readMeshLODManual(void)
 
     std::string meshName = readString(_is);
 
-    // XXX TODO
+    SWARNING << "OgreMeshReader::readMeshLODManual: CHUNK_MESH_LOD_MANUAL NIY"
+             << std::endl;
 }
 
 void
@@ -779,7 +897,8 @@ OgreMeshReader::readMeshLODGenerated(void)
         skip(_is, idxCount * sizeof(UInt16));
     }
 
-    // XXX TODO
+    SWARNING << "OgreMeshReader::readMeshLODManual: CHUNK_MESH_LOD_GENERATED NIY"
+             << std::endl;
 }
 
 void
@@ -787,21 +906,27 @@ OgreMeshReader::readMeshBounds(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readMeshBounds\n"));
 
-    Real32 minX   = readReal32(_is);
-    Real32 minY   = readReal32(_is);
-    Real32 minZ   = readReal32(_is);
+    Pnt3f  bbMin;
+    bbMin[0] = readReal32(_is);
+    bbMin[1] = readReal32(_is);
+    bbMin[2] = readReal32(_is);
 
-    Real32 maxX   = readReal32(_is);
-    Real32 maxY   = readReal32(_is);
-    Real32 maxZ   = readReal32(_is);
+    Pnt3f  bbMax;
+    bbMax[0] = readReal32(_is);
+    bbMax[1] = readReal32(_is);
+    bbMax[2] = readReal32(_is);
 
     Real32 radius = readReal32(_is);
 
-    // XXX TODO
+    OSG_OGRE_LOG(("OgreMeshReader::readMeshBounds: bbMin '(%f %f %f)' bbMax '(%f %f %f)'\n",
+                  bbMin[0], bbMin[1], bbMin[2], bbMax[0], bbMax[1], bbMax[2]));
+
+    _rootN->editVolume().setBounds(bbMin, bbMax);
+    _rootN->editVolume().setStatic(true);
 }
 
 void
-OgreMeshReader::readSubMeshNameTable(void)
+OgreMeshReader::readSubMeshNameTable(SubMeshStore &subMeshInfo)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshNameTable\n"));
 
@@ -814,7 +939,7 @@ OgreMeshReader::readSubMeshNameTable(void)
         switch(_header.chunkId)
         {
         case CHUNK_SUBMESH_NAME_TABLE_ELEMENT:
-            readSubMeshNameTableElement();
+            readSubMeshNameTableElement(subMeshInfo);
             break;
 
         default:
@@ -833,7 +958,7 @@ OgreMeshReader::readSubMeshNameTable(void)
 }
 
 void
-OgreMeshReader::readSubMeshNameTableElement(void)
+OgreMeshReader::readSubMeshNameTableElement(SubMeshStore &subMeshInfo)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshNameTableElement\n"));
 
@@ -843,7 +968,10 @@ OgreMeshReader::readSubMeshNameTableElement(void)
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshNameTableElement: "
                   "meshIdx '%d' meshName '%s'\n", meshIdx, meshName.c_str()));
 
-    // XXX TODO
+    if(meshIdx < subMeshInfo.size())
+    {
+        subMeshInfo[meshIdx].name = meshName;
+    }
 }
 
 void
@@ -851,8 +979,10 @@ OgreMeshReader::readEdgeLists(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readEdgeLists\n"));
 
-    // XXX TODO
     skip(_is, _header.chunkSize - _chunkHeaderSize);
+
+    SWARNING << "OgreMeshReader::readEdgeLists: CHUNK_EDGE_LISTS NIY"
+             << std::endl;
 }
 
 void
@@ -860,8 +990,10 @@ OgreMeshReader::readPoses(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readPoses\n"));
 
-    // XXX TODO
-     skip(_is, _header.chunkSize - _chunkHeaderSize);
+    skip(_is, _header.chunkSize - _chunkHeaderSize);
+
+    SWARNING << "OgreMeshReader::readPoses: CHUNK_POSES NIY"
+             << std::endl;
 }
 
 void
@@ -869,8 +1001,10 @@ OgreMeshReader::readAnimations(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readAnimations\n"));
 
-    // XXX TODO
     skip(_is, _header.chunkSize - _chunkHeaderSize);
+
+    SWARNING << "OgreMeshReader::readAnimations CHUNK_ANIMATIONS NIY"
+             << std::endl;
 }
 
 void
@@ -878,29 +1012,42 @@ OgreMeshReader::readTableExtremes(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readTableExtremes\n"));
 
-    // XXX TODO
     skip(_is, _header.chunkSize - _chunkHeaderSize);
+
+    SWARNING << "OgreMeshReader::readTableExtremes CHUNK_TABLE_EXTREMES NIY"
+             << std::endl;
 }
 
 void
-OgreMeshReader::constructSubMesh(VertexElementStore  &vertexElements,
-                                 GeoIntegralProperty *propIdx        )
+OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
+                                 VertexElementStore &vertexElements)
 {
     OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh\n"));
 
-    GeometryUnrecPtr geo     = Geometry::create();
-    NodeUnrecPtr     geoN    = makeNodeFor(geo);
-    UInt16           nextIdx = Geometry::TexCoordsIndex;
+    if(smInfo.skelAnim == true)
+    {
+        smInfo.mesh = SkinnedGeometry::create();
+    }
+    else
+    {
+        smInfo.mesh = Geometry::create();
+    }
+
+    smInfo.meshN = makeNodeFor(smInfo.mesh);
+
+    setName(smInfo.meshN, smInfo.name);
+
+    UInt16 nextIdx = Geometry::TexCoordsIndex;
 
     for(UInt32 i = 0; i < vertexElements.size(); ++i)
     {
         switch(vertexElements[i].semantic)
         {
         case VES_POSITION:
-            geo->setProperty(vertexElements[i].prop,
-                             Geometry::PositionsIndex);
-            geo->setIndex   (propIdx,
-                             Geometry::PositionsIndex);
+            smInfo.mesh->setProperty(vertexElements[i].prop,
+                                     Geometry::PositionsIndex);
+            smInfo.mesh->setIndex   (smInfo.propIdx,
+                                     Geometry::PositionsIndex);
             break;
 
         case VES_BLEND_WEIGHTS:
@@ -908,46 +1055,87 @@ OgreMeshReader::constructSubMesh(VertexElementStore  &vertexElements,
         case VES_TEXTURE_COORDINATES:
         case VES_BINORMAL:
         case VES_TANGENT:
-            geo->setProperty(vertexElements[i].prop, nextIdx);
-            geo->setIndex   (propIdx,                nextIdx);
+            OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh: vertex elem semantic '%s'"
+                          " using property '%u'\n",
+                          getVertexElementSemanticString(vertexElements[i].semantic).c_str(),
+                          nextIdx));
+
+            smInfo.mesh->setProperty(vertexElements[i].prop, nextIdx);
+            smInfo.mesh->setIndex   (smInfo.propIdx,         nextIdx);
             ++nextIdx;
             break;
 
         case VES_NORMAL:
-            geo->setProperty(vertexElements[i].prop,
-                             Geometry::NormalsIndex);
-            geo->setIndex   (propIdx,
-                             Geometry::NormalsIndex);
+            smInfo.mesh->setProperty(vertexElements[i].prop,
+                                     Geometry::NormalsIndex);
+            smInfo.mesh->setIndex   (smInfo.propIdx,
+                                     Geometry::NormalsIndex);
             break;
 
         case VES_DIFFUSE:
-            geo->setProperty(vertexElements[i].prop,
-                             Geometry::ColorsIndex);
-            geo->setIndex   (propIdx,
-                             Geometry::ColorsIndex);
+            smInfo.mesh->setProperty(vertexElements[i].prop,
+                                     Geometry::ColorsIndex);
+            smInfo.mesh->setIndex   (smInfo.propIdx,
+                                     Geometry::ColorsIndex);
             break;
 
         case VES_SPECULAR:
-            geo->setProperty(vertexElements[i].prop,
-                             Geometry::SecondaryColorsIndex);
-            geo->setIndex   (propIdx,
-                             Geometry::SecondaryColorsIndex);
+            smInfo.mesh->setProperty(vertexElements[i].prop,
+                                     Geometry::SecondaryColorsIndex);
+            smInfo.mesh->setIndex   (smInfo.propIdx,
+                                     Geometry::SecondaryColorsIndex);
             break;
         }
     }
 
     GeoUInt8PropertyUnrecPtr types = GeoUInt8Property::create();
-    types->addValue(GL_TRIANGLES);
+    switch(smInfo.meshOp)
+    {
+    case SMO_POINT_LIST:
+        types->addValue(GL_POINTS);
+        break;
+
+    case SMO_LINE_LIST:
+        types->addValue(GL_LINES);
+        break;
+
+    case SMO_LINE_STRIP:
+        types->addValue(GL_LINE_STRIP);
+        break;
+
+    case SMO_TRIANGLE_LIST:
+        types->addValue(GL_TRIANGLES);
+        break;
+
+    case SMO_TRIANGLE_STRIP:
+        types->addValue(GL_TRIANGLE_STRIP);
+        break;
+
+    case SMO_TRIANGLE_FAN:
+        types->addValue(GL_TRIANGLE_FAN);
+        break;
+    }
 
     GeoUInt32PropertyUnrecPtr lengths = GeoUInt32Property::create();
-    lengths->addValue(propIdx->size());
+    lengths->addValue(smInfo.propIdx->size());
 
-    geo->setTypes  (types);
-    geo->setLengths(lengths);
+    smInfo.mesh->setTypes  (types);
+    smInfo.mesh->setLengths(lengths);
 
-    geo->setMaterial(getDefaultMaterial());
+    smInfo.mesh->setMaterial(getDefaultMaterial());
 
-    _rootN->addChild(geoN);
+    if(smInfo.skelAnim == true && _skel != NULL)
+    {
+        SkinnedGeometry* skin = dynamic_pointer_cast<SkinnedGeometry>(smInfo.mesh);
+
+        if(skin != NULL)
+        {
+            skin->setSkeleton  (_skel);
+            skin->setRenderMode(SkinnedGeometry::RMSkeleton);
+        }
+    }
+
+    _rootN->addChild(smInfo.meshN);
 }
 
 
