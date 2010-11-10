@@ -67,8 +67,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-//const Int16 SkeletonJoint::INVALID_JOINT_ID;
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -131,7 +129,8 @@ void SkeletonJoint::changed(ConstFieldMaskArg whichField,
                             BitVector         details)
 {
     if(((InvBindMatrixFieldMask |
-         MatrixFieldMask          ) & whichField) != 0x0000)
+         MatrixFieldMask        |
+         OffsetMatrixFieldMask   ) & whichField) != 0x0000)
     {
         invalidateVolume();
 
@@ -172,9 +171,10 @@ SkeletonJoint::renderEnter(Action *action)
     Skeleton::MFJointNormalMatricesType *jointNMats =
         skel->editMFJointNormalMatrices();
 
-    ract->pushMatrix(_sfMatrix.getValue());
+    ract->pushMatrix(_sfMatrix      .getValue());
+    ract->pushMatrix(_sfOffsetMatrix.getValue());
 
-    Matrix jointMat(ract->topMatrix());
+    Matrix jointMat = ract->topMatrix();
 
     if(skel->getUseInvBindMatrix() == true)
         jointMat.mult(_sfInvBindMatrix.getValue());
@@ -219,6 +219,7 @@ SkeletonJoint::renderLeave(Action *action)
 #endif
 
     ract->popMatrix();
+    ract->popMatrix();
 
     return res;
 }
@@ -226,13 +227,10 @@ SkeletonJoint::renderLeave(Action *action)
 Action::ResultE
 SkeletonJoint::animBindEnter(Action *action)
 {
-    Action::ResultE  res     = Action::Continue;
     AnimBindAction  *bindAct =
         boost::polymorphic_downcast<AnimBindAction *>(action);
 
-    bindAct->bindFields(this);
-
-    return res;
+    return bindAct->bindFields(this);
 }
 
 void

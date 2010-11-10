@@ -47,7 +47,7 @@
 
 #include "OSGSkeleton.h"
 #include "OSGAction.h"
-#include "OSGSkeletonJoint.h"
+#include "OSGBaseSkeletonJoint.h"
 
 // debug only
 #include "OSGFieldContainerUtils.h"
@@ -157,10 +157,6 @@ Skeleton::renderEnter(Action *action, NodeCore *parent)
     ract->setFrustumCulling(frustCull);
     ract->getActivePartition()->setFrustumCulling(frustCull);
 
-    // mark skin volume invalid (the volume will lag a frame
-    // behind the skeleton - not sure how to avoid that) -- cneumann
-    parent->invalidateVolume();
-
     return Action::Continue;
 }
 
@@ -233,17 +229,17 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
     if(node == NULL || node->getCore() == NULL)
         return Action::Continue;
 
-    SkeletonJoint *joint       = dynamic_cast<SkeletonJoint *>(node->getCore());
-    SkeletonJoint *parentJoint = jointStack->empty() ? NULL : jointStack->back();
+    BaseSkeletonJoint *joint       = dynamic_cast<BaseSkeletonJoint *>(node->getCore());
+    BaseSkeletonJoint *parentJoint = jointStack->empty() ? NULL : jointStack->back();
 
     if(joint == NULL)
         return Action::Continue;
 
     Int16 jointId = joint->getJointId();
 
-    if(jointId == SkeletonJoint::INVALID_JOINT_ID)
+    if(jointId == BaseSkeletonJoint::INVALID_JOINT_ID)
     {
-        SWARNING << "Skeleton::findJointsEnter: SkeletonJoint has "
+        SWARNING << "Skeleton::findJointsEnter: Joint has "
                  << "invalid joint id. Ignoring joint." << std::endl;
         return Action::Continue;
     }
@@ -284,9 +280,6 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
         return Action::Continue;
     }
 
-//    (*mfJoints      )[jointId] = joint;
-//    (*mfParentJoints)[jointId] = parentJoint;
-
     mfJoints      ->replace(jointId, joint      );
     mfParentJoints->replace(jointId, parentJoint);
 
@@ -301,12 +294,12 @@ Skeleton::findJointsLeave(JointStack *jointStack, Node *node)
     if(node == NULL || node->getCore() == NULL)
         return Action::Continue;
 
-    SkeletonJoint *joint = dynamic_cast<SkeletonJoint *>(node->getCore());
+    BaseSkeletonJoint *joint = dynamic_cast<BaseSkeletonJoint *>(node->getCore());
 
     if(joint == NULL)
         return Action::Continue;
 
-    if(joint->getJointId() == SkeletonJoint::INVALID_JOINT_ID)
+    if(joint->getJointId() == BaseSkeletonJoint::INVALID_JOINT_ID)
         return Action::Continue;
 
     jointStack->pop_back();

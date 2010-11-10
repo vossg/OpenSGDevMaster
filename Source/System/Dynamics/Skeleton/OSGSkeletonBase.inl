@@ -158,14 +158,14 @@ Node * SkeletonBase::getRoots(const UInt32 index) const
 
 //! Get the value of the \a index element the Skeleton::_mfJoints field.
 inline
-SkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
+BaseSkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
 {
     return _mfJoints[index];
 }
 
 //! Get the value of the \a index element the Skeleton::_mfParentJoints field.
 inline
-SkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
+BaseSkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
 {
     return _mfParentJoints[index];
 }

@@ -43,31 +43,28 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include "OSGSkeletonSkinningAlgorithm.h"
-#include "OSGPrimeMaterial.h"
-
-#include <boost/cast.hpp>
-
-#define OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
+#include "OSGBaseSkeletonJoint.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGSkeletonSkinningAlgorithmBase.cpp file.
-// To modify it, please change the .fcd file (OSGSkeletonSkinningAlgorithm.fcd) and
+// OSGBaseSkeletonJointBase.cpp file.
+// To modify it, please change the .fcd file (OSGBaseSkeletonJoint.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
+const Int16 BaseSkeletonJoint::INVALID_JOINT_ID;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
 
-void SkeletonSkinningAlgorithm::initMethod(InitPhase ePhase)
+void BaseSkeletonJoint::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -87,154 +84,33 @@ void SkeletonSkinningAlgorithm::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-SkeletonSkinningAlgorithm::SkeletonSkinningAlgorithm(void) :
+BaseSkeletonJoint::BaseSkeletonJoint(void) :
     Inherited()
 {
 }
 
-SkeletonSkinningAlgorithm::SkeletonSkinningAlgorithm(const SkeletonSkinningAlgorithm &source) :
+BaseSkeletonJoint::BaseSkeletonJoint(const BaseSkeletonJoint &source) :
     Inherited(source)
 {
 }
 
-SkeletonSkinningAlgorithm::~SkeletonSkinningAlgorithm(void)
+BaseSkeletonJoint::~BaseSkeletonJoint(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void
-SkeletonSkinningAlgorithm::adjustVolume(Volume &volume)
-{
-    if(_sfSkeleton.getValue() != NULL)
-        _sfSkeleton.getValue()->adjustVolume(volume);
-}
-
-ActionBase::ResultE
-SkeletonSkinningAlgorithm::renderEnter(Action *action)
-{
-    Action::ResultE  res  = Action::Continue;
-    RenderAction    *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
-
-    SkinnedGeometry *skinGeo = getSkin();
-    Skeleton        *skel    = skinGeo->getSkeleton();
-
-    skel->renderEnter(action, skinGeo);
-
-    const Skeleton::MFJointsType        *joints       = skel->getMFJoints();
-    const Skeleton::MFParentJointsType  *parentJoints =
-        skel->getMFParentJoints();
-    const Skeleton::MFJointMatricesType *jointMats    =
-        skel->getMFJointMatrices();
-
-    UInt32 numJoints = joints->size();
-
-#ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
-    _mfDrawPositions.resize(numJoints);
-    _mfDrawIndex    .clear (         );
-
-    for(UInt32 i = 0; i < numJoints; ++i)
-    {
-        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f),
-                             _mfDrawPositions[i]  );
-
-        if((*parentJoints)[i] != NULL)
-        {
-            _mfDrawIndex.push_back(i                               );
-            _mfDrawIndex.push_back((*parentJoints)[i]->getJointId());
-        }
-    }
-
-#else
-    Real32 axisLen = 1.f;
-
-    _mfDrawPositions.resize(4 * numJoints);
-    _mfDrawIndex    .clear (             );
-
-    for(UInt32 i = 0; i < numJoints; ++i)
-    {
-        (*jointMats)[i].mult(Pnt3f(0.f, 0.f, 0.f),
-                             _mfDrawPositions[4 * i + 0]);
-
-        if((*parentJoints)[i] != NULL)
-        {
-            _mfDrawIndex.push_back(4 * i                                + 0);
-            _mfDrawIndex.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
-
-            Vec3f vec =
-                _mfDrawPositions[4 * i                                + 0] -
-                _mfDrawPositions[4 * (*parentJoints)[i]->getJointId() + 0];
-
-            axisLen = 0.2f * vec.length();
-        }
-        else
-        {
-            axisLen = 1.f;
-        }
-
-        (*jointMats)[i].mult(
-            Pnt3f(axisLen, 0.f,     0.f    ), _mfDrawPositions[4 * i + 1]);
-        (*jointMats)[i].mult(
-            Pnt3f(0.f,     axisLen, 0.f    ), _mfDrawPositions[4 * i + 2]);
-        (*jointMats)[i].mult(
-            Pnt3f(0.f,     0.f,     axisLen), _mfDrawPositions[4 * i + 3]);
-
-        _mfDrawIndex.push_back(4 * i + 0);
-        _mfDrawIndex.push_back(4 * i + 1);
-        _mfDrawIndex.push_back(4 * i + 0);
-        _mfDrawIndex.push_back(4 * i + 2);
-        _mfDrawIndex.push_back(4 * i + 0);
-        _mfDrawIndex.push_back(4 * i + 3);
-    }
-#endif // #ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
-
-    DrawEnv::DrawFunctor  drawFunc =
-        boost::bind(&SkeletonSkinningAlgorithm::drawFunc, this, _1);
-    PrimeMaterial         *skelMat  = getDefaultUnlitMaterial();
-    State                 *state    = skelMat->getState      ();
-
-    ract->dropFunctor(drawFunc, state, skelMat->getSortKey());
-
-    return res;
-}
-
-ActionBase::ResultE
-SkeletonSkinningAlgorithm::renderLeave(Action *action)
-{
-    SkinnedGeometry *skinGeo = getSkin();
-    Skeleton        *skel    = getSkeleton();
-
-    skel->renderLeave(action, skinGeo);
-
-    return Action::Continue;
-}
-
-ActionBase::ResultE
-SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
-{
-    glEnableClientState(GL_VERTEX_ARRAY);
-    {
-        glVertexPointer(3, GL_FLOAT, 0, &(_mfDrawPositions.front()));
-        glDrawElements (GL_LINES, _mfDrawIndex.size(), GL_UNSIGNED_INT,
-                        &(_mfDrawIndex.front()));
-    }
-    glDisableClientState(GL_VERTEX_ARRAY);
-
-    return Action::Continue;
-}
-
-void SkeletonSkinningAlgorithm::changed(ConstFieldMaskArg whichField,
+void BaseSkeletonJoint::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void SkeletonSkinningAlgorithm::dump(      UInt32    ,
+void BaseSkeletonJoint::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump SkeletonSkinningAlgorithm NI" << std::endl;
+    SLOG << "Dump BaseSkeletonJoint NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

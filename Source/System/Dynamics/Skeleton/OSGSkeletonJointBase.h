@@ -63,10 +63,8 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGGroup.h" // Parent
+#include "OSGBaseSkeletonJoint.h" // Parent
 
-#include "OSGSkeletonFields.h"          // Skeleton type
-#include "OSGSysFields.h"               // JointId type
 #include "OSGMathFields.h"              // InvBindMatrix type
 
 #include "OSGSkeletonJointFields.h"
@@ -77,12 +75,12 @@ class SkeletonJoint;
 
 //! \brief SkeletonJoint Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
+class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public BaseSkeletonJoint
 {
   public:
 
-    typedef Group Inherited;
-    typedef Group ParentContainer;
+    typedef BaseSkeletonJoint Inherited;
+    typedef BaseSkeletonJoint ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -95,28 +93,24 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     enum
     {
-        SkeletonFieldId = Inherited::NextFieldId,
-        JointIdFieldId = SkeletonFieldId + 1,
-        InvBindMatrixFieldId = JointIdFieldId + 1,
+        InvBindMatrixFieldId = Inherited::NextFieldId,
         MatrixFieldId = InvBindMatrixFieldId + 1,
-        NextFieldId = MatrixFieldId + 1
+        OffsetMatrixFieldId = MatrixFieldId + 1,
+        NextFieldId = OffsetMatrixFieldId + 1
     };
 
-    static const OSG::BitVector SkeletonFieldMask =
-        (TypeTraits<BitVector>::One << SkeletonFieldId);
-    static const OSG::BitVector JointIdFieldMask =
-        (TypeTraits<BitVector>::One << JointIdFieldId);
     static const OSG::BitVector InvBindMatrixFieldMask =
         (TypeTraits<BitVector>::One << InvBindMatrixFieldId);
     static const OSG::BitVector MatrixFieldMask =
         (TypeTraits<BitVector>::One << MatrixFieldId);
+    static const OSG::BitVector OffsetMatrixFieldMask =
+        (TypeTraits<BitVector>::One << OffsetMatrixFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentSkeletonPtr SFSkeletonType;
-    typedef SFInt16           SFJointIdType;
     typedef SFMatrix          SFInvBindMatrixType;
     typedef SFMatrix          SFMatrixType;
+    typedef SFMatrix          SFOffsetMatrixType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,18 +136,15 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \{                                                                 */
 
 
-                  SFInt16             *editSFJointId        (void);
-            const SFInt16             *getSFJointId         (void) const;
-
                   SFMatrix            *editSFInvBindMatrix  (void);
             const SFMatrix            *getSFInvBindMatrix   (void) const;
 
                   SFMatrix            *editSFMatrix         (void);
             const SFMatrix            *getSFMatrix          (void) const;
 
+                  SFMatrix            *editSFOffsetMatrix   (void);
+            const SFMatrix            *getSFOffsetMatrix    (void) const;
 
-                  Int16               &editJointId        (void);
-                  Int16                getJointId         (void) const;
 
                   Matrix              &editInvBindMatrix  (void);
             const Matrix              &getInvBindMatrix   (void) const;
@@ -161,14 +152,17 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
                   Matrix              &editMatrix         (void);
             const Matrix              &getMatrix          (void) const;
 
+                  Matrix              &editOffsetMatrix   (void);
+            const Matrix              &getOffsetMatrix    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setJointId        (const Int16 value);
             void setInvBindMatrix  (const Matrix &value);
             void setMatrix         (const Matrix &value);
+            void setOffsetMatrix   (const Matrix &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,10 +222,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentSkeletonPtr _sfSkeleton;
-    SFInt16           _sfJointId;
     SFMatrix          _sfInvBindMatrix;
     SFMatrix          _sfMatrix;
+    SFMatrix          _sfOffsetMatrix;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -256,28 +249,15 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
-    /*! \{                                                                 */
-
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleJointId         (void) const;
-    EditFieldHandlePtr editHandleJointId        (void);
     GetFieldHandlePtr  getHandleInvBindMatrix   (void) const;
     EditFieldHandlePtr editHandleInvBindMatrix  (void);
     GetFieldHandlePtr  getHandleMatrix          (void) const;
     EditFieldHandlePtr editHandleMatrix         (void);
+    GetFieldHandlePtr  getHandleOffsetMatrix    (void) const;
+    EditFieldHandlePtr editHandleOffsetMatrix   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

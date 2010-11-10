@@ -68,10 +68,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
     enum RenderModeE
     {
-        RMUnskinned,
-        RMSkeleton,
-        RMSkinnedHardware,
-        RMSkinnedSoftware
+        RMUnskinned        = 0,
+        RMSkeleton         = 1,
+        RMSkinnedHardware  = 2,
+        RMSkinnedSoftware  = 3
     };
 
     /*---------------------------------------------------------------------*/

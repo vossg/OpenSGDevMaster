@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="BaseSkeletonJoint"
+   parent="Group"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   isNodeCore="false"
+   childFields="both"
+   parentFields="both"
+>
+  <Field
+     name="skeleton"
+     type="Skeleton"
+     category="parentpointer"
+     cardinality="single"
+     defaultValue="NULL"
+     visibility="internal"
+     access="none"
+     >
+    Parent skeleton.
+  </Field>
+
+  <Field
+     name="jointId"
+     type="Int16"
+     category="data"
+     cardinality="single"
+     defaultValue="BaseSkeletonJoint::INVALID_JOINT_ID"
+     visibility="external"
+     access="public"
+     >
+    Id of the joint in the skeleton, used to assign vertices to joints.
+    The joints in a skeleton must have a unique jointId and they should
+    form an interval (no holes) [0, N].
+  </Field>
+</FieldContainer>

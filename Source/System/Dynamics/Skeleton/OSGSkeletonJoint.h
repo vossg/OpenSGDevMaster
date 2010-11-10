@@ -43,12 +43,8 @@
 #endif
 
 #include "OSGSkeletonJointBase.h"
-#include "OSGSkeletonFields.h"
 
 OSG_BEGIN_NAMESPACE
-
-// forward decl
-class Skeleton;
 
 /*! \brief SkeletonJoint class. See \ref
            PageDrawableSkeletonJoint for a description.
@@ -65,8 +61,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     typedef SkeletonJointBase Inherited;
     typedef SkeletonJoint     Self;
 
-    static const Int16 INVALID_JOINT_ID = -1;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -74,14 +68,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Skeleton                                */
-    /*! \{                                                                 */
-
-    const SFParentSkeletonPtr *getSFSkeleton(void) const;
-    Skeleton                  *getSkeleton  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,8 +140,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     friend class FieldContainer;
     friend class SkeletonJointBase;
 
-    friend class Skeleton;
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkeletonJoint &source);
 };
@@ -163,9 +147,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 typedef SkeletonJoint *SkeletonJointP;
 
 OSG_END_NAMESPACE
-
-// include this here, so that it is available in the .inl
-#include "OSGSkeleton.h"
 
 #include "OSGSkeletonJointBase.inl"
 #include "OSGSkeletonJoint.inl"

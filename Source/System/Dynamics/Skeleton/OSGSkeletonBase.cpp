@@ -59,7 +59,7 @@
 
 
 #include "OSGNode.h"                    // Roots Class
-#include "OSGSkeletonJoint.h"           // Joints Class
+#include "OSGBaseSkeletonJoint.h"       // Joints Class
 
 #include "OSGSkeletonBase.h"
 #include "OSGSkeleton.h"
@@ -95,13 +95,13 @@ OSG_BEGIN_NAMESPACE
     hierarchies.
 */
 
-/*! \var SkeletonJoint * SkeletonBase::_mfJoints
+/*! \var BaseSkeletonJoint * SkeletonBase::_mfJoints
     The joints (or bones) of the skeleton. Sorted by their jointId.
     READ ONLY: You should never write to this field, Skeleton scans
     for joints whenever the set of roots is modified.
 */
 
-/*! \var SkeletonJoint * SkeletonBase::_mfParentJoints
+/*! \var BaseSkeletonJoint * SkeletonBase::_mfParentJoints
     Stores the parent of each joint at the position of the childs jointId.
     In other words parentJoints[i] is the parent of the joint with
     jointId i (which is stored in joints[i]). If the joint has no parent
@@ -238,8 +238,8 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecChildSkeletonJointPtr::Description(
-        MFUnrecChildSkeletonJointPtr::getClassType(),
+    pDesc = new MFUnrecChildBaseSkeletonJointPtr::Description(
+        MFUnrecChildBaseSkeletonJointPtr::getClassType(),
         "joints",
         "The joints (or bones) of the skeleton. Sorted by their jointId.\n"
         "READ ONLY: You should never write to this field, Skeleton scans\n"
@@ -252,8 +252,8 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecSkeletonJointPtr::Description(
-        MFUnrecSkeletonJointPtr::getClassType(),
+    pDesc = new MFUnrecBaseSkeletonJointPtr::Description(
+        MFUnrecBaseSkeletonJointPtr::getClassType(),
         "parentJoints",
         "Stores the parent of each joint at the position of the childs jointId.\n"
         "In other words parentJoints[i] is the parent of the joint with\n"
@@ -397,7 +397,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "\n"
     "  <Field\n"
     "     name=\"joints\"\n"
-    "     type=\"SkeletonJoint\"\n"
+    "     type=\"BaseSkeletonJoint\"\n"
     "     category=\"childpointer\"\n"
     "     linkParentField=\"Skeleton\"\n"
     "     cardinality=\"multi\"\n"
@@ -411,7 +411,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "\n"
     "  <Field\n"
     "     name=\"parentJoints\"\n"
-    "     type=\"SkeletonJoint\"\n"
+    "     type=\"BaseSkeletonJoint\"\n"
     "     category=\"pointer\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
@@ -543,12 +543,12 @@ MFUnrecNodePtr      *SkeletonBase::editMFRoots          (void)
 }
 
 //! Get the Skeleton::_mfJoints field.
-const MFUnrecChildSkeletonJointPtr *SkeletonBase::getMFJoints(void) const
+const MFUnrecChildBaseSkeletonJointPtr *SkeletonBase::getMFJoints(void) const
 {
     return &_mfJoints;
 }
 
-MFUnrecChildSkeletonJointPtr *SkeletonBase::editMFJoints         (void)
+MFUnrecChildBaseSkeletonJointPtr *SkeletonBase::editMFJoints         (void)
 {
     editMField(JointsFieldMask, _mfJoints);
 
@@ -556,12 +556,12 @@ MFUnrecChildSkeletonJointPtr *SkeletonBase::editMFJoints         (void)
 }
 
 //! Get the Skeleton::_mfParentJoints field.
-const MFUnrecSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
+const MFUnrecBaseSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
 {
     return &_mfParentJoints;
 }
 
-MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
+MFUnrecBaseSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
 {
     editMField(ParentJointsFieldMask, _mfParentJoints);
 
@@ -688,18 +688,18 @@ void SkeletonBase::clearRoots(void)
     _mfRoots.clear();
 }
 
-void SkeletonBase::pushToJoints(SkeletonJoint * const value)
+void SkeletonBase::pushToJoints(BaseSkeletonJoint * const value)
 {
     editMField(JointsFieldMask, _mfJoints);
 
     _mfJoints.push_back(value);
 }
 
-void SkeletonBase::assignJoints   (const MFUnrecChildSkeletonJointPtr &value)
+void SkeletonBase::assignJoints   (const MFUnrecChildBaseSkeletonJointPtr &value)
 {
-    MFUnrecChildSkeletonJointPtr::const_iterator elemIt  =
+    MFUnrecChildBaseSkeletonJointPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecChildSkeletonJointPtr::const_iterator elemEnd =
+    MFUnrecChildBaseSkeletonJointPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Skeleton *>(this)->clearJoints();
@@ -722,7 +722,7 @@ void SkeletonBase::removeFromJoints(UInt32 uiIndex)
     }
 }
 
-void SkeletonBase::removeObjFromJoints(SkeletonJoint * const value)
+void SkeletonBase::removeObjFromJoints(BaseSkeletonJoint * const value)
 {
     Int32 iElemIdx = _mfJoints.findIndex(value);
 
@@ -741,18 +741,18 @@ void SkeletonBase::clearJoints(void)
     _mfJoints.clear();
 }
 
-void SkeletonBase::pushToParentJoints(SkeletonJoint * const value)
+void SkeletonBase::pushToParentJoints(BaseSkeletonJoint * const value)
 {
     editMField(ParentJointsFieldMask, _mfParentJoints);
 
     _mfParentJoints.push_back(value);
 }
 
-void SkeletonBase::assignParentJoints(const MFUnrecSkeletonJointPtr &value)
+void SkeletonBase::assignParentJoints(const MFUnrecBaseSkeletonJointPtr &value)
 {
-    MFUnrecSkeletonJointPtr::const_iterator elemIt  =
+    MFUnrecBaseSkeletonJointPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecSkeletonJointPtr::const_iterator elemEnd =
+    MFUnrecBaseSkeletonJointPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Skeleton *>(this)->clearParentJoints();
@@ -775,7 +775,7 @@ void SkeletonBase::removeFromParentJoints(UInt32 uiIndex)
     }
 }
 
-void SkeletonBase::removeObjFromParentJoints(SkeletonJoint * const value)
+void SkeletonBase::removeObjFromParentJoints(BaseSkeletonJoint * const value)
 {
     Int32 iElemIdx = _mfParentJoints.findIndex(value);
 
@@ -1050,7 +1050,7 @@ SkeletonBase::SkeletonBase(void) :
     _mfRoots                  (),
     _mfJoints                 (this,
                           JointsFieldId,
-                          SkeletonJoint::SkeletonFieldId),
+                          BaseSkeletonJoint::SkeletonFieldId),
     _mfParentJoints           (),
     _mfJointMatrices          (),
     _mfJointNormalMatrices    (),
@@ -1065,7 +1065,7 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     _mfRoots                  (),
     _mfJoints                 (this,
                           JointsFieldId,
-                          SkeletonJoint::SkeletonFieldId),
+                          BaseSkeletonJoint::SkeletonFieldId),
     _mfParentJoints           (),
     _mfJointMatrices          (source._mfJointMatrices          ),
     _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
@@ -1091,8 +1091,8 @@ bool SkeletonBase::unlinkChild(
 {
     if(childFieldId == JointsFieldId)
     {
-        SkeletonJoint * pTypedChild =
-            dynamic_cast<SkeletonJoint *>(pChild);
+        BaseSkeletonJoint * pTypedChild =
+            dynamic_cast<BaseSkeletonJoint *>(pChild);
 
         if(pTypedChild != NULL)
         {
@@ -1147,9 +1147,9 @@ void SkeletonBase::onCreate(const Skeleton *source)
             ++RootsIt;
         }
 
-        MFUnrecChildSkeletonJointPtr::const_iterator JointsIt  =
+        MFUnrecChildBaseSkeletonJointPtr::const_iterator JointsIt  =
             source->_mfJoints.begin();
-        MFUnrecChildSkeletonJointPtr::const_iterator JointsEnd =
+        MFUnrecChildBaseSkeletonJointPtr::const_iterator JointsEnd =
             source->_mfJoints.end  ();
 
         while(JointsIt != JointsEnd)
@@ -1159,9 +1159,9 @@ void SkeletonBase::onCreate(const Skeleton *source)
             ++JointsIt;
         }
 
-        MFUnrecSkeletonJointPtr::const_iterator ParentJointsIt  =
+        MFUnrecBaseSkeletonJointPtr::const_iterator ParentJointsIt  =
             source->_mfParentJoints.begin();
-        MFUnrecSkeletonJointPtr::const_iterator ParentJointsEnd =
+        MFUnrecBaseSkeletonJointPtr::const_iterator ParentJointsEnd =
             source->_mfParentJoints.end  ();
 
         while(ParentJointsIt != ParentJointsEnd)
@@ -1212,8 +1212,8 @@ EditFieldHandlePtr SkeletonBase::editHandleRoots          (void)
 
 GetFieldHandlePtr SkeletonBase::getHandleJoints          (void) const
 {
-    MFUnrecChildSkeletonJointPtr::GetHandlePtr returnValue(
-        new  MFUnrecChildSkeletonJointPtr::GetHandle(
+    MFUnrecChildBaseSkeletonJointPtr::GetHandlePtr returnValue(
+        new  MFUnrecChildBaseSkeletonJointPtr::GetHandle(
              &_mfJoints,
              this->getType().getFieldDesc(JointsFieldId),
              const_cast<SkeletonBase *>(this)));
@@ -1223,8 +1223,8 @@ GetFieldHandlePtr SkeletonBase::getHandleJoints          (void) const
 
 EditFieldHandlePtr SkeletonBase::editHandleJoints         (void)
 {
-    MFUnrecChildSkeletonJointPtr::EditHandlePtr returnValue(
-        new  MFUnrecChildSkeletonJointPtr::EditHandle(
+    MFUnrecChildBaseSkeletonJointPtr::EditHandlePtr returnValue(
+        new  MFUnrecChildBaseSkeletonJointPtr::EditHandle(
              &_mfJoints,
              this->getType().getFieldDesc(JointsFieldId),
              this));
@@ -1249,8 +1249,8 @@ EditFieldHandlePtr SkeletonBase::editHandleJoints         (void)
 
 GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
 {
-    MFUnrecSkeletonJointPtr::GetHandlePtr returnValue(
-        new  MFUnrecSkeletonJointPtr::GetHandle(
+    MFUnrecBaseSkeletonJointPtr::GetHandlePtr returnValue(
+        new  MFUnrecBaseSkeletonJointPtr::GetHandle(
              &_mfParentJoints,
              this->getType().getFieldDesc(ParentJointsFieldId),
              const_cast<SkeletonBase *>(this)));
@@ -1260,8 +1260,8 @@ GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
 
 EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
 {
-    MFUnrecSkeletonJointPtr::EditHandlePtr returnValue(
-        new  MFUnrecSkeletonJointPtr::EditHandle(
+    MFUnrecBaseSkeletonJointPtr::EditHandlePtr returnValue(
+        new  MFUnrecBaseSkeletonJointPtr::EditHandle(
              &_mfParentJoints,
              this->getType().getFieldDesc(ParentJointsFieldId),
              this));

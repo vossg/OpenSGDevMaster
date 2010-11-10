@@ -40,4 +40,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline const SFParentSkeletonPtr *
+BaseSkeletonJoint::getSFSkeleton(void) const
+{
+    return &_sfSkeleton;
+}
+
+inline Skeleton *
+BaseSkeletonJoint::getSkeleton(void) const
+{
+    return _sfSkeleton.getValue();
+}
+
 OSG_END_NAMESPACE

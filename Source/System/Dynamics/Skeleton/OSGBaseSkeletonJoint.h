@@ -36,32 +36,36 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSKELETON_H_
-#define _OSGSKELETON_H_
+#ifndef _OSGBASESKELETONJOINT_H_
+#define _OSGBASESKELETONJOINT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSkeletonBase.h"
-#include "OSGBaseSkeletonJoint.h"
-#include "OSGRenderAction.h"
+#include "OSGBaseSkeletonJointBase.h"
+#include "OSGSkeletonFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Skeleton class. See \ref
-           PageDynamicsSkeleton for a description.
+// forward decl
+class Skeleton;
+
+/*! \brief BaseSkeletonJoint class. See \ref
+           PageDynamicsBaseSkeletonJoint for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
+class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
 {
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Types                                    */
-    /*! \{                                                                 */
+  protected:
 
-    typedef SkeletonBase Inherited;
-    typedef Skeleton     Self;
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef BaseSkeletonJointBase Inherited;
+    typedef BaseSkeletonJoint     Self;
+
+    static const Int16 INVALID_JOINT_ID = -1;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -73,20 +77,11 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
+    /*! \name                      Skeleton                                */
     /*! \{                                                                 */
 
-    Action::ResultE renderEnter  (Action *action, NodeCore *parent);
-    Action::ResultE renderLeave  (Action *action, NodeCore *parent);
-
-    Action::ResultE animBindEnter(Action *action, NodeCore *parent);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Volume                                  */
-    /*! \{                                                                 */
-
-    virtual void adjustVolume(Volume &volume);
+    const SFParentSkeletonPtr *getSFSkeleton(void) const;
+    Skeleton                  *getSkeleton  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,26 +96,21 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
   protected:
 
-    // Variables should all be in SkeletonBase.
-    typedef std::vector<BaseSkeletonJoint *> JointStack;
-    typedef JointStack::iterator             JointStackIt;
-    typedef JointStack::const_iterator       JointStackConstIt;
-
-    bool _jointMatricesValid;
+    // Variables should all be in BaseSkeletonJointBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    Skeleton(void);
-    Skeleton(const Skeleton &source);
+    BaseSkeletonJoint(void);
+    BaseSkeletonJoint(const BaseSkeletonJoint &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Skeleton(void);
+    virtual ~BaseSkeletonJoint(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -130,31 +120,25 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Update                                  */
-    /*! \{                                                                 */
-
-    void            updateJoints   (void                              );
-    Action::ResultE findJointsEnter(JointStack *jointStack, Node *node);
-    Action::ResultE findJointsLeave(JointStack *jointStack, Node *node);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class SkeletonBase;
+    friend class BaseSkeletonJointBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const Skeleton &source);
+    void operator =(const BaseSkeletonJoint &source);
 };
 
-typedef Skeleton *SkeletonP;
+typedef BaseSkeletonJoint *BaseSkeletonJointP;
 
 OSG_END_NAMESPACE
 
-#include "OSGSkeletonBase.inl"
-#include "OSGSkeleton.inl"
+// include this here, so that it is available in the .inl
+#include "OSGSkeleton.h"
 
-#endif /* _OSGSKELETON_H_ */
+#include "OSGBaseSkeletonJointBase.inl"
+#include "OSGBaseSkeletonJoint.inl"
+
+#endif /* _OSGBASESKELETONJOINT_H_ */
