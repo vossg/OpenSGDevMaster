@@ -108,7 +108,7 @@ void setName(AttachmentContainer * const  pContainer,
 {
     if(pContainer == NULL)
     {
-        FFATAL(("setName: no container?!?"));
+        FFATAL(("setName: no container?!?\n"));
         return;
     }
    
@@ -131,7 +131,7 @@ void setName(AttachmentContainer * const  pContainer,
 
         if(name == NULL)
         {
-            FFATAL(("setName: Name Attachment is not castable to Name?!?"));
+            FFATAL(("setName: Name Attachment is not castable to Name?!?\n"));
             return;
         }
     }
