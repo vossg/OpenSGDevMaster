@@ -118,7 +118,7 @@ void AnimQuaternionBlender::frame(Time oTime, UInt32 uiFrame)
     MFChannelsType::const_iterator cIt  = _mfChannels.begin();
     MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
 
-    for(; cIt != cEnd; ++cIt)
+    for(UInt32 i = 0; cIt != cEnd; ++cIt, ++i)
     {
         if((*cIt)->getEnabled() == true)
         {
@@ -128,11 +128,20 @@ void AnimQuaternionBlender::frame(Time oTime, UInt32 uiFrame)
             temp.scaleAngle((*cIt)->getWeight  ());
 
             blendValue += temp;
+
+            // FLOG((" channel [%u] - w [%f] v [%f %f %f %f] - b [%f %f %f %f]\n",
+            //       i, (*cIt)->getWeight(),
+            //       (*cIt)->getOutValue()[0], (*cIt)->getOutValue()[1], (*cIt)->getOutValue()[2], (*cIt)->getOutValue()[3],
+            //       blendValue[0], blendValue[1], blendValue[2], blendValue[3]));
         }
     }
 
     if(activeChannels == true)
+    {
+        blendValue.normalize();
+
         setOutValue(blendValue);
+    }
 }
 
 void AnimQuaternionBlender::shutdown(void)

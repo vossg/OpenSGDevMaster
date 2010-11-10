@@ -130,13 +130,13 @@ AnimBindAction::setAnim(Animation *anim)
     _anim = anim;
 }
 
-void
+Action::ResultE
 AnimBindAction::bindFields(AttachmentContainer *attCon)
 {
     AnimTargetAttachment *targetAtt = getTargetAtt(attCon);
 
     if(targetAtt == NULL)
-        return;
+        return Action::Continue;
 
     Animation       *anim  = getAnim();
     DataSourceMapIt  dsIt  = _dsMap.begin();
@@ -154,6 +154,16 @@ AnimBindAction::bindFields(AttachmentContainer *attCon)
         std::string subTargetId;
 
         splitTargetId(dsIt->first, targetId, subTargetId);
+
+        if(targetId != targetAtt->getTargetId())
+        {
+            ++dsIt;
+            continue;
+        }
+
+        SINFO << "AnimBindAction::bindFields: binding source '"
+              << dsIt->first << "' to '" << targetId << "' - '"
+              << subTargetId << "'" << std::endl;
 
         FieldDescriptionBase *fDesc =
             attCon->getType().getFieldDesc(subTargetId.c_str());
@@ -198,6 +208,15 @@ AnimBindAction::bindFields(AttachmentContainer *attCon)
         DataSourceMapIt eraseIt = dsIt;
         ++dsIt;
         _dsMap.erase(eraseIt);
+    }
+
+    if(_dsMap.empty() == true)
+    {
+        return Action::Quit;
+    }
+    else
+    {
+        return Action::Continue;
     }
 }
 
@@ -354,9 +373,7 @@ bindEnterDefault(NodeCore *core, Action *action)
     AnimBindAction *bindAct =
         boost::polymorphic_downcast<AnimBindAction *>(action);
 
-    bindAct->bindFields(core);
-
-    return Action::Continue;
+    return bindAct->bindFields(core);
 }
 
 #if 0
@@ -431,14 +448,5 @@ bindEnterDefault(NodeCore *core, Action *action)
     return Action::Continue;
 }
 #endif
-
-Action::ResultE
-bindSkeletonEnter(NodeCore *core, Action *action)
-{
-    // XXX TODO
-    SFATAL << "bindSkeletonEnter: NIY" << std::endl;
-
-    return Action::Continue;
-}
 
 OSG_END_NAMESPACE

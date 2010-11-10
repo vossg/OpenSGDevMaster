@@ -97,7 +97,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
     void          setAnim    (Animation    *anim    );
 
 
-    void          bindFields (AttachmentContainer *attCon);
+    ResultE       bindFields (AttachmentContainer *attCon);
 
     void          fillSourceMap(NodeCore      *core,
                                 DataSourceMap &dsMap) const;
