@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="SkeletonOgreJoint"
+   parent="BaseSkeletonJoint"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   isNodeCore="false"
+   childFields="both"
+   parentFields="both"
+>
+  <Field
+      name="translate"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="rotate"
+      type="Quaternion"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="scale"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1.f, 1.f, 1.f"
+  >
+  </Field>
+
+  <Field
+      name="invBindTranslate"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="invBindRotate"
+      type="Quaternion"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="invBindScale"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1.f, 1.f, 1.f"
+  >
+  </Field>
+
+  <Field
+      name="offsetTranslate"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="offsetRotate"
+      type="Quaternion"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+  >
+  </Field>
+  <Field
+      name="offsetScale"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1.f, 1.f, 1.f"
+  >
+  </Field>
+</FieldContainer>
