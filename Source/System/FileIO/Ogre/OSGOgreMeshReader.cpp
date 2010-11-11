@@ -1034,6 +1034,7 @@ OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
     }
 
     smInfo.meshN = makeNodeFor(smInfo.mesh);
+    smInfo.meshN->editSFVolume()->setValue(_rootN->getVolume());
 
     setName(smInfo.meshN, smInfo.name);
 
