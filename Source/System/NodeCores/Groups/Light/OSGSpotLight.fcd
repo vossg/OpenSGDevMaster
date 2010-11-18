@@ -20,29 +20,29 @@
   by the \c constantAttenuation, \c linearAttenuation and \c
   quadraticAttenuation attributes.
   <Field
-	 name="direction"
-	 type="Vec3f"
-	 cardinality="single"
-	 visibility="external"
+     name="direction"
+     type="Vec3f"
+     cardinality="single"
+     visibility="external"
      defaultValue="0.f,0.f,1.f"
-	 >
+     >
   </Field>
   <Field
-	 name="spotExponent"
-	 type="Real32"
-	 cardinality="single"
-	 visibility="external"
-     defaultValue="0.f"
-	 >
-	The drop-off exponent of the spotlight.
+     name="spotExponent"
+     type="Real32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="0.1f"
+     >
+    The drop-off exponent of the spotlight.
   </Field>
   <Field
-	 name="spotCutOff"
-	 type="Real32"
-	 cardinality="single"
-	 visibility="external"
-     defaultValue="0.f"
-	 >
-	The cut-off angle of the spotlight (in radians, not degrees!).
+     name="spotCutOff"
+     type="Real32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="1.0472f"
+     >
+    The cut-off angle of the spotlight (in radians, not degrees!).
   </Field>
 </FieldContainer>

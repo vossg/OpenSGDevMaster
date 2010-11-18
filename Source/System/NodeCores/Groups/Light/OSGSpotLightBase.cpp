@@ -207,7 +207,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
-    "     defaultValue=\"0.f\"\n"
+    "     defaultValue=\"0.1f\"\n"
     "\t >\n"
     "\tThe drop-off exponent of the spotlight.\n"
     "  </Field>\n"
@@ -216,7 +216,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
-    "     defaultValue=\"0.f\"\n"
+    "     defaultValue=\"1.0472f\"\n"
     "\t >\n"
     "\tThe cut-off angle of the spotlight (in radians, not degrees!).\n"
     "  </Field>\n"
@@ -429,7 +429,6 @@ SpotLight *SpotLightBase::createEmpty(void)
     return returnValue;
 }
 
-
 FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -475,14 +474,13 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 SpotLightBase::SpotLightBase(void) :
     Inherited(),
     _sfDirection              (Vec3f(0.f,0.f,1.f)),
-    _sfSpotExponent           (Real32(0.f)),
-    _sfSpotCutOff             (Real32(0.f))
+    _sfSpotExponent           (Real32(0.1f)),
+    _sfSpotCutOff             (Real32(1.0472f))
 {
 }
 
@@ -576,6 +574,7 @@ EditFieldHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
 
     return returnValue;
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -146,6 +146,7 @@ Navigator::Navigator() :
     _trackballEngine(TrackballEngine::create()),
     _flyEngine      (FlyEngine      ::create()),
     _walkEngine     (WalkEngine     ::create()),
+    _navballEngine  (NavballEngine  ::create()),
     _noneEngine     (NoneEngine     ::create()),
     _userEngine     (TrackballEngine::create()),
 
@@ -174,6 +175,7 @@ Navigator::~Navigator()
     _trackballEngine = NULL;
     _flyEngine       = NULL;
     _walkEngine      = NULL;
+    _navballEngine   = NULL;
     _noneEngine      = NULL;
     _userEngine      = NULL;
 }
@@ -274,6 +276,7 @@ void Navigator::setMode(Navigator::Mode new_mode, bool copyViewParams)
         case TRACKBALL: engine = _trackballEngine; break;
         case FLY:       engine = _flyEngine;       break;
         case WALK:      engine = _walkEngine;      break;
+        case NAVBALL:   engine = _navballEngine;   break;
         case NONE:      engine = _noneEngine;      break;
         case USER:      engine = _userEngine;      break;
         default:
@@ -422,6 +425,7 @@ Navigator::Mode Navigator::getMode(void)
     if (_engine == _trackballEngine) return TRACKBALL;
     if (_engine == _flyEngine)       return FLY;
     if (_engine == _walkEngine)      return WALK;
+    if (_engine == _navballEngine)   return NAVBALL;
     if (_engine == _noneEngine)      return NONE;
 
     return USER;
@@ -481,6 +485,11 @@ Int16 Navigator::getLastX(void)
 Int16 Navigator::getLastY(void)
 {
     return _lastY;
+}
+
+NavballEngine& Navigator::getNavballEngine(void)
+{ 
+    return *_navballEngine; 
 }
 
 TrackballEngine& Navigator::getTrackballEngine(void)

@@ -88,6 +88,8 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(SpotLight);
+    
+    
 
     /*==========================  PUBLIC  =================================*/
 

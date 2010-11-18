@@ -56,10 +56,12 @@
 #include "OSGFlyEngine.h"
 #include "OSGNoneEngine.h"
 #include "OSGTrackballEngine.h"
+#include "OSGNavballEngine.h"
 #include "OSGWalkEngine.h"
 
 OSG_BEGIN_NAMESPACE
 
+typedef NavballEngine   NavballNavigator;
 typedef TrackballEngine TrackballNavigator;
 typedef FlyEngine       FlyNavigator;
 typedef WalkEngine      WalkNavigator;
@@ -149,6 +151,7 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
           Int16   getLastY(void);
     Viewport     *getViewport(void);
 
+    NavballEngine&   getNavballEngine  (void);
     TrackballEngine& getTrackballEngine(void);
     FlyEngine&       getFlyEngine      (void);
     WalkEngine&      getWalkEngine     (void);
@@ -169,6 +172,7 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
     TrackballEngineRefPtr _trackballEngine;
     FlyEngineRefPtr       _flyEngine;
     WalkEngineRefPtr      _walkEngine;
+    NavballEngineRefPtr   _navballEngine;
     NoneEngineRefPtr      _noneEngine;
     NavigatorEngineRefPtr _userEngine;
 
