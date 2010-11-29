@@ -98,17 +98,17 @@ void SkeletonOgreJoint::initMethod(InitPhase ePhase)
 
 SkeletonOgreJoint::SkeletonOgreJoint(void) :
     Inherited      (),
-    _accumTranslate(),
+    _accumTranslate(0.f, 0.f, 0.f),
     _accumScale    (1.f, 1.f, 1.f),
     _accumRotate   ()
 {
 }
 
 SkeletonOgreJoint::SkeletonOgreJoint(const SkeletonOgreJoint &source) :
-    Inherited(source),
-    _accumTranslate(0.f, 0.f, 0.f),
-    _accumScale    (1.f, 1.f, 1.f),
-    _accumRotate   ()
+    Inherited      (source),
+    _accumTranslate(source._accumTranslate),
+    _accumScale    (source._accumScale),
+    _accumRotate   (source._accumRotate)
 {
 }
 

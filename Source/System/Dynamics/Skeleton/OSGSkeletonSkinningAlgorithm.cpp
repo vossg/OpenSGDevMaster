@@ -167,6 +167,7 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
                 _mfDrawPositions[4 * (*parentJoints)[i]->getJointId() + 0];
 
             axisLen = 0.2f * vec.length();
+            axisLen = 1.f;
         }
         else
         {

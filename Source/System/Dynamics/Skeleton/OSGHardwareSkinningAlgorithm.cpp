@@ -65,7 +65,7 @@ const std::string HardwareSkinningAlgorithm::_vpVertexSkinning(
     "#version 120\n"
     "\n"
     "uniform mat4 matBindShape;\n"
-    "uniform mat4 matJoints[64];\n"
+    "uniform mat4 matJoints[66];\n"
     ""
     "void calcSkin(inout vec4 vertPos,  inout vec3 vertNorm,\n"
     "              in    vec4 jointIdx, in    vec4 jointWeight)\n"
