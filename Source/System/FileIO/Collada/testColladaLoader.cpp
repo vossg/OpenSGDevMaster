@@ -83,8 +83,8 @@ const std::string vpCode(
     "{\n"
     "    vec4 pos    = gl_Vertex;\n"
     "    vec3 norm   = gl_Normal;\n"
-    "    vec4 matIdx = gl_MultiTexCoord3;\n"
-    "    vec4 weight = gl_MultiTexCoord4;\n"
+    "    vec4 matIdx = gl_MultiTexCoord2;\n"
+    "    vec4 weight = gl_MultiTexCoord3;\n"
     "\n"
     "    calcSkin(pos, norm, matIdx, weight);\n"
     "\n"
@@ -221,10 +221,10 @@ void init(int argc, char *argv[])
     OSG::TransformUnrecPtr xform  = OSG::Transform::create();
     OSG::NodeUnrecPtr      xformN = OSG::makeNodeFor(xform);
 
-    xform->editMatrix().setTranslate(OSG::Vec3f(100.f, 0.f, 0.f));
+    // xform->editMatrix().setTranslate(OSG::Vec3f(100.f, 0.f, 0.f));
+    // xform->editMatrix().setRotate(OSG::Quaternion(OSG::Vec3f(0.f, 1.f, 0.f), 0.3f * OSG::Pi));
 
-
-    OSG::NodeUnrecPtr     boxN    = OSG::makeBox(1.f, 1.f, 1.f, 1, 1, 1);
+    OSG::NodeUnrecPtr     boxN    = OSG::makeBox(1.f, 1.f, 5.f, 1, 1, 1);
 
     xformN->addChild(sceneN);
     rootN ->addChild(xformN);
@@ -260,7 +260,7 @@ void init(int argc, char *argv[])
     mgr->setRoot  (rootN);
     
     // show the whole scene
-    mgr->showAll();  
+    mgr->showAll();
 }
 
 void cleanup(void)
@@ -470,6 +470,11 @@ void printJoint(OSG::SceneGraphPrinter *sgp, OSG::NodeCore *core)
     sgp->indentStream() << "matrix:\n" << joint->getMatrix();
 }
 
+void printVolume(OSG::SceneGraphPrinter *sgp, OSG::NodeCore *core)
+{
+    sgp->indentStream() << "  volume " << sgp->getCurrNode()->getVolume()
+                        << "\n";
+}
 
 //
 // GLUT callback functions
@@ -693,6 +698,8 @@ void keyboard(unsigned char k, int , int )
     case 'p':
     {
         OSG::SceneGraphPrinter sgp(mgr->getRoot());
+        sgp.addPrintFunc(OSG::SkinnedGeometry::getClassType(),
+                         &printVolume                         );
         sgp.printDownTree(std::cout);
 
         NodeStore::const_iterator nIt  = skinnedGeoN.begin();
@@ -707,8 +714,8 @@ void keyboard(unsigned char k, int , int )
             OSG::SceneGraphPrinter skelPrinter(sgeo->getSkeleton()->getRoots(0));
             skelPrinter.addPrintFunc(OSG::Transform    ::getClassType(),
                                      &printXForm                        );
-            skelPrinter.addPrintFunc(OSG::SkeletonJoint::getClassType(),
-                                     &printJoint                        );
+            //skelPrinter.addPrintFunc(OSG::SkeletonJoint::getClassType(),
+            //                         &printJoint                        );
             skelPrinter.printDownTree(std::cout);
         }
     }
@@ -794,6 +801,12 @@ void keyboard(unsigned char k, int , int )
                       << anims[currAnim].anim->getTemplate()->getName()
                       << "]" << std::endl;
         }
+    }
+    break;
+
+    case 'L':
+    {
+        toggleAnim(currAnim, false);
     }
     break;
 
