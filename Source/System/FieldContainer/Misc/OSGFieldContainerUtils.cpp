@@ -379,9 +379,11 @@ MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
 //---------------------------------------------------------------------------
 
 SceneGraphPrinter::SceneGraphPrinter(Node *root)
-    : _pRoot  (root),
-      _pStream(NULL),
-      _indent (0)
+    : _pRoot       (root),
+      _pCurrNode   (NULL),
+      _pStream     (NULL),
+      _indent      (0),
+      _printFuncMap()
 {
     // nothing to do
 }
@@ -408,6 +410,7 @@ void SceneGraphPrinter::printUpTree(std::ostream &os)
     while(node != NULL)
     {
         NodeCore *core = node->getCore();
+        _pCurrNode = node;
 
         os <<      "[" << node
            <<    "] [" << node->getId()
@@ -466,10 +469,18 @@ SceneGraphPrinter::getStream(void)
     return *_pStream;
 }
 
+Node *
+SceneGraphPrinter::getCurrNode(void)
+{
+    return _pCurrNode;
+}
+
 Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
 {
     if(node == NULL)
         return Action::Continue;
+
+    _pCurrNode = node;
 
     std::ostream &os = getStream();
     incIndent();

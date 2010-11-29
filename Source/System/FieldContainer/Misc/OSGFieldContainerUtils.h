@@ -145,6 +145,7 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
     void          decIndent   (void);
     std::ostream &indentStream(void);
     std::ostream &getStream   (void);
+    Node*         getCurrNode (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -156,6 +157,7 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
     typedef PrintFuncMap::const_iterator        PrintFuncMapConstIt;
 
     Node         *_pRoot;
+    Node         *_pCurrNode;
     std::ostream *_pStream;
     UInt32        _indent;
     PrintFuncMap  _printFuncMap;
