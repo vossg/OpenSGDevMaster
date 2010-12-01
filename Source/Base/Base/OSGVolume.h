@@ -190,7 +190,7 @@ typedef Volume* VolumeP;
 OSG_BASE_DLLMAPPING 
 void volDump(Volume *vol);
 
-
+OSG_BASE_DLLMAPPING
 std::ostream& operator<<(std::ostream& os, const Volume& vol);
 
 OSG_END_NAMESPACE
