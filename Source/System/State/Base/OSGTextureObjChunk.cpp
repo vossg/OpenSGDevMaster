@@ -1471,11 +1471,16 @@ UInt32 TextureObjChunk::handleGL(DrawEnv                 *pEnv,
 
             }
         }
+        else
+        {
+            SWARNING << "TextureObjChunk(" << this << ")::handleGL: No image."
+                     << std::endl;
+        }
     }
     else
     {
         SWARNING << "TextureObjChunk(" << this << "::handleGL: Illegal mode: "
-             << mode << " for id " << id << std::endl;
+                 << mode << " for id " << id << std::endl;
     }
 
     return 0;
