@@ -192,6 +192,7 @@ OgreSkeletonReader::readBone(JointNodeStore &joints)
     rotate[1]    = readReal32(_is);
     rotate[2]    = readReal32(_is);
     rotate[3]    = readReal32(_is);
+    rotate.normalize();
 
     if(_header.chunkSize > _boneLengthNoScale)
     {
@@ -352,6 +353,7 @@ OgreSkeletonReader::readAnimationTrackKeyFrame(AnimVec3fDataSource      *transla
     rotate[1]    = readReal32(_is);
     rotate[2]    = readReal32(_is);
     rotate[3]    = readReal32(_is);
+    rotate.normalize();
 
     translate[0] = readReal32(_is);
     translate[1] = readReal32(_is);

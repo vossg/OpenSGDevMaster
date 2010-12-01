@@ -362,7 +362,7 @@ OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
                                           Int16              &boneIdxVE,
                                           Int16              &boneWeightVE   )
 {
-    OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment\n"));
+    // OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment\n"));
 
     UInt32 vertIdx    = readUInt32(_is);
     UInt16 boneIdx    = readUInt16(_is);
@@ -425,9 +425,9 @@ OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
     {
         if((*boneIdxF)[vertIdx][i] < 0.f)
         {
-            OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment: bone '%u'"
-                          " vertex '%u' weight '%f' - '%u' bones for vertex\n",
-                          boneIdx, vertIdx, boneWeight, i+1));
+            // OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment: bone '%u'"
+            //               " vertex '%u' weight '%f' - '%u' bones for vertex\n",
+            //               boneIdx, vertIdx, boneWeight, i+1));
 
             (*boneIdxF   )[vertIdx][i] = boneIdx;
             (*boneWeightF)[vertIdx][i] = boneWeight;
@@ -769,7 +769,7 @@ OgreMeshReader::readMeshSkeletonLink(SubMeshStore &subMeshInfo)
     std::string skelName = readString(_is);
 
     std::string   skelFile = SceneFileHandler::the()->getPathHandler()->findFile(skelName.c_str());
-    std::ifstream ifs(skelFile.c_str(), std::ios_base::in);
+    std::ifstream ifs(skelFile.c_str(), std::ios_base::in | std::ios_base::binary);
 
     OgreSkeletonReader osr(ifs);
     osr.read();
@@ -788,7 +788,7 @@ OgreMeshReader::readMeshBoneAssignment(VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   )
 {
-    OSG_OGRE_LOG(("OgreMeshReader::readMeshBoneAssignment\n"));
+    // OSG_OGRE_LOG(("OgreMeshReader::readMeshBoneAssignment\n"));
 
     readSubMeshBoneAssignment(vertexElements, boneIdxVE, boneWeightVE);
 }
