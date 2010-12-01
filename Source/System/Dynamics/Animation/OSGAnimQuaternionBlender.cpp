@@ -127,7 +127,8 @@ void AnimQuaternionBlender::frame(Time oTime, UInt32 uiFrame)
             Quaternion temp((*cIt)->getOutValue());
             temp.scaleAngle((*cIt)->getWeight  ());
 
-            blendValue += temp;
+            //blendValue += temp;
+            blendValue.mult(temp);
 
             // FLOG((" channel [%u] - w [%f] v [%f %f %f %f] - b [%f %f %f %f]\n",
             //       i, (*cIt)->getWeight(),
