@@ -106,12 +106,11 @@ void SField<ValueT, iNamespace>::setValue(const Self &obj)
 template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::setValueFromCString(const Char8 *str)
 {
-    typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        static_cast<bool>(SFieldTraits   ::Convertible &
-                          FieldTraitsBase::FromStringConvertible)>, 
-        SFieldTraits, 
-        StringConversionError<ValueT,
-                              iNamespace> >::type Converter;
+    typedef typename boost::mpl::if_c<
+      (SFieldTraits   ::Convertible &
+       FieldTraitsBase::FromStringConvertible), 
+      SFieldTraits, 
+      StringConversionError<ValueT, iNamespace> >::type Converter;
     
     Converter::getFromCString(_fieldValue, str);
 }
@@ -119,12 +118,11 @@ void SField<ValueT, iNamespace>::setValueFromCString(const Char8 *str)
 template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueToString  (std::string  &str) const
 {
-    typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        static_cast<bool>(SFieldTraits   ::Convertible &
-                          FieldTraitsBase::ToStringConvertible)>, 
-        SFieldTraits, 
-        StringConversionError<ValueT,
-                              iNamespace> >::type Converter;
+    typedef typename boost::mpl::if_c<
+      (SFieldTraits   ::Convertible &
+       FieldTraitsBase::ToStringConvertible), 
+      SFieldTraits, 
+      StringConversionError<ValueT, iNamespace> >::type Converter;
     
     Converter::putToString(_fieldValue, str);
 }
@@ -132,12 +130,11 @@ void SField<ValueT, iNamespace>::pushValueToString  (std::string  &str) const
 template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueFromStream(std::istream &str)
 {
-    typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        static_cast<bool>(SFieldTraits   ::Convertible &
-                          FieldTraitsBase::FromStreamConvertible)>, 
-        SFieldTraits, 
-        StreamConversionError<ValueT,
-                              iNamespace> >::type Converter;
+    typedef typename boost::mpl::if_c<
+      (SFieldTraits   ::Convertible &
+       FieldTraitsBase::FromStreamConvertible), 
+      SFieldTraits, 
+      StreamConversionError<ValueT, iNamespace> >::type Converter;
     
     Converter::getFromStream(_fieldValue, str);
 }
@@ -145,12 +142,11 @@ void SField<ValueT, iNamespace>::pushValueFromStream(std::istream &str)
 template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueToStream  (OutStream &str) const
 {
-    typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        static_cast<bool>(SFieldTraits   ::Convertible &
-                          FieldTraitsBase::ToStreamConvertible)>, 
-        SFieldTraits, 
-        StreamConversionError<ValueT,
-                              iNamespace> >::type Converter;
+    typedef typename boost::mpl::if_c<
+      (SFieldTraits   ::Convertible &
+       FieldTraitsBase::ToStreamConvertible), 
+      SFieldTraits, 
+      StreamConversionError<ValueT, iNamespace> >::type Converter;
     
     Converter::putToStream(_fieldValue, str);
 }
