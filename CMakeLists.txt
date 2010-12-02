@@ -1066,7 +1066,8 @@ INSTALL(FILES "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin
         COMPONENT development_tools
-        PATTERN *.pyc EXCLUDE)
+        PATTERN "*.pyc" EXCLUDE
+        PATTERN ".svn"  EXCLUDE)
 
 ##################
 # Images/Icons
