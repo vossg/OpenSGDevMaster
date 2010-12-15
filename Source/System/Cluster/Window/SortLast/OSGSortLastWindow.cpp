@@ -555,6 +555,12 @@ void SortLastWindow::clientRender(RenderActionBase *action)
             for(p = 0; p < getMFPort()->size() ; ++p)
             {
                 Viewport *vp=getPort(p);
+
+                oEnv.setViewportDimension(vp->getPixelLeft  (),
+                                          vp->getPixelBottom(),
+                                          vp->getPixelRight (),
+                                          vp->getPixelTop   (),
+                                          vp->isFullWindow  ());
                 if(getComposer() != NULL)
                 {
                     getComposer()->startViewport(vp);
@@ -571,7 +577,7 @@ void SortLastWindow::clientRender(RenderActionBase *action)
                         if(dynamic_cast<StatisticsForeground *>(
                                vp->getForegrounds(i)) == NULL)
                         {
-                            vp->getForegrounds(i)->draw(&oEnv, vp);
+                            vp->getForegrounds(i)->draw(&oEnv);
                         }
                     }
 
@@ -582,7 +588,7 @@ void SortLastWindow::clientRender(RenderActionBase *action)
                         if(dynamic_cast<StatisticsForeground *>(
                                vp->getForegrounds(i)) != NULL)
                         {
-                            vp->getForegrounds(i)->draw(&oEnv, vp);
+                            vp->getForegrounds(i)->draw(&oEnv);
                         }
                     }
 
