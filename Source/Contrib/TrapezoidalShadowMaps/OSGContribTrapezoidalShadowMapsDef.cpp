@@ -50,8 +50,10 @@
 */
 static bool versionAdder(void)
 {
-    OSG::addLibraryVersion("OSGContribTrapezoidalShadowMaps: " OSG_VERSION_STRING 
-                           "\tRev: "                           SVN_REVISION );    
+    OSG::addLibraryVersion("OSGContribTrapezoidalShadowMaps", 
+                           OSG_VERSION_STRING, 
+                           SVN_REVISION);
+
     return true;
 }
 

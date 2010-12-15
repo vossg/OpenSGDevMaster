@@ -74,6 +74,14 @@ static std::vector<ExitFuncF>    *osgPostMPExitFunctions      = NULL;
 
 static std::vector<tstring  >    *osgPreloadSharedObject      = NULL;
 
+/*! Version string that is composed of each library's version 
+    contributions
+*/
+
+typedef std::map<std::string, 
+                 std::pair<std::string, std::string> > LibVersionMap;
+
+static LibVersionMap *osgLibraryVersions  = NULL;
 
 
 /*! \ingroup GrpBaseBaseInitExit
@@ -220,12 +228,6 @@ bool CompileConfig::compare(const CompileConfig &c)
 
     return false;
 }
-
-
-/*! Version string that is composed of each library's version 
-    contributions
-*/
-static std::vector<std::string>   *osgLibraryVersions = NULL;
 
 /*! \ingroup GrpBaseBaseInitExit
  */
@@ -443,20 +445,89 @@ void preloadSharedObject(const OSG::TChar *szName)
 
 
 
-
 /*! Add a string to the version output. 
     Mainly used by the libraries to publicise the svn revision they were
     built from.
-*/
-OSG_BASE_DLLMAPPING
-void addLibraryVersion(const OSG::Char8 *szName)
+ */
+
+void addLibraryVersion(const std::string &szName,
+                       const std::string &szVersion,
+                       const std::string &szRevision)
 {
     if(osgLibraryVersions == NULL)
-        osgLibraryVersions = new std::vector<std::string>;
+    {
+        osgLibraryVersions = new LibVersionMap();
+    }
 
-    osgLibraryVersions->push_back(szName);
+    LibVersionMap::const_iterator SearchIt = osgLibraryVersions->find(szName);
+
+    if(SearchIt != osgLibraryVersions->end())
+    {
+        SFATAL << "OpenSG Library by name "          << szName
+               << " cannot be added more than once." << std::endl;
+    }
+
+    (*osgLibraryVersions)[szName] = std::pair<std::string,
+                                              std::string>(szVersion,
+                                                           szRevision);
 }
 
+UInt32 getNumLibraries(void)
+{
+    return (osgLibraryVersions ? osgLibraryVersions->size() : 0);
+}
+
+std::string getLibraryName(UInt32 Index)
+{
+    if(osgLibraryVersions == NULL || Index > getNumLibraries())
+    {
+        return "";
+    }
+
+    LibVersionMap::const_iterator SearchIt = osgLibraryVersions->begin();
+
+    std::advance(SearchIt, Index);
+
+    return SearchIt->first;
+}
+
+std::string getLibraryVersion (const std::string &szName)
+{
+    if(osgLibraryVersions == NULL)
+    {
+        return "";
+    }
+
+    LibVersionMap::const_iterator SearchIt = osgLibraryVersions->find(szName);
+
+    if(SearchIt != osgLibraryVersions->end())
+    {
+        return SearchIt->second.first;
+    }
+    else
+    {
+        return "";
+    }
+}
+
+std::string getLibraryRevision(const std::string &szName)
+{
+    if(osgLibraryVersions == NULL)
+    {
+        return "";
+    }
+
+    LibVersionMap::const_iterator SearchIt = osgLibraryVersions->find(szName);
+
+    if(SearchIt != osgLibraryVersions->end())
+    {
+        return SearchIt->second.second;
+    }
+    else
+    {
+        return "";
+    }
+}
 
 /*! Shuts down the system and performs shutdown tasks registered with
     \c addPreFactoryExitFunction, \c addPostFactoryExitFunction and
@@ -734,11 +805,15 @@ bool osgDoInit(OSG::Int32,
 
     if(osgLibraryVersions != NULL)
     {
-        FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
-
-        for(UInt16 i = 0; i < osgLibraryVersions->size(); ++i)
+        FNOTICE(("osgInit:  Main Version                  : %s\n", OSG_VERSION_STRING));
+        for(LibVersionMap::const_iterator LibMapItor(osgLibraryVersions->begin());
+            LibMapItor != osgLibraryVersions->end();
+            ++LibMapItor)
         {
-            FNOTICE(("osgInit: %s\n", (*osgLibraryVersions)[i].c_str()));
+            FNOTICE(("osgInit:  %-30s: %-10s  Rev: %s\n",
+                     LibMapItor->first.c_str(),
+                     LibMapItor->second.first.c_str(),
+                     LibMapItor->second.second.c_str()));
         }
     }
     

@@ -50,8 +50,7 @@
 */
 static bool versionAdder(void)
 {
-    OSG::addLibraryVersion("OSGBase:             " OSG_VERSION_STRING 
-                           "\tRev: "               SVN_REVISION );    
+    OSG::addLibraryVersion("OSGBase", OSG_VERSION_STRING, SVN_REVISION);    
     return true;
 }
 

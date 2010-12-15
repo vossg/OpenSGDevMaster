@@ -50,7 +50,7 @@
 */
 static bool versionAdder(void)
 {
-    OSG::addLibraryVersion("OSGState", OSG_VERSION_STRING, SVN_REVISION);    
+    OSG::addLibraryVersion("OSGContribCgFX", OSG_VERSION_STRING, SVN_REVISION);
 
     return true;
 }

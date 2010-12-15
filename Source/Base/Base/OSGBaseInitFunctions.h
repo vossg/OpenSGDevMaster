@@ -45,6 +45,8 @@
 #include "OSGBaseTypes.h"
 
 #include <vector>
+#include <map>
+#include <string>
 #include <boost/function.hpp>
 
 OSG_BEGIN_NAMESPACE
@@ -147,10 +149,24 @@ void addPostMPExitFunction     (OSG::ExitFuncF exitFunc);
 /*! \{                                                                 */
 
 OSG_BASE_DLLMAPPING
-void preloadSharedObject       (const OSG::TChar *szName);
+void        preloadSharedObject(const OSG::TChar  *szName    );
 
 OSG_BASE_DLLMAPPING
-void addLibraryVersion         (const OSG::Char8 *szName);
+void        addLibraryVersion  (const std::string &szName,
+                                const std::string &szVersion,
+                                const std::string &szRevision);
+
+OSG_BASE_DLLMAPPING
+UInt32      getNumLibraries    (      void                   );
+
+OSG_BASE_DLLMAPPING
+std::string getLibraryName     (      UInt32       Index     );
+
+OSG_BASE_DLLMAPPING
+std::string getLibraryVersion  (const std::string &szName    );
+
+OSG_BASE_DLLMAPPING
+std::string getLibraryRevision (const std::string &szName    );
 
 #ifdef _DEBUG  
 # define OSG_INIT_DEBUG true
