@@ -176,19 +176,19 @@ class FCDProcess:
                 self.m_filePrefix + fieldContainer["Classname"] +
                 "Fields" + self.m_decFileSuffix);
             
-            self.m_log.info("filling template for file: %s", impBaseName);
+            self.m_log.info("filling '%s' template for file: %s", nameBaseCPP, impBaseName);
             outLines = TemplateFiller(tmplBaseCPP).fill(lookupDicts);
             TemplateWriter(impBaseName, outLines).write();
             
-            self.m_log.info("filling template for file: %s", inlBaseName);
+            self.m_log.info("filling '%s' template for file: %s", nameBaseINL, inlBaseName);
             outLines = TemplateFiller(tmplBaseINL).fill(lookupDicts);
             TemplateWriter(inlBaseName, outLines).write();
             
-            self.m_log.info("filling template for file: %s", decBaseName);
+            self.m_log.info("filling '%s' template for file: %s", nameBaseH, decBaseName);
             outLines = TemplateFiller(tmplBaseH).fill(lookupDicts);
             TemplateWriter(decBaseName, outLines).write();
             
-            self.m_log.info("filling template for file: %s", fieldsBaseName);
+            self.m_log.info("filling '%s' template for file: %s", nameFieldsH, fieldsBaseName);
             outLines = TemplateFiller(tmplFieldsH).fill(lookupDicts);
             TemplateWriter(fieldsBaseName, outLines).write();
             
