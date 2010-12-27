@@ -116,8 +116,6 @@ AnimKeyFrameTemplate::instantiate(Node *rootNode)
     anim->setTimeSensor(ts  );
     anim->setTemplate  (this);
     
-    dump();
-
     AnimBindAction *bindAct = AnimBindAction::create();
 
     bindAct->setTemplate(this);
