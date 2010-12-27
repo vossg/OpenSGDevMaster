@@ -152,10 +152,10 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
         VES_POSITION            = 1,
         VES_BLEND_WEIGHTS       = 2,
         VES_BLEND_INDICES       = 3,
-		VES_NORMAL              = 4,
-		VES_DIFFUSE             = 5,
-		VES_SPECULAR            = 6,
-		VES_TEXTURE_COORDINATES = 7,
+        VES_NORMAL              = 4,
+        VES_DIFFUSE             = 5,
+        VES_SPECULAR            = 6,
+        VES_TEXTURE_COORDINATES = 7,
         VES_BINORMAL            = 8,
         VES_TANGENT             = 9
     };
@@ -191,6 +191,7 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
         VertexElementStore          vertexElements;
         SubMeshOperation            meshOp;
         std::string                 name;
+        std::string                 matName;
 
         GeoIntegralPropertyUnrecPtr propIdx;
 
@@ -198,8 +199,9 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
         NodeUnrecPtr                meshN;
     };
 
-    typedef std::vector<SubMeshInfo>           SubMeshStore;
+    typedef std::vector<SubMeshInfo>                SubMeshStore;
 
+    typedef std::map<std::string, MaterialUnrecPtr> MaterialMap;
 
     std::string getVertexElementTypeString    (VertexElementType     veType    );
     std::string getVertexElementSemanticString(VertexElementSemantic veSemantic);
@@ -210,7 +212,7 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     void readSubMesh                  (SubMeshStore       &subMeshInfo,
                                        VertexElementStore &sharedVertexElements,
                                        bool                skelAnim             );
-                                       
+
     void readSubMeshOperation         (SubMeshOperation   &meshOp        );
     void readSubMeshBoneAssignment    (VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
@@ -247,8 +249,11 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
 
     void constructSubMesh             (SubMeshInfo        &smInfo,
                                        VertexElementStore &vertexElements );
+    void constructMaterial            (SubMeshInfo        &smInfo         );
 
     static const std::string _versionString;
+
+    MaterialMap      _matMap;
 
     NodeUnrecPtr     _rootN;
     SkeletonUnrecPtr _skel;

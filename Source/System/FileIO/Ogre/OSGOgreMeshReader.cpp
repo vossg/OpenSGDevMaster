@@ -44,8 +44,8 @@
 #include "OSGNameAttachment.h"
 #include "OSGNode.h"
 #include "OSGOgreSkeletonReader.h"
-#include "OSGPrimeMaterial.h"
 #include "OSGSceneFileHandler.h"
+#include "OSGSimpleMaterial.h"
 #include "OSGSkinnedGeometry.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
@@ -272,7 +272,7 @@ OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
     subMeshInfo.push_back((SubMeshInfo()));
     SubMeshInfo &smInfo = subMeshInfo.back();
 
-    std::string matName  = readString(_is);
+    smInfo.matName       = readString(_is);
     smInfo.sharedVertex  = readBool  (_is);
     UInt32      idxCount = readUInt32(_is);
     bool        idx32Bit = readBool  (_is);
@@ -425,10 +425,6 @@ OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
     {
         if((*boneIdxF)[vertIdx][i] < 0.f)
         {
-            // OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment: bone '%u'"
-            //               " vertex '%u' weight '%f' - '%u' bones for vertex\n",
-            //               boneIdx, vertIdx, boneWeight, i+1));
-
             (*boneIdxF   )[vertIdx][i] = boneIdx;
             (*boneWeightF)[vertIdx][i] = boneWeight;
 
@@ -1123,7 +1119,7 @@ OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
     smInfo.mesh->setTypes  (types);
     smInfo.mesh->setLengths(lengths);
 
-    smInfo.mesh->setMaterial(getDefaultMaterial());
+    constructMaterial(smInfo);
 
     if(smInfo.skelAnim == true && _skel != NULL)
     {
@@ -1139,5 +1135,34 @@ OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
     _rootN->addChild(smInfo.meshN);
 }
 
+void
+OgreMeshReader::constructMaterial(SubMeshInfo &smInfo)
+{
+    OSG_OGRE_LOG(("OgreMeshReader::constructMaterial\n"));
+
+    MaterialMap::const_iterator  mmIt = _matMap.find(smInfo.matName);
+    Material                    *mat  = NULL;
+
+    if(mmIt != _matMap.end())
+    {
+        mat = (*mmIt).second;
+    }
+    else
+    {
+        SimpleMaterialUnrecPtr newMat = SimpleMaterial::create();
+        newMat->setDiffuse  (Color3r(0.7f, 0.7f, 0.5f));
+        newMat->setAmbient  (Color3r(0.1f, 0.1f, 0.1f));
+        newMat->setSpecular (Color3r(0.3f, 0.3f, 0.3f));
+        newMat->setShininess(20.f);
+
+        setName(newMat, smInfo.matName);
+
+        _matMap.insert(MaterialMap::value_type(smInfo.matName, newMat));
+
+        mat = newMat;
+    }
+
+    smInfo.mesh->setMaterial(mat);
+}
 
 OSG_END_NAMESPACE
