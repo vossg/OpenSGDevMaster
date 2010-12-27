@@ -58,7 +58,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-const Int16 BaseSkeletonJoint::INVALID_JOINT_ID;
+const Int16 BaseSkeletonJoint::INVALID_JOINT_ID = -1;
 
 /***************************************************************************\
  *                           Class methods                                 *

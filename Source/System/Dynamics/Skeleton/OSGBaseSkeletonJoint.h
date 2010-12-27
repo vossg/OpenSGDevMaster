@@ -65,7 +65,7 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
     typedef BaseSkeletonJointBase Inherited;
     typedef BaseSkeletonJoint     Self;
 
-    static const Int16 INVALID_JOINT_ID = -1;
+    static const Int16 INVALID_JOINT_ID;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
