@@ -67,8 +67,6 @@ OgreChunkReader::readChunkHeader(std::istream& is)
 void
 OgreChunkReader::skip(std::istream& is, Int32 offset)
 {
-    OSG_OGRE_LOG(("OgreChunkReader::skip: '%d' bytes\n", offset));
-
     is.seekg(offset, std::ios_base::cur);
 }
 

@@ -264,8 +264,8 @@ OgreSkeletonReader::readAnimation(JointNodeStore &joints)
             break;
 
         default:
-            OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: Unknown chunkId '0x%x'\n",
-                          _header.chunkId));
+            // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: Unknown chunkId '0x%x'\n",
+            //               _header.chunkId));
             stop = true;
             break;
         }
@@ -289,8 +289,11 @@ OgreSkeletonReader::readAnimationTrack(JointNodeStore &joints,
 {
     UInt16 boneId = readUInt16(_is);
 
-    OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrack: boneId '%u'\n",
-                  boneId));
+    std::string boneName;
+    getTargetId(joints[boneId]->getCore(), boneName);
+
+    // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrack: boneId '%u' boneName '%s'\n",
+    //               boneId, boneName.c_str()));
 
     AnimVec3fDataSourceUnrecPtr      translateSrc = AnimVec3fDataSource     ::create();
     AnimVec3fDataSourceUnrecPtr      scaleSrc     = AnimVec3fDataSource     ::create();
@@ -313,8 +316,8 @@ OgreSkeletonReader::readAnimationTrack(JointNodeStore &joints,
             break;
 
         default:
-            OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrack: Unknown chunkId '0x%x'\n",
-                          _header.chunkId));
+            // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrack: Unknown chunkId '0x%x'\n",
+            //               _header.chunkId));
             stop = true;
             break;
         }
@@ -326,17 +329,23 @@ OgreSkeletonReader::readAnimationTrack(JointNodeStore &joints,
         }
     }
 
-    std::string boneName;
-    getTargetId(joints[boneId]->getCore(), boneName);
+    if(translateSrc->getMFInValues()->empty() == false)
+    {
+        animTmpl->editMFSources  ()->push_back(translateSrc);
+        animTmpl->editMFTargetIds()->push_back(boneName + ".offsetTranslate");
+    }
 
-    animTmpl->editMFSources  ()->push_back(translateSrc);
-    animTmpl->editMFTargetIds()->push_back(boneName + ".offsetTranslate");
+    if(scaleSrc->getMFInValues()->empty() == false)
+    {
+        animTmpl->editMFSources  ()->push_back(scaleSrc);
+        animTmpl->editMFTargetIds()->push_back(boneName + ".offsetScale");
+    }
 
-    // animTmpl->editMFSources  ()->push_back(scaleSrc);
-    // animTmpl->editMFTargetIds()->push_back(boneName + ".offsetScale");
-
-    animTmpl->editMFSources  ()->push_back(rotateSrc);
-    animTmpl->editMFTargetIds()->push_back(boneName + ".offsetRotate");
+    if(rotateSrc->getMFInValues()->empty() == false)
+    {
+        animTmpl->editMFSources  ()->push_back(rotateSrc);
+        animTmpl->editMFTargetIds()->push_back(boneName + ".offsetRotate");
+    }
 }
 
 void
@@ -348,6 +357,7 @@ OgreSkeletonReader::readAnimationTrackKeyFrame(AnimVec3fDataSource      *transla
     Vec3f       translate;
     Quaternion  rotate;
     Vec3f       scale(1.f, 1.f, 1.f);
+    bool        hasScale = false;
 
     rotate[0]    = readReal32(_is);
     rotate[1]    = readReal32(_is);
@@ -361,6 +371,8 @@ OgreSkeletonReader::readAnimationTrackKeyFrame(AnimVec3fDataSource      *transla
 
     if(_header.chunkSize > _keyFrameLengthNoScale)
     {
+        hasScale = true;
+
         scale[0] = readReal32(_is);
         scale[1] = readReal32(_is);
         scale[2] = readReal32(_is);
@@ -370,18 +382,21 @@ OgreSkeletonReader::readAnimationTrackKeyFrame(AnimVec3fDataSource      *transla
     Real32 angle;
     rotate.getValueAsAxisDeg(axis, angle);
 
-    OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrackKeyFrame: "
-                  "time '%f' rotate '(%f %f %f %f)' translate '(%f %f %f)' "
-                  "scale '(%f %f %f)'\n",
-                  time, axis[0], axis[1], axis[2], angle,
-                  translate[0], translate[1], translate[2],
-                  scale[0], scale[1], scale[2]));
+    // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrackKeyFrame: "
+    //               "time '%f' rotate '(%f %f %f %f)' translate '(%f %f %f)' "
+    //               "scale '(%f %f %f)'\n",
+    //               time, axis[0], axis[1], axis[2], angle,
+    //               translate[0], translate[1], translate[2],
+    //               scale[0], scale[1], scale[2]));
 
     translateSrc->editMFInValues()->push_back(time);
     translateSrc->editMFValues  ()->push_back(translate);
 
-    scaleSrc    ->editMFInValues()->push_back(time);
-    scaleSrc    ->editMFValues  ()->push_back(scale);
+    if(hasScale == true)
+    {
+        scaleSrc    ->editMFInValues()->push_back(time);
+        scaleSrc    ->editMFValues  ()->push_back(scale);
+    }
 
     rotateSrc   ->editMFInValues()->push_back(time);
     rotateSrc   ->editMFValues  ()->push_back(rotate);

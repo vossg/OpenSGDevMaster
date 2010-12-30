@@ -279,7 +279,7 @@ OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
 
     OSG_OGRE_LOG(("OgreMeshReader::readSubMesh: matName '%s' sharedVert '%d' "
                   "idxCount '%d' idx32Bit '%d'\n",
-                  matName.c_str(), smInfo.sharedVertex, idxCount, idx32Bit));
+                  smInfo.matName.c_str(), smInfo.sharedVertex, idxCount, idx32Bit));
 
     smInfo.skelAnim = skelAnim;
     smInfo.meshOp   = SMO_TRIANGLE_LIST;
@@ -320,11 +320,11 @@ OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
             break;
 
         case CHUNK_SUBMESH_OPERATION:
-            readSubMeshOperation(smInfo.meshOp);
+            readSubMeshOperation(smInfo);
             break;
 
         case CHUNK_SUBMESH_BONE_ASSIGNMENT:
-            readSubMeshBoneAssignment(smInfo.vertexElements, boneIdxVE, boneWeightVE);
+            readSubMeshBoneAssignment(smInfo, boneIdxVE, boneWeightVE);
             break;
 
         case CHUNK_SUBMESH_TEXTURE_ALIAS:
@@ -347,98 +347,22 @@ OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
 }
 
 void
-OgreMeshReader::readSubMeshOperation(SubMeshOperation &meshOp)
+OgreMeshReader::readSubMeshOperation(SubMeshInfo &smInfo)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshOperation\n"));
 
-    meshOp = static_cast<SubMeshOperation>(readUInt16(_is));
+    smInfo.meshOp = static_cast<SubMeshOperation>(readUInt16(_is));
 
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshOperation: opType '%s'\n",
-                  getSubMeshOperationString(meshOp).c_str()));
+                  getSubMeshOperationString(smInfo.meshOp).c_str()));
 }
 
 void
-OgreMeshReader::readSubMeshBoneAssignment(VertexElementStore &vertexElements,
-                                          Int16              &boneIdxVE,
-                                          Int16              &boneWeightVE   )
+OgreMeshReader::readSubMeshBoneAssignment(SubMeshInfo &smInfo,
+                                          Int16       &boneIdxVE,
+                                          Int16       &boneWeightVE   )
 {
-    // OSG_OGRE_LOG(("OgreMeshReader::readSubMeshBoneAssignment\n"));
-
-    UInt32 vertIdx    = readUInt32(_is);
-    UInt16 boneIdx    = readUInt16(_is);
-    Real32 boneWeight = readReal32(_is);
-
-    GeoVec4fPropertyUnrecPtr boneIdxProp;
-    GeoVec4fPropertyUnrecPtr boneWeightProp;
-
-    if(boneIdxVE < 0)
-    {
-        boneIdxProp = GeoVec4fProperty::create();
-
-        VertexElement vElem;
-
-        vElem.bufferIdx = 0;
-        vElem.type      = VET_FLOAT4;
-        vElem.semantic  = VES_BLEND_INDICES;
-        vElem.offset    = 0;
-        vElem.index     = 0;
-        vElem.prop      = boneIdxProp;
-
-        boneIdxVE       = vertexElements.size();
-
-        vertexElements.push_back(vElem);
-    }
-
-    if(boneWeightVE < 0)
-    {
-        boneWeightProp = GeoVec4fProperty::create();
-
-        VertexElement vElem;
-
-        vElem.bufferIdx = 0;
-        vElem.type      = VET_FLOAT4;
-        vElem.semantic  = VES_BLEND_WEIGHTS;
-        vElem.offset    = 0;
-        vElem.index     = 0;
-        vElem.prop      = boneWeightProp;
-
-        boneWeightVE    = vertexElements.size();
-
-        vertexElements.push_back(vElem);
-    }
-
-    boneIdxProp    = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneIdxVE   ].prop);
-    boneWeightProp = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneWeightVE].prop);
-
-    GeoVec4fProperty::StoredFieldType* boneIdxF    = boneIdxProp   ->editFieldPtr();
-    GeoVec4fProperty::StoredFieldType* boneWeightF = boneWeightProp->editFieldPtr();
-
-    if(vertIdx >= boneIdxF->size())
-        boneIdxF->resize(vertIdx + 1, Vec4f(-1.f, -1.f, -1.f, -1.f));
-
-    if(vertIdx >= boneWeightF->size())
-        boneWeightF->resize(vertIdx + 1, Vec4f(0.f, 0.f, 0.f, 0.f));
-
-    bool found = false;
-
-    for(UInt16 i = 0; i < 4; ++i)
-    {
-        if((*boneIdxF)[vertIdx][i] < 0.f)
-        {
-            (*boneIdxF   )[vertIdx][i] = boneIdx;
-            (*boneWeightF)[vertIdx][i] = boneWeight;
-
-            found = true;
-            break;
-        }
-    }
-
-    if(found == false)
-    {
-        SWARNING << "OgreMeshReader::readSubMeshBoneAssignment: "
-                 << "vertex '" << vertIdx << "' influenced by more than 4 "
-                 << "bones." << std::endl;
-    }
+    readBoneAssignment(smInfo.vertexElements, boneIdxVE, boneWeightVE);
 }
 
 void
@@ -784,9 +708,7 @@ OgreMeshReader::readMeshBoneAssignment(VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   )
 {
-    // OSG_OGRE_LOG(("OgreMeshReader::readMeshBoneAssignment\n"));
-
-    readSubMeshBoneAssignment(vertexElements, boneIdxVE, boneWeightVE);
+    readBoneAssignment(vertexElements, boneIdxVE, boneWeightVE);
 }
 
 void
@@ -962,7 +884,8 @@ OgreMeshReader::readSubMeshNameTableElement(SubMeshStore &subMeshInfo)
     std::string meshName = readString(_is);
 
     OSG_OGRE_LOG(("OgreMeshReader::readSubMeshNameTableElement: "
-                  "meshIdx '%d' meshName '%s'\n", meshIdx, meshName.c_str()));
+                  "meshIdx '%d' meshName '%s' matName '%s'\n",
+                  meshIdx, meshName.c_str(), subMeshInfo[meshIdx].matName.c_str()));
 
     if(meshIdx < subMeshInfo.size())
     {
@@ -1012,6 +935,90 @@ OgreMeshReader::readTableExtremes(void)
 
     SWARNING << "OgreMeshReader::readTableExtremes CHUNK_TABLE_EXTREMES NIY"
              << std::endl;
+}
+
+void
+OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
+                                   Int16              &boneIdxVE,
+                                   Int16              &boneWeightVE   )
+{
+    // OSG_OGRE_LOG(("OgreMeshReader::readBoneAssignment\n");
+
+    UInt32 vertIdx    = readUInt32(_is);
+    UInt16 boneIdx    = readUInt16(_is);
+    Real32 boneWeight = readReal32(_is);
+
+    GeoVec4fPropertyUnrecPtr boneIdxProp;
+    GeoVec4fPropertyUnrecPtr boneWeightProp;
+
+    if(boneIdxVE < 0)
+    {
+        boneIdxProp = GeoVec4fProperty::create();
+
+        VertexElement vElem;
+
+        vElem.bufferIdx = 0;
+        vElem.type      = VET_FLOAT4;
+        vElem.semantic  = VES_BLEND_INDICES;
+        vElem.offset    = 0;
+        vElem.index     = 0;
+        vElem.prop      = boneIdxProp;
+
+        boneIdxVE       = vertexElements.size();
+
+        vertexElements.push_back(vElem);
+    }
+
+    if(boneWeightVE < 0)
+    {
+        boneWeightProp = GeoVec4fProperty::create();
+
+        VertexElement vElem;
+
+        vElem.bufferIdx = 0;
+        vElem.type      = VET_FLOAT4;
+        vElem.semantic  = VES_BLEND_WEIGHTS;
+        vElem.offset    = 0;
+        vElem.index     = 0;
+        vElem.prop      = boneWeightProp;
+
+        boneWeightVE    = vertexElements.size();
+
+        vertexElements.push_back(vElem);
+    }
+
+    boneIdxProp    = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneIdxVE   ].prop);
+    boneWeightProp = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneWeightVE].prop);
+
+    GeoVec4fProperty::StoredFieldType* boneIdxF    = boneIdxProp   ->editFieldPtr();
+    GeoVec4fProperty::StoredFieldType* boneWeightF = boneWeightProp->editFieldPtr();
+
+    if(vertIdx >= boneIdxF->size())
+        boneIdxF->resize(vertIdx + 1, Vec4f(-1.f, -1.f, -1.f, -1.f));
+
+    if(vertIdx >= boneWeightF->size())
+        boneWeightF->resize(vertIdx + 1, Vec4f(0.f, 0.f, 0.f, 0.f));
+
+    bool found = false;
+
+    for(UInt16 i = 0; i < 4; ++i)
+    {
+        if((*boneIdxF)[vertIdx][i] < 0.f)
+        {
+            (*boneIdxF   )[vertIdx][i] = boneIdx;
+            (*boneWeightF)[vertIdx][i] = boneWeight;
+
+            found = true;
+            break;
+        }
+    }
+
+    if(found == false)
+    {
+        SWARNING << "OgreMeshReader::readBoneAssignment: "
+                 << "vertex '" << vertIdx << "' influenced by more than 4 "
+                 << "bones." << std::endl;
+    }
 }
 
 void

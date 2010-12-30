@@ -213,8 +213,8 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
                                        VertexElementStore &sharedVertexElements,
                                        bool                skelAnim             );
 
-    void readSubMeshOperation         (SubMeshOperation   &meshOp        );
-    void readSubMeshBoneAssignment    (VertexElementStore &vertexElements,
+    void readSubMeshOperation         (SubMeshInfo        &smInfo         );
+    void readSubMeshBoneAssignment    (SubMeshInfo        &smInfo,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   );
     void readSubMeshTextureAlias      (void);
@@ -246,6 +246,10 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     void readPoses                    (void);
     void readAnimations               (void);
     void readTableExtremes            (void);
+
+    void readBoneAssignment           (VertexElementStore &vertexElements,
+                                       Int16              &boneIdxVE,
+                                       Int16              &boneWeightVE   );
 
     void constructSubMesh             (SubMeshInfo        &smInfo,
                                        VertexElementStore &vertexElements );
