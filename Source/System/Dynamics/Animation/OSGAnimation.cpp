@@ -192,8 +192,17 @@ void Animation::reset(void)
     AnimTimeSensor *ts = _sfTimeSensor.getValue();
 
     ts->setStartTime(ts->getTime());
-    ts->setAnimTime (0.f          );
-    ts->setFraction (0.f          );
+
+    if(ts->getForward() == true)
+    {
+        ts->setAnimTime(0.f);
+        ts->setFraction(0.f);
+    }
+    else
+    {
+        ts->setAnimTime(getLength());
+        ts->setFraction(1.f        );
+    }
 }
 
 /*! Stop playing the animation.
