@@ -65,10 +65,14 @@
 #    define OSG_PNG_ARG(ARG) ARG
 #endif
 
-OSG_USING_NAMESPACE
+static const OSG::Char8 *suffixArray[] =
+{
+    "png"
+};
 
-/*! \class OSG::PNGImageFileType 
-    \ingroup GrpSystemImage
+OSG_BEGIN_NAMESPACE
+
+/*! \class PNGImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   PNG data.
@@ -81,12 +85,6 @@ OSG_USING_NAMESPACE
   the singleton object.
   
 */
-
-static const Char8 *suffixArray[] =
-{
-    "png"
-};
-
 
 #ifdef OSG_WITH_PNG
 
@@ -993,3 +991,6 @@ PNGImageFileType::PNGImageFileType(const Char8  *mimeType,
 PNGImageFileType::~PNGImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE
+

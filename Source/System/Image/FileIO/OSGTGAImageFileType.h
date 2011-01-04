@@ -49,8 +49,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief TGA File Handler. Used to read/write TGA files.
-  See \ref PageSystemImage for a detailed description.
-*/
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOTGA
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING TGAImageFileType : public ImageFileType
 {
@@ -104,6 +107,9 @@ class OSG_IMGFILEIO_DLLMAPPING TGAImageFileType : public ImageFileType
   private:
 
     // header struct
+
+    /*! \nohierarchy
+     */
 
     struct TGAHeader
     {

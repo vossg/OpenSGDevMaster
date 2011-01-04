@@ -68,7 +68,7 @@ class CameraDecorator;
 
 OSG_GEN_CONTAINERPTR(CameraDecorator);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
                       RecordedRefCountPolicy  > SFRecCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
                       WeakRefCountPolicy      > SFWeakCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
                       NoRefCountPolicy        > SFUncountedCameraDecoratorPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
                       RecordedRefCountPolicy  > MFRecCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
                       WeakRefCountPolicy      > MFWeakCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
                       NoRefCountPolicy        > MFUncountedCameraDecoratorPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<CameraDecorator *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecCameraDecoratorPtr : 
     public PointerSField<CameraDecorator *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecCameraDecoratorPtr : 
     public PointerSField<CameraDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakCameraDecoratorPtr :
     public PointerSField<CameraDecorator *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedCameraDecoratorPtr :
     public PointerSField<CameraDecorator *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecCameraDecoratorPtr :
     public PointerMField<CameraDecorator *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecCameraDecoratorPtr :
     public PointerMField<CameraDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakCameraDecoratorPtr :
     public PointerMField<CameraDecorator *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedCameraDecoratorPtr :
     public PointerMField<CameraDecorator *,
                          NoRefCountPolicy        > {};

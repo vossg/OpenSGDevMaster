@@ -47,8 +47,12 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief PrimeMaterial class. See \ref
-           PageSystemPrimeMaterial for a description.
-*/
+    PageSystemPrimeMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING PrimeMaterial : public PrimeMaterialBase
 {

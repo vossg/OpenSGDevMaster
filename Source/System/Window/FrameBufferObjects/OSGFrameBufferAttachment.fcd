@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="FrameBufferAttachment"
-	parent="AttachmentContainer"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
+   name="FrameBufferAttachment"
+   parent="AttachmentContainer"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemWindowFBO"
 >
 FramebufferAttachment base class.
 	<Field

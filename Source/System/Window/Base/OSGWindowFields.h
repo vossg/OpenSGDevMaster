@@ -68,7 +68,7 @@ class Window;
 
 OSG_GEN_CONTAINERPTR(Window);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Window *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Window *,
                       RecordedRefCountPolicy  > SFRecWindowPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Window *,
                       UnrecordedRefCountPolicy> SFUnrecWindowPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Window *,
                       WeakRefCountPolicy      > SFWeakWindowPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Window *,
                       NoRefCountPolicy        > SFUncountedWindowPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Window *,
                       RecordedRefCountPolicy  > MFRecWindowPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Window *,
                       UnrecordedRefCountPolicy> MFUnrecWindowPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Window *,
                       WeakRefCountPolicy      > MFWeakWindowPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Window *,
                       NoRefCountPolicy        > MFUncountedWindowPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Window *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecWindowPtr : 
     public PointerSField<Window *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecWindowPtr : 
     public PointerSField<Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakWindowPtr :
     public PointerSField<Window *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedWindowPtr :
     public PointerSField<Window *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecWindowPtr :
     public PointerMField<Window *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecWindowPtr :
     public PointerMField<Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakWindowPtr :
     public PointerMField<Window *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedWindowPtr :
     public PointerMField<Window *,
                          NoRefCountPolicy        > {};

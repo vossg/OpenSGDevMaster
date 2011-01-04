@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for lights. See \ref PageSystemLightChunk 
            for a description.
-    \ingroup GrpSystemStateBase
+    \ingroup GrpSystemStateBaseChunks
     \ingroup GrpLibOSGSystem
     \includebasedoc
  */

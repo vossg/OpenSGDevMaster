@@ -50,6 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief SGI File Handler. Used to read/write SGI files.
     See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOSGI
+    \ingroup GrpLibOSGImageFileIO
  */
 
 class OSG_IMGFILEIO_DLLMAPPING SGIImageFileType : public ImageFileType

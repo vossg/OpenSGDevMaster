@@ -197,14 +197,14 @@ using namespace OSG;
     \ingroup GrpBase
  */
 
-/*! \defgroup GrpBaseHardwareContextFieldTraits Hardware Context Field Traits
+/*! \defgroup GrpBaseHardwareContextFieldTraits Field Traits
     \ingroup GrpBaseHardwareContext
  */
 
-/*! \defgroup GrpBaseHardwareContextFieldSFields Hardware Context Single-Fields
+/*! \defgroup GrpBaseHardwareContextFieldSFields Single-Fields
     \ingroup GrpBaseHardwareContext
  */
-/*! \defgroup GrpBaseHardwareContextFieldMFields Hardware Context Multi-Fields
+/*! \defgroup GrpBaseHardwareContextFieldMFields Multi-Fields
     \ingroup GrpBaseHardwareContext
  */
 
@@ -278,8 +278,6 @@ communication. This objects are mainly used by OpenSG-Cluster support
 
 /*! \defgroup GrpBaseField Fields
     \ingroup GrpBase
-    
-    See \ref PageBaseField for details.
 */
 
 #if (OSG_DOC_LEVEL >= 3)
@@ -314,54 +312,54 @@ communication. This objects are mainly used by OpenSG-Cluster support
     \ingroup GrpBase
  */
 
-/*! \defgroup GrpBaseFieldContainerBase Field Container Base
+/*! \defgroup GrpBaseFieldContainerBase Base
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerFields Field Container Fields
+/*! \defgroup GrpBaseFieldContainerFields Fields
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerFieldTraits Field Container Field Traits
+/*! \defgroup GrpBaseFieldContainerFieldTraits Field Traits
     \ingroup GrpBaseFieldContainerFields
  */
 
-/*! \defgroup GrpBaseFieldContainerFieldSFields Field Container Single-Fields
+/*! \defgroup GrpBaseFieldContainerFieldSFields Single-Fields
     \ingroup GrpBaseFieldContainerFields
  */
-/*! \defgroup GrpBaseFieldContainerFieldMFields Field Container Multi-Fields
+/*! \defgroup GrpBaseFieldContainerFieldMFields Multi-Fields
     \ingroup GrpBaseFieldContainerFields
  */
 
-/*! \defgroup GrpBaseFieldContainerConnector Field Container Connector
+/*! \defgroup GrpBaseFieldContainerConnector Connector
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerNodes Field Container Node Base
+/*! \defgroup GrpBaseFieldContainerNodes Node Base
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerAttachments Field Container Attachments
+/*! \defgroup GrpBaseFieldContainerAttachments Attachments
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerMixins Field Container Mixins
+/*! \defgroup GrpBaseFieldContainerMixins Mixins
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerHandle Field Container Field Handle
+/*! \defgroup GrpBaseFieldContainerHandle Field Handle
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerHelper Field Container Helper
+/*! \defgroup GrpBaseFieldContainerHelper Helper
     \ingroup GrpBaseFieldContainer
  */
 
-/*! \defgroup GrpBaseFieldContainerHelperPools Field Container Pools
+/*! \defgroup GrpBaseFieldContainerHelperPools Pools
     \ingroup GrpBaseFieldContainerHelper
  */
 
-/*! \defgroup GrpBaseFieldContainerFuncs Field Container Functions
+/*! \defgroup GrpBaseFieldContainerFuncs Functions
     \ingroup GrpBaseFieldContainer
  */
 
@@ -371,22 +369,22 @@ communication. This objects are mainly used by OpenSG-Cluster support
     \ingroup GrpBase
  */
 
-/*! \defgroup GrpBaseMemoryObjectsBase Memory Objects Base
+/*! \defgroup GrpBaseMemoryObjectsBase Base
     \ingroup GrpBaseMemoryObjects
  */
 
-/*! \defgroup GrpBaseMemoryObjectsFields Memory Objects Fields
+/*! \defgroup GrpBaseMemoryObjectsFields Fields
     \ingroup GrpBaseMemoryObjects
  */
 
-/*! \defgroup GrpBaseMemoryObjectsFieldTraits Memory Objects Field Traits
+/*! \defgroup GrpBaseMemoryObjectsFieldTraits Field Traits
     \ingroup GrpBaseMemoryObjectsFields
  */
 
-/*! \defgroup GrpBaseMemoryObjectsFieldSFields Memory Objects Single-Fields
+/*! \defgroup GrpBaseMemoryObjectsFieldSFields Single-Fields
     \ingroup GrpBaseMemoryObjectsFields
  */
-/*! \defgroup GrpBaseMemoryObjectsFieldMFields Memory Objects Multi-Fields
+/*! \defgroup GrpBaseMemoryObjectsFieldMFields Multi-Fields
     \ingroup GrpBaseMemoryObjectsFields
  */
 

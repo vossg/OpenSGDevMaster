@@ -55,8 +55,9 @@ OSG_BEGIN_NAMESPACE
 
 class SceneFileHandlerBase;
 
-/*!\ingroup GrpSystemDrawablesGeometrymetryLoaderLib
- * \brief OSGSceneFileType
+/*! \brief OSGSceneFileType
+    \ingroup GrpSystemFileIOBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase

@@ -1,0 +1,18 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageSystemWindow System Window
+
+    \section PageSystemWindowWindow
+    \section PageSystemWindowBackground
+    \section PageSystemWindowCamera
+    \section PageSystemWindowViewports
+    \section PageSystemWindowCameraDecorators
+    \section PageSystemWindowForegrounds
+    \section PageSystemWindowWindow
+    \section PageSystemWindowCameraMatrix
+    \section PageSystemWindowCameraPerspective
+    \section PageSystemWindowRenderOptions
+    \section PageSystemWindowCameraDecoratorsStereo
+ */

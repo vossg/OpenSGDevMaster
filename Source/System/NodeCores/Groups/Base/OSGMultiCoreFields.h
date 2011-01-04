@@ -68,7 +68,7 @@ class MultiCore;
 
 OSG_GEN_CONTAINERPTR(MultiCore);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<MultiCore *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<MultiCore *,
                       RecordedRefCountPolicy  > SFRecMultiCorePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<MultiCore *,
                       UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<MultiCore *,
                       WeakRefCountPolicy      > SFWeakMultiCorePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<MultiCore *,
                       NoRefCountPolicy        > SFUncountedMultiCorePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<MultiCore *,
                       RecordedRefCountPolicy  > MFRecMultiCorePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<MultiCore *,
                       UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<MultiCore *,
                       WeakRefCountPolicy      > MFWeakMultiCorePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<MultiCore *,
                       NoRefCountPolicy        > MFUncountedMultiCorePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<MultiCore *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecMultiCorePtr : 
     public PointerSField<MultiCore *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecMultiCorePtr : 
     public PointerSField<MultiCore *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakMultiCorePtr :
     public PointerSField<MultiCore *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedMultiCorePtr :
     public PointerSField<MultiCore *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecMultiCorePtr :
     public PointerMField<MultiCore *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecMultiCorePtr :
     public PointerMField<MultiCore *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakMultiCorePtr :
     public PointerMField<MultiCore *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedMultiCorePtr :
     public PointerMField<MultiCore *,
                          NoRefCountPolicy        > {};

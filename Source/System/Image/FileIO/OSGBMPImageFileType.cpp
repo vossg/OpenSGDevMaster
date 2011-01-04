@@ -49,8 +49,9 @@
 
 #include <iostream>
 
-/*! \class OSG::BMPImageFileType
-    \ingroup GrpSystemImage
+OSG_BEGIN_NAMESPACE
+
+/*! \class BMPImageFileType
 
 Image File Type to read/write and store/restore Image objects as
 BMP data.
@@ -61,7 +62,6 @@ not depend on external libs.
 @author Patrick D&auml;hne
 */
 
-OSG_BEGIN_NAMESPACE
 
 namespace
 {

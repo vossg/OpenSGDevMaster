@@ -68,7 +68,7 @@ class LightEnv;
 
 OSG_GEN_CONTAINERPTR(LightEnv);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>

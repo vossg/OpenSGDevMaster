@@ -68,7 +68,7 @@ class Foreground;
 
 OSG_GEN_CONTAINERPTR(Foreground);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Foreground *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Foreground *,
                       RecordedRefCountPolicy  > SFRecForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Foreground *,
                       UnrecordedRefCountPolicy> SFUnrecForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Foreground *,
                       WeakRefCountPolicy      > SFWeakForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Foreground *,
                       NoRefCountPolicy        > SFUncountedForegroundPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Foreground *,
                       RecordedRefCountPolicy  > MFRecForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Foreground *,
                       UnrecordedRefCountPolicy> MFUnrecForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Foreground *,
                       WeakRefCountPolicy      > MFWeakForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Foreground *,
                       NoRefCountPolicy        > MFUncountedForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Foreground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecForegroundPtr : 
     public PointerSField<Foreground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecForegroundPtr : 
     public PointerSField<Foreground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakForegroundPtr :
     public PointerSField<Foreground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedForegroundPtr :
     public PointerSField<Foreground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecForegroundPtr :
     public PointerMField<Foreground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecForegroundPtr :
     public PointerMField<Foreground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakForegroundPtr :
     public PointerMField<Foreground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedForegroundPtr :
     public PointerMField<Foreground *,
                          NoRefCountPolicy        > {};

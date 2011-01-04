@@ -1,34 +1,35 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Foreground"
-	parent="AttachmentContainer"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowForegrounds
+   name="Foreground"
+   parent="AttachmentContainer"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemWindow"
+   >
 
-Foreground is the base class for all foreground rendering.  See \ref
-PageSystemWindowForegrounds for a description.
+  Foreground is the base class for all foreground rendering.  See \ref
+  PageSystemWindowForegrounds for a description.
 
-\ext
+  \ext
 
-To create a new Foreground the method that has be overridden is
-draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
-commands, but should restore the state after it's done.
+  To create a new Foreground the method that has be overridden is
+  draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
+  commands, but should restore the state after it's done.
+  
+  \endext
 
-\endext
-	<Field
-		name="active"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+  <Field
+	 name="active"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	Activate the grabber.
-	</Field>
+  </Field>
 </FieldContainer>

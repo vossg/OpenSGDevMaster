@@ -57,13 +57,22 @@ class  RenderAction;
 class  RenderPartitionBase;
 struct NoRefCountPolicy;
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef MultiPool< NoRefCountPolicy,
                    NoLockPolicy     >  RenderTreeNodePool;
+
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
 
 typedef SimplePool<StateOverride,
                    PoolDefaultTag,
                    NoRefCountPolicy,
                    NoLockPolicy     >  StateOverridePool;
+
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
 
 typedef MultiPool< NoRefCountPolicy,
                    NoLockPolicy     >  TreeBuilderPool;

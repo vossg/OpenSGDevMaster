@@ -1,17 +1,18 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="Group"
-	parent="NodeCore"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-Group is the simplest form of a NodeCore. A group
-carries no predefined data and most actions will only traverse the
-children list. So usually the group does nothing.
+   name="Group"
+   parent="NodeCore"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
 
+  Group is the simplest form of a NodeCore. A group
+  carries no predefined data and most actions will only traverse the
+  children list. So usually the group does nothing.
 </FieldContainer>

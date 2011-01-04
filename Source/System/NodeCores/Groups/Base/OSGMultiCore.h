@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief MultiCore class. See \ref
-           PageSystemMultiCore for a description.
-*/
+    PageSystemMultiCore for a description.
+    \ingroup GrpSystemNodeCoreGroupsCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
 {

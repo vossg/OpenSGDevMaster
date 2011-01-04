@@ -1,46 +1,46 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ChunkMaterial"
-	parent="PrimeMaterial"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemMaterial
+   name="ChunkMaterial"
+   parent="PrimeMaterial"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemMaterial"
+   >
 
-The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
-description.
+  The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
+  description.
 
-Chunks can be attached and detached from the material using
-OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
-complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
-field's functions.
-	<Field
-		name="chunks"
-		type="StateChunkPtr"
-		cardinality="multi"
-		visibility="external"
-        access="protected"
-        ptrFieldAccess = "custom"
-        pushToFieldAs="pushToChunks"
-        removeFromMFieldIndexAs="removeFromChunks"
-        removeFromMFieldObjectAs="removeFromChunksByObj"
-        replaceInMFieldIndexAs="replaceChunk"
-        hasPushToField="True"
-        hasRemoveFromMFieldIndex="True"
-        hasRemoveFromMFieldObject="True"
-        hasReplaceInMFieldIndex="True"
-	>
-	</Field>
-	<Field
-		name="slots"
-		type="Int32"
-		cardinality="multi"
-		visibility="external"
-        access="protected"
-	>
-	</Field>
+  Chunks can be attached and detached from the material using
+  OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
+  complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
+  field's functions.
+  <Field
+	 name="chunks"
+	 type="StateChunkPtr"
+	 cardinality="multi"
+	 visibility="external"
+     access="protected"
+     ptrFieldAccess = "custom"
+     pushToFieldAs="pushToChunks"
+     removeFromMFieldIndexAs="removeFromChunks"
+     removeFromMFieldObjectAs="removeFromChunksByObj"
+     replaceInMFieldIndexAs="replaceChunk"
+     hasPushToField="True"
+     hasRemoveFromMFieldIndex="True"
+     hasRemoveFromMFieldObject="True"
+     hasReplaceInMFieldIndex="True"
+	 >
+  </Field>
+  <Field
+	 name="slots"
+	 type="Int32"
+	 cardinality="multi"
+	 visibility="external"
+     access="protected"
+	 >
+  </Field>
 </FieldContainer>

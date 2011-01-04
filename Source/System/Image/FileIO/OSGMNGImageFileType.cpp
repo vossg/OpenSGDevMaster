@@ -66,11 +66,15 @@
 #    define OSG_MNG_ARG(ARG) ARG
 #endif
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = 
+{
+    "mng"
+};
 
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::MNGImageFileType 
-    \ingroup GrpSystemImage
+/*! \class MNGImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   MNG data.
@@ -83,13 +87,6 @@ OSG_USING_NAMESPACE
   the singleton object.
     
 */
-
-// Static Class Varible implementations:
-
-static const Char8 *suffixArray[] = 
-{
-    "mng"
-};
 
 MNGImageFileType MNGImageFileType::_the("video/x-mng",
                                         suffixArray, 
@@ -280,3 +277,6 @@ MNGImageFileType::MNGImageFileType(const Char8  *mimeType,
 MNGImageFileType::~MNGImageFileType (void )
 {
 }
+
+OSG_END_NAMESPACE
+

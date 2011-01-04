@@ -53,6 +53,9 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 
 /*! \brief *put brief class description here* 
+    \ingroup GrpSystemNodeCoreDrawablesCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase

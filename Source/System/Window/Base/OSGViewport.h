@@ -59,7 +59,11 @@ class FrameBufferObject;
 
 /*! \brief Viewport base class. See \ref 
     PageSystemWindowViewports for a description.
-*/
+
+  \ingroup GrpSystemWindowBase
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 {

@@ -12,32 +12,35 @@ using namespace OSG;
            OpenSG.
 
     See \ref PageSystem for details.
-*/
+ */
+
+//*******************************************************************
+// Action
+//*******************************************************************
 
 /*! \defgroup GrpSystemAction Action
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
+
+/*! \defgroup GrpSystemActionBase Base
+    \ingroup GrpSystemAction
+ */
+
+/*! \defgroup GrpSystemActionFuncs Functions
+    \ingroup GrpSystemAction
+ */
 
 /*! \defgroup GrpSystemRenderAction Render Action
     \ingroup GrpSystemAction
-    
-    See \ref PageBaseField for details.
-*/
-
-/*! \defgroup GrpSystemRenderingBackend Rendering Backend
-    \ingroup GrpSystemAction
-    
-    See \ref PageRenderingBackend for details.
-*/
+ */
 
 /*! \defgroup GrpSystemIntersectAction Intersect Action
     \ingroup GrpSystemAction
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
+//*******************************************************************
+// State
+//*******************************************************************
 
 /*! \defgroup GrpSystemState State
     \ingroup GrpSystem
@@ -48,7 +51,7 @@ using namespace OSG;
     See \ref PageSystemState for details.
 */
 
-/*! \defgroup GrpSystemStateBase State - Base
+/*! \defgroup GrpSystemStateBase Base
     \ingroup GrpSystemState
     
     The OpenGL State Handling Group contains the wrapper classes for OpenGL
@@ -57,21 +60,31 @@ using namespace OSG;
     See \ref PageSystemState for details.
 */
 
-/*! \defgroup GrpSystemStateFieldTraits State - Field Traits
+/*! \defgroup GrpSystemStateBaseChunks Base Chunks
     \ingroup GrpSystemState
     
-    See \ref PageBaseField for details.
+    See \ref PageSystemState for details.
 */
-/*! \defgroup GrpSystemStateFieldSFields State - Single-Field
+
+/*! \defgroup GrpSystemStateFields Fields 
     \ingroup GrpSystemState
-    
-    See \ref PageBaseField for details.
 */
-/*! \defgroup GrpSystemStateFieldMFields State - Multi-Fields
-    \ingroup GrpSystemState
-    
-    See \ref PageBaseField for details.
+/*! \defgroup GrpSystemStateFieldTraits Field Traits
+    \ingroup GrpSystemStateFields
 */
+/*! \defgroup GrpSystemStateFieldHandle Field Handle
+    \ingroup GrpSystemStateFields
+*/
+/*! \defgroup GrpSystemStateFieldSFields Single-Field
+    \ingroup GrpSystemStateFields
+*/
+/*! \defgroup GrpSystemStateFieldMFields Multi-Fields
+    \ingroup GrpSystemStateFields
+*/
+
+//*******************************************************************
+// Shader
+//*******************************************************************
 
 /*! \defgroup GrpSystemShader Shader
     \ingroup GrpSystem
@@ -81,7 +94,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderBase Shader - Base
+/*! \defgroup GrpSystemShaderBase Base
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group
@@ -89,7 +102,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderChunks Shader - Chunks
+/*! \defgroup GrpSystemShaderChunks Chunks
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group
@@ -97,7 +110,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderVariables Shader - Variables
+/*! \defgroup GrpSystemShaderVariables Variables
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group
@@ -105,7 +118,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderSHLChunk Shader - SimpleSHLChunk
+/*! \defgroup GrpSystemShaderSHLChunk SimpleSHLChunk
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group
@@ -113,7 +126,7 @@ using namespace OSG;
     See \ref PageSystemShader for details.
 */
 
-/*! \defgroup GrpSystemShaderSHLFuncs Shader - SHL Functions
+/*! \defgroup GrpSystemShaderSHLFuncs SHL Functions
     \ingroup GrpSystemShader
     
     The OpenGL Shader Handling Group
@@ -122,126 +135,302 @@ using namespace OSG;
 */
 
 
-/*! \defgroup GrpSystemShaderFieldTraits Shader - Field Traits
+/*! \defgroup GrpSystemShaderFields Fields
     \ingroup GrpSystemShader
-    
-    See \ref PageBaseField for details.
-*/
-/*! \defgroup GrpSystemShaderFieldSFields Shader - Single-Field
-    \ingroup GrpSystemShader
-    
-    See \ref PageBaseField for details.
-*/
-/*! \defgroup GrpSystemShaderFieldMFields Shader - Multi-Fields
-    \ingroup GrpSystemShader
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
+/*! \defgroup GrpSystemShaderFieldTraits Field Traits
+    \ingroup GrpSystemShaderFields
+ */
+
+/*! \defgroup GrpSystemShaderFieldSFields Single-Field
+    \ingroup GrpSystemShaderFields
+ */
+
+/*! \defgroup GrpSystemShaderFieldMFields Multi-Fields
+    \ingroup GrpSystemShaderFields
+ */
+
+//*******************************************************************
+// Rendering Backend
+//*******************************************************************
+
+/*! \defgroup GrpSystemRenderingBackend Rendering Backend
+    \ingroup GrpSystem
+    
+    See \ref PageSystemRenderingBackend for details.
+ */
+
+/*! \defgroup GrpSystemRenderingBackendBase Base
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendTasks Threads / Tasks
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendTreeBuild Tree Builder
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendPools Pools
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendFieldTraits Field Traits
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendFieldSFields Single-Field
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*! \defgroup GrpSystemRenderingBackendFieldMFields Multi-Fields
+    \ingroup GrpSystemRenderingBackend
+ */
+
+//*******************************************************************
+// Material
+//*******************************************************************
 
 /*! \defgroup GrpSystemMaterial Material
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
+ */
+
+/*! \defgroup GrpSystemMaterialBase Base
+    \ingroup GrpSystemMaterial
+ */
+
+/*! \defgroup GrpSystemMaterialFieldTraits Field Traits
+    \ingroup GrpSystemMaterial
 */
+/*! \defgroup GrpSystemMaterialFieldHandle Field Handle
+    \ingroup GrpSystemMaterial
+*/
+/*! \defgroup GrpSystemMaterialFieldSFields Single-Field
+    \ingroup GrpSystemMaterial
+*/
+/*! \defgroup GrpSystemMaterialFieldMFields Multi-Fields
+    \ingroup GrpSystemMaterial
+*/
+
+//*******************************************************************
+// FieldContainer
+//*******************************************************************
 
 /*! \defgroup GrpSystemFieldContainer FieldContainer
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
+
+/*! \defgroup GrpSystemFieldContainerMixins Mixins
+    \ingroup GrpSystemFieldContainer
+ */
+
+/*! \defgroup GrpSystemFieldContainerAttachments Attachments
+    \ingroup GrpSystemFieldContainer
+ */
+
+/*! \defgroup GrpSystemFieldContainerUtils Utils
+    \ingroup GrpSystemFieldContainer
+ */
+
+
+/*! \defgroup GrpSystemFieldContainerFields Fields
+    \ingroup GrpSystemFieldContainer
+ */
+
+/*! \defgroup GrpSystemFieldContainerFieldTraits Field Traits
+    \ingroup GrpSystemFieldContainerFields
+ */
+
+/*! \defgroup GrpSystemFieldContainerFieldSFields Single-Field
+    \ingroup GrpSystemFieldContainerFields
+ */
+
+/*! \defgroup GrpSystemFieldContainerFieldMFields Multi-Fields
+    \ingroup GrpSystemFieldContainerFields
+ */
+
+//*******************************************************************
+// MemoryObjects
+//*******************************************************************
+
+/*! \defgroup GrpSystemMemoryObjects System Memory Objects
+    \ingroup GrpSystem
+ */
+
+//*******************************************************************
+// NodeCores
+//*******************************************************************
 
 /*! \defgroup GrpSystemNodeCores NodeCores
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
-/*! \defgroup GrpSystemNodeCoresGroups Group NodeCores - Base
+/*! \defgroup GrpSystemNodeCoresGroups Groups
     \ingroup GrpSystemNodeCores
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
-/*! \defgroup GrpSystemNodeCoresDrawables Drawable NodeCores - Base
+/*! \defgroup GrpSystemNodeCoreGroupsCores Cores
+    \ingroup GrpSystemNodeCoresGroups
+ */
+/*! \defgroup GrpSystemNodeCoreGroupsFieldTraits  Field Traits
+    \ingroup GrpSystemNodeCoresGroups
+ */
+/*! \defgroup GrpSystemNodeCoreGroupsFieldSFields  Single-Field
+    \ingroup GrpSystemNodeCoresGroups
+ */
+/*! \defgroup GrpSystemNodeCoreGroupsFieldMFields  Multi-Fields
+    \ingroup GrpSystemNodeCoresGroups
+ */
+
+
+
+/*! \defgroup GrpSystemNodeCoresDrawables Drawables
     \ingroup GrpSystemNodeCores
-    
-    See \ref PageBaseField for details.
-*/
+ */
+
+/*! \defgroup GrpSystemNodeCoreDrawablesCores Cores
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+/*! \defgroup GrpSystemNodeCoreDrawablesFuncs Functions
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+/*! \defgroup GrpSystemNodeCoreDrawablesHelper Helper
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+/*! \defgroup GrpSystemNodeCoreDrawablesFieldTraits  Field Traits
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+/*! \defgroup GrpSystemNodeCoreDrawablesFieldSFields  Single-Field
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+/*! \defgroup GrpSystemNodeCoreDrawablesFieldMFields  Multi-Fields
+    \ingroup GrpSystemNodeCoresDrawables
+ */
+
+//*******************************************************************
+// FileIO
+//*******************************************************************
 
 /*! \defgroup GrpSystemFileIO FileIO
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
-/*! \defgroup GrpSystemFileIOScanParse FileIO - ScanParse Skel
+/*! \defgroup GrpSystemFileIOBase Base
     \ingroup GrpSystemFileIO
-    
-    See \ref PageBaseField for details.
-*/
+ */
+
+/*! \defgroup GrpSystemFileIOHelper Helper
+    \ingroup GrpSystemFileIO
+ */
+
+/*! \defgroup GrpSystemFileIOScanParse ScanParse Skel
+    \ingroup GrpSystemFileIO
+ */
+
+/*! \defgroup GrpSystemFileIOOSG OSG
+    \ingroup GrpSystemFileIO
+ */
+
+//*******************************************************************
+// GraphOp
+//*******************************************************************
 
 /*! \defgroup GrpSystemGraphOp GraphOp - Base
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
+
+//*******************************************************************
+// Image
+//*******************************************************************
 
 /*! \defgroup GrpSystemImage Image
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
-/*! \defgroup GrpSystemImageFileIO Image - FileIO
+/*! \defgroup GrpSystemImageObj Image
     \ingroup GrpSystemImage
-    
-    See \ref PageBaseField for details.
-*/
+ */
+/*! \defgroup GrpSystemImageFuncs Functions
+    \ingroup GrpSystemImage
+ */
+/*! \defgroup GrpSystemImageHelper Helper
+    \ingroup GrpSystemImage
+ */
+/*! \defgroup GrpSystemImageFieldTraits  Field Traits
+    \ingroup GrpSystemImage
+ */
+/*! \defgroup GrpSystemImageFieldSFields Single-Field
+    \ingroup GrpSystemImage
+ */
+/*! \defgroup GrpSystemImageFieldMFields Multi-Fields
+    \ingroup GrpSystemImage
+ */
 
+/*! \defgroup GrpSystemImageFileIOBase FileIO Base
+    \ingroup GrpSystemImage
+ */
+
+//*******************************************************************
+// Window 
+//*******************************************************************
 
 /*! \defgroup GrpSystemWindow Window
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
-*/
+ */
 
-/*! \defgroup GrpSystemWindowFBO Window - Framebuffer Objects
+/*! \defgroup GrpSystemWindowBase Base
     \ingroup GrpSystemWindow
-    
-    See \ref PageBaseField for details.
+ */
+
+/*! \defgroup GrpSystemWindowCamera Camera
+    \ingroup GrpSystemWindow
+ */
+
+/*! \defgroup GrpSystemWindowFieldTraits  Field Traits
+    \ingroup GrpSystemWindow
+*/
+/*! \defgroup GrpSystemWindowFieldSFields  Single-Field
+    \ingroup GrpSystemWindow
+*/
+/*! \defgroup GrpSystemWindowFieldMFields  Multi-Fields
+    \ingroup GrpSystemWindow
 */
 
-#if 0
-/*! \defgroup GrpSystemField Fields
+//*******************************************************************
+// Window FBO
+//*******************************************************************
+
+/*! \defgroup GrpSystemWindowFBO FrameBufferObjects 
     \ingroup GrpSystem
-    
-    See \ref PageBaseField for details.
+ */
+
+/*! \defgroup GrpSystemWindowFBOObj Framebuffer Objects
+    \ingroup GrpSystemWindowFBO
+ */
+
+/*! \defgroup GrpSystemWindowFBOFieldTraits  Field Traits
+    \ingroup GrpSystemWindowFBO
+*/
+/*! \defgroup GrpSystemWindowFBOFieldSFields  Single-Field
+    \ingroup GrpSystemWindowFBO
+*/
+/*! \defgroup GrpSystemWindowFBOFieldMFields  Multi-Fields
+    \ingroup GrpSystemWindowFBO
 */
 
-#if (OSG_DOC_LEVEL >= 3)
-/*! \defgroup GrpSystemFieldTraits Field Data Traits
-    \ingroup GrpSystemField
+//*******************************************************************
+// Functions
+//*******************************************************************
 
-    ToDo
-*/
-#endif
+/*! \defgroup GrpSystemFunctions Functions
+    \ingroup GrpSystem
+ */
 
-/*! \defgroup GrpSystemFieldSingle Single-Element Fields
-    \ingroup GrpSystemField
-
-    ToDo
-*/
-
-/*! \defgroup GrpSystemFieldMulti Multi-Element Fields
-    \ingroup GrpSystemField
-
-    ToDo
-*/
-
-#endif
-
-
+//*******************************************************************
+// Statistics
+//*******************************************************************
 
 /*! \defgroup GrpSystemStatistics Statistics
     \ingroup GrpSystem
@@ -255,4 +444,18 @@ See \ref PageSystemStatistics for more details
 The \link OSG::StatElem StatElem \endlink OSG::StatElem is the basic unit that 
 keeps a single statistical value.
 
+ */
+
+/*! \defgroup GrpSystemStatisticsObj Statistics
+    \ingroup GrpSystemStatistics
+ */
+
+/*! \defgroup GrpSystemStatisticsFieldTraits  Field Traits
+    \ingroup GrpSystemStatistics
+*/
+/*! \defgroup GrpSystemStatisticsFieldSFields  Single-Field
+    \ingroup GrpSystemStatistics
+*/
+/*! \defgroup GrpSystemStatisticsFieldMFields  Multi-Fields
+    \ingroup GrpSystemStatistics
 */

@@ -1,22 +1,23 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="LightEngine"
-	parent="AttachmentContainer"
-	library="System"
-	structure="abstract"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="false"
->
-	<Field
-		name="enabled"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	</Field>
+   name="LightEngine"
+   parent="AttachmentContainer"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
+  <Field
+	 name="enabled"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

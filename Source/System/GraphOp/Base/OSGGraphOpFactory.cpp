@@ -55,12 +55,10 @@ template class SingletonHolder<GraphOpFactoryBase>;
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::GraphOpFactory
-    \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
-A base class used to traverse geometries.
-
-*/
+/*! \class GraphOpFactoryBase
+   
+    A base class used to traverse geometries.
+ */
 
 /***************************************************************************\
  *                           Instance methods                              *

@@ -2,6 +2,19 @@
 
 using namespace OSG;
 
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+
 /*! \page PageBaseSocket Socket
 
 Socket baseclass. The Socket class wraps a socket descriptor. This
@@ -193,10 +206,26 @@ if(s.isSetRead(sock2))
    socket 1 is readable
 </PRE>
 
-A call of selection.select(seconds) waits the given number of seconds for the events set with setRead() or serWrite(). It returns after the first occurrence of an event.  If no events occur in the given periode then 0 is returned. Otherwise the number of readable and writable sockets is returned. The method select() modifies the selection object. You have to call setRead() and setWrite() for each time, you want to call select(). If the SocketSelection is constant, then you can use an other version of select. With s.select(seconds,rs) s will not be modified. The result will be set into the SocketSelection rs. You have to call rs.isReadable(sock) instead of s.isReadable(sock).
+A call of selection.select(seconds) waits the given number of seconds for the
+events set with setRead() or serWrite(). It returns after the first occurrence
+of an event.  If no events occur in the given periode then 0 is
+returned. Otherwise the number of readable and writable sockets is
+returned. The method select() modifies the selection object. You have to call
+setRead() and setWrite() for each time, you want to call select(). If the
+SocketSelection is constant, then you can use an other version of select. With
+s.select(seconds,rs) s will not be modified. The result will be set into the
+SocketSelection rs. You have to call rs.isReadable(sock) instead of
+s.isReadable(sock). 
 
 IO-Buffers
 
-If data should be read from more then one socket, then the performance could be improved by not reading from the first socket that provides data but from that socket with the most data in the input buffer. With socket.getAvailable() the number of bytes in the input buffer could be retrieved. In addition the Socket class provides the functions setWriteBufferSize and setReadBufferSize set the size of input and output buffers. Current sizes can be retrieved with getReadBufferSize and getWriteBufferSize.
+If data should be read from more then one socket, then the performance could
+be improved by not reading from the first socket that provides data but from
+that socket with the most data in the input buffer. With socket.getAvailable()
+the number of bytes in the input buffer could be retrieved. In addition the
+Socket class provides the functions setWriteBufferSize and setReadBufferSize
+set the size of input and output buffers. Current sizes can be retrieved with
+getReadBufferSize and getWriteBufferSize. 
 
 */
+#endif

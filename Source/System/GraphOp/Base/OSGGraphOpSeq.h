@@ -49,8 +49,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOpSeq class
+/*! \brief GraphOpSeq class
+    \ingroup GrpSystemGraphOp
+    \ingroup GrpSystemMemoryObjects
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
 {

@@ -12,20 +12,20 @@
    useLocalIncludes="false"
    docGroupBase="GrpSystemState"
    >
-
-See \ref PageSystemTextureChunk for a description.
-    <Field
-        name="target"
-        type="GLenum"
-        cardinality="single"
-        visibility="external"
-        defaultValue="GL_NONE"
-        defaultHeader="&quot;OSGGL.h&quot;"
-        access="public"
-    >
-        Texture target. Overwrite automatically determined texture target
-        based on the parameters of the assigned image if set to anything 
-        else than GL_NONE. Used for nVidia's rectangle textures. Be careful
-        when using it!
-    </Field>
+  
+  See \ref PageSystemTextureBaseChunk for a description.
+  <Field
+     name="target"
+     type="GLenum"
+     cardinality="single"
+     visibility="external"
+     defaultValue="GL_NONE"
+     defaultHeader="&quot;OSGGL.h&quot;"
+     access="public"
+     >
+    Texture target. Overwrite automatically determined texture target
+    based on the parameters of the assigned image if set to anything 
+    else than GL_NONE. Used for nVidia's rectangle textures. Be careful
+    when using it!
+  </Field>
 </FieldContainer>

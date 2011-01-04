@@ -68,7 +68,7 @@ class ChunkMaterial;
 
 OSG_GEN_CONTAINERPTR(ChunkMaterial);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ChunkMaterial *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       RecordedRefCountPolicy  > SFRecChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       WeakRefCountPolicy      > SFWeakChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       NoRefCountPolicy        > SFUncountedChunkMaterialPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       RecordedRefCountPolicy  > MFRecChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       WeakRefCountPolicy      > MFWeakChunkMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       NoRefCountPolicy        > MFUncountedChunkMaterialPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ChunkMaterial *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecChunkMaterialPtr : 
     public PointerSField<ChunkMaterial *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecChunkMaterialPtr : 
     public PointerSField<ChunkMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakChunkMaterialPtr :
     public PointerSField<ChunkMaterial *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedChunkMaterialPtr :
     public PointerSField<ChunkMaterial *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecChunkMaterialPtr :
     public PointerMField<ChunkMaterial *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecChunkMaterialPtr :
     public PointerMField<ChunkMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakChunkMaterialPtr :
     public PointerMField<ChunkMaterial *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedChunkMaterialPtr :
     public PointerMField<ChunkMaterial *,
                          NoRefCountPolicy        > {};

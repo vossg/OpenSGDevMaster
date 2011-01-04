@@ -42,11 +42,6 @@
 #pragma once
 #endif
 
-/*! \file OSGScanParseLexer.h
-    \ingroup Grp Lib
-    \ingroup Grp
- */
-
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -84,7 +79,8 @@
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup Grp
+/*! \ingroup GrpSystemFileIOScanParse
+    \ingroup GrpLibOSGSystem
  */
 
 class OSGScanParseLexer : public OSGScanParseSkel_FlexLexer

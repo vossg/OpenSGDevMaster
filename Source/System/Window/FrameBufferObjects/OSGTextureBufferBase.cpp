@@ -203,6 +203,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpSystemWindowFBO\"\n"
     "   >\n"
     "  Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
     "  \n"

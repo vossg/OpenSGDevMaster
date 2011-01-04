@@ -68,7 +68,7 @@ class MultiPassMaterial;
 
 OSG_GEN_CONTAINERPTR(MultiPassMaterial);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       RecordedRefCountPolicy  > SFRecMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       WeakRefCountPolicy      > SFWeakMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       NoRefCountPolicy        > SFUncountedMultiPassMaterialPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       RecordedRefCountPolicy  > MFRecMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       WeakRefCountPolicy      > MFWeakMultiPassMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       NoRefCountPolicy        > MFUncountedMultiPassMaterialPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<MultiPassMaterial *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecMultiPassMaterialPtr : 
     public PointerSField<MultiPassMaterial *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecMultiPassMaterialPtr : 
     public PointerSField<MultiPassMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakMultiPassMaterialPtr :
     public PointerSField<MultiPassMaterial *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedMultiPassMaterialPtr :
     public PointerSField<MultiPassMaterial *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecMultiPassMaterialPtr :
     public PointerMField<MultiPassMaterial *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecMultiPassMaterialPtr :
     public PointerMField<MultiPassMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakMultiPassMaterialPtr :
     public PointerMField<MultiPassMaterial *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedMultiPassMaterialPtr :
     public PointerMField<MultiPassMaterial *,
                          NoRefCountPolicy        > {};

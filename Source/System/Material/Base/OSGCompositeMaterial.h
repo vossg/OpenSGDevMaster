@@ -47,8 +47,12 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief CompositeMaterial class. See \ref
-           PageSystemCompositeMaterial for a description.
-*/
+    PageSystemCompositeMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING CompositeMaterial : public CompositeMaterialBase
 {

@@ -79,7 +79,8 @@ typedef ScanParseSkel *ScanParseSkelP;
 
 #endif
 
-/*! \ingroup GrpLoaderLibScanParseSkel
+/*! \ingroup GrpSystemFileIOScanParse
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING XMLScanParseSkel

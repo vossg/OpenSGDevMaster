@@ -2,9 +2,9 @@
 
 using namespace OSG;
 
-/*! \page PageRenderingBackend RenderingBackend
+/*! \page PageSystemRenderingBackend RenderingBackend
  
-The rendering backend covers all the internal classes and methods needed to execute the rendering process.  
+The rendering backend covers all the internal classes and methods needed to
+execute the rendering process.   
  
 */
-

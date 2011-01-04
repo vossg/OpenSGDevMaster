@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-    name="PerspectiveCamera"
-    parent="Camera"
-    library="System"
-    structure="concrete"
-    pointerfieldtypes="both"
-    systemcomponent="true"
-    parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowCameras
+   name="PerspectiveCamera"
+   parent="Camera"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemWindow"
+   >
 
 The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for 
 a description.

@@ -47,9 +47,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderAction
+ */
+
 typedef NamedPool<Int32    > PartitionIdPoolBase;
 
+/*! \nohierarchy
+ */
+
 struct PartitionIdTag   {};
+
+/*! \ingroup GrpSystemRenderAction
+ */
 
 typedef TaggedSingletonHolder<PartitionIdPoolBase,
                               PartitionIdTag       > PartitionIdPool;

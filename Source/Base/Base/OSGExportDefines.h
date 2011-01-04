@@ -97,10 +97,10 @@ const FieldType &CLASSNAME< T1, T2 >::getClassType(void)                     \
 
 
 
-#define OSG_FIELDTRAITS_GETTYPE(CLASSNAME)        \
-DataType &FieldTraits< CLASSNAME >::getType(void) \
-{                                                 \
-    return _type;                                 \
+#define OSG_FIELDTRAITS_GETTYPE(CLASSNAME)                \
+DataType &FieldTraits< CLASSNAME >::getType(void)         \
+{                                                         \
+    return _type;                                         \
 }
 
 #define OSG_FIELDTRAITS_GETTYPE_NS(CLASSNAME, NAMESPACE)     \

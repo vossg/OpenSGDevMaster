@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Viewport"
-	parent="AttachmentContainer"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-        childFields="multi"
->
-\ingroup GrpSystemWindowsViewports
+   name="Viewport"
+   parent="AttachmentContainer"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   childFields="multi"
+   docGroupBase="GrpSystemWindow"
+   >
 
 A Viewport is a part of the Window it is attached to used for rendering. See
 \ref PageSystemWindowViewports for a description.

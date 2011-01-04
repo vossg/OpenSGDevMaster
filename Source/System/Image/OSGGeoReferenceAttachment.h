@@ -47,7 +47,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief GeoReferenceAttachment class. See \ref
-           PageSystemGeoReferenceAttachment for a description.
+    PageSystemGeoReferenceAttachment for a description.
+    \ingroup GrpSystemImageHelper
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachment : 

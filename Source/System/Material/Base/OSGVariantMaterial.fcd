@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="VariantMaterial"
-	parent="CompositeMaterial"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-    <Field
-	   name="fallbackMaterial"
-	   type="PrimeMaterialPtr"
-	   cardinality="single"
-	   visibility="external"
-	   access="public"
-	   >
-	</Field>
+   name="VariantMaterial"
+   parent="CompositeMaterial"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemMaterial"
+   >
+  <Field
+	 name="fallbackMaterial"
+	 type="PrimeMaterialPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

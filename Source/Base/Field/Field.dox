@@ -3,6 +3,25 @@
 using namespace OSG;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
 /*! \page PageBaseField Fields
 
 All data in FieldContainers is organized in fields. There are two general
@@ -128,5 +147,5 @@ the source code or source distribution.
 */
 
 #endif
-
+#endif
  

@@ -532,6 +532,9 @@ Action::ResultE SceneGraphPrinter::traverseLeave(
     return Action::Continue;
 }
 
+/*! \nohierarchy
+ */
+
 struct FieldPathEntry
 {
     std::string szName;

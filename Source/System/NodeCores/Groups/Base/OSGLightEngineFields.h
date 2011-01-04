@@ -68,7 +68,7 @@ class LightEngine;
 
 OSG_GEN_CONTAINERPTR(LightEngine);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<LightEngine *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
                       RecordedRefCountPolicy  > SFRecLightEnginePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
                       UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
                       WeakRefCountPolicy      > SFWeakLightEnginePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
                       NoRefCountPolicy        > SFUncountedLightEnginePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
                       RecordedRefCountPolicy  > MFRecLightEnginePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
                       UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
                       WeakRefCountPolicy      > MFWeakLightEnginePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
                       NoRefCountPolicy        > MFUncountedLightEnginePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<LightEngine *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecLightEnginePtr : 
     public PointerSField<LightEngine *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecLightEnginePtr : 
     public PointerSField<LightEngine *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakLightEnginePtr :
     public PointerSField<LightEngine *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedLightEnginePtr :
     public PointerSField<LightEngine *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecLightEnginePtr :
     public PointerMField<LightEngine *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecLightEnginePtr :
     public PointerMField<LightEngine *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakLightEnginePtr :
     public PointerMField<LightEngine *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedLightEnginePtr :
     public PointerMField<LightEngine *,
                          NoRefCountPolicy        > {};

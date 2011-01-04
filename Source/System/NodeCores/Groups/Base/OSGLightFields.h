@@ -68,7 +68,7 @@ class Light;
 
 OSG_GEN_CONTAINERPTR(Light);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Light *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<Light *,
                       RecordedRefCountPolicy  > SFRecLightPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<Light *,
                       UnrecordedRefCountPolicy> SFUnrecLightPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<Light *,
                       WeakRefCountPolicy      > SFWeakLightPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<Light *,
                       NoRefCountPolicy        > SFUncountedLightPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<Light *,
                       RecordedRefCountPolicy  > MFRecLightPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<Light *,
                       UnrecordedRefCountPolicy> MFUnrecLightPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<Light *,
                       WeakRefCountPolicy      > MFWeakLightPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<Light *,
                       NoRefCountPolicy        > MFUncountedLightPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Light *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecLightPtr : 
     public PointerSField<Light *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecLightPtr : 
     public PointerSField<Light *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakLightPtr :
     public PointerSField<Light *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedLightPtr :
     public PointerSField<Light *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecLightPtr :
     public PointerMField<Light *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecLightPtr :
     public PointerMField<Light *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakLightPtr :
     public PointerMField<Light *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreGroupsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedLightPtr :
     public PointerMField<Light *,
                          NoRefCountPolicy        > {};

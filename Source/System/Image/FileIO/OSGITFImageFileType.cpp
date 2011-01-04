@@ -49,8 +49,13 @@
 #include "OSGImageFileHandler.h"
 #include "OSGPathHandler.h"
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = 
+{
+    "itf"
+};
 
+OSG_BEGIN_NAMESPACE
 
 TiledImageBlockAccessor::~TiledImageBlockAccessor(void)
 {
@@ -777,8 +782,7 @@ void DefaultBlockAccessor::open(const Char8 *szFilename)
 }
 
 
-/*! \class OSG::GDALImageFileType 
-    \ingroup GrpSystemImage
+/*! \class GDALImageFileType 
   
   Image File Type to read/write and store/restore Image objects as
   GDAL (tif/tiff suffix) data.
@@ -791,13 +795,6 @@ void DefaultBlockAccessor::open(const Char8 *szFilename)
   the singleton object.
   
  */
-
-
-// Static Class Varible implementations:
-static const Char8 *suffixArray[] = 
-{
-    "itf"
-};
 
 ITFImageFileType ITFImageFileType:: _the("image/itf",
                                          suffixArray, 
@@ -855,3 +852,6 @@ ITFImageFileType::ITFImageFileType(const Char8  *mimeType,
 ITFImageFileType::~ITFImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE
+

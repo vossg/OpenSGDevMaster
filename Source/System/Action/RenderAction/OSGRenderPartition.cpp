@@ -75,7 +75,7 @@
 
 #include "OSGOSGSceneFileType.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
  *                            Description                                  *
@@ -203,7 +203,8 @@ RenderPartition::~RenderPartition(void)
 
 /*------------------------------ access -----------------------------------*/
 
-OSG_BEGIN_NAMESPACE
+/*! \nohierarchy
+ */
 
 struct ResetSecond
 {
@@ -212,8 +213,6 @@ struct ResetSecond
         oPair.second = NULL;
     }
 };
-
-OSG_END_NAMESPACE
 
 void RenderPartition::reset(Mode eMode)
 {
@@ -1324,3 +1323,5 @@ const Matrix &RenderPartition::topMatrix(void)
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
+
+OSG_END_NAMESPACE

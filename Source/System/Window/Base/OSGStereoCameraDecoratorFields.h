@@ -68,7 +68,7 @@ class StereoCameraDecorator;
 
 OSG_GEN_CONTAINERPTR(StereoCameraDecorator);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StereoCameraDecorator *, 0>::getMName<NoRefCountPolicy>
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<StereoCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<StereoCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<StereoCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<StereoCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedStereoCameraDecoratorPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<StereoCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<StereoCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<StereoCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakStereoCameraDecoratorPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<StereoCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedStereoCameraDecoratorPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StereoCameraDecorator *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecStereoCameraDecoratorPtr : 
     public PointerSField<StereoCameraDecorator *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecStereoCameraDecoratorPtr : 
     public PointerSField<StereoCameraDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakStereoCameraDecoratorPtr :
     public PointerSField<StereoCameraDecorator *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedStereoCameraDecoratorPtr :
     public PointerSField<StereoCameraDecorator *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecStereoCameraDecoratorPtr :
     public PointerMField<StereoCameraDecorator *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecStereoCameraDecoratorPtr :
     public PointerMField<StereoCameraDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakStereoCameraDecoratorPtr :
     public PointerMField<StereoCameraDecorator *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedStereoCameraDecoratorPtr :
     public PointerMField<StereoCameraDecorator *,
                          NoRefCountPolicy        > {};

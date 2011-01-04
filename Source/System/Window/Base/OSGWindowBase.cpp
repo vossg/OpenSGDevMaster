@@ -78,8 +78,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Window
-    \ingroup GrpSystemWindow
-
     Window is the base class for all window management classes.  See \ref
     PageSystemWindowWindow for a description.
 
@@ -367,15 +365,15 @@ WindowBase::TypeObject WindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Window\"\n"
-    "\tparent=\"HardwareContext\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindow\n"
+    "   name=\"Window\"\n"
+    "   parent=\"HardwareContext\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemWindow\"\n"
+    "   >\n"
     "\n"
     "Window is the base class for all window management classes.  See \\ref\n"
     "PageSystemWindowWindow for a description.\n"
@@ -537,8 +535,6 @@ WindowBase::TypeObject WindowBase::_type(
     "    </Field>\n"
     "    \n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindow\n"
-    "\n"
     "Window is the base class for all window management classes.  See \\ref\n"
     "PageSystemWindowWindow for a description.\n"
     "\n"

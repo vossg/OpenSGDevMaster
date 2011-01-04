@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ContainerCollection class. See \ref
            PageSystemContainerCollection for a description.
-*/
+    \ingroup GrpSystemFieldContainerAttachments
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ContainerCollection : public ContainerCollectionBase
 {

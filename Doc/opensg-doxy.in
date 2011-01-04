@@ -605,12 +605,22 @@ INPUT                  = ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox \
                          ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox \
                          ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox \
                          ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/Base/Threading/Threading.dox \
                          ${CMAKE_SOURCE_DIR}/Source/System/System.dox \
                          ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox \
                          ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox \
                          ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/RenderingBackend/RenderingBackend.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Image/Image.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Window/FrameBufferObjects/FrameBufferObjects.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/WindowBase.dox \
                          ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox
+                         ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Groups.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Drawables.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Material/Material.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIOGroups.dox \
+                         ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIO.dox
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1419,7 +1429,8 @@ PREDEFINED = DOC_LEVEL=3                                                    \
              OSG_APIENTRY=                                                  \
                                                                             \
              OSG_DOXYGEN_REC_MACRO_PROBS=1                                  \
-             OSG_DOXYGEN_IGNORE_RECOG_PROBS=1
+             OSG_DOXYGEN_IGNORE_RECOG_PROBS=1                               \
+             OSG_WITH_ZLIB=1
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
@@ -1440,7 +1451,9 @@ EXPAND_AS_DEFINED      = OSG_CHECK_ARG                  \
                          OSG_FIELD_DLLEXPORT_DEF2       \
                          OSG_MT_CPTR_ASPECT             \
                          OSG_USE_PTHREADS               \
-                         OSG_STL_ALLOCATOR_DEFAULT
+                         OSG_STL_ALLOCATOR_DEFAULT      \
+                         OSG_THREAD_DEBUG_SETASPECTTO   \
+                         OSG_WITH_ZLIB
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then
 # doxygen's preprocessor will remove all function-like macros that are alone

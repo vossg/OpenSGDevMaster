@@ -52,8 +52,10 @@ OSG_BEGIN_NAMESPACE
 class RenderAction;
 
 /*! \brief LightEngine is the basic NodeCore for inner nodes in the tree.
-    \ingroup GrpSystemNodeCoresMisc
-*/
+    \ingroup GrpSystemNodeCoreGroupsCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
 {

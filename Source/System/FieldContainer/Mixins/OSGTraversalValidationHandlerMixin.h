@@ -52,7 +52,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseFieldContainerMixins
+/*! \ingroup GrpSystemFieldContainerMixins
     \ingroup GrpLibOSGSystem
  */
 template <class ParentT>

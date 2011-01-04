@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextureBaseChunk
-    See \ref PageSystemTextureChunk for a description.
+    See \ref PageSystemTextureBaseChunk for a description.
  */
 
 /***************************************************************************\
@@ -160,24 +160,24 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     "   useLocalIncludes=\"false\"\n"
     "   docGroupBase=\"GrpSystemState\"\n"
     "   >\n"
-    "\n"
-    "See \\ref PageSystemTextureChunk for a description.\n"
-    "    <Field\n"
-    "        name=\"target\"\n"
-    "        type=\"GLenum\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"GL_NONE\"\n"
-    "        defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
-    "        Texture target. Overwrite automatically determined texture target\n"
-    "        based on the parameters of the assigned image if set to anything \n"
-    "        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
-    "        when using it!\n"
-    "    </Field>\n"
+    "  \n"
+    "  See \\ref PageSystemTextureBaseChunk for a description.\n"
+    "  <Field\n"
+    "     name=\"target\"\n"
+    "     type=\"GLenum\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"GL_NONE\"\n"
+    "     defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Texture target. Overwrite automatically determined texture target\n"
+    "    based on the parameters of the assigned image if set to anything \n"
+    "    else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
+    "    when using it!\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "See \\ref PageSystemTextureChunk for a description.\n"
+    "See \\ref PageSystemTextureBaseChunk for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

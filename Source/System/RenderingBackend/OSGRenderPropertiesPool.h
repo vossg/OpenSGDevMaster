@@ -49,17 +49,26 @@ OSG_BEGIN_NAMESPACE
 
 struct RenderPropertiesPoolTag;
 
+/*! \nohierarchy
+ */
+
 struct RenderPropertiesSplitInfo
 {
     static const UInt32 NumBits    = RenderPropertyBits;
     static const UInt32 SplitPoint = RenderPropertyUniqueBits;
 };
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef NamedSplitFinitePool<RenderPropBitVector, 
                              RenderPropertiesSplitInfo,
                              RenderPropertiesPoolTag, 
                              SingleLockPolicy> RenderPropertiesPoolBase;
 
+
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
 
 typedef TaggedSingletonHolder<RenderPropertiesPoolBase, 
                               RenderPropertiesPoolTag> RenderPropertiesPool;

@@ -53,9 +53,6 @@ OSG_USING_NAMESPACE
 // regenerate the base file.
 
 /*!
- * \brief
- * \param
- * \return
  */
 
 RenderOptions::RenderOptions(void) :
@@ -71,9 +68,6 @@ RenderOptions::RenderOptions(void) :
 }
 
 /*!
- * \brief
- * \param
- * \return
  */
 RenderOptions::RenderOptions(const RenderOptions &source) :
      Inherited(source),
@@ -88,18 +82,12 @@ RenderOptions::RenderOptions(const RenderOptions &source) :
 }
 
 /*!
- * \brief
- * \param
- * \return
  */
 RenderOptions::~RenderOptions(void)
 {
 }
 
 /*!
- * \brief
- * \param
- * \return
  */
 void RenderOptions::initMethod(InitPhase ePhase)
 {
@@ -107,9 +95,6 @@ void RenderOptions::initMethod(InitPhase ePhase)
 }
 
 /*!
- * \brief
- * \param
- * \return
  */
 void RenderOptions::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,

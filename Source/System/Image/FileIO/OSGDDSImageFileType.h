@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief DDS File Handler. Used to read/write DDS files.
-See \ref PageSystemImage for a detailed description.
-*/
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIODDS
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING DDSImageFileType : public ImageFileType
 {

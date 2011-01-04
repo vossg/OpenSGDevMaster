@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief BMP File Handler. Used to read/write BMP files.
     See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOBMP
+    \ingroup GrpLibOSGImageFileIO
 */
 
 class OSG_IMGFILEIO_DLLMAPPING BMPImageFileType : public ImageFileType

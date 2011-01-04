@@ -2,6 +2,28 @@
 
 using namespace OSG;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+
 /*! \page PageSystemFieldsNFieldContainers Fields & Field Containers
 
  */
@@ -376,5 +398,6 @@ Shutdown.
 
 */
 
+#endif
 #endif
 #endif

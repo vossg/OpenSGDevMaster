@@ -68,7 +68,7 @@ class Viewport;
 
 OSG_GEN_CONTAINERPTR(Viewport);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
  */
 template <>
 struct FieldTraits<Viewport *, 1> :
@@ -218,36 +218,36 @@ const Char8 *FieldTraits<Viewport *, 1>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
                       RecordedRefCountPolicy  > SFRecViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
                       UnrecordedRefCountPolicy> SFUnrecViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
                       WeakRefCountPolicy      > SFWeakViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
                       NoRefCountPolicy        > SFUncountedViewportPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
                       RecordedRefCountPolicy  > MFRecViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
                       UnrecordedRefCountPolicy> MFUnrecViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
                       WeakRefCountPolicy      > MFWeakViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
                       NoRefCountPolicy        > MFUncountedViewportPtr;
 
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef ChildPointerMField<
           Viewport *, 
           UnrecordedRefCountPolicy,
@@ -257,44 +257,44 @@ typedef ChildPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecViewportPtr : 
     public PointerSField<Viewport *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecViewportPtr : 
     public PointerSField<Viewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakViewportPtr :
     public PointerSField<Viewport *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedViewportPtr :
     public PointerSField<Viewport *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecViewportPtr :
     public PointerMField<Viewport *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecViewportPtr :
     public PointerMField<Viewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakViewportPtr :
     public PointerMField<Viewport *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedViewportPtr :
     public PointerMField<Viewport *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecChildViewportPtr :
     public ChildPointerMField<
         Viewport *, 

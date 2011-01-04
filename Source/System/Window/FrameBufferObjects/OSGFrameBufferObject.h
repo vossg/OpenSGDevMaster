@@ -52,8 +52,11 @@ class DrawEnv;
 class Window;
 
 /*! \brief Viewport class for color channel selection. See \ref 
-    PageSystemWindowViewports for a description.
-*/
+    PageSystemFBOBuffer for a description.
+    \ingroup GrpSystemWindowFBOObj
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING FrameBufferObject : 
     public FrameBufferObjectBase

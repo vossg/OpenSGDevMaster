@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PrimeMaterial"
-	parent="Material"
-	library="System"
-	structure="abstract"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
+   name="PrimeMaterial"
+   parent="Material"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemMaterial"
+   >
 </FieldContainer>

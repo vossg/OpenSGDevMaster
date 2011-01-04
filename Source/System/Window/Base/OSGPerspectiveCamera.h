@@ -48,9 +48,12 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \brief Perspective Camera class. See 
-  \ref PageSystemWindowCameraPerspective 
-  for a description.
-*/
+  \ref PageSystemWindowCameraPerspective for a description.
+
+  \ingroup GrpSystemWindowCamera
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
 {

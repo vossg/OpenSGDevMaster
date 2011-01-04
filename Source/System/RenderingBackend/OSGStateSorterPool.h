@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef SimplePool<StateSorter> StateSorterPool;
 
 OSG_END_NAMESPACE

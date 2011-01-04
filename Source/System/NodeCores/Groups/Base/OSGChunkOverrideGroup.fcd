@@ -1,26 +1,29 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ChunkOverrideGroup"
-	parent="Group"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-ChunkOverrideGroup is a simple group node that allows for material chunks
-to be set that will override all chunks stored in materials in the entire 
-subtree. Currently the last chunk override wins (note the difference to
-the material group). This might change in future
-    <Field
-	   name="fallbackChunkBlock"
-	   type="ChunkBlockPtr"
-	   cardinality="single"
-	   visibility="external"
-	   access="public"
-	   >
-	</Field>
+   name="ChunkOverrideGroup"
+   parent="Group"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
+
+  ChunkOverrideGroup is a simple group node that allows for material chunks
+  to be set that will override all chunks stored in materials in the entire 
+  subtree. Currently the last chunk override wins (note the difference to
+  the material group). This might change in future
+
+  <Field
+	 name="fallbackChunkBlock"
+	 type="ChunkBlockPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>
 

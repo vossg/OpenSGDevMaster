@@ -47,8 +47,12 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief MultiPassMaterial class. See \ref 
-           PageSystemMultiPassMaterial for a description.
-*/
+    PageSystemMultiPassMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
 {

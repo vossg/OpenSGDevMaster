@@ -56,37 +56,36 @@
 #endif
 #include "OSGBaseInitFunctions.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 
-/*! \class OSG::SceneFileType
-    \ingroup GrpSystemFileIO
+/*! \class SceneFileType
 
     Base class for all file loaders.
-
  */
 
 //---------------------------------------------------------
 
-/**
- * Constructor for SceneFileType.
- *
- * \param suffixArray     Raw char buffer of supported suffix values.
- * \param suffixByteCount Length of suffix strings to extract.
- * \param override
- * \param overridePriority Priority of this file handler in overload resolution.
- * \param flags    Combination of OSG_READ_SUPPORTED and OSG_WRITE_SUPPORTED to say what
- *                 this handler supports.
+/*! Constructor for SceneFileType.
+ 
+    \param[in] suffixArray     Raw char buffer of supported suffix values.
+    \param[in] suffixByteCount Length of suffix strings to extract.
+    \param[in] override
+    \param[in] overridePriority Priority of this file handler in overload
+                                resolution. 
+    \param[in] flags    Combination of OSG_READ_SUPPORTED and
+                        OSG_WRITE_SUPPORTED to say what this handler supports.
  */
+
 SceneFileType::SceneFileType(const Char8  *suffixArray[],
                                    UInt16  suffixByteCount,
                                    bool    override,
                                    UInt32  overridePriority,
-                                   UInt32  flags)
-    : Inherited        (flags           ),
-      _suffixList      (                ),
-      _override        (override        ),
-      _overridePriority(overridePriority)
+                                   UInt32  flags           ) :
+     Inherited       (flags           ),
+    _suffixList      (                ),
+    _override        (override        ),
+    _overridePriority(overridePriority)
 {
     FINFO(( "Init %s Scene File Type %p\n", suffixArray[0], this ));
 
@@ -107,6 +106,9 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
 }
 
 //---------------------------------------------------------
+
+/*! Copy constructor
+ */
 
 SceneFileType::SceneFileType(const SceneFileType &obj) :
     Inherited        (obj                  ),
@@ -211,3 +213,5 @@ bool SceneFileType::writeFile(Node * const  OSG_CHECK_ARG(node    ),
     return false;
 }
 #endif
+
+OSG_END_NAMESPACE

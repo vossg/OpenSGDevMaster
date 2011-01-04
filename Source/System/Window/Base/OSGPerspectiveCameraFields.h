@@ -68,7 +68,7 @@ class PerspectiveCamera;
 
 OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<PerspectiveCamera *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecPerspectiveCameraPtr : 
     public PointerSField<PerspectiveCamera *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecPerspectiveCameraPtr : 
     public PointerSField<PerspectiveCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakPerspectiveCameraPtr :
     public PointerSField<PerspectiveCamera *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedPerspectiveCameraPtr :
     public PointerSField<PerspectiveCamera *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecPerspectiveCameraPtr :
     public PointerMField<PerspectiveCamera *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecPerspectiveCameraPtr :
     public PointerMField<PerspectiveCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakPerspectiveCameraPtr :
     public PointerMField<PerspectiveCamera *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedPerspectiveCameraPtr :
     public PointerMField<PerspectiveCamera *,
                          NoRefCountPolicy        > {};

@@ -54,10 +54,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemFileIOBase
+    \ingroup GrpLibOSGSystem
+ */
+
 class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -70,6 +76,9 @@ class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
         OSG_WRITE_SUPPORTED = 2   /**< The file type supports writing. */
     };
     
+    /*! \nohierarchy
+     */
+
     struct IOOption
     {
         IOOption(void                                             );
@@ -146,7 +155,9 @@ class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
         
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */

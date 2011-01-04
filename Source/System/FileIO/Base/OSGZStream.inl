@@ -1,3 +1,6 @@
+
+OSG_BEGIN_NAMESPACE
+
 //*****************************************************************************
 //  template class basic_zip_streambuf
 //*****************************************************************************
@@ -6,17 +9,18 @@
 // PUBLIC
 //-----------------------------------------------------------------------------
 
-/** Construct a zip stream
+/* Construct a zip stream
  * More info on the following parameters can be found in the zlib documentation.
  */
 
 template <class charT, class traits> inline
-basic_zip_streambuf<charT, traits>::basic_zip_streambuf(ostream_reference ostream,
-                                                        int level,
-                                                        EStrategy strategy,
-                                                        int window_size,
-                                                        int memory_level,
-                                                        size_t buffer_size)
+basic_zip_streambuf<charT, 
+                    traits>::basic_zip_streambuf(ostream_reference ostream,
+                                                 int               level,
+                                                 EStrategy         strategy,
+                                                 int               window_size,
+                                                 int               memory_level,
+                                                 size_t            buffer_size )
     : _ostream(ostream),
       _output_buffer(buffer_size, 0),
       _buffer(buffer_size, 0),
@@ -43,7 +47,7 @@ basic_zip_streambuf<charT, traits>::basic_zip_streambuf(ostream_reference ostrea
     this->setp( &(_buffer[0]), &(_buffer[_buffer.size()-1]));
 }
 
-/** Destructor
+/* Destructor
  */
 template <class charT, class traits> inline
 basic_zip_streambuf<charT, traits>::~basic_zip_streambuf(void)
@@ -53,7 +57,7 @@ basic_zip_streambuf<charT, traits>::~basic_zip_streambuf(void)
     _err=deflateEnd(&_zip_stream);
 }
 
-/** Do the synchronization
+/* Do the synchronization
  * @todo
  * document correctly!
  */
@@ -74,7 +78,7 @@ int basic_zip_streambuf<charT, traits>::sync(void)
     return 0;
 }
 
-/** <unknown purpose>
+/* <unknown purpose>
  * @todo
  * document correctly!
  */
@@ -99,7 +103,7 @@ basic_zip_streambuf<charT, traits>::overflow(int_type c)
     }
 }
 
-/** flushes the zip buffer and output buffer.
+/* flushes the zip buffer and output buffer.
  *
  *    This method should be called at the end of the compression. Calling flush
  *    multiple times, will lower the compression ratio.
@@ -146,7 +150,7 @@ std::streamsize basic_zip_streambuf<charT, traits>::flush(void)
     return total_written_byte_size;
 }
 
-/** returns a reference to the output stream
+/* returns a reference to the output stream
  */
 template <class charT, class traits> inline 
 typename basic_zip_streambuf<charT, traits>::ostream_reference
@@ -155,7 +159,7 @@ basic_zip_streambuf<charT, traits>::get_ostream(void) const
     return _ostream;
 }
 
-/** returns the latest zlib error status
+/* returns the latest zlib error status
  */
 template <class charT, class traits> inline
 int basic_zip_streambuf<charT, traits>::get_zerr(void) const
@@ -163,7 +167,7 @@ int basic_zip_streambuf<charT, traits>::get_zerr(void) const
     return _err;
 }
 
-/** returns the crc of the input data compressed so far.
+/* returns the crc of the input data compressed so far.
  */
 template <class charT, class traits> inline
 unsigned long
@@ -172,7 +176,7 @@ basic_zip_streambuf<charT, traits>:: get_crc(void) const
     return _crc;
 }
 
-/**  returns the size (bytes) of the input data compressed so far.
+/*  returns the size (bytes) of the input data compressed so far.
  */
 template <class charT, class traits> inline
 unsigned long
@@ -181,7 +185,7 @@ basic_zip_streambuf<charT, traits>::get_in_size(void) const
     return _zip_stream.total_in;
 }
 
-/**  returns the size (bytes) of the compressed data so far.
+/*  returns the size (bytes) of the compressed data so far.
  */
 template <class charT, class traits> inline
 long 
@@ -194,7 +198,7 @@ basic_zip_streambuf<charT, traits>::get_out_size(void) const
 // PRIVATE
 //-----------------------------------------------------------------------------
 
-/** <undocumented>
+/* <undocumented>
  * @todo
  * document!
  */
@@ -261,7 +265,7 @@ bool basic_zip_streambuf<charT, traits>::zip_to_stream(
 // PUBLIC
 //-----------------------------------------------------------------------------
 
-/** Constructor
+/* Constructor
  */
 template <class charT, class traits> inline
 basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference istream,
@@ -290,7 +294,7 @@ basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference is
                &_buffer[0] + 4);    // end position    
 }
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -300,7 +304,7 @@ basic_unzip_streambuf<charT, traits>::~basic_unzip_streambuf(void)
 }
 
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -335,7 +339,7 @@ basic_unzip_streambuf<charT, traits>::underflow(void)
     return * reinterpret_cast<unsigned char *>(this->gptr());    
 }
 
-/** returns the compressed input istream
+/* returns the compressed input istream
  */
 template <class charT, class traits> inline
 typename basic_unzip_streambuf<charT, traits>::istream_reference
@@ -344,7 +348,7 @@ basic_unzip_streambuf<charT, traits>::get_istream(void)
     return _istream;
 }
 
-/** returns the zlib stream structure
+/* returns the zlib stream structure
  */
 template <class charT, class traits> inline
 z_stream &
@@ -353,7 +357,7 @@ basic_unzip_streambuf<charT, traits>::get_zip_stream(void)
     return _zip_stream;
 }
 
-/** returns the latest zlib error state
+/* returns the latest zlib error state
  */
 template <class charT, class traits> inline
 int
@@ -362,7 +366,7 @@ basic_unzip_streambuf<charT, traits>::get_zerr(void) const
     return _err;
 }
 
-/** returns the crc of the uncompressed data so far
+/* returns the crc of the uncompressed data so far
  */
 template <class charT, class traits> inline
 unsigned long
@@ -371,7 +375,7 @@ basic_unzip_streambuf<charT, traits>::get_crc(void) const
     return _crc;
 }
 
-/** returns the number of uncompressed bytes
+/* returns the number of uncompressed bytes
  */
 template <class charT, class traits> inline
 long
@@ -380,7 +384,7 @@ basic_unzip_streambuf<charT, traits>::get_out_size(void) const
     return _zip_stream.total_out;
 }
 
-/** returns the number of read compressed bytes
+/* returns the number of read compressed bytes
  */
 template <class charT, class traits> inline
 long
@@ -394,7 +398,7 @@ basic_unzip_streambuf<charT, traits>::get_in_size(void) const
 // PRIVATE
 //-----------------------------------------------------------------------------
 
-/** 
+/* 
  */
 template <class charT, class traits> inline
 void
@@ -410,7 +414,7 @@ basic_unzip_streambuf<charT, traits>::put_back_from_zip_stream(void)
     _zip_stream.avail_in = 0;
 }
 
-/** 
+/* 
  */
 template <class charT, class traits> inline
 std::streamsize
@@ -466,7 +470,7 @@ basic_unzip_streambuf<charT, traits>::unzip_from_stream(char_type* buffer,
 }
 
 
-/** 
+/* 
  */
 template <class charT, class traits> inline
 size_t
@@ -494,7 +498,7 @@ basic_unzip_streambuf<charT, traits>::fill_input_buffer(void)
 // PUBLIC
 //-----------------------------------------------------------------------------
 
-/**
+/*
  */
 template <class charT, class traits> inline
 basic_zip_ostream<charT, traits>::basic_zip_ostream(ostream_reference ostream,
@@ -514,7 +518,7 @@ basic_zip_ostream<charT, traits>::basic_zip_ostream(ostream_reference ostream,
         add_header();
 }
 
-/** Destructor
+/* Destructor
  */
 template <class charT, class traits> inline
 basic_zip_ostream<charT, traits>::~basic_zip_ostream(void)
@@ -523,7 +527,7 @@ basic_zip_ostream<charT, traits>::~basic_zip_ostream(void)
         add_footer();
 }
 
-/** returns true if it is a gzip
+/* returns true if it is a gzip
  */
 template <class charT, class traits> inline
 bool basic_zip_ostream<charT, traits>::is_gzip(void) const
@@ -531,7 +535,7 @@ bool basic_zip_ostream<charT, traits>::is_gzip(void) const
     return _is_gzip;
 }
 
-/** flush inner buffer and zipper buffer
+/* flush inner buffer and zipper buffer
  */
 
 template <class charT, class traits> inline
@@ -556,7 +560,7 @@ void basic_zip_ostream<charT, traits>::finished(void)
 // PRIVATE
 //-----------------------------------------------------------------------------
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -575,7 +579,7 @@ basic_zip_ostream<charT,traits>& basic_zip_ostream<charT, traits>::add_header(vo
     return *this;
 }
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -619,7 +623,7 @@ basic_zip_ostream<charT,traits>& basic_zip_ostream<charT, traits>::add_footer(vo
 // PUBLIC
 //-----------------------------------------------------------------------------
 
-/** Constructor
+/* Constructor
  */
 template <class charT, class traits> inline
 basic_zip_istream<charT, traits>::basic_zip_istream(istream_reference istream,
@@ -637,7 +641,7 @@ basic_zip_istream<charT, traits>::basic_zip_istream(istream_reference istream,
         check_header();
 }
 
-/** returns true if it is a gzip file
+/* returns true if it is a gzip file
  */
 template <class charT, class traits> inline
 bool
@@ -646,7 +650,7 @@ basic_zip_istream<charT, traits>::is_gzip(void) const
     return _is_gzip;
 }
 
-/** return crc check result
+/* return crc check result
  *
  * This must be called after the reading of compressed data is finished!  This
  * method compares it to the crc of the uncompressed data.
@@ -661,7 +665,7 @@ basic_zip_istream<charT, traits>::check_crc(void)
     return this->get_crc() == static_cast<unsigned long>(_gzip_crc);
 }
 
-/** return data size check
+/* return data size check
  */
 template <class charT, class traits> inline
 bool
@@ -670,7 +674,7 @@ basic_zip_istream<charT, traits>::check_data_size(void) const
     return this->get_out_size() == _gzip_data_size;
 }
 
-/** return the crc value in the file
+/* return the crc value in the file
  */
 template <class charT, class traits> inline
 long
@@ -679,7 +683,7 @@ basic_zip_istream<charT, traits>::get_gzip_crc(void) const
     return _gzip_crc;
 }
 
-/** return the data size in the file
+/* return the data size in the file
  */
 template <class charT, class traits> inline
 long
@@ -692,7 +696,7 @@ basic_zip_istream<charT, traits>::get_gzip_data_size(void) const
 // PROTECTED
 //-----------------------------------------------------------------------------
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -765,7 +769,7 @@ basic_zip_istream<charT, traits>::check_header(void)
     return err;
 }
 
-/**
+/*
  * @todo document!
  */
 template <class charT, class traits> inline
@@ -784,3 +788,5 @@ basic_zip_istream<charT, traits>::read_footer(void)
                 ((int(this->get_istream().get()) & 0xff) << (8*n));
     }
 }
+
+OSG_END_NAMESPACE

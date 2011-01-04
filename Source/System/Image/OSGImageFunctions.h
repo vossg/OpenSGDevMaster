@@ -53,6 +53,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 enum SliceDataType 
 {
     INVALID_SDT = 0,
@@ -61,35 +64,56 @@ enum SliceDataType
     SIDE_SDT
 };
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 template<class SrcImageStore>
 bool createComposedImage (const SrcImageStore &srcImageVec,
                                 Image         *dstImage,
                                 SliceDataType  sliceDataType = DEPTH_SDT,
                                 bool           flipY = false            );
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING 
 bool createNormalMapFromBump ( Image *srcImage,
                                Image *dstImage,
                                Vec3f    normalMapScale);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 OSG_SYSTEM_DLLMAPPING
 bool createNormalVolume (       Image       *srcImage,
                                 Image       *dstImage,
                           const std::string &outputFormat );
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING 
 bool create2DPreIntegrationLUT ( Image  *dstImage,
                                  Image  *srcImage,
                                  Real32  thickness = 1.0 );
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING 
 bool splitRGBA ( Image *rgba,
                  Image *rgb,
                  Image *alpha);
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING 
 bool mergeRGBA ( Image *rgb,
                  Image *alpha,
                  Image *rgba);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 OSG_SYSTEM_DLLMAPPING
 bool blendImage ( Image   *canvas, 
@@ -99,6 +123,9 @@ bool blendImage ( Image   *canvas,
                   Real32   alphaScale = 1,
                   Real32   paintZ  = 0 );
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING 
 bool createPhongTexture (Image   *image,
                          UInt32   size = 512,
@@ -106,6 +133,9 @@ bool createPhongTexture (Image   *image,
                          Real32   ka = 0,
                          Real32   kd = 0,
                          Real32   ks = 1);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 OSG_SYSTEM_DLLMAPPING 
 bool createPhongVolume ( Image   *image,
@@ -115,9 +145,15 @@ bool createPhongVolume ( Image   *image,
                          UInt32   lutScalar,
                          Real32   lutIncr );
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING
 bool createNormalizationCubeMap ( std::vector<Image *> imageVec,
                                   UInt32 size );
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 OSG_SYSTEM_DLLMAPPING
 bool createNoise ( Image *image,
@@ -127,10 +163,16 @@ bool createNoise ( Image *image,
                    UInt8  dim  = 2,
                    bool   splitOctaves = false);
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING
 bool createGamma(Image  *image, 
                  UInt32  size, 
                  Real32  gamma);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 OSG_SYSTEM_DLLMAPPING
 bool createVignette(Image  *image, 
@@ -139,21 +181,39 @@ bool createVignette(Image  *image,
                     Real32  r0, 
                     Real32  r1);
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 OSG_SYSTEM_DLLMAPPING
 bool convertCrossToCubeMap(Image const *pIn,
                            Image       *pOut);
                            
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 template<class ValueT> inline
 void swapImageByteOrder(Image * const pImage);
           
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 template<class ValueT, ValueT (*ConvF)(ValueT)> inline
 void swapAndConvertImageByteOrder(Image * const pImage);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 template<class ValueT, ValueT MinVal> inline
 ValueT clampMin(ValueT val);
 
+/*! \ingroup GrpSystemImageFuncs
+ */
+
 template<class ValueT, ValueT CompVal, ValueT ReplaceVal> inline
 ValueT clampMin(ValueT val);
+
+/*! \ingroup GrpSystemImageFuncs
+ */
 
 template<class ValueT> inline
 ValueT doNothing(ValueT val);

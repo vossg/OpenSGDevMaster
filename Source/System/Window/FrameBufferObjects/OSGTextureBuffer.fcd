@@ -9,6 +9,7 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
+   docGroupBase="GrpSystemWindowFBO"
    >
   Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.
   

@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Drawable"
-	parent="NodeCore"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
+   name="Drawable"
+   parent="NodeCore"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemNodeCoreDrawables"
+   >
 </FieldContainer>

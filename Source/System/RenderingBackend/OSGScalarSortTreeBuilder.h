@@ -68,7 +68,9 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \class ScalarSortTreeBuilder
- *  \brief ScalarSortTreeBuilder class
+    \brief ScalarSortTreeBuilder class
+    \ingroup GrpSystemRenderingBackendTreeBuild
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase

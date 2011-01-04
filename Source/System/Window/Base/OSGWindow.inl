@@ -129,7 +129,7 @@ void Window::setGLLibraryName(const Char8 *s)
 }
 
 /*! Return the version of OpenGL running in the Window in the form
-    0x<major><major><minor><minor>, e.g. 0x0201 for version 2.1.
+    0x&lt;major&gt;&lt;major&gt;&lt;minor&gt;&lt;minor&gt;, e.g. 0x0201 for version 2.1.
  */
 
 inline 

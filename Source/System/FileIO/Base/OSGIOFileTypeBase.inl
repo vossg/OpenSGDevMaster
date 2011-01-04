@@ -172,7 +172,7 @@ inline bool
 /*! Sets the option \a name to \a value overwriting any previous value.
 
     \param[in] name Name of the option.
-    \param[in[ value Value of the option.
+    \param[in] value Value of the option.
  */
 inline void
 IOFileTypeBase::setOption(const std::string &name, const std::string &value)

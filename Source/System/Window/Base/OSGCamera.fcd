@@ -10,36 +10,38 @@
    parentsystemcomponent="true"
    decoratable="true"
    decorateeFieldFlags="SFDefaultFlags | Field::FStdAccess"
->
-\ingroup GrpSystemWindowCameras
+   docGroupBase="GrpSystemWindow"
+   >
 
-The Camera base class, see \ref PageSystemWindowCamera for a description.
+  The Camera base class, see \ref PageSystemWindowCamera for a description.
 
-The only common fields are _sfNear and _sfFar.
-	<Field
-		name="beacon"
-		type="Node"
-        category="weakpointer"
-		cardinality="single"
-		visibility="external"
-	>
-	The object that define's the camera's coordinate system. The camera is positioned
-	at the origin of the system and looks down the negative z-axis (OpenGL-style).
-	</Field>
-	<Field
-		name="near"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-	>
+  The only common fields are _sfNear and _sfFar.
+
+  <Field
+	 name="beacon"
+	 type="Node"
+     category="weakpointer"
+	 cardinality="single"
+	 visibility="external"
+	 >
+	The object that define's the camera's coordinate system. The camera is
+	 positioned at the origin of the system and looks down the negative z-axis
+	 (OpenGL-style). 
+  </Field>
+  <Field
+	 name="near"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 >
 	The near distance of the camera.
-	</Field>
-	<Field
-		name="far"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-	>
+  </Field>
+  <Field
+	 name="far"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 >
 	The far distance of the camera.
-	</Field>
+  </Field>
 </FieldContainer>

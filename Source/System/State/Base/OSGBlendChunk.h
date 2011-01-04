@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk to wrap pixel combination functions. See \ref 
            PageSystemBlendChunk for a description.
-    \ingroup GrpSystemStateBase
+    \ingroup GrpSystemStateBaseChunks
     \ingroup GrpLibOSGSystem
     \includebasedoc
 */

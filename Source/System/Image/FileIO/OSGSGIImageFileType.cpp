@@ -63,10 +63,14 @@
 #include <climits>
 #endif
 
-OSG_USING_NAMESPACE
+static const OSG::Char8 *suffixArray[] = 
+{
+    "rgb", "rgba", "sgi", "bw"
+};
 
-/*! \class OSG::SGIImageFileType 
-    \ingroup GrpSystemImage
+OSG_BEGIN_NAMESPACE
+
+/*! \class SGIImageFileType 
   
   Image File Type to read/write and store/restore Image objects as
   SGI data. 
@@ -89,7 +93,7 @@ OSG_USING_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \hideinhierarchy
+/*! \nohierarchy
  */
 
 struct ImageRec 
@@ -300,11 +304,6 @@ static const UInt32 zsize2pixelformat[] =
     Image::OSG_RGBA_PF
 };
 
-static const Char8 *suffixArray[] = 
-{
-    "rgb", "rgba", "sgi", "bw"
-};
-
 SGIImageFileType SGIImageFileType::_the("image/x-sgi",
                                         suffixArray,
                                         sizeof(suffixArray));
@@ -428,3 +427,6 @@ SGIImageFileType::SGIImageFileType(const Char8  *mimeType,
 SGIImageFileType::~SGIImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE
+

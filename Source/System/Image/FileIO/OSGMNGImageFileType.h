@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief MNG File Handler. 
     See \ref PageSystemImage for a detailed description.
-*/
+
+    \ingroup GrpImageFileIOMNG
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING MNGImageFileType : public ImageFileType
 {

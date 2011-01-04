@@ -1,30 +1,31 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="MultiPassMaterial"
-	parent="PrimeMaterial"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-	<Field
-		name="materials"
-		type="PrimeMaterialPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        pushToFieldAs="addMaterial"
-        assignMFieldAs="assignMaterialsFrom"
-        insertIntoMFieldAs="insertMaterial"
-        replaceInMFieldIndexAs="replaceMaterial"
-        replaceInMFieldObjectAs="replaceMaterialByObj"
-        removeFromMFieldIndexAs="subMaterial"
-        removeFromMFieldObjectAs="subMaterialByObj"
-        clearFieldAs="clearMaterials"
-	>
-	</Field>
+   name="MultiPassMaterial"
+   parent="PrimeMaterial"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemMaterial"
+   >
+  <Field
+	 name="materials"
+	 type="PrimeMaterialPtr"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     pushToFieldAs="addMaterial"
+     assignMFieldAs="assignMaterialsFrom"
+     insertIntoMFieldAs="insertMaterial"
+     replaceInMFieldIndexAs="replaceMaterial"
+     replaceInMFieldObjectAs="replaceMaterialByObj"
+     removeFromMFieldIndexAs="subMaterial"
+     removeFromMFieldObjectAs="subMaterialByObj"
+     clearFieldAs="clearMaterials"
+	 >
+  </Field>
 </FieldContainer>

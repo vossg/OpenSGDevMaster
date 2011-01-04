@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Camera
-    \ingroup GrpSystemWindowCameras
-
     The Camera base class, see \ref PageSystemWindowCamera for a description.
 
     The only common fields are _sfNear and _sfFar.
@@ -88,8 +86,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Node *          CameraBase::_sfBeacon
-    The object that define's the camera's coordinate system. The camera is positioned
-    at the origin of the system and looks down the negative z-axis (OpenGL-style).
+    The object that define's the camera's coordinate system. The camera is
+    positioned at the origin of the system and looks down the negative z-axis
+    (OpenGL-style). 
 */
 
 /*! \var Real32          CameraBase::_sfNear
@@ -131,8 +130,9 @@ void CameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFWeakNodePtr::Description(
         SFWeakNodePtr::getClassType(),
         "beacon",
-        "The object that define's the camera's coordinate system. The camera is positioned\n"
-        "at the origin of the system and looks down the negative z-axis (OpenGL-style).\n",
+        "The object that define's the camera's coordinate system. The camera is\n"
+        "positioned at the origin of the system and looks down the negative z-axis\n"
+        "(OpenGL-style). \n",
         BeaconFieldId, BeaconFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -190,41 +190,41 @@ CameraBase::TypeObject CameraBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"true\"\n"
     "   decorateeFieldFlags=\"SFDefaultFlags | Field::FStdAccess\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowCameras\n"
+    "   docGroupBase=\"GrpSystemWindow\"\n"
+    "   >\n"
     "\n"
-    "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
+    "  The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
     "\n"
-    "The only common fields are _sfNear and _sfFar.\n"
-    "\t<Field\n"
-    "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"Node\"\n"
-    "        category=\"weakpointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
-    "\tThe object that define's the camera's coordinate system. The camera is positioned\n"
-    "\tat the origin of the system and looks down the negative z-axis (OpenGL-style).\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"near\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
+    "  The only common fields are _sfNear and _sfFar.\n"
+    "\n"
+    "  <Field\n"
+    "\t name=\"beacon\"\n"
+    "\t type=\"Node\"\n"
+    "     category=\"weakpointer\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t >\n"
+    "\tThe object that define's the camera's coordinate system. The camera is\n"
+    "\t positioned at the origin of the system and looks down the negative z-axis\n"
+    "\t (OpenGL-style). \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"near\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t >\n"
     "\tThe near distance of the camera.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"far\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"far\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t >\n"
     "\tThe far distance of the camera.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowCameras\n"
-    "\n"
     "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
     "\n"
     "The only common fields are _sfNear and _sfFar.\n"

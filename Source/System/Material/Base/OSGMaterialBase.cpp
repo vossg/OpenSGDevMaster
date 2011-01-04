@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Material
-    \ingroup GrpSystemMaterial
-
     The material base class.
 
     \ext
@@ -182,8 +180,8 @@ MaterialBase::TypeObject MaterialBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemMaterial\"\n"
     "   >\n"
-    "  \\ingroup GrpSystemMaterial\n"
     "  \n"
     "  The material base class.\n"
     "  \n"
@@ -218,8 +216,6 @@ MaterialBase::TypeObject MaterialBase::_type(
     "\tTransparencyForceTransparent and TransparencyForceOpaque \n"
     "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemMaterial\n"
-    "\n"
     "The material base class.\n"
     "\n"
     "\\ext\n"

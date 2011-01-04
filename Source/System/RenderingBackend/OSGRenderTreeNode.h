@@ -53,8 +53,9 @@ class Geometry;
 class MaterialDrawable;
 class State;
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
+/*! \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING RenderTreeNode
 {

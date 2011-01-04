@@ -50,7 +50,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Image class. See \ref PageSystemImage
-           for a description.
+    for a description.
+    \ingroup GrpSystemImageObj
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
@@ -195,7 +198,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
                                   Int32     type        = OSG_UINT8_IMAGEDATA,
                                   bool      allocMem    = true,
                                   Int32     sidecount   = 1                  );
-    bool set               (      Image   *image                            );
+    bool set               (      Image    *image                            );
     bool setData           (const UInt8    *data = 0                         );
     void clearData         (      void                                       );
     bool setSubData        (      Int32     offX, 

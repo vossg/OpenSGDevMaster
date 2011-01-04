@@ -50,6 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 class RenderOptions;
 
+/*! \ingroup GrpSystemRenderAction
+    \ingroup GrpLibOSGSystem
+ */
+
 class RenderActionTask : public DrawTask
 {
     /*==========================  PUBLIC  =================================*/

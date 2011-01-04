@@ -341,7 +341,7 @@ TraversalValidationHandlerMixin<ParentT>::TraversalValidationHandlerMixin(void):
 
 template <class ParentT> inline
 TraversalValidationHandlerMixin<ParentT>::TraversalValidationHandlerMixin(
-    const TraversalValidationHandlerMixin &source) :
+    const Self &source) :
 
      Inherited          (source                     ),
     _iDataSlotId        (-1                         ),

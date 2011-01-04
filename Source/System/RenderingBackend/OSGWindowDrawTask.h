@@ -49,6 +49,11 @@ OSG_BEGIN_NAMESPACE
 
 class Viewport;
 
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
+ */
+
 class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
 {
     /*==========================  PUBLIC  =================================*/
@@ -136,10 +141,17 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
     void operator =(const WindowDrawTask &source);
 };
 
+/*! \ingroup GrpSystemRenderingBackend
+ */
+
 typedef RefCountPtr<WindowDrawTask,
                     MemObjRefCountPolicy> WindowDrawTaskRefPtr;
 
 
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
 {
@@ -211,8 +223,16 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
     void operator =(const ViewportDrawTask &source);
 };
 
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
+
 typedef RefCountPtr<ViewportDrawTask,
                     MemObjRefCountPolicy> ViewportDrawTaskRefPtr;
+
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public BlockingDrawTask
 {
@@ -294,6 +314,9 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public BlockingDrawTask
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const CallbackDrawTask &source);
 };
+
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
 
 typedef RefCountPtr<CallbackDrawTask,
                     MemObjRefCountPolicy> CallbackDrawTaskRefPtr;

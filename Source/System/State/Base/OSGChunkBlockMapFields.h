@@ -54,27 +54,26 @@ OSG_BEGIN_NAMESPACE
 
 class ChunkBlock;
 
+/*! \ingroup GrpSystemStateFieldTraits
+ */
+
 typedef RenderPropertiesPool::Singleton::ValueType ChunkBlockMapKey;
 
+/*! \ingroup GrpSystemStateFieldTraits
+ */
 typedef std::map<ChunkBlockMapKey, ChunkBlock *>  ChunkBlockMap;
 
+/*! \ingroup GrpSystemStateFieldSFields
+ */
 typedef SField<ChunkBlockMapKey> SFChunkBlockMapKey;
+
+/*! \ingroup GrpSystemStateFieldMFields
+ */
 typedef MField<ChunkBlockMapKey> MFChunkBlockMapKey;
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGBaseFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<ChunkBlockMap> : 
@@ -148,11 +147,13 @@ struct FieldTraits<ChunkBlockMap> :
     }
 };
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpSystemStateFieldSFields
+ */
 
 typedef SField<ChunkBlockMap> SFChunkBlockPtrMap;
-#endif
+
+/*! \ingroup GrpSystemStateFieldHandle
+ */
 
 template<>
 class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> : 
@@ -210,6 +211,9 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> :
     SFChunkBlockPtrMap const * operator ->(void);
     SFChunkBlockPtrMap const & operator * (void);
 };
+
+/*! \ingroup GrpSystemStateFieldHandle
+ */
 
 template<>
 class OSG_SYSTEM_DLLMAPPING 
@@ -304,8 +308,6 @@ class OSG_SYSTEM_DLLMAPPING
         const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const;
 
 };
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

@@ -59,7 +59,10 @@ class ImageBlockAccessor;
 
 /*! \brief Image file Handler. Used to read/write and store/restore image data.
     See \ref PageSystemImage for a detailed description.
-*/
+
+    \ingroup GrpSystemImageFileIOBase
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase 
 {
@@ -272,12 +275,10 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     /*! \}                                                                 */
 };
 
-#if defined(WIN32)
-#    if !defined(OSG_COMPILE_IMAGEFILEHANDLER)
-//OSG_SYSTEM_EXPIMP_TMPL 
-//template class OSG_SYSTEM_DLLMAPPING SingletonHolder<ImageFileHandlerBase>;
-#    endif
-#endif
+/*! \typedef OSG::SingletonHolder<OSG::ImageFileHandlerBase> ImageFileHandler;
+    \ingroup GrpSystemImageFileIOBase
+    \relatesalso OSG::ImageFileHandlerBase
+ */
 
 typedef SingletonHolder<ImageFileHandlerBase> ImageFileHandler;
 

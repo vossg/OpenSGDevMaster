@@ -34,12 +34,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGCoredNodeRefPtr.inl
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

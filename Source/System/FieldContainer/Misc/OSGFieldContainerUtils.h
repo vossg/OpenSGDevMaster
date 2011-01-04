@@ -52,6 +52,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
+
 OSG_SYSTEM_DLLMAPPING
 bool compareContainerEqual(const FieldContainer *lhs,
                            const FieldContainer *rhs,
@@ -62,9 +65,15 @@ bool compareContainerEqual(const FieldContainer *lhs,
 //  MemoryConsumption
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpSystemFieldContainerUtils
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
+
 class OSG_SYSTEM_DLLMAPPING MemoryConsumption
 {
   public:
+
     typedef std::pair<UInt32, UInt32      >       MemCountPair;
     typedef std::map <UInt32, MemCountPair>       TypeMemMap;
     typedef TypeMemMap::iterator                  TypeMemMapIt;
@@ -80,6 +89,7 @@ class OSG_SYSTEM_DLLMAPPING MemoryConsumption
     TypeMemMapConstIt endAccumMap  (void) const;
     
   private:
+
     TypeMemMap _memMap;
 };
 
@@ -87,10 +97,17 @@ class OSG_SYSTEM_DLLMAPPING MemoryConsumption
 //  SceneGraphPrinter
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpSystemFieldContainerUtils
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
+
 class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -131,7 +148,9 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     typedef std::map<UInt32, CorePrintFunction> PrintFuncMap;
     typedef PrintFuncMap::iterator              PrintFuncMapIt;
     typedef PrintFuncMap::const_iterator        PrintFuncMapConstIt;
@@ -147,15 +166,27 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
 
 struct FieldPathEntry;
 
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
+
 typedef boost::function<
           FieldContainer * (const Char8 *szName)> ContainerResolver;
+
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
 
 OSG_SYSTEM_DLLMAPPING
 void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
                     const Char8                       *szFieldPath);
 
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
+
 FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
                                  FieldContainer              *pRoot     );
+
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
 
 FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
                                        ContainerResolver  oResolver );

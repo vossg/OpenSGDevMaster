@@ -52,7 +52,11 @@ class MapCacheHandlerMixin;
 
 /*! \brief ChunkBlock class. See \ref
            PageSystemChunkBlock for a description.
-*/
+
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 {

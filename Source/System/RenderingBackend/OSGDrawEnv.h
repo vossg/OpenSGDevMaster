@@ -59,7 +59,8 @@ class Window;
 class State;
 class StateOverride;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING DrawEnv

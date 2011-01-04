@@ -64,8 +64,13 @@
 #    define OSG_GDAL_ARG(ARG) ARG
 #endif
 
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = 
+{
+    "gtif", "gtiff", "hdf4", "adf"
+};
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 GDALBlockAccessor::~GDALBlockAccessor(void)
 {
@@ -347,8 +352,7 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
 }
 
 
-/*! \class OSG::GDALImageFileType 
-    \ingroup GrpSystemImage
+/*! \class GDALImageFileType 
   
   Image File Type to read/write and store/restore Image objects as
   GDAL (tif/tiff suffix) data.
@@ -361,13 +365,6 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
   the singleton object.
   
  */
-
-
-// Static Class Varible implementations:
-static const Char8 *suffixArray[] = 
-{
-    "gtif", "gtiff", "hdf4", "adf"
-};
 
 GDALImageFileType GDALImageFileType:: _the("image/gdal",
                                            suffixArray, 
@@ -720,3 +717,5 @@ GDALImageFileType::~GDALImageFileType(void)
     CPLCleanupTLS();
 #endif
 }
+
+OSG_END_NAMESPACE

@@ -45,6 +45,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderingBackendTreeBuild
+    \ingroup GrpLibOSGSystem
+ */
+
 class OSG_SYSTEM_DLLMAPPING DepthSortTreeBuilder : public ScalarSortTreeBuilder
 {
     /*==========================  PUBLIC  =================================*/

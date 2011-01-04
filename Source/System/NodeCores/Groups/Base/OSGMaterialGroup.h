@@ -49,6 +49,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemNodeCoreGroupsCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
+
 class OSG_SYSTEM_DLLMAPPING MaterialGroup : public MaterialGroupBase
 {
     /*==========================  PUBLIC  =================================*/

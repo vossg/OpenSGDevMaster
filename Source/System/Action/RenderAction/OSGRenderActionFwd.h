@@ -51,6 +51,9 @@ OSG_BEGIN_NAMESPACE
 class RenderPartition;
 struct MemObjRefCountPolicy;
 
+/*! \ingroup GrpSystemRenderAction
+ */
+
 typedef SimplePool<RenderPartition, 
                    PoolDefaultTag,
                    MemObjRefCountPolicy,

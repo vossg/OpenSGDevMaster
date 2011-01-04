@@ -71,6 +71,8 @@ class State;
 
 
 /*! \brief StateSorter class
+    \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING StateSorter

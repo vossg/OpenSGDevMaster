@@ -150,6 +150,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     "   pointerfieldtypes=\"both\"\n"
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemNodeCoreGroups\"\n"
     "   >\n"
     "  <Field\n"
     "     name=\"cores\"\n"

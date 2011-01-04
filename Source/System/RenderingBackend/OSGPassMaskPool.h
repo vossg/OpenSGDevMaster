@@ -47,9 +47,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef NamedPool<BitVector> PassMaskPoolBase;
 
+/*! \nohierarchy
+ */
+
 struct PassMaskTag {};
+
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
 
 typedef TaggedSingletonHolder<PassMaskPoolBase, 
                               PassMaskTag     > PassMaskPool;

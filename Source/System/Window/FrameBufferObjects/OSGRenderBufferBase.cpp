@@ -186,6 +186,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpSystemWindowFBO\"\n"
     "   >\n"
     "  Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
     "  A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"

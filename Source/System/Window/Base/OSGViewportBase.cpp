@@ -81,8 +81,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Viewport
-    \ingroup GrpSystemWindowsViewports
-
     A Viewport is a part of the Window it is attached to used for rendering. See
     \ref PageSystemWindowViewports for a description.
 
@@ -391,16 +389,16 @@ ViewportBase::TypeObject ViewportBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Viewport\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "        childFields=\"multi\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowsViewports\n"
+    "   name=\"Viewport\"\n"
+    "   parent=\"AttachmentContainer\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   childFields=\"multi\"\n"
+    "   docGroupBase=\"GrpSystemWindow\"\n"
+    "   >\n"
     "\n"
     "A Viewport is a part of the Window it is attached to used for rendering. See\n"
     "\\ref PageSystemWindowViewports for a description.\n"
@@ -561,8 +559,6 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t   >\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowsViewports\n"
-    "\n"
     "A Viewport is a part of the Window it is attached to used for rendering. See\n"
     "\\ref PageSystemWindowViewports for a description.\n"
     "\n"

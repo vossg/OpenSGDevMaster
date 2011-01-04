@@ -8,6 +8,7 @@
    pointerfieldtypes="both"
    systemcomponent="true"
    parentsystemcomponent="true"
+   docGroupBase="GrpSystemNodeCoreGroups"
    >
   <Field
      name="cores"

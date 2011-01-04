@@ -3,6 +3,25 @@
 using namespace OSG;
 
 /*! \page PageSystemStatistics Statistics 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+/*! \page PageSystemStatistics Statistics 
 
 \latexonly Starter:NewChapter \endlatexonly
 
@@ -46,3 +65,4 @@ that the new variable should have.
 \enddev
 
 */
+#endif

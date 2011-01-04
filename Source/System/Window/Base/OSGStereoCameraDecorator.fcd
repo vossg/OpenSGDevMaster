@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="StereoCameraDecorator"
-	parent="CameraDecorator"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup PageSystemWindowCameraDecoratorsStereo
+   name="StereoCameraDecorator"
+   parent="CameraDecorator"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemWindow"
+   >
 
 The abstract base class for stereo camera decorators, see \ref
 PageSystemWindowCameraDecoratorsStereo for a description.

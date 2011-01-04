@@ -58,8 +58,13 @@
 #    define OSG_DB_ARG(ARG) ARG
 #endif
 
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = 
+{
+    "db"
+};
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 DBHeaderParameter::DBHeaderParameter(void) :
     _bLastParam(false)
@@ -667,8 +672,7 @@ bool DBBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
 }
 
 
-/*! \class OSG::GDALImageFileType 
-    \ingroup GrpSystemImage
+/*! \class GDALImageFileType 
   
   Image File Type to read/write and store/restore Image objects as
   GDAL (tif/tiff suffix) data.
@@ -681,13 +685,6 @@ bool DBBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
   the singleton object.
   
  */
-
-
-// Static Class Varible implementations:
-static const Char8 *suffixArray[] = 
-{
-    "db"
-};
 
 DBImageFileType DBImageFileType:: _the("image/db",
                                        suffixArray, 
@@ -1191,3 +1188,5 @@ DBImageFileType::DBImageFileType(const Char8  *mimeType,
 DBImageFileType::~DBImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE

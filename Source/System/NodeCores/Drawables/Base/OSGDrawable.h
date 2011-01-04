@@ -50,6 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \brief *put brief class description here* 
+    \ingroup GrpSystemNodeCoreDrawablesCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING Drawable : public DrawableBase

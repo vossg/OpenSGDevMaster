@@ -53,6 +53,10 @@ OSG_BEGIN_NAMESPACE
 
 class ITFImageFileType;
 
+/*! \ingroup GrpImageFileIOITF
+    \ingroup GrpLibOSGImageFileIO
+ */
+
 class OSG_IMGFILEIO_DLLMAPPING TiledImageBlockAccessor : 
     public ImageBlockAccessor
 {
@@ -151,7 +155,14 @@ class OSG_IMGFILEIO_DLLMAPPING TiledImageBlockAccessor :
     friend class ITFImageFileType;
 };
 
+/*! \ingroup GrpImageFileIOITF
+ */
+
 typedef boost::shared_ptr<TiledImageBlockAccessor> TiledImageBlockAccessorPtr;
+
+/*! \ingroup GrpImageFileIOITF
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING DefaultBlockAccessor : public ImageBlockAccessor
 {
@@ -227,11 +238,17 @@ class OSG_IMGFILEIO_DLLMAPPING DefaultBlockAccessor : public ImageBlockAccessor
     friend class TiledImageBlockAccessor;
 };
 
+/*! \ingroup GrpImageFileIOITF
+ */
+
 typedef boost::shared_ptr<DefaultBlockAccessor> DefaultBlockAccessorPtr;
 
 
 /*! \brief ITF File Handler. Used to read/write TIFF files.
     See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOITF
+    \ingroup GrpLibOSGImageFileIO
 */
 
 class OSG_IMGFILEIO_DLLMAPPING ITFImageFileType : public ImageFileType

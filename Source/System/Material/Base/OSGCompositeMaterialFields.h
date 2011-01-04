@@ -68,7 +68,7 @@ class CompositeMaterial;
 
 OSG_GEN_CONTAINERPTR(CompositeMaterial);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<CompositeMaterial *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<CompositeMaterial *,
                       RecordedRefCountPolicy  > SFRecCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<CompositeMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<CompositeMaterial *,
                       WeakRefCountPolicy      > SFWeakCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<CompositeMaterial *,
                       NoRefCountPolicy        > SFUncountedCompositeMaterialPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<CompositeMaterial *,
                       RecordedRefCountPolicy  > MFRecCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<CompositeMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<CompositeMaterial *,
                       WeakRefCountPolicy      > MFWeakCompositeMaterialPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<CompositeMaterial *,
                       NoRefCountPolicy        > MFUncountedCompositeMaterialPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<CompositeMaterial *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecCompositeMaterialPtr : 
     public PointerSField<CompositeMaterial *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecCompositeMaterialPtr : 
     public PointerSField<CompositeMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakCompositeMaterialPtr :
     public PointerSField<CompositeMaterial *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedCompositeMaterialPtr :
     public PointerSField<CompositeMaterial *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecCompositeMaterialPtr :
     public PointerMField<CompositeMaterial *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecCompositeMaterialPtr :
     public PointerMField<CompositeMaterial *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakCompositeMaterialPtr :
     public PointerMField<CompositeMaterial *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedCompositeMaterialPtr :
     public PointerMField<CompositeMaterial *,
                          NoRefCountPolicy        > {};

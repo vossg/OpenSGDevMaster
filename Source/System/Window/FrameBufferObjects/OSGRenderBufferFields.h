@@ -68,7 +68,7 @@ class RenderBuffer;
 
 OSG_GEN_CONTAINERPTR(RenderBuffer);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       RecordedRefCountPolicy  > SFRecRenderBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       UnrecordedRefCountPolicy> SFUnrecRenderBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       WeakRefCountPolicy      > SFWeakRenderBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       NoRefCountPolicy        > SFUncountedRenderBufferPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       RecordedRefCountPolicy  > MFRecRenderBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       UnrecordedRefCountPolicy> MFUnrecRenderBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       WeakRefCountPolicy      > MFWeakRenderBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       NoRefCountPolicy        > MFUncountedRenderBufferPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<RenderBuffer *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecRenderBufferPtr : 
     public PointerSField<RenderBuffer *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecRenderBufferPtr : 
     public PointerSField<RenderBuffer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakRenderBufferPtr :
     public PointerSField<RenderBuffer *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedRenderBufferPtr :
     public PointerSField<RenderBuffer *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecRenderBufferPtr :
     public PointerMField<RenderBuffer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecRenderBufferPtr :
     public PointerMField<RenderBuffer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakRenderBufferPtr :
     public PointerMField<RenderBuffer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedRenderBufferPtr :
     public PointerMField<RenderBuffer *,
                          NoRefCountPolicy        > {};

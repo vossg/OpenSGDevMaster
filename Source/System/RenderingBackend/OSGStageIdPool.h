@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 struct StageIdPoolTag;
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef SimpleReusePool<Int32, 
                         StageIdPoolTag, 
                         SingleLockPolicy> StageIdPoolBase;
@@ -60,6 +63,9 @@ void SimpleReusePool<Int32,
 {
     _currentValue = 0;
 }
+
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
 
 typedef TaggedSingletonHolder<StageIdPoolBase, 
                               StageIdPoolTag > StageIdPool;

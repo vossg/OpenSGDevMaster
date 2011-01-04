@@ -1,102 +1,102 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="SimpleMaterial"
-	parent="ChunkMaterial"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="none"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemMaterial
+   name="SimpleMaterial"
+   parent="ChunkMaterial"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="none"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemMaterial"
+   >
 
-The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
-description.
+  The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
+  description.
 
-This material wraps the standard calls to glMaterial() in
-OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
-OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
-OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
-(OSG::SimpleMaterial::_sfTransparency), can switch lighting 
-(OSG::SimpleMaterial::_sfLit) and the color material 
-(OSG::SimpleMaterial::_sfColorMaterial).
-	<Field
-		name="ambient"
-		type="Color3r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f,0.f,0.f"
-	>
-        The ambient color for the material.
-	</Field>
-	<Field
-		name="diffuse"
-		type="Color3r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f,0.f,0.f"
-	>
-        The diffuse color for the material.
-	</Field>
-	<Field
-		name="specular"
-		type="Color3r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f,0.f,0.f"
-	>
-        The color used for the specular highlight on the object.
-	</Field>
-	<Field
-		name="shininess"
-		type="Real"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.f"
-                min_value="0.0"
-                max_value="128.0"
-	>
-        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
-	</Field>
-	<Field
-		name="emission"
-		type="Color3r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f,0.f,0.f"
-	>
-	</Field>
-	<Field
-		name="transparency"
-		type="Real"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f"
-                min_value="0.0"
-                max_value="1.0"
-	>
-        Defines how transparent objects are rendered with this material.
-	</Field>
-	<Field
-		name="lit"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-	>
-	</Field>
-	<Field
-		name="colorMaterial"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_DIFFUSE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-                potential_values="GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION"
-	>
-        Defines which color material mode this material affects.
-	</Field>
+  This material wraps the standard calls to glMaterial() in
+  OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
+  OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
+  OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
+  (OSG::SimpleMaterial::_sfTransparency), can switch lighting 
+  (OSG::SimpleMaterial::_sfLit) and the color material 
+  (OSG::SimpleMaterial::_sfColorMaterial).
+  <Field
+	 name="ambient"
+	 type="Color3r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f,0.f,0.f"
+	 >
+    The ambient color for the material.
+  </Field>
+  <Field
+	 name="diffuse"
+	 type="Color3r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f,0.f,0.f"
+	 >
+    The diffuse color for the material.
+  </Field>
+  <Field
+	 name="specular"
+	 type="Color3r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f,0.f,0.f"
+	 >
+    The color used for the specular highlight on the object.
+  </Field>
+  <Field
+	 name="shininess"
+	 type="Real"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f"
+     min_value="0.0"
+     max_value="128.0"
+	 >
+    The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
+  </Field>
+  <Field
+	 name="emission"
+	 type="Color3r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f,0.f,0.f"
+	 >
+  </Field>
+  <Field
+	 name="transparency"
+	 type="Real"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+     min_value="0.0"
+     max_value="1.0"
+	 >
+    Defines how transparent objects are rendered with this material.
+  </Field>
+  <Field
+	 name="lit"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 >
+  </Field>
+  <Field
+	 name="colorMaterial"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_DIFFUSE"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+     potential_values="GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION"
+	 >
+    Defines which color material mode this material affects.
+  </Field>
 </FieldContainer>
 
 

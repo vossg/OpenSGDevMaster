@@ -47,7 +47,7 @@
 
 #include "OSGRenderPartitionBase.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
  *                            Description                                  *
@@ -112,4 +112,6 @@ RenderPartitionBase::~RenderPartitionBase(void)
 
 /*------------------------------ access -----------------------------------*/
 
+
+OSG_END_NAMESPACE
 

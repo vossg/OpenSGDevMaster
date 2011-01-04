@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="FBOViewport"
-	parent="Viewport"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
+   name="FBOViewport"
+   parent="Viewport"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemWindowFBO"
+   >
 \ingroup GrpSystemWindowViewports
 
 A viewport using a framebuffer object for output.

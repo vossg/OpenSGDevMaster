@@ -9,6 +9,7 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
+   docGroupBase="GrpSystemWindowFBO"
    >
   Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
   A renderbuffer is a data storage object containing a single image of a renderable internal format.

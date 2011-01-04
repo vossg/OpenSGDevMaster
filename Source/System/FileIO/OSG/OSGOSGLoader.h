@@ -57,14 +57,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
- *  \brief native osg loader (vrml syntax)
+/*! \brief native osg loader (vrml syntax)
+    \ingroup GrpSystemFileIOOSG
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING OSGLoader :
     public ScanParseFieldTypeMapper<ScanParseSkel>
 {
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     typedef ScanParseFieldTypeMapper<ScanParseSkel   >       Inherited;
@@ -173,6 +175,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */

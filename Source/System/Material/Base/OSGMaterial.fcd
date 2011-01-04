@@ -10,8 +10,8 @@
    parentsystemcomponent="true"
    decoratable="false"
    useLocalIncludes="false"
+   docGroupBase="GrpSystemMaterial"
    >
-  \ingroup GrpSystemMaterial
   
   The material base class.
   

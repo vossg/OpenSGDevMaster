@@ -68,7 +68,10 @@ class OcclusionCullingTreeBuilder;
 //---------------------------------------------------------------------------
 
 /*! \brief RenderPartition is the core class for keeping track of the actions 
-            necessary to draw a scene. 
+           necessary to draw a scene. 
+
+    \ingroup GrpSystemActionBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask

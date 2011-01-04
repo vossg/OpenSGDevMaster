@@ -56,6 +56,10 @@ OSG_BEGIN_NAMESPACE
 
 class GDALImageFileType;
 
+/*! \ingroup GrpImageFileIOGDAL
+    \ingroup GrpLibOSGImageFileIO
+ */
+
 class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
 {
 
@@ -131,10 +135,16 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
     friend class GDALImageFileType;
 };
 
+/*! \ingroup GrpImageFileIOGDAL
+ */
+
 typedef boost::shared_ptr<GDALBlockAccessor> GDALBlockAccessorPtr;
 
 /*! \brief GDAL File Handler. Used to read/write TIFF files.
     See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOGDAL
+    \ingroup GrpLibOSGImageFileIO
 */
 
 class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType

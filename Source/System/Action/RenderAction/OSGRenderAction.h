@@ -73,6 +73,8 @@ class MultiCore;
 //---------------------------------------------------------------------------
 
 /*! \brief RenderAction class
+    \ingroup GrpSystemRenderAction
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase

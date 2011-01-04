@@ -51,6 +51,9 @@ OSG_BEGIN_NAMESPACE
 
 class ImageFileType;
 
+/*! \ingroup GrpSystemImageHelper
+    \ingroup GrpLibOSGSystem
+*/
 
 class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
 {
@@ -128,7 +131,14 @@ class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
   private:
 };
 
+/*! \ingroup GrpSystemImageHelper
+ */
+
 typedef boost::shared_ptr<ImageBlockAccessor> ImageBlockAccessorPtr;
+
+/*! \ingroup GrpSystemImageHelper
+    \ingroup GrpLibOSGSystem
+*/
 
 class OSG_SYSTEM_DLLMAPPING BlockAccessWrapper : public ImageBlockAccessor
 {
@@ -204,11 +214,18 @@ class OSG_SYSTEM_DLLMAPPING BlockAccessWrapper : public ImageBlockAccessor
     friend class ImageFileType;
 };
 
+/*! \ingroup GrpSystemImageHelper
+ */
+
 typedef boost::shared_ptr<BlockAccessWrapper> BlockAccessWrapperPtr;
 
 /*! \brief Abstract Base ImageFileType. Defines the Interface for
-all concrete ImageFileTypes. See \ref PageSystemImage for detailed description.
-*/
+    all concrete ImageFileTypes. See \ref PageSystemImage for detailed
+    description. 
+ 
+    \ingroup GrpSystemImageFileIOBase
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
 {
@@ -337,6 +354,9 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
     /*---------------------------------------------------------------------*/
     /*! \name                   MTD Header                                 */
     /*! \{                                                                 */
+
+    /*! \nohierarchy
+     */
 
     struct OSG_SYSTEM_DLLMAPPING Head
     {

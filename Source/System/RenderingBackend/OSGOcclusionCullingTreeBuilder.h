@@ -74,7 +74,9 @@ class OCRenderTreeNode;
 
 
 /*! \class OcclusionCullingTreeBuilder
- *  \brief OcclusionCullingTreeBuilder class
+    \brief OcclusionCullingTreeBuilder class
+    \ingroup GrpSystemRenderingBackendTreeBuild
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase

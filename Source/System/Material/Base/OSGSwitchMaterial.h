@@ -47,7 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief SwitchMaterial class. See \ref 
-           PageSystemSwitchMaterial for a description.
+    PageSystemSwitchMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase

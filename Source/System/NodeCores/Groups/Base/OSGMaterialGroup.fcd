@@ -1,25 +1,28 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="MaterialGroup"
-	parent="Group"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-MaterialGroup is a standard group node that allows for a material to be set
-that will override all materials in the entire subtree.  This can be useful
-if you want to disable materials in a subtree or if a large group of geometry
-nodes should have the same material applied.
-	<Field
-		name="material"
-		type="MaterialPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
+   name="MaterialGroup"
+   parent="Group"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
+
+  MaterialGroup is a standard group node that allows for a material to be set
+  that will override all materials in the entire subtree.  This can be useful
+  if you want to disable materials in a subtree or if a large group of geometry
+  nodes should have the same material applied.
+
+  <Field
+	 name="material"
+	 type="MaterialPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

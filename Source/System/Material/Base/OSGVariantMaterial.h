@@ -51,6 +51,10 @@ OSG_BEGIN_NAMESPACE
 
 class VariantMaterial;
 
+/*! \ingroup GrpSystemMaterialBase
+    \nohierarchy
+*/
+
 struct VarMatMapCache
 {
     typedef VariantMaterialBase                   ParentT;
@@ -83,7 +87,10 @@ struct VarMatMapCache
 
 /*! \brief Material using variant set.  See \ref 
     PageSystemMaterialVariantMaterial for a description.
-*/
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING VariantMaterial : 
     public MapCacheHandlerMixin<VarMatMapCache>

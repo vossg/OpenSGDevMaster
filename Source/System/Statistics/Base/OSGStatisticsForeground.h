@@ -47,7 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Statistics Foregrounds base class.
-*/
+    \ingroup GrpSystemStatisticsObj
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
+
 class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
     public StatisticsForegroundBase
 {

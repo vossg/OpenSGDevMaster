@@ -66,11 +66,16 @@
 #else
 #include <climits>
 #endif
-OSG_USING_NAMESPACE
 
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] =
+{
+    "dds"
+};
 
-/*! \class OSG::DDSImageFileType 
-    \ingroup GrpSystemImage
+OSG_BEGIN_NAMESPACE
+
+/*! \class DDSImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   DDS data. Should work with binary and ascii dds/pbm/pgm/ppm data.
@@ -79,15 +84,6 @@ OSG_USING_NAMESPACE
   not depend on external libs.
   
 */
-
-
-// Static Class Varible implementations:
-
-static const Char8 *suffixArray[] =
-{
-    "dds"
-};
-
 
 DDSImageFileType DDSImageFileType::_the("image/x-dds",
                                         suffixArray, 
@@ -116,6 +112,9 @@ const UInt32 FOURCC_DXT1 = 0x31545844;
 const UInt32 FOURCC_DXT3 = 0x33545844;
 const UInt32 FOURCC_DXT5 = 0x35545844;
 
+/*! \nohierarchy
+ */
+
 struct DDS_PIXELFORMAT 
 {
     UInt32 dwSize;
@@ -128,6 +127,9 @@ struct DDS_PIXELFORMAT
     UInt32 dwABitMask;
 };
 
+/*! \nohierarchy
+ */
+
 struct DXTColBlock 
 {
     UInt16 col0;
@@ -136,10 +138,16 @@ struct DXTColBlock
     UInt8  row[4];
 };
 
+/*! \nohierarchy
+ */
+
 struct DXT3AlphaBlock 
 {
     UInt16 row[4];
 };
+
+/*! \nohierarchy
+ */
 
 struct DXT5AlphaBlock
 {
@@ -148,6 +156,9 @@ struct DXT5AlphaBlock
     
     UInt8 row[6];
 };
+
+/*! \nohierarchy
+ */
 
 struct DDS_HEADER 
 {
@@ -164,6 +175,9 @@ struct DDS_HEADER
     UInt32          dwCaps2;
     UInt32          dwReserved2[3];
 };
+
+/*! \nohierarchy
+ */
 
 class CSurface
 {
@@ -199,6 +213,9 @@ class CSurface
     char *pixels;       
 };
 
+/*! \nohierarchy
+ */
+
 class CTexture : public CSurface
 {
     friend class CDDSImage;
@@ -222,6 +239,9 @@ class CTexture : public CSurface
   protected:
     std::vector<CSurface> mipmaps;
 };
+
+/*! \nohierarchy
+ */
 
 class CDDSImage
 {
@@ -1276,3 +1296,5 @@ void CSurface::clear()
     delete [] pixels;
     pixels = NULL;
 }
+
+OSG_END_NAMESPACE

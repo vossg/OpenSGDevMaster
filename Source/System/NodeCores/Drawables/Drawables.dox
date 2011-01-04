@@ -1,0 +1,9 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageSystemDrawables Groups
+
+    \section PageSystemDrawableStatsAttachment
+    \section PageSystemStatsAttachment
+ */

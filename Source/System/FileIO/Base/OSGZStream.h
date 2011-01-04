@@ -40,7 +40,10 @@ Altered by: Andreas Zieringer 2003
 
 OSG_BEGIN_NAMESPACE
 
-//! Helper function to check whether stream is compressed or not.
+/*! Helper function to check whether stream is compressed or not.
+    \ingroup GrpSystemFileIOHelper
+ */
+
 inline
 bool isGZip(std::istream &is)
 {
@@ -65,6 +68,7 @@ bool isGZip(std::istream &is)
     is.putback(c1);
     return true;
 }
+
 OSG_END_NAMESPACE
 
 #ifdef OSG_WITH_ZLIB
@@ -121,15 +125,18 @@ enum EStrategy
 //  template class basic_zip_streambuf
 //*****************************************************************************
 
-/** \brief A stream decorator that takes raw input and zips it to a ostream.
-
-The class wraps up the inflate method of the zlib library 1.1.4 http://www.gzip.org/zlib/
-*/
+/*! \brief A stream decorator that takes raw input and zips it to a ostream.
+    \ingroup GrpSystemFileIOHelper
+    The class wraps up the inflate method of the zlib library 1.1.4
+    http://www.gzip.org/zlib/ 
+ */
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_zip_streambuf : public std::basic_streambuf<charT, traits>
 {
-public:
+
+  public:
+
     typedef std::basic_ostream<charT, traits>& ostream_reference;
     typedef unsigned char byte_type;
     typedef char          char_type;
@@ -141,11 +148,11 @@ public:
     typedef std::basic_streambuf<charT, traits> Inherited;
 
     basic_zip_streambuf(ostream_reference ostream,
-                        int level,
-                        EStrategy strategy,
-                        int window_size,
-                        int memory_level,
-                        size_t buffer_size);
+                        int               level,
+                        EStrategy         strategy,
+                        int               window_size,
+                        int               memory_level,
+                        size_t            buffer_size);
     ~basic_zip_streambuf(void);
 
     int               sync        (void);
@@ -158,7 +165,7 @@ public:
     long              get_out_size(void) const;
 
 
-private:
+  private:
 
     bool zip_to_stream(char_type *buffer, std::streamsize buffer_size);
 
@@ -174,16 +181,22 @@ private:
 //  template class basic_unzip_streambuf
 //*****************************************************************************
 
-/** \brief A stream decorator that takes compressed input and unzips it to a istream.
+/*! \brief A stream decorator that takes compressed input and unzips it to a
+    istream. 
 
-The class wraps up the deflate method of the zlib library 1.1.4 http://www.gzip.org/zlib/
-*/
+    \ingroup GrpSystemFileIOHelper
+
+    The class wraps up the deflate method of the zlib library 1.1.4
+    http://www.gzip.org/zlib/ 
+ */
+
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_unzip_streambuf :
     public std::basic_streambuf<charT, traits>
 {
-public:
+  public:
+
     typedef std::basic_istream<charT,traits>& istream_reference;
     typedef unsigned char byte_type;
     typedef char          char_type;
@@ -193,7 +206,8 @@ public:
     typedef int int_type;
 
      /** Construct a unzip stream
-     * More info on the following parameters can be found in the zlib documentation.
+      * More info on the following parameters can be found in the zlib
+      * documentation 
      */
     basic_unzip_streambuf(istream_reference istream,
                           int window_size,
@@ -210,7 +224,7 @@ public:
     long               get_out_size  (void) const;
     long               get_in_size   (void) const;
 
-protected:
+  protected:
 
     byte_vector_type    _input_buffer;
     char_vector_type    _buffer;
@@ -219,7 +233,7 @@ protected:
 
     StreamType _streamType;
 
-private:
+  private:
 
     void            put_back_from_zip_stream(void                        );
     std::streamsize unzip_from_stream       (char_type       *buffer,
@@ -236,13 +250,16 @@ private:
 //  template class basic_zip_ostream
 // ****************************************************************************
 
+/*! \ingroup GrpSystemFileIOHelper
+ */
+
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_zip_ostream :
     private basic_zip_streambuf<charT, traits>,
     public std::basic_ostream<charT, traits>
 {
-public:
+  public:
 
     typedef char char_type;
     typedef std::basic_ostream<charT, traits>& ostream_reference;
@@ -260,7 +277,7 @@ public:
     basic_zip_ostream<charT, traits> &zflush  (void);
     void                              finished(void);
 
-private:
+  private:
 
     basic_zip_ostream<charT,traits>& add_header(void);
     basic_zip_ostream<charT,traits>& add_footer(void);
@@ -273,13 +290,16 @@ private:
 //  template class basic_zip_istream
 // ****************************************************************************
 
+/*! \ingroup GrpSystemFileIOHelper
+ */
+
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_zip_istream :
     public basic_unzip_streambuf<charT, traits>,
     public std::basic_istream<charT, traits>
 {
-public:
+  public:
     typedef basic_unzip_streambuf<charT, traits> BufferType;
 
     typedef std::basic_istream<charT, traits>& istream_reference;
@@ -295,7 +315,7 @@ public:
     long get_gzip_crc      (void) const;
     long get_gzip_data_size(void) const;
 
-protected:
+  protected:
 
     int check_header(void);
     void read_footer(void);
@@ -305,16 +325,25 @@ protected:
     long _gzip_data_size;
 };
 
+OSG_END_NAMESPACE
 
 #include "OSGZStream.inl"
 
-/// A typedef for basic_zip_ostream<char>
+OSG_BEGIN_NAMESPACE
+
+/*! A typedef for basic_zip_ostream<char>
+    \ingroup GrpSystemFileIOHelper
+ */
+
 typedef basic_zip_ostream<char> zip_ostream;
 
 /// A typedef for basic_zip_ostream<wchar_t>
 //typedef basic_zip_ostream<wchar_t> zip_wostream;
 
-/// A typedef for basic_zip_istream<char>
+/*! A typedef for basic_zip_istream<char>
+    \ingroup GrpSystemFileIOHelper
+ */
+
 typedef basic_zip_istream<char> zip_istream;
 
 /// A typedef for basic_zip_istream<wchart>

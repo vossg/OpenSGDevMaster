@@ -53,8 +53,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOp class
+/*! \brief GraphOp class
+    \ingroup GrpSystemGraphOp
+    \ingroup GrpSystemMemoryObjects
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING GraphOp : public MemoryObject
 {
@@ -130,6 +133,9 @@ protected:
     /*---------------------------------------------------------------------*/
     /*! \name                Parameter Helpers                             */
     /*! \{                                                                 */
+
+    /*! \nohierarchy
+     */
 
     class OSG_SYSTEM_DLLMAPPING ParamSet
     {

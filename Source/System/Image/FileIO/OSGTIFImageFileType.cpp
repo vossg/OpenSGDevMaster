@@ -65,12 +65,16 @@
 #    define OSG_TIF_ARG(ARG) ARG
 #endif
 
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = 
+{
+    "tif", "tiff"
+};
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 
-/*! \class OSG::TIFImageFileType 
-    \ingroup GrpSystemImage
+/*! \class TIFImageFileType 
   
   Image File Type to read/write and store/restore Image objects as
   TIF (tif/tiff suffix) data.
@@ -207,11 +211,6 @@ static void errorHandler(const char *module, const char *fmt, va_list ap)
 }
 #endif // OSG_WITH_TIF
 
-// Static Class Varible implementations:
-static const Char8 *suffixArray[] = 
-{
-    "tif", "tiff"
-};
 
 TIFImageFileType TIFImageFileType:: _the("image/tiff",
                                          suffixArray, 
@@ -584,3 +583,5 @@ TIFImageFileType::TIFImageFileType(const Char8  *mimeType,
 TIFImageFileType::~TIFImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE

@@ -1,65 +1,66 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="Background"
-	parent="AttachmentContainer"
-	library="System"
-	structure="abstract"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowBackgrounds
+   name="Background"
+   parent="AttachmentContainer"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemWindow"
+   >
 
-Background is the base class for all background/buffer clearing.  See \ref
-PageSystemWindowBackground for a description.
+  Background is the base class for all background/buffer clearing.  See \ref
+  PageSystemWindowBackground for a description.
 
-\ext
+  \ext
 
-To create a new Background the method that has be overridden is
-clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
-commands, but should restore the state after it's done.
+  To create a new Background the method that has be overridden is
+  clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
+  commands, but should restore the state after it's done.
+  
+  \endext
 
-\endext
- 	<Field
- 		name="clearStencilBit"
- 		type="Int32"
- 		cardinality="single"
- 		visibility="external"
- 		defaultValue="-1"
- 		access="public"
- 	>
+  <Field
+ 	 name="clearStencilBit"
+ 	 type="Int32"
+ 	 cardinality="single"
+ 	 visibility="external"
+ 	 defaultValue="-1"
+ 	 access="public"
+ 	 >
  	Usually 0 is used to clear all stencil bitplanes 
     (clear is deactivated if smaller zero).
- 	</Field>
- 	<Field
- 		name="depth"
- 		type="Real32"
- 		cardinality="single"
- 		visibility="external"
- 		defaultValue="1.f"
- 		access="public"
- 	>
+  </Field>
+  <Field
+ 	 name="depth"
+ 	 type="Real32"
+ 	 cardinality="single"
+ 	 visibility="external"
+ 	 defaultValue="1.f"
+ 	 access="public"
+ 	 >
  	Depth value for clear, defaults to 1.
- 	</Field>
-    <Field
-        name="clearDepth"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        defaultValue="true"
-        access="public"
+  </Field>
+  <Field
+     name="clearDepth"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="true"
+     access="public"
     >
     Whether to clear the depth buffer or not
-    </Field>
-    <Field
-        name="clearColor"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        defaultValue="true"
-        access="public"
-    >
+  </Field>
+  <Field
+     name="clearColor"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="true"
+     access="public"
+     >
     Whether to clear the color buffer or not
-    </Field>
+  </Field>
 </FieldContainer>

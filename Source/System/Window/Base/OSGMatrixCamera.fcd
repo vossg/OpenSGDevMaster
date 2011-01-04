@@ -1,44 +1,44 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="MatrixCamera"
-	parent="Camera"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowCameras
+   name="MatrixCamera"
+   parent="Camera"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemWindow"
+   >
 
-The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for
-a description.
+  The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for
+  a description.
 
-The used matrices are stored in the _sfModelviewMatrix and
-_sfProjectionMatrix Fields.
-	<Field
-		name="ProjectionMatrix"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="ModelviewMatrix"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-    <Field
-        name="useBeacon"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        access="public"
-    >
+  The used matrices are stored in the _sfModelviewMatrix and
+  _sfProjectionMatrix Fields.
+  <Field
+	 name="ProjectionMatrix"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="ModelviewMatrix"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+     name="useBeacon"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
     Use beacon if set to get the modelview matrix
-    </Field>
+  </Field>
 </FieldContainer>

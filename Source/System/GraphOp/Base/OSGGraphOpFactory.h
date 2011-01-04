@@ -50,8 +50,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOpSeq class
+/*! \brief GraphOpFactory class
+    \ingroup GrpSystemGraphOp
+    \ingroup GrpSystemMemoryObjects
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING GraphOpFactoryBase
 {
@@ -79,6 +82,11 @@ class OSG_SYSTEM_DLLMAPPING GraphOpFactoryBase
 
     TypeMap _typeMap;
 };
+
+/*! \typedef OSG::SingletonHolder<OSG::GraphOpFactoryBase> GraphOpFactory;
+    \ingroup GrpSystemGraphOp
+    \relatesalso OSG::GraphOpFactoryBase
+ */
 
 typedef SingletonHolder<GraphOpFactoryBase> GraphOpFactory;
 

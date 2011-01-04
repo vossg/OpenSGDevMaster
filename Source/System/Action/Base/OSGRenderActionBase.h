@@ -68,6 +68,11 @@ class TraversalValidator;
 template <class ParentT>
 class StageHandlerMixin;
 
+/*! \ingroup GrpSystemActionBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
+
 struct RenderDataSlotDesc
 {
     typedef Action                   ParentT;
@@ -87,6 +92,9 @@ struct RenderDataSlotDesc
     }
 };
 
+/*! \ingroup GrpSystemActionBase
+ */
+
 typedef DataSlotMixin< 
             MixinHead < 
                 RenderDataSlotDesc > > RenderActionBaseParent;
@@ -94,6 +102,8 @@ typedef DataSlotMixin<
 
 
 /*! \brief Base class using the render action interface of window
+    \ingroup GrpSystemActionBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent

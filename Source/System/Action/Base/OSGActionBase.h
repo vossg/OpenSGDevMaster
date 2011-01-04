@@ -64,6 +64,10 @@ class Action;
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpSystemActionBase
+    \ingroup GrpLibOSGSystem
+ */
+
 class ActionBase
 {
   public:

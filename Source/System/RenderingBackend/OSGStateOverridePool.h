@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef SimplePool<StateOverride, PoolDefaultTag> StateOverridePool;
 
 OSG_END_NAMESPACE

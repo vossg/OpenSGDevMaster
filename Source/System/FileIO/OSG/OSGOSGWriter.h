@@ -55,13 +55,15 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemDrawablesGeometrymetryWriterLib
- *  \brief Brief OSGWriter
+/*! \brief Brief OSGWriter
+    \ingroup GrpSystemFileIOOSG
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING OSGWriter
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -87,10 +89,14 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
       
     static const UInt32 DefaultSFWidth;
     static const UInt32 DefaultMFWidth; 
+
+    /*! \nohierarchy
+     */
 
     struct FCInfoHelper
     {
@@ -121,6 +127,7 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */

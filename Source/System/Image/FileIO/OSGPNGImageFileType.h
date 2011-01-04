@@ -49,7 +49,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief PNG File Handler. 
-  See \ref PageSystemImage for a detailed description.
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOPNG
+    \ingroup GrpLibOSGImageFileIO
  */
 
 class OSG_IMGFILEIO_DLLMAPPING PNGImageFileType : public ImageFileType

@@ -68,7 +68,7 @@ class GeoReferenceAttachment;
 
 OSG_GEN_CONTAINERPTR(GeoReferenceAttachment);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemImageFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<NoRefCountPolicy
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
                       RecordedRefCountPolicy  > SFRecGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
                       WeakRefCountPolicy      > SFWeakGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
                       NoRefCountPolicy        > SFUncountedGeoReferenceAttachmentPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
                       RecordedRefCountPolicy  > MFRecGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
                       WeakRefCountPolicy      > MFWeakGeoReferenceAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
                       NoRefCountPolicy        > MFUncountedGeoReferenceAttachmentPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<GeoReferenceAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecGeoReferenceAttachmentPtr : 
     public PointerSField<GeoReferenceAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecGeoReferenceAttachmentPtr : 
     public PointerSField<GeoReferenceAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakGeoReferenceAttachmentPtr :
     public PointerSField<GeoReferenceAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedGeoReferenceAttachmentPtr :
     public PointerSField<GeoReferenceAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecGeoReferenceAttachmentPtr :
     public PointerMField<GeoReferenceAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecGeoReferenceAttachmentPtr :
     public PointerMField<GeoReferenceAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakGeoReferenceAttachmentPtr :
     public PointerMField<GeoReferenceAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedGeoReferenceAttachmentPtr :
     public PointerMField<GeoReferenceAttachment *,
                          NoRefCountPolicy        > {};

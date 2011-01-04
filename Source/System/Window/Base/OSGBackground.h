@@ -50,7 +50,11 @@ class DrawEnv;
 
 /*! \brief Background clearing base class. See \ref 
     PageSystemWindowBackground for a description.
-*/
+
+  \ingroup GrpSystemWindowBase
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING Background : public BackgroundBase
 {

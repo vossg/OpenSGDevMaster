@@ -47,11 +47,6 @@
 #include "OSGGeoIntegralProperty.h"
 #include "OSGGeoVectorProperty.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGGeoPropertyFactory.h
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 class GeoPropertyFactoryBase

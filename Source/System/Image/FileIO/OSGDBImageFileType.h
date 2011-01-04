@@ -52,6 +52,10 @@ OSG_BEGIN_NAMESPACE
 
 class DBImageFileType;
 
+/*! \ingroup GrpImageFileIODB
+    \nohierarchy
+ */
+
 class DBHeaderParameter
 {
   protected:
@@ -69,6 +73,10 @@ class DBHeaderParameter
     virtual void convert(const Char8 *str) = 0;
 };
 
+/*! \ingroup GrpImageFileIODB
+    \nohierarchy
+ */
+
 class DBHeaderIntParameter : public DBHeaderParameter
 {
     typedef DBHeaderParameter Inherited;
@@ -85,6 +93,10 @@ class DBHeaderIntParameter : public DBHeaderParameter
     virtual void convert(const Char8 *str);
 };
 
+/*! \ingroup GrpImageFileIODB
+    \nohierarchy
+ */
+
 class DBHeaderFloatParameter : public DBHeaderParameter
 {
     typedef DBHeaderParameter Inherited;
@@ -100,6 +112,10 @@ class DBHeaderFloatParameter : public DBHeaderParameter
 
     virtual void convert(const Char8 *str);
 };
+
+/*! \ingroup GrpImageFileIODB
+    \nohierarchy
+ */
 
 struct DBHeader 
 {
@@ -180,6 +196,10 @@ struct DBHeader
     void dump(void     ) const;
 };
 
+/*! \ingroup GrpImageFileIODB
+    \ingroup GrpLibOSGImageFileIO
+ */
+
 class OSG_IMGFILEIO_DLLMAPPING DBBlockAccessor : public ImageBlockAccessor
 {
 
@@ -248,11 +268,17 @@ class OSG_IMGFILEIO_DLLMAPPING DBBlockAccessor : public ImageBlockAccessor
     friend class DBImageFileType;
 };
 
+/*! \ingroup GrpImageFileIODB
+ */
+
 typedef boost::shared_ptr<DBBlockAccessor> DBBlockAccessorPtr;
 
 /*! \brief GDAL File Handler. Used to read/write TIFF files.
     See \ref PageSystemImage for a detailed description.
-*/
+
+    \ingroup GrpImageFileIODB
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING DBImageFileType : public ImageFileType
 {

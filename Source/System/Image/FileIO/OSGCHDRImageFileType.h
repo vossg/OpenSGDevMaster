@@ -47,9 +47,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DAT File Handler. Used to read/write DAT/RAW files.
-See \ref PageSystemImage for a detailed description.
-*/
+/*! \brief CHdr File Handler. 
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOCHDR
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING CHDRImageFileType : public HDRImageFileType
 {

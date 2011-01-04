@@ -36,12 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGSimpleAttachments.cpp
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 #include <cstdlib>
 #include <cstdio>
 

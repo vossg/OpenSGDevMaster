@@ -1,0 +1,15 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageSystemMaterial Material
+
+    \section PageSystemMaterialChunkMaterial
+    \section PageSystemPrimeMaterial
+    \section PageSystemCompositeMaterial
+    \section PageSystemMaterial
+    \section PageSystemMaterialVariantMaterial
+    \section PageSystemMultiPassMaterial
+    \section PageSystemMaterialSimpleMaterial
+    \section PageSystemSwitchMaterial
+ */

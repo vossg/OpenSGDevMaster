@@ -70,6 +70,8 @@ class Node;
 //---------------------------------------------------------------------------
 
 /*! \brief IntersectAction class
+    \ingroup GrpSystemIntersectAction
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action

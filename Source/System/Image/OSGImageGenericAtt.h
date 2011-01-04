@@ -62,7 +62,9 @@ OSG_BEGIN_NAMESPACE
 
 class FieldDescriptionBase;
 
-/*! \hideinhierarchy */
+/*! \ingroup GrpSystemImageHelper
+    \nohierarchy 
+ */
 
 struct ImageGenericAttDesc
 {
@@ -81,7 +83,19 @@ struct ImageGenericAttDesc
     static FieldDescriptionBase **getDesc      (void) { return NULL; }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemImageHelper
+ */
 typedef DynFieldAttachment<ImageGenericAttDesc>  ImageGenericAtt;
+#else
+/*! \ingroup GrpSystemImageHelper
+ */
+class ImageGenericAtt : public DynFieldAttachment<ImageGenericAttDesc> {};
+#endif
+
+/*! \ingroup GrpSystemImageHelper
+ */
+
 typedef RefCountPtr<ImageGenericAtt, 
                     UnrecordedRefCountPolicy>    ImageGenericAttUnrecPtr;
 
@@ -101,13 +115,11 @@ OSG_ABSTR_FC_DLLEXPORT_DECL(DynFieldAttachment,
 
 #endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-/*! \ingroup GrpSystemFieldTraits
+
+/*! \ingroup GrpSystemImageFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<ImageGenericAtt *, 0> : 
@@ -126,11 +138,6 @@ struct FieldTraits<ImageGenericAtt *, 0> :
     template<typename RefCountPolicy> inline
     static const Char8    *getMName(void);
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class FieldTraitsRecurseMapper<ImageGenericAttPtr, true> */
-/*! \hideinhierarchy                                     */
-#endif
 
 template<> inline
 const Char8 *FieldTraits<
@@ -190,39 +197,74 @@ const Char8 *FieldTraits<
     return "MFUnrefdImageGenericAttPtr"; 
 }
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpSystemFieldSingle */
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup  GrpSystemImageFieldSFields */
 typedef PointerSField<ImageGenericAtt *, 
                       RecordedRefCountPolicy  > SFRecImageGenericAtPtr;
+/*! \ingroup  GrpSystemImageFieldSFields */
 typedef PointerSField<ImageGenericAtt *, 
                       UnrecordedRefCountPolicy> SFUnrecImageGenericAtPtr;
+/*! \ingroup  GrpSystemImageFieldSFields */
 typedef PointerSField<ImageGenericAtt *, 
                       WeakRefCountPolicy      > SFWeakImageGenericAtPtr;
+/*! \ingroup  GrpSystemImageFieldSFields */
 typedef PointerSField<ImageGenericAtt *, 
                       NoRefCountPolicy        > SFUncountedImageGenericAtPtr;
 
-#endif
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-#endif /* DOXYGEN_SHOULD_SKIP_THIS */
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup  GrpSystemImageFieldMFields */
 typedef PointerMField<ImageGenericAtt *, 
                       RecordedRefCountPolicy  > MFRecImageGenericAttPtr;
+/*! \ingroup  GrpSystemImageFieldMFields */
 typedef PointerMField<ImageGenericAtt *, 
                       UnrecordedRefCountPolicy> MFUnrecImageGenericAttPtr;
+/*! \ingroup  GrpSystemImageFieldMFields */
 typedef PointerMField<ImageGenericAtt *, 
                       WeakRefCountPolicy      > MFWeakImageGenericAttPtr;
+/*! \ingroup  GrpSystemImageFieldMFields */
 typedef PointerMField<ImageGenericAtt *, 
                       NoRefCountPolicy        > MFUncountedImageGenericAttPtr;
+#else
+/*! \ingroup  GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecImageGenericAtPtr :
+    public PointerSField<ImageGenericAtt *, 
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup  GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecImageGenericAtPtr : 
+    public PointerSField<ImageGenericAtt *, 
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup  GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakImageGenericAtPtr : 
+    public PointerSField<ImageGenericAtt *, 
+                         WeakRefCountPolicy      > {};
+/*! \ingroup  GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedImageGenericAtPtr :
+    public PointerSField<ImageGenericAtt *, 
+                         NoRefCountPolicy        > {};
 
+
+
+/*! \ingroup  GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecImageGenericAttPtr : 
+    public PointerMField<ImageGenericAtt *, 
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup  GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecImageGenericAttPtr : 
+    public PointerMField<ImageGenericAtt *, 
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup  GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakImageGenericAttPtr :
+    public PointerMField<ImageGenericAtt *, 
+                         WeakRefCountPolicy      > {};
+/*! \ingroup  GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedImageGenericAttPtr : 
+    public PointerMField<ImageGenericAtt *, 
+                         NoRefCountPolicy        > {};
 #endif
+
 
 OSG_END_NAMESPACE
 

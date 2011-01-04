@@ -47,20 +47,12 @@
 #include "OSGImage.h"
 #include "OSGImageFieldDataType.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMFImageTypes.h
-    \ingroup GrpSystemField
-    \ingroup GrpSystemFieldMulti
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpSystemImageFieldMFields
+ */
 
 typedef MField<ImageP> MFImageP;
-#endif
 
 OSG_DLLEXPORT_DECL1(MField, ImageP, OSG_SYSTEMLIB_DLLTMPLMAPPING)
 

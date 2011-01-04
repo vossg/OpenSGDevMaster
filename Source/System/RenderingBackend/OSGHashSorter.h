@@ -70,6 +70,8 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \brief HashSorter class
+    \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING HashSorter
@@ -141,6 +143,9 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
     //   types                                                               
     //-----------------------------------------------------------------------
 
+    /*! \nohierarchy
+     */
+
     struct Level3Sorter
     {
         typedef google::dense_hash_map<UInt16, 
@@ -156,6 +161,8 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
         void init (void);
     };
 
+    /*! \nohierarchy
+     */
 
     struct Level2Sorter
     {
@@ -172,6 +179,8 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
         void init (void);
     };
 
+    /*! \nohierarchy
+     */
 
     struct Level1Sorter
     {

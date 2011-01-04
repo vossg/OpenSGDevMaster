@@ -51,7 +51,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseFieldContainerMixins
+/*! \ingroup GrpSystemFieldContainerMixins
     \ingroup GrpLibOSGBase
  */
 

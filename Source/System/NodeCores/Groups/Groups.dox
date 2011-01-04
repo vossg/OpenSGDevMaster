@@ -1,0 +1,9 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageSystemGroups Groups
+
+    \section PageSystemChunkOverrideGroup
+    \section PageSystemMultiCore
+ */

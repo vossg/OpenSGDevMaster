@@ -68,7 +68,7 @@ class StatsAttachment;
 
 OSG_GEN_CONTAINERPTR(StatsAttachment);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StatsAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecStatsAttachmentPtr : 
     public PointerSField<StatsAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecStatsAttachmentPtr : 
     public PointerSField<StatsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakStatsAttachmentPtr :
     public PointerSField<StatsAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedStatsAttachmentPtr :
     public PointerSField<StatsAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecStatsAttachmentPtr :
     public PointerMField<StatsAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecStatsAttachmentPtr :
     public PointerMField<StatsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakStatsAttachmentPtr :
     public PointerMField<StatsAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedStatsAttachmentPtr :
     public PointerMField<StatsAttachment *,
                          NoRefCountPolicy        > {};

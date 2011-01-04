@@ -68,7 +68,7 @@ class FrameBufferAttachment;
 
 OSG_GEN_CONTAINERPTR(FrameBufferAttachment);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<NoRefCountPolicy>
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       RecordedRefCountPolicy  > SFRecFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       WeakRefCountPolicy      > SFWeakFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       NoRefCountPolicy        > SFUncountedFrameBufferAttachmentPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       RecordedRefCountPolicy  > MFRecFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       WeakRefCountPolicy      > MFWeakFrameBufferAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       NoRefCountPolicy        > MFUncountedFrameBufferAttachmentPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<FrameBufferAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecFrameBufferAttachmentPtr : 
     public PointerSField<FrameBufferAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecFrameBufferAttachmentPtr : 
     public PointerSField<FrameBufferAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakFrameBufferAttachmentPtr :
     public PointerSField<FrameBufferAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedFrameBufferAttachmentPtr :
     public PointerSField<FrameBufferAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecFrameBufferAttachmentPtr :
     public PointerMField<FrameBufferAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecFrameBufferAttachmentPtr :
     public PointerMField<FrameBufferAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakFrameBufferAttachmentPtr :
     public PointerMField<FrameBufferAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedFrameBufferAttachmentPtr :
     public PointerMField<FrameBufferAttachment *,
                          NoRefCountPolicy        > {};

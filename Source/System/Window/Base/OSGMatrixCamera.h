@@ -53,6 +53,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Matrix Camera class. See \ref PageSystemWindowCameraMatrix for 
     a description.
+
+  \ingroup GrpSystemWindowCamera
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING MatrixCamera : public MatrixCameraBase

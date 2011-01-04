@@ -56,10 +56,17 @@
 
 #include "OSGDATImageFileType.h"
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations:
 
-/*! \class OSG::DATImageFileType
-    \ingroup GrpSystemImage
+static const OSG::Char8 *suffixArray[] =
+{
+    "dat"
+};
+
+
+OSG_BEGIN_NAMESPACE
+
+/*! \class DATImageFileType
 
   Image File Type to read/write and store/restore Image objects as
   PNM/RAW data.
@@ -70,12 +77,6 @@ OSG_USING_NAMESPACE
  */
 
 
-// Static Class Varible implementations:
-
-static const Char8 *suffixArray[] =
-{
-    "dat"
-};
 
 DATImageFileType DATImageFileType::_the("image/x-dat",
                                         suffixArray,
@@ -665,3 +666,4 @@ void DATImageFileType::initTypeMap(void)
     }
 }
 
+OSG_END_NAMESPACE

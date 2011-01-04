@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderAction
+ */
+
 typedef SimplePool<RenderPartition, 
                    PoolDefaultTag,
                    MemObjRefCountPolicy,

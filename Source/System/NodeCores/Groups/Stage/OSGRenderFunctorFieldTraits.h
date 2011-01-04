@@ -61,13 +61,6 @@ struct RenderFunctorCallback
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
-#endif
-
 /*! \ingroup 
  */
 #if !defined(OSG_DOC_DEV_TRAITS)

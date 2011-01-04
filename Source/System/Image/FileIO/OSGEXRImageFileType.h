@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief EXR File Handler. Used to read/write ILM OpenEXR files.
     See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOEXR
+    \ingroup GrpLibOSGImageFileIO
 */
 
 class OSG_IMGFILEIO_DLLMAPPING EXRImageFileType : public ImageFileType

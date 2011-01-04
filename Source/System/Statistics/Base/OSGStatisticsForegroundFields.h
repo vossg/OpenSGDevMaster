@@ -68,7 +68,7 @@ class StatisticsForeground;
 
 OSG_GEN_CONTAINERPTR(StatisticsForeground);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStatisticsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<NoRefCountPolicy>(
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemStatisticsFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemStatisticsFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemStatisticsFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemStatisticsFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemStatisticsFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemStatisticsFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemStatisticsFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemStatisticsFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StatisticsForeground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecStatisticsForegroundPtr : 
     public PointerSField<StatisticsForeground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecStatisticsForegroundPtr : 
     public PointerSField<StatisticsForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakStatisticsForegroundPtr :
     public PointerSField<StatisticsForeground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedStatisticsForegroundPtr :
     public PointerSField<StatisticsForeground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecStatisticsForegroundPtr :
     public PointerMField<StatisticsForeground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecStatisticsForegroundPtr :
     public PointerMField<StatisticsForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakStatisticsForegroundPtr :
     public PointerMField<StatisticsForeground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemStatisticsFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedStatisticsForegroundPtr :
     public PointerMField<StatisticsForeground *,
                          NoRefCountPolicy        > {};

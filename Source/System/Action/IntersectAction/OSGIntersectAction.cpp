@@ -306,6 +306,7 @@ Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
  *  @param obj The Node object that was hit.
  *  @param triIndex The index of the triangle in the geometry hit.
  *  @param normal   The normal at the hit location.
+ *  @param lineIndex The index of the line in the geometry hit.
  */
 void IntersectAction::setHit(Real32  t, 
                              Node   *obj, 

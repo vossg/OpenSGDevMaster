@@ -1,130 +1,131 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Light"
-	parent="Group"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemNodeCoresLights
+   name="Light"
+   parent="Group"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
 
-Light is the base class for all the light source nodes.
-It contains the field for the general light source attributes
-(AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon
-defines the reference coordinate system for the lightsource, while
-the position in the graph defines the objects that are lit.
-	<Field
-		name="ambient"
-		type="Color4r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f,0.f,0.f,1.f"
-		access="public"
-	>
+  Light is the base class for all the light source nodes.
+  It contains the field for the general light source attributes
+  (AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon
+  defines the reference coordinate system for the lightsource, while
+  the position in the graph defines the objects that are lit.
+
+  <Field
+	 name="ambient"
+	 type="Color4r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f,0.f,0.f,1.f"
+	 access="public"
+	 >
 	The light's ambient component.
-	</Field>
-	<Field
-		name="diffuse"
-		type="Color4r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.f,1.f,1.f,1.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="diffuse"
+	 type="Color4r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f,1.f,1.f,1.f"
+	 access="public"
+	 >
 	The light's diffuse color.
-	</Field>
-	<Field
-		name="specular"
-		type="Color4r"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.f,1.f,1.f,1.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="specular"
+	 type="Color4r"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f,1.f,1.f,1.f"
+	 access="public"
+	 >
 	The light's specular color.
-	</Field>
-	<Field
-		name="beacon"
-		type="Node"
-        category="weakpointer"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="on"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="constantAttenuation"
-		type="Real"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="beacon"
+	 type="Node"
+     category="weakpointer"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="on"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="constantAttenuation"
+	 type="Real"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f"
+	 access="public"
+	 >
 	The light's constant attenuation.
-	</Field>
-	<Field
-		name="linearAttenuation"
-		type="Real"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="linearAttenuation"
+	 type="Real"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+	 >
 	The light's linear attenuation.
-	</Field>
-	<Field
-		name="quadraticAttenuation"
-		type="Real"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="quadraticAttenuation"
+	 type="Real"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+	 >
 	The light's quadratic attenuation.
-	</Field>
-	<Field
-		name="lightEngine"
-		type="LightEnginePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
+  </Field>
+  <Field
+	 name="lightEngine"
+	 type="LightEnginePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
 
 
-	<Field
-		name="shadowIntensity"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="shadowMode"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	</Field>
+  <Field
+	 name="shadowIntensity"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="shadowMode"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+  </Field>
 
 
 </FieldContainer>

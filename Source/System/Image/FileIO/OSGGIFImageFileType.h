@@ -49,8 +49,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief GIF File Handler. Used to read/write GIF files.
-  See \ref PageSystemImage for a detailed description.
-*/
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOGIF
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING GIFImageFileType : public ImageFileType
 {

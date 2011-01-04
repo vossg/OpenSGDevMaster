@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief DrawableStatsAttachment class. See \ref
-           PageSystemDrawableStatsAttachment for a description.
-*/
+    PageSystemDrawableStatsAttachment for a description.
+    \ingroup GrpSystemNodeCoreDrawablesHelper
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment : 
     public DrawableStatsAttachmentBase

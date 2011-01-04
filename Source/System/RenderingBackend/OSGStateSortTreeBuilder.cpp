@@ -53,7 +53,6 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::StateSortTreeBuilder
-    \ingroup 
  */
 
 /*-------------------------------------------------------------------------*/

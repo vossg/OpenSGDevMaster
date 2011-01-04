@@ -48,8 +48,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
+/*! \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING TraversalValidator
 {
@@ -130,6 +131,9 @@ class OSG_SYSTEM_DLLMAPPING TraversalValidator
   protected:
 
     typedef TraversalValidator Self;
+
+    /*! \nohierarchy
+     */
 
     struct TraversalStatus
     {

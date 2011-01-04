@@ -68,7 +68,7 @@ class DrawableStatsAttachment;
 
 OSG_GEN_CONTAINERPTR(DrawableStatsAttachment);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<NoRefCountPolic
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<DrawableStatsAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecDrawableStatsAttachmentPtr : 
     public PointerSField<DrawableStatsAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecDrawableStatsAttachmentPtr : 
     public PointerSField<DrawableStatsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakDrawableStatsAttachmentPtr :
     public PointerSField<DrawableStatsAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedDrawableStatsAttachmentPtr :
     public PointerSField<DrawableStatsAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecDrawableStatsAttachmentPtr :
     public PointerMField<DrawableStatsAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecDrawableStatsAttachmentPtr :
     public PointerMField<DrawableStatsAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakDrawableStatsAttachmentPtr :
     public PointerMField<DrawableStatsAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedDrawableStatsAttachmentPtr :
     public PointerMField<DrawableStatsAttachment *,
                          NoRefCountPolicy        > {};

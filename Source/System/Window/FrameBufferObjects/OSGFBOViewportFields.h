@@ -68,7 +68,7 @@ class FBOViewport;
 
 OSG_GEN_CONTAINERPTR(FBOViewport);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<FBOViewport *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
                       RecordedRefCountPolicy  > SFRecFBOViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
                       UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
                       WeakRefCountPolicy      > SFWeakFBOViewportPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
                       NoRefCountPolicy        > SFUncountedFBOViewportPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
                       RecordedRefCountPolicy  > MFRecFBOViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
                       UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
                       WeakRefCountPolicy      > MFWeakFBOViewportPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
                       NoRefCountPolicy        > MFUncountedFBOViewportPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<FBOViewport *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecFBOViewportPtr : 
     public PointerSField<FBOViewport *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecFBOViewportPtr : 
     public PointerSField<FBOViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakFBOViewportPtr :
     public PointerSField<FBOViewport *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedFBOViewportPtr :
     public PointerSField<FBOViewport *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecFBOViewportPtr :
     public PointerMField<FBOViewport *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecFBOViewportPtr :
     public PointerMField<FBOViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakFBOViewportPtr :
     public PointerMField<FBOViewport *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedFBOViewportPtr :
     public PointerMField<FBOViewport *,
                          NoRefCountPolicy        > {};

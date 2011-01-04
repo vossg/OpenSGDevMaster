@@ -70,7 +70,7 @@
 
 #include "OSGImage.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::Image
   1D/2D/3D Image with various pixel types data, can also optional hold
@@ -334,35 +334,35 @@ UInt8  Image::getComponents(void) const
 /*! method to set the image data. Use the doCopy parameter to specify, whether
     the method should copy or link the pixel data.
 */
-bool Image::set(      UInt32  pF,
-                      Int32   w,
-                      Int32   h,
-                      Int32   d,
-                      Int32   mmS,
-                      Int32   fS,
-                      Time    fD,
-                const UChar8 *da,
-                      Int32   t,
+bool Image::set(      UInt32  pixelFormat, 
+                      Int32   width,       
+                      Int32   height,      
+                      Int32   depth,       
+                      Int32   mipmapCount, 
+                      Int32   frameCount,  
+                      Time    frameDelay,  
+                const UInt8  *data,        
+                      Int32   type,        
                       bool    allocMem,
-                      Int32   sS)
+                      Int32   sidecount  ) 
 {
-    setPixelFormat(pF );
+    setPixelFormat(pixelFormat);
 
-    setWidth      (osgMax ( 1, w  ));
-    setHeight     (osgMax ( 1, h  ));
-    setDepth      (osgMax ( 1, d  ));
+    setWidth      (osgMax(1, width ));
+    setHeight     (osgMax(1, height));
+    setDepth      (osgMax(1, depth ));
 
-    setMipMapCount(osgMax ( 1, mmS));
-    setSideCount  (osgMax ( 1, sS ));
-    setFrameCount (osgMax ( 1, fS ));
+    setMipMapCount(osgMax(1, mipmapCount));
+    setSideCount  (osgMax(1, sidecount  ));
+    setFrameCount (osgMax(1, frameCount ));
 
-    setFrameDelay (fD);
+    setFrameDelay (frameDelay);
 
-    setDataType   (t );
+    setDataType   (type      );
 
     calcMipmapOffsets();
 
-    return createData(da, allocMem);
+    return createData(data, allocMem);
 }
 
 /*! method to set the image from another image object.
@@ -4402,3 +4402,5 @@ Image::imageContentChanged(
     }
 }
 #endif
+
+OSG_END_NAMESPACE

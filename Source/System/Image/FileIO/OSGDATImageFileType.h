@@ -49,7 +49,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief DAT File Handler. Used to read/write DAT/RAW files.
-  See \ref PageSystemImage for a detailed description.
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIODAT
+    \ingroup GrpLibOSGImageFileIO
 */
 
 class OSG_IMGFILEIO_DLLMAPPING DATImageFileType : public ImageFileType
@@ -132,7 +135,8 @@ class OSG_IMGFILEIO_DLLMAPPING DATImageFileType : public ImageFileType
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
          
-    /*! \hideinhierarchy */
+   /*! \nohierarchy
+    */
 
     struct FormatDesc 
     {

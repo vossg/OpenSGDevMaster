@@ -69,7 +69,13 @@ class ShaderCache;
 class PassiveViewport;
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
-for a description. */
+    for a description. 
+
+  \ingroup GrpSystemWindowBase
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
+ */
+
 class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -151,7 +157,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name             Extension registration                           
-    * See \ref */
+    * See */
     /*! \{                                                                 */
 
     static UInt32 registerExtension(const Char8 *s               );
@@ -419,8 +425,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     friend class GLObject;
 
-    /** Used to keep track of the OpenGL objects registered with the system.
-     * See \ref PageSystemOGLObjects for a description.
+    /*! Used to keep track of the OpenGL objects registered with the system.
+        See \ref PageSystemOGLObjects for a description.
+
+        \nohierarchy
      */
     class GLObject
     {

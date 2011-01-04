@@ -56,28 +56,6 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGMaterial.fcd) and
 // regenerate the base file.
 
-/*! \fn OSG::Material::makeState()
-  
-  Creates an instance of a OSG::State that is used to represent the material.
-  This is used by the OSG::DrawAction.  
- */
-
-/*! \fn OSG::Material::rebuildState()
-  
-  Update the internal OSG::State. 
- */
-
-/*! \fn OSG::Material::getState()
-  
-  Access the internal OSG::State, used by the OSG::RenderAction.
- */
-
-/*! \fn OSG::Material::isTransparent()
-  
-  Check if the Material is transparent and thus has to be rendered afte the
-  opaque ones.
- */
-
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/

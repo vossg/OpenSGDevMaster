@@ -51,6 +51,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Simple Material wrapping standard OpenGL lighting.  See \ref 
     PageSystemMaterialSimpleMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase

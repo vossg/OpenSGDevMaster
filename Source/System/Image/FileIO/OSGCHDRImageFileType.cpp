@@ -58,11 +58,15 @@
 
 #include "OSGCHDRImageFileType.h"
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations: 
+static const OSG::Char8 *suffixArray[] = 
+{
+    "chdr"
+};
 
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::HDRImageFileType 
-    \ingroup GrpSystemImage
+/*! \class HDRImageFileType 
 
 Image File Type to read/write and store/restore Image objects as
 HDR data.
@@ -75,12 +79,6 @@ not depend on external libs.
 /*****************************
  *   Types
  *****************************/
-// Static Class Varible implementations: 
-
-static const Char8 *suffixArray[] = 
-{
-    "chdr"
-};
 
 CHDRImageFileType CHDRImageFileType::_the("chdr",
                                           suffixArray, sizeof(suffixArray),
@@ -246,3 +244,4 @@ CHDRImageFileType::~CHDRImageFileType(void)
 {
 }
 
+OSG_END_NAMESPACE

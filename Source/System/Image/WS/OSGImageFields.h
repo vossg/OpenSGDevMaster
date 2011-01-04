@@ -68,7 +68,7 @@ class Image;
 
 OSG_GEN_CONTAINERPTR(Image);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemImageFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<Image *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemImageFieldTraits
  */
 template <>
 struct FieldTraits<Image *, 1> :
@@ -218,36 +218,36 @@ const Char8 *FieldTraits<Image *, 1>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
                       RecordedRefCountPolicy  > SFRecImagePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
                       UnrecordedRefCountPolicy> SFUnrecImagePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
                       WeakRefCountPolicy      > SFWeakImagePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
                       NoRefCountPolicy        > SFUncountedImagePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
                       RecordedRefCountPolicy  > MFRecImagePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
                       UnrecordedRefCountPolicy> MFUnrecImagePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
                       WeakRefCountPolicy      > MFWeakImagePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
                       NoRefCountPolicy        > MFUncountedImagePtr;
 
 
 
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemImageFieldSFields */
 typedef ChildPointerSField<
           Image *, 
           UnrecordedRefCountPolicy,
@@ -257,44 +257,44 @@ typedef ChildPointerSField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecImagePtr : 
     public PointerSField<Image *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecImagePtr : 
     public PointerSField<Image *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakImagePtr :
     public PointerSField<Image *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedImagePtr :
     public PointerSField<Image *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecImagePtr :
     public PointerMField<Image *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecImagePtr :
     public PointerMField<Image *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakImagePtr :
     public PointerMField<Image *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedImagePtr :
     public PointerMField<Image *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemImageFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecChildImagePtr :
     public ChildPointerSField<
         Image *, 

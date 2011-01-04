@@ -85,8 +85,9 @@ OSG_BEGIN_NAMESPACE
     _mfElementIDs field.
 
     Statistics presentation is done as a foreground so it can be drawn on top of a
-    currently rendering scene.  This does not mean you could not collect statistics
-    directly and present them to the user in another way such as a GUI or text output.
+    currently rendering scene.  This does not mean you could not collect
+    statistics directly and present them to the user in another way such as a
+    GUI or text output. 
 
     The format of every element is given by a format string for every element that
     is directly passed to OSG::StatElem::putToString(), so go there to see the
@@ -94,8 +95,6 @@ OSG_BEGIN_NAMESPACE
 
     If no elementIDs are given all elements in the OSG::StatCollector are display,
     using the default format.
-
-    See \guide(Statistics) for further details.
  */
 
 /***************************************************************************\
@@ -178,54 +177,55 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"StatisticsForeground\"\n"
-    "\tparent=\"Foreground\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "StatisticsForeground is the base class for all foregrounds that process\n"
-    "statistics.  Decendents of this class can be used to print or draw Statistics\n"
-    "elements on the rendered image.\n"
+    "   name=\"StatisticsForeground\"\n"
+    "   parent=\"Foreground\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpSystemStatistics\"\n"
+    "   >\n"
+    "  StatisticsForeground is the base class for all foregrounds that process\n"
+    "  statistics.  Decendents of this class can be used to print or draw Statistics\n"
+    "  elements on the rendered image.\n"
     "\n"
-    "The OSG::StatCollector that is used to collect the elements needs to be\n"
-    "attached to the foreground in the _sfCollection field and the list of\n"
-    "OSG::StatElemDesc IDs that should be displayed need to be selected with the\n"
-    "_mfElementIDs field.\n"
+    "  The OSG::StatCollector that is used to collect the elements needs to be\n"
+    "  attached to the foreground in the _sfCollection field and the list of\n"
+    "  OSG::StatElemDesc IDs that should be displayed need to be selected with the\n"
+    "  _mfElementIDs field.\n"
     "\n"
-    "Statistics presentation is done as a foreground so it can be drawn on top of a\n"
-    "currently rendering scene.  This does not mean you could not collect statistics\n"
-    "directly and present them to the user in another way such as a GUI or text output.\n"
+    "  Statistics presentation is done as a foreground so it can be drawn on top of a\n"
+    "  currently rendering scene.  This does not mean you could not collect\n"
+    "  statistics directly and present them to the user in another way such as a\n"
+    "  GUI or text output. \n"
     "\n"
-    "The format of every element is given by a format string for every element that\n"
-    "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
-    "possible options.\n"
+    "  The format of every element is given by a format string for every element that\n"
+    "  is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
+    "  possible options.\n"
     "\n"
-    "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
-    "using the default format.\n"
+    "  If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
+    "  using the default format.\n"
     "\n"
-    "See \\guide(Statistics) for further details.\n"
-    "\t<Field\n"
-    "\t\tname=\"elementIDs\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "  <Field\n"
+    "\t name=\"elementIDs\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe StatElemDesc IDs to use. If not set, use all in the descriptor.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"collector\"\n"
-    "\t\ttype=\"StatCollectorP\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "        The OSG::StatCollector that keeps the displayed statistics.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"collector\"\n"
+    "\t type=\"StatCollectorP\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "    The OSG::StatCollector that keeps the displayed statistics.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "StatisticsForeground is the base class for all foregrounds that process\n"
     "statistics.  Decendents of this class can be used to print or draw Statistics\n"
@@ -237,8 +237,9 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     "_mfElementIDs field.\n"
     "\n"
     "Statistics presentation is done as a foreground so it can be drawn on top of a\n"
-    "currently rendering scene.  This does not mean you could not collect statistics\n"
-    "directly and present them to the user in another way such as a GUI or text output.\n"
+    "currently rendering scene.  This does not mean you could not collect\n"
+    "statistics directly and present them to the user in another way such as a\n"
+    "GUI or text output. \n"
     "\n"
     "The format of every element is given by a format string for every element that\n"
     "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
@@ -246,8 +247,6 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     "\n"
     "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
     "using the default format.\n"
-    "\n"
-    "See \\guide(Statistics) for further details.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

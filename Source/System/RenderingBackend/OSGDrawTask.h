@@ -53,7 +53,9 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 class Window;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
 */
 
 class OSG_SYSTEM_DLLMAPPING DrawTask : public HardwareContextTask
@@ -158,8 +160,10 @@ class OSG_SYSTEM_DLLMAPPING DrawTask : public HardwareContextTask
 };
 
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING BlockingDrawTask : public DrawTask
 {
@@ -267,14 +271,30 @@ class OSG_SYSTEM_DLLMAPPING BlockingDrawTask : public DrawTask
     void operator =(const BlockingDrawTask &source);
 };
 
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
+
 typedef RefCountPtr<DrawTask,
                     MemObjRefCountPolicy> DrawTaskRefPtr;
+
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
 
 typedef RefCountPtr<BlockingDrawTask,
                     MemObjRefCountPolicy> BlockingDrawTaskRefPtr;
 
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
+
 typedef TransitPtr<DrawTask        > DrawTaskTransitPtr;
+
+/*! \ingroup GrpSystemRenderingBackendTasks
+ */
+
 typedef TransitPtr<BlockingDrawTask> BlockingDrawTaskTransitPtr;
+
+/*! \ingroup GrpSystemRenderingBackendFieldTraits
+ */
 
 template <>
 struct FieldTraits<DrawTaskRefPtr, 0> : 
@@ -285,8 +305,7 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
 
     enum { Convertible = Self::NotConvertible };
 
-    OSG_SYSTEM_DLLMAPPING
-    static DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType (void);
 
     static const char *getMName(void) { return "MFDrawTask"; }
 
@@ -313,7 +332,13 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
     }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemRenderingBackendFieldMFields */
 typedef MField<DrawTaskRefPtr, 0> MFDrawTask;
+#else
+/*! \ingroup GrpSystemRenderingBackendFieldMFields */
+struct  MFDrawTask : public MField<DrawTaskRefPtr, 0> {};
+#endif
 
 OSG_END_NAMESPACE
 

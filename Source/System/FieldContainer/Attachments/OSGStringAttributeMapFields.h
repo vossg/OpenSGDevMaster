@@ -68,7 +68,7 @@ class StringAttributeMap;
 
 OSG_GEN_CONTAINERPTR(StringAttributeMap);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemFieldContainerFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<StringAttributeMap *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecStringAttributeMapPtr : 
     public PointerSField<StringAttributeMap *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecStringAttributeMapPtr : 
     public PointerSField<StringAttributeMap *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakStringAttributeMapPtr :
     public PointerSField<StringAttributeMap *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedStringAttributeMapPtr :
     public PointerSField<StringAttributeMap *,
                          NoRefCountPolicy> {};

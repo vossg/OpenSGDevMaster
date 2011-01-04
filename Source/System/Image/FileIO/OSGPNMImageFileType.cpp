@@ -61,11 +61,14 @@
 #include <climits>
 #endif
 
-OSG_USING_NAMESPACE
+static const OSG::Char8 *suffixArray[] =
+{
+    "pnm", "pbm", "pgm", "ppm"
+};
 
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::PNMImageFileType 
-    \ingroup GrpSystemImage
+/*! \class PNMImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   PNM data. Should work with binary and ascii pnm/pbm/pgm/ppm data.
@@ -74,13 +77,6 @@ OSG_USING_NAMESPACE
   not depend on external libs.
   
 */
-
-
-static const Char8 *suffixArray[] =
-{
-    "pnm", "pbm", "pgm", "ppm"
-};
-
 
 PNMImageFileType PNMImageFileType::_the("image/x-portable-bitmap",
                                         suffixArray, sizeof(suffixArray),
@@ -319,3 +315,6 @@ PNMImageFileType::PNMImageFileType(const Char8  *mimeType,
 PNMImageFileType::~PNMImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE
+

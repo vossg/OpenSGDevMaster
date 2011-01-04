@@ -125,7 +125,7 @@ void
 
     \param[in] optSet OptionSet to modify.
     \param[in] name Name of the option.
-    \param[in[ value Value of the option.
+    \param[in] value Value of the option.
  */
 void
 IOFileTypeBase::setOption(
@@ -160,9 +160,9 @@ IOFileTypeBase::unsetOption(OptionSet &optSet, const std::string &name)
     in \a optSet. If the option is not present \c false is returned,
     \c true otherwise and only in this case value is being set.
     
-    \param[in]  optSet OptionSet to read.
-    \param[in]  name   Name of the option.
-    \param[out] value  Value of option.
+    \param[in] optSet OptionSet to read.
+    \param[in] name   Name of the option.
+    \param[out] value Value of option.
     \return Whether the option is present.
  */
 bool

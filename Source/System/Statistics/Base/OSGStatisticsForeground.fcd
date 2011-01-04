@@ -1,52 +1,53 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="StatisticsForeground"
-	parent="Foreground"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-StatisticsForeground is the base class for all foregrounds that process
-statistics.  Decendents of this class can be used to print or draw Statistics
-elements on the rendered image.
+   name="StatisticsForeground"
+   parent="Foreground"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemStatistics"
+   >
+  StatisticsForeground is the base class for all foregrounds that process
+  statistics.  Decendents of this class can be used to print or draw Statistics
+  elements on the rendered image.
 
-The OSG::StatCollector that is used to collect the elements needs to be
-attached to the foreground in the _sfCollection field and the list of
-OSG::StatElemDesc IDs that should be displayed need to be selected with the
-_mfElementIDs field.
+  The OSG::StatCollector that is used to collect the elements needs to be
+  attached to the foreground in the _sfCollection field and the list of
+  OSG::StatElemDesc IDs that should be displayed need to be selected with the
+  _mfElementIDs field.
 
-Statistics presentation is done as a foreground so it can be drawn on top of a
-currently rendering scene.  This does not mean you could not collect statistics
-directly and present them to the user in another way such as a GUI or text output.
+  Statistics presentation is done as a foreground so it can be drawn on top of a
+  currently rendering scene.  This does not mean you could not collect
+  statistics directly and present them to the user in another way such as a
+  GUI or text output. 
 
-The format of every element is given by a format string for every element that
-is directly passed to OSG::StatElem::putToString(), so go there to see the
-possible options.
+  The format of every element is given by a format string for every element that
+  is directly passed to OSG::StatElem::putToString(), so go there to see the
+  possible options.
 
-If no elementIDs are given all elements in the OSG::StatCollector are display,
-using the default format.
+  If no elementIDs are given all elements in the OSG::StatCollector are display,
+  using the default format.
 
-See \guide(Statistics) for further details.
-	<Field
-		name="elementIDs"
-		type="Int32"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  <Field
+	 name="elementIDs"
+	 type="Int32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	The StatElemDesc IDs to use. If not set, use all in the descriptor.
-	</Field>
-	<Field
-		name="collector"
-		type="StatCollectorP"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The OSG::StatCollector that keeps the displayed statistics.
-	</Field>
+  </Field>
+  <Field
+	 name="collector"
+	 type="StatCollectorP"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+    The OSG::StatCollector that keeps the displayed statistics.
+  </Field>
 </FieldContainer>

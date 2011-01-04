@@ -85,11 +85,15 @@
 
 #include "OSGEXRImageFileType.h"
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] =
+{
+    "exr"
+};
 
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::EXRImageFileType
-    \ingroup GrpSystemImage
+/*! \class EXRImageFileType
 
 Image File Type to read/write and store/restore Image objects as EXR data.
 Does depend on external libs, namely OpenEXR (by ILM).
@@ -101,12 +105,6 @@ Needs to be build with OSG_WITH_IMF
 /*****************************
  *   Types
  *****************************/
-// Static Class Varible implementations:
-
-static const Char8 *suffixArray[] =
-{
-    "exr"
-};
 
 EXRImageFileType EXRImageFileType::_the("image/x-exr",
                                         suffixArray, sizeof(suffixArray),
@@ -763,3 +761,5 @@ bool EXRImageFileType::isOpenExrFile(std::istream &is)
     return false;
 #endif
 }
+
+OSG_END_NAMESPACE

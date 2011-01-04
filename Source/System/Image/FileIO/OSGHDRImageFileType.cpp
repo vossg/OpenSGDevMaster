@@ -57,7 +57,13 @@
 
 #include "OSGHDRImageFileType.h"
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations: 
+static const OSG::Char8 *suffixArray[] = 
+{
+    "hdr"
+};
+
+OSG_BEGIN_NAMESPACE
 
 #define MINELEN 8           // minimum scanline length for encoding
 #define MAXELEN 0x7fff      // maximum scanline length for encoding
@@ -71,31 +77,24 @@ OSG_USING_NAMESPACE
 // copy source -> dest
 #define copy_rgbe(c1, c2) (c2[RED]=c1[RED],c2[GRN]=c1[GRN],c2[BLU]=c1[BLU],c2[EXP]=c1[EXP])
 
-/*! \class OSG::HDRImageFileType 
-    \ingroup GrpSystemImage
+/*! \class HDRImageFileType 
 
-Image File Type to read/write and store/restore Image objects as
-HDR data.
+  Image File Type to read/write and store/restore Image objects as
+  HDR data.
 
-All the type specific code is included in the class. Does
-not depend on external libs.
+  All the type specific code is included in the class. Does
+  not depend on external libs.
     
  */
 
 /*****************************
  *   Types
  *****************************/
-// Static Class Varible implementations: 
 
-static const Char8 *suffixArray[] = 
-{
-    "hdr"
-};
-
-HDRImageFileType HDRImageFileType::_the( "image/x-hdr",
-                                         suffixArray, sizeof(suffixArray),
-                                         OSG_READ_SUPPORTED | 
-                                         OSG_WRITE_SUPPORTED );
+HDRImageFileType HDRImageFileType::_the("image/x-hdr",
+                                        suffixArray, sizeof(suffixArray),
+                                        OSG_READ_SUPPORTED | 
+                                        OSG_WRITE_SUPPORTED );
 
 
 /*****************************
@@ -632,3 +631,5 @@ void HDRImageFileType::half2RGBE(const Real16 *fcol, RGBE rgbe)
         rgbe[EXP] = static_cast<unsigned char>(e + COLXS);
     }
 }
+
+OSG_END_NAMESPACE

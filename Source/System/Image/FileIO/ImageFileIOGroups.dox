@@ -1,0 +1,87 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGImageFileIO libOSGImageFileIO
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpImageFileIO OpenSG ImageFileIO Library
+
+    \brief The System Library contains the image file readers of 
+           OpenSG.
+
+    See \ref PageImageFileIO for details.
+ */
+
+/*! \defgroup GrpImageFileIOBMP BMP
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOCHDR CHDR
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIODAT DAT
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIODB DB
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIODDS DDS
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOEXR EXR
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOGDAL GDAL
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOGIF GIF
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOHDR HDR
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOITF ITF
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOJPG JPG
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOMNG MNG
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOMTD MTD
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOPNG PNG
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOPNM PNM
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOSGI SGI
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOTGA TGA 
+    \ingroup GrpImageFileIO
+ */
+
+/*! \defgroup GrpImageFileIOTIF TIF
+    \ingroup GrpImageFileIO
+ */

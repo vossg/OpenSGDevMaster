@@ -48,7 +48,6 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::WindowDrawTask
-    \ingroup GrpSystemRenderingBackend
  */
 
 RenderActionTask::RenderActionTask(UInt32 uiType) :

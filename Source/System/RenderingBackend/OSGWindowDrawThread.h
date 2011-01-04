@@ -48,6 +48,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemMemoryObjects
+    \ingroup GrpSystemRenderingBackendTasks
+    \ingroup GrpLibOSGSystem
+*/
+
 class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public HardwareContextThread
 {
 

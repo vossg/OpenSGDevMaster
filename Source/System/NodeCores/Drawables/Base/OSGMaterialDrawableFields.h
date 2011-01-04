@@ -68,7 +68,7 @@ class MaterialDrawable;
 
 OSG_GEN_CONTAINERPTR(MaterialDrawable);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<NoRefCountPolicy>(void
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       RecordedRefCountPolicy  > SFRecMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       WeakRefCountPolicy      > SFWeakMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       NoRefCountPolicy        > SFUncountedMaterialDrawablePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       RecordedRefCountPolicy  > MFRecMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       WeakRefCountPolicy      > MFWeakMaterialDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       NoRefCountPolicy        > MFUncountedMaterialDrawablePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<MaterialDrawable *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecMaterialDrawablePtr : 
     public PointerSField<MaterialDrawable *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecMaterialDrawablePtr : 
     public PointerSField<MaterialDrawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakMaterialDrawablePtr :
     public PointerSField<MaterialDrawable *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedMaterialDrawablePtr :
     public PointerSField<MaterialDrawable *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecMaterialDrawablePtr :
     public PointerMField<MaterialDrawable *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecMaterialDrawablePtr :
     public PointerMField<MaterialDrawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakMaterialDrawablePtr :
     public PointerMField<MaterialDrawable *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedMaterialDrawablePtr :
     public PointerMField<MaterialDrawable *,
                          NoRefCountPolicy        > {};

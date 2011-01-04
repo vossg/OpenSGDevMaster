@@ -71,7 +71,9 @@ class State;
 
 
 /*! \class TreeBuilderBase
- *  \brief Base class for all TreeBuilders.
+    \brief Base class for all TreeBuilders.
+    \ingroup GrpSystemRenderingBackendTreeBuild
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING TreeBuilderBase

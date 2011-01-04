@@ -49,8 +49,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief JPEG File Handler. Used to read/write JPEG files.
-  See \ref PageSystemImage for a detailed description.
-*/
+    See \ref PageSystemImage for a detailed description.
+
+    \ingroup GrpImageFileIOJPG
+    \ingroup GrpLibOSGImageFileIO
+ */
 
 class OSG_IMGFILEIO_DLLMAPPING JPGImageFileType : public ImageFileType
 {

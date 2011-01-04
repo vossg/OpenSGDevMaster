@@ -56,6 +56,10 @@ class Line;
 
 /*! \brief Camera base class. See \ref PageSystemWindowCamera for a
     description.
+
+  \ingroup GrpSystemWindowCamera
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase

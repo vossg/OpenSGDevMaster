@@ -52,11 +52,14 @@
 
 #include "OSGMTDImageFileType.h"
 
-OSG_USING_NAMESPACE
+static const OSG::Char8 *suffixArray[] = 
+{
+    "mtd","opensg","opensgImage"
+};
 
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::MTDImageFileType 
-    \ingroup GrpSystemImage
+/*! \class MTDImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   MTD data.
@@ -65,11 +68,6 @@ OSG_USING_NAMESPACE
   not depend on external libs.
   
  */
-
-static const Char8 *suffixArray[] = 
-{
-    "mtd","opensg","opensgImage"
-};
 
 MTDImageFileType MTDImageFileType::_the("image/x-mtd",
                                         suffixArray, sizeof(suffixArray),
@@ -212,3 +210,6 @@ MTDImageFileType::MTDImageFileType(const Char8  *mimeType,
 MTDImageFileType::~MTDImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE
+

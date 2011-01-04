@@ -50,9 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 class PrimeMaterial;
 
-/*! Mixin for creating Stages.
-  \ingroup baselib
-  \param ParentT  The type to derive from for mixing.
+/*! \brief Mixin for handling map caches.
+    \ingroup GrpSystemFieldContainerMixins
+    \ingroup GrpLibOSGBase
  */
 
 template <class Desc>

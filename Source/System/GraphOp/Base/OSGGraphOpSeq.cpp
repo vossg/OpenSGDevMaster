@@ -132,7 +132,7 @@ bool GraphOpSeq::traverse(Node *root)
     This name is how the GraphOp is recognized.   
     
     Format of the string:
-    <GraphOpName1>(<param1>,<param2>,...,<paramN>) <GraphOpName2>() ...
+    &lt;GraphOpName1&gt;(&lt;param1&lt;,&lt;param2&lt;,...,&lt;paramN&lt;) &lt;GraphOpName2&lt;() ...
     Basically you give a GraphOp name, then in brackets all
     parameters that should be passed to its setParams(...). 
     

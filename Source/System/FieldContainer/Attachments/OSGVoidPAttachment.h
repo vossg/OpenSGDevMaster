@@ -42,12 +42,6 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGVoidPAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGSimpleAttachment.h"
@@ -55,8 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
+/*! \ingroup GrpSystemFieldContainerAttachments
+    \nohierarchy
  */
 
 struct VoidPAttachmentDesc
@@ -86,37 +80,52 @@ struct VoidPAttachmentDesc
     static InitContainerF     getInitMethod(void) { return NULL;  }
 };
 
-/*! \ingroup GrpSystemFieldContainer
- */
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldContainerAttachments
+ */
 typedef SimpleAttachment<VoidPAttachmentDesc> VoidPAttachment;
-
-/*! \ingroup GrpSystemFieldContainer
+#else
+/*! \ingroup GrpSystemFieldContainerAttachments
  */
+class VoidPAttachment : public SimpleAttachment<VoidPAttachmentDesc> {};
+#endif
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 OSG_GEN_CONTAINERPTR(VoidPAttachment)  
+#endif
 
 #ifdef WIN32
+/*! \ingroup GrpSystemFieldContainerAttachments
+ */
+
 template <> OSG_SYSTEM_DLLMAPPING
 SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
     SimpleAttachment<VoidPAttachmentDesc>::getType(void);
 
+/*! \ingroup GrpSystemFieldContainerAttachments
+ */
+
 template <> OSG_SYSTEM_DLLMAPPING
 const SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
    SimpleAttachment<VoidPAttachmentDesc>::getType(void) const;
+
+/*! \ingroup GrpSystemFieldContainerAttachments
+ */
 
 template <> OSG_SYSTEM_DLLMAPPING
 SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
     SimpleAttachment<VoidPAttachmentDesc>::getClassType(void);
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+
+/*! \ingroup GrpSystemFieldContainerAttachments
  */
 
 OSG_SYSTEM_DLLMAPPING
 void *getVoidP(AttachmentContainer * const container);
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpSystemFieldContainerAttachments
  */
 
 OSG_SYSTEM_DLLMAPPING

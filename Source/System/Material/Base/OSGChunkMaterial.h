@@ -49,6 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Material using chunk set.  See \ref 
     PageSystemMaterialChunkMaterial for a description.
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase

@@ -68,7 +68,7 @@ class Drawable;
 
 OSG_GEN_CONTAINERPTR(Drawable);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Drawable *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<Drawable *,
                       RecordedRefCountPolicy  > SFRecDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<Drawable *,
                       UnrecordedRefCountPolicy> SFUnrecDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<Drawable *,
                       WeakRefCountPolicy      > SFWeakDrawablePtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<Drawable *,
                       NoRefCountPolicy        > SFUncountedDrawablePtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<Drawable *,
                       RecordedRefCountPolicy  > MFRecDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<Drawable *,
                       UnrecordedRefCountPolicy> MFUnrecDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<Drawable *,
                       WeakRefCountPolicy      > MFWeakDrawablePtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<Drawable *,
                       NoRefCountPolicy        > MFUncountedDrawablePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Drawable *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecDrawablePtr : 
     public PointerSField<Drawable *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecDrawablePtr : 
     public PointerSField<Drawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakDrawablePtr :
     public PointerSField<Drawable *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedDrawablePtr :
     public PointerSField<Drawable *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecDrawablePtr :
     public PointerMField<Drawable *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecDrawablePtr :
     public PointerMField<Drawable *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakDrawablePtr :
     public PointerMField<Drawable *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedDrawablePtr :
     public PointerMField<Drawable *,
                          NoRefCountPolicy        > {};

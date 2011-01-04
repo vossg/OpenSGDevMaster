@@ -62,7 +62,11 @@ class MapCacheHandlerMixin;
 
 /*! \brief Abstract Material base class. See \ref PageSystemMaterial for a
     description.
-*/
+
+    \ingroup GrpSystemMaterialBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 {
@@ -183,7 +187,14 @@ typedef Material *MaterialP;
 /*! \name                     Material Access                          */
 /*! \{                                                                 */
 
+/*! \ingroup GrpSystemFunctions
+ */
+
 OSG_SYSTEM_DLLMAPPING PrimeMaterial *getDefaultMaterial     (void);
+
+/*! \ingroup GrpSystemFunctions
+ */
+
 OSG_SYSTEM_DLLMAPPING PrimeMaterial *getDefaultUnlitMaterial(void);
 
 /*! \}                                                                 */

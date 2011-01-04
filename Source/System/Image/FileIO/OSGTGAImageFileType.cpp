@@ -57,12 +57,15 @@
 #endif
 #include "OSGLog.h"
 
+static const OSG::Char8 *suffixArray[] = 
+{
+    "tga", "targa"
+};
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 
-/*! \class OSG::TGAImageFileType
-    \ingroup GrpSystemImage
+/*! \class TGAImageFileType
 
   Image File Type to read/write and store/restore Image objects as
   TGA data.
@@ -70,13 +73,7 @@ OSG_USING_NAMESPACE
   All the type specific code is included in the class. Does
   not depend on external libs.
   
-  
  */
-
-static const Char8 *suffixArray[] = 
-{
-    "tga", "targa"
-};
 
 bool TGAImageFileType::readHeader(std::istream &is, TGAHeader &header)
 {
@@ -367,3 +364,5 @@ TGAImageFileType::TGAImageFileType(const Char8  *mimeType,
 TGAImageFileType::~TGAImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE

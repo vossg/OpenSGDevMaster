@@ -48,6 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Camera Decorator base class, see \ref
     PageSystemWindowCameraDecorators for a description.
+
+  \ingroup GrpSystemWindowCamera
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING CameraDecorator : public CameraDecoratorBase

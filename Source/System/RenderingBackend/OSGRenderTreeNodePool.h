@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemRenderingBackendPools
+ */
+
 typedef MultiPool< NoRefCountPolicy,
                    NoLockPolicy   >  RenderTreeNodePool;
 

@@ -53,6 +53,10 @@ OSG_BEGIN_NAMESPACE
 class StateChunk;
 class ChunkOverrideGroup;
 
+/*! \ingroup GrpSystemNodeCoreGroupsCores
+    \nohierarchy
+ */
+
 struct ChunkOverrideMapCache
 {
     typedef ChunkOverrideGroupBase                  ParentT;
@@ -84,8 +88,11 @@ struct ChunkOverrideMapCache
 };
 
 /*! \brief ChunkOverrideGroup class. See \ref
-           PageSystemChunkOverrideGroup for a description.
-*/
+    PageSystemChunkOverrideGroup for a description.
+    \ingroup GrpSystemNodeCoreGroupsCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : 
     public MapCacheHandlerMixin<ChunkOverrideMapCache>

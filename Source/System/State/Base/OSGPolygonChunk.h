@@ -49,7 +49,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for polygon-specific modes. See \ref 
            PageSystemPolygonChunk for a description.
-    \ingroup GrpSystemStateBase
+    \ingroup GrpSystemStateBaseChunks
     \ingroup GrpLibOSGSystem
     \includebasedoc
 */

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Window"
-	parent="HardwareContext"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindow
+   name="Window"
+   parent="HardwareContext"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemWindow"
+   >
 
 Window is the base class for all window management classes.  See \ref
 PageSystemWindowWindow for a description.

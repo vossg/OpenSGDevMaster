@@ -50,8 +50,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief LightEnvs Base class
-    \ingroup GrpSystemNodeCoresLightEnvs
-*/
+    \ingroup GrpSystemNodeCoreGroupsCores
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING LightEnv : public LightEnvBase
 {

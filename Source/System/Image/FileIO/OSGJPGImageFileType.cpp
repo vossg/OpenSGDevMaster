@@ -70,10 +70,15 @@ extern "C"
 #    define OSG_JPG_ARG(ARG) ARG
 #endif
 
-OSG_USING_NAMESPACE
+// Static Class Varible implementations:
+static const OSG::Char8 *suffixArray[] = { "jpg", 
+                                           "jpeg", 
+                                           "jpe", 
+                                           "jfif" };
 
-/*! \class OSG::JPGImageFileType 
-    \ingroup GrpSystemImage
+OSG_BEGIN_NAMESPACE
+
+/*! \class JPGImageFileType 
 
   Image File Type to read/write and store/restore Image objects as
   JPEG data.
@@ -358,13 +363,6 @@ static void jpeg_memory_src(      struct jpeg_decompress_struct *cinfo,
     cinfo->src = &jpeg_mem.src;
 }
 #endif
-
-// Static Class Varible implementations:
-
-static const Char8                  *suffixArray[] = { "jpg", 
-                                                       "jpeg", 
-                                                       "jpe", 
-                                                       "jfif" };
 
 JPGImageFileType JPGImageFileType:: _the("image/jpeg",
                                          suffixArray, sizeof(suffixArray),
@@ -836,3 +834,5 @@ JPGImageFileType::JPGImageFileType(const Char8  *mimeType,
 JPGImageFileType::~JPGImageFileType(void)
 {
 }
+
+OSG_END_NAMESPACE

@@ -68,7 +68,7 @@ class ContainerCollection;
 
 OSG_GEN_CONTAINERPTR(ContainerCollection);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemFieldContainerFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<NoRefCountPolicy>(v
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       RecordedRefCountPolicy  > SFRecContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       UnrecordedRefCountPolicy> SFUnrecContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       WeakRefCountPolicy      > SFWeakContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       NoRefCountPolicy        > SFUncountedContainerCollectionPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       RecordedRefCountPolicy  > MFRecContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       UnrecordedRefCountPolicy> MFUnrecContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       WeakRefCountPolicy      > MFWeakContainerCollectionPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       NoRefCountPolicy        > MFUncountedContainerCollectionPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ContainerCollection *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecContainerCollectionPtr : 
     public PointerSField<ContainerCollection *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecContainerCollectionPtr : 
     public PointerSField<ContainerCollection *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakContainerCollectionPtr :
     public PointerSField<ContainerCollection *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedContainerCollectionPtr :
     public PointerSField<ContainerCollection *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecContainerCollectionPtr :
     public PointerMField<ContainerCollection *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecContainerCollectionPtr :
     public PointerMField<ContainerCollection *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakContainerCollectionPtr :
     public PointerMField<ContainerCollection *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemFieldContainerFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedContainerCollectionPtr :
     public PointerMField<ContainerCollection *,
                          NoRefCountPolicy        > {};

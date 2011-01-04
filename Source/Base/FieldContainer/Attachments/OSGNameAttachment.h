@@ -42,12 +42,6 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpBaseFieldContainer
- */
-#endif
-
 #include "OSGBaseTypes.h"
 #include "OSGSimpleAttachment.h"
 #include "OSGBaseSFields.h"

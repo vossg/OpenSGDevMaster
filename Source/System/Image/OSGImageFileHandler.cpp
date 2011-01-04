@@ -53,10 +53,9 @@
 
 #include "OSGSingletonHolder.ins"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::ImageFileHandler 
-    \ingroup GrpSystemImage
+/*! \class ImageFileHandlerBase
 
   Singelton Object/Class which holds all known ImageFileTypes.
   The class is used to write/read Image objects to/from
@@ -71,8 +70,6 @@ OSG_USING_NAMESPACE
 /*****************************
  *   Types
  *****************************/
-
-OSG_BEGIN_NAMESPACE
 
 OSG_SINGLETON_INST(ImageFileHandlerBase, addPostFactoryExitFunction)
 

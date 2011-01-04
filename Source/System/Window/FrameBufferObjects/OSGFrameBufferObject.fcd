@@ -1,96 +1,97 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="FrameBufferObject"
-        parent="AttachmentContainer"
-        library="System"
-        pointerfieldtypes="both"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
->
-Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object
-OpenGL extension.
-        <Field
-                name="GLId"
-                type="GLenum"
-                cardinality="single"
-                visibility="internal"
-                access="public"
-                defaultValue="0"
-                fieldFlags="FClusterLocal"
-        >
-        The OpenGL texture id for this frame buffer object.
-        </Field>
-        <Field
-                name="colorAttachments"
-                type="FrameBufferAttachmentPtr"
-                cardinality="multi"
-                visibility="external"
-                access="public"
-        >
-        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
-        This defines the target buffers for color attachments.
-        </Field>
-        <Field
-                name="drawBuffers"
-                type="GLenum"
-                cardinality="multi"
-                visibility="external"
-                access="public"
-                defaultValue="0"
-        >
-        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.
-        These are used to call DrawBuffers to tell OpenGL what targets
-        to render into.
-        </Field>
-        <Field
-                name="depthAttachment"
-                type="FrameBufferAttachmentPtr"
-                cardinality="single"
-                visibility="external"
-                access="public"
-        >
-        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
-        </Field>
-        <Field
-                name="stencilAttachment"
-                type="FrameBufferAttachmentPtr"
-                cardinality="single"
-                visibility="external"
-                access="public"
-        >
-        GL_STENCIL_ATTACHMENT_EXT slot.
-        </Field>
-        <Field
-                name="width"
-                type="UInt16"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="0"
-        >
-        </Field>
-        <Field
-                name="height"
-                type="UInt16"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="0"
-        >
-        </Field>
+   name="FrameBufferObject"
+   parent="AttachmentContainer"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpSystemWindowFBO"
+   >
+  Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object
+  OpenGL extension.
+  <Field
+     name="GLId"
+     type="GLenum"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue="0"
+     fieldFlags="FClusterLocal"
+     >
+    The OpenGL texture id for this frame buffer object.
+  </Field>
+  <Field
+     name="colorAttachments"
+     type="FrameBufferAttachmentPtr"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+    This defines the target buffers for color attachments.
+  </Field>
+  <Field
+     name="drawBuffers"
+     type="GLenum"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.
+    These are used to call DrawBuffers to tell OpenGL what targets
+    to render into.
+  </Field>
+  <Field
+     name="depthAttachment"
+     type="FrameBufferAttachmentPtr"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+  </Field>
+  <Field
+     name="stencilAttachment"
+     type="FrameBufferAttachmentPtr"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    GL_STENCIL_ATTACHMENT_EXT slot.
+  </Field>
+  <Field
+     name="width"
+     type="UInt16"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+  </Field>
+  <Field
+     name="height"
+     type="UInt16"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+  </Field>
 
-        <Field
-                name="postProcessOnDeactivate"
-                type="bool"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="false"
-        >
-        Enable to check and generate mipmap level or copy the texture buffer
-        result back to the image
-        </Field>
+  <Field
+     name="postProcessOnDeactivate"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="false"
+     >
+    Enable to check and generate mipmap level or copy the texture buffer
+    result back to the image
+  </Field>
 </FieldContainer>

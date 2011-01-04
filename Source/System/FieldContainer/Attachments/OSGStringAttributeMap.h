@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief StringAttributeMap class. See \ref 
-           PageSystemStringAttributeMap for a description.
-*/
+    PageSystemStringAttributeMap for a description.
+    \ingroup GrpSystemFieldContainerAttachments
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
 {
@@ -138,6 +141,9 @@ typedef StringAttributeMap *StringAttributeMapP;
 /*---------------------------------------------------------------------*/
 /*! \name              StringAttributeMap Util                         */
 /*! \{                                                                 */
+
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
 
 OSG_SYSTEM_DLLMAPPING
 StringAttributeMapTransitPtr stringAttributeMap(

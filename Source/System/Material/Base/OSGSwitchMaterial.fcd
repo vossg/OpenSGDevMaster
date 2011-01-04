@@ -1,34 +1,35 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="SwitchMaterial"
-	parent="CompositeMaterial"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-Material that allows selection of one of the materials in the _mfMaterials
-field based on the value of the _sfChoice field.
-	<Field
-		name="materials"
-		type="MaterialPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+   name="SwitchMaterial"
+   parent="CompositeMaterial"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemMaterial"
+   >
+  Material that allows selection of one of the materials in the _mfMaterials
+  field based on the value of the _sfChoice field.
+  <Field
+	 name="materials"
+	 type="MaterialPtr"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	Materials to choose from.
-	</Field>
-	<Field
-		name="choice"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="choice"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The material to actually use for drawing.
-	</Field>
+  </Field>
 </FieldContainer>

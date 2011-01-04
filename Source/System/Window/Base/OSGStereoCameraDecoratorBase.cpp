@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StereoCameraDecorator
-    \ingroup PageSystemWindowCameraDecoratorsStereo
-
     The abstract base class for stereo camera decorators, see \ref
     PageSystemWindowCameraDecoratorsStereo for a description.
 
@@ -163,16 +161,16 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"StereoCameraDecorator\"\n"
-    "\tparent=\"CameraDecorator\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "\\ingroup PageSystemWindowCameraDecoratorsStereo\n"
+    "   name=\"StereoCameraDecorator\"\n"
+    "   parent=\"CameraDecorator\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpSystemWindow\"\n"
+    "   >\n"
     "\n"
     "The abstract base class for stereo camera decorators, see \\ref\n"
     "PageSystemWindowCameraDecoratorsStereo for a description.\n"
@@ -197,8 +195,6 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     "\tThe distance between the two eyes.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup PageSystemWindowCameraDecoratorsStereo\n"
-    "\n"
     "The abstract base class for stereo camera decorators, see \\ref\n"
     "PageSystemWindowCameraDecoratorsStereo for a description.\n"
     "\n"

@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for textures. See \ref PageSystemTextureObjChunk
            for a description.
-    \ingroup GrpSystemStateBase
+    \ingroup GrpSystemStateBaseChunks
     \ingroup GrpLibOSGSystem
     \includebasedoc
  */

@@ -1,0 +1,9 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageSystemImage Image
+
+
+    \section PageSystemGeoReferenceAttachment
+ */

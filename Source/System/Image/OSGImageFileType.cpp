@@ -49,7 +49,7 @@
 #include "OSGImageGenericAtt.h"
 #include "OSGLog.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 ImageBlockAccessor::~ImageBlockAccessor(void)
 {
@@ -258,9 +258,8 @@ void BlockAccessWrapper::open(const Char8 *szFilename)
 }
 
 
-/*! \class OSG::ImageFileType
-    \ingroup GrpSystemImage
-*/
+/*! \class ImageFileType
+ */
 
 //-------------------------------------------------------------------------
 /*!
@@ -780,3 +779,6 @@ void ImageFileType::dump(void)
 
     std::cerr << std::endl;
 }
+
+OSG_END_NAMESPACE
+

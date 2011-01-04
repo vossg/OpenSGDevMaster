@@ -68,7 +68,7 @@ class SimpleMaterial;
 
 OSG_GEN_CONTAINERPTR(SimpleMaterial);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>

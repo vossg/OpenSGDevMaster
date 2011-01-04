@@ -68,7 +68,7 @@ class TextureBuffer;
 
 OSG_GEN_CONTAINERPTR(TextureBuffer);
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       RecordedRefCountPolicy  > SFRecTextureBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       WeakRefCountPolicy      > SFWeakTextureBufferPtr;
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       NoRefCountPolicy        > SFUncountedTextureBufferPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       RecordedRefCountPolicy  > MFRecTextureBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       UnrecordedRefCountPolicy> MFUnrecTextureBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       WeakRefCountPolicy      > MFWeakTextureBufferPtr;
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       NoRefCountPolicy        > MFUncountedTextureBufferPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<TextureBuffer *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecTextureBufferPtr : 
     public PointerSField<TextureBuffer *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecTextureBufferPtr : 
     public PointerSField<TextureBuffer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakTextureBufferPtr :
     public PointerSField<TextureBuffer *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedTextureBufferPtr :
     public PointerSField<TextureBuffer *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecTextureBufferPtr :
     public PointerMField<TextureBuffer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecTextureBufferPtr :
     public PointerMField<TextureBuffer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakTextureBufferPtr :
     public PointerMField<TextureBuffer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpSystemWindowFBOFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedTextureBufferPtr :
     public PointerMField<TextureBuffer *,
                          NoRefCountPolicy        > {};

@@ -47,13 +47,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! FieldTypeMapper, provides functions to map from system to scanner types  
-//! \ingroup GrpSystemDrawablesGeometryLoaderLib 
+/*! FieldTypeMapper, provides functions to map from system to scanner types  
+    \ingroup GrpSystemFileIOScanParse
+    \ingroup GrpLibOSGSystem
+ */  
 
 template <class BaseT>
 class ScanParseFieldTypeMapper : public BaseT 
 {
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef          BaseT                       Inherited;
@@ -66,6 +69,7 @@ class ScanParseFieldTypeMapper : public BaseT
                               BuildInFieldTypes> ExtIntMap;
 
     /*==========================  PUBLIC  =================================*/
+
   public :
 
     /*---------------------------------------------------------------------*/
@@ -105,6 +109,7 @@ class ScanParseFieldTypeMapper : public BaseT
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
@@ -116,6 +121,7 @@ class ScanParseFieldTypeMapper : public BaseT
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */

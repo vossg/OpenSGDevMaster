@@ -44,8 +44,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
+/*! \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
+ */
 
 class OSG_SYSTEM_DLLMAPPING OCRenderTreeNode : public RenderTreeNode
 {

@@ -67,7 +67,6 @@
 
 
 /*! \class OSG::GIFImageFileType 
-    \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as
   GIF data.
@@ -167,12 +166,12 @@ static int        GIFFree   (GIFStream *);
 
 //--- GIF INCLUDE END ----------------------------------------------------
 
-OSG_USING_NAMESPACE
-
-static const Char8 *suffixArray[] = 
+static const OSG::Char8 *suffixArray[] = 
 {
     "gif"
 };
+
+OSG_USING_NAMESPACE
 
 GIFImageFileType GIFImageFileType::_the("image/gif",
                                         suffixArray, 

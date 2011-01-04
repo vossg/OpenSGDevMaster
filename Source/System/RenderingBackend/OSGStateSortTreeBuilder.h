@@ -68,6 +68,8 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \brief StateSortTreeBuilder class
+    \ingroup GrpSystemRenderingBackendTreeBuild
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
