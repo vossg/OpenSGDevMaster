@@ -1,37 +1,36 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="SolidBackground"
-	parent="Background"
-	library="Window"
-	structure="concrete"
-	pointerfieldtypes="single"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowBackgrounds
+   name="SolidBackground"
+   parent="Background"
+   library="Window"
+   structure="concrete"
+   pointerfieldtypes="single"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowBackground"
+   >
+  A single colored background, see \ref PageSystemWindowBackgroundSolid for a
+  description.
 
-A single colored background, see \ref PageSystemWindowBackgroundSolid for a
-description.
-
-The color of the background is given by the _sfColor field.
-	<Field
-		name="color"
-		type="Color3f"
-		cardinality="single"
-		visibility="external"
-        defaultValue="0.f, 0.f, 0.f"
-	>
+  The color of the background is given by the _sfColor field.
+  <Field
+	 name="color"
+	 type="Color3f"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f, 0.f, 0.f"
+	 >
 	The background color.
-	</Field>
-	<Field
-		name="alpha"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="alpha"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f"
+	 access="public"
+	 >
 	Alpha value (to allow transparent clears).
-	</Field>
+  </Field>
 </FieldContainer>

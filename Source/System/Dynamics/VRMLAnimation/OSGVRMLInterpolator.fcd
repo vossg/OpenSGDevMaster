@@ -14,6 +14,7 @@
    isBundle="false"
    parentFields="none"
    fieldsUnmarkedOnCreate="ResortIndexFieldMask"
+   docGroupBase="GrpDynamicsVRMLAnimation"
    >
   <Field
 	 name="inValue"

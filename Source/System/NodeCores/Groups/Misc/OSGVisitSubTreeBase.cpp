@@ -168,6 +168,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
     "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpGroupMisc\"\n"
     "   >\n"
     "  VisitSubTree provides a way to point the renderer to another section of the\n"
     "  scene graph for rendering. This is useful for multi-pass algorithms using\n"

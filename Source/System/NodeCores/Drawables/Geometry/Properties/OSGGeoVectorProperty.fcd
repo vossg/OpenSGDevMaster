@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="GeoVectorProperty"
-	parent="GeoProperty"
-	library="Drawable"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-        childFields="both"
->
-Abstract base class for all vector-valued GeoProperties.
-Provides a uniform interface for accessing all vector data in geometry using
-automatic conversion methods.
+   name="GeoVectorProperty"
+   parent="GeoProperty"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="both"
+   docGroupBase="GrpDrawablesGeometry"
+   >
+  Abstract base class for all vector-valued GeoProperties.
+  Provides a uniform interface for accessing all vector data in geometry using
+  automatic conversion methods.
 </FieldContainer>

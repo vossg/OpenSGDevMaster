@@ -1,32 +1,33 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-    name="SimpleShadowMapEngine"
-    parent="ShadowMapEngine"
-    library="Group"
-    structure="concrete"
-    pointerfieldtypes="both"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    isNodeCore="false"
->
-    <Field
-        name="shadowColor"
-        category="data"
-        type="Color4f"
-        cardinality="single"
-        visibility="external"
-        defaultValue="0.f, 0.f, 0.f, 1.f"
-        access="public"
-    >
-    </Field>
-    <Field
-        name="forceTextureUnit"
-        type="Int32"
-        cardinality="single"
-        visibility="external"
-        defaultValue="-1"
-        access="public"
-    >
-    </Field>
+   name="SimpleShadowMapEngine"
+   parent="ShadowMapEngine"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   docGroupBase="GrpGroupLightShadowEngines"
+   >
+  <Field
+     name="shadowColor"
+     category="data"
+     type="Color4f"
+     cardinality="single"
+     visibility="external"
+     defaultValue="0.f, 0.f, 0.f, 1.f"
+     access="public"
+     >
+  </Field>
+  <Field
+     name="forceTextureUnit"
+     type="Int32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="-1"
+     access="public"
+     >
+  </Field>
 </FieldContainer>

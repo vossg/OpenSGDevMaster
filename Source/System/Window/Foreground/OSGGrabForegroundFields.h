@@ -68,7 +68,7 @@ class GrabForeground;
 
 OSG_GEN_CONTAINERPTR(GrabForeground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowForegroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<GrabForeground *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<GrabForeground *,
                       RecordedRefCountPolicy  > SFRecGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<GrabForeground *,
                       UnrecordedRefCountPolicy> SFUnrecGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<GrabForeground *,
                       WeakRefCountPolicy      > SFWeakGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<GrabForeground *,
                       NoRefCountPolicy        > SFUncountedGrabForegroundPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<GrabForeground *,
                       RecordedRefCountPolicy  > MFRecGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<GrabForeground *,
                       UnrecordedRefCountPolicy> MFUnrecGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<GrabForeground *,
                       WeakRefCountPolicy      > MFWeakGrabForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<GrabForeground *,
                       NoRefCountPolicy        > MFUncountedGrabForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<GrabForeground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecGrabForegroundPtr : 
     public PointerSField<GrabForeground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecGrabForegroundPtr : 
     public PointerSField<GrabForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakGrabForegroundPtr :
     public PointerSField<GrabForeground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedGrabForegroundPtr :
     public PointerSField<GrabForeground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecGrabForegroundPtr :
     public PointerMField<GrabForeground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecGrabForegroundPtr :
     public PointerMField<GrabForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakGrabForegroundPtr :
     public PointerMField<GrabForeground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedGrabForegroundPtr :
     public PointerMField<GrabForeground *,
                          NoRefCountPolicy        > {};

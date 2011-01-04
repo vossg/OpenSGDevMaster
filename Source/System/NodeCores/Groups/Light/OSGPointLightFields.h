@@ -68,7 +68,7 @@ class PointLight;
 
 OSG_GEN_CONTAINERPTR(PointLight);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupLightFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

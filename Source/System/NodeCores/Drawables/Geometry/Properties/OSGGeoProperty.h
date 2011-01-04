@@ -51,7 +51,10 @@ class Window;
 
 /*! \brief GeoProperty class. See \ref
            PageSystemGeoProperty for a description.
-*/
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 {

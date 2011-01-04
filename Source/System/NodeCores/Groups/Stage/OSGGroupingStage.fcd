@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="GroupingStage"
-        parent="RenderCallbackStage"
-        library="Group"
-        pointerfieldtypes="none"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
-        useLocalIncludes="false"
-    isNodeCore="true"
->
-Extension to the Stage core that groups its subtree. It inherits all
-parameters from it parent.
+   name="GroupingStage"
+   parent="RenderCallbackStage"
+   library="Group"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   docGroupBase="GrpGroupStage"
+   >
+  Extension to the Stage core that groups its subtree. It inherits all
+  parameters from it parent.
 </FieldContainer>

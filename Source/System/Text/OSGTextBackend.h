@@ -62,16 +62,28 @@ class TextPixmapFace;
 class TextTXFFace;
 class TextTXFParam;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextVectorFace,
                     MemObjRefCountPolicy> TextVectorFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextVectorFace      > TextVectorFaceTransitPtr;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextPixmapFace,
                     MemObjRefCountPolicy> TextPixmapFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextPixmapFace      > TextPixmapFaceTransitPtr;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextTXFFace,
                     MemObjRefCountPolicy> TextTXFFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextTXFFace         > TextTXFFaceTransitPtr;
 
 /**
@@ -79,7 +91,11 @@ typedef TransitPtr <TextTXFFace         > TextTXFFaceTransitPtr;
  * Developers only use this class to implement new
  * Backends.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextBackends
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextBackend
 {
     /*==========================  PUBLIC  =================================*/

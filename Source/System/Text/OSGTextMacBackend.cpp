@@ -45,7 +45,7 @@
 #include "OSGBaseTypes.h"
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextPixmapFace.h"
@@ -70,6 +70,10 @@ OSG_BEGIN_NAMESPACE
 // MacOS X specific implementation of the TextVectorFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacVectorFace: public TextVectorFace
 {
 public:
@@ -105,6 +109,10 @@ private:
 // MacOS X specific implementation of the TextVectorGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacVectorGlyph: public TextVectorGlyph
 {
 public:
@@ -121,6 +129,10 @@ public:
 // MacOS X specific implementation of the TextPixmapFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacPixmapFace: public TextPixmapFace
 {
 public:
@@ -158,6 +170,10 @@ private:
 // MacOS X specific implementation of the TextPixmapGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacPixmapGlyph: public TextPixmapGlyph
 {
 public:
@@ -177,6 +193,10 @@ public:
 // MacOS X specific implementation of the TextTXFFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacTXFFace: public TextTXFFace
 {
 public:
@@ -199,6 +219,10 @@ private:
 // MacOS X specific implementation of the TextTXFGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextMacTXFGlyph: public TextTXFGlyph
 {
 public:

@@ -68,7 +68,7 @@ class FatBorderChunk;
 
 OSG_GEN_CONTAINERPTR(FatBorderChunk);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesNurbsFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       RecordedRefCountPolicy  > SFRecFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       UnrecordedRefCountPolicy> SFUnrecFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       WeakRefCountPolicy      > SFWeakFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       NoRefCountPolicy        > SFUncountedFatBorderChunkPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       RecordedRefCountPolicy  > MFRecFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       UnrecordedRefCountPolicy> MFUnrecFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       WeakRefCountPolicy      > MFWeakFatBorderChunkPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       NoRefCountPolicy        > MFUncountedFatBorderChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<FatBorderChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecFatBorderChunkPtr : 
     public PointerSField<FatBorderChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecFatBorderChunkPtr : 
     public PointerSField<FatBorderChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakFatBorderChunkPtr :
     public PointerSField<FatBorderChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedFatBorderChunkPtr :
     public PointerSField<FatBorderChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecFatBorderChunkPtr :
     public PointerMField<FatBorderChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecFatBorderChunkPtr :
     public PointerMField<FatBorderChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakFatBorderChunkPtr :
     public PointerMField<FatBorderChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedFatBorderChunkPtr :
     public PointerMField<FatBorderChunk *,
                          NoRefCountPolicy        > {};

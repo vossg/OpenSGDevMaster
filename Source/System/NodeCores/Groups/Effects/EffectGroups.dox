@@ -3,4 +3,18 @@
 using namespace OSG;
 
 /*! \page PageEffectsGroups Effects Groups
+
+    \section PageEffectGroupsColorDisplayFilter
+    \section PageGroupDisplayFilterStageData
+    \section PageEffectGroupsDisplayFilter
+    \section PageEffectGroupsDeferredShadingStage
+    \section PageEffectGroupsDeferredShadingStageData
+    \section PageEffectsDSLightChunk
+    \section PageEffectGroupsDisplayFilterGroup
+    \section PageEffectGroupsResolutionDisplayFilter
+    \section PageEffectGroupsDistortionDisplayFilter
+    \section PageEffectGroupsDisplayFilterStage
+    \section PageGroupShadowStageData
+    \section PageGroupFishEyeProjectorData
+    \section PageGroupHDRStageData
  */

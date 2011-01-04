@@ -68,7 +68,7 @@ class SkyBackground;
 
 OSG_GEN_CONTAINERPTR(SkyBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -121,16 +121,16 @@ const Char8 *FieldTraits<SkyBackground *, 0>::getMName<NoRefCountPolicy>(void)
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<SkyBackground *,
                       RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<SkyBackground *,
                       UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<SkyBackground *,
                       WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<SkyBackground *,
                       NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
 
@@ -140,19 +140,19 @@ typedef PointerMField<SkyBackground *,
 #else // these are the doxygen hacks
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecSkyBackgroundPtr :
     public PointerMField<SkyBackground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecSkyBackgroundPtr :
     public PointerMField<SkyBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakSkyBackgroundPtr :
     public PointerMField<SkyBackground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedSkyBackgroundPtr :
     public PointerMField<SkyBackground *,
                          NoRefCountPolicy        > {};

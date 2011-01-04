@@ -10,5 +10,6 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
+   docGroupBase="GrpDrawablesStage"
    >
 </FieldContainer>

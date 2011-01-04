@@ -68,7 +68,7 @@ class FishEyeProjectorData;
 
 OSG_GEN_CONTAINERPTR(FishEyeProjectorData);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsProjectorsFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>

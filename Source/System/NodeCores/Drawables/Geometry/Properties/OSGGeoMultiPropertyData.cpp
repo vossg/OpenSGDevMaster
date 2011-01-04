@@ -237,8 +237,8 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
 }
 
 /*---------------------------------------------------------------------*/
-/*! \name                    State Commands                            */
-/*! \{                                                                 */
+/*                           State Commands                            */
+/*                                                                     */
 
 void GeoMultiPropertyData::activate(DrawEnv *pEnv, 
                                     UInt32   index)

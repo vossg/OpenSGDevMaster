@@ -67,7 +67,9 @@ class OFDatabase;
 class Geometry;
 
 /*! \brief General VRML Node Desc
-*/
+    \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */ 
 
 struct OFRecordHeader
 {
@@ -88,11 +90,18 @@ struct OFRecordHeader
     }
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+
 typedef TransitPtr<OFRecord> OFRecordTransitPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
 {
@@ -103,6 +112,8 @@ class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
     typedef boost::function<
         OFRecordTransitPtr (const OFRecordHeader &)> CreateRecord;
 
+    /*! \nohierarchy
+     */
     class OSG_FILEIO_DLLMAPPING RegisterRecord
     {
       public:
@@ -199,6 +210,9 @@ class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
     void operator =(const OFRecordFactoryBase &source);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+
 typedef SingletonHolder<OFRecordFactoryBase> OFRecordFactory;
 
 // OpCode without object
@@ -210,6 +224,10 @@ static const UInt16 OFContinuationOC = 23;
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
 {
@@ -264,24 +282,37 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
     virtual void dump(UInt32 uiIndent);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+
 typedef RefCountPtr<OFRecord, MemObjRefCountPolicy> OFRecordRCPtr;
 
 class OFVertexPaletteRecord;
 class OFTexturePaletteRecord;
 class OFMaterialPaletteRecord;
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFTexturePaletteRecord,
                     MemObjRefCountPolicy    > OFTexturePaletteRecordRCPtr;
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFVertexPaletteRecord,
                     MemObjRefCountPolicy    > OFVertexPaletteRecordRCPtr;
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFMaterialPaletteRecord,
                     MemObjRefCountPolicy    > OFMaterialPaletteRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
 {
@@ -311,12 +342,18 @@ class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
     void dump(UInt32 uiIndent);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFVertexPalette,
                     MemObjRefCountPolicy> OFVertexPaletteRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
 {
@@ -353,12 +390,18 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
     void dump(UInt32 uiIndent);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFTexturePalette,
                     MemObjRefCountPolicy> OFTexturePaletteRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
 {
@@ -398,12 +441,20 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
     void dump(UInt32 uiIndent);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMaterialPalette::ObjRCPtr      OFMaterialPaletteRCPtr;
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMaterialPalette::ObjTransitPtr OFMaterialPaletteTransitPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
 {
@@ -456,12 +507,18 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
     const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFHeaderRecord,
                     MemObjRefCountPolicy> OFHeaderRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 {
@@ -506,6 +563,10 @@ class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFRecord
 {
@@ -563,12 +624,18 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFRecord
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
 {
   public:
 
     /*---------------------------------------------------------------------*/
 
+    /*! \nohierarchy
+     */
     struct VertexInfo
     {
         UInt16 uiColNameIdx; // 4  2   Color name index
@@ -656,6 +723,10 @@ bool operator <(const UInt32                             uiOff,
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFMaterialPaletteRecord : public OFRecord
 {
  protected:
@@ -724,6 +795,10 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPaletteRecord : public OFRecord
 //---------------------------------------------------------------------------
 
 class OFLocalVertexPoolRecord;
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFMeshPrimitiveRecord : public OFRecord
 {
@@ -797,12 +872,20 @@ class OSG_FILEIO_DLLMAPPING OFMeshPrimitiveRecord : public OFRecord
     const IndexStore &getIndices (void) const;
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMeshPrimitiveRecord::ObjTransitPtr OFMeshPrimitiveRecordTransitPtr;
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMeshPrimitiveRecord::ObjRCPtr      OFMeshPrimitiveRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFLocalVertexPoolRecord : public OFRecord
 {
@@ -933,12 +1016,20 @@ class OSG_FILEIO_DLLMAPPING OFLocalVertexPoolRecord : public OFRecord
     GeoVec2fProperty    *getTexCoords(UInt32 idx) const;
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFLocalVertexPoolRecord::ObjTransitPtr OFLocalVertexPoolRecordTransitPtr;
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFLocalVertexPoolRecord::ObjRCPtr      OFLocalVertexPoolRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFMeshRecord : public OFRecord
 {
@@ -1049,7 +1140,11 @@ class OSG_FILEIO_DLLMAPPING OFMeshRecord : public OFRecord
     virtual NodeTransitPtr convertToNode(OFDatabase &oDB);
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMeshRecord::ObjTransitPtr OFMeshRecordTransitPtr;
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef OFMeshRecord::ObjRCPtr      OFMeshRecordRCPtr;
 
 //---------------------------------------------------------------------------
@@ -1060,6 +1155,10 @@ class OFVertexListRecord;
 
 typedef RefCountPtr<OFVertexListRecord,
                     MemObjRefCountPolicy> OFVertexListRecordRCPtr;
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
 {
@@ -1187,11 +1286,17 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
     Color4f             getAltColor    (void) const;
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
 typedef RefCountPtr<OFFaceRecord, MemObjRefCountPolicy> OFFaceRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFVertexListRecord : public OFRecord
 {
@@ -1238,6 +1343,10 @@ class OSG_FILEIO_DLLMAPPING OFVertexListRecord : public OFRecord
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFGeometryContainer : public OFRecord
 {
   protected:
@@ -1281,6 +1390,10 @@ class OSG_FILEIO_DLLMAPPING OFGeometryContainer : public OFRecord
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFGeometryContainer
 {
   protected:
@@ -1315,6 +1428,10 @@ class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFGeometryContainer
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFGroupRecord : public OFGroupingRecord
 {
@@ -1358,6 +1475,10 @@ class OSG_FILEIO_DLLMAPPING OFGroupRecord : public OFGroupingRecord
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFLODRecord : public OFGroupingRecord
 {
@@ -1430,6 +1551,10 @@ class OSG_FILEIO_DLLMAPPING OFLODRecord : public OFGroupingRecord
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
 {
   protected:
@@ -1494,6 +1619,10 @@ class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFGeometryContainer
 {
   protected:
@@ -1545,6 +1674,10 @@ class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFGeometryContainer
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OFExternalReferenceRecord : public OFRecord
 {

@@ -151,6 +151,7 @@ ResolutionDisplayFilterBase::TypeObject ResolutionDisplayFilterBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpEffectsGroupsDisplayFilter\"\n"
     "   >   \n"
     "  <Field\n"
     "\t name=\"downScale\"\n"

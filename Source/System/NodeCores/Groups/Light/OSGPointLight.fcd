@@ -1,26 +1,27 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="PointLight"
-	parent="Light"
-	library="Group"
-	structure="concrete"
-	pointerfieldtypes="none"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-PointLight is a located lightsource. The position of the light source
-(in the beacon's coordinate system) is defined by the \c position
-attribute. The influence of the light diminishes with distance, controlled
-by the \c constantAttenuation, \c linearAttenuation and \c
-quadraticAttenuation attributes.
-	<Field
-		name="position"
-		type="Pnt3f"
-		cardinality="single"
-		visibility="external"
-                defaultValue="0.f,0.f,0.f"
-	>
-	</Field>
+   name="PointLight"
+   parent="Light"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="none"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpGroupLight"
+   >
+  PointLight is a located lightsource. The position of the light source
+  (in the beacon's coordinate system) is defined by the \c position
+  attribute. The influence of the light diminishes with distance, controlled
+  by the \c constantAttenuation, \c linearAttenuation and \c
+  quadraticAttenuation attributes.
+  <Field
+	 name="position"
+	 type="Pnt3f"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f,0.f,0.f"
+	 >
+  </Field>
 </FieldContainer>

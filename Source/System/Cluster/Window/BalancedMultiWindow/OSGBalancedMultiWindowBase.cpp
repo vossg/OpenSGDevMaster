@@ -83,11 +83,13 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var bool            BalancedMultiWindowBase::_sfBalance
-    If true load balancing is eanbled. If falst it behaves like a MultiDisplayWindow
+    If true load balancing is eanbled. If falst it behaves like a
+    MultiDisplayWindow 
 */
 
 /*! \var bool            BalancedMultiWindowBase::_sfBestCut
-    If true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.
+    If true horizontal and vertical cuts are testet. Otherwise the longes side
+    of a viewport is split. 
 */
 
 /*! \var bool            BalancedMultiWindowBase::_sfShowBalancing
@@ -125,7 +127,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "balance",
-        "If true load balancing is eanbled. If falst it behaves like a MultiDisplayWindow\n",
+        "If true load balancing is eanbled. If falst it behaves like a\n"
+        "MultiDisplayWindow \n",
         BalanceFieldId, BalanceFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -137,7 +140,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "bestCut",
-        "If true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.\n",
+        "If true horizontal and vertical cuts are testet. Otherwise the longes side\n"
+        "of a viewport is split. \n",
         BestCutFieldId, BestCutFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -198,65 +202,68 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"BalancedMultiWindow\"\n"
-    "\tparent=\"MultiDisplayWindow\"\n"
-    "\tlibrary=\"Cluster\"\n"
-    "\tpointerfieldtypes=\"none\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"true\"\n"
-    ">\n"
-    "Load balanced sort first rendering for multiple windows\n"
-    "\t<Field\n"
-    "\t\tname=\"balance\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tIf true load balancing is eanbled. If falst it behaves like a MultiDisplayWindow\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"bestCut\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tIf true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"showBalancing\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"false\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"BalancedMultiWindow\"\n"
+    "   parent=\"MultiDisplayWindow\"\n"
+    "   library=\"Cluster\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"true\"\n"
+    "   docGroupBase=\"GrpClusterWindow\"\n"
+    "   >\n"
+    "  Load balanced sort first rendering for multiple windows\n"
+    "  <Field\n"
+    "\t name=\"balance\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"true\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tIf true load balancing is eanbled. If falst it behaves like a\n"
+    "\tMultiDisplayWindow \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"bestCut\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"true\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tIf true horizontal and vertical cuts are testet. Otherwise the longes side\n"
+    "\tof a viewport is split. \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"showBalancing\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"false\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tMark regions rendered by other hosts\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"tileSize\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"44\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"short\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"tileSize\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"44\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"short\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"true\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "Load balanced sort first rendering for multiple windows\n"
     );

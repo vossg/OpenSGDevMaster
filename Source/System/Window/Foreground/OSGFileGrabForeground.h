@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Foreground class for grabbing the image to a file. See \ref 
-    PageSystemWindowForegroundGrabFile for a description.
-*/
+           PageSystemWindowForegroundGrabFile for a description.
+    \ingroup GrpWindowForegroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING FileGrabForeground : public FileGrabForegroundBase
 {

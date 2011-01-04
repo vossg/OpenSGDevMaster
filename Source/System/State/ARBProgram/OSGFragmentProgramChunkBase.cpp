@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::FragmentProgramChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemFragmentProgramChunk for a description.
  */
 
@@ -126,25 +124,22 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"FragmentProgramChunk\"\n"
-    "\tparent=\"ProgramChunk\"\n"
-    "\tlibrary=\"State\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
+    "   name=\"FragmentProgramChunk\"\n"
+    "   parent=\"ProgramChunk\"\n"
+    "   library=\"State\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpStateARBProgram\"\n"
+    "   >\n"
+    "  See \\ref PageSystemFragmentProgramChunk for a description.\n"
     "\n"
-    "See \\ref PageSystemFragmentProgramChunk for a description.\n"
-    "\n"
-    "The FragmentProgramChunk implements Fragment Programs as specified in the\n"
-    "GL_ARB_fragment_program extension. It is just a special version of the\n"
-    "OSG::ProgramChunk, which contains the whole public interface.\n"
+    "  The FragmentProgramChunk implements Fragment Programs as specified in the\n"
+    "  GL_ARB_fragment_program extension. It is just a special version of the\n"
+    "  OSG::ProgramChunk, which contains the whole public interface.\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemFragmentProgramChunk for a description.\n"
     "\n"
     "The FragmentProgramChunk implements Fragment Programs as specified in the\n"

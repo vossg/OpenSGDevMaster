@@ -75,7 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PassiveWindow
-    \ingroup GrpSystemWindowPassive
+    A PassiveWindow is a Window class for integration into other OpenGL
+    programs. See \ref PageSystemWindowWindowPassive for a description.
  */
 
 /***************************************************************************\
@@ -124,22 +125,19 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PassiveWindow\"\n"
-    "\tparent=\"NativeWindow\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "    realparent=\"Window\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowPassive\n"
-    "\n"
-    "A PassiveWindow is a Window class for integration into other OpenGL\n"
-    "programs. See \\ref PageSystemWindowWindowPassive for a description.\n"
+    "   name=\"PassiveWindow\"\n"
+    "   parent=\"NativeWindow\"\n"
+    "   library=\"Window\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   realparent=\"Window\"\n"
+    "   docGroupBase=\"GrpWindowPassive\"\n"
+    "   >\n"
+    "  A PassiveWindow is a Window class for integration into other OpenGL\n"
+    "  programs. See \\ref PageSystemWindowWindowPassive for a description.\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowPassive\n"
-    "\n"
     "A PassiveWindow is a Window class for integration into other OpenGL\n"
     "programs. See \\ref PageSystemWindowWindowPassive for a description.\n"
     );

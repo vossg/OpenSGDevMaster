@@ -1,63 +1,66 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="BalancedMultiWindow"
-	parent="MultiDisplayWindow"
-	library="Cluster"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="true"
->
-Load balanced sort first rendering for multiple windows
-	<Field
-		name="balance"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	If true load balancing is eanbled. If falst it behaves like a MultiDisplayWindow
-	</Field>
-	<Field
-		name="bestCut"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	If true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.
-	</Field>
-	<Field
-		name="showBalancing"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+   name="BalancedMultiWindow"
+   parent="MultiDisplayWindow"
+   library="Cluster"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="true"
+   docGroupBase="GrpClusterWindow"
+   >
+  Load balanced sort first rendering for multiple windows
+  <Field
+	 name="balance"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+	If true load balancing is eanbled. If falst it behaves like a
+	MultiDisplayWindow 
+  </Field>
+  <Field
+	 name="bestCut"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+	If true horizontal and vertical cuts are testet. Otherwise the longes side
+	of a viewport is split. 
+  </Field>
+  <Field
+	 name="showBalancing"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	Mark regions rendered by other hosts
-	</Field>
-	<Field
-		name="tileSize"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="44"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="short"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	</Field>
+  </Field>
+  <Field
+	 name="tileSize"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="44"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="short"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

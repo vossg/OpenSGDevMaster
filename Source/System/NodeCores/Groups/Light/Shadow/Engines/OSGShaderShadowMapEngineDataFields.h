@@ -68,7 +68,7 @@ class ShaderShadowMapEngineData;
 
 OSG_GEN_CONTAINERPTR(ShaderShadowMapEngineData);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupLightShadowEnginesFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

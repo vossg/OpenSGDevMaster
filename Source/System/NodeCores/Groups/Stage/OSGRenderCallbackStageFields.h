@@ -68,7 +68,7 @@ class RenderCallbackStage;
 
 OSG_GEN_CONTAINERPTR(RenderCallbackStage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

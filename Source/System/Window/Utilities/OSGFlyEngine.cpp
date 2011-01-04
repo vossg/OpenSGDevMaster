@@ -172,7 +172,7 @@ void FlyEngine::set(const Matrix& new_matrix)
     set(_rFrom, _rAt, _vUp);
 }
 
-/*! Moves \var dist steps forward
+/*! Moves dist steps forward
 */
 void FlyEngine::setDistance(Real32 dist)
 {

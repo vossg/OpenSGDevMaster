@@ -52,8 +52,11 @@ OSG_BEGIN_NAMESPACE
 class TextLayoutResult;
 
 /*! \brief Simple Statistics Foreground class. See \ref
-    PageSystemWindowForegroundStatisticsSimple for a description.
-*/
+           PageSystemWindowForegroundStatisticsSimple for a description.
+    \ingroup GrpUtilStatisticsObj
+    \ingroup GrpLibOSGUtil
+    \includebasedoc
+ */
 
 class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground : 
     public SimpleStatisticsForegroundBase

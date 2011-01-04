@@ -68,7 +68,7 @@ class VRMLPositionInterpolator;
 
 OSG_GEN_CONTAINERPTR(VRMLPositionInterpolator);
 
-/*! \ingroup GrpDynamicsFieldTraits
+/*! \ingroup GrpDynamicsVRMLAnimationFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>

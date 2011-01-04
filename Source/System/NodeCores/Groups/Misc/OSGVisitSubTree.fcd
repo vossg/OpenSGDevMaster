@@ -11,6 +11,7 @@
    decoratable="false"
    useLocalIncludes="false"
    isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
    >
   VisitSubTree provides a way to point the renderer to another section of the
   scene graph for rendering. This is useful for multi-pass algorithms using

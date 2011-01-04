@@ -1,16 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="DepthClearBackground"
-	parent="Background"
-	library="Window"
-	structure="concrete"
-	pointerfieldtypes="single"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowBackgrounds
-
-A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
-description.
+   name="DepthClearBackground"
+   parent="Background"
+   library="Window"
+   structure="concrete"
+   pointerfieldtypes="single"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowBackground"
+   >
+  A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
+  description.
 </FieldContainer>

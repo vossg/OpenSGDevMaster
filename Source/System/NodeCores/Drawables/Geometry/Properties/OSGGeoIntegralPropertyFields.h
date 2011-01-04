@@ -68,7 +68,7 @@ class GeoIntegralProperty;
 
 OSG_GEN_CONTAINERPTR(GeoIntegralProperty);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<GeoIntegralProperty *, 0>::getMName<NoRefCountPolicy>(v
 }
 
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
  */
 template <>
 struct FieldTraits<GeoIntegralProperty *, 1> :
@@ -218,43 +218,43 @@ const Char8 *FieldTraits<GeoIntegralProperty *, 1>::getMName<NoRefCountPolicy>(v
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralProperty *,
                       RecordedRefCountPolicy  > SFRecGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralProperty *,
                       UnrecordedRefCountPolicy> SFUnrecGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralProperty *,
                       WeakRefCountPolicy      > SFWeakGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralProperty *,
                       NoRefCountPolicy        > SFUncountedGeoIntegralPropertyPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralProperty *,
                       RecordedRefCountPolicy  > MFRecGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralProperty *,
                       UnrecordedRefCountPolicy> MFUnrecGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralProperty *,
                       WeakRefCountPolicy      > MFWeakGeoIntegralPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralProperty *,
                       NoRefCountPolicy        > MFUncountedGeoIntegralPropertyPtr;
 
 
 
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef ChildPointerSField<
           GeoIntegralProperty *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildGeoIntegralPropertyPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef ChildPointerMField<
           GeoIntegralProperty *, 
           UnrecordedRefCountPolicy,
@@ -264,44 +264,44 @@ typedef ChildPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecGeoIntegralPropertyPtr : 
     public PointerSField<GeoIntegralProperty *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecGeoIntegralPropertyPtr : 
     public PointerSField<GeoIntegralProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakGeoIntegralPropertyPtr :
     public PointerSField<GeoIntegralProperty *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedGeoIntegralPropertyPtr :
     public PointerSField<GeoIntegralProperty *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecGeoIntegralPropertyPtr :
     public PointerMField<GeoIntegralProperty *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecGeoIntegralPropertyPtr :
     public PointerMField<GeoIntegralProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakGeoIntegralPropertyPtr :
     public PointerMField<GeoIntegralProperty *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedGeoIntegralPropertyPtr :
     public PointerMField<GeoIntegralProperty *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecChildGeoIntegralPropertyPtr :
     public ChildPointerSField<
         GeoIntegralProperty *, 
@@ -309,7 +309,7 @@ struct SFUnrecChildGeoIntegralPropertyPtr :
         1             > {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecChildGeoIntegralPropertyPtr :
     public ChildPointerMField<
         GeoIntegralProperty *, 

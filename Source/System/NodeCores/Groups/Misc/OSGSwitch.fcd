@@ -1,25 +1,27 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Switch"
-	parent="Group"
-	library="Group"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-    isNodeCore="true"
->
-This core allows selection of different subtrees with the \c choice field.
-Depending on its value either all, none or only the specified child is enabled.
-	<Field
-		name="choice"
-		type="Int32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="-1"
-		access="public"
-	>
-	</Field>
+   name="Switch"
+   parent="Group"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
+   >
+  This core allows selection of different subtrees with the \c choice field.
+  Depending on its value either all, none or only the specified child is
+  enabled.
+  <Field
+	 name="choice"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="-1"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

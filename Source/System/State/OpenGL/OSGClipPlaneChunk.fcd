@@ -1,54 +1,53 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ClipPlaneChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="ClipPlaneChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemClipPlaneChunk for a description.
 
-See \ref PageSystemClipPlaneChunk for a description.
-
-This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
-glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate
-system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
-	<Field
-		name="equation"
-		type="Vec4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0, 0, 1, 0"
-		access="public"
-	>
+  This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
+  glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate
+  system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
+  <Field
+	 name="equation"
+	 type="Vec4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0, 0, 1, 0"
+	 access="public"
+	 >
 	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
-        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &quot;= 0.
-	</Field>
-	<Field
-		name="enable"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_TRUE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
+    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &quot;= 0.
+  </Field>
+  <Field
+	 name="enable"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRUE"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+	 access="public"
+	 >
 	Defines activation state of the clip plane.
-	</Field>
-	<Field
-		name="beacon"
-		type="Node"
-        category="weakpointer"
-		cardinality="single"
-		visibility="external"
-		defaultValue="NULL"
-		access="public"
-	>
-        The object that defines the clip planes's coordinate system. The clip
-        plane is positioned relative to this system.
-	</Field>
+  </Field>
+  <Field
+	 name="beacon"
+	 type="Node"
+     category="weakpointer"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="NULL"
+	 access="public"
+	 >
+    The object that defines the clip planes's coordinate system. The clip
+    plane is positioned relative to this system.
+  </Field>
 </FieldContainer>

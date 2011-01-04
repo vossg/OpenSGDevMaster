@@ -171,20 +171,9 @@ VRMLNodeHelper *VRMLNodeHelperFactoryBase::createHelper(
 }
 
 
-/*! \defgroup GrpSystemFileIOVRML VRML-specific File Input/Output
-    \ingroup GrpSystemFileIO
-
-    See \ref PageSystemFileIO for details.
-*/
-
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLNodeDesc
-    \ingroup GrpSystemFileIOVRML
-    General VRML Node description
-*/
 
 UInt32 VRMLNodeHelper::_uiIndent = 0;
 
@@ -942,11 +931,6 @@ void VRMLNodeHelper::setContainerFieldValue(
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLDefaultHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Group description
-*/
-
 VRMLNodeHelper *VRMLDefaultHelper::create(void)
 {
     return new VRMLDefaultHelper();
@@ -1035,11 +1019,6 @@ OSG_INST_GENERICVRMLHELPER(ComponentTransform);
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLMaterialDesc
-    \ingroup GrpSystemFileIOVRML
-    VRML Material description
-*/
 
 VRMLNodeHelper *VRMLMaterialHelper::create(void)
 {
@@ -1408,11 +1387,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLMaterialHelper::_regHelper(
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLShapeDesc
-    \ingroup GrpSystemFileIOVRML
-    VRML Shape description
-*/
-
 VRMLNodeHelper *VRMLShapeHelper::create(void)
 {
     return new VRMLShapeHelper();
@@ -1668,11 +1642,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLShapeHelper::_regHelper(
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLAppearanceDesc
-    \ingroup GrpSystemFileIOVRML
-    VRML Appearance description
-*/
 
 VRMLNodeHelper *VRMLAppearanceHelper::create(void)
 {
@@ -1982,11 +1951,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLAppearanceHelper::_regHelper(
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLIndexedGeometryHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Geometry description
-*/
 
 VRMLNodeHelper *VRMLIndexedGeometryHelper::create(void)
 {
@@ -2570,11 +2534,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLGeometryPartHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Geometry Part Set description
-*/
-
 VRMLNodeHelper *VRMLGeometryPartHelper::create(void)
 {
     return new VRMLGeometryPartHelper();
@@ -2803,11 +2762,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLGeometryObjectDesc
-    \ingroup GrpSystemFileIOVRML
-    VRML Geometry Object Set description
-*/
 
 VRMLNodeHelper *VRMLGeometryObjectHelper::create(void)
 {
@@ -3334,11 +3288,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLTextureHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Texture description
-*/
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
@@ -3574,11 +3523,6 @@ void VRMLTextureHelper::dump(const Char8 *)
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLImageTextureHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Texture description
-*/
 
 VRMLNodeHelper *VRMLImageTextureHelper::create(void)
 {
@@ -3818,11 +3762,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLPixelTextureHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Texture description
-*/
-
 VRMLNodeHelper *VRMLPixelTextureHelper::create(void)
 {
     return new VRMLPixelTextureHelper();
@@ -4016,11 +3955,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLPixelTextureHelper::_regHelper(
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLInlineHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Group description
-*/
-
 VRMLNodeHelper *VRMLInlineHelper::create(void)
 {
     return new VRMLInlineHelper();
@@ -4097,11 +4031,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLInlineHelper::_regHelper(
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLSwitchHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Swich description
-*/
 
 VRMLNodeHelper *VRMLSwitchHelper::create(void)
 {

@@ -45,7 +45,7 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_GLUT
+#if defined(OSG_WITH_GLUT) || defined(OSG_DO_DOC)
 
 #define OSG_COMPILEWINDOWGLUTINST
 

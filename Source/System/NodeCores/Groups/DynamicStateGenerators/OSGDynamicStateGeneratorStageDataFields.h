@@ -68,7 +68,7 @@ class DynamicStateGeneratorStageData;
 
 OSG_GEN_CONTAINERPTR(DynamicStateGeneratorStageData);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupDynamicStateGeneratorsFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

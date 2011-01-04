@@ -58,12 +58,6 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class OSG::GeoBuilder
-   \ingroup GrpSystemNodeCoresDrawablesGeometry
-
-*/
-
-
 // Default Typenames for the given attribute
 const char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
 {

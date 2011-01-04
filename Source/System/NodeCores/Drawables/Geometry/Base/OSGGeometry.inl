@@ -300,7 +300,7 @@ GeoVectorProperty *Geometry::getProperty(UInt16 index) const
 }
 
 /*! Add index array for the vertex data attribute at index.
-* \param valu    The list of indices to use.
+* \param value   The list of indices to use.
 * \param index   The index of the vertex attribute data
 */
 inline

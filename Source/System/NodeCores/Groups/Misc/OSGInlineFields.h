@@ -68,7 +68,7 @@ class Inline;
 
 OSG_GEN_CONTAINERPTR(Inline);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Inline *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
                       RecordedRefCountPolicy  > SFRecInlinePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
                       UnrecordedRefCountPolicy> SFUnrecInlinePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
                       WeakRefCountPolicy      > SFWeakInlinePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
                       NoRefCountPolicy        > SFUncountedInlinePtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
                       RecordedRefCountPolicy  > MFRecInlinePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
                       UnrecordedRefCountPolicy> MFUnrecInlinePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
                       WeakRefCountPolicy      > MFWeakInlinePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
                       NoRefCountPolicy        > MFUncountedInlinePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Inline *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecInlinePtr : 
     public PointerSField<Inline *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecInlinePtr : 
     public PointerSField<Inline *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakInlinePtr :
     public PointerSField<Inline *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedInlinePtr :
     public PointerSField<Inline *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecInlinePtr :
     public PointerMField<Inline *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecInlinePtr :
     public PointerMField<Inline *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakInlinePtr :
     public PointerMField<Inline *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedInlinePtr :
     public PointerMField<Inline *,
                          NoRefCountPolicy        > {};

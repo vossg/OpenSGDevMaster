@@ -68,7 +68,7 @@ class PassiveBackground;
 
 OSG_GEN_CONTAINERPTR(PassiveBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowPassiveFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       RecordedRefCountPolicy  > SFRecPassiveBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       UnrecordedRefCountPolicy> SFUnrecPassiveBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       WeakRefCountPolicy      > SFWeakPassiveBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       NoRefCountPolicy        > SFUncountedPassiveBackgroundPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<PassiveBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecPassiveBackgroundPtr : 
     public PointerSField<PassiveBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecPassiveBackgroundPtr : 
     public PointerSField<PassiveBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakPassiveBackgroundPtr :
     public PointerSField<PassiveBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedPassiveBackgroundPtr :
     public PointerSField<PassiveBackground *,
                          NoRefCountPolicy> {};

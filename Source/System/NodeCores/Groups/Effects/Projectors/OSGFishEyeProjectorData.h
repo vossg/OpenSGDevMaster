@@ -49,7 +49,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FishEyeProjectorData class. See \ref
            PageGroupFishEyeProjectorData for a description.
-*/
+
+    \ingroup GrpEffectsGroupsProjectorsObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjectorData : 
     public FishEyeProjectorDataBase

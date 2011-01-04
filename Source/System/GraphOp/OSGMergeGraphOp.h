@@ -49,13 +49,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! MergeGraphOp class
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -98,7 +101,9 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -108,7 +113,9 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     // Use these params to transform tangent space vectors, just like normals.
     bool _color_is_vector;
     bool _secondary_color_is_vector;

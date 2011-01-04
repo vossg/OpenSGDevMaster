@@ -101,7 +101,11 @@ class TextLayoutResult;
  * @endcode
  *
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFaces
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
@@ -186,12 +190,14 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
 
     /**
      * Creates a new Glyph object.
-     * This method has to be implemented by descendants of the %TextPixmapFace class.
+     * This method has to be implemented by descendants of the %TextPixmapFace
+     * class. 
      * @param glyphIndex The index of the glyph.
      * @return The glyph object or 0 when no glyph exists for the given
      * glyph index.
      */
-    virtual std::auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
+    virtual
+    std::auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
 
     /** An empty glyph */
     static TextPixmapGlyph _emptyGlyph;

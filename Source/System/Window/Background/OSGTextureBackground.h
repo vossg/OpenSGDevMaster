@@ -48,6 +48,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief TextureBackground class. See \ref
            PageSystemTextureBackground for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
 */
 
 class OSG_WINDOW_DLLMAPPING TextureBackground : public TextureBackgroundBase

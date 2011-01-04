@@ -54,17 +54,18 @@ typedef struct _XDisplay        Display;
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpWindowXFieldTraits
+ */
+
 typedef ::Display     *DisplayP;
-typedef unsigned long  X11Window;
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
 
 /*! \ingroup GrpWindowXFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
+typedef unsigned long  X11Window;
+
+/*! \ingroup GrpWindowXFieldTraits
+    \ingroup GrpLibOSGWindowX
+ */
 
 template <>
 struct FieldTraits<DisplayP, 2> : 
@@ -96,17 +97,12 @@ struct FieldTraits<DisplayP, 2> :
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsRecurseBase<DisplayP> */
-/*! \hideinhierarchy                         */
-#endif
+
+#if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 
 /*! \ingroup GrpWindowXFieldTraits
+    \ingroup GrpLibOSGWindowX
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-#if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 
 template <>
 struct FieldTraits<X11Window, 2> : 
@@ -139,10 +135,9 @@ struct FieldTraits<X11Window, 2> :
 };
 #endif
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsRecurseBase<X11Window> */
-/*! \hideinhierarchy                          */
-#endif
+/*! \ingroup GrpWindowXFieldTraits
+    \ingroup GrpLibOSGWindowX
+ */
 
 template <>
 struct FieldTraits<GLXContext, 2> : 
@@ -174,63 +169,69 @@ struct FieldTraits<GLXContext, 2> :
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsRecurseBase<GLXContext> */
-/*! \hideinhierarchy                           */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-
-/*! \ingroup GrpWindowXFieldSingle
- */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowXFieldSFields */
 typedef SField<DisplayP, 2> SFDisplayP;
 
-/*! \ingroup GrpWindowXFieldMulti
- */
-
+/*! \ingroup GrpWindowXFieldMFields */
 typedef MField<DisplayP, 2> MFDisplayP;
 
 #if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 
-/*! \ingroup GrpWindowXFieldSingle
- */
-
+/*! \ingroup GrpWindowXFieldSFields */
 typedef SField<X11Window, 2> SFX11Window;
 
-/*! \ingroup GrpWindowXFieldMulti
- */
-
+/*! \ingroup GrpWindowXFieldMFields */
 typedef MField<X11Window, 2> MFX11Window;
 
 #else
 
-/*! \ingroup GrpWindowXFieldSingle
- */
+/*! \ingroup GrpWindowXFieldSFields */
 typedef SField<UInt64> SFX11Window;
 
-/*! \ingroup GrpWindowXFieldMulti
- */
-
+/*! \ingroup GrpWindowXFieldMFields */
 typedef MField<UInt64> MFX11Window;
 
 #endif
 
-/*! \ingroup GrpWindowXFieldSingle
- */
-
+/*! \ingroup GrpWindowXFieldSFields */
 typedef SField<GLXContext, 2> SFGLXContext;
 
-/*! \ingroup GrpWindowXFieldMulti
- */
-
+/*! \ingroup GrpWindowXFieldMFields */
 typedef MField<GLXContext, 2> MFGLXContext;
+#else // doxygen hacks
+/*! \ingroup GrpWindowXFieldSFields */
+struct SFDisplayP : public SField<DisplayP, 2> {};
+
+/*! \ingroup GrpWindowXFieldMFields */
+struct MFDisplayP : public MField<DisplayP, 2> {};
+
+#if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
+
+/*! \ingroup GrpWindowXFieldSFields */
+struct SFX11Window : public SField<X11Window, 2> {};
+
+/*! \ingroup GrpWindowXFieldMFields */
+struct MFX11Window : public MField<X11Window, 2> {};
+
+#else
+
+/*! \ingroup GrpWindowXFieldSFields */
+struct SFX11Window : public SField<UInt64> {};
+
+/*! \ingroup GrpWindowXFieldMFields */
+struct MFX11Window : public MField<UInt64> {};
 
 #endif
 
-// Instantiations
+/*! \ingroup GrpWindowXFieldSFields */
+struct SFGLXContext : public SField<GLXContext, 2> {};
+
+/*! \ingroup GrpWindowXFieldMFields */
+struct MFGLXContext : public MField<GLXContext, 2> {};
+#endif
+
+
 
 OSG_END_NAMESPACE
 

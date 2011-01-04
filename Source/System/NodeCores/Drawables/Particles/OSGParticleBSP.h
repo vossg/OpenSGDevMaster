@@ -42,9 +42,6 @@
 #pragma once
 #endif
 
-// exclude the whole class from user docs
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
 #include "OSGConfig.h"
 
 #include "OSGParticlesFields.h"
@@ -56,6 +53,8 @@ OSG_BEGIN_NAMESPACE
 class ParticleBSPTree;
 
 /*! \brief Particle BSP Tree Node
+    \ingroup GrpDrawablesParticlesHelpers
+    \nohierarchy
  */
 
 class OSG_DRAWABLE_DLLMAPPING ParticleBSPNode
@@ -131,6 +130,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticleBSPNode
 };
 
 /*! \brief Particle BSP Tree 
+    \ingroup GrpDrawablesParticlesHelpers
+    \nohierarchy
  */
 
 class OSG_DRAWABLE_DLLMAPPING ParticleBSPTree
@@ -243,13 +244,9 @@ class OSG_DRAWABLE_DLLMAPPING ParticleBSPTree
 };
 
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpDrawablesParticlesFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<ParticleBSPTree> : 
@@ -305,27 +302,18 @@ struct FieldTraits<ParticleBSPTree> :
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class FieldTraitsRecurseBase<ParticleBSPTree> */
-/*! \hideinhierarchy                               */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-/*! \brief ParticleBSPTree fields
-*/
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef SField<ParticleBSPTree> SFParticleBSPTree;
+#else
+/*! \ingroup GrpDrawablesParticlesFieldSFields \ingroup GrpLibOSGDrawables */
+struct SFParticleBSPTree : public SField<ParticleBSPTree> {};
 #endif
 
 
 OSG_END_NAMESPACE
 
 #include "OSGParticleBSP.inl"
-
-#endif            // exclude from user doc
 
 #endif /* _OSGPARTICLES_H_ */

@@ -56,6 +56,10 @@ class Connection;
 class ChangeList;
 class StatCollector;
 
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING RemoteAspect
 { 
     /*==========================  PUBLIC  =================================*/
@@ -224,6 +228,10 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
 
 // class pointer
 typedef RemoteAspect *RemoteAspectP;
+
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
 
 struct RemoteAspectFieldContainerMapper : public ContainerIdMapper
 {                                              

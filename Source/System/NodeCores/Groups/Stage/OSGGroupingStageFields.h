@@ -68,7 +68,7 @@ class GroupingStage;
 
 OSG_GEN_CONTAINERPTR(GroupingStage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

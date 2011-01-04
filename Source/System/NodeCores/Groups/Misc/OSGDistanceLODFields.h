@@ -68,7 +68,7 @@ class DistanceLOD;
 
 OSG_GEN_CONTAINERPTR(DistanceLOD);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

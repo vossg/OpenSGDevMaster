@@ -68,7 +68,7 @@ class OffCenterPerspectiveCamera;
 
 OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowCameraFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<NoRefCountPo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<OffCenterPerspectiveCamera *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecOffCenterPerspectiveCameraPtr : 
     public PointerSField<OffCenterPerspectiveCamera *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecOffCenterPerspectiveCameraPtr : 
     public PointerSField<OffCenterPerspectiveCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakOffCenterPerspectiveCameraPtr :
     public PointerSField<OffCenterPerspectiveCamera *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedOffCenterPerspectiveCameraPtr :
     public PointerSField<OffCenterPerspectiveCamera *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecOffCenterPerspectiveCameraPtr :
     public PointerMField<OffCenterPerspectiveCamera *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecOffCenterPerspectiveCameraPtr :
     public PointerMField<OffCenterPerspectiveCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakOffCenterPerspectiveCameraPtr :
     public PointerMField<OffCenterPerspectiveCamera *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedOffCenterPerspectiveCameraPtr :
     public PointerMField<OffCenterPerspectiveCamera *,
                          NoRefCountPolicy        > {};

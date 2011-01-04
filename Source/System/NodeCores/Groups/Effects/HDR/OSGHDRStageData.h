@@ -48,7 +48,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief HDRStageData class. See \ref
            PageGroupHDRStageData for a description.
-*/
+
+    \ingroup GrpEffectsGroupsHDRObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING HDRStageData : public HDRStageDataBase
 {

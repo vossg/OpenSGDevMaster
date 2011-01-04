@@ -64,6 +64,9 @@ class ShadowStageData;
 class DrawEnv;
 class RenderAction;
 
+/*! \ingroup GrpEffectsGroupsShadowTreeHandler
+ */
+
 class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
 {
 

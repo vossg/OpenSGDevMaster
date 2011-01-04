@@ -60,7 +60,7 @@ OSG_USING_NAMESPACE
     tasks.
  */
 
-/*! \fn OSG::OSBElementBase::preWrite(const FieldContainerPtr& fc)
+/*! \fn OSG::OSBElementBase::preWrite(FieldContainer * const fc)
     Examines the FieldContainer \a fc and creates elements for all containers
     referenced by any of its fields and calls preWrite for these elements.
     This recursively traverses the part of the scene that can be reached from

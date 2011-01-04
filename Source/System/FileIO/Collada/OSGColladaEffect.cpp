@@ -42,7 +42,7 @@
 
 #include "OSGColladaEffect.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
@@ -207,7 +207,7 @@ ColladaEffect::createInstance(ColladaInstanceElement *colInstElem)
     return retVal;
 }
 
-/*! Return parameter of the effect (\c <newparam> tags) with the given \a name.
+/*! Return parameter of the effect (\c &lt;newparam&gt; tags) with the given \a name.
  */
 daeElement *
 ColladaEffect::findDOMParam(const std::string &name) const
@@ -229,8 +229,8 @@ ColladaEffect::findDOMParam(const std::string &name) const
     return NULL;
 }
 
-/*! Return the loader element for the parameter of the effect (\c <newparam>
-    tags) with the given \a name.
+/*! Return the loader element for the parameter of the effect (\c
+    &lt;newparam&gt; tags) with the given \a name.
  */
 ColladaElement *
 ColladaEffect::findParam(const std::string &name) const
@@ -261,7 +261,7 @@ ColladaEffect::~ColladaEffect(void)
 {
 }
 
-/*! Fills internal data structures for \c <profile_COMMON>.
+/*! Fills internal data structures for \c &lt;profile_COMMON&gt;.
     This mainly collects relevant parameters so they can be looked up
     efficiently when creating an instance of this effect.
  */
@@ -343,8 +343,8 @@ ColladaEffect::readProfileCG(domProfile_CG *prof)
     SWARNING << "ColladaEffect::readProfileCG: NIY." << std::endl;
 }
 
-/*! Create an OpenSG material that matches this \c <profile_COMMON> material
-    (to the extent possible).
+/*! Create an OpenSG material that matches this \c &lt;profile_COMMON&gt;
+    material (to the extent possible).
  */
 MaterialTransitPtr
 ColladaEffect::createInstanceProfileCommon(

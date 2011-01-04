@@ -48,12 +48,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
-    \hideinhierarchy
-    \brief GeoProperty is a specialized form of Attachment, used to
+/*! \brief GeoProperty is a specialized form of Attachment, used to
     define the properties of the geometry node. See \ref 
     PageWINDOWGLUTGeoProperties for a description.
-*/
+
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+ */
 
 template <class GeoPropertyDesc>
 class TypedGeoIntegralProperty : public GeoIntegralProperty
@@ -186,7 +187,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/    
+    /*=========================  PROTECTED  ===============================*/ 
   protected:
 
     friend class FieldContainer;
@@ -303,6 +304,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     static TypeObject  _type;
 };
 
+/*! \ingroup GrpDrawablesGeometryProperties
+ */
 struct TypedGeoIntegralPropertyDescBase
 {
     typedef GeoIntegralProperty       PropertParent;
@@ -330,9 +333,8 @@ struct TypedGeoIntegralPropertyDescBase
 
 
 /*! \brief The descriptor trait for OSG::GeoPositionsUInt8.
-    \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
-    \hideinhierarchy
-*/
+    \ingroup GrpDrawablesGeometryProperties
+ */
 
 struct GeoUInt8PropertyDesc : public TypedGeoIntegralPropertyDescBase
 {    
@@ -345,19 +347,23 @@ struct GeoUInt8PropertyDesc : public TypedGeoIntegralPropertyDescBase
     typedef MFUInt8           StoredFieldType;
 };
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 typedef TypedGeoIntegralProperty<GeoUInt8PropertyDesc> GeoUInt8Property;
 
 OSG_GEN_CONTAINERPTR(GeoUInt8Property);
 
+#else
+/*! \ingroup GrpDrawablesGeometryProperties \ingroup GrpLibOSGDrawables */
+struct GeoUInt8Property : 
+    public TypedGeoIntegralProperty<GeoUInt8PropertyDesc> {};
 #endif
 
 
+
 /*! \brief The descriptor trait for OSG::GeoPositionsUInt16.
-    \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
-    \hideinhierarchy
-*/
+    \ingroup GrpDrawablesGeometryProperties
+ */
 
 struct GeoUInt16PropertyDesc : public TypedGeoIntegralPropertyDescBase
 {    
@@ -370,19 +376,23 @@ struct GeoUInt16PropertyDesc : public TypedGeoIntegralPropertyDescBase
     typedef MFUInt16          StoredFieldType;
 };
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 typedef TypedGeoIntegralProperty<GeoUInt16PropertyDesc> GeoUInt16Property;
 
 OSG_GEN_CONTAINERPTR(GeoUInt16Property);
 
+#else
+/*! \ingroup GrpDrawablesGeometryProperties \ingroup GrpLibOSGDrawables */
+struct GeoUInt16Property : 
+    public TypedGeoIntegralProperty<GeoUInt16PropertyDesc> {};
 #endif
 
 
 /*! \brief The descriptor trait for OSG::GeoPositionsUInt32.
-    \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
-    \hideinhierarchy
-*/
+    \ingroup GrpDrawablesGeometryProperties
+ */
+
 struct GeoUInt32PropertyDesc : public TypedGeoIntegralPropertyDescBase
 {    
     static const Char8 *getTypeName (void) { return "GeoUInt32Property";  }
@@ -394,12 +404,16 @@ struct GeoUInt32PropertyDesc : public TypedGeoIntegralPropertyDescBase
     typedef MFUInt32          StoredFieldType;
 };
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 typedef TypedGeoIntegralProperty<GeoUInt32PropertyDesc> GeoUInt32Property;
 
 OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
+#else
+/*! \ingroup GrpDrawablesGeometryProperties \ingroup GrpLibOSGDrawables */
+struct GeoUInt32Property : 
+    public TypedGeoIntegralProperty<GeoUInt32PropertyDesc> {};
 #endif
 
 #ifdef OSG_DEPRECATED_PROPS

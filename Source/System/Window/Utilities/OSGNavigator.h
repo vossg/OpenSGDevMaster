@@ -65,12 +65,17 @@ typedef FlyEngine       FlyNavigator;
 typedef WalkEngine      WalkNavigator;
 
 /*! \brief General Navigator for wrapping simple navigators. See \ref 
-    PageSystemWindowNavigatorsNavigator for a description.
-*/
+           PageSystemWindowNavigatorsNavigator for a description.
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -152,6 +157,7 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /*---------------------------------------------------------------------*/
@@ -184,6 +190,7 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
     /*! \}                                                                 */
 
  public:
+
     bool calcFromTo(Int16 x, Int16 y, Real32& fromX, Real32& fromY,
                     Real32& toX, Real32& toY);
 };

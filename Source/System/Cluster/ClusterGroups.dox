@@ -12,3 +12,45 @@ using namespace OSG;
 
     See \ref PageCluster for details.
  */
+
+//*******************************************************************
+// Cluster Base
+//*******************************************************************
+
+/*! \defgroup GrpClusterBase Base
+    \ingroup GrpCluster
+ */
+
+
+//*******************************************************************
+// Cluster Window
+//*******************************************************************
+
+/*! \defgroup GrpClusterWindow Windows
+    \ingroup GrpCluster
+ */
+
+/*! \defgroup GrpClusterWindowObj Windows
+    \ingroup GrpClusterWindow
+ */
+
+/*! \defgroup GrpClusterWindowComposer Composer
+    \ingroup GrpClusterWindow
+ */
+
+/*! \defgroup GrpClusterWindowBalancer Balancer
+    \ingroup GrpClusterWindow
+ */
+
+/*! \defgroup GrpClusterWindowFieldTraits Field Traits
+    \ingroup GrpClusterWindow
+*/
+/*! \defgroup GrpClusterWindowFieldHandle Field Handle
+    \ingroup GrpClusterWindow
+*/
+/*! \defgroup GrpClusterWindowFieldSFields Single-Field
+    \ingroup GrpClusterWindow
+*/
+/*! \defgroup GrpClusterWindowFieldMFields Multi-Fields
+    \ingroup GrpClusterWindow
+*/

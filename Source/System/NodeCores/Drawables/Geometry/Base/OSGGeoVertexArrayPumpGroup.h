@@ -55,7 +55,8 @@ class Window;
 
 /*! \brief Pump group using vertex arrays. Only works for non- and
      single-indexed geometry
-*/
+    \ingroup GrpDrawablesGeometryHelpers
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup : 
     public GeoPumpGroup

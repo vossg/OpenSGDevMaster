@@ -11,6 +11,7 @@
    decoratable="false"
    useLocalIncludes="false"
    isNodeCore="false"
+   docGroupBase="GrpGroupStage"
    >
   <Field
      name="callback"

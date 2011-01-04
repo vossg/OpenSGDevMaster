@@ -47,17 +47,19 @@
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a windows compile
-#ifdef WIN32
+#if defined(WIN32) || defined(OSG_DO_DOC)
 
 #include "OSGWindowWIN32Def.h"
 
 #include "OSGWindowFields.h"
 
-//#include "windows.h"
 
 /*! The field types for the local types needed by the WIN32WINdow class */
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowWIN32FieldTraits
+ */
 
 template <>
 struct FieldTraits<HWND> : 
@@ -88,6 +90,9 @@ struct FieldTraits<HWND> :
     }
 };
 
+/*! \ingroup GrpWindowWIN32FieldTraits
+ */
+
 template <>
 struct FieldTraits<HDC> : 
     public FieldTraitsPtrToStringTemplateBase<HDC>
@@ -116,6 +121,9 @@ struct FieldTraits<HDC> :
         outStr.assign("HDC");
     }
 };
+
+/*! \ingroup GrpWindowWIN32FieldTraits
+ */
 
 template <>
 struct FieldTraits<HGLRC> : 
@@ -146,6 +154,9 @@ struct FieldTraits<HGLRC> :
     }
 };
 
+/*! \ingroup GrpWindowWIN32FieldTraits
+ */
+
 template <>
 struct FieldTraits<PAINTSTRUCT> : 
     public FieldTraitsPtrToStringTemplateBase<PAINTSTRUCT>
@@ -175,45 +186,47 @@ struct FieldTraits<PAINTSTRUCT> :
     }
 };
 
-//! SFHWND
-//! \ingroup GrpBaseFieldSingle
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef SField<HWND> SFHWND;
-
-//! MFHWND
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef MField<HWND> MFHWND;
 
-//! SFHDC
-//! \ingroup GrpBaseFieldSingle
-
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef SField<HDC> SFHDC;
-
-//! MFHDC
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef MField<HDC> MFHDC;
 
-//! SFHGLRC
-//! \ingroup GrpBaseFieldSingle
-
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef SField<HGLRC> SFHGLRC;
-
-//! MFHGLRC
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef MField<HGLRC> MFHGLRC;
 
-//! SFPAINTSTRUCT
-//! \ingroup GrpBaseFieldSingle
-
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef SField<PAINTSTRUCT> SFPAINTSTRUCT;
-
-//! MFPAINTSTRUCT
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef MField<PAINTSTRUCT> MFPAINTSTRUCT;
+#else // doxygen hacks
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFHWND : public SField<HWND> {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFHWND : public MField<HWND> {};
+
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFHDC : public SField<HDC> {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFHDC : public MField<HDC> {};
+
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFHGLRC : public SField<HGLRC> {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFHGLRC : public MField<HGLRC> {};
+
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFPAINTSTRUCT : public SField<PAINTSTRUCT> {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFPAINTSTRUCT : public MField<PAINTSTRUCT> {};
+#endif
 
 OSG_END_NAMESPACE
 

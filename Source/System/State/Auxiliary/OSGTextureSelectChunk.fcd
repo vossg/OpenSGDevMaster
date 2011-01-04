@@ -1,39 +1,38 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TextureSelectChunk"
-	parent="TextureBaseChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="TextureSelectChunk"
+   parent="TextureBaseChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateAuxiliary"
+   >
+  The TextureSelectChunk allows choosing from a field of textures. It can be 
+  used to change between a set of textures more easily than adding/removing 
+  chunks the the used material, and can be used in places where only chunks
+  are allowed.
 
-The TextureSelectChunk allows choosing from a field of textures. It can be 
-used to change between a set of textures more easily than adding/removing 
-chunks the the used material, and can be used in places where only chunks
-are allowed.
-
-	<Field
-		name="choice"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-		defaultValue="0"
-	>
+  <Field
+	 name="choice"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 defaultValue="0"
+	 >
 	Texture selector
-	</Field>
-	<Field
-		name="textures"
-		type="TextureBaseChunkPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="textures"
+	 type="TextureBaseChunkPtr"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	Texture chunks to choose from 
-	</Field>
+  </Field>
 </FieldContainer>

@@ -41,7 +41,7 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaInstanceElement.h"
 #include "OSGColladaMaterial.h"
@@ -54,6 +54,9 @@ OSG_BEGIN_NAMESPACE
 // forward decl
 class ColladaInstanceEffect;
 
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
   : public ColladaInstanceElement
@@ -69,6 +72,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceMaterial);
 
+    /*! \nohierarchy
+     */
     struct BindInfo
     {
         std::string semantic;
@@ -78,7 +83,9 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     typedef std::vector<BindInfo>            BindStore;
     typedef BindStore::iterator              BindStoreIt;
     typedef BindStore::const_iterator        BindStoreConstIt;
-    
+
+    /*! \nohierarchy
+     */
     struct BindVertexInfo
     {
         std::string semantic;

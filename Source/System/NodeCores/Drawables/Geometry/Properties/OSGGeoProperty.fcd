@@ -9,6 +9,7 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
+   docGroupBase="GrpDrawablesGeometry"
    >
   <Field
      name="useVBO"

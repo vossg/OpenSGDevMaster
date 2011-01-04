@@ -135,6 +135,7 @@ StageDrawableBase::TypeObject StageDrawableBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpDrawablesStage\"\n"
     "   >\n"
     "</FieldContainer>\n",
     ""

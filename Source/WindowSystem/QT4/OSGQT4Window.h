@@ -42,13 +42,17 @@
 #pragma once
 #endif
 
-#ifdef OSG_WITH_QT
+#if defined(OSG_WITH_QT) || defined(OSG_DO_DOC)
 
 #include "OSGQT4WindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief QT Window class. See \ref PageWindowQT for a description. */
+/*! \brief QT Window class. See \ref PageWindowQt4 for a description. 
+    \ingroup GrpWindowQt4Obj
+    \ingroup GrpLibOSGWindowQt4
+    \includebasedoc
+ */
 
 class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
 {
@@ -82,6 +86,7 @@ class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     // Variables should all be in QTWindowBase.

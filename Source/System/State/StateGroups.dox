@@ -12,3 +12,107 @@ using namespace OSG;
 
     See \ref PageState for details.
  */
+
+//*******************************************************************
+// ARBProgram
+//*******************************************************************
+
+/*! \defgroup GrpStateARBProgram ARB Program 
+    \ingroup GrpState
+ */
+
+/*! \defgroup GrpStateARBProgramObj Chunks
+    \ingroup GrpStateARBProgram
+ */
+
+/*! \defgroup GrpStateARBProgramFieldTraits Field Traits
+    \ingroup GrpStateARBProgram
+*/
+/*! \defgroup GrpStateARBProgramFieldHandle Field Handle
+    \ingroup GrpStateARBProgram
+*/
+/*! \defgroup GrpStateARBProgramFieldSFields Single-Field
+    \ingroup GrpStateARBProgram
+*/
+/*! \defgroup GrpStateARBProgramFieldMFields Multi-Fields
+    \ingroup GrpStateARBProgram
+*/
+
+
+//*******************************************************************
+// OpenGL
+//*******************************************************************
+
+/*! \defgroup GrpStateOpenGL OpenGL
+    \ingroup GrpState
+ */
+
+/*! \defgroup GrpStateOpenGLObj Chunks
+    \ingroup GrpStateOpenGL
+ */
+
+/*! \defgroup GrpStateOpenGLFieldTraits Field Traits
+    \ingroup GrpStateOpenGL
+*/
+/*! \defgroup GrpStateOpenGLFieldHandle Field Handle
+    \ingroup GrpStateOpenGL
+*/
+/*! \defgroup GrpStateOpenGLFieldSFields Single-Field
+    \ingroup GrpStateOpenGL
+*/
+/*! \defgroup GrpStateOpenGLFieldMFields Multi-Fields
+    \ingroup GrpStateOpenGL
+*/
+
+
+//*******************************************************************
+// NVidia
+//*******************************************************************
+
+/*! \defgroup GrpStateNVidia NVidia
+    \ingroup GrpState
+ */
+
+/*! \defgroup GrpStateNVidiaObj Chunks
+    \ingroup GrpStateNVidia
+ */
+
+/*! \defgroup GrpStateNVidiaFieldTraits Field Traits
+    \ingroup GrpStateNVidia
+*/
+/*! \defgroup GrpStateNVidiaFieldHandle Field Handle
+    \ingroup GrpStateNVidia
+*/
+/*! \defgroup GrpStateNVidiaFieldSFields Single-Field
+    \ingroup GrpStateNVidia
+*/
+/*! \defgroup GrpStateNVidiaFieldMFields Multi-Fields
+    \ingroup GrpStateNVidia
+*/
+
+
+//*******************************************************************
+// Auxiliary
+//*******************************************************************
+
+/*! \defgroup GrpStateAuxiliary Auxiliary
+    \ingroup GrpState
+ */
+
+/*! \defgroup GrpStateAuxiliaryObj Chunks
+    \ingroup GrpStateAuxiliary
+ */
+
+/*! \defgroup GrpStateAuxiliaryFieldTraits Field Traits
+    \ingroup GrpStateAuxiliary
+*/
+/*! \defgroup GrpStateAuxiliaryFieldHandle Field Handle
+    \ingroup GrpStateAuxiliary
+*/
+/*! \defgroup GrpStateAuxiliaryFieldSFields Single-Field
+    \ingroup GrpStateAuxiliary
+*/
+/*! \defgroup GrpStateAuxiliaryFieldMFields Multi-Fields
+    \ingroup GrpStateAuxiliary
+*/
+

@@ -49,7 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FrameHandler class. See \ref
            PageDynamicsFrameHandler for a description.
-*/
+    \ingroup GrpDynamicsBaseObj
+    \ingroup GrpLibOSGDynamics
+    \includebasedoc
+ */
 
 class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 {
@@ -117,6 +120,9 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     typedef std::vector<FrameTaskInterface *> InterfaceStore;
     typedef InterfaceStore::iterator          InterfaceStoreIt;
     typedef InterfaceStore::const_iterator    InterfaceStoreConstIt;
+
+    /*! \nohierarchy
+     */
 
     struct FrameTaskLess : public std::binary_function<FrameTaskInterface *, 
                                                        FrameTaskInterface *,

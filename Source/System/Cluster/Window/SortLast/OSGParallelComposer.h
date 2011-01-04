@@ -59,7 +59,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ParallelComposer class. See \ref 
            PageSystemParallelComposer for a description.
-*/
+
+    \ingroup GrpClusterWindowComposer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
 
 class OSG_CLUSTER_DLLMAPPING ParallelComposer : public ParallelComposerBase
 {
@@ -68,6 +72,7 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposer : public ParallelComposerBase
     typedef ParallelComposerBase Inherited;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/

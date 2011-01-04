@@ -76,7 +76,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::LightModelChunk
-    The LightModelChunk wraps most of glLightModel. It does not wrap GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk.
+    The LightModelChunk wraps most of glLightModel. It does not wrap
+    GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk. 
  */
 
 /***************************************************************************\
@@ -88,7 +89,8 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var GLenum          LightModelChunkBase::_sfColorControl
-    GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.
+    GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are
+    directly taken from the glLightModel() manpage. 
 */
 
 /*! \var bool            LightModelChunkBase::_sfLocalViewer
@@ -138,7 +140,8 @@ void LightModelChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "colorControl",
-        "GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.\n",
+        "GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are\n"
+        "directly taken from the glLightModel() manpage. \n",
         ColorControlFieldId, ColorControlFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -175,50 +178,54 @@ LightModelChunkBase::TypeObject LightModelChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"LightModelChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "The LightModelChunk wraps most of glLightModel. It does not wrap GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk.\n"
-    "\t<Field\n"
-    "\t\tname=\"ambient\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.2f, 0.2f, 0.2f, 1.0f\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"LightModelChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"State\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpStateOpenGL\"\n"
+    "   >\n"
+    "  The LightModelChunk wraps most of glLightModel. It does not wrap\n"
+    "  GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk. \n"
+    "  <Field\n"
+    "\t name=\"ambient\"\n"
+    "\t type=\"Color4f\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"0.2f, 0.2f, 0.2f, 1.0f\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tGL_LIGHT_MODEL_AMBIENT is set to this color.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"colorControl\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_SINGLE_COLOR\"\n"
-    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tGL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"localViewer\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"false\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"colorControl\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_SINGLE_COLOR\"\n"
+    "\t defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tGL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are\n"
+    "\tdirectly taken from the glLightModel() manpage. \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"localViewer\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"false\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tGL_LIGHT_MODEL_LOCAL_VIEWER is activated by this bool.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "The LightModelChunk wraps most of glLightModel. It does not wrap GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk.\n"
+    "The LightModelChunk wraps most of glLightModel. It does not wrap\n"
+    "GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk. \n"
     );
 
 /*------------------------------ get -----------------------------------*/

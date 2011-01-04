@@ -1,22 +1,23 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-    name="DSLightChunk"
-    parent="LightChunk"
-    library="EffectGroups"
-    structure="concrete"
-    pointerfieldtypes="both"
-    systemcomponent="true"
-    parentsystemcomponent="true"
->
-    <Field
-        name="effectiveRange"
-        category="data"
-        type="Real32"
-        cardinality="single"
-        visibility="external"
-        defaultValue="0.f"
-        access="public"
-    >
-    </Field>
+   name="DSLightChunk"
+   parent="LightChunk"
+   library="EffectGroups"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpEffectsGroupsDeferredShading"
+   >
+  <Field
+     name="effectiveRange"
+     category="data"
+     type="Real32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="0.f"
+     access="public"
+     >
+  </Field>
 </FieldContainer>

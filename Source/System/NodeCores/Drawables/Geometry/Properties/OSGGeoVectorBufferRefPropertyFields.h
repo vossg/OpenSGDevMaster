@@ -68,7 +68,7 @@ class GeoVectorBufferRefProperty;
 
 OSG_GEN_CONTAINERPTR(GeoVectorBufferRefProperty);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<GeoVectorBufferRefProperty *, 0>::getMName<NoRefCountPo
 }
 
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
  */
 template <>
 struct FieldTraits<GeoVectorBufferRefProperty *, 1> :
@@ -218,43 +218,43 @@ const Char8 *FieldTraits<GeoVectorBufferRefProperty *, 1>::getMName<NoRefCountPo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferRefProperty *,
                       RecordedRefCountPolicy  > SFRecGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy> SFUnrecGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferRefProperty *,
                       WeakRefCountPolicy      > SFWeakGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferRefProperty *,
                       NoRefCountPolicy        > SFUncountedGeoVectorBufferRefPropertyPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferRefProperty *,
                       RecordedRefCountPolicy  > MFRecGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy> MFUnrecGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferRefProperty *,
                       WeakRefCountPolicy      > MFWeakGeoVectorBufferRefPropertyPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferRefProperty *,
                       NoRefCountPolicy        > MFUncountedGeoVectorBufferRefPropertyPtr;
 
 
 
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef ChildPointerSField<
           GeoVectorBufferRefProperty *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildGeoVectorBufferRefPropertyPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef ChildPointerMField<
           GeoVectorBufferRefProperty *, 
           UnrecordedRefCountPolicy,
@@ -264,44 +264,44 @@ typedef ChildPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecGeoVectorBufferRefPropertyPtr : 
     public PointerSField<GeoVectorBufferRefProperty *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecGeoVectorBufferRefPropertyPtr : 
     public PointerSField<GeoVectorBufferRefProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakGeoVectorBufferRefPropertyPtr :
     public PointerSField<GeoVectorBufferRefProperty *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedGeoVectorBufferRefPropertyPtr :
     public PointerSField<GeoVectorBufferRefProperty *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecGeoVectorBufferRefPropertyPtr :
     public PointerMField<GeoVectorBufferRefProperty *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecGeoVectorBufferRefPropertyPtr :
     public PointerMField<GeoVectorBufferRefProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakGeoVectorBufferRefPropertyPtr :
     public PointerMField<GeoVectorBufferRefProperty *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedGeoVectorBufferRefPropertyPtr :
     public PointerMField<GeoVectorBufferRefProperty *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecChildGeoVectorBufferRefPropertyPtr :
     public ChildPointerSField<
         GeoVectorBufferRefProperty *, 
@@ -309,7 +309,7 @@ struct SFUnrecChildGeoVectorBufferRefPropertyPtr :
         1             > {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecChildGeoVectorBufferRefPropertyPtr :
     public ChildPointerMField<
         GeoVectorBufferRefProperty *, 

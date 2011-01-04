@@ -12,3 +12,41 @@ using namespace OSG;
 
     See \ref PageUtil for details.
  */
+
+//*******************************************************************
+// GraphOp
+//*******************************************************************
+
+/*! \defgroup GrpUtilGraphOp GraphOps
+    \ingroup GrpUtil
+ */
+
+//*******************************************************************
+// Statistics
+//*******************************************************************
+
+/*! \defgroup GrpUtilStatistics Statistics
+    \ingroup GrpUtil
+ */
+
+/*! \defgroup GrpUtilStatisticsObj Statistics
+    \ingroup GrpUtilStatistics
+ */
+
+/*! \defgroup GrpUtilStatisticsFieldTraits  Field Traits
+    \ingroup GrpUtilStatistics
+*/
+/*! \defgroup GrpUtilStatisticsFieldSFields  Single-Field
+    \ingroup GrpUtilStatistics
+*/
+/*! \defgroup GrpUtilStatisticsFieldMFields  Multi-Fields
+    \ingroup GrpUtilStatistics
+*/
+
+//*******************************************************************
+// Navigation
+//*******************************************************************
+
+/*! \defgroup GrpUtilNavigation Navigation
+    \ingroup GrpUtil
+ */

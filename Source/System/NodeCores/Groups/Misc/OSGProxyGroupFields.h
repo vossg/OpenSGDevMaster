@@ -68,7 +68,7 @@ class ProxyGroup;
 
 OSG_GEN_CONTAINERPTR(ProxyGroup);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

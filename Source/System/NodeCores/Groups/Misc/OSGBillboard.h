@@ -48,6 +48,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief *put brief class description here*
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
  */
 
 class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase

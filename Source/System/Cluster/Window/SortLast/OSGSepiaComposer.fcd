@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="SepiaComposer"
-	parent="ImageComposer"
-    library="Cluster"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
+   name="SepiaComposer"
+   parent="ImageComposer"
+   library="Cluster"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpClusterWindow"
+   >
 </FieldContainer>

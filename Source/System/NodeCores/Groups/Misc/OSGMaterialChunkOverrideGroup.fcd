@@ -10,6 +10,7 @@
    parentsystemcomponent="true"
    isNodeCore="true"
    authors="Johannes Brunen"
+   docGroupBase="GrpGroupMisc"
    >
   MaterialChunkOverrideGroup is a ChunkOverrideGroup  node that takes a
   material  instead of individual chunks. If the material can't be finalized

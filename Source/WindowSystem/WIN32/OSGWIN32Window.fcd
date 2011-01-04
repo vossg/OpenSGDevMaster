@@ -1,60 +1,61 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-     name="WIN32Window"
-     parent="Window"
-     library="WindowWIN32"
-     pointerfieldtypes="both"
-     structure="concrete"
-     systemcomponent="true"
-     parentsystemcomponent="true"
+   name="WIN32Window"
+   parent="Window"
+   library="WindowWIN32"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowWIN32"
+   >
+  The class for WIN32 windows.
+  <Field
+     name="hwnd"
+     type="HWND"
+     cardinality="single"
+     visibility="internal"
+     defaultValue="0"
+     fieldHeader="OSGWIN32WindowDataFields.h"
+     access="public"
+     fieldFlags="FClusterLocal"
      >
-    The class for WIN32 windows.
-    <Field
-         name="hwnd"
-         type="HWND"
-         cardinality="single"
-         visibility="internal"
-         defaultValue="0"
-         fieldHeader="OSGWIN32WindowDataFields.h"
-         access="public"
-         fieldFlags="FClusterLocal"
-         >
-    </Field>
-    <Field
-         name="hdc"
-         type="HDC"
-         cardinality="single"
-         visibility="internal"
-         defaultValue="0"
-         fieldHeader="OSGWIN32WindowDataFields.h"
-         access="public"
-         fieldFlags="FClusterLocal"
-         >
-    </Field>
-    <Field
-         name="hglrc"
-         type="HGLRC"
-         cardinality="single"
-         visibility="internal"
-         defaultValue="0"
-         fieldHeader="OSGWIN32WindowDataFields.h"
-         access="public"
-         fieldFlags="FClusterLocal"
-         >
-    </Field>
-    <Field
-         name="dummy0"
-         type="Int32"
-         category="data"
-         cardinality="single"
-         visibility="internal"
-         defaultValue="0"
-         access="public"
-         fieldFlags="FClusterLocal"
-         >
-        This field only exists so that all platform window types have the same
-        number of fields.
-        Otherwise transmitting field masks across a cluster is not possible.
-    </Field>
+  </Field>
+  <Field
+     name="hdc"
+     type="HDC"
+     cardinality="single"
+     visibility="internal"
+     defaultValue="0"
+     fieldHeader="OSGWIN32WindowDataFields.h"
+     access="public"
+     fieldFlags="FClusterLocal"
+     >
+  </Field>
+  <Field
+     name="hglrc"
+     type="HGLRC"
+     cardinality="single"
+     visibility="internal"
+     defaultValue="0"
+     fieldHeader="OSGWIN32WindowDataFields.h"
+     access="public"
+     fieldFlags="FClusterLocal"
+     >
+  </Field>
+  <Field
+     name="dummy0"
+     type="Int32"
+     category="data"
+     cardinality="single"
+     visibility="internal"
+     defaultValue="0"
+     access="public"
+     fieldFlags="FClusterLocal"
+     >
+    This field only exists so that all platform window types have the same
+    number of fields.
+    Otherwise transmitting field masks across a cluster is not possible.
+  </Field>
 </FieldContainer>

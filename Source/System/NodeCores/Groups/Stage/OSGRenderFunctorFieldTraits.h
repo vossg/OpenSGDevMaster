@@ -50,6 +50,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \nohierarchy
+ */
+
 struct RenderFunctorCallback
 {
     RenderFunctor  _func;
@@ -59,13 +64,9 @@ struct RenderFunctorCallback
     typedef std::allocator<void> Alloc;
 };
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-/*! \ingroup 
+/*! \ingroup GrpGroupStageFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<RenderFunctorCallback> : 
@@ -148,7 +149,8 @@ struct FieldTraits<RenderFunctorCallback> :
 
         if(0 != containerId)
         {
-            pObject = FieldContainerFactory::the()->getMappedContainer(containerId);
+            pObject = 
+                FieldContainerFactory::the()->getMappedContainer(containerId);
         }
         else
         {
@@ -170,13 +172,6 @@ struct FieldTraits<RenderFunctorCallback> :
     }   
 
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodeCorePtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

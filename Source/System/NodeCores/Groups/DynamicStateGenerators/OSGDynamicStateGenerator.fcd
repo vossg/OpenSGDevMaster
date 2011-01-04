@@ -1,27 +1,28 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="DynamicStateGenerator"
-        parent="ChunkOverrideGroup"
-        mixinparent="DynamicStateGeneratorParent"
-        library="Group"
-        pointerfieldtypes="both"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
-        useLocalIncludes="false"
-    isNodeCore="true"
->
-Base for dynamic materials like dynamic cube env maps
-    <Field
-        name="renderTarget"
-        type="FrameBufferObjectPtr"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="protected"
-    >
+   name="DynamicStateGenerator"
+   parent="ChunkOverrideGroup"
+   mixinparent="DynamicStateGeneratorParent"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   docGroupBase="GrpGroupDynamicStateGenerators"
+   >
+  Base for dynamic materials like dynamic cube env maps
+  <Field
+     name="renderTarget"
+     type="FrameBufferObjectPtr"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="protected"
+     >
     The FBO to target for rendering this subtree.
-    </Field>
+  </Field>
 </FieldContainer>

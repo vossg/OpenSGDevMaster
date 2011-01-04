@@ -49,8 +49,11 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \brief Camera Decorator class to select a part of the image, see \ref
-    PageSystemWindowCameraDecoratorsTile for a description.
-*/
+           PageSystemWindowCameraDecoratorsTile for a description.
+    \ingroup GrpWindowCameraObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING TileCameraDecorator : 
     public TileCameraDecoratorBase

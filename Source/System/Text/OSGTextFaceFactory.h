@@ -65,16 +65,28 @@ class TextVectorFace;
 class TextPixmapFace;
 class TextTXFFace;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextVectorFace,
                     MemObjRefCountPolicy> TextVectorFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextVectorFace      > TextVectorFaceTransitPtr;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextPixmapFace,
                     MemObjRefCountPolicy> TextPixmapFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextPixmapFace      > TextPixmapFaceTransitPtr;
 
+/*! \ingroup GrpTextFaces
+ */
 typedef RefCountPtr<TextTXFFace,
                     MemObjRefCountPolicy> TextTXFFaceRefPtr;
+/*! \ingroup GrpTextFaces
+ */
 typedef TransitPtr <TextTXFFace         > TextTXFFaceTransitPtr;
 
 /**
@@ -86,7 +98,11 @@ typedef TransitPtr <TextTXFFace         > TextTXFFaceTransitPtr;
  * Usually you do not use the %TextFaceFactory singleton directly,
  * instead you use the create method of the TextFace classes.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFactory
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -177,15 +193,12 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
     TXFFaceMap _txfFaceMap;
 };
 
-#if defined(WIN32)
-#    if !defined(OSG_COMPILETEXTLIB)
-// OSG_TEXT_EXPIMP_TMPL 
-// template class OSG_SYSTEM_DLLMAPPING SingletonHolder<TextFaceFactoryBase>;
-#    endif
-#endif
+/*! \typedef OSG::SingletonHolder<OSG::TextFaceFactoryBase> TextFaceFactory;
+    \ingroup GrpTextFactory
+    \relatesalso OSG::TextFaceFactoryBase
+ */
 
 typedef SingletonHolder<TextFaceFactoryBase> TextFaceFactory;
-
 
 OSG_END_NAMESPACE
 

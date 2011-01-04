@@ -52,7 +52,10 @@ class DrawEnv;
 
 /*! \brief GeoVectorProperty class. See \ref
            PageWindowGLUTGeoVectorProperty for a description.
-*/
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     public GeoVectorPropertyBase

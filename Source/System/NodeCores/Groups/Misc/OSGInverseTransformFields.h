@@ -68,7 +68,7 @@ class InverseTransform;
 
 OSG_GEN_CONTAINERPTR(InverseTransform);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<InverseTransform *, 0>::getMName<NoRefCountPolicy>(void
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
                       RecordedRefCountPolicy  > SFRecInverseTransformPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
                       UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
                       WeakRefCountPolicy      > SFWeakInverseTransformPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
                       NoRefCountPolicy        > SFUncountedInverseTransformPtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
                       RecordedRefCountPolicy  > MFRecInverseTransformPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
                       UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
                       WeakRefCountPolicy      > MFWeakInverseTransformPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
                       NoRefCountPolicy        > MFUncountedInverseTransformPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<InverseTransform *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecInverseTransformPtr : 
     public PointerSField<InverseTransform *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecInverseTransformPtr : 
     public PointerSField<InverseTransform *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakInverseTransformPtr :
     public PointerSField<InverseTransform *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedInverseTransformPtr :
     public PointerSField<InverseTransform *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecInverseTransformPtr :
     public PointerMField<InverseTransform *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecInverseTransformPtr :
     public PointerMField<InverseTransform *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakInverseTransformPtr :
     public PointerMField<InverseTransform *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedInverseTransformPtr :
     public PointerMField<InverseTransform *,
                          NoRefCountPolicy        > {};

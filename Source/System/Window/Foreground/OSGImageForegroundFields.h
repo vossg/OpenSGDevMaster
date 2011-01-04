@@ -68,7 +68,7 @@ class ImageForeground;
 
 OSG_GEN_CONTAINERPTR(ImageForeground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowForegroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ImageForeground *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
                       RecordedRefCountPolicy  > SFRecImageForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
                       UnrecordedRefCountPolicy> SFUnrecImageForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
                       WeakRefCountPolicy      > SFWeakImageForegroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
                       NoRefCountPolicy        > SFUncountedImageForegroundPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
                       RecordedRefCountPolicy  > MFRecImageForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
                       UnrecordedRefCountPolicy> MFUnrecImageForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
                       WeakRefCountPolicy      > MFWeakImageForegroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
                       NoRefCountPolicy        > MFUncountedImageForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ImageForeground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecImageForegroundPtr : 
     public PointerSField<ImageForeground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecImageForegroundPtr : 
     public PointerSField<ImageForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakImageForegroundPtr :
     public PointerSField<ImageForeground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedImageForegroundPtr :
     public PointerSField<ImageForeground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecImageForegroundPtr :
     public PointerMField<ImageForeground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecImageForegroundPtr :
     public PointerMField<ImageForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakImageForegroundPtr :
     public PointerMField<ImageForeground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowForegroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedImageForegroundPtr :
     public PointerMField<ImageForeground *,
                          NoRefCountPolicy        > {};

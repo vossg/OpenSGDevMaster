@@ -52,7 +52,9 @@ OSG_BEGIN_NAMESPACE
 
 /* \brief NFIOOptions class.
           parses the reader/writer options.
-*/
+    \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
 
 class NFIOOptions
 {

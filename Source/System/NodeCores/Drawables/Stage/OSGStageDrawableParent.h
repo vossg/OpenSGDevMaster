@@ -48,6 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpDrawablesStageObj
+    \nohierarchy
+ */
+
 struct StageDrawableDesc
 {
     typedef Drawable                    ParentT;
@@ -56,6 +60,9 @@ struct StageDrawableDesc
 
     typedef RenderActionBase::Inherited DataSlotHandler;
 };
+
+/*! \ingroup GrpDrawablesStageObj
+ */
 
 typedef StageHandlerMixin< 
           ContainerMixinHead< 

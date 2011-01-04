@@ -75,7 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GeoIntegralProperty
-    Parent class for integral (i.e. one dimensional unsigned integer typed) properties.
+    Parent class for integral (i.e. one dimensional unsigned integer typed)
+    properties. 
  */
 
 /***************************************************************************\
@@ -142,22 +143,25 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"GeoIntegralProperty\"\n"
-    "\tparent=\"GeoProperty\"\n"
-    "\tlibrary=\"Drawable\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "        childFields=\"both\"\n"
-    ">\n"
-    "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+    "   name=\"GeoIntegralProperty\"\n"
+    "   parent=\"GeoProperty\"\n"
+    "   library=\"Drawable\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   childFields=\"both\"\n"
+    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
+    "   >\n"
+    "  Parent class for integral (i.e. one dimensional unsigned integer typed)\n"
+    "  properties. \n"
     "\n"
-    "The main use for this class is as a parent class for indices, lengths and \n"
-    "types for the Geometry.\n"
+    "  The main use for this class is as a parent class for indices, lengths and \n"
+    "  types for the Geometry.\n"
     "</FieldContainer>\n",
-    "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+    "Parent class for integral (i.e. one dimensional unsigned integer typed)\n"
+    "properties. \n"
     "\n"
     "The main use for this class is as a parent class for indices, lengths and \n"
     "types for the Geometry.\n"

@@ -41,10 +41,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING NavigatorBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */

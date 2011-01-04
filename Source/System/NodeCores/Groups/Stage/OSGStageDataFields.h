@@ -68,7 +68,7 @@ class StageData;
 
 OSG_GEN_CONTAINERPTR(StageData);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

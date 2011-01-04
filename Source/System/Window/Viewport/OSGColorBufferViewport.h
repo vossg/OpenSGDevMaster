@@ -49,8 +49,11 @@ OSG_BEGIN_NAMESPACE
 class RenderActionBase;
 
 /*! \brief Viewport class for color channel selection. See \ref 
-    PageSystemWindowViewports for a description.
-*/
+           PageSystemWindowViewports for a description.
+    \ingroup GrpWindowViewportObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING ColorBufferViewport : 
     public ColorBufferViewportBase

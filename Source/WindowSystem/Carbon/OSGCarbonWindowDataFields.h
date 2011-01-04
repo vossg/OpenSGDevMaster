@@ -43,12 +43,15 @@
 #pragma once
 #endif
 
+/*! \ingroup GrpWindowCarbonFieldTraits
+ */
+
 typedef struct __AGLContextRec *AGLContext;
 
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS compile
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGWindowCarbonDef.h"
 
@@ -57,6 +60,9 @@ typedef struct __AGLContextRec *AGLContext;
 /*! The field types for the local types needed by the CarbonWindow class */
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowCarbonFieldTraits
+ */
 
 template <>
 struct FieldTraits<AGLContext> : 
@@ -87,15 +93,19 @@ struct FieldTraits<AGLContext> :
     }
 };
 
-//! SFAGLContext
-//! \ingroup GrpBaseFieldSingle
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowCarbonFieldSFields */
 typedef SField<AGLContext> SFAGLContext;
 
-//! MFAGLContext
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowCarbonFieldMFields */
 typedef MField<AGLContext> MFAGLContext;
+#else
+/*! \ingroup GrpWindowCarbonFieldSFields \ingroup GrpLibOSGWindowCarbon */
+struct SFAGLContext : public SField<AGLContext> {};
+
+/*! \ingroup GrpWindowCarbonFieldMFields\ingroup GrpLibOSGWindowCarbon  */
+struct MFAGLContext : public MField<AGLContext> {};
+#endif
 
 OSG_END_NAMESPACE
 

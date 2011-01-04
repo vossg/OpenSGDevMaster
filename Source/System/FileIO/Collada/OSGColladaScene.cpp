@@ -42,7 +42,7 @@
 
 #include "OSGColladaScene.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGColladaInstanceVisualScene.h"
@@ -51,7 +51,7 @@
 #include <dom/domInstanceWithExtra.h>
 
 /*! \class OSG::ColladaScene
-    Handles the <scene> tag.
+    Handles the &lt;scene&gt; tag.
  */
 
 OSG_BEGIN_NAMESPACE

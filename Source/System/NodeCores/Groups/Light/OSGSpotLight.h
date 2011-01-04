@@ -47,8 +47,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Spot Light
-    \ingroup GrpSystemNodeCoresLights
-*/
+    \ingroup GrpGroupLightObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING SpotLight : public SpotLightBase
 {

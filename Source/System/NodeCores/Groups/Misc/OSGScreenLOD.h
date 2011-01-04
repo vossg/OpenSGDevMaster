@@ -52,7 +52,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ScreenLOD class. See \ref 
            PageGroupScreenLOD for a description.
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING ScreenLOD : public ScreenLODBase
 {

@@ -51,6 +51,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief *put brief class description here* 
+
+    \ingroup GrpClusterWindowObj
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
  */
 
 class OSG_CLUSTER_DLLMAPPING SortFirstWindow : public SortFirstWindowBase

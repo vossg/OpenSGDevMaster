@@ -68,7 +68,7 @@ class CubeMapGeneratorStageData;
 
 OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupDynamicStateGeneratorsFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

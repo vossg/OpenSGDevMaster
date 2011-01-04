@@ -68,6 +68,9 @@ struct HardwareContextDataSlotDesc
     }
 };
 
+/*! \ingroup GrpBaseHardwareContext
+ */
+
 typedef DataSlotMixin< 
             ContainerMixinHead < 
                 HardwareContextDataSlotDesc > > HardwareContextParent;

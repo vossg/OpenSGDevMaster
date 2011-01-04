@@ -47,11 +47,6 @@ OSG_USING_NAMESPACE
 /* OSBTypedGeoVectorPropertyElement                                       */
 /*-------------------------------------------------------------------------*/
 
-/*! \class OSBTypedGeoVectorPropertyElement
-    A specialization of this template is registered for each specialization of
-    TypedGeoVectorProperty.
- */
-
 /*-------------------------------------------------------------------------*/
 /*                                                                         */
 

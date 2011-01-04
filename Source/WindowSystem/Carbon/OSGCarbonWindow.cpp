@@ -46,7 +46,7 @@
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS X compile
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include <AGL/agl.h>
 

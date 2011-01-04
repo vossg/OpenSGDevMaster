@@ -44,7 +44,7 @@
 #include "OSGBaseTypes.h"
 
 
-#ifdef OSG_WITH_FT2
+#if defined(OSG_WITH_FT2) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextPixmapFace.h"
@@ -84,6 +84,10 @@ OSG_BEGIN_NAMESPACE
 // Freetype2 specific implementation of the TextVectorFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2VectorFace: public TextVectorFace
 {
 public:
@@ -114,6 +118,10 @@ private:
 // Freetype2 specific implementation of the TextVectorGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2VectorGlyph: public TextVectorGlyph
 {
 public:
@@ -130,6 +138,10 @@ public:
 // Freetype2 specific implementation of the TextPixmapFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2PixmapFace: public TextPixmapFace
 {
 public:
@@ -160,6 +172,10 @@ private:
 // Freetype2 specific implementation of the TextPixmapGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2PixmapGlyph: public TextPixmapGlyph
 {
 public:
@@ -176,6 +192,10 @@ public:
 // Freetype2 specific implementation of the TextTXFFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2TXFFace: public TextTXFFace
 {
 public:
@@ -192,6 +212,10 @@ public:
 // Freetype2 specific implementation of the TextTXFGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextFT2TXFGlyph: public TextTXFGlyph
 {
 public:

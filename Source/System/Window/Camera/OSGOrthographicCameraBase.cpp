@@ -83,11 +83,13 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          OrthographicCameraBase::_sfVerticalSize
-    The vertical size of the camera box, in world units. Ignored when less then or equal to zero.
+    The vertical size of the camera box, in world units. Ignored when less
+    then or equal to zero. 
 */
 
 /*! \var Real32          OrthographicCameraBase::_sfHorizontalSize
-    The horizontal size of the camera box, in world units. Ignored when less then or equal to zero.
+    The horizontal size of the camera box, in world units. Ignored when less
+    then or equal to zero. 
 */
 
 /*! \var Real32          OrthographicCameraBase::_sfAspect
@@ -125,7 +127,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "verticalSize",
-        "The vertical size of the camera box, in world units. Ignored when less then or equal to zero.\n",
+        "The vertical size of the camera box, in world units. Ignored when less\n"
+        "then or equal to zero. \n",
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -137,7 +140,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "horizontalSize",
-        "The horizontal size of the camera box, in world units. Ignored when less then or equal to zero.\n",
+        "The horizontal size of the camera box, in world units. Ignored when less\n"
+        "then or equal to zero. \n",
         HorizontalSizeFieldId, HorizontalSizeFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -174,41 +178,44 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"OrthographicCamera\"\n"
-    "\tparent=\"Camera\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "A perspective camera with a symmetric frustum.\n"
-    "\t<Field\n"
-    "\t\tname=\"verticalSize\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
-    "\tThe vertical size of the camera box, in world units. Ignored when less then or equal to zero.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"horizontalSize\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        defaultValue=\"-1\"\n"
-    "\t>\n"
-    "\tThe horizontal size of the camera box, in world units. Ignored when less then or equal to zero.\n"
-    " \t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"aspect\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        defaultValue=\"1\"\n"
-    "\t>\n"
+    "   name=\"OrthographicCamera\"\n"
+    "   parent=\"Camera\"\n"
+    "   library=\"Window\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowCamera\"\n"
+    "   >\n"
+    "  A perspective camera with a symmetric frustum.\n"
+    "  <Field\n"
+    "\t name=\"verticalSize\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t >\n"
+    "\tThe vertical size of the camera box, in world units. Ignored when less\n"
+    "\tthen or equal to zero. \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"horizontalSize\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "     defaultValue=\"-1\"\n"
+    "\t >\n"
+    "\tThe horizontal size of the camera box, in world units. Ignored when less\n"
+    "\tthen or equal to zero. \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"aspect\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "     defaultValue=\"1\"\n"
+    "\t >\n"
     "\tThe aspect ratio (i.e. width / height) of a pixel.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "A perspective camera with a symmetric frustum.\n"
     );

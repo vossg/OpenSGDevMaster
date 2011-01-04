@@ -37,6 +37,8 @@ OSG_ADD_GLUTPACKAGE(TRUE)
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
 
+SET(${PROJECT_NAME}_NO_DOC TRUE)
+
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################

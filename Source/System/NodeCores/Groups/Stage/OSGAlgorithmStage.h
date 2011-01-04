@@ -52,8 +52,11 @@ OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
+/*! Stage
+    \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING AlgorithmStage : public AlgorithmStageBase
 {

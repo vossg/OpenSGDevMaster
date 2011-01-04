@@ -68,7 +68,7 @@ class TransformChunk;
 
 OSG_GEN_CONTAINERPTR(TransformChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<TransformChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
                       RecordedRefCountPolicy  > SFRecTransformChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
                       WeakRefCountPolicy      > SFWeakTransformChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
                       NoRefCountPolicy        > SFUncountedTransformChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
                       RecordedRefCountPolicy  > MFRecTransformChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
                       WeakRefCountPolicy      > MFWeakTransformChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
                       NoRefCountPolicy        > MFUncountedTransformChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<TransformChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecTransformChunkPtr : 
     public PointerSField<TransformChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecTransformChunkPtr : 
     public PointerSField<TransformChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakTransformChunkPtr :
     public PointerSField<TransformChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedTransformChunkPtr :
     public PointerSField<TransformChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecTransformChunkPtr :
     public PointerMField<TransformChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecTransformChunkPtr :
     public PointerMField<TransformChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakTransformChunkPtr :
     public PointerMField<TransformChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedTransformChunkPtr :
     public PointerMField<TransformChunk *,
                          NoRefCountPolicy        > {};

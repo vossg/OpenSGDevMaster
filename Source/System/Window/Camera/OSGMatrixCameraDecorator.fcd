@@ -1,87 +1,86 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="MatrixCameraDecorator"
-	parent="CameraDecorator"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowCameraDecorators
+   name="MatrixCameraDecorator"
+   parent="CameraDecorator"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowCamera"
+   >
+  The OSG::MatrixCameraDecorator for modifying the camera matrices by 
+  matrices, see \ref
+  PageSystemWindowCameraDecoratorsMatrix for a description.
 
-The OSG::MatrixCameraDecorator for modifying the camera matrices by 
-matrices, see \ref
-PageSystemWindowCameraDecoratorsMatrix for a description.
-
-The matrices to use are defined by the _sf Fields. The size of the full
-image is defined by the _sfFullWidth and
-_sfFullHeight Fields.
-	<Field
-		name="preViewing"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
+  The matrices to use are defined by the _sf Fields. The size of the full
+  image is defined by the _sfFullWidth and
+  _sfFullHeight Fields.
+  <Field
+	 name="preViewing"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
 	The matrix to multiply to the right of the viewing matrix, i.e. 
-        applied before the viewing matrix.
-	</Field>
-	<Field
-		name="postViewing"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
+    applied before the viewing matrix.
+  </Field>
+  <Field
+	 name="postViewing"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
 	The matrix to multiply to the left of the viewing matrix, i.e. 
-        applied after the viewing matrix.
-	</Field>
-	<Field
-		name="preProjectionTranslation"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
-	The matrix to multiply to the right of the projectionTranslation matrix, i.e. 
-        applied before the projectionTranslation matrix.
-	</Field>
-	<Field
-		name="postProjectionTranslation"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
-	The matrix to multiply to the left of the projectionTranslation matrix, i.e. 
-        applied before the projectionTranslation matrix.
-	</Field>
-    <Field
-		name="preProjection"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
+    applied after the viewing matrix.
+  </Field>
+  <Field
+	 name="preProjectionTranslation"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
+	The matrix to multiply to the right of the projectionTranslation matrix,
+	i.e. applied before the projectionTranslation matrix.
+  </Field>
+  <Field
+	 name="postProjectionTranslation"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
+	The matrix to multiply to the left of the projectionTranslation matrix,
+	i.e.  applied before the projectionTranslation matrix.
+  </Field>
+  <Field
+	 name="preProjection"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
 	The matrix to multiply to the right of the projection matrix, i.e. 
-        applied before the projection matrix.
-	</Field>
-	<Field
-		name="postProjection"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
-		access="public"
-	>
+    applied before the projection matrix.
+  </Field>
+  <Field
+	 name="postProjection"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1"
+	 access="public"
+	 >
 	The matrix to multiply to the left of the projection matrix, i.e. 
-        applied before the projection matrix.
-	</Field>
+    applied before the projection matrix.
+  </Field>
 </FieldContainer>

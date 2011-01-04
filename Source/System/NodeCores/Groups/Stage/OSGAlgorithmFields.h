@@ -68,7 +68,7 @@ class Algorithm;
 
 OSG_GEN_CONTAINERPTR(Algorithm);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Algorithm *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Algorithm *,
                       RecordedRefCountPolicy  > SFRecAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Algorithm *,
                       UnrecordedRefCountPolicy> SFUnrecAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Algorithm *,
                       WeakRefCountPolicy      > SFWeakAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Algorithm *,
                       NoRefCountPolicy        > SFUncountedAlgorithmPtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Algorithm *,
                       RecordedRefCountPolicy  > MFRecAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Algorithm *,
                       UnrecordedRefCountPolicy> MFUnrecAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Algorithm *,
                       WeakRefCountPolicy      > MFWeakAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Algorithm *,
                       NoRefCountPolicy        > MFUncountedAlgorithmPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Algorithm *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecAlgorithmPtr : 
     public PointerSField<Algorithm *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecAlgorithmPtr : 
     public PointerSField<Algorithm *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakAlgorithmPtr :
     public PointerSField<Algorithm *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedAlgorithmPtr :
     public PointerSField<Algorithm *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecAlgorithmPtr :
     public PointerMField<Algorithm *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecAlgorithmPtr :
     public PointerMField<Algorithm *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakAlgorithmPtr :
     public PointerMField<Algorithm *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedAlgorithmPtr :
     public PointerMField<Algorithm *,
                          NoRefCountPolicy        > {};

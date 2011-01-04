@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TwoSidedLightingChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
+   name="TwoSidedLightingChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpStateOpenGL"
+   >
 </FieldContainer>

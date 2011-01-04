@@ -51,7 +51,10 @@ class DrawEnv;
 
 /*! \brief ResolutionDisplayFilter class. See \ref
            PageEffectGroupsResolutionDisplayFilter for a description.
-*/
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING ResolutionDisplayFilter : 
     public ResolutionDisplayFilterBase

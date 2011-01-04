@@ -54,7 +54,9 @@ class OSGLoader;
 class FieldContainer;
 
 /*! \brief OSGSceneFileType
-*/
+    \ingroup GrpFileIOOpenFlight
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING OpenFlightSceneFileType : public SceneFileType
 {

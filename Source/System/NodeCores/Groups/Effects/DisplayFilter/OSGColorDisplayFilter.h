@@ -53,7 +53,11 @@ class DrawEnv;
 
 /*! \brief ColorDisplayFilter class. See \ref
            PageEffectGroupsColorDisplayFilter for a description.
-*/
+
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilter : 
     public ColorDisplayFilterBase

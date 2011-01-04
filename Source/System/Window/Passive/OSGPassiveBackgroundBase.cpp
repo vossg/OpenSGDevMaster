@@ -75,7 +75,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PassiveBackground
-    \ingroup GrpSystemWindowBackgrounds
+    A background that does nothing within the clear call, thus it also has no
+    Fields at all. It is mainly used to stack viewports on top of each other,
+    i.e. it makes it possible to have two viewports on top of each other to
+    generate a single combined image. See \ref
+    PageSystemWindowBackgroundPassive 
  */
 
 /***************************************************************************\
@@ -121,21 +125,26 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PassiveBackground\"\n"
-    "\tparent=\"Background\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"single\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "A background that does nothing within the clear call, thus it also has no Fields at all. It is mainly used to stack viewports on top of each other, i.e. it makes it possible to have two viewports on top of each other to generate a single combined image. See \\ref PageSystemWindowBackgroundPassive\n"
+    "   name=\"PassiveBackground\"\n"
+    "   parent=\"Background\"\n"
+    "   library=\"Window\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"single\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowPassive\"\n"
+    "   >\n"
+    "  A background that does nothing within the clear call, thus it also has no\n"
+    "  Fields at all. It is mainly used to stack viewports on top of each other,\n"
+    "  i.e. it makes it possible to have two viewports on top of each other to\n"
+    "  generate a single combined image. See \\ref\n"
+    "  PageSystemWindowBackgroundPassive \n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "A background that does nothing within the clear call, thus it also has no Fields at all. It is mainly used to stack viewports on top of each other, i.e. it makes it possible to have two viewports on top of each other to generate a single combined image. See \\ref PageSystemWindowBackgroundPassive\n"
+    "A background that does nothing within the clear call, thus it also has no\n"
+    "Fields at all. It is mainly used to stack viewports on top of each other,\n"
+    "i.e. it makes it possible to have two viewports on top of each other to\n"
+    "generate a single combined image. See \\ref\n"
+    "PageSystemWindowBackgroundPassive \n"
     );
 
 /*------------------------------ get -----------------------------------*/

@@ -68,7 +68,7 @@ class QT4Window;
 
 OSG_GEN_CONTAINERPTR(QT4Window);
 
-/*! \ingroup GrpWindowQT4FieldTraits
+/*! \ingroup GrpWindowQt4FieldTraits
     \ingroup GrpLibOSGWindowQT4
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<QT4Window *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowQT4FieldSFields */
+/*! \ingroup GrpWindowQt4FieldSFields */
 typedef PointerSField<QT4Window *,
                       RecordedRefCountPolicy  > SFRecQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldSFields */
+/*! \ingroup GrpWindowQt4FieldSFields */
 typedef PointerSField<QT4Window *,
                       UnrecordedRefCountPolicy> SFUnrecQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldSFields */
+/*! \ingroup GrpWindowQt4FieldSFields */
 typedef PointerSField<QT4Window *,
                       WeakRefCountPolicy      > SFWeakQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldSFields */
+/*! \ingroup GrpWindowQt4FieldSFields */
 typedef PointerSField<QT4Window *,
                       NoRefCountPolicy        > SFUncountedQT4WindowPtr;
 
 
-/*! \ingroup GrpWindowQT4FieldMFields */
+/*! \ingroup GrpWindowQt4FieldMFields */
 typedef PointerMField<QT4Window *,
                       RecordedRefCountPolicy  > MFRecQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldMFields */
+/*! \ingroup GrpWindowQt4FieldMFields */
 typedef PointerMField<QT4Window *,
                       UnrecordedRefCountPolicy> MFUnrecQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldMFields */
+/*! \ingroup GrpWindowQt4FieldMFields */
 typedef PointerMField<QT4Window *,
                       WeakRefCountPolicy      > MFWeakQT4WindowPtr;
-/*! \ingroup GrpWindowQT4FieldMFields */
+/*! \ingroup GrpWindowQt4FieldMFields */
 typedef PointerMField<QT4Window *,
                       NoRefCountPolicy        > MFUncountedQT4WindowPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<QT4Window *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldSFields \ingroup GrpLibOSGWindowQT4 */
 struct SFRecQT4WindowPtr : 
     public PointerSField<QT4Window *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldSFields \ingroup GrpLibOSGWindowQT4 */
 struct SFUnrecQT4WindowPtr : 
     public PointerSField<QT4Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldSFields \ingroup GrpLibOSGWindowQT4 */
 struct SFWeakQT4WindowPtr :
     public PointerSField<QT4Window *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldSFields \ingroup GrpLibOSGWindowQT4 */
 struct SFUncountedQT4WindowPtr :
     public PointerSField<QT4Window *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldMFields \ingroup GrpLibOSGWindowQT4 */
 struct MFRecQT4WindowPtr :
     public PointerMField<QT4Window *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldMFields \ingroup GrpLibOSGWindowQT4 */
 struct MFUnrecQT4WindowPtr :
     public PointerMField<QT4Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldMFields \ingroup GrpLibOSGWindowQT4 */
 struct MFWeakQT4WindowPtr :
     public PointerMField<QT4Window *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+/*! \ingroup GrpWindowQt4FieldMFields \ingroup GrpLibOSGWindowQT4 */
 struct MFUncountedQT4WindowPtr :
     public PointerMField<QT4Window *,
                          NoRefCountPolicy        > {};

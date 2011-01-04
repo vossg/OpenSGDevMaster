@@ -151,6 +151,7 @@ DisplayFilterBase::TypeObject DisplayFilterBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpEffectsGroupsDisplayFilter\"\n"
     "   >   \n"
     "  <Field\n"
     "\t name=\"enabled\"\n"

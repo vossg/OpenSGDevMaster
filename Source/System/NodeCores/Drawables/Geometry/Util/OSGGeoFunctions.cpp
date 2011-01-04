@@ -57,12 +57,14 @@
 
 OSG_BEGIN_NAMESPACE
 
-//Helper
+/*---------------------------------------------------------------------*/
+/*! \name                   Merge helper struct                        */
+/*! \{                                                                 */
 
-//! \ingroup GrpSystemDrawablesGeometryFunctions
-//! Multi/Single index dictionary. Only useful for normal calculation
-//! {
-struct  IndexDic
+/*! \ingroup GrpDrawablesGeometryUtils
+    \nohierarchy
+ */
+struct  IndexDic 
 {
     typedef std::vector<Int32>  Int32Vec;
 
@@ -120,11 +122,10 @@ UInt32 IndexDic::entryCount(void) const
     return _indexVec.size();
 }
 
-//! }
-
-/*! \ingroup STLHelpers
+/*! \ingroup GrpDrawablesGeometryUtils
+    \nohierarchy
     memory comparison
-*/
+ */
 template <class TypeT>
 struct memless
 {
@@ -149,22 +150,23 @@ struct memless
     }
 };
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 
-//------------------------------------------------------------
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
-Calculate vertex normals for the given geometry. 
+  Calculate vertex normals for the given geometry. 
 
-It just averages all normals that use a given vertex (as indicated by its
-index). It is smart enough to only change the normals that are used by this
-Geometry, and tries to reuse indices if they're not shared on other
-properties.
+  It just averages all normals that use a given vertex (as indicated by its
+  index). It is smart enough to only change the normals that are used by this
+  Geometry, and tries to reuse indices if they're not shared on other
+  properties.
 
-\warning This doesn't do anything for nonindexed geometries!
+  \warning This doesn't do anything for nonindexed geometries!
 
-*/
+ */
 void calcVertexNormals(Geometry *geo)
 {
     GeoVectorPropertyUnrecPtr   norms;
@@ -280,15 +282,15 @@ void calcVertexNormals(Geometry *geo)
 }
 
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
-Calculate vertex normals for the given geometry. Only vertices whose
-triangles have an angle less than \a creaseAngle radians to each other are
-merged.
+  Calculate vertex normals for the given geometry. Only vertices whose
+  triangles have an angle less than \a creaseAngle radians to each other are
+  merged.
 
-\warning This doesn't do anything for nonindexed geometries!
+  \warning This doesn't do anything for nonindexed geometries!
 
-*/
+ */
 void calcVertexNormals(Geometry *geo,
                        Real32    creaseAngle)
 {
@@ -521,11 +523,16 @@ void calcVertexNormals(Geometry *geo,
     }
 }
 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
+
 void calcFaceNormals(Geometry *geo)
 {
     FFATAL(("calcFaceNormals:: NYI!\n"));
 }
 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 
 void calcVertexTangentsProp(Geometry *geo,
                             UInt32    srcTexProp,
@@ -736,6 +743,9 @@ void calcVertexTangentsProp(Geometry *geo,
     }
 }
 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
+
 void calcVertexTangents(Geometry *geo,
                         UInt32    srcTexIndex,
                         UInt32    dstPropTan,
@@ -747,6 +757,9 @@ void calcVertexTangents(Geometry *geo,
                            dstPropTan,
                            dstPropBin);
 }
+
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 
 void calcVertexTexCoordsProp2D(Geometry *geo,
                                UInt32    propIndex)
@@ -862,7 +875,7 @@ void calcVertexTexCoords(Geometry *geo,
     calcVertexTexCoordsProp2D(geo, texIndex + Geometry::TexCoordsIndex);
 }
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
     setIndexFromVRMLData creates an OSG::Geometry's interleaved index data
     from VRML-style separate indices, see \ref PageSystemGeoFunctionsMakeGeo
@@ -1477,7 +1490,7 @@ else
 }
 
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
     setIndexFromIndexedX3DData creates an OSG::Geometry's interleaved index data
     from X3D-style separate indices, see \ref PageSystemGeoFunctionsMakeGeo
@@ -2186,7 +2199,8 @@ else
     return triCount;
 }
 
-
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 Int32 createOptimizedPrimitives(Geometry *geo,
                                 UInt32    iteration,
                                 bool      createStrips,
@@ -2555,6 +2569,9 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     return bestCost;
 }
 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
+
 void createConvexPrimitives(Geometry *geo)
 {
     FFATAL(("createConvexPrimitives:: NYI!\n"));
@@ -2562,7 +2579,8 @@ void createConvexPrimitives(Geometry *geo)
 
 /*! Adjusts the indices of \a geoPtr such that data is as much as possible
     reused.
-    
+
+    \ingroup GrpDrawablesGeometryUtils
  */
 Int32 createSharedIndex(Geometry *geoPtr)
 {
@@ -2777,11 +2795,10 @@ Int32 createSingleIndex(Geometry *geo)
 }
 
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
-Calculate some basic statistics of the Geometry. 
-
-*/
+  Calculate some basic statistics of the Geometry. 
+ */
 UInt32 calcPrimitiveCount(Geometry *geo,
                           UInt32   &triangle,
                           UInt32   &line,
@@ -2879,15 +2896,15 @@ UInt32 calcPrimitiveCount(Geometry *geo,
     return triangle + line + point;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
-Create a geometry of the vertex normals of the object. Useful for Visualizing
-the normals. 
+  Create a geometry of the vertex normals of the object. Useful for Visualizing
+  the normals. 
 
-\warning It does not check whether the normals are actually vertex normals,
-it just uses them as if.
+  \warning It does not check whether the normals are actually vertex normals,
+  it just uses them as if.
 
-*/
+ */
 NodeTransitPtr calcVertexNormalsGeo(Geometry *geo, 
                                     Real32    length)
 {
@@ -2944,7 +2961,8 @@ NodeTransitPtr calcVertexNormalsGeo(Geometry *geo,
     return makeNodeFor(g);
 }
 
-OSG_DRAWABLE_DLLMAPPING 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 void updateVertexNormalsGeo(      Geometry *pGeo, 
                                   Real32    length,
                             const Geometry *pRefGeo)
@@ -2986,15 +3004,15 @@ void updateVertexNormalsGeo(      Geometry *pGeo,
 }
 
 
-/*! \ingroup GrpSystemDrawablesGeometryFunctions
+/*! \ingroup GrpDrawablesGeometryUtils
 
-Create a geometry of the face normals of the object. Useful for Visualizing
-the normals. 
+  Create a geometry of the face normals of the object. Useful for Visualizing
+  the normals. 
 
-\warning It does not check whether the normals are actually face normals,
-it just uses them as if.
+  \warning It does not check whether the normals are actually face normals,
+  it just uses them as if.
 
-*/
+ */
 NodeTransitPtr calcFaceNormalsGeo(Geometry *geo, 
                                   Real32    length)
 {
@@ -3061,15 +3079,16 @@ NodeTransitPtr calcFaceNormalsGeo(Geometry *geo,
     return p;
 }
 
-
-OSG_DRAWABLE_DLLMAPPING 
-void    separateProperties      (Geometry *geo)
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
+void separateProperties(Geometry *geo)
 {
     FFATAL(("separateProperties: not implemented yet!\n"));
 }
 
 
-OSG_DRAWABLE_DLLMAPPING 
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 void mergeGeometries(std::vector<Node *> &nodes,
                      std::vector<Node *> &results)
 {
@@ -4302,6 +4321,8 @@ void mergeGeoMIMI(
     Geometries are mergeable if they have the same set of properties.
     
     \warning Materials are not considered in this function!
+
+    \ingroup GrpDrawablesGeometryUtils
  */
 bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
 {
@@ -4399,7 +4420,8 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
     }
     
     // should not happen
-    FWARNING(("mergeableGeo: Unrecognized indexing. Geometry may be invalid.\n"));
+    FWARNING(
+        ("mergeableGeo: Unrecognized indexing. Geometry may be invalid.\n"));
     
     return false;
 }
@@ -4408,6 +4430,8 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
     NULL pointer if  merging is not possible.
     
     \warning Materials are not considered in this function!
+
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
 {
@@ -4532,6 +4556,9 @@ GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
     
     return GeometryTransitPtr(returnValue);
 }
+
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 
 void setVBOUsageOnPropertyProtos(bool bVal)
 {

@@ -51,9 +51,13 @@ class Window;
 
 /*! \brief GeoMultiPropertyData class. See \ref 
            PageWindowGLUTGeoMultiPropertyData for a description.
-*/
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
-class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : public GeoMultiPropertyDataBase
+class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : 
+    public GeoMultiPropertyDataBase
 {
   private:
 

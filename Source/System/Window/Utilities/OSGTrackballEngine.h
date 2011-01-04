@@ -46,14 +46,19 @@ OSG_BEGIN_NAMESPACE
 class Navigator;
 
 /*! \brief TrackballEngine provides the trackball navigator functionality.
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
     typedef TrackballEngine Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
@@ -120,7 +125,9 @@ class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name            Constructors/Destructor                           */
     /*! \{                                                                 */
@@ -156,6 +163,7 @@ class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
 
 
   private:
+
     /* Not implemented */
     TrackballEngine(const TrackballEngine &other);
     TrackballEngine &operator =(const TrackballEngine &other);

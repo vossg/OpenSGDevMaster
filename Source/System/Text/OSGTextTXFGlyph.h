@@ -57,7 +57,11 @@ OSG_BEGIN_NAMESPACE
 /**
  * Defines a TXF glyph.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextGlyphs
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
 {
 
@@ -177,12 +181,18 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
     inline Real32 getScale(void) const;
 
     /** Defines the coordinate indices */
-    enum CoordIndex { COORD_LEFT = 0, COORD_TOP = 1, COORD_RIGHT = 2, COORD_BOTTOM = 3 };
+    enum CoordIndex 
+    {
+        COORD_LEFT = 0, 
+        COORD_TOP = 1, 
+        COORD_RIGHT = 2, 
+        COORD_BOTTOM = 3 
+    };
 
     /**
      * Returns a texture coordinate.
-     * @param index The index of the texture coordinate (must be between 0 and 3,
-     * inclusively)
+     * @param index The index of the texture coordinate (must be between 0 and
+     *              3, inclusively)
      * @return The texture coordinate
      */
     inline Real32 getTexCoord(UInt32 index) const;

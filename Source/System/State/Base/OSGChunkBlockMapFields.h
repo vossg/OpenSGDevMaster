@@ -63,6 +63,7 @@ typedef RenderPropertiesPool::Singleton::ValueType ChunkBlockMapKey;
  */
 typedef std::map<ChunkBlockMapKey, ChunkBlock *>  ChunkBlockMap;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields
  */
 typedef SField<ChunkBlockMapKey> SFChunkBlockMapKey;
@@ -70,6 +71,15 @@ typedef SField<ChunkBlockMapKey> SFChunkBlockMapKey;
 /*! \ingroup GrpSystemStateFieldMFields
  */
 typedef MField<ChunkBlockMapKey> MFChunkBlockMapKey;
+#else
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem
+ */
+struct SFChunkBlockMapKey : public SField<ChunkBlockMapKey> {};
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem
+ */
+struct MFChunkBlockMapKey : public MField<ChunkBlockMapKey> {};
+#endif
 
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
@@ -147,10 +157,15 @@ struct FieldTraits<ChunkBlockMap> :
     }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields
  */
-
 typedef SField<ChunkBlockMap> SFChunkBlockPtrMap;
+#else
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem
+ */
+struct SFChunkBlockPtrMap : public SField<ChunkBlockMap> {};
+#endif
 
 /*! \ingroup GrpSystemStateFieldHandle
  */

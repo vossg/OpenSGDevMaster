@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShadeModelChunk class. See \ref 
            PageSystemShadeModelChunk for a description.
-*/
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING ShadeModelChunk : public ShadeModelChunkBase
 {

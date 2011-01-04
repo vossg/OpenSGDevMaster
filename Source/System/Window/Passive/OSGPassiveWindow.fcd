@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PassiveWindow"
-	parent="NativeWindow"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    realparent="Window"
->
-\ingroup GrpSystemWindowPassive
-
-A PassiveWindow is a Window class for integration into other OpenGL
-programs. See \ref PageSystemWindowWindowPassive for a description.
+   name="PassiveWindow"
+   parent="NativeWindow"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   realparent="Window"
+   docGroupBase="GrpWindowPassive"
+   >
+  A PassiveWindow is a Window class for integration into other OpenGL
+  programs. See \ref PageSystemWindowWindowPassive for a description.
 </FieldContainer>

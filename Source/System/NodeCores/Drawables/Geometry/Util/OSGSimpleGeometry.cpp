@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
     \param[in] vert Number of quads in y direction.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 {
@@ -108,7 +108,7 @@ NodeTransitPtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 
     \sa OSG::makePlane
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
                                 UInt16 hor,   UInt16 vert)
@@ -191,10 +191,10 @@ GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     \param[in] botradius Radius if the bottom.
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true side faces are created.
-    \param[in] doBttom If true bottom faces are created.
+    \param[in] doBottom If true bottom faces are created.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
 */
 NodeTransitPtr makeCone(Real32 height,
                         Real32 botradius,
@@ -217,12 +217,12 @@ NodeTransitPtr makeCone(Real32 height,
     \param[in] botradius Radius if the bottom.
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true side faces are created.
-    \param[in] doBttom If true bottom faces are created.
+    \param[in] doBottom If true bottom faces are created.
     \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeCone
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
 */
 GeometryTransitPtr makeConeGeo(Real32 height,
                                Real32 botradius,
@@ -251,10 +251,10 @@ GeometryTransitPtr makeConeGeo(Real32 height,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
-    \param[in] doBttom If true, bottom cap faces are created.
+    \param[in] doBottom If true, bottom cap faces are created.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
 */
 NodeTransitPtr makeCylinder(Real32 height,
                             Real32 radius,
@@ -279,12 +279,12 @@ NodeTransitPtr makeCylinder(Real32 height,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
-    \param[in] doBttom If true, bottom cap faces are created.
+    \param[in] doBottom If true, bottom cap faces are created.
     \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeCylinder
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
 */
 GeometryTransitPtr makeCylinderGeo(Real32 height,
                                    Real32 radius,
@@ -317,10 +317,10 @@ GeometryTransitPtr makeCylinderGeo(Real32 height,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
-    \param[in] doBttom If true, bottom cap faces are created.
+    \param[in] doBottom If true, bottom cap faces are created.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils 
  */
 NodeTransitPtr makeConicalFrustum(Real32 height,
                                   Real32 topradius,
@@ -358,10 +358,10 @@ NodeTransitPtr makeConicalFrustum(Real32 height,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
-    \param[in] doBttom If true, bottom cap faces are created.
+    \param[in] doBottom If true, bottom cap faces are created.
     \return GeometryTransitPtr to a newly created Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
                                          Real32 topradius,
@@ -518,7 +518,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
     \param[in] rings Number of subdivisions along the outer radius.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeTorus(Real32 innerRadius, 
                          Real32 outerRadius, 
@@ -552,7 +552,7 @@ NodeTransitPtr makeTorus(Real32 innerRadius,
 
     \sa OSG::makeTorus
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeTorusGeo(Real32 innerRadius, 
                                 Real32 outerRadius, 
@@ -766,7 +766,7 @@ void subdivideTriangle( UInt32 i1,
     \param[in] radius Radius of sphere.
     \return NodePtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeSphere(UInt16 depth, Real32 radius)
 {
@@ -792,7 +792,7 @@ NodeTransitPtr makeSphere(UInt16 depth, Real32 radius)
 
     \sa OSG::makeSphere
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
 {
@@ -910,7 +910,7 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     \param[in] radius Radius of sphere.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 {
@@ -937,7 +937,7 @@ NodeTransitPtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 
     \sa OSG::makeLatLongSphere
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres, 
                                         UInt16 longres,
@@ -1039,10 +1039,11 @@ GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres,
 
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
-    \param[in] radius Radius of sphere.
+    \param[in] rSemiMajorAxis Radius of ellipsoid major axis.
+    \param[in] rSemiMinorAxis Radius of ellipsoid minor axis.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeLatLongEllipsoid(UInt16 latres,
                                     UInt16 longres,
@@ -1070,12 +1071,13 @@ NodeTransitPtr makeLatLongEllipsoid(UInt16 latres,
 
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
-    \param[in] radius Radius of sphere.
+    \param[in] rSemiMajorAxis Radius of ellipsoid major axis.
+    \param[in] rSemiMinorAxis Radius of ellipsoid minor axis.
     \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeLatLongSphere
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres, 
                                            UInt16 longres,
@@ -1187,14 +1189,21 @@ GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres,
 
 /*! Creates a sphere centered in the origin and divided in latitude
     and longitude. \a radius is the radius of the sphere, \a latres and
-    \a longres are the number of subdivisions along the latitudes and longitudes.
+    \a longres are the number of subdivisions along the latitudes and
+    longitudes. 
 
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
-    \param[in] radius Radius of sphere.
+    \param[in] rSemiMajorAxis Radius of ellipsoid major axis.
+    \param[in] rSemiMinorAxis Radius of ellipsoid minor axis.
+    \param[in] rStartLatRad Segment lat start.
+    \param[in] rStartLongRad Segment long start.
+    \param[in] rStopLatRad Segment lat stop.
+    \param[in] rStopLongRad Segment long stop.
+
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 
 NodeTransitPtr makeLatLongEllipsoidSeg(UInt16 latres,
@@ -1231,12 +1240,17 @@ NodeTransitPtr makeLatLongEllipsoidSeg(UInt16 latres,
 
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
-    \param[in] radius Radius of sphere.
+    \param[in] rSemiMajorAxis Radius of ellipsoid major axis.
+    \param[in] rSemiMinorAxis Radius of ellipsoid minor axis.
+    \param[in] rStartLatRad Segment lat start.
+    \param[in] rStartLongRad Segment long start.
+    \param[in] rStopLatRad Segment lat stop.
+    \param[in] rStopLongRad Segment long stop.
     \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeLatLongSphere
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeLatLongEllipsoidGeoSeg(UInt16 latres, 
                                               UInt16 longres,
@@ -1352,7 +1366,9 @@ GeometryTransitPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
     return geo;
 }
 
-
+/*! create Ellipsoid axis geometry
+    \ingroup GrpDrawablesGeometryUtils
+ */
 GeometryTransitPtr makeEllipsoidAxisGeo(UInt16 latres,
                                         UInt16 longres,
                                         Real32 rSemiMajorAxis,
@@ -1477,6 +1493,9 @@ GeometryTransitPtr makeEllipsoidAxisGeo(UInt16 latres,
     return GeometryTransitPtr(geo);
 }
 
+/*! create Ellipsoid axis node
+    \ingroup GrpDrawablesGeometryUtils
+ */
 NodeTransitPtr makeEllipsoidAxis(UInt16 latres,
                                  UInt16 longres,
                                  Real32 rSemiMajorAxis,
@@ -1511,7 +1530,7 @@ NodeTransitPtr makeEllipsoidAxis(UInt16 latres,
     \param[in] depth Number of quads along the z axis.
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
                        UInt16 hor  , UInt16 vert , UInt16 depth)
@@ -1542,7 +1561,7 @@ NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
 
     \sa OSG::makeBox
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
                               UInt16 hor  , UInt16 vert , UInt16 depth)
@@ -1647,9 +1666,10 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
     (http://www1.acm.org/tog/resources/SPD).
 
     \param[in] depth Subdivision depth.
+    \param[in] rScale Rescale the Teapot
     \return NodeTransitPtr to a newly created Node with a Geometry core.
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 NodeTransitPtr makeTeapot(UInt16 depth, Real32 rScale)
 {
@@ -2126,11 +2146,12 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
 /*! Create the Geometry Core used by OSG::makeTeapot.
 
     \param[in] depth Subdivision depth.
+    \param[in] rScale Teapot scale.
     \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeTeapot
 
-    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+    \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeTeapotGeo(UInt16 depth, Real32 rScale)
 {
@@ -2238,6 +2259,9 @@ GeometryTransitPtr makeTeapotGeo(UInt16 depth, Real32 rScale)
     return geo;
 }
 
+/*! Create coord axis node
+    \ingroup GrpDrawablesGeometryUtils
+ */
 NodeTransitPtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
 {
     GeometryTransitPtr pGeo = makeCoordAxisGeo(length, lineWidth, showAxisName);
@@ -2254,6 +2278,9 @@ NodeTransitPtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
     return node;
 }
 
+/*! Create coord axis geometry
+    \ingroup GrpDrawablesGeometryUtils
+ */
 GeometryTransitPtr makeCoordAxisGeo(Real32 length, 
                                     Real32 lineWidth, 
                                     bool   showAxisName)

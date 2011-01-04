@@ -47,7 +47,7 @@
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS compile
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGWindowCocoaDef.h"
 
@@ -59,11 +59,17 @@ struct NSOpenGLContext;
 @class NSOpenGLContext;
 #endif
 
+/*! \ingroup GrpWindowCocoaFieldTraits 
+ */
+
 typedef NSOpenGLContext *NSOpenGLContextP;
 
 /*! The field types for the local types needed by the CocoaWindow class */
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowCocoaFieldTraits 
+ */
 
 template <>
 struct FieldTraits<NSOpenGLContextP> : 
@@ -94,15 +100,19 @@ struct FieldTraits<NSOpenGLContextP> :
     }
 };
 
-//! SFNSOpenGLContextP
-//! \ingroup GrpBaseFieldSingle
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowCocoaFieldSFields */
 typedef SField<NSOpenGLContextP> SFNSOpenGLContextP;
 
-//! MFNSOpenGLContextP
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowCocoaFieldSFields */
 typedef MField<NSOpenGLContextP> MFNSOpenGLContextP;
+#else
+/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+struct SFNSOpenGLContextP : public SField<NSOpenGLContextP> {};
+
+/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+struct MFNSOpenGLContextP : public MField<NSOpenGLContextP> {};
+#endif
 
 OSG_END_NAMESPACE
 

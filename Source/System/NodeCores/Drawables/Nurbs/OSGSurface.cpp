@@ -1379,28 +1379,26 @@ bool Surface::checkOrient(UInt32 ui_v1, UInt32 ui_v2, UInt32 ui_v3,
 }
 
 
-//! Add a (polynomial) trimming curve to the surface.
-/*!
- *
- *  This function allows you to add a new trimming curve to
- *  the Surface.
- *
- *  \param dim the dimension of the curve
- *  \param knots the knotvector of the curve
- *  \param controlpoints the (rational) control points for the curve
- *  \param newloop false: this curve continues the current curveloop <BR>
- *                 true: starts a new loop
- *
- *  If it's the first curve added to the surface, it always starts
- *  a new loop, regardless of the value of \param newloop.
- *
- *  You are expected to call this function between corresponding
- *  beginEditCP()/endEditCP() pairs with the mask CurveFieldMask.
- *  You are responsible that when calling endEditCP() the
- *  trimming curves are in a consistend state (they form closed
- *  loops and the like).
- *
+/*! \brief Add a (polynomial) trimming curve to the surface.
+    This function allows you to add a new trimming curve to
+    the Surface.
+  
+    \param dim the dimension of the curve
+    \param knots the knotvector of the curve
+    \param controlpoints the (rational) control points for the curve
+    \param newloop false, this curve continues the current curveloop <BR>
+                   true, starts a new loop
+  
+    If it's the first curve added to the surface, it always starts
+    a new loop, regardless of the value of newloop.
+  
+    You are expected to call this function between corresponding
+    beginEditCP()/endEditCP() pairs with the mask CurveFieldMask.
+    You are responsible that when calling endEditCP() the
+    trimming curves are in a consistend state (they form closed
+    loops and the like).
  */
+
 void Surface::addCurve(
     UInt32                     dim,
     const std::vector<Real64> &knots,
@@ -1435,7 +1433,7 @@ void Surface::addCurve(
  *                 true: starts a new loop
  *
  *  If it's the first curve added to the surface, it always starts
- *  a new loop, regardless of the value of \param newloop.
+ *  a new loop, regardless of the value of newloop.
  *
  *  You are expected to call this function between corresponding
  *  beginEditCP()/endEditCP() pairs with the mask CurveFieldMask.
@@ -1579,6 +1577,7 @@ SurfaceTransitPtr Surface::clone(void)
  *  CurveFieldMask|SurfaceFieldMask.
  *
  *  \param infile istream to read surface data from.
+ *  \param useTextures use textures or not
  */
 //#pragma optimize("",off)
 void Surface::readFromTSO(std::istream &infile, bool useTextures)
@@ -1740,6 +1739,8 @@ void Surface::readFromTSO(std::istream &infile, bool useTextures)
 }
 //#pragma optimize("",on)
 
+/*! write surface
+ */
 
 void Surface::writeToTSO(std::ostream &outfile)
 {
@@ -1751,6 +1752,7 @@ void Surface::writeToTSO(std::ostream &outfile)
 /*!
  *
  *  \param outfile istream to read surface data from.
+ *  \param offset triangle offset
  */
 UInt32 Surface::writeToOBJ(std::ostream &outfile, UInt32 offset)
 {
@@ -1981,6 +1983,9 @@ void Surface::adjustVolume(Volume & volume)
     volume.extendBy(_volumeCache);
 }
 
+/*! force tessalate
+ */
+
 void Surface::forceTessellate(void)
 {
     editDirtyMask() |= DONTTESSELLATE;
@@ -1996,6 +2001,9 @@ void Surface::forceTessellate(void)
 
     editDirtyMask() &= ~(TESSELLATE | RETESSELLATE);
 }
+
+/*! flip
+ */
 
 void Surface::flip(void)
 {

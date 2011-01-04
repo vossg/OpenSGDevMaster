@@ -46,6 +46,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \var typedef XWindow NativeWindow;
+    \ingroup GrpWindowXObj
+ */
+
 typedef XWindow NativeWindow;
 
 OSG_END_NAMESPACE

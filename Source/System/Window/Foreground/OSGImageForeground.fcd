@@ -1,37 +1,36 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ImageForeground"
-	parent="Foreground"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowForegrounds
+   name="ImageForeground"
+   parent="Foreground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowForeground"
+   >
+  The ImageForeground is used to draw images on top of the viewport.  See \ref
+  PageSystemWindowForegroundImage for a description.
 
-The ImageForeground is used to draw images on top of the viewport.  See \ref
-PageSystemWindowForegroundImage for a description.
-
-The images are stored in the _mfImages Field, the corresponding positions in
-the _mfPositions Field.
-	<Field
-		name="images"
-		type="ImagePtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  The images are stored in the _mfImages Field, the corresponding positions in
+  the _mfPositions Field.
+  <Field
+	 name="images"
+	 type="ImagePtr"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	The images to display.
-	</Field>
-	<Field
-		name="positions"
-		type="Pnt2f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="positions"
+	 type="Pnt2f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	The positions of the images.
-	</Field>
+  </Field>
 </FieldContainer>

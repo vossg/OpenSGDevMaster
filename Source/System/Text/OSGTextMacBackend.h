@@ -48,7 +48,7 @@
 #include "OSGTextDef.h"
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextBackend.h"
@@ -63,7 +63,11 @@ OSG_BEGIN_NAMESPACE
  * they use the interface of the TextFace classes to
  * create fonts.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextBackends
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextMacBackend: public TextBackend
 {
     /*==========================  PUBLIC  =================================*/

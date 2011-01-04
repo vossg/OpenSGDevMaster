@@ -75,7 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::DepthClearBackground
-    \ingroup GrpSystemWindowBackgrounds
+    A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
+    description.
  */
 
 /***************************************************************************\
@@ -121,21 +122,18 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"DepthClearBackground\"\n"
-    "\tparent=\"Background\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"single\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
-    "description.\n"
+    "   name=\"DepthClearBackground\"\n"
+    "   parent=\"Background\"\n"
+    "   library=\"Window\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"single\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowBackground\"\n"
+    "   >\n"
+    "  A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
+    "  description.\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
     "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
     "description.\n"
     );

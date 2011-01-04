@@ -48,8 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*!\brief OSGRAWSceneFileType
-*/
+/*! \brief OSGRAWSceneFileType
+    \ingroup GrpFileIORAW
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING RAWSceneFileType : public SceneFileType
 {

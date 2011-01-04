@@ -79,7 +79,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StencilChunk
-    The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().
+    The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc()
+    and glStencilOp(). 
  */
 
 /***************************************************************************\
@@ -87,32 +88,38 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          StencilChunkBase::_sfStencilFunc
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
 /*! \var Int32           StencilChunkBase::_sfStencilValue
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
 /*! \var UInt32          StencilChunkBase::_sfStencilMask
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
 /*! \var GLenum          StencilChunkBase::_sfStencilOpFail
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
 /*! \var GLenum          StencilChunkBase::_sfStencilOpZFail
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
 /*! \var GLenum          StencilChunkBase::_sfStencilOpZPass
-    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    The stencilFunc defines how fragments which do not fulfill a certain
+    condition are handled. 
     See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
 
@@ -121,7 +128,8 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          StencilChunkBase::_sfBitMask
-    Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.
+    Controls writing of individual bits in stencil planes, with 0 means write
+    protected and 1 write enabled.
 */
 
 
@@ -155,7 +163,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "stencilFunc",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilFuncFieldId, StencilFuncFieldMask,
         false,
@@ -168,7 +177,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "stencilValue",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilValueFieldId, StencilValueFieldMask,
         false,
@@ -181,7 +191,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "stencilMask",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilMaskFieldId, StencilMaskFieldMask,
         false,
@@ -194,7 +205,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "stencilOpFail",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilOpFailFieldId, StencilOpFailFieldMask,
         false,
@@ -207,7 +219,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "stencilOpZFail",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilOpZFailFieldId, StencilOpZFailFieldMask,
         false,
@@ -220,7 +233,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "stencilOpZPass",
-        "The stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
+        "The stencilFunc defines how fragments which do not fulfill a certain\n"
+        "condition are handled. \n"
         "See glStencilFunc() for details. GL_NONE is used to disable stencil.\n",
         StencilOpZPassFieldId, StencilOpZPassFieldMask,
         false,
@@ -245,7 +259,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "bitMask",
-        "Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.\n",
+        "Controls writing of individual bits in stencil planes, with 0 means write\n"
+        "protected and 1 write enabled.\n",
         BitMaskFieldId, BitMaskFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -270,109 +285,119 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"StencilChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilFunc\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"OSGGL.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilValue\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilMask\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0x1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilOpFail\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_KEEP\"\n"
-    "\t\tdefaultHeader=\"OSGGL.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilOpZFail\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_KEEP\"\n"
-    "\t\tdefaultHeader=\"OSGGL.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stencilOpZPass\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_KEEP\"\n"
-    "\t\tdefaultHeader=\"OSGGL.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe stencilFunc defines how fragments which do not fulfill a certain condition are handled.\n"
-    "        See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"clearBuffer\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"StencilChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"State\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpStateOpenGL\"\n"
+    "   >\n"
+    "  The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc()\n"
+    "  and glStencilOp(). \n"
+    "  <Field\n"
+    "\t name=\"stencilFunc\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_NONE\"\n"
+    "\t defaultHeader=\"OSGGL.h\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"stencilValue\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"0\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"stencilMask\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"0x1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"stencilOpFail\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_KEEP\"\n"
+    "\t defaultHeader=\"OSGGL.h\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"stencilOpZFail\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_KEEP\"\n"
+    "\t defaultHeader=\"OSGGL.h\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"stencilOpZPass\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_KEEP\"\n"
+    "\t defaultHeader=\"OSGGL.h\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe stencilFunc defines how fragments which do not fulfill a certain\n"
+    "\tcondition are handled. \n"
+    "    See glStencilFunc() for details. GL_NONE is used to disable stencil.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"clearBuffer\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"0\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tClear buffer on activate(1) or deactivate(2).\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"bitMask\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0xFFFFFFFF\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tControls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"bitMask\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"0xFFFFFFFF\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tControls writing of individual bits in stencil planes, with 0 means write\n"
+    "\tprotected and 1 write enabled.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().\n"
+    "The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc()\n"
+    "and glStencilOp(). \n"
     );
 
 /*------------------------------ get -----------------------------------*/

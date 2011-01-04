@@ -63,7 +63,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief PipelineComposer class. See \ref 
            PageSystemPipelineComposer for a description.
-*/
+
+    \ingroup GrpClusterWindowComposer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
 
 class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
 {
@@ -79,19 +83,30 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
     friend struct GroupInfo;
     friend struct GroupInfoOrder;
 
-    /** \brief RGB Color value */
+    /*! \brief RGB Color value 
+        \nohierarchy
+     */
+
     struct RGBValue
     {
         UInt8 red;
         UInt8 green;
         UInt8 blue;
     };
+
+    /*! \nohierarchy
+     */
+
     struct DepthInfo
     {
         UInt32 min;
         UInt32 max;
         UInt8  occlude;
     };
+
+    /*! \nohierarchy
+     */
+
     struct TransInfo
     {
         unsigned int sendTo   :13;
@@ -99,6 +114,10 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
         unsigned int sendDepth:1;
         unsigned int first    :1;
     };
+
+    /*! \nohierarchy
+     */
+
     struct TileBuffer
     {
         bool empty;
@@ -109,6 +128,10 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
         Connection *dstConnection;
         struct DepthInfo depth;
         struct TransInfo trans;
+
+        /*! \nohierarchy
+         */
+
         struct 
         {
             UInt32 count;
@@ -120,17 +143,29 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
         } header;
         UInt8 data[1];
     };
+
+    /*! \nohierarchy
+     */
+
     struct GroupInfo
     {
         UInt32 id;
         struct DepthInfo depth;
         struct TransInfo trans;
     };
+
+    /*! \nohierarchy
+     */
+
     struct GroupInfoOrder : public std::binary_function<
         const GroupInfo*,const GroupInfo*, bool>
     {
         bool operator() (const GroupInfo *a, const GroupInfo *b);
     };
+
+    /*! \nohierarchy
+     */
+
     struct Statistics 
     {
         UInt32 bytesIn;
@@ -143,6 +178,7 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
         double pixelReadTime;
         double composeTime;
     };
+
     typedef std::list<TileBuffer*> QueueT;
 
     /*==========================  PUBLIC  =================================*/

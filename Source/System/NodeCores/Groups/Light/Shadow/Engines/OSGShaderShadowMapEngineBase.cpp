@@ -84,18 +84,19 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var ShaderProgram * ShaderShadowMapEngineBase::_sfShadowVertexProgram
-    Vertex program snippet to perform necessary calculations for shadow map lookup.
-    Currently not used.
+    Vertex program snippet to perform necessary calculations for shadow map
+    lookup. Currently not used.
 */
 
 /*! \var ShaderProgram * ShaderShadowMapEngineBase::_sfShadowFragmentProgram
     Fragment program snippet to perform shadow map lookup.
-    Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns a shadow
-    factor for the fragment with eye coordinate positoin fragPos.
+    Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns
+    a shadow factor for the fragment with eye coordinate positoin fragPos.
 */
 
 /*! \var Int32           ShaderShadowMapEngineBase::_sfForceTextureUnit
-    Texture unit to use for the shadow texture (this is passed to the shader snippets).
+    Texture unit to use for the shadow texture (this is passed to the shader
+    snippets). 
 */
 
 /*! \var Real32          ShaderShadowMapEngineBase::_sfShadowNear
@@ -139,8 +140,8 @@ void ShaderShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecShaderProgramPtr::Description(
         SFUnrecShaderProgramPtr::getClassType(),
         "shadowVertexProgram",
-        "Vertex program snippet to perform necessary calculations for shadow map lookup.\n"
-        "Currently not used.\n",
+        "Vertex program snippet to perform necessary calculations for shadow map\n"
+        "lookup. Currently not used.\n",
         ShadowVertexProgramFieldId, ShadowVertexProgramFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -153,8 +154,8 @@ void ShaderShadowMapEngineBase::classDescInserter(TypeObject &oType)
         SFUnrecShaderProgramPtr::getClassType(),
         "shadowFragmentProgram",
         "Fragment program snippet to perform shadow map lookup.\n"
-        "Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns a shadow\n"
-        "factor for the fragment with eye coordinate positoin fragPos.\n",
+        "Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns\n"
+        "a shadow factor for the fragment with eye coordinate positoin fragPos.\n",
         ShadowFragmentProgramFieldId, ShadowFragmentProgramFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -166,7 +167,8 @@ void ShaderShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "forceTextureUnit",
-        "Texture unit to use for the shadow texture (this is passed to the shader snippets).\n",
+        "Texture unit to use for the shadow texture (this is passed to the shader\n"
+        "snippets). \n",
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -217,74 +219,76 @@ ShaderShadowMapEngineBase::TypeObject ShaderShadowMapEngineBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"ShaderShadowMapEngine\"\n"
-    "    parent=\"ShadowMapEngine\"\n"
-    "    library=\"Group\"\n"
-    "    structure=\"concrete\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "    <Field\n"
-    "        name=\"shadowVertexProgram\"\n"
-    "        category=\"pointer\"\n"
-    "        type=\"ShaderProgram\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
-    "      Vertex program snippet to perform necessary calculations for shadow map lookup.\n"
-    "      Currently not used.\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "        name=\"shadowFragmentProgram\"\n"
-    "        category=\"pointer\"\n"
-    "        type=\"ShaderProgram\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
-    "      Fragment program snippet to perform shadow map lookup.\n"
-    "      Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns a shadow\n"
-    "      factor for the fragment with eye coordinate positoin fragPos.\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "        name=\"forceTextureUnit\"\n"
-    "        type=\"Int32\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"-1\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
-    "      Texture unit to use for the shadow texture (this is passed to the shader snippets).\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "       name=\"shadowNear\"\n"
-    "       type=\"Real32\"\n"
-    "       category=\"data\"\n"
-    "       cardinality=\"single\"\n"
-    "       visibility=\"external\"\n"
-    "       defaultValue=\"0.f\"\n"
-    "       access=\"public\"\n"
-    "       >\n"
-    "      Near clipping plane value to use when rendering the shadow map.\n"
-    "      Only used when not 0.f.\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "       name=\"shadowFar\"\n"
-    "       type=\"Real32\"\n"
-    "       category=\"data\"\n"
-    "       cardinality=\"single\"\n"
-    "       visibility=\"external\"\n"
-    "       defaultValue=\"0.f\"\n"
-    "       access=\"public\"\n"
-    "       >\n"
-    "      Far clipping plane value to use when rendering the shadow map.\n"
-    "      Only used when not 0.f.\n"
-    "    </Field>\n"
+    "   name=\"ShaderShadowMapEngine\"\n"
+    "   parent=\"ShadowMapEngine\"\n"
+    "   library=\"Group\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   docGroupBase=\"GrpGroupLightShadowEngines\"\n"
+    "   >\n"
+    "  <Field\n"
+    "     name=\"shadowVertexProgram\"\n"
+    "     category=\"pointer\"\n"
+    "     type=\"ShaderProgram\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Vertex program snippet to perform necessary calculations for shadow map\n"
+    "    lookup. Currently not used.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"shadowFragmentProgram\"\n"
+    "     category=\"pointer\"\n"
+    "     type=\"ShaderProgram\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Fragment program snippet to perform shadow map lookup.\n"
+    "    Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns\n"
+    "    a shadow factor for the fragment with eye coordinate positoin fragPos.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"forceTextureUnit\"\n"
+    "     type=\"Int32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"-1\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Texture unit to use for the shadow texture (this is passed to the shader\n"
+    "    snippets). \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"shadowNear\"\n"
+    "     type=\"Real32\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"0.f\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Near clipping plane value to use when rendering the shadow map.\n"
+    "    Only used when not 0.f.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"shadowFar\"\n"
+    "     type=\"Real32\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"0.f\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Far clipping plane value to use when rendering the shadow map.\n"
+    "    Only used when not 0.f.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );

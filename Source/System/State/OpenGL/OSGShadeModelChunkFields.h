@@ -68,7 +68,7 @@ class ShadeModelChunk;
 
 OSG_GEN_CONTAINERPTR(ShadeModelChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>

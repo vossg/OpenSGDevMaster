@@ -1,34 +1,35 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ImageComposer"
-	parent="AttachmentContainer"
-	library="Cluster"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-An image composer creates an image from multiple cluster rendering servers.
-	<Field
-		name="enabled"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+   name="ImageComposer"
+   parent="AttachmentContainer"
+   library="Cluster"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpClusterWindow"
+   >
+  An image composer creates an image from multiple cluster rendering servers.
+  <Field
+	 name="enabled"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	Do composition if value is true
-	</Field>
-	<Field
-		name="statistics"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
-	</Field>
+  </Field>
+  <Field
+	 name="statistics"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

@@ -68,7 +68,7 @@ class ShadowStageData;
 
 OSG_GEN_CONTAINERPTR(ShadowStageData);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>

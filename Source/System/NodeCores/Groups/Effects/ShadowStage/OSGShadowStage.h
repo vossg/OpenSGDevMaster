@@ -51,6 +51,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShadowStageData;
 
+/*! \ingroup GrpEffectsGroupsShadowObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
+
 class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
 {
 

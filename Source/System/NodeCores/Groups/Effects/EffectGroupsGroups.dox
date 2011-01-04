@@ -12,3 +12,138 @@ using namespace OSG;
 
     See \ref PageEffectsGroups for details.
  */
+
+
+//*******************************************************************
+// Display Filter
+//*******************************************************************
+
+/*! \defgroup GrpEffectsGroupsDisplayFilter Display Filter
+    \ingroup GrpEffectsGroups
+ */
+
+/*! \defgroup GrpEffectsGroupsDisplayFilterObj Display Filter
+    \ingroup GrpEffectsGroupsDisplayFilter
+ */
+
+/*! \defgroup GrpEffectsGroupsDisplayFilterFieldTraits Field Traits
+    \ingroup GrpEffectsGroupsDisplayFilter
+*/
+/*! \defgroup GrpEffectsGroupsDisplayFilterFieldHandle Field Handle
+    \ingroup GrpEffectsGroupsDisplayFilter
+*/
+/*! \defgroup GrpEffectsGroupsDisplayFilterFieldSFields Single-Field
+    \ingroup GrpEffectsGroupsDisplayFilter
+*/
+/*! \defgroup GrpEffectsGroupsDisplayFilterFieldMFields Multi-Fields
+    \ingroup GrpEffectsGroupsDisplayFilter
+*/
+
+
+//*******************************************************************
+// HDR
+//*******************************************************************
+
+/*! \defgroup GrpEffectsGroupsHDR HDR
+    \ingroup GrpEffectsGroups
+ */
+
+/*! \defgroup GrpEffectsGroupsHDRObj HDR Stage
+    \ingroup GrpEffectsGroupsHDR
+ */
+
+/*! \defgroup GrpEffectsGroupsHDRFieldTraits Field Traits
+    \ingroup GrpEffectsGroupsHDR
+*/
+/*! \defgroup GrpEffectsGroupsHDRFieldHandle Field Handle
+    \ingroup GrpEffectsGroupsHDR
+*/
+/*! \defgroup GrpEffectsGroupsHDRFieldSFields Single-Field
+    \ingroup GrpEffectsGroupsHDR
+*/
+/*! \defgroup GrpEffectsGroupsHDRFieldMFields Multi-Fields
+    \ingroup GrpEffectsGroupsHDR
+*/
+
+
+//*******************************************************************
+// Projectors
+//*******************************************************************
+
+/*! \defgroup GrpEffectsGroupsProjectors Projectors
+    \ingroup GrpEffectsGroups
+ */
+
+/*! \defgroup GrpEffectsGroupsProjectorsObj Projector Stages
+    \ingroup GrpEffectsGroupsProjectors
+ */
+
+/*! \defgroup GrpEffectsGroupsProjectorsFieldTraits Field Traits
+    \ingroup GrpEffectsGroupsProjectors
+*/
+/*! \defgroup GrpEffectsGroupsProjectorsFieldHandle Field Handle
+    \ingroup GrpEffectsGroupsProjectors
+*/
+/*! \defgroup GrpEffectsGroupsProjectorsFieldSFields Single-Field
+    \ingroup GrpEffectsGroupsProjectors
+*/
+/*! \defgroup GrpEffectsGroupsProjectorsFieldMFields Multi-Fields
+    \ingroup GrpEffectsGroupsProjectors
+*/
+
+
+
+//*******************************************************************
+// Deferred Shading
+//*******************************************************************
+
+/*! \defgroup GrpEffectsGroupsDeferredShading Deferred Shading
+    \ingroup GrpEffectsGroups
+ */
+
+/*! \defgroup GrpEffectsGroupsDeferredShadingObj Deferred Shading Stage
+    \ingroup GrpEffectsGroupsDeferredShading
+ */
+
+/*! \defgroup GrpEffectsGroupsDeferredShadingFieldTraits Field Traits
+    \ingroup GrpEffectsGroupsDeferredShading
+*/
+/*! \defgroup GrpEffectsGroupsDeferredShadingFieldHandle Field Handle
+    \ingroup GrpEffectsGroupsDeferredShading
+*/
+/*! \defgroup GrpEffectsGroupsDeferredShadingFieldSFields Single-Field
+    \ingroup GrpEffectsGroupsDeferredShading
+*/
+/*! \defgroup GrpEffectsGroupsDeferredShadingFieldMFields Multi-Fields
+    \ingroup GrpEffectsGroupsDeferredShading
+*/
+
+
+//*******************************************************************
+// Shadow
+//*******************************************************************
+
+/*! \defgroup GrpEffectsGroupsShadow Shadow
+    \ingroup GrpEffectsGroups
+ */
+
+/*! \defgroup GrpEffectsGroupsShadowObj Shadow Stage
+    \ingroup GrpEffectsGroupsShadow
+ */
+
+/*! \defgroup GrpEffectsGroupsShadowTreeHandler Tree Handler
+    \ingroup GrpEffectsGroupsShadow
+ */
+
+/*! \defgroup GrpEffectsGroupsShadowFieldTraits Field Traits
+    \ingroup GrpEffectsGroupsShadow
+*/
+/*! \defgroup GrpEffectsGroupsShadowFieldHandle Field Handle
+    \ingroup GrpEffectsGroupsShadow
+*/
+/*! \defgroup GrpEffectsGroupsShadowFieldSFields Single-Field
+    \ingroup GrpEffectsGroupsShadow
+*/
+/*! \defgroup GrpEffectsGroupsShadowFieldMFields Multi-Fields
+    \ingroup GrpEffectsGroupsShadow
+*/

@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief MaterialChunkOverrideGroup class. See \ref
            PageContribDataSolidMaterialChunkOverrideGroup for a description.
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING MaterialChunkOverrideGroup : 
     public MaterialChunkOverrideGroupBase

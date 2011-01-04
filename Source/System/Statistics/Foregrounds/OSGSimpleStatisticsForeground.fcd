@@ -1,151 +1,152 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="SimpleStatisticsForeground"
-	parent="StatisticsForeground"
-	library="Util"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowForegroundsStatistics
+   name="SimpleStatisticsForeground"
+   parent="StatisticsForeground"
+   library="Util"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpUtilStatistics"
+   >
+  SimpleStatisticsForeground displays the Statistics info as simple lines of
+  text. 
 
-SimpleStatisticsForeground displays the Statistics info as simple lines of text.
+  OSG::SimpleStatisticsForeground displays the statistics info as simple text
+  lines. They are displayed using a compiled-in font that can use an arbitrary
+  color and that can be arbitrarily resized, with the size per line given in
+  pixel.
 
-OSG::SimpleStatisticsForeground displays the statistics info as simple text
-lines. They are displayed using a compiled-in font that can use an arbitrary
-color and that can be arbitrarily resized, with the size per line given in
-pixel.
+  The format of every element is given by a format string for every element that
+  is directly passed to OSG::StatElem::putToString(), so go there to see the
+  possible options.
 
-The format of every element is given by a format string for every element that
-is directly passed to OSG::StatElem::putToString(), so go there to see the
-possible options.
+  If no elementIDs are given all elements in the OSG::StatCollector are display,
+  using the default format.
 
-If no elementIDs are given all elements in the OSG::StatCollector are display,
-using the default format.
+  The format string for the given elements are stored in the _mfFormats Field,
+  the size and color used for all lines in _sfSize and _sfColor.
 
-The format string for the given elements are stored in the _mfFormats Field,
-the size and color used for all lines in _sfSize and _sfColor.
-
-See \ref PageSystemWindowForegroundStatisticsSimple
-	<Field
-		name="formats"
-		type="std::string"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-	The format strings for the given StatElemDesc IDs. If not set, name and value are used.
-	</Field>
-	<Field
-		name="size"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="16"
-		access="public"
-	>
+  See \ref PageSystemWindowForegroundStatisticsSimple
+  <Field
+	 name="formats"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+	The format strings for the given StatElemDesc IDs. If not set, name and
+	value are used. 
+  </Field>
+  <Field
+	 name="size"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="16"
+	 access="public"
+	 >
 	Height of a single line, in  pixel.
-	</Field>
-	<Field
-		name="color"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,1,1,1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="color"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,1,1,1"
+	 access="public"
+	 >
 	Color of the text.
-	</Field>
-	<Field
-		name="shadowColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0,0,0,1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="shadowColor"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0,0,0,1"
+	 access="public"
+	 >
 	Color of the shadow.
-	</Field>
-	<Field
-		name="bgColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0,0,0,0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="bgColor"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0,0,0,0"
+	 access="public"
+	 >
 	Color of the background.
-	</Field>
-	<Field
-		name="family"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="family"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The font family to be used, e.g. "SANS", default if unset.
-	</Field>
-	<Field
-		name="shadowOffset"
-		type="Vec2f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,-1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="shadowOffset"
+	 type="Vec2f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,-1"
+	 access="public"
+	 >
 	Offset of the shadow, in pixels.
-	</Field>
-	<Field
-		name="horizontalAlign"
-		type="UInt8"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="horizontalAlign"
+	 type="UInt8"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	Simple form of layout management, 0 defaults to left.
-	</Field>
-	<Field
-		name="verticalAlign"
-		type="UInt8"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="verticalAlign"
+	 type="UInt8"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	Simple form of layout management, 0 defaults to top.
-	</Field>
-	<Field
-		name="borderColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0,0,0,0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="borderColor"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0,0,0,0"
+	 access="public"
+	 >
 	Color of the border.
-	</Field>
-	<Field
-		name="borderOffset"
-		type="Vec2f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="4,4"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="borderOffset"
+	 type="Vec2f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="4,4"
+	 access="public"
+	 >
 	Offset of the border in pixels.
-	</Field>
-	<Field
-		name="textMargin"
-		type="Vec2f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0,0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="textMargin"
+	 type="Vec2f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0,0"
+	 access="public"
+	 >
 	Text margin in pixels.
-	</Field>
+  </Field>
 </FieldContainer>

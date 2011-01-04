@@ -41,7 +41,7 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
@@ -73,6 +73,9 @@ OSG_BEGIN_NAMESPACE
 class ColladaInstanceGeometry;
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 {
@@ -129,6 +132,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef SourceMap::iterator                        SourceMapIt;
     typedef SourceMap::const_iterator                  SourceMapConstIt;
 
+    /*! \nohierarchy
+     */
     struct PropInfo
     {
         std::string               _semantic;
@@ -150,7 +155,9 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef std::map<std::string, UInt32>            InstanceMap;
     typedef InstanceMap::iterator                    InstanceMapIt;
     typedef InstanceMap::const_iterator              InstanceMapConstIt;
-        
+
+    /*! \nohierarchy
+     */
     struct GeoInfo
     {
         std::string                 _matSymbol;

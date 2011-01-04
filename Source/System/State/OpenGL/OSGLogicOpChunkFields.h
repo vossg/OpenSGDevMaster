@@ -68,7 +68,7 @@ class LogicOpChunk;
 
 OSG_GEN_CONTAINERPTR(LogicOpChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<LogicOpChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       RecordedRefCountPolicy  > SFRecLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       UnrecordedRefCountPolicy> SFUnrecLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       WeakRefCountPolicy      > SFWeakLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       NoRefCountPolicy        > SFUncountedLogicOpChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       RecordedRefCountPolicy  > MFRecLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       UnrecordedRefCountPolicy> MFUnrecLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       WeakRefCountPolicy      > MFWeakLogicOpChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       NoRefCountPolicy        > MFUncountedLogicOpChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<LogicOpChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecLogicOpChunkPtr : 
     public PointerSField<LogicOpChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecLogicOpChunkPtr : 
     public PointerSField<LogicOpChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakLogicOpChunkPtr :
     public PointerSField<LogicOpChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedLogicOpChunkPtr :
     public PointerSField<LogicOpChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecLogicOpChunkPtr :
     public PointerMField<LogicOpChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecLogicOpChunkPtr :
     public PointerMField<LogicOpChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakLogicOpChunkPtr :
     public PointerMField<LogicOpChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedLogicOpChunkPtr :
     public PointerMField<LogicOpChunk *,
                          NoRefCountPolicy        > {};

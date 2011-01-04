@@ -132,6 +132,7 @@ ScreenGroupBase::TypeObject ScreenGroupBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpGroupMisc\"\n"
     "   >\n"
     "</FieldContainer>\n",
     ""

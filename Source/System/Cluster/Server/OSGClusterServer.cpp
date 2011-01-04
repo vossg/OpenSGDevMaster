@@ -62,25 +62,24 @@
 
 OSG_USING_NAMESPACE
 
-/** \class OSG::ClusterServer
- *  \ingroup GrpSystemCluster
- *  \brief Cluster rendering server
- *
- * A ClusterServer is responsible for syncronizing all client changes.
- * Each cluster renderer can offer it's service by a symbolic name.
- * So it is possible to have a server called "left" or "right".
- * The server uses a local Qt or GLUT window for rendering. 
- * <pre>
- * // create a server
- * GLUTWindowPtr window=GLUTWindow::create();
- * server = new ClusterServer(window,"server1","Multicast");
- * // wait for clients to connect
- * server->init();
- * ...
- * // render
- * server->render(ract);
- * </pre>
- **/
+/*! \class OSG::ClusterServer
+    \brief Cluster rendering server
+  
+   A ClusterServer is responsible for syncronizing all client changes.
+   Each cluster renderer can offer it's service by a symbolic name.
+   So it is possible to have a server called "left" or "right".
+   The server uses a local Qt or GLUT window for rendering. 
+   <pre>
+   // create a server
+   GLUTWindowPtr window=GLUTWindow::create();
+   server = new ClusterServer(window,"server1","Multicast");
+   // wait for clients to connect
+   server->init();
+   ...
+   // render
+   server->render(ract);
+   </pre>
+ */
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -92,6 +91,7 @@ OSG_USING_NAMESPACE
  * \param connectionType  network type. e.g. "Multicast"
  * \param address         address to wait for connections
  * \param servicePort     port to wait for connections
+ * \param serviceGroup    service group
  *
  */
 ClusterServer::ClusterServer(           Window *window,

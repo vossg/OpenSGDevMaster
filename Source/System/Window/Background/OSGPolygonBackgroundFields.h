@@ -68,7 +68,7 @@ class PolygonBackground;
 
 OSG_GEN_CONTAINERPTR(PolygonBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<PolygonBackground *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<PolygonBackground *,
                       RecordedRefCountPolicy  > SFRecPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<PolygonBackground *,
                       UnrecordedRefCountPolicy> SFUnrecPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<PolygonBackground *,
                       WeakRefCountPolicy      > SFWeakPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<PolygonBackground *,
                       NoRefCountPolicy        > SFUncountedPolygonBackgroundPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<PolygonBackground *,
                       RecordedRefCountPolicy  > MFRecPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<PolygonBackground *,
                       UnrecordedRefCountPolicy> MFUnrecPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<PolygonBackground *,
                       WeakRefCountPolicy      > MFWeakPolygonBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<PolygonBackground *,
                       NoRefCountPolicy        > MFUncountedPolygonBackgroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<PolygonBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecPolygonBackgroundPtr : 
     public PointerSField<PolygonBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecPolygonBackgroundPtr : 
     public PointerSField<PolygonBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakPolygonBackgroundPtr :
     public PointerSField<PolygonBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedPolygonBackgroundPtr :
     public PointerSField<PolygonBackground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecPolygonBackgroundPtr :
     public PointerMField<PolygonBackground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecPolygonBackgroundPtr :
     public PointerMField<PolygonBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakPolygonBackgroundPtr :
     public PointerMField<PolygonBackground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedPolygonBackgroundPtr :
     public PointerMField<PolygonBackground *,
                          NoRefCountPolicy        > {};

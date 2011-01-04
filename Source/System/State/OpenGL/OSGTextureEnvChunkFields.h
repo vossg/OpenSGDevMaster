@@ -68,7 +68,7 @@ class TextureEnvChunk;
 
 OSG_GEN_CONTAINERPTR(TextureEnvChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       RecordedRefCountPolicy  > SFRecTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       WeakRefCountPolicy      > SFWeakTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       NoRefCountPolicy        > SFUncountedTextureEnvChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       RecordedRefCountPolicy  > MFRecTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       WeakRefCountPolicy      > MFWeakTextureEnvChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       NoRefCountPolicy        > MFUncountedTextureEnvChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<TextureEnvChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecTextureEnvChunkPtr : 
     public PointerSField<TextureEnvChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecTextureEnvChunkPtr : 
     public PointerSField<TextureEnvChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakTextureEnvChunkPtr :
     public PointerSField<TextureEnvChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedTextureEnvChunkPtr :
     public PointerSField<TextureEnvChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecTextureEnvChunkPtr :
     public PointerMField<TextureEnvChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecTextureEnvChunkPtr :
     public PointerMField<TextureEnvChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakTextureEnvChunkPtr :
     public PointerMField<TextureEnvChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedTextureEnvChunkPtr :
     public PointerMField<TextureEnvChunk *,
                          NoRefCountPolicy        > {};

@@ -77,7 +77,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::SimpleStage
-    Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.
+    Extension to the Stage core that provides for viewport support, a camera,
+    backgrounds, and foreground. 
  */
 
 /***************************************************************************\
@@ -85,27 +86,27 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          SimpleStageBase::_sfLeft
-    The left edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values "1 are absolute pixel coordinates, value == -1 means the
-    left border. All other values are illegal.
+    The left edge of the viewport. Values between 0 and 1 are relative to the
+    size of the Window, values "1 are absolute pixel coordinates, value
+    == -1 means the left border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfRight
-    The right edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values "1 are absolute pixel coordinates, value == -1 means the
-    right border. All other values are illegal.
+    The right edge of the viewport. Values between 0 and 1 are relative to the
+    size of the Window, values "1 are absolute pixel coordinates, value
+    == -1 means the right border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfBottom
-    The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values "1 are absolute pixel coordinates, value == -1 means the
-    bottom border. All other values are illegal.
+    The bottom edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values "1 are absolute pixel coordinates,
+    value == -1 means the bottom border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfTop
-    The top edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values "1 are absolute pixel coordinates, value == -1 means the
-    top border. All other values are illegal.
+    The top edge of the viewport. Values between 0 and 1 are relative to the
+    size of the Window, values "1 are absolute pixel coordinates, value
+    == -1 means the top border. All other values are illegal.
 */
 
 /*! \var Camera *        SimpleStageBase::_sfCamera
@@ -139,9 +140,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "left",
-        "The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
-        "left border. All other values are illegal.\n",
+        "The left edge of the viewport. Values between 0 and 1 are relative to the\n"
+        "size of the Window, values \"1 are absolute pixel coordinates, value\n"
+        "== -1 means the left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -153,9 +154,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "right",
-        "The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
-        "right border. All other values are illegal.\n",
+        "The right edge of the viewport. Values between 0 and 1 are relative to the\n"
+        "size of the Window, values \"1 are absolute pixel coordinates, value\n"
+        "== -1 means the right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -167,9 +168,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "bottom",
-        "The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
-        "bottom border. All other values are illegal.\n",
+        "The bottom edge of the viewport. Values between 0 and 1 are relative to\n"
+        "the size of the Window, values \"1 are absolute pixel coordinates,\n"
+        "value == -1 means the bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -181,9 +182,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "top",
-        "The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
-        "top border. All other values are illegal.\n",
+        "The top edge of the viewport. Values between 0 and 1 are relative to the\n"
+        "size of the Window, values \"1 are absolute pixel coordinates, value\n"
+        "== -1 means the top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -232,87 +233,89 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "        name=\"SimpleStage\"\n"
-    "        parent=\"RenderCallbackStage\"\n"
-    "        library=\"Group\"\n"
-    "        pointerfieldtypes=\"none\"\n"
-    "        structure=\"concrete\"\n"
-    "        systemcomponent=\"true\"\n"
-    "        parentsystemcomponent=\"true\"\n"
-    "        decoratable=\"false\"\n"
-    "        useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
-    ">\n"
-    "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
-    "\n"
-    "        <Field\n"
-    "                name=\"left\"\n"
-    "                type=\"Real32\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        defaultValue=\"0.f\"\n"
-    "        >\n"
-    "        The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "        left border. All other values are illegal.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"right\"\n"
-    "                type=\"Real32\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        defaultValue=\"1.f\"\n"
-    "        >\n"
-    "        The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "        right border. All other values are illegal.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"bottom\"\n"
-    "                type=\"Real32\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        defaultValue=\"0.f\"\n"
-    "        >\n"
-    "        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "        bottom border. All other values are illegal.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"top\"\n"
-    "                type=\"Real32\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        defaultValue=\"1.f\"\n"
-    "        >\n"
-    "        The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "        top border. All other values are illegal.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"camera\"\n"
-    "                type=\"CameraPtr\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        >\n"
-    "        The Camera used to render the viewport.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"background\"\n"
-    "                type=\"BackgroundPtr\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
-    "        >\n"
-    "        The background used to clear this viewport.\n"
-    "        </Field>\n"
+    "   name=\"SimpleStage\"\n"
+    "   parent=\"RenderCallbackStage\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpGroupStage\"\n"
+    "   >\n"
+    "  Extension to the Stage core that provides for viewport support, a camera,\n"
+    "  backgrounds, and foreground. \n"
+    "  <Field\n"
+    "     name=\"left\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"0.f\"\n"
+    "     >\n"
+    "    The left edge of the viewport. Values between 0 and 1 are relative to the\n"
+    "    size of the Window, values &quot; 1 are absolute pixel coordinates, value\n"
+    "    == -1 means the left border. All other values are illegal.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"right\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"1.f\"\n"
+    "     >\n"
+    "    The right edge of the viewport. Values between 0 and 1 are relative to the\n"
+    "    size of the Window, values &quot; 1 are absolute pixel coordinates, value\n"
+    "    == -1 means the right border. All other values are illegal.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"bottom\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"0.f\"\n"
+    "     >\n"
+    "    The bottom edge of the viewport. Values between 0 and 1 are relative to\n"
+    "    the size of the Window, values &quot; 1 are absolute pixel coordinates,\n"
+    "    value == -1 means the bottom border. All other values are illegal.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"top\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"1.f\"\n"
+    "     >\n"
+    "    The top edge of the viewport. Values between 0 and 1 are relative to the\n"
+    "    size of the Window, values &quot; 1 are absolute pixel coordinates, value\n"
+    "    == -1 means the top border. All other values are illegal.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"camera\"\n"
+    "     type=\"CameraPtr\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    The Camera used to render the viewport.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"background\"\n"
+    "     type=\"BackgroundPtr\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    The background used to clear this viewport.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
+    "Extension to the Stage core that provides for viewport support, a camera,\n"
+    "backgrounds, and foreground. \n"
     );
 
 /*------------------------------ get -----------------------------------*/

@@ -48,9 +48,12 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief OffCenter Perspective Camera class. 
-  See for example \ref PageSystemWindowCameraPerspective 
-    for a description or take a look at the details.
-*/
+           See for example \ref PageSystemWindowCameraPerspective 
+           for a description or take a look at the details.
+    \ingroup GrpWindowCameraObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCamera : 
     public OffCenterPerspectiveCameraBase

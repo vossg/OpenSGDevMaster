@@ -1,47 +1,48 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="SpotLight"
-	parent="PointLight"
-	library="Group"
-	structure="concrete"
-	pointerfieldtypes="none"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-SpotLight is a located lightsource. The position of the light source
-(in the beacon's coordinate system) is defined by the \c position
-attribute, its direction by the \c direction attribute. The spot has an
-exponential fallof, controlled by the \c spotExponent attribute and a
-maximum opening angle, defined by the \c spotCutOff attribute.
-The influence of the light diminishes with distance, controlled
-by the \c constantAttenuation, \c linearAttenuation and \c
-quadraticAttenuation attributes.
-	<Field
-		name="direction"
-		type="Vec3f"
-		cardinality="single"
-		visibility="external"
-        defaultValue="0.f,0.f,1.f"
-	>
-	</Field>
-	<Field
-		name="spotExponent"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-        defaultValue="0.f"
-	>
+   name="SpotLight"
+   parent="PointLight"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="none"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpGroupLight"
+   >
+  SpotLight is a located lightsource. The position of the light source
+  (in the beacon's coordinate system) is defined by the \c position
+  attribute, its direction by the \c direction attribute. The spot has an
+  exponential fallof, controlled by the \c spotExponent attribute and a
+  maximum opening angle, defined by the \c spotCutOff attribute.
+  The influence of the light diminishes with distance, controlled
+  by the \c constantAttenuation, \c linearAttenuation and \c
+  quadraticAttenuation attributes.
+  <Field
+	 name="direction"
+	 type="Vec3f"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f,0.f,1.f"
+	 >
+  </Field>
+  <Field
+	 name="spotExponent"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f"
+	 >
 	The drop-off exponent of the spotlight.
-	</Field>
-	<Field
-		name="spotCutOff"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-        defaultValue="0.f"
-	>
+  </Field>
+  <Field
+	 name="spotCutOff"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f"
+	 >
 	The cut-off angle of the spotlight (in radians, not degrees!).
-	</Field>
+  </Field>
 </FieldContainer>

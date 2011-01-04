@@ -68,7 +68,7 @@ class StereoBufferViewport;
 
 OSG_GEN_CONTAINERPTR(StereoBufferViewport);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowViewportFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<NoRefCountPolicy>(
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       RecordedRefCountPolicy  > SFRecStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       UnrecordedRefCountPolicy> SFUnrecStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       WeakRefCountPolicy      > SFWeakStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       NoRefCountPolicy        > SFUncountedStereoBufferViewportPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       RecordedRefCountPolicy  > MFRecStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       UnrecordedRefCountPolicy> MFUnrecStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       WeakRefCountPolicy      > MFWeakStereoBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       NoRefCountPolicy        > MFUncountedStereoBufferViewportPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StereoBufferViewport *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecStereoBufferViewportPtr : 
     public PointerSField<StereoBufferViewport *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecStereoBufferViewportPtr : 
     public PointerSField<StereoBufferViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakStereoBufferViewportPtr :
     public PointerSField<StereoBufferViewport *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedStereoBufferViewportPtr :
     public PointerSField<StereoBufferViewport *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecStereoBufferViewportPtr :
     public PointerMField<StereoBufferViewport *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecStereoBufferViewportPtr :
     public PointerMField<StereoBufferViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakStereoBufferViewportPtr :
     public PointerMField<StereoBufferViewport *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedStereoBufferViewportPtr :
     public PointerMField<StereoBufferViewport *,
                          NoRefCountPolicy        > {};

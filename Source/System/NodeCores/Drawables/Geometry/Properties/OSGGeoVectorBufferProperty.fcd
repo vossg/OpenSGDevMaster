@@ -10,6 +10,7 @@
    parentsystemcomponent="true"
    decoratable="false"
    childFields="both"
+   docGroupBase="GrpDrawablesGeometry"
    >
   <Field
      name="stride"

@@ -68,7 +68,11 @@ class TextLayoutResult;
 /**
  * Abstract base class of all faces.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFaces
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextFace : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/

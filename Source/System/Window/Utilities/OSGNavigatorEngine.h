@@ -53,14 +53,19 @@ OSG_BEGIN_NAMESPACE
 class Navigator;
 
 /*! \brief Base class for all navigator engines.
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
 {
     typedef MemoryObject    Inherited;
     typedef NavigatorEngine Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
@@ -116,7 +121,9 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name              Constructors/Destructor                         */
     /*! \{                                                                 */
@@ -133,6 +140,7 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     /*! \}                                                                 */
 
   private:
+
     /* Not implemented */
     NavigatorEngine(const NavigatorEngine &other);
     NavigatorEngine &operator =(const NavigatorEngine &other);

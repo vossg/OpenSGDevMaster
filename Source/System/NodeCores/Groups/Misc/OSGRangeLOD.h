@@ -48,8 +48,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Range-based Level Of Detail
-    \ingroup GrpSystemNodeCoresMisc
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING RangeLOD : public RangeLODBase
 {

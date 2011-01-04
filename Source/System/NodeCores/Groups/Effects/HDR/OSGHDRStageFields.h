@@ -68,7 +68,7 @@ class HDRStage;
 
 OSG_GEN_CONTAINERPTR(HDRStage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpEffectsGroupsHDRFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

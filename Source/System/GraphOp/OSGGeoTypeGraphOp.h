@@ -48,11 +48,17 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     : public SingleTypeGraphOp<Geometry>
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -101,7 +107,9 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name            Constructors/Destructor                           */
     /*! \{                                                                 */
@@ -111,7 +119,9 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     bool travNodeEnter(Node *node);
     bool travNodeLeave(Node *node);
 

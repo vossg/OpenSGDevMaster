@@ -68,7 +68,7 @@ class MaterialChunkOverrideGroup;
 
 OSG_GEN_CONTAINERPTR(MaterialChunkOverrideGroup);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<MaterialChunkOverrideGroup *, 0>::getMName<NoRefCountPo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<MaterialChunkOverrideGroup *,
                       RecordedRefCountPolicy  > SFRecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<MaterialChunkOverrideGroup *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<MaterialChunkOverrideGroup *,
                       WeakRefCountPolicy      > SFWeakMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<MaterialChunkOverrideGroup *,
                       NoRefCountPolicy        > SFUncountedMaterialChunkOverrideGroupPtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<MaterialChunkOverrideGroup *,
                       RecordedRefCountPolicy  > MFRecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<MaterialChunkOverrideGroup *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<MaterialChunkOverrideGroup *,
                       WeakRefCountPolicy      > MFWeakMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<MaterialChunkOverrideGroup *,
                       NoRefCountPolicy        > MFUncountedMaterialChunkOverrideGroupPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<MaterialChunkOverrideGroup *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecMaterialChunkOverrideGroupPtr : 
     public PointerSField<MaterialChunkOverrideGroup *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecMaterialChunkOverrideGroupPtr : 
     public PointerSField<MaterialChunkOverrideGroup *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakMaterialChunkOverrideGroupPtr :
     public PointerSField<MaterialChunkOverrideGroup *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedMaterialChunkOverrideGroupPtr :
     public PointerSField<MaterialChunkOverrideGroup *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecMaterialChunkOverrideGroupPtr :
     public PointerMField<MaterialChunkOverrideGroup *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecMaterialChunkOverrideGroupPtr :
     public PointerMField<MaterialChunkOverrideGroup *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakMaterialChunkOverrideGroupPtr :
     public PointerMField<MaterialChunkOverrideGroup *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedMaterialChunkOverrideGroupPtr :
     public PointerMField<MaterialChunkOverrideGroup *,
                          NoRefCountPolicy        > {};

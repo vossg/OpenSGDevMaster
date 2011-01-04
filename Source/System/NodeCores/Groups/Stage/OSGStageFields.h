@@ -68,7 +68,7 @@ class Stage;
 
 OSG_GEN_CONTAINERPTR(Stage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Stage *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
                       RecordedRefCountPolicy  > SFRecStagePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
                       UnrecordedRefCountPolicy> SFUnrecStagePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
                       WeakRefCountPolicy      > SFWeakStagePtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
                       NoRefCountPolicy        > SFUncountedStagePtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
                       RecordedRefCountPolicy  > MFRecStagePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
                       UnrecordedRefCountPolicy> MFUnrecStagePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
                       WeakRefCountPolicy      > MFWeakStagePtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
                       NoRefCountPolicy        > MFUncountedStagePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Stage *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecStagePtr : 
     public PointerSField<Stage *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecStagePtr : 
     public PointerSField<Stage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakStagePtr :
     public PointerSField<Stage *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedStagePtr :
     public PointerSField<Stage *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecStagePtr :
     public PointerMField<Stage *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecStagePtr :
     public PointerMField<Stage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakStagePtr :
     public PointerMField<Stage *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedStagePtr :
     public PointerMField<Stage *,
                          NoRefCountPolicy        > {};

@@ -12,3 +12,179 @@ using namespace OSG;
 
     See \ref PageDrawables for details.
  */
+
+
+//*******************************************************************
+// Material
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesMaterial Material
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesMaterialObj Simple Materials
+    \ingroup GrpDrawablesMaterial
+ */
+
+/*! \defgroup GrpDrawablesMaterialFieldTraits Field Traits
+    \ingroup GrpDrawablesMaterial
+*/
+/*! \defgroup GrpDrawablesMaterialFieldHandle Field Handle
+    \ingroup GrpDrawablesMaterial
+*/
+/*! \defgroup GrpDrawablesMaterialFieldSFields Single-Field
+    \ingroup GrpDrawablesMaterial
+*/
+/*! \defgroup GrpDrawablesMaterialFieldMFields Multi-Fields
+    \ingroup GrpDrawablesMaterial
+*/
+
+
+//*******************************************************************
+// Stage
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesStage Stage
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesStageObj Stage Drawables
+    \ingroup GrpDrawablesStage
+ */
+
+/*! \defgroup GrpDrawablesStageFieldTraits Field Traits
+    \ingroup GrpDrawablesStage
+*/
+/*! \defgroup GrpDrawablesStageFieldHandle Field Handle
+    \ingroup GrpDrawablesStage
+*/
+/*! \defgroup GrpDrawablesStageFieldSFields Single-Field
+    \ingroup GrpDrawablesStage
+*/
+/*! \defgroup GrpDrawablesStageFieldMFields Multi-Fields
+    \ingroup GrpDrawablesStage
+*/
+
+
+//*******************************************************************
+// Nurbs
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesNurbs Nurbs
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesNurbsObj Nurbs
+    \ingroup GrpDrawablesNurbs
+ */
+
+/*! \defgroup GrpDrawablesNurbsFieldTraits Field Traits
+    \ingroup GrpDrawablesNurbs
+*/
+/*! \defgroup GrpDrawablesNurbsFieldHandle Field Handle
+    \ingroup GrpDrawablesNurbs
+*/
+/*! \defgroup GrpDrawablesNurbsFieldSFields Single-Field
+    \ingroup GrpDrawablesNurbs
+*/
+/*! \defgroup GrpDrawablesNurbsFieldMFields Multi-Fields
+    \ingroup GrpDrawablesNurbs
+*/
+
+
+//*******************************************************************
+// Particles
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesParticles Particles
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesParticlesObj Particles
+    \ingroup GrpDrawablesParticles
+ */
+
+/*! \defgroup GrpDrawablesParticlesHelpers Helpers
+    \ingroup GrpDrawablesParticles
+ */
+
+/*! \defgroup GrpDrawablesParticlesFieldTraits Field Traits
+    \ingroup GrpDrawablesParticles
+*/
+/*! \defgroup GrpDrawablesParticlesFieldHandle Field Handle
+    \ingroup GrpDrawablesParticles
+*/
+/*! \defgroup GrpDrawablesParticlesFieldSFields Single-Field
+    \ingroup GrpDrawablesParticles
+*/
+/*! \defgroup GrpDrawablesParticlesFieldMFields Multi-Fields
+    \ingroup GrpDrawablesParticles
+*/
+
+
+//*******************************************************************
+// Terrain
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesTerrain Terrain
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesTerrainObj Terrains
+    \ingroup GrpDrawablesTerrain
+ */
+
+/*! \defgroup GrpDrawablesTerrainFieldTraits Field Traits
+    \ingroup GrpDrawablesTerrain
+*/
+/*! \defgroup GrpDrawablesTerrainFieldHandle Field Handle
+    \ingroup GrpDrawablesTerrain
+*/
+/*! \defgroup GrpDrawablesTerrainFieldSFields Single-Field
+    \ingroup GrpDrawablesTerrain
+*/
+/*! \defgroup GrpDrawablesTerrainFieldMFields Multi-Fields
+    \ingroup GrpDrawablesTerrain
+*/
+
+
+//*******************************************************************
+// Geometry
+//*******************************************************************
+
+/*! \defgroup GrpDrawablesGeometry Geometry
+    \ingroup GrpDrawables
+ */
+
+/*! \defgroup GrpDrawablesGeometryObj Elements
+    \ingroup GrpDrawablesGeometry
+ */
+
+/*! \defgroup GrpDrawablesGeometryProperties Properties
+    \ingroup GrpDrawablesGeometry
+ */
+
+/*! \defgroup GrpDrawablesGeometryIterators Iterators
+    \ingroup GrpDrawablesGeometry
+ */
+
+/*! \defgroup GrpDrawablesGeometryHelpers Helpers
+    \ingroup GrpDrawablesGeometry
+ */
+
+/*! \defgroup GrpDrawablesGeometryUtils Utils
+    \ingroup GrpDrawablesGeometry
+ */
+
+/*! \defgroup GrpDrawablesGeometryFieldTraits Field Traits
+    \ingroup GrpDrawablesGeometry
+*/
+/*! \defgroup GrpDrawablesGeometryFieldHandle Field Handle
+    \ingroup GrpDrawablesGeometry
+*/
+/*! \defgroup GrpDrawablesGeometryFieldSFields Single-Field
+    \ingroup GrpDrawablesGeometry
+*/
+/*! \defgroup GrpDrawablesGeometryFieldMFields Multi-Fields
+    \ingroup GrpDrawablesGeometry
+*/

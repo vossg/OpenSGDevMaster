@@ -68,7 +68,7 @@ class SortLastWindow;
 
 OSG_GEN_CONTAINERPTR(SortLastWindow);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

@@ -51,7 +51,10 @@ class RenderAction;
 
 /*! \brief ScreenGroup class. See \ref 
            PageSystemScreenGroup for a description.
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING ScreenGroup : public ScreenGroupBase
 {

@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DynamicStateGenerator class. See \ref
            PageGroupDynamicStateGenerator for a description.
+    \ingroup GrpGroupDynamicStateGeneratorsObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
 */
 
 class OSG_GROUP_DLLMAPPING DynamicStateGenerator : 

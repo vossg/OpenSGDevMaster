@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowGLUT for details.
  */
+
+//*******************************************************************
+// GLUT
+//*******************************************************************
+
+/*! \defgroup GrpWindowGLUTObj Window
+    \ingroup GrpWindowGLUT
+ */
+
+/*! \defgroup GrpWindowGLUTFieldTraits Field Traits
+    \ingroup GrpWindowGLUT
+ */
+/*! \defgroup GrpWindowGLUTFieldSFields Single-Field
+    \ingroup GrpWindowGLUT
+ */
+/*! \defgroup GrpWindowGLUTFieldMFields Multi-Fields
+    \ingroup GrpWindowGLUT
+ */

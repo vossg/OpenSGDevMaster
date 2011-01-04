@@ -186,6 +186,9 @@ void MakeTransparentGraphOp::addObject(MaterialObject m)
 
 // Generally used to prevent templated functions from resolving to the
 // same signature.
+/*! \nohierarchy
+ */
+
 template<typename T>
 struct Type2Type {
     typedef T Original;

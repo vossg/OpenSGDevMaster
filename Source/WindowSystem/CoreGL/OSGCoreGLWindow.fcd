@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="CoreGLWindow"
-	parent="Window"
-	library="WindowCoreGL"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-The class for MacOS X CoreGL windows.
-	<Field
-		name="context"
-		type="CGLContextObj"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="0"
-		fieldHeader="OSGCoreGLWindowDataFields.h"
-		access="public"
-	>
-	</Field>
+   name="CoreGLWindow"
+   parent="Window"
+   library="WindowCoreGL"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowCoreGL"
+   >
+  The class for MacOS X CoreGL windows.
+  <Field
+	 name="context"
+	 type="CGLContextObj"
+	 cardinality="single"
+	 visibility="internal"
+	 defaultValue="0"
+	 fieldHeader="OSGCoreGLWindowDataFields.h"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

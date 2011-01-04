@@ -52,7 +52,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief SepiaComposer class. See \ref 
            PageSystemSepiaComposer for a description.
-*/
+
+    \ingroup GrpClusterWindowComposer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
 
 class OSG_CLUSTER_DLLMAPPING SepiaComposer : public SepiaComposerBase
 {

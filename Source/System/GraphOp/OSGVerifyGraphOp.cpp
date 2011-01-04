@@ -53,13 +53,6 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class VerifyGraphOp
-    \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
-A base class used to traverse geometries.
-
-*/
-
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {

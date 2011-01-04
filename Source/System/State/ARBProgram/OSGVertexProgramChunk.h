@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief VertexProgramChunk class. See \ref 
-   PageSystemVertexProgramChunk for a description.
-*/
+           PageSystemVertexProgramChunk for a description.
+    \ingroup GrpStateARBProgramObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING VertexProgramChunk : public VertexProgramChunkBase
 {

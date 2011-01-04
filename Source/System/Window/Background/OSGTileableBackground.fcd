@@ -1,26 +1,25 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-    name="TileableBackground"
-    parent="Background"
-    library="Window"
-    structure="abstract"
-    pointerfieldtypes="single"
-    systemcomponent="true"
-    parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowBackgrounds
-
-An abstract base class for Backgrounds that support tiling when used in
-conjunction with the TileCameraDecorator.
-    <Field
-        name="tile"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        defaultValue="true"
-        access="public"
-    >
+   name="TileableBackground"
+   parent="Background"
+   library="Window"
+   structure="abstract"
+   pointerfieldtypes="single"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowBackground"
+   >
+  An abstract base class for Backgrounds that support tiling when used in
+  conjunction with the TileCameraDecorator.
+  <Field
+     name="tile"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="true"
+     access="public"
+     >
     If true the background tiles in multi window settings.
-    </Field>
+  </Field>
 </FieldContainer>

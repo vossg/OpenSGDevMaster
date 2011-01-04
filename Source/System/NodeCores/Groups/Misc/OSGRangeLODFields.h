@@ -68,7 +68,7 @@ class RangeLOD;
 
 OSG_GEN_CONTAINERPTR(RangeLOD);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

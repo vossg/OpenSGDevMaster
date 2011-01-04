@@ -1,60 +1,59 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TextureGrabBackground"
-	parent="SolidBackground"
-	library="Window"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowBackgrounds
+   name="TextureGrabBackground"
+   parent="SolidBackground"
+   library="Window"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowBackground"
+   >
+  A background that grabs what's underneath it into a texture before it clears 
+  the viewport to a constant color.
 
-A background that grabs what's underneath it into a texture before it clears 
-the viewport to a constant color.
-
-The color of the background is given by the _sfColor field, the texture to
-grab into by the _sfTexture field.
-	<Field
-		name="texture"
-		type="TextureObjChunkPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  The color of the background is given by the _sfColor field, the texture to
+  grab into by the _sfTexture field.
+  <Field
+	 name="texture"
+	 type="TextureObjChunkPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The texture to grab into.
-	</Field>
-	<Field
-		name="autoResize"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-        Automatically resize the texture when the viewport size changes.
-	</Field>
-       	<Field
-		name="bindTarget"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		access="public"
-	>
-        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
-	</Field>
-       	<Field
-		name="copyTarget"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		access="public"
-	>
-        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
-        Mainly useful to grab into the different parts of a CubeTexture.
-	</Field>
+  </Field>
+  <Field
+	 name="autoResize"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+    Automatically resize the texture when the viewport size changes.
+  </Field>
+  <Field
+	 name="bindTarget"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_NONE"
+	 access="public"
+	 >
+    Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
+  </Field>
+  <Field
+	 name="copyTarget"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_NONE"
+	 access="public"
+	 >
+    Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
+    Mainly useful to grab into the different parts of a CubeTexture.
+  </Field>
 </FieldContainer>

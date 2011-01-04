@@ -10,6 +10,7 @@
    parentsystemcomponent="true"
    decoratable="false"
    useLocalIncludes="false"
+   docGroupBase="GrpEffectsGroupsDisplayFilter"
    >   
   <Field
 	 name="gamma"
@@ -63,7 +64,7 @@
 	 cardinality="multi"
 	 visibility="external"
 	 access="public"
-	>
+	 >
 	Shading table
   </Field>
   <Field
@@ -75,16 +76,16 @@
      access="protected"
      fieldFlags="FClusterLocal"
      >
-    </Field>
-    <Field
-	   name="filterShader"
-	   type="SimpleSHLChunk"
-	   cardinality="single"
-	   visibility="external"
-	   defaultValue="NULL"
-	   access="protected"
-       category="pointer"
-       fieldFlags="FClusterLocal"
-	   >
-	</Field>
+  </Field>
+  <Field
+	 name="filterShader"
+	 type="SimpleSHLChunk"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="NULL"
+	 access="protected"
+     category="pointer"
+     fieldFlags="FClusterLocal"
+	 >
+  </Field>
 </FieldContainer>

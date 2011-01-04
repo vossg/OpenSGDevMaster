@@ -1,39 +1,42 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="OrthographicCamera"
-	parent="Camera"
-	library="Window"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-A perspective camera with a symmetric frustum.
-	<Field
-		name="verticalSize"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-	>
-	The vertical size of the camera box, in world units. Ignored when less then or equal to zero.
-	</Field>
-	<Field
-		name="horizontalSize"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-        defaultValue="-1"
-	>
-	The horizontal size of the camera box, in world units. Ignored when less then or equal to zero.
- 	</Field>
-	<Field
-		name="aspect"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-        defaultValue="1"
-	>
+   name="OrthographicCamera"
+   parent="Camera"
+   library="Window"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowCamera"
+   >
+  A perspective camera with a symmetric frustum.
+  <Field
+	 name="verticalSize"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 >
+	The vertical size of the camera box, in world units. Ignored when less
+	then or equal to zero. 
+  </Field>
+  <Field
+	 name="horizontalSize"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="-1"
+	 >
+	The horizontal size of the camera box, in world units. Ignored when less
+	then or equal to zero. 
+  </Field>
+  <Field
+	 name="aspect"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="1"
+	 >
 	The aspect ratio (i.e. width / height) of a pixel.
-	</Field>
+  </Field>
 </FieldContainer>

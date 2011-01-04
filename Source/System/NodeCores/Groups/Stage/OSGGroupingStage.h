@@ -49,8 +49,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
+/*! Stage
+    \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING GroupingStage : public GroupingStageBase
 {

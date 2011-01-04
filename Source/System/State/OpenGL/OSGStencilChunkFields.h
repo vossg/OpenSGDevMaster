@@ -68,7 +68,7 @@ class StencilChunk;
 
 OSG_GEN_CONTAINERPTR(StencilChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<StencilChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<StencilChunk *,
                       RecordedRefCountPolicy  > SFRecStencilChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<StencilChunk *,
                       UnrecordedRefCountPolicy> SFUnrecStencilChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<StencilChunk *,
                       WeakRefCountPolicy      > SFWeakStencilChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<StencilChunk *,
                       NoRefCountPolicy        > SFUncountedStencilChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<StencilChunk *,
                       RecordedRefCountPolicy  > MFRecStencilChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<StencilChunk *,
                       UnrecordedRefCountPolicy> MFUnrecStencilChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<StencilChunk *,
                       WeakRefCountPolicy      > MFWeakStencilChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<StencilChunk *,
                       NoRefCountPolicy        > MFUncountedStencilChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<StencilChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecStencilChunkPtr : 
     public PointerSField<StencilChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecStencilChunkPtr : 
     public PointerSField<StencilChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakStencilChunkPtr :
     public PointerSField<StencilChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedStencilChunkPtr :
     public PointerSField<StencilChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecStencilChunkPtr :
     public PointerMField<StencilChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecStencilChunkPtr :
     public PointerMField<StencilChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakStencilChunkPtr :
     public PointerMField<StencilChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedStencilChunkPtr :
     public PointerMField<StencilChunk *,
                          NoRefCountPolicy        > {};

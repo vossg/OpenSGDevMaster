@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowWIN32 for details.
  */
+
+//*******************************************************************
+// WIN32
+//*******************************************************************
+
+/*! \defgroup GrpWindowWIN32Obj Window
+    \ingroup GrpWindowWIN32
+ */
+
+/*! \defgroup GrpWindowWIN32FieldTraits Field Traits
+    \ingroup GrpWindowWIN32
+ */
+/*! \defgroup GrpWindowWIN32FieldSFields Single-Field
+    \ingroup GrpWindowWIN32
+ */
+/*! \defgroup GrpWindowWIN32FieldMFields Multi-Fields
+    \ingroup GrpWindowWIN32
+ */

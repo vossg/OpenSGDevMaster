@@ -46,8 +46,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseFieldContainerMixins
-    \ingroup GrpLibOSGBase
+/*! \ingroup GrpDynamicsBaseObj
+    \ingroup GrpLibOSGDynamics
  */
 template <class ParentT>
 class FrameTaskMixin  : public ParentT, public FrameTaskInterface

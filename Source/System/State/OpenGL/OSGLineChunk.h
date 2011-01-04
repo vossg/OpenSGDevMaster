@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for line-specific attributes. See \ref
-    PageSystemLineChunk for a description. 
-*/
+           PageSystemLineChunk for a description. 
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING LineChunk : public LineChunkBase
 {

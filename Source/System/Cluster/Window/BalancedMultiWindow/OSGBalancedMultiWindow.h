@@ -60,7 +60,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief BalancedMultiWindow class. See \ref 
            PageSystemBalancedMultiWindow for a description.
-*/
+    \ingroup GrpClusterWindowObj
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
 
 class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow : 
     public BalancedMultiWindowBase
@@ -128,6 +131,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     friend struct ServerComp;
     friend struct BBoxList;
 
+    /*! \nohierarchy
+     */
+
     struct LoadGroup 
     {
         NodeUnrecPtr           root;
@@ -137,11 +143,17 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Real32                 ratio;
     };
 
+    /*! \nohierarchy
+     */
+
     struct BBox 
     {
         UInt32                 groupId;
         Int32                  rect[4];
     };
+
+    /*! \nohierarchy
+     */
 
     struct VPort 
     {
@@ -155,6 +167,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<BBox>      bboxes;
     };
 
+    /*! \nohierarchy
+     */
+
     struct Server 
     {
         UInt16                 id;
@@ -162,6 +177,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<VPort>     viewports;
         Window                *window;
     };
+
+    /*! \nohierarchy
+     */
 
     struct WorkPackage 
     {
@@ -171,8 +189,14 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Int32  rect[4];
     };
 
+    /*! \nohierarchy
+     */
+
     struct Tile 
     {
+        /*! \nohierarchy
+         */
+
         struct Header 
         {
             unsigned int x      :16;
@@ -185,11 +209,17 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         UInt8  pixel[MW_TILE_SIZE*MW_TILE_SIZE*3];
     };
 
+    /*! \nohierarchy
+     */
+
     struct Area 
     {
         UInt16                     workpackageId;
         std::vector<Tile>          tiles;
     };
+
+    /*! \nohierarchy
+     */
 
     struct Cluster 
     {
@@ -201,6 +231,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<Area>          areas;
     };
 
+    /*! \nohierarchy
+     */
+
     struct Worker 
     {
         UInt32                     serverId;
@@ -208,11 +241,17 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Real32                     assignedLoad;
     };
 
+    /*! \nohierarchy
+     */
+
     struct OpenBBox 
     {
         Real32                     lineLoad;
         Real32                     cnostLoast;
     };
+
+    /*! \nohierarchy
+     */
 
     struct ServerComp
     {
@@ -221,6 +260,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
             return (s1->load < s2->load);
         }
     };
+
+    /*! \nohierarchy
+     */
 
     struct BBoxList 
     {

@@ -55,9 +55,13 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderShadowMapEngine class. See \ref
            PageEffectGroupsShaderShadowMapEngine for a description.
+    \ingroup GrpGroupLightShadowEnginesObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
 */
 
-class OSG_GROUP_DLLMAPPING ShaderShadowMapEngine : public ShaderShadowMapEngineBase
+class OSG_GROUP_DLLMAPPING ShaderShadowMapEngine : 
+    public ShaderShadowMapEngineBase
 {
   protected:
 

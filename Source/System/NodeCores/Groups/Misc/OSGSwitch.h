@@ -47,6 +47,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
+
 class OSG_GROUP_DLLMAPPING Switch : public SwitchBase
 {
     /*==========================  PUBLIC  =================================*/

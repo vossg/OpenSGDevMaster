@@ -42,15 +42,18 @@
 #pragma once
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGCocoaWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \brief CocoaWindow class. See \ref
-           PageWindowCocoaCocoaWindow for a description.
-*/
+           PageWindowCocoa for a description.
+    \ingroup GrpWindowCocoaObj
+    \ingroup GrpLibOSGWindowCocoa
+    \includebasedoc
+ */
 
 class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
 {

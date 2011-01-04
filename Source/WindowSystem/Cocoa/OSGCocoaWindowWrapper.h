@@ -45,7 +45,7 @@
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS compile
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGWindowCocoaDef.h"
 
@@ -56,6 +56,9 @@ struct NSOpenGLContext;
 #else
 @class NSOpenGLContext;
 #endif
+
+/* \ingroup GrpWindowCocoaObj
+ */
 
 typedef NSOpenGLContext *NSOpenGLContextP;
 

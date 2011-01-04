@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief LightModelChunk class. See \ref 
            PageSystemLightModelChunk for a description.
-*/
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING LightModelChunk : public LightModelChunkBase
 {

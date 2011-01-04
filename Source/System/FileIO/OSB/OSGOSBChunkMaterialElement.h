@@ -54,6 +54,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OSBChunkMaterialElement : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/

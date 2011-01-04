@@ -55,7 +55,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief SimpleShadowMapEngineData class. See \ref
            PageGroupSimpleShadowMapEngineData for a description.
-*/
+    \ingroup GrpGroupLightShadowEnginesObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineData : 
     public SimpleShadowMapEngineDataBase

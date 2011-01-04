@@ -50,7 +50,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DSLightChunk class. See \ref
            PageEffectsDSLightChunk for a description.
-*/
+
+    \ingroup GrpEffectsGroupsDeferredShadingObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunk : public DSLightChunkBase
 {

@@ -78,7 +78,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::LogicOpChunk
     The logic op chunk contains the parameters that specify the logic operation
     applied to fragments before writing them to the framebuffer. The following
-    OpenGL functionality is wrapped here: glLogicOp (OSG::LogicOpChunk::_sfLogicOp).
+    OpenGL functionality is wrapped here: 
+    glLogicOp(OSG::LogicOpChunk::_sfLogicOp). 
  */
 
 /***************************************************************************\
@@ -145,33 +146,36 @@ LogicOpChunkBase::TypeObject LogicOpChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"LogicOpChunk\"\n"
-    "    parent=\"StateChunk\"\n"
-    "    library=\"State\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    ">\n"
-    "The logic op chunk contains the parameters that specify the logic operation\n"
-    "applied to fragments before writing them to the framebuffer. The following\n"
-    "OpenGL functionality is wrapped here: glLogicOp (OSG::LogicOpChunk::_sfLogicOp).\n"
-    "    <Field\n"
-    "        name=\"LogicOp\"\n"
-    "        category=\"data\"\n"
-    "        type=\"GLenum\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"GL_COPY\"\n"
-    "        defaultHeader=\"OSGGL.h\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
+    "   name=\"LogicOpChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"State\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpStateOpenGL\"\n"
+    "   >\n"
+    "  The logic op chunk contains the parameters that specify the logic operation\n"
+    "  applied to fragments before writing them to the framebuffer. The following\n"
+    "  OpenGL functionality is wrapped here: \n"
+    "  glLogicOp(OSG::LogicOpChunk::_sfLogicOp). \n"
+    "  <Field\n"
+    "     name=\"LogicOp\"\n"
+    "     category=\"data\"\n"
+    "     type=\"GLenum\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"GL_COPY\"\n"
+    "     defaultHeader=\"OSGGL.h\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
     "    The logic operation applied to fragments.\n"
-    "    </Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "The logic op chunk contains the parameters that specify the logic operation\n"
     "applied to fragments before writing them to the framebuffer. The following\n"
-    "OpenGL functionality is wrapped here: glLogicOp (OSG::LogicOpChunk::_sfLogicOp).\n"
+    "OpenGL functionality is wrapped here: \n"
+    "glLogicOp(OSG::LogicOpChunk::_sfLogicOp). \n"
     );
 
 /*------------------------------ get -----------------------------------*/

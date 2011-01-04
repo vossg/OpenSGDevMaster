@@ -51,7 +51,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for textures. See \ref PageSystemTextureEnvChunk 
-    for a description.
+           for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
  */
 
 class OSG_STATE_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase

@@ -1,15 +1,18 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="PassiveBackground"
-	parent="Background"
-	library="Window"
-	structure="concrete"
-	pointerfieldtypes="single"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowBackgrounds
-
-A background that does nothing within the clear call, thus it also has no Fields at all. It is mainly used to stack viewports on top of each other, i.e. it makes it possible to have two viewports on top of each other to generate a single combined image. See \ref PageSystemWindowBackgroundPassive
+   name="PassiveBackground"
+   parent="Background"
+   library="Window"
+   structure="concrete"
+   pointerfieldtypes="single"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowPassive"
+   >
+  A background that does nothing within the clear call, thus it also has no
+  Fields at all. It is mainly used to stack viewports on top of each other,
+  i.e. it makes it possible to have two viewports on top of each other to
+  generate a single combined image. See \ref
+  PageSystemWindowBackgroundPassive 
 </FieldContainer>

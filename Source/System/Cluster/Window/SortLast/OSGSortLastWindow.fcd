@@ -1,39 +1,40 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="SortLastWindow"
-	parent="ClusterWindow"
-	library="Cluster"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-Cluster rendering configuration for sort first image composition
-	<Field
-		name="groupNodes"
-		type="NodePtr"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-	>
-	</Field>
-	<Field
-		name="groupLengths"
-		type="UInt32"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-	>
-	</Field>
-	<Field
-		name="groupsChanged"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-	>
-	</Field>
+   name="SortLastWindow"
+   parent="ClusterWindow"
+   library="Cluster"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpClusterWindow"
+   >
+  Cluster rendering configuration for sort first image composition
+  <Field
+	 name="groupNodes"
+	 type="NodePtr"
+	 cardinality="multi"
+	 visibility="external"
+	 access="protected"
+	 >
+  </Field>
+  <Field
+	 name="groupLengths"
+	 type="UInt32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="protected"
+	 >
+  </Field>
+  <Field
+	 name="groupsChanged"
+	 type="bool"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
+  </Field>
 </FieldContainer>

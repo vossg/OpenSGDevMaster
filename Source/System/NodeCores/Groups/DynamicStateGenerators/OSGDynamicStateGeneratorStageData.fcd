@@ -1,36 +1,37 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="DynamicStateGeneratorStageData"
-    parent="StageData"
-    library="Group"
-    pointerfieldtypes="none"
-    structure="concrete"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    decoratable="false"
-    useLocalIncludes="false"
-    isNodeCore="false"
-    isBundle="true"
->
-Data use for rendering by the cubemap generator stage
-    <Field
-        name="renderTarget"
-        type="FrameBufferObjectPtr"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="public"
-    >
+   name="DynamicStateGeneratorStageData"
+   parent="StageData"
+   library="Group"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   isBundle="true"
+   docGroupBase="GrpGroupDynamicStateGenerators"
+   >
+  Data use for rendering by the cubemap generator stage
+  <Field
+     name="renderTarget"
+     type="FrameBufferObjectPtr"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
     The FBO to target for rendering this subtree.
-    </Field>
-	<Field
-		name="chunks"
-		type="StateChunkPtr"
-		cardinality="multi"
-		visibility="external"
-        access="protected"
-        ptrFieldAccess = "custom"
-    >
-	</Field>
+  </Field>
+  <Field
+	 name="chunks"
+	 type="StateChunkPtr"
+	 cardinality="multi"
+	 visibility="external"
+     access="protected"
+     ptrFieldAccess = "custom"
+     >
+  </Field>
 </FieldContainer>

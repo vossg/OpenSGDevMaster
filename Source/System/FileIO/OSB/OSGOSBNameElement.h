@@ -51,6 +51,10 @@ OSG_BEGIN_NAMESPACE
 
 class OSBRootElement;
 
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OSBNameElement : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/

@@ -51,8 +51,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
+/*! \ingroup GrpDrawablesGeometryUtils
+    \nohierarchy
+ */
 class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
 {
   public:
@@ -84,6 +85,8 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
     friend class TriangleList;
     friend class TrianglePool;
     
+    /*! \nohierarchy
+     */
     class HalfEdge
     {
         IndexT _vertexIndex;
@@ -100,6 +103,8 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
         inline IndexT   vertexEnd(void);
     };
 
+    /*! \nohierarchy
+     */
     class Triangle
     {
       public:
@@ -116,6 +121,8 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
         bool verify (void);
     };
 
+    /*! \nohierarchy
+     */
     class TriangleList
     {
 
@@ -138,6 +145,8 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
     void dropOutTriangle(Triangle &triangle,
                          TriangleList *degreeBag);
 
+    /*! \nohierarchy
+     */
     class TrianglePool
     {
       public:
@@ -226,6 +235,10 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
 
 };
 
+/*! \ingroup GrpDrawablesGeometryUtils
+    \nohierarchy
+ */
+
 class StriperHalfEdgeGraph::TrianglePool::Chunk
 {
     public:
@@ -239,9 +252,10 @@ class StriperHalfEdgeGraph::TrianglePool::Chunk
     inline UInt32 countElem(void);
 };
 
-typedef StriperHalfEdgeGraph* StriperHalfEdgeGraphP;
+/*! \ingroup GrpDrawablesGeometryUtils
+ */
 
-#endif  // remove from all but dev docs
+typedef StriperHalfEdgeGraph* StriperHalfEdgeGraphP;
 
 OSG_END_NAMESPACE
 

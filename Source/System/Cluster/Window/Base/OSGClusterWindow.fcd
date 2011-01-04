@@ -1,169 +1,170 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ClusterWindow"
-	parent="Window"
-	library="Cluster"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-The base class for all windows.
-	<Field
-		name="servers"
-		type="std::string"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+   name="ClusterWindow"
+   parent="Window"
+   library="Cluster"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpClusterWindow"
+   >
+  The base class for all windows.
+  <Field
+	 name="servers"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	List of all symbolic server names
-	</Field>
-	<Field
-		name="serverIds"
-		type="UInt32"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="connectionType"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="serverIds"
+	 type="UInt32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="connectionType"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	How to connect to the servers
-	</Field>
-	<Field
-		name="connectionInterface"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="connectionInterface"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	Which network interface to use for communication
-	</Field>
-	<Field
-		name="connectionDestination"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="connectionDestination"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	Multicast address for multicast connections
-	</Field>
-	<Field
-		name="connectionParams"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="connectionParams"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	Optional parameters e.g. "TTL=2"
-	</Field>
-	<Field
-		name="servicePort"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="8437"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="servicePort"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="8437"
+	 access="public"
+	 >
 	Broadcastport used for server search
-	</Field>
-	<Field
-		name="serviceAddress"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		defaultValue='"224.245.211.234"'
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="serviceAddress"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue='"224.245.211.234"'
+	 access="public"
+	 >
 	Broadcast or Multicast address used for server search
-	</Field>
-	<Field
-		name="serviceInterface"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="serviceInterface"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	Ethernet interface to be used for server search
-	</Field>
-	<Field
-		name="clientWindow"
-		type="WindowPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="clientWindow"
+	 type="WindowPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	Window for client rendering
-	</Field>
-	<Field
-		name="interleave"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="frameCount"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="composer"
-		type="ImageComposerPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="autostart"
-		type="std::string"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-<!--
-	<Field
+  </Field>
+  <Field
+	 name="interleave"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="frameCount"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="composer"
+	 type="ImageComposerPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="autostart"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <!--
+	 <Field
 		name="calibration"
 		type="DisplayCalibrationPtr"
 		cardinality="multi"
 		visibility="external"
 		access="public"
-	>
-	</Field>
-	<Field
+	    >
+	 </Field>
+	 <Field
 		name="filter"
 		type="DisplayFilterForegroundPtr"
 		cardinality="multi"
 		visibility="external"
 		access="public"
-	>
-	Display filter foregrounds can be used instead of calibration
-	</Field>
-	<Field
+	    >
+	   Display filter foregrounds can be used instead of calibration
+	 </Field>
+	 <Field
 		name="dirty"
 		type="bool"
 		cardinality="single"
 		visibility="external"
 		defaultValue="false"
 		access="protected"
-	>
-	Internally set for forceing re-initialization of foregrounds
-	</Field>
--->
+	    >
+	   Internally set for forceing re-initialization of foregrounds
+	 </Field>
+     -->
 </FieldContainer>

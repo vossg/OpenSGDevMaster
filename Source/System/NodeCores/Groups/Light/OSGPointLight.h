@@ -50,8 +50,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Point Light
-    \ingroup GrpSystemNodeCoresLights
-*/
+    \ingroup GrpGroupLightObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING PointLight : public PointLightBase
 {

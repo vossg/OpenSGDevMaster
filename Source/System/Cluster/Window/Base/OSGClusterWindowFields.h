@@ -68,7 +68,7 @@ class ClusterWindow;
 
 OSG_GEN_CONTAINERPTR(ClusterWindow);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       RecordedRefCountPolicy  > SFRecClusterWindowPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       WeakRefCountPolicy      > SFWeakClusterWindowPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       NoRefCountPolicy        > SFUncountedClusterWindowPtr;
 
 
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       RecordedRefCountPolicy  > MFRecClusterWindowPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       WeakRefCountPolicy      > MFWeakClusterWindowPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       NoRefCountPolicy        > MFUncountedClusterWindowPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ClusterWindow *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFRecClusterWindowPtr : 
     public PointerSField<ClusterWindow *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFUnrecClusterWindowPtr : 
     public PointerSField<ClusterWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFWeakClusterWindowPtr :
     public PointerSField<ClusterWindow *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFUncountedClusterWindowPtr :
     public PointerSField<ClusterWindow *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFRecClusterWindowPtr :
     public PointerMField<ClusterWindow *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFUnrecClusterWindowPtr :
     public PointerMField<ClusterWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFWeakClusterWindowPtr :
     public PointerMField<ClusterWindow *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFUncountedClusterWindowPtr :
     public PointerMField<ClusterWindow *,
                          NoRefCountPolicy        > {};

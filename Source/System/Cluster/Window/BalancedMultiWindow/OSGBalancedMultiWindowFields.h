@@ -68,7 +68,7 @@ class BalancedMultiWindow;
 
 OSG_GEN_CONTAINERPTR(BalancedMultiWindow);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief GeoVectorBufferProperty class. See \ref
            PageDrawableGeoVectorBufferProperty for a description.
-*/
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferProperty : 
     public GeoVectorBufferPropertyBase

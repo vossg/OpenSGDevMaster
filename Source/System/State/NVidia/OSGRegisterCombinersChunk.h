@@ -46,11 +46,15 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for register combiners. See \ref
-    PageSystemRegisterCombinersChunk for a description.
-*/
-
 #define OSG_NUM_COMBINERS 8
+
+/*! \brief State chunk for register combiners. See \ref
+           PageSystemRegisterCombinersChunk for a description.
+    \ingroup GrpStateNVidiaObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
+
 
 class OSG_STATE_DLLMAPPING RegisterCombinersChunk : 
     public RegisterCombinersChunkBase

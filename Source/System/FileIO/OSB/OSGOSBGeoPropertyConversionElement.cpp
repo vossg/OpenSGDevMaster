@@ -48,11 +48,6 @@ OSG_USING_NAMESPACE
 /* OSBGeoPropertyConversionElement                                        */
 /*-------------------------------------------------------------------------*/
 
-/*! \class OSBGeoPropertyConversionElement
-    A specialization of this template is registered for each OpenSG 1 property
-    type in order to convert it to the appropriate OpenSG 2 property type.
- */
-
 namespace {
 
 static OSBElementRegistrationHelper<

@@ -68,7 +68,7 @@ class DeferredShadingStage;
 
 OSG_GEN_CONTAINERPTR(DeferredShadingStage);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<NoRefCountPolicy>(
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
                       RecordedRefCountPolicy  > SFRecDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
                       UnrecordedRefCountPolicy> SFUnrecDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
                       WeakRefCountPolicy      > SFWeakDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
                       NoRefCountPolicy        > SFUncountedDeferredShadingStagePtr;
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
                       RecordedRefCountPolicy  > MFRecDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
                       UnrecordedRefCountPolicy> MFUnrecDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
                       WeakRefCountPolicy      > MFWeakDeferredShadingStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
                       NoRefCountPolicy        > MFUncountedDeferredShadingStagePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<DeferredShadingStage *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFRecDeferredShadingStagePtr : 
     public PointerSField<DeferredShadingStage *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUnrecDeferredShadingStagePtr : 
     public PointerSField<DeferredShadingStage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFWeakDeferredShadingStagePtr :
     public PointerSField<DeferredShadingStage *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUncountedDeferredShadingStagePtr :
     public PointerSField<DeferredShadingStage *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFRecDeferredShadingStagePtr :
     public PointerMField<DeferredShadingStage *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUnrecDeferredShadingStagePtr :
     public PointerMField<DeferredShadingStage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFWeakDeferredShadingStagePtr :
     public PointerMField<DeferredShadingStage *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUncountedDeferredShadingStagePtr :
     public PointerMField<DeferredShadingStage *,
                          NoRefCountPolicy        > {};

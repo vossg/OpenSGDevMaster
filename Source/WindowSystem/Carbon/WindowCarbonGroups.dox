@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowCarbon for details.
  */
+
+//*******************************************************************
+// Carbon
+//*******************************************************************
+
+/*! \defgroup GrpWindowCarbonObj Window
+    \ingroup GrpWindowCarbon
+ */
+
+/*! \defgroup GrpWindowCarbonFieldTraits Field Traits
+    \ingroup GrpWindowCarbon
+ */
+/*! \defgroup GrpWindowCarbonFieldSFields Single-Field
+    \ingroup GrpWindowCarbon
+ */
+/*! \defgroup GrpWindowCarbonFieldMFields Multi-Fields
+    \ingroup GrpWindowCarbon
+ */

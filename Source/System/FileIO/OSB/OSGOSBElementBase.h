@@ -58,6 +58,10 @@ OSG_BEGIN_NAMESPACE
 
 class OSBRootElement;
 
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OSBElementBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -66,6 +70,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
+    /*! \nohierarchy
+     */
     class BinaryReadHandler : public BinaryDataHandler
     {
       public:
@@ -86,6 +92,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         void operator =  (const BinaryReadHandler &source);
     };
 
+    /*! \nohierarchy
+     */
     class BinaryWriteHandler : public BinaryDataHandler
     {
       public:
@@ -170,6 +178,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \name Protected Types                                              */
     /*! \{                                                                 */
 
+    /*! \nohierarchy
+     */
     class PtrFieldInfo
     {
       public:

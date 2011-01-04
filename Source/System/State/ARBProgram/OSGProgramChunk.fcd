@@ -1,63 +1,62 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ProgramChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="ProgramChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateARBProgram"
+   >
+  The ProgramChunk is the base class for generic ASCII-based programs
+  inside OpenGL. For actual use see the derived VertexProgramChunk and
+  FragmentProgramChunk.
 
-The ProgramChunk is the base class for generic ASCII-based programs
-inside OpenGL. For actual use see the derived VertexProgramChunk and
-FragmentProgramChunk.
+  See \ref PageSystemProgramChunk for a description.
 
-See \ref PageSystemProgramChunk for a description.
-
-The ProgramChunk contains the source code of the program to use
-(OSG::ProgramChunk::_sfProgram) and the local program parameters
-(OSG::ProgramChunk::_mfParamValues). The parameters can have an associated
-name (OSG::ProgramChunk::_mfParamNames).
-	<Field
-		name="program"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  The ProgramChunk contains the source code of the program to use
+  (OSG::ProgramChunk::_sfProgram) and the local program parameters
+  (OSG::ProgramChunk::_mfParamValues). The parameters can have an associated
+  name (OSG::ProgramChunk::_mfParamNames).
+  <Field
+	 name="program"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The program source code.
-	</Field>
-	<Field
-		name="paramValues"
-		type="Vec4f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="paramValues"
+	 type="Vec4f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	Program Parameters
-	</Field>
-	<Field
-		name="paramNames"
-		type="std::string"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="paramNames"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	Symbolic names for the program parameters.
-	</Field>
-	<Field
-		name="GLId"
-		type="UInt32"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
- 		defaultValue="0"
-        fieldFlags="FClusterLocal"
-	>
+  </Field>
+  <Field
+	 name="GLId"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+ 	 defaultValue="0"
+     fieldFlags="FClusterLocal"
+	 >
 	The OpenGL ID of the program.
-	</Field>
+  </Field>
 </FieldContainer>

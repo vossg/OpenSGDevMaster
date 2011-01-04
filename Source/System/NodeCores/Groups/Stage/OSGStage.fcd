@@ -1,37 +1,39 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="Stage"
-        parent="Group"
-        mixinparent="StageParent"
-        library="Group"
-        pointerfieldtypes="both"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
-        useLocalIncludes="false"
-    isNodeCore="true"
->
-Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.
-        <Field
-                name="renderTarget"
-                type="FrameBufferObjectPtr"
-                cardinality="single"
-                visibility="external"
-                defaultValue="NULL"
-                access="public"
-        >
-        The FBO to target for rendering this subtree.
-        </Field>
-        <Field
-                name="inheritedTarget"
-                type="bool"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="false"
-        >
-        Inherited the parent target if none is set  
-        </Field>
+   name="Stage"
+   parent="Group"
+   mixinparent="StageParent"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   docGroupBase="GrpGroupStage"
+   >
+  Base of a staged rendering.  Tells the renderer to target an FBO for this
+  subtree. 
+  <Field
+     name="renderTarget"
+     type="FrameBufferObjectPtr"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
+    The FBO to target for rendering this subtree.
+  </Field>
+  <Field
+     name="inheritedTarget"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="false"
+     >
+    Inherited the parent target if none is set  
+  </Field>
 </FieldContainer>

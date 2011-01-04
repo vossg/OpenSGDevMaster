@@ -48,8 +48,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Distance-based Level Of Detail
-    \ingroup GrpSystemNodeCoresMisc
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING DistanceLOD : public DistanceLODBase
 {

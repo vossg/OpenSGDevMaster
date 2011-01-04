@@ -68,7 +68,7 @@ class TimeSensor;
 
 OSG_GEN_CONTAINERPTR(TimeSensor);
 
-/*! \ingroup GrpDynamicsFieldTraits
+/*! \ingroup GrpDynamicsAnimationFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>

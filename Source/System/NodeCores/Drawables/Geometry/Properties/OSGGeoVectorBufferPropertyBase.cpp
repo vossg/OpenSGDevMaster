@@ -249,6 +249,7 @@ GeoVectorBufferPropertyBase::TypeObject GeoVectorBufferPropertyBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   childFields=\"both\"\n"
+    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
     "   >\n"
     "  <Field\n"
     "     name=\"stride\"\n"

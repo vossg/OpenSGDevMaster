@@ -47,7 +47,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief PointChunk class. See \ref PageSystemPointChunk for a description.
-*/
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING PointChunk : public PointChunkBase
 {

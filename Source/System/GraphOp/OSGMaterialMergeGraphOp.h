@@ -54,10 +54,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -66,7 +72,9 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
     typedef MaterialMergeGraphOp                    Self;
 
     OSG_GEN_INTERNAL_MEMOBJPTR(MaterialMergeGraphOp);
-    
+
+    /*! \nohierarchy
+     */
     class MaterialObject
     {
       public:
@@ -140,7 +148,9 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -150,7 +160,9 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 

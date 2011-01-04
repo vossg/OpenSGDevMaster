@@ -3,4 +3,11 @@
 using namespace OSG;
 
 /*! \page PageCluster Cluster
+
+    \section PageSystemBalancedMultiWindow
+    \section PageSystemClusterMultiDisplayWindow
+    \section PageSystemBinarySwapComposer
+    \section PageSystemParallelComposer
+    \section PageSystemPipelineComposer
+    \section PageSystemSepiaComposer
  */

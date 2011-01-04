@@ -42,11 +42,6 @@
 
 OSG_USING_NAMESPACE
 
-/** \class ClusterException
- *  \ingroup GrpSystemCluster
- *  \brief Indicate cluster exceptions
- **/
-
 /*! Constructor. Add ClusterLib to the error text
  */
 
@@ -55,25 +50,17 @@ ClusterException::ClusterException(void) : Exception()
     _what += "ClusterLib: ";
 }
 
-/** \class ConnectionClosed
- *  \ingroup GrpSystemCluster
- *  \brief Indicate close of connecitons
- **/
-
 /*! Constructor. Add error text.
  */
+
 ConnectionClosed::ConnectionClosed(void) : ClusterException()
 {
     _what += "Connection closed by endpoint. ";
 }
 
-/** \class RemoteSyncError
- *  \ingroup GrpSystemCluster
- *  \brief Indicate error in sync data stream
- **/
-
 /*! Constructor. Add error text.
  */
+
 RemoteSyncError::RemoteSyncError(void) : ClusterException()
 {
     _what += "Error in synchronisation data stream. ";

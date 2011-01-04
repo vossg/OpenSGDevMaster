@@ -74,6 +74,8 @@ class Material;
 //---------------------------------------------------------------------------
 
 /*! \brief DrawAction class
+    \ingroup GrpFileIOWRLObj
+    \ingroup GrpLibOSGFileIO
  */
 
 class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
@@ -210,12 +212,16 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
 
     typedef Action Inherited;
 
+    /*! \nohierarchy
+     */
     struct ActionInitializer
     {
         ActionInitializer(void);
         ~ActionInitializer(void);
     };
 
+    /*! \nohierarchy
+     */
     struct FCInfo
     {
       private:

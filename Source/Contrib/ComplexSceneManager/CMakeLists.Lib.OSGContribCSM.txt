@@ -117,6 +117,8 @@ ENDIF(OSG_LINK_EXTERNAL_MODULES_TO_CSM)
 
 SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
 
+SET(${PROJECT_NAME}_NO_DOC TRUE)
+
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################

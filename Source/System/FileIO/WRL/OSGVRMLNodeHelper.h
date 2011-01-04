@@ -68,9 +68,9 @@ class Image;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \hideinhierarchy */
-
-// TODO rename it to VRMLGenericAtt ????
+/*! \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 struct VRMLGenericAttDesc
 {
@@ -90,7 +90,13 @@ struct VRMLGenericAttDesc
     static FieldDescriptionBase **getDesc      (void) { return NULL; }
 };
 
+/*! \ingroup GrpFileIOWRLObj
+ */
+
 typedef DynFieldAttachment<VRMLGenericAttDesc>  VRMLGenericAtt;
+
+/*! \ingroup GrpFileIOWRLObj
+ */
 typedef VRMLGenericAtt::ObjUnrecPtr             VRMLGenericAttUnrecPtr;
 
 
@@ -100,7 +106,9 @@ typedef VRMLGenericAtt::ObjUnrecPtr             VRMLGenericAttUnrecPtr;
 //---------------------------------------------------------------------------
 
 /*! \brief General VRML Node Desc
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase 
 {
@@ -110,6 +118,8 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
 
     typedef boost::function<VRMLNodeHelper *(void)>  CreateHelper;
 
+    /*! \nohierarchy
+     */
     class OSG_FILEIO_DLLMAPPING RegisterHelper
     {
       public:
@@ -231,6 +241,9 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
     void operator =(const VRMLNodeHelperFactoryBase &source);
 };
 
+/*! \ingroup GrpFileIOWRLObj
+ */
+
 typedef SingletonHolder<VRMLNodeHelperFactoryBase> VRMLNodeHelperFactory;
 
 //---------------------------------------------------------------------------
@@ -238,7 +251,9 @@ typedef SingletonHolder<VRMLNodeHelperFactoryBase> VRMLNodeHelperFactory;
 //---------------------------------------------------------------------------
 
 /*! \brief General VRML Node Desc
-    \ingroup GrpSystemFileIOVRML
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+
     This is a helper that knows how to load and handle construction of a single
     VRML node type.  This class will have one derived class for all node
     types that can be handled by the loader.
@@ -423,7 +438,9 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Group Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
 {
@@ -513,6 +530,8 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Group Helper
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
  */
 
 template<class ContainerT>
@@ -636,7 +655,9 @@ class VRMLGenericHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Material Desc
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 {
@@ -774,7 +795,9 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Shape Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
 {
@@ -881,7 +904,9 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Appearance Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
 {
@@ -991,7 +1016,9 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Indexed Geometry Help
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper : 
     public VRMLNodeHelper
@@ -1106,7 +1133,9 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Gemetry Part Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLGeometryPartHelper : public VRMLNodeHelper
 {
@@ -1213,7 +1242,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryPartHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Gemetry Object Desc
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 {
@@ -1319,7 +1350,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Texture Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLTextureHelper : public VRMLNodeHelper
 {
@@ -1422,7 +1455,9 @@ class OSG_FILEIO_DLLMAPPING VRMLTextureHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Image Texture Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLTextureHelper
 {
@@ -1534,7 +1569,9 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLTextureHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Image Texture Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLPixelTextureHelper : public VRMLTextureHelper
 {
@@ -1642,7 +1679,9 @@ class OSG_FILEIO_DLLMAPPING VRMLPixelTextureHelper : public VRMLTextureHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Group Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLInlineHelper : public VRMLNodeHelper
 {
@@ -1730,7 +1769,9 @@ class OSG_FILEIO_DLLMAPPING VRMLInlineHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Shape Helper
-*/
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLSwitchHelper : public VRMLNodeHelper
 {

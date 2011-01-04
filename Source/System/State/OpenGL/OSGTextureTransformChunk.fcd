@@ -1,30 +1,29 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TextureTransformChunk"
-	parent="TransformChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemState
+   name="TextureTransformChunk"
+   parent="TransformChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemTextureTransformChunk for a description.
 
-See \ref PageSystemTextureTransformChunk for a description.
-
-This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived
-from the OSG::TransformChunk and uses its matrix.
-	<Field
-		name="useCameraBeacon"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+  This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived
+  from the OSG::TransformChunk and uses its matrix.
+  <Field
+	 name="useCameraBeacon"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	If enabled it uses the camera beacon matrix (for cube textures)
-	</Field>
+  </Field>
 </FieldContainer>

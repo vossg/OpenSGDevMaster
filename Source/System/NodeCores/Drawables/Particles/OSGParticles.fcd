@@ -1,162 +1,162 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Particles"
-	parent="MaterialDrawable"
-	library="Drawable"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemNodeCoresDrawablesParticles
+   name="Particles"
+   parent="MaterialDrawable"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpDrawablesParticles"
 
-See \ref PageSystemParticles for details.
-	<Field
-		name="mode"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="2"
-		access="public"
-	>
+   >
+  See \ref PageSystemParticles for details.
+  <Field
+	 name="mode"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="2"
+	 access="public"
+	 >
 	The particle mode, see OSG::Particles::modeE for options.
-	</Field>
-	<Field
-		name="positions"
-		type="GeoVectorProperty"
-		cardinality="single"
-		visibility="external"
-		access="public"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-	>
-        The positions of the particles. This is the primary defining
-        information for a particle.
-	</Field>
-	<Field
-		name="sizes"
-		type="Vec3f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-        The particle sizes. If not set (1,1,1) will be used, if only one entry
-        is set, it will be used for all particles. If the number of sizes if
-        equal to the number of positions every particle will get its own size.
-        Most modes only use the X coordinate of the vector. Particles with 
-        size[0] == 0 are ignored.
-	</Field>
-	<Field
-		name="secPositions"
-		type="GeoVectorProperty"
-		cardinality="single"
-		visibility="external"
-		access="public"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-	>
-        The secondary position of the particle. This information is only used
-        by a few rendering modes, e.g. the streak mode. Usually it represents
-        the particle's last position.
-	</Field>
-	<Field
-		name="colors"
-		type="GeoVectorProperty"
-		cardinality="single"
-		visibility="external"
-		access="public"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-	>
+  </Field>
+  <Field
+	 name="positions"
+	 type="GeoVectorProperty"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+	 >
+    The positions of the particles. This is the primary defining
+    information for a particle.
+  </Field>
+  <Field
+	 name="sizes"
+	 type="Vec3f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+    The particle sizes. If not set (1,1,1) will be used, if only one entry
+    is set, it will be used for all particles. If the number of sizes if
+    equal to the number of positions every particle will get its own size.
+    Most modes only use the X coordinate of the vector. Particles with 
+    size[0] == 0 are ignored.
+  </Field>
+  <Field
+	 name="secPositions"
+	 type="GeoVectorProperty"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+	 >
+    The secondary position of the particle. This information is only used
+    by a few rendering modes, e.g. the streak mode. Usually it represents
+    the particle's last position.
+  </Field>
+  <Field
+	 name="colors"
+	 type="GeoVectorProperty"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+	 >
 	The particle colors (optional).
-	</Field>
-	<Field
-		name="normals"
-		type="GeoVectorProperty"
-		cardinality="single"
-		visibility="external"
-		access="public"
-        category="childpointer"
-        childParentType="FieldContainer"
-        linkParentField="Parents"
-	>
-        Most particles will be automatically aligned to the view
-        direction. If normals are set they will be used to define the
-        direction the particles are facing.
-	</Field>
-	<Field
-		name="indices"
-		type="Int32"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-        Indices for the particles. Useful to select subsets of all particles for 
-        rendering.
-	</Field>
-	<Field
-		name="textureZs"
-		type="Real32"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-        The texture z coordinate of the particles. Useful in conjunction with 3D 
-        textures to use different texture images on different particles.
-	</Field>
-	<Field
-		name="drawOrder"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-        Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
-        for variants. Default is unordered.
-	</Field>
-	<Field
-		name="dynamic"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-        Hint to tell the system whether particles are expected to change position or
-        not. Is used to speed up sorting.
-	</Field>
-	<Field
-		name="pump"
-		type="UInt32"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-	>
-	</Field>
-	<Field
-		name="bsp"
-		type="ParticleBSPTree"
-		cardinality="single"
-		visibility="external"
-		typeHeader="OSGParticleBSP.h"
-                fieldHeader="OSGParticleBSP.h"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="numParticles"
-		type="Int32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-                defaultValue="-1"
-	>
-        Optional number of particles to use. If set to -1, all the particles in 
-        pos, or indices if set, will be used.
-	</Field>
+  </Field>
+  <Field
+	 name="normals"
+	 type="GeoVectorProperty"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+	 >
+    Most particles will be automatically aligned to the view
+    direction. If normals are set they will be used to define the
+    direction the particles are facing.
+  </Field>
+  <Field
+	 name="indices"
+	 type="Int32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+    Indices for the particles. Useful to select subsets of all particles for 
+    rendering.
+  </Field>
+  <Field
+	 name="textureZs"
+	 type="Real32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+    The texture z coordinate of the particles. Useful in conjunction with 3D 
+    textures to use different texture images on different particles.
+  </Field>
+  <Field
+	 name="drawOrder"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+    Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
+    for variants. Default is unordered.
+  </Field>
+  <Field
+	 name="dynamic"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+    Hint to tell the system whether particles are expected to change position or
+    not. Is used to speed up sorting.
+  </Field>
+  <Field
+	 name="pump"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
+  </Field>
+  <Field
+	 name="bsp"
+	 type="ParticleBSPTree"
+	 cardinality="single"
+	 visibility="external"
+	 typeHeader="OSGParticleBSP.h"
+     fieldHeader="OSGParticleBSP.h"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="numParticles"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue="-1"
+	 >
+    Optional number of particles to use. If set to -1, all the particles in 
+    pos, or indices if set, will be used.
+  </Field>
 </FieldContainer>

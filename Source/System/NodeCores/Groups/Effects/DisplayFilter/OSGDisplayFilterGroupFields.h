@@ -68,7 +68,7 @@ class DisplayFilterGroup;
 
 OSG_GEN_CONTAINERPTR(DisplayFilterGroup);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<DisplayFilterGroup *, 0>::getMName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterGroup *,
                       RecordedRefCountPolicy  > SFRecDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterGroup *,
                       UnrecordedRefCountPolicy> SFUnrecDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterGroup *,
                       WeakRefCountPolicy      > SFWeakDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterGroup *,
                       NoRefCountPolicy        > SFUncountedDisplayFilterGroupPtr;
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterGroup *,
                       RecordedRefCountPolicy  > MFRecDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterGroup *,
                       UnrecordedRefCountPolicy> MFUnrecDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterGroup *,
                       WeakRefCountPolicy      > MFWeakDisplayFilterGroupPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterGroup *,
                       NoRefCountPolicy        > MFUncountedDisplayFilterGroupPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<DisplayFilterGroup *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFRecDisplayFilterGroupPtr : 
     public PointerSField<DisplayFilterGroup *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUnrecDisplayFilterGroupPtr : 
     public PointerSField<DisplayFilterGroup *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFWeakDisplayFilterGroupPtr :
     public PointerSField<DisplayFilterGroup *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUncountedDisplayFilterGroupPtr :
     public PointerSField<DisplayFilterGroup *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFRecDisplayFilterGroupPtr :
     public PointerMField<DisplayFilterGroup *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUnrecDisplayFilterGroupPtr :
     public PointerMField<DisplayFilterGroup *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFWeakDisplayFilterGroupPtr :
     public PointerMField<DisplayFilterGroup *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUncountedDisplayFilterGroupPtr :
     public PointerMField<DisplayFilterGroup *,
                          NoRefCountPolicy        > {};

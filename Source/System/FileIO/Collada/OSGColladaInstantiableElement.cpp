@@ -42,7 +42,7 @@
 
 #include "OSGColladaInstantiableElement.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 OSG_BEGIN_NAMESPACE
 

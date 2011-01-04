@@ -61,9 +61,6 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGGeoProperty.fcd) and
 // regenerate the base file.
 
-/*! \fn GeoProperty::
- */
-
 /*! \fn UInt32  GeoProperty::getFormat    (void)
     Returns the OpenGL type constant identifying the data type of the
     properties values.

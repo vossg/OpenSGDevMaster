@@ -225,20 +225,18 @@ GeoPropertyTransitPtr GeoMultiProperty::clone(void)
     return GeoPropertyTransitPtr(obj);
 }
 
-/*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name                 Chunk Class Access                           */
-/*! \{                                                                 */
+/*                       Chunk Class Access                            */
+/*                                                                     */
 
 const StateChunkClass *GeoMultiProperty::getClass(void) const
 {
     return &GeoProperty::_class;
 }
 
-/*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name                    State Commands                            */
-/*! \{                                                                 */
+/*                           State Commands                            */
+/*                                                                     */
 
 void GeoMultiProperty::activate(DrawEnv *pEnv, 
                                 UInt32   slot )
@@ -376,10 +374,9 @@ bool GeoMultiProperty::isTransparent (void) const
     return false;
 }
 
-/*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name                   Comparison                                 */
-/*! \{                                                                 */
+/*!                         Comparison                                 */
+/*!                                                                    */
 
 Real32 GeoMultiProperty::switchCost(StateChunk *)
 {

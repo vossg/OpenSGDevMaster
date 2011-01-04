@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief LogicOpChunk class. See \ref
            PageStateLogicOpChunk for a description.
-*/
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING LogicOpChunk : public LogicOpChunkBase
 {

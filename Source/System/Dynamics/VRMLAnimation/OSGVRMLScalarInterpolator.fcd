@@ -13,6 +13,7 @@
    isNodeCore="true"
    isBundle="false"
    parentFields="none"
+   docGroupBase="GrpDynamicsVRMLAnimation"
    >
   <Field
 	 name="keyValue"

@@ -60,7 +60,11 @@ OSG_BEGIN_NAMESPACE
 /**
  * Defines a vector glyph.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextGlyphs
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
 {
 
@@ -73,7 +77,10 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
     /**
      * Defines a point of an outline.
      * @author Patrick D&auml;hne
+     *
+     * \nohierarchy
      */
+
     struct OSG_TEXT_DLLMAPPING Point
     {
         /** Defines different types of outline points */
@@ -104,7 +111,11 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
     /** Defines an outline */
     typedef std::vector<Contour> Outline;
 
-    /** Defines an outline consisting of 2-d polygon lines */
+    /** Defines an outline consisting of 2-d polygon lines 
+     *
+     * \nohierarchy
+     */
+
     struct OSG_TEXT_DLLMAPPING PolygonOutline
     {
         /** All vertices of the outline */
@@ -130,7 +141,10 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
     /**
      * Defines a normal for a vertex in a contour. The normal is approximated
      *  by taking the mean of its adjacent edge normals.
+     *
+     * \nohierarchy
      */
+
     struct OSG_TEXT_DLLMAPPING VertexNormal
     {
         /** The edge normal of the outgoing edge */
@@ -143,7 +157,9 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
         Real32 edgeAngle;
 
         /** Constructor */
-        inline VertexNormal(const Vec2f &nextEdgeNormal_, const Vec2f &meanEdgeNormal_, Real32 edgeAngle_);
+        inline VertexNormal(const Vec2f &nextEdgeNormal_, 
+                            const Vec2f &meanEdgeNormal_, 
+                                  Real32 edgeAngle_     );
     };
 
     /** Defines a vector containing the edge normals along a polygon contour. */

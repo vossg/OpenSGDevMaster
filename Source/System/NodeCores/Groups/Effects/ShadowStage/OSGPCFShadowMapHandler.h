@@ -54,6 +54,9 @@ OSG_BEGIN_NAMESPACE
 class ShadowStage;
 class TreeRenderer;
 
+/*! \ingroup GrpEffectsGroupsShadowTreeHandler
+ */
+
 class OSG_EFFECTGROUPS_DLLMAPPING PCFShadowMapHandler : public ShadowTreeHandler
 {
 

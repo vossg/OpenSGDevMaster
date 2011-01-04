@@ -68,7 +68,7 @@ class PassiveWindow;
 
 OSG_GEN_CONTAINERPTR(PassiveWindow);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowPassiveFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<PassiveWindow *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveWindow *,
                       RecordedRefCountPolicy  > SFRecPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveWindow *,
                       UnrecordedRefCountPolicy> SFUnrecPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveWindow *,
                       WeakRefCountPolicy      > SFWeakPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveWindow *,
                       NoRefCountPolicy        > SFUncountedPassiveWindowPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowPassiveFieldMFields */
 typedef PointerMField<PassiveWindow *,
                       RecordedRefCountPolicy  > MFRecPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowPassiveFieldMFields */
 typedef PointerMField<PassiveWindow *,
                       UnrecordedRefCountPolicy> MFUnrecPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowPassiveFieldMFields */
 typedef PointerMField<PassiveWindow *,
                       WeakRefCountPolicy      > MFWeakPassiveWindowPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowPassiveFieldMFields */
 typedef PointerMField<PassiveWindow *,
                       NoRefCountPolicy        > MFUncountedPassiveWindowPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<PassiveWindow *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecPassiveWindowPtr : 
     public PointerSField<PassiveWindow *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecPassiveWindowPtr : 
     public PointerSField<PassiveWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakPassiveWindowPtr :
     public PointerSField<PassiveWindow *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedPassiveWindowPtr :
     public PointerSField<PassiveWindow *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecPassiveWindowPtr :
     public PointerMField<PassiveWindow *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecPassiveWindowPtr :
     public PointerMField<PassiveWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakPassiveWindowPtr :
     public PointerMField<PassiveWindow *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowPassiveFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedPassiveWindowPtr :
     public PointerMField<PassiveWindow *,
                          NoRefCountPolicy        > {};

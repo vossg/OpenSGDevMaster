@@ -48,7 +48,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief A helper class to simplify building geometry.
-*/
+    \ingroup GrpDrawablesGeometryUtils
+    \nohierarchy
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoBuilder
 {

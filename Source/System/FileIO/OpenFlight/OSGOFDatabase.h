@@ -54,6 +54,10 @@ class OFVertexPaletteRecord;
 class OFTexturePaletteRecord;
 class OFMaterialPaletteRecord;
 
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
 class OSG_FILEIO_DLLMAPPING OFDatabase
 {
   protected:

@@ -68,7 +68,7 @@ class Particles;
 
 OSG_GEN_CONTAINERPTR(Particles);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesParticlesFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Particles *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
                       RecordedRefCountPolicy  > SFRecParticlesPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
                       UnrecordedRefCountPolicy> SFUnrecParticlesPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
                       WeakRefCountPolicy      > SFWeakParticlesPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
                       NoRefCountPolicy        > SFUncountedParticlesPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
                       RecordedRefCountPolicy  > MFRecParticlesPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
                       UnrecordedRefCountPolicy> MFUnrecParticlesPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
                       WeakRefCountPolicy      > MFWeakParticlesPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
                       NoRefCountPolicy        > MFUncountedParticlesPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Particles *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecParticlesPtr : 
     public PointerSField<Particles *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecParticlesPtr : 
     public PointerSField<Particles *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakParticlesPtr :
     public PointerSField<Particles *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedParticlesPtr :
     public PointerSField<Particles *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecParticlesPtr :
     public PointerMField<Particles *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecParticlesPtr :
     public PointerMField<Particles *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakParticlesPtr :
     public PointerMField<Particles *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesParticlesFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedParticlesPtr :
     public PointerMField<Particles *,
                          NoRefCountPolicy        > {};

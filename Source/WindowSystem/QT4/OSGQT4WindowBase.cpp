@@ -78,8 +78,8 @@ OSG_BEGIN_NAMESPACE
     The class for QT windows.
 
     Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid
-    beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't
-    be recreated automatically.
+    beast that derives from XWindow on Unix and WIN32Window on Windows, and as
+    such can't be recreated automatically.
  */
 
 /***************************************************************************\
@@ -146,36 +146,36 @@ QT4WindowBase::TypeObject QT4WindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"QT4Window\"\n"
-    "\tparent=\"NativeWindow\"\n"
-    "\tlibrary=\"WindowQT4\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "The class for QT windows.\n"
+    "   name=\"QT4Window\"\n"
+    "   parent=\"NativeWindow\"\n"
+    "   library=\"WindowQT4\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowQt4\"\n"
+    "   >\n"
+    "  The class for QT windows.\n"
     "\n"
-    "Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
-    "beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't\n"
-    "be recreated automatically.\n"
-    "\n"
-    "\t<Field\n"
-    "\t\tname=\"GlWidget\"\n"
-    "\t\ttype=\"OSGQGLWidgetP\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\tfieldHeader=\"OSGQT4WindowDataFields.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "  Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
+    "  beast that derives from XWindow on Unix and WIN32Window on Windows, and as\n"
+    "  such can't be recreated automatically.\n"
+    "  <Field\n"
+    "\t name=\"GlWidget\"\n"
+    "\t type=\"OSGQGLWidgetP\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t defaultValue=\"NULL\"\n"
+    "\t fieldHeader=\"OSGQT4WindowDataFields.h\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "The class for QT windows.\n"
     "\n"
     "Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
-    "beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't\n"
-    "be recreated automatically.\n"
+    "beast that derives from XWindow on Unix and WIN32Window on Windows, and as\n"
+    "such can't be recreated automatically.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

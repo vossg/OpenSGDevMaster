@@ -68,7 +68,7 @@ class SimpleStage;
 
 OSG_GEN_CONTAINERPTR(SimpleStage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

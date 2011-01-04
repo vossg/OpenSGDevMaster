@@ -51,7 +51,10 @@ class DrawEnv;
 
 /*! \brief DistortionDisplayFilter class. See \ref
            PageEffectGroupsDistortionDisplayFilter for a description.
-*/
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DistortionDisplayFilter : 
     public DistortionDisplayFilterBase

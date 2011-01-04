@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief PassiveWindow class. See \ref 
            PageSystemPassiveWindow for a description.
-*/
+    \ingroup GrpWindowPassiveObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
 {

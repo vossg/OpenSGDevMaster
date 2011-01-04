@@ -42,15 +42,18 @@
 #pragma once
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGCoreGLWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \brief CoreGLWindow class. See \ref
-           PageWindowCoreGLCoreGLWindow for a description.
-*/
+           PageWindowCoreGL for a description.
+    \ingroup GrpWindowCoreGLObj
+    \ingroup GrpLibOSGWindowCoreGL
+    \includebasedoc
+ */
 
 class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
 {

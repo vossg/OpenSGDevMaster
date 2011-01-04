@@ -40,7 +40,7 @@
 #include "OSGBaseTypes.h"
 
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(OSG_DO_DOC)
 
 
 #ifdef _MSC_VER
@@ -69,6 +69,10 @@ OSG_BEGIN_NAMESPACE
 // WIN32 specific implementation of the TextVectorFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32VectorFace: public TextVectorFace
 {
 public:
@@ -105,6 +109,10 @@ private:
 // WIN32 specific implementation of the TextVectorGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32VectorGlyph: public TextVectorGlyph
 {
 public:
@@ -123,6 +131,10 @@ public:
 // WIN32 specific implementation of the TextPixmapFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32PixmapFace: public TextPixmapFace
 {
 public:
@@ -159,6 +171,10 @@ private:
 // WIN32 specific implementation of the TextPixmapGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32PixmapGlyph: public TextPixmapGlyph
 {
 public:
@@ -176,6 +192,10 @@ public:
 // WIN32 specific implementation of the TextTXFFace class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32TXFFace: public TextTXFFace
 {
 public:
@@ -193,6 +213,10 @@ public:
 // WIN32 specific implementation of the TextTXFGlyph class
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class TextWIN32TXFGlyph: public TextTXFGlyph
 {
 public:
@@ -237,6 +261,10 @@ TextWIN32Backend::~TextWIN32Backend()
 // Helper struct used by enumFamCallBack
 // Author: pdaehne
 //----------------------------------------------------------------------
+
+/*! \nohierarchy 
+ */
+
 class EnumData
 {
 public:

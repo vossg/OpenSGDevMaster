@@ -68,7 +68,7 @@ class VertexProgramChunk;
 
 OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateARBProgramFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<VertexProgramChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFRecVertexProgramChunkPtr : 
     public PointerSField<VertexProgramChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecVertexProgramChunkPtr : 
     public PointerSField<VertexProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakVertexProgramChunkPtr :
     public PointerSField<VertexProgramChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedVertexProgramChunkPtr :
     public PointerSField<VertexProgramChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFRecVertexProgramChunkPtr :
     public PointerMField<VertexProgramChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecVertexProgramChunkPtr :
     public PointerMField<VertexProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakVertexProgramChunkPtr :
     public PointerMField<VertexProgramChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedVertexProgramChunkPtr :
     public PointerMField<VertexProgramChunk *,
                          NoRefCountPolicy        > {};

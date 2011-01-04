@@ -12,3 +12,80 @@ using namespace OSG;
 
     See \ref PageDynamics for details.
  */
+
+//*******************************************************************
+// Dynamics Base
+//*******************************************************************
+
+/*! \defgroup GrpDynamicsBase Base
+    \ingroup GrpDynamics
+ */
+
+/*! \defgroup GrpDynamicsBaseObj Objects
+    \ingroup GrpDynamicsBase
+ */
+
+/*! \defgroup GrpDynamicsBaseFieldTraits Field Traits
+    \ingroup GrpDynamicsBase
+*/
+/*! \defgroup GrpDynamicsBaseFieldHandle Field Handle
+    \ingroup GrpDynamicsBase
+*/
+/*! \defgroup GrpDynamicsBaseFieldSFields Single-Field
+    \ingroup GrpDynamicsBase
+*/
+/*! \defgroup GrpDynamicsBaseFieldMFields Multi-Fields
+    \ingroup GrpDynamicsBase
+*/
+
+
+//*******************************************************************
+// Dynamics Animation
+//*******************************************************************
+
+/*! \defgroup GrpDynamicsAnimation Animation
+    \ingroup GrpDynamics
+ */
+
+/*! \defgroup GrpDynamicsAnimationObj Objects
+    \ingroup GrpDynamicsAnimation
+ */
+
+/*! \defgroup GrpDynamicsAnimationFieldTraits Field Traits
+    \ingroup GrpDynamicsAnimation
+*/
+/*! \defgroup GrpDynamicsAnimationFieldHandle Field Handle
+    \ingroup GrpDynamicsAnimation
+*/
+/*! \defgroup GrpDynamicsAnimationFieldSFields Single-Field
+    \ingroup GrpDynamicsAnimation
+*/
+/*! \defgroup GrpDynamicsAnimationFieldMFields Multi-Fields
+    \ingroup GrpDynamicsAnimation
+*/
+
+
+//*******************************************************************
+// Dynamics VRML Animation
+//*******************************************************************
+
+/*! \defgroup GrpDynamicsVRMLAnimation VRMLAnimation
+    \ingroup GrpDynamics
+ */
+
+/*! \defgroup GrpDynamicsVRMLAnimationObj Interpolators
+    \ingroup GrpDynamicsVRMLAnimation
+ */
+
+/*! \defgroup GrpDynamicsVRMLAnimationFieldTraits Field Traits
+    \ingroup GrpDynamicsVRMLAnimation
+*/
+/*! \defgroup GrpDynamicsVRMLAnimationFieldHandle Field Handle
+    \ingroup GrpDynamicsVRMLAnimation
+*/
+/*! \defgroup GrpDynamicsVRMLAnimationFieldSFields Single-Field
+    \ingroup GrpDynamicsVRMLAnimation
+*/
+/*! \defgroup GrpDynamicsVRMLAnimationFieldMFields Multi-Fields
+    \ingroup GrpDynamicsVRMLAnimation
+*/

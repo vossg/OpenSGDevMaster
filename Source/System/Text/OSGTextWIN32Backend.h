@@ -48,7 +48,7 @@
 #endif
 
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextBackend.h"
@@ -67,7 +67,11 @@ class EnumData;
  * they use the interface of the TextFaceFactory object to
  * create new fonts.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextBackends
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
 {
   /** Needs access to hDC_ */
@@ -107,7 +111,9 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
      * @return The pixmap face object or 0 in case of an error.
      */
     virtual TextPixmapFaceTransitPtr
-    createPixmapFace(const std::string &family, TextFace::Style style, UInt32 size);
+    createPixmapFace(const std::string     &family, 
+                           TextFace::Style  style, 
+                           UInt32           size  );
 
     /**
      * Creates a new TXF face.
@@ -118,7 +124,9 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
      * @return The TXF face object or 0 in case of an error.
      */
     virtual TextTXFFaceTransitPtr
-    createTXFFace(const std::string &family, TextFace::Style style, const TextTXFParam &param);
+    createTXFFace(const std::string     &family, 
+                        TextFace::Style  style, 
+                  const TextTXFParam    &param);
 
     /**
      * Returns the names of all font families available.
@@ -140,8 +148,11 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
     void enumerateFonts(const std::string &family, EnumData &enumData);
 
     /** Creates horizontal and vertical fonts */
-    void createFonts(const std::string &family, UInt32 size, TextFace::Style style,
-                     HFONT &hHoriFont, HFONT &hVertFont);
+    void createFonts(const std::string     &family, 
+                           UInt32           size, 
+                           TextFace::Style  style,
+                           HFONT           &hHoriFont, 
+                           HFONT           &hVertFont);
 
     /** Device context */
     HDC _hDC;

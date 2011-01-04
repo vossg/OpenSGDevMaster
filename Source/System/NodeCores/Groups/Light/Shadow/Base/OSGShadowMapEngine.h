@@ -55,8 +55,10 @@ OSG_BEGIN_NAMESPACE
 class RenderAction;
 
 /*! \brief ShadowMapEngine is the basic NodeCore for inner nodes in the tree.
-    \ingroup GrpSystemNodeCoresMisc
-*/
+    \ingroup GrpGroupLightShadowBaseObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 {

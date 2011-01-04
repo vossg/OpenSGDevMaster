@@ -42,7 +42,7 @@
 
 #include "OSGColladaElementFactory.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGBaseInitFunctions.h"
 #include "OSGColladaLog.h"
@@ -52,7 +52,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(OSG::ColladaElementFactorySingleton, addPostFactoryExitFunction)
+#if !defined(OSG_DO_DOC)
+OSG_SINGLETON_INST(OSG::ColladaElementFactorySingleton, 
+                   addPostFactoryExitFunction)
+#endif
 
 template class SingletonHolder<OSG::ColladaElementFactorySingleton>;
 

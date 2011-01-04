@@ -54,9 +54,15 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
 {
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -65,7 +71,9 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     typedef MakeTransparentGraphOp Self;
     
     OSG_GEN_INTERNAL_MEMOBJPTR(MakeTransparentGraphOp);
-    
+
+    /*! \nohierarchy
+     */
     class MaterialObject
     {
       public:
@@ -137,7 +145,9 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -147,7 +157,9 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 

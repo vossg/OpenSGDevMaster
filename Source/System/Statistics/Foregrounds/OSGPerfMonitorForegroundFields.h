@@ -68,7 +68,7 @@ class PerfMonitorForeground;
 
 OSG_GEN_CONTAINERPTR(PerfMonitorForeground);
 
-/*! \ingroup GrpUtilFieldTraits
+/*! \ingroup GrpUtilStatisticsFieldTraits
     \ingroup GrpLibOSGUtil
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<NoRefCountPolicy>
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       RecordedRefCountPolicy  > SFRecPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       UnrecordedRefCountPolicy> SFUnrecPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       WeakRefCountPolicy      > SFWeakPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       NoRefCountPolicy        > SFUncountedPerfMonitorForegroundPtr;
 
 
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       RecordedRefCountPolicy  > MFRecPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       UnrecordedRefCountPolicy> MFUnrecPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       WeakRefCountPolicy      > MFWeakPerfMonitorForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       NoRefCountPolicy        > MFUncountedPerfMonitorForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<PerfMonitorForeground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFRecPerfMonitorForegroundPtr : 
     public PointerSField<PerfMonitorForeground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFUnrecPerfMonitorForegroundPtr : 
     public PointerSField<PerfMonitorForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFWeakPerfMonitorForegroundPtr :
     public PointerSField<PerfMonitorForeground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFUncountedPerfMonitorForegroundPtr :
     public PointerSField<PerfMonitorForeground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFRecPerfMonitorForegroundPtr :
     public PointerMField<PerfMonitorForeground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFUnrecPerfMonitorForegroundPtr :
     public PointerMField<PerfMonitorForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFWeakPerfMonitorForegroundPtr :
     public PointerMField<PerfMonitorForeground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFUncountedPerfMonitorForegroundPtr :
     public PointerMField<PerfMonitorForeground *,
                          NoRefCountPolicy        > {};

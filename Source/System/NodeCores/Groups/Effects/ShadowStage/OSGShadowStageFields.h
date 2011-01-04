@@ -68,7 +68,7 @@ class ShadowStage;
 
 OSG_GEN_CONTAINERPTR(ShadowStage);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ShadowStage *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<ShadowStage *,
                       RecordedRefCountPolicy  > SFRecShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<ShadowStage *,
                       UnrecordedRefCountPolicy> SFUnrecShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<ShadowStage *,
                       WeakRefCountPolicy      > SFWeakShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<ShadowStage *,
                       NoRefCountPolicy        > SFUncountedShadowStagePtr;
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<ShadowStage *,
                       RecordedRefCountPolicy  > MFRecShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<ShadowStage *,
                       UnrecordedRefCountPolicy> MFUnrecShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<ShadowStage *,
                       WeakRefCountPolicy      > MFWeakShadowStagePtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<ShadowStage *,
                       NoRefCountPolicy        > MFUncountedShadowStagePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ShadowStage *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFRecShadowStagePtr : 
     public PointerSField<ShadowStage *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUnrecShadowStagePtr : 
     public PointerSField<ShadowStage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFWeakShadowStagePtr :
     public PointerSField<ShadowStage *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUncountedShadowStagePtr :
     public PointerSField<ShadowStage *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFRecShadowStagePtr :
     public PointerMField<ShadowStage *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUnrecShadowStagePtr :
     public PointerMField<ShadowStage *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFWeakShadowStagePtr :
     public PointerMField<ShadowStage *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUncountedShadowStagePtr :
     public PointerMField<ShadowStage *,
                          NoRefCountPolicy        > {};

@@ -44,7 +44,7 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGFileIODef.h"
 #include "OSGSingletonHolder.h"
@@ -56,6 +56,10 @@
 #include <boost/function.hpp>
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
 {
@@ -153,6 +157,8 @@ class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
     ProfileHandlerMap _profileHandlerMap;
 };
 
+/*! \ingroup GrpFileIOCollada
+ */
 
 typedef SingletonHolder<ColladaElementFactorySingleton> ColladaElementFactory;
 

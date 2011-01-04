@@ -55,8 +55,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Geometry Iterator for primitives. See \ref 
-    PageSystemGeometryIterators for a description.
-*/
+           PageSystemGeometryIterators for a description.
+
+    \ingroup GrpDrawablesGeometryIterators
+    \ingroup GrpLibOSGDrawables
+ */
 
 class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
 {

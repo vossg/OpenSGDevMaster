@@ -50,8 +50,11 @@ OSG_BEGIN_NAMESPACE
 class Viewport;
 
 /*! \brief Background clearing class using a sky sphere and box. See \ref 
-    PageSystemWindowBackgroundSky for a description.
-*/
+           PageSystemWindowBackgroundSky for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
 {

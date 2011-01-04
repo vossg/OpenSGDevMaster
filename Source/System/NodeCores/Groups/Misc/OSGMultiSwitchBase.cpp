@@ -75,9 +75,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::MultiSwitch
-    MultiSwitch allows the selective inclusion of zero or more of its children from
-    traversal. It supports three different modes (selected by _sfSwitchMode), to
-    include either ALL, NONE or CHOICES of its children.
+    MultiSwitch allows the selective inclusion of zero or more of its children
+    from traversal. It supports three different modes (selected by
+    _sfSwitchMode), to include either ALL, NONE or CHOICES of its children.
  */
 
 /***************************************************************************\
@@ -162,42 +162,43 @@ MultiSwitchBase::TypeObject MultiSwitchBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"MultiSwitch\"\n"
-    "\tparent=\"Group\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "MultiSwitch allows the selective inclusion of zero or more of its children from\n"
-    "traversal. It supports three different modes (selected by _sfSwitchMode), to\n"
-    "include either ALL, NONE or CHOICES of its children.\n"
-    "\t<Field\n"
-    "\t\tname=\"choices\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"MultiSwitch\"\n"
+    "   parent=\"Group\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpGroupMisc\"\n"
+    "   >\n"
+    "  MultiSwitch allows the selective inclusion of zero or more of its children\n"
+    "  from traversal. It supports three different modes (selected by\n"
+    "  _sfSwitchMode), to include either ALL, NONE or CHOICES of its children.\n"
+    "  <Field\n"
+    "\t name=\"choices\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "    Indices of children to be included in CHOICES mode. The indices are kept\n"
     "    sorted and any duplicates are removed.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"switchMode\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"-1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"switchMode\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"-1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "    Mode of operation.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "MultiSwitch allows the selective inclusion of zero or more of its children from\n"
-    "traversal. It supports three different modes (selected by _sfSwitchMode), to\n"
-    "include either ALL, NONE or CHOICES of its children.\n"
+    "MultiSwitch allows the selective inclusion of zero or more of its children\n"
+    "from traversal. It supports three different modes (selected by\n"
+    "_sfSwitchMode), to include either ALL, NONE or CHOICES of its children.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

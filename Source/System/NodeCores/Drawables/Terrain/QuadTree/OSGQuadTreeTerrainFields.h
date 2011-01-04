@@ -68,7 +68,7 @@ class QuadTreeTerrain;
 
 OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesTerrainFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       RecordedRefCountPolicy  > SFRecQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       UnrecordedRefCountPolicy> SFUnrecQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       WeakRefCountPolicy      > SFWeakQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       NoRefCountPolicy        > SFUncountedQuadTreeTerrainPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       RecordedRefCountPolicy  > MFRecQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       UnrecordedRefCountPolicy> MFUnrecQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       WeakRefCountPolicy      > MFWeakQuadTreeTerrainPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       NoRefCountPolicy        > MFUncountedQuadTreeTerrainPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<QuadTreeTerrain *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecQuadTreeTerrainPtr : 
     public PointerSField<QuadTreeTerrain *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecQuadTreeTerrainPtr : 
     public PointerSField<QuadTreeTerrain *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakQuadTreeTerrainPtr :
     public PointerSField<QuadTreeTerrain *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedQuadTreeTerrainPtr :
     public PointerSField<QuadTreeTerrain *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecQuadTreeTerrainPtr :
     public PointerMField<QuadTreeTerrain *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecQuadTreeTerrainPtr :
     public PointerMField<QuadTreeTerrain *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakQuadTreeTerrainPtr :
     public PointerMField<QuadTreeTerrain *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesTerrainFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedQuadTreeTerrainPtr :
     public PointerMField<QuadTreeTerrain *,
                          NoRefCountPolicy        > {};

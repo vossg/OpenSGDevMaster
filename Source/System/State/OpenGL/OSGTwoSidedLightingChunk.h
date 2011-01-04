@@ -55,6 +55,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for automatic cubetexture coordinate transformations. 
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
  */
 
 class OSG_STATE_DLLMAPPING TwoSidedLightingChunk : 

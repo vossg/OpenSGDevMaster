@@ -50,6 +50,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpClusterWindowObj
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
+
 class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
 {
   private:
@@ -95,6 +100,9 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
 
   protected:
 
+    /*! \nohierarchy
+     */
+
     struct DrawableInfo
     {
         Node    *node;
@@ -107,6 +115,9 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
 
         const DrawableInfo &operator =(const DrawableInfo &source);
 
+        /*! \nohierarchy
+         */
+
         struct MaxXOrder : public std::binary_function<const DrawableInfo &,
                                                        const DrawableInfo &, 
                                                              bool          >
@@ -114,12 +125,18 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
             bool operator() (const DrawableInfo &a, const DrawableInfo &b);
         };
 
+        /*! \nohierarchy
+         */
+
         struct MaxYOrder : public std::binary_function<const DrawableInfo &,
                                                        const DrawableInfo &, 
                                                              bool         >
         {
             bool operator() (const DrawableInfo &a, const DrawableInfo &b);
         };
+
+        /*! \nohierarchy
+         */
 
         struct MaxZOrder : public std::binary_function<const DrawableInfo &,
                                                        const DrawableInfo &, 

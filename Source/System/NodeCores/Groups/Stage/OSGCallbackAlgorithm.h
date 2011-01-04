@@ -48,6 +48,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief CallbackAlgorithm class. See \ref
            PageGroupCallbackAlgorithm for a description.
+    \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
 */
 
 class OSG_GROUP_DLLMAPPING CallbackAlgorithm : public CallbackAlgorithmBase

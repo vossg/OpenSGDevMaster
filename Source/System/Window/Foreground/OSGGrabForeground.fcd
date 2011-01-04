@@ -1,37 +1,36 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="GrabForeground"
-	parent="Foreground"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemWindowForegrounds
-
-The GrabForeground is used for grabbing a rendered viewport into an Image.
-See \ref PageSystemWindowForegroundGrab for a description.
-	<Field
-		name="image"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+   name="GrabForeground"
+   parent="Foreground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpWindowForeground"
+   >
+  The GrabForeground is used for grabbing a rendered viewport into an Image.
+  See \ref PageSystemWindowForegroundGrab for a description.
+  <Field
+	 name="image"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image to write to.
-	</Field>
-	<Field
-		name="autoResize"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="autoResize"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	Automatically resize the image when the viewport size changes.
-	</Field>
+  </Field>
 </FieldContainer>

@@ -52,8 +52,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Geometry Iterator for faces (tris and quads). See \ref 
-    PageSystemGeometryIterators for a description.
-*/
+           PageSystemGeometryIterators for a description.
+
+    \ingroup GrpDrawablesGeometryIterators
+    \ingroup GrpLibOSGDrawables
+ */
 
 class OSG_DRAWABLE_DLLMAPPING EdgeIterator : public PrimitiveIterator
 {

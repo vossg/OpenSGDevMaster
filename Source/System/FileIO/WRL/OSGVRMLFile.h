@@ -59,11 +59,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpFileIOWRL
+ */
+
 typedef VRMLNodePrototypeHandler<
     ScanParseFieldTypeMapper<ScanParseSkel> > Parent;
 
-//! VRML97 Loader (Geometry only)
-//! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
+/*! \brief VRML97 Loader (Geometry only)
+    \ingroup GrpFileIOWRL
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 {

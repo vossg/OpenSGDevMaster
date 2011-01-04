@@ -59,7 +59,11 @@ OSG_BEGIN_NAMESPACE
  * Defines a set of parameters used when creating new
  * TXF faces.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFaces
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextTXFParam
 {
     /*==========================  PUBLIC  =================================*/
@@ -81,13 +85,14 @@ class OSG_TEXT_DLLMAPPING TextTXFParam
 
     /**
      * Sets the characters contained in the texture.
-     * @param The UTF-8 encoded characters contained in the texture.
+     * @param utf8Characters The UTF-8 encoded characters contained in the
+     *                       texture. 
      */
     inline void setCharacters(const std::string &utf8Characters);
 
     /**
      * Sets the characters contained in the texture.
-     * @param The unicode characters contained in the texture.
+     * @param characters The unicode characters contained in the texture.
      */
     inline void setCharacters(const std::wstring &characters);
 

@@ -52,11 +52,14 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief OBJSceneFileType
-*/
+    \ingroup GrpFileIOOBJ
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -100,6 +103,7 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
@@ -124,6 +128,7 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     typedef SceneFileType Inherited;
@@ -165,6 +170,8 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
     struct Face;
     friend struct Face;
 
+    /*! \nohierarchy 
+     */
     struct TiePoint
     {
         Int32 index[3];
@@ -174,12 +181,17 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
             { index[0] = v; index[1] = vt; index[2] = vn; }
     };
 
+    /*! \nohierarchy 
+     */
     struct Face
     {
         std::vector<TiePoint> tieVec;
     };
 
-    struct Mesh {
+    /*! \nohierarchy 
+     */
+    struct Mesh 
+    {
       std::string            name;
       std::list<Face>        faceList;
       SimpleMaterialUnrecPtr mtlPtr;

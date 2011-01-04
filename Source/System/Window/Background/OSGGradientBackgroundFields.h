@@ -68,7 +68,7 @@ class GradientBackground;
 
 OSG_GEN_CONTAINERPTR(GradientBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -121,16 +121,16 @@ const Char8 *FieldTraits<GradientBackground *, 0>::getMName<NoRefCountPolicy>(vo
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
                       RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
                       UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
                       WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
                       NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
 
@@ -140,19 +140,19 @@ typedef PointerMField<GradientBackground *,
 #else // these are the doxygen hacks
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecGradientBackgroundPtr :
     public PointerMField<GradientBackground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecGradientBackgroundPtr :
     public PointerMField<GradientBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakGradientBackgroundPtr :
     public PointerMField<GradientBackground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedGradientBackgroundPtr :
     public PointerMField<GradientBackground *,
                          NoRefCountPolicy        > {};

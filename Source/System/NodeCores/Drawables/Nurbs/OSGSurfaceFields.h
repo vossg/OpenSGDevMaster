@@ -68,7 +68,7 @@ class Surface;
 
 OSG_GEN_CONTAINERPTR(Surface);
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesNurbsFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<Surface *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
                       RecordedRefCountPolicy  > SFRecSurfacePtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
                       UnrecordedRefCountPolicy> SFUnrecSurfacePtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
                       WeakRefCountPolicy      > SFWeakSurfacePtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
                       NoRefCountPolicy        > SFUncountedSurfacePtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
                       RecordedRefCountPolicy  > MFRecSurfacePtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
                       UnrecordedRefCountPolicy> MFUnrecSurfacePtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
                       WeakRefCountPolicy      > MFWeakSurfacePtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
                       NoRefCountPolicy        > MFUncountedSurfacePtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<Surface *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFRecSurfacePtr : 
     public PointerSField<Surface *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUnrecSurfacePtr : 
     public PointerSField<Surface *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFWeakSurfacePtr :
     public PointerSField<Surface *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldSFields \ingroup GrpLibOSGDrawable */
 struct SFUncountedSurfacePtr :
     public PointerSField<Surface *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFRecSurfacePtr :
     public PointerMField<Surface *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUnrecSurfacePtr :
     public PointerMField<Surface *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFWeakSurfacePtr :
     public PointerMField<Surface *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesNurbsFieldMFields \ingroup GrpLibOSGDrawable */
 struct MFUncountedSurfacePtr :
     public PointerMField<Surface *,
                          NoRefCountPolicy        > {};

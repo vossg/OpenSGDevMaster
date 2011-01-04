@@ -50,14 +50,19 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Base class for all navigator engines.
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
     typedef NoneEngine      Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
@@ -114,6 +119,7 @@ class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
@@ -133,6 +139,7 @@ class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
     /*! \}                                                                 */
 
   private:
+
     /* Not implemented */
     NoneEngine(const NoneEngine &other);
     NoneEngine &operator =(const NoneEngine &other);

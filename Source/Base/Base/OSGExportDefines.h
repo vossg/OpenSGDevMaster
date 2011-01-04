@@ -301,40 +301,86 @@ const Char8 *FieldTraits<                                  \
     return "MFUnrefd"#PTRCLASSNAME;                        \
 }
 
-
-#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS, PTRCLASSNAME)       \
-                                                                     \
-typedef                                                              \
-  PointerMField<PTRCLASS,                                            \
-                RecordedRefCountPolicy  > MFRec##PTRCLASSNAME;       \
-                                                                     \
-typedef                                                              \
-  PointerMField<PTRCLASS,                                            \
-                UnrecordedRefCountPolicy> MFUnrec##PTRCLASSNAME;     \
-                                                                     \
-typedef                                                              \
-  PointerMField<PTRCLASS,                                            \
-                WeakRefCountPolicy      > MFWeak##PTRCLASSNAME;      \
-                                                                     \
-typedef                                                              \
-  PointerMField<PTRCLASS,                                            \
-                NoRefCountPolicy        > MFUncounted##PTRCLASSNAME; \
-                                                                     \
-typedef                                                              \
-  PointerSField<PTRCLASS,                                            \
-                RecordedRefCountPolicy  > SFRec##PTRCLASSNAME;       \
-                                                                     \
-typedef                                                              \
-  PointerSField<PTRCLASS,                                            \
-                UnrecordedRefCountPolicy> SFUnrec##PTRCLASSNAME;     \
-                                                                     \
-typedef                                                              \
-  PointerSField<PTRCLASS,                                            \
-                WeakRefCountPolicy      > SFWeak##PTRCLASSNAME;      \
-                                                                     \
-typedef                                                              \
-  PointerSField<PTRCLASS,                                            \
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+ 
+#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS, PTRCLASSNAME, DGRP, DLIB) \
+                                                                           \
+typedef                                                                    \
+  PointerMField<PTRCLASS,                                                  \
+                RecordedRefCountPolicy  > MFRec##PTRCLASSNAME;             \
+                                                                           \
+typedef                                                                    \
+  PointerMField<PTRCLASS,                                                  \
+                UnrecordedRefCountPolicy> MFUnrec##PTRCLASSNAME;           \
+                                                                           \
+typedef                                                                    \
+  PointerMField<PTRCLASS,                                                  \
+                WeakRefCountPolicy      > MFWeak##PTRCLASSNAME;            \
+                                                                           \
+typedef                                                                    \
+  PointerMField<PTRCLASS,                                                  \
+                NoRefCountPolicy        > MFUncounted##PTRCLASSNAME;       \
+                                                                           \
+typedef                                                                    \
+  PointerSField<PTRCLASS,                                                  \
+                RecordedRefCountPolicy  > SFRec##PTRCLASSNAME;             \
+                                                                           \
+typedef                                                                    \
+  PointerSField<PTRCLASS,                                                  \
+                UnrecordedRefCountPolicy> SFUnrec##PTRCLASSNAME;           \
+                                                                           \
+typedef                                                                    \
+  PointerSField<PTRCLASS,                                                  \
+                WeakRefCountPolicy      > SFWeak##PTRCLASSNAME;            \
+                                                                           \
+typedef                                                                    \
+  PointerSField<PTRCLASS,                                                  \
                 NoRefCountPolicy        > SFUncounted##PTRCLASSNAME
+
+#else
+
+#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS, PTRCLASSNAME, DGRP, DLIB) \
+/*! \ingroup DGRP##FieldMFields \ingroup DLIB */                           \
+struct MFRec##PTRCLASSNAME :                                               \
+    public PointerMField<PTRCLASS,                                         \
+                         RecordedRefCountPolicy  > {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldMFields \ingroup DLIB */                           \
+struct MFUnrec##PTRCLASSNAME :                                             \
+    public PointerMField<PTRCLASS,                                         \
+                         UnrecordedRefCountPolicy> {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldMFields \ingroup DLIB */                           \
+struct MFWeak##PTRCLASSNAME :                                              \
+    public PointerMField<PTRCLASS,                                         \
+                         WeakRefCountPolicy      > {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldMFields \ingroup DLIB */                           \
+struct MFUncounted##PTRCLASSNAME :                                         \
+    public PointerMField<PTRCLASS,                                         \
+                         NoRefCountPolicy        > {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldSFields \ingroup DLIB */                           \
+struct SFRec##PTRCLASSNAME :                                               \
+    public PointerSField<PTRCLASS,                                         \
+                         RecordedRefCountPolicy  > {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldSFields \ingroup DLIB */                           \
+struct SFUnrec##PTRCLASSNAME :                                             \
+    public PointerSField<PTRCLASS,                                         \
+                         UnrecordedRefCountPolicy> {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldSFields \ingroup DLIB */                           \
+struct SFWeak##PTRCLASSNAME :                                              \
+    public PointerSField<PTRCLASS,                                         \
+                         WeakRefCountPolicy      > {};                     \
+                                                                           \
+/*! \ingroup DGRP##FieldSFields \ingroup DLIB */                           \
+struct SFUncounted##PTRCLASSNAME :                                         \
+    public PointerSField<PTRCLASS,                                         \
+                         NoRefCountPolicy        > {}
+
+#endif
 
 
 #endif /* _OSGEXPORTDEFINES_H_ */

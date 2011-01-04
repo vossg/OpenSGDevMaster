@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="InverseTransform"
-	parent="Group"
-	library="Group"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
-    isNodeCore="true"
->
+   name="InverseTransform"
+   parent="Group"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
+   >
 </FieldContainer>

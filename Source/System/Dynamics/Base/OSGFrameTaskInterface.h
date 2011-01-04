@@ -50,7 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FrameTask class. See \ref
            PageDynamicsFrameTask for a description.
-*/
+    \ingroup GrpDynamicsBaseObj
+    \ingroup GrpLibOSGDynamics
+ */
 
 class OSG_DYNAMICS_DLLMAPPING FrameTaskInterface
 {

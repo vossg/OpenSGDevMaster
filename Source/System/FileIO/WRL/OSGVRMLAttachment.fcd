@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="VRMLAttachment"
-	parent="Attachment"
-	library="FileIO"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-	<Field
-		name="vrmlNodeTypename"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-        defaultValue=""
-	>
-	</Field>
+   name="VRMLAttachment"
+   parent="Attachment"
+   library="FileIO"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpFileIOWRL"
+   >
+  <Field
+	 name="vrmlNodeTypename"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue=""
+	 >
+  </Field>
 </FieldContainer>

@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for transformation. See \ref PageSystemTransformChunk 
-    for a description.
-*/
+           for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING TransformChunk : public TransformChunkBase
 {

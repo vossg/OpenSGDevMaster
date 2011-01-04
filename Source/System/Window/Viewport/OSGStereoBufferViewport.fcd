@@ -1,40 +1,39 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="StereoBufferViewport"
-	parent="Viewport"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowViewports
+   name="StereoBufferViewport"
+   parent="Viewport"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowViewport"
+   >
+  Viewport for quad-buffered stereo rendering, see \ref
+  PageSystemWindowViewports for a description.
 
-Viewport for quad-buffered stereo rendering, see \ref
-PageSystemWindowViewports for a description.
-
-The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer
-Fields.
-	<Field
-		name="leftBuffer"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-        Defines whether the left buffer is written to.
-	</Field>
-	<Field
-		name="rightBuffer"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-        Defines whether the right buffer is written to.
-	</Field>
+  The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer
+  Fields.
+  <Field
+	 name="leftBuffer"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+    Defines whether the left buffer is written to.
+  </Field>
+  <Field
+	 name="rightBuffer"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
+    Defines whether the right buffer is written to.
+  </Field>
 </FieldContainer>

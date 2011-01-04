@@ -1,81 +1,80 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TileCameraDecorator"
-	parent="CameraDecorator"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemWindowCameraDecorators
+   name="TileCameraDecorator"
+   parent="CameraDecorator"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowCamera"
+   >
+  The OSG::TileCameraDecorator for selecting only a part of a virtual large
+  image, see \ref
+  PageSystemWindowCameraDecoratorsTile for a description.
 
-The OSG::TileCameraDecorator for selecting only a part of a virtual large
-image, see \ref
-PageSystemWindowCameraDecoratorsTile for a description.
-
-The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and
-_sfTop Fields. The size of the full image is defined by the _sfFullWidth and
-_sfFullHeight Fields.
-	<Field
-		name="left"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and
+  _sfTop Fields. The size of the full image is defined by the _sfFullWidth and
+  _sfFullHeight Fields.
+  <Field
+	 name="left"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The left border of the selected tile.
-	</Field>
-	<Field
-		name="right"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="right"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The right border of the selected tile.
-	</Field>
-	<Field
-		name="bottom"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="bottom"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The bottom border of the selected tile.
-	</Field>
-	<Field
-		name="top"
-		type="Real32"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="top"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="internal"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The top border of the selected tile.
-	</Field>
-	<Field
-		name="fullWidth"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="fullWidth"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The width of the full image this is a tile of.
-	</Field>
-	<Field
-		name="fullHeight"
-		type="UInt32"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="fullHeight"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="internal"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The height of the full image this is a tile of.
-	</Field>
+  </Field>
 </FieldContainer>

@@ -53,8 +53,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! VRML97 Loader prototype handler
-//! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
+/*! \brief VRML97 Loader prototype handler
+    \ingroup GrpFileIOWRLObj
+    \ingroup GrpLibOSGFileIO
+ */
 
 template <class BaseT>
 class VRMLNodePrototypeHandler : public BaseT
@@ -123,6 +125,8 @@ class VRMLNodePrototypeHandler : public BaseT
     typedef BaseT Inherited;
 
 #ifndef WIN32
+    /*! \nohierarchy
+     */
     struct string_hash
     {
         size_t operator()(const std::string &s) const

@@ -50,6 +50,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! A specialization of this template is registered for each OpenSG 1 property
+    type in order to convert it to the appropriate OpenSG 2 property type.
+    \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 template <class GeoPropertyTypeT>
 class OSG_FILEIO_DLLMAPPING OSBGeoPropertyConversionElement
     : public OSBCommonElement

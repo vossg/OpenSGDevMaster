@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief TimeSensor class. See \ref
            PageContribCSMTimeSensor for a description.
-*/
+    \ingroup GrpLibOSGDynamics
+    \ingroup GrpDynamicsAnimationObj
+    \includebasedoc
+ */
 
 class OSG_DYNAMICS_DLLMAPPING TimeSensor : public TimeSensorBase
 {

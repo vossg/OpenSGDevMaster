@@ -54,8 +54,11 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 class RenderActionBase;
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
+/*! Stage
+    \ingroup GrpEffectsGroupsHDRObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
 {

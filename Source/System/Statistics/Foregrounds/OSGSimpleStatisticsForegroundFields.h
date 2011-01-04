@@ -68,7 +68,7 @@ class SimpleStatisticsForeground;
 
 OSG_GEN_CONTAINERPTR(SimpleStatisticsForeground);
 
-/*! \ingroup GrpUtilFieldTraits
+/*! \ingroup GrpUtilStatisticsFieldTraits
     \ingroup GrpLibOSGUtil
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<NoRefCountPo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       RecordedRefCountPolicy  > SFRecSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       WeakRefCountPolicy      > SFWeakSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldSFields */
+/*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       NoRefCountPolicy        > SFUncountedSimpleStatisticsForegroundPtr;
 
 
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       RecordedRefCountPolicy  > MFRecSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       WeakRefCountPolicy      > MFWeakSimpleStatisticsForegroundPtr;
-/*! \ingroup GrpUtilFieldMFields */
+/*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       NoRefCountPolicy        > MFUncountedSimpleStatisticsForegroundPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<SimpleStatisticsForeground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFRecSimpleStatisticsForegroundPtr : 
     public PointerSField<SimpleStatisticsForeground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFUnrecSimpleStatisticsForegroundPtr : 
     public PointerSField<SimpleStatisticsForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFWeakSimpleStatisticsForegroundPtr :
     public PointerSField<SimpleStatisticsForeground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldSFields \ingroup GrpLibOSGUtil */
 struct SFUncountedSimpleStatisticsForegroundPtr :
     public PointerSField<SimpleStatisticsForeground *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFRecSimpleStatisticsForegroundPtr :
     public PointerMField<SimpleStatisticsForeground *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFUnrecSimpleStatisticsForegroundPtr :
     public PointerMField<SimpleStatisticsForeground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFWeakSimpleStatisticsForegroundPtr :
     public PointerMField<SimpleStatisticsForeground *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+/*! \ingroup GrpUtilStatisticsFieldMFields \ingroup GrpLibOSGUtil */
 struct MFUncountedSimpleStatisticsForegroundPtr :
     public PointerMField<SimpleStatisticsForeground *,
                          NoRefCountPolicy        > {};

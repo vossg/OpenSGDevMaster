@@ -50,8 +50,11 @@ OSG_BEGIN_NAMESPACE
 class Viewport;
 
 /*! \brief Passive Background  class. See \ref 
-    PageSystemWindowBackgroundPassive for a description.
-*/
+           PageSystemWindowBackgroundPassive for a description.
+    \ingroup GrpWindowPassiveObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING PassiveBackground : 
     public PassiveBackgroundBase

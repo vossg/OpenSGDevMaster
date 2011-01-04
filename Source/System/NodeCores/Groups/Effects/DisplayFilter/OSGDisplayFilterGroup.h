@@ -52,7 +52,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DisplayFilterGroup class. See \ref
            PageEffectGroupsDisplayFilterGroup for a description.
-*/
+
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup : 
     public DisplayFilterGroupBase

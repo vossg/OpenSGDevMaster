@@ -12,3 +12,154 @@ using namespace OSG;
 
     See \ref PageGroups for details.
  */
+
+//*******************************************************************
+// Misc
+//*******************************************************************
+
+/*! \defgroup GrpGroupMisc Misc
+    \ingroup GrpGroup
+ */
+
+/*! \defgroup GrpGroupMiscObj Groups
+    \ingroup GrpGroupMisc
+ */
+
+/*! \defgroup GrpGroupMiscFieldTraits Field Traits
+    \ingroup GrpGroupMisc
+*/
+/*! \defgroup GrpGroupMiscFieldHandle Field Handle
+    \ingroup GrpGroupMisc
+*/
+/*! \defgroup GrpGroupMiscFieldSFields Single-Field
+    \ingroup GrpGroupMisc
+*/
+/*! \defgroup GrpGroupMiscFieldMFields Multi-Fields
+    \ingroup GrpGroupMisc
+*/
+
+
+//*******************************************************************
+// Stage
+//*******************************************************************
+
+/*! \defgroup GrpGroupStage Stage
+    \ingroup GrpGroup
+ */
+
+/*! \defgroup GrpGroupStageObj Stages
+    \ingroup GrpGroupStage
+ */
+
+/*! \defgroup GrpGroupStageFieldTraits Field Traits
+    \ingroup GrpGroupStage
+*/
+/*! \defgroup GrpGroupStageFieldHandle Field Handle
+    \ingroup GrpGroupStage
+*/
+/*! \defgroup GrpGroupStageFieldSFields Single-Field
+    \ingroup GrpGroupStage
+*/
+/*! \defgroup GrpGroupStageFieldMFields Multi-Fields
+    \ingroup GrpGroupStage
+*/
+
+
+//*******************************************************************
+// DynamicStateGenerators
+//*******************************************************************
+
+/*! \defgroup GrpGroupDynamicStateGenerators Dynamic State Generators
+    \ingroup GrpGroup
+ */
+
+/*! \defgroup GrpGroupDynamicStateGeneratorsObj State Generators
+    \ingroup GrpGroupDynamicStateGenerators
+ */
+
+/*! \defgroup GrpGroupDynamicStateGeneratorsFieldTraits Field Traits
+    \ingroup GrpGroupDynamicStateGenerators
+*/
+/*! \defgroup GrpGroupDynamicStateGeneratorsFieldHandle Field Handle
+    \ingroup GrpGroupDynamicStateGenerators
+*/
+/*! \defgroup GrpGroupDynamicStateGeneratorsFieldSFields Single-Field
+    \ingroup GrpGroupDynamicStateGenerators
+*/
+/*! \defgroup GrpGroupDynamicStateGeneratorsFieldMFields Multi-Fields
+    \ingroup GrpGroupDynamicStateGenerators
+*/
+
+
+//*******************************************************************
+// Light
+//*******************************************************************
+
+/*! \defgroup GrpGroupLight Light
+    \ingroup GrpGroup
+ */
+
+/*! \defgroup GrpGroupLightObj Lights
+    \ingroup GrpGroupLight
+ */
+
+/*! \defgroup GrpGroupLightShadowBase Shadow Base
+    \ingroup GrpGroupLight
+ */
+
+/*! \defgroup GrpGroupLightShadowEngines ShadowEngines
+    \ingroup GrpGroupLight
+ */
+
+
+
+/*! \defgroup GrpGroupLightFieldTraits Field Traits
+    \ingroup GrpGroupLight
+*/
+/*! \defgroup GrpGroupLightFieldHandle Field Handle
+    \ingroup GrpGroupLight
+*/
+/*! \defgroup GrpGroupLightFieldSFields Single-Field
+    \ingroup GrpGroupLight
+*/
+/*! \defgroup GrpGroupLightFieldMFields Multi-Fields
+    \ingroup GrpGroupLight
+*/
+
+
+
+/*! \defgroup GrpGroupLightShadowBaseObj Engine Base
+    \ingroup GrpGroupLightShadowBase
+ */
+
+/*! \defgroup GrpGroupLightShadowBaseFieldTraits Field Traits
+    \ingroup GrpGroupLightShadowBase
+*/
+/*! \defgroup GrpGroupLightShadowBaseFieldHandle Field Handle
+    \ingroup GrpGroupLightShadowBase
+*/
+/*! \defgroup GrpGroupLightShadowBaseFieldSFields Single-Field
+    \ingroup GrpGroupLightShadowBase
+*/
+/*! \defgroup GrpGroupLightShadowBaseFieldMFields Multi-Fields
+    \ingroup GrpGroupLightShadowBase
+*/
+
+
+
+/*! \defgroup GrpGroupLightShadowEnginesObj Shadow Engines
+    \ingroup GrpGroupLightShadowEngines
+ */
+
+/*! \defgroup GrpGroupLightShadowEnginesFieldTraits Field Traits
+    \ingroup GrpGroupLightShadowEngines
+*/
+/*! \defgroup GrpGroupLightShadowEnginesFieldHandle Field Handle
+    \ingroup GrpGroupLightShadowEngines
+*/
+/*! \defgroup GrpGroupLightShadowEnginesFieldSFields Single-Field
+    \ingroup GrpGroupLightShadowEngines
+*/
+/*! \defgroup GrpGroupLightShadowEnginesFieldMFields Multi-Fields
+    \ingroup GrpGroupLightShadowEngines
+*/

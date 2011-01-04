@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for user-defined clipping planes. See \ref
-    PageSystemClipPlaneChunk for a description.
-*/
+           PageSystemClipPlaneChunk for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING ClipPlaneChunk : public ClipPlaneChunkBase 
 { 

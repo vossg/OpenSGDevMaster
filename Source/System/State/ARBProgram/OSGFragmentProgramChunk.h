@@ -49,7 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FragmentProgramChunk class. See \ref 
            PageSystemFragmentProgramChunk for a description.
-*/
+    \ingroup GrpStateARBProgramObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING FragmentProgramChunk : 
     public FragmentProgramChunkBase

@@ -48,7 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \brief Trackball class. Deprecated, use the TrackballNavigator instead.
+/*! \brief Trackball class. Deprecated, use the TrackballNavigator instead.
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING Trackball
 {

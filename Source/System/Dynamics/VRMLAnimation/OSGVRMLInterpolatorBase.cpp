@@ -179,6 +179,7 @@ VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
     "   isBundle=\"false\"\n"
     "   parentFields=\"none\"\n"
     "   fieldsUnmarkedOnCreate=\"ResortIndexFieldMask\"\n"
+    "   docGroupBase=\"GrpDynamicsVRMLAnimation\"\n"
     "   >\n"
     "  <Field\n"
     "\t name=\"inValue\"\n"

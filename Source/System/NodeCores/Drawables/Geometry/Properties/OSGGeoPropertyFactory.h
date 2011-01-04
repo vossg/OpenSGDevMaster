@@ -49,6 +49,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Accessible via #GeoPropertyFactory
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+ */
+
 class GeoPropertyFactoryBase
 {
   public:
@@ -71,6 +76,11 @@ class GeoPropertyFactoryBase
     
     static CreatePropFuncP _createFuncMap[3][4][8][2];
 };
+
+/*! \typedef OSG::SingletonHolder<OSG::GeoPropertyFactoryBase> GeoPropertyFactory;
+    \ingroup GrpDrawablesGeometryProperties
+    \relatesalso OSG::GeoPropertyFactoryBase
+ */
 
 typedef SingletonHolder<GeoPropertyFactoryBase> GeoPropertyFactory;
 

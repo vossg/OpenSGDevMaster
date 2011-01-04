@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextureGrabForeground
-    \ingroup GrpSystemWindowForegrounds
-
     The GrabForeground is used for grabbing a rendered viewport into a Texture.
     See \ref PageSystemWindowForegroundGrabTexture for a description.
  */
@@ -95,11 +93,13 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var GLenum          TextureGrabForegroundBase::_sfBindTarget
-    Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
+    Enum to use for glBindTexture, if GL_NONE chosen from texture
+    dimensionality. 
 */
 
 /*! \var GLenum          TextureGrabForegroundBase::_sfCopyTarget
-    Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
+    Enum to use for glCopyTexture, if GL_NONE chosen from texture
+    dimensionality. 
     Mainly useful to grab into the different parts of a CubeTexture.
 */
 
@@ -150,7 +150,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "bindTarget",
-        "Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n",
+        "Enum to use for glBindTexture, if GL_NONE chosen from texture\n"
+        "dimensionality. \n",
         BindTargetFieldId, BindTargetFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -162,7 +163,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "copyTarget",
-        "Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
+        "Enum to use for glCopyTexture, if GL_NONE chosen from texture\n"
+        "dimensionality. \n"
         "Mainly useful to grab into the different parts of a CubeTexture.\n",
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
@@ -188,62 +190,61 @@ TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TextureGrabForeground\"\n"
-    "\tparent=\"Foreground\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tpointerfieldtypes=\"none\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowForegrounds\n"
-    "\n"
-    "The GrabForeground is used for grabbing a rendered viewport into a Texture.\n"
-    "See \\ref PageSystemWindowForegroundGrabTexture for a description.\n"
-    "\t<Field\n"
-    "\t\tname=\"texture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"TextureGrabForeground\"\n"
+    "   parent=\"Foreground\"\n"
+    "   library=\"Window\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpWindowForeground\"\n"
+    "   >\n"
+    "  The GrabForeground is used for grabbing a rendered viewport into a Texture.\n"
+    "  See \\ref PageSystemWindowForegroundGrabTexture for a description.\n"
+    "  <Field\n"
+    "\t name=\"texture\"\n"
+    "\t type=\"TextureObjChunkPtr\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe texture to grab into.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"autoResize\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "        Automatically resize the texture when the viewport size changes.\n"
-    "\t</Field>\n"
-    "       \t<Field\n"
-    "\t\tname=\"bindTarget\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n"
-    "\t</Field>\n"
-    "       \t<Field\n"
-    "\t\tname=\"copyTarget\"\n"
-    "\t\ttype=\"GLenum\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
-    "        Mainly useful to grab into the different parts of a CubeTexture.\n"
-    "\t</Field>\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"autoResize\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"true\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "    Automatically resize the texture when the viewport size changes.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"bindTarget\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_NONE\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "    Enum to use for glBindTexture, if GL_NONE chosen from texture\n"
+    "\tdimensionality. \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"copyTarget\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_NONE\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "    Enum to use for glCopyTexture, if GL_NONE chosen from texture\n"
+    "\tdimensionality. \n"
+    "    Mainly useful to grab into the different parts of a CubeTexture.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowForegrounds\n"
-    "\n"
     "The GrabForeground is used for grabbing a rendered viewport into a Texture.\n"
     "See \\ref PageSystemWindowForegroundGrabTexture for a description.\n"
     );

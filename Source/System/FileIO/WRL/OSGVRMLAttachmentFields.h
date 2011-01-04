@@ -68,7 +68,7 @@ class VRMLAttachment;
 
 OSG_GEN_CONTAINERPTR(VRMLAttachment);
 
-/*! \ingroup GrpFileIOFieldTraits
+/*! \ingroup GrpFileIOWRLFieldTraits
     \ingroup GrpLibOSGFileIO
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpFileIOFieldSFields */
+/*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       RecordedRefCountPolicy  > SFRecVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldSFields */
+/*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldSFields */
+/*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       WeakRefCountPolicy      > SFWeakVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldSFields */
+/*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       NoRefCountPolicy        > SFUncountedVRMLAttachmentPtr;
 
 
-/*! \ingroup GrpFileIOFieldMFields */
+/*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       RecordedRefCountPolicy  > MFRecVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldMFields */
+/*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldMFields */
+/*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       WeakRefCountPolicy      > MFWeakVRMLAttachmentPtr;
-/*! \ingroup GrpFileIOFieldMFields */
+/*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       NoRefCountPolicy        > MFUncountedVRMLAttachmentPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<VRMLAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldSFields \ingroup GrpLibOSGFileIO */
 struct SFRecVRMLAttachmentPtr : 
     public PointerSField<VRMLAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldSFields \ingroup GrpLibOSGFileIO */
 struct SFUnrecVRMLAttachmentPtr : 
     public PointerSField<VRMLAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldSFields \ingroup GrpLibOSGFileIO */
 struct SFWeakVRMLAttachmentPtr :
     public PointerSField<VRMLAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldSFields \ingroup GrpLibOSGFileIO */
 struct SFUncountedVRMLAttachmentPtr :
     public PointerSField<VRMLAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldMFields \ingroup GrpLibOSGFileIO */
 struct MFRecVRMLAttachmentPtr :
     public PointerMField<VRMLAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldMFields \ingroup GrpLibOSGFileIO */
 struct MFUnrecVRMLAttachmentPtr :
     public PointerMField<VRMLAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldMFields \ingroup GrpLibOSGFileIO */
 struct MFWeakVRMLAttachmentPtr :
     public PointerMField<VRMLAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+/*! \ingroup GrpFileIOWRLFieldMFields \ingroup GrpLibOSGFileIO */
 struct MFUncountedVRMLAttachmentPtr :
     public PointerMField<VRMLAttachment *,
                          NoRefCountPolicy        > {};

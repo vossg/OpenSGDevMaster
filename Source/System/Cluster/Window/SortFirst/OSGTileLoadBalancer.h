@@ -52,11 +52,20 @@ OSG_BEGIN_NAMESPACE
 
 class Action;
 
+/*! \ingroup GrpClusterWindowBalancer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
+
 class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    /*! \nohierarchy
+     */
+
     struct Region 
     {
         Int32  x1,y1,x2,y2;
@@ -65,6 +74,7 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
         Real32 faces;
         Real32 pixel;
     };
+
     typedef std::vector<TileGeometryLoad>           TileGeometryLoadLstT;
     typedef std::map<UInt32,
                     TileGeometryLoadLstT::iterator> TileGeometryLoadMapT;
@@ -135,11 +145,15 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
+
+    /*! \nohierarchy
+     */
 
     class RegionLoad 
     {
@@ -158,6 +172,7 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
         Real32   _pixel;
         TileGeometryLoad *_load;
     };
+
     typedef std::vector<RegionLoad>   RegionLoadVecT;
 
     /*! \}                                                                 */
@@ -197,7 +212,9 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
     /*! \}                                                                 */
 
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     friend class RegionLoad;
 };
 

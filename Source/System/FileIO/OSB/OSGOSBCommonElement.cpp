@@ -506,7 +506,7 @@ OSBCommonElement::readPtrSingleField(const UInt32 fieldId)
     stream. It has the given \a fieldId in the container it belongs to.
 
     \param[in] fieldId Id of the field in the container it belongs to.
-
+    \param[in] fieldSize field size
     \return Iterator that points to the PtrFieldInfo structure
     that was created for this field.
  */
@@ -966,7 +966,7 @@ OSBCommonElement::writeFieldContent(const UInt32 fieldId)
     the spaces between the "'" are mandatory.
 
     \param[in] excludeFields String of field names that shall be skipped.
-    \param[in] endMaker Write an end marker to the stream after all fields are
+    \param[in] endMarker Write an end marker to the stream after all fields are
     processed.
  */
 void

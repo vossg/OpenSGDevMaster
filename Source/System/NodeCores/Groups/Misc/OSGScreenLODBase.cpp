@@ -75,8 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ScreenLOD
-    A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with 
-    the RenderTraversal Action.
+    A ScreenLOD node enables smart LOD selection based on screen size.  It must
+    be used in combination with the RenderTraversal Action.
 
     See Ref:ScreenLOD
  */
@@ -86,11 +86,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          ScreenLODBase::_mfCoverageOverride
-    A list of percentages to override the default LOD behavior.  These percentages are used
-    to determine which lod to use based on screen size percentage.  If the percentage covered by
-    the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0
-    less then entry 1, then we use child 1 and so on.
-    Ex: [0.05, 0.01, 0.001]
+    A list of percentages to override the default LOD behavior.  These
+    percentages are used to determine which lod to use based on screen size
+    percentage.  If the percentage covered by the node bounding volume is less
+    then entry 0, we use child 0.  If is is greater then entry 0 less then
+    entry 1, then we use child 1 and so on. Ex: [0.05, 0.01, 0.001]
 */
 
 
@@ -116,11 +116,11 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
         "coverageOverride",
-        "A list of percentages to override the default LOD behavior.  These percentages are used\n"
-        "to determine which lod to use based on screen size percentage.  If the percentage covered by\n"
-        "the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0\n"
-        "less then entry 1, then we use child 1 and so on.\n"
-        "Ex: [0.05, 0.01, 0.001]\n",
+        "A list of percentages to override the default LOD behavior.  These\n"
+        "percentages are used to determine which lod to use based on screen size\n"
+        "percentage.  If the percentage covered by the node bounding volume is less\n"
+        "then entry 0, we use child 0.  If is is greater then entry 0 less then\n"
+        "entry 1, then we use child 1 and so on. Ex: [0.05, 0.01, 0.001]\n",
         CoverageOverrideFieldId, CoverageOverrideFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -145,35 +145,36 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ScreenLOD\"\n"
-    "\tparent=\"Group\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"none\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "        isNodeCore=\"true\"\n"
-    ">\n"
-    "A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with \n"
-    "the RenderTraversal Action.\n"
+    "   name=\"ScreenLOD\"\n"
+    "   parent=\"Group\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpGroupMisc\"\n"
+    "   >\n"
+    "  A ScreenLOD node enables smart LOD selection based on screen size.  It must\n"
+    "  be used in combination with the RenderTraversal Action.\n"
     "\n"
-    "See Ref:ScreenLOD\n"
-    "\t<Field\n"
-    "\t\tname=\"coverageOverride\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tA list of percentages to override the default LOD behavior.  These percentages are used\n"
-    "       to determine which lod to use based on screen size percentage.  If the percentage covered by\n"
-    "       the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0\n"
-    "       less then entry 1, then we use child 1 and so on.\n"
-    "       Ex: [0.05, 0.01, 0.001]\n"
-    "\t</Field>\n"
+    "  See Ref:ScreenLOD\n"
+    "  <Field\n"
+    "\t name=\"coverageOverride\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tA list of percentages to override the default LOD behavior.  These\n"
+    "\tpercentages are used to determine which lod to use based on screen size\n"
+    "\tpercentage.  If the percentage covered by the node bounding volume is less\n"
+    "\tthen entry 0, we use child 0.  If is is greater then entry 0 less then\n"
+    "\tentry 1, then we use child 1 and so on. Ex: [0.05, 0.01, 0.001]\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with \n"
-    "the RenderTraversal Action.\n"
+    "A ScreenLOD node enables smart LOD selection based on screen size.  It must\n"
+    "be used in combination with the RenderTraversal Action.\n"
     "\n"
     "See Ref:ScreenLOD\n"
     );

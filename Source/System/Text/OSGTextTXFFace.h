@@ -113,7 +113,11 @@ class TextLayoutResult;
  * @endcode
  *
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFaces
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
@@ -274,6 +278,8 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
     /**
      * Reads a TXF face from an input stream.
      * @param is The input stream.
+     * @param family The font family
+     * @param style The font style
      * @return The TXF face or 0 in case of an error.
      */
     static ObjTransitPtr createFromStream(
@@ -290,7 +296,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
 
     /**
      * Writes a TXF face to an output stream.
-     * @param is The output stream.
+     * @param os The output stream.
      * @return false in case of an error.
      */
     bool writeToStream(std::ostream &os) const;

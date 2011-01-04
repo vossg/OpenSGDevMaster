@@ -47,9 +47,6 @@
 
 #include "OSGBaseFunctions.h"
 
-// exclude the whole class from user docs
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
 #include "OSGNode.h"
 #include "OSGParticleBSP.h"
 
@@ -414,8 +411,9 @@ void ParticleBSPTree::build(Particles *core)
     // done
 }
 
-/*! \ingroup STLHelpers
-*/
+/*! \ingroup GrpDrawablesParticlesHelpers
+    \nohierarchy
+ */
 
 struct ParticleCompare : public std::binary_function<Int32, Int32, bool> 
 {
@@ -521,4 +519,3 @@ OSG_FIELD_DLLEXPORT_DEF1(SField, ParticleBSPTree);
 
 OSG_END_NAMESPACE
 
-#endif            // exclude from user doc

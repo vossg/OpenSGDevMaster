@@ -68,7 +68,7 @@ class TextureGrabBackground;
 
 OSG_GEN_CONTAINERPTR(TextureGrabBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>

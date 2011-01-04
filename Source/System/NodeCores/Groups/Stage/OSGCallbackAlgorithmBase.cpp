@@ -184,6 +184,7 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
     "   isNodeCore=\"false\"\n"
+    "   docGroupBase=\"GrpGroupStage\"\n"
     "   >\n"
     "  <Field\n"
     "     name=\"callback\"\n"

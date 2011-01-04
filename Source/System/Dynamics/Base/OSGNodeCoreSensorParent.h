@@ -47,11 +47,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpDynamicsBaseObj
+    \nohierarchy
+*/
+
 struct NodeCoreSensorDesc
 {
     typedef NodeCore                   ParentT;
     typedef FieldContainer::TypeObject TypeObject;
 };
+
+/*! \ingroup GrpDynamicsBaseObj
+ */
 
 typedef FrameTaskMixin< 
           ContainerMixinHead< NodeCoreSensorDesc > > NodeCoreSensorParent;

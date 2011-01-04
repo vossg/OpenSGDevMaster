@@ -53,8 +53,11 @@ class Viewport;
 class DrawEnv;
 
 /*! \brief Background clearing with a color gradient. See \ref 
-    PageSystemWindowBackground for a description.
-*/
+           PageSystemWindowBackground for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING GradientBackground :
     public GradientBackgroundBase

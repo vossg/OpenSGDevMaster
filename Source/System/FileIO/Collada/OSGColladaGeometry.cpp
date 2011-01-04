@@ -42,7 +42,7 @@
 
 #include "OSGColladaGeometry.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
@@ -1111,9 +1111,9 @@ ColladaGeometry::handleBindMaterial(
     }
 }
 
-/*! Returns a <bind> (actually a BindInfo built from a <bind>) that has
-    the given \a semantic. The search starts at the given \a offset to
-    allow multiple <bind> with the same semantic to be found.
+/*! Returns a &lt;bind&gt; (actually a BindInfo built from a &lt;bind&gt;)
+    that has the given \a semantic. The search starts at the given \a offset to
+    allow multiple &lt;bind&gt; with the same semantic to be found.
  */
 const ColladaGeometry::BindInfo *
 ColladaGeometry::findBind(
@@ -1134,10 +1134,11 @@ ColladaGeometry::findBind(
     return retVal;
 }
 
-/*! Returns a <bind_vertex_input> (actually a BindVertexInfo built from
-    a <bind_vertex_input>) that has the given \a inSemantic and \a inSet.
+/*! Returns a &lt;bind_vertex_input&gt; (actually a BindVertexInfo built from
+    a &lt;bind_vertex_input&gt;) that has the given \a inSemantic and \a inSet.
     The search starts at the given \a offset to allow
-    multiple <bind_vertex_input> with the same inSemantic/inSet to be found.
+    multiple &lt;bind_vertex_input&gt; with the same inSemantic/inSet to be
+    found. 
  */
 const ColladaGeometry::BindVertexInfo *
 ColladaGeometry::findBindVertex(

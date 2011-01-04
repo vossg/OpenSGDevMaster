@@ -49,13 +49,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOp class
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING VerifyGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -97,7 +100,8 @@ class OSG_UTIL_DLLMAPPING VerifyGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:
+
+  protected:
 
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
@@ -113,7 +117,8 @@ protected:
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+
+  private:
 
     /* Some internal helper methods */
     

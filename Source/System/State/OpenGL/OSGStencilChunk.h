@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief StencilChunk class. See \ref 
-  PageSystemStencilChunk for a description.
-*/
+           PageSystemStencilChunk for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING StencilChunk : public StencilChunkBase
 {

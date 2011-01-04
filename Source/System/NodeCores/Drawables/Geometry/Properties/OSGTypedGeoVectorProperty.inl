@@ -368,7 +368,7 @@ const UInt8 *TypedGeoVectorProperty<GeoPropertyDesc>::getData(void) const
     return reinterpret_cast<const UInt8 *>(&(_field[0]));
 }
 
-/*! \copydoc OSG::GeoVectorProperty::editData
+/*! editData
  */
 template <class GeoPropertyDesc> inline
 UInt8 *TypedGeoVectorProperty<GeoPropertyDesc>::editData(void) 

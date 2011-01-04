@@ -53,6 +53,10 @@ class ImageFileType;
 class PointConnection;
 class GroupConnection;
 
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING ClusterViewBuffer
 {
     /*==========================  PUBLIC  =================================*/
@@ -75,7 +79,9 @@ class OSG_CLUSTER_DLLMAPPING ClusterViewBuffer
     /** \brief stl vector used as char buffer */
     typedef std::vector<Int8> BufferT;
 
-    /** \brief RGB Color value */
+    /*! \brief RGB Color value 
+        \nohierarchy
+     */
     struct RGBValue
     {
         UInt8 red;

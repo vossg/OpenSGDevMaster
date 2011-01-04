@@ -68,7 +68,7 @@ class FrameHandler;
 
 OSG_GEN_CONTAINERPTR(FrameHandler);
 
-/*! \ingroup GrpDynamicsFieldTraits
+/*! \ingroup GrpDynamicsBaseFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<FrameHandler *, 0>::getSName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
                       RecordedRefCountPolicy  > SFRecFrameHandlerPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
                       UnrecordedRefCountPolicy> SFUnrecFrameHandlerPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
                       WeakRefCountPolicy      > SFWeakFrameHandlerPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
                       NoRefCountPolicy        > SFUncountedFrameHandlerPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<FrameHandler *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsBaseFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFRecFrameHandlerPtr : 
     public PointerSField<FrameHandler *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsBaseFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUnrecFrameHandlerPtr : 
     public PointerSField<FrameHandler *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsBaseFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFWeakFrameHandlerPtr :
     public PointerSField<FrameHandler *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsBaseFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUncountedFrameHandlerPtr :
     public PointerSField<FrameHandler *,
                          NoRefCountPolicy> {};

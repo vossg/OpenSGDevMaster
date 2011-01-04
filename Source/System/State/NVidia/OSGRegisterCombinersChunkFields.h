@@ -68,7 +68,7 @@ class RegisterCombinersChunk;
 
 OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateNVidiaFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<NoRefCountPolicy
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<RegisterCombinersChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldSFields \ingroup GrpLibOSGState */
 struct SFRecRegisterCombinersChunkPtr : 
     public PointerSField<RegisterCombinersChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecRegisterCombinersChunkPtr : 
     public PointerSField<RegisterCombinersChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakRegisterCombinersChunkPtr :
     public PointerSField<RegisterCombinersChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedRegisterCombinersChunkPtr :
     public PointerSField<RegisterCombinersChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldMFields \ingroup GrpLibOSGState */
 struct MFRecRegisterCombinersChunkPtr :
     public PointerMField<RegisterCombinersChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecRegisterCombinersChunkPtr :
     public PointerMField<RegisterCombinersChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakRegisterCombinersChunkPtr :
     public PointerMField<RegisterCombinersChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateNVidiaFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedRegisterCombinersChunkPtr :
     public PointerMField<RegisterCombinersChunk *,
                          NoRefCountPolicy        > {};

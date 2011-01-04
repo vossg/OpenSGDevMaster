@@ -51,7 +51,11 @@ class DrawEnv;
 
 /*! \brief DisplayFilter class. See \ref
            PageEffectGroupsDisplayFilter for a description.
-*/
+
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilter : public DisplayFilterBase
 {

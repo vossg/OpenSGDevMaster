@@ -48,6 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING RenderNode 
 {
     /*==========================  PUBLIC  =================================*/

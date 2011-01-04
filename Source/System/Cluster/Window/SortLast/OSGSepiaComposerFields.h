@@ -68,7 +68,7 @@ class SepiaComposer;
 
 OSG_GEN_CONTAINERPTR(SepiaComposer);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

@@ -52,8 +52,11 @@ OSG_BEGIN_NAMESPACE
 class Window;
 
 /*! \brief Abstract State chunk to wrap programmable functions. See \ref 
-    PageSystemProgramChunk for a description.
-*/
+           PageSystemProgramChunk for a description.
+    \ingroup GrpStateARBProgramObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING ProgramChunk : public ProgramChunkBase
 {

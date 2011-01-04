@@ -1,127 +1,127 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PointChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="PointChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemPointChunk for a description. 
 
-See \ref PageSystemPointChunk for a description. 
-
-This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
-glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
-ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
-OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
-OSG::PointChunk::_sfConstantAttenuation, 
-OSG::PointChunk::_sfLinearAttenuation,
-OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite
-(OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
-	<Field
-		name="size"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
+  This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
+  glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
+  ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
+  OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
+  OSG::PointChunk::_sfConstantAttenuation, 
+  OSG::PointChunk::_sfLinearAttenuation,
+  OSG::PointChunk::_sfQuadraticAttenuation) and ARB_point_sprite
+  (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
+  <Field
+	 name="size"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The point's size in pixel.
-	</Field>
-	<Field
-		name="smooth"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_FALSE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="smooth"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FALSE"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+	 access="public"
+	 >
 	Defines if line antialiasing is used.
-	</Field>
-	<Field
-		name="minSize"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="-1.f"
-		access="public"
-	>
-	Minimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.
-	</Field>
-	<Field
-		name="maxSize"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="-1.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="minSize"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="-1.f"
+	 access="public"
+	 >
+	Minimum point size for attenuation, use less than 0 to disable it. See
+	ARB_point_parameters extension. 
+  </Field>
+  <Field
+	 name="maxSize"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="-1.f"
+	 access="public"
+	 >
 	Maximum point size for attenuation. See ARB_point_parameters extension.
-	</Field>
-	<Field
-		name="constantAttenuation"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="constantAttenuation"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The point size's constant attenuation.
-	</Field>
-	<Field
-		name="linearAttenuation"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="linearAttenuation"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The point size's linear attenuation.
-	</Field>
-	<Field
-		name="quadraticAttenuation"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="quadraticAttenuation"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The point size's quadratic attenuation.
-	</Field>
-	<Field
-		name="fadeThreshold"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="fadeThreshold"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+	 >
 	Minimum point size for attenuation. See ARB_point_parameters extension.
-	</Field>
-	<Field
-		name="sprite"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_FALSE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="sprite"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FALSE"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+	 access="public"
+	 >
 	Flag to enable point sprites, see ARB_point_sprite for details.
-	</Field>
-	<Field
-		name="rMode"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_ZERO"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
-	</Field>
+  </Field>
+  <Field
+	 name="rMode"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_ZERO"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

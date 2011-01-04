@@ -54,12 +54,9 @@ OSG_GEN_CONTAINERPTR(GeoUInt8Property);
 
 #endif
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GeoUInt8Property *> : 
@@ -88,9 +85,11 @@ struct FieldTraits<GeoUInt8Property *> :
 
 OSG_FIELD_TRAITS_NAME_INST(GeoUInt8Property *, GeoUInt8PropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt8Property *, GeoUInt8PropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt8Property *, 
+                               GeoUInt8PropertyPtr,
+                               GrpDrawablesGeometry, 
+                               GrpLibOSGDrawables  );
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
 
@@ -104,12 +103,9 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
 #endif
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GeoUInt32Property *> : 
@@ -137,9 +133,11 @@ struct FieldTraits<GeoUInt32Property *> :
 
 OSG_FIELD_TRAITS_NAME_INST(GeoUInt32Property *, GeoUInt32PropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt32Property *, GeoUInt32PropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt32Property *, 
+                               GeoUInt32PropertyPtr,
+                               GrpDrawablesGeometry,
+                               GrpLibOSGDrawables);
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
 OSG_END_NAMESPACE

@@ -48,13 +48,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOp class
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -94,6 +97,7 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     bool travNodeEnter(Node *node);
@@ -109,6 +113,7 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
  private:
 
     bool checkIndexedGeo   (Geometry *geo, UInt32 sumLengths);

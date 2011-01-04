@@ -1,24 +1,23 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="TransformChunk"
-	parent="StateChunk"
-	library="State"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemState
+   name="TransformChunk"
+   parent="StateChunk"
+   library="State"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemTransformChunk for a description.
 
-See \ref PageSystemTransformChunk for a description.
-
-This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
-	<Field
-		name="matrix"
-		type="Matrix"
-		cardinality="single"
-		visibility="external"
-	>
-	</Field>
+  This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
+  <Field
+	 name="matrix"
+	 type="Matrix"
+	 cardinality="single"
+	 visibility="external"
+	 >
+  </Field>
 </FieldContainer>

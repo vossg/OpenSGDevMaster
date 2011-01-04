@@ -68,7 +68,7 @@ class CubeTextureObjChunk;
 
 OSG_GEN_CONTAINERPTR(CubeTextureObjChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<NoRefCountPolicy>(v
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       RecordedRefCountPolicy  > SFRecCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       UnrecordedRefCountPolicy> SFUnrecCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       WeakRefCountPolicy      > SFWeakCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       NoRefCountPolicy        > SFUncountedCubeTextureObjChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       RecordedRefCountPolicy  > MFRecCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       UnrecordedRefCountPolicy> MFUnrecCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       WeakRefCountPolicy      > MFWeakCubeTextureObjChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       NoRefCountPolicy        > MFUncountedCubeTextureObjChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<CubeTextureObjChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecCubeTextureObjChunkPtr : 
     public PointerSField<CubeTextureObjChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecCubeTextureObjChunkPtr : 
     public PointerSField<CubeTextureObjChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakCubeTextureObjChunkPtr :
     public PointerSField<CubeTextureObjChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedCubeTextureObjChunkPtr :
     public PointerSField<CubeTextureObjChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecCubeTextureObjChunkPtr :
     public PointerMField<CubeTextureObjChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecCubeTextureObjChunkPtr :
     public PointerMField<CubeTextureObjChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakCubeTextureObjChunkPtr :
     public PointerMField<CubeTextureObjChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedCubeTextureObjChunkPtr :
     public PointerMField<CubeTextureObjChunk *,
                          NoRefCountPolicy        > {};

@@ -1,60 +1,59 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ColorBufferViewport"
-	parent="Viewport"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowViewports
+   name="ColorBufferViewport"
+   parent="Viewport"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowViewport"
+   >
+  Viewport to only render to specific color channels, see \ref
+  PageSystemWindowViewports for a description.
 
-Viewport to only render to specific color channels, see \ref
-PageSystemWindowViewports for a description.
-
-The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and
-_sfAlpha Fields.
-	<Field
-		name="red"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_TRUE"
-		access="public"
-	>
-        Define whether the red color channel is written to.
-	</Field>
-	<Field
-		name="blue"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_TRUE"
-		access="public"
-	>
-        Define whether the green color channel is written to.
-	</Field>
-	<Field
-		name="green"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_TRUE"
-		access="public"
-	>
-        Define whether the blue color channel is written to.
-	</Field>
-	<Field
-		name="alpha"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_TRUE"
-		access="public"
-	>
-        Define whether the alpha color channel is written to.
-	</Field>
+  The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and
+  _sfAlpha Fields.
+  <Field
+	 name="red"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRUE"
+	 access="public"
+	 >
+    Define whether the red color channel is written to.
+  </Field>
+  <Field
+	 name="blue"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRUE"
+	 access="public"
+	 >
+    Define whether the green color channel is written to.
+  </Field>
+  <Field
+	 name="green"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRUE"
+	 access="public"
+	 >
+    Define whether the blue color channel is written to.
+  </Field>
+  <Field
+	 name="alpha"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRUE"
+	 access="public"
+	 >
+    Define whether the alpha color channel is written to.
+  </Field>
 </FieldContainer>

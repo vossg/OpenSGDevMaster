@@ -68,7 +68,7 @@ class TwoSidedLightingChunk;
 
 OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>

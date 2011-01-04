@@ -68,7 +68,7 @@ class TextureObjRefChunk;
 
 OSG_GEN_CONTAINERPTR(TextureObjRefChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateAuxiliaryFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
                       RecordedRefCountPolicy  > SFRecTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
                       WeakRefCountPolicy      > SFWeakTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
                       NoRefCountPolicy        > SFUncountedTextureObjRefChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
                       RecordedRefCountPolicy  > MFRecTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
                       WeakRefCountPolicy      > MFWeakTextureObjRefChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
                       NoRefCountPolicy        > MFUncountedTextureObjRefChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<TextureObjRefChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldSFields \ingroup GrpLibOSGState */
 struct SFRecTextureObjRefChunkPtr : 
     public PointerSField<TextureObjRefChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecTextureObjRefChunkPtr : 
     public PointerSField<TextureObjRefChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakTextureObjRefChunkPtr :
     public PointerSField<TextureObjRefChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedTextureObjRefChunkPtr :
     public PointerSField<TextureObjRefChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldMFields \ingroup GrpLibOSGState */
 struct MFRecTextureObjRefChunkPtr :
     public PointerMField<TextureObjRefChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecTextureObjRefChunkPtr :
     public PointerMField<TextureObjRefChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakTextureObjRefChunkPtr :
     public PointerMField<TextureObjRefChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateAuxiliaryFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedTextureObjRefChunkPtr :
     public PointerMField<TextureObjRefChunk *,
                          NoRefCountPolicy        > {};

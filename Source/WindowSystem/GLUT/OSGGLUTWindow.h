@@ -42,13 +42,17 @@
 #pragma once
 #endif
 
-#ifdef OSG_WITH_GLUT
+#if defined(OSG_WITH_GLUT) || defined(OSG_DO_DOC)
 
 #include "OSGGLUTWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief GLUT Window class. See \ref PageWindowGlut for a description. */
+/*! \brief GLUT Window class. See \ref PageWindowGLUT for a description. 
+    \ingroup GrpWindowGLUTObj
+    \ingroup GrpLibOSGWindowGLUT
+    \includebasedoc
+ */
 
 class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
 {

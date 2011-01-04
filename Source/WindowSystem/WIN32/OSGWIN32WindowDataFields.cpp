@@ -51,15 +51,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-// doxygen can't find these
-#ifndef OSG_DO_DOC 
-
 DataType FieldTraits<HWND       >::_type("HWND",        NULL);
 DataType FieldTraits<HDC        >::_type("HDC",         NULL);
 DataType FieldTraits<HGLRC      >::_type("HGLRC",       NULL);
 DataType FieldTraits<PAINTSTRUCT>::_type("PAINTSTRUCT", NULL);
-
-#endif
 
 OSG_FIELDTRAITS_GETTYPE(HWND)
 OSG_FIELDTRAITS_GETTYPE(HDC)

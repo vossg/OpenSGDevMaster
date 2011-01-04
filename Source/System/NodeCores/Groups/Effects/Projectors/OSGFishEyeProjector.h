@@ -54,8 +54,11 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 class RenderActionBase;
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
+/*! Stage
+    \ingroup GrpEffectsGroupsProjectorsObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjector : 
     public FishEyeProjectorBase

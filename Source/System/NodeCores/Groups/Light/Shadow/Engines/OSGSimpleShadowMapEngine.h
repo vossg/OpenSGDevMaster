@@ -53,7 +53,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShadowEngine is the basic NodeCore for inner nodes in the tree.
-    \ingroup GrpSystemNodeCoresMisc
+    \ingroup GrpGroupLightShadowEnginesObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
 */
 
 class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine : 

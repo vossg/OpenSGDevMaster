@@ -162,6 +162,7 @@ VRMLOrientationInterpolatorBase::TypeObject VRMLOrientationInterpolatorBase::_ty
     "   isNodeCore=\"true\"\n"
     "   isBundle=\"false\"\n"
     "   parentFields=\"none\"\n"
+    "   docGroupBase=\"GrpDynamicsVRMLAnimation\"\n"
     "   >\n"
     "  <Field\n"
     "\t name=\"keyValue\"\n"

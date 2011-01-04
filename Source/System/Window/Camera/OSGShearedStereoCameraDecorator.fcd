@@ -1,37 +1,36 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ShearedStereoCameraDecorator"
-	parent="StereoCameraDecorator"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowCameraDecorators
-
-The OSG::CameraDecorator for standard sheared stereo projections, see \ref
-PageSystemWindowCameraDecoratorsStereoSheared for a description.
-	<Field
-		name="zeroParallaxDistance"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
+   name="ShearedStereoCameraDecorator"
+   parent="StereoCameraDecorator"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowCamera"
+   >
+  The OSG::CameraDecorator for standard sheared stereo projections, see \ref
+  PageSystemWindowCameraDecoratorsStereoSheared for a description.
+  <Field
+	 name="zeroParallaxDistance"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The distance to the zero parallax plane.
-	</Field>
-	<Field
-		name="overlap"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="overlap"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
 	The overlap between left and right eye.
-	</Field>
+  </Field>
 </FieldContainer>

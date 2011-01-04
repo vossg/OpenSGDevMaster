@@ -10,5 +10,6 @@
    parentsystemcomponent="true"
    decoratable="false"
    childFields="both"
->
+   docGroupBase="GrpDrawablesGeometry"
+   >
 </FieldContainer>

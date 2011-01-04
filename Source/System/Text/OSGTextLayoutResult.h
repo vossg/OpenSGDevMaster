@@ -59,7 +59,11 @@ OSG_BEGIN_NAMESPACE
 /**
  * Keeps the result of a layout operation.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextLayout
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextLayoutResult
 {
     /*==========================  PUBLIC  =================================*/

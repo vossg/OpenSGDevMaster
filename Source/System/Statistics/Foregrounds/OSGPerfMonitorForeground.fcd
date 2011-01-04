@@ -1,95 +1,98 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PerfMonitorForeground"
-	parent="Foreground"
-	library="Util"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-PerfMonitorForeground displays statistics collected from the performance monitor code.
+   name="PerfMonitorForeground"
+   parent="Foreground"
+   library="Util"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpUtilStatistics"
+   >
+  PerfMonitorForeground displays statistics collected from the performance
+  monitor code. 
 
-It is meant to be used as a debugging tool for tracking down performance issues in the system.
-        <Field
-		name="mode"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  It is meant to be used as a debugging tool for tracking down performance
+  issues in the system.
+  <Field
+	 name="mode"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The display mode to use.  See OSG::PerfMonitorForeground for more details.
-	</Field>	
-	<Field
-		name="maxSize"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="16"
-		access="public"
-	>
+  </Field>	
+  <Field
+	 name="maxSize"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="16"
+	 access="public"
+	 >
 	The maximum height of any line in pixels.
-	</Field>
-	<Field
-		name="color"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1,1,1,1"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="color"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1,1,1,1"
+	 access="public"
+	 >
 	Color of the text.
-	</Field>
-	<Field
-		name="bgColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.2f,0.2f,0.2f,0.65f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="bgColor"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.2f,0.2f,0.2f,0.65f"
+	 access="public"
+	 >
 	Color of the background.
-	</Field>
-	<Field
-		name="family"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="family"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The font family to be used, e.g. "SANS", default if unset.
-	</Field>
-	<Field
-		name="borderColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.8f,0.8f,0.0f,0.7f"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="borderColor"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.8f,0.8f,0.0f,0.7f"
+	 access="public"
+	 >
 	Color of the border.
-	</Field>
-	<Field
-		name="borderOffset"
-		type="Vec2f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="4,4"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="borderOffset"
+	 type="Vec2f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="4,4"
+	 access="public"
+	 >
 	Offset of the border in pixels.
-	</Field>
-	<Field
-		name="textMargin"
-		type="Vec2f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="5,5"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="textMargin"
+	 type="Vec2f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="5,5"
+	 access="public"
+	 >
 	Text margin in pixels.
-	</Field>
+  </Field>
 </FieldContainer>

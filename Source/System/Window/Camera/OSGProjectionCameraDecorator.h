@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Camera Decorator for head-tracked stereo setups, see \ref
-    PageSystemWindowCameraDecorators for a description.
-*/
+           PageSystemWindowCameraDecorators for a description.
+    \ingroup GrpWindowCameraObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING ProjectionCameraDecorator : 
     public ProjectionCameraDecoratorBase

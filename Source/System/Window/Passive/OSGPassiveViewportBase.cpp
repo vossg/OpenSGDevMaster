@@ -75,7 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PassiveViewport
-    The PassiveViewport does nothing itself, but expects OpenGL to be properly configured when draw() or render() are called.
+    The PassiveViewport does nothing itself, but expects OpenGL to be properly
+    configured when draw() or render() are called. 
  */
 
 /***************************************************************************\
@@ -124,18 +125,21 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PassiveViewport\"\n"
-    "\tparent=\"Viewport\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "The PassiveViewport does nothing itself, but expects OpenGL to be properly configured when draw() or render() are called.\n"
+    "   name=\"PassiveViewport\"\n"
+    "   parent=\"Viewport\"\n"
+    "   library=\"Window\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpWindowPassive\"\n"
+    "   >\n"
+    "  The PassiveViewport does nothing itself, but expects OpenGL to be properly\n"
+    "  configured when draw() or render() are called. \n"
     "</FieldContainer>\n",
-    "The PassiveViewport does nothing itself, but expects OpenGL to be properly configured when draw() or render() are called.\n"
+    "The PassiveViewport does nothing itself, but expects OpenGL to be properly\n"
+    "configured when draw() or render() are called. \n"
     );
 
 /*------------------------------ get -----------------------------------*/

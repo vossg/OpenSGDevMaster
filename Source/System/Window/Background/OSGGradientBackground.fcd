@@ -1,56 +1,57 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="GradientBackground"
-	parent="TileableBackground"
-	library="Window"
-	pointerfieldtypes="multi"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-A background showing a color gradient. The colors and positions correspond to
-each other, so both have to have the same number of elements.
-The style field (_sfStyle) selects the kind of gradient being
-drawn (HORIZONTAL, VERTICAL).
-	<Field
-		name="color"
-		type="Color3f"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-	>
+   name="GradientBackground"
+   parent="TileableBackground"
+   library="Window"
+   pointerfieldtypes="multi"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowBackground"
+   >
+  A background showing a color gradient. The colors and positions correspond to
+  each other, so both have to have the same number of elements.
+  The style field (_sfStyle) selects the kind of gradient being
+  drawn (HORIZONTAL, VERTICAL).
+  <Field
+	 name="color"
+	 type="Color3f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="protected"
+	 >
 	The colors of the gradient.
-	</Field>
-	<Field
-		name="position"
-		type="Real32"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-	>
+  </Field>
+  <Field
+	 name="position"
+	 type="Real32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="protected"
+	 >
 	The positions of the gradient.
-	</Field>
-    <Field
-        name="normPosition"
-        type="bool"
-        cardinality="single"
-        visibility="external"
-        defaultValue="true"
-        access="protected"
-    >
+  </Field>
+  <Field
+     name="normPosition"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="true"
+     access="protected"
+     >
     If true the values of the position field must be normed coordinates in the
     range [0,1], otherwise they must be pixel coordinates.
-    </Field>
-	<Field
-		name="style"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-        defaultValue="GradientBackground::VERTICAL"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="style"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="GradientBackground::VERTICAL"
+	 access="public"
+	 >
 	Gradient style. Allowed values are VERTICAL and HORIZONTAL.
-	</Field>
+  </Field>
 </FieldContainer>

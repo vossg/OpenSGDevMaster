@@ -26,6 +26,10 @@ enum LOptimizationLevel {oNone, oSimple, oFull};
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LVector4
 {
     float x;
@@ -34,6 +38,10 @@ struct LVector4
     float w;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LVector3
 {
     float x;
@@ -41,12 +49,20 @@ struct LVector3
     float z;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LVector2
 {
     float x;
     float y;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LColor3
 {
     float r;
@@ -58,6 +74,10 @@ struct LColor3
 
 // LChunk, LTri internal, but as the are used in a
 // vector<LTri> declaration they cannot be incomplete
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LChunk
 {
     unsigned short id;
@@ -65,6 +85,10 @@ struct LChunk
     uint end;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LTri
 {
     unsigned short a;
@@ -77,6 +101,10 @@ struct LTri
     uint materialId;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LTriangle
 {
     unsigned short a;
@@ -84,6 +112,10 @@ struct LTriangle
     unsigned short c;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LMatrix4
 {
     float _11, _12, _13, _14;
@@ -92,6 +124,10 @@ struct LMatrix4
     float _41, _42, _43, _44;
 };
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LTriangle2
 {
     LVector4 vertices[3];
@@ -102,6 +138,10 @@ struct LTriangle2
 };
 
 // a structure for a texture map
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 struct LMap
 {
     // the strength of the texture map
@@ -118,6 +158,10 @@ struct LMap
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LObject
 {
 public:
@@ -142,6 +186,10 @@ protected:
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LMaterial : public LObject
 {
 public:
@@ -224,6 +272,10 @@ protected:
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LMesh : public LObject
 {
 public:
@@ -311,6 +363,10 @@ protected:
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LCamera : public LObject
 {
 public:
@@ -355,6 +411,10 @@ protected:
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LLight : public LObject
 {
 public:
@@ -409,6 +469,10 @@ protected:
 
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class LImporter
 {
 public:
@@ -464,6 +528,10 @@ protected:
 };
 //------------------------------------------------
 
+/*! \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
+    \nohierarchy
+ */
 class L3DS : public LImporter
 {
 public:

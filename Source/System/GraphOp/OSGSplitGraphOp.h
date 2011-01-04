@@ -49,13 +49,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! SplitGraphOp class
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING SplitGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -99,7 +102,8 @@ class OSG_UTIL_DLLMAPPING SplitGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:
+
+  protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -111,7 +115,9 @@ protected:
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+
+  private:
+
     UInt16 _max_polygons;
 
     bool isLeaf        (Node * const node);
@@ -126,10 +132,18 @@ typedef SplitGraphOp *SplitGraphOpP;
 
 OSG_GEN_MEMOBJPTR(SplitGraphOp);
 
-class OSG_UTIL_DLLMAPPING Pnt3fComparator : public std::binary_function<int,int,bool> 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+    \nohierarchy
+ */
+
+class OSG_UTIL_DLLMAPPING Pnt3fComparator : 
+    public std::binary_function<int,int,bool> 
 {
     const std::vector<Pnt3f> &_vec;
-public:
+
+  public:
+
     Pnt3fComparator(const std::vector<Pnt3f> &vec) : _vec(vec) {}
 
     bool operator()(int a, int b) const

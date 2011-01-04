@@ -12,3 +12,132 @@ using namespace OSG;
 
     See \ref PageWindow for details.
  */
+
+//*******************************************************************
+// Background
+//*******************************************************************
+
+/*! \defgroup GrpWindowBackground Background
+    \ingroup GrpWindow
+ */
+
+/*! \defgroup GrpWindowBackgroundObj Backgrounds
+    \ingroup GrpWindowBackground
+ */
+
+/*! \defgroup GrpWindowBackgroundFieldTraits Field Traits
+    \ingroup GrpWindowBackground
+*/
+/*! \defgroup GrpWindowBackgroundFieldHandle Field Handle
+    \ingroup GrpWindowBackground
+*/
+/*! \defgroup GrpWindowBackgroundFieldSFields Single-Field
+    \ingroup GrpWindowBackground
+*/
+/*! \defgroup GrpWindowBackgroundFieldMFields Multi-Fields
+    \ingroup GrpWindowBackground
+*/
+
+
+//*******************************************************************
+// Camera
+//*******************************************************************
+
+/*! \defgroup GrpWindowCamera Camera
+    \ingroup GrpWindow
+ */
+
+/*! \defgroup GrpWindowCameraObj Cameras
+    \ingroup GrpWindowCamera
+ */
+
+/*! \defgroup GrpWindowCameraFieldTraits Field Traits
+    \ingroup GrpWindowCamera
+*/
+/*! \defgroup GrpWindowCameraFieldHandle Field Handle
+    \ingroup GrpWindowCamera
+*/
+/*! \defgroup GrpWindowCameraFieldSFields Single-Field
+    \ingroup GrpWindowCamera
+*/
+/*! \defgroup GrpWindowCameraFieldMFields Multi-Fields
+    \ingroup GrpWindowCamera
+*/
+
+
+//*******************************************************************
+// Foreground
+//*******************************************************************
+
+/*! \defgroup GrpWindowForeground Foreground
+    \ingroup GrpWindow
+ */
+
+/*! \defgroup GrpWindowForegroundObj Foregrounds
+    \ingroup GrpWindowForeground
+ */
+
+/*! \defgroup GrpWindowForegroundFieldTraits Field Traits
+    \ingroup GrpWindowForeground
+*/
+/*! \defgroup GrpWindowForegroundFieldHandle Field Handle
+    \ingroup GrpWindowForeground
+*/
+/*! \defgroup GrpWindowForegroundFieldSFields Single-Field
+    \ingroup GrpWindowForeground
+*/
+/*! \defgroup GrpWindowForegroundFieldMFields Multi-Fields
+    \ingroup GrpWindowForeground
+*/
+
+
+//*******************************************************************
+// Viewport
+//*******************************************************************
+
+/*! \defgroup GrpWindowViewport Viewport
+    \ingroup GrpWindow
+ */
+
+/*! \defgroup GrpWindowViewportObj Viewports
+    \ingroup GrpWindowViewport
+ */
+
+/*! \defgroup GrpWindowViewportFieldTraits Field Traits
+    \ingroup GrpWindowViewport
+*/
+/*! \defgroup GrpWindowViewportFieldHandle Field Handle
+    \ingroup GrpWindowViewport
+*/
+/*! \defgroup GrpWindowViewportFieldSFields Single-Field
+    \ingroup GrpWindowViewport
+*/
+/*! \defgroup GrpWindowViewportFieldMFields Multi-Fields
+    \ingroup GrpWindowViewport
+*/
+
+
+//*******************************************************************
+// Passive
+//*******************************************************************
+
+/*! \defgroup GrpWindowPassive Passive
+    \ingroup GrpWindow
+ */
+
+/*! \defgroup GrpWindowPassiveObj Passive Elements
+    \ingroup GrpWindowPassive
+ */
+
+/*! \defgroup GrpWindowPassiveFieldTraits Field Traits
+    \ingroup GrpWindowPassive
+*/
+/*! \defgroup GrpWindowPassiveFieldHandle Field Handle
+    \ingroup GrpWindowPassive
+*/
+/*! \defgroup GrpWindowPassiveFieldSFields Single-Field
+    \ingroup GrpWindowPassive
+*/
+/*! \defgroup GrpWindowPassiveFieldMFields Multi-Fields
+    \ingroup GrpWindowPassive
+*/

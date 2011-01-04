@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for texture coordinate generation. See \ref 
-    PageSystemTexGenChunk for a description.
-*/
+           PageSystemTexGenChunk for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING TexGenChunk : public TexGenChunkBase
 {

@@ -1,68 +1,70 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="CubeTextureObjChunk"
-	parent="TextureObjChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="CubeTextureObjChunk"
+   parent="TextureObjChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemCubeTextureObjChunk for a description.
 
-See \ref PageSystemCubeTextureObjChunk for a description.
-
-The CubeTexture is defined by 6 separate texture images. As it is derived from 
-the standard texture chunk it already has an image, which is used for the 
-negative Z direction. The other 5 images are stored in variables that are named
-according to the direction they represent (OSG::CubeTextureObjChunk::_sfPosZImage,
-OSG::CubeTextureObjChunk::_sfNegYImage, OSG::CubeTextureObjChunk::_sfPosYImage, 
-OSG::CubeTextureObjChunk::_sfNegXImage, OSG::CubeTextureObjChunk::_sfPosXImage).
-	<Field
-		name="posZImage"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  The CubeTexture is defined by 6 separate texture images. As it is derived
+  from  the standard texture chunk it already has an image, which is used for
+  the negative Z direction. The other 5 images are stored in variables that
+  are named according to the direction they represent
+  (OSG::CubeTextureObjChunk::_sfPosZImage,
+  OSG::CubeTextureObjChunk::_sfNegYImage,
+  OSG::CubeTextureObjChunk::_sfPosYImage,
+  OSG::CubeTextureObjChunk::_sfNegXImage,
+  OSG::CubeTextureObjChunk::_sfPosXImage). 
+  <Field
+	 name="posZImage"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image for the positive Z direction of the cube texture.
-	</Field>
-	<Field
-		name="posXImage"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="posXImage"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image for the positive X direction of the cube texture.
-	</Field>
-	<Field
-		name="negXImage"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="negXImage"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image for the negative X direction of the cube texture.
-	</Field>
-	<Field
-		name="posYImage"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="posYImage"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image for the positive Y direction of the cube texture.
-	</Field>
-	<Field
-		name="negYImage"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="negYImage"
+	 type="ImagePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The image for the negative Y direction of the cube texture.
-	</Field>
+  </Field>
 </FieldContainer>

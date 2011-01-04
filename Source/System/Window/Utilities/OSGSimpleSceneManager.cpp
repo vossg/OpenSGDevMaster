@@ -120,9 +120,11 @@ OSG_USING_NAMESPACE
     Bool to indicate if statistics should be displayed or not.
  */
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! \var SimpleSceneManager::_ownAction
     The action created by this SSM.
  */
+#endif
 
 /*! \var SimpleSceneManager::_cart
     The core of the camera beacon. Manipulated by the navigator.

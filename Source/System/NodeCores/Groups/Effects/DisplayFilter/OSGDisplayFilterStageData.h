@@ -55,6 +55,10 @@ class ColorDisplayFilter;
 
 /*! \brief DisplayFilterStageData class. See \ref
            PageGroupDisplayFilterStageData for a description.
+
+    \ingroup GrpEffectsGroupsDisplayFilterObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
 */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageData : 

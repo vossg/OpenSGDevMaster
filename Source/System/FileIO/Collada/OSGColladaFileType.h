@@ -8,12 +8,16 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGFileIODef.h"
 #include "OSGSceneFileType.h"
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpFileIOCollada
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaFileType : public SceneFileType
 {

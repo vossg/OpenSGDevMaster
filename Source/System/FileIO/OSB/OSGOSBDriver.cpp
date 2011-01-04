@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
 /*! Reads from \a inStream which must provide access to an ".osb" file.
 
     \param[in] inStream Stream to read data from.
-    \param[in] optionStr String that holds the options for the read operation.
+    \param[in] options String that holds the options for the read operation.
 
     \return On success a Node * to the root of the read scene,
      NULL otherwise.
@@ -70,7 +70,7 @@ NodeTransitPtr OSBDriver::read(      std::istream              &inStream,
 
     \param[in] node Root of scene to write.
     \param[in] outStream Stream to write data to.
-    \param[in] optionStr String that holds the options for the write operation.
+    \param[in] options String that holds the options for the write operation.
 
     \return true.
     \todo Should only return true if write was successful.
@@ -85,7 +85,7 @@ bool OSBDriver::write(      Node              * const  node,
 /*! Reads from \a inStream which must provide access to an ".osb" file.
 
     \param[in] inStream Stream to read data from.
-    \param[in] optionStr String that holds the options for the read operation.
+    \param[in] options String that holds the options for the read operation.
 
     \return On success a pointer to the container read from the file.
      NULL otherwise.

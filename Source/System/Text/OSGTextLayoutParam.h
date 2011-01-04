@@ -63,7 +63,11 @@ OSG_BEGIN_NAMESPACE
  * See: http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/nodesRef.html#FontStyle
  *
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextLayout
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextLayoutParam
 {
     /*==========================  PUBLIC  =================================*/

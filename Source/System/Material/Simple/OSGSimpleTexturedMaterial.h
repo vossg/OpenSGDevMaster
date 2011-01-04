@@ -50,8 +50,12 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Simple textured Material wrapping standard OpenGL lighting and a
-    single texture.  See \ref 
-    PageSystemMaterialTexturedSimpleMaterial for a description.
+           single texture.  See \ref 
+           PageSystemMaterialTexturedSimpleMaterial for a description.
+
+    \ingroup GrpDrawablesMaterialObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
  */
 
 class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterial : 

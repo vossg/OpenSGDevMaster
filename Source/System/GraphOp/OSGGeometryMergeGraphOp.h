@@ -48,10 +48,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -88,7 +94,9 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -98,6 +106,7 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     UInt32 _mergeThreshold;

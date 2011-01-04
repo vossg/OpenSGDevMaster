@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Viewport class for quad-buffered stereo rendering. See \ref 
-    PageSystemWindowViewports for a description.
-*/
+           PageSystemWindowViewports for a description.
+    \ingroup GrpWindowViewportObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING StereoBufferViewport : 
     public StereoBufferViewportBase

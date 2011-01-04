@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="GeoIntegralProperty"
-	parent="GeoProperty"
-	library="Drawable"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-        childFields="both"
->
-Parent class for integral (i.e. one dimensional unsigned integer typed) properties.
+   name="GeoIntegralProperty"
+   parent="GeoProperty"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="both"
+   docGroupBase="GrpDrawablesGeometry"
+   >
+  Parent class for integral (i.e. one dimensional unsigned integer typed)
+  properties. 
 
-The main use for this class is as a parent class for indices, lengths and 
-types for the Geometry.
+  The main use for this class is as a parent class for indices, lengths and 
+  types for the Geometry.
 </FieldContainer>

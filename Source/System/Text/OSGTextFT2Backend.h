@@ -48,7 +48,7 @@
 #include "OSGTextDef.h"
 
 
-#ifdef OSG_WITH_FT2
+#if defined(OSG_WITH_FT2) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextBackend.h"
@@ -69,7 +69,11 @@ OSG_BEGIN_NAMESPACE
  * they use the interface of the TextFace classes to
  * create fonts.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextBackends
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
 {
     /*==========================  PUBLIC  =================================*/
@@ -149,7 +153,11 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
     /** True when we need to scan for fonts */
     bool _scanForFonts;
 
-    /** Keeps information about a font */
+    /** Keeps information about a font 
+     *
+     * \nohierarchy
+     */
+
     typedef struct
     {
         std::string path;

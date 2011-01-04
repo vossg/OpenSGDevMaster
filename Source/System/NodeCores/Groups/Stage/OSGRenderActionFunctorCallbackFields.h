@@ -48,10 +48,17 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupStageFieldSFields
+ */
 
 typedef SField<RenderActionFunctorCallback> SFRenderActionFunctorCallback;
+#else
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup
+ */
 
+struct SFRenderActionFunctorCallback : 
+    public SField<RenderActionFunctorCallback> {};
 #endif
 
 // there is no good way of comparing boost function objects
@@ -63,10 +70,17 @@ bool SField<RenderActionFunctorCallback, 0>::operator ==(
 }
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupStageFieldMFields
+ */
 
 typedef MField<RenderActionFunctorCallback> MFRenderActionFunctorCallback;
+#else
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup
+ */
 
+struct MFRenderActionFunctorCallback : 
+    public MField<RenderActionFunctorCallback> {};
 #endif
 
 // there is no good way of comparing boost function objects

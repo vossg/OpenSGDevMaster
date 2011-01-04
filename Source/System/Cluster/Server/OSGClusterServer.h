@@ -51,6 +51,10 @@ class PointConnection;
 class ClusterWindow;
 class RemoteAspect;
 
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING ClusterServer
 {
     /*==========================  PUBLIC  =================================*/

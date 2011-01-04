@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief TiledQuadTreeTerrain class. See \ref 
            PageContribTiledQuadTreeTerrain for a description.
-*/
+    \ingroup GrpDrawablesTerrainObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrain : 
     public TiledQuadTreeTerrainBase

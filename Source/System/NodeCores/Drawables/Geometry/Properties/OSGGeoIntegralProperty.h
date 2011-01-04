@@ -50,6 +50,9 @@ class GeoIntegralBufferRefProperty;
 
 /*! \brief GeoIntegralProperty class. See \ref 
            PageWindowGLUTGeoIntegralProperty for a description.
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
 */
 
 class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty : 

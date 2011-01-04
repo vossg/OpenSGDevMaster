@@ -1,111 +1,110 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PolygonForeground"
-	parent="Foreground"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemWindowForegrounds
+   name="PolygonForeground"
+   parent="Foreground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpWindowForeground"
+   >
+  A foreground that renders a single polygon used the specified material, 
+  see \ref PageSystemPolygonForeground for a
+  description.
 
-A foreground that renders a single polygon used the specified material, 
-see \ref PageSystemPolygonForeground for a
-description.
-
-The polygon material is defined by _sfMaterial, the positions by _mfPositions,
-the texture coordinates by _mfTexCoords (there must be as many texture
-coordinates as positions). The interpretation of the positions is
-controlled by _sfNormalizedX and _sfNormalizedY.
-	<Field
-		name="material"
-		type="PrimeMaterialPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  The polygon material is defined by _sfMaterial, the positions by _mfPositions,
+  the texture coordinates by _mfTexCoords (there must be as many texture
+  coordinates as positions). The interpretation of the positions is
+  controlled by _sfNormalizedX and _sfNormalizedY.
+  <Field
+	 name="material"
+	 type="PrimeMaterialPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The material used to display.
-	</Field>
-	<Field
-		name="positions"
-		type="Pnt2f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="positions"
+	 type="Pnt2f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	The vertices of the geometry to display.
-	</Field>
-	<Field
-		name="texCoords"
-		type="Vec3f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="texCoords"
+	 type="Vec3f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	The texture coordinates of the geometry to display.
-	</Field>
-	<Field
-		name="normalizedX"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="normalizedX"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	Define whether the x coordinates are normalized (0-1) or pixel-based.
-	</Field>
-	<Field
-		name="normalizedY"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="normalizedY"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	Define whether the y coordinates are normalized (0-1) or pixel-based.
-	</Field>
-	<Field
-		name="aspectHeight"
-		type="UInt16"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="aspectHeight"
+	 type="UInt16"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	Useful for keeping aspect ratio when rendering things like images.
-	</Field>
-	<Field
-		name="aspectWidth"
-		type="UInt16"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="aspectWidth"
+	 type="UInt16"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	Useful for keeping aspect ratio when rendering things like images.
-	</Field>
-	<Field
-		name="scale"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1.0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="scale"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.0"
+	 access="public"
+	 >
 	Scale factor for zooming.
-	</Field>
-	<Field
-		name="tile"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="tile"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	If true the image tiles in multi window settings.
-	</Field>
+  </Field>
 </FieldContainer>

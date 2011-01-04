@@ -53,8 +53,10 @@ OSG_BEGIN_NAMESPACE
 
 class Window;
 
-/*! \brief The fallback pump group that uses immediate mode to handle everything.
-*/
+/*! \brief The fallback pump group that uses immediate mode to handle
+           everything. 
+    \ingroup GrpDrawablesGeometryHelpers
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoImmediatePumpGroup : 
     public GeoPumpGroup

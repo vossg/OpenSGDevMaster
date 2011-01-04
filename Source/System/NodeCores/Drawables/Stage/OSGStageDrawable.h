@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief StageDrawable class. See \ref
            PageSystemStageDrawable for a description.
-*/
+    \ingroup GrpDrawablesStageObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING StageDrawable : public StageDrawableBase
 {

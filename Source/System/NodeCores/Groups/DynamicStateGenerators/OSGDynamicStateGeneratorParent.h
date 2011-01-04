@@ -48,6 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpGroupDynamicStateGeneratorsObj
+    \nohierarchy
+*/
+
 struct DynStateDesc
 {
     typedef ChunkOverrideGroup          ParentT;
@@ -56,6 +60,9 @@ struct DynStateDesc
 
     typedef RenderActionBase::Inherited DataSlotHandler;
 };
+
+/*! \ingroup GrpGroupDynamicStateGeneratorsObj
+ */
 
 typedef StageHandlerMixin< 
           ContainerMixinHead< DynStateDesc > > DynamicStateGeneratorParent;

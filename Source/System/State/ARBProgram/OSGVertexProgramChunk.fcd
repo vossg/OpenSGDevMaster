@@ -1,23 +1,22 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="VertexProgramChunk"
-	parent="ProgramChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="VertexProgramChunk"
+   parent="ProgramChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateARBProgram"
+   >
+  The ProgramChunk is the base class for generic ASCII-based programs inside
+  OpenGL. For actual use see the derived VertexProgramChunk and
+  FragmentProgramChunk.
 
-The ProgramChunk is the base class for generic ASCII-based programs inside
-OpenGL. For actual use see the derived VertexProgramChunk and
-FragmentProgramChunk.
-
-See \ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk
-implements Vertex Programs as specified in the GL_ARB_vertex_program extension.
-It is just a special version of the OSG::ProgramChunk, which contains the whole
-public interface.
+  See \ref PageSystemVertexProgramChunk for a description. The
+  VertexProgramChunk implements Vertex Programs as specified in the
+  GL_ARB_vertex_program extension. It is just a special version of the
+  OSG::ProgramChunk, which contains the whole public interface.
 </FieldContainer>

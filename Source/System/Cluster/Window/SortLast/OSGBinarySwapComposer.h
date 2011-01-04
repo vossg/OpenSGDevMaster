@@ -52,7 +52,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief BinarySwapComposer class. See \ref 
            PageSystemBinarySwapComposer for a description.
-*/
+
+    \ingroup GrpClusterWindowComposer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
 
 class OSG_CLUSTER_DLLMAPPING BinarySwapComposer : 
     public BinarySwapComposerBase
@@ -61,13 +65,19 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
 
     typedef BinarySwapComposerBase Inherited;
 
-    /** \brief RGB Color value */
+    /*! \brief RGB Color value 
+        \nohierarchy
+     */
+
     struct RGBValue
     {
         UInt8 red;
         UInt8 green;
         UInt8 blue;
     };
+
+    /*! \nohierarchy
+     */
 
     struct TileBuffer
     {
@@ -76,6 +86,10 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
         UInt32 colorSize;
         UInt32 depthSize;
         UInt32 dataSize;
+
+        /*! \nohierarchy
+         */
+
         struct 
         {
             UInt16 x;
@@ -86,6 +100,10 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
 
         UInt8 data[1];
     };
+
+    /*! \nohierarchy
+     */
+
     struct Statistics 
     {
         UInt32 bytesIn;
@@ -139,6 +157,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     BaseThreadRefPtr          _writer;

@@ -50,8 +50,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! ProxyGroup
-//! \ingroup GrpSystemNodeCoresMisc
+/*! \brief ProxyGroup
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
 {

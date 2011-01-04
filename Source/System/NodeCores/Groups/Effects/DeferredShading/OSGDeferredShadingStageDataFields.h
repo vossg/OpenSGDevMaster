@@ -68,7 +68,7 @@ class DeferredShadingStageData;
 
 OSG_GEN_CONTAINERPTR(DeferredShadingStageData);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>

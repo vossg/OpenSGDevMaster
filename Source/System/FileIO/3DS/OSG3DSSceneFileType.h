@@ -55,13 +55,15 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*!\ingroup GrpSystemDrawablesGeometrymetryLoaderLib
- * \brief InventorSceneFileType
+/*! \brief 3DS SceneFileType
+    \ingroup GrpFileIO3DS
+    \ingroup GrpLibOSGFileIO
  */
 
 class OSG_FILEIO_DLLMAPPING A3DSSceneFileType : public SceneFileType
 {
-public:
+
+  public:
 
     static A3DSSceneFileType &the(void);
 
@@ -73,7 +75,7 @@ public:
                                 const Char8        *fileNameOrExtension,
                                       Resolver      resolver  = NULL   ) const;
 
-protected:
+  protected:
 
     static const Char8            *_suffixA[];
     static       A3DSSceneFileType  _the;
@@ -86,7 +88,7 @@ protected:
 
     A3DSSceneFileType(const A3DSSceneFileType &obj);
 
-private:
+  private:
 
     NodeTransitPtr     createMesh    (L3DS &scene, LMesh  &mesh) const;
     MaterialTransitPtr createMaterial(L3DS &scene, UInt32  id  ) const;

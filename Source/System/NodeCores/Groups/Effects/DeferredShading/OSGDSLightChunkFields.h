@@ -68,7 +68,7 @@ class DSLightChunk;
 
 OSG_GEN_CONTAINERPTR(DSLightChunk);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
                       RecordedRefCountPolicy  > SFRecDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
                       UnrecordedRefCountPolicy> SFUnrecDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
                       WeakRefCountPolicy      > SFWeakDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldSFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
                       NoRefCountPolicy        > SFUncountedDSLightChunkPtr;
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
                       RecordedRefCountPolicy  > MFRecDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
                       UnrecordedRefCountPolicy> MFUnrecDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
                       WeakRefCountPolicy      > MFWeakDSLightChunkPtr;
-/*! \ingroup GrpEffectGroupsFieldMFields */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
                       NoRefCountPolicy        > MFUncountedDSLightChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<DSLightChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFRecDSLightChunkPtr : 
     public PointerSField<DSLightChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUnrecDSLightChunkPtr : 
     public PointerSField<DSLightChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFWeakDSLightChunkPtr :
     public PointerSField<DSLightChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields \ingroup GrpLibOSGEffectGroups */
 struct SFUncountedDSLightChunkPtr :
     public PointerSField<DSLightChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFRecDSLightChunkPtr :
     public PointerMField<DSLightChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUnrecDSLightChunkPtr :
     public PointerMField<DSLightChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFWeakDSLightChunkPtr :
     public PointerMField<DSLightChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+/*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields \ingroup GrpLibOSGEffectGroups */
 struct MFUncountedDSLightChunkPtr :
     public PointerMField<DSLightChunk *,
                          NoRefCountPolicy        > {};

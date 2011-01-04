@@ -1,27 +1,29 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="LogicOpChunk"
-    parent="StateChunk"
-    library="State"
-    pointerfieldtypes="both"
-    structure="concrete"
-    systemcomponent="true"
-    parentsystemcomponent="true"
->
-The logic op chunk contains the parameters that specify the logic operation
-applied to fragments before writing them to the framebuffer. The following
-OpenGL functionality is wrapped here: glLogicOp (OSG::LogicOpChunk::_sfLogicOp).
-    <Field
-        name="LogicOp"
-        category="data"
-        type="GLenum"
-        cardinality="single"
-        visibility="external"
-        defaultValue="GL_COPY"
-        defaultHeader="OSGGL.h"
-        access="public"
-    >
+   name="LogicOpChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpStateOpenGL"
+   >
+  The logic op chunk contains the parameters that specify the logic operation
+  applied to fragments before writing them to the framebuffer. The following
+  OpenGL functionality is wrapped here: 
+  glLogicOp(OSG::LogicOpChunk::_sfLogicOp). 
+  <Field
+     name="LogicOp"
+     category="data"
+     type="GLenum"
+     cardinality="single"
+     visibility="external"
+     defaultValue="GL_COPY"
+     defaultHeader="OSGGL.h"
+     access="public"
+     >
     The logic operation applied to fragments.
-    </Field>
+  </Field>
 </FieldContainer>

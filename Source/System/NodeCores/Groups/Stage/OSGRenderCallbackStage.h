@@ -51,8 +51,11 @@ OSG_BEGIN_NAMESPACE
 
 class RenderPartition;
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
+/*! Stage
+    \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING RenderCallbackStage : public RenderCallbackStageBase
 {

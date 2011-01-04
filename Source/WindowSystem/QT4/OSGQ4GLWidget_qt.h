@@ -56,7 +56,11 @@
 namespace OSG 
 {
 
-/*! \brief OSGQGL widget class. See \ref PageWindowQT for a description. */
+/*! \brief OSGQGL widget class. See \ref PageWindowQT for a description. 
+    \ingroup GrpWindowQt4Obj
+    \ingroup GrpLibOSGWindowQt4
+    \includebasedoc
+ */
 
 class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
 {

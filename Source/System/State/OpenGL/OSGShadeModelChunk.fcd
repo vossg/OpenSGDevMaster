@@ -1,26 +1,27 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="ShadeModelChunk"
-    parent="StateChunk"
-    library="State"
-    pointerfieldtypes="none"
-    structure="concrete"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    decoratable="false"
-    useLocalIncludes="false"
->
-ShadeModelChunk controls the shading model used for rendering lines and filled
-polygons.
-    <Field
-        name="shadeModel"
-        type="GLenum"
-        cardinality="single"
-        visibility="external"
-        defaultValue="GL_SMOOTH"
-        access="public"
-    >
+   name="ShadeModelChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  ShadeModelChunk controls the shading model used for rendering lines and filled
+  polygons.
+  <Field
+     name="shadeModel"
+     type="GLenum"
+     cardinality="single"
+     visibility="external"
+     defaultValue="GL_SMOOTH"
+     access="public"
+     >
     The shading model to use (glShadeModel).
-    </Field>
+  </Field>
 </FieldContainer>

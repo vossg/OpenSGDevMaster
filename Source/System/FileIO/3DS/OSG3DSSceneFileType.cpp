@@ -72,11 +72,6 @@ A3DSSceneFileType  A3DSSceneFileType::_the(_suffixA,
                                            10,
                                            SceneFileType::OSG_READ_SUPPORTED);
 
-/*!
- * \brief
- * \param
- * \return
- */
 NodeTransitPtr A3DSSceneFileType::read(      std::istream &is, 
                                        const Char8        *,
                                              Resolver        ) const
@@ -114,11 +109,6 @@ NodeTransitPtr A3DSSceneFileType::read(      std::istream &is,
     return root;
 }
 
-/*!
- * \brief
- * \param
- * \return
- */
 A3DSSceneFileType::A3DSSceneFileType(const Char8  *suffixArray[],
                                          UInt16  suffixByteCount,
                                          bool    override,
@@ -133,33 +123,18 @@ A3DSSceneFileType::A3DSSceneFileType(const Char8  *suffixArray[],
 }
 
 
-/*!
- * \brief
- * \param
- * \return
- */
 A3DSSceneFileType &A3DSSceneFileType::the(void)
 {
     return _the;
 }
 
 
-/*!
- * \brief
- * \param
- * \return
- */
 const Char8 *A3DSSceneFileType::getName(void) const
 {
     return "3DS Geometry";
 }
 
 
-/*!
- * \brief
- * \param
- * \return
- */
 A3DSSceneFileType::A3DSSceneFileType(const A3DSSceneFileType &obj) :
     SceneFileType(obj),
     _materials()
@@ -168,21 +143,11 @@ A3DSSceneFileType::A3DSSceneFileType(const A3DSSceneFileType &obj) :
 }
 
 
-/*!
- * \brief
- * \param
- * \return
- */
 A3DSSceneFileType::~A3DSSceneFileType (void )
 {
     return;
 }
 
-/*!
- * \brief
- * \param
- * \return
- */
 NodeTransitPtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
 {
     if(mesh.GetTriangleCount() == 0)

@@ -68,7 +68,7 @@ class TextureBackground;
 
 OSG_GEN_CONTAINERPTR(TextureBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<TextureBackground *, 0>::getSName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
                       RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
                       WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
                       NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<TextureBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecTextureBackgroundPtr : 
     public PointerSField<TextureBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecTextureBackgroundPtr : 
     public PointerSField<TextureBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakTextureBackgroundPtr :
     public PointerSField<TextureBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedTextureBackgroundPtr :
     public PointerSField<TextureBackground *,
                          NoRefCountPolicy> {};

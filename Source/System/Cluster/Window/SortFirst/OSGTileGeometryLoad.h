@@ -53,9 +53,15 @@ OSG_BEGIN_NAMESPACE
 
 #define FACE_DISTRIBUTION_SAMPLING_COUNT 8
 
+/*! \ingroup GrpClusterWindowBalancer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
+
 class OSG_CLUSTER_DLLMAPPING TileGeometryLoad
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -144,6 +150,7 @@ class OSG_CLUSTER_DLLMAPPING TileGeometryLoad
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/

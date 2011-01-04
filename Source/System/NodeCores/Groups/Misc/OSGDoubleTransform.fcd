@@ -1,23 +1,24 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="DoubleTransform"
-	parent="Group"
-	library="Group"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-The basic Transformation class. Just keeps a single matrix. For more complex
-behaviour, see its descendents.
-	<Field
-		name="matrix"
-		type="Matrix4d"
-		cardinality="single"
-		visibility="external"
-	>
+   name="DoubleTransform"
+   parent="Group"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
+   >
+  The basic Transformation class. Just keeps a single matrix. For more complex
+  behaviour, see its descendents.
+  <Field
+	 name="matrix"
+	 type="Matrix4d"
+	 cardinality="single"
+	 visibility="external"
+	 >
 	The transformation matrix.
-	</Field>
+  </Field>
 </FieldContainer>

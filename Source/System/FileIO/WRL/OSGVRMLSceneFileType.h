@@ -50,7 +50,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief VRMLSceneFileType
-*/
+    \ingroup GrpFileIOWRLObj
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLSceneFileType : public SceneFileType
 {

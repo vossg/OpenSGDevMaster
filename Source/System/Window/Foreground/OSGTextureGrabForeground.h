@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Foreground class for grabbing the viewport into a texture. See \ref 
-    PageSystemWindowForegroundTextureGrab for a description.
-*/
+           PageSystemWindowForegroundTextureGrab for a description.
+    \ingroup GrpWindowForegroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING TextureGrabForeground : 
     public TextureGrabForegroundBase

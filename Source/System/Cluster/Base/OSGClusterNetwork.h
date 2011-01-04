@@ -58,6 +58,9 @@ class RemoteAspect;
 class ClusterNetwork;
 OSG_GEN_MEMOBJPTR(ClusterNetwork);
 
+/*! \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
 
 class OSG_CLUSTER_DLLMAPPING ClusterNetwork : public MemoryObject
 {

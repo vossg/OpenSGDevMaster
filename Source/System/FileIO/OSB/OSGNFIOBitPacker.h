@@ -50,6 +50,8 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief BitPacker class.
           packs and unpacks UInt32
+    \ingroup GrpFileIOOSB
+    \nohierarchy
 */
 
 class BitPacker
@@ -90,6 +92,10 @@ private:
 
     static const Int32 BITS_PER_WORD;
 };
+
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
 
 class BitUnpacker
 {

@@ -46,6 +46,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 template <class ElementTypeT>
 struct OSBElementRegistrationHelper
 {
@@ -65,6 +69,10 @@ struct OSBElementRegistrationHelper
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 };
+
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
 
 template <class ElementTypeT>
 struct OSBDefaultElementRegistrationHelper

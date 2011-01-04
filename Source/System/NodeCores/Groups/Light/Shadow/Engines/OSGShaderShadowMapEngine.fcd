@@ -1,72 +1,74 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-    name="ShaderShadowMapEngine"
-    parent="ShadowMapEngine"
-    library="Group"
-    structure="concrete"
-    pointerfieldtypes="both"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    isNodeCore="false"
->
-    <Field
-        name="shadowVertexProgram"
-        category="pointer"
-        type="ShaderProgram"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="public"
-    >
-      Vertex program snippet to perform necessary calculations for shadow map lookup.
-      Currently not used.
-    </Field>
-    <Field
-        name="shadowFragmentProgram"
-        category="pointer"
-        type="ShaderProgram"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="public"
-    >
-      Fragment program snippet to perform shadow map lookup.
-      Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns a shadow
-      factor for the fragment with eye coordinate positoin fragPos.
-    </Field>
-    <Field
-        name="forceTextureUnit"
-        type="Int32"
-        cardinality="single"
-        visibility="external"
-        defaultValue="-1"
-        access="public"
-    >
-      Texture unit to use for the shadow texture (this is passed to the shader snippets).
-    </Field>
-    <Field
-       name="shadowNear"
-       type="Real32"
-       category="data"
-       cardinality="single"
-       visibility="external"
-       defaultValue="0.f"
-       access="public"
-       >
-      Near clipping plane value to use when rendering the shadow map.
-      Only used when not 0.f.
-    </Field>
-    <Field
-       name="shadowFar"
-       type="Real32"
-       category="data"
-       cardinality="single"
-       visibility="external"
-       defaultValue="0.f"
-       access="public"
-       >
-      Far clipping plane value to use when rendering the shadow map.
-      Only used when not 0.f.
-    </Field>
+   name="ShaderShadowMapEngine"
+   parent="ShadowMapEngine"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   docGroupBase="GrpGroupLightShadowEngines"
+   >
+  <Field
+     name="shadowVertexProgram"
+     category="pointer"
+     type="ShaderProgram"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
+    Vertex program snippet to perform necessary calculations for shadow map
+    lookup. Currently not used.
+  </Field>
+  <Field
+     name="shadowFragmentProgram"
+     category="pointer"
+     type="ShaderProgram"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
+    Fragment program snippet to perform shadow map lookup.
+    Contains a function vec4 OSG_SSME_FP_calcShadow(vec4 fragPos) that returns
+    a shadow factor for the fragment with eye coordinate positoin fragPos.
+  </Field>
+  <Field
+     name="forceTextureUnit"
+     type="Int32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="-1"
+     access="public"
+     >
+    Texture unit to use for the shadow texture (this is passed to the shader
+    snippets). 
+  </Field>
+  <Field
+     name="shadowNear"
+     type="Real32"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     defaultValue="0.f"
+     access="public"
+     >
+    Near clipping plane value to use when rendering the shadow map.
+    Only used when not 0.f.
+  </Field>
+  <Field
+     name="shadowFar"
+     type="Real32"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     defaultValue="0.f"
+     access="public"
+     >
+    Far clipping plane value to use when rendering the shadow map.
+    Only used when not 0.f.
+  </Field>
 </FieldContainer>

@@ -1,64 +1,63 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="LineChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemState
+   name="LineChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpStateOpenGL"
+   >
+  See \ref PageSystemLineChunk for a description.
 
-See \ref PageSystemLineChunk for a description.
+  The line chunk contains the parameters that are specific to lines.
 
-The line chunk contains the parameters that are specific to lines.
-
-The parameters of the following functions are wrapped here: glLineWidth
-(OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,
-OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
-(OSG::LineChunk::_sfSmooth).
-	<Field
-		name="width"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
-        The line's width, in pixels.
-	</Field>
-	<Field
-		name="stippleRepeat"
-		type="Int32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
-		access="public"
-	>
-        Repetition factor for stippling.
-	</Field>
-	<Field
-		name="stipplePattern"
-		type="UInt16"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0xffff"
-		access="public"
-	>
+  The parameters of the following functions are wrapped here: glLineWidth
+  (OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,
+  OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
+  (OSG::LineChunk::_sfSmooth).
+  <Field
+	 name="width"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
+    The line's width, in pixels.
+  </Field>
+  <Field
+	 name="stippleRepeat"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1"
+	 access="public"
+	 >
+    Repetition factor for stippling.
+  </Field>
+  <Field
+	 name="stipplePattern"
+	 type="UInt16"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0xffff"
+	 access="public"
+	 >
 	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, 
-        starting with the most significant bit.
-	</Field>
-	<Field
-		name="smooth"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_FALSE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
+    starting with the most significant bit.
+  </Field>
+  <Field
+	 name="smooth"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FALSE"
+	 defaultHeader="&quot;OSGGL.h&quot;"
+	 access="public"
+	 >
 	Defines if line antialiasing is used.
-	</Field>
+  </Field>
 </FieldContainer>

@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="FatBorderChunk"
-    parent="VertexProgramChunk"
-    library="Drawable"
-    pointerfieldtypes="both"
-    structure="concrete"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    decoratable="false"
->
+   name="FatBorderChunk"
+   parent="VertexProgramChunk"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpDrawablesNurbs"
+   >
 </FieldContainer>

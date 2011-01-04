@@ -42,7 +42,7 @@
 
 #include "OSGColladaGlobal.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGColladaCOLLADA.h"
@@ -54,7 +54,7 @@
 /*! \class OSG::ColladaGlobal
     This is the entry point for the Collada loader from which the loading
     process is started.
-    You can think of it as representing the <COLLADA> tag in a document.
+    You can think of it as representing the &lt;COLLADA&gt; tag in a document.
  */
 
 OSG_BEGIN_NAMESPACE

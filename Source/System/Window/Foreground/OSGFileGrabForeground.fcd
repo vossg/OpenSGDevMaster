@@ -1,53 +1,52 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="FileGrabForeground"
-	parent="GrabForeground"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemWindowForegrounds
+   name="FileGrabForeground"
+   parent="GrabForeground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpWindowForeground"
+   >
+  The FileGrabForeground is used for grabbing a frame or sequence of frames to
+  disk.  See \ref
+  PageSystemWindowForegroundGrabFile for a description.
 
-The FileGrabForeground is used for grabbing a frame or sequence of frames to
-disk.  See \ref
-PageSystemWindowForegroundGrabFile for a description.
-
-The name of the file(s) grabbed to are defined by the _sfName Field, the
-current frame number by _sfFrame. _sfIncrement can be used to automatically
-increment the frame number after each image is written. The whole grabber can
-be activated/deactivated using _sfActive.
-	<Field
-		name="name"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  The name of the file(s) grabbed to are defined by the _sfName Field, the
+  current frame number by _sfFrame. _sfIncrement can be used to automatically
+  increment the frame number after each image is written. The whole grabber can
+  be activated/deactivated using _sfActive.
+  <Field
+	 name="name"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The filename template. %d is replaced by the frame number.
-	</Field>
-	<Field
-		name="frame"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="frame"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The frame number to use.
-	</Field>
-	<Field
-		name="increment"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="increment"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+	 >
 	Flag to start/stop automatic frame increments after each grab.
-	</Field>
+  </Field>
 </FieldContainer>

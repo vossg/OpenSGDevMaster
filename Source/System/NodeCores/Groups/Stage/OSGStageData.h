@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief StageData class. See \ref
            PageGroupStageData for a description.
-*/
+    \ingroup GrpGroupStageObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 {

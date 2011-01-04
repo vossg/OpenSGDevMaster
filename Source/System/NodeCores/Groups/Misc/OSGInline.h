@@ -48,6 +48,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Inline
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
+
 class OSG_GROUP_DLLMAPPING Inline : public InlineBase
 {
     /*==========================  PUBLIC  =================================*/  

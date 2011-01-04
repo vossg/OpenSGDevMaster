@@ -48,6 +48,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Indicate cluster exceptions
+    \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING ClusterException : public Exception 
 {
     /*==========================  PUBLIC  =================================*/
@@ -57,6 +62,11 @@ class OSG_CLUSTER_DLLMAPPING ClusterException : public Exception
     ClusterException(void);
 };
 
+/*! \brief Indicate close of connecitons
+    \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
+
 class OSG_CLUSTER_DLLMAPPING ConnectionClosed : public ClusterException
 {
     /*==========================  PUBLIC  =================================*/
@@ -64,6 +74,11 @@ class OSG_CLUSTER_DLLMAPPING ConnectionClosed : public ClusterException
   public:
     ConnectionClosed(void);
 };
+
+/*! \brief Indicate error in sync data stream
+    \ingroup GrpClusterBase
+    \ingroup GrpLibOSGCluster
+ */
 
 class OSG_CLUSTER_DLLMAPPING RemoteSyncError : public ClusterException
 {

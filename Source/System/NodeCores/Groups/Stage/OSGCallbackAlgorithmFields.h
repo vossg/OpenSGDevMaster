@@ -68,7 +68,7 @@ class CallbackAlgorithm;
 
 OSG_GEN_CONTAINERPTR(CallbackAlgorithm);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldSFields */
+/*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
 
 
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
-/*! \ingroup GrpGroupFieldMFields */
+/*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<CallbackAlgorithm *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFRecCallbackAlgorithmPtr : 
     public PointerSField<CallbackAlgorithm *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUnrecCallbackAlgorithmPtr : 
     public PointerSField<CallbackAlgorithm *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFWeakCallbackAlgorithmPtr :
     public PointerSField<CallbackAlgorithm *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldSFields \ingroup GrpLibOSGGroup */
 struct SFUncountedCallbackAlgorithmPtr :
     public PointerSField<CallbackAlgorithm *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFRecCallbackAlgorithmPtr :
     public PointerMField<CallbackAlgorithm *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUnrecCallbackAlgorithmPtr :
     public PointerMField<CallbackAlgorithm *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFWeakCallbackAlgorithmPtr :
     public PointerMField<CallbackAlgorithm *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+/*! \ingroup GrpGroupStageFieldMFields \ingroup GrpLibOSGGroup */
 struct MFUncountedCallbackAlgorithmPtr :
     public PointerMField<CallbackAlgorithm *,
                          NoRefCountPolicy        > {};

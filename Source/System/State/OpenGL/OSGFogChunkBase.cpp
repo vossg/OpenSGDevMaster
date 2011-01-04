@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::FogChunk
-    \ingroup GrpSystemState
-
     This chunk wraps glFog() (OSG::FogChunk::_sfMode, OSG::FogChunk::_sfFogColor,
     OSG::FogChunk::_sfStart, OSG::FogChunk::_sfEnd, OSG::FogChunk::_sfDensity).
  */
@@ -218,9 +216,8 @@ FogChunkBase::TypeObject FogChunkBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpStateOpenGL\"\n"
     "   >\n"
-    "  \\ingroup GrpSystemState\n"
-    "\n"
     "  This chunk wraps glFog() (OSG::FogChunk::_sfMode, OSG::FogChunk::_sfFogColor,\n"
     "  OSG::FogChunk::_sfStart, OSG::FogChunk::_sfEnd, OSG::FogChunk::_sfDensity).\n"
     "\n"
@@ -273,7 +270,7 @@ FogChunkBase::TypeObject FogChunkBase::_type(
     "    The far value for the fog, used in GL_LINEAR mode (default: 1.f)\n"
     "  </Field>\n"
     "\n"
-    "    <Field\n"
+    "  <Field\n"
     "     name=\"density\"\n"
     "     type=\"Real32\"\n"
     "     category=\"data\"\n"
@@ -285,8 +282,6 @@ FogChunkBase::TypeObject FogChunkBase::_type(
     "    The denisty of the fog, used in GL_EXP, GL_EXP2 mode (default: 1.f)\n"
     "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "This chunk wraps glFog() (OSG::FogChunk::_sfMode, OSG::FogChunk::_sfFogColor,\n"
     "OSG::FogChunk::_sfStart, OSG::FogChunk::_sfEnd, OSG::FogChunk::_sfDensity).\n"
     );

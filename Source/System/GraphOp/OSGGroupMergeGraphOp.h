@@ -48,10 +48,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
 {
-/*==========================  PUBLIC  =================================*/
+    /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -88,7 +94,9 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructors                                     */
     /*! \{                                                                 */
@@ -98,6 +106,7 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     Action::ResultE traverseEnter(Node * const node                     );

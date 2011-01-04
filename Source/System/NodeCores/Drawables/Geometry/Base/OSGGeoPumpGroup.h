@@ -53,7 +53,8 @@ class Window;
 class Geometry;
 
 /*! \brief A group of geometry pumps.
-*/
+    \ingroup GrpDrawablesGeometryHelpers
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
 {

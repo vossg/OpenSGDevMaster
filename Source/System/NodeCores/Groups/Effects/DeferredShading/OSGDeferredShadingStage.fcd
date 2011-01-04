@@ -1,80 +1,81 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="DeferredShadingStage"
-    parent="SimpleStage"
-    library="EffectGroups"
-    pointerfieldtypes="both"
-    structure="concrete"
-    systemcomponent="true"
-    parentsystemcomponent="true"
-    decoratable="false"
-    useLocalIncludes="false"
-    isNodeCore="true"
->
-A stage to implement a deferred shading system. It renders the tree below it
-to (multiple) render targets (pass0). These are then used as input for a
-second pass that renders a full screen quad (pass1).
-    <Field
-        name="pixelFormats"
-        category="data"
-        type="GLenum"
-        cardinality="multi"
-        visibility="external"
-        access="public"
-    >
+   name="DeferredShadingStage"
+   parent="SimpleStage"
+   library="EffectGroups"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   docGroupBase="GrpEffectsGroupsDeferredShading"
+   >
+  A stage to implement a deferred shading system. It renders the tree below it
+  to (multiple) render targets (pass0). These are then used as input for a
+  second pass that renders a full screen quad (pass1).
+  <Field
+     name="pixelFormats"
+     category="data"
+     type="GLenum"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
     Pixel formats for each of the (multiple) render targets.
-    </Field>
-    <Field
-        name="pixelTypes"
-        category="data"
-        type="GLenum"
-        cardinality="multi"
-        visibility="external"
-        access="public"
-    >
+  </Field>
+  <Field
+     name="pixelTypes"
+     category="data"
+     type="GLenum"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
     Pixel data types for each of the (multiple) render targets.
-    </Field>
-    <Field
-        name="gBufferProgram"
-        category="pointer"
-        type="ShaderProgramChunk"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="public"
-    >
+  </Field>
+  <Field
+     name="gBufferProgram"
+     category="pointer"
+     type="ShaderProgramChunk"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
     Shader program used when rendering to the (multiple) render targets.
-    </Field>
-    <Field
-        name="ambientProgram"
-        category="pointer"
-        type="ShaderProgramChunk"
-        cardinality="single"
-        visibility="external"
-        defaultValue="NULL"
-        access="public"
-    >
+  </Field>
+  <Field
+     name="ambientProgram"
+     category="pointer"
+     type="ShaderProgramChunk"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
     Shader program used for a global ambient pass.
-    </Field>
-    <Field
-        name="lightPrograms"
-        category="pointer"
-        type="ShaderProgramChunk"
-        cardinality="multi"
-        visibility="external"
-        access="public"
-    >
+  </Field>
+  <Field
+     name="lightPrograms"
+     category="pointer"
+     type="ShaderProgramChunk"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
     Shader programs used when rendering each light. If only one is present it
     is used for all lights otherwise there must be a program for each light.
-    </Field>
-    <Field
-        name="lights"
-        category="pointer"
-        type="Light"
-        cardinality="multi"
-        visibility="external"
-        access="public"
-    >
-    </Field>
+  </Field>
+  <Field
+     name="lights"
+     category="pointer"
+     type="Light"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+  </Field>
 </FieldContainer>

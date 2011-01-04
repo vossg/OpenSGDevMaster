@@ -75,33 +75,33 @@ OSG_USING_NAMESPACE
     Interpretation also depends on the currently active Navigator::Mode.
 */
 
-/*! \var Navigator::State Navigator::IDLE
+/*! \var NavigatorBase::State NavigatorBase::IDLE
 
     Inactive state. 
 */
 
-/*! \var Navigator::State Navigator::ROTATING
+/*! \var NavigatorBase::State NavigatorBase::ROTATING
 
     State for in-place rotation. 
 */
 
-/*! \var Navigator::State Navigator::TRANSLATING_XY
+/*! \var NavigatorBase::State NavigatorBase::TRANSLATING_XY
 
     State for x/y translation, used by the Trackball case. 
 */
 
-/*! \var Navigator::State Navigator::TRANSLATING_Z
+/*! \var NavigatorBase::State NavigatorBase::TRANSLATING_Z
 
     State for z translation, used by the Trackball case. 
 */
 
-/*! \var Navigator::State Navigator::TRANSLATING_ZPLUS
+/*! \var NavigatorBase::State NavigatorBase::TRANSLATING_ZPLUS
 
     State for rotation with automatic forward motion. The standard fly forward
     state. 
 */
 
-/*! \var Navigator::State Navigator::TRANSLATING_ZMINUS
+/*! \var NavigatorBase::State NavigatorBase::TRANSLATING_ZMINUS
 
     State for rotation with automatic backwards motion. The standard fly
     backwards state. 
@@ -114,12 +114,12 @@ OSG_USING_NAMESPACE
     independent of the actual Window System.
 */
 
-/*! \var Navigator::MouseButton Navigator::UP_MOUSE
+/*! \var NavigatorBase::MouseButton NavigatorBase::UP_MOUSE
 
     Mouse wheel up button. 
 */
 
-/*! \var Navigator::MouseButton Navigator::DOWN_MOUSE
+/*! \var NavigatorBase::MouseButton NavigatorBase::DOWN_MOUSE
 
     Mouse wheel down button. 
 */

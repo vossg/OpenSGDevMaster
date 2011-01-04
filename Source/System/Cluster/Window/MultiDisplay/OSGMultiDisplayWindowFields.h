@@ -68,7 +68,7 @@ class MultiDisplayWindow;
 
 OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

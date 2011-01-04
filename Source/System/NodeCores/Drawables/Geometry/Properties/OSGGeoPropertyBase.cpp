@@ -201,6 +201,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
     "   >\n"
     "  <Field\n"
     "     name=\"useVBO\"\n"

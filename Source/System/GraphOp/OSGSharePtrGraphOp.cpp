@@ -60,13 +60,6 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::UnifyVerticesGraphOp
-    \ingroup GrpSystemNodeCoresDrawablesGeometry
-
-A class used to create indexed geometries.
-
-*/
-
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {

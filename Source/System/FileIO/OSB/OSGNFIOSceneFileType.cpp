@@ -114,11 +114,12 @@ NodeTransitPtr NFIOSceneFileType::read(      std::istream &is,
 
     \param[in] node Root of the subtree to write.
     \param[in] os Output stream to write to.
+    \param[in] fileNameOrExtension filename or file extension
     \return True if the operation succeeded, false otherwise.
  */
 bool NFIOSceneFileType::write(Node         * const  node,
                               std::ostream         &os,
-                              Char8          const *     ) const
+                              Char8          const *fileNameOrExtension) const
 {
     return OSBDriver::write(node, os, getOptions());
 }

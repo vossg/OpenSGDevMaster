@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for texture coordinate transformations. See 
-    \ref PageSystemTextureTransformChunk for a description.
-*/
+           \ref PageSystemTextureTransformChunk for a description.
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING TextureTransformChunk : 
     public TextureTransformChunkBase

@@ -48,6 +48,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief TileableBackground class. See \ref
            PageWindowTileableBackground for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
 */
 
 class OSG_WINDOW_DLLMAPPING TileableBackground : public TileableBackgroundBase

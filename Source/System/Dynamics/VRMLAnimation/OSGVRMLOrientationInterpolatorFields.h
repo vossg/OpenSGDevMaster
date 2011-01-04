@@ -68,7 +68,7 @@ class VRMLOrientationInterpolator;
 
 OSG_GEN_CONTAINERPTR(VRMLOrientationInterpolator);
 
-/*! \ingroup GrpDynamicsFieldTraits
+/*! \ingroup GrpDynamicsVRMLAnimationFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>

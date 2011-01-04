@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TileableBackground
-    \ingroup GrpSystemWindowBackgrounds
-
     An abstract base class for Backgrounds that support tiling when used in
     conjunction with the TileCameraDecorator.
  */
@@ -142,31 +140,28 @@ TileableBackgroundBase::TypeObject TileableBackgroundBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"TileableBackground\"\n"
-    "    parent=\"Background\"\n"
-    "    library=\"Window\"\n"
-    "    structure=\"abstract\"\n"
-    "    pointerfieldtypes=\"single\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "An abstract base class for Backgrounds that support tiling when used in\n"
-    "conjunction with the TileCameraDecorator.\n"
-    "    <Field\n"
-    "        name=\"tile\"\n"
-    "        type=\"bool\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"true\"\n"
-    "        access=\"public\"\n"
-    "    >\n"
+    "   name=\"TileableBackground\"\n"
+    "   parent=\"Background\"\n"
+    "   library=\"Window\"\n"
+    "   structure=\"abstract\"\n"
+    "   pointerfieldtypes=\"single\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowBackground\"\n"
+    "   >\n"
+    "  An abstract base class for Backgrounds that support tiling when used in\n"
+    "  conjunction with the TileCameraDecorator.\n"
+    "  <Field\n"
+    "     name=\"tile\"\n"
+    "     type=\"bool\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"true\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
     "    If true the background tiles in multi window settings.\n"
-    "    </Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
     "An abstract base class for Backgrounds that support tiling when used in\n"
     "conjunction with the TileCameraDecorator.\n"
     );

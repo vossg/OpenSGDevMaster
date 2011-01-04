@@ -50,6 +50,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpClusterWindowComposer
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
+ */
+
 class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
 {
   private:

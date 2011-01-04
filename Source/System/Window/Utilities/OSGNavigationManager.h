@@ -54,14 +54,16 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief A helper class to simplify navigation within a subgraph.
-    \ingroup GrpSystemLib
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING NavigationManager
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Enums                                   */
     /*! \{                                                                 */
@@ -139,6 +141,7 @@ class OSG_UTIL_DLLMAPPING NavigationManager
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
@@ -162,6 +165,7 @@ class OSG_UTIL_DLLMAPPING NavigationManager
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /* prohibit default function (move to 'public' if needed) */

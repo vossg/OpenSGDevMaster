@@ -1,105 +1,114 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="StencilChunk"
-	parent="StateChunk"
-	library="State"
-    pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().
-	<Field
-		name="stencilFunc"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		defaultHeader="OSGGL.h"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="stencilValue"
-		type="Int32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="stencilMask"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0x1"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="stencilOpFail"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_KEEP"
-		defaultHeader="OSGGL.h"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="stencilOpZFail"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_KEEP"
-		defaultHeader="OSGGL.h"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="stencilOpZPass"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_KEEP"
-		defaultHeader="OSGGL.h"
-		access="public"
-	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
-        See glStencilFunc() for details. GL_NONE is used to disable stencil.
-	</Field>
-	<Field
-		name="clearBuffer"
-		type="Int32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+   name="StencilChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc()
+  and glStencilOp(). 
+  <Field
+	 name="stencilFunc"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_NONE"
+	 defaultHeader="OSGGL.h"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="stencilValue"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="stencilMask"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0x1"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="stencilOpFail"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_KEEP"
+	 defaultHeader="OSGGL.h"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="stencilOpZFail"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_KEEP"
+	 defaultHeader="OSGGL.h"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="stencilOpZPass"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_KEEP"
+	 defaultHeader="OSGGL.h"
+	 access="public"
+	 >
+	The stencilFunc defines how fragments which do not fulfill a certain
+	condition are handled. 
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
+  </Field>
+  <Field
+	 name="clearBuffer"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	Clear buffer on activate(1) or deactivate(2).
-	</Field>
-	<Field
-		name="bitMask"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0xFFFFFFFF"
-		access="public"
-	>
-	Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.
-	</Field>
+  </Field>
+  <Field
+	 name="bitMask"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0xFFFFFFFF"
+	 access="public"
+	 >
+	Controls writing of individual bits in stencil planes, with 0 means write
+	protected and 1 write enabled.
+  </Field>
 </FieldContainer>

@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief VRMLAttachment class. See \ref
            PageFileIOVRMLAttachment for a description.
-*/
+    \ingroup GrpFileIOWRLObj
+    \ingroup GrpLibOSGFileIO
+    \includebasedoc
+ */
 
 class OSG_FILEIO_DLLMAPPING VRMLAttachment : public VRMLAttachmentBase
 {

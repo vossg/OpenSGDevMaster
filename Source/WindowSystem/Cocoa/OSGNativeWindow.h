@@ -44,10 +44,17 @@
 
 #include "OSGCocoaWindow.h"
 
+#ifndef OSG_DO_DOC
+
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowCocoaObj
+ */
 
 typedef CocoaWindow NativeWindow;
 
 OSG_END_NAMESPACE
+
+#endif
 
 #endif // _OSGNATIVEWINDOW_H_

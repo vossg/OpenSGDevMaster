@@ -50,15 +50,20 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Navigator engine for simple fly model. See \ref 
-    PageSystemWindowNavigatorsFly for a description.
-*/
+           PageSystemWindowNavigatorsFly for a description.
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
     typedef FlyEngine       Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Types                                  */
     /*! \{                                                                 */
@@ -100,7 +105,7 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     virtual void setUp(Vec3f new_up);
     virtual void set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up);
     virtual void set(const Matrix & new_matrix);
-    virtual void setDistance(Real32 new_distance);
+    virtual void setDistance(Real32 dist);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -124,7 +129,9 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name             Constructors/Destructor                          */
     /*! \{                                                                 */
@@ -145,6 +152,7 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     /*! \}                                                                 */
 
   private:
+
     /* Not implemented */
     FlyEngine(const FlyEngine &other);
     FlyEngine &operator =(const FlyEngine &other);

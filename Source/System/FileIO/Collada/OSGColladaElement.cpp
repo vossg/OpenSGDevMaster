@@ -43,7 +43,7 @@
 #include "OSGColladaElement.h"
 #include "OSGColladaGlobal.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 /*! \class OSG::ColladaElement
     The base class for all objects responsible for converting a part of the
@@ -63,10 +63,12 @@
     usually right after it is created.
  */
 
+#if 0
 /*! \fn FieldContainer *ColladaElement::process(ColladaElement *parent)
     Generates the OpenSG data structures that correspond to this
     ColladaElement.
  */
+#endif
 
 OSG_BEGIN_NAMESPACE
 

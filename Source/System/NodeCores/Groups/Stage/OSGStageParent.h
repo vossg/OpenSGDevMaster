@@ -48,6 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpGroupStageObj
+    \nohierarchy
+*/
+
 struct StageDesc
 {
     typedef Group                       ParentT;
@@ -56,6 +60,9 @@ struct StageDesc
 
     typedef RenderActionBase::Inherited DataSlotHandler;
 };
+
+/*! \ingroup GrpGroupStageObj
+ */
 
 typedef StageHandlerMixin< ContainerMixinHead< StageDesc > > StageParent;
 

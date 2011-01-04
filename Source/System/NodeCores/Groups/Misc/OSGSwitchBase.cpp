@@ -76,7 +76,8 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::Switch
     This core allows selection of different subtrees with the \c choice field.
-    Depending on its value either all, none or only the specified child is enabled.
+    Depending on its value either all, none or only the specified child is
+    enabled.
  */
 
 /***************************************************************************\
@@ -143,30 +144,33 @@ SwitchBase::TypeObject SwitchBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Switch\"\n"
-    "\tparent=\"Group\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
-    ">\n"
-    "This core allows selection of different subtrees with the \\c choice field.\n"
-    "Depending on its value either all, none or only the specified child is enabled.\n"
-    "\t<Field\n"
-    "\t\tname=\"choice\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"-1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "   name=\"Switch\"\n"
+    "   parent=\"Group\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   docGroupBase=\"GrpGroupMisc\"\n"
+    "   >\n"
+    "  This core allows selection of different subtrees with the \\c choice field.\n"
+    "  Depending on its value either all, none or only the specified child is\n"
+    "  enabled.\n"
+    "  <Field\n"
+    "\t name=\"choice\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"-1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "This core allows selection of different subtrees with the \\c choice field.\n"
-    "Depending on its value either all, none or only the specified child is enabled.\n"
+    "Depending on its value either all, none or only the specified child is\n"
+    "enabled.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

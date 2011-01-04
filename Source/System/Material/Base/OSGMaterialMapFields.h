@@ -64,6 +64,7 @@ typedef RenderPropertiesPool::Singleton::ValueType MaterialMapKey;
 
 typedef std::map<MaterialMapKey, PrimeMaterial *>  MaterialMap;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemMaterialFieldSFields
  */
 
@@ -72,7 +73,16 @@ typedef SField<MaterialMapKey> SFMaterialMapKey;
 /*! \ingroup GrpSystemMaterialFieldMFields
  */
 typedef MField<MaterialMapKey> MFMaterialMapKey;
+#else
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem
+ */
 
+struct SFMaterialMapKey : public SField<MaterialMapKey> {};
+
+/*! \ingroup GrpSystemMaterialFieldMFields \ingroup GrpLibOSGSystem
+ */
+struct MFMaterialMapKey : public MField<MaterialMapKey> {};
+#endif
 
 /*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
@@ -150,10 +160,17 @@ struct FieldTraits<MaterialMap> :
     }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemMaterialFieldSFields
  */
 
 typedef SField<MaterialMap> SFMaterialPtrMap;
+#else
+/*! \ingroup GrpSystemMaterialFieldSFields \ingroup GrpLibOSGSystem
+ */
+
+struct SFMaterialPtrMap : public SField<MaterialMap> {};
+#endif
 
 /*! \ingroup GrpSystemMaterialFieldHandle
     \ingroup GrpLibOSGSystem

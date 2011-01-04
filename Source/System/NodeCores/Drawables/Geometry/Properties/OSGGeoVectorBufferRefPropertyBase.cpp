@@ -151,6 +151,7 @@ GeoVectorBufferRefPropertyBase::TypeObject GeoVectorBufferRefPropertyBase::_type
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   childFields=\"both\"\n"
+    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
     "   >\n"
     "</FieldContainer>\n",
     ""

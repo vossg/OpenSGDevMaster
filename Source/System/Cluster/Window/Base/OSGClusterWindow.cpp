@@ -113,10 +113,12 @@ void ClusterWindow::dump(      UInt32    ,
     SLOG << "Dump ClusterWindow NI" << std::endl;
 }
 
-void (*ClusterWindow::getFunctionByName(const Char8 *))()
+#if 0
+void (*ClusterWindow::getFunctionByName(const Char8 *s))()
 {
     return NULL;
 }
+#endif
 
 /*! init cluster window. connect to all servers
  */

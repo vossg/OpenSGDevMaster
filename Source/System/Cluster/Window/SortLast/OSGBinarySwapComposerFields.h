@@ -68,7 +68,7 @@ class BinarySwapComposer;
 
 OSG_GEN_CONTAINERPTR(BinarySwapComposer);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

@@ -51,18 +51,21 @@
 OSG_BEGIN_NAMESPACE
 
 
-/*! \brief The OpenSG NURBS node.
- */
-
 //---------------------------------------------------------------------------
 // Forward Declarations
 //---------------------------------------------------------------------------
+
 class CNurbsPatchSurface;
 class BSplineTrimmedSurface;
 class BSplineTensorSurface;
 class SimplePolygon;
 class BSplineCurve2D;
 
+/*! \brief The OpenSG NURBS node.
+    \ingroup GrpDrawablesNurbsObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING Surface : public SurfaceBase
 {

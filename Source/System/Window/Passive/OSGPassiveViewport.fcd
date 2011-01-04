@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="PassiveViewport"
-	parent="Viewport"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-The PassiveViewport does nothing itself, but expects OpenGL to be properly configured when draw() or render() are called.
+   name="PassiveViewport"
+   parent="Viewport"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowPassive"
+   >
+  The PassiveViewport does nothing itself, but expects OpenGL to be properly
+  configured when draw() or render() are called. 
 </FieldContainer>

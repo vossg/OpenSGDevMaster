@@ -56,6 +56,9 @@ class TreeRenderer;
 class DrawEnv;
 class RenderAction;
 
+/*! \ingroup GrpEffectsGroupsShadowTreeHandler
+ */
+
 class OSG_EFFECTGROUPS_DLLMAPPING StdShadowMapHandler : public ShadowTreeHandler
 {
   public:

@@ -68,7 +68,7 @@ class OrthographicCamera;
 
 OSG_GEN_CONTAINERPTR(OrthographicCamera);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowCameraFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<OrthographicCamera *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecOrthographicCameraPtr : 
     public PointerSField<OrthographicCamera *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecOrthographicCameraPtr : 
     public PointerSField<OrthographicCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakOrthographicCameraPtr :
     public PointerSField<OrthographicCamera *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedOrthographicCameraPtr :
     public PointerSField<OrthographicCamera *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecOrthographicCameraPtr :
     public PointerMField<OrthographicCamera *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecOrthographicCameraPtr :
     public PointerMField<OrthographicCamera *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakOrthographicCameraPtr :
     public PointerMField<OrthographicCamera *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowCameraFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedOrthographicCameraPtr :
     public PointerMField<OrthographicCamera *,
                          NoRefCountPolicy        > {};

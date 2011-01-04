@@ -68,7 +68,7 @@ class ImageComposer;
 
 OSG_GEN_CONTAINERPTR(ImageComposer);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ImageComposer *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
                       RecordedRefCountPolicy  > SFRecImageComposerPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
                       UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
                       WeakRefCountPolicy      > SFWeakImageComposerPtr;
-/*! \ingroup GrpClusterFieldSFields */
+/*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
                       NoRefCountPolicy        > SFUncountedImageComposerPtr;
 
 
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
                       RecordedRefCountPolicy  > MFRecImageComposerPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
                       UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
                       WeakRefCountPolicy      > MFWeakImageComposerPtr;
-/*! \ingroup GrpClusterFieldMFields */
+/*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
                       NoRefCountPolicy        > MFUncountedImageComposerPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ImageComposer *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFRecImageComposerPtr : 
     public PointerSField<ImageComposer *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFUnrecImageComposerPtr : 
     public PointerSField<ImageComposer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFWeakImageComposerPtr :
     public PointerSField<ImageComposer *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldSFields \ingroup GrpLibOSGCluster */
 struct SFUncountedImageComposerPtr :
     public PointerSField<ImageComposer *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFRecImageComposerPtr :
     public PointerMField<ImageComposer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFUnrecImageComposerPtr :
     public PointerMField<ImageComposer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFWeakImageComposerPtr :
     public PointerMField<ImageComposer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+/*! \ingroup GrpClusterWindowFieldMFields \ingroup GrpLibOSGCluster */
 struct MFUncountedImageComposerPtr :
     public PointerMField<ImageComposer *,
                          NoRefCountPolicy        > {};

@@ -48,6 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpGroupLightShadowBaseObj
+    \nohierarchy
+*/
+
 struct ShadowMapEngineDesc
 {
     typedef LightEngine                 ParentT;
@@ -57,7 +61,13 @@ struct ShadowMapEngineDesc
     typedef RenderActionBase::Inherited DataSlotHandler;
 };
 
+/*! \ingroup GrpGroupLightShadowBaseObj
+ */
+
 typedef ContainerMixinHead<ShadowMapEngineDesc> SMEMixinParent;
+
+/*! \ingroup GrpGroupLightShadowBaseObj
+ */
 
 typedef StageHandlerMixin<SMEMixinParent> ShadowMapEngineParent;
 

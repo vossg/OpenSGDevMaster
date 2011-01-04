@@ -68,7 +68,7 @@ class FragmentProgramChunk;
 
 OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateARBProgramFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<NoRefCountPolicy>(
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<FragmentProgramChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFRecFragmentProgramChunkPtr : 
     public PointerSField<FragmentProgramChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecFragmentProgramChunkPtr : 
     public PointerSField<FragmentProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakFragmentProgramChunkPtr :
     public PointerSField<FragmentProgramChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedFragmentProgramChunkPtr :
     public PointerSField<FragmentProgramChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFRecFragmentProgramChunkPtr :
     public PointerMField<FragmentProgramChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecFragmentProgramChunkPtr :
     public PointerMField<FragmentProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakFragmentProgramChunkPtr :
     public PointerMField<FragmentProgramChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedFragmentProgramChunkPtr :
     public PointerMField<FragmentProgramChunk *,
                          NoRefCountPolicy        > {};

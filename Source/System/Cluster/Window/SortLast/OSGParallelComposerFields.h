@@ -68,7 +68,7 @@ class ParallelComposer;
 
 OSG_GEN_CONTAINERPTR(ParallelComposer);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

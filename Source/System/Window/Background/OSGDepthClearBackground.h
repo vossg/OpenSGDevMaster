@@ -50,8 +50,11 @@ class Viewport;
 class DrawEnv;
 
 /*! \brief Depth Clear Background  class. See \ref 
-    PageSystemWindowBackgroundDepthClear for a description.
-*/
+           PageSystemWindowBackgroundDepthClear for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING DepthClearBackground : 
     public DepthClearBackgroundBase

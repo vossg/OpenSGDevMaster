@@ -49,7 +49,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief OSGOFFSceneFileType
-*/
+    \ingroup GrpFileIOOFF
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING OFFSceneFileType : public SceneFileType
 {

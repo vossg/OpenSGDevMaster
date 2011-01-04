@@ -54,7 +54,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DeferredShadingStage class. See \ref
            PageEffectGroupsDeferredShadingStage for a description.
-*/
+
+    \ingroup GrpEffectsGroupsDeferredShadingObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStage : public DeferredShadingStageBase
 {

@@ -68,7 +68,7 @@ class ProgramChunk;
 
 OSG_GEN_CONTAINERPTR(ProgramChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateARBProgramFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ProgramChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<ProgramChunk *,
                       RecordedRefCountPolicy  > SFRecProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<ProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<ProgramChunk *,
                       WeakRefCountPolicy      > SFWeakProgramChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<ProgramChunk *,
                       NoRefCountPolicy        > SFUncountedProgramChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<ProgramChunk *,
                       RecordedRefCountPolicy  > MFRecProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<ProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<ProgramChunk *,
                       WeakRefCountPolicy      > MFWeakProgramChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<ProgramChunk *,
                       NoRefCountPolicy        > MFUncountedProgramChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ProgramChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFRecProgramChunkPtr : 
     public PointerSField<ProgramChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecProgramChunkPtr : 
     public PointerSField<ProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakProgramChunkPtr :
     public PointerSField<ProgramChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedProgramChunkPtr :
     public PointerSField<ProgramChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFRecProgramChunkPtr :
     public PointerMField<ProgramChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecProgramChunkPtr :
     public PointerMField<ProgramChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakProgramChunkPtr :
     public PointerMField<ProgramChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateARBProgramFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedProgramChunkPtr :
     public PointerMField<ProgramChunk *,
                          NoRefCountPolicy        > {};

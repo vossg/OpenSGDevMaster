@@ -1,86 +1,88 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="GeoMultiProperty"
-	parent="GeoVectorProperty"
-	library="Drawable"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-Class referencing data from a GeoMultiPropertyData.
-	<Field
-		name="container"
-		type="GeoMultiPropertyDataPtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+   name="GeoMultiProperty"
+   parent="GeoVectorProperty"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpDrawablesGeometry"
+   >
+  Class referencing data from a GeoMultiPropertyData.
+  <Field
+	 name="container"
+	 type="GeoMultiPropertyDataPtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The data container to source off of.
-	</Field>
-	<Field
-		name="offset"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	The offset from the start of the container to the first element of this property.
-	</Field>
-	<Field
-		name="iFormat"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="offset"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
+	The offset from the start of the container to the first element of this
+	property. 
+  </Field>
+  <Field
+	 name="iFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The OpenGL format for the data.
-	</Field>
-	<Field
-		name="iDimension"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="iDimension"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The dimensionality of the data.
-	</Field>
-	<Field
-		name="iSize"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="iSize"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The number of elements in the data.
-	</Field>
-	<Field
-		name="iNormalize"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="iNormalize"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	Whether to normalize integer arguments to 0..1.
-	</Field>
-	<Field
-		name="iStride"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="iStride"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 access="public"
+	 >
 	The stride between elements (can be 0).
-	</Field>
-        
+  </Field>
+  
 
-Class referencing data from a GeoMultiPropertyData container.
+  Class referencing data from a GeoMultiPropertyData container.
 </FieldContainer>

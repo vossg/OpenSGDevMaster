@@ -57,9 +57,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::QTWindow
+/*! \class OSG::QT4Window
 
-The class for QT-based windows. See \ref PageWindowQT for a description.
+The class for QT-based windows. See \ref PageWindowQt4 for a description.
 
 */
 

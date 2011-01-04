@@ -55,7 +55,8 @@ class Window;
 
 /*! \brief A dummy GeoPumpGroup that ignores all renders. Useful for
         debugging.
-*/
+    \ingroup GrpDrawablesGeometryHelpers
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoIgnorePumpGroup : 
     public GeoPumpGroup

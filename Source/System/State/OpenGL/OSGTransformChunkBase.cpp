@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TransformChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemTransformChunk for a description.
 
     This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
@@ -146,29 +144,26 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TransformChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
+    "   name=\"TransformChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"State\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpStateOpenGL\"\n"
+    "   >\n"
+    "  See \\ref PageSystemTransformChunk for a description.\n"
     "\n"
-    "See \\ref PageSystemTransformChunk for a description.\n"
-    "\n"
-    "This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"
-    "\t<Field\n"
-    "\t\tname=\"matrix\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "  This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"
+    "  <Field\n"
+    "\t name=\"matrix\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemTransformChunk for a description.\n"
     "\n"
     "This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"

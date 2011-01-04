@@ -42,7 +42,7 @@
 
 #include "OSGColladaNode.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
@@ -444,7 +444,7 @@ ColladaNode::handleInstanceController(domInstance_controller *instController)
 }
 
 /*! Add a transform node to the OpenSG tree representing
-    this <node>.
+    this &lt;node&gt;.
  */
 void
 ColladaNode::appendXForm(Node *xformN)
@@ -463,7 +463,7 @@ ColladaNode::appendXForm(Node *xformN)
 }
 
 /*! Add a child node to the OpenSG tree representing
-    this <node>.
+    this &lt;node&gt;.
  */
 void
 ColladaNode::appendChild(Node *childN)

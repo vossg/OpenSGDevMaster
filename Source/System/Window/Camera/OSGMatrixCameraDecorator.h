@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief MatrixCameraDecorator class. See \ref 
            PageSystemCameraDecoratorsMatrix for a description.
-*/
+    \ingroup GrpWindowCameraObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING MatrixCameraDecorator : 
     public MatrixCameraDecoratorBase

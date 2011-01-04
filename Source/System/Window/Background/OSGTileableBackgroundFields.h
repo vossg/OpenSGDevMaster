@@ -68,7 +68,7 @@ class TileableBackground;
 
 OSG_GEN_CONTAINERPTR(TileableBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<TileableBackground *, 0>::getSName<NoRefCountPolicy>(vo
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
                       RecordedRefCountPolicy  > SFRecTileableBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
                       UnrecordedRefCountPolicy> SFUnrecTileableBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
                       WeakRefCountPolicy      > SFWeakTileableBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
                       NoRefCountPolicy        > SFUncountedTileableBackgroundPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<TileableBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecTileableBackgroundPtr : 
     public PointerSField<TileableBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecTileableBackgroundPtr : 
     public PointerSField<TileableBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakTileableBackgroundPtr :
     public PointerSField<TileableBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedTileableBackgroundPtr :
     public PointerSField<TileableBackground *,
                          NoRefCountPolicy> {};

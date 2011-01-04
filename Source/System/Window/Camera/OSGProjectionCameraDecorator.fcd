@@ -1,90 +1,90 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ProjectionCameraDecorator"
-	parent="StereoCameraDecorator"
-	library="Window"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemWindowCameraDecoratorsStereo
+   name="ProjectionCameraDecorator"
+   parent="StereoCameraDecorator"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowCamera"
+   >
+  The decorator for tracked projection screens, see \ref
+  PageSystemWindowCameraDecoratorsStereoProjection for a description.
 
-The decorator for tracked projection screens, see \ref
-PageSystemWindowCameraDecoratorsStereoProjection for a description.
+  The parameters are defined by the _sfUser and _mfSurface fields.
 
-The parameters are defined by the _sfUser and _mfSurface fields.
+  \dev
 
-\dev
+  The derived parameters used to actually calculate the matrix are stored in the
+  _sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
 
-The derived parameters used to actually calculate the matrix are stored in the
-_sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
-
-\enddev
-	<Field
-		name="user"
-		type="NodePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  \enddev
+  <Field
+	 name="user"
+	 type="NodePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The coordinate system relative to the camera.
-	</Field>
-	<Field
-		name="surface"
-		type="Pnt3f"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="surface"
+	 type="Pnt3f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
 	4 points describing the rectangular projection surface, in the camera
-        coordinate system. Counterclockwise, starting at lower left corner of the screen.
-	</Field>
-	<Field
-		name="left"
-		type="Plane"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-	>
+    coordinate system. Counterclockwise, starting at lower left corner of the
+	screen. 
+  </Field>
+  <Field
+	 name="left"
+	 type="Plane"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
 	The left edge direction vector.
-	</Field>
-	<Field
-		name="bottom"
-		type="Plane"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-	>
+  </Field>
+  <Field
+	 name="bottom"
+	 type="Plane"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
 	The bottom edge direction vector.
-	</Field>
-	<Field
-		name="normal"
-		type="Plane"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-	>
+  </Field>
+  <Field
+	 name="normal"
+	 type="Plane"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
 	The normal of the projection surface.
-	</Field>
-	<Field
-		name="width"
-		type="Real32"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="width"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="public"
+	 >
 	The width of the projection screen.
-	</Field>
-	<Field
-		name="height"
-		type="Real32"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="height"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="public"
+	 >
 	The height of the projection screen.
-	</Field>
+  </Field>
 </FieldContainer>

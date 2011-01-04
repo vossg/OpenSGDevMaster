@@ -68,7 +68,7 @@ class ColorBufferViewport;
 
 OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowViewportFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<NoRefCountPolicy>(v
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
 
 
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
-/*! \ingroup GrpWindowFieldMFields */
+/*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ColorBufferViewport *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecColorBufferViewportPtr : 
     public PointerSField<ColorBufferViewport *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecColorBufferViewportPtr : 
     public PointerSField<ColorBufferViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakColorBufferViewportPtr :
     public PointerSField<ColorBufferViewport *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedColorBufferViewportPtr :
     public PointerSField<ColorBufferViewport *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFRecColorBufferViewportPtr :
     public PointerMField<ColorBufferViewport *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUnrecColorBufferViewportPtr :
     public PointerMField<ColorBufferViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFWeakColorBufferViewportPtr :
     public PointerMField<ColorBufferViewport *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowViewportFieldMFields \ingroup GrpLibOSGWindow */
 struct MFUncountedColorBufferViewportPtr :
     public PointerMField<ColorBufferViewport *,
                          NoRefCountPolicy        > {};

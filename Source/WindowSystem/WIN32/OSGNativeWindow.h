@@ -44,10 +44,17 @@
 
 #include "OSGWIN32Window.h"
 
+#ifndef OSG_DO_DOC
+
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowWIN32Obj
+ */
 
 typedef WIN32Window NativeWindow;
 
 OSG_END_NAMESPACE
+
+#endif
 
 #endif // _OSGNATIVEWINDOW_H_

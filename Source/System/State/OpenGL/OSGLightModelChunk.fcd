@@ -1,46 +1,49 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="LightModelChunk"
-	parent="StateChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-The LightModelChunk wraps most of glLightModel. It does not wrap GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk.
-	<Field
-		name="ambient"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0.2f, 0.2f, 0.2f, 1.0f"
-		access="public"
-	>
+   name="LightModelChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpStateOpenGL"
+   >
+  The LightModelChunk wraps most of glLightModel. It does not wrap
+  GL_LIGHT_MODEL_TWO_SIDE, which is wrapped by TwoSidedLightingChunk. 
+  <Field
+	 name="ambient"
+	 type="Color4f"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.2f, 0.2f, 0.2f, 1.0f"
+	 access="public"
+	 >
 	GL_LIGHT_MODEL_AMBIENT is set to this color.
-	</Field>
-	<Field
-		name="colorControl"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_SINGLE_COLOR"
-		defaultHeader="&quot;OSGGLEXT.h&quot;"
-		access="public"
-	>
-	GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.
-	</Field>
-	<Field
-		name="localViewer"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="colorControl"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_SINGLE_COLOR"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+	 >
+	GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are
+	directly taken from the glLightModel() manpage. 
+  </Field>
+  <Field
+	 name="localViewer"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	GL_LIGHT_MODEL_LOCAL_VIEWER is activated by this bool.
-	</Field>
+  </Field>
 </FieldContainer>

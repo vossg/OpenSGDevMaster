@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="QT4Window"
-	parent="NativeWindow"
-	library="WindowQT4"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-The class for QT windows.
+   name="QT4Window"
+   parent="NativeWindow"
+   library="WindowQT4"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowQt4"
+   >
+  The class for QT windows.
 
-Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid
-beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't
-be recreated automatically.
-
-	<Field
-		name="GlWidget"
-		type="OSGQGLWidgetP"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="NULL"
-		fieldHeader="OSGQT4WindowDataFields.h"
-		access="public"
-	>
-	</Field>
+  Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid
+  beast that derives from XWindow on Unix and WIN32Window on Windows, and as
+  such can't be recreated automatically.
+  <Field
+	 name="GlWidget"
+	 type="OSGQGLWidgetP"
+	 cardinality="single"
+	 visibility="internal"
+	 defaultValue="NULL"
+	 fieldHeader="OSGQT4WindowDataFields.h"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

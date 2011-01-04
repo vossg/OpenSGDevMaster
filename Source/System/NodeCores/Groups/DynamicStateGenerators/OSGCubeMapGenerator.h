@@ -52,7 +52,10 @@ class RenderActionBase;
 
 /*! \brief CubeMapGenerator class. See \ref
            PageGroupCubeMapGenerator for a description.
-*/
+    \ingroup GrpGroupDynamicStateGeneratorsObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
 {

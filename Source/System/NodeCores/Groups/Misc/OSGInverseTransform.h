@@ -48,8 +48,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief InverseTransform class. See \ref
-    PageSystemInverseTransform for a description.
-*/
+           PageSystemInverseTransform for a description.
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
 {

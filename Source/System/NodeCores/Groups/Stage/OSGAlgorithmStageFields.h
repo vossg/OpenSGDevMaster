@@ -68,7 +68,7 @@ class AlgorithmStage;
 
 OSG_GEN_CONTAINERPTR(AlgorithmStage);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

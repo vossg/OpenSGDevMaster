@@ -57,7 +57,11 @@ OSG_BEGIN_NAMESPACE
 /**
  * Defines a pixmap glyph.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextGlyphs
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextPixmapGlyph: public TextGlyph
 {
 

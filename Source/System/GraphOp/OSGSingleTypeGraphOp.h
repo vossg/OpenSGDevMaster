@@ -48,14 +48,17 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \ingroup GrpSystemRenderingBackend
-//! GraphOp class
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
 
 template < class Type > 
 class SingleTypeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
-public:
+
+  public:
+  
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -80,7 +83,8 @@ public:
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:    
+
+  protected:    
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -94,7 +98,9 @@ protected:
         
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+
+  private:
+
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };

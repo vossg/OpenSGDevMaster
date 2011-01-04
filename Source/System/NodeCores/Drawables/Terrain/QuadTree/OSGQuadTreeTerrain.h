@@ -52,7 +52,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Terrain class. See \ref 
            PageExperimentalTerrain for a description.
-*/
+    \ingroup GrpDrawablesTerrainObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
 {

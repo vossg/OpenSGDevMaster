@@ -44,12 +44,16 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGFileIODef.h"
 #include "OSGColladaElementFactory.h"
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING ColladaElementRegistrationHelper
 {

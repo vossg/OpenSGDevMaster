@@ -66,6 +66,9 @@ class DrawEnv;
 
 /*! \brief Geometry class. See \ref
            PageWindowGLUTGeometry for a description.
+    \ingroup GrpDrawablesGeometryObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
 */
 
 class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase

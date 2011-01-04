@@ -55,6 +55,10 @@ OSG_BEGIN_NAMESPACE
 class OSBElementBase;
 class OSBRootElement;
 
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 struct OSG_FILEIO_DLLMAPPING OSBElementCreatorBase
 {
     /*---------------------------------------------------------------------*/
@@ -73,6 +77,10 @@ struct OSG_FILEIO_DLLMAPPING OSBElementCreatorBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 };
+
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
 
 template <class ElementTypeT>
 struct OSBElementCreator : public OSBElementCreatorBase
@@ -100,6 +108,10 @@ struct OSBElementCreator : public OSBElementCreatorBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 };
+
+/*! \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
 
 class OSG_FILEIO_DLLMAPPING OSBElementFactorySingleton
 {
@@ -164,6 +176,9 @@ class OSG_FILEIO_DLLMAPPING OSBElementFactorySingleton
     RegistryMap             _registry;
     OSBElementCreatorBase *_defaultCreator;
 };
+
+/*! \ingroup GrpFileIOOSB
+ */
 
 typedef SingletonHolder<OSBElementFactorySingleton> OSBElementFactory;
 

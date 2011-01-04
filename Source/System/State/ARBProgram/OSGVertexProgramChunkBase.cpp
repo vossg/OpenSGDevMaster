@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::VertexProgramChunk
-    \ingroup GrpSystemState
-
     The ProgramChunk is the base class for generic ASCII-based programs inside
     OpenGL. For actual use see the derived VertexProgramChunk and
     FragmentProgramChunk.
@@ -128,36 +126,33 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"VertexProgramChunk\"\n"
-    "\tparent=\"ProgramChunk\"\n"
-    "\tlibrary=\"State\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
+    "   name=\"VertexProgramChunk\"\n"
+    "   parent=\"ProgramChunk\"\n"
+    "   library=\"State\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   docGroupBase=\"GrpStateARBProgram\"\n"
+    "   >\n"
+    "  The ProgramChunk is the base class for generic ASCII-based programs inside\n"
+    "  OpenGL. For actual use see the derived VertexProgramChunk and\n"
+    "  FragmentProgramChunk.\n"
     "\n"
-    "The ProgramChunk is the base class for generic ASCII-based programs inside\n"
-    "OpenGL. For actual use see the derived VertexProgramChunk and\n"
-    "FragmentProgramChunk.\n"
-    "\n"
-    "See \\ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk\n"
-    "implements Vertex Programs as specified in the GL_ARB_vertex_program extension.\n"
-    "It is just a special version of the OSG::ProgramChunk, which contains the whole\n"
-    "public interface.\n"
+    "  See \\ref PageSystemVertexProgramChunk for a description. The\n"
+    "  VertexProgramChunk implements Vertex Programs as specified in the\n"
+    "  GL_ARB_vertex_program extension. It is just a special version of the\n"
+    "  OSG::ProgramChunk, which contains the whole public interface.\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "The ProgramChunk is the base class for generic ASCII-based programs inside\n"
     "OpenGL. For actual use see the derived VertexProgramChunk and\n"
     "FragmentProgramChunk.\n"
     "\n"
-    "See \\ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk\n"
-    "implements Vertex Programs as specified in the GL_ARB_vertex_program extension.\n"
-    "It is just a special version of the OSG::ProgramChunk, which contains the whole\n"
-    "public interface.\n"
+    "See \\ref PageSystemVertexProgramChunk for a description. The\n"
+    "VertexProgramChunk implements Vertex Programs as specified in the\n"
+    "GL_ARB_vertex_program extension. It is just a special version of the\n"
+    "OSG::ProgramChunk, which contains the whole public interface.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

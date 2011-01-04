@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief VRMLInterpolator class. See \ref
            PageSystemDynamicsVRMLInterpolator for a description.
-*/
+    \ingroup GrpDynamicsVRMLAnimationObj
+    \ingroup GrpLibOSGDynamics
+    \includebasedoc
+ */
 
 class OSG_DYNAMICS_DLLMAPPING VRMLInterpolator : public VRMLInterpolatorBase
 {

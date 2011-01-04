@@ -75,7 +75,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GLUTWindow
-    The class for GLUT-based windows. See \ref PageWindowGlut for a description.
+    The class for GLUT-based windows. See \ref PageWindowGLUT for a description.
  */
 
 /***************************************************************************\
@@ -142,28 +142,29 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "     name=\"GLUTWindow\"\n"
-    "     parent=\"NativeWindow\"\n"
-    "     library=\"WindowGLUT\"\n"
-    "     pointerfieldtypes=\"both\"\n"
-    "     structure=\"concrete\"\n"
-    "     systemcomponent=\"true\"\n"
-    "     parentsystemcomponent=\"true\"\n"
-    "     realparent=\"Window\"\n"
+    "   name=\"GLUTWindow\"\n"
+    "   parent=\"NativeWindow\"\n"
+    "   library=\"WindowGLUT\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   realparent=\"Window\"\n"
+    "   docGroupBase=\"GrpWindowGLUT\"\n"
+    "   >\n"
+    "  The class for GLUT-based windows. See \\ref PageWindowGLUT for a description.\n"
+    "  <Field\n"
+    "     name=\"glutId\"\n"
+    "     type=\"Int32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"internal\"\n"
+    "     defaultValue=\"0\"\n"
+    "     access=\"public\"\n"
+    "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
-    "    The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
-    "    <Field\n"
-    "         name=\"glutId\"\n"
-    "         type=\"Int32\"\n"
-    "         cardinality=\"single\"\n"
-    "         visibility=\"internal\"\n"
-    "         defaultValue=\"0\"\n"
-    "         access=\"public\"\n"
-    "         fieldFlags=\"FClusterLocal\"\n"
-    "         >\n"
-    "    </Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
+    "The class for GLUT-based windows. See \\ref PageWindowGLUT for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

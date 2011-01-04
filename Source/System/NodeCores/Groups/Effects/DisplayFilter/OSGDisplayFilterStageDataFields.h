@@ -68,7 +68,7 @@ class DisplayFilterStageData;
 
 OSG_GEN_CONTAINERPTR(DisplayFilterStageData);
 
-/*! \ingroup GrpEffectGroupsFieldTraits
+/*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>

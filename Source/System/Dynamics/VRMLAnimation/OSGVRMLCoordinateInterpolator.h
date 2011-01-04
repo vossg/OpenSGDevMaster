@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief VRMLCoordinateInterpolator class. See \ref
            PageSystemDynamicsVRMLCoordinateInterpolator for a description.
-*/
+    \ingroup GrpDynamicsVRMLAnimationObj
+    \ingroup GrpLibOSGDynamics
+    \includebasedoc
+ */
 
 class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolator : 
     public VRMLCoordinateInterpolatorBase

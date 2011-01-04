@@ -68,7 +68,7 @@ class SpotLight;
 
 OSG_GEN_CONTAINERPTR(SpotLight);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupLightFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

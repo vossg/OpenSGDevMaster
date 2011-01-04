@@ -48,8 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*!\brief OSGSTLSceneFileType
-*/
+/*! \brief OSGSTLSceneFileType
+    \ingroup GrpFileIOSTL
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING STLSceneFileType : public SceneFileType
 {
@@ -96,6 +98,9 @@ class OSG_FILEIO_DLLMAPPING STLSceneFileType : public SceneFileType
 
     static const Char8            *_suffixA[];
     static       STLSceneFileType  _the;
+
+    /*! \nohierarchy
+     */
 
     struct STLFace
     {

@@ -68,7 +68,7 @@ class ScreenLOD;
 
 OSG_GEN_CONTAINERPTR(ScreenLOD);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

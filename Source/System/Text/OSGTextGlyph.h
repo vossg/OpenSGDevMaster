@@ -55,7 +55,11 @@ OSG_BEGIN_NAMESPACE
 /**
  * Abstract base class of all glyphes.
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextGlyphs
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextGlyph
 {
     /*==========================  PUBLIC  =================================*/

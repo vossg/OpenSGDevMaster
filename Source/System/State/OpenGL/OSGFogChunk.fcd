@@ -9,9 +9,8 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    decoratable="false"
+   docGroupBase="GrpStateOpenGL"
    >
-  \ingroup GrpSystemState
-
   This chunk wraps glFog() (OSG::FogChunk::_sfMode, OSG::FogChunk::_sfFogColor,
   OSG::FogChunk::_sfStart, OSG::FogChunk::_sfEnd, OSG::FogChunk::_sfDensity).
 
@@ -64,7 +63,7 @@
     The far value for the fog, used in GL_LINEAR mode (default: 1.f)
   </Field>
 
-    <Field
+  <Field
      name="density"
      type="Real32"
      category="data"

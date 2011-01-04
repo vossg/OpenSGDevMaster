@@ -67,11 +67,6 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class OSG::GeoVertexArrayPumpGroup
-   \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
-*/
-
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/

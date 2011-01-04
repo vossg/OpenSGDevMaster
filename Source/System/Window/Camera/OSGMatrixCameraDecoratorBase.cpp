@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::MatrixCameraDecorator
-    \ingroup GrpSystemWindowCameraDecorators
-
     The OSG::MatrixCameraDecorator for modifying the camera matrices by 
     matrices, see \ref
     PageSystemWindowCameraDecoratorsMatrix for a description.
@@ -101,13 +99,13 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjectionTranslation
-    The matrix to multiply to the right of the projectionTranslation matrix, i.e. 
-    applied before the projectionTranslation matrix.
+    The matrix to multiply to the right of the projectionTranslation matrix,
+    i.e. applied before the projectionTranslation matrix.
 */
 
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPostProjectionTranslation
-    The matrix to multiply to the left of the projectionTranslation matrix, i.e. 
-    applied before the projectionTranslation matrix.
+    The matrix to multiply to the left of the projectionTranslation matrix,
+    i.e.  applied before the projectionTranslation matrix.
 */
 
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjection
@@ -177,8 +175,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(),
         "preProjectionTranslation",
-        "The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
-        "applied before the projectionTranslation matrix.\n",
+        "The matrix to multiply to the right of the projectionTranslation matrix,\n"
+        "i.e. applied before the projectionTranslation matrix.\n",
         PreProjectionTranslationFieldId, PreProjectionTranslationFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -190,8 +188,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(),
         "postProjectionTranslation",
-        "The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
-        "applied before the projectionTranslation matrix.\n",
+        "The matrix to multiply to the left of the projectionTranslation matrix,\n"
+        "i.e.  applied before the projectionTranslation matrix.\n",
         PostProjectionTranslationFieldId, PostProjectionTranslationFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -242,92 +240,89 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"MatrixCameraDecorator\"\n"
-    "\tparent=\"CameraDecorator\"\n"
-    "\tlibrary=\"Window\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "   name=\"MatrixCameraDecorator\"\n"
+    "   parent=\"CameraDecorator\"\n"
+    "   library=\"Window\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpWindowCamera\"\n"
+    "   >\n"
+    "  The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
+    "  matrices, see \\ref\n"
+    "  PageSystemWindowCameraDecoratorsMatrix for a description.\n"
     "\n"
-    "The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
-    "matrices, see \\ref\n"
-    "PageSystemWindowCameraDecoratorsMatrix for a description.\n"
-    "\n"
-    "The matrices to use are defined by the _sf Fields. The size of the full\n"
-    "image is defined by the _sfFullWidth and\n"
-    "_sfFullHeight Fields.\n"
-    "\t<Field\n"
-    "\t\tname=\"preViewing\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "  The matrices to use are defined by the _sf Fields. The size of the full\n"
+    "  image is defined by the _sfFullWidth and\n"
+    "  _sfFullHeight Fields.\n"
+    "  <Field\n"
+    "\t name=\"preViewing\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe matrix to multiply to the right of the viewing matrix, i.e. \n"
-    "        applied before the viewing matrix.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"postViewing\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "    applied before the viewing matrix.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"postViewing\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe matrix to multiply to the left of the viewing matrix, i.e. \n"
-    "        applied after the viewing matrix.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"preProjectionTranslation\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
-    "        applied before the projectionTranslation matrix.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"postProjectionTranslation\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
-    "        applied before the projectionTranslation matrix.\n"
-    "\t</Field>\n"
-    "    <Field\n"
-    "\t\tname=\"preProjection\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "    applied after the viewing matrix.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"preProjectionTranslation\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe matrix to multiply to the right of the projectionTranslation matrix,\n"
+    "\ti.e. applied before the projectionTranslation matrix.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"postProjectionTranslation\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe matrix to multiply to the left of the projectionTranslation matrix,\n"
+    "\ti.e.  applied before the projectionTranslation matrix.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"preProjection\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe matrix to multiply to the right of the projection matrix, i.e. \n"
-    "        applied before the projection matrix.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"postProjection\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "    applied before the projection matrix.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"postProjection\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tThe matrix to multiply to the left of the projection matrix, i.e. \n"
-    "        applied before the projection matrix.\n"
-    "\t</Field>\n"
+    "    applied before the projection matrix.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowCameraDecorators\n"
-    "\n"
     "The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
     "matrices, see \\ref\n"
     "PageSystemWindowCameraDecoratorsMatrix for a description.\n"

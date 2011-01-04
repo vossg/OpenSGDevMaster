@@ -101,7 +101,11 @@ class TextLayoutResult;
  * @endcode
  *
  * @author Patrick D&auml;hne
+ * 
+ * \ingroup GrpTextFaces
+ * \ingroup GrpLibOSGText
  */
+
 class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
@@ -143,11 +147,12 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      * @param depth The depth of the VectorGlyphs. If depth is 0.f no
      *              backside will be generated.
      * @param level The level of detail. Usually between 0 and 10.
-     * @param creaseAngle The angle (in radians) which determines how faceted the 
-     *                    glyphs should be lighted.
+     * @param creaseAngle The angle (in radians) which determines how faceted
+     *                    the  glyphs should be lighted.
      *                    If the angle enclosed by two vertex normals in a point
      *                    exceeds the creaseAngle both of the two normals will 
-     *                    be attached to the point. Otherwise their mean is used.
+     *                    be attached to the point. Otherwise their mean is
+     *                    used. 
      */
     void fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutResult,
                  Real32 scale = 1.f, Real32 depth = 0.f, UInt32 level = 2, 
@@ -160,15 +165,19 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      * @param depth The depth of the VectorGlyphs. If depth is 0.f no
      *              backside will be generated.
      * @param level The level of detail. Usually between 0 and 10.
-     * @param creaseAngle The angle (in radians) which determines how faceted the 
-     *                    glyphs should be lighted.
+     * @param creaseAngle The angle (in radians) which determines how faceted
+     *                    the glyphs should be lighted.
      *                    If the angle enclosed by two vertex normals in a point
      *                    exceeds the creaseAngle both of the two normals will 
-     *                    be attached to the point. Otherwise their mean is used.
+     *                    be attached to the point. Otherwise their mean is
+     *                    used. 
      * @return A new text geometry.
      */
-    GeometryTransitPtr makeGeo(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
-                        Real32 depth = 0.f, UInt32 level = 2, Real32 creaseAngle = Pi / 4.f);
+    GeometryTransitPtr makeGeo(const TextLayoutResult &layoutResult, 
+                                     Real32            scale       = 1.f,
+                                     Real32            depth       = 0.f, 
+                                     UInt32            level       = 2, 
+                                     Real32            creaseAngle = Pi / 4.f);
 
     /**
      * Creates a new node with a text geometry.
@@ -177,15 +186,19 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      * @param depth The depth of the VectorGlyphs. If depth is 0.f no
      *              backside will be generated.
      * @param level The level of detail. Usually between 0 and 10.
-     * @param creaseAngle The angle (in radians) which determines how faceted the 
-     *                    glyphs should be lighted.
+     * @param creaseAngle The angle (in radians) which determines how faceted
+     *                    the glyphs should be lighted.
      *                    If the angle enclosed by two vertex normals in a point
      *                    exceeds the creaseAngle both of the two normals will 
-     *                    be attached to the point. Otherwise their mean is used.
+     *                    be attached to the point. Otherwise their mean is
+     *                    used. 
      * @return A new node containing a text geometry.
      */
-    NodeTransitPtr makeNode(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
-                     Real32 depth = 0.f, UInt32 level = 2, Real32 creaseAngle = Pi / 4.f);
+    NodeTransitPtr makeNode(const TextLayoutResult &layoutResult, 
+                                  Real32            scale       = 1.f,
+                                  Real32            depth       = 0.f, 
+                                  UInt32            level       = 2, 
+                                  Real32            creaseAngle = Pi / 4.f);
 
     /**
      * Tries to create a vector face.
@@ -216,12 +229,14 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
 
     /**
      * Creates a new Glyph object.
-     * This method has to be implemented by descendants of the %VectorFace class.
+     * This method has to be implemented by descendants of the %VectorFace
+     * class. 
      * @param glyphIndex The index of the glyph.
      * @return The glyph object or 0 when no glyph exists for the given
      * glyph index.
      */
-    virtual std::auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
+    virtual 
+    std::auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
 
     /** An empty glyph */
     static TextVectorGlyph _emptyGlyph;

@@ -51,6 +51,13 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! A specialization of this template is registered for each
+    specialization of TypedGeoIntegralProperty.
+
+    \ingroup GrpFileIOOSB
+    \nohierarchy
+ */
+
 template <class GeoPropertyTypeT>
 class OSG_FILEIO_DLLMAPPING OSBTypedGeoIntegralPropertyElement
     : public OSBGeoIntegralPropertyElement

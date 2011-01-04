@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief OrthographicCamera class. See \ref 
            PageSystemOrthographicCamera for a description.
-*/
+    \ingroup GrpWindowCameraObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
+ */
 
 class OSG_WINDOW_DLLMAPPING OrthographicCamera : public OrthographicCameraBase
 {

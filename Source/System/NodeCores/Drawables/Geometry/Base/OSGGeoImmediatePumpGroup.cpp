@@ -67,19 +67,15 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class OSG::GeoImmediatePumpGroup
-   \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
-*/
-
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
 /*! An InitFuncWrapper to initialize the GeoImmediatePumpGroup.
-*/
-InitFuncWrapper
-GeoImmediatePumpGroup::_glextInitFuncWrapper(GeoImmediatePumpGroup::glextInitFunction);
+ */
+
+InitFuncWrapper GeoImmediatePumpGroup::_glextInitFuncWrapper(
+    GeoImmediatePumpGroup::glextInitFunction);
 
 /*! OpenGL extension indices.
 */
@@ -126,8 +122,8 @@ static const char *formatNames[] =
 
 // little helper class for function init
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
+/*! \nohierarchy
+ */
 class glextFuncInit
 {
     public:
@@ -457,8 +453,6 @@ static UInt32 TexCoords1IDs[numFormats][4];
 
 static UInt32 AttribIDs[numFormats][4];
 static UInt32 NormAttribIDs[numFormats][4];
-
-#endif      // remove from all but dev docs
 
 
 #define pumpSetup( name, typename, getmethod )                              \

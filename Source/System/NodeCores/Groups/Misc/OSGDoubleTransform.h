@@ -53,7 +53,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DoubleTransform class. See \ref
            PageGroupDoubleTransform for a description.
-*/
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING DoubleTransform : public DoubleTransformBase
 {

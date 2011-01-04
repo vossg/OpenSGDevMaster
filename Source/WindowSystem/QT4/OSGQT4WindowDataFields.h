@@ -54,7 +54,13 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpWindowQt4FieldTraits
+ */
+
 typedef OSGQGLWidget *OSGQGLWidgetP;
+
+/*! \ingroup GrpWindowQt4FieldTraits
+ */
 
 template <>
 struct FieldTraits<OSGQGLWidgetP>
@@ -87,13 +93,19 @@ struct FieldTraits<OSGQGLWidgetP>
     }
 };
 
-/*! \ingroup GrpWindowQTFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowQt4FieldSFields */
 typedef SField<OSGQGLWidgetP> SFOSGQGLWidgetP;
 
-/*! \ingroup GrpWindowQTFieldMulti */
-
+/*! \ingroup GrpWindowQt4FieldMFields */
 typedef MField<OSGQGLWidgetP> MFOSGQGLWidgetP;
+#else
+/*! \ingroup GrpWindowQt4FieldSFields \ingroup GrpLibOSGWindowQt4 */
+struct SFOSGQGLWidgetP : public SField<OSGQGLWidgetP> {};
+
+/*! \ingroup GrpWindowQt4FieldMFields \ingroup GrpLibOSGWindowQt4 */
+struct MFOSGQGLWidgetP : public MField<OSGQGLWidgetP> {};
+#endif
 
 OSG_END_NAMESPACE
 

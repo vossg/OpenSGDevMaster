@@ -36,14 +36,18 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMOUSEDATA_H_
-#define _OSGMOUSEDATA_H_
+#ifndef _OSGINTERPOLATIONHELPER_H_
+#define _OSGINTERPOLATIONHELPER_H_
 
 #include "OSGBaseTypes.h"
 #include "OSGMathFields.h"
 #include "OSGVecFields.h"
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpDynamicsVRMLAnimationObj
+    \nohierarchy
+ */
 
 template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT>
 struct InterpolationHelper

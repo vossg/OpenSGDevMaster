@@ -48,7 +48,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief NFIOSceneFileType
-*/
+    \ingroup GrpFileIOOSB
+    \ingroup GrpLibOSGFileIO
+ */
 
 class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
 {

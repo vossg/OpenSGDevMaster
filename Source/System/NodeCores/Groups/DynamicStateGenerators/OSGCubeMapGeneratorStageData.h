@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief CubeMapGeneratorStageData class. See \ref
            PageGroupCubeMapGeneratorStageData for a description.
-*/
+    \ingroup GrpGroupDynamicStateGeneratorsObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageData : 
     public CubeMapGeneratorStageDataBase

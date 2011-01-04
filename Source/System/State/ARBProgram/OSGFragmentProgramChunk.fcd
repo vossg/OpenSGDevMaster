@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="FragmentProgramChunk"
-	parent="ProgramChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
->
-\ingroup GrpSystemState
+   name="FragmentProgramChunk"
+   parent="ProgramChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpStateARBProgram"
+   >
+  See \ref PageSystemFragmentProgramChunk for a description.
 
-See \ref PageSystemFragmentProgramChunk for a description.
-
-The FragmentProgramChunk implements Fragment Programs as specified in the
-GL_ARB_fragment_program extension. It is just a special version of the
-OSG::ProgramChunk, which contains the whole public interface.
+  The FragmentProgramChunk implements Fragment Programs as specified in the
+  GL_ARB_fragment_program extension. It is just a special version of the
+  OSG::ProgramChunk, which contains the whole public interface.
 </FieldContainer>

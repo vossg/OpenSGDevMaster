@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*---------------------------------------------------------------------*/
+/*! \name                 Calc properties functions                   */
+/*! \{                                                                 */
 
 OSG_DRAWABLE_DLLMAPPING 
 void    calcVertexNormals        (Geometry   *geo        );
@@ -79,6 +82,11 @@ OSG_DRAWABLE_DLLMAPPING
 void    calcVertexTexCoords      (Geometry            *geo,
                                   UInt32               texIndex = 0);
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name                   Conversion functions                       */
+/*! \{                                                                 */
+
 OSG_DRAWABLE_DLLMAPPING 
 Int32   setIndexFromVRMLData     (     Geometry       *geo,
                                   std::vector<Int32>  &coordIndex,
@@ -106,6 +114,10 @@ Int32 setIndexFromIndexedX3DData (     Geometry       *geo,
                                        bool            colorPerVertex  = true,
                                        bool            createNormal    = true);
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name                   Optimization functions                     */
+/*! \{                                                                 */
 
 OSG_DRAWABLE_DLLMAPPING 
 Int32   createOptimizedPrimitives(Geometry       *geo,
@@ -131,6 +143,11 @@ UInt32  calcPrimitiveCount       (Geometry       *geo,
                                   UInt32         &line,
                                   UInt32         &point);
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name                 Debug Geometry functions                     */
+/*! \{                                                                 */
+
 OSG_DRAWABLE_DLLMAPPING 
 NodeTransitPtr calcVertexNormalsGeo    (Geometry *geo, 
                                         Real32    length);
@@ -143,6 +160,11 @@ void updateVertexNormalsGeo            (      Geometry *pGeo,
 OSG_DRAWABLE_DLLMAPPING 
 NodeTransitPtr calcFaceNormalsGeo      (Geometry *geo, 
                                         Real32    length);
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name                   Merge helper functions                     */
+/*! \{                                                                 */
 
 OSG_DRAWABLE_DLLMAPPING 
 void    separateProperties             (Geometry *geo);
@@ -158,8 +180,16 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2);
 OSG_DRAWABLE_DLLMAPPING             
 GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2);
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name                   Global Helper                              */
+/*! \{                                                                 */
+
 OSG_DRAWABLE_DLLMAPPING
 void setVBOUsageOnPropertyProtos(bool bVal);
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

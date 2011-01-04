@@ -2,13 +2,31 @@
 
 using namespace OSG;
 
-/*! \defgroup GrpLibOSGWindowCocao libOSGWindowCocao
+/*! \defgroup GrpLibOSGWindowCocoa libOSGWindowCocoa
     \ingroup GrpByLib
  */
 
-/*! \defgroup GrpWindowCocao OpenSG Window Cocao Library
+/*! \defgroup GrpWindowCocoa OpenSG Window Cocoa Library
 
-    \brief Contains Window Cocao classes
+    \brief Contains Window Cocoa classes
 
     See \ref PageWindowCocoa for details.
+ */
+
+//*******************************************************************
+// Cocoa
+//*******************************************************************
+
+/*! \defgroup GrpWindowCocoaObj Window
+    \ingroup GrpWindowCocoa
+ */
+
+/*! \defgroup GrpWindowCocoaFieldTraits Field Traits
+    \ingroup GrpWindowCocoa
+ */
+/*! \defgroup GrpWindowCocoaFieldSFields Single-Field
+    \ingroup GrpWindowCocoa
+ */
+/*! \defgroup GrpWindowCocoaFieldMFields Multi-Fields
+    \ingroup GrpWindowCocoa
  */

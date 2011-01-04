@@ -54,7 +54,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShadowStageData class. See \ref
            PageGroupShadowStageData for a description.
-*/
+
+    \ingroup GrpEffectsGroupsShadowObj
+    \ingroup GrpLibOSGEffectsGroups
+    \includebasedoc
+ */
 
 class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
 {
@@ -67,6 +71,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
     typedef ShadowStageDataBase Inherited;
     typedef ShadowStageData     Self;
 
+    /*! \nohierarchy
+     */
     struct ShadowMapElem
     {
         static const UInt32 DepthShadowMap = 0x0001;

@@ -42,7 +42,7 @@
 
 #include "OSGColladaSource.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 #include "OSGColladaLog.h"
 #include "OSGTypedGeoVectorProperty.h"

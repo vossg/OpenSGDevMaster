@@ -49,12 +49,15 @@ OSG_BEGIN_NAMESPACE
 /*! \brief Quantizer class.
           quantize reals into 8, 16, or 24 bit integers.
           round then left-reconstruct
+
+    \ingroup GrpFileIOOSB
+    \nohierarchy
 */
 
 class Quantizer
 {
     /*==========================  PUBLIC  =================================*/
-public:
+  public:
     
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructor                                 */
@@ -83,7 +86,7 @@ public:
     /*! \}                                                                 */ 
     /*==========================  PRIVATE  ================================*/
 
-private:
+  private:
     
     Real32 normalizeInput(Real32 input, Real32 inputMin, Real32 inputScale);
 

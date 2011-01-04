@@ -42,15 +42,18 @@
 #pragma once
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGCarbonWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \brief CarbonWindow class. See \ref
-           PageWindowCarbonCarbonWindow for a description.
-*/
+           PageWindowCarbon for a description.
+    \ingroup GrpWindowCarbonObj
+    \ingroup GrpLibOSGWindowCarbon
+    \includebasedoc
+ */
 
 class OSG_WINDOWCARBON_DLLMAPPING CarbonWindow : public CarbonWindowBase
 {

@@ -1,24 +1,25 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-     name="GLUTWindow"
-     parent="NativeWindow"
-     library="WindowGLUT"
-     pointerfieldtypes="both"
-     structure="concrete"
-     systemcomponent="true"
-     parentsystemcomponent="true"
-     realparent="Window"
+   name="GLUTWindow"
+   parent="NativeWindow"
+   library="WindowGLUT"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   realparent="Window"
+   docGroupBase="GrpWindowGLUT"
+   >
+  The class for GLUT-based windows. See \ref PageWindowGLUT for a description.
+  <Field
+     name="glutId"
+     type="Int32"
+     cardinality="single"
+     visibility="internal"
+     defaultValue="0"
+     access="public"
+     fieldFlags="FClusterLocal"
      >
-    The class for GLUT-based windows. See \ref PageWindowGlut for a description.
-    <Field
-         name="glutId"
-         type="Int32"
-         cardinality="single"
-         visibility="internal"
-         defaultValue="0"
-         access="public"
-         fieldFlags="FClusterLocal"
-         >
-    </Field>
+  </Field>
 </FieldContainer>

@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowCoreGL for details.
  */
+
+//*******************************************************************
+// CoreGL
+//*******************************************************************
+
+/*! \defgroup GrpWindowCoreGLObj Window
+    \ingroup GrpWindowCoreGL
+ */
+
+/*! \defgroup GrpWindowCoreGLFieldTraits Field Traits
+    \ingroup GrpWindowCoreGL
+ */
+/*! \defgroup GrpWindowCoreGLFieldSFields Single-Field
+    \ingroup GrpWindowCoreGL
+ */
+/*! \defgroup GrpWindowCoreGLFieldMFields Multi-Fields
+    \ingroup GrpWindowCoreGL
+ */

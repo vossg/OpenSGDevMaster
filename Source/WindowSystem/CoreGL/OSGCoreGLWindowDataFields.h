@@ -47,7 +47,7 @@
 #include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS compile
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
 #include "OSGWindowCoreGLDef.h"
 
@@ -58,6 +58,9 @@
 /*! The field types for the local types needed by the CoreGLWindow class */
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowCoreGLFieldTraits
+ */
 
 template <>
 struct FieldTraits<CGLContextObj> : 
@@ -88,15 +91,19 @@ struct FieldTraits<CGLContextObj> :
     }
 };
 
-//! SFCGLContextObj
-//! \ingroup GrpBaseFieldSingle
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef SField<CGLContextObj> SFCGLContextObj;
 
-//! MFCGLContextObj
-//! \ingroup GrpBaseFieldMulti
-
+/*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef MField<CGLContextObj> MFCGLContextObj;
+#else
+/*! \ingroup GrpWindowCoreGLFieldSFields \ingroup GrpLibOSGWindowCoreGL */
+struct SFCGLContextObj : public SField<CGLContextObj> {};
+
+/*! \ingroup GrpWindowCoreGLFieldMFields \ingroup GrpLibOSGWindowCoreGL */
+struct MFCGLContextObj : public MField<CGLContextObj> {};
+#endif
 
 OSG_END_NAMESPACE
 

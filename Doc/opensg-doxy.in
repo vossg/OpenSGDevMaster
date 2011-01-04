@@ -1512,6 +1512,10 @@ EXPAND_AS_DEFINED      = OSG_CHECK_ARG                  \
                          OSG_FIELDTRAITS_GETTYPE        \
                          OSG_FIELD_DLLEXPORT_DEF1       \
                          OSG_FIELD_DLLEXPORT_DEF2       \
+                         OSG_FIELD_TRAITS_NAME_INST     \
+                         OSG_FIELDCONTAINER_FIELDS_INST \
+                         OSG_MAKE_PROP                  \
+                         OSG_MAKE_NORM_PROP             \
                          OSG_MT_CPTR_ASPECT             \
                          OSG_USE_PTHREADS               \
                          OSG_STL_ALLOCATOR_DEFAULT      \
@@ -1783,12 +1787,30 @@ INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/Base
 INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/System/FieldContainer/Base
 
 #
-# Default exclude dirs
+# Default exclude dirs / files
 #
 
 EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/ScanParseSkel/prebuild
 EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/External
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/Test/GroupLib
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/Test/SystemLib
 EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Image/Squish
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/OSB/NFIO_Depreciated
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Wrapper
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Nurbs/Internal
+
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/WRL/OSGVRMLProtos.inl
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/Collada/OSGColladaExtraHandler.h
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/Collada/OSGColladaExtraHandler.inl
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.h
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.inl
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.cpp
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Window/Utilities/OSGLogoData.h
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Window/Utilities/OSGLogoData.cpp
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.h
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.inl
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.cpp
+
 EXCLUDE += ${CMAKE_BINARY_DIR}/Build/OSGSystem
 
 

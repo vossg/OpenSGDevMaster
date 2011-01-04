@@ -68,7 +68,7 @@ class VisitSubTree;
 
 OSG_GEN_CONTAINERPTR(VisitSubTree);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

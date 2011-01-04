@@ -54,12 +54,9 @@ OSG_GEN_CONTAINERPTR(GeoPnt3fProperty);
 
 #endif
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GeoPnt3fProperty *> : 
@@ -87,9 +84,11 @@ struct FieldTraits<GeoPnt3fProperty *> :
 
 OSG_FIELD_TRAITS_NAME_INST(GeoPnt3fProperty *, GeoPnt3fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoPnt3fProperty *, GeoPnt3fPropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoPnt3fProperty *, 
+                               GeoPnt3fPropertyPtr,
+                               GrpDrawablesGeometry,
+                               GrpLibOSGDrawables  );
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
 
@@ -101,12 +100,9 @@ OSG_GEN_CONTAINERPTR(GeoVec3fProperty);
 
 #endif
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GeoVec3fProperty *> : 
@@ -132,11 +128,12 @@ struct FieldTraits<GeoVec3fProperty *> :
     static const Char8 *getMName(void);
 };
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
 OSG_FIELD_TRAITS_NAME_INST(GeoVec3fProperty *, GeoVec3fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoVec3fProperty *, GeoVec3fPropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoVec3fProperty *, 
+                               GeoVec3fPropertyPtr,
+                               GrpDrawablesGeometry,
+                               GrpLibOSGDrawables  );
 
 
 
@@ -148,12 +145,9 @@ OSG_GEN_CONTAINERPTR(GeoColor4fProperty);
 
 #endif
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDrawablesGeometryFieldTraits
+    \ingroup GrpLibOSGDrawables
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GeoColor4fProperty *> : 
@@ -181,12 +175,10 @@ struct FieldTraits<GeoColor4fProperty *> :
 
 OSG_FIELD_TRAITS_NAME_INST(GeoColor4fProperty *, GeoColor4fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoColor4fProperty *, GeoColor4fPropertyPtr);
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-
+OSG_FIELDCONTAINER_FIELDS_INST(GeoColor4fProperty *, 
+                               GeoColor4fPropertyPtr,
+                               GrpDrawablesGeometry,
+                               GrpLibOSGDrawables   );
 
 OSG_END_NAMESPACE
 

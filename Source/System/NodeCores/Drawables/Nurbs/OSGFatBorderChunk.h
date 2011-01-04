@@ -50,7 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FatBorderChunk class. See \ref 
            PageMyExtensionFatBorderChunk for a description.
-*/
+    \ingroup GrpDrawablesNurbsObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING FatBorderChunk : public FatBorderChunkBase
 {

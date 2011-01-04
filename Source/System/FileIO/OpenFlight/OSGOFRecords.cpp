@@ -169,6 +169,8 @@ OFRecordTransitPtr OFRecordFactoryBase::createRecord(
 // OFRecord
 //---------------------------------------------------------------------
 
+/*! \nohierarchy
+ */
 struct OFOpCodeDesc
 {
           UInt16  sOpCode;

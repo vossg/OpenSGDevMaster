@@ -47,7 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Class to manage multiple displays for clusters, see \ref 
-    PageSystemClusterMultiDisplayWindow for details.
+           PageSystemClusterMultiDisplayWindow for details.
+
+    \ingroup GrpClusterWindowObj
+    \ingroup GrpLibOSGCluster
+    \includebasedoc
  */
 
 class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase

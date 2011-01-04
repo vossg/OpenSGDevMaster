@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowX for details.
  */
+
+//*******************************************************************
+// X
+//*******************************************************************
+
+/*! \defgroup GrpWindowXObj Window
+    \ingroup GrpWindowX
+ */
+
+/*! \defgroup GrpWindowXFieldTraits Field Traits
+    \ingroup GrpWindowX
+ */
+/*! \defgroup GrpWindowXFieldSFields Single-Field
+    \ingroup GrpWindowX
+ */
+/*! \defgroup GrpWindowXFieldMFields Multi-Fields
+    \ingroup GrpWindowX
+ */

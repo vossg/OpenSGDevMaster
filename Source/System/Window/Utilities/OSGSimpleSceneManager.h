@@ -63,8 +63,9 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief A helper class to simplify managing simple applications.
-    \ingroup GrpSystemLib
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
 
 class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 {

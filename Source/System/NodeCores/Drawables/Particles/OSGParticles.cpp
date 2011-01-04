@@ -58,8 +58,7 @@
 
 #include <algorithm>
 
-
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
 // OSGParticlesBase.cpp file.
@@ -326,8 +325,6 @@ void Particles::fill(DrawableStatsAttachment *pStat)
     pStat->setTriangles(triangles);
 }
 
-#if !defined(OSG_DO_DOC) || OSG_DOC_LEVEL > 1  // remove from user docu
-
 /*---------------------------- pumps -----------------------------------*/
 
 /*! \name Drawing Pumps                                                 */
@@ -343,11 +340,16 @@ void Particles::fill(DrawableStatsAttachment *pStat)
     have a common base class.
 */
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
+
 class ParticleTraits
 {
 };
 
-/*! Color trait base, keep the static data needed for color handling */
+/*! Color trait base, keep the static data needed for color handling 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 
 struct ColTraitBase : public ParticleTraits
 {
@@ -412,6 +414,9 @@ ColTraitBase::ColorFuncs[ColTraitBase::numFormats][4] = {
       reinterpret_cast<pumpFunc>(glColor4dv) },   // GL_DOUBLE
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
+
 struct ColTraitNone : public ColTraitBase
 {
     typedef UInt8 dataType; // no data needed, but can't instantiate void
@@ -429,6 +434,9 @@ struct ColTraitNone : public ColTraitBase
     {
     }
 };
+
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 
 struct ColTraitSingle : public ColTraitBase
 {
@@ -470,8 +478,13 @@ struct ColTraitSingle : public ColTraitBase
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
+
 struct ColTraitParticle : public ColTraitBase
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
         const UInt8    *data;
@@ -513,8 +526,13 @@ struct ColTraitParticle : public ColTraitBase
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
+
 struct ColTraitGeneric : public ColTraitBase
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const UInt8    *data;
@@ -573,10 +591,14 @@ struct ColTraitGeneric : public ColTraitBase
     }
 };
 
-/*! Position Particle Traits */
+/*! Position Particle Traits 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 
 struct PosTraitNone : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
     }
@@ -608,8 +630,12 @@ struct PosTraitNone : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct PosTraitGeneric : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
         GeoVectorProperty *pos;
@@ -649,8 +675,12 @@ struct PosTraitGeneric : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct PosTrait3f : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFPnt3f *pos;
@@ -691,10 +721,13 @@ struct PosTrait3f : public ParticleTraits
     }
 };
 
-/*! Particle Size Traits */
-
+/*! Particle Size Traits 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 struct SizeTraitGeneric : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFVec3f *sizes;
@@ -743,8 +776,12 @@ struct SizeTraitGeneric : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct SizeTraitSingle : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
         Vec3f    s;
@@ -767,8 +804,12 @@ struct SizeTraitSingle : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct SizeTraitParticle : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFVec3f *sizes;
@@ -791,6 +832,8 @@ struct SizeTraitParticle : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct SizeTraitNone : public ParticleTraits
 {
     typedef UInt8 dataType;
@@ -811,10 +854,13 @@ struct SizeTraitNone : public ParticleTraits
     }
 };
 
-/*! Particle Texture Traits */
-
+/*! Particle Texture Traits 
+   \ingroup GrpDrawablesParticlesHelpers
+ */
 struct TexTraitGeneric : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFReal32 *texzs;
@@ -871,8 +917,12 @@ struct TexTraitGeneric : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct TexTraitParticle : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFReal32 *texzs;
@@ -902,8 +952,12 @@ struct TexTraitParticle : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct TexTraitSingle : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
         Real32    z;
@@ -932,6 +986,8 @@ struct TexTraitSingle : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct TexTraitNone : public ParticleTraits
 {
     typedef UInt8 dataType;
@@ -957,10 +1013,13 @@ struct TexTraitNone : public ParticleTraits
 };
 
 
-/*! Normal Particle Traits */
-
+/*! Normal Particle Traits 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 struct NormalTraitGeneric : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     typedef struct
     {
         GeoVectorProperty *norms;
@@ -1015,8 +1074,12 @@ struct NormalTraitGeneric : public ParticleTraits
     }
 };
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+ */
 struct NormalTraitGeneric3f : public ParticleTraits
 {
+    /*! \nohierarchy
+     */
     struct dataType
     {
         const MFVec3f *norms;
@@ -1076,9 +1139,10 @@ struct NormalTraitGeneric3f : public ParticleTraits
     }
 };
 
-/* ParticlesDrawer base classes, define the common interface(s) */
-
-struct OSG::ParticlesDrawer
+/*! ParticlesDrawer base classes, define the common interface(s) 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
+struct ParticlesDrawer
 {
     virtual void draw(Particles *part,
                       DrawEnv   *pEnv,
@@ -1094,8 +1158,9 @@ struct OSG::ParticlesDrawer
     }
 };
 
-/* View-Dir aligned, indexed quad rendering */
-
+/*! View-Dir aligned, indexed quad rendering 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class colTrait, class texTrait, class sizeTrait>
 struct drawViewDirQuads : public ParticlesDrawer
 {
@@ -1298,8 +1363,9 @@ struct drawViewDirQuads : public ParticlesDrawer
 };
 
 
-/* Viewer aligned, indexed quad rendering */
-
+/*! Viewer aligned, indexed quad rendering 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class colTrait, class texTrait, class sizeTrait>
 struct drawViewerQuads : public ParticlesDrawer
 {
@@ -1551,7 +1617,10 @@ struct drawViewerQuads : public ParticlesDrawer
 
 
 
-/* Single color lines between secPos and pos */
+/*! Single color lines between secPos and pos 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
+
 
 template <class posTrait, class colTrait, class texTrait, class sizeTrait>
 struct drawLines : public ParticlesDrawer
@@ -1672,8 +1741,9 @@ struct drawLines : public ParticlesDrawer
     }
 };
 
-/*  Points at pos */
-
+/*! Points at pos 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class colTrait, class texTrait, class sizeTrait>
 struct drawPoints : public ParticlesDrawer
 {
@@ -1769,8 +1839,9 @@ struct drawPoints : public ParticlesDrawer
     }
 };
 
-/* Geometry traits for drawing objects */
-
+/*! Geometry traits for drawing objects 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 struct GeoTraitArrow : public ParticleTraits
 {
     typedef UInt8 dataType;
@@ -1834,7 +1905,9 @@ struct GeoTraitArrow : public ParticleTraits
 };
 
 
-/* Geometry traits for drawing rectangles */
+/*! Geometry traits for drawing rectangles 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 
 struct GeoTraitRectangle : public ParticleTraits
 {
@@ -1887,8 +1960,9 @@ struct GeoTraitRectangle : public ParticleTraits
 
 
 
-/* Objects using the pos/secpos/normal coordinate system for rendering */
-
+/*! Objects using the pos/secpos/normal coordinate system for rendering 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class colTrait, class sizeTrait, class normalTrait,
           class geoTrait>
 struct drawObjects : public ParticlesDrawer
@@ -2062,9 +2136,10 @@ struct drawObjects : public ParticlesDrawer
 };
 
 
-/* Objects using the pos/secpos and viewer-directed coordinate system for
-   rendering */
-
+/*! Objects using the pos/secpos and viewer-directed coordinate system for
+    rendering 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class colTrait, class sizeTrait,
           class geoTrait>
 struct drawViewerObjects : public ParticlesDrawer
@@ -2262,8 +2337,9 @@ struct drawViewerObjects : public ParticlesDrawer
 };
 
 
-/* Static coordinates quad, pass all parameters to shader */
-
+/*! Static coordinates quad, pass all parameters to shader 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class secPosTrait, class colTrait, class texTrait,
           class sizeTrait, class normalTrait>
 struct drawShaderQuads : public ParticlesDrawer
@@ -2450,9 +2526,10 @@ struct drawShaderQuads : public ParticlesDrawer
 };
 
 
-/* Static coordinates strips with y coordinates between -.5 and .5, split
-   into size[2] parts, pass all parameters to shader */
-
+/*! Static coordinates strips with y coordinates between -.5 and .5, split
+    into size[2] parts, pass all parameters to shader 
+    \ingroup GrpDrawablesParticlesHelpers
+ */
 template <class posTrait, class secPosTrait, class colTrait, class texTrait,
           class sizeTrait, class normalTrait>
 struct drawShaderStrips : public ParticlesDrawer
@@ -2643,11 +2720,14 @@ struct drawShaderStrips : public ParticlesDrawer
     }
 };
 
-
+/*! \} */
 
 
 /* Sorting functions */
 
+/*! \ingroup GrpDrawablesParticlesHelpers
+    \nohierarchy
+ */
 
 struct sorter
 {
@@ -2839,12 +2919,9 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
     return index;
 }
 
-/*! \} */
-
-#endif // remove from user docu
 
 /*! Low-level Draw method that pumps OpenGL commands.
-*/
+ */
 void Particles::drawPrimitives(DrawEnv *pEnv)
 {
     // some variables for faster access
@@ -3228,3 +3305,4 @@ ParticlesDrawer *Particles::findDrawer(void)
     return NULL;
 }
 
+OSG_END_NAMESPACE

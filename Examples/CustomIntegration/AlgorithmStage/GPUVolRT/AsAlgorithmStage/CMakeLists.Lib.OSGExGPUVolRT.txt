@@ -33,6 +33,8 @@ IF(WIN32)
   OSG_ADD_GLEWPACKAGE(FALSE)
 ENDIF(WIN32)
 
+SET(${PROJECT_NAME}_NO_DOC TRUE)
+
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################

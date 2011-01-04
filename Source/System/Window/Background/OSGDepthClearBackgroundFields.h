@@ -68,7 +68,7 @@ class DepthClearBackground;
 
 OSG_GEN_CONTAINERPTR(DepthClearBackground);
 
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
@@ -120,16 +120,16 @@ const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<NoRefCountPolicy>(
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
-/*! \ingroup GrpWindowFieldSFields */
+/*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
 
@@ -138,19 +138,19 @@ typedef PointerSField<DepthClearBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFRecDepthClearBackgroundPtr : 
     public PointerSField<DepthClearBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUnrecDepthClearBackgroundPtr : 
     public PointerSField<DepthClearBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFWeakDepthClearBackgroundPtr :
     public PointerSField<DepthClearBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
 struct SFUncountedDepthClearBackgroundPtr :
     public PointerSField<DepthClearBackground *,
                          NoRefCountPolicy> {};

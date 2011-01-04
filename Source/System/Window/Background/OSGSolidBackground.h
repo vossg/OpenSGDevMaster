@@ -50,7 +50,10 @@ class Viewport;
 class DrawEnv;
 
 /*! \brief Single color background clearing class. See \ref 
-    PageSystemWindowBackgroundSolid for a description.
+           PageSystemWindowBackgroundSolid for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
 */
 
 class OSG_WINDOW_DLLMAPPING SolidBackground : public SolidBackgroundBase

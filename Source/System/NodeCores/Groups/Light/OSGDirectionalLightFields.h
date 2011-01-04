@@ -68,7 +68,7 @@ class DirectionalLight;
 
 OSG_GEN_CONTAINERPTR(DirectionalLight);
 
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpGroupLightFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>

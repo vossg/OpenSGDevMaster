@@ -49,6 +49,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
@@ -95,7 +99,9 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -107,7 +113,9 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 

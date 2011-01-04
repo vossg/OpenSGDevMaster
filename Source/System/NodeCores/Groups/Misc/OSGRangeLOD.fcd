@@ -1,41 +1,42 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="RangeLOD"
-	parent="Group"
-	library="Group"
-	pointerfieldtypes="none"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
+   name="RangeLOD"
+   parent="Group"
+   library="Group"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
+   >
   OpenFlight LOD
-	<Field
-		name="center"
-		type="Pnt3f"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  <Field
+	 name="center"
+	 type="Pnt3f"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The center for distance calculation.
-	</Field>
-	<Field
-		name="switchIn"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="switchIn"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The range intervals.
-	</Field>
-	<Field
-		name="switchOut"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+  </Field>
+  <Field
+	 name="switchOut"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	The range intervals.
-	</Field>
+  </Field>
 </FieldContainer>

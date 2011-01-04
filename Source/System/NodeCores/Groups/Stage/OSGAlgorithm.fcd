@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="Algorithm"
-	parent="AttachmentContainer"
-	library="Group"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
-    isNodeCore="false"
->
+   name="Algorithm"
+   parent="AttachmentContainer"
+   library="Group"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   docGroupBase="GrpGroupStage"
+   >
 </FieldContainer>

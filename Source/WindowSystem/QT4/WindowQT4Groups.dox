@@ -12,3 +12,21 @@ using namespace OSG;
 
     See \ref PageWindowQt4 for details.
  */
+
+//*******************************************************************
+// Qt4
+//*******************************************************************
+
+/*! \defgroup GrpWindowQt4Obj Window
+    \ingroup GrpWindowQt4
+ */
+
+/*! \defgroup GrpWindowQt4FieldTraits Field Traits
+    \ingroup GrpWindowQt4
+ */
+/*! \defgroup GrpWindowQt4FieldSFields Single-Field
+    \ingroup GrpWindowQt4
+ */
+/*! \defgroup GrpWindowQt4FieldMFields Multi-Fields
+    \ingroup GrpWindowQt4
+ */

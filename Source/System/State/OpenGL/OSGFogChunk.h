@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief FogChunk class. See \ref
            PageStateFogChunk for a description.
-*/
+    \ingroup GrpStateOpenGLObj
+    \ingroup GrpLibOSGState
+    \includebasedoc
+ */
 
 class OSG_STATE_DLLMAPPING FogChunk : public FogChunkBase
 {

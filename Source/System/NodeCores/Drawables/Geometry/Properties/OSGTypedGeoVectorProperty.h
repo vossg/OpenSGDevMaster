@@ -49,12 +49,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
-    \hideinhierarchy
-    \brief GeoProperty is a specialized form of Attachment, used to
+/*! \brief GeoProperty is a specialized form of Attachment, used to
     define the properties of the geometry node. See \ref
     PageWINDOWGLUTGeoProperties for a description.
-*/
+
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+ */
 
 template <class GeoPropertyDesc>
 class TypedGeoVectorProperty : public GeoVectorProperty
@@ -276,6 +277,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     friend class FieldContainer;
@@ -393,6 +395,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 };
 
 
+/*! \ingroup GrpDrawablesGeometryProperties
+ */
+
 struct TypedGeoVectorPropertyDescBase
 {
     typedef GeoVectorProperty       PropertParent;
@@ -423,6 +428,9 @@ struct TypedGeoVectorPropertyDescBase
     static const int  offset    = 0;
 };
 
+
+/*! \ingroup GrpDrawablesGeometryProperties
+ */
 
 struct TypedNormGeoVectorPropertyDescBase
 {
@@ -460,10 +468,10 @@ struct TypedNormGeoVectorPropertyDescBase
 #undef OSG_MAKE_PROP
 #undef OSG_MAKE_NORM_PROP
 
-#if !defined(OSG_DO_DOC)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 /*! Helper macro for auto building geo property header information.
-*/
+ */
 #define OSG_MAKE_PROP(typename, gltypename, gltype, OSG_VECTORTYPE, OSG_USAGE) \
 struct Geo##typename##PropertyDesc :                                          \
     public TypedGeoVectorPropertyDescBase                                     \
@@ -537,9 +545,12 @@ typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>                   \
                                                                               \
 OSG_GEN_CONTAINERPTR(Geo##propname##Property)
 
-#else // !defined(OSG_DO_DOC)
+#else
 
+/*! Helper macro for auto building geo property header information.
+ */
 #define OSG_MAKE_PROP(typename, gltypename, gltype, OSG_VECTORTYPE, OSG_USAGE) \
+/*! \ingroup GrpDrawablesGeometryProperties */                                \
 struct Geo##typename##PropertyDesc :                                          \
     public TypedGeoVectorPropertyDescBase                                     \
 {                                                                             \
@@ -561,15 +572,23 @@ struct Geo##typename##PropertyDesc :                                          \
     static UInt32       getDimension   (void) { return typename::_uiSize; }   \
     static UInt32       getDefaultUsage(void)                                 \
     {                                                                         \
-        return GeoProperty::USAGE | GeoProperty::UsageSystemSet;          \
+        return GeoProperty::OSG_USAGE | GeoProperty::UsageSystemSet;          \
     }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
     typedef MF##typename      StoredFieldType;                                \
     /*! \}                                                                 */ \
-}
+};                                                                            \
+                                                                              \
+/*! \ingroup GrpDrawablesGeometryProperties \ingroup GrpLibOSGDrawables */    \
+struct Geo##typename##Property :                                              \
+    public TypedGeoVectorProperty<Geo##typename##PropertyDesc> {};            \
+                                                                              \
+OSG_GEN_CONTAINERPTR(Geo##typename##Property)
+
 
 #define OSG_MAKE_NORM_PROP(typename, propname, nscale, gltypename, gltype, OSG_VECTORTYPE, OSG_USAGE) \
+/*! \ingroup GrpDrawablesGeometryProperties */                                \
 struct Geo##propname##PropertyDesc :                                          \
     public TypedNormGeoVectorPropertyDescBase                                 \
 {                                                                             \
@@ -577,7 +596,7 @@ struct Geo##propname##PropertyDesc :                                          \
     /*! \name                          Get                                 */ \
     /*! \{                                                                 */ \
                                                                               \
-    static const Char8 *getTypeName    (void)                                 \
+    static const Char8 *getTypeName (void)                                    \
     {                                                                         \
         return "Geo" #propname "Property";                                    \
     }                                                                         \
@@ -591,7 +610,7 @@ struct Geo##propname##PropertyDesc :                                          \
     static UInt32       getDimension   (void) { return typename::_uiSize; }   \
     static UInt32       getDefaultUsage(void)                                 \
     {                                                                         \
-        return GeoProperty::USAGE | GeoProperty::UsageSystemSet;          \
+        return GeoProperty::OSG_USAGE | GeoProperty::UsageSystemSet;          \
     }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
@@ -599,71 +618,167 @@ struct Geo##propname##PropertyDesc :                                          \
                                                                               \
     static const int scale = nscale;                                          \
     /*! \}                                                                 */ \
-}
+};                                                                            \
+                                                                              \
+/*! \ingroup GrpDrawablesGeometryProperties \ingroup GrpLibOSGDrawables */    \
+struct Geo##propname##Property :                                              \
+    public TypedGeoVectorProperty<Geo##propname##PropertyDesc>  {};           \
+                                                                              \
+OSG_GEN_CONTAINERPTR(Geo##propname##Property)
 
 #endif
 
 
-// Meta-Macros
+//********************************
+// Vec/Pnt ub
+//********************************
+OSG_MAKE_PROP(Pnt1ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
 
-#define OSG_MAKE_1D_TO_4D_PROP(TBASE, TTYPE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE)     \
-OSG_MAKE_PROP(TBASE##1##TTYPE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);                  \
-OSG_MAKE_PROP(TBASE##2##TTYPE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);                  \
-OSG_MAKE_PROP(TBASE##3##TTYPE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);                  \
-OSG_MAKE_PROP(TBASE##4##TTYPE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE)
+OSG_MAKE_NORM_PROP(Pnt1ub, Pnt1Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt2ub, Pnt2Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt3ub, Pnt3Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt4ub, Pnt4Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypePoint, UsageObjectSpace);
 
-#define OSG_MAKE_1D_TO_4D_NORM_PROP(TBASE, TTYPE, SCALE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE)         \
-OSG_MAKE_NORM_PROP(TBASE##1##TTYPE, TBASE##1N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);    \
-OSG_MAKE_NORM_PROP(TBASE##2##TTYPE, TBASE##2N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);    \
-OSG_MAKE_NORM_PROP(TBASE##3##TTYPE, TBASE##3N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE);    \
-OSG_MAKE_NORM_PROP(TBASE##4##TTYPE, TBASE##4N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VECTORTYPE, USAGE)
+OSG_MAKE_PROP(Vec1ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
 
-#define OSG_MAKE_COLOR_PROP(TTYPE, SCALE, GLTYPENAME, GLTYPE)                                                   \
-OSG_MAKE_PROP(Color3##TTYPE, GLTYPENAME, GLTYPE, VectorTypeColor, UsageColorSpace);                             \
-OSG_MAKE_PROP(Color4##TTYPE, GLTYPENAME, GLTYPE, VectorTypeColor, UsageColorSpace);                             \
-OSG_MAKE_NORM_PROP(Color3##TTYPE, Color3N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VectorTypeColor, UsageColorSpace); \
-OSG_MAKE_NORM_PROP(Color4##TTYPE, Color4N##TTYPE, SCALE, GLTYPENAME, GLTYPE, VectorTypeColor, UsageColorSpace)
+OSG_MAKE_NORM_PROP(Vec1ub, Vec1Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec2ub, Vec2Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec3ub, Vec3Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec4ub, Vec4Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeVector, UsageUnspecified);
 
-// Now create all the necessary properties
-OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, ub,         255, GL_UNSIGNED_BYTE,  GLubyte,  VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, ub,         255, GL_UNSIGNED_BYTE,  GLubyte,  VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  b,         127, GL_BYTE,           GLbyte,   VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  b,         127, GL_BYTE,           GLbyte,   VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, us,       65535, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, us,       65535, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  s,       32767, GL_SHORT,          GLshort,  VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  s,       32767, GL_SHORT,          GLshort,  VectorTypePoint,  UsageObjectSpace);
 
+//********************************
+// Vec/Pnt b
+//********************************
+OSG_MAKE_PROP(Pnt1b, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2b, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3b, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4b, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_NORM_PROP(Pnt1b, Pnt1Nb, 127, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt2b, Pnt2Nb, 127, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt3b, Pnt3Nb, 127, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt4b, Pnt4Nb, 127, GL_BYTE, GLbyte, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_PROP(Vec1b, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2b, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3b, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4b, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+
+OSG_MAKE_NORM_PROP(Vec1b, Vec1Nb, 127, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec2b, Vec2Nb, 127, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec3b, Vec3Nb, 127, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec4b, Vec4Nb, 127, GL_BYTE, GLbyte, VectorTypeVector, UsageUnspecified);
+
+
+//********************************
+// Vec/Pnt us
+//********************************
+OSG_MAKE_PROP(Pnt1us, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2us, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3us, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4us, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_NORM_PROP(Pnt1us, Pnt1Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt2us, Pnt2Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt3us, Pnt3Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt4us, Pnt4Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_PROP(Vec1us, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2us, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3us, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4us, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+
+OSG_MAKE_NORM_PROP(Vec1us, Vec1Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec2us, Vec2Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec3us, Vec3Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec4us, Vec4Nus, 65535, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
+
+
+//********************************
+// Vec/Pnt s
+//********************************
+OSG_MAKE_PROP(Pnt1s, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2s, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3s, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4s, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_NORM_PROP(Pnt1s, Pnt1Ns, 32767, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt2s, Pnt2Ns, 32767, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt3s, Pnt3Ns, 32767, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_NORM_PROP(Pnt4s, Pnt4Ns, 32767, GL_SHORT, GLshort, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_PROP(Vec1s, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2s, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3s, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4s, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+
+OSG_MAKE_NORM_PROP(Vec1s, Vec1Ns, 32767, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec2s, Vec2Ns, 32767, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec3s, Vec3Ns, 32767, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_NORM_PROP(Vec4s, Vec4Ns, 32767, GL_SHORT, GLshort, VectorTypeVector, UsageUnspecified);
+
+
+//********************************
+// Vec/Pnt ui
+//********************************
 // Does anybody need those? *DR*
-// OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, ui, 4294967295U, GL_UNSIGNED_INT,   GLuint,   VectorTypeVector, UsageUnspecified);
-// OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, ui, 4294967295U, GL_UNSIGNED_INT,   GLuint,   VectorTypePoint,  UsageObjectSpace);
-// OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  i, 2147483647U, GL_INT,            GLint,    VectorTypeVector, UsageUnspecified);
-// OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  i, 2147483647U, GL_INT,            GLint,    VectorTypePoint,  UsageObjectSpace);
-
-OSG_MAKE_1D_TO_4D_PROP(Vec, ub, GL_UNSIGNED_BYTE,  GLubyte,  VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt, ub, GL_UNSIGNED_BYTE,  GLubyte,  VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_PROP(Vec,  b, GL_BYTE,           GLbyte,   VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt,  b, GL_BYTE,           GLbyte,   VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_PROP(Vec, us, GL_UNSIGNED_SHORT, GLushort, VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt, us, GL_UNSIGNED_SHORT, GLushort, VectorTypePoint,  UsageObjectSpace);
-OSG_MAKE_1D_TO_4D_PROP(Vec,  s, GL_SHORT,          GLshort,  VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt,  s, GL_SHORT,          GLshort,  VectorTypePoint,  UsageObjectSpace);
-
+//********************************
+// Vec/Pnt i
+//********************************
 // Does anybody need those? *DR*
-// OSG_MAKE_1D_TO_4D_PROP(Vec, ui, GL_UNSIGNED_INT,   GLuint,   VectorTypeVector, UsageUnspecified);
-// OSG_MAKE_1D_TO_4D_PROP(Pnt, ui, GL_UNSIGNED_INT,   GLuint,   VectorTypePoint,  UsageObjectSpace);
-// OSG_MAKE_1D_TO_4D_PROP(Vec,  i, GL_INT,            GLint,    VectorTypeVector, UsageUnspecified);
-// OSG_MAKE_1D_TO_4D_PROP(Pnt,  i, GL_INT,            GLint,    VectorTypePoint,  UsageObjectSpace);
 
-OSG_MAKE_1D_TO_4D_PROP(Vec, f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt, f, GL_FLOAT, GLfloat, VectorTypePoint,  UsageObjectSpace);
 
-OSG_MAKE_1D_TO_4D_PROP(Vec, d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
-OSG_MAKE_1D_TO_4D_PROP(Pnt, d, GL_DOUBLE, GLdouble, VectorTypePoint,  UsageObjectSpace);
+//********************************
+// Vec/Pnt f
+//********************************
+OSG_MAKE_PROP(Pnt1f, GL_FLOAT, GLfloat, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2f, GL_FLOAT, GLfloat, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3f, GL_FLOAT, GLfloat, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4f, GL_FLOAT, GLfloat, VectorTypePoint, UsageObjectSpace);
 
-OSG_MAKE_COLOR_PROP(ub, 255, GL_UNSIGNED_BYTE, GLubyte);
+OSG_MAKE_PROP(Vec1f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
 
+
+//********************************
+// Vec/Pnt d
+//********************************
+OSG_MAKE_PROP(Pnt1d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt2d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt3d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
+OSG_MAKE_PROP(Pnt4d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
+
+OSG_MAKE_PROP(Vec1d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec2d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec3d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
+OSG_MAKE_PROP(Vec4d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
+
+
+//********************************
+// Color ub
+//********************************
+OSG_MAKE_PROP(Color3ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeColor, UsageColorSpace);                             
+OSG_MAKE_PROP(Color4ub, GL_UNSIGNED_BYTE, GLubyte, VectorTypeColor, UsageColorSpace);
+OSG_MAKE_NORM_PROP(Color3ub, Color3Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeColor, UsageColorSpace);
+OSG_MAKE_NORM_PROP(Color4ub, Color4Nub, 255, GL_UNSIGNED_BYTE, GLubyte, VectorTypeColor, UsageColorSpace);
+
+//********************************
+// Color f
+//********************************
 OSG_MAKE_PROP(Color3f, GL_FLOAT,  GLfloat, VectorTypeColor, UsageColorSpace);
+
+//********************************
+// Color d
+//********************************
 OSG_MAKE_PROP(Color4f, GL_FLOAT,  GLfloat, VectorTypeColor, UsageColorSpace);
 
 

@@ -151,7 +151,8 @@ GeoIntegralBufferRefPropertyBase::TypeObject GeoIntegralBufferRefPropertyBase::_
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   childFields=\"both\"\n"
-    ">\n"
+    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
+    "   >\n"
     "</FieldContainer>\n",
     ""
     );

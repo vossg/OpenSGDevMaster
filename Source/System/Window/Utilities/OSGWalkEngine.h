@@ -52,14 +52,19 @@ OSG_BEGIN_NAMESPACE
 class IntersectAction;
 
 /*! \brief Base class for all navigator engines.
-*/
+    \ingroup GrpUtilNavigation
+    \ingroup GrpLibOSGUtil
+ */
+
 class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
 {
     typedef FlyEngine  Inherited;
     typedef WalkEngine Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Types                                   */
     /*! \{                                                                 */
@@ -118,6 +123,7 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
+
   protected:
     
     /*---------------------------------------------------------------------*/
@@ -145,6 +151,7 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
     /*! \}                                                                 */
 
   private:
+
     /* Not implemented */
     WalkEngine(const WalkEngine &other);
     WalkEngine &operator =(const WalkEngine &other);

@@ -47,8 +47,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! VisitSubTree
-//! \ingroup GrpSystemNodeCoresMisc
+/*! VisitSubTree
+    \ingroup GrpGroupMiscObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
+ */
 
 class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
 {

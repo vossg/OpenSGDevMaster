@@ -68,7 +68,7 @@ class PipelineComposer;
 
 OSG_GEN_CONTAINERPTR(PipelineComposer);
 
-/*! \ingroup GrpClusterFieldTraits
+/*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>

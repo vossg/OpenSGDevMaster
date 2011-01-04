@@ -3,4 +3,10 @@
 using namespace OSG;
 
 /*! \page PageUtil Util
+
+    \section PageSystemWindowNavigatorsFly
+    \section PageSystemWindowNavigatorsNavigator
+    \section PageUtilPerfMonitorForeground
+    \section PageSystemWindowForegroundStatisticsSimple
+    \section PageSystemWindowNavigatorsTrackball
  */

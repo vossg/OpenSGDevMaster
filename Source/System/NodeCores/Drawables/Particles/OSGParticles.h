@@ -52,6 +52,10 @@ OSG_BEGIN_NAMESPACE
 class  DrawEnv;
 struct ParticlesDrawer;
 
+/*! \ingroup GrpDrawablesParticlesObj
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 class OSG_DRAWABLE_DLLMAPPING Particles : public ParticlesBase
 {
   private:

@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief GeoIntegralBufferRefProperty class. See \ref
            PageDrawableGeoIntegralBufferRefProperty for a description.
-*/
+    \ingroup GrpDrawablesGeometryProperties
+    \ingroup GrpLibOSGDrawables
+    \includebasedoc
+ */
 
 class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferRefProperty : 
     public GeoIntegralBufferRefPropertyBase

@@ -42,10 +42,6 @@
 #pragma once
 #endif
 
-/*! \file OSGOSBLog.h
-    \ingroup GrpLoader
- */
-
 #include "OSGConfig.h"
 
 #include "OSGFileIODef.h"

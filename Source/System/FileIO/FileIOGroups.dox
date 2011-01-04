@@ -12,3 +12,61 @@ using namespace OSG;
 
     See \ref PageFileIO for details.
  */
+
+/*! \defgroup GrpFileIO3DS 3DS
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOCollada Collada
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOOBJ OBJ
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOOFF OFF
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOOpenFlight OpenFlight
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOOSB OSB
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIORAW RAW
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOSTL STL
+    \ingroup GrpFileIO
+ */
+
+
+//*******************************************************************
+// VRML
+//*******************************************************************
+
+/*! \defgroup GrpFileIOWRL WRL
+    \ingroup GrpFileIO
+ */
+
+/*! \defgroup GrpFileIOWRLObj VRML Elements
+    \ingroup GrpFileIOWRL
+ */
+
+/*! \defgroup GrpFileIOWRLFieldTraits Field Traits
+    \ingroup GrpFileIOWRL
+*/
+/*! \defgroup GrpFileIOWRLFieldHandle Field Handle
+    \ingroup GrpFileIOWRL
+*/
+/*! \defgroup GrpFileIOWRLFieldSFields Single-Field
+    \ingroup GrpFileIOWRL
+*/
+/*! \defgroup GrpFileIOWRLFieldMFields Multi-Fields
+    \ingroup GrpFileIOWRL
+*/

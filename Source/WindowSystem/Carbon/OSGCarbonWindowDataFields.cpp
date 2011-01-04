@@ -58,12 +58,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-// doxygen can't find these
-#ifndef OSG_DO_DOC 
-
 DataType FieldTraits<AGLContext>::_type("AGLContext", NULL);
-
-#endif
 
 OSG_FIELDTRAITS_GETTYPE(AGLContext)
 

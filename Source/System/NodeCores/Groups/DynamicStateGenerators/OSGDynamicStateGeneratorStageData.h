@@ -50,6 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief DynamicStateGeneratorStageData class. See \ref
            PageGroupDynamicStateGeneratorStageData for a description.
+    \ingroup GrpGroupDynamicStateGeneratorsObj
+    \ingroup GrpLibOSGGroup
+    \includebasedoc
 */
 
 class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageData : 

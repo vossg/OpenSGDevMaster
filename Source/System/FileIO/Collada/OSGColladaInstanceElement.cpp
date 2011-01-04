@@ -42,7 +42,7 @@
 
 #include "OSGColladaInstanceElement.h"
 
-#ifdef OSG_WITH_COLLADA
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
 /*! \class OSG::ColladaInstanceElement
     Base class for types handling the various <instance_*> tags in
@@ -54,12 +54,14 @@
     NULL otherwise.
  */
 
+#if 0
 /*! \fn daeElement *ColladaInstanceElement::getTargetDOMElement(void) const
     Returns the DOM element instantiated by this element (usually obtained
     by resolving the URL attribute).
     If the DOM element is not available (e.g. the URL attribute refers to
     an external document not loaded into the DAE database) NULL is returned.
  */
+#endif
 
 OSG_BEGIN_NAMESPACE
 

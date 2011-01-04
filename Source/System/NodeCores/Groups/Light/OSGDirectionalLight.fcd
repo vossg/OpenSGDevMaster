@@ -1,23 +1,24 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="DirectionalLight"
-	parent="Light"
-	library="Group"
-	structure="concrete"
-	pointerfieldtypes="none"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-    isNodeCore="true"
->
-DirectionalLight is an infinitely distant lightsource. Its only
-attribute is the light's direction.
-	<Field
-		name="direction"
-		type="Vec3f"
-		cardinality="single"
-		visibility="external"
-                defaultValue="0.f,0.f,1.f"
-	>
-	</Field>
+   name="DirectionalLight"
+   parent="Light"
+   library="Group"
+   structure="concrete"
+   pointerfieldtypes="none"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpGroupLight"
+   >
+  DirectionalLight is an infinitely distant lightsource. Its only
+  attribute is the light's direction.
+  <Field
+	 name="direction"
+	 type="Vec3f"
+	 cardinality="single"
+	 visibility="external"
+     defaultValue="0.f,0.f,1.f"
+	 >
+  </Field>
 </FieldContainer>

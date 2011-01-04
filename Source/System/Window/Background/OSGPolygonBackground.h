@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief PolygonBackground class. See \ref 
            PageSystemPolygonBackground for a description.
+    \ingroup GrpWindowBackgroundObj
+    \ingroup GrpLibOSGWindow
+    \includebasedoc
 */
 
 class OSG_WINDOW_DLLMAPPING PolygonBackground : public PolygonBackgroundBase

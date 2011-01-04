@@ -68,7 +68,7 @@ class ClipPlaneChunk;
 
 OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldSFields */
+/*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
 
 
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
-/*! \ingroup GrpStateFieldMFields */
+/*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<ClipPlaneChunk *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFRecClipPlaneChunkPtr : 
     public PointerSField<ClipPlaneChunk *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUnrecClipPlaneChunkPtr : 
     public PointerSField<ClipPlaneChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFWeakClipPlaneChunkPtr :
     public PointerSField<ClipPlaneChunk *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldSFields \ingroup GrpLibOSGState */
 struct SFUncountedClipPlaneChunkPtr :
     public PointerSField<ClipPlaneChunk *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFRecClipPlaneChunkPtr :
     public PointerMField<ClipPlaneChunk *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUnrecClipPlaneChunkPtr :
     public PointerMField<ClipPlaneChunk *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFWeakClipPlaneChunkPtr :
     public PointerMField<ClipPlaneChunk *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+/*! \ingroup GrpStateOpenGLFieldMFields \ingroup GrpLibOSGState */
 struct MFUncountedClipPlaneChunkPtr :
     public PointerMField<ClipPlaneChunk *,
                          NoRefCountPolicy        > {};

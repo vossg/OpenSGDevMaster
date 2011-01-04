@@ -9,5 +9,6 @@
    systemcomponent="true"
    parentsystemcomponent="true"
    isNodeCore="true"
+   docGroupBase="GrpGroupMisc"
    >
 </FieldContainer>
