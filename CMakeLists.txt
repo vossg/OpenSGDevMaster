@@ -631,6 +631,11 @@ ENDIF()
 #### Doxygen
 ###############
 
+IF(EXISTS "${OSG_SUPPORT_ROOT}/bin/doxygen" AND NOT DOXYGEN_EXECUTABLE)
+  SET(DOXYGEN_EXECUTABLE "${OSG_SUPPORT_ROOT}/bin/doxygen" 
+                         CACHE FILEPATH "doxygen executable (custom)" FORCE)
+ENDIF()
+
 FIND_PACKAGE(Doxygen)
 
 ##############################################################################

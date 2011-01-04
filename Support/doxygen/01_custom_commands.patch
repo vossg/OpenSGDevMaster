@@ -1,0 +1,255 @@
+commit 7e1e4a59f18c3f4390676b2e4cc81e58511bd2d4
+Author: gerrit <gerrit@feynman.camtech.ntu.edu.sg>
+Date:   Mon Aug 9 15:32:39 2010 +0800
+
+    fixed: some changes to clean up the html version
+
+diff --git a/src/classdef.cpp b/src/classdef.cpp
+index a924dd6..1fe762c 100644
+--- a/src/classdef.cpp
++++ b/src/classdef.cpp
+@@ -174,6 +174,9 @@ class ClassDefImpl
+ 
+     /** List of titles to use for the summary */
+     SDict<QCString> vhdlSummaryTitles;
++
++    bool notInHierarchy;
++    bool includeBaseDocs;
+ };
+ 
+ void ClassDefImpl::init(const char *defFileName, const char *name,
+@@ -213,6 +216,9 @@ void ClassDefImpl::init(const char *defFileName, const char *name,
+   membersMerged = FALSE;
+   categoryOf = 0;
+   usedOnly = FALSE;
++  notInHierarchy = false;
++  includeBaseDocs = false;
++
+   //QCString ns;
+   //extractNamespaceName(name,className,ns);
+   //printf("m_name=%s m_className=%s ns=%s\n",m_name.data(),m_className.data(),ns.data());
+@@ -2177,7 +2183,8 @@ bool ClassDef::isVisibleInHierarchy()
+        isReference()
+       ) &&
+       // is not part of an unnamed namespace or shown anyway
+-      (!m_impl->isStatic || extractStatic);
++      (!m_impl->isStatic || extractStatic) &&
++      (!m_impl->notInHierarchy);
+ }
+ 
+ bool ClassDef::hasDocumentation() const
+@@ -2244,7 +2251,6 @@ void ClassDef::mergeMembers()
+   int sepLen = sep.length();
+ 
+   m_impl->membersMerged=TRUE;
+-  //printf("  mergeMembers for %s\n",name().data());
+   bool inlineInheritedMembers = Config_getBool("INLINE_INHERITED_MEMB" );
+   if (baseClasses())
+   {
+@@ -2258,6 +2264,11 @@ void ClassDef::mergeMembers()
+       // merge the members in the base class of this inheritance branch first
+       bClass->mergeMembers();
+ 
++      if(m_impl->includeBaseDocs == false)
++      {
++          continue;
++      }
++
+       MemberNameInfoSDict *srcMnd  = bClass->memberNameInfoSDict();
+       MemberNameInfoSDict *dstMnd  = m_impl->allMemberNameInfoSDict;
+ 
+@@ -2369,7 +2380,7 @@ void ClassDef::mergeMembers()
+                 if (bcd->prot==Protected && prot==Public)       prot=bcd->prot;
+                 else if (bcd->prot==Private)                    prot=bcd->prot;
+ 
+-                if (inlineInheritedMembers)
++                if (inlineInheritedMembers || m_impl->includeBaseDocs == true)
+                 {
+                   if (!isStandardFunc(srcMd))
+                   {
+@@ -2444,7 +2455,7 @@ void ClassDef::mergeMembers()
+                 Specifier virt=mi->virt;
+                 if (mi->virt==Normal && bcd->virt!=Normal) virt=bcd->virt;
+ 
+-                if (inlineInheritedMembers)
++                if (inlineInheritedMembers || m_impl->includeBaseDocs == true)
+                 {
+                   if (!isStandardFunc(mi->memberDef))
+                   {
+@@ -3507,6 +3518,16 @@ bool ClassDef::isUsedOnly() const
+   return m_impl->usedOnly;
+ }
+ 
++void ClassDef::setNotInHierarchy(bool b)
++{
++    m_impl->notInHierarchy = b;
++}
++
++void ClassDef::setIncludeBaseDocs(bool b)
++{
++    m_impl->includeBaseDocs = b;
++}
++
+ void ClassDef::reclassifyMember(MemberDef *md,MemberDef::MemberType t)
+ {
+   md->setMemberType(t);
+diff --git a/src/classdef.h b/src/classdef.h
+index cd5cfdc..488a9bc 100644
+--- a/src/classdef.h
++++ b/src/classdef.h
+@@ -298,6 +298,9 @@ class ClassDef : public Definition
+     void setCategoryOf(ClassDef *cd);
+     void setUsedOnly(bool b);
+ 
++    void setNotInHierarchy (bool b);
++    void setIncludeBaseDocs(bool b);
++
+     //-----------------------------------------------------------------------------------
+     // --- actions ----
+     //-----------------------------------------------------------------------------------
+diff --git a/src/doxygen.cpp b/src/doxygen.cpp
+index f229ded..1f78879 100644
+--- a/src/doxygen.cpp
++++ b/src/doxygen.cpp
+@@ -1180,11 +1180,12 @@ static void addClassToContext(EntryNav *rootNav)
+     // see if the class is found inside a namespace 
+     //bool found=addNamespace(root,cd);
+ 
++    cd->setNotInHierarchy (root->notInHierarchy);
++    cd->setIncludeBaseDocs(root->includeBaseDocs);
+ 
+     // the empty string test is needed for extract all case
+     cd->setBriefDescription(root->brief,root->briefFile,root->briefLine);
+     cd->insertUsedFile(root->fileName);
+-
+     // add class to the list
+     //printf("ClassDict.insert(%s)\n",resolveDefines(fullName).data());
+     Doxygen::classSDict->append(fullName,cd);
+@@ -7358,7 +7359,7 @@ static void generateClassList(ClassSDict &classSDict)
+       // template instances 
+       if ( cd->isLinkableInProject() && cd->templateMaster()==0)
+       {
+-        msg("Generating docs for compound %s...\n",cd->name().data());
++        msg("Generating docs for compound 1 %s...\n",cd->name().data());
+ 
+         cd->writeDocumentation(*g_outputList);
+         cd->writeMemberList(*g_outputList);
+@@ -8292,7 +8293,7 @@ static void generateNamespaceDocs()
+            && !cd->isHidden()
+          )
+       {
+-        msg("Generating docs for compound %s...\n",cd->name().data());
++        msg("Generating docs for compound 2 %s...\n",cd->name().data());
+ 
+         cd->writeDocumentation(*g_outputList);
+         cd->writeMemberList(*g_outputList);
+diff --git a/src/entry.cpp b/src/entry.cpp
+index 2bde394..52d755c 100644
+--- a/src/entry.cpp
++++ b/src/entry.cpp
+@@ -72,6 +72,8 @@ Entry::Entry()
+   relatesType = Simple;
+   hidden = FALSE;
+   groupDocType = GROUPDOC_NORMAL;
++  notInHierarchy  = false; 
++  includeBaseDocs = false;
+   reset();
+ }
+ 
+@@ -153,6 +155,9 @@ Entry::Entry(const Entry &e)
+   m_sublist   = new QList<Entry>;
+   m_sublist->setAutoDelete(TRUE);
+ 
++  notInHierarchy  = e.notInHierarchy; 
++  includeBaseDocs = e.includeBaseDocs;
++
+   // deep copy of the child entry list
+   QListIterator<Entry> eli(*e.m_sublist);
+   Entry *cur;
+@@ -290,6 +295,9 @@ void Entry::reset()
+   subGrouping = TRUE;
+   protection = Public;
+   groupDocType = GROUPDOC_NORMAL;
++  notInHierarchy  = false; 
++  includeBaseDocs = false;
++
+   m_sublist->clear();
+   extends->clear();
+   groups->clear();
+diff --git a/src/entry.h b/src/entry.h
+index 6460fec..8f23979 100644
+--- a/src/entry.h
++++ b/src/entry.h
+@@ -363,6 +363,9 @@ class Entry
+     bool        artificial;   //!< Artificially introduced item
+     GroupDocType groupDocType;
+ 
++    bool        notInHierarchy; 
++    bool        includeBaseDocs;
++
+     static int  num;          //!< counts the total number of entries
+ 
+     /// return the command name used to define GROUPDOC_SEC
+diff --git a/src/marshal.cpp b/src/marshal.cpp
+index 4f01aa4..2a58bb2 100644
+--- a/src/marshal.cpp
++++ b/src/marshal.cpp
+@@ -414,6 +414,8 @@ void marshalEntry(StorageIntf *s,Entry *e)
+   marshalBool(s,e->hidden);
+   marshalBool(s,e->artificial);
+   marshalInt(s,(int)e->groupDocType);
++  marshalBool(s, e->notInHierarchy);
++  marshalBool(s, e->includeBaseDocs);
+ }
+ 
+ void marshalEntryTree(StorageIntf *s,Entry *e)
+@@ -810,6 +812,8 @@ Entry * unmarshalEntry(StorageIntf *s)
+   e->hidden           = unmarshalBool(s);
+   e->artificial       = unmarshalBool(s);
+   e->groupDocType     = (Entry::GroupDocType)unmarshalInt(s);
++  e->notInHierarchy   = unmarshalBool(s);
++  e->includeBaseDocs  = unmarshalBool(s);
+   return e;
+ }
+ 
+diff --git a/src/memberlist.cpp b/src/memberlist.cpp
+index ca034d7..1826d3e 100644
+--- a/src/memberlist.cpp
++++ b/src/memberlist.cpp
+@@ -267,8 +267,8 @@ void MemberList::writePlainDeclarations(OutputList &ol,
+   MemberListIterator mli(*this);
+   for ( ; (md=mli.current()); ++mli )
+   {
+-    //printf(">>> Member `%s' type=%d visible=%d\n",
+-    //    md->name().data(),md->memberType(),md->isBriefSectionVisible());
++//    printf(">>> Member `%s' type=%d visible=%d\n",
++//        md->name().data(),md->memberType(),md->isBriefSectionVisible());
+     if (md->isBriefSectionVisible())
+     {
+       switch(md->memberType())
+diff --git a/src/scanner.l b/src/scanner.l
+index 2fdf0f2..cbb46c4 100644
+--- a/src/scanner.l
++++ b/src/scanner.l
+@@ -5338,6 +5338,8 @@ TYPEDEFPREFIX (("typedef"{BN}+)?)((("volatile"|"const"){BN}+)?)
+ 					    REJECT;
+ 					  }
+   					}
++<DocBlock>{CMD}("nohierarchy")	  { current->notInHierarchy  = true; }
++<DocBlock>{CMD}("includebasedoc") { current->includeBaseDocs = true; }
+ <DocBlock>[^@*\/\\\n]+			{ // any character that isn't special
+   					  docBlock+=yytext;
+   					}
+diff --git a/src/util.cpp b/src/util.cpp
+index e22df70..b15bc96 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -1782,7 +1782,7 @@ void linkifyText(const TextGeneratorIntf &out,Definition *scope,
+     { 
+       if (txtStr.at(i)=='"') insideString=!insideString; 
+     }
+-
++    autoBreak = false;
+     //printf("floatingIndex=%d strlen=%d autoBreak=%d\n",floatingIndex,strLen,autoBreak);
+     if (strLen>35 && floatingIndex>30 && autoBreak) // try to insert a split point
+     {

@@ -98,7 +98,7 @@ http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
 
 5) Configure OpenSG.
 
-  6a) activate OSG_USE_OSGSUPPORT_LIBS
+  5a) activate OSG_USE_OSGSUPPORT_LIBS
 
     set OSG_SUPPORT_ROOT the where you installed the support libs, e.g.
 
@@ -112,9 +112,21 @@ http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
     the support libs. This is currently neither checked/enforced nor
     automatically transferred.
 
-  6b) set by hand
+  5b) set by hand
 
-  6a is strongly recommended !
+  5a is strongly recommended !
+
+6) Doxygen
+
+  As we use some custom doxygen extensions building the documentation works
+  best with the customized doxygen version. For linux check out revision 748
+  to the disk and setup the OSGDoxygenSrcDir to point to it.
+
+  svn checkout -r 748 https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk doxygen
+
+  After the build and install steps the custom binary should be picked up by the 
+  main OpenSG cmake script.
+
 
 Finally a small word of caution. The packages are build to work with OpenSG,
 there might not be as general as possible. For example some of the internal package

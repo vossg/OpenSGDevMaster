@@ -1,0 +1,19 @@
+commit 7fe4db9c43ce67ccc762e869351a1750fe4e36b7
+Author: gerrit <gerrit@feynman.camtech.ntu.edu.sg>
+Date:   Sun Jan 2 15:28:47 2011 +0800
+
+    fixed: never ending recursion
+
+diff --git a/src/util.cpp b/src/util.cpp
+index b15bc96..07800af 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -3290,7 +3290,7 @@ static QCString getCanonicalTypeForIdentifier(
+     //result = mType->typeString();
+     if (word!=mType->typeString())
+     {
+-      result = getCanonicalTypeForIdentifier(d,fs,mType->typeString(),tSpec,count++);
++      result = getCanonicalTypeForIdentifier(d,fs,mType->typeString(),tSpec,++count);
+     }
+     else
+     {
