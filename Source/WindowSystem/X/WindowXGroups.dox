@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowX libOSGWindowX
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowX OpenSG Window X Library
+
+    \brief Contains Window X classes
+
+    See \ref PageWindowX for details.
+ */

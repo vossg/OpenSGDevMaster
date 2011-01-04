@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGState libOSGState
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpState OpenSG State Library
+
+    \brief Contains State classes
+
+    See \ref PageState for details.
+ */

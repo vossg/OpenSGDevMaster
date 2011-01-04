@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowCocao libOSGWindowCocao
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowCocao OpenSG Window Cocao Library
+
+    \brief Contains Window Cocao classes
+
+    See \ref PageWindowCocoa for details.
+ */

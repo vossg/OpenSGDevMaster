@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowCoreGL libOSGWindowCoreGL
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowCoreGL OpenSG Window CoreGL Library
+
+    \brief Contains Window CoreGL classes
+
+    See \ref PageWindowCoreGL for details.
+ */

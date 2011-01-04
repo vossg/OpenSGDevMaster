@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGDynamics libOSGDynamics
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpDynamics OpenSG Dynamics Library
+
+    \brief Contains Dynamics classes
+
+    See \ref PageDynamics for details.
+ */

@@ -41,6 +41,7 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/DeferredShading")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/DisplayFilter")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Projectors")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/ShadowStage")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/HDR")
 
 ##############################################################################
 # setup build

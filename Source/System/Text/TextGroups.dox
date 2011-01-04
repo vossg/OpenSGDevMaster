@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGText libOSGText
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpText OpenSG Text Library
+
+    \brief Contains Text classes
+
+    See \ref PageText for details.
+ */

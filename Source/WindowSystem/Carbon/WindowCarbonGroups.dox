@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowCarbon libOSGWindowCarbon
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowCarbon OpenSG Window Carbon Library
+
+    \brief Contains Window Carbon classes
+
+    See \ref PageWindowCarbon for details.
+ */

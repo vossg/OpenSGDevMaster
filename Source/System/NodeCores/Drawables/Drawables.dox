@@ -2,8 +2,11 @@
 
 using namespace OSG;
 
-/*! \page PageSystemDrawables Groups
+/*! \page PageSystemDrawables Drawables
 
     \section PageSystemDrawableStatsAttachment
     \section PageSystemStatsAttachment
+ */
+
+/*! \page PageDrawables Drawables
  */

@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowGLUT libOSGWindowGLUT
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowGLUT OpenSG Window GLUT Library
+
+    \brief Contains Window GLUT classes
+
+    See \ref PageWindowGLUT for details.
+ */

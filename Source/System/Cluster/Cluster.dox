@@ -1,0 +1,6 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \page PageCluster Cluster
+ */

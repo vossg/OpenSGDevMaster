@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGFileIO libOSGFileIO
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpFileIO OpenSG FileIO Library
+
+    \brief Contains FileIO classes
+
+    See \ref PageFileIO for details.
+ */

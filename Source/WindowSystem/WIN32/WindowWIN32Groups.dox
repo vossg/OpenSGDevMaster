@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowWIN32 libOSGWindowWIN32
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowWIN32 OpenSG Window Win32 Library
+
+    \brief Contains Window Win32 classes
+
+    See \ref PageWindowWIN32 for details.
+ */

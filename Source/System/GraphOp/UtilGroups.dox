@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGUtil libOSGUtil
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpUtil OpenSG Util Library
+
+    \brief Contains Util classes
+
+    See \ref PageUtil for details.
+ */

@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGEffectsGroups libOSGEffectsGroups
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpEffectsGroups OpenSG Effects Groups Library
+
+    \brief Contains Effects Groups classes
+
+    See \ref PageEffectsGroups for details.
+ */

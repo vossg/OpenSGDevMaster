@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGCluster libOSGCluster
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpCluster OpenSG Cluster Library
+
+    \brief Contains Cluster classes
+
+    See \ref PageCluster for details.
+ */

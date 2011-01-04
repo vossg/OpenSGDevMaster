@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindow libOSGWindow
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindow OpenSG Window Library
+
+    \brief Contains Window classes
+
+    See \ref PageWindow for details.
+ */

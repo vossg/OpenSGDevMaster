@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGGroup libOSGGroup
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpGroup OpenSG Group Library
+
+    \brief Contains Group classes
+
+    See \ref PageGroups for details.
+ */

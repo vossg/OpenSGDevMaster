@@ -1,0 +1,14 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGDrawables libOSGDrawables
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpDrawables OpenSG Drawables Library
+
+    \brief Contains Drawables classes
+
+    See \ref PageDrawables for details.
+ */

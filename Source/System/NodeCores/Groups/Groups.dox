@@ -7,3 +7,6 @@ using namespace OSG;
     \section PageSystemChunkOverrideGroup
     \section PageSystemMultiCore
  */
+
+/*! \page PageGroups Groups
+ */

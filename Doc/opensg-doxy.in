@@ -303,7 +303,7 @@ TYPEDEF_HIDES_STRUCT   = NO
 # 2^(16+SYMBOL_CACHE_SIZE). The valid range is 0..9, the default is 0,
 # corresponding to a cache size of 2^16 = 65536 symbols
 
-SYMBOL_CACHE_SIZE      = 0
+SYMBOL_CACHE_SIZE      = 2
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -599,28 +599,91 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/Base/Threading/Threading.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/System.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/RenderingBackend/RenderingBackend.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Image/Image.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Window/FrameBufferObjects/FrameBufferObjects.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/WindowBase.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Groups.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Drawables.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Material/Material.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIOGroups.dox \
-                         ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIO.dox
+INPUT  = ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Threading/Threading.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/System.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/RenderingBackend/RenderingBackend.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/Image.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/FrameBufferObjects/FrameBufferObjects.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/WindowBase.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Material/Material.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIOGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIO.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/DrawableGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Drawables.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Effects/EffectGroupsGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Effects/EffectGroups.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/GroupGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Groups.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/StateGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/WindowGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Window.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/FileIOGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/FileIO.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/DynamicsGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/Dynamics.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/UtilGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/Util.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/TextGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/Text.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/ClusterGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/Cluster.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4Groups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowXGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowX.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbonGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbon.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGLGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGL.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoaGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoa.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUTGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUT.dox
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32Groups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32.dox
+
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/VTK/ContribVTKGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CSMPlugin/SimpleTest/ContribCSMSimplePluginGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CgFXMaterial/ContribCgFXGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/Manipulators/ContribGUIGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/BackgroundLoader/ContribBackgroundLoaderGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/ContribTrapezoidalShadowMapsGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/ContribPLYGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComplexSceneManager/ContribCSMGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComputeBase/ContribComputeBaseGroups.dox
+
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1709,3 +1772,25 @@ GENERATE_LEGEND        = YES
 # the various graphs.
 
 DOT_CLEANUP            = YES
+
+#
+# Default include dirs
+#
+
+INCLUDE_PATH += ${CMAKE_BINARY_DIR}/Source/Base/Base
+INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/Base/Base
+INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/Base
+INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/System/FieldContainer/Base
+
+#
+# Default exclude dirs
+#
+
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/ScanParseSkel/prebuild
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/External
+EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Image/Squish
+EXCLUDE += ${CMAKE_BINARY_DIR}/Build/OSGSystem
+
+
+
+
