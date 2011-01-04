@@ -76,7 +76,7 @@ OSG::UInt16 DSLightChunkBase::getClassGroupId(void)
 //! Get the value of the DSLightChunk::_sfEffectiveRange field.
 
 inline
-Real &DSLightChunkBase::editEffectiveRange(void)
+Real32 &DSLightChunkBase::editEffectiveRange(void)
 {
     editSField(EffectiveRangeFieldMask);
 
@@ -85,14 +85,14 @@ Real &DSLightChunkBase::editEffectiveRange(void)
 
 //! Get the value of the DSLightChunk::_sfEffectiveRange field.
 inline
-      Real  DSLightChunkBase::getEffectiveRange(void) const
+      Real32  DSLightChunkBase::getEffectiveRange(void) const
 {
     return _sfEffectiveRange.getValue();
 }
 
 //! Set the value of the DSLightChunk::_sfEffectiveRange field.
 inline
-void DSLightChunkBase::setEffectiveRange(const Real value)
+void DSLightChunkBase::setEffectiveRange(const Real32 value)
 {
     editSField(EffectiveRangeFieldMask);
 

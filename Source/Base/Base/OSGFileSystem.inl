@@ -232,7 +232,6 @@ namespace Directory
 #pragma set woff 1209
 #endif
 
-#if !defined(OSG_EMBEDDED) || defined(__linux)
     /*! \ingroup GrpBaseBaseFileSystem
      */
 
@@ -287,7 +286,6 @@ namespace Directory
         
         return returnValue;
     }
-#endif
 
     /*! \ingroup GrpBaseBaseFileSystem
      */

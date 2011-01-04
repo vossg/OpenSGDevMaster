@@ -184,7 +184,6 @@ TEST(TestSettingVecAttribs)
         "GeoPnt3NsProperty",
         "GeoPnt4NsProperty",
 
-#ifndef OSG_EMBEDDED
         "GeoVec1fProperty",
         "GeoVec2fProperty",
         "GeoVec3fProperty",
@@ -194,21 +193,7 @@ TEST(TestSettingVecAttribs)
         "GeoPnt2fProperty",
         "GeoPnt3fProperty",
         "GeoPnt4fProperty",
-#endif
 
-#ifdef OSG_EMBEDDED
-        "GeoVec1fxProperty",
-        "GeoVec2fxProperty",
-        "GeoVec3fxProperty",
-        "GeoVec4fxProperty",
-
-        "GeoPnt1fxProperty",
-        "GeoPnt2fxProperty",
-        "GeoPnt3fxProperty",
-        "GeoPnt4fxProperty",
-#endif
-
-#ifndef OSG_EMBEDDED
         "GeoVec1dProperty",
         "GeoVec2dProperty",
         "GeoVec3dProperty",
@@ -218,7 +203,6 @@ TEST(TestSettingVecAttribs)
         "GeoPnt2dProperty",
         "GeoPnt3dProperty",
         "GeoPnt4dProperty",
-#endif
 
         "GeoColor3ubProperty",
         "GeoColor4ubProperty",

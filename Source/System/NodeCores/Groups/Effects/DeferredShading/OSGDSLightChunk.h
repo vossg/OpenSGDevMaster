@@ -143,7 +143,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunk : public DSLightChunkBase
     /*! \name                     Helper                                   */
     /*! \{                                                                 */
 
-    void calcModelView(DrawEnv *drawEnv, Matrixr &result);
+    void calcModelView(DrawEnv *drawEnv, Matrix &result);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

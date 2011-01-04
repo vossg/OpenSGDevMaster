@@ -104,14 +104,6 @@ typedef SField<Real64> SFReal64;
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<void *>   SFVoidP;
 
-
-/*! \ingroup GrpBaseFieldSingle */
-#ifdef OSG_FLOAT_PROFILE
-typedef SFReal32  SFReal;
-#else
-typedef SFFixed32 SFReal;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
@@ -142,13 +134,6 @@ struct SFFixed32 : public SField<Fixed32> {};
 struct SFReal64  : public SField<Real64> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVoidP   : public SField<void *> {};
-
-/*! \ingroup GrpBaseFieldSingle */
-#ifdef OSG_FLOAT_PROFILE
-typedef SFReal32  SFReal;
-#else
-typedef SFFixed32 SFReal;
-#endif
 
 #endif // these are the doxygen hacks
 

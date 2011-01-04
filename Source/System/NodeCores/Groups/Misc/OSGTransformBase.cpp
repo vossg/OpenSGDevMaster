@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Matrixr         TransformBase::_sfMatrix
+/*! \var Matrix          TransformBase::_sfMatrix
     The transformation matrix.
 */
 
@@ -115,8 +115,8 @@ void TransformBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFMatrixr::Description(
-        SFMatrixr::getClassType(),
+    pDesc = new SFMatrix::Description(
+        SFMatrix::getClassType(),
         "matrix",
         "The transformation matrix.\n",
         MatrixFieldId, MatrixFieldMask,
@@ -156,7 +156,7 @@ TransformBase::TypeObject TransformBase::_type(
     "behaviour, see its descendents.\n"
     "\t<Field\n"
     "\t\tname=\"matrix\"\n"
-    "\t\ttype=\"Matrixr\"\n"
+    "\t\ttype=\"Matrix\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t>\n"
@@ -187,14 +187,14 @@ UInt32 TransformBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFMatrixr *TransformBase::editSFMatrix(void)
+SFMatrix *TransformBase::editSFMatrix(void)
 {
     editSField(MatrixFieldMask);
 
     return &_sfMatrix;
 }
 
-const SFMatrixr *TransformBase::getSFMatrix(void) const
+const SFMatrix *TransformBase::getSFMatrix(void) const
 {
     return &_sfMatrix;
 }
@@ -384,8 +384,8 @@ TransformBase::~TransformBase(void)
 
 GetFieldHandlePtr TransformBase::getHandleMatrix          (void) const
 {
-    SFMatrixr::GetHandlePtr returnValue(
-        new  SFMatrixr::GetHandle(
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
              &_sfMatrix,
              this->getType().getFieldDesc(MatrixFieldId),
              const_cast<TransformBase *>(this)));
@@ -395,8 +395,8 @@ GetFieldHandlePtr TransformBase::getHandleMatrix          (void) const
 
 EditFieldHandlePtr TransformBase::editHandleMatrix         (void)
 {
-    SFMatrixr::EditHandlePtr returnValue(
-        new  SFMatrixr::EditHandle(
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
              &_sfMatrix,
              this->getType().getFieldDesc(MatrixFieldId),
              this));

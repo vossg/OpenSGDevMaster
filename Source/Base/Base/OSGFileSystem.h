@@ -44,10 +44,8 @@
 
 #include "OSGBaseFunctions.h"
 
-#if !defined(OSG_EMBEDDED) || defined(__linux)
 #include <sys/types.h>
 #include <sys/stat.h>
-#endif
 
 #ifdef __sgi
 #include <sys/fs/efs_ino.h>
@@ -60,9 +58,7 @@
 #include <vector>
 #else
 #include <windows.h>
-#ifndef OSG_EMBEDDED
 #include <direct.h>
-#endif
 #include <vector>
 #endif
 
@@ -100,11 +96,9 @@ namespace Directory
     static bool                  tstAttr   (const OSG::Char8  *szDirname,
                                                   OSG::UInt32  uiAccessFlags);
 
-#if !defined(OSG_EMBEDDED) || defined(__linux)
     static OSG::Char8           *getCurrent(      void                      );
 
     static bool                  setCurrent(const OSG::Char8 *szDirname     );
-#endif
 
     static std::vector<Char8 *> *getEntries(const OSG::Char8 *szDirname,
                                             const OSG::Char8 *szPattern     );

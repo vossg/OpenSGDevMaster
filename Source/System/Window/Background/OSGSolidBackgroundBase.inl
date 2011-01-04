@@ -76,7 +76,7 @@ OSG::UInt16 SolidBackgroundBase::getClassGroupId(void)
 //! Get the value of the SolidBackground::_sfColor field.
 
 inline
-Color3r &SolidBackgroundBase::editColor(void)
+Color3f &SolidBackgroundBase::editColor(void)
 {
     editSField(ColorFieldMask);
 
@@ -85,14 +85,14 @@ Color3r &SolidBackgroundBase::editColor(void)
 
 //! Get the value of the SolidBackground::_sfColor field.
 inline
-const Color3r &SolidBackgroundBase::getColor(void) const
+const Color3f &SolidBackgroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
 
 //! Set the value of the SolidBackground::_sfColor field.
 inline
-void SolidBackgroundBase::setColor(const Color3r &value)
+void SolidBackgroundBase::setColor(const Color3f &value)
 {
     editSField(ColorFieldMask);
 

@@ -262,12 +262,12 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     void initVPMatricesFromCamera(void                           );
 
-    void setVPCameraMatrices     (const Matrixr &mFullprojection,
-                                  const Matrixr &mProjection,
-                                  const Matrixr &mProjectionTrans,
-                                  const Matrixr &mViewing,
-                                  const Matrixr &mToWorld,
-                                  const Matrixr &mWorldToScreen  );
+    void setVPCameraMatrices     (const Matrix  &mFullprojection,
+                                  const Matrix  &mProjection,
+                                  const Matrix  &mProjectionTrans,
+                                  const Matrix  &mViewing,
+                                  const Matrix  &mToWorld,
+                                  const Matrix  &mWorldToScreen  );
 
     /*------------------------- your_operators ------------------------------*/
 

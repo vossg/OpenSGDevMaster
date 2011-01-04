@@ -47,9 +47,7 @@
 
 #include "OSGGL.h"
 
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 
 #include "OSGRenderAction.h"
 
@@ -96,7 +94,7 @@ void DoubleTransform::changed(ConstFieldMaskArg whichField,
 
 /*----------------------------- class specific ----------------------------*/
 
-void DoubleTransform::accumulateMatrix(Matrixr &result)
+void DoubleTransform::accumulateMatrix(Matrix &result)
 {
     result.mult(getMatrix());
 }
@@ -163,7 +161,6 @@ ActionBase::ResultE DoubleTransform::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-#ifndef OSG_EMBEDDED
 ActionBase::ResultE DoubleTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -205,7 +202,6 @@ ActionBase::ResultE DoubleTransform::intersectLeave(Action *action)
 
     return ActionBase::Continue;
 }
-#endif
 
 #ifdef OSG_HAVE_ACTION //CHECK
 NewActionTypes::ResultE Transform::intersectActorEnter(
@@ -269,7 +265,6 @@ void DoubleTransform::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault( 
             getClassType(), 
             reinterpret_cast<Action::Callback>(&DoubleTransform::intersectEnter));
@@ -277,7 +272,6 @@ void DoubleTransform::initMethod(InitPhase ePhase)
         IntersectAction::registerLeaveDefault( 
             getClassType(), 
             reinterpret_cast<Action::Callback>(&DoubleTransform::intersectLeave));
-#endif
        
         RenderAction::registerEnterDefault(
             getClassType(), 

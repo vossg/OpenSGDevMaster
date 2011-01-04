@@ -17,7 +17,7 @@ by the \c constantAttenuation, \c linearAttenuation and \c
 quadraticAttenuation attributes.
 	<Field
 		name="position"
-		type="Pnt3r"
+		type="Pnt3f"
 		cardinality="single"
 		visibility="external"
                 defaultValue="0.f,0.f,0.f"

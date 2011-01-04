@@ -14,7 +14,7 @@ The basic Transformation class. Just keeps a single matrix. For more complex
 behaviour, see its descendents.
 	<Field
 		name="matrix"
-		type="Matrixr"
+		type="Matrix"
 		cardinality="single"
 		visibility="external"
 	>

@@ -48,7 +48,6 @@
 #include "OSGReflexiveContainer.h"
 #include "OSGFieldContainerType.h"
 #include "OSGContainerMixinHead.h"
-#include "OSGSystemProfile.h"
 #include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
 #include "OSGAtomic.h"

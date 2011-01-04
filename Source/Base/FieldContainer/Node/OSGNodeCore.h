@@ -82,7 +82,7 @@ class OSG_BASE_DLLMAPPING NodeCore : public NodeCoreBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void accumulateMatrix(Matrixr &result);
+    virtual void accumulateMatrix(Matrix &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

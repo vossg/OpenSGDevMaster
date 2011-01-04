@@ -73,7 +73,7 @@ class OSG_GROUP_DLLMAPPING PointLight : public PointLightBase
     void setPosition   (      Real32  rX,
                               Real32  rY, 
                               Real32  rZ        );
-    void setPosition   (const Pnt3r  &pos       );
+    void setPosition   (const Pnt3f  &pos       );
 
     void setAttenuation(      Real32  rConstant ,
                               Real32  rLinear   ,

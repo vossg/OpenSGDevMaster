@@ -96,15 +96,6 @@ typedef SField<GLenum, 1>  SFGLenum;
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<Plane> SFPlane;
 
-
-#ifdef OSG_FLOAT_PROFILE
-typedef SFColor3f  SFColor3r;
-typedef SFColor4f  SFColor4r;
-#else
-typedef SFColor3fx SFColor3r;
-typedef SFColor4fx SFColor4r;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
@@ -131,20 +122,6 @@ struct SFBitVector : public SField<BitVector, 1>  {};
 struct SFGLenum : public SField<GLenum, 1> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPlane : public SField<Plane> {};
-
-
-#ifdef OSG_FLOAT_PROFILE
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFColor3f  SFColor3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFColor4f  SFColor4r;
-#else
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFColor3fx SFColor3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFColor4fx SFColor4r;
-#endif
-
 
 #endif // these are the doxygen hacks
 

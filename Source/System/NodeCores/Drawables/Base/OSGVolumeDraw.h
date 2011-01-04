@@ -83,18 +83,18 @@ OSG_SYSTEM_DLLMAPPING void drawVolume(const CylinderVolume   &volume);
  */
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
                                             Node             *node,
-                                            Color3r           col   );
+                                            Color3f           col   );
 /*! \ingroup GrpSystemNodeCoreDrawablesFuncs
  */
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderPartition  *part, 
                                             Node             *node,
-                                            Color3r           col   );
+                                            Color3f           col   );
 
 /*! \ingroup GrpSystemNodeCoreDrawablesFuncs
  */
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
                                       const BoxVolume        &volume,
-                                            Color3r           col   );
+                                            Color3f           col   );
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

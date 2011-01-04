@@ -67,17 +67,17 @@ class OSG_GROUP_DLLMAPPING SpotLight : public SpotLightBase
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setSpotDirection(Real rX, 
-                          Real rY, 
-                          Real rZ   );
-    void setSpotCutOffDeg(Real angle);
+    void setSpotDirection(Real32 rX, 
+                          Real32 rY, 
+                          Real32 rZ   );
+    void setSpotCutOffDeg(Real32 angle);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    Real getSpotCutOffDeg(void);
+    Real32 getSpotCutOffDeg(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

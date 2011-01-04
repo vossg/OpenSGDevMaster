@@ -114,9 +114,9 @@ void PerspectiveCamera::changed(ConstFieldMaskArg whichField,
 
 
 
-void PerspectiveCamera::getProjection(Matrixr &result, 
-                                      UInt32   width, 
-                                      UInt32   height)
+void PerspectiveCamera::getProjection(Matrix &result, 
+                                      UInt32  width, 
+                                      UInt32  height)
 {
     Real32 fov = getFov();
 

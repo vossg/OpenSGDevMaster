@@ -228,7 +228,6 @@ Int32               OSG::Window::_currentWindowId = 0;
 
 // GLobject handling
 
-#ifndef OSG_EMBEDDED
 /*! The lock used to mutex access of the GLObjects' reference count. One 
   should be enough for all of them, as they are pretty rarely changed, only 
   when they are used for the first time.
@@ -241,7 +240,6 @@ LockRefPtr                            OSG::Window::_GLObjectLock = NULL;
  */
 
 LockRefPtr                            OSG::Window::_staticWindowLock = NULL;
-#endif
 
 /*! Global list of all GL Objects used in the system. See \ref
   PageSystemOGLObjects for a description.
@@ -290,10 +288,8 @@ void OSG::Window::initMethod(InitPhase ePhase)
 
 bool OSG::Window::cleanup(void)
 {
-#ifndef OSG_EMBEDDED
     _staticWindowLock = NULL;
     _GLObjectLock     = NULL;
-#endif
 
     GLObject *pCurr = NULL;
 
@@ -539,7 +535,6 @@ void OSG::Window::staticAcquire(void)
     if(GlobalSystemState != Running)
         return;
         
-#ifndef OSG_EMBEDDED
     if(_staticWindowLock == NULL)
     {
         _staticWindowLock =
@@ -549,7 +544,6 @@ void OSG::Window::staticAcquire(void)
         addPostFactoryExitFunction(&Window::cleanup);
     }
     _staticWindowLock->acquire();
-#endif
 }
 
 void OSG::Window::staticRelease(void)
@@ -558,9 +552,7 @@ void OSG::Window::staticRelease(void)
     if(GlobalSystemState != Running)
         return;
         
-#ifndef OSG_EMBEDDED
     _staticWindowLock->release();
-#endif
 }
 
 /*-------------------------------------------------------------------------*\
@@ -1377,12 +1369,10 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
     {
         ignoreEnvDone = true;
 
-#ifndef OSG_EMBEDDED
         Char8 *p = getenv("OSG_IGNORE_EXTENSIONS");
         
         if(p)
             ignoreExtensions(p);
-#endif
     }
     
     // get version/extensions and split them
@@ -1559,7 +1549,6 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
         _extFunctions.push_back(func);
     }
 
-#ifndef OSG_EMBEDDED
     // any new constants registered ? 
     while(_registeredConstants.size() > _availConstants.size())
     {
@@ -1581,7 +1570,6 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
 
         glGetError();
     }
-#endif
 
     _pTravValidator->incEventCounter();
 }
@@ -1682,15 +1670,10 @@ void OSG::Window::doFrameExit(void)
         
         while((glerr = glGetError()) != GL_NO_ERROR)
         {
-#ifndef OSG_EMBEDDED
             FWARNING(("Window::frameExit: Caught stray OpenGL "
                       "error %s (%#x).\n",
                       gluErrorString(glerr),
                       glerr));
-#else
-            FWARNING(("Window::frameExit: Caught stray OpenGL error %#x.\n",
-                      glerr));
-#endif
 
 #ifndef OSG_DEBUG
             FWARNING(("Rerun with debug-libraries to get more accurate "
@@ -1956,10 +1939,10 @@ void OSG::Window::setupGL( void )
     glEnable   (GL_NORMALIZE );
     
     // switch off default light
-    Real nul[4]={0.f,0.f,0.f,0.f};
+    Real32 nul[4]={0.f,0.f,0.f,0.f};
 
-    GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
-    GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
     
     _sfRendererInfo.getValue().assign(
         reinterpret_cast<const char *>(glGetString(GL_VERSION)));

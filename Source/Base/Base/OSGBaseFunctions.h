@@ -362,7 +362,7 @@ OSG::Int32 osgRound2Int(OSG::Real64 val);
 template<class VecPntT> inline
 OSG::UInt32 getMaxIndexAbs3(const VecPntT &v);
 
-#if defined(OSG_EMBEDDED) && !defined(__linux)
+#if !defined(__linux)
 inline
 OSG::Int32  putenv(OSG::Char8 *string);
 

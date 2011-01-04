@@ -213,9 +213,9 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    Matrixr getToWorld(void           );
+    Matrix getToWorld(void          );
 
-    void    getToWorld(Matrixr &result);
+    void   getToWorld(Matrix &result);
 
 
     /*! \}                                                                 */

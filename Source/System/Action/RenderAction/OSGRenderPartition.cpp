@@ -1243,12 +1243,12 @@ void RenderPartition::initVPMatricesFromCamera(void)
     _oDrawEnv.initVPMatricesFromCamera();
 }
 
-void RenderPartition::setVPCameraMatrices(const Matrixr &mFullprojection,
-                                          const Matrixr &mProjection,
-                                          const Matrixr &mProjectionTrans,
-                                          const Matrixr &mViewing,
-                                          const Matrixr &mToWorld,
-                                          const Matrixr &mWorldToScreen  )
+void RenderPartition::setVPCameraMatrices(const Matrix &mFullprojection,
+                                          const Matrix &mProjection,
+                                          const Matrix &mProjectionTrans,
+                                          const Matrix &mViewing,
+                                          const Matrix &mToWorld,
+                                          const Matrix &mWorldToScreen  )
 {
     _oDrawEnv.setVPCameraMatrices(mFullprojection,
                                   mProjection,

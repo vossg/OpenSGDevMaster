@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
 
 //! Returns the center of a box
 
-void BoxVolume::getCenter(Pnt3r &center) const
+void BoxVolume::getCenter(Pnt3f &center) const
 {
     if(isEmpty() == true)
     {
@@ -76,7 +76,7 @@ void BoxVolume::getCenter(Pnt3r &center) const
 
 //! Gives the volume of the box (0 for an empty box)
 
-Real BoxVolume::getScalarVolume() const
+Real32 BoxVolume::getScalarVolume() const
 {
     return (isEmpty() == true) ? 0.0f : (_max[0] - _min[0]) *
                                         (_max[1] - _min[1]) *
@@ -84,16 +84,16 @@ Real BoxVolume::getScalarVolume() const
 }
 
 
-void BoxVolume::getBounds(Pnt3r &min, Pnt3r &max) const
+void BoxVolume::getBounds(Pnt3f &min, Pnt3f &max) const
 {
     min = _min;
     max = _max;
 }
 
-void BoxVolume::getCorners(Pnt3r &nlt,    Pnt3r &nlb,
-                           Pnt3r &nrt,    Pnt3r &nrb,
-                           Pnt3r &flt,    Pnt3r &flb,
-                           Pnt3r &frt,    Pnt3r &frb ) const
+void BoxVolume::getCorners(Pnt3f &nlt,    Pnt3f &nlb,
+                           Pnt3f &nrt,    Pnt3f &nrb,
+                           Pnt3f &flt,    Pnt3f &flb,
+                           Pnt3f &frt,    Pnt3f &frb ) const
 {
     nlt.setValues(_min[0], _max[1], _min[2]);
     nlb.setValues(_min[0], _min[1], _min[2]);
@@ -108,8 +108,8 @@ void BoxVolume::getCorners(Pnt3r &nlt,    Pnt3r &nlb,
 
 
 //! set method
-void BoxVolume::setBoundsByCenterAndSize(const Pnt3r &center,
-                                         const Vec3r &size)
+void BoxVolume::setBoundsByCenterAndSize(const Pnt3f &center,
+                                         const Vec3f &size)
 {
     _min.setValues(center.x() - size.x() / 2.0f,
                    center.y() - size.y() / 2.0f,
@@ -128,7 +128,7 @@ void BoxVolume::setBoundsByCenterAndSize(const Pnt3r &center,
 
 //! Extends Box3f (if necessary) to contain given 3D point
 
-void BoxVolume::extendBy(const Pnt3r &pt)
+void BoxVolume::extendBy(const Pnt3f &pt)
 {
     if(isUntouchable() == true)
         return;
@@ -163,7 +163,7 @@ void BoxVolume::extendBy(const Volume &volume)
 
 //! Returns true if intersection of given point and Box3f is not empty
 
-bool BoxVolume::intersect(const Pnt3r &pt) const
+bool BoxVolume::intersect(const Pnt3f &pt) const
 {
     return 
         (!isEmpty()      &&
@@ -176,8 +176,8 @@ bool BoxVolume::intersect(const Pnt3r &pt) const
 
 bool BoxVolume::intersect(const Line &line) const
 {
-    Real enter;
-    Real exit;
+    Real32 enter;
+    Real32 exit;
 
     return line.intersect(*this, enter, exit);
 }
@@ -186,9 +186,9 @@ bool BoxVolume::intersect(const Line &line) const
 
 /*! intersect the box with the given Line */
 
-bool BoxVolume::intersect(const Line &line, 
-                                Real &min, 
-                                Real &max) const
+bool BoxVolume::intersect(const Line   &line, 
+                                Real32 &min, 
+                                Real32 &max) const
 {
     return line.intersect(*this, min, max);
 }
@@ -206,20 +206,20 @@ bool BoxVolume::intersect(const BoxVolume &volume) const
 }
 
 
-bool BoxVolume::isOnSurface (const Pnt3r &point) const
+bool BoxVolume::isOnSurface (const Pnt3f &point) const
 {
-    if(((osgAbs(point[0] - _min[0]) < TypeTraits<Real>::getDefaultEps() ||
-         osgAbs(point[0] - _max[0]) < TypeTraits<Real>::getDefaultEps()   ) &&
+    if(((osgAbs(point[0] - _min[0]) < TypeTraits<Real32>::getDefaultEps() ||
+         osgAbs(point[0] - _max[0]) < TypeTraits<Real32>::getDefaultEps()   ) &&
         (point[1] >= _min[1] && point[1] <= _max[1]                     &&
          point[2] >= _min[2] && point[2] <= _max[2]                   )   ) ||
 
-       ((osgAbs(point[1] - _min[1]) < TypeTraits<Real>::getDefaultEps() ||
-         osgAbs(point[1] - _max[1]) < TypeTraits<Real>::getDefaultEps()   ) &&
+       ((osgAbs(point[1] - _min[1]) < TypeTraits<Real32>::getDefaultEps() ||
+         osgAbs(point[1] - _max[1]) < TypeTraits<Real32>::getDefaultEps()   ) &&
         (point[0] >= _min[0] && point[0] <= _max[1]                     &&
          point[2] >= _min[2] && point[2] <= _max[2]                    )   ) ||
 
-       ((osgAbs(point[2] - _min[2]) < TypeTraits<Real>::getDefaultEps() ||
-         osgAbs(point[2] - _max[2]) < TypeTraits<Real>::getDefaultEps()   ) &&
+       ((osgAbs(point[2] - _min[2]) < TypeTraits<Real32>::getDefaultEps() ||
+         osgAbs(point[2] - _max[2]) < TypeTraits<Real32>::getDefaultEps()   ) &&
         (point[1] >= _min[1] && point[1] <= _max[1]                     &&
          point[0] >= _min[0] && point[0] <= _max[0]                   )   )   )
     {
@@ -234,7 +234,7 @@ bool BoxVolume::isOnSurface (const Pnt3r &point) const
 
 //! Transforms Box3f by matrix, enlarging Box3f to contain result
 
-void BoxVolume::transform(const Matrixr &m)
+void BoxVolume::transform(const Matrix &m)
 {
     if(isEmpty() == true)
         return;

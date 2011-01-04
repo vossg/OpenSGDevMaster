@@ -94,43 +94,43 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Color4r         LightChunkBase::_sfDiffuse
+/*! \var Color4f         LightChunkBase::_sfDiffuse
     The light's diffuse color.
 */
 
-/*! \var Color4r         LightChunkBase::_sfAmbient
+/*! \var Color4f         LightChunkBase::_sfAmbient
     The light's ambient color.
 */
 
-/*! \var Color4r         LightChunkBase::_sfSpecular
+/*! \var Color4f         LightChunkBase::_sfSpecular
     The light's specular color.
 */
 
-/*! \var Vec4r           LightChunkBase::_sfPosition
+/*! \var Vec4f           LightChunkBase::_sfPosition
     The light's position.
 */
 
-/*! \var Vec3r           LightChunkBase::_sfDirection
+/*! \var Vec3f           LightChunkBase::_sfDirection
     The light's direction (only for spotlights).
 */
 
-/*! \var Real            LightChunkBase::_sfExponent
+/*! \var Real32          LightChunkBase::_sfExponent
     The light's spotlight exponent.
 */
 
-/*! \var Real            LightChunkBase::_sfCutoff
+/*! \var Real32          LightChunkBase::_sfCutoff
     The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.
 */
 
-/*! \var Real            LightChunkBase::_sfConstantAttenuation
+/*! \var Real32          LightChunkBase::_sfConstantAttenuation
     The light's constant attenuation.
 */
 
-/*! \var Real            LightChunkBase::_sfLinearAttenuation
+/*! \var Real32          LightChunkBase::_sfLinearAttenuation
     The light's linear attenuation.
 */
 
-/*! \var Real            LightChunkBase::_sfQuadraticAttenuation
+/*! \var Real32          LightChunkBase::_sfQuadraticAttenuation
     The light's quadratic attenuation.
 */
 
@@ -166,8 +166,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "diffuse",
         "The light's diffuse color.\n",
         DiffuseFieldId, DiffuseFieldMask,
@@ -178,8 +178,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "ambient",
         "The light's ambient color.\n",
         AmbientFieldId, AmbientFieldMask,
@@ -190,8 +190,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "specular",
         "The light's specular color.\n",
         SpecularFieldId, SpecularFieldMask,
@@ -202,8 +202,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFVec4r::Description(
-        SFVec4r::getClassType(),
+    pDesc = new SFVec4f::Description(
+        SFVec4f::getClassType(),
         "position",
         "The light's position.\n",
         PositionFieldId, PositionFieldMask,
@@ -214,8 +214,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(),
+    pDesc = new SFVec3f::Description(
+        SFVec3f::getClassType(),
         "direction",
         "The light's direction (only for spotlights).\n",
         DirectionFieldId, DirectionFieldMask,
@@ -226,8 +226,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "exponent",
         "The light's spotlight exponent.\n",
         ExponentFieldId, ExponentFieldMask,
@@ -238,8 +238,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "cutoff",
         "The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.\n",
         CutoffFieldId, CutoffFieldMask,
@@ -250,8 +250,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "constantAttenuation",
         "The light's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
@@ -262,8 +262,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "linearAttenuation",
         "The light's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
@@ -274,8 +274,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "quadraticAttenuation",
         "The light's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
@@ -337,7 +337,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "OSG::LightChunk::_sfQuadraticAttenuation).\n"
     "\t<Field\n"
     "\t\tname=\"diffuse\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
@@ -346,7 +346,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"ambient\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\".1f,.1f,.1f,0.f\"\n"
@@ -355,7 +355,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"specular\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
@@ -364,7 +364,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"position\"\n"
-    "\t\ttype=\"Vec4r\"\n"
+    "\t\ttype=\"Vec4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f,-1.f,0.f,0.f\"\n"
@@ -373,7 +373,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"direction\"\n"
-    "\t\ttype=\"Vec3r\"\n"
+    "\t\ttype=\"Vec3f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f,0.f,1.f\"\n"
@@ -382,7 +382,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"exponent\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"2.f\"\n"
@@ -391,7 +391,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"cutoff\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"180.f\"\n"
@@ -400,7 +400,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"constantAttenuation\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"1.f\"\n"
@@ -409,7 +409,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"linearAttenuation\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f\"\n"
@@ -418,7 +418,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"quadraticAttenuation\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f\"\n"
@@ -471,131 +471,131 @@ UInt32 LightChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFColor4r *LightChunkBase::editSFDiffuse(void)
+SFColor4f *LightChunkBase::editSFDiffuse(void)
 {
     editSField(DiffuseFieldMask);
 
     return &_sfDiffuse;
 }
 
-const SFColor4r *LightChunkBase::getSFDiffuse(void) const
+const SFColor4f *LightChunkBase::getSFDiffuse(void) const
 {
     return &_sfDiffuse;
 }
 
 
-SFColor4r *LightChunkBase::editSFAmbient(void)
+SFColor4f *LightChunkBase::editSFAmbient(void)
 {
     editSField(AmbientFieldMask);
 
     return &_sfAmbient;
 }
 
-const SFColor4r *LightChunkBase::getSFAmbient(void) const
+const SFColor4f *LightChunkBase::getSFAmbient(void) const
 {
     return &_sfAmbient;
 }
 
 
-SFColor4r *LightChunkBase::editSFSpecular(void)
+SFColor4f *LightChunkBase::editSFSpecular(void)
 {
     editSField(SpecularFieldMask);
 
     return &_sfSpecular;
 }
 
-const SFColor4r *LightChunkBase::getSFSpecular(void) const
+const SFColor4f *LightChunkBase::getSFSpecular(void) const
 {
     return &_sfSpecular;
 }
 
 
-SFVec4r *LightChunkBase::editSFPosition(void)
+SFVec4f *LightChunkBase::editSFPosition(void)
 {
     editSField(PositionFieldMask);
 
     return &_sfPosition;
 }
 
-const SFVec4r *LightChunkBase::getSFPosition(void) const
+const SFVec4f *LightChunkBase::getSFPosition(void) const
 {
     return &_sfPosition;
 }
 
 
-SFVec3r *LightChunkBase::editSFDirection(void)
+SFVec3f *LightChunkBase::editSFDirection(void)
 {
     editSField(DirectionFieldMask);
 
     return &_sfDirection;
 }
 
-const SFVec3r *LightChunkBase::getSFDirection(void) const
+const SFVec3f *LightChunkBase::getSFDirection(void) const
 {
     return &_sfDirection;
 }
 
 
-SFReal *LightChunkBase::editSFExponent(void)
+SFReal32 *LightChunkBase::editSFExponent(void)
 {
     editSField(ExponentFieldMask);
 
     return &_sfExponent;
 }
 
-const SFReal *LightChunkBase::getSFExponent(void) const
+const SFReal32 *LightChunkBase::getSFExponent(void) const
 {
     return &_sfExponent;
 }
 
 
-SFReal *LightChunkBase::editSFCutoff(void)
+SFReal32 *LightChunkBase::editSFCutoff(void)
 {
     editSField(CutoffFieldMask);
 
     return &_sfCutoff;
 }
 
-const SFReal *LightChunkBase::getSFCutoff(void) const
+const SFReal32 *LightChunkBase::getSFCutoff(void) const
 {
     return &_sfCutoff;
 }
 
 
-SFReal *LightChunkBase::editSFConstantAttenuation(void)
+SFReal32 *LightChunkBase::editSFConstantAttenuation(void)
 {
     editSField(ConstantAttenuationFieldMask);
 
     return &_sfConstantAttenuation;
 }
 
-const SFReal *LightChunkBase::getSFConstantAttenuation(void) const
+const SFReal32 *LightChunkBase::getSFConstantAttenuation(void) const
 {
     return &_sfConstantAttenuation;
 }
 
 
-SFReal *LightChunkBase::editSFLinearAttenuation(void)
+SFReal32 *LightChunkBase::editSFLinearAttenuation(void)
 {
     editSField(LinearAttenuationFieldMask);
 
     return &_sfLinearAttenuation;
 }
 
-const SFReal *LightChunkBase::getSFLinearAttenuation(void) const
+const SFReal32 *LightChunkBase::getSFLinearAttenuation(void) const
 {
     return &_sfLinearAttenuation;
 }
 
 
-SFReal *LightChunkBase::editSFQuadraticAttenuation(void)
+SFReal32 *LightChunkBase::editSFQuadraticAttenuation(void)
 {
     editSField(QuadraticAttenuationFieldMask);
 
     return &_sfQuadraticAttenuation;
 }
 
-const SFReal *LightChunkBase::getSFQuadraticAttenuation(void) const
+const SFReal32 *LightChunkBase::getSFQuadraticAttenuation(void) const
 {
     return &_sfQuadraticAttenuation;
 }
@@ -908,16 +908,16 @@ FieldContainerTransitPtr LightChunkBase::shallowCopy(void) const
 
 LightChunkBase::LightChunkBase(void) :
     Inherited(),
-    _sfDiffuse                (Color4r(1.f,1.f,1.f,0.f)),
-    _sfAmbient                (Color4r(.1f,.1f,.1f,0.f)),
-    _sfSpecular               (Color4r(1.f,1.f,1.f,0.f)),
-    _sfPosition               (Vec4r(0.f,-1.f,0.f,0.f)),
-    _sfDirection              (Vec3r(0.f,0.f,1.f)),
-    _sfExponent               (Real(2.f)),
-    _sfCutoff                 (Real(180.f)),
-    _sfConstantAttenuation    (Real(1.f)),
-    _sfLinearAttenuation      (Real(0.f)),
-    _sfQuadraticAttenuation   (Real(0.f)),
+    _sfDiffuse                (Color4f(1.f,1.f,1.f,0.f)),
+    _sfAmbient                (Color4f(.1f,.1f,.1f,0.f)),
+    _sfSpecular               (Color4f(1.f,1.f,1.f,0.f)),
+    _sfPosition               (Vec4f(0.f,-1.f,0.f,0.f)),
+    _sfDirection              (Vec3f(0.f,0.f,1.f)),
+    _sfExponent               (Real32(2.f)),
+    _sfCutoff                 (Real32(180.f)),
+    _sfConstantAttenuation    (Real32(1.f)),
+    _sfLinearAttenuation      (Real32(0.f)),
+    _sfQuadraticAttenuation   (Real32(0.f)),
     _sfBeacon                 (NULL)
 {
 }
@@ -959,8 +959,8 @@ void LightChunkBase::onCreate(const LightChunk *source)
 
 GetFieldHandlePtr LightChunkBase::getHandleDiffuse         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -970,8 +970,8 @@ GetFieldHandlePtr LightChunkBase::getHandleDiffuse         (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleDiffuse        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              this));
@@ -984,8 +984,8 @@ EditFieldHandlePtr LightChunkBase::editHandleDiffuse        (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleAmbient         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -995,8 +995,8 @@ GetFieldHandlePtr LightChunkBase::getHandleAmbient         (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleAmbient        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              this));
@@ -1009,8 +1009,8 @@ EditFieldHandlePtr LightChunkBase::editHandleAmbient        (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleSpecular        (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1020,8 +1020,8 @@ GetFieldHandlePtr LightChunkBase::getHandleSpecular        (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleSpecular       (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              this));
@@ -1034,8 +1034,8 @@ EditFieldHandlePtr LightChunkBase::editHandleSpecular       (void)
 
 GetFieldHandlePtr LightChunkBase::getHandlePosition        (void) const
 {
-    SFVec4r::GetHandlePtr returnValue(
-        new  SFVec4r::GetHandle(
+    SFVec4f::GetHandlePtr returnValue(
+        new  SFVec4f::GetHandle(
              &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1045,8 +1045,8 @@ GetFieldHandlePtr LightChunkBase::getHandlePosition        (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandlePosition       (void)
 {
-    SFVec4r::EditHandlePtr returnValue(
-        new  SFVec4r::EditHandle(
+    SFVec4f::EditHandlePtr returnValue(
+        new  SFVec4f::EditHandle(
              &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId),
              this));
@@ -1059,8 +1059,8 @@ EditFieldHandlePtr LightChunkBase::editHandlePosition       (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleDirection       (void) const
 {
-    SFVec3r::GetHandlePtr returnValue(
-        new  SFVec3r::GetHandle(
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
              &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1070,8 +1070,8 @@ GetFieldHandlePtr LightChunkBase::getHandleDirection       (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleDirection      (void)
 {
-    SFVec3r::EditHandlePtr returnValue(
-        new  SFVec3r::EditHandle(
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
              &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId),
              this));
@@ -1084,8 +1084,8 @@ EditFieldHandlePtr LightChunkBase::editHandleDirection      (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleExponent        (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfExponent,
              this->getType().getFieldDesc(ExponentFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1095,8 +1095,8 @@ GetFieldHandlePtr LightChunkBase::getHandleExponent        (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleExponent       (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfExponent,
              this->getType().getFieldDesc(ExponentFieldId),
              this));
@@ -1109,8 +1109,8 @@ EditFieldHandlePtr LightChunkBase::editHandleExponent       (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleCutoff          (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfCutoff,
              this->getType().getFieldDesc(CutoffFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1120,8 +1120,8 @@ GetFieldHandlePtr LightChunkBase::getHandleCutoff          (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleCutoff         (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfCutoff,
              this->getType().getFieldDesc(CutoffFieldId),
              this));
@@ -1134,8 +1134,8 @@ EditFieldHandlePtr LightChunkBase::editHandleCutoff         (void)
 
 GetFieldHandlePtr LightChunkBase::getHandleConstantAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1145,8 +1145,8 @@ GetFieldHandlePtr LightChunkBase::getHandleConstantAttenuation (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId),
              this));
@@ -1159,8 +1159,8 @@ EditFieldHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
 
 GetFieldHandlePtr LightChunkBase::getHandleLinearAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1170,8 +1170,8 @@ GetFieldHandlePtr LightChunkBase::getHandleLinearAttenuation (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId),
              this));
@@ -1184,8 +1184,8 @@ EditFieldHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
 
 GetFieldHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId),
              const_cast<LightChunkBase *>(this)));
@@ -1195,8 +1195,8 @@ GetFieldHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId),
              this));

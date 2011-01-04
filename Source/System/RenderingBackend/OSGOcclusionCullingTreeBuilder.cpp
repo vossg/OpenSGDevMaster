@@ -428,10 +428,10 @@ void OcclusionCullingTreeBuilder::testNode(OCRenderTreeNode   *pNode,
         }
 
         const BoxVolume &volume = pNode->getVolume();
-        Pnt3r min,max;
+        Pnt3f min,max;
 
         volume.getBounds(min, max);
-        Pnt3r p[8];
+        Pnt3f p[8];
         p[0].setValues(min[0],min[1],min[2]);
         p[1].setValues(max[0],min[1],min[2]);
         p[2].setValues(min[0],max[1],min[2]);
@@ -595,7 +595,7 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
     }
 
     const BoxVolume &volume = pNode->getVolume();
-    Pnt3r min,max;
+    Pnt3f min,max;
     volume.getBounds(min, max);
     static GLfloat n[6][3] = {
     {-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
@@ -791,19 +791,19 @@ OcclusionCullingTreeBuilder::createNode(RenderActionBase    *pAction,
     const BoxVolume &objVol  = actNode->getVolume();
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-    Pnt3r objPos(TypeTraits<Real>::getMax(),
-                 TypeTraits<Real>::getMax(),
-                 TypeTraits<Real>::getMax() );
-    Pnt3r volVert[8];
+    Pnt3f objPos(TypeTraits<Real32>::getMax(),
+                 TypeTraits<Real32>::getMax(),
+                 TypeTraits<Real32>::getMax() );
+    Pnt3f volVert[8];
 #else
     Pnt3d objPos(TypeTraits<Real64>::getMax(),
                  TypeTraits<Real64>::getMax(),
                  TypeTraits<Real64>::getMax() );
-    Pnt3r volVert[8];
+    Pnt3f volVert[8];
 #endif
 
-    Pnt3r volMin;
-    Pnt3r volMax;
+    Pnt3f volMin;
+    Pnt3f volMax;
 
     objVol.getBounds(volMin, volMax);
 

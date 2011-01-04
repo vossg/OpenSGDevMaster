@@ -148,10 +148,10 @@ void SimpleMaterial::changed(ConstFieldMaskArg whichField,
 
 void SimpleMaterial::rebuildState(void)
 {
-	Color3r v3;
-	Color4r v4;
+	Color3f v3;
+	Color4f v4;
 
-	Real  alpha = 1.f - _sfTransparency.getValue();
+	Real32  alpha = 1.f - _sfTransparency.getValue();
 
     if(_pState != NULL)
     {
@@ -204,8 +204,8 @@ void SimpleMaterial::rebuildState(void)
 
 bool SimpleMaterial::isTransparent(void) const
 {
-    return ((getTransparency() > TypeTraits<Real>::getDefaultEps()) || 
-            (Inherited::isTransparent()                           )   );
+    return ((getTransparency() > TypeTraits<Real32>::getDefaultEps()) || 
+            (Inherited::isTransparent()                             )   );
 }
 
 /*------------------------------- dump ----------------------------------*/

@@ -14,7 +14,7 @@ DirectionalLight is an infinitely distant lightsource. Its only
 attribute is the light's direction.
 	<Field
 		name="direction"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
                 defaultValue="0.f,0.f,1.f"

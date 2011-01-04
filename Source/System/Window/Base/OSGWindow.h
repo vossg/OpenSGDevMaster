@@ -516,10 +516,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name   Static GL Object / Extension variables                     */
     /*! \{                                                                 */
 
-#ifndef OSG_EMBEDDED
     static  LockRefPtr                _GLObjectLock;
     static  LockRefPtr                _staticWindowLock;
-#endif
 
     static std::vector<GLObject  *>   _glObjects;
     static const Char8               *_glLibraryName;

@@ -135,16 +135,16 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFColor4r         SFDiffuseType;
-    typedef SFColor4r         SFAmbientType;
-    typedef SFColor4r         SFSpecularType;
-    typedef SFVec4r           SFPositionType;
-    typedef SFVec3r           SFDirectionType;
-    typedef SFReal            SFExponentType;
-    typedef SFReal            SFCutoffType;
-    typedef SFReal            SFConstantAttenuationType;
-    typedef SFReal            SFLinearAttenuationType;
-    typedef SFReal            SFQuadraticAttenuationType;
+    typedef SFColor4f         SFDiffuseType;
+    typedef SFColor4f         SFAmbientType;
+    typedef SFColor4f         SFSpecularType;
+    typedef SFVec4f           SFPositionType;
+    typedef SFVec3f           SFDirectionType;
+    typedef SFReal32          SFExponentType;
+    typedef SFReal32          SFCutoffType;
+    typedef SFReal32          SFConstantAttenuationType;
+    typedef SFReal32          SFLinearAttenuationType;
+    typedef SFReal32          SFQuadraticAttenuationType;
     typedef SFWeakNodePtr     SFBeaconType;
 
     /*---------------------------------------------------------------------*/
@@ -171,68 +171,68 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-                  SFColor4r           *editSFDiffuse        (void);
-            const SFColor4r           *getSFDiffuse         (void) const;
+                  SFColor4f           *editSFDiffuse        (void);
+            const SFColor4f           *getSFDiffuse         (void) const;
 
-                  SFColor4r           *editSFAmbient        (void);
-            const SFColor4r           *getSFAmbient         (void) const;
+                  SFColor4f           *editSFAmbient        (void);
+            const SFColor4f           *getSFAmbient         (void) const;
 
-                  SFColor4r           *editSFSpecular       (void);
-            const SFColor4r           *getSFSpecular        (void) const;
+                  SFColor4f           *editSFSpecular       (void);
+            const SFColor4f           *getSFSpecular        (void) const;
 
-                  SFVec4r             *editSFPosition       (void);
-            const SFVec4r             *getSFPosition        (void) const;
+                  SFVec4f             *editSFPosition       (void);
+            const SFVec4f             *getSFPosition        (void) const;
 
-                  SFVec3r             *editSFDirection      (void);
-            const SFVec3r             *getSFDirection       (void) const;
+                  SFVec3f             *editSFDirection      (void);
+            const SFVec3f             *getSFDirection       (void) const;
 
-                  SFReal              *editSFExponent       (void);
-            const SFReal              *getSFExponent        (void) const;
+                  SFReal32            *editSFExponent       (void);
+            const SFReal32            *getSFExponent        (void) const;
 
-                  SFReal              *editSFCutoff         (void);
-            const SFReal              *getSFCutoff          (void) const;
+                  SFReal32            *editSFCutoff         (void);
+            const SFReal32            *getSFCutoff          (void) const;
 
-                  SFReal              *editSFConstantAttenuation(void);
-            const SFReal              *getSFConstantAttenuation (void) const;
+                  SFReal32            *editSFConstantAttenuation(void);
+            const SFReal32            *getSFConstantAttenuation (void) const;
 
-                  SFReal              *editSFLinearAttenuation(void);
-            const SFReal              *getSFLinearAttenuation (void) const;
+                  SFReal32            *editSFLinearAttenuation(void);
+            const SFReal32            *getSFLinearAttenuation (void) const;
 
-                  SFReal              *editSFQuadraticAttenuation(void);
-            const SFReal              *getSFQuadraticAttenuation (void) const;
+                  SFReal32            *editSFQuadraticAttenuation(void);
+            const SFReal32            *getSFQuadraticAttenuation (void) const;
             const SFWeakNodePtr       *getSFBeacon         (void) const;
                   SFWeakNodePtr       *editSFBeacon         (void);
 
 
-                  Color4r             &editDiffuse        (void);
-            const Color4r             &getDiffuse         (void) const;
+                  Color4f             &editDiffuse        (void);
+            const Color4f             &getDiffuse         (void) const;
 
-                  Color4r             &editAmbient        (void);
-            const Color4r             &getAmbient         (void) const;
+                  Color4f             &editAmbient        (void);
+            const Color4f             &getAmbient         (void) const;
 
-                  Color4r             &editSpecular       (void);
-            const Color4r             &getSpecular        (void) const;
+                  Color4f             &editSpecular       (void);
+            const Color4f             &getSpecular        (void) const;
 
-                  Vec4r               &editPosition       (void);
-            const Vec4r               &getPosition        (void) const;
+                  Vec4f               &editPosition       (void);
+            const Vec4f               &getPosition        (void) const;
 
-                  Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+                  Vec3f               &editDirection      (void);
+            const Vec3f               &getDirection       (void) const;
 
-                  Real                &editExponent       (void);
-                  Real                 getExponent        (void) const;
+                  Real32              &editExponent       (void);
+                  Real32               getExponent        (void) const;
 
-                  Real                &editCutoff         (void);
-                  Real                 getCutoff          (void) const;
+                  Real32              &editCutoff         (void);
+                  Real32               getCutoff          (void) const;
 
-                  Real                &editConstantAttenuation(void);
-                  Real                 getConstantAttenuation (void) const;
+                  Real32              &editConstantAttenuation(void);
+                  Real32               getConstantAttenuation (void) const;
 
-                  Real                &editLinearAttenuation(void);
-                  Real                 getLinearAttenuation (void) const;
+                  Real32              &editLinearAttenuation(void);
+                  Real32               getLinearAttenuation (void) const;
 
-                  Real                &editQuadraticAttenuation(void);
-                  Real                 getQuadraticAttenuation (void) const;
+                  Real32              &editQuadraticAttenuation(void);
+                  Real32               getQuadraticAttenuation (void) const;
 
                   Node * getBeacon         (void) const;
 
@@ -241,16 +241,16 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDiffuse        (const Color4r &value);
-            void setAmbient        (const Color4r &value);
-            void setSpecular       (const Color4r &value);
-            void setPosition       (const Vec4r &value);
-            void setDirection      (const Vec3r &value);
-            void setExponent       (const Real value);
-            void setCutoff         (const Real value);
-            void setConstantAttenuation(const Real value);
-            void setLinearAttenuation(const Real value);
-            void setQuadraticAttenuation(const Real value);
+            void setDiffuse        (const Color4f &value);
+            void setAmbient        (const Color4f &value);
+            void setSpecular       (const Color4f &value);
+            void setPosition       (const Vec4f &value);
+            void setDirection      (const Vec3f &value);
+            void setExponent       (const Real32 value);
+            void setCutoff         (const Real32 value);
+            void setConstantAttenuation(const Real32 value);
+            void setLinearAttenuation(const Real32 value);
+            void setQuadraticAttenuation(const Real32 value);
             void setBeacon         (Node * const value);
 
     /*! \}                                                                 */
@@ -316,16 +316,16 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor4r         _sfDiffuse;
-    SFColor4r         _sfAmbient;
-    SFColor4r         _sfSpecular;
-    SFVec4r           _sfPosition;
-    SFVec3r           _sfDirection;
-    SFReal            _sfExponent;
-    SFReal            _sfCutoff;
-    SFReal            _sfConstantAttenuation;
-    SFReal            _sfLinearAttenuation;
-    SFReal            _sfQuadraticAttenuation;
+    SFColor4f         _sfDiffuse;
+    SFColor4f         _sfAmbient;
+    SFColor4f         _sfSpecular;
+    SFVec4f           _sfPosition;
+    SFVec3f           _sfDirection;
+    SFReal32          _sfExponent;
+    SFReal32          _sfCutoff;
+    SFReal32          _sfConstantAttenuation;
+    SFReal32          _sfLinearAttenuation;
+    SFReal32          _sfQuadraticAttenuation;
     SFWeakNodePtr     _sfBeacon;
 
     /*! \}                                                                 */

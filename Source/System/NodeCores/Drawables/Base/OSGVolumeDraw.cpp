@@ -98,7 +98,6 @@ void drawVolume(const Volume &volume)
 
 void drawVolume(const BoxVolume &volume)
 {
-#ifndef OSG_EMBEDDED
     Pnt3f min,max;
     volume.getBounds(min, max);
 
@@ -127,7 +126,6 @@ void drawVolume(const BoxVolume &volume)
         glVertex3f(max[0], min[1], max[2]);   
     }
     glEnd();
-#endif
 }
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
@@ -148,7 +146,6 @@ void drawVolume(const SphereVolume &OSG_CHECK_ARG(volume))
 
 void drawVolume(const FrustumVolume &volume)
 {
-#ifndef OSG_EMBEDDED
     Line lines[4];
     
     // calc the intersection lines between left/right/bottom/top
@@ -254,7 +251,6 @@ void drawVolume(const FrustumVolume &volume)
         glVertex3fv(pnts[6].getValues());
     }
     glEnd();
-#endif
 }
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
@@ -277,7 +273,7 @@ class VolumeDrawWrapper
 {
   public:
   
-    VolumeDrawWrapper(const BoxVolume &vol, Color3r col) : 
+    VolumeDrawWrapper(const BoxVolume &vol, Color3f col) : 
         _vol(vol), 
         _col(col)
     {
@@ -290,7 +286,7 @@ class VolumeDrawWrapper
     template<class RenderActionT>
     static void drop(      RenderActionBase *action, 
                      const BoxVolume         &volume, 
-                           Color3r           col   )
+                           Color3f           col   )
     {
         
         VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
@@ -308,7 +304,7 @@ class VolumeDrawWrapper
     template<class RenderActionT>
     static void drop(RenderActionBase *action, 
                      Node             *node, 
-                     Color3r           col   )
+                     Color3f           col   )
     {
         node->updateVolume();
 
@@ -319,7 +315,7 @@ class VolumeDrawWrapper
 
     static void drop(      RenderPartition  *part, 
                      const BoxVolume        &volume, 
-                           Color3r           col   )
+                           Color3f           col   )
     {
         
         VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
@@ -339,9 +335,8 @@ class VolumeDrawWrapper
   
     Action::ResultE draw(DrawEnv *)
     {
-#ifndef OSG_EMBEDDED
         glColor3fv(_col.getValuesRGB());
-#endif
+
         drawVolume(_vol);
         
         // self-destruct
@@ -351,19 +346,19 @@ class VolumeDrawWrapper
     }
     
     BoxVolume _vol;  
-    Color3r   _col; 
+    Color3f   _col; 
 };
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
     Draw the local Bounding Volume of the current Node given in the Action.
 */
 
-void dropVolume(RenderActionBase *action, Node *node, Color3r col)
+void dropVolume(RenderActionBase *action, Node *node, Color3f col)
 {
     VolumeDrawWrapper::drop<RenderAction>(action, node, col);
 }
 
-void dropVolume(RenderPartition *part, Node *node, Color3r col)
+void dropVolume(RenderPartition *part, Node *node, Color3f col)
 {
     if(node != NULL)
         VolumeDrawWrapper::drop(part, node->getVolume(), col);
@@ -371,7 +366,7 @@ void dropVolume(RenderPartition *part, Node *node, Color3r col)
 
 void dropVolume(      RenderActionBase *action, 
                 const BoxVolume        &volume, 
-                      Color3r           col   )
+                      Color3f           col   )
 {
     VolumeDrawWrapper::drop<RenderAction>(action, volume, col);
 }

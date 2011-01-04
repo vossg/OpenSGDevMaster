@@ -69,36 +69,36 @@ OSG_BASE_DLLMAPPING bool MatrixOrthogonal        (OSG::Matrix &result,
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING bool MatrixFrustum           (OSG::Matrixr &result, 
-                                                  OSG::Real     rLeft, 
-                                                  OSG::Real     rRight,
-                                                  OSG::Real     rBottom, 
-                                                  OSG::Real     rTop, 
-                                                  OSG::Real     rNear, 
-                                                  OSG::Real     rFar       );
+OSG_BASE_DLLMAPPING bool MatrixFrustum           (OSG::Matrix &result, 
+                                                  OSG::Real32  rLeft, 
+                                                  OSG::Real32  rRight,
+                                                  OSG::Real32  rBottom, 
+                                                  OSG::Real32  rTop, 
+                                                  OSG::Real32  rNear, 
+                                                  OSG::Real32  rFar       );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING bool MatrixPerspective      (OSG::Matrixr &result, 
-                                                 OSG::Real     rFovy, 
-                                                 OSG::Real     rAspect,
-                                                 OSG::Real     rNear, 
-                                                 OSG::Real     rFar        );
+OSG_BASE_DLLMAPPING bool MatrixPerspective      (OSG::Matrix &result, 
+                                                 OSG::Real32  rFovy, 
+                                                 OSG::Real32  rAspect,
+                                                 OSG::Real32  rNear, 
+                                                 OSG::Real32  rFar        );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
-OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection, 
-                                                 OSG::Matrixr &projtrans, 
-                                                 OSG::Real     rFovy, 
-                                                 OSG::Real     rAspect, 
-                                                 OSG::Real     rNear, 
-                                                 OSG::Real     rFfar, 
-                                                 OSG::Real     rZeroparallax, 
-                                                 OSG::Real     rEyedistance, 
-                                                 OSG::Real     rWhicheye, 
-                                                 OSG::Real     rOverlap    );
+OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrix &projection, 
+                                                 OSG::Matrix &projtrans, 
+                                                 OSG::Real32  rFovy, 
+                                                 OSG::Real32  rAspect, 
+                                                 OSG::Real32  rNear, 
+                                                 OSG::Real32  rFfar, 
+                                                 OSG::Real32  rZeroparallax, 
+                                                 OSG::Real32  rEyedistance, 
+                                                 OSG::Real32  rWhicheye, 
+                                                 OSG::Real32  rOverlap    );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix

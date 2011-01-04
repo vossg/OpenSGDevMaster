@@ -53,11 +53,7 @@
 
 #include "OSGBaseInitFunctions.h"
 
-#ifndef OSG_EMBEDDED
 #include "OSGThreadManager.h"
-#else
-#include "OSGLog.h"
-#endif
 
 #include "OSGFactoryController.h"
 #include "OSGSharedObjectHandler.h"
@@ -539,12 +535,10 @@ bool osgExit(void)
     if(returnValue == false)
         return returnValue;
 
-#ifndef OSG_EMBEDDED
     returnValue &= ThreadManager::terminate();
 
     if(returnValue == false)
         return returnValue;
-#endif
 
     if(osgPostMPExitFunctions != NULL)
     {
@@ -659,8 +653,6 @@ bool osgDoInit(OSG::Int32,
         }
     }
 
-#ifndef OSG_EMBEDDED
-
 #ifdef WIN32
     std::string pathSep(";");
 #else
@@ -736,7 +728,6 @@ bool osgDoInit(OSG::Int32,
 
         delete pPlugins;
     }
-#endif
 
     FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
     for(UInt16 i = 0; i < osgLibraryVersions->size(); ++i)
@@ -750,9 +741,8 @@ bool osgDoInit(OSG::Int32,
         return returnValue;
 
     // without it floats could be written as "1,456" ...
-#ifndef OSG_EMBEDDED
     setlocale(LC_NUMERIC, "English");
-#endif
+
     if(osgPreMPInitFunctions != NULL)
     {
         for(UInt32 i = 0; i < osgPreMPInitFunctions->size(); i++)
@@ -769,12 +759,10 @@ bool osgDoInit(OSG::Int32,
     if(returnValue == false)
         return returnValue;
 
-#ifndef OSG_EMBEDDED
     returnValue &= ThreadManager::initialize();
 
     if(returnValue == false)
         return returnValue;
-#endif
 
     if(osgPreFactoryInitFunctions != NULL)
     {

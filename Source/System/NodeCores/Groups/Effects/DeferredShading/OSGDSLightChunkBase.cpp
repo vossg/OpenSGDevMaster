@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real            DSLightChunkBase::_sfEffectiveRange
+/*! \var Real32          DSLightChunkBase::_sfEffectiveRange
     
 */
 
@@ -114,8 +114,8 @@ void DSLightChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "effectiveRange",
         "",
         EffectiveRangeFieldId, EffectiveRangeFieldMask,
@@ -153,7 +153,7 @@ DSLightChunkBase::TypeObject DSLightChunkBase::_type(
     "    <Field\n"
     "        name=\"effectiveRange\"\n"
     "        category=\"data\"\n"
-    "        type=\"Real\"\n"
+    "        type=\"Real32\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        defaultValue=\"0.f\"\n"
@@ -184,14 +184,14 @@ UInt32 DSLightChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFReal *DSLightChunkBase::editSFEffectiveRange(void)
+SFReal32 *DSLightChunkBase::editSFEffectiveRange(void)
 {
     editSField(EffectiveRangeFieldMask);
 
     return &_sfEffectiveRange;
 }
 
-const SFReal *DSLightChunkBase::getSFEffectiveRange(void) const
+const SFReal32 *DSLightChunkBase::getSFEffectiveRange(void) const
 {
     return &_sfEffectiveRange;
 }
@@ -361,7 +361,7 @@ FieldContainerTransitPtr DSLightChunkBase::shallowCopy(void) const
 
 DSLightChunkBase::DSLightChunkBase(void) :
     Inherited(),
-    _sfEffectiveRange         (Real(0.f))
+    _sfEffectiveRange         (Real32(0.f))
 {
 }
 
@@ -381,8 +381,8 @@ DSLightChunkBase::~DSLightChunkBase(void)
 
 GetFieldHandlePtr DSLightChunkBase::getHandleEffectiveRange  (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfEffectiveRange,
              this->getType().getFieldDesc(EffectiveRangeFieldId),
              const_cast<DSLightChunkBase *>(this)));
@@ -392,8 +392,8 @@ GetFieldHandlePtr DSLightChunkBase::getHandleEffectiveRange  (void) const
 
 EditFieldHandlePtr DSLightChunkBase::editHandleEffectiveRange (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfEffectiveRange,
              this->getType().getFieldDesc(EffectiveRangeFieldId),
              this));

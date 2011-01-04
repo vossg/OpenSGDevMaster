@@ -43,9 +43,7 @@
 
 #include "OSGComponentTransform.h"
 #include "OSGRenderAction.h"
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 
 #ifdef OSG_HAVE_ACTION //CHECK
 #include "OSGIntersectActor.h"
@@ -83,11 +81,11 @@ void ComponentTransform::changed(ConstFieldMaskArg whichField,
     }
     else if(whichField & Inherited::MatrixFieldMask)
     {
-        Vec3r      translation;
+        Vec3f      translation;
         Quaternion rotation;
-        Vec3r      scale;
+        Vec3f      scale;
         Quaternion scaleOrientation;
-        Vec3r      center;
+        Vec3f      center;
 
         _sfMatrix.getValue().getTransform(translation,
                                           rotation,
@@ -154,7 +152,6 @@ void ComponentTransform::initMethod(InitPhase ePhase)
                 &ComponentTransform::renderLeave));
         
         
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
@@ -164,7 +161,6 @@ void ComponentTransform::initMethod(InitPhase ePhase)
             getClassType(),
             reinterpret_cast<Action::Callback>(
                 &ComponentTransform::intersectLeave));
-#endif
         
 #ifdef OSG_HAVE_ACTION //CHECK
         IntersectActor::regClassEnter(

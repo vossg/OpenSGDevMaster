@@ -90,23 +90,23 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Color4r         MaterialChunkBase::_sfDiffuse
+/*! \var Color4f         MaterialChunkBase::_sfDiffuse
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfAmbient
+/*! \var Color4f         MaterialChunkBase::_sfAmbient
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfSpecular
+/*! \var Color4f         MaterialChunkBase::_sfSpecular
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfEmission
+/*! \var Color4f         MaterialChunkBase::_sfEmission
     
 */
 
-/*! \var Real            MaterialChunkBase::_sfShininess
+/*! \var Real32          MaterialChunkBase::_sfShininess
     
 */
 
@@ -125,23 +125,23 @@ OSG_BEGIN_NAMESPACE
     backfaces.
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfBackDiffuse
+/*! \var Color4f         MaterialChunkBase::_sfBackDiffuse
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfBackAmbient
+/*! \var Color4f         MaterialChunkBase::_sfBackAmbient
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfBackSpecular
+/*! \var Color4f         MaterialChunkBase::_sfBackSpecular
     
 */
 
-/*! \var Color4r         MaterialChunkBase::_sfBackEmission
+/*! \var Color4f         MaterialChunkBase::_sfBackEmission
     
 */
 
-/*! \var Real            MaterialChunkBase::_sfBackShininess
+/*! \var Real32          MaterialChunkBase::_sfBackShininess
     
 */
 
@@ -177,8 +177,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "diffuse",
         "",
         DiffuseFieldId, DiffuseFieldMask,
@@ -189,8 +189,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "ambient",
         "",
         AmbientFieldId, AmbientFieldMask,
@@ -201,8 +201,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "specular",
         "",
         SpecularFieldId, SpecularFieldMask,
@@ -213,8 +213,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "emission",
         "",
         EmissionFieldId, EmissionFieldMask,
@@ -225,8 +225,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "shininess",
         "",
         ShininessFieldId, ShininessFieldMask,
@@ -276,8 +276,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "backDiffuse",
         "",
         BackDiffuseFieldId, BackDiffuseFieldMask,
@@ -288,8 +288,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "backAmbient",
         "",
         BackAmbientFieldId, BackAmbientFieldMask,
@@ -300,8 +300,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "backSpecular",
         "",
         BackSpecularFieldId, BackSpecularFieldMask,
@@ -312,8 +312,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "backEmission",
         "",
         BackEmissionFieldId, BackEmissionFieldMask,
@@ -324,8 +324,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "backShininess",
         "",
         BackShininessFieldId, BackShininessFieldMask,
@@ -382,7 +382,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "(OSG::MaterialChunk::_sfColorMaterial).\n"
     "\t<Field\n"
     "\t\tname=\"diffuse\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"1.f,1.f,1.f,1.f\"\n"
@@ -390,7 +390,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"ambient\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\".2f,.2f,.2f,1.f\"\n"
@@ -398,7 +398,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"specular\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\".5f,.5f,.5f,1.f\"\n"
@@ -406,7 +406,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"emission\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f,0.f,0.f,1.f\"\n"
@@ -414,7 +414,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"shininess\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"10.f\"\n"
@@ -453,7 +453,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backDiffuse\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
@@ -461,7 +461,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backAmbient\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\".2f,.2f,.2f,0.f\"\n"
@@ -469,7 +469,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backSpecular\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\".5f,.5f,.5f,0.f\"\n"
@@ -477,7 +477,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backEmission\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f,0.f,0.f,0.f\"\n"
@@ -485,7 +485,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backShininess\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"10.f\"\n"
@@ -531,66 +531,66 @@ UInt32 MaterialChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFColor4r *MaterialChunkBase::editSFDiffuse(void)
+SFColor4f *MaterialChunkBase::editSFDiffuse(void)
 {
     editSField(DiffuseFieldMask);
 
     return &_sfDiffuse;
 }
 
-const SFColor4r *MaterialChunkBase::getSFDiffuse(void) const
+const SFColor4f *MaterialChunkBase::getSFDiffuse(void) const
 {
     return &_sfDiffuse;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFAmbient(void)
+SFColor4f *MaterialChunkBase::editSFAmbient(void)
 {
     editSField(AmbientFieldMask);
 
     return &_sfAmbient;
 }
 
-const SFColor4r *MaterialChunkBase::getSFAmbient(void) const
+const SFColor4f *MaterialChunkBase::getSFAmbient(void) const
 {
     return &_sfAmbient;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFSpecular(void)
+SFColor4f *MaterialChunkBase::editSFSpecular(void)
 {
     editSField(SpecularFieldMask);
 
     return &_sfSpecular;
 }
 
-const SFColor4r *MaterialChunkBase::getSFSpecular(void) const
+const SFColor4f *MaterialChunkBase::getSFSpecular(void) const
 {
     return &_sfSpecular;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFEmission(void)
+SFColor4f *MaterialChunkBase::editSFEmission(void)
 {
     editSField(EmissionFieldMask);
 
     return &_sfEmission;
 }
 
-const SFColor4r *MaterialChunkBase::getSFEmission(void) const
+const SFColor4f *MaterialChunkBase::getSFEmission(void) const
 {
     return &_sfEmission;
 }
 
 
-SFReal *MaterialChunkBase::editSFShininess(void)
+SFReal32 *MaterialChunkBase::editSFShininess(void)
 {
     editSField(ShininessFieldMask);
 
     return &_sfShininess;
 }
 
-const SFReal *MaterialChunkBase::getSFShininess(void) const
+const SFReal32 *MaterialChunkBase::getSFShininess(void) const
 {
     return &_sfShininess;
 }
@@ -635,66 +635,66 @@ const SFBool *MaterialChunkBase::getSFBackMaterial(void) const
 }
 
 
-SFColor4r *MaterialChunkBase::editSFBackDiffuse(void)
+SFColor4f *MaterialChunkBase::editSFBackDiffuse(void)
 {
     editSField(BackDiffuseFieldMask);
 
     return &_sfBackDiffuse;
 }
 
-const SFColor4r *MaterialChunkBase::getSFBackDiffuse(void) const
+const SFColor4f *MaterialChunkBase::getSFBackDiffuse(void) const
 {
     return &_sfBackDiffuse;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFBackAmbient(void)
+SFColor4f *MaterialChunkBase::editSFBackAmbient(void)
 {
     editSField(BackAmbientFieldMask);
 
     return &_sfBackAmbient;
 }
 
-const SFColor4r *MaterialChunkBase::getSFBackAmbient(void) const
+const SFColor4f *MaterialChunkBase::getSFBackAmbient(void) const
 {
     return &_sfBackAmbient;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFBackSpecular(void)
+SFColor4f *MaterialChunkBase::editSFBackSpecular(void)
 {
     editSField(BackSpecularFieldMask);
 
     return &_sfBackSpecular;
 }
 
-const SFColor4r *MaterialChunkBase::getSFBackSpecular(void) const
+const SFColor4f *MaterialChunkBase::getSFBackSpecular(void) const
 {
     return &_sfBackSpecular;
 }
 
 
-SFColor4r *MaterialChunkBase::editSFBackEmission(void)
+SFColor4f *MaterialChunkBase::editSFBackEmission(void)
 {
     editSField(BackEmissionFieldMask);
 
     return &_sfBackEmission;
 }
 
-const SFColor4r *MaterialChunkBase::getSFBackEmission(void) const
+const SFColor4f *MaterialChunkBase::getSFBackEmission(void) const
 {
     return &_sfBackEmission;
 }
 
 
-SFReal *MaterialChunkBase::editSFBackShininess(void)
+SFReal32 *MaterialChunkBase::editSFBackShininess(void)
 {
     editSField(BackShininessFieldMask);
 
     return &_sfBackShininess;
 }
 
-const SFReal *MaterialChunkBase::getSFBackShininess(void) const
+const SFReal32 *MaterialChunkBase::getSFBackShininess(void) const
 {
     return &_sfBackShininess;
 }
@@ -1046,19 +1046,19 @@ FieldContainerTransitPtr MaterialChunkBase::shallowCopy(void) const
 
 MaterialChunkBase::MaterialChunkBase(void) :
     Inherited(),
-    _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
-    _sfAmbient                (Color4r(.2f,.2f,.2f,1.f)),
-    _sfSpecular               (Color4r(.5f,.5f,.5f,1.f)),
-    _sfEmission               (Color4r(0.f,0.f,0.f,1.f)),
-    _sfShininess              (Real(10.f)),
+    _sfDiffuse                (Color4f(1.f,1.f,1.f,1.f)),
+    _sfAmbient                (Color4f(.2f,.2f,.2f,1.f)),
+    _sfSpecular               (Color4f(.5f,.5f,.5f,1.f)),
+    _sfEmission               (Color4f(0.f,0.f,0.f,1.f)),
+    _sfShininess              (Real32(10.f)),
     _sfLit                    (bool(true)),
     _sfColorMaterial          (GLenum(GL_DIFFUSE)),
     _sfBackMaterial           (bool(false)),
-    _sfBackDiffuse            (Color4r(1.f,1.f,1.f,0.f)),
-    _sfBackAmbient            (Color4r(.2f,.2f,.2f,0.f)),
-    _sfBackSpecular           (Color4r(.5f,.5f,.5f,0.f)),
-    _sfBackEmission           (Color4r(0.f,0.f,0.f,0.f)),
-    _sfBackShininess          (Real(10.f)),
+    _sfBackDiffuse            (Color4f(1.f,1.f,1.f,0.f)),
+    _sfBackAmbient            (Color4f(.2f,.2f,.2f,0.f)),
+    _sfBackSpecular           (Color4f(.5f,.5f,.5f,0.f)),
+    _sfBackEmission           (Color4f(0.f,0.f,0.f,0.f)),
+    _sfBackShininess          (Real32(10.f)),
     _sfBackColorMaterial      (GLenum(GL_DIFFUSE))
 {
 }
@@ -1092,8 +1092,8 @@ MaterialChunkBase::~MaterialChunkBase(void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleDiffuse         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1103,8 +1103,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleDiffuse         (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleDiffuse        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              this));
@@ -1117,8 +1117,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleDiffuse        (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleAmbient         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1128,8 +1128,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleAmbient         (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleAmbient        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              this));
@@ -1142,8 +1142,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleAmbient        (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleSpecular        (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1153,8 +1153,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleSpecular        (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleSpecular       (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              this));
@@ -1167,8 +1167,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleSpecular       (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleEmission        (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfEmission,
              this->getType().getFieldDesc(EmissionFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1178,8 +1178,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleEmission        (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleEmission       (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfEmission,
              this->getType().getFieldDesc(EmissionFieldId),
              this));
@@ -1192,8 +1192,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleEmission       (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleShininess       (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfShininess,
              this->getType().getFieldDesc(ShininessFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1203,8 +1203,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleShininess       (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleShininess      (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfShininess,
              this->getType().getFieldDesc(ShininessFieldId),
              this));
@@ -1292,8 +1292,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleBackMaterial   (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleBackDiffuse     (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfBackDiffuse,
              this->getType().getFieldDesc(BackDiffuseFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1303,8 +1303,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleBackDiffuse     (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleBackDiffuse    (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfBackDiffuse,
              this->getType().getFieldDesc(BackDiffuseFieldId),
              this));
@@ -1317,8 +1317,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleBackDiffuse    (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleBackAmbient     (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfBackAmbient,
              this->getType().getFieldDesc(BackAmbientFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1328,8 +1328,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleBackAmbient     (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleBackAmbient    (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfBackAmbient,
              this->getType().getFieldDesc(BackAmbientFieldId),
              this));
@@ -1342,8 +1342,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleBackAmbient    (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleBackSpecular    (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfBackSpecular,
              this->getType().getFieldDesc(BackSpecularFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1353,8 +1353,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleBackSpecular    (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleBackSpecular   (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfBackSpecular,
              this->getType().getFieldDesc(BackSpecularFieldId),
              this));
@@ -1367,8 +1367,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleBackSpecular   (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleBackEmission    (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfBackEmission,
              this->getType().getFieldDesc(BackEmissionFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1378,8 +1378,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleBackEmission    (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleBackEmission   (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfBackEmission,
              this->getType().getFieldDesc(BackEmissionFieldId),
              this));
@@ -1392,8 +1392,8 @@ EditFieldHandlePtr MaterialChunkBase::editHandleBackEmission   (void)
 
 GetFieldHandlePtr MaterialChunkBase::getHandleBackShininess   (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfBackShininess,
              this->getType().getFieldDesc(BackShininessFieldId),
              const_cast<MaterialChunkBase *>(this)));
@@ -1403,8 +1403,8 @@ GetFieldHandlePtr MaterialChunkBase::getHandleBackShininess   (void) const
 
 EditFieldHandlePtr MaterialChunkBase::editHandleBackShininess  (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfBackShininess,
              this->getType().getFieldDesc(BackShininessFieldId),
              this));

@@ -501,13 +501,13 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
 {
     RenderPartition *parentPart = ract->getActivePartition();
     
-    Matrixr matEyeToWorld(parentPart->getCameraToWorld());  
-    Matrixr matLightProj;
+    Matrix  matEyeToWorld(parentPart->getCameraToWorld());  
+    Matrix  matLightProj;
 
-    Real    shadowNear = (getShadowNear() != 0.f ? 
+    Real32  shadowNear = (getShadowNear() != 0.f ? 
                           getShadowNear()       : 
                           parentPart->getNear()  );
-    Real    shadowFar  = (getShadowFar () != 0.f ?
+    Real32  shadowFar  = (getShadowFar () != 0.f ?
                           getShadowFar ()       :
                           parentPart->getFar()   );
 
@@ -518,9 +518,9 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
     MatrixPerspective(matLightProj, Pi / 4.f, 1.f,
                       shadowNear, shadowFar       );
     
-    Matrixr   matWorldToLight;
-    Matrixr   matEyeToLight;
-    MFMatrixr mfMatNT;
+    Matrix    matWorldToLight;
+    Matrix    matEyeToLight;
+    MFMatrix  mfMatNT;
 
     mfMatNT.resize(6);
 
@@ -562,14 +562,14 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
 
     for(UInt16 faceIdx = 0; faceIdx < 6; ++faceIdx)
     {
-        Matrixr matWorldToLightFace (matWorldToLight         );
+        Matrix matWorldToLightFace (matWorldToLight         );
         matWorldToLightFace.multLeft(_matCubeFaceInv[faceIdx]);
 
-        Matrixr matLightFull(matWorldToLightFace);
+        Matrix matLightFull(matWorldToLightFace);
         matLightFull.multLeft(matLightProj);
 
         FrustumVolume lightFrust;
-        Matrixr       matNT;
+        Matrix        matNT;
 
         lightFrust.setPlanes(matLightFull);
 
@@ -634,8 +634,8 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
                                             target->getWidth (),
                                             target->getHeight() );
 
-                part->setupProjection(matLightProj, Matrixr::identity());
-                part->setupViewing   (matWorldToLightFace              );
+                part->setupProjection(matLightProj, Matrix::identity());
+                part->setupViewing   (matWorldToLightFace             );
 
                 part->setNear        (parentPart->getNear());
                 part->setFar         (parentPart->getFar ());
@@ -671,20 +671,20 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
 {
     RenderPartition *parentPart = ract->getActivePartition();
 
-    Matrixr matEyeToWorld(parentPart->getCameraToWorld());
-    Matrixr matWorldToLight;
-    Matrixr matEyeToLight;
+    Matrix matEyeToWorld(parentPart->getCameraToWorld());
+    Matrix matWorldToLight;
+    Matrix matEyeToLight;
 
     Inherited::calcSpotLightMatrices(matWorldToLight, matEyeToLight,
                                      spotL,           matEyeToWorld );
 
-    Matrixr matLightProj;
-    Matrixr matLightFull(matWorldToLight);
+    Matrix matLightProj;
+    Matrix matLightFull(matWorldToLight);
 
-    Real    shadowNear = (getShadowNear() != 0.f ? 
+    Real32  shadowNear = (getShadowNear() != 0.f ? 
                           getShadowNear()       : 
                           parentPart->getNear()  );
-    Real    shadowFar  = (getShadowFar () != 0.f ?
+    Real32  shadowFar  = (getShadowFar () != 0.f ?
                           getShadowFar ()       :
                           parentPart->getFar()   );
 
@@ -704,7 +704,7 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
 
     const FrustumVolume &eyeFrust   = parentPart->getFrustum();
           FrustumVolume  lightFrust;
-          Matrixr        matNT;
+          Matrix         matNT;
 
     lightFrust.setPlanes(matLightFull);
 
@@ -715,7 +715,7 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
     if(matNTValid == false)
         return;
 
-//    Real           cosSpotCutOff = osgCos(spotL->getSpotCutOff());
+//    Real32         cosSpotCutOff = osgCos(spotL->getSpotCutOff());
 
     Int32          shadowTexUnit = (this->getForceTextureUnit() >= 0) ?
                                     this->getForceTextureUnit()       : 7;
@@ -763,8 +763,8 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
                                     target->getWidth (),
                                     target->getHeight() );
 
-        part->setupProjection(matLightProj, Matrixr::identity());
-        part->setupViewing   (matWorldToLight                  );
+        part->setupProjection(matLightProj, Matrix::identity());
+        part->setupViewing   (matWorldToLight                 );
         
         part->setNear        (parentPart->getNear());
         part->setFar         (parentPart->getFar ());
@@ -790,7 +790,7 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
  */
 void TrapezoidalShadowMapEngine::intersectFrusta(
     const FrustumVolume      &fA,       const FrustumVolume &fB,
-          std::vector<Pnt3r> &intVerts,       Pnt3r         &intCenter)
+          std::vector<Pnt3f> &intVerts,       Pnt3f         &intCenter)
 {
     const Plane *planes[12];
 
@@ -835,7 +835,7 @@ void TrapezoidalShadowMapEngine::intersectFrusta(
                    (j == 4 && k == 5) || (j == 10 && k == 11)   )
                     continue;
 
-                Pnt3r intPoint;
+                Pnt3f intPoint;
                 if(planes[k]->intersectInfinite(intLine, intPoint) == false)
                     continue;
 
@@ -870,7 +870,7 @@ void TrapezoidalShadowMapEngine::intersectFrusta(
 }
 
 void TrapezoidalShadowMapEngine::updateLightPassMaterial(
-    TSMEngineData *data, UInt16 faceIdx, const Matrixr &matNT)
+    TSMEngineData *data, UInt16 faceIdx, const Matrix &matNT)
 {
     if(data->getMFLightPassMaterials()->size() < 6)
         data->editMFLightPassMaterials()->resize(6, NULL);
@@ -968,20 +968,20 @@ void TrapezoidalShadowMapEngine::updateLightPassMaterial(
                      with Trapezoidal Shadow Maps" 
  */
 bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
-          Matrixr       &matNT,
-    const Matrixr       &matEyeToWorld, 
-    const Matrixr       &matLightFull,
+          Matrix        &matNT,
+    const Matrix        &matEyeToWorld, 
+    const Matrix        &matLightFull,
     const FrustumVolume &eyeFrust,
     const FrustumVolume &lightFrust    )
 {
     // obtain post proj. light space eye position
-    Pnt3r eyePos;
+    Pnt3f eyePos;
     matEyeToWorld.mult    (eyePos, eyePos);
     matLightFull .multFull(eyePos, eyePos);
 
     // intersect eye and light frusta, get vertices and center of intersection
-    std::vector<Pnt3r> intVerts;
-    Pnt3r              intCenter;
+    std::vector<Pnt3f> intVerts;
+    Pnt3f              intCenter;
     intersectFrusta(eyeFrust, lightFrust, intVerts, intCenter);
 
     if(intVerts.empty() == true)
@@ -990,22 +990,22 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     // xform intCenter and intVerts to post proj. light space
     matLightFull.multFull(intCenter, intCenter);
 
-    std::vector<Pnt3r>::iterator ivIt  = intVerts.begin();
-    std::vector<Pnt3r>::iterator ivEnd = intVerts.end  ();
+    std::vector<Pnt3f>::iterator ivIt  = intVerts.begin();
+    std::vector<Pnt3f>::iterator ivEnd = intVerts.end  ();
 
     for(; ivIt != ivEnd; ++ivIt)
         matLightFull.multFull(*ivIt, *ivIt);
     
-    Pnt2r eyePos2D   (eyePos   [0], eyePos   [1]);
-    Pnt2r intCenter2D(intCenter[0], intCenter[1]);
+    Pnt2f eyePos2D   (eyePos   [0], eyePos   [1]);
+    Pnt2f intCenter2D(intCenter[0], intCenter[1]);
 
     // center line, normal, direction and distance from origin
-    Vec2r clDir (intCenter2D - eyePos2D);
+    Vec2f clDir (intCenter2D - eyePos2D);
     clDir.normalize();
-    Vec2r clNorm(-clDir[1], clDir[0]);
+    Vec2f clNorm(-clDir[1], clDir[0]);
 
     // distance of the center line from the origin
-    Real clDist = clNorm.dot(eyePos2D.subZero());
+    Real32 clDist = clNorm.dot(eyePos2D.subZero());
 
     // compute top and base lines:
     //  - project intVerts onto the center line.
@@ -1014,21 +1014,21 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     //  - base line is perpendicular to center line and goes through the
     //    projected point farthest from eyePos
 
-    Pnt2r tlBase;
-    Pnt2r blBase;
-    Real  topDist  = TypeTraits<Real>::getMax();
-    Real  baseDist = TypeTraits<Real>::getMin();
+    Pnt2f  tlBase;
+    Pnt2f  blBase;
+    Real32 topDist  = TypeTraits<Real32>::getMax();
+    Real32 baseDist = TypeTraits<Real32>::getMin();
 
-    std::vector<Pnt3r>::const_iterator ivCIt  = intVerts.begin();
-    std::vector<Pnt3r>::const_iterator ivCEnd = intVerts.end  ();
+    std::vector<Pnt3f>::const_iterator ivCIt  = intVerts.begin();
+    std::vector<Pnt3f>::const_iterator ivCEnd = intVerts.end  ();
 
     for(; ivCIt != ivCEnd; ++ivCIt)
     {
-        Pnt2r ivPnt((*ivCIt)[0], (*ivCIt)[1]);
+        Pnt2f ivPnt((*ivCIt)[0], (*ivCIt)[1]);
         
         ivPnt = ivPnt - (clNorm.dot(ivPnt) - clDist) * clNorm;
 
-        Real dist = (ivPnt - eyePos2D).squareLength();
+        Real32 dist = (ivPnt - eyePos2D).squareLength();
         dist *= osgSgn(clDir.dot(ivPnt - eyePos2D));
 
         if(dist < topDist)
@@ -1058,31 +1058,31 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     ivCIt  = intVerts.begin();
     ivCEnd = intVerts.end  ();
 
-//    Real  centerDist = (intCenter2D - eyePos2D).length();
+//    Real32  centerDist = (intCenter2D - eyePos2D).length();
 
-    Real  lambda     = baseDist   - topDist;
-    Real  delta      = 0.5f * lambda;
-    Real  xi         = -0.6f;
-    Real  eta        = ((lambda * delta) + (lambda * delta * xi)) /
-                       (lambda - 2.f * delta - lambda * xi      );
-    Pnt2r trapTip    = tlBase - (eta   * clDir);
-    Pnt2r focusPnt   = tlBase + (delta * clDir);
+    Real32  lambda     = baseDist   - topDist;
+    Real32  delta      = 0.5f * lambda;
+    Real32  xi         = -0.6f;
+    Real32  eta        = ((lambda * delta) + (lambda * delta * xi)) /
+                         (lambda - 2.f * delta - lambda * xi      );
+    Pnt2f  trapTip    = tlBase - (eta   * clDir);
+    Pnt2f  focusPnt   = tlBase + (delta * clDir);
 
     // on both sides of the center line, find the point in intVerts that has
     // the smallest |cosine| (largest angle) between clDir and the vector
     // from trapTip to intVerts[i]
-    Pnt2r posPnt;
-    Real  posCos = 1.f;
-    Pnt2r negPnt;
-    Real  negCos = 1.f;
+    Pnt2f  posPnt;
+    Real32 posCos = 1.f;
+    Pnt2f  negPnt;
+    Real32 negCos = 1.f;
 
     for(UInt32 i = 0; ivCIt != ivCEnd; ++ivCIt, ++i)
     {
-        Pnt2r ivPnt((*ivCIt)[0], (*ivCIt)[1]);
+        Pnt2f ivPnt((*ivCIt)[0], (*ivCIt)[1]);
    
-        Vec2r v       = ivPnt - trapTip;
+        Vec2f  v       = ivPnt - trapTip;
         v.normalize();
-        Real  currCos = osgAbs(clDir.dot(v));
+        Real32 currCos = osgAbs(clDir.dot(v));
 
         if(clNorm.dot(v) >= 0.f)
         {
@@ -1103,10 +1103,10 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     }
 
     // compute corners of trapezoid:
-    Pnt2r trapVerts [4];
-    Pnt2r extraVerts[2];
-    Real  posTan = osgTan(osgACos(posCos));
-    Real  negTan = osgTan(osgACos(negCos));
+    Pnt2f  trapVerts [4];
+    Pnt2f  extraVerts[2];
+    Real32 posTan = osgTan(osgACos(posCos));
+    Real32 negTan = osgTan(osgACos(negCos));
 
     trapVerts[0] = blBase - ((eta + lambda) * negTan * clNorm);
     trapVerts[1] = blBase + ((eta + lambda) * posTan * clNorm);
@@ -1119,8 +1119,8 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     // == xform trapezoid to unit square ==
 
     // M1 = R * T1  -- translate center of top line to origin and rotate
-    Vec2r u = 0.5f * (trapVerts[2].subZero() + trapVerts[3].subZero());
-    Vec2r v =         trapVerts[3]           - trapVerts[2];
+    Vec2f u = 0.5f * (trapVerts[2].subZero() + trapVerts[3].subZero());
+    Vec2f v =         trapVerts[3]           - trapVerts[2];
     v.normalize();
 
     matNT.setValue( v[0],  v[1], 0.f, -(u[0] * v[0] + u[1] * v[1]),
@@ -1137,7 +1137,7 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     v[0] = matNT[0][0] * u[0] + matNT[1][0] * u[1] + matNT[3][0];
     v[1] = matNT[0][1] * u[0] + matNT[1][1] * u[1] + matNT[3][1];
   
-    Real a = - v[0] / v[1];
+    Real32 a = - v[0] / v[1];
     
     //    matNT[*][0] : = mat[*][0] + a * mat[*][1]
     matNT[0][0] += a * matNT[0][1];

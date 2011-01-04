@@ -67,9 +67,7 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoIntegralProperty, GeoPropertyDesc)
 
 EXPORT_PROP(GeoUInt8PropertyDesc)
 EXPORT_PROP(GeoUInt16PropertyDesc)
-#ifndef OSG_EMBEDDED
 EXPORT_PROP(GeoUInt32PropertyDesc)
-#endif
 
 
 OSG_END_NAMESPACE

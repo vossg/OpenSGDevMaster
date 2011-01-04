@@ -452,9 +452,9 @@ struct FieldTraits<BoxVolume> :
     static void putToStream(const BoxVolume &val,
                                   OutStream &str)
     {
-        Pnt3r min, max;
+        Pnt3f min, max;
 
-        typedef TypeTraits<Pnt3r::ValueType> TypeTrait;
+        typedef TypeTraits<Pnt3f::ValueType> TypeTrait;
         typedef TypeTraits<UInt16>           StateTypeTrait;
 
         StateTypeTrait::putToStream(val.getState(), str);
@@ -528,7 +528,7 @@ struct FieldTraits<BoxVolume> :
     static void copyFromBin(BinaryDataHandler &pMem, 
                             BoxVolume         &oObject)
     {
-        Pnt3r min,max;
+        Pnt3f min,max;
         UInt16 state;
         
         pMem.getValue (state       );
@@ -674,8 +674,8 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
     static void   copyToBin  (      BinaryDataHandler &pMem, 
                               const Plane            &oObject)
     {
-        const Vec3r  &normal   = oObject.getNormal            ();
-              Real    distance = oObject.getDistanceFromOrigin();
+        const Vec3f  &normal   = oObject.getNormal            ();
+              Real32  distance = oObject.getDistanceFromOrigin();
 
         pMem.putValues(&normal[0], 3);
         pMem.putValue ( distance    );
@@ -694,8 +694,8 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
     static void   copyFromBin(      BinaryDataHandler &pMem, 
                                     Plane             &oObject)
     {
-        Vec3r normal;
-        Real  distance;
+        Vec3f  normal;
+        Real32 distance;
 
         pMem.getValues(&normal[0], 3);
         pMem.getValue ( distance    );

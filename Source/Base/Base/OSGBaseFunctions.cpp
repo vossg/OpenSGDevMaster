@@ -135,8 +135,6 @@ OSG_BEGIN_NAMESPACE
 
 OSG_BASE_DLLMAPPING GLErrorFunctor GLErrorCallback;
 
-
-#ifndef OSG_EMBEDDED
 void osgGetHostname(char *szBuffer, UInt32 uiSize)
 {
     // get local host name
@@ -149,7 +147,6 @@ void osgGetHostname(char *szBuffer, UInt32 uiSize)
         gethostname(szBuffer, uiSize);
     }
 }
-#endif
 
 /** Return the callstack at the current point. 
  * See vrjuggler: juggler/modules/vapor/vpr/SystemBase.cpp for complete impl

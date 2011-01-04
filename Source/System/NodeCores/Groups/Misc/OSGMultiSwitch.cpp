@@ -48,9 +48,7 @@
 #include "OSGMultiSwitch.h"
 
 #include "OSGRenderAction.h"
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -81,11 +79,9 @@ void MultiSwitch::initMethod(InitPhase ePhase)
             MultiSwitch::getClassType(),
             reinterpret_cast<Action::Callback>(&MultiSwitch::renderLeave));
 
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             MultiSwitch::getClassType(),
             reinterpret_cast<Action::Callback>(&MultiSwitch::intersectEnter));
-#endif
     }
 }
 

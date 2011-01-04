@@ -76,7 +76,7 @@ OSG::UInt16 ComponentTransformBase::getClassGroupId(void)
 //! Get the value of the ComponentTransform::_sfCenter field.
 
 inline
-Vec3r &ComponentTransformBase::editCenter(void)
+Vec3f &ComponentTransformBase::editCenter(void)
 {
     editSField(CenterFieldMask);
 
@@ -85,14 +85,14 @@ Vec3r &ComponentTransformBase::editCenter(void)
 
 //! Get the value of the ComponentTransform::_sfCenter field.
 inline
-const Vec3r &ComponentTransformBase::getCenter(void) const
+const Vec3f &ComponentTransformBase::getCenter(void) const
 {
     return _sfCenter.getValue();
 }
 
 //! Set the value of the ComponentTransform::_sfCenter field.
 inline
-void ComponentTransformBase::setCenter(const Vec3r &value)
+void ComponentTransformBase::setCenter(const Vec3f &value)
 {
     editSField(CenterFieldMask);
 
@@ -101,7 +101,7 @@ void ComponentTransformBase::setCenter(const Vec3r &value)
 //! Get the value of the ComponentTransform::_sfRotation field.
 
 inline
-Quaternionr &ComponentTransformBase::editRotation(void)
+Quaternion &ComponentTransformBase::editRotation(void)
 {
     editSField(RotationFieldMask);
 
@@ -110,14 +110,14 @@ Quaternionr &ComponentTransformBase::editRotation(void)
 
 //! Get the value of the ComponentTransform::_sfRotation field.
 inline
-const Quaternionr &ComponentTransformBase::getRotation(void) const
+const Quaternion &ComponentTransformBase::getRotation(void) const
 {
     return _sfRotation.getValue();
 }
 
 //! Set the value of the ComponentTransform::_sfRotation field.
 inline
-void ComponentTransformBase::setRotation(const Quaternionr &value)
+void ComponentTransformBase::setRotation(const Quaternion &value)
 {
     editSField(RotationFieldMask);
 
@@ -126,7 +126,7 @@ void ComponentTransformBase::setRotation(const Quaternionr &value)
 //! Get the value of the ComponentTransform::_sfScale field.
 
 inline
-Vec3r &ComponentTransformBase::editScale(void)
+Vec3f &ComponentTransformBase::editScale(void)
 {
     editSField(ScaleFieldMask);
 
@@ -135,14 +135,14 @@ Vec3r &ComponentTransformBase::editScale(void)
 
 //! Get the value of the ComponentTransform::_sfScale field.
 inline
-const Vec3r &ComponentTransformBase::getScale(void) const
+const Vec3f &ComponentTransformBase::getScale(void) const
 {
     return _sfScale.getValue();
 }
 
 //! Set the value of the ComponentTransform::_sfScale field.
 inline
-void ComponentTransformBase::setScale(const Vec3r &value)
+void ComponentTransformBase::setScale(const Vec3f &value)
 {
     editSField(ScaleFieldMask);
 
@@ -151,7 +151,7 @@ void ComponentTransformBase::setScale(const Vec3r &value)
 //! Get the value of the ComponentTransform::_sfScaleOrientation field.
 
 inline
-Quaternionr &ComponentTransformBase::editScaleOrientation(void)
+Quaternion &ComponentTransformBase::editScaleOrientation(void)
 {
     editSField(ScaleOrientationFieldMask);
 
@@ -160,14 +160,14 @@ Quaternionr &ComponentTransformBase::editScaleOrientation(void)
 
 //! Get the value of the ComponentTransform::_sfScaleOrientation field.
 inline
-const Quaternionr &ComponentTransformBase::getScaleOrientation(void) const
+const Quaternion &ComponentTransformBase::getScaleOrientation(void) const
 {
     return _sfScaleOrientation.getValue();
 }
 
 //! Set the value of the ComponentTransform::_sfScaleOrientation field.
 inline
-void ComponentTransformBase::setScaleOrientation(const Quaternionr &value)
+void ComponentTransformBase::setScaleOrientation(const Quaternion &value)
 {
     editSField(ScaleOrientationFieldMask);
 
@@ -176,7 +176,7 @@ void ComponentTransformBase::setScaleOrientation(const Quaternionr &value)
 //! Get the value of the ComponentTransform::_sfTranslation field.
 
 inline
-Vec3r &ComponentTransformBase::editTranslation(void)
+Vec3f &ComponentTransformBase::editTranslation(void)
 {
     editSField(TranslationFieldMask);
 
@@ -185,14 +185,14 @@ Vec3r &ComponentTransformBase::editTranslation(void)
 
 //! Get the value of the ComponentTransform::_sfTranslation field.
 inline
-const Vec3r &ComponentTransformBase::getTranslation(void) const
+const Vec3f &ComponentTransformBase::getTranslation(void) const
 {
     return _sfTranslation.getValue();
 }
 
 //! Set the value of the ComponentTransform::_sfTranslation field.
 inline
-void ComponentTransformBase::setTranslation(const Vec3r &value)
+void ComponentTransformBase::setTranslation(const Vec3f &value)
 {
     editSField(TranslationFieldMask);
 

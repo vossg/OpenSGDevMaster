@@ -61,7 +61,6 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoVectorProperty,
    template class OSG_DLL_EXPORT TypedGeoVectorProperty<DESC>;
 */
 
-#ifndef OSG_EMBEDDED
 OSG_EXPORT_PROP(GeoVec1dPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2dPropertyDesc)
 OSG_EXPORT_PROP(GeoVec3dPropertyDesc)
@@ -71,6 +70,5 @@ OSG_EXPORT_PROP(GeoPnt1dPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt2dPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt3dPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt4dPropertyDesc)
-#endif
 
 OSG_END_NAMESPACE

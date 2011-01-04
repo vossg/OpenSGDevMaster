@@ -44,8 +44,6 @@
 
 #include "OSGConfig.h"
 
-#ifndef OSG_EMBEDDED
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "OSGGL.h"
 #endif
@@ -516,7 +514,5 @@ typedef void   (OSG_APIENTRY *OSGglPointParameterfvProc       )(
 
 
 OSG_END_NAMESPACE
-
-#endif /* OSG_EMBEDDED) */
 
 #endif /* _OSGGLFUNCPROTOS_H_ */

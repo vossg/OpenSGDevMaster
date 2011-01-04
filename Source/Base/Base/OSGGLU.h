@@ -48,8 +48,6 @@
 #include "OSGGL.h"
 #include <boost/function.hpp>
 
-#ifndef OSG_EMBEDDED
-
 #ifdef OSG_NOGLSUBDIR
 #include <glu.h>
 #elif defined(__APPLE__)
@@ -79,8 +77,6 @@ typedef void (*OSGGLUfuncptr)();
 typedef void (*OSGGLUfuncptr)();
 #endif
 
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 typedef boost::function<void (GLenum, const GLubyte*)> GLErrorFunctor;
@@ -89,7 +85,7 @@ extern OSG_BASE_DLLMAPPING GLErrorFunctor GLErrorCallback;
 
 OSG_END_NAMESPACE
 
-#if defined(OSG_DEBUG) && !defined(OSG_EMBEDDED)
+#if defined(OSG_DEBUG)
 #define glErr(text)                                    \
 {                                                      \
     GLenum glerr;                                      \

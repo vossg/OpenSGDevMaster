@@ -151,15 +151,15 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
         
     typedef SFUInt32          SFDimUType;
     typedef SFUInt32          SFDimVType;
-    typedef MFReal            MFKnotsUType;
-    typedef MFReal            MFKnotsVType;
+    typedef MFReal32          MFKnotsUType;
+    typedef MFReal32          MFKnotsVType;
     typedef SFUnrecChildGeoVectorPropertyPtr SFControlPointsType;
-    typedef SFReal            SFErrorType;
+    typedef SFReal32          SFErrorType;
     typedef SFUInt32          SFNumCurvesType;
     typedef MFUInt32          MFKnotLengthsType;
     typedef MFUInt32          MFDimensionsType;
-    typedef MFPnt3r           MFCurveControlPointsType;
-    typedef MFReal            MFKnotsType;
+    typedef MFPnt3f           MFCurveControlPointsType;
+    typedef MFReal32          MFKnotsType;
     typedef MFUInt32          MFCurvesPerLoopType;
     typedef SFBool            SFIsDelaunayType;
     typedef SFUnrecChildGeoVectorPropertyPtr SFTextureControlPointsType;
@@ -196,16 +196,16 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   SFUInt32            *editSFDimV           (void);
             const SFUInt32            *getSFDimV            (void) const;
 
-                  MFReal              *editMFKnotsU         (void);
-            const MFReal              *getMFKnotsU          (void) const;
+                  MFReal32            *editMFKnotsU         (void);
+            const MFReal32            *getMFKnotsU          (void) const;
 
-                  MFReal              *editMFKnotsV         (void);
-            const MFReal              *getMFKnotsV          (void) const;
+                  MFReal32            *editMFKnotsV         (void);
+            const MFReal32            *getMFKnotsV          (void) const;
             const SFUnrecChildGeoVectorPropertyPtr *getSFControlPoints  (void) const;
                   SFUnrecChildGeoVectorPropertyPtr *editSFControlPoints  (void);
 
-                  SFReal              *editSFError          (void);
-            const SFReal              *getSFError           (void) const;
+                  SFReal32            *editSFError          (void);
+            const SFReal32            *getSFError           (void) const;
 
                   SFBool              *editSFIsDelaunay     (void);
             const SFBool              *getSFIsDelaunay      (void) const;
@@ -219,16 +219,16 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   UInt32              &editDimV           (void);
                   UInt32               getDimV            (void) const;
 
-                  Real                &editKnotsU         (const UInt32 index);
-                  Real                 getKnotsU          (const UInt32 index) const;
+                  Real32              &editKnotsU         (const UInt32 index);
+                  Real32               getKnotsU          (const UInt32 index) const;
 
-                  Real                &editKnotsV         (const UInt32 index);
-                  Real                 getKnotsV          (const UInt32 index) const;
+                  Real32              &editKnotsV         (const UInt32 index);
+                  Real32               getKnotsV          (const UInt32 index) const;
 
                   GeoVectorProperty * getControlPoints  (void) const;
 
-                  Real                &editError          (void);
-                  Real                 getError           (void) const;
+                  Real32              &editError          (void);
+                  Real32               getError           (void) const;
 
                   bool                &editIsDelaunay     (void);
                   bool                 getIsDelaunay      (void) const;
@@ -243,7 +243,7 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
             void setDimU           (const UInt32 value);
             void setDimV           (const UInt32 value);
             void setControlPoints  (GeoVectorProperty * const value);
-            void setError          (const Real value);
+            void setError          (const Real32 value);
             void setIsDelaunay     (const bool value);
             void setTextureControlPoints(GeoVectorProperty * const value);
 
@@ -312,15 +312,15 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
 
     SFUInt32          _sfDimU;
     SFUInt32          _sfDimV;
-    MFReal            _mfKnotsU;
-    MFReal            _mfKnotsV;
+    MFReal32          _mfKnotsU;
+    MFReal32          _mfKnotsV;
     SFUnrecChildGeoVectorPropertyPtr _sfControlPoints;
-    SFReal            _sfError;
+    SFReal32          _sfError;
     SFUInt32          _sfNumCurves;
     MFUInt32          _mfKnotLengths;
     MFUInt32          _mfDimensions;
-    MFPnt3r           _mfCurveControlPoints;
-    MFReal            _mfKnots;
+    MFPnt3f           _mfCurveControlPoints;
+    MFReal32          _mfKnots;
     MFUInt32          _mfCurvesPerLoop;
     SFBool            _sfIsDelaunay;
     SFUnrecChildGeoVectorPropertyPtr _sfTextureControlPoints;
@@ -410,11 +410,11 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   MFUInt32            *editMFDimensions     (void);
             const MFUInt32            *getMFDimensions      (void) const;
 
-                  MFPnt3r             *editMFCurveControlPoints(void);
-            const MFPnt3r             *getMFCurveControlPoints (void) const;
+                  MFPnt3f             *editMFCurveControlPoints(void);
+            const MFPnt3f             *getMFCurveControlPoints (void) const;
 
-                  MFReal              *editMFKnots          (void);
-            const MFReal              *getMFKnots           (void) const;
+                  MFReal32            *editMFKnots          (void);
+            const MFReal32            *getMFKnots           (void) const;
 
                   MFUInt32            *editMFCurvesPerLoop  (void);
             const MFUInt32            *getMFCurvesPerLoop   (void) const;
@@ -435,11 +435,11 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   UInt32              &editDimensions     (const UInt32 index);
                   UInt32               getDimensions      (const UInt32 index) const;
 
-                  Pnt3r               &editCurveControlPoints(const UInt32 index);
-            const Pnt3r               &getCurveControlPoints (const UInt32 index) const;
+                  Pnt3f               &editCurveControlPoints(const UInt32 index);
+            const Pnt3f               &getCurveControlPoints (const UInt32 index) const;
 
-                  Real                &editKnots          (const UInt32 index);
-                  Real                 getKnots           (const UInt32 index) const;
+                  Real32              &editKnots          (const UInt32 index);
+                  Real32               getKnots           (const UInt32 index) const;
 
                   UInt32              &editCurvesPerLoop  (const UInt32 index);
                   UInt32               getCurvesPerLoop   (const UInt32 index) const;

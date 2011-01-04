@@ -109,9 +109,9 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFVec3r           SFDirectionType;
-    typedef SFReal            SFSpotExponentType;
-    typedef SFReal            SFSpotCutOffType;
+    typedef SFVec3f           SFDirectionType;
+    typedef SFReal32          SFSpotExponentType;
+    typedef SFReal32          SFSpotCutOffType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -137,33 +137,33 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \{                                                                 */
 
 
-                  SFVec3r             *editSFDirection      (void);
-            const SFVec3r             *getSFDirection       (void) const;
+                  SFVec3f             *editSFDirection      (void);
+            const SFVec3f             *getSFDirection       (void) const;
 
-                  SFReal              *editSFSpotExponent   (void);
-            const SFReal              *getSFSpotExponent    (void) const;
+                  SFReal32            *editSFSpotExponent   (void);
+            const SFReal32            *getSFSpotExponent    (void) const;
 
-                  SFReal              *editSFSpotCutOff     (void);
-            const SFReal              *getSFSpotCutOff      (void) const;
+                  SFReal32            *editSFSpotCutOff     (void);
+            const SFReal32            *getSFSpotCutOff      (void) const;
 
 
-                  Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+                  Vec3f               &editDirection      (void);
+            const Vec3f               &getDirection       (void) const;
 
-                  Real                &editSpotExponent   (void);
-                  Real                 getSpotExponent    (void) const;
+                  Real32              &editSpotExponent   (void);
+                  Real32               getSpotExponent    (void) const;
 
-                  Real                &editSpotCutOff     (void);
-                  Real                 getSpotCutOff      (void) const;
+                  Real32              &editSpotCutOff     (void);
+                  Real32               getSpotCutOff      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDirection      (const Vec3r &value);
-            void setSpotExponent   (const Real value);
-            void setSpotCutOff     (const Real value);
+            void setDirection      (const Vec3f &value);
+            void setSpotExponent   (const Real32 value);
+            void setSpotCutOff     (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,9 +223,9 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec3r           _sfDirection;
-    SFReal            _sfSpotExponent;
-    SFReal            _sfSpotCutOff;
+    SFVec3f           _sfDirection;
+    SFReal32          _sfSpotExponent;
+    SFReal32          _sfSpotCutOff;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

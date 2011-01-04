@@ -45,7 +45,7 @@ OSG_BEGIN_NAMESPACE
 /*! Calc the distance from the point to the Plane.
 */
 inline
-Real Plane::distance(const Pnt3r &pnt) const 
+Real32 Plane::distance(const Pnt3f &pnt) const 
 { 
     return _normalVec.dot(pnt) - _distance; 
 }
@@ -53,20 +53,20 @@ Real Plane::distance(const Pnt3r &pnt) const
 /*! Check if the point is on the plane.
 */
 inline
-bool Plane::isOnPlane(const Pnt3r &point) const
+bool Plane::isOnPlane(const Pnt3f &point) const
 {
-    Real scalar = _normalVec.dot(point) - _distance;
+    Real32 scalar = _normalVec.dot(point) - _distance;
 
-    return osgAbs(scalar) < TypeTraits<Real>::getDefaultEps() ? true : false;
+    return osgAbs(scalar) < TypeTraits<Real32>::getDefaultEps() ? true : false;
 }
 
 
 /*! Check if the point is in the Plane's halfspace.
 */
 inline
-bool Plane::isInHalfSpace(const Pnt3r &point) const
+bool Plane::isInHalfSpace(const Pnt3f &point) const
 {
-    Real scalar = _normalVec.dot(point) - _distance;
+    Real32 scalar = _normalVec.dot(point) - _distance;
 
     return scalar >= 0.f ? true : false;
 }
@@ -74,9 +74,9 @@ bool Plane::isInHalfSpace(const Pnt3r &point) const
 /*! Check if the box formed by min/max is fully in the Plane's halfspace.
 */
 inline 
-bool Plane::isInHalfSpace(const Pnt3r &min, const Pnt3r &max) const
+bool Plane::isInHalfSpace(const Pnt3f &min, const Pnt3f &max) const
 {
-    Pnt3r p;
+    Pnt3f p;
     
     setDirectionIndexPoint(min, max, _directionIndex, p);
     
@@ -86,9 +86,9 @@ bool Plane::isInHalfSpace(const Pnt3r &min, const Pnt3r &max) const
 /*! Check if the box formed by min/max is fully outside the Plane's halfspace.
 */
 inline 
-bool Plane::isOutHalfSpace(const Pnt3r  &min, const Pnt3r &max) const
+bool Plane::isOutHalfSpace(const Pnt3f  &min, const Pnt3f &max) const
 {
-    Pnt3r p;
+    Pnt3f p;
     
     setDirectionIndexPoint(min, max, _directionIndex ^ 7, p);
     
@@ -100,7 +100,7 @@ bool Plane::isOutHalfSpace(const Pnt3r  &min, const Pnt3r &max) const
     The normal needs to be normalized!
  */
 inline
-void Plane::set(const Vec3r &normal, Real distance)
+void Plane::set(const Vec3f &normal, Real32 distance)
 {
     _normalVec = normal;
     _distance = distance;   
@@ -114,10 +114,10 @@ void Plane::set(const Vec3r &normal, Real distance)
  */
 
 inline
-void Plane::set(Real x, 
-                Real y, 
-                Real z, 
-                Real distance)
+void Plane::set(Real32 x, 
+                Real32 y, 
+                Real32 z, 
+                Real32 distance)
 {
     _normalVec.setValues(x, y, z);
 
@@ -132,7 +132,7 @@ void Plane::set(Real x,
  */
 
 inline
-void Plane::set(const Vec4r &plane)
+void Plane::set(const Vec4f &plane)
 {
     _normalVec.setValues(plane[0], plane[1], plane[2]);
 
@@ -143,14 +143,14 @@ void Plane::set(const Vec4r &plane)
 
 
 inline
-const Vec3r &Plane::getNormal(void) const 
+const Vec3f &Plane::getNormal(void) const 
 { 
     return _normalVec; 
 }
 
 
 inline
-Real Plane::getDistanceFromOrigin(void) const 
+Real32 Plane::getDistanceFromOrigin(void) const 
 { 
     return _distance; 
 }
@@ -163,10 +163,10 @@ bool Plane::operator !=(const Plane &rhs) const
 }
 
 inline
-void Plane::setDirectionIndexPoint(const Pnt3r &min, 
-                                   const Pnt3r &max,
+void Plane::setDirectionIndexPoint(const Pnt3f &min, 
+                                   const Pnt3f &max,
                                    const UInt8  index,      
-                                         Pnt3r &pnt) const
+                                         Pnt3f &pnt) const
 {
     if(index & 0x1)
     {

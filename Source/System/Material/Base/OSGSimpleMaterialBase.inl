@@ -76,7 +76,7 @@ OSG::UInt16 SimpleMaterialBase::getClassGroupId(void)
 //! Get the value of the SimpleMaterial::_sfAmbient field.
 
 inline
-Color3r &SimpleMaterialBase::editAmbient(void)
+Color3f &SimpleMaterialBase::editAmbient(void)
 {
     editSField(AmbientFieldMask);
 
@@ -85,14 +85,14 @@ Color3r &SimpleMaterialBase::editAmbient(void)
 
 //! Get the value of the SimpleMaterial::_sfAmbient field.
 inline
-const Color3r &SimpleMaterialBase::getAmbient(void) const
+const Color3f &SimpleMaterialBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfAmbient field.
 inline
-void SimpleMaterialBase::setAmbient(const Color3r &value)
+void SimpleMaterialBase::setAmbient(const Color3f &value)
 {
     editSField(AmbientFieldMask);
 
@@ -101,7 +101,7 @@ void SimpleMaterialBase::setAmbient(const Color3r &value)
 //! Get the value of the SimpleMaterial::_sfDiffuse field.
 
 inline
-Color3r &SimpleMaterialBase::editDiffuse(void)
+Color3f &SimpleMaterialBase::editDiffuse(void)
 {
     editSField(DiffuseFieldMask);
 
@@ -110,14 +110,14 @@ Color3r &SimpleMaterialBase::editDiffuse(void)
 
 //! Get the value of the SimpleMaterial::_sfDiffuse field.
 inline
-const Color3r &SimpleMaterialBase::getDiffuse(void) const
+const Color3f &SimpleMaterialBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfDiffuse field.
 inline
-void SimpleMaterialBase::setDiffuse(const Color3r &value)
+void SimpleMaterialBase::setDiffuse(const Color3f &value)
 {
     editSField(DiffuseFieldMask);
 
@@ -126,7 +126,7 @@ void SimpleMaterialBase::setDiffuse(const Color3r &value)
 //! Get the value of the SimpleMaterial::_sfSpecular field.
 
 inline
-Color3r &SimpleMaterialBase::editSpecular(void)
+Color3f &SimpleMaterialBase::editSpecular(void)
 {
     editSField(SpecularFieldMask);
 
@@ -135,14 +135,14 @@ Color3r &SimpleMaterialBase::editSpecular(void)
 
 //! Get the value of the SimpleMaterial::_sfSpecular field.
 inline
-const Color3r &SimpleMaterialBase::getSpecular(void) const
+const Color3f &SimpleMaterialBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfSpecular field.
 inline
-void SimpleMaterialBase::setSpecular(const Color3r &value)
+void SimpleMaterialBase::setSpecular(const Color3f &value)
 {
     editSField(SpecularFieldMask);
 
@@ -151,7 +151,7 @@ void SimpleMaterialBase::setSpecular(const Color3r &value)
 //! Get the value of the SimpleMaterial::_sfShininess field.
 
 inline
-Real &SimpleMaterialBase::editShininess(void)
+Real32 &SimpleMaterialBase::editShininess(void)
 {
     editSField(ShininessFieldMask);
 
@@ -160,14 +160,14 @@ Real &SimpleMaterialBase::editShininess(void)
 
 //! Get the value of the SimpleMaterial::_sfShininess field.
 inline
-      Real  SimpleMaterialBase::getShininess(void) const
+      Real32  SimpleMaterialBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfShininess field.
 inline
-void SimpleMaterialBase::setShininess(const Real value)
+void SimpleMaterialBase::setShininess(const Real32 value)
 {
     editSField(ShininessFieldMask);
 
@@ -176,7 +176,7 @@ void SimpleMaterialBase::setShininess(const Real value)
 //! Get the value of the SimpleMaterial::_sfEmission field.
 
 inline
-Color3r &SimpleMaterialBase::editEmission(void)
+Color3f &SimpleMaterialBase::editEmission(void)
 {
     editSField(EmissionFieldMask);
 
@@ -185,14 +185,14 @@ Color3r &SimpleMaterialBase::editEmission(void)
 
 //! Get the value of the SimpleMaterial::_sfEmission field.
 inline
-const Color3r &SimpleMaterialBase::getEmission(void) const
+const Color3f &SimpleMaterialBase::getEmission(void) const
 {
     return _sfEmission.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfEmission field.
 inline
-void SimpleMaterialBase::setEmission(const Color3r &value)
+void SimpleMaterialBase::setEmission(const Color3f &value)
 {
     editSField(EmissionFieldMask);
 
@@ -201,7 +201,7 @@ void SimpleMaterialBase::setEmission(const Color3r &value)
 //! Get the value of the SimpleMaterial::_sfTransparency field.
 
 inline
-Real &SimpleMaterialBase::editTransparency(void)
+Real32 &SimpleMaterialBase::editTransparency(void)
 {
     editSField(TransparencyFieldMask);
 
@@ -210,14 +210,14 @@ Real &SimpleMaterialBase::editTransparency(void)
 
 //! Get the value of the SimpleMaterial::_sfTransparency field.
 inline
-      Real  SimpleMaterialBase::getTransparency(void) const
+      Real32  SimpleMaterialBase::getTransparency(void) const
 {
     return _sfTransparency.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfTransparency field.
 inline
-void SimpleMaterialBase::setTransparency(const Real value)
+void SimpleMaterialBase::setTransparency(const Real32 value)
 {
     editSField(TransparencyFieldMask);
 

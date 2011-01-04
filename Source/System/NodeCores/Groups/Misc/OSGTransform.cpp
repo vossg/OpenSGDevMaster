@@ -43,9 +43,7 @@
 
 #include "OSGGL.h"
 
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 
 #include "OSGRenderAction.h"
 
@@ -81,7 +79,7 @@ void Transform::changed(ConstFieldMaskArg whichField,
 /*-------------------------------------------------------------------------*/
 /*                               Helper                                    */
 
-void Transform::accumulateMatrix(Matrixr &result)
+void Transform::accumulateMatrix(Matrix &result)
 {
     result.mult(getMatrix());
 }
@@ -152,7 +150,6 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-#ifndef OSG_EMBEDDED
 ActionBase::ResultE Transform::intersectEnter(Action *action)
 {
     // Use parent class for trivial reject
@@ -198,7 +195,6 @@ ActionBase::ResultE Transform::intersectLeave(Action *action)
 
     return ActionBase::Continue;
 }
-#endif
 
 #ifdef OSG_HAVE_ACTION //CHECK
 NewActionTypes::ResultE Transform::intersectActorEnter(
@@ -263,7 +259,6 @@ void Transform::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault( 
             getClassType(), 
             reinterpret_cast<Action::Callback>(&Transform::intersectEnter));
@@ -271,7 +266,6 @@ void Transform::initMethod(InitPhase ePhase)
         IntersectAction::registerLeaveDefault( 
             getClassType(), 
             reinterpret_cast<Action::Callback>(&Transform::intersectLeave));
-#endif
        
         RenderAction::registerEnterDefault(
             Transform::getClassType(), 

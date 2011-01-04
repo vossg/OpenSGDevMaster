@@ -545,32 +545,6 @@ typedef OSG::TransformationMatrix<OSG::Fixed32> Matrixfx;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name Profile Matrix Types                                         */
-/*! \{                                                                 */
-
-#ifdef OSG_FLOAT_PROFILE
-
-/*! \var typedef Matrix4f Matrixr
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::TransformationMatrix
- */
-
-typedef Matrix4f Matrixr;
-
-
-#else
-
-/*! \var typedef Matrix4fx Matrixr
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::TransformationMatrix
- */
-
-typedef Matrix4fx Matrixr;
-
-#endif
-
-/*! \}                                                                 */
-/*---------------------------------------------------------------------*/
 
 /*! \relates TransformationMatrix
  */

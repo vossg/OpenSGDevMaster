@@ -379,7 +379,6 @@ OSG_GEN_CONTAINERPTR(GeoUInt16Property);
 #endif
 
 
-#ifndef OSG_EMBEDDED
 /*! \brief The descriptor trait for OSG::GeoPositionsUInt32.
     \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
@@ -401,7 +400,6 @@ typedef TypedGeoIntegralProperty<GeoUInt32PropertyDesc> GeoUInt32Property;
 
 OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
-#endif
 #endif
 
 #ifdef OSG_DEPRECATED_PROPS
@@ -432,32 +430,15 @@ typedef GeoUInt16Property         GeoIndicesUI16;
 //typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
 //typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
 
-#ifndef OSG_EMBEDDED
 typedef GeoUInt32Property         GeoPTypesUI32;
 typedef GeoUInt32Property         GeoPLengthsUI32;
 typedef GeoUInt32Property         GeoIndicesUI32;
 //typedef GeoUInt32PropertyPtr   GeoPTypesUI32Ptr;
 typedef GeoUInt32PropertyRecPtr   GeoPLengthsUI32Ptr;
 typedef GeoUInt32PropertyRecPtr   GeoIndicesUI32Ptr;
-#endif
 
 #endif
 
-#ifdef OSG_GLES
-
-#ifdef OSG_FLOAT_PROFILE
-#else
-typedef GeoUInt16Property         GeoUIntProperty;
-//typedef GeoUInt16PropertyPtr      GeoUIntPropertyPtr;
-typedef GeoUInt16PropertyUnrecPtr GeoUIntPropertyUnrecPtr;
-#endif
-
-#else
-typedef GeoUInt32Property         GeoUIntProperty;
-//typedef GeoUInt32PropertyPtr      GeoUIntPropertyPtr;
-typedef GeoUInt32PropertyUnrecPtr GeoUIntPropertyUnrecPtr;
-#endif
- 
 OSG_END_NAMESPACE
 
 #include "OSGTypedGeoIntegralProperty.inl"

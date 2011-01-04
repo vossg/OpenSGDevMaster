@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Pnt3r           PointLightBase::_sfPosition
+/*! \var Pnt3f           PointLightBase::_sfPosition
     
 */
 
@@ -110,8 +110,8 @@ void PointLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFPnt3r::Description(
-        SFPnt3r::getClassType(),
+    pDesc = new SFPnt3f::Description(
+        SFPnt3f::getClassType(),
         "position",
         "",
         PositionFieldId, PositionFieldMask,
@@ -154,7 +154,7 @@ PointLightBase::TypeObject PointLightBase::_type(
     "quadraticAttenuation attributes.\n"
     "\t<Field\n"
     "\t\tname=\"position\"\n"
-    "\t\ttype=\"Pnt3r\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "                defaultValue=\"0.f,0.f,0.f\"\n"
@@ -188,14 +188,14 @@ UInt32 PointLightBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFPnt3r *PointLightBase::editSFPosition(void)
+SFPnt3f *PointLightBase::editSFPosition(void)
 {
     editSField(PositionFieldMask);
 
     return &_sfPosition;
 }
 
-const SFPnt3r *PointLightBase::getSFPosition(void) const
+const SFPnt3f *PointLightBase::getSFPosition(void) const
 {
     return &_sfPosition;
 }
@@ -365,7 +365,7 @@ FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 
 PointLightBase::PointLightBase(void) :
     Inherited(),
-    _sfPosition               (Pnt3r(0.f,0.f,0.f))
+    _sfPosition               (Pnt3f(0.f,0.f,0.f))
 {
 }
 
@@ -385,8 +385,8 @@ PointLightBase::~PointLightBase(void)
 
 GetFieldHandlePtr PointLightBase::getHandlePosition        (void) const
 {
-    SFPnt3r::GetHandlePtr returnValue(
-        new  SFPnt3r::GetHandle(
+    SFPnt3f::GetHandlePtr returnValue(
+        new  SFPnt3f::GetHandle(
              &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId),
              const_cast<PointLightBase *>(this)));
@@ -396,8 +396,8 @@ GetFieldHandlePtr PointLightBase::getHandlePosition        (void) const
 
 EditFieldHandlePtr PointLightBase::editHandlePosition       (void)
 {
-    SFPnt3r::EditHandlePtr returnValue(
-        new  SFPnt3r::EditHandle(
+    SFPnt3f::EditHandlePtr returnValue(
+        new  SFPnt3f::EditHandle(
              &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId),
              this));

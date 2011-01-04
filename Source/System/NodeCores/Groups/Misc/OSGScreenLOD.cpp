@@ -100,7 +100,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
         if((ra->getScreenLODCoverageThreshold() > 0.f) || use_overrides)
         {
             // -- Compute bounding volume screen coverage of current node -- //
-            Matrixr worldToScreen;
+            Matrix worldToScreen;
 #if 1 
             Camera* cam = ra->getCamera();
             Viewport* vp = ra->getViewport();
@@ -110,9 +110,9 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
 #endif
             
             const BoxVolume &volume = ra->getActNode()->getVolume();
-            Pnt3r min,max;
+            Pnt3f min,max;
             volume.getBounds(min, max);
-            Pnt3r p[8];
+            Pnt3f p[8];
             p[0].setValues(min[0],min[1],min[2]);
             p[1].setValues(max[0],min[1],min[2]);
             p[2].setValues(min[0],max[1],min[2]);

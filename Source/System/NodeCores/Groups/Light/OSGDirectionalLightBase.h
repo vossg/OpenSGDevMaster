@@ -102,7 +102,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFVec3r           SFDirectionType;
+    typedef SFVec3f           SFDirectionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -128,19 +128,19 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \{                                                                 */
 
 
-                  SFVec3r             *editSFDirection      (void);
-            const SFVec3r             *getSFDirection       (void) const;
+                  SFVec3f             *editSFDirection      (void);
+            const SFVec3f             *getSFDirection       (void) const;
 
 
-                  Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+                  Vec3f               &editDirection      (void);
+            const Vec3f               &getDirection       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDirection      (const Vec3r &value);
+            void setDirection      (const Vec3f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,7 +200,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec3r           _sfDirection;
+    SFVec3f           _sfDirection;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

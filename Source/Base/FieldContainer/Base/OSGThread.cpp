@@ -46,9 +46,7 @@
 #include "OSGThread.h"
 #include "OSGBaseFunctions.h"
 #include "OSGChangeList.h"
-#ifndef OSG_EMBEDDED
 #include "OSGThreadManager.h"
-#endif
 #include "OSGLog.h"
 #include "OSGBaseInitFunctions.h"
 
@@ -64,8 +62,6 @@
 #endif
 
 OSG_BEGIN_NAMESPACE
-
-#ifndef OSG_EMBEDDED
 
 const UInt32 ThreadCommonBase::InvalidAspect = 
     TypeTraits<UInt32>::BitsSet;
@@ -1238,20 +1234,6 @@ ExternalThread::~ExternalThread(void)
 {
 }
 
-#else
-ChangeList *Thread::getCurrentChangeList(void)
-{
-    static ChangeList *theList = NULL;
-
-    if(theList == NULL)
-    {
-		theList = ChangeList::create();
-    }
-
-    return theList;
-}
-#endif
-
 #if defined(OSG_ENABLE_AUTOINIT_THREADS) && defined(WIN32)
 static void doThreadCleanup(void)
 {
@@ -1338,4 +1320,5 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, // DLL module handle
 #ifdef __cplusplus    // If used by C++ code, 
 }          // we need to export the C interface
 #endif
+
 #endif

@@ -57,30 +57,30 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
-void Light::setAmbient(Real rRed, 
-                       Real rGreen, 
-                       Real rBlue, 
-                       Real rAlpha)
+void Light::setAmbient(Real32 rRed, 
+                       Real32 rGreen, 
+                       Real32 rBlue, 
+                       Real32 rAlpha)
 {
     editSField(AmbientFieldMask);
 
     _sfAmbient.getValue().setValuesRGBA(rRed, rGreen, rBlue, rAlpha);
 }
 
-void Light::setDiffuse(Real rRed, 
-                       Real rGreen, 
-                       Real rBlue, 
-                       Real rAlpha)
+void Light::setDiffuse(Real32 rRed, 
+                       Real32 rGreen, 
+                       Real32 rBlue, 
+                       Real32 rAlpha)
 {
     editSField(DiffuseFieldMask);
 
     _sfDiffuse.getValue().setValuesRGBA(rRed, rGreen, rBlue, rAlpha);
 }
 
-void Light::setSpecular(Real rRed, 
-                        Real rGreen, 
-                        Real rBlue, 
-                        Real rAlpha)
+void Light::setSpecular(Real32 rRed, 
+                        Real32 rGreen, 
+                        Real32 rBlue, 
+                        Real32 rAlpha)
 {
     editSField(SpecularFieldMask);
 

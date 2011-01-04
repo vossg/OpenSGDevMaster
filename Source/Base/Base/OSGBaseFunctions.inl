@@ -2668,7 +2668,7 @@ OSG::UInt32 getMaxIndexAbs3(const VecPntT &v)
             (osgAbs(v[1]) > osgAbs(v[2]) ? 1 : 2);
 }
 
-#if defined(OSG_EMBEDDED) && !defined(__linux)
+#if !defined(__linux)
 /*! Sets or removes an environment variable. If the \a string is of the form
     <tt>name=value</tt> the env. variable \c name is set to \c value. Otherwise
     the contents of \a string a interpreted as the name of an env. variable and

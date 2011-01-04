@@ -96,15 +96,6 @@ typedef MField<GLenum, 1>  MFGLenum;
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<Plane> MFPlane;
 
-
-#ifdef OSG_FLOAT_PROFILE
-typedef MFColor3f  MFColor3r;
-typedef MFColor4f  MFColor4r;
-#else
-typedef MFColor3fx MFColor3r;
-typedef MFColor4fx MFColor4r;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
@@ -131,20 +122,6 @@ struct MFBitVector : public MField<BitVector, 1> {};
 struct MFGLenum : public MField<GLenum, 1> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPlane : public MField<Plane> {};
-
-
-#ifdef OSG_FLOAT_PROFILE
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFColor3f  MFColor3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFColor4f  MFColor4r;
-#else
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFColor3fx MFColor3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFColor4fx MFColor4r;
-#endif
-
 
 #endif // these are the doxygen hacks
 

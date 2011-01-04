@@ -78,7 +78,7 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void accumulateMatrix(Matrixr &result);
+    virtual void accumulateMatrix(Matrix &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

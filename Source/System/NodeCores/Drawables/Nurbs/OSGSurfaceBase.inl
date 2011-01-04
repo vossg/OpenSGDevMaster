@@ -142,7 +142,7 @@ void SurfaceBase::setControlPoints(GeoVectorProperty * const value)
 //! Get the value of the Surface::_sfError field.
 
 inline
-Real &SurfaceBase::editError(void)
+Real32 &SurfaceBase::editError(void)
 {
     editSField(ErrorFieldMask);
 
@@ -151,14 +151,14 @@ Real &SurfaceBase::editError(void)
 
 //! Get the value of the Surface::_sfError field.
 inline
-      Real  SurfaceBase::getError(void) const
+      Real32  SurfaceBase::getError(void) const
 {
     return _sfError.getValue();
 }
 
 //! Set the value of the Surface::_sfError field.
 inline
-void SurfaceBase::setError(const Real value)
+void SurfaceBase::setError(const Real32 value)
 {
     editSField(ErrorFieldMask);
 
@@ -283,13 +283,13 @@ void SurfaceBase::setSurfaceGLId(const Int32 value)
 
 //! Get the value of the \a index element the Surface::_mfKnotsU field.
 inline
-      Real  SurfaceBase::getKnotsU(const UInt32 index) const
+      Real32  SurfaceBase::getKnotsU(const UInt32 index) const
 {
     return _mfKnotsU[index];
 }
 
 inline
-Real &SurfaceBase::editKnotsU(const UInt32 index)
+Real32 &SurfaceBase::editKnotsU(const UInt32 index)
 {
     editMField(KnotsUFieldMask, _mfKnotsU);
 
@@ -299,13 +299,13 @@ Real &SurfaceBase::editKnotsU(const UInt32 index)
 
 //! Get the value of the \a index element the Surface::_mfKnotsV field.
 inline
-      Real  SurfaceBase::getKnotsV(const UInt32 index) const
+      Real32  SurfaceBase::getKnotsV(const UInt32 index) const
 {
     return _mfKnotsV[index];
 }
 
 inline
-Real &SurfaceBase::editKnotsV(const UInt32 index)
+Real32 &SurfaceBase::editKnotsV(const UInt32 index)
 {
     editMField(KnotsVFieldMask, _mfKnotsV);
 
@@ -347,13 +347,13 @@ UInt32 &SurfaceBase::editDimensions(const UInt32 index)
 
 //! Get the value of the \a index element the Surface::_mfCurveControlPoints field.
 inline
-const Pnt3r &SurfaceBase::getCurveControlPoints(const UInt32 index) const
+const Pnt3f &SurfaceBase::getCurveControlPoints(const UInt32 index) const
 {
     return _mfCurveControlPoints[index];
 }
 
 inline
-Pnt3r &SurfaceBase::editCurveControlPoints(const UInt32 index)
+Pnt3f &SurfaceBase::editCurveControlPoints(const UInt32 index)
 {
     editMField(CurveControlPointsFieldMask, _mfCurveControlPoints);
 
@@ -363,13 +363,13 @@ Pnt3r &SurfaceBase::editCurveControlPoints(const UInt32 index)
 
 //! Get the value of the \a index element the Surface::_mfKnots field.
 inline
-      Real  SurfaceBase::getKnots(const UInt32 index) const
+      Real32  SurfaceBase::getKnots(const UInt32 index) const
 {
     return _mfKnots[index];
 }
 
 inline
-Real &SurfaceBase::editKnots(const UInt32 index)
+Real32 &SurfaceBase::editKnots(const UInt32 index)
 {
     editMField(KnotsFieldMask, _mfKnots);
 

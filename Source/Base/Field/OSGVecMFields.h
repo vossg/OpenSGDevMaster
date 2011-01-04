@@ -338,30 +338,6 @@ typedef MField<Pnt4d> MFPnt4d;
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<Pnt4ld> MFPnt4ld;
 
-
-
-#ifdef OSG_FLOAT_PROFILE
-typedef MFVec1f  MFVec1r;
-typedef MFVec2f  MFVec2r;
-typedef MFVec3f  MFVec3r;
-typedef MFVec4f  MFVec4r;
-
-typedef MFPnt1f  MFPnt1r;
-typedef MFPnt2f  MFPnt2r;
-typedef MFPnt3f  MFPnt3r;
-typedef MFPnt4f  MFPnt4r;
-#else
-typedef MFVec1fx MFVec1r;
-typedef MFVec2fx MFVec2r;
-typedef MFVec3fx MFVec3r;
-typedef MFVec4fx MFVec4r;
-
-typedef MFPnt1fx MFPnt1r;
-typedef MFPnt2fx MFPnt2r;
-typedef MFPnt3fx MFPnt3r;
-typedef MFPnt4fx MFPnt4r;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
@@ -516,46 +492,6 @@ struct MFPnt4fx : public MField<Pnt4fx> {};
 struct MFPnt4d : public MField<Pnt4d> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4ld : public MField<Pnt4ld> {};
-
-
-
-#ifdef OSG_FLOAT_PROFILE
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec1f  MFVec1r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec2f  MFVec2r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec3f  MFVec3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec4f  MFVec4r;
-
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt1f  MFPnt1r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt2f  MFPnt2r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt3f  MFPnt3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt4f  MFPnt4r;
-#else
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec1fx MFVec1r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec2fx MFVec2r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec3fx MFVec3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFVec4fx MFVec4r;
-
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt1fx MFPnt1r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt2fx MFPnt2r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt3fx MFPnt3r;
-/*! \ingroup GrpBaseFieldMulti */
-typedef MFPnt4fx MFPnt4r;
-#endif
 
 #endif // these are the doxygen hacks
 

@@ -168,7 +168,7 @@ bool TransformChunk::operator == (const StateChunk &other) const
         return true;
 
     return getMatrix().equals(tother->getMatrix(),
-                              TypeTraits<Real>::getDefaultEps());
+                              TypeTraits<Real32>::getDefaultEps());
 }
 
 bool TransformChunk::operator != (const StateChunk &other) const

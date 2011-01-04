@@ -47,8 +47,6 @@
 #define osgMaxTexImages 16
 #define osgMaxTexCoords 8
 
-#ifndef OSG_EMBEDDED
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "OSGGL.h"
 #endif
@@ -2039,7 +2037,5 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_POLYGON    0x0009
 
 /*! \}                                                                 */
-
-#endif /* OSG_EMBEDDED) */
 
 #endif /* _OSGGL_H_ */

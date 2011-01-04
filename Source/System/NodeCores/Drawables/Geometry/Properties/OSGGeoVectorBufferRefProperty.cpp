@@ -117,7 +117,6 @@ void GeoVectorBufferRefProperty::dump(      UInt32    ,
 
 void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
 
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
@@ -274,7 +273,6 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
             osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
         }
     }
-#endif
 }
 
 void *GeoVectorBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)

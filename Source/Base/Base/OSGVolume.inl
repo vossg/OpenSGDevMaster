@@ -172,10 +172,10 @@ void Volume::setState(UInt16 val)
 */
 
 inline
-Pnt3r Volume::getMin(void) const
+Pnt3f Volume::getMin(void) const
 {
-    Pnt3r pmin; 
-    Pnt3r pmax;
+    Pnt3f pmin; 
+    Pnt3f pmax;
 
     getBounds(pmin, pmax);
 
@@ -187,10 +187,10 @@ Pnt3r Volume::getMin(void) const
 */
 
 inline
-Pnt3r Volume::getMax(void) const
+Pnt3f Volume::getMax(void) const
 {
-    Pnt3r pmin;
-    Pnt3r pmax;
+    Pnt3f pmin;
+    Pnt3f pmax;
 
     getBounds(pmin, pmax);
 

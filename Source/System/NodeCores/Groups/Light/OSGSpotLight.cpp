@@ -78,7 +78,7 @@ void SpotLight::makeChunk(void)
 {
     Inherited::makeChunk();
 
-    Vec4r pos(_sfPosition.getValue ());
+    Vec4f pos(_sfPosition.getValue ());
 
     pos[3] = 1.f;
 

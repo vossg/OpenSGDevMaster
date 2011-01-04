@@ -76,7 +76,7 @@ OSG::UInt16 LightChunkBase::getClassGroupId(void)
 //! Get the value of the LightChunk::_sfDiffuse field.
 
 inline
-Color4r &LightChunkBase::editDiffuse(void)
+Color4f &LightChunkBase::editDiffuse(void)
 {
     editSField(DiffuseFieldMask);
 
@@ -85,14 +85,14 @@ Color4r &LightChunkBase::editDiffuse(void)
 
 //! Get the value of the LightChunk::_sfDiffuse field.
 inline
-const Color4r &LightChunkBase::getDiffuse(void) const
+const Color4f &LightChunkBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
 
 //! Set the value of the LightChunk::_sfDiffuse field.
 inline
-void LightChunkBase::setDiffuse(const Color4r &value)
+void LightChunkBase::setDiffuse(const Color4f &value)
 {
     editSField(DiffuseFieldMask);
 
@@ -101,7 +101,7 @@ void LightChunkBase::setDiffuse(const Color4r &value)
 //! Get the value of the LightChunk::_sfAmbient field.
 
 inline
-Color4r &LightChunkBase::editAmbient(void)
+Color4f &LightChunkBase::editAmbient(void)
 {
     editSField(AmbientFieldMask);
 
@@ -110,14 +110,14 @@ Color4r &LightChunkBase::editAmbient(void)
 
 //! Get the value of the LightChunk::_sfAmbient field.
 inline
-const Color4r &LightChunkBase::getAmbient(void) const
+const Color4f &LightChunkBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
 
 //! Set the value of the LightChunk::_sfAmbient field.
 inline
-void LightChunkBase::setAmbient(const Color4r &value)
+void LightChunkBase::setAmbient(const Color4f &value)
 {
     editSField(AmbientFieldMask);
 
@@ -126,7 +126,7 @@ void LightChunkBase::setAmbient(const Color4r &value)
 //! Get the value of the LightChunk::_sfSpecular field.
 
 inline
-Color4r &LightChunkBase::editSpecular(void)
+Color4f &LightChunkBase::editSpecular(void)
 {
     editSField(SpecularFieldMask);
 
@@ -135,14 +135,14 @@ Color4r &LightChunkBase::editSpecular(void)
 
 //! Get the value of the LightChunk::_sfSpecular field.
 inline
-const Color4r &LightChunkBase::getSpecular(void) const
+const Color4f &LightChunkBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
 
 //! Set the value of the LightChunk::_sfSpecular field.
 inline
-void LightChunkBase::setSpecular(const Color4r &value)
+void LightChunkBase::setSpecular(const Color4f &value)
 {
     editSField(SpecularFieldMask);
 
@@ -151,7 +151,7 @@ void LightChunkBase::setSpecular(const Color4r &value)
 //! Get the value of the LightChunk::_sfPosition field.
 
 inline
-Vec4r &LightChunkBase::editPosition(void)
+Vec4f &LightChunkBase::editPosition(void)
 {
     editSField(PositionFieldMask);
 
@@ -160,14 +160,14 @@ Vec4r &LightChunkBase::editPosition(void)
 
 //! Get the value of the LightChunk::_sfPosition field.
 inline
-const Vec4r &LightChunkBase::getPosition(void) const
+const Vec4f &LightChunkBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }
 
 //! Set the value of the LightChunk::_sfPosition field.
 inline
-void LightChunkBase::setPosition(const Vec4r &value)
+void LightChunkBase::setPosition(const Vec4f &value)
 {
     editSField(PositionFieldMask);
 
@@ -176,7 +176,7 @@ void LightChunkBase::setPosition(const Vec4r &value)
 //! Get the value of the LightChunk::_sfDirection field.
 
 inline
-Vec3r &LightChunkBase::editDirection(void)
+Vec3f &LightChunkBase::editDirection(void)
 {
     editSField(DirectionFieldMask);
 
@@ -185,14 +185,14 @@ Vec3r &LightChunkBase::editDirection(void)
 
 //! Get the value of the LightChunk::_sfDirection field.
 inline
-const Vec3r &LightChunkBase::getDirection(void) const
+const Vec3f &LightChunkBase::getDirection(void) const
 {
     return _sfDirection.getValue();
 }
 
 //! Set the value of the LightChunk::_sfDirection field.
 inline
-void LightChunkBase::setDirection(const Vec3r &value)
+void LightChunkBase::setDirection(const Vec3f &value)
 {
     editSField(DirectionFieldMask);
 
@@ -201,7 +201,7 @@ void LightChunkBase::setDirection(const Vec3r &value)
 //! Get the value of the LightChunk::_sfExponent field.
 
 inline
-Real &LightChunkBase::editExponent(void)
+Real32 &LightChunkBase::editExponent(void)
 {
     editSField(ExponentFieldMask);
 
@@ -210,14 +210,14 @@ Real &LightChunkBase::editExponent(void)
 
 //! Get the value of the LightChunk::_sfExponent field.
 inline
-      Real  LightChunkBase::getExponent(void) const
+      Real32  LightChunkBase::getExponent(void) const
 {
     return _sfExponent.getValue();
 }
 
 //! Set the value of the LightChunk::_sfExponent field.
 inline
-void LightChunkBase::setExponent(const Real value)
+void LightChunkBase::setExponent(const Real32 value)
 {
     editSField(ExponentFieldMask);
 
@@ -226,7 +226,7 @@ void LightChunkBase::setExponent(const Real value)
 //! Get the value of the LightChunk::_sfCutoff field.
 
 inline
-Real &LightChunkBase::editCutoff(void)
+Real32 &LightChunkBase::editCutoff(void)
 {
     editSField(CutoffFieldMask);
 
@@ -235,14 +235,14 @@ Real &LightChunkBase::editCutoff(void)
 
 //! Get the value of the LightChunk::_sfCutoff field.
 inline
-      Real  LightChunkBase::getCutoff(void) const
+      Real32  LightChunkBase::getCutoff(void) const
 {
     return _sfCutoff.getValue();
 }
 
 //! Set the value of the LightChunk::_sfCutoff field.
 inline
-void LightChunkBase::setCutoff(const Real value)
+void LightChunkBase::setCutoff(const Real32 value)
 {
     editSField(CutoffFieldMask);
 
@@ -251,7 +251,7 @@ void LightChunkBase::setCutoff(const Real value)
 //! Get the value of the LightChunk::_sfConstantAttenuation field.
 
 inline
-Real &LightChunkBase::editConstantAttenuation(void)
+Real32 &LightChunkBase::editConstantAttenuation(void)
 {
     editSField(ConstantAttenuationFieldMask);
 
@@ -260,14 +260,14 @@ Real &LightChunkBase::editConstantAttenuation(void)
 
 //! Get the value of the LightChunk::_sfConstantAttenuation field.
 inline
-      Real  LightChunkBase::getConstantAttenuation(void) const
+      Real32  LightChunkBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfConstantAttenuation field.
 inline
-void LightChunkBase::setConstantAttenuation(const Real value)
+void LightChunkBase::setConstantAttenuation(const Real32 value)
 {
     editSField(ConstantAttenuationFieldMask);
 
@@ -276,7 +276,7 @@ void LightChunkBase::setConstantAttenuation(const Real value)
 //! Get the value of the LightChunk::_sfLinearAttenuation field.
 
 inline
-Real &LightChunkBase::editLinearAttenuation(void)
+Real32 &LightChunkBase::editLinearAttenuation(void)
 {
     editSField(LinearAttenuationFieldMask);
 
@@ -285,14 +285,14 @@ Real &LightChunkBase::editLinearAttenuation(void)
 
 //! Get the value of the LightChunk::_sfLinearAttenuation field.
 inline
-      Real  LightChunkBase::getLinearAttenuation(void) const
+      Real32  LightChunkBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfLinearAttenuation field.
 inline
-void LightChunkBase::setLinearAttenuation(const Real value)
+void LightChunkBase::setLinearAttenuation(const Real32 value)
 {
     editSField(LinearAttenuationFieldMask);
 
@@ -301,7 +301,7 @@ void LightChunkBase::setLinearAttenuation(const Real value)
 //! Get the value of the LightChunk::_sfQuadraticAttenuation field.
 
 inline
-Real &LightChunkBase::editQuadraticAttenuation(void)
+Real32 &LightChunkBase::editQuadraticAttenuation(void)
 {
     editSField(QuadraticAttenuationFieldMask);
 
@@ -310,14 +310,14 @@ Real &LightChunkBase::editQuadraticAttenuation(void)
 
 //! Get the value of the LightChunk::_sfQuadraticAttenuation field.
 inline
-      Real  LightChunkBase::getQuadraticAttenuation(void) const
+      Real32  LightChunkBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfQuadraticAttenuation field.
 inline
-void LightChunkBase::setQuadraticAttenuation(const Real value)
+void LightChunkBase::setQuadraticAttenuation(const Real32 value)
 {
     editSField(QuadraticAttenuationFieldMask);
 

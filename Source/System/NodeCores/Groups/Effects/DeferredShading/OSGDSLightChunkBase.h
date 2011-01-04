@@ -102,7 +102,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunkBase : public LightChunk
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFReal            SFEffectiveRangeType;
+    typedef SFReal32          SFEffectiveRangeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -128,19 +128,19 @@ class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunkBase : public LightChunk
     /*! \{                                                                 */
 
 
-                  SFReal              *editSFEffectiveRange (void);
-            const SFReal              *getSFEffectiveRange  (void) const;
+                  SFReal32            *editSFEffectiveRange (void);
+            const SFReal32            *getSFEffectiveRange  (void) const;
 
 
-                  Real                &editEffectiveRange (void);
-                  Real                 getEffectiveRange  (void) const;
+                  Real32              &editEffectiveRange (void);
+                  Real32               getEffectiveRange  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setEffectiveRange (const Real value);
+            void setEffectiveRange (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,7 +200,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunkBase : public LightChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal            _sfEffectiveRange;
+    SFReal32          _sfEffectiveRange;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

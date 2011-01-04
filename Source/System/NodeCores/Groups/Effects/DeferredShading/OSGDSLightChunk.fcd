@@ -12,7 +12,7 @@
     <Field
         name="effectiveRange"
         category="data"
-        type="Real"
+        type="Real32"
         cardinality="single"
         visibility="external"
         defaultValue="0.f"

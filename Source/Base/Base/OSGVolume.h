@@ -94,22 +94,22 @@ class OSG_BASE_DLLMAPPING Volume
     /*! \name                   Get Values                                 */
     /*! \{                                                                 */
 
-    virtual void  getCenter      (Pnt3r &center) const = 0;
+    virtual void   getCenter      (Pnt3f &center) const = 0;
 
-    virtual Real  getScalarVolume(void         ) const = 0;
+    virtual Real32 getScalarVolume(void         ) const = 0;
 
-    virtual void  getBounds      (Pnt3r &min, 
-                                  Pnt3r &max   ) const = 0;
+    virtual void   getBounds      (Pnt3f &min, 
+                                   Pnt3f &max   ) const = 0;
 
-            Pnt3r getMin         (void         ) const;
-            Pnt3r getMax         (void         ) const;
+            Pnt3f  getMin         (void         ) const;
+            Pnt3f  getMax         (void         ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Extending                                  */
     /*! \{                                                                 */
 
-    virtual void extendBy(const Pnt3r  &pt    ) = 0;
+    virtual void extendBy(const Pnt3f  &pt    ) = 0;
     virtual void extendBy(const Volume &volume) = 0;
 
     /*! \}                                                                 */
@@ -117,21 +117,21 @@ class OSG_BASE_DLLMAPPING Volume
     /*! \name                  Intersection                                */
     /*! \{                                                                 */
 
-    virtual bool intersect  (const Pnt3r  &point ) const = 0;
+    virtual bool intersect  (const Pnt3f  &point ) const = 0;
     virtual bool intersect  (const Line   &line  ) const = 0;
     virtual bool intersect  (const Line   &line,
-                                   Real   &enter, 
-                                   Real   &exit  ) const = 0;
+                                   Real32 &enter, 
+                                   Real32 &exit  ) const = 0;
     virtual bool intersect  (const Volume &volume) const = 0;
 
-    virtual bool isOnSurface(const Pnt3r  &point ) const = 0;
+    virtual bool isOnSurface(const Pnt3f  &point ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void transform(const Matrixr &matrix) = 0;
+    virtual void transform(const Matrix &matrix) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

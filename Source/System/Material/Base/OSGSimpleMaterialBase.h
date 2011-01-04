@@ -124,12 +124,12 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFColor3r         SFAmbientType;
-    typedef SFColor3r         SFDiffuseType;
-    typedef SFColor3r         SFSpecularType;
-    typedef SFReal            SFShininessType;
-    typedef SFColor3r         SFEmissionType;
-    typedef SFReal            SFTransparencyType;
+    typedef SFColor3f         SFAmbientType;
+    typedef SFColor3f         SFDiffuseType;
+    typedef SFColor3f         SFSpecularType;
+    typedef SFReal32          SFShininessType;
+    typedef SFColor3f         SFEmissionType;
+    typedef SFReal32          SFTransparencyType;
     typedef SFBool            SFLitType;
     typedef SFGLenum          SFColorMaterialType;
 
@@ -157,23 +157,23 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \{                                                                 */
 
 
-                  SFColor3r           *editSFAmbient        (void);
-            const SFColor3r           *getSFAmbient         (void) const;
+                  SFColor3f           *editSFAmbient        (void);
+            const SFColor3f           *getSFAmbient         (void) const;
 
-                  SFColor3r           *editSFDiffuse        (void);
-            const SFColor3r           *getSFDiffuse         (void) const;
+                  SFColor3f           *editSFDiffuse        (void);
+            const SFColor3f           *getSFDiffuse         (void) const;
 
-                  SFColor3r           *editSFSpecular       (void);
-            const SFColor3r           *getSFSpecular        (void) const;
+                  SFColor3f           *editSFSpecular       (void);
+            const SFColor3f           *getSFSpecular        (void) const;
 
-                  SFReal              *editSFShininess      (void);
-            const SFReal              *getSFShininess       (void) const;
+                  SFReal32            *editSFShininess      (void);
+            const SFReal32            *getSFShininess       (void) const;
 
-                  SFColor3r           *editSFEmission       (void);
-            const SFColor3r           *getSFEmission        (void) const;
+                  SFColor3f           *editSFEmission       (void);
+            const SFColor3f           *getSFEmission        (void) const;
 
-                  SFReal              *editSFTransparency   (void);
-            const SFReal              *getSFTransparency    (void) const;
+                  SFReal32            *editSFTransparency   (void);
+            const SFReal32            *getSFTransparency    (void) const;
 
                   SFBool              *editSFLit            (void);
             const SFBool              *getSFLit             (void) const;
@@ -182,23 +182,23 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
             const SFGLenum            *getSFColorMaterial   (void) const;
 
 
-                  Color3r             &editAmbient        (void);
-            const Color3r             &getAmbient         (void) const;
+                  Color3f             &editAmbient        (void);
+            const Color3f             &getAmbient         (void) const;
 
-                  Color3r             &editDiffuse        (void);
-            const Color3r             &getDiffuse         (void) const;
+                  Color3f             &editDiffuse        (void);
+            const Color3f             &getDiffuse         (void) const;
 
-                  Color3r             &editSpecular       (void);
-            const Color3r             &getSpecular        (void) const;
+                  Color3f             &editSpecular       (void);
+            const Color3f             &getSpecular        (void) const;
 
-                  Real                &editShininess      (void);
-                  Real                 getShininess       (void) const;
+                  Real32              &editShininess      (void);
+                  Real32               getShininess       (void) const;
 
-                  Color3r             &editEmission       (void);
-            const Color3r             &getEmission        (void) const;
+                  Color3f             &editEmission       (void);
+            const Color3f             &getEmission        (void) const;
 
-                  Real                &editTransparency   (void);
-                  Real                 getTransparency    (void) const;
+                  Real32              &editTransparency   (void);
+                  Real32               getTransparency    (void) const;
 
                   bool                &editLit            (void);
                   bool                 getLit             (void) const;
@@ -211,12 +211,12 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setAmbient        (const Color3r &value);
-            void setDiffuse        (const Color3r &value);
-            void setSpecular       (const Color3r &value);
-            void setShininess      (const Real value);
-            void setEmission       (const Color3r &value);
-            void setTransparency   (const Real value);
+            void setAmbient        (const Color3f &value);
+            void setDiffuse        (const Color3f &value);
+            void setSpecular       (const Color3f &value);
+            void setShininess      (const Real32 value);
+            void setEmission       (const Color3f &value);
+            void setTransparency   (const Real32 value);
             void setLit            (const bool value);
             void setColorMaterial  (const GLenum &value);
 
@@ -278,12 +278,12 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor3r         _sfAmbient;
-    SFColor3r         _sfDiffuse;
-    SFColor3r         _sfSpecular;
-    SFReal            _sfShininess;
-    SFColor3r         _sfEmission;
-    SFReal            _sfTransparency;
+    SFColor3f         _sfAmbient;
+    SFColor3f         _sfDiffuse;
+    SFColor3f         _sfSpecular;
+    SFReal32          _sfShininess;
+    SFColor3f         _sfEmission;
+    SFReal32          _sfTransparency;
     SFBool            _sfLit;
     SFGLenum          _sfColorMaterial;
 

@@ -83,12 +83,12 @@ class OSG_DRAWABLE_DLLMAPPING Surface : public SurfaceBase
 
     void addCurve(      UInt32               dim,
                   const std::vector<Real64> &knots,
-                  const std::vector<Pnt2r > &controlpoints,
+                  const std::vector<Pnt2f > &controlpoints,
                         bool                 newloop       = false);
 
     void addCurve(      UInt32               dim,
                   const std::vector<Real64>& knots,
-                  const std::vector<Pnt3r >& controlpoints,
+                  const std::vector<Pnt3f >& controlpoints,
                         bool                 newloop       = false);
 
     void removeCurves(void);

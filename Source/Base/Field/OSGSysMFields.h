@@ -163,14 +163,6 @@ typedef MField<Real64> MFReal64;
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<void *>   MFVoidP;
 
-
-
-#ifdef OSG_FLOAT_PROFILE
-typedef MFReal32  MFReal;
-#else
-typedef MFFixed32 MFReal;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase  
@@ -205,13 +197,6 @@ struct MFFixed32 : public MField<Fixed32> {};
 struct MFReal64 : public MField<Real64> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVoidP : public MField<void *>   {};
-
-
-#ifdef OSG_FLOAT_PROFILE
-typedef MFReal32  MFReal;
-#else
-typedef MFFixed32 MFReal;
-#endif
 
 #endif // these are the doxygen hacks
 

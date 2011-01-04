@@ -22,7 +22,7 @@
 
   <Field
 	 name="ambient"
-	 type="Color4r"
+	 type="Color4f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f,0.f,0.f,1.f"
@@ -32,7 +32,7 @@
   </Field>
   <Field
 	 name="diffuse"
-	 type="Color4r"
+	 type="Color4f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="1.f,1.f,1.f,1.f"
@@ -42,7 +42,7 @@
   </Field>
   <Field
 	 name="specular"
-	 type="Color4r"
+	 type="Color4f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="1.f,1.f,1.f,1.f"
@@ -70,7 +70,7 @@
   </Field>
   <Field
 	 name="constantAttenuation"
-	 type="Real"
+	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="1.f"
@@ -80,7 +80,7 @@
   </Field>
   <Field
 	 name="linearAttenuation"
-	 type="Real"
+	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f"
@@ -90,7 +90,7 @@
   </Field>
   <Field
 	 name="quadraticAttenuation"
-	 type="Real"
+	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f"

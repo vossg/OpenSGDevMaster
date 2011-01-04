@@ -135,14 +135,14 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFColor4r         SFAmbientType;
-    typedef SFColor4r         SFDiffuseType;
-    typedef SFColor4r         SFSpecularType;
+    typedef SFColor4f         SFAmbientType;
+    typedef SFColor4f         SFDiffuseType;
+    typedef SFColor4f         SFSpecularType;
     typedef SFWeakNodePtr     SFBeaconType;
     typedef SFBool            SFOnType;
-    typedef SFReal            SFConstantAttenuationType;
-    typedef SFReal            SFLinearAttenuationType;
-    typedef SFReal            SFQuadraticAttenuationType;
+    typedef SFReal32          SFConstantAttenuationType;
+    typedef SFReal32          SFLinearAttenuationType;
+    typedef SFReal32          SFQuadraticAttenuationType;
     typedef SFUnrecLightEnginePtr SFLightEngineType;
     typedef SFReal32          SFShadowIntensityType;
     typedef SFUInt32          SFShadowModeType;
@@ -171,28 +171,28 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     /*! \{                                                                 */
 
 
-                  SFColor4r           *editSFAmbient        (void);
-            const SFColor4r           *getSFAmbient         (void) const;
+                  SFColor4f           *editSFAmbient        (void);
+            const SFColor4f           *getSFAmbient         (void) const;
 
-                  SFColor4r           *editSFDiffuse        (void);
-            const SFColor4r           *getSFDiffuse         (void) const;
+                  SFColor4f           *editSFDiffuse        (void);
+            const SFColor4f           *getSFDiffuse         (void) const;
 
-                  SFColor4r           *editSFSpecular       (void);
-            const SFColor4r           *getSFSpecular        (void) const;
+                  SFColor4f           *editSFSpecular       (void);
+            const SFColor4f           *getSFSpecular        (void) const;
             const SFWeakNodePtr       *getSFBeacon         (void) const;
                   SFWeakNodePtr       *editSFBeacon         (void);
 
                   SFBool              *editSFOn             (void);
             const SFBool              *getSFOn              (void) const;
 
-                  SFReal              *editSFConstantAttenuation(void);
-            const SFReal              *getSFConstantAttenuation (void) const;
+                  SFReal32            *editSFConstantAttenuation(void);
+            const SFReal32            *getSFConstantAttenuation (void) const;
 
-                  SFReal              *editSFLinearAttenuation(void);
-            const SFReal              *getSFLinearAttenuation (void) const;
+                  SFReal32            *editSFLinearAttenuation(void);
+            const SFReal32            *getSFLinearAttenuation (void) const;
 
-                  SFReal              *editSFQuadraticAttenuation(void);
-            const SFReal              *getSFQuadraticAttenuation (void) const;
+                  SFReal32            *editSFQuadraticAttenuation(void);
+            const SFReal32            *getSFQuadraticAttenuation (void) const;
             const SFUnrecLightEnginePtr *getSFLightEngine    (void) const;
                   SFUnrecLightEnginePtr *editSFLightEngine    (void);
 
@@ -203,28 +203,28 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
             const SFUInt32            *getSFShadowMode      (void) const;
 
 
-                  Color4r             &editAmbient        (void);
-            const Color4r             &getAmbient         (void) const;
+                  Color4f             &editAmbient        (void);
+            const Color4f             &getAmbient         (void) const;
 
-                  Color4r             &editDiffuse        (void);
-            const Color4r             &getDiffuse         (void) const;
+                  Color4f             &editDiffuse        (void);
+            const Color4f             &getDiffuse         (void) const;
 
-                  Color4r             &editSpecular       (void);
-            const Color4r             &getSpecular        (void) const;
+                  Color4f             &editSpecular       (void);
+            const Color4f             &getSpecular        (void) const;
 
                   Node * getBeacon         (void) const;
 
                   bool                &editOn             (void);
                   bool                 getOn              (void) const;
 
-                  Real                &editConstantAttenuation(void);
-                  Real                 getConstantAttenuation (void) const;
+                  Real32              &editConstantAttenuation(void);
+                  Real32               getConstantAttenuation (void) const;
 
-                  Real                &editLinearAttenuation(void);
-                  Real                 getLinearAttenuation (void) const;
+                  Real32              &editLinearAttenuation(void);
+                  Real32               getLinearAttenuation (void) const;
 
-                  Real                &editQuadraticAttenuation(void);
-                  Real                 getQuadraticAttenuation (void) const;
+                  Real32              &editQuadraticAttenuation(void);
+                  Real32               getQuadraticAttenuation (void) const;
 
                   LightEngine * getLightEngine    (void) const;
 
@@ -239,14 +239,14 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setAmbient        (const Color4r &value);
-            void setDiffuse        (const Color4r &value);
-            void setSpecular       (const Color4r &value);
+            void setAmbient        (const Color4f &value);
+            void setDiffuse        (const Color4f &value);
+            void setSpecular       (const Color4f &value);
             void setBeacon         (Node * const value);
             void setOn             (const bool value);
-            void setConstantAttenuation(const Real value);
-            void setLinearAttenuation(const Real value);
-            void setQuadraticAttenuation(const Real value);
+            void setConstantAttenuation(const Real32 value);
+            void setLinearAttenuation(const Real32 value);
+            void setQuadraticAttenuation(const Real32 value);
             void setLightEngine    (LightEngine * const value);
             void setShadowIntensity(const Real32 value);
             void setShadowMode     (const UInt32 value);
@@ -287,14 +287,14 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor4r         _sfAmbient;
-    SFColor4r         _sfDiffuse;
-    SFColor4r         _sfSpecular;
+    SFColor4f         _sfAmbient;
+    SFColor4f         _sfDiffuse;
+    SFColor4f         _sfSpecular;
     SFWeakNodePtr     _sfBeacon;
     SFBool            _sfOn;
-    SFReal            _sfConstantAttenuation;
-    SFReal            _sfLinearAttenuation;
-    SFReal            _sfQuadraticAttenuation;
+    SFReal32          _sfConstantAttenuation;
+    SFReal32          _sfLinearAttenuation;
+    SFReal32          _sfQuadraticAttenuation;
     SFUnrecLightEnginePtr _sfLightEngine;
     SFReal32          _sfShadowIntensity;
     SFUInt32          _sfShadowMode;

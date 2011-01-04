@@ -109,16 +109,16 @@ void SolidBackground::clear(DrawEnv *)
     {
         clearMask |= GL_COLOR_BUFFER_BIT;
 
-        const Color3r &col = getColor();
+        const Color3f &col = getColor();
 
-        GLP::glClearColor(col[0], col[1], col[2], getAlpha());
+        glClearColor(col[0], col[1], col[2], getAlpha());
     }
 
     if(getClearDepth() == true)
     {
         clearMask |= GL_DEPTH_BUFFER_BIT;
         
-        GLP::glClearDepth(getDepth());
+        glClearDepth(getDepth());
     }
 
     if(stencilBit >= 0)

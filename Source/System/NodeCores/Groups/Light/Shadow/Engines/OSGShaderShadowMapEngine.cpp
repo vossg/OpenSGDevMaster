@@ -75,48 +75,48 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-const Matrixr ShaderShadowMapEngine::_matCubeFaceInv[6] =
-    {
-        Matrixr( 1,  0,  0,  0,   // + Z
-                 0, -1,  0,  0,
-                 0,  0, -1,  0,
-                 0,  0,  0,  1),
+const Matrix ShaderShadowMapEngine::_matCubeFaceInv[6] =
+{
+    Matrix( 1,  0,  0,  0,   // + Z
+            0, -1,  0,  0,
+            0,  0, -1,  0,
+            0,  0,  0,  1),
         
-        Matrixr(-1,  0,  0,  0,   // - Z
-                 0, -1,  0,  0,
-                 0,  0,  1,  0,
-                 0,  0,  0,  1),
+    Matrix(-1,  0,  0,  0,   // - Z
+            0, -1,  0,  0,
+            0,  0,  1,  0,
+            0,  0,  0,  1),
         
-        Matrixr( 1,  0,  0,  0,   // + Y
-                 0,  0,  1,  0,
-                 0, -1,  0,  0,
-                 0,  0,  0,  1),
+    Matrix( 1,  0,  0,  0,   // + Y
+            0,  0,  1,  0,
+            0, -1,  0,  0,
+            0,  0,  0,  1),
 
-        Matrixr( 1,  0,  0,  0,   // - Y
-                 0,  0, -1,  0,
-                 0,  1,  0,  0,
-                 0,  0,  0,  1),
-
-        Matrixr( 0,  0, -1,  0,   // + X
-                 0, -1,  0,  0,
-                -1,  0,  0,  0,
-                 0,  0,  0,  1),
+    Matrix( 1,  0,  0,  0,   // - Y
+            0,  0, -1,  0,
+            0,  1,  0,  0,
+            0,  0,  0,  1),
+    
+    Matrix( 0,  0, -1,  0,   // + X
+            0, -1,  0,  0,
+           -1,  0,  0,  0,
+            0,  0,  0,  1),
         
-        Matrixr( 0,  0,  1,  0,   // - X
-                 0, -1,  0,  0,
-                 1,  0,  0,  0,
-                 0,  0,  0,  1),
-    };
+    Matrix( 0,  0,  1,  0,   // - X
+            0, -1,  0,  0,
+            1,  0,  0,  0,
+            0,  0,  0,  1),
+};
 
 const GLenum ShaderShadowMapEngine::_cubeFaceTargets[6] =
-    {
-        GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB,
-        GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB,
-        GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB,
-        GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB,
-        GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
-        GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB,
-    };
+{
+    GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB,
+    GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB,
+    GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB,
+    GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB,
+    GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
+    GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB,
+};
 
 const std::string ShaderShadowMapEngine::_pointFPCode(
     "#version 120\n"
@@ -352,11 +352,11 @@ void ShaderShadowMapEngine::handlePointLightEnter(
 {
     RenderPartition *parentPart = ract->getActivePartition();
 
-    Matrixr matEyeToWorld(parentPart->getCameraToWorld());
-    Matrixr matLightProj;
+    Matrix matEyeToWorld(parentPart->getCameraToWorld());
+    Matrix matLightProj;
 
-    Real    lightNear;
-    Real    lightFar;
+    Real32 lightNear;
+    Real32 lightFar;
 
     calcPointLightRange(pointL, 0.001f,
                         parentPart->getNear(), parentPart->getFar(),
@@ -365,8 +365,8 @@ void ShaderShadowMapEngine::handlePointLightEnter(
     MatrixPerspective(matLightProj, Pi / 4.f, 1.f,
                       lightNear, lightFar         );
 
-    Matrixr matWorldToLight;
-    Matrixr matEyeToLight;
+    Matrix matWorldToLight;
+    Matrix matEyeToLight;
 
     calcPointLightMatrices(matWorldToLight, matEyeToLight,
                            pointL,          matEyeToWorld );
@@ -404,7 +404,7 @@ void ShaderShadowMapEngine::handlePointLightEnter(
     // schedule rendering of cube faces
     for(UInt16 i = 0; i < 6; ++i)
     {
-        Matrixr matWorldToLightFace(matWorldToLight);
+        Matrix matWorldToLightFace(matWorldToLight);
         matWorldToLightFace.multLeft(_matCubeFaceInv[i]);
 
         this->pushPartition(ract);
@@ -421,8 +421,8 @@ void ShaderShadowMapEngine::handlePointLightEnter(
                                         target->getWidth (),
                                         target->getHeight() );
 
-            part->setupProjection(matLightProj, Matrixr::identity());
-            part->setupViewing   (matWorldToLightFace              );
+            part->setupProjection(matLightProj, Matrix::identity());
+            part->setupViewing   (matWorldToLightFace             );
 
             part->setNear        (parentPart->getNear());
             part->setFar         (parentPart->getFar ());
@@ -452,9 +452,9 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
     RenderPartition *parentPart = ract      ->getActivePartition();
     FrustumVolume    camFrust   = parentPart->getFrustum        ();
 
-    Matrixr matEyeToWorld  (parentPart->getCameraToWorld());
-    Matrixr matWorldToLight;
-    Matrixr matEyeToLight;
+    Matrix matEyeToWorld  (parentPart->getCameraToWorld());
+    Matrix matWorldToLight;
+    Matrix matEyeToLight;
 
     calcDirectionalLightMatrices(matWorldToLight, matEyeToLight,
                                  dirL,            matEyeToWorld );
@@ -468,8 +468,8 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
     //  - width and height of the ortho projection are determined from
     //    the frustum AABB, while near and far are determined by the
     //    scene AABB (offscreen objects cast shadows into the view volume)
-          Pnt3r      camVerts  [10];
-          Pnt3r      sceneVerts[10];
+          Pnt3f      camVerts  [10];
+          Pnt3f      sceneVerts[10];
     const Matrix    &matSceneToWorld = ract->topMatrix ();
           BoxVolume  sceneBB         = ract->getActNode()->getVolume();
 
@@ -482,18 +482,18 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
                         sceneVerts[4], sceneVerts[5],
                         sceneVerts[6], sceneVerts[7] );
 
-    camVerts  [8].setValues(TypeTraits<Real>::getMax(),
-                            TypeTraits<Real>::getMax(),
-                            TypeTraits<Real>::getMax() );
-    camVerts  [9].setValues(TypeTraits<Real>::getMin(),
-                            TypeTraits<Real>::getMin(),
-                            TypeTraits<Real>::getMin() );
-    sceneVerts[8].setValues(TypeTraits<Real>::getMax(),
-                            TypeTraits<Real>::getMax(),
-                            TypeTraits<Real>::getMax() );
-    sceneVerts[9].setValues(TypeTraits<Real>::getMin(),
-                            TypeTraits<Real>::getMin(),
-                            TypeTraits<Real>::getMin() );
+    camVerts  [8].setValues(TypeTraits<Real32>::getMax(),
+                            TypeTraits<Real32>::getMax(),
+                            TypeTraits<Real32>::getMax() );
+    camVerts  [9].setValues(TypeTraits<Real32>::getMin(),
+                            TypeTraits<Real32>::getMin(),
+                            TypeTraits<Real32>::getMin() );
+    sceneVerts[8].setValues(TypeTraits<Real32>::getMax(),
+                            TypeTraits<Real32>::getMax(),
+                            TypeTraits<Real32>::getMax() );
+    sceneVerts[9].setValues(TypeTraits<Real32>::getMin(),
+                            TypeTraits<Real32>::getMin(),
+                            TypeTraits<Real32>::getMin() );
 
     for(UInt32 i = 0; i < 8; ++i)
     {
@@ -516,11 +516,11 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
     }
 
     // these points are the corners of the ortho shadow view volume
-    Pnt3r lightMin(osgMax(camVerts[8][0], sceneVerts[8][0]),
+    Pnt3f lightMin(osgMax(camVerts[8][0], sceneVerts[8][0]),
                    osgMax(camVerts[8][1], sceneVerts[8][1]),
                    -sceneVerts[9][2]);
     
-    Pnt3r lightMax(osgMin(camVerts[9][0], sceneVerts[9][0]),
+    Pnt3f lightMax(osgMin(camVerts[9][0], sceneVerts[9][0]),
                    osgMin(camVerts[9][1], sceneVerts[9][1]),
                    -sceneVerts[8][2]);
 
@@ -533,8 +533,8 @@ void ShaderShadowMapEngine::handleDirectionalLightEnter(
     lightMax[1] += (lightMax[1] - lightMin[1]) * 0.01f;
     lightMax[2] += (lightMax[2] - lightMin[2]) * 0.01f;
 
-    Matrixr matLightProj;
-    Matrixr matLightProjTrans;
+    Matrix matLightProj;
+    Matrix matLightProjTrans;
 
     MatrixOrthogonal(matLightProj,
                      lightMin[0], lightMax[0],
@@ -615,15 +615,15 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
     RenderPartition *parentPart    = ract->getActivePartition();
 //    Real             cosSpotCutOff = osgCos(spotL->getSpotCutOff());
 
-    Matrixr matEyeToWorld  (parentPart->getCameraToWorld());
-    Matrixr matWorldToLight;
-    Matrixr matEyeToLight;
+    Matrix matEyeToWorld  (parentPart->getCameraToWorld());
+    Matrix matWorldToLight;
+    Matrix matEyeToLight;
 
     calcSpotLightMatrices(matWorldToLight, matEyeToLight, 
                           spotL,           matEyeToWorld );
 
-    Real    lightNear;
-    Real    lightFar;
+    Real32  lightNear;
+    Real32  lightFar;
 
     calcPointLightRange(spotL, 0.001f,
                         parentPart->getNear(), parentPart->getFar(),
@@ -639,8 +639,8 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
         lightFar  = getShadowFar();
     }
 
-    Matrixr matLightProj;
-    Matrixr matLightProjTrans;
+    Matrix matLightProj;
+    Matrix matLightProjTrans;
 
     MatrixPerspective(matLightProj, 
                       spotL->getSpotCutOff(), 1.f,
@@ -717,16 +717,16 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
     \a dirL and inverse viewing matrix \a matEyeToWorld.
 */
 void ShaderShadowMapEngine::calcDirectionalLightMatrices(
-          Matrixr          &matWorldToLight,
-          Matrixr          &matEyeToLight,
+          Matrix           &matWorldToLight,
+          Matrix           &matEyeToLight,
     const DirectionalLight *dirL,
-    const Matrixr          &matEyeToWorld)
+    const Matrix           &matEyeToWorld)
 {
     if(dirL->getBeacon() != NULL)
         dirL->getBeacon()->getToWorld(matWorldToLight);
 
-    Quaternion rotLightDir  (Vec3r(0.f, 0.f, 1.f), dirL->getDirection());
-    Matrixr    matLightDir;
+    Quaternion rotLightDir  (Vec3f(0.f, 0.f, 1.f), dirL->getDirection());
+    Matrix     matLightDir;
     matLightDir.setRotate(rotLightDir);
     
     matWorldToLight.mult  (matLightDir);
@@ -737,15 +737,15 @@ void ShaderShadowMapEngine::calcDirectionalLightMatrices(
 }
 
 void ShaderShadowMapEngine::calcPointLightMatrices(
-          Matrixr    &matWorldToLight,
-          Matrixr    &matEyeToLight,
+          Matrix     &matWorldToLight,
+          Matrix     &matEyeToLight,
     const PointLight *pointL,
-    const Matrixr    &matEyeToWorld)
+    const Matrix     &matEyeToWorld)
 {
     if(pointL->getBeacon() != NULL)
         pointL->getBeacon()->getToWorld(matWorldToLight);
 
-    Matrixr matLightPos;
+    Matrix matLightPos;
     matLightPos    .setTranslate(pointL->getPosition());
     matWorldToLight.mult        (matLightPos          );
     matWorldToLight.invert      (                     );
@@ -758,19 +758,19 @@ void ShaderShadowMapEngine::calcPointLightMatrices(
     \a spotL and inverse viewing matrix \a matEyeToWorld.
 */
 void ShaderShadowMapEngine::calcSpotLightMatrices(
-          Matrixr   &matWorldToLight,
-          Matrixr   &matEyeToLight,
+          Matrix    &matWorldToLight,
+          Matrix    &matEyeToLight,
     const SpotLight *spotL, 
-    const Matrixr   &matEyeToWorld)
+    const Matrix    &matEyeToWorld)
 {
     if(spotL->getBeacon() != NULL)
         spotL->getBeacon()->getToWorld(matWorldToLight);
 
-    Matrixr matLightPos;
+    Matrix matLightPos;
     matLightPos.setTranslate(spotL->getPosition());
 
-    Matrixr    matLightDir;
-    Quaternion rotLightDir(Vec3r(0.f, 0.f, 1.f), -spotL->getDirection());
+    Matrix     matLightDir;
+    Quaternion rotLightDir(Vec3f(0.f, 0.f, 1.f), -spotL->getDirection());
     matLightDir.setRotate(rotLightDir);
 
     matWorldToLight.mult  (matLightPos);
@@ -782,26 +782,26 @@ void ShaderShadowMapEngine::calcSpotLightMatrices(
 }
 
 void ShaderShadowMapEngine::calcPointLightRange(
-    const PointLight *pointL,      Real  lightThreshold,
-          Real        defaultNear, Real  defaultFar,
-          Real       &outNear,     Real &outFar         )
+    const PointLight *pointL,      Real32  lightThreshold,
+          Real32      defaultNear, Real32  defaultFar,
+          Real32     &outNear,     Real32 &outFar         )
 {
     outNear = defaultNear;
     outFar  = defaultFar;
 
-    Real kQ = pointL->getQuadraticAttenuation();
-    Real kL = pointL->getLinearAttenuation   ();
-    Real kC = pointL->getConstantAttenuation ();
+    Real32 kQ = pointL->getQuadraticAttenuation();
+    Real32 kL = pointL->getLinearAttenuation   ();
+    Real32 kC = pointL->getConstantAttenuation ();
 
-    if(osgAbs(kQ) > TypeTraits<Real>::getDefaultEps())
+    if(osgAbs(kQ) > TypeTraits<Real32>::getDefaultEps())
     {
-        Real det = kL * kL  - 4.f * kQ * (kC - 1.f / lightThreshold);
+        Real32 det = kL * kL  - 4.f * kQ * (kC - 1.f / lightThreshold);
 
         if(det >= 0)
         {
-            det     = osgSqrt(det);
-            Real r1 = - kL + det / (2.f * kQ);
-            Real r2 = - kL - det / (2.f * kQ);
+            det       = osgSqrt(det);
+            Real32 r1 = - kL + det / (2.f * kQ);
+            Real32 r2 = - kL - det / (2.f * kQ);
 
             if(r1 > 0.f && r2 > 0.f)
             {
@@ -817,9 +817,9 @@ void ShaderShadowMapEngine::calcPointLightRange(
             }
         }
     }
-    else if(osgAbs(kL) > TypeTraits<Real>::getDefaultEps())
+    else if(osgAbs(kL) > TypeTraits<Real32>::getDefaultEps())
     {
-        Real r = (1.f / lightThreshold - kC) / kL;
+        Real32 r = (1.f / lightThreshold - kC) / kL;
 
         if(r > 0.f)
         {

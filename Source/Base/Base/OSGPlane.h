@@ -65,11 +65,11 @@ class OSG_BASE_DLLMAPPING Plane
     /*! \name                    Constructor                               */
     /*! \{                                                                 */
 
-    Plane(      void                                       );
-    Plane(const Plane &obj                                 );
-    Plane(const Pnt3r &p0, const Pnt3r &p1, const Pnt3r &p2);
-    Plane(const Vec3r &n,        Real   d                  );
-    Plane(const Vec3r &n, const  Pnt3r &p                  );
+    Plane(      void                                        );
+    Plane(const Plane &obj                                  );
+    Plane(const Pnt3f &p0, const Pnt3f  &p1, const Pnt3f &p2);
+    Plane(const Vec3f &n,        Real32  d                  );
+    Plane(const Vec3f &n, const  Pnt3f  &p                  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -83,65 +83,65 @@ class OSG_BASE_DLLMAPPING Plane
     /*! \name                      Offset                                  */
     /*! \{                                                                 */
 
-    void offset(Real d);
+    void offset(Real32 d);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Intersection                              */
     /*! \{                                                                 */
 
-    bool intersect        (const Plane   &pl, 
-                                 Line    &intersection) const;
-    bool intersect        (const Line    &l,  
-                                 Pnt3r   &intersection) const;
-    bool intersect        (const Line    &l,  
-                                 Real    &t           ) const;
+    bool   intersect        (const Plane   &pl, 
+                                   Line    &intersection) const;
+    bool   intersect        (const Line    &l,  
+                                   Pnt3f   &intersection) const;
+    bool   intersect        (const Line    &l,  
+                                   Real32  &t           ) const;
 
-    bool intersectInfinite(const Line    &l,  
-                                 Real    &t           ) const;
-    bool intersectInfinite(const Line    &l,  
-                                 Pnt3r   &intersection) const;
+    bool   intersectInfinite(const Line    &l,  
+                                   Real32  &t           ) const;
+    bool   intersectInfinite(const Line    &l,  
+                                   Pnt3f   &intersection) const;
 
-    void transform        (const Matrixr &matrix      );
+    void   transform        (const Matrix  &matrix      );
 
-    int  clip             (      Pnt3r  *polyIn, 
-                                 Pnt3r  *polyOut, 
-                                 int     count        ) const;
+    int    clip             (      Pnt3f  *polyIn, 
+                                   Pnt3f  *polyOut, 
+                                   int     count        ) const;
 
 
-    bool isOnPlane        (const Pnt3r  &point        ) const;
-    bool isInHalfSpace    (const Pnt3r  &point        ) const;
-    Real distance         (const Pnt3r  &point        ) const;
+    bool   isOnPlane        (const Pnt3f  &point        ) const;
+    bool   isInHalfSpace    (const Pnt3f  &point        ) const;
+    Real32 distance         (const Pnt3f  &point        ) const;
 
-    bool isInHalfSpace    (const Pnt3r  &min, 
-                           const Pnt3r  &max          ) const;
-    bool isOutHalfSpace   (const Pnt3r  &min, 
-                           const Pnt3r  &max          ) const;
+    bool   isInHalfSpace    (const Pnt3f  &min, 
+                             const Pnt3f  &max          ) const;
+    bool   isOutHalfSpace   (const Pnt3f  &min, 
+                             const Pnt3f  &max          ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Set Values                                */
     /*! \{                                                                 */
 
-    void set(const Vec3r &normal, 
-                          Real  distance);
-    void set(      Real   x, 
-                   Real   y, 
-                   Real   z, 
-                   Real   distance      );
-    void set(const Vec4r &plane         );
+    void set(const Vec3f  &normal, 
+                   Real32  distance);
+    void set(      Real32   x, 
+                   Real32   y, 
+                   Real32   z, 
+                   Real32   distance);
+    void set(const Vec4f  &plane    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Access                                  */
     /*! \{                                                                 */
 
-    const Vec3r &getNormal            (void) const;
-          Real   getDistanceFromOrigin(void) const;
+    const Vec3f  &getNormal            (void) const;
+          Real32  getDistanceFromOrigin(void) const;
 
 
-    void  setDirectionIndexPoint(const Pnt3r &min,   const Pnt3r &max,
-                                 const UInt8  index,       Pnt3r &pnt) const;
+    void  setDirectionIndexPoint(const Pnt3f &min,   const Pnt3f &max,
+                                 const UInt8  index,       Pnt3f &pnt) const;
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,9 +165,9 @@ class OSG_BASE_DLLMAPPING Plane
    
     void updateDirectionIndex(void);
 
-    Vec3r _normalVec;
-    Real  _distance;
-    UInt8 _directionIndex;
+    Vec3f  _normalVec;
+    Real32 _distance;
+    UInt8  _directionIndex;
 };
 
 /*! \relates Plane

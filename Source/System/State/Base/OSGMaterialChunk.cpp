@@ -247,20 +247,20 @@ void MaterialChunk::activate(DrawEnv *, UInt32)
         glEnable(GL_COLOR_MATERIAL);
     }
         
-	GLP::glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
+	glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
 
     if(getLit())
     {
-        GLP::glMaterialfv(target, GL_DIFFUSE,
-                          _sfDiffuse.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_AMBIENT,
-                          _sfAmbient.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_SPECULAR,
-                          _sfSpecular.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_EMISSION,
-                          _sfEmission.getValue().getValuesRGBA());
-        GLP::glMaterialf (target, GL_SHININESS, _sfShininess.getValue());
-
+        glMaterialfv(target, GL_DIFFUSE,
+                     _sfDiffuse.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_AMBIENT,
+                     _sfAmbient.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_SPECULAR,
+                     _sfSpecular.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_EMISSION,
+                     _sfEmission.getValue().getValuesRGBA());
+        glMaterialf (target, GL_SHININESS, _sfShininess.getValue());
+        
         glEnable(GL_LIGHTING);
     }
     else
@@ -288,7 +288,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
         // Reset it, as Geometry colors might have changed it
         if(getColorMaterial() != GL_NONE)
 		{
-            GLP::glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
+            glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
         }
 
         return;
@@ -308,7 +308,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
     }
     
     if(getColorMaterial() != GL_NONE)
-        GLP::glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
+        glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
 
     if(getLit() && ! old->getLit())
         glEnable(GL_LIGHTING);
@@ -322,19 +322,21 @@ void MaterialChunk::changeFrom(DrawEnv    *,
 
         target = GL_FRONT_AND_BACK;
         
-        GLP::glMaterialfv(target, GL_DIFFUSE,
-                          _sfDiffuse.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_AMBIENT,
-                          _sfAmbient.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_SPECULAR,
-                          _sfSpecular.getValue().getValuesRGBA());
-        GLP::glMaterialfv(target, GL_EMISSION,
-                          _sfEmission.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_DIFFUSE,
+                     _sfDiffuse.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_AMBIENT,
+                     _sfAmbient.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_SPECULAR,
+                     _sfSpecular.getValue().getValuesRGBA());
+        glMaterialfv(target, GL_EMISSION,
+                     _sfEmission.getValue().getValuesRGBA());
 
         // adjust shininess only if it differs enough
         if(osgAbs(_sfShininess.getValue() - old->getShininess()) > 1e-4f)
-            GLP::glMaterialf(target, GL_SHININESS, 
-                             _sfShininess.getValue());
+        {
+            glMaterialf(target, GL_SHININESS, 
+                        _sfShininess.getValue());
+        }
     }
 
 	glErr("material:changed:precheck");
@@ -573,7 +575,7 @@ Real32 MaterialChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
 
 bool MaterialChunk::isTransparent(void) const
 {
-    return(getDiffuse()[3] <(1.f - TypeTraits<Real>::getDefaultEps()));
+    return(getDiffuse()[3] <(1.f - TypeTraits<Real32>::getDefaultEps()));
 }
 
 
@@ -593,13 +595,13 @@ bool MaterialChunk::operator ==(const StateChunk &other) const
         return true;
 
     if(!getAmbient  ().equals(tother->getAmbient  (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getDiffuse  ().equals(tother->getDiffuse  (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getSpecular ().equals(tother->getSpecular (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getEmission ().equals(tother->getEmission (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
         getShininess()     != tother->getShininess()             ||
         getLit()           != tother->getLit()                   ||
         getColorMaterial() != tother->getColorMaterial()

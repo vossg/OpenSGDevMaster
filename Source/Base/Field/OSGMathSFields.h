@@ -68,15 +68,6 @@ typedef SField<Quaternion  > SFQuaternion;
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<Quaternionfx> SFQuaternionfx;
 
-
-#ifdef OSG_FLOAT_PROFILE
-typedef SFMatrix       SFMatrixr;
-typedef SFQuaternion   SFQuaternionr;
-#else
-typedef SFMatrix4fx    SFMatrixr;
-typedef SFQuaternionfx SFQuaternionr;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
@@ -89,19 +80,6 @@ struct SFMatrix4fx : public SField<Matrix4fx> {};
 struct SFQuaternion : public SField<Quaternion> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFQuaternionfx : public SField<Quaternionfx> {};
-
-
-#ifdef OSG_FLOAT_PROFILE
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFMatrix       SFMatrixr;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFQuaternion   SFQuaternionr;
-#else
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFMatrix4fx    SFMatrixr;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFQuaternionfx SFQuaternionr;
-#endif
 
 #endif // these are the doxygen hacks
 

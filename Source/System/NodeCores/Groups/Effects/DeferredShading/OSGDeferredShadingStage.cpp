@@ -209,7 +209,7 @@ DeferredShadingStage::DSStageDataTransitPtr
     gBufferDepth     ->setInternalFormat (GL_DEPTH_COMPONENT24);
     gBufferTarget    ->setDepthAttachment(gBufferDepth        );
 
-    gBufferBackground->setColor(Color3r(0.0f, 0.0f, 0.0f));
+    gBufferBackground->setColor(Color3f(0.0f, 0.0f, 0.0f));
 
     shadingBlendChunk->setSrcFactor (GL_ONE);
     shadingBlendChunk->setDestFactor(GL_ONE);
@@ -538,7 +538,7 @@ void DeferredShadingStage::updateLightChunk(
     {
         DirectionalLight *dirL = static_cast<DirectionalLight *>(light);
 
-        Vec4r dir(dirL->getDirection());
+        Vec4f dir(dirL->getDirection());
         dir[3] = 0.f;
 
         lightChunk->setPosition(dir);
@@ -547,7 +547,7 @@ void DeferredShadingStage::updateLightChunk(
     {
         PointLight *pointL = static_cast<PointLight *>(light);
 
-        Vec4r pos(pointL->getPosition());
+        Vec4f pos(pointL->getPosition());
         pos[3] = 1.f;
 
         lightChunk->setPosition            (pos                              );
@@ -560,7 +560,7 @@ void DeferredShadingStage::updateLightChunk(
     {
         SpotLight *spotL = static_cast<SpotLight *>(light);
 
-        Vec4r pos(spotL->getPosition());
+        Vec4f pos(spotL->getPosition());
         pos[3] = 1.f;
 
         lightChunk->setPosition            (pos                             );

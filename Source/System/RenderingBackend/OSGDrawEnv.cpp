@@ -117,7 +117,7 @@ DrawEnv::~DrawEnv(void)
 {
 }
 
-Matrixr DrawEnv::calcTileDecorationMatrix(void) const
+Matrix DrawEnv::calcTileDecorationMatrix(void) const
 {
     Vec4f vTileRegion = this->getTileRegion();
 

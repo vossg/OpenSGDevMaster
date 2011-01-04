@@ -122,10 +122,10 @@ void MyOSGQGLWidget::initOpenGL ( void )
     glEnable   (GL_NORMALIZE );
 
     // switch off default light
-    OSG::Real nul[4]={0.f,0.f,0.f,0.f};
+    OSG::Real32 nul[4]={0.f,0.f,0.f,0.f};
 
-    OSG::GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
-    OSG::GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
 }
 
 void MyOSGQGLWidget::initializeGL ( void )
@@ -145,10 +145,10 @@ void MyOSGQGLWidget::initializeGL ( void )
     glEnable   (GL_NORMALIZE );
 
     // switch off default light
-    Real nul[4]={0.f,0.f,0.f,0.f};
+    Real32 nul[4]={0.f,0.f,0.f,0.f};
 
-    GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
-    GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
 #endif
 
     OSG::commitChanges();

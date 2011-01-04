@@ -101,7 +101,7 @@ void TextureEnvChunkBase::setEnvMode(const GLenum &value)
 //! Get the value of the TextureEnvChunk::_sfEnvColor field.
 
 inline
-Color4r &TextureEnvChunkBase::editEnvColor(void)
+Color4f &TextureEnvChunkBase::editEnvColor(void)
 {
     editSField(EnvColorFieldMask);
 
@@ -110,14 +110,14 @@ Color4r &TextureEnvChunkBase::editEnvColor(void)
 
 //! Get the value of the TextureEnvChunk::_sfEnvColor field.
 inline
-const Color4r &TextureEnvChunkBase::getEnvColor(void) const
+const Color4f &TextureEnvChunkBase::getEnvColor(void) const
 {
     return _sfEnvColor.getValue();
 }
 
 //! Set the value of the TextureEnvChunk::_sfEnvColor field.
 inline
-void TextureEnvChunkBase::setEnvColor(const Color4r &value)
+void TextureEnvChunkBase::setEnvColor(const Color4f &value)
 {
     editSField(EnvColorFieldMask);
 
@@ -701,7 +701,7 @@ void TextureEnvChunkBase::setShaderCullModes(const UInt8 value)
 //! Get the value of the TextureEnvChunk::_sfShaderConstEye field.
 
 inline
-Vec3r &TextureEnvChunkBase::editShaderConstEye(void)
+Vec3f &TextureEnvChunkBase::editShaderConstEye(void)
 {
     editSField(ShaderConstEyeFieldMask);
 
@@ -710,14 +710,14 @@ Vec3r &TextureEnvChunkBase::editShaderConstEye(void)
 
 //! Get the value of the TextureEnvChunk::_sfShaderConstEye field.
 inline
-const Vec3r &TextureEnvChunkBase::getShaderConstEye(void) const
+const Vec3f &TextureEnvChunkBase::getShaderConstEye(void) const
 {
     return _sfShaderConstEye.getValue();
 }
 
 //! Set the value of the TextureEnvChunk::_sfShaderConstEye field.
 inline
-void TextureEnvChunkBase::setShaderConstEye(const Vec3r &value)
+void TextureEnvChunkBase::setShaderConstEye(const Vec3f &value)
 {
     editSField(ShaderConstEyeFieldMask);
 

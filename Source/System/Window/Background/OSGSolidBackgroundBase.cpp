@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Color3r         SolidBackgroundBase::_sfColor
+/*! \var Color3f         SolidBackgroundBase::_sfColor
     The background color.
 */
 
@@ -120,8 +120,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(),
+    pDesc = new SFColor3f::Description(
+        SFColor3f::getClassType(),
         "color",
         "The background color.\n",
         ColorFieldId, ColorFieldMask,
@@ -176,7 +176,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     "The color of the background is given by the _sfColor field.\n"
     "\t<Field\n"
     "\t\tname=\"color\"\n"
-    "\t\ttype=\"Color3r\"\n"
+    "\t\ttype=\"Color3f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"0.f, 0.f, 0.f\"\n"
@@ -222,14 +222,14 @@ UInt32 SolidBackgroundBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFColor3r *SolidBackgroundBase::editSFColor(void)
+SFColor3f *SolidBackgroundBase::editSFColor(void)
 {
     editSField(ColorFieldMask);
 
     return &_sfColor;
 }
 
-const SFColor3r *SolidBackgroundBase::getSFColor(void) const
+const SFColor3f *SolidBackgroundBase::getSFColor(void) const
 {
     return &_sfColor;
 }
@@ -425,7 +425,7 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 
 SolidBackgroundBase::SolidBackgroundBase(void) :
     Inherited(),
-    _sfColor                  (Color3r(0.f, 0.f, 0.f)),
+    _sfColor                  (Color3f(0.f, 0.f, 0.f)),
     _sfAlpha                  (Real32(1.f))
 {
 }
@@ -447,8 +447,8 @@ SolidBackgroundBase::~SolidBackgroundBase(void)
 
 GetFieldHandlePtr SolidBackgroundBase::getHandleColor           (void) const
 {
-    SFColor3r::GetHandlePtr returnValue(
-        new  SFColor3r::GetHandle(
+    SFColor3f::GetHandlePtr returnValue(
+        new  SFColor3f::GetHandle(
              &_sfColor,
              this->getType().getFieldDesc(ColorFieldId),
              const_cast<SolidBackgroundBase *>(this)));
@@ -458,8 +458,8 @@ GetFieldHandlePtr SolidBackgroundBase::getHandleColor           (void) const
 
 EditFieldHandlePtr SolidBackgroundBase::editHandleColor          (void)
 {
-    SFColor3r::EditHandlePtr returnValue(
-        new  SFColor3r::EditHandle(
+    SFColor3f::EditHandlePtr returnValue(
+        new  SFColor3f::EditHandle(
              &_sfColor,
              this->getType().getFieldDesc(ColorFieldId),
              this));

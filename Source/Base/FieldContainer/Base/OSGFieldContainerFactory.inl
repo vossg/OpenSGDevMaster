@@ -50,15 +50,11 @@ UInt32 FieldContainerFactoryBase::getNumContainers(void) const
 {
     UInt32 returnValue = 0;
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->acquire();
-#endif
 
     returnValue = _vContainerStore.size();
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->release();
-#endif
 
     return returnValue;
 }
@@ -69,9 +65,7 @@ FieldContainerFactoryBase::ContainerPtr
 {
     ContainerPtr returnValue = NULL;
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->acquire();
-#endif
 
     if(uiContainerId < _vContainerStore.size())
     {
@@ -85,9 +79,7 @@ FieldContainerFactoryBase::ContainerPtr
         }
     }
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->release();
-#endif
 
     return returnValue;
 }
@@ -98,18 +90,14 @@ FieldContainerFactoryBase::ContainerHandlerP
 {
     ContainerHandlerP returnValue = NULL;
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->acquire();
-#endif
 
     if(uiContainerId < _vContainerStore.size())
     {
         returnValue = _vContainerStore[uiContainerId];
     }
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->release();
-#endif
 
     return returnValue;
 }
@@ -141,9 +129,7 @@ bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)
 {
     bool returnValue = false;
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->acquire();
-#endif
 
     if(uiContainerId < _vContainerStore.size())
     {
@@ -160,9 +146,7 @@ bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)
     }
 #endif
 
-#ifndef OSG_EMBEDDED
     _pStoreLock->release();
-#endif
 
     return returnValue;
 }

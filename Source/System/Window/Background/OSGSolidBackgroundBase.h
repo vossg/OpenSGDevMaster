@@ -106,7 +106,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFColor3r         SFColorType;
+    typedef SFColor3f         SFColorType;
     typedef SFReal32          SFAlphaType;
 
     /*---------------------------------------------------------------------*/
@@ -133,15 +133,15 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-                  SFColor3r           *editSFColor          (void);
-            const SFColor3r           *getSFColor           (void) const;
+                  SFColor3f           *editSFColor          (void);
+            const SFColor3f           *getSFColor           (void) const;
 
                   SFReal32            *editSFAlpha          (void);
             const SFReal32            *getSFAlpha           (void) const;
 
 
-                  Color3r             &editColor          (void);
-            const Color3r             &getColor           (void) const;
+                  Color3f             &editColor          (void);
+            const Color3f             &getColor           (void) const;
 
                   Real32              &editAlpha          (void);
                   Real32               getAlpha           (void) const;
@@ -151,7 +151,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setColor          (const Color3r &value);
+            void setColor          (const Color3f &value);
             void setAlpha          (const Real32 value);
 
     /*! \}                                                                 */
@@ -212,7 +212,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor3r         _sfColor;
+    SFColor3f         _sfColor;
     SFReal32          _sfAlpha;
 
     /*! \}                                                                 */

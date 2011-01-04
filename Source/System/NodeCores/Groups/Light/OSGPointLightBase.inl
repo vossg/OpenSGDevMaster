@@ -76,7 +76,7 @@ OSG::UInt16 PointLightBase::getClassGroupId(void)
 //! Get the value of the PointLight::_sfPosition field.
 
 inline
-Pnt3r &PointLightBase::editPosition(void)
+Pnt3f &PointLightBase::editPosition(void)
 {
     editSField(PositionFieldMask);
 
@@ -85,14 +85,14 @@ Pnt3r &PointLightBase::editPosition(void)
 
 //! Get the value of the PointLight::_sfPosition field.
 inline
-const Pnt3r &PointLightBase::getPosition(void) const
+const Pnt3f &PointLightBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }
 
 //! Set the value of the PointLight::_sfPosition field.
 inline
-void PointLightBase::setPosition(const Pnt3r &value)
+void PointLightBase::setPosition(const Pnt3f &value)
 {
     editSField(PositionFieldMask);
 

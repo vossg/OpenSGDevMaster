@@ -89,15 +89,15 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Vec3r           SpotLightBase::_sfDirection
+/*! \var Vec3f           SpotLightBase::_sfDirection
     
 */
 
-/*! \var Real            SpotLightBase::_sfSpotExponent
+/*! \var Real32          SpotLightBase::_sfSpotExponent
     The drop-off exponent of the spotlight.
 */
 
-/*! \var Real            SpotLightBase::_sfSpotCutOff
+/*! \var Real32          SpotLightBase::_sfSpotCutOff
     The cut-off angle of the spotlight (in radians, not degrees!).
 */
 
@@ -121,8 +121,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(),
+    pDesc = new SFVec3f::Description(
+        SFVec3f::getClassType(),
         "direction",
         "",
         DirectionFieldId, DirectionFieldMask,
@@ -133,8 +133,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "spotExponent",
         "The drop-off exponent of the spotlight.\n",
         SpotExponentFieldId, SpotExponentFieldMask,
@@ -145,8 +145,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "spotCutOff",
         "The cut-off angle of the spotlight (in radians, not degrees!).\n",
         SpotCutOffFieldId, SpotCutOffFieldMask,
@@ -192,7 +192,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "quadraticAttenuation attributes.\n"
     "\t<Field\n"
     "\t\tname=\"direction\"\n"
-    "\t\ttype=\"Vec3r\"\n"
+    "\t\ttype=\"Vec3f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"0.f,0.f,1.f\"\n"
@@ -200,7 +200,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"spotExponent\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"0.f\"\n"
@@ -209,7 +209,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"spotCutOff\"\n"
-    "\t\ttype=\"Real\"\n"
+    "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"0.f\"\n"
@@ -247,40 +247,40 @@ UInt32 SpotLightBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFVec3r *SpotLightBase::editSFDirection(void)
+SFVec3f *SpotLightBase::editSFDirection(void)
 {
     editSField(DirectionFieldMask);
 
     return &_sfDirection;
 }
 
-const SFVec3r *SpotLightBase::getSFDirection(void) const
+const SFVec3f *SpotLightBase::getSFDirection(void) const
 {
     return &_sfDirection;
 }
 
 
-SFReal *SpotLightBase::editSFSpotExponent(void)
+SFReal32 *SpotLightBase::editSFSpotExponent(void)
 {
     editSField(SpotExponentFieldMask);
 
     return &_sfSpotExponent;
 }
 
-const SFReal *SpotLightBase::getSFSpotExponent(void) const
+const SFReal32 *SpotLightBase::getSFSpotExponent(void) const
 {
     return &_sfSpotExponent;
 }
 
 
-SFReal *SpotLightBase::editSFSpotCutOff(void)
+SFReal32 *SpotLightBase::editSFSpotCutOff(void)
 {
     editSField(SpotCutOffFieldMask);
 
     return &_sfSpotCutOff;
 }
 
-const SFReal *SpotLightBase::getSFSpotCutOff(void) const
+const SFReal32 *SpotLightBase::getSFSpotCutOff(void) const
 {
     return &_sfSpotCutOff;
 }
@@ -476,9 +476,9 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 
 SpotLightBase::SpotLightBase(void) :
     Inherited(),
-    _sfDirection              (Vec3r(0.f,0.f,1.f)),
-    _sfSpotExponent           (Real(0.f)),
-    _sfSpotCutOff             (Real(0.f))
+    _sfDirection              (Vec3f(0.f,0.f,1.f)),
+    _sfSpotExponent           (Real32(0.f)),
+    _sfSpotCutOff             (Real32(0.f))
 {
 }
 
@@ -500,8 +500,8 @@ SpotLightBase::~SpotLightBase(void)
 
 GetFieldHandlePtr SpotLightBase::getHandleDirection       (void) const
 {
-    SFVec3r::GetHandlePtr returnValue(
-        new  SFVec3r::GetHandle(
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
              &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId),
              const_cast<SpotLightBase *>(this)));
@@ -511,8 +511,8 @@ GetFieldHandlePtr SpotLightBase::getHandleDirection       (void) const
 
 EditFieldHandlePtr SpotLightBase::editHandleDirection      (void)
 {
-    SFVec3r::EditHandlePtr returnValue(
-        new  SFVec3r::EditHandle(
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
              &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId),
              this));
@@ -525,8 +525,8 @@ EditFieldHandlePtr SpotLightBase::editHandleDirection      (void)
 
 GetFieldHandlePtr SpotLightBase::getHandleSpotExponent    (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfSpotExponent,
              this->getType().getFieldDesc(SpotExponentFieldId),
              const_cast<SpotLightBase *>(this)));
@@ -536,8 +536,8 @@ GetFieldHandlePtr SpotLightBase::getHandleSpotExponent    (void) const
 
 EditFieldHandlePtr SpotLightBase::editHandleSpotExponent   (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfSpotExponent,
              this->getType().getFieldDesc(SpotExponentFieldId),
              this));
@@ -550,8 +550,8 @@ EditFieldHandlePtr SpotLightBase::editHandleSpotExponent   (void)
 
 GetFieldHandlePtr SpotLightBase::getHandleSpotCutOff      (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfSpotCutOff,
              this->getType().getFieldDesc(SpotCutOffFieldId),
              const_cast<SpotLightBase *>(this)));
@@ -561,8 +561,8 @@ GetFieldHandlePtr SpotLightBase::getHandleSpotCutOff      (void) const
 
 EditFieldHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfSpotCutOff,
              this->getType().getFieldDesc(SpotCutOffFieldId),
              this));

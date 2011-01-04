@@ -46,9 +46,7 @@
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
 
-#ifndef OSG_EMBEDDED
 #include "OSGLock.h"
-#endif
 
 #include <boost/bind.hpp>
 
@@ -102,7 +100,6 @@ class NoLockPolicy
     void operator =(const NoLockPolicy &source);
 };
 
-#ifndef OSG_EMBEDDED
 
 /*! \ingroup GrpBaseMultiThreading
     \ingroup GrpLibOSGBase
@@ -212,7 +209,6 @@ class SingleStaticInitLockPolicy
     SingleStaticInitLockPolicy(const  SingleStaticInitLockPolicy &source);
     void operator =(const SingleStaticInitLockPolicy &source);
 };
-#endif
 
 OSG_END_NAMESPACE
 

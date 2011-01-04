@@ -45,7 +45,6 @@
 
 #include "OSGConfig.h"
 
-#ifndef OSG_EMBEDDED
 
 #include "OSGGeometry.h"
 #include "OSGPrimitiveIterator.h"
@@ -303,4 +302,3 @@ bool PointIterator::operator !=(const PointIterator &other) const
     return !(*this == other);
 }
 
-#endif

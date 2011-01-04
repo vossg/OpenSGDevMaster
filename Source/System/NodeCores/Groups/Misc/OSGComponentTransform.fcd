@@ -12,35 +12,35 @@
 >
 	<Field
 		name="center"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
 	>
 	</Field>
 	<Field
 		name="rotation"
-		type="Quaternionr"
+		type="Quaternion"
 		cardinality="single"
 		visibility="external"
 	>
 	</Field>
 	<Field
 		name="scale"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
 	>
 	</Field>
 	<Field
 		name="scaleOrientation"
-		type="Quaternionr"
+		type="Quaternion"
 		cardinality="single"
 		visibility="external"
 	>
 	</Field>
 	<Field
 		name="translation"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
 	>

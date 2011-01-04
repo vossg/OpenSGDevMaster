@@ -68,9 +68,9 @@ class OSG_BASE_DLLMAPPING CylinderVolume : public Volume
 
     CylinderVolume(void);
 
-    CylinderVolume(const Pnt3r          &p, 
-                   const Vec3r          &d, 
-                         Real            r);
+    CylinderVolume(const Pnt3f          &p, 
+                   const Vec3f          &d, 
+                         Real32          r);
     CylinderVolume(const CylinderVolume &c);
 
     /*! \}                                                                 */
@@ -85,30 +85,30 @@ class OSG_BASE_DLLMAPPING CylinderVolume : public Volume
     /*! \name                        Get                                   */
     /*! \{                                                                 */
     
-            void getAxis        (Pnt3r &apos,  
-                                 Vec3r &adir  ) const;
-            Real getRadius      (void         ) const;
+            void   getAxis        (Pnt3f &apos,  
+                                   Vec3f &adir  ) const;
+            Real32 getRadius      (void         ) const;
 
-    virtual void getCenter      (Pnt3r &center) const;
-    virtual Real getScalarVolume(void         ) const;
-    virtual void getBounds      (Pnt3r &min,   
-                                 Pnt3r &max   ) const;
+    virtual void   getCenter      (Pnt3f &center) const;
+    virtual Real32 getScalarVolume(void         ) const;
+    virtual void   getBounds      (Pnt3f &min,   
+                                   Pnt3f &max   ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-     void setValue (const Pnt3r &p, const Vec3r &d, Real r);
-     void setAxis  (const Pnt3r &p, const Vec3r &d        );
-     void setRadius(      Real r                          );
+     void setValue (const Pnt3f  &p, const Vec3f &d, Real32 r);
+     void setAxis  (const Pnt3f  &p, const Vec3f &d          );
+     void setRadius(      Real32  r                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Extend                                */
     /*! \{                                                                 */
 
-    virtual void extendBy(const Pnt3r          &pt    );
+    virtual void extendBy(const Pnt3f          &pt    );
     virtual void extendBy(const Volume         &volume);
 
             void extendBy(const CylinderVolume &obj   );
@@ -118,22 +118,22 @@ class OSG_BASE_DLLMAPPING CylinderVolume : public Volume
     /*! \name                        Intersect                             */
     /*! \{                                                                 */
 
-    virtual bool intersect  (const Pnt3r          &point ) const;
+    virtual bool intersect  (const Pnt3f          &point ) const;
     virtual bool intersect  (const Line           &line  ) const;
     virtual bool intersect  (const Line           &line,
-                                   Real           &enter, 
-                                   Real           &exit  ) const;
+                                   Real32         &enter, 
+                                   Real32         &exit  ) const;
 
     virtual bool intersect  (const Volume         &volume) const;
             bool intersect  (const CylinderVolume &volume) const;
-    virtual bool isOnSurface(const Pnt3r          &point ) const;
+    virtual bool isOnSurface(const Pnt3f          &point ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Transform                             */
     /*! \{                                                                 */
 
-    virtual void transform(const Matrixr &mat);
+    virtual void transform(const Matrix &mat);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,9 +166,9 @@ class OSG_BASE_DLLMAPPING CylinderVolume : public Volume
 
   private:
 
-    Pnt3r _axisPos;
-    Vec3r _axisDir;
-    Real  _radius;
+    Pnt3f  _axisPos;
+    Vec3f  _axisDir;
+    Real32 _radius;
 
 };
 

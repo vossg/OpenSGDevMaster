@@ -43,8 +43,8 @@ BoxVolume::BoxVolume(void) :
 
 
 inline
-BoxVolume::BoxVolume(Real xmin, Real ymin, Real zmin,
-                     Real xmax, Real ymax, Real zmax) :
+BoxVolume::BoxVolume(Real32 xmin, Real32 ymin, Real32 zmin,
+                     Real32 xmax, Real32 ymax, Real32 zmax) :
      Inherited(                ), 
     _min      (xmin, ymin, zmin), 
     _max      (xmax, ymax, zmax)
@@ -54,7 +54,7 @@ BoxVolume::BoxVolume(Real xmin, Real ymin, Real zmin,
 
 
 inline
-BoxVolume::BoxVolume(const Pnt3r &min, const Pnt3r &max) :
+BoxVolume::BoxVolume(const Pnt3f &min, const Pnt3f &max) :
      Inherited(   ), 
     _min      (min), 
     _max      (max)
@@ -79,26 +79,26 @@ BoxVolume::~BoxVolume(void)
 
 
 inline
-const Pnt3r &BoxVolume::getMin(void) const
+const Pnt3f &BoxVolume::getMin(void) const
 {
     return _min;
 }
 
 
 inline
-const Pnt3r &BoxVolume::getMax(void) const
+const Pnt3f &BoxVolume::getMax(void) const
 {
     return _max;
 }
 
 
 inline
-void BoxVolume::getBounds(Real &xmin, 
-                          Real &ymin, 
-                          Real &zmin,
-                          Real &xmax, 
-                          Real &ymax, 
-                          Real &zmax) const
+void BoxVolume::getBounds(Real32 &xmin, 
+                          Real32 &ymin, 
+                          Real32 &zmin,
+                          Real32 &xmax, 
+                          Real32 &ymax, 
+                          Real32 &zmax) const
 {
     _min.getSeparateValues(xmin, ymin, zmin);
     _max.getSeparateValues(xmax, ymax, zmax);
@@ -106,9 +106,9 @@ void BoxVolume::getBounds(Real &xmin,
 
 
 inline
-void BoxVolume::getOrigin(Real &originX, 
-                          Real &originY, 
-                          Real &originZ) const
+void BoxVolume::getOrigin(Real32 &originX, 
+                          Real32 &originY, 
+                          Real32 &originZ) const
 {
     originX = _min[0];
     originY = _min[1];
@@ -117,9 +117,9 @@ void BoxVolume::getOrigin(Real &originX,
 
 
 inline
-void BoxVolume::getSize(Real &sizeX, 
-                        Real &sizeY, 
-                        Real &sizeZ) const
+void BoxVolume::getSize(Real32 &sizeX, 
+                        Real32 &sizeY, 
+                        Real32 &sizeZ) const
 {
     sizeX = _max[0] - _min[0];
     sizeY = _max[1] - _min[1];
@@ -128,14 +128,14 @@ void BoxVolume::getSize(Real &sizeX,
 
 
 inline
-void BoxVolume::getSize(Vec3r &vec) const
+void BoxVolume::getSize(Vec3f &vec) const
 {
     vec.setValues(_max[0] - _min[0], _max[1] - _min[1], _max[2] - _min[2]);
 }
 
 
 inline
-void BoxVolume::setBounds(Real w, Real h, Real d)
+void BoxVolume::setBounds(Real32 w, Real32 h, Real32 d)
 {
     _min.setValues(-w / 2.0f, -h / 2.0f, -d / 2.0f);
     _max.setValues( w / 2.0f,  h / 2.0f,  d / 2.0f);
@@ -147,12 +147,12 @@ void BoxVolume::setBounds(Real w, Real h, Real d)
 
 
 inline
-void BoxVolume::setBounds(Real xmin, 
-                          Real ymin, 
-                          Real zmin,
-                          Real xmax, 
-                          Real ymax, 
-                          Real zmax)
+void BoxVolume::setBounds(Real32 xmin, 
+                          Real32 ymin, 
+                          Real32 zmin,
+                          Real32 xmax, 
+                          Real32 ymax, 
+                          Real32 zmax)
 {
     _min.setValues(xmin, ymin, zmin);
     _max.setValues(xmax, ymax, zmax);
@@ -164,7 +164,7 @@ void BoxVolume::setBounds(Real xmin,
 
 
 inline
-void BoxVolume::setBounds(const Pnt3r &min, const Pnt3r &max)
+void BoxVolume::setBounds(const Pnt3f &min, const Pnt3f &max)
 {
     _min = min; 
     _max = max;
@@ -175,14 +175,14 @@ void BoxVolume::setBounds(const Pnt3r &min, const Pnt3r &max)
 }
 
 inline
-Pnt3r &BoxVolume::editMin(void)
+Pnt3f &BoxVolume::editMin(void)
 {
     return _min;
 }
 
 
 inline
-Pnt3r &BoxVolume::editMax(void)
+Pnt3f &BoxVolume::editMax(void)
 {
     return _max;
 }

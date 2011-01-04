@@ -45,8 +45,6 @@
 #include "OSGBaseTypes.h"
 #include "OSGContainerForwards.h"
 
-#ifndef OSG_EMBEDDED
-
 #include "OSGBaseThread.h"
 
 #include <utility>
@@ -72,11 +70,7 @@
 #   endif
 #endif
 
-#endif
-
 OSG_BEGIN_NAMESPACE
-
-#ifndef OSG_EMBEDDED
 
 class Thread;
 class ChangeList;
@@ -778,96 +772,8 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
 
 OSG_GEN_MEMOBJPTR(ExternalThread);
 
-#else /* OSG_EMBEDDED */
-
-class ChangeList;
-
-/*! \ingroup GrpBaseMultiThreading
-    \ingroup GrpLibOSGBase
- */
-
-class OSG_BASE_DLLMAPPING Thread
-{
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    typedef Thread     Self;
-
-    /*==========================  PUBLIC  =================================*/
-
-  public :
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
-    static ChangeList *getCurrentChangeList(void);
-
-    static UInt32      getCurrentAspect    (void)
-    {
-        return 1;
-    }
-
-    static UInt32      getCurrentNamespaceMask(void)
-    {
-        return 1;
-    }
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Run                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Debug                                   */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    Thread(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~Thread(void);
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    Thread(const Thread &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const Thread &source);
-};
-#endif /* OSG_WIN_CE  */
-
 OSG_END_NAMESPACE
 
-#ifndef OSG_EMBEDDED
 #include "OSGThread.inl"
-#endif
 
 #endif /* _OSGTHREAD_H_ */

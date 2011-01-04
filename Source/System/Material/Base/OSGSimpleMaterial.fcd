@@ -23,7 +23,7 @@
   (OSG::SimpleMaterial::_sfColorMaterial).
   <Field
 	 name="ambient"
-	 type="Color3r"
+	 type="Color3f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f,0.f,0.f"
@@ -32,7 +32,7 @@
   </Field>
   <Field
 	 name="diffuse"
-	 type="Color3r"
+	 type="Color3f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f,0.f,0.f"
@@ -41,7 +41,7 @@
   </Field>
   <Field
 	 name="specular"
-	 type="Color3r"
+	 type="Color3f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f,0.f,0.f"
@@ -50,7 +50,7 @@
   </Field>
   <Field
 	 name="shininess"
-	 type="Real"
+	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="1.f"
@@ -61,7 +61,7 @@
   </Field>
   <Field
 	 name="emission"
-	 type="Color3r"
+	 type="Color3f"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f,0.f,0.f"
@@ -69,7 +69,7 @@
   </Field>
   <Field
 	 name="transparency"
-	 type="Real"
+	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="0.f"

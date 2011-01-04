@@ -51,9 +51,7 @@
 #include "OSGRenderAction.h"
 #include "OSGSceneFileHandler.h"
 #include "OSGVolumeDraw.h"
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 
 #include "OSGVisitSubTree.h"
 
@@ -179,7 +177,6 @@ ActionBase::ResultE VisitSubTree::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                             Intersect                                   */
 
-#ifndef OSG_EMBEDDED
 ActionBase::ResultE VisitSubTree::intersect(Action *action)
 {
           IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -194,7 +191,6 @@ ActionBase::ResultE VisitSubTree::intersect(Action *action)
 
     return ActionBase::Continue;
 }
-#endif
 
 
 /*-------------------------------------------------------------------------*/
@@ -217,11 +213,9 @@ void VisitSubTree::initMethod(InitPhase ePhase)
             VisitSubTree::getClassType(),
             reinterpret_cast<Action::Callback>(&VisitSubTree::renderLeave));
 
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(&VisitSubTree::intersect));
-#endif
     }
 }
 

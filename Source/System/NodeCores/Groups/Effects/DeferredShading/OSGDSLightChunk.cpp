@@ -133,48 +133,48 @@ void DSLightChunk::activate(DrawEnv *drawEnv, UInt32 index)
     calcModelView(drawEnv, matMV);
 
     glPushMatrix();
-    GLP::glLoadMatrixf(matMV.getValues());
+    glLoadMatrixf(matMV.getValues());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_DIFFUSE,
-                   _sfDiffuse.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_DIFFUSE,
+              _sfDiffuse.getValue().getValuesRGBA());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_AMBIENT,
-                   _sfAmbient.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_AMBIENT,
+              _sfAmbient.getValue().getValuesRGBA());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_SPECULAR,
-                   _sfSpecular.getValue().getValuesRGBA());
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_POSITION,
-                   _sfPosition.getValue().getValues());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_SPECULAR,
+              _sfSpecular.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_POSITION,
+              _sfPosition.getValue().getValues());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_CONSTANT_ATTENUATION,
-                   _sfConstantAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_CONSTANT_ATTENUATION,
+              _sfConstantAttenuation.getValue());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_LINEAR_ATTENUATION,
-                   _sfLinearAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_LINEAR_ATTENUATION,
+              _sfLinearAttenuation.getValue());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_QUADRATIC_ATTENUATION,
-                   _sfQuadraticAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_QUADRATIC_ATTENUATION,
+              _sfQuadraticAttenuation.getValue());
 
-    GLP::glLightf( GL_LIGHT0 + index, 
-                   GL_SPOT_CUTOFF, 
-                  _sfCutoff.getValue());
+    glLightf( GL_LIGHT0 + index, 
+              GL_SPOT_CUTOFF, 
+             _sfCutoff.getValue());
 
     if(_sfCutoff.getValue() < 180.f)
     {
-        GLP::glLightfv( GL_LIGHT0 + index, 
-                        GL_SPOT_DIRECTION,
-                       _sfDirection.getValue().getValues());
+        glLightfv( GL_LIGHT0 + index, 
+                   GL_SPOT_DIRECTION,
+                  _sfDirection.getValue().getValues());
 
-        GLP::glLightf( GL_LIGHT0 + index, 
-                       GL_SPOT_EXPONENT, 
-                      _sfExponent.getValue());
+        glLightf( GL_LIGHT0 + index, 
+                  GL_SPOT_EXPONENT, 
+                 _sfExponent.getValue());
     }
 
     glEnable(GL_LIGHT0 + index);
@@ -201,52 +201,52 @@ void DSLightChunk::changeFrom(DrawEnv *drawEnv, StateChunk *old, UInt32 index)
     calcModelView(drawEnv, matMV);
 
     glPushMatrix();
-    GLP::glLoadMatrixf(matMV.getValues());
+    glLoadMatrixf(matMV.getValues());
 
     // it could theoretically be more efficient to turn the light off before
     // changing its parameters, have to try that sometime
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_DIFFUSE,
-                   _sfDiffuse.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_DIFFUSE,
+              _sfDiffuse.getValue().getValuesRGBA());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_AMBIENT,
-                   _sfAmbient.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_AMBIENT,
+              _sfAmbient.getValue().getValuesRGBA());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_SPECULAR,
-                   _sfSpecular.getValue().getValuesRGBA());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_SPECULAR,
+              _sfSpecular.getValue().getValuesRGBA());
 
-    GLP::glLightfv( GL_LIGHT0 + index, 
-                    GL_POSITION,
-                   _sfPosition.getValue().getValues());
+    glLightfv( GL_LIGHT0 + index, 
+               GL_POSITION,
+              _sfPosition.getValue().getValues());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_CONSTANT_ATTENUATION,
-                   _sfConstantAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_CONSTANT_ATTENUATION,
+              _sfConstantAttenuation.getValue());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_LINEAR_ATTENUATION,
-                   _sfLinearAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_LINEAR_ATTENUATION,
+              _sfLinearAttenuation.getValue());
 
-    GLP::glLightf ( GL_LIGHT0 + index, 
-                    GL_QUADRATIC_ATTENUATION,
-                   _sfQuadraticAttenuation.getValue());
+    glLightf ( GL_LIGHT0 + index, 
+               GL_QUADRATIC_ATTENUATION,
+              _sfQuadraticAttenuation.getValue());
 
-    GLP::glLightf( GL_LIGHT0 + index, 
-                   GL_SPOT_CUTOFF,
-                  _sfCutoff.getValue());
+    glLightf( GL_LIGHT0 + index, 
+              GL_SPOT_CUTOFF,
+             _sfCutoff.getValue());
 
     if(_sfCutoff.getValue() < 180.f)
     {
-        GLP::glLightfv( GL_LIGHT0 + index, 
-                        GL_SPOT_DIRECTION,
-                       _sfDirection.getValue().getValues());
+        glLightfv( GL_LIGHT0 + index, 
+                   GL_SPOT_DIRECTION,
+                  _sfDirection.getValue().getValues());
 
-        GLP::glLightf( GL_LIGHT0 + index, 
-                       GL_SPOT_EXPONENT, 
-                      _sfExponent.getValue());
+        glLightf( GL_LIGHT0 + index, 
+                  GL_SPOT_EXPONENT, 
+                 _sfExponent.getValue());
     }
 
     glPopMatrix();
@@ -282,15 +282,15 @@ bool DSLightChunk::operator == (const StateChunk &other) const
         return true;
 
     if(!getAmbient  ().equals(tother->getAmbient  (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getDiffuse  ().equals(tother->getDiffuse  (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getSpecular ().equals(tother->getSpecular (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getPosition ().equals(tother->getPosition (),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
        !getDirection().equals(tother->getDirection(),
-                              TypeTraits<Real>::getDefaultEps()) ||
+                              TypeTraits<Real32>::getDefaultEps()) ||
 
         getConstantAttenuation () != tother->getConstantAttenuation () ||
         getLinearAttenuation   () != tother->getLinearAttenuation   () ||
@@ -312,11 +312,11 @@ bool DSLightChunk::operator != (const StateChunk &other) const
 
 /*-------------------------------- Helper --------------------------------*/
 
-void DSLightChunk::calcModelView(DrawEnv *drawEnv, Matrixr &result)
+void DSLightChunk::calcModelView(DrawEnv *drawEnv, Matrix &result)
 {
     result = drawEnv->getVPCameraViewing();
 
-    Matrixr toWorld;
+    Matrix toWorld;
 
     if(_sfBeacon.getValue() != NULL)
     {

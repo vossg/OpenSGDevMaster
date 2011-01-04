@@ -52,20 +52,20 @@
 OSG_BEGIN_NAMESPACE
 
 
-void CylinderVolume::getCenter(Pnt3r &center) const
+void CylinderVolume::getCenter(Pnt3f &center) const
 {
     center = _axisPos + _axisDir * .5f;
 }
 
 
-Real CylinderVolume::getScalarVolume(void) const
+Real32 CylinderVolume::getScalarVolume(void) const
 {
     return isEmpty() ? 0.0f : (_radius * _radius * Pi * _axisDir.length());
 }
 
 /*! gives the boundaries of the volume */
 
-void CylinderVolume::getBounds(Pnt3r &min, Pnt3r &max) const
+void CylinderVolume::getBounds(Pnt3f &min, Pnt3f &max) const
 {
     for(UInt32 i = 0; i < 3; i++) 
     {
@@ -84,7 +84,7 @@ void CylinderVolume::getBounds(Pnt3r &min, Pnt3r &max) const
 
 /*! extends (if necessary) to contain the given 3D point */
 
-void CylinderVolume::extendBy(const Pnt3r &OSG_CHECK_ARG(pt))
+void CylinderVolume::extendBy(const Pnt3f &OSG_CHECK_ARG(pt))
 {
     assert(false);
 }
@@ -106,9 +106,9 @@ void CylinderVolume::extendBy(const Volume &volume)
     is not empty
 */
 
-bool CylinderVolume::intersect(const Pnt3r &point) const
+bool CylinderVolume::intersect(const Pnt3f &point) const
 {
-	Real dist = Line(_axisPos, _axisDir).distance(point);
+	Real32 dist = Line(_axisPos, _axisDir).distance(point);
 
     if(dist > _radius)
         return false;
@@ -131,9 +131,9 @@ bool CylinderVolume::intersect(const Line &line) const
 
 /*! intersect the volume with the given Line */
 
-bool CylinderVolume::intersect(const Line        &line,
-                                     Real &enter, 
-                                     Real &exit ) const
+bool CylinderVolume::intersect(const Line   &line,
+                                     Real32 &enter, 
+                                     Real32 &exit ) const
 {
     return line.intersect(*this, enter, exit);
 }
@@ -144,9 +144,9 @@ bool CylinderVolume::intersect(const Volume &volume) const
 }
 
 
-bool CylinderVolume::isOnSurface(const Pnt3r &point) const
+bool CylinderVolume::isOnSurface(const Pnt3f &point) const
 {
-    Real dist = Line(_axisPos, _axisDir).distance(point);
+    Real32 dist = Line(_axisPos, _axisDir).distance(point);
 
     if(dist > _radius)
         return false;
@@ -158,24 +158,25 @@ bool CylinderVolume::isOnSurface(const Pnt3r &point) const
 
     return
       ( onplane && dist                   <= _radius                          ) ||
-      (!onplane && osgAbs(dist - _radius) <  TypeTraits<Real>::getDefaultEps());
+      (!onplane && osgAbs(dist - _radius) <  TypeTraits<
+                                                      Real32>::getDefaultEps());
 }
 
 /*-------------------------- transformation -------------------------------*/
 
 /*! transform volume by the given matrix */
-void CylinderVolume::transform(const Matrixr &mtx)
+void CylinderVolume::transform(const Matrix &mtx)
 {
      // get pos & axis
-    Pnt3r p;
-    Vec3r v, v2, v3;
+    Pnt3f p;
+    Vec3f v, v2, v3;
 
     getAxis(p,v);
      
      // find perpendicular vector (to detect radius transformation)
     v2 = v;
     v2.normalize();
-    v3 = v2.x() > 0.9f ? Vec3r(0.f,1.f,0.f) : Vec3r(1.f,0.f,0.f);
+    v3 = v2.x() > 0.9f ? Vec3f(0.f,1.f,0.f) : Vec3f(1.f,0.f,0.f);
     v3.crossThis(v2);
     
     // transform

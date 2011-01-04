@@ -19,7 +19,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 (OSG::MaterialChunk::_sfColorMaterial).
 	<Field
 		name="diffuse"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f,1.f,1.f,1.f"
@@ -27,7 +27,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="ambient"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue=".2f,.2f,.2f,1.f"
@@ -35,7 +35,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="specular"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue=".5f,.5f,.5f,1.f"
@@ -43,7 +43,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="emission"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f,0.f,0.f,1.f"
@@ -51,7 +51,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="shininess"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="10.f"
@@ -90,7 +90,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="backDiffuse"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f,1.f,1.f,0.f"
@@ -98,7 +98,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="backAmbient"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue=".2f,.2f,.2f,0.f"
@@ -106,7 +106,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="backSpecular"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue=".5f,.5f,.5f,0.f"
@@ -114,7 +114,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="backEmission"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f,0.f,0.f,0.f"
@@ -122,7 +122,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 	</Field>
 	<Field
 		name="backShininess"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="10.f"

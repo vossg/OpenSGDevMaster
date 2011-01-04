@@ -76,21 +76,21 @@ namespace
                 assert(0 != xform_);
             }
 
-            OSG::Matrixr const& get() const
+            OSG::Matrix const& get() const
             {
                 return xform_->getMatrix();
             }
 
-            OSG::Matrixr set(OSG::Matrixr const& a)
+            OSG::Matrix set(OSG::Matrix const& a)
             {
-                OSG::Matrixr result(get());
+                OSG::Matrix result(get());
 
                 xform_->setMatrix(a);
 
                 return result;
             }
 
-            OSG::Matrixr& edit() const
+            OSG::Matrix& edit() const
             {
                 return xform_->editMatrix();
             }
@@ -109,7 +109,7 @@ namespace
             OSG::Vec3f      scale_factor;
             OSG::Quaternion scale_orientation;
 
-            decompose(OSG::Matrixr const& a)
+            decompose(OSG::Matrix const& a)
                 : translation(),
                   rotation(),
                   scale_factor(),
@@ -119,20 +119,20 @@ namespace
             }
         };
 
-        OSG::Matrixr
-        inverse(OSG::Matrixr const& a)
+        OSG::Matrix
+        inverse(OSG::Matrix const& a)
         {
-            OSG::Matrixr result(a);
+            OSG::Matrix result(a);
 
             assert(false != result.invert());
 
             return result;
         }
 
-        OSG::Matrixr
-        transpose(OSG::Matrixr const& a)
+        OSG::Matrix
+        transpose(OSG::Matrix const& a)
         {
-            OSG::Matrixr result(a);
+            OSG::Matrix result(a);
 
             assert(false != result.transpose());
 
@@ -184,7 +184,7 @@ namespace
     }
 
     void
-    dump_xform(std::string const& n, OSG::Matrixr const& m, OSG::Matrixr const& w)
+    dump_xform(std::string const& n, OSG::Matrix const& m, OSG::Matrix const& w)
     {
         static unsigned const tabsize(8);
 
@@ -198,8 +198,8 @@ namespace
         std::string const prefix1(i - 1, '\t');
         std::string const prefix2(i + 1, '\t');
 
-        OSG::Matrixr const mt(matrix::transpose(m));
-        OSG::Matrixr const wt(matrix::transpose(w));
+        OSG::Matrix const mt(matrix::transpose(m));
+        OSG::Matrix const wt(matrix::transpose(w));
 
         std::cout << n
                   << prefix1 << mt[0] << "\t\t" << wt[0] << '\n'
@@ -358,7 +358,7 @@ namespace
             }
 
             if ((0 !=  xformScaleN) && (0 !=  xformRotationN)) {
-                OSG::Matrixr m(matrix::wrap(xformScaleN).get());
+                OSG::Matrix m(matrix::wrap(xformScaleN).get());
 
                 m.mult(matrix::wrap(xformRotationN).get());
 
@@ -447,24 +447,24 @@ namespace
         {
             std::cout << "set_pivot: [" << point << "][" << normal << ']' << std::endl;
 
-            OSG::Matrixr new_pivot;
+            OSG::Matrix new_pivot;
 
             { // p_n = w^-1 * [x,y,z]^T
                 new_pivot.setTranslate(point);
 
-                OSG::Matrixr const parent_absolute(object->pivotN->getParent()->getToWorld());
+                OSG::Matrix const parent_absolute(object->pivotN->getParent()->getToWorld());
 
                 new_pivot.multLeft(matrix::inverse(parent_absolute));
             }
 
             // p_n^-1
-            OSG::Matrixr new_pivot_inv(matrix::inverse(new_pivot));
+            OSG::Matrix new_pivot_inv(matrix::inverse(new_pivot));
 
-            OSG::Matrixr new_trans(matrix::wrap(object->xformTranslationN).get());
+            OSG::Matrix new_trans(matrix::wrap(object->xformTranslationN).get());
 
             { // t_n = p_n * r_n^-1 * s_n^-1 * p_n^-1 * p_o * s_o * r_o * p_o^-1 * t_o
-                OSG::Matrixr const rot  (matrix::wrap(object->xformRotationN).get());
-                OSG::Matrixr const scale(matrix::wrap(object->xformScaleN).get());
+                OSG::Matrix const rot  (matrix::wrap(object->xformRotationN).get());
+                OSG::Matrix const scale(matrix::wrap(object->xformScaleN).get());
 
                 new_trans.multLeft(matrix::wrap(object->pivotInvN).get());
                 new_trans.multLeft(rot);
@@ -476,7 +476,7 @@ namespace
                 new_trans.multLeft(new_pivot);
             }
 
-            OSG::Matrixr new_manip_root(new_pivot);
+            OSG::Matrix new_manip_root(new_pivot);
 
             { // mr_n = t_n^-1 * p_n [* manipulator^-1]
                 new_manip_root.multLeft(matrix::inverse(new_trans));

@@ -76,7 +76,7 @@ OSG::UInt16 DirectionalLightBase::getClassGroupId(void)
 //! Get the value of the DirectionalLight::_sfDirection field.
 
 inline
-Vec3r &DirectionalLightBase::editDirection(void)
+Vec3f &DirectionalLightBase::editDirection(void)
 {
     editSField(DirectionFieldMask);
 
@@ -85,14 +85,14 @@ Vec3r &DirectionalLightBase::editDirection(void)
 
 //! Get the value of the DirectionalLight::_sfDirection field.
 inline
-const Vec3r &DirectionalLightBase::getDirection(void) const
+const Vec3f &DirectionalLightBase::getDirection(void) const
 {
     return _sfDirection.getValue();
 }
 
 //! Set the value of the DirectionalLight::_sfDirection field.
 inline
-void DirectionalLightBase::setDirection(const Vec3r &value)
+void DirectionalLightBase::setDirection(const Vec3f &value)
 {
     editSField(DirectionFieldMask);
 

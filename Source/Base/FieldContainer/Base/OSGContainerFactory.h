@@ -45,10 +45,8 @@
 #include "OSGBaseTypes.h"
 #include "OSGFactoryController.h"
 #include "OSGFactoryBase.h"
-#ifndef OSG_EMBEDDED
 #include "OSGLock.h"
 #include "OSGThreadManager.h"
-#endif
 #include "OSGLog.h"
 #include "OSGContainerForwards.h"
 
@@ -208,9 +206,7 @@ class ContainerFactory : public FactoryBase
     UninitTypeStore  _vUnitTypesStore;
     UninitTypeStore  _vPostUnitTypes;
 
-#ifndef OSG_EMBEDDED
     LockRefPtr       _pLock;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

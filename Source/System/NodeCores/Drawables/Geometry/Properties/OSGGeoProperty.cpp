@@ -254,7 +254,6 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
                              Window::GLObjectStatusE  mode,
                              UInt32                   uiOptions)
 {
-#ifndef OSG_EMBEDDED
     GLuint  glid;
     Window *win = pEnv->getWindow();
 
@@ -309,7 +308,6 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         SWARNING << "GeoProperty(" << this << "::handleGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
-#endif
 
     return 0;
 }
@@ -318,7 +316,6 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
                                UInt32                   id, 
                                Window::GLObjectStatusE  mode)
 {
-#ifndef OSG_EMBEDDED
     GLuint glid;
     Window *win = pEnv->getWindow();
 
@@ -342,7 +339,6 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
         SWARNING << "GeoProperty::handleDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
-#endif
 }
 
 /*-------------------------- Comparison -----------------------------------*/

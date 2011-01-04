@@ -106,15 +106,15 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
             const Plane  &getBottom      (void                      ) const;
             const Plane  *getPlanes      (void                      ) const; 
 
-    virtual       void    getCenter      (Pnt3r &center             ) const;
-    virtual       Real    getScalarVolume(void                      ) const;
-    virtual       void    getBounds      (Pnt3r &minPnt,
-                                          Pnt3r &maxPnt             ) const;
+    virtual       void    getCenter      (Pnt3f &center             ) const;
+    virtual       Real32  getScalarVolume(void                      ) const;
+    virtual       void    getBounds      (Pnt3f &minPnt,
+                                          Pnt3f &maxPnt             ) const;
 
-                  void    getCorners     (Pnt3r &nlt,    Pnt3r &nlb,
-                                          Pnt3r &nrt,    Pnt3r &nrb,
-                                          Pnt3r &flt,    Pnt3r &flb,
-                                          Pnt3r &frt,    Pnt3r &frb ) const;
+                  void    getCorners     (Pnt3f &nlt,    Pnt3f &nlb,
+                                          Pnt3f &nrt,    Pnt3f &nrb,
+                                          Pnt3f &flt,    Pnt3f &flb,
+                                          Pnt3f &frt,    Pnt3f &frb ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -124,18 +124,18 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
     void setPlanes(const Plane   &pnear, const Plane &pfar,
                    const Plane   &left,  const Plane &right,
                    const Plane   &top,   const Plane &bottom);
-    void setPlanes(const Pnt3r   &nlt,   const Pnt3r &nlb,
-                   const Pnt3r   &nrt,   const Pnt3r &nrb,
-                   const Pnt3r   &flt,   const Pnt3r &flb,
-                   const Pnt3r   &frt,   const Pnt3r &frb   );
-    void setPlanes(const Matrixr &matrix                    );
+    void setPlanes(const Pnt3f   &nlt,   const Pnt3f &nlb,
+                   const Pnt3f   &nrt,   const Pnt3f &nrb,
+                   const Pnt3f   &flt,   const Pnt3f &flb,
+                   const Pnt3f   &frt,   const Pnt3f &frb   );
+    void setPlanes(const Matrix  &matrix                    );
                                     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Extending                                 */
     /*! \{                                                                 */
 
-    virtual void extendBy(const Pnt3r         &pt    );
+    virtual void extendBy(const Pnt3f         &pt    );
     virtual void extendBy(const Volume        &volume);   
     inline  void extendBy(const FrustumVolume &bb    );
 
@@ -144,21 +144,21 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
     /*! \name                    Intersection                              */
     /*! \{                                                                 */
   
-    virtual bool intersect  (const Pnt3r         &point  ) const;
+    virtual bool intersect  (const Pnt3f         &point  ) const;
     virtual bool intersect  (const Line          &line   ) const;
     virtual bool intersect  (const Line          &line,
-                                   Real          &minDist,
-                                   Real          &maxDist) const;
+                                   Real32        &minDist,
+                                   Real32        &maxDist) const;
     virtual bool intersect  (const Volume        &volume ) const;
             bool intersect  (const FrustumVolume &bb     ) const;
-    virtual bool isOnSurface(const Pnt3r         &point  ) const;
+    virtual bool isOnSurface(const Pnt3f         &point  ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Transformation                            */
     /*! \{                                                                 */
   
-    virtual void transform(const Matrixr &m);
+    virtual void transform(const Matrix &m);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

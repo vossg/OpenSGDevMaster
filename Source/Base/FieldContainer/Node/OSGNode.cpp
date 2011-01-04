@@ -433,16 +433,16 @@ void Node::copyFromBin(BinaryDataHandler &pMem,
 /*-------------------------------------------------------------------------*/
 /*                           Get Transformation                            */
 
-Matrixr Node::getToWorld(void)
+Matrix Node::getToWorld(void)
 {
-    Matrixr tmp;
+    Matrix tmp;
 
     getToWorld(tmp);
 
     return tmp;
 }
 
-void Node::getToWorld(Matrixr &result)
+void Node::getToWorld(Matrix &result)
 {
     if(getParent() != NULL)
     {
@@ -462,7 +462,7 @@ void Node::getToWorld(Matrixr &result)
 
 void Node::getWorldVolume(BoxVolume &result)
 {
-    Matrixr m;
+    Matrix m;
 
     if(getParent() != NULL)
     {

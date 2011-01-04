@@ -51,17 +51,6 @@ typedef TransformationMatrix<Real32>  Matrix4f;
 typedef TransformationMatrix<Fixed32> Matrix4fx;
 typedef TransformationMatrix<Real64>  Matrix4d;
 
-#ifdef OSG_FLOAT_PROFILE
-
-typedef Matrix4f Matrixr;
-
-#else
-
-typedef Matrix4fx Matrixr;
-
-#endif
-
-
 OSG_END_NAMESPACE
 
 #endif

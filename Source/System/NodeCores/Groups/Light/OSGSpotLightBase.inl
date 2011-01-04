@@ -76,7 +76,7 @@ OSG::UInt16 SpotLightBase::getClassGroupId(void)
 //! Get the value of the SpotLight::_sfDirection field.
 
 inline
-Vec3r &SpotLightBase::editDirection(void)
+Vec3f &SpotLightBase::editDirection(void)
 {
     editSField(DirectionFieldMask);
 
@@ -85,14 +85,14 @@ Vec3r &SpotLightBase::editDirection(void)
 
 //! Get the value of the SpotLight::_sfDirection field.
 inline
-const Vec3r &SpotLightBase::getDirection(void) const
+const Vec3f &SpotLightBase::getDirection(void) const
 {
     return _sfDirection.getValue();
 }
 
 //! Set the value of the SpotLight::_sfDirection field.
 inline
-void SpotLightBase::setDirection(const Vec3r &value)
+void SpotLightBase::setDirection(const Vec3f &value)
 {
     editSField(DirectionFieldMask);
 
@@ -101,7 +101,7 @@ void SpotLightBase::setDirection(const Vec3r &value)
 //! Get the value of the SpotLight::_sfSpotExponent field.
 
 inline
-Real &SpotLightBase::editSpotExponent(void)
+Real32 &SpotLightBase::editSpotExponent(void)
 {
     editSField(SpotExponentFieldMask);
 
@@ -110,14 +110,14 @@ Real &SpotLightBase::editSpotExponent(void)
 
 //! Get the value of the SpotLight::_sfSpotExponent field.
 inline
-      Real  SpotLightBase::getSpotExponent(void) const
+      Real32  SpotLightBase::getSpotExponent(void) const
 {
     return _sfSpotExponent.getValue();
 }
 
 //! Set the value of the SpotLight::_sfSpotExponent field.
 inline
-void SpotLightBase::setSpotExponent(const Real value)
+void SpotLightBase::setSpotExponent(const Real32 value)
 {
     editSField(SpotExponentFieldMask);
 
@@ -126,7 +126,7 @@ void SpotLightBase::setSpotExponent(const Real value)
 //! Get the value of the SpotLight::_sfSpotCutOff field.
 
 inline
-Real &SpotLightBase::editSpotCutOff(void)
+Real32 &SpotLightBase::editSpotCutOff(void)
 {
     editSField(SpotCutOffFieldMask);
 
@@ -135,14 +135,14 @@ Real &SpotLightBase::editSpotCutOff(void)
 
 //! Get the value of the SpotLight::_sfSpotCutOff field.
 inline
-      Real  SpotLightBase::getSpotCutOff(void) const
+      Real32  SpotLightBase::getSpotCutOff(void) const
 {
     return _sfSpotCutOff.getValue();
 }
 
 //! Set the value of the SpotLight::_sfSpotCutOff field.
 inline
-void SpotLightBase::setSpotCutOff(const Real value)
+void SpotLightBase::setSpotCutOff(const Real32 value)
 {
     editSField(SpotCutOffFieldMask);
 

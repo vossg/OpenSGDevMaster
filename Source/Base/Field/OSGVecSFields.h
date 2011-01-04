@@ -266,26 +266,6 @@ typedef SField<Pnt4d> SFPnt4d;
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<Pnt4ld> SFPnt4ld;
 
-
-
-#ifdef OSG_FLOAT_PROFILE
-typedef SFVec2f  SFVec2r;
-typedef SFVec3f  SFVec3r;
-typedef SFVec4f  SFVec4r;
-
-typedef SFPnt2f  SFPnt2r;
-typedef SFPnt3f  SFPnt3r;
-typedef SFPnt4f  SFPnt4r;
-#else
-typedef SFVec2fx SFVec2r;
-typedef SFVec3fx SFVec3r;
-typedef SFVec4fx SFVec4r;
-
-typedef SFPnt2fx SFPnt2r;
-typedef SFPnt3fx SFPnt3r;
-typedef SFPnt4fx SFPnt4r;
-#endif
-
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
@@ -402,38 +382,6 @@ struct SFPnt4fx : public SField<Pnt4fx> {};
 struct SFPnt4d : public SField<Pnt4d> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4ld : public SField<Pnt4ld> {};
-
-
-
-#ifdef OSG_FLOAT_PROFILE
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec2f  SFVec2r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec3f  SFVec3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec4f  SFVec4r;
-
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt2f  SFPnt2r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt3f  SFPnt3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt4f  SFPnt4r;
-#else
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec2fx SFVec2r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec3fx SFVec3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFVec4fx SFVec4r;
-
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt2fx SFPnt2r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt3fx SFPnt3r;
-/*! \ingroup GrpBaseFieldSingle */
-typedef SFPnt4fx SFPnt4r;
-#endif
 
 #endif // these are the doxygen hacks
 

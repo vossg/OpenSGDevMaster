@@ -99,15 +99,15 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                  Access Parameters                           */
     /*! \{                                                                 */
 
-    virtual void getProjection           (      Matrixr       &result,
+    virtual void getProjection           (      Matrix        &result,
                                                 UInt32         width,
                                                 UInt32         height);
 
-    virtual void getProjectionTranslation(      Matrixr       &result,
+    virtual void getProjectionTranslation(      Matrix        &result,
                                                 UInt32         width,
                                                 UInt32         height);
 
-    virtual void getViewing              (      Matrixr       &result,
+    virtual void getViewing              (      Matrix        &result,
                                                 UInt32         width,
                                                 UInt32         height);
 
@@ -118,25 +118,25 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
                                                 UInt32         width, 
                                                 UInt32         height);
 
-    virtual void getWorldToScreen        (      Matrixr       &result,
+    virtual void getWorldToScreen        (      Matrix        &result,
                                           const Viewport      &port  );
 
-	virtual void getDecoration           (      Matrixr       &result, 
+	virtual void getDecoration           (      Matrix        &result, 
                                                 UInt32         width, 
                                                 UInt32         height);
 
     // Getters
-    virtual Matrixr getProjectionVal           (      UInt32         width,
+    virtual Matrix  getProjectionVal           (      UInt32         width,
                                                       UInt32         height);
 
-    virtual Matrixr getProjectionTranslationVal(      UInt32         width,
+    virtual Matrix  getProjectionTranslationVal(      UInt32         width,
                                                       UInt32         height);
 
-    virtual Matrixr getViewingVal              (      UInt32         width,
+    virtual Matrix  getViewingVal              (      UInt32         width,
                                                       UInt32         height);
-    virtual Matrixr getWorldToScreenVal        (const Viewport      &port  );
+    virtual Matrix  getWorldToScreenVal        (const Viewport      &port  );
 
-	virtual Matrixr getDecorationVal           (      UInt32         width,
+	virtual Matrix  getDecorationVal           (      UInt32         width,
                                                       UInt32         height);
 
     virtual FrustumVolume getFrustumVal        (const Viewport      &port  );
@@ -155,13 +155,11 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                 Intersection Helper                          */
     /*! \{                                                                 */
 
-#ifndef OSG_EMBEDDED
     bool calcViewRay(      Line     &line, 
                            Int32     x, 
                            Int32     y, 
                      const Viewport &port,
                            Real32   *t   = NULL );
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

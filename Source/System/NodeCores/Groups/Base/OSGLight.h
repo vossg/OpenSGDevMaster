@@ -75,22 +75,22 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
     /*! \name                       Set                                    */
     /*! \{                                                                 */
 
-    void setAmbient (      Real     rRed, 
-                           Real     rGreen, 
-                           Real     rBlue, 
-                           Real     rAlpha);
-    void setDiffuse (      Real     rRed, 
-                           Real     rGreen, 
-                           Real     rBlue, 
-                           Real     rAlpha);
-    void setSpecular(      Real     rRed, 
-                           Real     rGreen, 
-                           Real     rBlue, 
-                           Real     rAlpha);
+    void setAmbient (      Real32   rRed, 
+                           Real32   rGreen, 
+                           Real32   rBlue, 
+                           Real32   rAlpha);
+    void setDiffuse (      Real32   rRed, 
+                           Real32   rGreen, 
+                           Real32   rBlue, 
+                           Real32   rAlpha);
+    void setSpecular(      Real32   rRed, 
+                           Real32   rGreen, 
+                           Real32   rBlue, 
+                           Real32   rAlpha);
     
-    void setAmbient (const Color4r &col);
-    void setDiffuse (const Color4r &col);
-    void setSpecular(const Color4r &col);
+    void setAmbient (const Color4f &col);
+    void setDiffuse (const Color4f &col);
+    void setSpecular(const Color4f &col);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

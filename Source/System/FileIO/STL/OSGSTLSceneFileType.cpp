@@ -129,8 +129,8 @@ NodeTransitPtr STLSceneFileType::read(      std::istream &is,
 
     NodeTransitPtr              root;
     GeometryUnrecPtr            geo;
-    GeoPnt3rPropertyUnrecPtr    points;
-    GeoVec3rPropertyUnrecPtr    normals;
+    GeoPnt3fPropertyUnrecPtr    points;
+    GeoVec3fPropertyUnrecPtr    normals;
     GeoIntegralPropertyUnrecPtr index;
     GeoIntegralPropertyUnrecPtr lens;
     GeoIntegralPropertyUnrecPtr type;
@@ -153,11 +153,11 @@ NodeTransitPtr STLSceneFileType::read(      std::istream &is,
     {
         geo = Geometry::create();
         
-        points = GeoPnt3rProperty::create();
+        points = GeoPnt3fProperty::create();
         geo->setPositions(points);
-        normals = GeoVec3rProperty::create();
+        normals = GeoVec3fProperty::create();
         geo->setNormals(normals);
-        lens = GeoUIntProperty::create();
+        lens = GeoUInt32Property::create();
         geo->setLengths(lens);
         lens->push_back(theFaces.size()*3);
         type = GeoUInt8Property::create();
@@ -167,8 +167,8 @@ NodeTransitPtr STLSceneFileType::read(      std::istream &is,
         root = Node::create();
         //setName(root, theName.c_str());
 
-        GeoPnt3rProperty::StoredFieldType *fPos  = points ->editFieldPtr();
-        GeoVec3rProperty::StoredFieldType *fNorm = normals->editFieldPtr();
+        GeoPnt3fProperty::StoredFieldType *fPos  = points ->editFieldPtr();
+        GeoVec3fProperty::StoredFieldType *fNorm = normals->editFieldPtr();
 
         STLFaceListIterator actIt, endIt;
         actIt = theFaces.begin();

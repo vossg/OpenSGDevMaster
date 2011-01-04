@@ -76,7 +76,7 @@ OSG::UInt16 TransformBase::getClassGroupId(void)
 //! Get the value of the Transform::_sfMatrix field.
 
 inline
-Matrixr &TransformBase::editMatrix(void)
+Matrix &TransformBase::editMatrix(void)
 {
     editSField(MatrixFieldMask);
 
@@ -85,14 +85,14 @@ Matrixr &TransformBase::editMatrix(void)
 
 //! Get the value of the Transform::_sfMatrix field.
 inline
-const Matrixr &TransformBase::getMatrix(void) const
+const Matrix &TransformBase::getMatrix(void) const
 {
     return _sfMatrix.getValue();
 }
 
 //! Set the value of the Transform::_sfMatrix field.
 inline
-void TransformBase::setMatrix(const Matrixr &value)
+void TransformBase::setMatrix(const Matrix &value)
 {
     editSField(MatrixFieldMask);
 

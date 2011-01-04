@@ -53,9 +53,9 @@ CylinderVolume::CylinderVolume(void) :
 
 
 inline
-CylinderVolume::CylinderVolume(const Pnt3r &p, 
-                               const Vec3r &d,
-                                     Real   r) : 
+CylinderVolume::CylinderVolume(const Pnt3f  &p, 
+                               const Vec3f  &d,
+                                     Real32  r) : 
      Inherited( ),    
     _axisPos  (p), 
     _axisDir  (d), 
@@ -82,7 +82,7 @@ CylinderVolume::~CylinderVolume(void)
 
 
 inline
-void CylinderVolume::getAxis(Pnt3r &apos, Vec3r &adir) const
+void CylinderVolume::getAxis(Pnt3f &apos, Vec3f &adir) const
 {
     adir = _axisDir;
     apos = _axisPos;
@@ -90,16 +90,16 @@ void CylinderVolume::getAxis(Pnt3r &apos, Vec3r &adir) const
 
 
 inline
-Real CylinderVolume::getRadius(void) const
+Real32 CylinderVolume::getRadius(void) const
 {
     return _radius;
 }
 
 
 inline
-void CylinderVolume::setValue(const Pnt3r &p, 
-                              const Vec3r &d, 
-                                    Real   r)
+void CylinderVolume::setValue(const Pnt3f  &p, 
+                              const Vec3f  &d, 
+                                    Real32  r)
 {
     _axisPos = p;
     _axisDir = d;
@@ -108,7 +108,7 @@ void CylinderVolume::setValue(const Pnt3r &p,
 
 
 inline
-void CylinderVolume::setAxis(const Pnt3r &p, const Vec3r &d)
+void CylinderVolume::setAxis(const Pnt3f &p, const Vec3f &d)
 {
     _axisPos = p;
     _axisDir = d;
@@ -116,7 +116,7 @@ void CylinderVolume::setAxis(const Pnt3r &p, const Vec3r &d)
 
 
 inline
-void CylinderVolume::setRadius(Real r)
+void CylinderVolume::setRadius(Real32 r)
 {
     _radius = r;
 }

@@ -98,7 +98,7 @@ NodeCore::~NodeCore(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void NodeCore::accumulateMatrix(Matrixr &result)
+void NodeCore::accumulateMatrix(Matrix &result)
 {
 }
 

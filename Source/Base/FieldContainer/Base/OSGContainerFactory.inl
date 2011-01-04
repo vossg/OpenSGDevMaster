@@ -52,19 +52,15 @@ UInt16 ContainerFactory<DescT>::findGroupId(const Char8  *szName) const
     UInt16          returnValue = 0;
     GroupMapConstIt gIt;
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
-#endif
 
     gIt         = _mGroupMap.find(std::string(szName));
 
     returnValue = ((gIt == _mGroupMap.end()) ? 0 : (*gIt).second);
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
-#endif
 
     return returnValue;
 }
@@ -79,10 +75,8 @@ const Char8 *ContainerFactory<DescT>::findGroupName(
 {
     const Char8 *returnValue = NULL;
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
-#endif
 
     GroupMap::const_iterator gIt  = _mGroupMap.begin();
     GroupMap::const_iterator gEnd = _mGroupMap.end  ();
@@ -95,10 +89,8 @@ const Char8 *ContainerFactory<DescT>::findGroupName(
         ++gIt;
     }
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
-#endif
 
     return returnValue;
 }
@@ -109,17 +101,13 @@ UInt32 ContainerFactory<DescT>::getNumGroups(void) const
 {
     UInt32 returnValue;
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
-#endif
 
     returnValue = _mGroupMap.size();
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
-#endif
 
     return returnValue;
 }
@@ -130,17 +118,13 @@ void ContainerFactory<DescT>::registerType(ContainerType *pType)
     if(pType == NULL)
         return;
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
-#endif
 
     _vUnitTypesStore.push_back(pType);
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
-#endif
 }
 
 /*! Register a new group name with the factory.
@@ -163,19 +147,15 @@ UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)
 
     if(returnValue == 0)
     {
-#ifndef OSG_EMBEDDED
         if(_pLock != NULL)
             _pLock->acquire();
-#endif
 
         returnValue                          = _mGroupMap.size() + 1;
 
         _mGroupMap[std::string(szGroupName)] = returnValue;
 
-#ifndef OSG_EMBEDDED
         if(_pLock != NULL)
             _pLock->release();
-#endif
     }
 
     return returnValue;
@@ -253,11 +233,9 @@ ContainerFactory<DescT>::ContainerFactory(
     _mGroupMap      (             ),
 
     _vUnitTypesStore(             ),
-    _vPostUnitTypes (             )
+    _vPostUnitTypes (             ),
 
-#ifndef OSG_EMBEDDED
-    ,_pLock          (         NULL)
-#endif
+    _pLock          (         NULL)
 {
     FactoryController::the()->registerFactory(this);
 }
@@ -275,10 +253,8 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
 
     PINFO << this->_szName.c_str() << " init pending types" << std::endl;
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
-#endif
 
     UninitTypeStoreIt uninitIt  = _vUnitTypesStore.begin();
 
@@ -315,10 +291,8 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
         }
     }
 
-#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
-#endif
 
     PINFO << "("
              << returnValue
@@ -342,7 +316,6 @@ bool ContainerFactory<DescT>::initialize(void)
 
     PINFO << "init singleton " << this->_szName.c_str() << std::endl;
 
-#ifndef OSG_EMBEDDED
     _pLock   =
         ThreadManager::the()->getLock(Desc::getContainerFactoryLockName(),
                                       false);
@@ -350,7 +323,6 @@ bool ContainerFactory<DescT>::initialize(void)
     PINFO << "Got map   lock " << _pLock.get()   << std::endl;
 
     this->_bInitialized = (_pLock != NULL);
-#endif
 
     if(this->_bInitialized == false)
         return false;
@@ -399,9 +371,7 @@ bool ContainerFactory<DescT>::terminate(void)
         ++typeIt;
     }
 
-#ifndef OSG_EMBEDDED
     _pLock = NULL;
-#endif
 
     _bInitialized = false;
     

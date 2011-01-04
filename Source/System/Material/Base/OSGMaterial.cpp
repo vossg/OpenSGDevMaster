@@ -187,9 +187,9 @@ PrimeMaterial *getDefaultMaterial(void)
     {
         _defaultMaterial = SimpleMaterial::create();
 
-        _defaultMaterial->setDiffuse  (Color3r(.7f,.7f,.5f));
-        _defaultMaterial->setAmbient  (Color3r(0.1f,0.1f,0.1f));
-        _defaultMaterial->setSpecular (Color3r(1.f,1.f,1.f));
+        _defaultMaterial->setDiffuse  (Color3f(.7f,.7f,.5f));
+        _defaultMaterial->setAmbient  (Color3f(0.1f,0.1f,0.1f));
+        _defaultMaterial->setSpecular (Color3f(1.f,1.f,1.f));
         _defaultMaterial->setShininess(20.f);
 
         addPreFactoryExitFunction(subRefDefaultMaterial);
@@ -216,7 +216,7 @@ PrimeMaterial *getDefaultUnlitMaterial(void)
     {
         _defaultUnlitMaterial = SimpleMaterial::create();
 
-        _defaultUnlitMaterial->setDiffuse(Color3r(1.f,1.f,.5f));
+        _defaultUnlitMaterial->setDiffuse(Color3f(1.f,1.f,.5f));
         _defaultUnlitMaterial->setLit(false);
 
         addPreFactoryExitFunction(subRefDefaultUnlitMaterial);

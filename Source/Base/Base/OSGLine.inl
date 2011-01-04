@@ -45,7 +45,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 inline
-const Pnt3r &Line::getPosition(void) const
+const Pnt3f &Line::getPosition(void) const
 {
     return _pos;
 }
@@ -54,7 +54,7 @@ const Pnt3r &Line::getPosition(void) const
  */
 
 inline
-const Vec3r &Line::getDirection(void) const
+const Vec3f &Line::getDirection(void) const
 {
     return _dir;
 }

@@ -117,7 +117,6 @@ void GeoIntegralBufferRefProperty::dump(      UInt32    ,
 
 void GeoIntegralBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     
     if(!win->hasExtension(_extVertexBufferObject))
@@ -133,14 +132,12 @@ void GeoIntegralBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
         osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
                            getGLId());
     }
-#endif
 }
 
 void GeoIntegralBufferRefProperty::changeFrom(DrawEnv    *pEnv, 
                                               StateChunk *old, 
                                               UInt32      slot)
 {
-#ifndef OSG_EMBEDDED
     // change from me to me?
     // this assumes I haven't changed in the meantime.
     if(old == this)
@@ -167,7 +164,6 @@ void GeoIntegralBufferRefProperty::changeFrom(DrawEnv    *pEnv,
     {
         osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);            
     }
-#endif
 }
 
 void *GeoIntegralBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)

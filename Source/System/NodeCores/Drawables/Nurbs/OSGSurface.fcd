@@ -36,7 +36,7 @@ surfaces, and you can also vary rational and nonrational trimming curves.
     </Field>
     <Field
         name="knotsU"
-        type="Real"
+        type="Real32"
         cardinality="multi"
         visibility="external"
         access="public"
@@ -45,7 +45,7 @@ surfaces, and you can also vary rational and nonrational trimming curves.
     </Field>
     <Field
         name="knotsV"
-        type="Real"
+        type="Real32"
         cardinality="multi"
         visibility="external"
         access="public"
@@ -66,7 +66,7 @@ surfaces, and you can also vary rational and nonrational trimming curves.
     </Field>
     <Field
         name="error"
-        type="Real"
+        type="Real32"
         cardinality="single"
         visibility="external"
         defaultValue="0.5"
@@ -104,7 +104,7 @@ surfaces, and you can also vary rational and nonrational trimming curves.
     </Field>
     <Field
         name="curveControlPoints"
-        type="Pnt3r"
+        type="Pnt3f"
         cardinality="multi"
         visibility="external"
         access="protected"
@@ -113,7 +113,7 @@ surfaces, and you can also vary rational and nonrational trimming curves.
     </Field>
     <Field
         name="knots"
-        type="Real"
+        type="Real32"
         cardinality="multi"
         visibility="external"
         access="protected"

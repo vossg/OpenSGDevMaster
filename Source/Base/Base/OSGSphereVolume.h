@@ -67,8 +67,8 @@ class OSG_BASE_DLLMAPPING SphereVolume : public Volume
     SphereVolume(void);
 
     SphereVolume(const SphereVolume &obj);
-    SphereVolume(const Pnt3r        &c, 
-                       Real          r  );
+    SphereVolume(const Pnt3f        &c, 
+                       Real32        r  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -82,30 +82,30 @@ class OSG_BASE_DLLMAPPING SphereVolume : public Volume
     /*! \name                    Set Values                                */
     /*! \{                                                                 */
 
-    void setValue (const Pnt3r &c, 
-                         Real r);
-    void setCenter(const Pnt3r &c);
-    void setRadius(      Real r);
+    void setValue (const Pnt3f  &c, 
+                         Real32  r);
+    void setCenter(const Pnt3f  &c);
+    void setRadius(      Real32  r);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Get Values                                */
     /*! \{                                                                 */
 
-            const Pnt3r &getCenter      (void         ) const;
-                  Real   getRadius      (void         ) const;
+            const Pnt3f  &getCenter      (void         ) const;
+                  Real32  getRadius      (void         ) const;
 
-    virtual       void   getCenter      (Pnt3r &center) const;
-    virtual       Real   getScalarVolume(void         ) const;
-    virtual       void   getBounds      (Pnt3r &min,  
-                                         Pnt3r &max   ) const;
+    virtual       void    getCenter      (Pnt3f &center) const;
+    virtual       Real32  getScalarVolume(void         ) const;
+    virtual       void    getBounds      (Pnt3f &min,  
+                                          Pnt3f &max   ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Extending                                  */
     /*! \{                                                                 */
 
-    virtual void extendBy(const Pnt3r        &pt    );
+    virtual void extendBy(const Pnt3f        &pt    );
     virtual void extendBy(const Volume       &volume);
             void extendBy(const SphereVolume &bb    );
 
@@ -114,23 +114,23 @@ class OSG_BASE_DLLMAPPING SphereVolume : public Volume
     /*! \name                 Intersection                                 */
     /*! \{                                                                 */
 
-    virtual bool intersect  (const Pnt3r        &point ) const;
+    virtual bool intersect  (const Pnt3f        &point ) const;
     virtual bool intersect  (const Line         &line  ) const;
     virtual bool intersect  (const Line         &line,
-                                   Real         &enter, 
-                                   Real         &exit  ) const;
+                                   Real32       &enter, 
+                                   Real32       &exit  ) const;
 
     virtual bool intersect  (const Volume       &volume) const;
             bool intersect  (const SphereVolume &sphere) const;
 
-    virtual bool isOnSurface(const Pnt3r        &point ) const;
+    virtual bool isOnSurface(const Pnt3f        &point ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void transform(const Matrixr &mat);
+    virtual void transform(const Matrix &mat);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,8 +162,8 @@ class OSG_BASE_DLLMAPPING SphereVolume : public Volume
 
   private:
 
-    Pnt3r _center;
-    Real  _radius;
+    Pnt3f  _center;
+    Real32 _radius;
 
 };
 

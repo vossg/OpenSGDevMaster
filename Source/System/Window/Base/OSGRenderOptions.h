@@ -41,10 +41,6 @@
 
 #include "OSGRenderOptionsBase.h"
 
-#ifdef OSG_EMBEDDED
-#define GL_FILL 0x1B02
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;

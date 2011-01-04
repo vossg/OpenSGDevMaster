@@ -186,7 +186,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFGLenum          SFEnvModeType;
-    typedef SFColor4r         SFEnvColorType;
+    typedef SFColor4f         SFEnvColorType;
     typedef SFGLenum          SFEnvCombineRGBType;
     typedef SFGLenum          SFEnvCombineAlphaType;
     typedef SFReal32          SFEnvScaleRGBType;
@@ -211,7 +211,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     typedef SFReal32          SFShaderOffsetBiasType;
     typedef SFGLenum          SFShaderRGBADotProductType;
     typedef SFUInt8           SFShaderCullModesType;
-    typedef SFVec3r           SFShaderConstEyeType;
+    typedef SFVec3f           SFShaderConstEyeType;
     typedef SFReal32          SFLodBiasType;
 
     /*---------------------------------------------------------------------*/
@@ -241,8 +241,8 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
                   SFGLenum            *editSFEnvMode        (void);
             const SFGLenum            *getSFEnvMode         (void) const;
 
-                  SFColor4r           *editSFEnvColor       (void);
-            const SFColor4r           *getSFEnvColor        (void) const;
+                  SFColor4f           *editSFEnvColor       (void);
+            const SFColor4f           *getSFEnvColor        (void) const;
 
                   SFGLenum            *editSFEnvCombineRGB  (void);
             const SFGLenum            *getSFEnvCombineRGB   (void) const;
@@ -316,8 +316,8 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
                   SFUInt8             *editSFShaderCullModes(void);
             const SFUInt8             *getSFShaderCullModes (void) const;
 
-                  SFVec3r             *editSFShaderConstEye (void);
-            const SFVec3r             *getSFShaderConstEye  (void) const;
+                  SFVec3f             *editSFShaderConstEye (void);
+            const SFVec3f             *getSFShaderConstEye  (void) const;
 
                   SFReal32            *editSFLodBias        (void);
             const SFReal32            *getSFLodBias         (void) const;
@@ -326,8 +326,8 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
                   GLenum              &editEnvMode        (void);
             const GLenum              &getEnvMode         (void) const;
 
-                  Color4r             &editEnvColor       (void);
-            const Color4r             &getEnvColor        (void) const;
+                  Color4f             &editEnvColor       (void);
+            const Color4f             &getEnvColor        (void) const;
 
                   GLenum              &editEnvCombineRGB  (void);
             const GLenum              &getEnvCombineRGB   (void) const;
@@ -401,8 +401,8 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
                   UInt8               &editShaderCullModes(void);
                   UInt8                getShaderCullModes (void) const;
 
-                  Vec3r               &editShaderConstEye (void);
-            const Vec3r               &getShaderConstEye  (void) const;
+                  Vec3f               &editShaderConstEye (void);
+            const Vec3f               &getShaderConstEye  (void) const;
 
                   Real32              &editLodBias        (void);
                   Real32               getLodBias         (void) const;
@@ -413,7 +413,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     /*! \{                                                                 */
 
             void setEnvMode        (const GLenum &value);
-            void setEnvColor       (const Color4r &value);
+            void setEnvColor       (const Color4f &value);
             void setEnvCombineRGB  (const GLenum &value);
             void setEnvCombineAlpha(const GLenum &value);
             void setEnvScaleRGB    (const Real32 value);
@@ -437,7 +437,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
             void setShaderOffsetBias(const Real32 value);
             void setShaderRGBADotProduct(const GLenum &value);
             void setShaderCullModes(const UInt8 value);
-            void setShaderConstEye (const Vec3r &value);
+            void setShaderConstEye (const Vec3f &value);
             void setLodBias        (const Real32 value);
 
     /*! \}                                                                 */
@@ -499,7 +499,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     /*! \{                                                                 */
 
     SFGLenum          _sfEnvMode;
-    SFColor4r         _sfEnvColor;
+    SFColor4f         _sfEnvColor;
     SFGLenum          _sfEnvCombineRGB;
     SFGLenum          _sfEnvCombineAlpha;
     SFReal32          _sfEnvScaleRGB;
@@ -524,7 +524,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     SFReal32          _sfShaderOffsetBias;
     SFGLenum          _sfShaderRGBADotProduct;
     SFUInt8           _sfShaderCullModes;
-    SFVec3r           _sfShaderConstEye;
+    SFVec3f           _sfShaderConstEye;
     SFReal32          _sfLodBias;
 
     /*! \}                                                                 */

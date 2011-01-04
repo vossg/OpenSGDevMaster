@@ -134,10 +134,8 @@ void SimpleTexturedMaterial::changed(ConstFieldMaskArg whichField,
     {
         if (getEnvMap())
         {
-#ifndef OSG_EMBEDDED
             _texGenChunk->setGenFuncS(GL_SPHERE_MAP);
             _texGenChunk->setGenFuncT(GL_SPHERE_MAP);
-#endif
         }
         else
         {

@@ -132,8 +132,8 @@ bool intersect(const OSG::BoxVolume &box, const OSG::SphereVolume &sphere)
     }
     else
     {
-        Real  s;
-        Real  d = 0.f;
+        Real32  s;
+        Real32  d = 0.f;
 
         //find the square of the distance from the sphere to the box
 
@@ -161,8 +161,8 @@ OSG_BASE_DLLMAPPING
 bool intersect(const OSG::BoxVolume &box, const OSG::CylinderVolume &cylinder)
 {
     bool  retCode;
-    Pnt3r apos;
-    Vec3r adir;
+    Pnt3f apos;
+    Vec3f adir;
 
     cylinder.getAxis(apos, adir);
 
@@ -176,10 +176,10 @@ bool intersect(const OSG::BoxVolume &box, const OSG::CylinderVolume &cylinder)
     }
     else
     {
-        Real  s1 = 0.f, s2 = 0.f, s3 = 0.f, s4 = 0.f, 
-              d = 0.f, d1 = 0.f, d2 = 0.f;
-        Pnt3r c, p, p1, p2;
-        Vec3r u, u1, u2;
+        Real32  s1 = 0.f, s2 = 0.f, s3 = 0.f, s4 = 0.f, 
+                d = 0.f, d1 = 0.f, d2 = 0.f;
+        Pnt3f c, p, p1, p2;
+        Vec3f u, u1, u2;
 
         // find the distance between the min and the max of the box
         //with the lower point and the upper point of the cylinder respectively
@@ -257,7 +257,7 @@ bool intersect(const OSG::BoxVolume &box, const OSG::CylinderVolume &cylinder)
 OSG_BASE_DLLMAPPING 
 bool intersect(const OSG::BoxVolume &box, const OSG::FrustumVolume &frustum)
 {
-    Pnt3r min, max;
+    Pnt3f min, max;
 
     box.getBounds(min, max);
 
@@ -316,8 +316,8 @@ OSG_BASE_DLLMAPPING
 bool intersect(const OSG::SphereVolume &sphere1, 
                const OSG::SphereVolume &sphere2)
 {
-    bool retCode = false;
-    Real dist    = (sphere2.getCenter() - sphere1.getCenter()).length();
+    bool   retCode = false;
+    Real32 dist    = (sphere2.getCenter() - sphere1.getCenter()).length();
 
     if(sphere1.isEmpty() || sphere2.isEmpty())
     {
@@ -344,8 +344,8 @@ bool intersect(const OSG::SphereVolume   &sphere,
                const OSG::CylinderVolume &cylinder)
 {
     bool  retCode;
-    Pnt3r apos;
-    Vec3r adir;
+    Pnt3f apos;
+    Vec3f adir;
 
     cylinder.getAxis(apos, adir);
 
@@ -359,9 +359,9 @@ bool intersect(const OSG::SphereVolume   &sphere,
     }
     else
     {
-        Real  d = 0.f, s1 = 0.f, s2 = 0.f;
-        Pnt3r c;
-        Vec3r u, u1, u2;
+        Real32 d = 0.f, s1 = 0.f, s2 = 0.f;
+        Pnt3f  c;
+        Vec3f  u, u1, u2;
 
         //get the distance between the upper and lower point of the cylinder
         // and the sphere center
@@ -369,11 +369,7 @@ bool intersect(const OSG::SphereVolume   &sphere,
         s1 = (apos        - sphere.getCenter()).length();
         s2 = (apos + adir - sphere.getCenter()).length();
 
-#ifdef OSG_EMBEDDED
-        if((s1 <= FLT_EPSILON) || (s2 <= FLT_EPSILON)) 
-#else
         if((s1 <= DBL_EPSILON) || (s2 <= DBL_EPSILON)) 
-#endif
         {
             return true;
         }
@@ -490,24 +486,24 @@ bool intersect(const OSG::SphereVolume &sphere, const OSG::Volume &vol)
 //            {Point P0; Vector v;}
 //===================================================================
 
-Real dist3D_Segment_to_Segment(const Pnt3r& s1p, 
-                               const Vec3r& s1d,
-                               const Pnt3r& s2p, 
-                               const Vec3r& s2d)
+Real32 dist3D_Segment_to_Segment(const Pnt3f& s1p, 
+                                 const Vec3f& s1d,
+                                 const Pnt3f& s2p, 
+                                 const Vec3f& s2d)
 {
     const float  SMALL_NUM = 1e-9f; // anything that avoids division overflow
-    const Vec3r& u = s1d;
-    const Vec3r& v = s2d;
-          Vec3r  w = s1p - s2p;
+    const Vec3f& u = s1d;
+    const Vec3f& v = s2d;
+          Vec3f  w = s1p - s2p;
 
-    Real    a = u.dot(u);        // always >= 0
-    Real    b = u.dot(v);
-    Real    c = v.dot(v);        // always >= 0
-    Real    d = u.dot(w);
-    Real    e = v.dot(w);
-    Real    D = a*c - b*b;       // always >= 0
-    Real    sc, sN, sD = D;      // sc = sN / sD, default sD = D >= 0
-    Real    tc, tN, tD = D;      // tc = tN / tD, default tD = D >= 0
+    Real32    a = u.dot(u);        // always >= 0
+    Real32    b = u.dot(v);
+    Real32    c = v.dot(v);        // always >= 0
+    Real32    d = u.dot(w);
+    Real32    e = v.dot(w);
+    Real32    D = a*c - b*b;       // always >= 0
+    Real32    sc, sN, sD = D;      // sc = sN / sD, default sD = D >= 0
+    Real32    tc, tN, tD = D;      // tc = tN / tD, default tD = D >= 0
 
     // compute the line parameters of the two closest points
     if(D < SMALL_NUM)   // the lines are almost parallel
@@ -579,7 +575,7 @@ Real dist3D_Segment_to_Segment(const Pnt3r& s1p,
     tc = (osgAbs(tN) < SMALL_NUM ? 0.0f : tN / tD);
 
     // get the difference of the two closest points
-    Vec3r dP = w + (sc * u) - (tc * v);  // = S1(sc) - S2(tc)
+    Vec3f dP = w + (sc * u) - (tc * v);  // = S1(sc) - S2(tc)
 
     return dP.length();   // return the squared distance
 }
@@ -588,8 +584,8 @@ OSG_BASE_DLLMAPPING
 bool intersect(const OSG::CylinderVolume &cyl1, 
                const OSG::CylinderVolume &cyl2)
 {
-    Pnt3r p1, p2;
-    Vec3r v1, v2;
+    Pnt3f p1, p2;
+    Vec3f v1, v2;
 
     cyl1.getAxis(p1, v1);
     cyl2.getAxis(p2, v2);
@@ -604,7 +600,7 @@ OSG_BASE_DLLMAPPING
 bool intersect(const OSG::CylinderVolume &cylinder, 
                const OSG::FrustumVolume  &frustum)
 {
-    Pnt3r min, max;
+    Pnt3f min, max;
     cylinder.getBounds(min, max);
 
     const Plane       *frust = frustum.getPlanes();
@@ -787,7 +783,7 @@ void extend(OSG::BoxVolume &srcVol, const OSG::BoxVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::BoxVolume &srcVol, const OSG::SphereVolume &vol)
 {
-    Pnt3r min, max;
+    Pnt3f min, max;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -837,7 +833,7 @@ void extend(OSG::BoxVolume &srcVol, const OSG::SphereVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::BoxVolume &srcVol, const OSG::CylinderVolume &vol)
 {
-    Pnt3r min, max;
+    Pnt3f min, max;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -937,8 +933,8 @@ void extend(OSG::BoxVolume &srcVol, const OSG::Volume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol)
 {
-    Pnt3r     min, max, min1, max1, c;
-    Real      r;
+    Pnt3f     min, max, min1, max1, c;
+    Real32    r;
     BoxVolume vol1;
 
     vol.getBounds(min, max);
@@ -961,7 +957,7 @@ void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol)
         }
         else
         {
-            c = Pnt3r((min.x() + max.x()) * 0.5f, 
+            c = Pnt3f((min.x() + max.x()) * 0.5f, 
                       (min.y() + max.y()) * 0.5f,
                       (min.z() + max.z()) * 0.5f);
 
@@ -985,7 +981,7 @@ void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol)
 
     vol1.getBounds(min, max);
 
-    c = Pnt3r((min.x() + max.x()) * 0.5f, 
+    c = Pnt3f((min.x() + max.x()) * 0.5f, 
               (min.y() + max.y()) * 0.5f,
               (min.z() + max.z()) * 0.5f);
 
@@ -1000,8 +996,8 @@ void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::SphereVolume &srcVol, const OSG::SphereVolume &vol)
 {
-    Pnt3r min, max, min1, max1, min2, max2, c;
-    Real  r;
+    Pnt3f  min, max, min1, max1, min2, max2, c;
+    Real32 r;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -1034,15 +1030,15 @@ void extend(OSG::SphereVolume &srcVol, const OSG::SphereVolume &vol)
     srcVol.getBounds(min,  max );
     vol   .getBounds(min1, max1);
 
-    min2 = Pnt3r(osgMin(min.x(), min1.x()), 
+    min2 = Pnt3f(osgMin(min.x(), min1.x()), 
                  osgMin(min.y(), min1.y()),
                  osgMin(min.z(), min1.z()));
 
-    max2 = Pnt3r(osgMax(max.x(), max1.x()), 
+    max2 = Pnt3f(osgMax(max.x(), max1.x()), 
                  osgMax(max.y(), max1.y()),
                  osgMax(max.z(), max1.z()));
 
-    c = Pnt3r((min2.x() + max2.x()) * 0.5f, 
+    c = Pnt3f((min2.x() + max2.x()) * 0.5f, 
               (min2.y() + max2.y()) * 0.5f,
               (min2.z() + max2.z()) * 0.5f);
 
@@ -1057,8 +1053,8 @@ void extend(OSG::SphereVolume &srcVol, const OSG::SphereVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::SphereVolume &srcVol, const OSG::CylinderVolume &vol)
 {
-    Pnt3r min, max, min1, max1, min2, max2, c;
-    Real  r;
+    Pnt3f  min, max, min1, max1, min2, max2, c;
+    Real32 r;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -1096,15 +1092,15 @@ void extend(OSG::SphereVolume &srcVol, const OSG::CylinderVolume &vol)
     srcVol.getBounds(min,  max);
     vol   .getBounds(min1, max1);
 
-    min2 = Pnt3r(osgMin(min.x(), min1.x()), 
+    min2 = Pnt3f(osgMin(min.x(), min1.x()), 
                  osgMin(min.y(), min1.y()),
                  osgMin(min.z(), min1.z()));
 
-    max2 = Pnt3r(osgMax(max.x(), max1.x()), 
+    max2 = Pnt3f(osgMax(max.x(), max1.x()), 
                  osgMax(max.y(), max1.y()),
                  osgMax(max.z(), max1.z()));
 
-    c = Pnt3r((min2.x() + max2.x()) * 0.5f, 
+    c = Pnt3f((min2.x() + max2.x()) * 0.5f, 
               (min2.y() + max2.y()) * 0.5f,
               (min2.z() + max2.z()) * 0.5f);
 
@@ -1162,10 +1158,10 @@ void extend(OSG::SphereVolume &srcVol, const OSG::Volume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol)
 {
-    Pnt3r min, max, min1, max1, min2, max2, apos;
-    Vec2r p;
-    Vec3r adir;
-    Real  r;
+    Pnt3f  min, max, min1, max1, min2, max2, apos;
+    Vec2f  p;
+    Vec3f  adir;
+    Real32 r;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -1189,11 +1185,11 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol)
         {
             vol.getBounds(min, max);
 
-            p = Vec2r(max.x() - min.x(), max.y() - min.y());
+            p = Vec2f(max.x() - min.x(), max.y() - min.y());
             r = (p.length()) * 0.5f;
 
-            adir = Vec3r(0.f, 0.f, max.z() - min.z());
-            apos = Pnt3r(p.x(), p.y(), min.z());
+            adir = Vec3f(0.f, 0.f, max.z() - min.z());
+            apos = Pnt3f(p.x(), p.y(), min.z());
 
             srcVol.setValue(apos, adir, r);
 
@@ -1208,18 +1204,18 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol)
     srcVol.getBounds(min,  max );
     vol   .getBounds(min1, max1);
 
-    min2 = Pnt3r(osgMin(min.x(), min1.x()), 
+    min2 = Pnt3f(osgMin(min.x(), min1.x()), 
                  osgMin(min.y(), min1.y()),
                  osgMin(min.z(), min1.z()));
-    max2 = Pnt3r(osgMax(max.x(), max1.x()), 
+    max2 = Pnt3f(osgMax(max.x(), max1.x()), 
                  osgMax(max.y(), max1.y()),
                  osgMax(max.z(), max1.z()));
 
-    p = Vec2r(max2.x() - min2.x(), max2.y() - min2.y());
+    p = Vec2f(max2.x() - min2.x(), max2.y() - min2.y());
     r = (p.length()) * 0.5f;
 
-    adir = Vec3r(0.f, 0.f, max2.z() - min2.z());
-    apos = Pnt3r(p.x(), p.y(), min2.z());
+    adir = Vec3f(0.f, 0.f, max2.z() - min2.z());
+    apos = Pnt3f(p.x(), p.y(), min2.z());
 
     srcVol.setValue(apos, adir, r);
 
@@ -1230,10 +1226,10 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol)
 {
-    Pnt3r min, max, min1, max1, min2, max2, apos;
-    Vec2r p;
-    Vec3r adir;
-    Real r;
+    Pnt3f  min, max, min1, max1, min2, max2, apos;
+    Vec2f  p;
+    Vec3f  adir;
+    Real32 r;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -1255,10 +1251,10 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol)
         {
             r = vol.getRadius();
 
-            apos = Pnt3r(vol.getCenter().x() - r, 
+            apos = Pnt3f(vol.getCenter().x() - r, 
                          vol.getCenter().y() - r,
                          vol.getCenter().z() - r);
-            adir = Vec3r(vol.getCenter().x() + r - apos.x(),
+            adir = Vec3f(vol.getCenter().x() + r - apos.x(),
                          vol.getCenter().y() + r - apos.y(),
                          vol.getCenter().z() + r - apos.z());
 
@@ -1275,18 +1271,18 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol)
     srcVol.getBounds(min,  max);
     vol   .getBounds(min1, max1);
 
-    min2 = Pnt3r(osgMin(min.x(), min1.x()), 
+    min2 = Pnt3f(osgMin(min.x(), min1.x()), 
                  osgMin(min.y(), min1.y()),
                  osgMin(min.z(), min1.z()));
-    max2 = Pnt3r(osgMax(max.x(), max1.x()), 
+    max2 = Pnt3f(osgMax(max.x(), max1.x()), 
                  osgMax(max.y(), max1.y()),
                  osgMax(max.z(), max1.z()));
 
-    p = Vec2r(max2.x() - min2.x(), max2.y() - min2.y());
+    p = Vec2f(max2.x() - min2.x(), max2.y() - min2.y());
     r = (p.length()) * 0.5f;
 
-    adir = Vec3r(0.f, 0.f, max2.z() - min2.z());
-    apos = Pnt3r(p.x(), p.y(), min2.z());
+    adir = Vec3f(0.f, 0.f, max2.z() - min2.z());
+    apos = Pnt3f(p.x(), p.y(), min2.z());
 
     srcVol.setValue(apos, adir, r);
 
@@ -1297,10 +1293,10 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol)
 OSG_BASE_DLLMAPPING 
 void extend(OSG::CylinderVolume &srcVol, const OSG::CylinderVolume &vol)
 {
-    Pnt3r min, max, min1, max1, min2, max2, apos;
-    Vec2r p;
-    Vec3r adir;
-    Real  r;
+    Pnt3f  min, max, min1, max1, min2, max2, apos;
+    Vec2f  p;
+    Vec3f  adir;
+    Real32 r;
 
     if((!srcVol.isValid   () && !srcVol.isEmpty()) ||
          srcVol.isInfinite()                       ||
@@ -1332,18 +1328,18 @@ void extend(OSG::CylinderVolume &srcVol, const OSG::CylinderVolume &vol)
     srcVol.getBounds(min,  max);
     vol   .getBounds(min1, max1);
 
-    min2 = Pnt3r(osgMin(min.x(), min1.x()), 
+    min2 = Pnt3f(osgMin(min.x(), min1.x()), 
                  osgMin(min.y(), min1.y()),
                  osgMin(min.z(), min1.z()));
-    max2 = Pnt3r(osgMax(max.x(), max1.x()), 
+    max2 = Pnt3f(osgMax(max.x(), max1.x()), 
                  osgMax(max.y(), max1.y()),
                  osgMax(max.z(), max1.z()));
 
-    p = Vec2r(max2.x() - min2.x(), max2.y() - min2.y());
+    p = Vec2f(max2.x() - min2.x(), max2.y() - min2.y());
     r = (p.length()) * 0.5f;
 
-    adir = Vec3r(0.f, 0.f, max2.z() - min2.z());
-    apos = Pnt3r(p.x(), p.y(), min2.z());
+    adir = Vec3f(0.f, 0.f, max2.z() - min2.z());
+    apos = Pnt3f(p.x(), p.y(), min2.z());
 
     srcVol.setValue(apos, adir, r);
 

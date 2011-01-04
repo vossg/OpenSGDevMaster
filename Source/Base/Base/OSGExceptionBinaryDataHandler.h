@@ -311,9 +311,7 @@ OSG_END_NAMESPACE
 #include <netinet/in.h>
 #endif
 
-#ifndef OSG_EMBEDDED
 #include <sys/types.h>
-#endif
 
 #include "OSGBaseFunctions.h"
 

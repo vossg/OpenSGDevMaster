@@ -128,7 +128,7 @@ void GradientBackground::clear(DrawEnv *pEnv)
             {
                 const Color3f &col = _mfColor[0];
 
-                GLP::glClearColor(col[0], col[1], col[2], 1.0);
+                glClearColor(col[0], col[1], col[2], 1.0);
             }
         }
         else
@@ -236,7 +236,7 @@ void GradientBackground::clear(DrawEnv *pEnv)
     {
         clearMask |= GL_DEPTH_BUFFER_BIT;
 
-        GLP::glClearDepth(getDepth());
+        glClearDepth(getDepth());
     }
 
     if(stencilBit >= 0)

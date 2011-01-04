@@ -102,7 +102,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFPnt3r           SFPositionType;
+    typedef SFPnt3f           SFPositionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -128,19 +128,19 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \{                                                                 */
 
 
-                  SFPnt3r             *editSFPosition       (void);
-            const SFPnt3r             *getSFPosition        (void) const;
+                  SFPnt3f             *editSFPosition       (void);
+            const SFPnt3f             *getSFPosition        (void) const;
 
 
-                  Pnt3r               &editPosition       (void);
-            const Pnt3r               &getPosition        (void) const;
+                  Pnt3f               &editPosition       (void);
+            const Pnt3f               &getPosition        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setPosition       (const Pnt3r &value);
+            void setPosition       (const Pnt3f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,7 +200,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFPnt3r           _sfPosition;
+    SFPnt3f           _sfPosition;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

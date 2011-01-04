@@ -113,7 +113,7 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void accumulateMatrix(Matrixr &result);
+    virtual void accumulateMatrix(Matrix &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

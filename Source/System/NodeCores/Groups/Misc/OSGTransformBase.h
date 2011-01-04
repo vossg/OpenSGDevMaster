@@ -102,7 +102,7 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFMatrixr         SFMatrixType;
+    typedef SFMatrix          SFMatrixType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -128,19 +128,19 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     /*! \{                                                                 */
 
 
-                  SFMatrixr           *editSFMatrix         (void);
-            const SFMatrixr           *getSFMatrix          (void) const;
+                  SFMatrix            *editSFMatrix         (void);
+            const SFMatrix            *getSFMatrix          (void) const;
 
 
-                  Matrixr             &editMatrix         (void);
-            const Matrixr             &getMatrix          (void) const;
+                  Matrix              &editMatrix         (void);
+            const Matrix              &getMatrix          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMatrix         (const Matrixr &value);
+            void setMatrix         (const Matrix &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,7 +200,7 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMatrixr         _sfMatrix;
+    SFMatrix          _sfMatrix;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

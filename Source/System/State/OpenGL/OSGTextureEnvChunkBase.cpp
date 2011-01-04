@@ -105,7 +105,7 @@ OSG_BEGIN_NAMESPACE
     Texture environment mode, default GL_REPLACE.
 */
 
-/*! \var Color4r         TextureEnvChunkBase::_sfEnvColor
+/*! \var Color4f         TextureEnvChunkBase::_sfEnvColor
     Texture environment color default transparent black.
 */
 
@@ -210,7 +210,7 @@ OSG_BEGIN_NAMESPACE
     (mask 8) for Q.
 */
 
-/*! \var Vec3r           TextureEnvChunkBase::_sfShaderConstEye
+/*! \var Vec3f           TextureEnvChunkBase::_sfShaderConstEye
     The CONST_EYE_NV value, i.e. the constant eye position used by the 
     DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.
 */
@@ -259,8 +259,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "envColor",
         "Texture environment color default transparent black.\n",
         EnvColorFieldId, EnvColorFieldMask,
@@ -564,8 +564,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(),
+    pDesc = new SFVec3f::Description(
+        SFVec3f::getClassType(),
         "shaderConstEye",
         "The CONST_EYE_NV value, i.e. the constant eye position used by the \n"
         "DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.\n",
@@ -630,7 +630,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"envColor\"\n"
-    "\t\ttype=\"Color4r\"\n"
+    "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f,0.f,0.f,0.f\"\n"
@@ -904,7 +904,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"shaderConstEye\"\n"
-    "\t\ttype=\"Vec3r\"\n"
+    "\t\ttype=\"Vec3f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -960,14 +960,14 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvMode(void) const
 }
 
 
-SFColor4r *TextureEnvChunkBase::editSFEnvColor(void)
+SFColor4f *TextureEnvChunkBase::editSFEnvColor(void)
 {
     editSField(EnvColorFieldMask);
 
     return &_sfEnvColor;
 }
 
-const SFColor4r *TextureEnvChunkBase::getSFEnvColor(void) const
+const SFColor4f *TextureEnvChunkBase::getSFEnvColor(void) const
 {
     return &_sfEnvColor;
 }
@@ -1285,14 +1285,14 @@ const SFUInt8 *TextureEnvChunkBase::getSFShaderCullModes(void) const
 }
 
 
-SFVec3r *TextureEnvChunkBase::editSFShaderConstEye(void)
+SFVec3f *TextureEnvChunkBase::editSFShaderConstEye(void)
 {
     editSField(ShaderConstEyeFieldMask);
 
     return &_sfShaderConstEye;
 }
 
-const SFVec3r *TextureEnvChunkBase::getSFShaderConstEye(void) const
+const SFVec3f *TextureEnvChunkBase::getSFShaderConstEye(void) const
 {
     return &_sfShaderConstEye;
 }
@@ -1827,7 +1827,7 @@ FieldContainerTransitPtr TextureEnvChunkBase::shallowCopy(void) const
 TextureEnvChunkBase::TextureEnvChunkBase(void) :
     Inherited(),
     _sfEnvMode                (GLenum(GL_REPLACE)),
-    _sfEnvColor               (Color4r(0.f,0.f,0.f,0.f)),
+    _sfEnvColor               (Color4f(0.f,0.f,0.f,0.f)),
     _sfEnvCombineRGB          (GLenum(GL_MODULATE)),
     _sfEnvCombineAlpha        (GLenum(GL_MODULATE)),
     _sfEnvScaleRGB            (Real32(1.0f)),
@@ -1925,8 +1925,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvMode        (void)
 
 GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvColor        (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfEnvColor,
              this->getType().getFieldDesc(EnvColorFieldId),
              const_cast<TextureEnvChunkBase *>(this)));
@@ -1936,8 +1936,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvColor        (void) const
 
 EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvColor       (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfEnvColor,
              this->getType().getFieldDesc(EnvColorFieldId),
              this));
@@ -2550,8 +2550,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderCullModes(void)
 
 GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderConstEye  (void) const
 {
-    SFVec3r::GetHandlePtr returnValue(
-        new  SFVec3r::GetHandle(
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
              &_sfShaderConstEye,
              this->getType().getFieldDesc(ShaderConstEyeFieldId),
              const_cast<TextureEnvChunkBase *>(this)));
@@ -2561,8 +2561,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderConstEye  (void) const
 
 EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderConstEye (void)
 {
-    SFVec3r::EditHandlePtr returnValue(
-        new  SFVec3r::EditHandle(
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
              &_sfShaderConstEye,
              this->getType().getFieldDesc(ShaderConstEyeFieldId),
              this));

@@ -310,43 +310,6 @@ typedef OSG::Color4<OSG::UInt8> Color4ub;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name Color Profile Types                                          */
-/*! \{                                                                 */
-
-#ifdef OSG_FLOAT_PROFILE
-
-/*! \var OSG::Color3f Color3r;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::Color3
- */
-typedef OSG::Color3f Color3r;
-
-
-/*! \var OSG::Color4f Color4r;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::Color4
- */
-typedef OSG::Color4f Color4r;
-
-#else
-
-/*! \var OSG::Color3fx Color3r;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::Color3
- */
-typedef OSG::Color3fx Color3r;
-
-
-/*! \var OSG::Color4fx Color4r;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::Color4
- */
-typedef OSG::Color4fx Color4r;
-
-#endif
-
-/*! \}                                                                 */
-/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

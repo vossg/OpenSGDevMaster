@@ -37,7 +37,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-void SpotLight::setSpotDirection(Real rX, Real rY, Real rZ)
+void SpotLight::setSpotDirection(Real32 rX, Real32 rY, Real32 rZ)
 {
     editSField(DirectionFieldMask);
 
@@ -45,7 +45,7 @@ void SpotLight::setSpotDirection(Real rX, Real rY, Real rZ)
 }
 
 inline
-void SpotLight::setSpotCutOffDeg(Real angle)
+void SpotLight::setSpotCutOffDeg(Real32 angle)
 {
     editSField(SpotCutOffFieldMask);
 
@@ -53,7 +53,7 @@ void SpotLight::setSpotCutOffDeg(Real angle)
 }
 
 inline
-Real SpotLight::getSpotCutOffDeg(void)
+Real32 SpotLight::getSpotCutOffDeg(void)
 {
     return osgRad2Degree(_sfSpotCutOff.getValue());
 }

@@ -68,8 +68,8 @@ class OSG_BASE_DLLMAPPING Line
 
     Line(       void                        );
     Line(const  Line  &obj                  );
-    Line(const  Pnt3r &p0,  const Pnt3r &p1 );
-    Line(const  Pnt3r &pos, const Vec3r &dir);
+    Line(const  Pnt3f &p0,  const Pnt3f &p1 );
+    Line(const  Pnt3f &pos, const Vec3f &dir);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,57 +93,57 @@ class OSG_BASE_DLLMAPPING Line
     /*! \name                    Set                                       */
     /*! \{                                                                 */
 
-    void setValue(const Pnt3r &p0 , const Pnt3r &p1 );
-    void setValue(const Pnt3r &pos, const Vec3r &dir);
+    void setValue(const Pnt3f &p0 , const Pnt3f &p1 );
+    void setValue(const Pnt3f &pos, const Vec3f &dir);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Specific                            */
     /*! \{                                                                 */
 
-    bool  getClosestPoints(const Line  &line2,
-                                 Pnt3r &ptOnThis, 
-                                 Pnt3r &ptOnLine2) const;
-    Pnt3r getClosestPoint (const Pnt3r &point    ) const;
-    Real  distance        (const Pnt3r &point    ) const;
+    bool   getClosestPoints(const Line  &line2,
+                                  Pnt3f &ptOnThis, 
+                                  Pnt3f &ptOnLine2) const;
+    Pnt3f  getClosestPoint (const Pnt3f &point    ) const;
+    Real32 distance        (const Pnt3f &point    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Get                                       */
     /*! \{                                                                 */
 
-    const Pnt3r &getPosition (void) const; 
-    const Vec3r &getDirection(void) const; 
+    const Pnt3f &getPosition (void) const; 
+    const Vec3f &getDirection(void) const; 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Intersection                              */
     /*! \{                                                                 */
 
-    bool intersect(const SphereVolume   &sphere              ) const;
-    bool intersect(const SphereVolume   &sphere,  Real &enter,
-                                                  Real &exit ) const;
-    bool intersect(const CylinderVolume &cyl                 ) const;
-    bool intersect(const CylinderVolume &cyl,     Real &enter,
-                                                  Real &exit ) const;
-    bool intersect(const FrustumVolume  &frustum             ) const;
-    bool intersect(const FrustumVolume  &frustum, Real &enter,
-                                                  Real &exit ) const;
-    bool intersect(const BoxVolume      &box,     Real &enter,
-                                                  Real &exit ) const;
-    bool intersect(      Real            angle,
-                   const BoxVolume      &box                 ) const;
-    bool intersect(      Real            angle,
-                   const Vec3r          &point               ) const;
-    bool intersect(      Real            angle,
-                   const Vec3r          &v0,
-                   const Vec3r          &v1,
-                         Vec3r          &pt                  ) const;
-    bool intersect(const Pnt3r          &v0,
-                   const Pnt3r          &v1,
-                   const Pnt3r          &v2,
-                         Real           &t,
-                         Vec3r          *normal = NULL       ) const;
+    bool intersect(const SphereVolume   &sphere                ) const;
+    bool intersect(const SphereVolume   &sphere,  Real32 &enter,
+                                                  Real32 &exit ) const;
+    bool intersect(const CylinderVolume &cyl                   ) const;
+    bool intersect(const CylinderVolume &cyl,     Real32 &enter,
+                                                  Real32 &exit ) const;
+    bool intersect(const FrustumVolume  &frustum               ) const;
+    bool intersect(const FrustumVolume  &frustum, Real32 &enter,
+                                                  Real32 &exit ) const;
+    bool intersect(const BoxVolume      &box,     Real32 &enter,
+                                                  Real32 &exit ) const;
+    bool intersect(      Real32          angle,
+                   const BoxVolume      &box                   ) const;
+    bool intersect(      Real32          angle,
+                   const Vec3f          &point                 ) const;
+    bool intersect(      Real32          angle,
+                   const Vec3f          &v0,
+                   const Vec3f          &v1,
+                         Vec3f          &pt                    ) const;
+    bool intersect(const Pnt3f          &v0,
+                   const Pnt3f          &v1,
+                   const Pnt3f          &v2,
+                         Real32         &t,
+                         Vec3f          *normal = NULL         ) const;
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -154,8 +154,8 @@ class OSG_BASE_DLLMAPPING Line
 
   private:
 
-    Pnt3r   _pos;
-    Vec3r   _dir;
+    Pnt3f   _pos;
+    Vec3f   _dir;
 
 };
 

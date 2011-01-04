@@ -47,9 +47,7 @@
 #include "OSGGL.h"
 
 #include "OSGInverseTransform.h"
-#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
-#endif
 #include "OSGRenderAction.h"
 #include "OSGNode.h"
 
@@ -74,7 +72,6 @@ void InverseTransform::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
@@ -84,7 +81,6 @@ void InverseTransform::initMethod(InitPhase ePhase)
             getClassType(),
             reinterpret_cast<Action::Callback>(
                 &InverseTransform::intersectLeave));
-#endif
 
         RenderAction::registerEnterDefault(
             InverseTransform::getClassType(),
@@ -145,22 +141,22 @@ void InverseTransform::adjustVolume(Volume &volume)
     volume.transform(_invWorld);
 }
 
-void InverseTransform::accumulateMatrix(Matrixr &result)
+void InverseTransform::accumulateMatrix(Matrix &result)
 {
     result.mult(_invWorld);
 }
 
 /*------------------------- calc matrix ---------------------------------*/
 
-void InverseTransform::calcMatrix(const Matrixr        &mToWorld,
-                                        Matrixr        &mResult)
+void InverseTransform::calcMatrix(const Matrix        &mToWorld,
+                                        Matrix        &mResult)
 {
     mResult.invertFrom(mToWorld);
 
     _invWorld = mResult;    // remember dynamically set matrix field
 }
 
-void InverseTransform::initMatrix(const Matrixr &mToWorld)
+void InverseTransform::initMatrix(const Matrix &mToWorld)
 {
     _invWorld.invertFrom(mToWorld);
 }
@@ -171,7 +167,6 @@ void InverseTransform::initMatrix(const Matrixr &mToWorld)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-#ifndef OSG_EMBEDDED
 Action::ResultE InverseTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -207,7 +202,6 @@ Action::ResultE InverseTransform::intersectLeave(Action *action)
 
     return Action::Continue;
 }
-#endif
 
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
@@ -216,7 +210,7 @@ Action::ResultE InverseTransform::intersectLeave(Action *action)
 Action::ResultE InverseTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-    Matrixr mMat;    // will be set to World^-1
+    Matrix        mMat;    // will be set to World^-1
 
     calcMatrix(pAction, pAction->top_matrix(), mMat);
 
@@ -240,7 +234,7 @@ Action::ResultE InverseTransform::renderEnter(Action *action)
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
 
-    Matrixr mMat;    // will be set to World^-1
+    Matrix mMat;    // will be set to World^-1
 
     calcMatrix(pAction->topMatrix(), mMat);
 

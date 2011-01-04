@@ -24,7 +24,7 @@ OSG::LightChunk::_sfLinearAttenuation,
 OSG::LightChunk::_sfQuadraticAttenuation).
 	<Field
 		name="diffuse"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f,1.f,1.f,0.f"
@@ -33,7 +33,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="ambient"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue=".1f,.1f,.1f,0.f"
@@ -42,7 +42,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="specular"
-		type="Color4r"
+		type="Color4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f,1.f,1.f,0.f"
@@ -51,7 +51,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="position"
-		type="Vec4r"
+		type="Vec4f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f,-1.f,0.f,0.f"
@@ -60,7 +60,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="direction"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f,0.f,1.f"
@@ -69,7 +69,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="exponent"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="2.f"
@@ -78,7 +78,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="cutoff"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="180.f"
@@ -87,7 +87,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="constantAttenuation"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f"
@@ -96,7 +96,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="linearAttenuation"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f"
@@ -105,7 +105,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="quadraticAttenuation"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f"

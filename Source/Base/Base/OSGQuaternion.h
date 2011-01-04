@@ -380,29 +380,6 @@ typedef OSG::QuaternionBase<OSG::Fixed32> Quaternionfx;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name Profile Quaternion Types                                     */
-/*! \{                                                                 */
-
-#ifdef OSG_FLOAT_PROFILE
-
-/*! \var OSG::QuaternionBase<OSG::Real32> Quaternionr;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::QuaternionBase
-*/
-typedef OSG::QuaternionBase<OSG::Real32> Quaternionr;
-
-#else
-
-/*! \var OSG::QuaternionBase<OSG::Fixed32> Quaternionr;
-    \ingroup GrpBaseBaseMathObj
-    \relatesalso OSG::QuaternionBase
-*/
-typedef OSG::QuaternionBase<OSG::Fixed32> Quaternionr;
-
-#endif
-
-/*! \}                                                                 */
-/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

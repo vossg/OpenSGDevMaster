@@ -267,7 +267,7 @@ InitFuncWrapper     Log::_lockInit(&Log::initLock);
  */
 bool Log::colorHeader(LogLevel level, const char *sep)
 {
-#if defined (OSG_WIN_TYPES) && !defined(OSG_NO_WINDOWD_H_INCLUDE) && !defined(OSG_EMBEDDED)
+#if defined (OSG_WIN_TYPES) && !defined(OSG_NO_WINDOWD_H_INCLUDE) 
     bool ok = true;
     std::string str("");
     LPSTR colStr;

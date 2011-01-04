@@ -87,9 +87,9 @@ class OSG_SYSTEM_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
     /*! \{                                                                 */
 
 
-    virtual void getProjection(      Matrixr    &result, 
-                                     UInt32      width,
-                                     UInt32      height);
+    virtual void getProjection(      Matrix    &result, 
+                                     UInt32     width,
+                                     UInt32     height);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

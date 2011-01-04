@@ -45,7 +45,7 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGSystemDef.h"
-#include "OSGSystemProfile.h"
+#include "OSGMatrix.h"
 #include "OSGGLEXT.h"
 #include "OSGStatCollector.h"
 
@@ -83,13 +83,13 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     void   setWindow         (      Window   *pWindow       );
 
-    void   setupProjection   (const Matrixr  &projection,
-                              const Matrixr  &translation   );
-    void   setupViewing      (const Matrixr  &matrix        );
-    void   setObjectToWorld  (const Matrixr  &matrix        );
+    void   setupProjection   (const Matrix   &projection,
+                              const Matrix   &translation   );
+    void   setupViewing      (const Matrix   &matrix        );
+    void   setObjectToWorld  (const Matrix   &matrix        );
 
-    void   setCameraNear     (const Real     &camNear       );
-    void   setCameraFar      (const Real     &camFar        );
+    void   setCameraNear     (const Real32   &camNear       );
+    void   setCameraFar      (const Real32   &camFar        );
 
     void   setActiveTexTarget(      UInt32    uiSlot,
                                     GLenum    uiTarget      );
@@ -102,22 +102,22 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    const Matrixr       &getCameraFullProjection (void         ) const;
-    const Matrixr       &getCameraProjection     (void         ) const;
-    const Matrixr       &getCameraProjectionTrans(void         ) const;
-    const Matrixr       &getCameraDecoration     (void         ) const;
+    const Matrix        &getCameraFullProjection (void         ) const;
+    const Matrix        &getCameraProjection     (void         ) const;
+    const Matrix        &getCameraProjectionTrans(void         ) const;
+    const Matrix        &getCameraDecoration     (void         ) const;
 
-    const Matrixr       &getCameraViewing        (void         ) const;
+    const Matrix        &getCameraViewing        (void         ) const;
 
     //CamViewing^-1
-    const Matrixr       &getCameraToWorld        (void         ) const;
+    const Matrix        &getCameraToWorld        (void         ) const;
 
-    const Matrixr       &getObjectToWorld        (void         ) const;
+    const Matrix        &getObjectToWorld        (void         ) const;
 
-    const Matrixr       &getWorldToScreen        (void         ) const;
+    const Matrix        &getWorldToScreen        (void         ) const;
 
-          Real           getCameraNear           (void         ) const;
-          Real           getCameraFar            (void         ) const;
+          Real32         getCameraNear           (void         ) const;
+          Real32         getCameraFar            (void         ) const;
 
           Window        *getWindow               (void         ) const;
 
@@ -136,28 +136,28 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    const Matrixr  &getVPCameraFullProjection (void         ) const;
-    const Matrixr  &getVPCameraProjection     (void         ) const;
-    const Matrixr  &getVPCameraProjectionTrans(void         ) const;
+    const Matrix   &getVPCameraFullProjection (void         ) const;
+    const Matrix   &getVPCameraProjection     (void         ) const;
+    const Matrix   &getVPCameraProjectionTrans(void         ) const;
 
-    const Matrixr  &getVPCameraViewing        (void         ) const;
+    const Matrix   &getVPCameraViewing        (void         ) const;
 
     //VPCamViewing^-1
-    const Matrixr  &getVPCameraToWorld        (void         ) const; 
+    const Matrix   &getVPCameraToWorld        (void         ) const; 
 
-    const Matrixr  &getVPWorldToScreen        (void         ) const;
+    const Matrix   &getVPWorldToScreen        (void         ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void setVPCameraMatrices     (const Matrixr &mFullprojection,
-                                  const Matrixr &mProjection,
-                                  const Matrixr &mProjectionTrans,
-                                  const Matrixr &mViewing,
-                                  const Matrixr &mToWorld,
-                                  const Matrixr &mWorldToScreen  );
+    void setVPCameraMatrices     (const Matrix  &mFullprojection,
+                                  const Matrix  &mProjection,
+                                  const Matrix  &mProjectionTrans,
+                                  const Matrix  &mViewing,
+                                  const Matrix  &mToWorld,
+                                  const Matrix  &mWorldToScreen  );
     
     void initVPMatricesFromCamera(void                           );
 
@@ -217,7 +217,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     const Vec2u   &getTileFullSize         (void                       ) const;
     const Vec4f   &getTileRegion           (void                       ) const;
 
-          Matrixr  calcTileDecorationMatrix(void                       ) const;
+          Matrix   calcTileDecorationMatrix(void                       ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -260,25 +260,25 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     RAction       *_pRenderAction;
 
-    Matrixr        _cameraFullProjection;
-    Matrixr        _cameraProjection;
-    Matrixr        _cameraProjectionTrans;
-    Matrixr        _cameraViewing;
-    Matrixr        _cameraToWorld;
-    Matrixr        _cameraDecoration;
+    Matrix         _cameraFullProjection;
+    Matrix         _cameraProjection;
+    Matrix         _cameraProjectionTrans;
+    Matrix         _cameraViewing;
+    Matrix         _cameraToWorld;
+    Matrix         _cameraDecoration;
 
-    Matrixr        _objectToWorld;
-    Matrixr        _worldToScreen;
+    Matrix         _objectToWorld;
+    Matrix         _worldToScreen;
 
-    Matrixr        _vpCameraFullProjection;
-    Matrixr        _vpCameraProjection;
-    Matrixr        _vpCameraProjectionTrans;
-    Matrixr        _vpCameraViewing;
-    Matrixr        _vpCameraToWorld;
-    Matrixr        _vpWorldToScreen;
+    Matrix         _vpCameraFullProjection;
+    Matrix         _vpCameraProjection;
+    Matrix         _vpCameraProjectionTrans;
+    Matrix         _vpCameraViewing;
+    Matrix         _vpCameraToWorld;
+    Matrix         _vpWorldToScreen;
 
-    Real           _cameraNear;
-    Real           _cameraFar;
+    Real32         _cameraNear;
+    Real32         _cameraFar;
 
     Int32          _iPixelLeft;
     Int32          _iPixelRight;

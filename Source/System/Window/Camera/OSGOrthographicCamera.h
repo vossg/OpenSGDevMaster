@@ -73,9 +73,9 @@ class OSG_WINDOW_DLLMAPPING OrthographicCamera : public OrthographicCameraBase
     /*! \name                  Camera-specific                             */
     /*! \{                                                                 */
 
-    virtual void getProjection(Matrixr &result, 
-                               UInt32   width, 
-                               UInt32   height);
+    virtual void getProjection(Matrix &result, 
+                               UInt32  width, 
+                               UInt32  height);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -63,9 +63,9 @@ OSG_BEGIN_NAMESPACE
 
 /*-------------------------------- get ------------------------------------*/
 
-void FrustumVolume::getCenter(Pnt3r &center) const
+void FrustumVolume::getCenter(Pnt3f &center) const
 {
-    Pnt3r vertices[8];
+    Pnt3f vertices[8];
     Line  lines   [4];
 
     _planeVec[5].intersect(_planeVec[3],lines[3]);
@@ -79,7 +79,7 @@ void FrustumVolume::getCenter(Pnt3r &center) const
         _planeVec[1].intersectInfinite(lines[i],vertices[4 + i]);
     }    
     
-    center = Pnt3r(0.f, 0.f ,0.f);
+    center = Pnt3f(0.f, 0.f ,0.f);
 
     for(Int32 i = 0; i < 8; i++)
     {        
@@ -90,7 +90,7 @@ void FrustumVolume::getCenter(Pnt3r &center) const
 }
 
 
-Real FrustumVolume::getScalarVolume() const
+Real32 FrustumVolume::getScalarVolume() const
 {
     const Int32 faces[6][4] =
     {
@@ -102,7 +102,7 @@ Real FrustumVolume::getScalarVolume() const
         {1,5,7,3}
     };
 
-    Pnt3r vertices[8];
+    Pnt3f vertices[8];
     Line  lines   [4];
 
     _planeVec[5].intersect(_planeVec[3], lines[3]); 
@@ -117,7 +117,7 @@ Real FrustumVolume::getScalarVolume() const
     }
     
 
-    Pnt3r center = Pnt3r(0.f, 0.f, 0.f);
+    Pnt3f center = Pnt3f(0.f, 0.f, 0.f);
 
     for(Int32 i = 0; i < 8; i++)
     {
@@ -126,19 +126,19 @@ Real FrustumVolume::getScalarVolume() const
 
     center /= 8.f;
     
-    Real volume = .0f;
+    Real32 volume = .0f;
 
     for(Int32 i = 0; i < 6; i++)
     {
-        Real height;
-        Real area;
+        Real32 height;
+        Real32 area;
 
         height = 
             _planeVec[i].getNormal().dot(center) - 
             _planeVec[i].getDistanceFromOrigin();
         
-        Vec3r main_diag = vertices[faces[i][0]] - vertices[faces[i][2]];
-        Vec3r sec_diag  = vertices[faces[i][1]] - vertices[faces[i][3]];
+        Vec3f main_diag = vertices[faces[i][0]] - vertices[faces[i][2]];
+        Vec3f sec_diag  = vertices[faces[i][1]] - vertices[faces[i][3]];
 
         area = osgAbs((main_diag.cross(sec_diag)).length() / 2.f);        
 
@@ -152,21 +152,21 @@ Real FrustumVolume::getScalarVolume() const
 /*! Computes the \a minPnt and \a maxPnt of an axis aligned bounding box
     containing this volume.
  */
-void FrustumVolume::getBounds(Pnt3r &minPnt,
-                              Pnt3r &maxPnt ) const
+void FrustumVolume::getBounds(Pnt3f &minPnt,
+                              Pnt3f &maxPnt ) const
 {
-    Pnt3r corners[8];
+    Pnt3f corners[8];
 
     this->getCorners(corners[0], corners[1], corners[2], corners[3],
                      corners[4], corners[5], corners[6], corners[7] );
 
-    minPnt[0] = TypeTraits<Pnt3r::ValueType>::getMax();
-    minPnt[1] = TypeTraits<Pnt3r::ValueType>::getMax();
-    minPnt[2] = TypeTraits<Pnt3r::ValueType>::getMax();
+    minPnt[0] = TypeTraits<Pnt3f::ValueType>::getMax();
+    minPnt[1] = TypeTraits<Pnt3f::ValueType>::getMax();
+    minPnt[2] = TypeTraits<Pnt3f::ValueType>::getMax();
 
-    maxPnt[0] = TypeTraits<Pnt3r::ValueType>::getMin();
-    maxPnt[1] = TypeTraits<Pnt3r::ValueType>::getMin();
-    maxPnt[2] = TypeTraits<Pnt3r::ValueType>::getMin();
+    maxPnt[0] = TypeTraits<Pnt3f::ValueType>::getMin();
+    maxPnt[1] = TypeTraits<Pnt3f::ValueType>::getMin();
+    maxPnt[2] = TypeTraits<Pnt3f::ValueType>::getMin();
 
     for(UInt32 i = 0; i < 8; ++i)
     {
@@ -182,10 +182,10 @@ void FrustumVolume::getBounds(Pnt3r &minPnt,
 
 /*! Computes the eight corner points of the frustum.
  */
-void FrustumVolume::getCorners(Pnt3r &nlt, Pnt3r &nlb,
-                               Pnt3r &nrt, Pnt3r &nrb,
-                               Pnt3r &flt, Pnt3r &flb,
-                               Pnt3r &frt, Pnt3r &frb ) const
+void FrustumVolume::getCorners(Pnt3f &nlt, Pnt3f &nlb,
+                               Pnt3f &nrt, Pnt3f &nrb,
+                               Pnt3f &flt, Pnt3f &flb,
+                               Pnt3f &frt, Pnt3f &frb ) const
 {
     Line edges[4];
 
@@ -219,10 +219,10 @@ void FrustumVolume::setPlanes(const Plane &pnear, const Plane &pfar,
 }
 
 
-void FrustumVolume::setPlanes(const Pnt3r &nlt, const Pnt3r &nlb,
-                              const Pnt3r &nrt, const Pnt3r &nrb,
-                              const Pnt3r &flt, const Pnt3r &flb,
-                              const Pnt3r &frt, const Pnt3r &frb)
+void FrustumVolume::setPlanes(const Pnt3f &nlt, const Pnt3f &nlb,
+                              const Pnt3f &nrt, const Pnt3f &nrb,
+                              const Pnt3f &flt, const Pnt3f &flb,
+                              const Pnt3f &frt, const Pnt3f &frb)
 {
 
     Plane pnear  (nlb,nlt,nrb);
@@ -243,11 +243,11 @@ void FrustumVolume::setPlanes(const Pnt3r &nlt, const Pnt3r &nlb,
 }
 
 
-void FrustumVolume::setPlanes(const Matrixr &objectClipMat)
+void FrustumVolume::setPlanes(const Matrix &objectClipMat)
 {
-    Vec4r planeEquation[6];
-    Real  vectorLength;
-    Vec3r normal;
+    Vec4f  planeEquation[6];
+    Real32 vectorLength;
+    Vec3f  normal;
 
     planeEquation[0][0] = objectClipMat[0][3] - objectClipMat[0][0];
     planeEquation[0][1] = objectClipMat[1][3] - objectClipMat[1][0];
@@ -320,7 +320,7 @@ void FrustumVolume::setPlanes(const Matrixr &objectClipMat)
   \brief   NOT IMPLEMENTED 
  */
 
-void FrustumVolume::extendBy(const Pnt3r &OSG_CHECK_ARG(pt))
+void FrustumVolume::extendBy(const Pnt3f &OSG_CHECK_ARG(pt))
 {
 }
 
@@ -336,7 +336,7 @@ void FrustumVolume::extendBy(const Volume &volume)
 
 /*-------------------------- intersection ---------------------------------*/
 
-bool FrustumVolume::intersect(const Pnt3r &point) const
+bool FrustumVolume::intersect(const Pnt3f &point) const
 {
     bool retCode = true;
 
@@ -362,9 +362,9 @@ bool FrustumVolume::intersect(const Line &line) const
 }
 
 
-bool FrustumVolume::intersect(const Line        &line,
-                                    Real &minDist, 
-                                    Real &maxDist) const
+bool FrustumVolume::intersect(const Line   &line,
+                                    Real32 &minDist, 
+                                    Real32 &maxDist) const
 {
     return line.intersect(*this, minDist, maxDist);
 }
@@ -380,13 +380,13 @@ bool FrustumVolume::intersect(const Volume &volume) const
   \brief   NOT IMPLEMENTED 
  */
 
-bool FrustumVolume::isOnSurface(const Pnt3r &OSG_CHECK_ARG(point)) const
+bool FrustumVolume::isOnSurface(const Pnt3f &OSG_CHECK_ARG(point)) const
 {
     FWARNING(("FrustumVolume::isOnSurface: NYI!\n"));
     return false;
 }
 
-void FrustumVolume::transform(const Matrixr &m)
+void FrustumVolume::transform(const Matrix &m)
 {
     _planeVec[0].transform(m);
     _planeVec[1].transform(m);
@@ -507,7 +507,7 @@ bool intersect(const OSG::FrustumVolume           &frustum,
     }
     else
     {
-        Pnt3r min, max;
+        Pnt3f min, max;
 
         vol.getBounds(min, max);
      

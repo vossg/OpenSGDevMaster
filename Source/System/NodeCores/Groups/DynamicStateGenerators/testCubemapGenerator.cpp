@@ -346,10 +346,10 @@ OSG::NodeTransitPtr setupAnim(void)
 
         OSG::SimpleMaterialUnrecPtr pMat = OSG::SimpleMaterial::create();
         
-        pMat->setDiffuse(OSG::Color3r(aDiffuse[i][0],
+        pMat->setDiffuse(OSG::Color3f(aDiffuse[i][0],
                                       aDiffuse[i][1],
                                       aDiffuse[i][2]));
-        pMat->setAmbient(OSG::Color3r(aDiffuse[i][0],
+        pMat->setAmbient(OSG::Color3f(aDiffuse[i][0],
                                       aDiffuse[i][1],
                                       aDiffuse[i][2]));
 

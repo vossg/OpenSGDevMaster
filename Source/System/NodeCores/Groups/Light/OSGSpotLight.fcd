@@ -20,7 +20,7 @@ by the \c constantAttenuation, \c linearAttenuation and \c
 quadraticAttenuation attributes.
 	<Field
 		name="direction"
-		type="Vec3r"
+		type="Vec3f"
 		cardinality="single"
 		visibility="external"
         defaultValue="0.f,0.f,1.f"
@@ -28,7 +28,7 @@ quadraticAttenuation attributes.
 	</Field>
 	<Field
 		name="spotExponent"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
         defaultValue="0.f"
@@ -37,7 +37,7 @@ quadraticAttenuation attributes.
 	</Field>
 	<Field
 		name="spotCutOff"
-		type="Real"
+		type="Real32"
 		cardinality="single"
 		visibility="external"
         defaultValue="0.f"

@@ -243,7 +243,6 @@ Window::GLObject::GLObject(GLObjectFunctor        funct,
 inline
 void Window::GLObject::acquireLock(void)
 {
-#ifndef OSG_EMBEDDED
     if(! _GLObjectLock)
     {
         _GLObjectLock =
@@ -251,17 +250,14 @@ void Window::GLObject::acquireLock(void)
     }
 
     _GLObjectLock->acquire();
-#endif
 }
 
 inline
 void Window::GLObject::releaseLock(void)
 {
-#ifndef OSG_EMBEDDED
     OSG_ASSERT(_GLObjectLock != NULL);
 
     _GLObjectLock->release();
-#endif
 }
 
 inline 

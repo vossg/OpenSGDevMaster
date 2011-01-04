@@ -61,7 +61,7 @@ SphereVolume::SphereVolume(const SphereVolume &obj) :
 }
 
 inline
-SphereVolume::SphereVolume(const Pnt3r &c, Real r) :
+SphereVolume::SphereVolume(const Pnt3f &c, Real32 r) :
      Inherited( ), 
     _center   (c), 
     _radius   (r)
@@ -79,7 +79,7 @@ SphereVolume::~SphereVolume()
 /*! Change the center and radius */
 
 inline
-void SphereVolume::setValue(const Pnt3r &c, Real r)
+void SphereVolume::setValue(const Pnt3f &c, Real32 r)
 {
     setEmpty(false);
 
@@ -91,7 +91,7 @@ void SphereVolume::setValue(const Pnt3r &c, Real r)
 /*! set just the center */
 
 inline
-void SphereVolume::setCenter(const Pnt3r &c)
+void SphereVolume::setCenter(const Pnt3f &c)
 {
     _center = c;
 }
@@ -99,7 +99,7 @@ void SphereVolume::setCenter(const Pnt3r &c)
 /*! set just the radius */
 
 inline
-void SphereVolume::setRadius(Real r)
+void SphereVolume::setRadius(Real32 r)
 {
     _radius = r;
 }
@@ -109,7 +109,7 @@ void SphereVolume::setRadius(Real r)
 /*! Returns the center */
 
 inline
-const Pnt3r &SphereVolume::getCenter(void) const
+const Pnt3f &SphereVolume::getCenter(void) const
 {
     return _center;
 }
@@ -117,7 +117,7 @@ const Pnt3r &SphereVolume::getCenter(void) const
 /*! Returns the radius */
 
 inline
-Real SphereVolume::getRadius(void) const
+Real32 SphereVolume::getRadius(void) const
 {
     return _radius;
 }

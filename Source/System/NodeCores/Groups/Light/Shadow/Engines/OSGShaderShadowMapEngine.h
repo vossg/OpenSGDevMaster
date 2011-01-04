@@ -106,7 +106,7 @@ class OSG_GROUP_DLLMAPPING ShaderShadowMapEngine : public ShaderShadowMapEngineB
     typedef ShaderShadowMapEngineData           SSMEngineData;
     typedef ShaderShadowMapEngineDataUnrecPtr   SSMEngineDataUnrecPtr;
 
-    static const Matrixr     _matCubeFaceInv [6];
+    static const Matrix      _matCubeFaceInv [6];
     static const GLenum      _cubeFaceTargets[6];
     
     static const std::string _pointFPCode;
@@ -153,25 +153,25 @@ class OSG_GROUP_DLLMAPPING ShaderShadowMapEngine : public ShaderShadowMapEngineB
                                      RenderAction     *ract,
                                      SSMEngineData    *data   );
 
-    void calcDirectionalLightMatrices(      Matrixr          &matWorldToLight,
-                                            Matrixr          &matEyeToLight,
+    void calcDirectionalLightMatrices(      Matrix           &matWorldToLight,
+                                            Matrix           &matEyeToLight,
                                       const DirectionalLight *dirL, 
-                                      const Matrixr          &matEyeToWorld   );
-    void calcPointLightMatrices      (      Matrixr          &matWorldToLight,
-                                            Matrixr          &matEyeToLight,
+                                      const Matrix           &matEyeToWorld   );
+    void calcPointLightMatrices      (      Matrix           &matWorldToLight,
+                                            Matrix           &matEyeToLight,
                                       const PointLight       *pointL, 
-                                      const Matrixr          &matEyeToWorld   );
-    void calcSpotLightMatrices       (      Matrixr          &matWorldToLight,
-                                            Matrixr          &matEyeToLight,
+                                      const Matrix           &matEyeToWorld   );
+    void calcSpotLightMatrices       (      Matrix           &matWorldToLight,
+                                            Matrix           &matEyeToLight,
                                       const SpotLight        *spotL, 
-                                      const Matrixr          &matEyeToWorld   );
+                                      const Matrix           &matEyeToWorld   );
 
     void calcPointLightRange         (const PointLight       *pointL,
-                                            Real              lightThreshold,
-                                            Real              defaultNear,
-                                            Real              defaultFar,
-                                            Real             &outNear,
-                                            Real             &outFar          );
+                                            Real32            lightThreshold,
+                                            Real32            defaultNear,
+                                            Real32            defaultFar,
+                                            Real32           &outNear,
+                                            Real32           &outFar          );
 
     void updateShadowTexChunk            (SSMEngineData *data);
     void updateLightPassMaterial         (SSMEngineData *data);

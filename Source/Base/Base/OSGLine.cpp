@@ -80,7 +80,7 @@ Line::Line(const Line &obj) :
 }
 
 
-Line::Line(const Pnt3r &p0, const Pnt3r &p1) :
+Line::Line(const Pnt3f &p0, const Pnt3f &p1) :
     _pos(0.f, 0.f ,0.f), 
     _dir(0.f, 0.f, 0.f)
 {
@@ -88,7 +88,7 @@ Line::Line(const Pnt3r &p0, const Pnt3r &p1) :
 }
 
 
-Line::Line(const Pnt3r &pos, const Vec3r &dir) :
+Line::Line(const Pnt3f &pos, const Vec3f &dir) :
     _pos(pos), 
     _dir(dir)
 {
@@ -123,7 +123,7 @@ bool Line::operator ==(const Line &rhs) const
 
 /*------------------------------ feature ----------------------------------*/
 
-void Line::setValue(const Pnt3r &p0, const Pnt3r &p1)
+void Line::setValue(const Pnt3f &p0, const Pnt3f &p1)
 {
     _pos = p0;
     _dir = p1 - p0;
@@ -132,7 +132,7 @@ void Line::setValue(const Pnt3r &p0, const Pnt3r &p1)
 }
 
 
-void Line::setValue(const Pnt3r &pos, const Vec3r &dir)
+void Line::setValue(const Pnt3f &pos, const Vec3f &dir)
 {
     _pos = pos;
     _dir = dir;
@@ -144,21 +144,21 @@ void Line::setValue(const Pnt3r &pos, const Vec3r &dir)
  */
 
 bool Line::getClosestPoints(const Line  &line2    ,
-                                  Pnt3r &ptOnThis ,
-                                  Pnt3r &ptOnLine2) const
+                                  Pnt3f &ptOnThis ,
+                                  Pnt3f &ptOnLine2) const
 {
     // Assumes that _dir and line2._dir are valid and normalized
 
-    Vec3r normal=_dir.cross(line2._dir);
+    Vec3f normal=_dir.cross(line2._dir);
 
     if(normal.isZero()) 
         return false; // Lines are parallel
 
-    Vec3r p0p1 = line2._pos - _pos;
+    Vec3f p0p1 = line2._pos - _pos;
 
-    Real lengthSqr = normal.squareLength();
-    Real s         = p0p1.cross(line2._dir).dot(normal) / lengthSqr;
-    Real t         = p0p1.cross(      _dir).dot(normal) / lengthSqr;
+    Real32 lengthSqr = normal.squareLength();
+    Real32 s         = p0p1.cross(line2._dir).dot(normal) / lengthSqr;
+    Real32 t         = p0p1.cross(      _dir).dot(normal) / lengthSqr;
 
     ptOnThis  =       _pos + s *       _dir;
     ptOnLine2 = line2._pos + t * line2._dir;
@@ -169,9 +169,9 @@ bool Line::getClosestPoints(const Line  &line2    ,
 /*! Returns the closest point on the line to the given point.
  */
 
-Pnt3r Line::getClosestPoint(const Pnt3r &point) const
+Pnt3f Line::getClosestPoint(const Pnt3f &point) const
 {
-    Vec3r vec(point - _pos);
+    Vec3f vec(point - _pos);
 
     return _pos + _dir * vec.dot(_dir);
 }
@@ -180,7 +180,7 @@ Pnt3r Line::getClosestPoint(const Pnt3r &point) const
 /*! Returns the distance of the given point to the line.
  */
 
-Real Line::distance(const Pnt3r &point) const
+Real32 Line::distance(const Pnt3f &point) const
 {
     return (point - getClosestPoint(point)).length();
 }
@@ -193,8 +193,8 @@ Real Line::distance(const Pnt3r &point) const
 
 bool Line::intersect(const SphereVolume &sphere) const
 {
-    Real ent;
-    Real ex;
+    Real32 ent;
+    Real32 ex;
 
     return this->intersect(sphere, ent, ex);
 }
@@ -203,20 +203,20 @@ bool Line::intersect(const SphereVolume &sphere) const
  */
 
 bool Line::intersect(const SphereVolume &sphere,
-                           Real         &enter, 
-                           Real         &exit  ) const
+                           Real32       &enter, 
+                           Real32       &exit  ) const
 {
-    Vec3r v;
-    Pnt3r center;
+    Vec3f v;
+    Pnt3f center;
 
     sphere.getCenter(center);
 
-    Real radius;
-    Real h;
-    Real b;
-    Real d;
-    Real t1;
-    Real t2;
+    Real32 radius;
+    Real32 h;
+    Real32 b;
+    Real32 d;
+    Real32 t1;
+    Real32 t2;
 
     radius = sphere.getRadius();
 
@@ -241,9 +241,9 @@ bool Line::intersect(const SphereVolume &sphere,
 
     t2 = b + d;
 
-    if( t1 < TypeTraits<Real>::getDefaultEps() )
+    if( t1 < TypeTraits<Real32>::getDefaultEps() )
     {
-        if( t2 < TypeTraits<Real>::getDefaultEps() /*|| t2 > 1*/)
+        if( t2 < TypeTraits<Real32>::getDefaultEps() /*|| t2 > 1*/)
         {
             return false;
         }
@@ -260,8 +260,8 @@ bool Line::intersect(const SphereVolume &sphere,
 
 bool Line::intersect(const CylinderVolume &cyl) const
 {
-    Real ent;
-    Real ex;
+    Real32 ent;
+    Real32 ex;
 
     return this->intersect(cyl, ent, ex);
 }
@@ -271,14 +271,14 @@ bool Line::intersect(const CylinderVolume &cyl) const
  */
 
 bool Line::intersect(const CylinderVolume &cyl, 
-                           Real           &enter,  
-                           Real           &exit ) const
+                           Real32         &enter,  
+                           Real32         &exit ) const
 {
-    Real  radius = cyl.getRadius();
+    Real32  radius = cyl.getRadius();
 
-    Vec3r adir;
-    Vec3r o_adir;
-    Pnt3r apos;
+    Vec3f adir;
+    Vec3f o_adir;
+    Pnt3f apos;
 
     cyl.getAxis(apos, adir);
 
@@ -287,11 +287,11 @@ bool Line::intersect(const CylinderVolume &cyl,
 
     bool isect;
 
-    Real  ln;
-    Real  dl;
-    Vec3r RC;
-    Vec3r n;
-    Vec3r D;
+    Real32 ln;
+    Real32 dl;
+    Vec3f  RC;
+    Vec3f  n;
+    Vec3f  D;
 
     RC = _pos - apos;
 
@@ -322,9 +322,9 @@ bool Line::intersect(const CylinderVolume &cyl,
 
         if(isect)
         {                 // if ray hits cylinder
-            Real  t;
-            Real  s;
-            Vec3r O;
+            Real32 t;
+            Real32 s;
+            Vec3f  O;
 
             O = RC.cross(adir);
             t = - (O.dot(n)) / ln;
@@ -351,7 +351,7 @@ bool Line::intersect(const CylinderVolume &cyl,
         }
     }
 
-    Real t;
+    Real32 t;
 
     Plane bottom(-adir, apos);
 
@@ -403,8 +403,8 @@ bool Line::intersect(const CylinderVolume &cyl,
 
 bool Line::intersect(const FrustumVolume &frustum) const
 {
-    Real ent;
-    Real ex;
+    Real32 ent;
+    Real32 ex;
 
     return this->intersect(frustum, ent, ex);
 }
@@ -420,21 +420,21 @@ bool Line::intersect(const FrustumVolume &frustum) const
 
 struct face
 {
-    Pnt3r point;
-    Vec3r inner_vector;
-    Vec3r inner_normal;
+    Pnt3f point;
+    Vec3f inner_vector;
+    Vec3f inner_normal;
 };
 
 #endif
 
 bool Line::intersect(const FrustumVolume &frustum ,
-                           Real          &enter   ,
-                           Real          &exit    ) const
+                           Real32        &enter   ,
+                           Real32        &exit    ) const
 {
-    const Real inf = 2u << 16;
+    const Real32 inf = 2u << 16;
 
-    Pnt3r enter_point = _pos + _dir * 0.f;
-    Pnt3r exit_point  = _pos + _dir * inf;
+    Pnt3f enter_point = _pos + _dir * 0.f;
+    Pnt3f exit_point  = _pos + _dir * inf;
 
     face faces[6];
 
@@ -448,8 +448,8 @@ bool Line::intersect(const FrustumVolume &frustum ,
     //ln[1] - left and bottom
     planes[2].intersect(planes[5], lines[1]); 
     
-    Pnt3r pointA;
-    Pnt3r pointB;
+    Pnt3f pointA;
+    Pnt3f pointB;
 
     if(!planes[0].intersectInfinite(lines[0],pointA))
         std::cout << "This should never happen (A)!!!!";
@@ -482,11 +482,11 @@ bool Line::intersect(const FrustumVolume &frustum ,
         if(faces[i].inner_normal.dot(faces[i].inner_vector) < 0.f)
             faces[i].inner_normal=-faces[i].inner_normal;
 
-        Vec3r test_enp = enter_point - faces[i].point;
-        Vec3r test_exp = exit_point  - faces[i].point;
+        Vec3f test_enp = enter_point - faces[i].point;
+        Vec3f test_exp = exit_point  - faces[i].point;
 
-        Real value_enp = test_enp.dot(faces[i].inner_normal);
-        Real value_exp = test_exp.dot(faces[i].inner_normal);
+        Real32 value_enp = test_enp.dot(faces[i].inner_normal);
+        Real32 value_exp = test_exp.dot(faces[i].inner_normal);
 
         if(value_enp < 0.f && value_exp < 0.f) 
             return false;
@@ -498,7 +498,7 @@ bool Line::intersect(const FrustumVolume &frustum ,
             planes[i].intersect(*this, enter_point);
     }
     
-    Real a;
+    Real32 a;
     
     if((a = (enter_point - _pos).dot(_dir)) != 0.f)
     {
@@ -526,22 +526,22 @@ bool Line::intersect(const FrustumVolume &frustum ,
  */
 
 bool Line::intersect(const BoxVolume &box,
-                           Real      &enter, 
-                           Real      &exit ) const
+                           Real32    &enter, 
+                           Real32    &exit ) const
 {
-    Pnt3r low;
-    Pnt3r high;
+    Pnt3f low;
+    Pnt3f high;
 
     box.getBounds(low, high);
 
-    Real r;
-    Real te;
-    Real tl;
+    Real32 r;
+    Real32 te;
+    Real32 tl;
 
-    Real in  = 0.f;
-    Real out = Inf;
+    Real32 in  = 0.f;
+    Real32 out = Inf;
 
-    if(_dir[0] > TypeTraits<Real>::getDefaultEps())
+    if(_dir[0] > TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[0];
     
@@ -554,7 +554,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     }
-    else if(_dir[0] < -TypeTraits<Real>::getDefaultEps())
+    else if(_dir[0] < -TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[0];
     
@@ -572,7 +572,7 @@ bool Line::intersect(const BoxVolume &box,
         return false;
     }
     
-    if(_dir[1] > TypeTraits<Real>::getDefaultEps())
+    if(_dir[1] > TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[1];
     
@@ -585,10 +585,10 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     
-        if(in-out >= TypeTraits<Real>::getDefaultEps())
+        if(in-out >= TypeTraits<Real32>::getDefaultEps())
             return false;
     }
-    else if(_dir[1] < -TypeTraits<Real>::getDefaultEps())
+    else if(_dir[1] < -TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[1];
     
@@ -601,7 +601,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     
-        if(in-out >= TypeTraits<Real>::getDefaultEps())
+        if(in-out >= TypeTraits<Real32>::getDefaultEps())
             return false;
     }
     else if(_pos[1] < low[1] || _pos[1] > high[1])
@@ -609,7 +609,7 @@ bool Line::intersect(const BoxVolume &box,
         return false;
     }
     
-    if(_dir[2] > TypeTraits<Real>::getDefaultEps())
+    if(_dir[2] > TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[2];
     
@@ -622,7 +622,7 @@ bool Line::intersect(const BoxVolume &box,
         if(te > in)    
             in  = te;
     }
-    else if(_dir[2] < -TypeTraits<Real>::getDefaultEps())
+    else if(_dir[2] < -TypeTraits<Real32>::getDefaultEps())
     {
         r = 1.f / _dir[2];
     
@@ -656,7 +656,7 @@ bool Line::intersect(const BoxVolume &box,
 
     // And now something completely different...
 
-    return in-out < TypeTraits<Real>::getDefaultEps();
+    return in-out < TypeTraits<Real32>::getDefaultEps();
 
     // To get you even more confused: It also works if you leave it
     // as "enter-exit" but declare in/out as Real64.
@@ -671,7 +671,7 @@ bool Line::intersect(const BoxVolume &box,
 /*! Intersect the line with a box.
  */
 
-bool Line::intersect(      Real       OSG_CHECK_ARG(angle),
+bool Line::intersect(      Real32     OSG_CHECK_ARG(angle),
                      const BoxVolume &OSG_CHECK_ARG(box  )) const
 {
     // TODO
@@ -682,8 +682,8 @@ bool Line::intersect(      Real       OSG_CHECK_ARG(angle),
 /*! Intersect the line with a point.
  */
 
-bool Line::intersect(      Real    OSG_CHECK_ARG(angle),
-                     const Vec3r  &OSG_CHECK_ARG(point)) const
+bool Line::intersect(      Real32  OSG_CHECK_ARG(angle),
+                     const Vec3f  &OSG_CHECK_ARG(point)) const
 {
     // TODO
     assert(false);
@@ -693,10 +693,10 @@ bool Line::intersect(      Real    OSG_CHECK_ARG(angle),
 /*! Intersect the line with a line.
  */
 
-bool Line::intersect(      Real   OSG_CHECK_ARG(angle),
-                     const Vec3r &OSG_CHECK_ARG(v0   ),
-                     const Vec3r &OSG_CHECK_ARG(v1   ),
-                           Vec3r &OSG_CHECK_ARG(pt   )) const
+bool Line::intersect(      Real32  OSG_CHECK_ARG(angle),
+                     const Vec3f  &OSG_CHECK_ARG(v0   ),
+                     const Vec3f  &OSG_CHECK_ARG(v1   ),
+                           Vec3f  &OSG_CHECK_ARG(pt   )) const
 {
     // TODO
     assert(false);
@@ -718,34 +718,34 @@ bool Line::intersect(      Real   OSG_CHECK_ARG(angle),
     T. Moeller and B. Trumbore, with the addition of avoiding the computation of
     inv_det when no intersection happens.
  */
-bool Line::intersect(const Pnt3r &v0, 
-                     const Pnt3r &v1,
-                     const Pnt3r &v2, 
-                           Real  &t,
-                           Vec3r *norm) const
+bool Line::intersect(const Pnt3f  &v0, 
+                     const Pnt3f  &v1,
+                     const Pnt3f  &v2, 
+                           Real32 &t,
+                           Vec3f  *norm) const
 {
     // Eps (1E-6f) didn't work with very small geometries!
-    static const Real sEps = 1E-10f;
+    static const Real32 sEps = 1E-10f;
 
     // find vectors for two edges sharing v0.
-    Vec3r edge1 = v1 - v0;
-    Vec3r edge2 = v2 - v0;
+    Vec3f edge1 = v1 - v0;
+    Vec3f edge2 = v2 - v0;
 
     // begin calculating determinant - also used to calculate U parameter.
-    Vec3r pvec = _dir.cross(edge2);
+    Vec3f pvec = _dir.cross(edge2);
 
     // if determinant is near zero, ray lies in plane of triangle.
-    Real det = edge1.dot(pvec);
+    Real32 det = edge1.dot(pvec);
 
-    Vec3r qvec;
+    Vec3f qvec;
 
     if(det > sEps)
     {
         // calculate distance from v0 to ray origin.
-        Vec3r tvec = _pos - v0;
+        Vec3f tvec = _pos - v0;
 
         // calculate U parameter and test bounds.
-        Real u = tvec.dot(pvec);
+        Real32 u = tvec.dot(pvec);
 
         if(u < 0.f || u > det)
         {
@@ -756,7 +756,7 @@ bool Line::intersect(const Pnt3r &v0,
         qvec = tvec.cross(edge1);
 
         // calculate V parameter and test bounds.
-        Real v = _dir.dot(qvec);
+        Real32 v = _dir.dot(qvec);
 
         if(v < 0.f || u + v > det)
         {
@@ -766,10 +766,10 @@ bool Line::intersect(const Pnt3r &v0,
     else if(det < -sEps)
     {
         // calculate distance from v0 to ray origin.
-        Vec3r tvec = _pos - v0;
+        Vec3f tvec = _pos - v0;
 
         // calculate U parameter and test bounds.
-        Real u = tvec.dot(pvec);
+        Real32 u = tvec.dot(pvec);
 
         if(u > 0.f || u < det)
         {
@@ -780,7 +780,7 @@ bool Line::intersect(const Pnt3r &v0,
         qvec = tvec.cross(edge1);
 
         // calculate V parameter and test bounds.
-        Real v = _dir.dot(qvec);
+        Real32 v = _dir.dot(qvec);
 
         if(v > 0.f || u + v < det)
         {
@@ -792,7 +792,7 @@ bool Line::intersect(const Pnt3r &v0,
         return false;  // ray is parallel to the plane of the triangle.
     }
 
-    Real inv_det = 1.0f / det;
+    Real32 inv_det = 1.0f / det;
 
     // calculate t, ray intersects triangle.
     t = edge2.dot(qvec) * inv_det;

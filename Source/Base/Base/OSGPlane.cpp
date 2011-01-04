@@ -101,13 +101,13 @@ Plane::Plane(const Plane &obj) :
     pointing the normal in that direction.
  */
 
-Plane::Plane(const Pnt3r &p0, 
-             const Pnt3r &p1, 
-             const Pnt3r &p2) :
+Plane::Plane(const Pnt3f &p0, 
+             const Pnt3f &p1, 
+             const Pnt3f &p2) :
     _normalVec(0.f, 0.f, 0.f),
     _distance (          0.f)
 {
-    Vec3r vec2(p2 - p0);
+    Vec3f vec2(p2 - p0);
 
     _normalVec = p1 - p0;
 
@@ -120,7 +120,7 @@ Plane::Plane(const Pnt3r &p0,
 }
 
 
-Plane::Plane(const Vec3r &normal, Real distance) : 
+Plane::Plane(const Vec3f &normal, Real32 distance) : 
     _normalVec(normal  ), 
     _distance (distance)
 {
@@ -130,7 +130,7 @@ Plane::Plane(const Vec3r &normal, Real distance) :
 }
 
 
-Plane::Plane(const Vec3r &normal, const Pnt3r &point) :
+Plane::Plane(const Vec3f &normal, const Pnt3f &point) :
     _normalVec(normal)
 {
     _normalVec.normalize();
@@ -150,7 +150,7 @@ Plane::~Plane(void)
 /*! Add offset to distance.
  */
 
-void Plane::offset(Real d)
+void Plane::offset(Real32 d)
 {
     _distance += d;
 }
@@ -165,18 +165,18 @@ void Plane::offset(Real d)
 
 bool Plane::intersect(const Plane &pl, Line &is) const
 {
-    Vec3r dir = _normalVec.cross(pl.getNormal());
-    Pnt3r pnt;
+    Vec3f  dir = _normalVec.cross(pl.getNormal());
+    Pnt3f  pnt;
 
-    Real len = dir.length();
+    Real32 len = dir.length();
 
-    if(len < TypeTraits<Real>::getDefaultEps())
+    if(len < TypeTraits<Real32>::getDefaultEps())
         return false;
 
     /* Determine intersection point with the best suited coordinate plane. */
 
-    Real   abs;
-    Real   maxabs = osgAbs(dir[0]);
+    Real32 abs;
+    Real32 maxabs = osgAbs(dir[0]);
     UInt16 index  = 0;
 
     if((abs = osgAbs(dir[1])) > maxabs) 
@@ -237,9 +237,9 @@ bool Plane::intersect(const Plane &pl, Line &is) const
     in the positive part of the line false if line is parallel to plane
  */
 
-bool Plane::intersect(const Line &line, Pnt3r &point) const
+bool Plane::intersect(const Line &line, Pnt3f &point) const
 {
-    Real t;
+    Real32 t;
 
     if(intersect(line, t) == true)
     {
@@ -257,7 +257,7 @@ bool Plane::intersect(const Line &line, Pnt3r &point) const
     false if line is parallel to plane. t is the distance along the line.
  */
 
-bool Plane::intersect(const Line &line, Real &t) const
+bool Plane::intersect(const Line &line, Real32 &t) const
 {
     if(intersectInfinite(line, t) == false || t < 0.f)
     {
@@ -273,16 +273,16 @@ bool Plane::intersect(const Line &line, Real &t) const
     infinite line. 
  */
 
-bool Plane::intersectInfinite(const Line &line, Real &t) const
+bool Plane::intersectInfinite(const Line &line, Real32 &t) const
 {
-    Real a;
+    Real32 a;
 
     a = _normalVec.dot(line.getDirection());
 
     if(a != 0.0f)
     {
         t = _normalVec.dot(
-            Pnt3r(_normalVec * _distance) -  line.getPosition()) / a;
+            Pnt3f(_normalVec * _distance) -  line.getPosition()) / a;
 
         return true;
     }
@@ -303,9 +303,9 @@ bool Plane::intersectInfinite(const Line &line, Real &t) const
     false if line is parallel to plane
  */
 
-bool Plane::intersectInfinite(const Line &line, Pnt3r &point) const
+bool Plane::intersectInfinite(const Line &line, Pnt3f &point) const
 {
-    Real t;
+    Real32 t;
 
     if(intersectInfinite(line, t) == true)
     {
@@ -323,9 +323,9 @@ bool Plane::intersectInfinite(const Line &line, Pnt3r &point) const
 	output is copied into polyOut; returns number of output points.
  */
 
-int Plane::clip(Pnt3r *polyIn, Pnt3r *polyOut, int count) const
+int Plane::clip(Pnt3f *polyIn, Pnt3f *polyOut, int count) const
 {
-    Pnt3r i, s, p;
+    Pnt3f i, s, p;
     int   j, n;
     
     n = 0;
@@ -357,13 +357,13 @@ int Plane::clip(Pnt3r *polyIn, Pnt3r *polyOut, int count) const
     return n;
 }
 
-void Plane::transform(const Matrixr &matrix)
+void Plane::transform(const Matrix &matrix)
 {
     matrix.mult(_normalVec, _normalVec);
 
     _normalVec.normalize();
 
-    Vec3r trans;
+    Vec3f trans;
 
     trans[0] = matrix[3][0];
     trans[1] = matrix[3][1];
@@ -374,8 +374,8 @@ void Plane::transform(const Matrixr &matrix)
     UInt32 uiValNorm  = getMaxIndexAbs3(_normalVec);
     UInt32 uiValPoint = getMaxIndexAbs3( trans);
 
-    if(trans[uiValPoint] >  TypeTraits<Real>::getDefaultEps() ||
-       trans[uiValPoint] < -TypeTraits<Real>::getDefaultEps()   )
+    if(trans[uiValPoint] >  TypeTraits<Real32>::getDefaultEps() ||
+       trans[uiValPoint] < -TypeTraits<Real32>::getDefaultEps()   )
     {
         if((_normalVec[uiValNorm ] < 0.f &&
              trans    [uiValPoint] < 0.f ) ||

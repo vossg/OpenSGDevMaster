@@ -1966,7 +1966,7 @@ void Surface::adjustVolume(Volume & volume)
         {
             for(UInt32 i = 0; i < points->size(); ++i)
             {
-                _volumeCache.extendBy(points->getValue<Pnt3r>(i));
+                _volumeCache.extendBy(points->getValue<Pnt3f>(i));
             }
         }
         // FIXME: a warning should be printed here since the calculated

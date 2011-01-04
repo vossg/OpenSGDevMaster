@@ -88,15 +88,15 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Color4r         LightBase::_sfAmbient
+/*! \var Color4f         LightBase::_sfAmbient
     The light's ambient component.
 */
 
-/*! \var Color4r         LightBase::_sfDiffuse
+/*! \var Color4f         LightBase::_sfDiffuse
     The light's diffuse color.
 */
 
-/*! \var Color4r         LightBase::_sfSpecular
+/*! \var Color4f         LightBase::_sfSpecular
     The light's specular color.
 */
 
@@ -108,15 +108,15 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var Real            LightBase::_sfConstantAttenuation
+/*! \var Real32          LightBase::_sfConstantAttenuation
     The light's constant attenuation.
 */
 
-/*! \var Real            LightBase::_sfLinearAttenuation
+/*! \var Real32          LightBase::_sfLinearAttenuation
     The light's linear attenuation.
 */
 
-/*! \var Real            LightBase::_sfQuadraticAttenuation
+/*! \var Real32          LightBase::_sfQuadraticAttenuation
     The light's quadratic attenuation.
 */
 
@@ -160,8 +160,8 @@ void LightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "ambient",
         "The light's ambient component.\n",
         AmbientFieldId, AmbientFieldMask,
@@ -172,8 +172,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "diffuse",
         "The light's diffuse color.\n",
         DiffuseFieldId, DiffuseFieldMask,
@@ -184,8 +184,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(),
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
         "specular",
         "The light's specular color.\n",
         SpecularFieldId, SpecularFieldMask,
@@ -220,8 +220,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "constantAttenuation",
         "The light's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
@@ -232,8 +232,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "linearAttenuation",
         "The light's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
@@ -244,8 +244,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "quadraticAttenuation",
         "The light's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
@@ -329,7 +329,7 @@ LightBase::TypeObject LightBase::_type(
     "\n"
     "  <Field\n"
     "\t name=\"ambient\"\n"
-    "\t type=\"Color4r\"\n"
+    "\t type=\"Color4f\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"0.f,0.f,0.f,1.f\"\n"
@@ -339,7 +339,7 @@ LightBase::TypeObject LightBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"diffuse\"\n"
-    "\t type=\"Color4r\"\n"
+    "\t type=\"Color4f\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"1.f,1.f,1.f,1.f\"\n"
@@ -349,7 +349,7 @@ LightBase::TypeObject LightBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"specular\"\n"
-    "\t type=\"Color4r\"\n"
+    "\t type=\"Color4f\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"1.f,1.f,1.f,1.f\"\n"
@@ -377,7 +377,7 @@ LightBase::TypeObject LightBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"constantAttenuation\"\n"
-    "\t type=\"Real\"\n"
+    "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"1.f\"\n"
@@ -387,7 +387,7 @@ LightBase::TypeObject LightBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"linearAttenuation\"\n"
-    "\t type=\"Real\"\n"
+    "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"0.f\"\n"
@@ -397,7 +397,7 @@ LightBase::TypeObject LightBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"quadraticAttenuation\"\n"
-    "\t type=\"Real\"\n"
+    "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"0.f\"\n"
@@ -463,40 +463,40 @@ UInt32 LightBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFColor4r *LightBase::editSFAmbient(void)
+SFColor4f *LightBase::editSFAmbient(void)
 {
     editSField(AmbientFieldMask);
 
     return &_sfAmbient;
 }
 
-const SFColor4r *LightBase::getSFAmbient(void) const
+const SFColor4f *LightBase::getSFAmbient(void) const
 {
     return &_sfAmbient;
 }
 
 
-SFColor4r *LightBase::editSFDiffuse(void)
+SFColor4f *LightBase::editSFDiffuse(void)
 {
     editSField(DiffuseFieldMask);
 
     return &_sfDiffuse;
 }
 
-const SFColor4r *LightBase::getSFDiffuse(void) const
+const SFColor4f *LightBase::getSFDiffuse(void) const
 {
     return &_sfDiffuse;
 }
 
 
-SFColor4r *LightBase::editSFSpecular(void)
+SFColor4f *LightBase::editSFSpecular(void)
 {
     editSField(SpecularFieldMask);
 
     return &_sfSpecular;
 }
 
-const SFColor4r *LightBase::getSFSpecular(void) const
+const SFColor4f *LightBase::getSFSpecular(void) const
 {
     return &_sfSpecular;
 }
@@ -528,40 +528,40 @@ const SFBool *LightBase::getSFOn(void) const
 }
 
 
-SFReal *LightBase::editSFConstantAttenuation(void)
+SFReal32 *LightBase::editSFConstantAttenuation(void)
 {
     editSField(ConstantAttenuationFieldMask);
 
     return &_sfConstantAttenuation;
 }
 
-const SFReal *LightBase::getSFConstantAttenuation(void) const
+const SFReal32 *LightBase::getSFConstantAttenuation(void) const
 {
     return &_sfConstantAttenuation;
 }
 
 
-SFReal *LightBase::editSFLinearAttenuation(void)
+SFReal32 *LightBase::editSFLinearAttenuation(void)
 {
     editSField(LinearAttenuationFieldMask);
 
     return &_sfLinearAttenuation;
 }
 
-const SFReal *LightBase::getSFLinearAttenuation(void) const
+const SFReal32 *LightBase::getSFLinearAttenuation(void) const
 {
     return &_sfLinearAttenuation;
 }
 
 
-SFReal *LightBase::editSFQuadraticAttenuation(void)
+SFReal32 *LightBase::editSFQuadraticAttenuation(void)
 {
     editSField(QuadraticAttenuationFieldMask);
 
     return &_sfQuadraticAttenuation;
 }
 
-const SFReal *LightBase::getSFQuadraticAttenuation(void) const
+const SFReal32 *LightBase::getSFQuadraticAttenuation(void) const
 {
     return &_sfQuadraticAttenuation;
 }
@@ -784,14 +784,14 @@ void LightBase::copyFromBin(BinaryDataHandler &pMem,
 
 LightBase::LightBase(void) :
     Inherited(),
-    _sfAmbient                (Color4r(0.f,0.f,0.f,1.f)),
-    _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
-    _sfSpecular               (Color4r(1.f,1.f,1.f,1.f)),
+    _sfAmbient                (Color4f(0.f,0.f,0.f,1.f)),
+    _sfDiffuse                (Color4f(1.f,1.f,1.f,1.f)),
+    _sfSpecular               (Color4f(1.f,1.f,1.f,1.f)),
     _sfBeacon                 (NULL),
     _sfOn                     (bool(true)),
-    _sfConstantAttenuation    (Real(1.f)),
-    _sfLinearAttenuation      (Real(0.f)),
-    _sfQuadraticAttenuation   (Real(0.f)),
+    _sfConstantAttenuation    (Real32(1.f)),
+    _sfLinearAttenuation      (Real32(0.f)),
+    _sfQuadraticAttenuation   (Real32(0.f)),
     _sfLightEngine            (NULL),
     _sfShadowIntensity        (Real32(0.f)),
     _sfShadowMode             (UInt32(0))
@@ -837,8 +837,8 @@ void LightBase::onCreate(const Light *source)
 
 GetFieldHandlePtr LightBase::getHandleAmbient         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              const_cast<LightBase *>(this)));
@@ -848,8 +848,8 @@ GetFieldHandlePtr LightBase::getHandleAmbient         (void) const
 
 EditFieldHandlePtr LightBase::editHandleAmbient        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfAmbient,
              this->getType().getFieldDesc(AmbientFieldId),
              this));
@@ -862,8 +862,8 @@ EditFieldHandlePtr LightBase::editHandleAmbient        (void)
 
 GetFieldHandlePtr LightBase::getHandleDiffuse         (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              const_cast<LightBase *>(this)));
@@ -873,8 +873,8 @@ GetFieldHandlePtr LightBase::getHandleDiffuse         (void) const
 
 EditFieldHandlePtr LightBase::editHandleDiffuse        (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfDiffuse,
              this->getType().getFieldDesc(DiffuseFieldId),
              this));
@@ -887,8 +887,8 @@ EditFieldHandlePtr LightBase::editHandleDiffuse        (void)
 
 GetFieldHandlePtr LightBase::getHandleSpecular        (void) const
 {
-    SFColor4r::GetHandlePtr returnValue(
-        new  SFColor4r::GetHandle(
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              const_cast<LightBase *>(this)));
@@ -898,8 +898,8 @@ GetFieldHandlePtr LightBase::getHandleSpecular        (void) const
 
 EditFieldHandlePtr LightBase::editHandleSpecular       (void)
 {
-    SFColor4r::EditHandlePtr returnValue(
-        new  SFColor4r::EditHandle(
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
              &_sfSpecular,
              this->getType().getFieldDesc(SpecularFieldId),
              this));
@@ -965,8 +965,8 @@ EditFieldHandlePtr LightBase::editHandleOn             (void)
 
 GetFieldHandlePtr LightBase::getHandleConstantAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId),
              const_cast<LightBase *>(this)));
@@ -976,8 +976,8 @@ GetFieldHandlePtr LightBase::getHandleConstantAttenuation (void) const
 
 EditFieldHandlePtr LightBase::editHandleConstantAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId),
              this));
@@ -990,8 +990,8 @@ EditFieldHandlePtr LightBase::editHandleConstantAttenuation(void)
 
 GetFieldHandlePtr LightBase::getHandleLinearAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId),
              const_cast<LightBase *>(this)));
@@ -1001,8 +1001,8 @@ GetFieldHandlePtr LightBase::getHandleLinearAttenuation (void) const
 
 EditFieldHandlePtr LightBase::editHandleLinearAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId),
              this));
@@ -1015,8 +1015,8 @@ EditFieldHandlePtr LightBase::editHandleLinearAttenuation(void)
 
 GetFieldHandlePtr LightBase::getHandleQuadraticAttenuation (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId),
              const_cast<LightBase *>(this)));
@@ -1026,8 +1026,8 @@ GetFieldHandlePtr LightBase::getHandleQuadraticAttenuation (void) const
 
 EditFieldHandlePtr LightBase::editHandleQuadraticAttenuation(void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId),
              this));

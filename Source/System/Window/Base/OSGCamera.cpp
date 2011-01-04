@@ -107,7 +107,7 @@ void Camera::changed(ConstFieldMaskArg whichField,
 void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action),
                    const Viewport       &port                 )
 {
-    Matrixr m, t;
+    Matrix m, t;
 
     // set the projection
 
@@ -137,7 +137,7 @@ void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action),
 void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
                              const Viewport       &port                 )
 {
-    Matrixr m, t;
+    Matrix m, t;
 
     // set the projection
 
@@ -160,7 +160,7 @@ void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
 /*! Get/calculate the projection matrix for this camera.
  */
 
-void Camera::getProjection(Matrixr &OSG_CHECK_ARG(result),
+void Camera::getProjection(Matrix  &OSG_CHECK_ARG(result),
                            UInt32   OSG_CHECK_ARG(width ),
                            UInt32   OSG_CHECK_ARG(height))
 {
@@ -171,9 +171,9 @@ void Camera::getProjection(Matrixr &OSG_CHECK_ARG(result),
     default is identity.
  */
 
-void Camera::getProjectionTranslation(Matrixr &result,
-                                      UInt32   OSG_CHECK_ARG(width ),
-                                      UInt32   OSG_CHECK_ARG(height))
+void Camera::getProjectionTranslation(Matrix &result,
+                                      UInt32  OSG_CHECK_ARG(width ),
+                                      UInt32  OSG_CHECK_ARG(height))
 {
     result.setIdentity();
 }
@@ -182,9 +182,9 @@ void Camera::getProjectionTranslation(Matrixr &result,
     of the beacon's toWorld transformation.
  */
 
-void Camera::getViewing(Matrixr &result,
-                        UInt32   OSG_CHECK_ARG(width ),
-                        UInt32   OSG_CHECK_ARG(height))
+void Camera::getViewing(Matrix &result,
+                        UInt32  OSG_CHECK_ARG(width ),
+                        UInt32  OSG_CHECK_ARG(height))
 {
     if (getBeacon() == NULL)
     {
@@ -201,7 +201,7 @@ void Camera::getViewing(Matrixr &result,
 
 void Camera::getFrustum(FrustumVolume& result, const Viewport& p)
 {
-    Matrixr mv,prt,pr;
+    Matrix mv,prt,pr;
 
     getProjection           (pr , p.getPixelWidth(), p.getPixelHeight());
     getProjectionTranslation(prt, p.getPixelWidth(), p.getPixelHeight());
@@ -234,9 +234,9 @@ void Camera::getFrustum(FrustumVolume& result,
     coordinate system for this camera.
  */
 
-void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
+void Camera::getWorldToScreen(Matrix &result, const Viewport& p)
 {
-    Matrixr mv,prt,pr;
+    Matrix mv,prt,pr;
 
     getProjection           (result, p.getPixelWidth(), p.getPixelHeight());
     getProjectionTranslation(prt   , p.getPixelWidth(), p.getPixelHeight());
@@ -250,32 +250,32 @@ void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
   The default is identity.
 */
 
-void Camera::getDecoration(Matrixr &result, UInt32 width, UInt32 height)
+void Camera::getDecoration(Matrix &result, UInt32 width, UInt32 height)
 {
     result.setIdentity();
 }
 
 
-Matrixr Camera::getProjectionVal           (   UInt32         width,
-                                          UInt32         height)
+Matrix Camera::getProjectionVal(UInt32         width,
+                                UInt32         height)
 {
-   Matrixr temp_mat;
+   Matrix temp_mat;
    this->getProjection(temp_mat, width,height);
    return temp_mat;
 }
 
-Matrixr Camera::getProjectionTranslationVal(   UInt32         width,
-                                          UInt32         height)
+Matrix Camera::getProjectionTranslationVal(UInt32         width,
+                                           UInt32         height)
 {
-   Matrixr temp_mat;
+   Matrix temp_mat;
    this->getProjectionTranslation(temp_mat, width, height);
    return temp_mat;
 }
 
-Matrixr Camera::getViewingVal              ( UInt32         width,
-                                          UInt32         height)
+Matrix Camera::getViewingVal(UInt32         width,
+                             UInt32         height)
 {
-   Matrixr temp_mat;
+   Matrix temp_mat;
    this->getViewing(temp_mat, width, height);
    return temp_mat;
 }
@@ -287,16 +287,16 @@ FrustumVolume Camera::getFrustumVal        (  const Viewport      &port  )
    return vol;
 }
 
-Matrixr Camera::getWorldToScreenVal        ( const Viewport      &port  )
+Matrix Camera::getWorldToScreenVal        ( const Viewport      &port  )
 {
-   Matrixr temp_mat;
+   Matrix temp_mat;
    this->getWorldToScreen(temp_mat, port);
    return temp_mat;
 }
 
-Matrixr Camera::getDecorationVal(UInt32 width, UInt32 height)
+Matrix Camera::getDecorationVal(UInt32 width, UInt32 height)
 {
-   Matrixr temp_mat;
+   Matrix temp_mat;
    this->getDecoration(temp_mat, width, height);
    return temp_mat;
 }
@@ -311,7 +311,6 @@ Vec4f Camera::tileGetRegion(void) const
     return Vec4f(0.f, 1.f, 0.f, 1.f);
 }
 
-#ifndef OSG_EMBEDDED
 /*! Calculate a ray that starts at the camera position and goes through the
   pixel \a x, \a y in the viewport \a port. \a x and \a y are relative to the
   viewport's upper left corner. \a t is the length of the viewing ray.
@@ -370,7 +369,6 @@ bool Camera::calcViewRay(      Line    &line,
 
     return true;
 }
-#endif
 
 /*------------------------------- dump ----------------------------------*/
 

@@ -64,15 +64,15 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
 
     BoxVolume(      void          );
 
-    BoxVolume(      Real xmin, 
-                    Real ymin, 
-                    Real zmin,
-                    Real xmax, 
-                    Real ymax, 
-                    Real zmax     );
+    BoxVolume(      Real32 xmin, 
+                    Real32 ymin, 
+                    Real32 zmin,
+                    Real32 xmax, 
+                    Real32 ymax, 
+                    Real32 zmax   );
 
-    BoxVolume(const Pnt3r     &min,
-              const Pnt3r     &max);
+    BoxVolume(const Pnt3f     &min,
+              const Pnt3f     &max);
     BoxVolume(const BoxVolume &obj);
 
     /*! \}                                                                 */
@@ -87,71 +87,71 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-            const Pnt3r &getMin         (void                      ) const;    
-            const Pnt3r &getMax         (void                      ) const;
+            const Pnt3f &getMin         (void                       ) const;    
+            const Pnt3f &getMax         (void                       ) const;
 
-    virtual       void   getCenter      (Pnt3r &center             ) const;
+    virtual       void   getCenter      (Pnt3f  &center             ) const;
 
-    virtual       Real   getScalarVolume(void                      ) const;
+    virtual       Real32 getScalarVolume(void                       ) const;
 
-    virtual       void   getBounds      (Pnt3r &min, 
-                                         Pnt3r &max                ) const;
+    virtual       void   getBounds      (Pnt3f  &min, 
+                                         Pnt3f  &max                ) const;
 
 
-                  void   getBounds      (Real  &xmin, 
-                                         Real  &ymin, 
-                                         Real  &zmin,
-                                         Real  &xmax,
-                                         Real  &ymax, 
-                                         Real  &zmax               ) const;
-                  void   getCorners     (Pnt3r &nlt,    Pnt3r &nlb,
-                                         Pnt3r &nrt,    Pnt3r &nrb,
-                                         Pnt3r &flt,    Pnt3r &flb,
-                                         Pnt3r &frt,    Pnt3r &frb ) const;
+                  void   getBounds      (Real32 &xmin, 
+                                         Real32 &ymin, 
+                                         Real32 &zmin,
+                                         Real32 &xmax,
+                                         Real32 &ymax, 
+                                         Real32 &zmax               ) const;
+                  void   getCorners     (Pnt3f  &nlt,    Pnt3f &nlb,
+                                         Pnt3f  &nrt,    Pnt3f &nrb,
+                                         Pnt3f  &flt,    Pnt3f &flb,
+                                         Pnt3f  &frt,    Pnt3f &frb ) const;
     
 
-                  void   getOrigin      (Real  &originX, 
-                                         Real  &originY, 
-                                         Real  &originZ            ) const;
-                  void   getSize        (Real  &sizeX, 
-                                         Real  &sizeY, 
-                                         Real  &sizeZ              ) const;
-                  void   getSize        (Vec3r &vec                ) const;    
+                  void   getOrigin      (Real32 &originX, 
+                                         Real32 &originY, 
+                                         Real32 &originZ            ) const;
+                  void   getSize        (Real32 &sizeX, 
+                                         Real32 &sizeY, 
+                                         Real32 &sizeZ              ) const;
+                  void   getSize        (Vec3f  &vec                ) const;    
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void setBounds(      Real   w,         
-                         Real   h,    
-                         Real   d   );
-    void setBounds(      Real   xmin,      
-                         Real   ymin, 
-                         Real   zmin,
-                         Real   xmax,      
-                         Real   ymax, 
-                         Real   zmax);
-    void setBounds(const Pnt3r &min, 
-                   const Pnt3r &max );
+    void setBounds(      Real32  w,         
+                         Real32  h,    
+                         Real32  d   );
+    void setBounds(      Real32  xmin,      
+                         Real32  ymin, 
+                         Real32  zmin,
+                         Real32  xmax,      
+                         Real32  ymax, 
+                         Real32  zmax);
+    void setBounds(const Pnt3f  &min, 
+                   const Pnt3f  &max );
 
-    void setBoundsByCenterAndSize(const Pnt3r &center, 
-                                  const Vec3r &size  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Extend                                  */
-    /*! \{                                                                 */
-
-    Pnt3r &editMin(void);    
-    Pnt3r &editMax(void);
+    void setBoundsByCenterAndSize(const Pnt3f &center, 
+                                  const Vec3f &size  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Extend                                  */
     /*! \{                                                                 */
 
-    virtual void extendBy(const Pnt3r     &pt    );
+    Pnt3f &editMin(void);    
+    Pnt3f &editMax(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Extend                                  */
+    /*! \{                                                                 */
+
+    virtual void extendBy(const Pnt3f     &pt    );
     virtual void extendBy(const Volume    &volume);
             void extendBy(const BoxVolume &bb    );
 
@@ -160,23 +160,23 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Intersect                               */
     /*! \{                                                                 */
 
-    virtual bool intersect  (const Pnt3r     &point ) const;
+    virtual bool intersect  (const Pnt3f     &point ) const;
     virtual bool intersect  (const Line      &line  ) const;
     virtual bool intersect  (const Line      &line,
-                                   Real      &min, 
-                                   Real      &max   ) const;
+                                   Real32    &min, 
+                                   Real32    &max   ) const;
     virtual bool intersect  (const Volume    &volume) const;
 
             bool intersect  (const BoxVolume &bb    ) const;
 
-    virtual bool isOnSurface(const Pnt3r     &point ) const;
+    virtual bool isOnSurface(const Pnt3f     &point ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Transform                               */
     /*! \{                                                                 */
 
-    virtual void transform(const Matrixr &m);
+    virtual void transform(const Matrix &m);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -208,8 +208,8 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
 
   private:
 
-    Pnt3r _min;
-    Pnt3r _max;
+    Pnt3f _min;
+    Pnt3f _max;
 };
 
 OSG_END_NAMESPACE

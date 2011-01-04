@@ -107,9 +107,9 @@ void OrthographicCamera::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-void OrthographicCamera::getProjection(Matrixr &result, 
-                                       UInt32   width, 
-                                       UInt32   height)
+void OrthographicCamera::getProjection(Matrix &result, 
+                                       UInt32  width, 
+                                       UInt32  height)
 {
     Real32 vs = getVerticalSize  () / 2;
     Real32 hs = getHorizontalSize() / 2;

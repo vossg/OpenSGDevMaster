@@ -175,16 +175,11 @@ GeoVectorProperty::~GeoVectorProperty(void)
 
 GLenum GeoVectorProperty::getBufferType(void)
 {
-#ifndef OSG_EMBEDDED
     return GL_ARRAY_BUFFER_ARB;
-#else
-    return GL_NONE;
-#endif
 }
 
 void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;
@@ -360,7 +355,6 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
             osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
         }
     }
-#endif
 }
 
 void GeoVectorProperty::changeFrom(DrawEnv    *pEnv,
@@ -380,7 +374,6 @@ void GeoVectorProperty::changeFrom(DrawEnv    *pEnv,
 
 void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;
@@ -452,7 +445,6 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
                 break;
         }
     }
-#endif
 }
 
 

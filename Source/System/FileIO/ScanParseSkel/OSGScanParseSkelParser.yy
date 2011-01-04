@@ -59,6 +59,7 @@
 
 #include "OSGConfig.h"
 #include "OSGBaseFunctions.h"
+#include "OSGMatrix.h"
 #include "OSGScanParseLexer.h"
 #include "OSGScanParseSkel.h"
 

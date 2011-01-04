@@ -244,9 +244,7 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-#ifndef OSG_EMBEDDED
     LockRefPtr         _pStoreLock;
-#endif
 
     ContainerStore     _vContainerStore;
 

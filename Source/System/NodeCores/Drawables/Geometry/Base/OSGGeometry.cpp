@@ -521,7 +521,7 @@ Action::ResultE Geometry::intersect(Action * action)
        range_sq         = range_sq * range_sq;
        LineIterator it  = this->beginLines();
        LineIterator end = this->endLines  ();
-       Pnt3r  pt1, pt2;
+       Pnt3f  pt1, pt2;
        OSG::Vec3f  norm;       
 
        // Find closest points and if they are within the range, then add a hit

@@ -89,7 +89,7 @@ void DirectionalLight::makeChunk(void)
 {
     Inherited::makeChunk();
 
-    Vec4r dir(_sfDirection.getValue());
+    Vec4f dir(_sfDirection.getValue());
 
     dir[3] = 0.f;
 

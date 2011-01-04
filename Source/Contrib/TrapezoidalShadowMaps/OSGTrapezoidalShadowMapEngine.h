@@ -148,16 +148,16 @@ class OSG_CONTRIBTRAPEZOIDALSHADOWMAPS_DLLMAPPING TrapezoidalShadowMapEngine
 
     void intersectFrusta        (const FrustumVolume      &fA,
                                  const FrustumVolume      &fB,
-                                       std::vector<Pnt3r> &intVerts,
-                                       Pnt3r              &intCenter);
+                                       std::vector<Pnt3f> &intVerts,
+                                       Pnt3f              &intCenter);
     void updateLightPassMaterial(      TSMEngineData      *data,
                                        UInt16              faceIdx,
-                                 const Matrixr            &matNT    );
+                                 const Matrix             &matNT    );
 
 
-    bool calcTrapezoidalTransform(      Matrixr       &matNT,
-                                  const Matrixr       &matEyeToWorld,
-                                  const Matrixr       &matLightFull,
+    bool calcTrapezoidalTransform(      Matrix        &matNT,
+                                  const Matrix        &matEyeToWorld,
+                                  const Matrix        &matLightFull,
                                   const FrustumVolume &eyeFrust,
                                   const FrustumVolume &lightFrust    );
 

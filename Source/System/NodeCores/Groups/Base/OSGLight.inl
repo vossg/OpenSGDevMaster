@@ -37,19 +37,19 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-void Light::setAmbient(const Color4r &col)
+void Light::setAmbient(const Color4f &col)
 {
     Inherited::setAmbient(col);
 }
 
 inline
-void Light::setDiffuse(const Color4r &col)
+void Light::setDiffuse(const Color4f &col)
 {
     Inherited::setDiffuse(col);
 }
 
 inline
-void Light::setSpecular(const Color4r &col)
+void Light::setSpecular(const Color4f &col)
 {
     Inherited::setSpecular(col);
 }

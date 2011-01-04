@@ -93,11 +93,11 @@ OSG_BEGIN_NAMESPACE
     The surface dimension in V
 */
 
-/*! \var Real            SurfaceBase::_mfKnotsU
+/*! \var Real32          SurfaceBase::_mfKnotsU
     The surface knots in U direction
 */
 
-/*! \var Real            SurfaceBase::_mfKnotsV
+/*! \var Real32          SurfaceBase::_mfKnotsV
     The surface knots in V direction
 */
 
@@ -105,7 +105,7 @@ OSG_BEGIN_NAMESPACE
     The control points for the surface
 */
 
-/*! \var Real            SurfaceBase::_sfError
+/*! \var Real32          SurfaceBase::_sfError
     The approximation error for the tessellation
 */
 
@@ -121,11 +121,11 @@ OSG_BEGIN_NAMESPACE
     The dimensions for the trimming curves
 */
 
-/*! \var Pnt3r           SurfaceBase::_mfCurveControlPoints
+/*! \var Pnt3f           SurfaceBase::_mfCurveControlPoints
     The control points for the trimming curves
 */
 
-/*! \var Real            SurfaceBase::_mfKnots
+/*! \var Real32          SurfaceBase::_mfKnots
     The knotvectors for the trimming curves
 */
 
@@ -204,8 +204,8 @@ void SurfaceBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFReal::Description(
-        MFReal::getClassType(),
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
         "knotsU",
         "The surface knots in U direction\n",
         KnotsUFieldId, KnotsUFieldMask,
@@ -216,8 +216,8 @@ void SurfaceBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFReal::Description(
-        MFReal::getClassType(),
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
         "knotsV",
         "The surface knots in V direction\n",
         KnotsVFieldId, KnotsVFieldMask,
@@ -240,8 +240,8 @@ void SurfaceBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "error",
         "The approximation error for the tessellation\n",
         ErrorFieldId, ErrorFieldMask,
@@ -288,8 +288,8 @@ void SurfaceBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFPnt3r::Description(
-        MFPnt3r::getClassType(),
+    pDesc = new MFPnt3f::Description(
+        MFPnt3f::getClassType(),
         "curveControlPoints",
         "The control points for the trimming curves\n",
         CurveControlPointsFieldId, CurveControlPointsFieldMask,
@@ -300,8 +300,8 @@ void SurfaceBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFReal::Description(
-        MFReal::getClassType(),
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
         "knots",
         "The knotvectors for the trimming curves\n",
         KnotsFieldId, KnotsFieldMask,
@@ -426,7 +426,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "        name=\"knotsU\"\n"
-    "        type=\"Real\"\n"
+    "        type=\"Real32\"\n"
     "        cardinality=\"multi\"\n"
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
@@ -435,7 +435,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "        name=\"knotsV\"\n"
-    "        type=\"Real\"\n"
+    "        type=\"Real32\"\n"
     "        cardinality=\"multi\"\n"
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
@@ -456,7 +456,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "        name=\"error\"\n"
-    "        type=\"Real\"\n"
+    "        type=\"Real32\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        defaultValue=\"0.5\"\n"
@@ -494,7 +494,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "        name=\"curveControlPoints\"\n"
-    "        type=\"Pnt3r\"\n"
+    "        type=\"Pnt3f\"\n"
     "        cardinality=\"multi\"\n"
     "        visibility=\"external\"\n"
     "        access=\"protected\"\n"
@@ -503,7 +503,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "        name=\"knots\"\n"
-    "        type=\"Real\"\n"
+    "        type=\"Real32\"\n"
     "        cardinality=\"multi\"\n"
     "        visibility=\"external\"\n"
     "        access=\"protected\"\n"
@@ -616,27 +616,27 @@ const SFUInt32 *SurfaceBase::getSFDimV(void) const
 }
 
 
-MFReal *SurfaceBase::editMFKnotsU(void)
+MFReal32 *SurfaceBase::editMFKnotsU(void)
 {
     editMField(KnotsUFieldMask, _mfKnotsU);
 
     return &_mfKnotsU;
 }
 
-const MFReal *SurfaceBase::getMFKnotsU(void) const
+const MFReal32 *SurfaceBase::getMFKnotsU(void) const
 {
     return &_mfKnotsU;
 }
 
 
-MFReal *SurfaceBase::editMFKnotsV(void)
+MFReal32 *SurfaceBase::editMFKnotsV(void)
 {
     editMField(KnotsVFieldMask, _mfKnotsV);
 
     return &_mfKnotsV;
 }
 
-const MFReal *SurfaceBase::getMFKnotsV(void) const
+const MFReal32 *SurfaceBase::getMFKnotsV(void) const
 {
     return &_mfKnotsV;
 }
@@ -655,14 +655,14 @@ SFUnrecChildGeoVectorPropertyPtr *SurfaceBase::editSFControlPoints  (void)
     return &_sfControlPoints;
 }
 
-SFReal *SurfaceBase::editSFError(void)
+SFReal32 *SurfaceBase::editSFError(void)
 {
     editSField(ErrorFieldMask);
 
     return &_sfError;
 }
 
-const SFReal *SurfaceBase::getSFError(void) const
+const SFReal32 *SurfaceBase::getSFError(void) const
 {
     return &_sfError;
 }
@@ -707,27 +707,27 @@ const MFUInt32 *SurfaceBase::getMFDimensions(void) const
 }
 
 
-MFPnt3r *SurfaceBase::editMFCurveControlPoints(void)
+MFPnt3f *SurfaceBase::editMFCurveControlPoints(void)
 {
     editMField(CurveControlPointsFieldMask, _mfCurveControlPoints);
 
     return &_mfCurveControlPoints;
 }
 
-const MFPnt3r *SurfaceBase::getMFCurveControlPoints(void) const
+const MFPnt3f *SurfaceBase::getMFCurveControlPoints(void) const
 {
     return &_mfCurveControlPoints;
 }
 
 
-MFReal *SurfaceBase::editMFKnots(void)
+MFReal32 *SurfaceBase::editMFKnots(void)
 {
     editMField(KnotsFieldMask, _mfKnots);
 
     return &_mfKnots;
 }
 
-const MFReal *SurfaceBase::getMFKnots(void) const
+const MFReal32 *SurfaceBase::getMFKnots(void) const
 {
     return &_mfKnots;
 }
@@ -1164,7 +1164,7 @@ SurfaceBase::SurfaceBase(void) :
     _sfControlPoints          (this,
                           ControlPointsFieldId,
                           GeoVectorProperty::ParentsFieldId),
-    _sfError                  (Real(0.5)),
+    _sfError                  (Real32(0.5)),
     _sfNumCurves              (UInt32(0)),
     _mfKnotLengths            (),
     _mfDimensions             (),
@@ -1339,8 +1339,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDimV           (void)
 
 GetFieldHandlePtr SurfaceBase::getHandleKnotsU          (void) const
 {
-    MFReal::GetHandlePtr returnValue(
-        new  MFReal::GetHandle(
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
              &_mfKnotsU,
              this->getType().getFieldDesc(KnotsUFieldId),
              const_cast<SurfaceBase *>(this)));
@@ -1350,8 +1350,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnotsU          (void) const
 
 EditFieldHandlePtr SurfaceBase::editHandleKnotsU         (void)
 {
-    MFReal::EditHandlePtr returnValue(
-        new  MFReal::EditHandle(
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
              &_mfKnotsU,
              this->getType().getFieldDesc(KnotsUFieldId),
              this));
@@ -1364,8 +1364,8 @@ EditFieldHandlePtr SurfaceBase::editHandleKnotsU         (void)
 
 GetFieldHandlePtr SurfaceBase::getHandleKnotsV          (void) const
 {
-    MFReal::GetHandlePtr returnValue(
-        new  MFReal::GetHandle(
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
              &_mfKnotsV,
              this->getType().getFieldDesc(KnotsVFieldId),
              const_cast<SurfaceBase *>(this)));
@@ -1375,8 +1375,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnotsV          (void) const
 
 EditFieldHandlePtr SurfaceBase::editHandleKnotsV         (void)
 {
-    MFReal::EditHandlePtr returnValue(
-        new  MFReal::EditHandle(
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
              &_mfKnotsV,
              this->getType().getFieldDesc(KnotsVFieldId),
              this));
@@ -1417,8 +1417,8 @@ EditFieldHandlePtr SurfaceBase::editHandleControlPoints  (void)
 
 GetFieldHandlePtr SurfaceBase::getHandleError           (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfError,
              this->getType().getFieldDesc(ErrorFieldId),
              const_cast<SurfaceBase *>(this)));
@@ -1428,8 +1428,8 @@ GetFieldHandlePtr SurfaceBase::getHandleError           (void) const
 
 EditFieldHandlePtr SurfaceBase::editHandleError          (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfError,
              this->getType().getFieldDesc(ErrorFieldId),
              this));
@@ -1517,8 +1517,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDimensions     (void)
 
 GetFieldHandlePtr SurfaceBase::getHandleCurveControlPoints (void) const
 {
-    MFPnt3r::GetHandlePtr returnValue(
-        new  MFPnt3r::GetHandle(
+    MFPnt3f::GetHandlePtr returnValue(
+        new  MFPnt3f::GetHandle(
              &_mfCurveControlPoints,
              this->getType().getFieldDesc(CurveControlPointsFieldId),
              const_cast<SurfaceBase *>(this)));
@@ -1528,8 +1528,8 @@ GetFieldHandlePtr SurfaceBase::getHandleCurveControlPoints (void) const
 
 EditFieldHandlePtr SurfaceBase::editHandleCurveControlPoints(void)
 {
-    MFPnt3r::EditHandlePtr returnValue(
-        new  MFPnt3r::EditHandle(
+    MFPnt3f::EditHandlePtr returnValue(
+        new  MFPnt3f::EditHandle(
              &_mfCurveControlPoints,
              this->getType().getFieldDesc(CurveControlPointsFieldId),
              this));
@@ -1542,8 +1542,8 @@ EditFieldHandlePtr SurfaceBase::editHandleCurveControlPoints(void)
 
 GetFieldHandlePtr SurfaceBase::getHandleKnots           (void) const
 {
-    MFReal::GetHandlePtr returnValue(
-        new  MFReal::GetHandle(
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
              &_mfKnots,
              this->getType().getFieldDesc(KnotsFieldId),
              const_cast<SurfaceBase *>(this)));
@@ -1553,8 +1553,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnots           (void) const
 
 EditFieldHandlePtr SurfaceBase::editHandleKnots          (void)
 {
-    MFReal::EditHandlePtr returnValue(
-        new  MFReal::EditHandle(
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
              &_mfKnots,
              this->getType().getFieldDesc(KnotsFieldId),
              this));
