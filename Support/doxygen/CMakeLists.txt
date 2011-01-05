@@ -158,6 +158,12 @@ IF(OSGDoxygenSrcDir)
                             index.xsd
                             compound.xsd
                             doxytag.l
+                            navtree.js
+                            navtree.css
+                            jquery.js
+                            jquery_ui.js
+                            resize.js
+                            sizzle.js
 
                             bufstr.h
                             classlist.h
@@ -207,6 +213,8 @@ IF(OSGDoxygenSrcDir)
                             indexlog.h
                             index_xsd.h
                             instdox.h
+                            jquery_js.h
+                            jquery_ui_js.h
                             lang_cfg.h
                             language.h
                             latexdocvisitor.h
@@ -225,7 +233,7 @@ IF(OSGDoxygenSrcDir)
                             membername.h
                             message.h
                             msc.h
-                            namespacedef.h
+                            namespacedef.h                           
                             objcache.h
                             outputgen.h
                             outputlist.h
@@ -241,6 +249,7 @@ IF(OSGDoxygenSrcDir)
                             qhpxmlwriter.h
                             qtbc.h
                             reflist.h
+                            resize_js.h
                             rtfdocvisitor.h
                             rtfgen.h
                             rtfstyle.h
@@ -250,6 +259,7 @@ IF(OSGDoxygenSrcDir)
                             search_js.h
                             search_php.h
                             section.h
+                            sizzle_js.h
                             sortdict.h
                             store.h
                             tagreader.h

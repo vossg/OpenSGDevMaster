@@ -119,10 +119,10 @@ http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
 6) Doxygen
 
   As we use some custom doxygen extensions building the documentation works
-  best with the customized doxygen version. For linux check out revision 748
+  best with the customized doxygen version. For linux check out revision 752
   to the disk and setup the OSGDoxygenSrcDir to point to it.
 
-  svn checkout -r 748 https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk doxygen
+  svn checkout -r 752 https://doxygen.svn.sourceforge.net/svnroot/doxygen/trunk doxygen
 
   After the build and install steps the custom binary should be picked up by the 
   main OpenSG cmake script.

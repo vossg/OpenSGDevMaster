@@ -1,11 +1,11 @@
-commit 7e1e4a59f18c3f4390676b2e4cc81e58511bd2d4
+commit c253dc0a7453cb606269dba6b1361d2610b88f84
 Author: gerrit <gerrit@feynman.camtech.ntu.edu.sg>
 Date:   Mon Aug 9 15:32:39 2010 +0800
 
     fixed: some changes to clean up the html version
 
 diff --git a/src/classdef.cpp b/src/classdef.cpp
-index a924dd6..1fe762c 100644
+index 355763d..e1310d7 100644
 --- a/src/classdef.cpp
 +++ b/src/classdef.cpp
 @@ -174,6 +174,9 @@ class ClassDefImpl
@@ -28,7 +28,7 @@ index a924dd6..1fe762c 100644
    //QCString ns;
    //extractNamespaceName(name,className,ns);
    //printf("m_name=%s m_className=%s ns=%s\n",m_name.data(),m_className.data(),ns.data());
-@@ -2177,7 +2183,8 @@ bool ClassDef::isVisibleInHierarchy()
+@@ -2197,7 +2203,8 @@ bool ClassDef::isVisibleInHierarchy()
         isReference()
        ) &&
        // is not part of an unnamed namespace or shown anyway
@@ -38,7 +38,7 @@ index a924dd6..1fe762c 100644
  }
  
  bool ClassDef::hasDocumentation() const
-@@ -2244,7 +2251,6 @@ void ClassDef::mergeMembers()
+@@ -2264,7 +2271,6 @@ void ClassDef::mergeMembers()
    int sepLen = sep.length();
  
    m_impl->membersMerged=TRUE;
@@ -46,7 +46,7 @@ index a924dd6..1fe762c 100644
    bool inlineInheritedMembers = Config_getBool("INLINE_INHERITED_MEMB" );
    if (baseClasses())
    {
-@@ -2258,6 +2264,11 @@ void ClassDef::mergeMembers()
+@@ -2278,6 +2284,11 @@ void ClassDef::mergeMembers()
        // merge the members in the base class of this inheritance branch first
        bClass->mergeMembers();
  
@@ -58,7 +58,7 @@ index a924dd6..1fe762c 100644
        MemberNameInfoSDict *srcMnd  = bClass->memberNameInfoSDict();
        MemberNameInfoSDict *dstMnd  = m_impl->allMemberNameInfoSDict;
  
-@@ -2369,7 +2380,7 @@ void ClassDef::mergeMembers()
+@@ -2389,7 +2400,7 @@ void ClassDef::mergeMembers()
                  if (bcd->prot==Protected && prot==Public)       prot=bcd->prot;
                  else if (bcd->prot==Private)                    prot=bcd->prot;
  
@@ -67,7 +67,7 @@ index a924dd6..1fe762c 100644
                  {
                    if (!isStandardFunc(srcMd))
                    {
-@@ -2444,7 +2455,7 @@ void ClassDef::mergeMembers()
+@@ -2464,7 +2475,7 @@ void ClassDef::mergeMembers()
                  Specifier virt=mi->virt;
                  if (mi->virt==Normal && bcd->virt!=Normal) virt=bcd->virt;
  
@@ -76,7 +76,7 @@ index a924dd6..1fe762c 100644
                  {
                    if (!isStandardFunc(mi->memberDef))
                    {
-@@ -3507,6 +3518,16 @@ bool ClassDef::isUsedOnly() const
+@@ -3527,6 +3538,16 @@ bool ClassDef::isUsedOnly() const
    return m_impl->usedOnly;
  }
  
@@ -108,10 +108,10 @@ index cd5cfdc..488a9bc 100644
      // --- actions ----
      //-----------------------------------------------------------------------------------
 diff --git a/src/doxygen.cpp b/src/doxygen.cpp
-index f229ded..1f78879 100644
+index 124c980..3cc4902 100644
 --- a/src/doxygen.cpp
 +++ b/src/doxygen.cpp
-@@ -1180,11 +1180,12 @@ static void addClassToContext(EntryNav *rootNav)
+@@ -1181,11 +1181,12 @@ static void addClassToContext(EntryNav *rootNav)
      // see if the class is found inside a namespace 
      //bool found=addNamespace(root,cd);
  
@@ -125,7 +125,7 @@ index f229ded..1f78879 100644
      // add class to the list
      //printf("ClassDict.insert(%s)\n",resolveDefines(fullName).data());
      Doxygen::classSDict->append(fullName,cd);
-@@ -7358,7 +7359,7 @@ static void generateClassList(ClassSDict &classSDict)
+@@ -7359,7 +7360,7 @@ static void generateClassList(ClassSDict &classSDict)
        // template instances 
        if ( cd->isLinkableInProject() && cd->templateMaster()==0)
        {
@@ -134,7 +134,7 @@ index f229ded..1f78879 100644
  
          cd->writeDocumentation(*g_outputList);
          cd->writeMemberList(*g_outputList);
-@@ -8292,7 +8293,7 @@ static void generateNamespaceDocs()
+@@ -8293,7 +8294,7 @@ static void generateNamespaceDocs()
             && !cd->isHidden()
           )
        {
@@ -213,7 +213,7 @@ index 4f01aa4..2a58bb2 100644
  }
  
 diff --git a/src/memberlist.cpp b/src/memberlist.cpp
-index ca034d7..1826d3e 100644
+index 8aeb42a..d11d225 100644
 --- a/src/memberlist.cpp
 +++ b/src/memberlist.cpp
 @@ -267,8 +267,8 @@ void MemberList::writePlainDeclarations(OutputList &ol,
@@ -241,10 +241,10 @@ index 2fdf0f2..cbb46c4 100644
    					  docBlock+=yytext;
    					}
 diff --git a/src/util.cpp b/src/util.cpp
-index e22df70..b15bc96 100644
+index d61361c..76af586 100644
 --- a/src/util.cpp
 +++ b/src/util.cpp
-@@ -1782,7 +1782,7 @@ void linkifyText(const TextGeneratorIntf &out,Definition *scope,
+@@ -1779,7 +1779,7 @@ void linkifyText(const TextGeneratorIntf &out,Definition *scope,
      { 
        if (txtStr.at(i)=='"') insideString=!insideString; 
      }
