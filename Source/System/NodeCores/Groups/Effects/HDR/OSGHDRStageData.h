@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
     \includebasedoc
  */
 
-class OSG_GROUP_DLLMAPPING HDRStageData : public HDRStageDataBase
+class OSG_EFFECTGROUPS_DLLMAPPING HDRStageData : public HDRStageDataBase
 {
   protected:
 

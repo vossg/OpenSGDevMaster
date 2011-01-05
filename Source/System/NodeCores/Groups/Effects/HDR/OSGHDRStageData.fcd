@@ -3,7 +3,7 @@
 <FieldContainer
    name="HDRStageData"
    parent="StageData"
-   library="Group"
+   library="EffectGroups"
    pointerfieldtypes="none"
    structure="concrete"
    systemcomponent="true"

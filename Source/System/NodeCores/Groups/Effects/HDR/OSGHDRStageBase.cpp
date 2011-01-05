@@ -217,7 +217,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     "<FieldContainer\n"
     "   name=\"HDRStage\"\n"
     "   parent=\"Stage\"\n"
-    "   library=\"Group\"\n"
+    "   library=\"EffectGroups\"\n"
     "   pointerfieldtypes=\"none\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"

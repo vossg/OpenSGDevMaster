@@ -60,7 +60,7 @@ class RenderActionBase;
     \includebasedoc
  */
 
-class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
+class OSG_EFFECTGROUPS_DLLMAPPING HDRStage : public HDRStageBase
 {
     /*==========================  PUBLIC  =================================*/
 

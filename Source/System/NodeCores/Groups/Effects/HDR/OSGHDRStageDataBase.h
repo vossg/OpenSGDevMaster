@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGEffectGroupsDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class HDRStageData;
 
 //! \brief HDRStageData Base Class.
 
-class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
+class OSG_EFFECTGROUPS_DLLMAPPING HDRStageDataBase : public StageData
 {
   public:
 

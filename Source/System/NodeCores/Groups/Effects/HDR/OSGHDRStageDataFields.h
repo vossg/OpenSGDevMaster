@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGEffectGroupsDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -69,7 +69,7 @@ class HDRStageData;
 OSG_GEN_CONTAINERPTR(HDRStageData);
 
 /*! \ingroup GrpEffectsGroupsHDRFieldTraits
-    \ingroup GrpLibOSGGroup
+    \ingroup GrpLibOSGEffectGroups
  */
 template <>
 struct FieldTraits<HDRStageData *> :
@@ -85,7 +85,7 @@ struct FieldTraits<HDRStageData *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+    static OSG_EFFECTGROUPS_DLLMAPPING DataType &getType(void);
 
 };
 
