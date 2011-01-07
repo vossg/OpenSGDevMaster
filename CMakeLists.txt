@@ -257,10 +257,29 @@ ENDIF()
 
 IF(NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Debug CACHE STRING
-      "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
+      "Choose the type of build, options are: Debug Release."
       FORCE)
 ENDIF(NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
 
+IF(NOT WIN32) 
+  IF(NOT CMAKE_BUILD_TYPE STREQUAL "Debug"    AND 
+     NOT CMAKE_BUILD_TYPE STREQUAL "DebugGV"  AND
+     NOT CMAKE_BUILD_TYPE STREQUAL "Release"    )
+
+    MESSAGE(FATAL_ERROR "incorrect build type ${CMAKE_BUILD_TYPE}.\n"
+                        "Please use either Release or Debug")
+
+  ENDIF()
+ELSE()
+#  IF(NOT CMAKE_BUILD_TYPE STREQUAL "Debug"    AND 
+#     NOT CMAKE_BUILD_TYPE STREQUAL "DebugOpt" AND
+#     NOT CMAKE_BUILD_TYPE STREQUAL "Release"  AND
+#     NOT CMAKE_BUILD_TYPE STREQUAL "ReleaseNoOpt")
+#
+#    MESSAGE(FATAL_ERROR "incorrect build type ${CMAKE_BUILD_TYPE}")
+#
+#  ENDIF()
+ENDIF()
 
 IF(NOT OSG_COMPILER_DEFAULTS)
    INCLUDE(CMake/SetupCompiler.cmake)

@@ -233,7 +233,9 @@ IF(OSGDoxygenSrcDir)
                             membername.h
                             message.h
                             msc.h
-                            namespacedef.h                           
+                            namespacedef.h      
+                            navtree_js.h
+                            navtree_css.h            
                             objcache.h
                             outputgen.h
                             outputlist.h
