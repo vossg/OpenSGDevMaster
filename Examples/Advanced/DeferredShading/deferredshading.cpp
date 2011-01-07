@@ -419,8 +419,8 @@ void addLight(LightEngine::LightTypeE lightType, ShadowTypeE shadowType)
     case LightEngine::Spot:
     {
         SpotLightUnrecPtr spotL = SpotLight::create();
-        spotL->setPosition (Pnt3r(0.f, 0.f,  0.f));
-        spotL->setDirection(Vec3r(0.f, 0.f, -1.f));
+        spotL->setPosition (Pnt3f(0.f, 0.f,  0.f));
+        spotL->setDirection(Vec3f(0.f, 0.f, -1.f));
         spotL->setSpotCutOff(Pi/6.f);
         spotL->setSpotExponent(3.f);
         spotL->setConstantAttenuation(1.0);
@@ -620,9 +620,9 @@ void updateLightBeacon(OSG::UInt32 lightIdx, OSG::Time t)
     if(beacon == NULL)
         return;
     
-    Pnt3r bbMin;
-    Pnt3r bbMax;
-    Pnt3r bbCenter;
+    Pnt3f bbMin;
+    Pnt3f bbMax;
+    Pnt3f bbCenter;
 
     gv->objN->updateVolume();
     gv->objN->getVolume().getBounds(bbMin, bbMax);
@@ -631,46 +631,46 @@ void updateLightBeacon(OSG::UInt32 lightIdx, OSG::Time t)
     UInt32 numLights  = gv->lightInfos.size();
     Real32 lightFract = Real32(lightIdx + 1) / Real32(numLights);
 
-    Vec3r bbDiag    = (bbMax - bbMin);
-    Real  bbDiagLen = bbDiag.length();
+    Vec3f  bbDiag    = (bbMax - bbMin);
+    Real32 bbDiagLen = bbDiag.length();
 
     Real32 angle1     = osgMod(t / 10.0, Real64(2.f * Pi));
     Real32 angle2     = (2.f * Pi / numLights);
     Real32 shiftVal   = 0.5f * osgSin(4.f * (lightFract * angle2 + angle1)) + 0.25;
 
     // translate to "above" center of the model
-    Matrixr matXform0;
+    Matrix matXform0;
     matXform0.setTranslate(bbCenter.subZero() + 
-                           Vec3r(0.f, shiftVal * bbDiag[1] * 1.1, 0.f));
+                           Vec3f(0.f, shiftVal * bbDiag[1] * 1.1, 0.f));
 
     // rotate around y
-    Matrixr matXform1;
-    Quaternion rot1(Vec3r(0.f, 1.f, 0.f), (lightIdx + 1) * angle2 + angle1);
+    Matrix matXform1;
+    Quaternion rot1(Vec3f(0.f, 1.f, 0.f), (lightIdx + 1) * angle2 + angle1);
     matXform1.setRotate(rot1);
 
     // translate 0.5 * bb diag along x
-    Matrixr matXform2;
-    matXform2.setTranslate(Vec3r(0.5f * bbDiagLen, 0.f, 0.f));
+    Matrix matXform2;
+    matXform2.setTranslate(Vec3f(0.5f * bbDiagLen, 0.f, 0.f));
 
     matXform0.mult(matXform1);
     matXform0.mult(matXform2);
 
     // align to face center
-    Pnt3r   lightAt(bbCenter - Vec3r(0.f, 0.25 * bbDiag[1], 0.f));
-    Matrixr matXform0Inv;
+    Pnt3f  lightAt(bbCenter - Vec3f(0.f, 0.25 * bbDiag[1], 0.f));
+    Matrix matXform0Inv;
     matXform0Inv.invertFrom(matXform0);
     matXform0Inv.mult      (lightAt, lightAt);
 
-    Matrixr matXform3;
-    Quaternion rot2(Vec3r(0.f, 0.f, -1.),
+    Matrix matXform3;
+    Quaternion rot2(Vec3f(0.f, 0.f, -1.),
                     lightAt.subZero()         );
     matXform3.setRotate(rot2);
 
     matXform0.mult(matXform3);
 
     // shift towards center
-    //Matrixr matXform4;
-    //matXform4.setTranslate(Vec3r(0.f, 0.f, shiftVal * bbDiagLen));
+    //Matrix matXform4;
+    //matXform4.setTranslate(Vec3f(0.f, 0.f, shiftVal * bbDiagLen));
 
     //matXform0.mult(matXform4);
 
@@ -690,10 +690,10 @@ NodeTransitPtr loadScene(const std::string &fileName)
 
     fileSceneN->updateVolume();
     const BoxVolume &bvol = fileSceneN->getVolume();
-    Pnt3r            pmin;
-    Pnt3r            pmax;
+    Pnt3f            pmin;
+    Pnt3f            pmax;
     bvol.getBounds(pmin, pmax);
-    Vec3r            vdiag = pmax - pmin;
+    Vec3f            vdiag = pmax - pmin;
     Real32           diag  = vdiag.length();
 
     TransformUnrecPtr xform  = Transform::create();
@@ -701,9 +701,9 @@ NodeTransitPtr loadScene(const std::string &fileName)
 
     Matrix matXForm;
     Matrix mat;
-    matXForm.setRotate(Quaternion(Vec3r(1.f, 0.f, 0.f), -Pi/2));
+    matXForm.setRotate(Quaternion(Vec3f(1.f, 0.f, 0.f), -Pi/2));
 
-    mat.setTranslate(Vec3r(0.f, 0.f, - 0.4 * diag));
+    mat.setTranslate(Vec3f(0.f, 0.f, - 0.4 * diag));
 
     matXForm.mult(mat);
 
