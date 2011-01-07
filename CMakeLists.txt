@@ -270,15 +270,23 @@ IF(NOT WIN32)
                         "Please use either Release or Debug")
 
   ENDIF()
-ELSE()
-#  IF(NOT CMAKE_BUILD_TYPE STREQUAL "Debug"    AND 
-#     NOT CMAKE_BUILD_TYPE STREQUAL "DebugOpt" AND
-#     NOT CMAKE_BUILD_TYPE STREQUAL "Release"  AND
-#     NOT CMAKE_BUILD_TYPE STREQUAL "ReleaseNoOpt")
-#
-#    MESSAGE(FATAL_ERROR "incorrect build type ${CMAKE_BUILD_TYPE}")
-#
-#  ENDIF()
+ELSEIF(NOT MSVC_IDE)
+
+  IF(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    SET(CMAKE_BUILD_TYPE DebugOpt CACHE STRING
+        "Choose the type of build, options are: ${CMAKE_CONFIGURATION_TYPES}."
+        FORCE)  
+  ENDIF()
+
+  IF(NOT CMAKE_BUILD_TYPE STREQUAL "Debug"    AND 
+     NOT CMAKE_BUILD_TYPE STREQUAL "DebugOpt" AND
+     NOT CMAKE_BUILD_TYPE STREQUAL "Release"  AND
+     NOT CMAKE_BUILD_TYPE STREQUAL "ReleaseNoOpt")
+
+    MESSAGE(FATAL_ERROR "incorrect build type ${CMAKE_BUILD_TYPE}.\n"
+                        "Please use on of ${CMAKE_CONFIGURATION_TYPES}")
+
+  ENDIF()
 ENDIF()
 
 IF(NOT OSG_COMPILER_DEFAULTS)
