@@ -79,9 +79,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
     Action::ResultE animBindEnter(Action *action);
 
-    Action::ResultE updateEnter(Action *action);
-    Action::ResultE updateLeave(Action *action);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Transformation                             */

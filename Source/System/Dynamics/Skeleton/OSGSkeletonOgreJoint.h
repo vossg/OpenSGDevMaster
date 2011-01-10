@@ -84,7 +84,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonOgreJoint : public SkeletonOgreJointBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void accumulateMatrix(Matrixr &result);
+    virtual void accumulateMatrix(Matrix &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

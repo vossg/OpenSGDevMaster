@@ -205,7 +205,6 @@ ColladaController::createInstance(ColladaInstInfo *colInstInfo)
 
 ColladaController::ColladaController(daeElement *elem, ColladaGlobal *global)
     : Inherited    (elem, global)
-    , _skeleton    (NULL)
     , _matBindShape()
     , _skeleton    (NULL)
 {

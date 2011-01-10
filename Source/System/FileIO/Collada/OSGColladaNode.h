@@ -264,7 +264,6 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     typedef std::map<std::string, Node *> SIdNodeMap;
     typedef SIdNodeMap::iterator          SIdNodeMapIt;
     typedef SIdNodeMap::const_iterator    SIdNodeMapConstIt;
-        ~InstData(void);
         
     struct InstData
     {

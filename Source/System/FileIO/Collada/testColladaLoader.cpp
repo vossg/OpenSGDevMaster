@@ -112,55 +112,6 @@ const std::string fpCode(
     "}\n"
     );
 
-OSG::ShaderProgramUnrecPtr      vpSkin;
-OSG::ShaderProgramUnrecPtr      fpSkin;
-OSG::ShaderProgramChunkUnrecPtr shSkin;
-OSG::ChunkMaterialUnrecPtr      matSkin;
-
-const std::string vpCode(
-    "#version 120"
-    "\n"
-    "// forward decl\n"
-    "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
-    "              in    vec4 matIdx, in    vec4 weight);\n"
-    "\n"
-    "varying vec4 position;\n"
-    "varying vec3 normal;\n"
-    "\n"
-    "void main(void)\n"
-    "{\n"
-    "    vec4 pos    = gl_Vertex;\n"
-    "    vec3 norm   = gl_Normal;\n"
-    "    vec4 matIdx = gl_MultiTexCoord1;\n"
-    "    vec4 weight = gl_MultiTexCoord2;\n"
-    "\n"
-    "    calcSkin(pos, norm, matIdx, weight);\n"
-    "\n"
-    "    gl_Position = gl_ModelViewProjectionMatrix * pos;\n"
-    "    position    = gl_Position;\n"
-    "    normal      = gl_NormalMatrix * norm;\n"
-    "}\n"
-    );
-
-const std::string fpCode(
-    "#version 120"
-    "\n"
-    "varying vec4 position;\n"
-    "varying vec3 normal;\n"
-    "\n"
-    "void main(void)\n"
-    "{\n"
-    "    vec3  pos      = position.xyz / position.w;\n"
-    "    vec3  norm     = normalize(normal);\n"
-    "    vec3  lightDir = normalize(vec3(1,1,1));\n"
-    "    float NdotL    = max(0, dot(norm, lightDir));\n"
-    "    vec3  diffCol  = vec3(0.4, 0.4, 0.6);\n"
-    "    diffCol *= NdotL;\n"
-    "    gl_FragColor = vec4(diffCol, 1.);\n"
-    "}\n"
-    );
-
-
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
@@ -720,53 +671,7 @@ void keyboard(unsigned char k, int , int )
         }
     }
     break;
-    case 'd':
-    {
-        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
-        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
 
-        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
-        {
-            OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
-                (*nIt)->getCore());
-
-            if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedHardware)
-            {
-                std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
-                          << sgeo << "]" << std::endl;
-
-                sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
-                sgeo->setMaterial  (skinnedGeoMat[i]                 );
-            }
-            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMUnskinned)
-            {
-                std::cout << "Enabling SkinnedGeo SKELETON mode ["
-                          << sgeo << "]" << std::endl;
-
-                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkeleton);
-                sgeo->setMaterial  (skinnedGeoMat[i]                );
-            }
-            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkeleton)
-            {
-                std::cout << "Enabling SkinnedGeo HARDWARE mode ["
-                          << sgeo << "]" << std::endl;
-
-                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedHardware);
-                sgeo->setMaterial  (matSkin                                );
-            }
-        }
-    }
-    break;
-    case 'c':
-    {
-        mgr->getRenderAction()->setFrustumCulling(
-            !mgr->getRenderAction()->getFrustumCulling());
-
-        std::cout << "Frustum culling: "
-                  << (mgr->getRenderAction()->getFrustumCulling() ? "enabled" : "disabled")
-                  << std::endl;
-    }
-    break;
     case 'a':
     {
         mgr->showAll();
@@ -815,6 +720,53 @@ void keyboard(unsigned char k, int , int )
         toggleAnim(currAnim, true);
     }
     break;
+    case 'd':
+    {
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
+        {
+            OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+            if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedHardware)
+            {
+                std::cout << "Enabling SkinnedGeo DEBUG mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkeleton);
+                sgeo->setMaterial  (skinnedGeoMat[i]);
+            }
+            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkeleton)
+            {
+               std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
+                         << sgeo << "]" << std::endl;
+
+               sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
+               sgeo->setMaterial  (skinnedGeoMat[i]);
+            }
+            else
+            {
+                std::cout << "Enabling SkinnedGeo HARDWARE mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedHardware);
+                sgeo->setMaterial(matSkin);
+            }
+        }
+    }
+    break;
+    case 'c':
+    {
+        mgr->getRenderAction()->setFrustumCulling(
+            !mgr->getRenderAction()->getFrustumCulling());
+
+        std::cout << "Frustum culling: "
+                  << (mgr->getRenderAction()->getFrustumCulling() ? "enabled" : "disabled")
+                  << std::endl;
+    }
+    break;
     case 's':
     {
         NodeStore::const_iterator nIt  = skinnedGeoN.begin();
@@ -856,6 +808,11 @@ void keyboard(unsigned char k, int , int )
     glutPostRedisplay();
 }
 
+void idle(void)
+{
+  glutPostRedisplay();
+}
+
 // setup the GLUT library which handles the windows for us
 int setupGLUT(int *argc, char *argv[])
 {
@@ -866,7 +823,7 @@ int setupGLUT(int *argc, char *argv[])
     
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    //    glutIdleFunc(display);
+    glutIdleFunc(idle);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
