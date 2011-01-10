@@ -126,6 +126,12 @@ void Action::andTravMask(UInt32 val)
 }
 
 inline
+void Action::orTravMask(UInt32 val)
+{
+    _travMask |= val;
+}
+
+inline
 void Action::pushTravMask(void)
 {
     _sTravMask.push(_travMask);

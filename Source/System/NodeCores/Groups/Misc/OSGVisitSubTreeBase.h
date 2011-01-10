@@ -96,18 +96,22 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     {
         SubTreeRootFieldId = Inherited::NextFieldId,
         SubTreeTravMaskFieldId = SubTreeRootFieldId + 1,
-        NextFieldId = SubTreeTravMaskFieldId + 1
+        TravMaskModeFieldId = SubTreeTravMaskFieldId + 1,
+        NextFieldId = TravMaskModeFieldId + 1
     };
 
     static const OSG::BitVector SubTreeRootFieldMask =
         (TypeTraits<BitVector>::One << SubTreeRootFieldId);
     static const OSG::BitVector SubTreeTravMaskFieldMask =
         (TypeTraits<BitVector>::One << SubTreeTravMaskFieldId);
+    static const OSG::BitVector TravMaskModeFieldMask =
+        (TypeTraits<BitVector>::One << TravMaskModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFWeakNodePtr     SFSubTreeRootType;
     typedef SFUInt32          SFSubTreeTravMaskType;
+    typedef SFUInt32          SFTravMaskModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -136,9 +140,15 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
                   SFUInt32            *editSFSubTreeTravMask(void);
             const SFUInt32            *getSFSubTreeTravMask (void) const;
 
+                  SFUInt32            *editSFTravMaskMode   (void);
+            const SFUInt32            *getSFTravMaskMode    (void) const;
+
 
                   UInt32              &editSubTreeTravMask(void);
                   UInt32               getSubTreeTravMask (void) const;
+
+                  UInt32              &editTravMaskMode   (void);
+                  UInt32               getTravMaskMode    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -146,6 +156,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \{                                                                 */
 
             void setSubTreeTravMask(const UInt32 value);
+            void setTravMaskMode   (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,6 +223,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
     SFWeakNodePtr     _sfSubTreeRoot;
     SFUInt32          _sfSubTreeTravMask;
+    SFUInt32          _sfTravMaskMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,6 +256,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     EditFieldHandlePtr editHandleSubTreeRoot    (void);
     GetFieldHandlePtr  getHandleSubTreeTravMask (void) const;
     EditFieldHandlePtr editHandleSubTreeTravMask(void);
+    GetFieldHandlePtr  getHandleTravMaskMode    (void) const;
+    EditFieldHandlePtr editHandleTravMaskMode   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

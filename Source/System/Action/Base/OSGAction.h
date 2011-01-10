@@ -196,6 +196,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     void   setTravMask (UInt32 val);
 
     void   andTravMask (UInt32 val);
+    void   orTravMask  (UInt32 val);
     
     /*------------------------- comparison ----------------------------------*/
 

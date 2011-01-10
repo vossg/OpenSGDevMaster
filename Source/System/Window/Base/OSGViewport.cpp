@@ -60,6 +60,7 @@
 #include "OSGWindow.h"
 #include "OSGCamera.h"
 #include "OSGForeground.h"
+#include "OSGFrameBufferObject.h"
 
 #include "OSGTraversalValidator.h"
 
@@ -379,7 +380,22 @@ void Viewport::render(RenderActionBase *action)
         oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
         for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
-            getForegrounds(i)->draw(&oEnv, this);
+        {
+            Foreground        *pForeground = getForegrounds(i);
+            FrameBufferObject *pTarget     = this->getTarget();
+
+            if(pTarget != NULL)
+            {
+                pTarget->activate(&oEnv);
+            }
+
+            pForeground->draw(&oEnv, this);
+
+            if(pTarget != NULL)
+            {
+                pTarget->deactivate(&oEnv);
+            }
+        }
     }
     else
     {
@@ -407,7 +423,22 @@ void Viewport::renderForegrounds(Window *pWin)
     oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
     for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
-        getForegrounds(i)->draw(&oEnv, this);
+    {
+        Foreground        *pForeground = getForegrounds(i);
+        FrameBufferObject *pTarget     = this->getTarget();
+
+        if(pTarget != NULL)
+        {
+            pTarget->activate(&oEnv);
+        }
+
+        pForeground->draw(&oEnv, this);
+
+        if(pTarget != NULL)
+        {
+            pTarget->deactivate(&oEnv);
+        }
+    }
 }
 
 bool Viewport::isPassive(void)

@@ -306,6 +306,8 @@ void TraversalValidationHandlerMixin<ParentT>::copyFromBin(
 
     if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
     {
+        Self::editSField(UpdateModeFieldMask);
+
         _sfUpdateMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RequestRunFieldMask & whichField))
@@ -314,6 +316,8 @@ void TraversalValidationHandlerMixin<ParentT>::copyFromBin(
     }
     if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
     {
+        Self::editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
+
         _mfDestroyedFunctors.copyFromBin(pMem);
     }
 }

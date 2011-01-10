@@ -41,4 +41,15 @@
      >
     This travmask will be used to update the action mask on traversal (and)
   </Field>
+  <Field
+     name="travMaskMode"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="VisitSubTree::AndTravMask"
+     access="public"
+     >
+    This defines how the travmask will be used to update the action mask on 
+    traversal
+  </Field>
 </FieldContainer>

@@ -157,7 +157,20 @@ ActionBase::ResultE VisitSubTree::renderEnter(Action *action)
       
     a->pushTravMask();
 
-    a->andTravMask(_sfSubTreeTravMask.getValue());
+    switch(_sfTravMaskMode.getValue())
+    {
+        case VisitSubTree::AndTravMask:
+            a->andTravMask(_sfSubTreeTravMask.getValue());
+            break;
+        case VisitSubTree::OrTravMask:
+            a->orTravMask(_sfSubTreeTravMask.getValue());
+            break;
+        case VisitSubTree::ReplaceTravMask:
+            a->setTravMask(_sfSubTreeTravMask.getValue());
+            break;
+        default:
+            break;
+    }
 
     if(this->getSubTreeRoot() != NULL && a->isVisible(this->getSubTreeRoot()))
     {

@@ -59,6 +59,13 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
 
   public:
 
+    enum TravMaskMode
+    {
+        AndTravMask     = 0x0001,
+        OrTravMask      = 0x0002,
+        ReplaceTravMask = 0x0003
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */

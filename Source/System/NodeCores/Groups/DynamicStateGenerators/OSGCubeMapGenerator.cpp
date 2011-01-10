@@ -383,8 +383,9 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTex   ->setImage         (pImg              ); 
         pCubeTex   ->setMinFilter     (GL_LINEAR         );
         pCubeTex   ->setMagFilter     (GL_LINEAR         );
-        pCubeTex   ->setWrapS         (GL_REPEAT         );
-        pCubeTex   ->setWrapT         (GL_REPEAT         );
+        pCubeTex   ->setWrapS         (GL_CLAMP_TO_EDGE  );
+        pCubeTex   ->setWrapT         (GL_CLAMP_TO_EDGE  );
+        pCubeTex   ->setWrapR         (GL_CLAMP_TO_EDGE  );
         pCubeTex   ->setInternalFormat(getTextureFormat());
     }
     else

@@ -674,6 +674,27 @@ int init(int argc, char **argv)
 
     vp->addForeground(pFG);
 
+
+
+    OSG::SimpleMaterialUnrecPtr matFgCheck = OSG::SimpleMaterial::create();
+    
+    matFgCheck->setDiffuse(OSG::Color3f(0,1,0));
+    matFgCheck->setLit    (false              );
+
+    OSG::PolygonForegroundUnrecPtr pFGCheck =  OSG::PolygonForeground::create();
+
+    pFGCheck->setMaterial(matFgCheck);
+
+    pPos = pFGCheck->editMFPositions();
+
+    pPos->push_back(OSG::Pnt2f(0.6f, 0.0f));
+    pPos->push_back(OSG::Pnt2f(0.9f, 0.0f));
+    pPos->push_back(OSG::Pnt2f(0.9f, 0.3f));
+    pPos->push_back(OSG::Pnt2f(0.6f, 0.3f));
+
+
+    vp->addForeground(pFG);
+    vp->addForeground(pFGCheck);
 //    vp->dump();
 
 
@@ -690,6 +711,8 @@ int init(int argc, char **argv)
     vpFBO->setBackground(bkgndFBO  );
     vpFBO->setRoot      (root      );
     vpFBO->setSize      (0, 0, 1, 1);
+
+    vpFBO->addForeground(pFGCheck);
 
     OSG::FrameBufferObjectUnrecPtr pFBO = OSG::FrameBufferObject::create();
 
