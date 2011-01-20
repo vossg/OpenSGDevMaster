@@ -1125,8 +1125,15 @@ bool WindowBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("WindowBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

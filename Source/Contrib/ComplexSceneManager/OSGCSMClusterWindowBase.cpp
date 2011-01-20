@@ -823,7 +823,7 @@ bool CSMClusterWindowBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfClientWindow.getValue())
+            if(_sfClientWindow.getValue() == pTypedChild)
             {
                 editSField(ClientWindowFieldMask);
 
@@ -832,8 +832,15 @@ bool CSMClusterWindowBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("CSMClusterWindowBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -848,7 +855,7 @@ bool CSMClusterWindowBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfOptions.getValue())
+            if(_sfOptions.getValue() == pTypedChild)
             {
                 editSField(OptionsFieldMask);
 
@@ -857,8 +864,15 @@ bool CSMClusterWindowBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("CSMClusterWindowBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

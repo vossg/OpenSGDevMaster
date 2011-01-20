@@ -853,8 +853,15 @@ bool ShaderProgramBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("ShaderProgramBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -880,7 +887,7 @@ bool ShaderProgramBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfVariables.getValue())
+            if(_sfVariables.getValue() == pTypedChild)
             {
                 editSField(VariablesFieldMask);
 
@@ -889,8 +896,15 @@ bool ShaderProgramBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ShaderProgramBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

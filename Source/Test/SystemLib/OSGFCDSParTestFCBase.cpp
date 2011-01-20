@@ -435,7 +435,7 @@ bool FCDSParTestFCBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfParent.getValue() == pParent)
+            if(_sfParent.getValue() == pTypedParent)
             {
                 editSField(ParentFieldMask);
 
@@ -444,8 +444,15 @@ bool FCDSParTestFCBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("FCDSParTestFCBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

@@ -1105,7 +1105,7 @@ bool ParticlesBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfPositions.getValue())
+            if(_sfPositions.getValue() == pTypedChild)
             {
                 editSField(PositionsFieldMask);
 
@@ -1114,8 +1114,15 @@ bool ParticlesBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -1130,7 +1137,7 @@ bool ParticlesBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfSecPositions.getValue())
+            if(_sfSecPositions.getValue() == pTypedChild)
             {
                 editSField(SecPositionsFieldMask);
 
@@ -1139,8 +1146,15 @@ bool ParticlesBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -1155,7 +1169,7 @@ bool ParticlesBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfColors.getValue())
+            if(_sfColors.getValue() == pTypedChild)
             {
                 editSField(ColorsFieldMask);
 
@@ -1164,8 +1178,15 @@ bool ParticlesBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -1180,7 +1201,7 @@ bool ParticlesBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfNormals.getValue())
+            if(_sfNormals.getValue() == pTypedChild)
             {
                 editSField(NormalsFieldMask);
 
@@ -1189,8 +1210,15 @@ bool ParticlesBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

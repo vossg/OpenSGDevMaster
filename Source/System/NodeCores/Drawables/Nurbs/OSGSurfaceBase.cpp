@@ -1227,7 +1227,7 @@ bool SurfaceBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfControlPoints.getValue())
+            if(_sfControlPoints.getValue() == pTypedChild)
             {
                 editSField(ControlPointsFieldMask);
 
@@ -1236,8 +1236,15 @@ bool SurfaceBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("SurfaceBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -1252,7 +1259,7 @@ bool SurfaceBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfTextureControlPoints.getValue())
+            if(_sfTextureControlPoints.getValue() == pTypedChild)
             {
                 editSField(TextureControlPointsFieldMask);
 
@@ -1261,8 +1268,15 @@ bool SurfaceBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("SurfaceBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

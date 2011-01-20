@@ -1949,7 +1949,7 @@ bool TextureObjChunkBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfImage.getValue())
+            if(_sfImage.getValue() == pTypedChild)
             {
                 editSField(ImageFieldMask);
 
@@ -1958,8 +1958,15 @@ bool TextureObjChunkBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("TextureObjChunkBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

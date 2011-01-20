@@ -2443,7 +2443,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFPub_mpchildptr.getValue())
+            if(_sfFieldSFPub_mpchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFPub_mpchildptrFieldMask);
 
@@ -2452,8 +2452,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2468,7 +2475,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFPro_mpchildptr.getValue())
+            if(_sfFieldSFPro_mpchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFPro_mpchildptrFieldMask);
 
@@ -2477,8 +2484,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2493,7 +2507,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFNo_mpchildptr.getValue())
+            if(_sfFieldSFNo_mpchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFNo_mpchildptrFieldMask);
 
@@ -2502,8 +2516,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2529,8 +2550,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2556,8 +2584,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2583,8 +2618,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2599,7 +2641,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFPub_spchildptr.getValue())
+            if(_sfFieldSFPub_spchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFPub_spchildptrFieldMask);
 
@@ -2608,8 +2650,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2624,7 +2673,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFPro_spchildptr.getValue())
+            if(_sfFieldSFPro_spchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFPro_spchildptrFieldMask);
 
@@ -2633,8 +2682,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2649,7 +2705,7 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfFieldSFNo_spchildptr.getValue())
+            if(_sfFieldSFNo_spchildptr.getValue() == pTypedChild)
             {
                 editSField(FieldSFNo_spchildptrFieldMask);
 
@@ -2658,8 +2714,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2685,8 +2748,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2712,8 +2782,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2739,8 +2816,15 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("FCDPtrTestFCNullCheckAccessBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

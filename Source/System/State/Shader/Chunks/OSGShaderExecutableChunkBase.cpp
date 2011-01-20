@@ -923,7 +923,7 @@ bool ShaderExecutableChunkBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfVariables.getValue())
+            if(_sfVariables.getValue() == pTypedChild)
             {
                 editSField(VariablesFieldMask);
 
@@ -932,8 +932,15 @@ bool ShaderExecutableChunkBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("ShaderExecutableChunkBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

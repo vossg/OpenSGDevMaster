@@ -68,7 +68,7 @@ class CocoaWindow;
 
 OSG_GEN_CONTAINERPTR(CocoaWindow);
 
-/*! \ingroup GrpWindowCocoaFieldTraits
+/*! \ingroup GrpWindowCocaoFieldTraits
     \ingroup GrpLibOSGWindowCocoa
  */
 template <>
@@ -147,30 +147,30 @@ const Char8 *FieldTraits<CocoaWindow *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowCocoaFieldSFields */
+/*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<CocoaWindow *,
                       RecordedRefCountPolicy  > SFRecCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldSFields */
+/*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<CocoaWindow *,
                       UnrecordedRefCountPolicy> SFUnrecCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldSFields */
+/*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<CocoaWindow *,
                       WeakRefCountPolicy      > SFWeakCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldSFields */
+/*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<CocoaWindow *,
                       NoRefCountPolicy        > SFUncountedCocoaWindowPtr;
 
 
-/*! \ingroup GrpWindowCocoaFieldMFields */
+/*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<CocoaWindow *,
                       RecordedRefCountPolicy  > MFRecCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldMFields */
+/*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<CocoaWindow *,
                       UnrecordedRefCountPolicy> MFUnrecCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldMFields */
+/*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<CocoaWindow *,
                       WeakRefCountPolicy      > MFWeakCocoaWindowPtr;
-/*! \ingroup GrpWindowCocoaFieldMFields */
+/*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<CocoaWindow *,
                       NoRefCountPolicy        > MFUncountedCocoaWindowPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<CocoaWindow *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldSFields \ingroup GrpLibOSGWindowCocoa */
 struct SFRecCocoaWindowPtr : 
     public PointerSField<CocoaWindow *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldSFields \ingroup GrpLibOSGWindowCocoa */
 struct SFUnrecCocoaWindowPtr : 
     public PointerSField<CocoaWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldSFields \ingroup GrpLibOSGWindowCocoa */
 struct SFWeakCocoaWindowPtr :
     public PointerSField<CocoaWindow *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowCocoaFieldSFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldSFields \ingroup GrpLibOSGWindowCocoa */
 struct SFUncountedCocoaWindowPtr :
     public PointerSField<CocoaWindow *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowCocoaFieldMFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldMFields \ingroup GrpLibOSGWindowCocoa */
 struct MFRecCocoaWindowPtr :
     public PointerMField<CocoaWindow *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowCocoaFieldMFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldMFields \ingroup GrpLibOSGWindowCocoa */
 struct MFUnrecCocoaWindowPtr :
     public PointerMField<CocoaWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowCocoaFieldMFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldMFields \ingroup GrpLibOSGWindowCocoa */
 struct MFWeakCocoaWindowPtr :
     public PointerMField<CocoaWindow *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowCocoaFieldMFields \ingroup GrpLibOSGWindowCocoa */
+/*! \ingroup GrpWindowCocaoFieldMFields \ingroup GrpLibOSGWindowCocoa */
 struct MFUncountedCocoaWindowPtr :
     public PointerMField<CocoaWindow *,
                          NoRefCountPolicy        > {};
