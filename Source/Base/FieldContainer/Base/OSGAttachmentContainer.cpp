@@ -148,7 +148,64 @@ void AttachmentContainer::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
     {
-        _sfAttachments.copyFromBin(pMem);
+        // _sfAttachments.copyFromBin(pMem);
+
+        editSField(AttachmentsFieldMask);
+
+        UInt32 size;
+
+        pMem.getValue(size);
+
+        AttachmentMap::const_iterator mapIt  = _sfAttachments.getValue().begin();
+        AttachmentMap::const_iterator mapEnd = _sfAttachments.getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if((*mapIt).second != NULL)
+            {
+                if(this->isMTLocal())
+                {
+                    Thread::getCurrentChangeList()->addDelayedSubRef<
+                        UnrecordedRefCountPolicy>((*mapIt).second);
+                }
+                else
+                {
+                    Thread::getCurrentChangeList()->addDelayedSubRef<
+                        RecordedRefCountPolicy>((*mapIt).second);
+                }
+            }
+        }
+
+        _sfAttachments.getValue().clear();
+
+        for(UInt32 i = 0; i < size; ++i)
+        {
+            UInt16 binding;
+            UInt32 fcId;
+
+            pMem.getValue(binding);
+            pMem.getValue(fcId   );
+
+            Attachment *att = dynamic_cast<Attachment *>(
+                FieldContainerFactory::the()->getMappedContainer(fcId));
+
+            if(att != NULL)
+            {
+                UInt32 key = (static_cast<UInt32>(att->getGroupId()) << 16) | binding;
+
+                if(this->isMTLocal())
+                {
+                    UnrecordedRefCountPolicy::addRef(att);
+                }
+                else
+                {
+                    RecordedRefCountPolicy::addRef(att);
+                }
+
+                _sfAttachments.getValue().insert(
+                    AttachmentMap::value_type(key, att));
+            }
+        }
     }
 }
 
@@ -362,11 +419,13 @@ void AttachmentContainer::execSync(
         {
             if(this->isMTLocal())
             {
-                (*fcI).second->subReferenceUnrecorded();
+                Thread::getCurrentChangeList()->addDelayedSubRef<
+                    UnrecordedRefCountPolicy>((*fcI).second);
             }
             else
             {
-                (*fcI).second->subReferenceRecorded();
+                Thread::getCurrentChangeList()->addDelayedSubRef<
+                    RecordedRefCountPolicy>((*fcI).second);
             }
             
             ++fcI;
@@ -380,6 +439,8 @@ void AttachmentContainer::execSync(
 void AttachmentContainer::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    Self::editSField(AttachmentsFieldMask);
 
     AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().begin();
     AttachmentObjPtrMapIt fcE = _sfAttachments.getValue().end  ();
