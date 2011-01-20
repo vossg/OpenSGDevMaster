@@ -97,7 +97,7 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
 {
     if(pObj != NULL)
     {
-        RefCountPolicyType::addRef(pObj /*, false*/);
+        RefCountPolicyType::addRef(pObj);
 
         linkParent(dcastSField(pSField)->getEnclosingObject(),
                    dcastSField(pSField)->getChildFieldId   (),
@@ -113,7 +113,7 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
 {
     if(pObj != NULL)
     {
-        RefCountPolicyType::addRef(pObj /*, false*/);
+        RefCountPolicyType::addRef(pObj);
 
         linkParent(dcastMField(pMField)->getEnclosingObject(),
                    dcastMField(pMField)->getChildFieldId   (),
@@ -133,7 +133,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
                      pObj,
                      dcastSField(pSField)->getParentFieldId  () );
 
-        RefCountPolicyType::subRef(pObj/*, false*/);
+        RefCountPolicyType::subRef(pObj);
     }
 }
 
@@ -148,7 +148,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
                      pObj,
                      dcastMField(pMField)->getParentFieldId  () );
 
-        RefCountPolicyType::subRef(pObj/*, false*/);
+        RefCountPolicyType::subRef(pObj);
     }
 }
 
@@ -166,7 +166,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
                      pOldObj,
                      dcastSField(pSField)->getParentFieldId  ());
 
-        RefCountPolicyType::subRef(pOldObj/*, false*/);
+        RefCountPolicyType::subRef(pOldObj);
     }
 
     if(pNewObj != NULL)
@@ -192,7 +192,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
                      pOldObj,
                      dcastMField(pMField)->getParentFieldId() );
 
-        RefCountPolicyType::subRef(pOldObj/*, false*/);
+        RefCountPolicyType::subRef(pOldObj);
     }
 
     if(pNewObj != NULL)
@@ -228,7 +228,11 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
     SFieldBaseType * const, 
     FieldContainer * const pObj)
 {
-    RefCountPolicyType::subRef(pObj);
+    if(pObj != NULL)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pObj);
+    }
 }
 
 template<typename RefCountPolicyT> inline 
@@ -236,7 +240,11 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
     MFieldBaseType * const, 
     FieldContainer * const pObj)
 {
-    RefCountPolicyType::subRef(pObj);
+    if(pObj != NULL)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pObj);
+    }
 }
 
 template<typename RefCountPolicyT> inline 
@@ -246,14 +254,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainer * const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
-
-    if(pOldObj != NULL)
-    {
-        Thread::getCurrentChangeList()->addDelayedSubRef<
-            RefCountPolicyT>(pOldObj);
-    }
-
-//    onSyncSub(pSField, pOldObj);
+    onSyncSub(pSField, pOldObj);
 }
 
 template<typename RefCountPolicyT> inline 
@@ -263,14 +264,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainer * const pNewObj)
 {
     onSyncAdd(pMField, pNewObj);
-
-    if(pOldObj != NULL)
-    {
-        Thread::getCurrentChangeList()->addDelayedSubRef<
-            RefCountPolicyT>(pOldObj);
-    }
-
-//    onSyncSub(pMField, pOldObj);
+    onSyncSub(pMField, pOldObj);
 }
 
 OSG_END_NAMESPACE
