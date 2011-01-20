@@ -608,11 +608,24 @@ bool Node::unlinkParent(FieldContainer * const pParent,
                 
         if(pTypedParent != NULL)
         {
-            editSField(ParentFieldMask);
+            if(_sfParent.getValue() == pTypedParent)
+            {
+                editSField(ParentFieldMask);
 
-            _sfParent.setValue(NULL, 0xFFFF);
+                _sfParent.setValue(NULL, 0xFFFF);
             
-            return true;
+                return true;
+            }
+
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
         }
 
         return false;
@@ -626,10 +639,6 @@ bool Node::unlinkChild (FieldContainer * const pChild,
 {
     if(childFieldId == ChildrenFieldId)
     {
-        FINFO(("Node::unlinkChild: this [%p] [%u] pChild [%p] [%u]\n",
-               this, this->getId(), pChild, 
-               pChild != NULL ? pChild->getId() : 0));
-               
         Node *pTypedChild = dynamic_cast<Node *>(pChild);
         
         if(pTypedChild != NULL)
@@ -644,9 +653,16 @@ bool Node::unlinkChild (FieldContainer * const pChild,
                 
                 return true;
             }
-            
-            FWARNING(("Node::unlinkChild: Child <-> Parent link "
-                      "inconsistent.\n"));
+
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
             
             return false;
         }
@@ -660,7 +676,7 @@ bool Node::unlinkChild (FieldContainer * const pChild,
         
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == getCore())
+            if(_sfCore.getValue() == pTypedChild)
             {
                 editSField(CoreFieldMask);
 
@@ -669,8 +685,15 @@ bool Node::unlinkChild (FieldContainer * const pChild,
                 return true;
             }
             
-            FWARNING(("Node::unlinkChild: Child <-> Parent link "
-                      "inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
         
             return false;
         }
@@ -976,12 +999,12 @@ GetFieldHandlePtr  Node::getHandleChildren(void) const
 
 void Node::resolveLinks(void)
 {
-    FINFO(("Node::resolveLinks [%p] [%u]\n", this, this->getId()));
-
     Inherited::resolveLinks();
 
+    editSField(CoreFieldMask);
     _sfCore.setValue(NULL);
 
+    editMField(ChildrenFieldMask, _mfChildren);
     _mfChildren.clear();
 }
 
