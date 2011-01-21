@@ -310,13 +310,12 @@ FieldContainerTransitPtr VRMLNodeHelper::beginNode(
 
             pAtt = dynamic_cast<VRMLGenericAtt *>(pAttClone);
 
-            pAtt->setVrmlNodeTypename(szTypename);
-
             OSG_ASSERT(pAttClone == pAtt);
 
             if(pAtt != NULL)
             {
-                pAtt->setInternal(true);
+                pAtt->setVrmlNodeTypename(szTypename);
+                pAtt->setInternal        (true);
             }
 
             if(pCore != NULL)

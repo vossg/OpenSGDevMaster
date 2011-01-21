@@ -180,7 +180,7 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
     {
         const FieldDescriptionBase *fieldDesc = fc->getFieldDescription(fieldId);
         const FieldType            &fieldType = fieldDesc->getFieldType();
-        std::string                 fieldName = fieldDesc->getCName    ();
+        const std::string          &fieldName = fieldDesc->getName     ();
 
         // skip internal fields
         if(fieldDesc->isInternal())
@@ -214,8 +214,8 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
                 if(refedFC == NULL)
                     continue;
 
-                UInt32      refedId  = refedFC->getId  ();
-                std::string typeName = refedFC->getType().getCName();
+                      UInt32      refedId  = refedFC->getId  ();
+                const std::string typeName = refedFC->getType().getName();
 
                 // only schedule a container once
                 if(root->getIdSet().count(refedId) > 0)
@@ -269,8 +269,8 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
                 if(refedFC == NULL)
                     continue;
 
-                UInt32      refedId  = refedFC->getId  ();
-                std::string typeName = refedFC->getType().getCName();
+                      UInt32      refedId  = refedFC->getId  ();
+                const std::string typeName = refedFC->getType().getName();
 
                 // only schedule a container once
                 if(root->getIdSet().count(refedId) > 0)
@@ -294,7 +294,7 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
         }
         else if(fieldName == "attachments")
         {
-            preWriteMapField(fieldId);
+            preWriteAttachmentMapField(fieldId);
         }
         else
         {

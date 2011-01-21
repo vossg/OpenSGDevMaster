@@ -677,8 +677,8 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
     if(refedFC == NULL)
         return;
 
-    UInt32      refedId  = refedFC->getId  ();
-    std::string typeName = refedFC->getType().getCName();
+    UInt32             refedId  = refedFC->getId  ();
+    const std::string &typeName = refedFC->getType().getName();
 
     // only schedule a container once
     if(root->getIdSet().count(refedId) == 0)
@@ -728,8 +728,8 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
         if(refedFC == NULL)
             continue;
 
-        UInt32      refedId  = refedFC->getId  ();
-        std::string typeName = refedFC->getType().getCName();
+        UInt32             refedId  = refedFC->getId  ();
+        const std::string &typeName = refedFC->getType().getName();
 
         // only schedule a container once
         if(root->getIdSet().count(refedId) > 0)
@@ -752,10 +752,36 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
 
     \param[in] fieldId Id of the field in the container of this element.
  */
-void OSBCommonElement::preWriteMapField(const UInt32 fieldId)
+void OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
 {
     OSG_OSB_LOG(("OSBCommonElement::preWriteAttachmentMapField: "
-            "fieldId: [%u]\n", fieldId));
+                 "fieldId: [%u]\n", fieldId));
+
+    GetMapFieldHandlePtr sfMapField =
+        boost::dynamic_pointer_cast<GetMapFieldHandle>(
+            getContainer()->getField(fieldId));
+
+    if(sfMapField == NULL || sfMapField->isValid() == false)
+        return;
+
+    sfMapField->traverse(
+        boost::bind(&OSBCommonElement::handleAttachmentMapElementPreWrite,
+                    this,
+                    _1));
+}
+
+/*! Visits a map field (essentially an SF that contains a std::map
+    with a FieldContainer* as value type) for
+    preWrite. It creates elements for the pointed to containers and
+    calls preWrite on them. If the pointed to containers are not in the
+    root's id set they are added and thus scheduled for writing.
+
+    \param[in] fieldId Id of the field in the container of this element.
+ */
+void OSBCommonElement::preWriteMapField(const UInt32 fieldId)
+{
+    OSG_OSB_LOG(("OSBCommonElement::preWriteMapField: "
+                 "fieldId: [%u]\n", fieldId));
 
     GetMapFieldHandlePtr sfMapField =
         boost::dynamic_pointer_cast<GetMapFieldHandle>(
@@ -768,66 +794,6 @@ void OSBCommonElement::preWriteMapField(const UInt32 fieldId)
         boost::bind(&OSBCommonElement::handleMapElementPreWrite,
                     this,
                     _1));
-                                    
-#if 0
-    OSBRootElement                        *root        = editRoot();
-
-    SFAttachmentPtrMap::GetHandlePtr sfAMapField =
-        boost::dynamic_pointer_cast<
-            SFAttachmentPtrMap::GetHandle>(
-                getContainer()->getField(fieldId));
-
-    if(sfAMapField == NULL || sfAMapField->isValid() == false)
-        return;
-
-    AttachmentMap::const_iterator mapIt  = (*sfAMapField)->getValue().begin();
-    AttachmentMap::const_iterator mapEnd = (*sfAMapField)->getValue().end();
-
-    for(; mapIt != mapEnd; ++mapIt)
-    {
-        FieldContainer *refedFC = mapIt->second;
-
-        if(refedFC == NULL)
-            continue;
-
-        UInt32      refedId  = refedFC->getId  ();
-        std::string typeName = refedFC->getType().getCName();
-
-        // only schedule a container once
-        if(root->getIdSet().count(refedId) > 0)
-            continue;
-
-        OSBElementBase *elem = OSBElementFactory::the()->acquire(
-            typeName, root);
-
-        root->editIdSet      ().insert   (refedId);
-        root->editElementList().push_back(elem   );
-        elem->setContainer(refedFC);
-        elem->preWrite    (refedFC);
-    }
-#endif
-}
-
-void OSBCommonElement::handleMapElementPreWrite(FieldContainer *refedFC)
-{
-    OSBRootElement                        *root        = editRoot();
-
-    if(refedFC == NULL)
-        return;
-
-    UInt32      refedId  = refedFC->getId  ();
-    std::string typeName = refedFC->getType().getCName();
-
-    // only schedule a container once
-    if(root->getIdSet().count(refedId) > 0)
-        return;
-    
-    OSBElementBase *elem = OSBElementFactory::the()->acquire(typeName, root);
-    
-    root->editIdSet      ().insert   (refedId);
-    root->editElementList().push_back(elem   );
-    elem->setContainer(refedFC);
-    elem->preWrite    (refedFC);
 }
 
 /*! Visits the given container \a fc during preWrite and creates elements
@@ -843,10 +809,12 @@ void OSBCommonElement::handleMapElementPreWrite(FieldContainer *refedFC)
  */
 void
 OSBCommonElement::preWriteFieldContainer(
-    FieldContainer * const fc, const std::string &excludeFields)
+    FieldContainer *fc, const std::string &excludeFields)
 {
-    OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
-            "excludeFields: [%s]\n", excludeFields.c_str()));
+    OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: >> type [%s] "
+                 "excludeFields: [%s]\n",
+                 fc->getType().getName().c_str(),
+                 excludeFields.c_str()));
 
     UInt32 fieldCount = fc->getType().getNumFieldDescs();
 
@@ -855,16 +823,18 @@ OSBCommonElement::preWriteFieldContainer(
     {
         const FieldDescriptionBase *fieldDesc = fc->getFieldDescription(fieldId);
         const FieldType            &fieldType = fieldDesc->getFieldType();
-        std::string                 fieldName = fieldDesc->getCName    ();
+        const std::string          &fieldName = fieldDesc->getName     ();
 
         OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
-                "fieldName: [%s] fieldId: [%u]\n", fieldName.c_str(), fieldId));
+                     "fieldName: [%s] fieldId: [%u]\n",
+                     fieldName.c_str(), fieldId));
 
         // skip internal fields
         if(fieldDesc->isInternal())
         {
             OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
-                    "Skipping internal field: [%s]\n", fieldName.c_str()));
+                         "Skipping internal field: [%s]\n",
+                         fieldName.c_str()));
             continue;
         }
 
@@ -873,19 +843,24 @@ OSBCommonElement::preWriteFieldContainer(
            (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
         {
             OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
-                    "Skipping excluded field: [%s]\n", fieldName.c_str()));
+                         "Skipping excluded field: [%s]\n", fieldName.c_str()));
             continue;
         }
 
         // check if field refers to another FC, i.e. its a field holding
         // FieldContainerPtr or an FieldContainerAttachmentMap
         if(fieldType.getContentType().isDerivedFrom(
-               FieldTraits<FieldContainer *>::getMapType()) == true)
+               FieldTraits<AttachmentMap>::getType()) == true)
+        {
+            preWriteAttachmentMapField(fieldId);
+        }
+        else if(fieldType.getContentType().isDerivedFrom(
+                    FieldTraits<FieldContainer *>::getMapType()) == true)
         {
             preWriteMapField(fieldId);
         }
         else if(fieldType.getContentType().isDerivedFrom(
-            FieldTraits<FieldContainer *>::getType()) == true)
+                    FieldTraits<FieldContainer *>::getType()) == true)
         {
             if(fieldType.getCardinality() == FieldType::SingleField)
             {
@@ -897,6 +872,11 @@ OSBCommonElement::preWriteFieldContainer(
             }
         }
     }
+
+    OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: << type [%s] "
+                 "excludeFields: [%s]\n",
+                 fc->getType().getName().c_str(),
+                 excludeFields.c_str()));
 }
 
 /*-------------------------------------------------------------------------*/
@@ -912,7 +892,7 @@ OSBCommonElement::writeFieldContainerHeader(FieldContainer * const fc)
     OSG_OSB_LOG(("OSBCommonElement::writeFieldContainerHeader\n"));
 
     BinaryWriteHandler *wh       = editRoot()->getWriteHandler();
-    std::string         typeName = fc->getType().getCName();
+    const std::string  &typeName = fc->getType().getName();
     UInt32              fcId     = fc->getId  ();
 
     wh->putValue(typeName);
@@ -984,7 +964,7 @@ OSBCommonElement::writeFields(
     {
         const FieldDescriptionBase *fieldDesc =
             fc->getFieldDescription(fieldId);
-        std::string                 fieldName = fieldDesc->getCName();
+        const std::string          &fieldName = fieldDesc->getName();
 
         // skip internal fields
         if(fieldDesc->isInternal())
@@ -1003,10 +983,10 @@ OSBCommonElement::writeFields(
             continue;
         }
 
-        const FieldType &fieldType     = fieldDesc->getFieldType();
-        std::string      fieldTypeName = fieldType .getCName    ();
-        BitVector        fieldMask     = fieldDesc->getFieldMask();
-        UInt32           fieldSize     = fc->getBinSize(fieldMask);
+        const FieldType   &fieldType     = fieldDesc->getFieldType();
+        const std::string &fieldTypeName = fieldType .getName     ();
+        BitVector          fieldMask     = fieldDesc->getFieldMask();
+        UInt32             fieldSize     = fc->getBinSize(fieldMask);
 
         writeFieldHeader (fieldName, fieldTypeName, fieldSize);
         writeFieldContent(fieldId                            );
@@ -1026,6 +1006,69 @@ OSBCommonElement::writeEndMarker(void)
     OSG_OSB_LOG(("OSBCommonElement::writeEndMarker\n"));
 
     editRoot()->getWriteHandler()->putValue(std::string(""));
+}
+
+/*-------------------------------------------------------------------------*/
+/* Map Helper methods                                                      */
+
+/*! Callback called for each element in an AttachmentMap (this is used by
+    preWriteAttachmentMapField).
+ */
+void OSBCommonElement::handleAttachmentMapElementPreWrite(
+    FieldContainer *refedFC)
+{
+    OSG_OSB_LOG(("OSBCommonElement::handleAttachmentMapElementPreWrite\n"));
+
+    if(refedFC == NULL)
+        return;
+
+    Attachment *refedAtt = dynamic_cast<Attachment *>(refedFC);
+
+    // skip attachments marked as 'internal'
+    if(refedAtt                              == NULL ||
+       refedAtt->getSFInternal()->getValue() == true   )
+    {
+        return;
+    }
+
+    OSBRootElement    *root     = editRoot();
+    UInt32             refedId  = refedAtt->getId  ();
+    const std::string &typeName = refedAtt->getType().getName();
+
+    // only schedule a container once
+    if(root->getIdSet().count(refedId) > 0)
+        return;
+
+    OSBElementBase *elem = OSBElementFactory::the()->acquire(typeName, root);
+
+    root->editIdSet      ().insert   (refedId);
+    root->editElementList().push_back(elem   );
+    elem->setContainer(refedAtt);
+    elem->preWrite    (refedAtt);
+}
+
+/*! Callback called for each element in a map field (this is used by
+    preWriteMapField).
+ */
+void OSBCommonElement::handleMapElementPreWrite(FieldContainer *refedFC)
+{
+    if(refedFC == NULL)
+        return;
+
+    OSBRootElement    *root      = editRoot();
+    UInt32             refedId  = refedFC->getId  ();
+    const std::string &typeName = refedFC->getType().getName();
+
+    // only schedule a container once
+    if(root->getIdSet().count(refedId) > 0)
+        return;
+
+    OSBElementBase *elem = OSBElementFactory::the()->acquire(typeName, root);
+
+    root->editIdSet      ().insert   (refedId);
+    root->editElementList().push_back(elem   );
+    elem->setContainer(refedFC);
+    elem->preWrite    (refedFC);
 }
 
 /*-------------------------------------------------------------------------*/

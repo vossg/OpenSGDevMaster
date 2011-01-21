@@ -307,8 +307,8 @@ OSBRootElement::preWrite(FieldContainer * const fc)
     if(fc == NULL)
         return;
 
-    std::string     typeName = fc->getType().getCName();
-    OSBElementBase *elem     = OSBElementFactory::the()->acquire(
+    const std::string    &typeName = fc->getType().getName();
+          OSBElementBase *elem     = OSBElementFactory::the()->acquire(
         typeName, this);
 
     editElementList().push_back(elem);

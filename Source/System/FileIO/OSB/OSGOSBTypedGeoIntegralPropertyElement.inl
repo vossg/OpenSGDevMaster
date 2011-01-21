@@ -202,8 +202,8 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
         getContainer()->getFieldDescription("values");
     UInt32                      fieldId       = fieldDesc->getFieldId  ();
     const FieldType            &fieldType     = fieldDesc->getFieldType();
-    std::string                 fieldName     = fieldDesc->getCName    ();
-    std::string                 fieldTypeName = fieldType .getCName    ();
+    const std::string          &fieldName     = fieldDesc->getName     ();
+    const std::string          &fieldTypeName = fieldType .getName     ();
     BitVector                   fieldMask     = fieldDesc->getFieldMask();
 
     if(getPackData() == true)
