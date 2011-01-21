@@ -751,6 +751,18 @@ ENDIF(OSGBUILD_UNITTESTS)
 # Documentation I
 #################
 
+IF(DOXYGEN_EXECUTABLE)
+    SET(DOXYGEN_VERSION)
+    EXECUTE_PROCESS(COMMAND "${DOXYGEN_EXECUTABLE}" "--version"
+                    OUTPUT_VARIABLE DOXYGEN_VERSION
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    IF(DOXYGEN_VERSION STREQUAL "1.7.3")
+        MESSAGE(WARNING "Detected doxygen version 1.7.3, which is known to crash "
+                        "when building OpenSG documentation. "
+                        "Please use a different version, sorry for the inconvenience.")
+    ENDIF(DOXYGEN_VERSION STREQUAL "1.7.3")
+ENDIF(DOXYGEN_EXECUTABLE)
+
 IF(NOT OSG_DOXY_INPUTS)
     # add a pass for doxygen to run
     LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
