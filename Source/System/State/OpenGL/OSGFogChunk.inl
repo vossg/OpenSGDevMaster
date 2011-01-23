@@ -40,4 +40,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+const StateChunkClass *FogChunk::getStaticClass(void)
+{
+    return &FogChunk::_class;
+}
+
+inline
+UInt32 FogChunk::getStaticClassId(void)
+{
+    return getStaticClass()->getId();
+}
+
 OSG_END_NAMESPACE

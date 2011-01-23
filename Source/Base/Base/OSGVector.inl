@@ -901,7 +901,7 @@ typename Point<ValueTypeT, SizeI>::RealReturnType
     Point<ValueTypeT, SizeI>::dist2(const Point &pnt) 
     const
 {
-    RealReturnType returnValue = 0;
+    RealReturnType returnValue = RealReturnType();
     RealReturnType tmp;
 
     for(UInt32 i = 0; i < Self::_uiSize; i++)
@@ -1646,7 +1646,8 @@ Vector<ValueTypeT, SizeI>
 {
    Vector<ValueTypeT, SizeI> Result;
 
-   Result = *this - (2.0f * (this->dot(Normal)) * Normal);
+   const ValueTypeT dot_prod(2.0f * this->dot(Normal));
+   Result = *this - dot_prod * Normal;
 
    return Result;
 }

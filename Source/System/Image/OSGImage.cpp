@@ -407,6 +407,9 @@ bool Image::setData(const UChar8 *da)
 void Image::clearData(void)
 {
     editMFPixel()->clear();
+    // free unused memory.
+    MFUInt8 tmp;
+    tmp.swap(*editMFPixel());
 }
 
 /*! method to update just a subregion of the image data

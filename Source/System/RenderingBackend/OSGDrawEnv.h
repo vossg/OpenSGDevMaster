@@ -48,6 +48,7 @@
 #include "OSGMatrix.h"
 #include "OSGGLEXT.h"
 #include "OSGStatCollector.h"
+#include "OSGContainerForwards.h"
 
 #include <boost/function.hpp>
 
@@ -72,9 +73,9 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                     Types                                    */
     /*! \{                                                                 */
 
-    typedef boost::function<void (DrawEnv *)>  DrawFunctor;
+    typedef RenderFunctor    DrawFunctor;
 
-    typedef RenderActionBase                   RAction;
+    typedef RenderActionBase RAction;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

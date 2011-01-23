@@ -77,6 +77,11 @@ void TreeBuilderBase::setNodePool(RenderTreeNodePool *pNodePool)
     _pNodePool = pNodePool;
 }
 
+RenderTreeNodePool *TreeBuilderBase::getNodePool(void)
+{
+    return _pNodePool;
+}
+
 void TreeBuilderBase::reset(void)
 {
     _uiMatrixId = 0;
