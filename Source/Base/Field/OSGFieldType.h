@@ -52,7 +52,7 @@ class Field;
 
 #ifdef OSG_1_GET_COMPAT
 #define SINGLE_FIELD SingleField
-#define MULTI_FIELD MultiField
+#define MULTI_FIELD  MultiField
 #endif
 
 /*! \ingroup GrpBaseField
@@ -84,20 +84,24 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FieldType(const Char8             *szName, 
-              const Char8             *szParentName,
-              const DataType          &contentType,
-                    Cardinality        cardinality,
-                    Class              fieldClass,
-              const UInt32             uiNameSpace = GlobalNamespace);
+    FieldType(const Char8                   *szName, 
+              const Char8                   *szParentName,
+              const DataType                &contentType,
+                    Cardinality              cardinality,
+                    Class                    fieldClass,
+                    FieldDescCreator         fCreator    = NULL,
+                    IndexedFieldDescCreator  fIdxCreator = NULL,
+              const UInt32                   uiNameSpace = GlobalNamespace);
 
-    FieldType(const Char8             *szName, 
-              const Char8             *szParentName,
-              const DataType          &contentType ,
-                    Cardinality        cardinality ,
-                    Class              fieldClass,
-              const FieldType         &pScanAsType,
-              const UInt32             uiNameSpace = GlobalNamespace);
+    FieldType(const Char8                   *szName, 
+              const Char8                   *szParentName,
+              const DataType                &contentType ,
+                    Cardinality              cardinality ,
+                    Class                    fieldClass,
+              const FieldType               &pScanAsType,
+                    FieldDescCreator         fCreator    = NULL,
+                    IndexedFieldDescCreator  fIdxCreator = NULL,
+              const UInt32                   uiNameSpace = GlobalNamespace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

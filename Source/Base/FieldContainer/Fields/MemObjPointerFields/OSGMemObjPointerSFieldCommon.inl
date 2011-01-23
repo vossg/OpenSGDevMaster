@@ -120,6 +120,7 @@ void MemObjPointerSFieldCommon<AccessHandlerT,
     _fieldValue = NULL;
 }
 
+
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 

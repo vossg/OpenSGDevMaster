@@ -327,6 +327,8 @@ OSG_END_NAMESPACE
 #include "OSGMField.h"
 #include "OSGMField.ins"
 
+#include "OSGFieldContainer.h"
+
 OSG_BEGIN_NAMESPACE
 
 #ifndef OSG_DO_DOC

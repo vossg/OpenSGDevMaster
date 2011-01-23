@@ -162,4 +162,78 @@ void MemObjPointerSField<PtrTypeT,
     this->ptrStoreSet(other.ptrStoreGet());
 }
 
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+FieldDescriptionBase *
+    MemObjPointerSField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::createFieldDescription   (
+                            const Char8                *szFieldname,
+                                  UInt32                uiFieldFlags,
+                                  FieldEditMethod       fEditMethod,
+                                  FieldGetMethod        fGetMethod  )
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescription no fieldname given"));
+
+        return NULL;
+    }
+
+#if 0
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+#else
+    return NULL;
+#endif
+}
+
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+FieldDescriptionBase *
+    MemObjPointerSField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::createIdxFieldDescription(
+                            const Char8                *szFieldname,
+                                  UInt32                uiFieldFlags,
+                                  FieldIndexEditMethod  fEditMethod,
+                                  FieldIndexGetMethod   fGetMethod  )
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescriptionIdx no fieldname given"));
+
+        return NULL;
+    }
+
+#if 0
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+#else
+    return NULL;
+#endif
+}
+
 OSG_END_NAMESPACE

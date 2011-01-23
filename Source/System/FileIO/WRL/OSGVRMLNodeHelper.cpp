@@ -47,6 +47,7 @@
 #include "OSGVRMLNodeHelper.h"
 #include "OSGSingletonHolder.ins"
 
+#include "OSGFieldDescFactory.h"
 
 #include "OSGScanParseSkel.h"
 #include "OSGSceneFileHandler.h"
@@ -777,47 +778,6 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
 #endif
 }
 
-// HACK Should be somewhere else and automatic
-
-#define OSG_CREATE_DESC(TYPE) new TYPE::Description(        \
-        TYPE::getClassType(),                               \
-        szFieldName,                                        \
-        "",                                                 \
-        0,                                                  \
-        0,                                                  \
-        false,                                              \
-        OSG::Field::SFDefaultFlags,                         \
-        static_cast<OSG::FieldIndexEditMethodSig>(          \
-            &VRMLGenericAtt::editDynamicField),             \
-        static_cast<OSG::FieldIndexGetMethodSig >(          \
-            &VRMLGenericAtt::getDynamicField ))
-
-#define OSG_CREATE_DESC_ELSE(TYPE)                          \
-    else if(uiFieldTypeId == TYPE::getClassType().getId())  \
-    {                                                       \
-        returnValue = OSG_CREATE_DESC(TYPE);                \
-    }
-
-#define OSG_CREATE_PTRDESC(TYPE) new TYPE::Description(     \
-        TYPE::getClassType(),                               \
-        szFieldName,                                        \
-        "",                                                 \
-        0,                                                  \
-        0,                                                  \
-        false,                                              \
-        (OSG::Field::SFDefaultFlags | Field::FStdAccess),   \
-        static_cast<OSG::FieldIndexEditMethodSig>(          \
-            &VRMLGenericAtt::editDynamicField),             \
-        static_cast<OSG::FieldIndexGetMethodSig >(          \
-            &VRMLGenericAtt::getDynamicField ))
-
-#define OSG_CREATE_PTRDESC_ELSE(TYPE)                       \
-    else if(uiFieldTypeId == TYPE::getClassType().getId())  \
-    {                                                       \
-        returnValue = OSG_CREATE_PTRDESC(TYPE);             \
-    }
-
-
 
 FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     const Char8  *szFieldName,
@@ -825,36 +785,14 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
 {
     FieldDescriptionBase *returnValue = NULL;
 
-
-    if(uiFieldTypeId == SFBool::getClassType().getId())
-    {
-        returnValue = OSG_CREATE_DESC(SFBool);
-    }
-    OSG_CREATE_DESC_ELSE(SFInt32)
-    OSG_CREATE_DESC_ELSE(MFInt32)
-    OSG_CREATE_DESC_ELSE(SFString)
-    OSG_CREATE_DESC_ELSE(MFString)
-    OSG_CREATE_DESC_ELSE(SFReal32)
-    OSG_CREATE_DESC_ELSE(MFReal32)
-    OSG_CREATE_DESC_ELSE(SFTime)
-    OSG_CREATE_DESC_ELSE(MFTime)
-
-    OSG_CREATE_DESC_ELSE(SFVec2s)
-    OSG_CREATE_DESC_ELSE(MFVec2f)
-    OSG_CREATE_DESC_ELSE(SFVec2f)
-    OSG_CREATE_DESC_ELSE(MFPnt3f)
-    OSG_CREATE_DESC_ELSE(SFPnt3f)
-    OSG_CREATE_DESC_ELSE(MFVec3f)
-    OSG_CREATE_DESC_ELSE(SFVec3f)
-    OSG_CREATE_DESC_ELSE(MFColor3f)
-    OSG_CREATE_DESC_ELSE(SFColor3f)
-    OSG_CREATE_DESC_ELSE(MFQuaternion)
-    OSG_CREATE_DESC_ELSE(SFQuaternion)
-
-    OSG_CREATE_PTRDESC_ELSE(SFUnrecFieldContainerPtr)
-    OSG_CREATE_PTRDESC_ELSE(MFUnrecFieldContainerPtr)
-
-    OSG_CREATE_PTRDESC_ELSE(SFUnrecImagePtr)
+    returnValue = FieldDescFactory::the()->createIdx(
+        uiFieldTypeId,
+        szFieldName,
+        static_cast<OSG::FieldIndexEditMethodSig>(
+            &VRMLGenericAtt::editDynamicField),
+        static_cast<OSG::FieldIndexGetMethodSig >(
+            &VRMLGenericAtt::getDynamicField));
+    
 
     if(returnValue == NULL)
     {

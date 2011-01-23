@@ -62,6 +62,11 @@
 #include "OSGHardwareContextDataSFields.h"
 #include "OSGHardwareContextDataMFields.h"
 
+#include "OSGChangedFunctorSFields.h"
+#include "OSGChangedFunctorMFields.h"
+
+#include "OSGNode.h"
+
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<FieldContainer          *>::_type(

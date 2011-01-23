@@ -130,6 +130,82 @@ void PointerSField<PtrTypeT,
 template <class    PtrTypeT, 
           typename RefCountPolicy,
           Int32    NamespaceI    > inline 
+FieldDescriptionBase *
+    PointerSField<PtrTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::createFieldDescription   (
+                       const Char8                *szFieldname,
+                             UInt32                uiFieldFlags,
+                             FieldEditMethod       fEditMethod,
+                             FieldGetMethod        fGetMethod  )
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescription no fieldname given"));
+
+        return NULL;
+    }
+
+    if(uiFieldFlags == FieldDescFactoryBase::AutoFlags)
+    {
+        uiFieldFlags = (Field::SFDefaultFlags | Field::FStdAccess);
+    }
+
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+}
+
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+FieldDescriptionBase *
+    PointerSField<PtrTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::createIdxFieldDescription(
+                       const Char8                *szFieldname,
+                             UInt32                uiFieldFlags,
+                             FieldIndexEditMethod  fEditMethod,
+                             FieldIndexGetMethod   fGetMethod  )
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescriptionIdx no fieldname given"));
+
+        return NULL;
+    }
+
+    if(uiFieldFlags == FieldDescFactoryBase::AutoFlags)
+    {
+        uiFieldFlags = (Field::SFDefaultFlags | Field::FStdAccess);
+    }
+
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+}
+
+template <class    PtrTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
 void PointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)

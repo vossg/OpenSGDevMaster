@@ -93,28 +93,94 @@ class ChildPointerMField;
 class FieldDescriptionBase;
 class ReflexiveContainer;
 
+class GetFieldHandle;
+class EditFieldHandle;
 
-#if 0
+typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
+typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
+
+typedef EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethod)(void  );
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod )(void) const;
+
+typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
+    UInt32) const;
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+typedef 
+  EditFieldHandlePtr(OSG::ReflexiveContainer::*FieldEditMethodSig)(void);
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+typedef 
+  GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldGetMethodSig )(void) const;
+
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethodSig)(
+    OSG::UInt32);
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+typedef GetFieldHandlePtr  (OSG::ReflexiveContainer::*FieldIndexGetMethodSig )(
+    OSG::UInt32) const;
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
-typedef boost::function<Field *(ReflexiveContainer *)> FieldEditMethod;
-typedef boost::function<const Field *(const ReflexiveContainer *)> FieldGetMethod;
+typedef boost::function<Field *(OSG::ReflexiveContainer *)> FieldEditMethod;
 #else
-typedef       Field *(ReflexiveContainer::*FieldEditMethod     )(void  );
-typedef const Field *(ReflexiveContainer::*FieldGetMethod      )(void  ) const;
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldEditMethod)(void  );
 #endif
 
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
 typedef boost::function<
-          Field *(ReflexiveContainer *, int)>             FieldIndexEditMethod;
-typedef boost::function<
-          const Field *(const ReflexiveContainer *, int)> FieldIndexGetMethod;
+          const Field *(const OSG::ReflexiveContainer *)> FieldGetMethod;
 #else
-typedef       Field *(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
-typedef const Field *(ReflexiveContainer::*FieldIndexGetMethod )(UInt32) const;
+typedef GetFieldHandlePtr(OSG::ReflexiveContainer::*FieldGetMethod)(void) const;
 #endif
 
-typedef Field * (ReflexiveContainer::*FieldIndexAccessMethod)(UInt32);
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+#ifdef FDESC_USE_BOOST
+typedef boost::function<
+          Field *(OSG::ReflexiveContainer *, int)>        FieldIndexEditMethod;
+#else
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethod)(
+    OSG::UInt32);
 #endif
+
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+#ifdef FDESC_USE_BOOST
+typedef boost::function<
+          const Field *(const OSG::ReflexiveContainer *, 
+                              int                      )> FieldIndexGetMethod;
+#else
+typedef GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexGetMethod)(
+    OSG::UInt32) const;
+#endif
+
+typedef boost::function<
+    FieldDescriptionBase * (
+        const Char8           *szFieldname,
+              UInt32           uiFieldFlags,
+              FieldEditMethod  fEditMethod,
+              FieldGetMethod   fGetMethod) > FieldDescCreator;
+
+typedef boost::function<
+    FieldDescriptionBase * (
+        const Char8               *szFieldname,
+              UInt32               uiFieldFlags,
+              FieldIndexEditMethod fEditMethod,
+              FieldIndexGetMethod  fGetMethod ) > IndexedFieldDescCreator;
 
 struct NoRefCounts;
 

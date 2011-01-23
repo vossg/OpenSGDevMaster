@@ -1255,4 +1255,31 @@ void MemObjPointerMField<PtrTypeT,
 }
 #endif
 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+FieldDescriptionBase *
+    MemObjPointerMField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::createFieldDescription   (
+                             const Char8                *szFieldname,
+                                   UInt32                uiFieldFlags,
+                                   FieldEditMethod       fEditMethod,
+                                   FieldGetMethod        fGetMethod  )
+{
+    return NULL;
+}
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+FieldDescriptionBase *
+    MemObjPointerMField<PtrTypeT,
+                         RefCountPolicy,
+                         NamespaceI    >::createIdxFieldDescription(
+                             const Char8                *szFieldname,
+                                   UInt32                uiFieldFlags,
+                                   FieldIndexEditMethod  fEditMethod,
+                                   FieldIndexGetMethod   fGetMethod  )
+{
+    return NULL;
+}
+    
+
 OSG_END_NAMESPACE

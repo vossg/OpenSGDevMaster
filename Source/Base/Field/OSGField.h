@@ -81,6 +81,8 @@ class OSG_BASE_DLLMAPPING Field
 
     static const UInt32 SFDefaultFlags   = 0x0000;
 
+    static const UInt32  FDefaultFlags   = 0x0000;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */

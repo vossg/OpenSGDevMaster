@@ -58,68 +58,6 @@ class Field;
 template <class AttachmentDescT>
 class DynFieldAttachment;
 
-/*! \ingroup GrpBaseFieldContainerBase
- */
-typedef 
-  EditFieldHandlePtr(OSG::ReflexiveContainer::*FieldEditMethodSig)(void);
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-typedef 
-  GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldGetMethodSig )(void) const;
-
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethodSig)(
-    OSG::UInt32);
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-typedef GetFieldHandlePtr  (OSG::ReflexiveContainer::*FieldIndexGetMethodSig )(
-    OSG::UInt32) const;
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-#ifdef FDESC_USE_BOOST
-typedef boost::function<Field *(OSG::ReflexiveContainer *)> FieldEditMethod;
-#else
-typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldEditMethod)(void  );
-#endif
-
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-#ifdef FDESC_USE_BOOST
-typedef boost::function<
-          const Field *(const OSG::ReflexiveContainer *)> FieldGetMethod;
-#else
-typedef GetFieldHandlePtr(OSG::ReflexiveContainer::*FieldGetMethod)(void) const;
-#endif
-
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-#ifdef FDESC_USE_BOOST
-typedef boost::function<
-          Field *(OSG::ReflexiveContainer *, int)>        FieldIndexEditMethod;
-#else
-typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethod)(
-    OSG::UInt32);
-#endif
-
-
-/*! \ingroup GrpBaseFieldContainerBase
- */
-#ifdef FDESC_USE_BOOST
-typedef boost::function<
-          const Field *(const OSG::ReflexiveContainer *, 
-                              int                      )> FieldIndexGetMethod;
-#else
-typedef GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexGetMethod)(
-    OSG::UInt32) const;
-#endif
-
 class BasicFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerBase

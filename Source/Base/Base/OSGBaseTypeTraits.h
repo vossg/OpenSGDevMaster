@@ -1362,6 +1362,11 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
     static const  bool               IsPOD       = true;
     static const  MathTypeProperties MathProp    = RealValue;
 
+    static        Real64             getDefaultEps (void)
+    {
+        return 1E-24;
+    }
+
     static        Real128             getZeroElement(void)
     {
         return 0.0;

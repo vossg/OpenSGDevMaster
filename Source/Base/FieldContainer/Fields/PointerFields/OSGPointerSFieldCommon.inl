@@ -118,6 +118,30 @@ void PointerSFieldCommon<AccessHandlerT,
     _fieldValue = NULL;
 }
 
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+FieldDescriptionBase *
+    PointerSFieldCommon<AccessHandlerT,
+                        NamespaceI    >::createFieldDescription   (
+                            const Char8                *szFieldname,
+                                  UInt32                uiFieldFlags,
+                                  FieldEditMethod       fEditMethod,
+                                  FieldGetMethod        fGetMethod  )
+{
+    return NULL;
+}
+
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+FieldDescriptionBase *
+    PointerSFieldCommon<AccessHandlerT,
+                        NamespaceI    >::createIdxFieldDescription(
+                            const Char8                *szFieldname,
+                                  UInt32                uiFieldFlags,
+                                  FieldIndexEditMethod  fEditMethod,
+                                  FieldIndexGetMethod   fGetMethod  )
+{
+    return NULL;
+}
+
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 

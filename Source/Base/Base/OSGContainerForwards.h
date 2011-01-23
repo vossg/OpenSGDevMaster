@@ -155,19 +155,6 @@ struct ChangedFunctorCallback
     typedef std::allocator<void> Alloc;
 };
 
-class GetFieldHandle;
-class EditFieldHandle;
-
-typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
-typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
-
-typedef EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethod)(void  );
-typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod )(void) const;
-
-typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
-typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
-    UInt32) const;
-
 namespace FCLocal
 {
     static const BitVector MT           = OSGLL(0x8000000000000000);

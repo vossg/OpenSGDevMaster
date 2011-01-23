@@ -43,6 +43,7 @@
 #include "OSGFieldType.h"
 #include "OSGBaseFunctions.h"
 #include "OSGLog.h"
+#include "OSGFieldDescFactory.h"
 
 OSG_USING_NAMESPACE
 
@@ -53,12 +54,14 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-FieldType::FieldType(const Char8             *szName,
-                     const Char8             *szParentName,
-                     const DataType          &contentType,
-                           Cardinality        cardinality,
-                           Class              fieldClass,
-                     const UInt32             uiNameSpace) :
+FieldType::FieldType(const Char8                   *szName,
+                     const Char8                   *szParentName,
+                     const DataType                &contentType,
+                           Cardinality              cardinality,
+                           Class                    fieldClass,
+                           FieldDescCreator         fCreator,
+                           IndexedFieldDescCreator  fIdxCreator,
+                     const UInt32                   uiNameSpace) :
      Inherited   (szName, 
                   szParentName, 
                   uiNameSpace ),
@@ -67,15 +70,21 @@ FieldType::FieldType(const Char8             *szName,
     _contentType (contentType ),
     _pScanAsType (NULL        )
 {
+    FieldDescFactory::the()->registerDescription( szName,
+                                                 _uiTypeId,
+                                                  fCreator,
+                                                  fIdxCreator);
 }
 
-FieldType::FieldType(const Char8              *szName,
-                     const Char8              *szParentName,
-                     const DataType           &contentType,
-                           Cardinality         cardinality,
-                           Class              fieldClass,
-                     const FieldType          &pScanAsType,
-                     const UInt32             uiNameSpace ) :
+FieldType::FieldType(const Char8                   *szName,
+                     const Char8                   *szParentName,
+                     const DataType                &contentType,
+                           Cardinality              cardinality,
+                           Class                    fieldClass,
+                     const FieldType               &pScanAsType,
+                           FieldDescCreator         fCreator,
+                           IndexedFieldDescCreator  fIdxCreator,
+                     const UInt32                   uiNameSpace ) :
      Inherited   ( szName, 
                    szParentName,
                    uiNameSpace ),
@@ -84,6 +93,10 @@ FieldType::FieldType(const Char8              *szName,
     _contentType ( contentType ),
     _pScanAsType (&pScanAsType )
 {
+    FieldDescFactory::the()->registerDescription( szName,
+                                                 _uiTypeId,
+                                                  fCreator,
+                                                  fIdxCreator);
 }
 
 

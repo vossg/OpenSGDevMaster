@@ -42,6 +42,7 @@
 #include "OSGConfig.h"
 
 #include "OSGHardwareContextTask.h"
+#include "OSGFieldContainer.h"
 
 #include "OSGMField.ins"
 

@@ -50,7 +50,7 @@
 #include "OSGMField.h"
 #include "OSGMField.ins"
 
-
+#include "OSGFieldContainer.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -144,7 +144,9 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
     SFieldTraits::getSPName(),                              \
     SFieldTraits::getType (),                               \
     FieldType::SingleField,                                 \
-    Self::Class)
+    Self::Class,                                            \
+    &Self::createFieldDescription,                          \
+    &Self::createIdxFieldDescription)
 
 #define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)          \
 template<>                                                  \
@@ -185,39 +187,47 @@ FieldType MField< T1 , T2 >::_fieldType(                 \
 #define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
 template<>                                               \
 FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
-    SFieldTraits::getSName(),                            \
-    SFieldTraits::getSPName(),                           \
-    SFieldTraits::getType (),                            \
-    FieldType::SingleField,                              \
-    Self::Class)
+     SFieldTraits::getSName(),                           \
+     SFieldTraits::getSPName(),                          \
+     SFieldTraits::getType (),                           \
+     FieldType::SingleField,                             \
+     Self::Class,                                        \
+    &Self::createFieldDescription,                       \
+    &Self::createIdxFieldDescription)
 
 #define OSG_SFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
 template<>                                               \
 FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
-    SFieldTraits::getSName< T2 >(),                      \
-    SFieldTraits::getSPName(),                           \
-    SFieldTraits::getType (),                            \
-    FieldType::SingleField,                              \
-    Self::Class)
+     SFieldTraits::getSName< T2 >(),                     \
+     SFieldTraits::getSPName(),                          \
+     SFieldTraits::getType (),                           \
+     FieldType::SingleField,                             \
+     Self::Class,                                        \
+    &Self::createFieldDescription,                       \
+    &Self::createIdxFieldDescription)
 
 
 #define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
 template<>                                               \
 FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
-    MFieldTraits::getMName(),                            \
-    MFieldTraits::getMPName(),                           \
-    MFieldTraits::getType (),                            \
-    FieldType::MultiField,                               \
-    Self::Class)
+     MFieldTraits::getMName(),                           \
+     MFieldTraits::getMPName(),                          \
+     MFieldTraits::getType (),                           \
+     FieldType::MultiField,                              \
+     Self::Class,                                        \
+    &Self::createFieldDescription,                       \
+    &Self::createIdxFieldDescription)
 
 #define OSG_MFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
 template<>                                               \
 FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
-    MFieldTraits::getMName< T2 >(),                      \
-    MFieldTraits::getMPName(),                           \
-    MFieldTraits::getType (),                            \
-    FieldType::MultiField,                               \
-    Self::Class)
+     MFieldTraits::getMName< T2 >(),                     \
+     MFieldTraits::getMPName(),                          \
+     MFieldTraits::getType (),                           \
+     FieldType::MultiField,                              \
+     Self::Class,                                        \
+    &Self::createFieldDescription,                       \
+    &Self::createIdxFieldDescription)
 
 #endif
 

@@ -41,6 +41,8 @@
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
+#include "OSGFieldContainer.h"
+
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<OSGAny>::_type("OSGAny",        "BaseType"    );

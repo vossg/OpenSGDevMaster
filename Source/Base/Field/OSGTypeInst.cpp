@@ -58,6 +58,8 @@
 #include "OSGVecSFields.h"
 #include "OSGVecMFields.h"
 
+#include "OSGFieldContainer.h"
+
 OSG_BEGIN_NAMESPACE
 
 namespace

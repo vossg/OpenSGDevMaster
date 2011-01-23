@@ -38,25 +38,95 @@
 
 OSG_BEGIN_NAMESPACE
 
+template <class ValueT, Int32 iNamespace> inline
+FieldDescriptionBase *SField<ValueT, iNamespace>::createFieldDescription(
+    const Char8           *szFieldname,
+          UInt32           uiFieldFlags,
+          FieldEditMethod  fEditMethod,
+          FieldGetMethod   fGetMethod)
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescription no fieldname given"));
+
+        return NULL;
+    }
+
+    if(uiFieldFlags == FieldDescFactoryBase::AutoFlags)
+    {
+        uiFieldFlags = SFDefaultFlags;
+    }
+
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+}
+
+template <class ValueT, Int32 iNamespace> inline
+FieldDescriptionBase *SField<ValueT, iNamespace>::createIdxFieldDescription(
+    const Char8                *szFieldname,
+          UInt32                uiFieldFlags,
+          FieldIndexEditMethod  fEditMethod,
+          FieldIndexGetMethod   fGetMethod)
+{
+    if(szFieldname == NULL)
+    {
+        FWARNING(("createFieldDescriptionIdx no fieldname given"));
+
+        return NULL;
+    }
+
+    if(uiFieldFlags == FieldDescFactoryBase::AutoFlags)
+    {
+        uiFieldFlags = SFDefaultFlags;
+    }
+
+    FieldDescriptionBase *returnValue = new Self::Description(
+        _fieldType, 
+        szFieldname,
+        "",
+        0,
+        0,
+        false,
+        uiFieldFlags,
+        fEditMethod,
+        fGetMethod);
+
+    return returnValue;
+}
+
 #if defined(OSG_STATIC_MEMEBER_NEEDS_COPY_ASIGN_INIT)
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType = FieldType(
-    SFieldTraits::getSName (),
-    SFieldTraits::getSPName(),
-    SFieldTraits::getType  (),
-    FieldType::SingleField,
-    Self::Class);
+     SFieldTraits::getSName (),
+     SFieldTraits::getSPName(),
+     SFieldTraits::getType  (),
+     FieldType::SingleField,
+     Self::Class,
+    &Self::createFieldDescription,
+    &Self::createIdxFieldDescription);
 
 #else
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType(
-    SFieldTraits::getSName (),
-    SFieldTraits::getSPName(),
-    SFieldTraits::getType  (),
-    FieldType::SingleField,
-    Self::Class);
+     SFieldTraits::getSName (),
+     SFieldTraits::getSPName(),
+     SFieldTraits::getType  (),
+     FieldType::SingleField,
+     Self::Class,
+    &Self::createFieldDescription,
+    &Self::createIdxFieldDescription);
 
 #endif
 

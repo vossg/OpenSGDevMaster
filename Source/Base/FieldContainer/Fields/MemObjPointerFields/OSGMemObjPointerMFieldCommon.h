@@ -186,7 +186,6 @@ class MemObjPointerMFieldCommon : public MemObjPointerMFieldBase
     /*! \name Std library interface                                        */
     /*! \{                                                                 */
     
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Binary IO                                                    */

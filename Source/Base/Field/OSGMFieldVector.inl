@@ -125,6 +125,14 @@ void MFieldVector<Tp, Alloc>::resolveShare(void)
     this->MYEND   = NULL;
 }
 
+template <> inline
+void MFieldVector<bool>::resolveShare(void)
+{
+    this->MYFIRST = Inherited::iterator();
+    this->MYLAST  = this->MYFIRST;
+    this->MYEND   = NULL;
+}
+
 #ifdef __STL_MEMBER_TEMPLATES
   // Check whether it's an integral type.  If so, it's not an iterator.
 template <class Tp, class Alloc> 
