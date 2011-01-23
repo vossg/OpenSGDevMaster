@@ -901,7 +901,7 @@ typename Point<ValueTypeT, SizeI>::RealReturnType
     Point<ValueTypeT, SizeI>::dist2(const Point &pnt) 
     const
 {
-    RealReturnType returnValue = RealReturnType();
+    RealReturnType returnValue = TypeTraits<RealReturnType>::getZeroElement();
     RealReturnType tmp;
 
     for(UInt32 i = 0; i < Self::_uiSize; i++)
