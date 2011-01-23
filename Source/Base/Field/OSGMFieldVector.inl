@@ -232,6 +232,19 @@ void MFieldVector<Tp, A>::resolveShare(void)
     this->MYEND   = NULL;
 }
 
+template <> inline
+void MFieldVector<bool>::resolveShare(void)
+{
+#if 0
+    this->MYFIRST = NULL;
+    this->MYLAST  = NULL;
+    this->MYEND   = NULL;
+#endif
+
+    // don't know how to do that right now (GV)
+    OSG_ASSERT(false);
+}
+
 template <class Tp, class A> inline
 void MFieldVector<Tp, A>::dump(      UInt32    uiIndent,
                                const BitVector) const

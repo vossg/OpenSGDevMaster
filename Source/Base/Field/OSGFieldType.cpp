@@ -103,9 +103,22 @@ FieldType::FieldType(const Char8                   *szName,
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-FieldType::~FieldType(void)
+FieldType::~FieldType(void) 
 {
 }
 
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
+
+#if defined(OSG_STATIC_MEMEBER_NEEDS_COPY_ASIGN_INIT)
+FieldType::FieldType(const FieldType &source) :
+     Inherited   (source             ),
+    _cardinality (source._cardinality),
+    _fieldClass  (source._fieldClass ),
+    _contentType (source._contentType),
+    _pScanAsType (source._pScanAsType)
+{
+}
+
+//FieldType &operator =(const FieldType &obj);
+#endif
