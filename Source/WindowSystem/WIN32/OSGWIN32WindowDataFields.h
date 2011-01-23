@@ -186,6 +186,22 @@ struct FieldTraits<PAINTSTRUCT> :
     }
 };
 
+// there is no good way of comparing paintstruct objects
+template<> inline
+bool SField<PAINTSTRUCT, 0>::operator ==(
+    const SField<PAINTSTRUCT, 0> &source) const
+{
+    return false;
+}
+
+template<> inline
+bool MField<PAINTSTRUCT, 0>::operator ==(
+    const MField<PAINTSTRUCT, 0> &source) const
+{
+    return false;
+}
+
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowWIN32FieldSFields */
 typedef SField<HWND> SFHWND;
