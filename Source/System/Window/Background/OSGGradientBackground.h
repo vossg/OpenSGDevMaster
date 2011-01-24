@@ -91,6 +91,12 @@ class OSG_WINDOW_DLLMAPPING GradientBackground :
     void addLine   (Color3f color, Real32 position);
     void clearLines(void);
 
+    const MFColor3f *getMFColor   (      void        ) const;
+    const Color3f   &getColor     (const UInt32 index) const;
+
+    const MFReal32  *getMFPosition(      void        ) const;
+    const Real32    &getPosition  (const UInt32 index) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     transformation                           */

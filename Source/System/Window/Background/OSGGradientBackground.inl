@@ -39,14 +39,34 @@ OSG_BEGIN_NAMESPACE
 /*------------------------------ access -----------------------------------*/
 inline void GradientBackground::addLine(Color3f col, Real32 pos)
 {
-    _mfColor.push_back(col);
-    _mfPosition.push_back(pos);
+    editMFColor   ()->push_back(col);
+    editMFPosition()->push_back(pos);
 }
 
 inline void GradientBackground::clearLines(void)
 {
-    _mfColor.clear();
-    _mfPosition.clear();
+    editMFColor   ()->clear();
+    editMFPosition()->clear();
+}
+
+inline const MFColor3f *GradientBackground::getMFColor(void) const
+{
+    return &_mfColor;
+}
+
+inline const Color3f &GradientBackground::getColor(const UInt32 index) const
+{
+    return _mfColor[index];
+}
+
+inline const MFReal32 *GradientBackground::getMFPosition(void) const
+{
+    return &_mfPosition;
+}
+
+inline const Real32 &GradientBackground::getPosition(const UInt32 index) const
+{
+    return _mfPosition[index];
 }
 
 OSG_END_NAMESPACE
