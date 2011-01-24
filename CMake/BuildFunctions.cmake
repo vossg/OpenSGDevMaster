@@ -1437,6 +1437,83 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
 ENDFUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
+#############################################################################
+# perform default actions for pass OSGDOXYDOC
+
+FUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
+    IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGDOXYDOC")
+        RETURN()
+    ENDIF()
+
+    # set up variables for the config file
+    SET(OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE_IN "${CMAKE_SOURCE_DIR}/Doc/opensg-sep-libs-doxy.in")
+    SET(OSG_${PROJECT_NAME}_DOC_DIRECTORY              "${OSG_DOXY_HTML_DIR}/${PROJECT_NAME}")
+    SET(OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE    "${CMAKE_BINARY_DIR}/Doc/${PROJECT_NAME}-doxy")
+
+    SET(OSG_${PROJECT_NAME}_DEP_DOXY_TAGFILES"")
+    SET(OSG_${PROJECT_NAME}_DOXY_TAGFILE     "${CMAKE_BINARY_DIR}/Doc/${PROJECT_NAME}_DOXYGEN_TAGS")
+    SET(OSG_${PROJECT_NAME}_DEP_DOCS         "")
+
+    # dependencies - OpenSG
+    OSG_GET_ALL_DEP_OSG_LIB("${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST DEP_MISSING_LIST)
+
+    FOREACH(OSGDEP ${DEP_OSG_LIST})
+        SET(OSG_${PROJECT_NAME}_DEP_DOXY_TAGFILES "${OSG_${PROJECT_NAME}_DEP_DOXY_TAGFILES} ./${OSGDEP}_DOXYGEN_TAGS=../../${OSGDEP}/html")
+        LIST(APPEND OSG_${PROJECT_NAME}_DEP_DOCS "${OSGDEP}Doc")
+    ENDFOREACH()
+
+    # write doxygen config file
+    CONFIGURE_FILE("${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE_IN}"
+                   "${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}")
+
+    IF(DOXYGEN_EXECUTABLE)
+        #ADD_CUSTOM_TARGET(DocUpload COMMAND unison -batch -ui text opensg_doc)
+        #ADD_DEPENDENCIES(DocUpload Doc)
+
+        ADD_CUSTOM_TARGET(${PROJECT_NAME}Doc
+            VERBATIM
+            COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES}
+            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Doc")
+
+        FOREACH(OSGDEPDOC ${OSG_${PROJECT_NAME}_DEP_DOCS})
+            ADD_DEPENDENCIES(${PROJECT_NAME}Doc ${OSGDEPDOC})
+        ENDFOREACH()
+
+        ADD_DEPENDENCIES(Doc ${PROJECT_NAME}Doc)
+    ENDIF()
+
+    INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
+
+
+
+    FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+        "#############################################################################\n"
+        )
+    IF(${PROJECT_NAME}_DOXY_EXTRA_INC)
+        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+            "# doc input files for ${PROJECT_NAME}\n\n"
+            )
+
+        FOREACH(DOXYFILE ${${PROJECT_NAME}_DOXY_EXTRA_INC})
+            FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+                "INPUT += ${DOXYFILE}\n")
+        ENDFOREACH()
+
+        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} "\n")
+    ENDIF()
+
+    FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+        "# source code input files for ${PROJECT_NAME}\n\n"
+        )
+
+    FOREACH(INCDIR ${${PROJECT_NAME}_INC})
+        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+            "INPUT += ${INCDIR}\n")
+    ENDFOREACH()
+
+    FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} "\n")
+
+ENDFUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
 
 #############################################################################
 # perform default actions for pass OSGDOXYDOC
@@ -1488,7 +1565,11 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
         OSG_SETUP_UNITTEST_BUILD()
 
     ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGDOXYDOC")
-        OSG_SETUP_DOXYDOC()
+        IF(OSG_GENERATE_SEPARATE_LIB_DOC)
+            OSG_SETUP_SEPARATE_LIBS_DOXYDOC()
+        ELSE()
+            OSG_SETUP_DOXYDOC()
+        ENDIF()
 
     ENDIF(OSG_CMAKE_PASS STREQUAL "OSGSETUP")
 

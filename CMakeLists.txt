@@ -105,6 +105,8 @@ OSG_OPTION(OSGCOMPAT_ENABLE_DEPRECATED_PROPS "" OFF)
 OSG_SET_CACHE(OSG_RENDERPROPERTY_BITS 64 STRING "")
 OSG_SET_CACHE(OSG_RENDERPROPERTY_UNIQUE_BITS 16 STRING "")
 
+OSG_OPTION(OSG_GENERATE_SEPARATE_LIB_DOC "Generate separate doxygen documentation for contrib libraries" OFF)
+OSG_OPTION(OSG_INSTALL_DOXYDOC "Install Doxygen documentation" OFF)
 
 SET(OSG_DOXY_DOC_TYPE "User" CACHE STRING
     "The type of documentation to generate (User, Developer, Trac)")
@@ -752,6 +754,13 @@ ENDIF(OSGBUILD_UNITTESTS)
 #################
 # Documentation I
 #################
+SET(OSG_DOXY_HTML_DIR "${CMAKE_BINARY_DIR}/Doc/html")
+FILE(MAKE_DIRECTORY ${OSG_DOXY_HTML_DIR})
+
+IF(OSG_GENERATE_SEPARATE_LIB_DOC)
+
+    ADD_CUSTOM_TARGET(Doc)
+ENDIF()
 
 IF(DOXYGEN_EXECUTABLE)
     SET(DOXYGEN_VERSION)
@@ -1025,10 +1034,12 @@ IF(OSG_DOXY_STDOUT_LOG)
 ENDIF(OSG_DOXY_STDOUT_LOG)
 
 IF(DOXYGEN_EXECUTABLE)
-  ADD_CUSTOM_TARGET(Doc
-                    VERBATIM
-                    COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES})
-ENDIF(DOXYGEN_EXECUTABLE)
+    IF(NOT OSG_GENERATE_SEPARATE_LIB_DOC)
+        ADD_CUSTOM_TARGET(Doc
+            VERBATIM
+            COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES})
+    ENDIF()
+ENDIF()
 
 ##################
 # osg2-config
@@ -1115,6 +1126,17 @@ INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         COMPONENT development_tools
         PATTERN "*.pyc" EXCLUDE
         PATTERN ".svn"  EXCLUDE)
+
+##################
+# Documentation
+##################
+IF(DOXYGEN_EXECUTABLE)
+    IF(OSG_INSTALL_DOXYDOC)
+        INSTALL(DIRECTORY "${OSG_DOXY_HTML_DIR}"
+                DESTINATION share/OpenSG/documentation
+                COMPONENT documentation)
+    ENDIF()
+ENDIF()
 
 ##################
 # Images/Icons

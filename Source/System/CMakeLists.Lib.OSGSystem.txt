@@ -127,5 +127,23 @@ ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 ##############################################################################
 # setup build
 ##############################################################################
+#
+##############################################################################
+# setup doxygen documentation
+##############################################################################
+SET(${PROJECT_NAME}_DOXY_EXTRA_INC "")
+
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Doc/mainpage.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/System.dox") 
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox") 
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox") 
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/State/State.dox") 
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox")
+LIST(APPEND ${PROJECT_NAME}_DOXY_EXTRA_INC "${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox")
 
 OSG_SETUP_PROJECT("OSG_COMPILESYSTEMLIB")
