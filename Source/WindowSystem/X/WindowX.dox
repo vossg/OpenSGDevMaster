@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageWindowX Window X
+/*! 
+
+   \if separate
+     \page PageWindowX Window X Documentation
+   \else
+     \page PageWindowX Window X
+   \endif
+
  */

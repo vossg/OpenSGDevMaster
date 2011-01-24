@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowXGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowX.dox

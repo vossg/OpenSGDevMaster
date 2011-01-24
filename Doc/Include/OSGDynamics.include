@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/DynamicsGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/Dynamics.dox

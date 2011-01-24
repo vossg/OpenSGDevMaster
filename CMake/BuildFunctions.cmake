@@ -1445,8 +1445,12 @@ FUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
         RETURN()
     ENDIF()
 
+    IF(${PROJECT_NAME}_NO_DOC)
+        RETURN()
+    ENDIF(${PROJECT_NAME}_NO_DOC)
+
     # set up variables for the config file
-    SET(OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE_IN "${CMAKE_SOURCE_DIR}/Doc/opensg-sep-libs-doxy.in")
+    SET(OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE_IN "${CMAKE_SOURCE_DIR}/Doc/opensg-doxy.in")
     SET(OSG_${PROJECT_NAME}_DOC_DIRECTORY              "${OSG_DOXY_HTML_DIR}/${PROJECT_NAME}")
     SET(OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE    "${CMAKE_BINARY_DIR}/Doc/${PROJECT_NAME}-doxy")
 
@@ -1462,13 +1466,30 @@ FUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
         LIST(APPEND OSG_${PROJECT_NAME}_DEP_DOCS "${OSGDEP}Doc")
     ENDFOREACH()
 
+    IF(EXISTS "${CMAKE_BINARY_DIR}/Doc/Include/${PROJECT_NAME}.include")
+      SET(OSG_DOC_BASIC_INPUT "${CMAKE_BINARY_DIR}/Doc/Include/${PROJECT_NAME}.include")
+    ENDIF()
+
     # write doxygen config file
     CONFIGURE_FILE("${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE_IN}"
                    "${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}")
 
+    SET(OSG_DOC_BASIC_INPUT "${CMAKE_BINARY_DIR}/Doc/Include/OSGDummy.include")
+
     IF(DOXYGEN_EXECUTABLE)
         #ADD_CUSTOM_TARGET(DocUpload COMMAND unison -batch -ui text opensg_doc)
         #ADD_DEPENDENCIES(DocUpload Doc)
+
+        SET(OSG_DOC_PIPES "")
+
+        IF(OSG_DOXY_STDOUT_LOG)
+          SET(OSG_DOC_PIPES > ${OSG_DOXY_STDOUT_LOG}.${PROJECT_NAME})
+        ENDIF(OSG_DOXY_STDOUT_LOG)
+
+        ADD_CUSTOM_TARGET(${PROJECT_NAME}DocOnly
+            VERBATIM
+            COMMAND ${DOXYGEN_EXECUTABLE} ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} ${OSG_DOC_PIPES}
+            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Doc")
 
         ADD_CUSTOM_TARGET(${PROJECT_NAME}Doc
             VERBATIM
@@ -1486,25 +1507,23 @@ FUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
 
 
 
+#    FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+#        "#############################################################################\n")
+
+#    IF(${PROJECT_NAME}_DOXY_EXTRA_INC)
+#        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+#            "# doc input files for ${PROJECT_NAME}\n\n")
+
+#        FOREACH(DOXYFILE ${${PROJECT_NAME}_DOXY_EXTRA_INC})
+#            FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
+#                "INPUT += ${DOXYFILE}\n")
+#        ENDFOREACH()
+
+#        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} "\n")
+#    ENDIF()
+
     FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
-        "#############################################################################\n"
-        )
-    IF(${PROJECT_NAME}_DOXY_EXTRA_INC)
-        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
-            "# doc input files for ${PROJECT_NAME}\n\n"
-            )
-
-        FOREACH(DOXYFILE ${${PROJECT_NAME}_DOXY_EXTRA_INC})
-            FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
-                "INPUT += ${DOXYFILE}\n")
-        ENDFOREACH()
-
-        FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE} "\n")
-    ENDIF()
-
-    FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}
-        "# source code input files for ${PROJECT_NAME}\n\n"
-        )
+        "# source code input files for ${PROJECT_NAME}\n\n")
 
     FOREACH(INCDIR ${${PROJECT_NAME}_INC})
         FILE(APPEND ${OSG_${PROJECT_NAME}_DOXY_CONFIGURATION_FILE}

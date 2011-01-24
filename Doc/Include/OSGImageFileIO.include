@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIOGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIO.dox

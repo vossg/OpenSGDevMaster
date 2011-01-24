@@ -1,0 +1,13 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/System.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/RenderingBackend/RenderingBackend.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/Image.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/FrameBufferObjects/FrameBufferObjects.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/WindowBase.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Material/Material.dox 

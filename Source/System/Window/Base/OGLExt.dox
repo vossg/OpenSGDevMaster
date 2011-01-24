@@ -4,7 +4,11 @@ using namespace OSG;
 
 
 
+/*! \page PageSystemOGLObjects OpenGL Objects & Extension Handling 
 
+    \section PageSystemOGLObj OpenGL Objects
+    \section PageSystemOGLExt OpenGL Extensions
+ */
 
 
 
@@ -20,7 +24,8 @@ using namespace OSG;
 
 
 #if 0
-/*! \page PageSystemOGLObjects OpenGL Objects & Extension Handling
+
+/*! \page PageSystemOGLObjects OpenGL Objects & Extension Handling Foo
 
 \section PageSystemOGLObj OpenGL Objects
 
@@ -107,4 +112,5 @@ that the pointer will be the same for different contexts.
 
 
 */
+
 #endif

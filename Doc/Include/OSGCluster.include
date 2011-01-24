@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/ClusterGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/Cluster.dox

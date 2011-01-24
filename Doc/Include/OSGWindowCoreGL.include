@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGLGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGL.dox

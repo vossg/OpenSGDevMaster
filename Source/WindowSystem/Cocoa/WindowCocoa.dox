@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageWindowCocoa Window Cocoa
+/*!
+
+   \if separate
+     \page PageWindowCocoa Window Cocoa Documentation
+   \else
+     \page PageWindowCocoa Window Cocoa
+   \endif
+
  */

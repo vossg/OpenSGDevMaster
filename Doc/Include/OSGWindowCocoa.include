@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoaGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoa.dox

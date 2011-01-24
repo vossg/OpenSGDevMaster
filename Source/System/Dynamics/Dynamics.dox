@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageDynamics Dynamics
+/*! 
+
+   \if separate
+     \page PageDynamics Dynamics Documentation
+   \else
+     \page PageDynamics Dynamics
+   \endif
 
     \section PageDynamicsFrameHandler
     \section PageDynamicsFrameTask

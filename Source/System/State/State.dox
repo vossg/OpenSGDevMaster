@@ -2,23 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageSystemState State
+/*! 
 
-    \section PageSystemState
-    \section PageSystemTextureBaseChunk
-    \section PageSystemTextureObjChunk
-    \section PageSystemLightChunk
-    \section PageSystemColorMaskChunk
-    \section PageSystemDepthChunk
-    \section PageSystemPolygonChunk
-    \section PageSystemMaterialChunk
-    \section PageSystemBlendChunk
-    \section PageSystemChunkBlock
-
-    \section PageSystemPointChunk
- */
-
-/*! \page PageState State
+   \if separate
+     \page PageState State Documentation
+   \else
+     \page PageState State
+   \endif
 
     \section PageSystemCubeTextureObjChunk
     \section PageSystemClipPlaneChunk

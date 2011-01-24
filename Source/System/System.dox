@@ -2,8 +2,14 @@
 
 using namespace OSG;
 
-/*! \page PageSystem System
-   
+/*! 
+
+   \if separate
+     \page PageSystem System Documentation
+   \else
+     \page PageSystem System
+   \endif
+
    SystemLib
 
    \subpage PageSystemState
@@ -11,13 +17,41 @@ using namespace OSG;
    \subpage PageSystemRenderingBackend
    \subpage PageSystemFrameBufferObjects
    \subpage PageSystemImage
-   \subpage PageSystemStatistics
    \subpage PageSystemMaterial
    \subpage PageSystemGroups
    \subpage PageSystemDrawables
    \subpage PageSystemWindow
+   \subpage PageSystemOGLObjects
 
    \section PageSystemContainerCollection
    \section PageSystemStringAttributeMap
 */
 
+
+/*! \page PageSystemGroups Groups
+
+    \section PageSystemChunkOverrideGroup
+    \section PageSystemMultiCore
+ */
+
+/*! \page PageSystemState State
+
+    \section PageSystemState
+    \section PageSystemTextureBaseChunk
+    \section PageSystemTextureObjChunk
+    \section PageSystemLightChunk
+    \section PageSystemColorMaskChunk
+    \section PageSystemDepthChunk
+    \section PageSystemPolygonChunk
+    \section PageSystemMaterialChunk
+    \section PageSystemBlendChunk
+    \section PageSystemChunkBlock
+
+    \section PageSystemPointChunk
+ */
+
+/*! \page PageSystemDrawables Drawables
+
+    \section PageSystemDrawableStatsAttachment
+    \section PageSystemStatsAttachment
+ */

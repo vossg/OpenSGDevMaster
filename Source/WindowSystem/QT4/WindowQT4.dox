@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageWindowQt4 Window Qt4
+/*! 
+
+   \if separate
+     \page PageWindowQt4 Window Qt4 Documentation
+   \else
+     \page PageWindowQt4 Window Qt4
+   \endif
+
  */

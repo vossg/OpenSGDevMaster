@@ -2,13 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageSystemGroups Groups
+/*! 
 
-    \section PageSystemChunkOverrideGroup
-    \section PageSystemMultiCore
- */
-
-/*! \page PageGroups Groups
+   \if separate
+     \page PageGroups Groups Documentation
+   \else
+     \page PageGroups Groups
+   \endif
 
     \section PageGroupCallbackAlgorithm
     \section PageGroupDoubleTransform

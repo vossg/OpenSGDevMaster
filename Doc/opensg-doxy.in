@@ -1,4 +1,4 @@
-# Doxyfile 1.7.1-20100728
+# Doxyfile 1.7.1
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -25,20 +25,20 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = OpenSG
+PROJECT_NAME           = ${PROJECT_NAME}
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number.
 # This could be handy for archiving the generated documentation or
 # if some version control system is used.
 
-PROJECT_NUMBER         = 2.0.0
+PROJECT_NUMBER         = ${OSG_VERSION}
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute)
 # base path where the generated documentation will be put.
 # If a relative path is entered, it will be relative to the location
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = ${CMAKE_BINARY_DIR}/Doc
+OUTPUT_DIRECTORY       = ${OSG_${PROJECT_NAME}_DOC_DIRECTORY}
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create
 # 4096 sub-directories (in 2 levels) under the output directory of each output
@@ -74,7 +74,7 @@ BRIEF_MEMBER_DESC      = YES
 # Note: if both HIDE_UNDOC_MEMBERS and BRIEF_MEMBER_DESC are set to NO, the
 # brief descriptions will be completely suppressed.
 
-REPEAT_BRIEF           = NO
+REPEAT_BRIEF           = YES
 
 # This tag implements a quasi-intelligent brief description abbreviator
 # that is used to form the text in various listings. Each string
@@ -481,9 +481,10 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = ext \
-                         dev \
-                         dev_traits
+ENABLED_SECTIONS       = ext                                    \
+                         dev                                    \
+                         dev_traits                             \
+                         ${OSG_DOC_SECTION}
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or macro consists of for it to appear in
@@ -599,91 +600,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT  = ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Threading/Threading.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/System.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/RenderingBackend/RenderingBackend.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/Image.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/FrameBufferObjects/FrameBufferObjects.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/WindowBase.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Material/Material.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIOGroups.dox 
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Image/FileIO/ImageFileIO.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/DrawableGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Drawables.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Effects/EffectGroupsGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Effects/EffectGroups.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/GroupGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Groups.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/StateGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox 
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/WindowGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Window.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/FileIOGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/FileIO.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/DynamicsGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Dynamics/Dynamics.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/UtilGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/Util.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/TextGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/Text.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/ClusterGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Cluster/Cluster.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4Groups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowXGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/X/WindowX.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbonGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbon.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGLGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/CoreGL/WindowCoreGL.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoaGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Cocoa/WindowCocoa.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUTGroups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUT.dox
-
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32Groups.dox
-INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32.dox
-
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/VTK/ContribVTKGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CSMPlugin/SimpleTest/ContribCSMSimplePluginGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CgFXMaterial/ContribCgFXGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/Manipulators/ContribGUIGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/BackgroundLoader/ContribBackgroundLoaderGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/ContribTrapezoidalShadowMapsGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/ContribPLYGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComplexSceneManager/ContribCSMGroups.dox
-#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComputeBase/ContribComputeBaseGroups.dox
-
+INPUT                  =
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -907,6 +824,11 @@ HTML_HEADER            = ${OSG_DOXY_HTML_HEADER}
 # standard footer.
 
 HTML_FOOTER            = ${OSG_DOXY_HTML_FOOTER}
+
+# If the HTML_TIMESTAMP tag is set to YES then the generated HTML
+# documentation will contain the timesstamp.
+
+HTML_TIMESTAMP         = NO
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading
 # style sheet that is used by each HTML page. It can be used to
@@ -1551,12 +1473,12 @@ SKIP_FUNCTION_MACROS   = NO
 # If a tag file is not located in the directory in which doxygen
 # is run, you must also specify the path to the tagfile here.
 
-TAGFILES               =
+TAGFILES               = ${OSG_${PROJECT_NAME}_DEP_DOXY_TAGFILES}
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create
 # a tag file that is based on the input files it reads.
 
-GENERATE_TAGFILE       =
+GENERATE_TAGFILE       = ${OSG_${PROJECT_NAME}_DOXY_TAGFILE}
 
 # If the ALLEXTERNALS tag is set to YES all external classes will be listed
 # in the class index. If set to NO only the inherited external classes
@@ -1568,7 +1490,7 @@ ALLEXTERNALS           = NO
 # in the modules index. If set to NO, only the current project's groups will
 # be listed.
 
-EXTERNAL_GROUPS        = YES
+EXTERNAL_GROUPS        = NO
 
 # The PERL_PATH should be the absolute path and name of the perl script
 # interpreter (i.e. the result of `which perl').
@@ -1777,42 +1699,5 @@ GENERATE_LEGEND        = YES
 
 DOT_CLEANUP            = YES
 
-#
-# Default include dirs
-#
-
-INCLUDE_PATH += ${CMAKE_BINARY_DIR}/Source/Base/Base
-INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/Base/Base
-INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/Base
-INCLUDE_PATH += ${CMAKE_SOURCE_DIR}/Source/System/FieldContainer/Base
-
-#
-# Default exclude dirs / files
-#
-
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/ScanParseSkel/prebuild
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/External
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/Test/GroupLib
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/Test/SystemLib
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Image/Squish
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/OSB/NFIO_Depreciated
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Wrapper
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Nurbs/Internal
-
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/WRL/OSGVRMLProtos.inl
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/Collada/OSGColladaExtraHandler.h
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/FileIO/Collada/OSGColladaExtraHandler.inl
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.h
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.inl
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds/OSGStatisticsDefaultFont.cpp
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Window/Utilities/OSGLogoData.h
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/Window/Utilities/OSGLogoData.cpp
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.h
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.inl
-EXCLUDE += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Drawables/Geometry/Properties/OSGGeoVectorPropertyConversion.cpp
-
-EXCLUDE += ${CMAKE_BINARY_DIR}/Build/OSGSystem
-
-
-
-
+@INCLUDE = ${OSG_DOC_BASIC_INPUT}
+@INCLUDE = ${OSG_DOC_GENERAL_INPUT}

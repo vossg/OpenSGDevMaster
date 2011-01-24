@@ -2,31 +2,41 @@
 
 using namespace OSG;
 
-/*! \page PageDoc General Documentation
+/*! 
 
-   Related Pages
+   \if all_in_one
+     \page PageDoc General Documentation
 
-   \subpage PageBase
-   \subpage PageSystem
-   \subpage PageImageFileIO
-   \subpage PageCluster
-   \subpage PageText
-   \subpage PageUtil
-   \subpage PageDynamics
-   \subpage PageFileIO
-   \subpage PageState
-   \subpage PageGroups
-   \subpage PageEffectsGroups
-   \subpage PageDrawables
-   \subpage PageWindow
+     Related Pages
 
-   \subpage PageWindowX
-   \subpage PageWindowWIN32
-   \subpage PageWindowGLUT
-   \subpage PageWindowQt4
-   \subpage PageWindowCocoa
-   \subpage PageWindowCoreGL
-   \subpage PageWindowCarbon
+     \subpage PageBase
+   \else
+     \page PageBase Base Documentation
+   \endif
+
+   \if all_in_one
+     \subpage PageSystem
+     \subpage PageImageFileIO
+     \subpage PageCluster
+     \subpage PageText
+     \subpage PageUtil
+     \subpage PageDynamics
+     \subpage PageFileIO
+     \subpage PageState
+     \subpage PageGroups
+     \subpage PageEffectsGroups
+     \subpage PageDrawables
+     \subpage PageWindow
+
+     \subpage PageWindowX
+     \subpage PageWindowWIN32
+     \subpage PageWindowGLUT
+     \subpage PageWindowQt4
+     \subpage PageWindowCocoa
+     \subpage PageWindowCoreGL
+     \subpage PageWindowCarbon
+   \endif
+
  */
 
 
@@ -36,6 +46,7 @@ using namespace OSG;
 
     \subpage PageBaseFieldContainer
     \subpage PageBaseThreading
+    \subpage PageSystemStatistics
  */
 
 

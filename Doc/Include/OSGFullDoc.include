@@ -1,0 +1,36 @@
+
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGBase.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGSystem.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGState.include
+
+
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGImageFileIO.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGDrawable.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGEffectGroups.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGGroup.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindow.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGFileIO.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGDynamics.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGUtil.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGText.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGCluster.include
+
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowQT4.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowX.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowCarbon.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowX.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowX.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowGLUT.include
+@INCLUDE = ${CMAKE_BINARY_DIR}/Doc/Include/OSGWindowWIN32.include
+
+
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/VTK/ContribVTKGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CSMPlugin/SimpleTest/ContribCSMSimplePluginGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/CgFXMaterial/ContribCgFXGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/Manipulators/ContribGUIGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/BackgroundLoader/ContribBackgroundLoaderGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/ContribTrapezoidalShadowMapsGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/ContribPLYGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComplexSceneManager/ContribCSMGroups.dox
+#INPUT += ${CMAKE_SOURCE_DIR}/Source/Contrib/ComputeBase/ContribComputeBaseGroups.dox
+

@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageWindow Window
+/*! 
+
+   \if separate
+     \page PageWindow Window Documentation
+   \else
+     \page PageWindow Window
+   \endif
 
     \section PageSystemWindowBackgroundDepthClear
     \section PageSystemWindowForegroundGrabFile

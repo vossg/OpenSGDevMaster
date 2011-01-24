@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageUtil Util
+/*! 
+
+   \if separate
+     \page PageUtil Util Documentation
+   \else
+     \page PageUtil Util
+   \endif
 
     \section PageSystemWindowNavigatorsFly
     \section PageSystemWindowNavigatorsNavigator

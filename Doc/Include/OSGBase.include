@@ -1,0 +1,12 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Threading/Threading.dox 
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox 
+

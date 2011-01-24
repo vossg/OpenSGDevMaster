@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/GroupGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/NodeCores/Groups/Groups.dox 

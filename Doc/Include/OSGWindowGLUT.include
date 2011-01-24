@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUTGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/GLUT/WindowGLUT.dox

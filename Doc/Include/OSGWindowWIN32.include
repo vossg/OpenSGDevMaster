@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32Groups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/WIN32/WindowWIN32.dox

@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/StateGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox 

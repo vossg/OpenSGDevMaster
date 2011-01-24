@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbonGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/Carbon/WindowCarbon.dox

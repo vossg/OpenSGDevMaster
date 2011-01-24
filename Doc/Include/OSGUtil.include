@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/UtilGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/GraphOp/Util.dox

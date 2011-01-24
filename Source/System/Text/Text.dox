@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageText Text
+/*! 
+
+   \if separate
+     \page PageText Text Documentation
+   \else
+     \page PageText Text
+   \endif
+
  */

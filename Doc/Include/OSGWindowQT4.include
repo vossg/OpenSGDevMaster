@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4Groups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/WindowSystem/QT4/WindowQT4.dox

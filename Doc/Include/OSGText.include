@@ -1,0 +1,3 @@
+
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/TextGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Text/Text.dox

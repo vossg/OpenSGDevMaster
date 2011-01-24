@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageWindowCarbon Window Carbon
+/*! 
+
+   \if separate
+     \page PageWindowCarbon Window Carbon Documentation
+   \else
+     \page PageWindowCarbon Window Carbon
+   \endif
+
  */

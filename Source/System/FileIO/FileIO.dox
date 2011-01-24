@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageFileIO FileIO
+/*! 
+
+   \if separate
+     \page PageFileIO FileIO Documentation
+   \else
+     \page PageFileIO FileIO
+   \endif
 
     \section PageFileIOVRMLAttachment
  */

@@ -2,5 +2,12 @@
 
 using namespace OSG;
 
-/*! \page PageWindowCoreGL Window CoreGL
+/*! 
+
+   \if separate
+     \page PageWindowCoreGL Window CoreGL Documentation
+   \else
+     \page PageWindowCoreGL Window CoreGL
+   \endif
+
  */

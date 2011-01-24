@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageCluster Cluster
+/*! 
+
+   \if separate
+     \page PageCluster Cluster Documentation
+   \else
+     \page PageCluster Cluster
+   \endif
 
     \section PageSystemBalancedMultiWindow
     \section PageSystemClusterMultiDisplayWindow

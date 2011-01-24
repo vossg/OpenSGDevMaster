@@ -2,7 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageEffectsGroups Effects Groups
+/*! 
+
+   \if separate
+     \page PageEffectsGroups Effects Groups Documentation
+   \else
+     \page PageEffectsGroups Effects Groups
+   \endif
 
     \section PageEffectGroupsColorDisplayFilter
     \section PageGroupDisplayFilterStageData

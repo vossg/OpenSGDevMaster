@@ -2,13 +2,13 @@
 
 using namespace OSG;
 
-/*! \page PageSystemDrawables Drawables
+/*! 
 
-    \section PageSystemDrawableStatsAttachment
-    \section PageSystemStatsAttachment
- */
-
-/*! \page PageDrawables Drawables
+   \if separate
+     \page PageDrawables Drawables Documentation
+   \else
+     \page PageDrawables Drawables
+   \endif
 
     \section PageSystemGeometryIterators
     \section PageMyExtensionFatBorderChunk
