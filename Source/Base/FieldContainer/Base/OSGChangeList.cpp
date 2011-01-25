@@ -833,7 +833,7 @@ void ChangeList::commitDelayedSubRefs(void)
 
     while(vIt != vEnd)
     {
-        (*vIt)->subReferenceUnrecorded();
+        UnrecordedRefCountPolicy::subRef(*vIt);
 
         ++vIt;
     }
@@ -846,7 +846,7 @@ void ChangeList::commitDelayedSubRefs(void)
 
     while(vIt != vEnd)
     {
-        (*vIt)->subReferenceRecorded();
+        RecordedRefCountPolicy::subRef(*vIt);
 
         ++vIt;
     }
@@ -860,7 +860,7 @@ void ChangeList::commitDelayedSubRefs(void)
 
     while(vIt != vEnd)
     {
-        (*vIt)->subWeakReference();
+        WeakRefCountPolicy::subRef(*vIt);
 
         ++vIt;
     }
