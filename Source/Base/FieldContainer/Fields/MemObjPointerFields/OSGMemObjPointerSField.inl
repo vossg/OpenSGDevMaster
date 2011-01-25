@@ -182,7 +182,7 @@ FieldDescriptionBase *
     }
 
 #if 0
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",
@@ -219,7 +219,7 @@ FieldDescriptionBase *
     }
 
 #if 0
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",

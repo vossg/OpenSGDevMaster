@@ -57,7 +57,7 @@ FieldDescriptionBase *SField<ValueT, iNamespace>::createFieldDescription(
         uiFieldFlags = SFDefaultFlags;
     }
 
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",
@@ -90,7 +90,7 @@ FieldDescriptionBase *SField<ValueT, iNamespace>::createIdxFieldDescription(
         uiFieldFlags = SFDefaultFlags;
     }
 
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",

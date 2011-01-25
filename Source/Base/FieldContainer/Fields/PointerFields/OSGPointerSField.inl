@@ -151,7 +151,7 @@ FieldDescriptionBase *
         uiFieldFlags = (Field::SFDefaultFlags | Field::FStdAccess);
     }
 
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",
@@ -189,7 +189,7 @@ FieldDescriptionBase *
         uiFieldFlags = (Field::SFDefaultFlags | Field::FStdAccess);
     }
 
-    FieldDescriptionBase *returnValue = new Self::Description(
+    FieldDescriptionBase *returnValue = new typename Self::Description(
         _fieldType, 
         szFieldname,
         "",
