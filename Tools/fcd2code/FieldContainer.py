@@ -146,7 +146,49 @@ class FieldContainer(FCDElement):
             self["hasAuthors"] = False;
             self["authors"] = "";
             self["Authors"] = "";
-            
+
+        #Create the Authors comment text
+        self["AuthorsCommentText"] = "";
+        if self.hasAuthors():
+            MaxLineLength = 78;
+            ContactPreText   = " * contact: ";
+            SubLinesPreText  = " *          ";
+            SubLinesPostText = "*";
+
+            AuthorTextLength = MaxLineLength - len(ContactPreText) - len(SubLinesPostText);
+
+            #Split the authors into a list
+            AuthorList = self["Authors"].split(",");
+
+            #Create a comment line for each author
+            for AuthorIndex in range(len(AuthorList)):
+
+                AuthorCommentLine = AuthorList[AuthorIndex];
+                AuthorCommentLine = AuthorCommentLine.strip();
+
+                if len(AuthorCommentLine) <= AuthorTextLength:
+                    AuthorCommentLine += (" "*(AuthorTextLength-len(AuthorCommentLine)));
+                else:
+                    AuthorCommentLine = AuthorCommentLine[0:AuthorTextLength];
+                    self.m_log.error("finalize: \"authors\": Max size of per-author text cannot be greater than: " 
+                                    + str(AuthorTextLength) + ". Truncating to " + AuthorCommentLine);
+
+                #If this is the first line
+                if AuthorIndex == 0 :
+                    AuthorCommentLine = ContactPreText + AuthorCommentLine;
+                else :
+                    AuthorCommentLine = SubLinesPreText + AuthorCommentLine;
+                    
+                AuthorCommentLine = AuthorCommentLine + SubLinesPostText;
+
+                #If this is not the first line
+                if AuthorIndex != 0 :
+                    #Add a newline before this line
+                    AuthorCommentLine = "\n" + AuthorCommentLine;
+
+                self["AuthorsCommentText"] += AuthorCommentLine;
+
+
         if self.getFCD("parent") != "":
             self["Parent"] = self.getFCD("parent");
         else:
