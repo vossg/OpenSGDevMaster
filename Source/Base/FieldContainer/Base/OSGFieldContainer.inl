@@ -97,6 +97,7 @@ void FieldContainer::addReferenceRecorded(void)
     osgAtomicIncrement(&_iRefCount);
     
     Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
+
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::addReference [%p] [%d] [%s] STOP - [%d %d]\n",
            this, 
@@ -129,8 +130,6 @@ void FieldContainer::addReferenceUnrecorded(void)
            this->_iRefCount, 
            this->_iWeakRefCount));
 #endif
-    
-//    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
 }
 
 inline

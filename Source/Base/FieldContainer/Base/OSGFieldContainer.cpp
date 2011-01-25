@@ -334,19 +334,17 @@ void FieldContainer::subReferenceRecorded(void)
            this->_iWeakRefCount));
 #endif
 
-//    RefCountStore tmpRefCnt = OSG_AREAD(_iRefCount);
-
-    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
+    RefCountStore  tmpRefCnt   = osgAtomicExchangeAndAdd(&_iRefCount, -1);
+    ChangeList    *pChangeList = Thread::getCurrentChangeList();
 
     if(tmpRefCnt <= 1)
     {
-        Thread::getCurrentChangeList()->incSubRefLevel();
+        pChangeList->incSubRefLevel();
 
         this->resolveLinks();
 
-        Thread::getCurrentChangeList()->decSubRefLevel();
-
-        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+        pChangeList->decSubRefLevel();
+        pChangeList->addSubRefd    (Inherited::getId());
 
         osgSpinLock(&_uiContainerId, SpinLockBit);
 
@@ -382,8 +380,6 @@ void FieldContainer::subReferenceRecorded(void)
         }
         else
         {
-//            osgAtomicDecrement(&_iRefCount);
-
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
             FINFO(
                 ("FieldContainer::subReference [%p] [%d] [%s] STOP A [%d %d]\n",
@@ -397,8 +393,6 @@ void FieldContainer::subReferenceRecorded(void)
     }
     else
     {
-//        osgAtomicDecrement(&_iRefCount);
-
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
         FINFO(
             ("FieldContainer::subReference [%p] [%d] [%s] STOP B [%d %d]\n",
@@ -409,7 +403,7 @@ void FieldContainer::subReferenceRecorded(void)
              this->_iWeakRefCount));
 #endif
 
-        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+        pChangeList->addSubRefd(Inherited::getId());
     }
 
 }
@@ -425,19 +419,11 @@ void FieldContainer::subReferenceUnrecorded(void)
            this->_iWeakRefCount));
 #endif
 
-//    RefCountStore tmpRefCnt = OSG_AREAD(_iRefCount);
-
     RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
 
     if(tmpRefCnt <= 1)
     {
-//      Thread::getCurrentChangeList()->incSubRefLevel();
-
         this->resolveLinks();
-
-//        Thread::getCurrentChangeList()->decSubRefLevel();
-
-//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
         osgSpinLock(&_uiContainerId, SpinLockBit);
 
@@ -473,8 +459,6 @@ void FieldContainer::subReferenceUnrecorded(void)
         }
         else
         {
-//            osgAtomicDecrement(&_iRefCount);
-
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
             FINFO(
                 ("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
@@ -489,8 +473,6 @@ void FieldContainer::subReferenceUnrecorded(void)
     }
     else
     {
-//        osgAtomicDecrement(&_iRefCount);
-
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
         FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
                "STOP - [%d %d]\n",
@@ -500,7 +482,6 @@ void FieldContainer::subReferenceUnrecorded(void)
                this->_iRefCount, 
                this->_iWeakRefCount));
 #endif
-//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
     }
 
 }
@@ -520,8 +501,6 @@ void FieldContainer::subWeakReference(void)
 
     RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount, -1);
 
-    //--_iWeakRefCount;
-
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::subWeakReference [%p] [%d] [%s] STOP - [%d %d]\n",
            this, 
@@ -530,7 +509,6 @@ void FieldContainer::subWeakReference(void)
            this->_iRefCount, 
            this->_iWeakRefCount));
 #endif
-    /*tmpRefCnt <= 0*/
 
     if((0x0000 != (_uiContainerId & DeadContainerBit)) && tmpWeakRefCnt <= 1)
     {
@@ -568,7 +546,6 @@ void FieldContainer::subWeakReference(void)
 void FieldContainer::subReferenceUnresolved(void)
 {
     RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
-//    --_iRefCount;
 
     if(tmpRefCnt <= 1)
     {
@@ -599,7 +576,6 @@ void FieldContainer::subReferenceUnresolved(void)
     {
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
     }
-
 }
 
 /*---------------------------------------------------------------------*/
