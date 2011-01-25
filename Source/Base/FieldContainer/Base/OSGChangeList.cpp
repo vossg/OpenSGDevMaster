@@ -648,8 +648,7 @@ void ChangeList::doApply(bool bClear)
                     (*cIt)->uiContainerId, pDst->getType().getCName());
 #endif
 
-            if(pDst != NULL)
-                pDst->addReferenceRecorded();
+            UnrecordedRefCountPolicy::addRef(pDst);
         }
         else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)// ||
 //            (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
@@ -661,8 +660,7 @@ void ChangeList::doApply(bool bClear)
             
             if(pDst != NULL)
             {
-                //pDst->subReferenceRecorded();
-                this->addDelayedSubRef<RecordedRefCountPolicy>(pDst);
+                this->addDelayedSubRef<UnrecordedRefCountPolicy>(pDst);
             }
         }
 
