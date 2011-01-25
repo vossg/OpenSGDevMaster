@@ -350,7 +350,7 @@ void AttachmentContainer::dump(      UInt32    uiIndent,
         PLOG << "Key  : " << fcI->first << " | " 
              << "Bind : " << (fcI->first & 0x0000FFFF) << " | "
              << "Type : " << fcI->second->getType().getCName() << " | "
-             << "Int  : " << fcI->second->getInternal().getValue()
+             << "Int  : " << fcI->second->getInternal()
              << std::endl;
     }
 

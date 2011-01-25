@@ -162,15 +162,15 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::addTo(
 
 void DrawableStatsAttachment::attachTo(AttachmentContainer *obj)
 {
-    if(getParents().size())
+    if(getMFParents()->size())
     {
         FNOTICE(("GeoStatsAttachment::attachTo: "
                  "already attached, detaching!\n"));
 
-        while(getParents().size())
+        while(getMFParents()->size())
         {
             AttachmentContainer *p =
-                dynamic_cast<AttachmentContainer *>(this->getParent(0));
+                dynamic_cast<AttachmentContainer *>(this->getParents(0));
 
             p->subChangedFunctor(&DrawableStatsAttachment::invalidateFunctor);
             p->subAttachment    (this                                       );
@@ -194,7 +194,7 @@ void DrawableStatsAttachment::validate(void)
         return;
 
     AttachmentContainer *cont =
-        dynamic_cast<AttachmentContainer *>(this->getParent(0));
+        dynamic_cast<AttachmentContainer *>(this->getParents(0));
 
     // Called on a non-AttachmentContainer?
     if(cont == NULL)
@@ -309,11 +309,11 @@ void DrawableStatsAttachment::invalidate(FieldContainer *obj)
     st->reset();
 
     // Traverse upwards
-    if(st->getParents().size())
+    if(st->getMFParents()->size())
     {
         // Can't have more than 1
         FieldContainer *p = 
-            dynamic_cast<FieldContainer *>(st->getParent(0)); 
+            dynamic_cast<FieldContainer *>(st->getParents(0)); 
 
         // Is this attached to a NodeCore?
         NodeCore *c = dynamic_cast<NodeCore *>(p);

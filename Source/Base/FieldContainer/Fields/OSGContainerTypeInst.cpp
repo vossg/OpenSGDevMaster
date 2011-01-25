@@ -47,9 +47,6 @@
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"
 
-#include "OSGAttachmentSFields.h"
-#include "OSGAttachmentMFields.h"
-
 #include "OSGAttachmentContainerSFields.h"
 #include "OSGAttachmentContainerMFields.h"
 
@@ -77,10 +74,6 @@ DataType FieldTraits<FieldContainer          *>::_mapType(
     "FieldContainerPtrMap",
     NULL);
 
-DataType FieldTraits<Attachment              *>::_type(
-    "AttachmentPtr",
-    "FieldContainerPtr");
-
 DataType FieldTraits<AttachmentContainer     *>::_type(
     "AttachmentContainerPtr",
     "FieldContainerPtr");
@@ -101,14 +94,12 @@ DataType FieldTraits<HardwareContextData    *>::_type(
     "HardwareContextDataPtr",
     "MemoryObjectPtr");
 
-OSG_FIELDTRAITS_GETTYPE   (FieldContainer         *)
-
-OSG_FIELDTRAITS_GETTYPE   (Attachment             *)
-OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
-OSG_FIELDTRAITS_GETTYPE   (Node                   *)
-OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
-OSG_FIELDTRAITS_GETTYPE   (MemoryObject           *)
-OSG_FIELDTRAITS_GETTYPE   (HardwareContextData    *)
+OSG_FIELDTRAITS_GETTYPE(FieldContainer         *)
+OSG_FIELDTRAITS_GETTYPE(AttachmentContainer    *)
+OSG_FIELDTRAITS_GETTYPE(Node                   *)
+OSG_FIELDTRAITS_GETTYPE(ChangedFunctorCallback  )
+OSG_FIELDTRAITS_GETTYPE(MemoryObject           *)
+OSG_FIELDTRAITS_GETTYPE(HardwareContextData    *)
 
 DataType &FieldTraits< FieldContainer *>::getMapType(void)
 {                                                           
@@ -153,16 +144,6 @@ OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            AttachmentContainer *, 
-                           0);
-
-// FieldContainerAttachment
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Attachment *, 
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Attachment *, 
                            0);
 
 // NodeChildNode

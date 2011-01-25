@@ -352,7 +352,6 @@ void deepCloneAttachments(
 
 OSG_END_NAMESPACE
 
-#include "OSGAttachment.h"
 #include "OSGAttachmentContainer.inl"
 
 #endif /* _OSGATTACHMENTCONTAINER_H_ */

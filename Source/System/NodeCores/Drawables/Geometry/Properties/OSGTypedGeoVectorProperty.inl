@@ -125,7 +125,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::changed(
     UInt32            origin    ,
     BitVector         details)
 {
-    typedef typename Inherited::ParentField PFieldT;
+    typedef typename Inherited::MFParentsType PFieldT;
 
     const Self *pThis = this;
 

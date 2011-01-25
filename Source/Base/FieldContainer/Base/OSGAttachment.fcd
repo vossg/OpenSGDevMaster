@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+   name="Attachment"
+   parent="AttachmentContainer"
+   library="Base"
+   structure="abstract"
+   group="FieldContainer"
+   pointerfieldtypes="both"
+   parentFields="both"
+   childFields="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   docGroupBase="GrpBaseFieldContainerBase"
+   >
+   Abstract base type for all attachments, containers that can be added
+   to any AttachmentContainer derived type to store additional/optional
+   data.
+
+  <Field
+     name="parents"
+     category="parentpointer"
+     type="FieldContainer"
+     cardinality="multi"
+     access="none"
+     visibility="internal"
+     >
+     Parents of this Attachment, that is the AttachmentContainer this
+     is attached to.
+  </Field>
+  <Field
+     name="internal"
+     category="data"
+     type="bool"
+     cardinality="single"
+     access="public"
+     visibility="external"
+     >
+     If true this attachment is marked internal, which excludes it from
+     begin stored in files.
+  </Field>
+</FieldContainer>
