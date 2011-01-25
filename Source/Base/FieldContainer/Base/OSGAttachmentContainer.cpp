@@ -238,11 +238,11 @@ void AttachmentContainer::addAttachment(
 
     if(this->isMTLocal())
     {
-        pAttachment->addReferenceUnrecorded();
+        UnrecordedRefCountPolicy::addRef(pAttachment);
     }
     else
     {
-        pAttachment->addReferenceRecorded();
+        RecordedRefCountPolicy::addRef(pAttachment);
     }
 
     pAttachment->linkParent(this, 
@@ -260,11 +260,11 @@ void AttachmentContainer::addAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceUnrecorded();
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            (*fcI).second->subReferenceRecorded();
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         (*fcI).second = pAttachment;
@@ -311,11 +311,11 @@ void AttachmentContainer::subAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceUnrecorded();
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            (*fcI).second->subReferenceRecorded();
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         _sfAttachments.getValue().erase(fcI);
@@ -406,7 +406,14 @@ void AttachmentContainer::execSync(
             {
                 tmpMap[(*fcI).first] = pAtt;
 
-                pAtt->addReferenceUnrecorded();
+                if(this->isMTLocal())
+                {
+                    UnrecordedRefCountPolicy::addRef(pAtt);
+                }
+                else
+                {
+                    RecordedRefCountPolicy::addRef(pAtt);
+                }
             }
 
             ++fcI;
@@ -453,11 +460,11 @@ void AttachmentContainer::resolveLinks(void)
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceUnrecorded();
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            (*fcI).second->subReferenceRecorded();
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         ++fcI;
