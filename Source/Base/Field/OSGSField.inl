@@ -108,7 +108,7 @@ void SField<ValueT, iNamespace>::setValueFromCString(const Char8 *str)
 {
     typedef typename boost::mpl::if_c<
       (SFieldTraits   ::Convertible &
-       FieldTraitsBase::FromStringConvertible), 
+       FieldTraitsBase::FromStringConvertible) != 0, 
       SFieldTraits, 
       StringConversionError<ValueT, iNamespace> >::type Converter;
     
@@ -120,7 +120,7 @@ void SField<ValueT, iNamespace>::pushValueToString  (std::string  &str) const
 {
     typedef typename boost::mpl::if_c<
       (SFieldTraits   ::Convertible &
-       FieldTraitsBase::ToStringConvertible), 
+       FieldTraitsBase::ToStringConvertible) != 0, 
       SFieldTraits, 
       StringConversionError<ValueT, iNamespace> >::type Converter;
     
@@ -132,7 +132,7 @@ void SField<ValueT, iNamespace>::pushValueFromStream(std::istream &str)
 {
     typedef typename boost::mpl::if_c<
       (SFieldTraits   ::Convertible &
-       FieldTraitsBase::FromStreamConvertible), 
+       FieldTraitsBase::FromStreamConvertible) != 0, 
       SFieldTraits, 
       StreamConversionError<ValueT, iNamespace> >::type Converter;
     
@@ -144,7 +144,7 @@ void SField<ValueT, iNamespace>::pushValueToStream  (OutStream &str) const
 {
     typedef typename boost::mpl::if_c<
       (SFieldTraits   ::Convertible &
-       FieldTraitsBase::ToStreamConvertible), 
+       FieldTraitsBase::ToStreamConvertible) != 0, 
       SFieldTraits, 
       StreamConversionError<ValueT, iNamespace> >::type Converter;
     
