@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Attachment class. See \ref
            PageBaseAttachment for a description.
-*/
+
+    \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
+ */
 
 class OSG_BASE_DLLMAPPING Attachment : public AttachmentBase
 {
