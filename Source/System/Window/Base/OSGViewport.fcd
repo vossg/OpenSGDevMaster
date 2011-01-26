@@ -88,8 +88,6 @@ all the different ClusterWindows!
 	   cardinality="single"
 	   visibility="external"
 	   access="none"
-       doRefCount="false"
-       passFieldMask="true"
        category="parentpointer"
 	   >
 	  The Window this viewport is contained in.

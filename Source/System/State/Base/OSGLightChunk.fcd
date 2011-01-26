@@ -120,7 +120,6 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 		visibility="external"
 		defaultValue="NULL"
 		access="public"
-        doRefCount="false"
 	>
 	</Field>
 </FieldContainer>

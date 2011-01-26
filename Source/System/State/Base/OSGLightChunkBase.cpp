@@ -433,7 +433,6 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
-    "        doRefCount=\"false\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

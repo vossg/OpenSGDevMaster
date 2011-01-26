@@ -476,8 +476,6 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"external\"\n"
     "\t   access=\"none\"\n"
-    "       doRefCount=\"false\"\n"
-    "       passFieldMask=\"true\"\n"
     "       category=\"parentpointer\"\n"
     "\t   >\n"
     "\t  The Window this viewport is contained in.\n"
