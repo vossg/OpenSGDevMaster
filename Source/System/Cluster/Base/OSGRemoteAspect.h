@@ -140,7 +140,8 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
 
   protected:
 
-    typedef std::map<UInt32, BitVector> FieldFilter;
+    typedef std::map<UInt32, BitVector>         FieldFilter;
+    typedef std::vector<FieldContainerUnrecPtr> FieldContainerVector;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   member                                     */
@@ -191,15 +192,52 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
   private:
 
     /*---------------------------------------------------------------------*/
+    /*! \name               Receive Helper functions                       */
+    /*! \{                                                                 */
+
+    void receiveNewType  (Connection                &con,
+                          FieldContainerFactoryBase *fcFactory    );
+    void receiveCreated  (Connection                &con,
+                          FieldContainerFactoryBase *fcFactory,
+                          FieldContainerVector      &newContainers);
+    void receiveChanged  (Connection                &con,
+                          FieldContainerFactoryBase *fcFactory    );
+    void receiveAddRefed (Connection                &con,
+                          FieldContainerFactoryBase *fcFactory,
+                          ChangeList                *pChangeList  );
+    void receiveSubRefed (Connection                &con,
+                          FieldContainerFactoryBase *fcFactory,
+                          ChangeList                *pChangeList  );
+    void receiveIdMapping(Connection                &con          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Send Helper functions                        */
+    /*! \{                                                                 */
+
+    void sendCreated  (Connection     &con,
+                       FieldContainer *fcPtr      );
+    void sendChanged  (Connection     &con,
+                       FieldContainer *fcPtr,
+                       BitVector       changedMask);
+    void sendAddRefed (Connection     &con,
+                       FieldContainer *fcPtr,
+                       UInt32          localId    );
+    void sendSubRefed (Connection     &con,
+                       FieldContainer *fcPtr,
+                       UInt32          localId    );
+    void sendIdMapping(Connection     &con        );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                 Helper functions                             */
     /*! \{                                                                 */
 
-    void handleFCMapping   (Connection &connection);
     void clearFCMapping    (UInt32      localId,
-                            UInt32      remoteId  );
+                            UInt32      remoteId );
     bool getLocalId        (UInt32      remoteId,
-                            UInt32     &localId   );
-    UInt64 getFullRemoteId (UInt32      remoteId  );
+                            UInt32     &localId  );
+    UInt64 getFullRemoteId (UInt32      remoteId );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
