@@ -301,6 +301,8 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
         UInt32          localId = (*changedIt)->uiContainerId;
         FieldContainer *fcPtr   = fcFactory->getContainer(localId);
 
+        // fcPtr might be locally destroyed already or
+        // cluster local, no need to transmit it
         if((fcPtr  == NULL                                     ) ||
            (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
                        FCLocal::Cluster                         ))  )
@@ -322,9 +324,12 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
         UInt32          localId = (*changedIt)->uiContainerId;
         FieldContainer *fcPtr   = fcFactory->getContainer(localId);
 
-        if((fcPtr  == NULL                                     ) ||
-           (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
-                       FCLocal::Cluster                         ))  )
+        // fcPtr might be cluster local, no need to transmit it.
+        // but we need to transmit subrefs for locally destroyed container
+        // so this test is different from the one above!
+        if((fcPtr  != NULL                                      )  &&
+           (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask &
+                       FCLocal::Cluster                         ))   )
         {
             continue;
         }
@@ -338,6 +343,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             sendSubRefed(connection, fcPtr, localId);
         }
         else if((*changedIt)->uiEntryDesc == ContainerChangeEntry::Change)
+                fcPtr                     != NULL                           )
         {
             sendChanged(connection, fcPtr, (*changedIt)->whichField);
         }
@@ -731,7 +737,7 @@ void RemoteAspect::receiveSubRefed(Connection                &con,
         }
         else
         {
-            RecordedRefCountPolicy::subRef(fcPtr);
+            pChangeList->addDelayedSubRef<RecordedRefCountPolicy>(fcPtr);
         }
     }
     else
