@@ -327,7 +327,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
     TextTXFParam _param;
 
     /** The texture that contains all glyphs */
-    ImageUnrecPtr _texture;
+    ImageRefPtr _texture;
 
     /** Defines a map of glyphs */
     typedef std::map<TextGlyph::Index, TextTXFGlyph*> GlyphMap;
