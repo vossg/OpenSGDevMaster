@@ -376,6 +376,20 @@ void Viewport::render(RenderActionBase *action)
 
         oEnv.setWindow(action->getWindow());
 
+        Matrix m, t;
+        getCamera()->getProjection           (m,
+                                              getPixelWidth (),
+                                              getPixelHeight());
+        getCamera()->getProjectionTranslation(t,
+                                              getPixelWidth (),
+                                              getPixelHeight());
+        oEnv.setupProjection(m, t);
+
+        getCamera()->getViewing(m,
+                                getPixelWidth (),
+                                getPixelHeight());
+        oEnv.setupViewing(m);
+
         oEnv.setTileFullSize(getCamera()->tileGetFullSize());
         oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
@@ -388,7 +402,7 @@ void Viewport::render(RenderActionBase *action)
         oEnv.setDrawerId  (action->getDrawerId  ());
         oEnv.setDrawableId(action->getDrawableId());
 
-        for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
+        for(UInt16 i = 0; i < getMFForegrounds()->size(); i++)
         {
             Foreground        *pForeground = getForegrounds(i);
             FrameBufferObject *pTarget     = this->getTarget();
