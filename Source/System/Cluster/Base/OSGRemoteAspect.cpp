@@ -231,6 +231,10 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
     } 
     while(!finish);
 
+#ifndef OSG_REMOTE_ASPECT_SILENT
+    PLOG << std::flush;
+#endif
+
     pChangeList->commitDelayedSubRefs();
 
 #ifdef OSG_DEBUG
@@ -310,7 +314,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             continue;
         }
 
-        if((*changedI)->uiEntryDesc == ContainerChangeEntry::Create)
+        if((*changedIt)->uiEntryDesc == ContainerChangeEntry::Create)
         {
             sendCreated(connection, fcPtr);
         }
@@ -342,7 +346,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
         {
             sendSubRefed(connection, fcPtr, localId);
         }
-        else if((*changedIt)->uiEntryDesc == ContainerChangeEntry::Change)
+        else if((*changedIt)->uiEntryDesc == ContainerChangeEntry::Change &&
                 fcPtr                     != NULL                           )
         {
             sendChanged(connection, fcPtr, (*changedIt)->whichField);
