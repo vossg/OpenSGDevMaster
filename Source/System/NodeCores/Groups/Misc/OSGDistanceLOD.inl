@@ -53,7 +53,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 
     Int32 numRanges = range->size();
 
-    if (numRanges == 0)
+    if(numRanges == 0 || numLevels == 1)
     {
         index = 0;
     }
