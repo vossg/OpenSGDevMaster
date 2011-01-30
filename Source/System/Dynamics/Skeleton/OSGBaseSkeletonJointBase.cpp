@@ -413,7 +413,7 @@ bool BaseSkeletonJointBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfSkeleton.getValue() == pParent)
+            if(_sfSkeleton.getValue() == pTypedParent)
             {
                 editSField(SkeletonFieldMask);
 
@@ -422,8 +422,15 @@ bool BaseSkeletonJointBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("BaseSkeletonJointBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
