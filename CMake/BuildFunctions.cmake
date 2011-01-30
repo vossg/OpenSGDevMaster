@@ -2474,3 +2474,29 @@ MESSAGE(STATUS  "process ignore install ${OSG_IGNORE_INSTALL}")
   ENDIF(OSG_IGNORE_INSTALL)
 ENDMACRO(OSG_CHECK_INSTALL)
 
+##########################################################################
+# Add Tutorial builds as tests
+#
+MACRO(OSG_ADD_TUTORIAL_TESTS TUTORIAL_SOURCE_DIR)
+    IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUPUNITTEST")
+        RETURN()
+    ENDIF()
+
+    FILE(GLOB TUTORIAL_SOURCES "${TUTORIAL_SOURCE_DIR}/[0-9][0-9]*.cpp")
+
+    FOREACH(TUTORIAL ${TUTORIAL_SOURCES})
+        #Get the path to the tutorial executable
+        STRING(LENGTH ${TUTORIAL} SOURCE_PATH_LENGTH)
+        MATH(EXPR SOURCE_PATH_LENGTH '${SOURCE_PATH_LENGTH}-4')
+        STRING(SUBSTRING ${TUTORIAL} 0 ${SOURCE_PATH_LENGTH} TUTORIAL_EXE_PATH )
+        SET(TUTORIAL_EXE_PATH "${TUTORIAL_EXE_PATH}${CMAKE_EXECUTABLE_SUFFIX}")
+
+        #Extract a short name for the tutorial test
+        STRING(REGEX MATCH "([0-9][0-9].*)[.]cpp" TUTORIAL_NAME ${TUTORIAL})
+        SET(TUTORIAL_NAME ${CMAKE_MATCH_1})
+
+        #Add a test to see if the tutorial exists
+        ADD_TEST(NAME "${PROJECT_NAME}-${TUTORIAL_NAME}"
+                 COMMAND test -e ${TUTORIAL_EXE_PATH})
+    ENDFOREACH()
+ENDMACRO()
