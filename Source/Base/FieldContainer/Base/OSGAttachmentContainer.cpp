@@ -166,12 +166,12 @@ void AttachmentContainer::copyFromBin(BinaryDataHandler &pMem,
                 if(this->isMTLocal())
                 {
                     Thread::getCurrentChangeList()->addDelayedSubRef<
-                        UnrecordedRefCountPolicy>((*mapIt).second);
+                        RecordedRefCountPolicy>((*mapIt).second);
                 }
                 else
                 {
                     Thread::getCurrentChangeList()->addDelayedSubRef<
-                        RecordedRefCountPolicy>((*mapIt).second);
+                        UnrecordedRefCountPolicy>((*mapIt).second);
                 }
             }
         }
@@ -195,11 +195,11 @@ void AttachmentContainer::copyFromBin(BinaryDataHandler &pMem,
 
                 if(this->isMTLocal())
                 {
-                    UnrecordedRefCountPolicy::addRef(att);
+                    RecordedRefCountPolicy::addRef(att);
                 }
                 else
                 {
-                    RecordedRefCountPolicy::addRef(att);
+                    UnrecordedRefCountPolicy::addRef(att);
                 }
 
                 _sfAttachments.getValue().insert(
@@ -238,11 +238,11 @@ void AttachmentContainer::addAttachment(
 
     if(this->isMTLocal())
     {
-        UnrecordedRefCountPolicy::addRef(pAttachment);
+        RecordedRefCountPolicy::addRef(pAttachment);
     }
     else
     {
-        RecordedRefCountPolicy::addRef(pAttachment);
+        UnrecordedRefCountPolicy::addRef(pAttachment);
     }
 
     pAttachment->linkParent(this, 
@@ -260,11 +260,11 @@ void AttachmentContainer::addAttachment(
 
         if(this->isMTLocal())
         {
-            UnrecordedRefCountPolicy::subRef((*fcI).second);
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            RecordedRefCountPolicy::subRef((*fcI).second);
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         (*fcI).second = pAttachment;
@@ -311,11 +311,11 @@ void AttachmentContainer::subAttachment(
 
         if(this->isMTLocal())
         {
-            UnrecordedRefCountPolicy::subRef((*fcI).second);
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            RecordedRefCountPolicy::subRef((*fcI).second);
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         _sfAttachments.getValue().erase(fcI);
@@ -408,11 +408,11 @@ void AttachmentContainer::execSync(
 
                 if(this->isMTLocal())
                 {
-                    UnrecordedRefCountPolicy::addRef(pAtt);
+                    RecordedRefCountPolicy::addRef(pAtt);
                 }
                 else
                 {
-                    RecordedRefCountPolicy::addRef(pAtt);
+                    UnrecordedRefCountPolicy::addRef(pAtt);
                 }
             }
 
@@ -427,12 +427,12 @@ void AttachmentContainer::execSync(
             if(this->isMTLocal())
             {
                 Thread::getCurrentChangeList()->addDelayedSubRef<
-                    UnrecordedRefCountPolicy>((*fcI).second);
+                    RecordedRefCountPolicy>((*fcI).second);
             }
             else
             {
                 Thread::getCurrentChangeList()->addDelayedSubRef<
-                    RecordedRefCountPolicy>((*fcI).second);
+                    UnrecordedRefCountPolicy>((*fcI).second);
             }
             
             ++fcI;
@@ -460,11 +460,11 @@ void AttachmentContainer::resolveLinks(void)
 
         if(this->isMTLocal())
         {
-            UnrecordedRefCountPolicy::subRef((*fcI).second);
+            RecordedRefCountPolicy::subRef((*fcI).second);
         }
         else
         {
-            RecordedRefCountPolicy::subRef((*fcI).second);
+            UnrecordedRefCountPolicy::subRef((*fcI).second);
         }
 
         ++fcI;
