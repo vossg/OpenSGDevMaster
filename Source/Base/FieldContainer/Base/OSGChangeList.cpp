@@ -380,35 +380,26 @@ void ChangeList::doCommitChanges(void)
 {
     if(_workStore.empty() == false)
     {
-        fprintf(stderr, "warning non empty workstore found\n");
+        SFATAL << "Work store is non-empty, concurrent commit in progress."
+               << std::endl;
     }
 
+    const UInt32 loopLimit    = 15;
+    UInt32       loopCount    = 0;
+    bool         loopDetected = false;
 
-    const unsigned loop_detection_limit(15);
-    unsigned loop_count(0);
-    bool  detected_loop(false);
-    
     _workStore.clear();
 
-#if 0
-    std::cerr << "----------- DETECTED LOOP START -------------" << std::endl;
-    dump();
-#endif
-
-    while((_uncommitedChanges.empty() == false) && !detected_loop)
+    while((_uncommitedChanges.empty() == false) &&
+          (loopDetected               == false)   )
     {
-        _workStore.swap(_uncommitedChanges);
+        _workStore        .swap (_uncommitedChanges);
         _uncommitedChanges.clear();
 
         ChangedStore::iterator       changesIt  = _workStore.begin();
         ChangedStore::const_iterator changesEnd = _workStore.end  ();
 
-#if 0
-        std::cerr << "--------- DETECTED LOOP1 START ----------" << std::endl;
-        dump();
-#endif
-
-        while(changesIt != changesEnd )
+        while(changesIt != changesEnd)
         {
             OSG_ASSERT(NULL != (*changesIt));
             
@@ -420,17 +411,15 @@ void ChangeList::doCommitChanges(void)
             ++changesIt;
         }
 
-#if 0
-        std::cerr << "-------- DETECTED LOOP2 START ----------" << std::endl;
-        dump();
-#endif
-
         _workStore.clear();
-        if(loop_count++ > loop_detection_limit)
+
+        if(loopCount++ > loopLimit)
         {
-           detected_loop = true;
-           std::cerr << "----------- DETECTED LOOP ------------" << std::endl;
-           dump();
+           loopDetected = true;
+
+           SFATAL << "Loop detected while committing changes after "
+                  << loopLimit << " iterations."
+                  << std::endl;
         }        
     }
 }
