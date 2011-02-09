@@ -296,11 +296,16 @@ bool compareContainerEqual(
 
 void MemoryConsumption::scan(void)
 {
-    UInt32 numCont = FieldContainerFactory::the()->getNumContainers();
+    FieldContainerFactory::the()->lockStore();
 
-    for(UInt32 i = 0; i < numCont; ++i)
+    FieldContainerFactoryBase::ContainerStoreConstIt sIt  =
+        FieldContainerFactory::the()->beginStore();
+    FieldContainerFactoryBase::ContainerStoreConstIt sEnd =
+        FieldContainerFactory::the()->endStore();
+
+    for(; sIt != sEnd; ++sIt)
     {
-        FieldContainer *pFC = FieldContainerFactory::the()->getContainer(i);
+        FieldContainer *pFC = (*sIt).second->getPtr();
 
         if(pFC == NULL)
             continue;
@@ -318,6 +323,8 @@ void MemoryConsumption::scan(void)
             _memMap[pFC->getType().getId()] = MemCountPair(binSize, 1);
         }
     }
+
+    FieldContainerFactory::the()->unlockStore();
 }
 
 

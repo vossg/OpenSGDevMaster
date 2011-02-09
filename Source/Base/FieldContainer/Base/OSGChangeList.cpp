@@ -452,6 +452,7 @@ void ChangeList::doApply(bool bClear)
     ChangedStoreConstIt  ccEnd = _createdStore.end  ();
 
 
+
     while(ccIt != ccEnd)
     {
         AspectStoreP pHandler =
@@ -761,44 +762,46 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId,
 {
     this->clear();
 
-    UInt32 uiNumContainers = 
-        FieldContainerFactory::the()->getNumContainers();
+    FieldContainerFactory::the()->lockStore();
 
-    if(uiNumContainers <= uiFieldContainerId)
+    FieldContainerFactoryBase::ContainerStoreConstIt sIt  =
+        FieldContainerFactory::the()->beginStore();
+    FieldContainerFactoryBase::ContainerStoreConstIt sEnd =
+        FieldContainerFactory::the()->endStore();
+
+    for(; sIt != sEnd; ++sIt)
     {
-        return;
-    }
+        if((*sIt).first < uiFieldContainerId)
+            continue;
 
-    for(UInt32 i = uiFieldContainerId; i < uiNumContainers; ++i)
-    {
-        FieldContainer *pContainer = 
-            FieldContainerFactory::the()->getContainer(i);
+        FieldContainer *pFC = (*sIt).second->getPtr();
 
-        // skip destroyed FC
-        if(pContainer == NULL)
-          continue;
+        if(pFC == NULL)
+            continue;
 
         // skip prototypes - unless requested
         if(skipPrototypes == true &&
-           (pContainer->getType().getPrototype() == pContainer ||
-            pContainer->getType().getPrototype() == NULL         ))
+           (pFC->getType().getPrototype() == pFC  ||
+            pFC->getType().getPrototype() == NULL   ))
         {
             continue;
         }
 
-        this->addCreated(i, TypeTraits<BitVector>::BitsClear);
+        this->addCreated((*sIt).first, TypeTraits<BitVector>::BitsClear);
 
-        for(Int32 j = 0; j < pContainer->getRefCount(); ++j)
-            this->addAddRefd(i);
+        for(Int32 j = 0; j < pFC->getRefCount(); ++j)
+            this->addAddRefd((*sIt).first);
 
         ContainerChangeEntry *pEntry = this->getNewEntry();
 
         pEntry->uiEntryDesc   = ContainerChangeEntry::Change;
-        pEntry->pFieldFlags   = pContainer->getFieldFlags();
-        pEntry->uiContainerId = i;
+        pEntry->pFieldFlags   = pFC->getFieldFlags();
+        pEntry->uiContainerId = (*sIt).first;
         pEntry->whichField    = FieldBits::AllFields;
         pEntry->pList         = this;
     }
+
+    FieldContainerFactory::the()->unlockStore();
 }
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
