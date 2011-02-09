@@ -968,7 +968,7 @@ void ChangeList::doApply(bool bClear)
 
             if(pDst != NULL)
             {
-                this->addDelayedSubRef<UnrecordedRefCountPolicy>(pDst);
+                pDstCL->addDelayedSubRef<UnrecordedRefCountPolicy>(pDst);
             }
         }
 
