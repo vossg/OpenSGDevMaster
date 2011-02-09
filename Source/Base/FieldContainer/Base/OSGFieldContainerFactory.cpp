@@ -78,10 +78,10 @@ for OSG::FieldContainerFactory.
 FieldContainerFactoryBase::FieldContainerFactoryBase(void) :
      Inherited      ("FieldContainerFactory"),
     _pStoreLock     (NULL                   ),
-    _vContainerStore(                       ),
+    _nextContainerId(1                      ),
+    _containerStore (                       ),
     _pMapper        (NULL                   )
 {
-    _vContainerStore.push_back(NULL);
 }
 
 FieldContainerFactoryBase::FieldContainerFactoryBase(
@@ -89,10 +89,10 @@ FieldContainerFactoryBase::FieldContainerFactoryBase(
 
      Inherited      (szFactoryName),
     _pStoreLock     (NULL         ),
-	_vContainerStore(             ),
+    _nextContainerId(1            ),
+    _containerStore (             ),
     _pMapper        (NULL         )
 {
-    _vContainerStore.push_back(NULL);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -110,8 +110,8 @@ bool FieldContainerFactoryBase::initialize(void)
     if(this->_bInitialized == true)
         return true;
 
-    _pStoreLock = ThreadManager::the()->getLock("ContainerFactory::slock",
-                                                false);
+    _pStoreLock = ThreadManager::the()->getLock(
+        "ContainerFactory::_pStorelock", false);
 
     PINFO << "Got store lock " << _pStoreLock.get() << std::endl;
 
@@ -134,32 +134,33 @@ bool FieldContainerFactoryBase::terminate(void)
     this->_bInitialized = false;
 
 #ifdef OSG_DEBUG
-    ContainerStoreIt sI = _vContainerStore.begin();
-    ContainerStoreIt sE = _vContainerStore.end  ();
+    ContainerStoreConstIt sI = _containerStore.begin();
+    ContainerStoreConstIt sE = _containerStore.end  ();
     
-    for(UInt32 i = 0; sI != sE; ++sI, ++i)
+    for(; sI != sE; ++sI)
     {
-        if((*sI) != NULL)
+        if((*sI).second != NULL)
         {
             FWARNING(("FieldContainerFactoryBase::terminate: "
-                      "Entry [%d] is not NULL ([%p]). \n", i, *sI));
+                      "Entry [%d] is not NULL ([%p]). \n",
+                      (*sI).first, (*sI).second));
                                               
-            for(UInt32 j = 0; j < (*sI)->getNumAspects(); ++j)
+            for(UInt32 j = 0; j < (*sI).second->getNumAspects(); ++j)
             {
-                if((*sI)->getPtr(j) != NULL)
+                if((*sI).second->getPtr(j) != NULL)
                 {
                     FWARNING(("  [%d] [%p] [%s] [%d %d]\n",
                               j, 
-                              (*sI)->getPtr(j), 
-                              (*sI)->getPtr(j)->getType().getCName(),
-                              (*sI)->getPtr(j)->getRefCount(),
-                              (*sI)->getPtr(j)->getWeakRefCount() ));
+                              (*sI).second->getPtr(j),
+                              (*sI).second->getPtr(j)->getType().getCName(),
+                              (*sI).second->getPtr(j)->getRefCount(),
+                              (*sI).second->getPtr(j)->getWeakRefCount() ));
                 }
                 else
                 {
                     FWARNING(("  [%d] [%p] [] [N/A N/A]\n",
                               j, 
-                              (*sI)->getPtr(j)));
+                              (*sI).second->getPtr(j)));
                 }
             }
         }
@@ -182,9 +183,9 @@ UInt32 FieldContainerFactoryBase::registerContainer(
     VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
 #endif
 
-    UInt32 returnValue = 0;
-
     _pStoreLock->acquire();
+
+    UInt32 returnValue =  _nextContainerId++;
 
 #ifdef OSG_MT_CPTR_ASPECT
     ContainerHandlerP pHandler = NULL;
@@ -192,12 +193,41 @@ UInt32 FieldContainerFactoryBase::registerContainer(
     if(pContainer != NULL)
         pHandler = pContainer->getAspectStore();
 
-    _vContainerStore.push_back(pHandler);
+    _containerStore.insert(
+        ContainerStore::value_type(returnValue, pHandler));
 #else
-    _vContainerStore.push_back(pContainer);
+    _containerStore.insert(
+        ContainerStore::value_type(returnValue, pContainer));
 #endif
 
-    returnValue = _vContainerStore.size() - 1;
+    _pStoreLock->release();
+
+    return returnValue;
+}
+
+bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)
+{
+    bool returnValue = false;
+
+    _pStoreLock->acquire();
+
+    ContainerStoreIt sI = _containerStore.find(uiContainerId);
+
+    if(sI != _containerStore.end())
+    {
+        _containerStore.erase(sI);
+    }
+#ifdef OSG_DEBUG
+    else
+    {
+        SWARNING << "FieldContainerFactory::unregisterContainer: "
+                 << "id '" << uiContainerId << "' not found in "
+                 << "container store!"
+                 << std::endl;
+
+        returnValue = true;
+    }
+#endif
 
     _pStoreLock->release();
 
@@ -220,20 +250,19 @@ Int32 FieldContainerFactoryBase::findContainer(ContainerPtr ptr) const
 {
     _pStoreLock->acquire();
 
-    ContainerStore::const_iterator it, end;
-    Int32 id = 0;
-    Int32 returnValue = -1;
+    ContainerStoreConstIt sI          = _containerStore.begin();
+    ContainerStoreConstIt sE          = _containerStore.end  ();
+    Int32                 returnValue = -1;
     
-    for(it = _vContainerStore.begin(), end = _vContainerStore.end();
-        it != end; ++it, ++id)
+    for(; sI != sE; ++sI)
     {
 #ifdef OSG_MT_CPTR_ASPECT
-        if((*it)->getPtr() == ptr)
+        if((*sI).second->getPtr() == ptr)
 #else
-        if(*it == ptr)
+        if((*sI).second == ptr)
 #endif
         {
-            returnValue = id;
+            returnValue = (*sI).first;
             break;
         }
     }
@@ -250,32 +279,33 @@ void FieldContainerFactoryBase::dump(void)
 {
     _pStoreLock->acquire();
 
-    ContainerStoreIt sI = _vContainerStore.begin();
-    ContainerStoreIt sE = _vContainerStore.end  ();
+    ContainerStoreConstIt sI = _containerStore.begin();
+    ContainerStoreConstIt sE = _containerStore.end  ();
     
-    for(UInt32 i = 0; sI != sE; ++sI, ++i)
+    for(; sI != sE; ++sI)
     {
-        if((*sI) != NULL)
+        if((*sI).second != NULL)
         {
             FWARNING(("FieldContainerFactoryBase::dump: "
-                      "Entry [%d] is not NULL ([%p]). \n", i, *sI));
+                      "Entry [%d] is not NULL ([%p]). \n",
+                      (*sI).first, (*sI).second));
                                               
-            for(UInt32 j = 0; j < (*sI)->getNumAspects(); ++j)
+            for(UInt32 j = 0; j < (*sI).second->getNumAspects(); ++j)
             {
-                if((*sI)->getPtr(j) != NULL)
+                if((*sI).second->getPtr(j) != NULL)
                 {
                     FWARNING(("  [%d] [%p] [%s] [%d %d]\n",
                               j, 
-                              (*sI)->getPtr(j), 
-                              (*sI)->getPtr(j)->getType().getCName(),
-                              (*sI)->getPtr(j)->getRefCount(),
-                              (*sI)->getPtr(j)->getWeakRefCount() ));
+                              (*sI).second->getPtr(j),
+                              (*sI).second->getPtr(j)->getType().getCName(),
+                              (*sI).second->getPtr(j)->getRefCount(),
+                              (*sI).second->getPtr(j)->getWeakRefCount() ));
                 }
                 else
                 {
                     FWARNING(("  [%d] [%p] [] [N/A N/A]\n",
                               j, 
-                              (*sI)->getPtr(j)));
+                              (*sI).second->getPtr(j)));
                 }
             }
         }

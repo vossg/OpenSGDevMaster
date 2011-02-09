@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGDeprecatedCPP.h"
 #include "OSGSingletonHolder.h"
 #include "OSGContainerForwards.h"
 #include "OSGTypeBase.h"
@@ -50,7 +51,6 @@
 #include "OSGAspectStore.h"
 #include "OSGContainerIdMapper.h"
 
-//#include "OSGFieldContainer.h"
 
 #include <deque>
 
@@ -130,8 +130,9 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     typedef FieldContainer                *ContainerHandlerP;
 #endif
 
-    typedef std::deque<ContainerHandlerP>  ContainerStore;
-    typedef ContainerStore::iterator       ContainerStoreIt;
+    typedef OSG_HASH_MAP(UInt32, ContainerHandlerP)  ContainerStore;
+    typedef ContainerStore::iterator                 ContainerStoreIt;
+    typedef ContainerStore::const_iterator           ContainerStoreConstIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -164,17 +165,30 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    UInt32            getNumContainers   (void                ) const;
-    ContainerPtr      getContainer       (UInt32 uiContainerId) const;
-    ContainerHandlerP getContainerHandler(UInt32 uiContainerId) const;
+    UInt32            getNumLiveContainers (void                ) const;
+    UInt32            getNumTotalContainers(void                ) const;
 
-    ContainerPtr      getMappedContainer (UInt32 uiContainerId) const;
+    ContainerPtr      getContainer         (UInt32 uiContainerId) const;
+    ContainerHandlerP getContainerHandler  (UInt32 uiContainerId) const;
 
-    Int32             findContainer      (ContainerPtr ptr    ) const;
-    
+    ContainerPtr      getMappedContainer   (UInt32 uiContainerId) const;
+
+    Int32             findContainer        (ContainerPtr ptr    ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    void                  lockStore  (void);
+    void                  unlockStore(void);
+
+    ContainerStoreConstIt beginStore (void) const;
+    ContainerStoreConstIt endStore   (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Registration                                */
     /*! \{                                                                 */
 
     UInt32 registerContainer  (const ContainerPtr &pContainer   );
@@ -246,7 +260,8 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
 
     LockRefPtr         _pStoreLock;
 
-    ContainerStore     _vContainerStore;
+    UInt32             _nextContainerId;
+    ContainerStore     _containerStore;
 
     /*! Currently active field container mapper. */
     ContainerIdMapper *_pMapper;
