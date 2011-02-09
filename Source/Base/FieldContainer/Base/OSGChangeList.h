@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGLog.h"
 #include "OSGMemoryObject.h"
 #include "OSGThread.h"
 #include "OSGStatElemTypes.h"
@@ -76,43 +77,22 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
     };
 
           UInt32      uiEntryDesc;
-          UInt32      uiContainerId;         /* The id of the container we 
+          UInt32      uiContainerId;         /* The id of the container we
                                                 hold changes for. */
     const FieldFlags *pFieldFlags;
-          BitVector   whichField;            /* Bit vector of fields have 
-                                                have changed and need 
+          BitVector   whichField;            /* Bit vector of fields have
+                                                have changed and need
                                                 commited. */
-          BitVector  *bvUncommittedChanges;  /* Bit vector of changes that 
-                                                still need to be committed 
+          BitVector  *bvUncommittedChanges;  /* Bit vector of changes that
+                                                still need to be committed
                                                 for this entry. */
           ChangeList *pList;
 
-    ContainerChangeEntry(void)        
-    {
-        uiEntryDesc          = 0;
-        uiContainerId        = 0;
-        pFieldFlags          = NULL;
-        whichField           = 0;
-        bvUncommittedChanges = NULL;
-        pList                = NULL;
-    }    
+    ContainerChangeEntry(void);
 
-    void operator =(const ContainerChangeEntry &)
-    {
-    }
-
-    void clear(ChangeList *pListParent)
-    {
-        uiEntryDesc          = 0;
-        uiContainerId        = 0;
-        pFieldFlags          = NULL;
-        whichField           = 0;
-        bvUncommittedChanges = NULL;
-        pList                = pListParent;
-    }
-
-    void commitChanges(void);
-    void release      (void);
+    void clear        (ChangeList *pListParent);
+    void commitChanges(void                   );
+    void release      (void                   );
 };
 
 /*! \ingroup GrpBaseFieldContainerBase
@@ -136,7 +116,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     typedef            ChangedStore::const_iterator        ChangedStoreConstIt;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
+    /*! \name Statistics                                                   */
     /*! \{                                                                 */
 
     static StatElemDesc<StatIntElem> statNChangedStoreSize;
@@ -146,22 +126,14 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
-    /*! \{                                                                 */
-
-    void fillFromCurrentState(UInt32 uiFieldContainerId = 0,
-                              bool   skipPrototypes     = true);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
+    /*! \name Create                                                       */
     /*! \{                                                                 */
 
     static ChangeList *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
+    /*! \name Commit                                                       */
     /*! \{                                                                 */
 
     void commitChanges        (void);
@@ -169,7 +141,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
+    /*! \name Apply                                                        */
     /*! \{                                                                 */
 
     void applyAndClear(void);
@@ -177,40 +149,43 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
+    /*! \name Clear                                                        */
     /*! \{                                                                 */
 
     void clear(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
+    /*! \name Merge                                                        */
     /*! \{                                                                 */
 
     void merge(ChangeList &pOther);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
+    /*! \name Fill From Current                                            */
     /*! \{                                                                 */
 
-    ChangedStoreConstIt begin(void) const;
-    ChangedStoreConstIt end  (void) const;
-
-    ChangedStoreConstIt beginCreated(void) const;
-    ChangedStoreConstIt endCreated  (void) const;
+    void fillFromCurrentState(UInt32 uiFieldContainerId = 0,
+                              bool   skipPrototypes     = true);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
+    /*! \name Changed/Created Store                                        */
     /*! \{                                                                 */
 
-    UInt32 getNumCreated(void) const;
-    UInt32 getNumChanged(void) const;
+    ChangedStoreConstIt begin        (void) const;
+    ChangedStoreConstIt end          (void) const;
+
+    ChangedStoreConstIt beginCreated (void) const;
+    ChangedStoreConstIt endCreated   (void) const;
+
+    UInt32              getNumCreated(void) const;
+    UInt32              getNumChanged(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
+    /*! \name Misc                                                         */
     /*! \{                                                                 */
 
     static void setReadWriteDefault(bool bReadWrite = true);
@@ -221,7 +196,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name Delayed SubRef                                               */
     /*! \{                                                                 */
 
     template<typename RefCountPolicy>
@@ -231,7 +206,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name Statistics                                                   */
     /*! \{                                                                 */
 
     virtual void dump         (      UInt32    uiIndent = 0,
@@ -243,8 +218,6 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
-    typedef void (ContainerChangeEntry::*CommitFunction)(void);
 
   protected:
 
@@ -275,55 +248,47 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     std::vector<FieldContainer *>       _vDelayedRecSubRefs;
     std::vector<FieldContainer *>       _vDelayedWeakSubRefs;
     std::deque <ContainerChangeEntry *> _qFreeElements;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
     ChangeList(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
+    /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
     virtual ~ChangeList(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
+    /*! \name Add Entries                                                  */
     /*! \{                                                                 */
+
+    void addAddRefd   (const UInt32                uiContainerId      );
+    void addSubRefd   (const UInt32                uiContainerId,
+                             bool                  ignoreLevel = false);
+    void addCreated   (const UInt32                uiContainerId,
+                             BitVector             bFlags             );
+    void addUncommited(      ContainerChangeEntry *pEntry             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
+    /*! \name Entry Pool                                                   */
     /*! \{                                                                 */
 
-    void addAddRefd  (const UInt32 uiContainerId);
-    void addSubRefd  (const UInt32 uiContainerId,
-                            bool   ignoreLevel = false);
+    ContainerChangeEntry *getNewEntry       (void);
+    ContainerChangeEntry *getNewCreatedEntry(void);
 
-    void addCreated  (const UInt32    uiContainerId,
-                            BitVector bFlags       );
+    ContainerChangeEntry *createNewEntry    (void);
+    void                  clearPool         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    ContainerChangeEntry *getNewEntry       (void         );
-    ContainerChangeEntry *getNewCreatedEntry(void         );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    void addUncommited(ContainerChangeEntry *pEntry);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
+    /*! \name SubRef Level                                                 */
     /*! \{                                                                 */
 
     void incSubRefLevel(void);
@@ -331,37 +296,14 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
+    /*! \name Helper                                                       */
     /*! \{                                                                 */
 
+    void doCommitChanges(void           );
+    void doApply        (bool   bClear  );
+    void doClear        (void           );
 
-    ContainerChangeEntry *createNewEntry(void         );
-
-    void                 doApply        (bool bClear  );
-    void                 doClear        (void         );
-    void                 clearPool      (void         );
-
-
-
-    template<CommitFunction func>
-    void doCommitChanges(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    void setAspect(UInt32 uiAspectId);
+    void setAspect      (UInt32 uiAspect);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

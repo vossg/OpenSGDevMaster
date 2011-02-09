@@ -38,72 +38,49 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*-------------------------------------------------------------------------*/
+/* ContainerChangeEntry                                                    */
 
 inline
-void ChangeList::clearPool(void)
+ContainerChangeEntry::ContainerChangeEntry(void) :
+    uiEntryDesc         (0   ),
+    uiContainerId       (0   ),
+    pFieldFlags         (NULL),
+    whichField          (0   ),
+    bvUncommittedChanges(NULL),
+    pList               (NULL)
 {
-    _currentPoolElement = _entryPool          .begin();
-    _currentEntry       = _currentPoolElement->begin();
-
-    _changedStore     .clear();
-    _createdStore     .clear();
-    _uncommitedChanges.clear();
-
-    _qFreeElements.clear();
-}
-
-#if 0
-inline
-void ChangeList::addAddRefd(const UInt32 uiContainerId)
-{
-    FieldContainerPtr pTmp = 
-        FieldContainerFactory::the()->getContainer(uiContainerId);
-
-    fprintf(stderr, "Add AddRef %u %s\n", 
-            uiContainerId, pTmp->getType().getCName());
-
-    ContainerChangeEntry *pEntry = getNewEntry();
-
-    pEntry->uiEntryDesc   = ContainerChangeEntry::AddReference;
-    pEntry->uiContainerId = uiContainerId;
 }
 
 inline
-void ChangeList::addSubRefd(const UInt32 uiContainerId)
+void ContainerChangeEntry::clear(ChangeList *pListParent)
 {
-    fprintf(stderr, "Add SubRef %u\n", uiContainerId);
+    uiEntryDesc          = 0;
+    uiContainerId        = 0;
+    pFieldFlags          = NULL;
+    whichField           = 0;
+    bvUncommittedChanges = NULL;
+    pList                = pListParent;
+}
 
-    ContainerChangeEntry *pEntry = getNewEntry();
+/*-------------------------------------------------------------------------*/
+/* Commit                                                                  */
 
-    pEntry->uiEntryDesc   = ContainerChangeEntry::SubReference;
-    pEntry->uiContainerId = uiContainerId;
+inline
+void ChangeList::commitChanges(void)
+{
+    doCommitChanges();
 }
 
 inline
-void ChangeList::addCreated(const UInt32    uiContainerId,
-                                  BitVector bFlags       )
+void ChangeList::commitChangesAndClear(void)
 {
-    FieldContainerPtr pTmp = 
-        FieldContainerFactory::the()->getContainer(uiContainerId);
-
-    fprintf(stderr, "Add Create %u %s\n", 
-            uiContainerId, pTmp->getType().getCName());
-
-    ContainerChangeEntry *pEntry = getNewEntry();
-
-    pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
-    pEntry->uiContainerId = uiContainerId;
-    pEntry->whichField    = bFlags;
+    doCommitChanges();
+    clear          ();
 }
 
-inline
-void ChangeList::addUncommited(ContainerChangeEntry *pEntry)
-{
-    fprintf(stderr, "Added changed %d\n", pEntry->uiContainerId);
-
-    _uncommitedChanges.push_back(pEntry);
-}
-#endif
+/*-------------------------------------------------------------------------*/
+/* Apply                                                                   */
 
 inline
 void ChangeList::applyAndClear(void)
@@ -118,15 +95,19 @@ void ChangeList::applyNoClear (void)
     doApply(false);
 }
 
+/*-------------------------------------------------------------------------*/
+/* Clear                                                                   */
+
 inline
 void ChangeList::clear(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     if(_uiAspect != Thread::getCurrentAspect())
     {
-        fprintf(stderr, "ChangeList::clear aspects don't match %d %d\n",
-                _uiAspect, Thread::getCurrentAspect());
-        
+        SWARNING << "ChangeList::clear: Aspects don't match "
+                 << _uiAspect << " " << Thread::getCurrentAspect()
+                 << std::endl;
+
         return;
     }
 #endif
@@ -135,11 +116,8 @@ void ChangeList::clear(void)
     clearPool();
 }
 
-inline
-void ChangeList::setAspect(UInt32 uiAspectId)
-{
-    _uiAspect = uiAspectId;
-}
+/*-------------------------------------------------------------------------*/
+/* Changed/Created Store                                                   */
 
 inline
 ChangeList::ChangedStoreConstIt ChangeList::begin(void) const
@@ -177,6 +155,43 @@ UInt32 ChangeList::getNumChanged(void) const
     return _changedStore.size();
 }
 
+/*-------------------------------------------------------------------------*/
+/* Misc                                                                    */
+
+inline
+void ChangeList::setReadWriteDefault(bool bReadWrite)
+{
+    _bReadWriteDefault = bReadWrite;
+}
+
+/*-------------------------------------------------------------------------*/
+/* Entry Pool                                                              */
+
+inline
+ContainerChangeEntry *ChangeList::getNewEntry(void)
+{
+    ContainerChangeEntry *returnValue = createNewEntry();
+    returnValue->clear(this);
+
+    _changedStore.push_back(returnValue);
+
+    return returnValue;
+}
+
+inline
+ContainerChangeEntry *ChangeList::getNewCreatedEntry(void)
+{
+    ContainerChangeEntry *returnValue = createNewEntry();
+    returnValue->clear(this);
+
+    _createdStore.push_back(returnValue);
+
+    return returnValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/* SubRef Level                                                            */
+
 inline
 void ChangeList::incSubRefLevel(void)
 {
@@ -189,25 +204,31 @@ void ChangeList::decSubRefLevel(void)
     --_iSubRefLevel;
 }
 
+/*-------------------------------------------------------------------------*/
+/* Helper                                                                  */
+
 inline
-void ChangeList::setReadWriteDefault(bool bReadWrite)
+void ChangeList::setAspect(UInt32 uiAspect)
 {
-    _bReadWriteDefault = bReadWrite;
+    _uiAspect = uiAspect;
 }
 
-inline 
+/*-------------------------------------------------------------------------*/
+/* Free Functions                                                          */
+
+inline
 void commitChanges(void)
 {
     Thread::getCurrentChangeList()->commitChanges();
 }
 
-inline 
+inline
 void commitChangesAndClear(void)
 {
     Thread::getCurrentChangeList()->commitChangesAndClear();
 }
 
-inline 
+inline
 void clearChangeList(void)
 {
     Thread::getCurrentChangeList()->clear();
