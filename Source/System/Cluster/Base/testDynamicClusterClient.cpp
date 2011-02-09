@@ -32,8 +32,7 @@ OSG::SimpleSceneManager          *_mgr = NULL;
 OSG::GLUTWindowRecPtr            _client_win = NULL;
 OSG::MultiDisplayWindowRecPtr    _cluster_win = NULL;
 OSG::NodeRecPtr                  _root = NULL;
-std::vector<std::string>    _pipenames;
-OSG::UInt32                      _first_fc = 0;
+std::vector<std::string>         _pipenames;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -59,14 +58,6 @@ int doMain(int argc, char **argv)
     // the connection between GLUT and OpenSG
 
     _client_win = OSG::GLUTWindow::create();
-
-    // this is our first created fieldcontainer pointer we need this
-    // to skip the prototypes in createCurrentStateChangeList().
-    _first_fc = _client_win->getId();
-
-    fprintf(stderr, "%d -> %d\n", 
-            _first_fc,
-            OSG::FieldContainerFactory::the()->getNumContainers());
 
     _client_win->setGlutId(winid);
     _client_win->init();
@@ -140,12 +131,7 @@ static void connectCluster(void)
     _cluster_win->addPort(vp);
 
     OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
-
-    fprintf(stderr, "%d -> %d\n", 
-            _first_fc,
-            OSG::FieldContainerFactory::the()->getNumContainers());
-
-    OSG::Thread::getCurrentChangeList()->fillFromCurrentState(_first_fc);
+    OSG::Thread::getCurrentChangeList()->fillFromCurrentState();
     //Thread::getCurrentChangeList()->dump();
     // create from the current state a changelist.
 
