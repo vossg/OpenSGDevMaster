@@ -111,8 +111,10 @@ ENDFUNCTION(OSG_GET_ALL_DEP_OSG_LIB)
 MACRO(OSG_ADD_PROJECT PNAME)
     PROJECT(${PNAME})
     IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
-        OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
+      OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
+      IF(NOT OSG_DISABLE_SOURCE_GROUPS)
         SET(${PROJECT_NAME}_SOURCE_GROUPS "" CACHE INTERNAL "" FORCE)
+      ENDIF()
     ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 ENDMACRO(OSG_ADD_PROJECT)
 
@@ -645,56 +647,59 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
              "LIST(APPEND ${PROJECT_NAME}_MOC \"${LOCAL_MOC}\")\n\n")
     ENDIF(LOCAL_MOC)
 
-    IF(NOT ${PROJECT_NAME}_BASE_DIR)
-      # Add the source files to the source group
-      #Strip the path down to a relative one
-      IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP
-                           ${CMAKE_CURRENT_SOURCE_DIR}/Source
-                           ${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME})
-      ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP
-                           ${CMAKE_SOURCE_DIR}/Source
-                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+    IF(NOT OSG_DISABLE_SOURCE_GROUPS)
+      IF(NOT ${PROJECT_NAME}_BASE_DIR)
+        # Add the source files to the source group
+        #Strip the path down to a relative one
+        IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+          FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                             ${CMAKE_CURRENT_SOURCE_DIR}/Source
+                             ${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME})
+        ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+          FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                             ${CMAKE_SOURCE_DIR}/Source
+                             ${CMAKE_SOURCE_DIR}/${DIRNAME})
+        ELSE()
+          FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                             ${CMAKE_SOURCE_DIR}/Source
+                             ${CMAKE_SOURCE_DIR}/${DIRNAME})
+        ENDIF()
       ELSE()
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP
-                           ${CMAKE_SOURCE_DIR}/Source
-                           ${CMAKE_SOURCE_DIR}/${DIRNAME})
+          FILE(RELATIVE_PATH THE_SOURCE_GROUP
+                             ${${PROJECT_NAME}_BASE_DIR}/
+                             ${_OSG_CURR_DIRNAME})
       ENDIF()
-    ELSE()
-        FILE(RELATIVE_PATH THE_SOURCE_GROUP
-                           ${${PROJECT_NAME}_BASE_DIR}/
-                           ${_OSG_CURR_DIRNAME})
-    ENDIF()
 
-    IF(THE_SOURCE_GROUP)
-         STRING(REPLACE "/" "\\" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
-    ELSE(THE_SOURCE_GROUP)
-         SET(THE_SOURCE_GROUP "Source")
-    ENDIF(THE_SOURCE_GROUP)
+      IF(THE_SOURCE_GROUP)
+           STRING(REPLACE "/" "\\" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
+      ELSE(THE_SOURCE_GROUP)
+           SET(THE_SOURCE_GROUP "Source")
+      ENDIF(THE_SOURCE_GROUP)
 
-    IF(${THE_SOURCE_GROUP} STREQUAL "\\")
-         SET(THE_SOURCE_GROUP "Source")
-    ENDIF()
+      IF(${THE_SOURCE_GROUP} STREQUAL "\\")
+           SET(THE_SOURCE_GROUP "Source")
+      ENDIF()
 
-    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUPS ${THE_SOURCE_GROUP})
-    SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS}
-                                      CACHE INTERNAL "" FORCE)
+      LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUPS ${THE_SOURCE_GROUP})
+      SET(${PROJECT_NAME}_SOURCE_GROUPS ${${PROJECT_NAME}_SOURCE_GROUPS}
+                                        CACHE INTERNAL "" FORCE)
 
-    STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
-    LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
-                ${LOCAL_SRC}
-                ${LOCAL_HDR}
-                ${LOCAL_INL}
-                ${LOCAL_INS}
-                ${LOCAL_FCD}
-                ${LOCAL_LL}
-                ${LOCAL_YY}
-                ${LOCAL_MOC})
+      STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${THE_SOURCE_GROUP})
+      LIST(APPEND ${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
+                  ${LOCAL_SRC}
+                  ${LOCAL_HDR}
+                  ${LOCAL_INL}
+                  ${LOCAL_INS}
+                  ${LOCAL_FCD}
+                  ${LOCAL_LL}
+                  ${LOCAL_YY}
+                  ${LOCAL_MOC})
 
-    SET(${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
-          ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}}
-          CACHE INTERNAL "" FORCE)
+      SET(${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}
+            ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}}
+            CACHE INTERNAL "" FORCE)
+
+    ENDIF(NOT OSG_DISABLE_SOURCE_GROUPS)
 
     # unittests
     IF(LOCAL_UNITTEST_SRC)
@@ -732,6 +737,12 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     IF(${PROJECT_NAME}_NO_LIB)
         RETURN()
+    ENDIF()
+
+    IF(OSG_ENABLE_WRITE_PYTHON_TO_SOURCE)
+      SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/module" CACHE INTERNAL "" FORCE)
+    ELSE()
+      SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_BINARY_DIR}/Python/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
     ENDIF()
 
     # read file lists
@@ -918,13 +929,15 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDFOREACH(LIBDIR)
 
 
-    #Add Source Files to Source Groups
-    #Loop through all of the groups for this Project
-    FOREACH(PROJECT_SOURCE_GROUP_NAME ${${PROJECT_NAME}_SOURCE_GROUPS})
+    IF(NOT OSG_DISABLE_SOURCE_GROUPS)
+      #Add Source Files to Source Groups
+      #Loop through all of the groups for this Project
+      FOREACH(PROJECT_SOURCE_GROUP_NAME ${${PROJECT_NAME}_SOURCE_GROUPS})
         STRING(REPLACE "\\" "_" THE_SOURCE_GROUP ${PROJECT_SOURCE_GROUP_NAME})
         SOURCE_GROUP(${PROJECT_SOURCE_GROUP_NAME} FILES
                      ${${PROJECT_NAME}_SOURCE_GROUP_${THE_SOURCE_GROUP}})
-    ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
+      ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
+    ENDIF(NOT OSG_DISABLE_SOURCE_GROUPS)
 
     ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC}
                                 ${${PROJECT_NAME}_HDR}
@@ -1198,6 +1211,20 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                         WORLD_READ
                 COMPONENT code_headers)
 
+    IF(NOT ${PROJECT_NAME}_NO_PYTHON)
+      FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "libInfo[\"${PROJECT_NAME}\"] = [\n")
+      FOREACH(OSG_DEP ${DEP_OSG_LIST})
+        FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "\"${OSG_DEP}\",")
+      ENDFOREACH()
+      FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "]\n\n\n")
+    ENDIF()
+
+    FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "fullLibInfo[\"${PROJECT_NAME}\"] = [\n")
+    FOREACH(OSG_DEP ${DEP_OSG_LIST})
+      FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "\"${OSG_DEP}\",")
+    ENDFOREACH()
+    FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "]\n\n\n")
+
 ENDFUNCTION(OSG_SETUP_LIBRARY_BUILD)
 
 
@@ -1438,6 +1465,236 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
 ENDFUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
 #############################################################################
+# perform default actions for pass OSGPYTHON
+
+FUNCTION(OSG_SETUP_PYTHON_BUILD)
+
+  IF(${PROJECT_NAME}_NO_PYTHON)
+      RETURN()
+  ENDIF(${PROJECT_NAME}_NO_PYTHON)
+
+  MESSAGE("  setup python for ${PROJECT_NAME}")
+
+  ##################################
+  # Dependency includes
+  ##################################
+
+  OSG_GET_ALL_DEP_OSG_LIB("${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST DEP_MISSING_LIST)
+
+  # read file lists
+  FOREACH(OSGDEP ${DEP_OSG_LIST})
+    OSG_CHECKED_INCLUDE(${CMAKE_BINARY_DIR}/${OSGDEP}.cmake)
+  ENDFOREACH()
+
+  OSG_CHECKED_INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
+
+
+  ##################################
+  # Configure files
+  ##################################
+
+  FILE(MAKE_DIRECTORY ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR})
+
+  SET(_OSG_GEN_CONFIG_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/osgGenBindings.py.in")
+  SET(_OSG_GEN_CONFIG_FILE_OUT "${CMAKE_CURRENT_BINARY_DIR}/osgGenBindings_${PROJECT_NAME}.py")
+  SET(_OSG_GEN_SETUP_FILE_IN   "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/osgSetupBindings_${PROJECT_NAME}.py.in")
+  SET(_OSG_GEN_SETUP_FILE      "${CMAKE_CURRENT_BINARY_DIR}/osgSetupBindings_${PROJECT_NAME}.py")
+
+  SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+  SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
+
+  CONFIGURE_FILE("${_OSG_GEN_CONFIG_FILE_IN}"
+                 "${_OSG_GEN_CONFIG_FILE_OUT}")
+
+  CONFIGURE_FILE("${_OSG_GEN_INIT_FILE_IN}"
+                 "${_OSG_GEN_INIT_FILE_OUT}")
+
+
+  ##################################
+  # Setup File Base
+  ##################################
+
+  IF(EXISTS ${_OSG_GEN_SETUP_FILE_IN})
+    CONFIGURE_FILE("${_OSG_GEN_SETUP_FILE_IN}"
+                   "${_OSG_GEN_SETUP_FILE}")
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "\n\n###############################\n")
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "#auto setup for python bindings\n\n")
+  ELSE()
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+              "${CMAKE_SOURCE_DIR}/Bindings/Python/osgDefaultGen.py"
+              "${_OSG_GEN_SETUP_FILE}")
+  ENDIF()
+
+
+  ##################################
+  # Setup File ModuleHeader
+  ##################################
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleHeaders = \\\n[\n")
+
+  LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "pypp_aliases.h")
+  LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "PreBoostPython.h")
+
+  FOREACH(_OSG_HEADER ${${PROJECT_NAME}_PYTHON_BIND_HEADERS})
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_HEADER}\",\n")
+  ENDFOREACH()
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+
+  ##################################
+  # Setup File ModuleFCs
+  ##################################
+
+  IF(${PROJECT_NAME}_PYTHON_BIND_FCS)
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = \\\n[\n")
+
+    FOREACH(_OSG_FC ${${PROJECT_NAME}_PYTHON_BIND_FCS})
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
+    ENDFOREACH()
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = None\n\n\n")
+  ELSE()
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = None\n\n\n")
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = \\\n[\n")
+
+    FOREACH(_OSG_FC ${${PROJECT_NAME}_FCD})
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
+    ENDFOREACH()
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+  ENDIF()
+
+  ##################################
+  # Setup File ModuleIncludes
+  ##################################
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleIncludes = \\\n[\n")
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${PYTHON_INCLUDE_PATH}\",\n")
+
+  IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper")
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper\",\n")
+  ENDIF()
+  IF(EXISTS "${CMAKE_SOURCE_DIR}/Bindings/Python/Common")
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_SOURCE_DIR}/Bindings/Python/Common\",\n")
+  ENDIF()
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_BINARY_DIR}/Source/Base/Base\",\n")
+
+  FOREACH(_OSG_INC ${${PROJECT_NAME}_INC})
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
+  ENDFOREACH()
+
+  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+
+  ##################################
+  # Setup File ModuleDepIncludes
+  ##################################
+
+  IF(DEP_OSG_LIST)
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = \\\n[\n")
+
+    FOREACH(OSGDEP ${DEP_OSG_LIST})
+      FOREACH(_OSG_INC ${${OSGDEP}_INC})
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
+      ENDFOREACH()
+    ENDFOREACH()
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+  ELSE()
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = None\n\n\n")
+  ENDIF()
+
+  ##################################
+  # Setup File PythonModuleDeps
+  ##################################
+
+  IF(DEP_OSG_LIST)
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = \\\n[\n")
+
+    FOREACH(OSGDEP ${DEP_OSG_LIST})
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${OSG_PYTHON_${OSGDEP}_MODULE_DIR}/generated\",\n")
+    ENDFOREACH()
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+  ELSE()
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = None\n\n\n")
+  ENDIF()
+
+  ##################################
+  # Bindings Gen Target
+  ##################################
+
+  ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGenOnly COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
+  ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGen     COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
+
+  ##################################
+  # Bindings Lib Target
+  ##################################
+
+  IF(EXISTS "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated")
+    FILE(GLOB   _OSG_BIND_SRC "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/*.pypp.cpp")
+    LIST(APPEND _OSG_BIND_SRC "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${PROJECT_NAME}Py.main.cpp")
+
+    FILE(GLOB   _OSG_BIND_SRC_TMP "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper/*.cpp")
+
+    LIST(APPEND _OSG_BIND_SRC ${_OSG_BIND_SRC_TMP})
+
+
+    ADD_LIBRARY(${PROJECT_NAME}Py EXCLUDE_FROM_ALL ${_OSG_BIND_SRC})
+
+    SET_TARGET_PROPERTIES(${PROJECT_NAME}Py PROPERTIES PREFIX "")
+
+    INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+    INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/Bindings/Python/Common)
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper)
+    INCLUDE_DIRECTORIES(${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR})
+
+    ADD_DEFINITIONS(-DBOOST_PYTHON_MAX_ARITY=21)
+
+    FOREACH(OSGDEP ${DEP_OSG_LIST})
+      INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+    ENDFOREACH()
+
+    INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
+  
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME}Py ${PROJECT_NAME})
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME}Py ${Boost_PYTHON_LIBRARY})
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME}Py ${PYTHON_LIBRARY})
+
+    IF(WIN32) 
+    ELSE(WIN32)   
+      GET_FILENAME_COMPONENT(_PY_VERSION_DIR ${PYTHON_INCLUDE_PATH} NAME)
+
+      SET(_OSG_PY_INST_BASE 
+          "lib${OSG_LIBDIR_BASE_SUFFIX}/${_PY_VERSION_DIR}/site-packages/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}/osg2/${PROJECT_NAME}")
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              RUNTIME DESTINATION ${_OSG_PY_INST_BASE}
+              LIBRARY DESTINATION ${_OSG_PY_INST_BASE}
+              ARCHIVE DESTINATION ${_OSG_PY_INST_BASE}
+              COMPONENT libraries
+              OPTIONAL)
+
+      INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+              DESTINATION ${_OSG_PY_INST_BASE})
+    ENDIF(WIN32)
+
+    FOREACH(OSG_DEP ${${PROJECT_NAME}_DEP_OSG_LIB})
+      ADD_DEPENDENCIES(${PROJECT_NAME}PyGen ${OSG_DEP}PyGen)
+    ENDFOREACH()
+
+    ADD_DEPENDENCIES(OSGPy      ${PROJECT_NAME}Py)
+    ADD_DEPENDENCIES(OSGPyGen   ${PROJECT_NAME}PyGen)
+  ENDIF()
+
+ENDFUNCTION(OSG_SETUP_PYTHON_BUILD)
+
+#############################################################################
 # perform default actions for pass OSGDOXYDOC
 
 FUNCTION(OSG_SETUP_SEPARATE_LIBS_DOXYDOC)
@@ -1589,6 +1846,9 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
         ELSE()
             OSG_SETUP_DOXYDOC()
         ENDIF()
+
+    ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGPYTHON")
+      OSG_SETUP_PYTHON_BUILD()
 
     ENDIF(OSG_CMAKE_PASS STREQUAL "OSGSETUP")
 

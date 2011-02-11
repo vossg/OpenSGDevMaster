@@ -42,6 +42,37 @@ OSG_ADD_DIRECTORY("Source/System/Statistics/Foregrounds")
 OSG_ADD_DIRECTORY("Source/System/Window/Utilities")
 
 ##############################################################################
+# setup python bindings
+##############################################################################
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "UtilWrappers.h")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGGeoTypeGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGMakeTransparentGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGMaterialMergeGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGMergeGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGPruneGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGSharePtrGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGSingleTypeGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGSplitGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGStripeGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGVerifyGeoGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGVerifyGraphOp.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGWalkEngine.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGTrackballEngine.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGNoneEngine.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGFlyEngine.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGNavigatorEngine.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGNavigator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGNavigationManager.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGSimpleSceneManager.h")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_FCS "Group")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+##############################################################################
 # setup build
 ##############################################################################
 

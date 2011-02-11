@@ -1,0 +1,742 @@
+# PyOpenSG is (C) Copyright 2005-2009 by Allen Bierbaum
+#
+# This file is part of PyOpenSG.
+#
+# PyOpenSG is free software; you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# PyOpenSG is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+# more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+# This script is derived from gen_bindings.py, it contains all class specific 
+# tasks for the OSGBaseLib for the integration with the OpenSG CMake system
+# (GV)
+#
+
+from goodies import *
+
+import pygccxml.declarations as pd
+
+import pyplusplus.function_transformers as FT
+
+import osggen
+import settings
+import splitGenHelper
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  # Add basic classes that can just be wrapped with no customization
+  for c in ["Connection", 
+            "PointConnection", 
+            "GroupConnection",
+            "ConnectionType"]:
+      gen_classes.append(osggen.ClassInfo(c))
+
+  # For OSG::ExceptionBinaryDataHandler::petValues(), we could set things up
+  # so that the input is a Python list. From there, however, it becomes tricky
+  # because we need to know the data type in the list in order to get the
+  # correct overload of OSG::ExceptionBinaryDataHandler::petValues(). 
+
+  gen_classes.append(
+    osggen.ClassInfo("ExceptionBinaryDataHandler",
+                     excludeList = ["put", "putAndFree", "putValues", "get",
+                                    "getAndAlloc", "getValues"]))
+
+  # Exclude begin, beginCreated, end, endCreated because they return
+  # non-portable iterators. 
+  gen_classes.append(
+    osggen.ClassInfo(
+          "ChangeList",
+          excludeList = ['begin', 
+                         'beginCreated', 
+                         'end', 
+                         'endCreated'],
+          policyList = [("create", 
+                         return_value_policy(reference_existing_object))]))
+  
+
+  def statCollectorCustomizations(klass):
+      """ Remove all the operators. """
+      cmethods = klass.calldefs()
+      for m in cmethods:
+        if isinstance(m, operator_t) and m.symbol in ["+", "+="]:
+          m.exclude()   
+
+  gen_classes.append(
+    osggen.ClassInfo("StatCollector",
+                     excludeList = ["StatCollector", "getElem", "reset", "getValue"],
+                     policyList = [("create", return_value_policy(reference_existing_object))],
+                     modCallable = statCollectorCustomizations)
+    )
+
+  # OSG::Thread is exposed so that we can get access to the change list for a given thread, not so
+  # that Python programmers can spawn OpenSG threads. If it is deemed necessary that Python
+  # programmers be able to do this, then some further special consideration will probably be needed
+  # for this class. In particular, OGS::Thread::runFunction() would need to handle accepting a
+  # Python callable. This may not be so easy, however, as OSG::Thread does not use an instance of
+  # boost::function<T> as the thread callback type.
+  gen_classes.append(
+    osggen.ClassInfo(
+          "Thread",
+          excludeList = ["runFunction"],
+          policyList = [("find", return_value_policy(reference_existing_object)),
+                        ("getCurrentChangeList", return_value_policy(reference_existing_object))]
+          )
+    )
+
+  gen_classes.append(
+    osggen.ClassInfo(
+          "ExternalThread",
+          policyList = [("find", return_value_policy(reference_existing_object))]
+          )
+    )
+
+
+  # fc's that are custom (not in fcd files)
+  fc_infos["AttachmentContainer"] = osggen.FCInfo("AttachmentContainer", "FieldContainer",
+                                                  hasBase = False,
+                                                  excludeList = ["shallowCopy", "shallowCopyLocal",
+                                                                 "createAspectCopy"])
+
+  fc_infos["Attachment"] = osggen.FCInfo("Attachment", "AttachmentContainer", hasBase = True,
+                                         excludeList = ["shallowCopy", "shallowCopyLocal",
+                                                        "createAspectCopy"])
+
+  # Base class for state chunks and other things
+  #fc_infos["FieldContainerAttachment"] = osggen.FCInfo("FieldContainerAttachment",
+  #                                                     "FieldContainer", hasBase = False)
+
+  fc_infos["Node"] = osggen.FCInfo("Node", "AttachmentContainer", hasBase = False)
+
+  fc_infos["NodeCore"] = osggen.FCInfo("NodeCore", "AttachmentContainer")
+
+  # ---- Free functions ----- #
+
+  free_funcs.extend(["setName", 
+                     "getName", 
+                     "cloneTree", 
+                     "deepCloneTree",
+                     "commitChanges"])
+
+  def setUseOverloadMacro(m):
+    m.use_overload_macro = True
+
+  # gccxml bug causes problems with default arguments on these methods.
+  for m in ["cloneTree", "deepCloneTree"]:
+    free_func_mods[m] = [setUseOverloadMacro]
+
+  exc_types.extend([("SocketException", "IOError"),
+                    ("ExceptionBinaryDataHandler::ReadError", "IOError"),
+                    ("ExceptionBinaryDataHandler::WriteError", "IOError"),
+                    ("Exception", "Exception")])
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  return
+
+
+fcf_temp           = None
+cmh_hcdsd_temp     = None
+dsm_cmh_hcdsd_temp = None
+hcp_temp           = None
+cf_temp            = None
+pm_temp            = None
+
+mat_temp           = None
+matd_temp          = None
+quat_temp          = None
+quatd_temp         = None
+stat_templates     = None
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  global fcf_temp
+  global cmh_hcdsd_temp
+  global dsm_cmh_hcdsd_temp
+  global hcp_temp
+  global cf_temp
+  global pm_temp
+  global mat_temp
+  global matd_temp
+  global quat_temp
+  global quatd_temp
+  global stat_templates
+
+  # Add the math templates
+  for vst in settings.vec_storage_typeinfo:
+     template_builder.Template(vst.type, vst.alias)
+   
+  for svst in settings.select_vec_storage_typeinfo:
+     template_builder.Template(svst.type, svst.alias)
+   
+  for vt in settings.vec_typeinfo:
+     template_builder.Template(vt.type, vt.alias)
+      
+  for pt in settings.pnt_typeinfo:
+     template_builder.Template(pt.type, pt.alias) 
+   
+  #pnt_templates = []
+  #for size in settings.pnt_sizes:
+  #   for type_str in settings.pnt_types.iteritems():
+  #      pnt_temp = tb.Template("OSG::Pnt%s%s"%(size, type_str),
+  #                             "Pnt%s%s"%(size,type_str))
+      
+  for ct in settings.color_typeinfo:
+     template_builder.Template(ct.type, ct.alias) 
+
+  mat_temp   = tbuilder.Template("OSG::Matrix", "Matrix")
+  matd_temp  = tbuilder.Template("OSG::Matrix4d", "Matrix4d")
+  quat_temp  = tbuilder.Template("OSG::Quaternion","Quaternion")
+  quatd_temp = tbuilder.Template("OSG::Quaterniond","Quaterniond")
+
+  fcf_temp = tbuilder.Template("OSG::FieldContainerFactory","FieldContainerFactory")
+
+
+  cmh_hcdsd_temp     = tbuilder.Template("OSG::ContainerMixinHead<OSG::HardwareContextDataSlotDesc>",
+                                         "ContainerMixinHardwareContextDataSlotDesc")
+  dsm_cmh_hcdsd_temp = tbuilder.Template("OSG::DataSlotMixin<OSG::ContainerMixinHead<OSG::HardwareContextDataSlotDesc> >",
+                                         "DataSlotMixinContainerMixinHardwareContextDataSlotDesc")
+  hcp_temp           = tbuilder.Template("OSG::HardwareContextParent", "HardwareContextParent")
+
+  cf_temp            = tbuilder.Template("OSG::ConnectionFactory", "ConnectionFactory")
+
+  pm_temp            = tbuilder.Template("OSG::PerfMonitor","PerfMonitor")
+
+
+  stat_templates = []
+  for x in ["StatIntElem", "StatTimeElem", "StatRealElem", "StatIntOnceElem"]:
+    temp = tbuilder.Template("OSG::StatElemDesc<OSG::%s>" % x,
+                               "StatElemDesc_%s" % x)
+    stat_templates.append(temp)
+
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+  
+  print "# ---------------  Base Memory and Field Types ----------------- #"
+   
+  # Expose classes
+  # - Memory/Type classes
+  tb = osg["TypeBase"]
+  tb.include()
+  tb["GlobalNamespace"].exclude()
+  osggen.handleClassDefaults(tb, True)
+  tb["getParent"].call_policies = return_internal_reference()
+  finalize(tb)
+
+  mo = osg["MemoryObject"]
+  mo.include()
+
+  # Do not let Py++ think that it needs to generate a wrapper for
+  # OSG::MemoryObject to expose the constructor and copy constructor for the
+  # class.
+  for c in mo.constructors():
+    c.exclude()
+
+  # Be sure that OSG::MemoryObject instances cannot be copied. The copy
+  # constructor is protected in the declaration, and this is here just to be
+  # sure that Py++ gets it right.
+  for d in mo.declarations:
+    d.noncopyable = True
+
+  dt = osg["DataType"]
+  dt.include()
+  osggen.handleClassDefaults(dt, True)
+  finalize(dt)
+   
+  # - Field classes
+  ft = osg["FieldType"]
+  ft.include()
+  finalize(ft)
+  
+  #ff = decl_from_typedef( osg["FieldFactory"] )
+  #ff.include()
+  #ff["createField"].call_policies = return_value_policy(manage_new_object)
+  #ff["getFieldType"].call_policies  = return_internal_reference()
+  #ff["the"].call_policies = return_value_policy(reference_existing_object)
+  #ff["_fieldTypeM"].exclude()
+  #finalize(ff)
+   
+  fd = osg["FieldDescriptionBase"]
+  fd.include()
+  for x in ["_fEditMethod", "_fGetMethod", "_fIndexedGetMethod", "_fIndexedEditMethod"]:
+    fd[x].exclude()
+
+  for n in ["getFieldType"]:
+    fd[n].call_policies = return_internal_reference()
+
+  for n in ["createConnector", "createField", "clone"]:
+    fd[n].call_policies = return_value_policy(manage_new_object)
+
+  rct = osg.class_("ReflexiveContainerType")    #.finalize()   
+  rct.include()
+  osggen.handleClassDefaults(rct, False)
+
+  fct = osg.class_("FieldContainerType")    #.finalize()   
+  fct.include()
+  osggen.handleClassDefaults(fct, True)
+  finalize(fct)
+   
+  ##fct["getParent"].exclude()
+  #fct["addDescription"].exclude()
+  #fct["subDescription"].exclude()
+  #fct["getFieldDesc"].call_policies = return_internal_reference()
+  ##fct["findFieldDescription"].call_policies = return_internal_reference()   
+      
+  # FieldContainerFactory and FieldContainerFactoryBase.
+  fcf = fcf_temp.decl
+  osggen.exposeSingleton(fcf,"FieldContainerFactory")
+  fcf_base = osg["FieldContainerFactoryBase"]
+  fcf_base.include()
+  osggen.handleClassDefaults(fcf_base, True)
+  finalize(fcf_base)
+
+  #for c in [c.related_class for c in fcf_base[0].recursive_bases]:
+  #   c.include()
+  #   osggen.handleClassDefaults(c, False)
+
+
+  splitGenHelper.exposeTemplateType(cmh_hcdsd_temp)
+  splitGenHelper.exposeTemplateType(dsm_cmh_hcdsd_temp)
+
+  splitGenHelper.exposeTemplateType(hcp_temp)
+  hcp_temp.decl["addDestroyedFunctorFor"].exclude()
+
+
+  # OSG::ConnectionFactory
+  c = cf_temp.decl
+  c.include()
+  osggen.exposeSingleton(c, "ConnectionFactory")
+  cf_base = osg["ConnectionFactoryBase"]
+  cf_base.include()
+  # OSG::ConnectionFactoryBase::dump() is declared but not defined.
+  cf_base["dump"].exclude()
+  osggen.handleClassDefaults(cf_base, True)
+  finalize(cf_base)
+
+  # Performance monitor
+  pm = pm_temp.decl
+  pm.include()
+  # Expose the singleton.
+  osggen.exposeSingleton(pm, "PerfMonitor")
+  pm_base = osg["PerfMonitorBase"]
+  pm_base.include()
+  pm_base["updateFrame"].add_transformation(osggen.unlocked_native(), alias = "updateFrame")
+  pm_base["mOutFile"].exclude()
+  finalize(pm_base)
+
+  #osggen.handleClassDefaults(bl_base, False)
+  nsi = osg["NestedSampleInfo"]
+  nsi.include()
+  nsi['string_hash'].exclude()
+  finalize(nsi)
+
+  # ----------------- Base Math types --------------- #
+  print "---------------------------------------------------"
+  print "Base Math Type"
+   
+  # Expose classes   
+  line = osg.class_("Line")    #.finalize()
+  line.include()
+  line.noncopyable = False
+  finalize(line)
+
+
+  # Expose the VecStorage classes
+  for vst in settings.vec_storage_typeinfo:
+    size = vst.size
+    type_alias = vst.type_str
+    cname = template_alias_db[vst.alias].declaration.name       # Look up true class name by alias
+    c = osg.class_(cname)
+    #c.noncopyable = False
+    c.include()
+    c.rename(vst.exposed_name)
+    c["_uiSize"].exclude()
+    wrap_method(c, "getSeparateValues", 
+                "&osgwrap::VecStorage%s_getSeparateValues_tuple<%s>" % (size, type_alias))
+    #osggen.addStrOperator(c)
+    exclude_protected(c)
+
+  # Expose the SelectVecStorage classes. These are included to get the Python class hierarchy to
+  # match the C++ class hierarchy.
+  for svst in settings.select_vec_storage_typeinfo:
+    size = svst.size
+    type_alias = svst.type_str
+    cname = template_alias_db[svst.alias].declaration.name      # Look up true class name by alias
+    c = osg.class_(cname)
+    c.include()
+    c.rename(svst.exposed_name)
+    exclude_protected(c)
+
+  # VecXX classes
+  for vt in settings.vec_typeinfo:      
+     c = template_alias_db[vt.alias].declaration.type.declaration
+     c.noncopyable = False
+     c.include()
+     c.rename(vt.exposed_name)
+     c["Null"].exclude()
+     c["subZero"].call_policies = return_internal_reference()
+     c["addToZero"].call_policies = return_internal_reference()
+     add_member_function(c,"__setitem__","osgwrap::setArrayElement<%s,%s::ValueType>"%(vt.type,vt.type))
+     osggen.addStrOperator(c)
+     exclude_protected(c)
+   
+  # PntXX classes
+  for pt in settings.pnt_typeinfo:
+    #type_name = template_alias_db[pt.alias].declaration.name
+    c = template_alias_db[pt.alias].declaration.type.declaration
+    c.include()
+    c.noncopyable = False
+    #c = osg.class_(cname)
+    c.rename(pt.exposed_name)
+    c["Null"].exclude()
+    c["subZero"][0].call_policies = return_internal_reference()
+    #c["addToZero"][0].call_policies = return_internal_reference()
+    wrap_method(c,"getValues", "osgwrap::getValues%d<%s>"%(pt.size,pt.type))
+    add_member_function(c,"__setitem__","osgwrap::setArrayElement<%s,%s::ValueType>"%(pt.type,pt.type))
+    osggen.addStrOperator(c)
+    exclude_protected(c)
+   
+  # ColorXX classes
+  for ct in settings.color_typeinfo:
+    (size,type_abrv) = (ct.size,ct.type_str)
+    c = template_alias_db[ct.alias].declaration.type.declaration
+    c.include()
+    c.rename(ct.exposed_name)
+    if 3 == size:
+      wrap_method(c,"getValuesRGB", "Color3_getValuesRGB_tuple<%s>"%type_abrv)
+    else:         
+      wrap_method(c,"getValuesRGBA", "Color4_getValuesRGBA_tuple<%s>"%type_abrv)
+    wrap_method(c,"getValuesHSV", "Color_getValuesHSV< %s >"%ct.type)
+    c.decls("convertToHSV",allow_empty=True).exclude()
+    add_member_function(c,"__setitem__","osgwrap::setArrayElement<%s,%s::ValueType>"%(ct.type,ct.type))
+    osggen.addStrOperator(c)
+    exclude_protected(c)
+    c.noncopyable = False
+      
+  # Matrix
+  #c = template_alias_db["alias_Matrix"].declaration.type.declaration
+  c = mat_temp.decl
+  c.noncopyable = False
+  c.include()
+  finalize(c)
+
+  # Remove the operator that returns a vector by const reference because it
+  # results in returning a copy.
+  for array_op in c['operator[]']:
+    if is_const_ref(array_op.return_type):
+      array_op.exclude()
+
+  # Does not work for some reason. So we do it manually.
+  #c.member_function(name = 'setValue',
+  #                  arg_types = [pd.pointer_t(pd.const_t(pd.float_t())), pd.bool_t()]).exclude()
+
+  for svm in c['setValue']:
+    if 2 == len(svm.arguments):
+      arg0 = svm.arguments[0]
+      if pd.is_pointer(arg0._type) and pd.is_floating_point(pd.remove_pointer(arg0._type)):
+        svm.exclude()
+  c.add_registration_code('def("setValue", &osgwrap::setValueMatrix<float>, ( bp::arg("pMat"), bp::arg("bTransposed")=(bool)(true) ) )')
+
+  wrap_method(c,"getValues", 'osgwrap::getValuesMatrix<float>')     
+  wrap_method(c,"getTransform", 'osgwrap::getTransform_Matrix<float>')
+
+  # Expose all mult and multLeft variations.
+  matrix_value_types = ['OSG::Real32', 'OSG::Real64']
+  for right_type in matrix_value_types:
+    add_member_function(c, "mult", "osgwrap::wrapMatrixMult<OSG::Real32, %s>" % right_type)
+    add_member_function(c, "multLeft", "osgwrap::wrapMatrixMultLeft<OSG::Real32, %s>" % right_type)
+
+  c["jacobi"].exclude()
+  osggen.addStrOperator(c)
+  exclude_protected(c)
+
+  # Expose Matrix4d
+  c = matd_temp.decl
+  c.noncopyable = False
+  c.include()
+  finalize(c)
+
+  # Remove the operator that returns a vector by const reference because it
+  # results in returning a copy.
+  for array_op in c['operator[]']:
+    if is_const_ref(array_op.return_type):
+      array_op.exclude()
+
+  # Does not work for some reason. So we do it manually.
+  #c.member_function(name='setValue', arg_types = [pd.pointer_t(pd.const_t(pd.float_t())), pd.bool_t()]).exclude()
+
+  for svm in c['setValue']:
+    if 2 == len(svm.arguments):
+      arg0 = svm.arguments[0]
+      if pd.is_pointer(arg0._type) and pd.is_floating_point(pd.remove_pointer(arg0._type)):
+        svm.exclude()
+  c.add_registration_code('def("setValue", &osgwrap::setValueMatrix<double>, ( bp::arg("pMat"), bp::arg("bTransposed")=(bool)(true) ) )')
+
+  wrap_method(c,"getValues", 'osgwrap::getValuesMatrix<double>')
+  wrap_method(c,"getTransform", 'osgwrap::getTransform_Matrix<double>')
+
+  # Expose all mult and multLeft variations.
+  matrix_value_types = ['OSG::Real32', 'OSG::Real64']
+  for right_type in matrix_value_types:
+    add_member_function(c, "mult", "osgwrap::wrapMatrixMult<OSG::Real64, %s>" % right_type)
+    add_member_function(c, "multLeft", "osgwrap::wrapMatrixMultLeft<OSG::Real64, %s>" % right_type)
+
+  c["jacobi"].exclude()
+  osggen.addStrOperator(c)
+  exclude_protected(c)
+
+  # Quaternion
+  c = quat_temp.decl
+  c.noncopyable = False
+  c.include()
+  finalize(c)
+  c["_uiSize"].exclude()
+  wrap_method(c,"getValues", 'osgwrap::getValues4<OSG::QuaternionBase<OSG::Real32> >')  
+  wrap_method(c,"getValueAsQuat", 'osgwrap::getValues4<OSG::QuaternionBase<OSG::Real32> >')
+  wrap_method(c,"getValueAsAxisDeg", 'osgwrap::getValueAsAxisDeg<OSG::Real32>')
+  wrap_method(c,"getValueAsAxisRad", 'osgwrap::getValueAsAxisRad<OSG::Real32>')
+  add_member_function(c,"__setitem__","osgwrap::setArrayElement<OSG::Quaternion, OSG::Quaternion::ValueType>")
+  osggen.addStrOperator(c)
+  exclude_protected(c)
+
+  c = quatd_temp.decl
+  c.noncopyable = False
+  c.include()
+  finalize(c)
+  c["_uiSize"].exclude()
+  wrap_method(c,"getValues", 'osgwrap::getValues4<OSG::QuaternionBase<OSG::Real64> >')  
+  wrap_method(c,"getValueAsQuat", 'osgwrap::getValues4<OSG::QuaternionBase<OSG::Real64> >')
+  wrap_method(c,"getValueAsAxisDeg", 'osgwrap::getValueAsAxisDeg<OSG::Real64>')
+  wrap_method(c,"getValueAsAxisRad", 'osgwrap::getValueAsAxisRad<OSG::Real64>')
+  add_member_function(c,"__setitem__","osgwrap::setArrayElement<OSG::Quaterniond, OSG::Quaterniond::ValueType>")
+  osggen.addStrOperator(c)
+  exclude_protected(c)
+   
+  # Plane
+  c = osg.class_("Plane")
+  c.include()
+  c.noncopyable = False
+  c["getNormal"].call_policies = return_internal_reference(1)
+  # These transformations have to have the alias set explicitly or else Py++
+  # will generate the "ugly" alias form as the name of the Python method.
+  c["intersect"].add_transformation(FT.output(1), alias = "intersect")
+  c["intersectInfinite"].add_transformation(FT.output(1),
+                                            alias = "intersectInfinite")
+  exclude_protected(c)
+
+
+  for vol_name in ["Volume", "BoxVolume", "CylinderVolume", "FrustumVolume", "PolytopeVolume",
+                   "SphereVolume"]:
+    c = osg[vol_name][0]
+    c.include()   
+    osggen.handleClassDefaults(c, True)
+    if "Volume" != vol_name:
+      finalize(c)
+    c.decls("getPlanes",allow_empty=True).exclude()
+    exclude_protected(c)
+
+  return
+
+
+def tempLookatPostScanSetup(osg):
+
+#  splitGenHelper.exposeTemplateType(cmh_hcdsd_temp)
+#  splitGenHelper.exposeTemplateType(dsm_cmh_hcdsd_temp)
+
+#  splitGenHelper.exposeTemplateType(hcp_temp)
+#  hcp_temp.decl["addDestroyedFunctorFor"].exclude()
+
+  return
+
+
+def postGenClassesSetup(osg, mb):
+
+  for class_name in ["Thread", "ExternalThread"]:
+     c = osg.class_(class_name)
+     # NOTE: These non-FC types declare ObjRefPtr instead of ObjRecPtr as their recorded pointer
+     # type. Argh.
+     rec_ptr = "OSG::%s::ObjRefPtr" % class_name
+     c.held_type = rec_ptr
+     c.add_registration_code(
+         "pyopensg::register_transit<OSG::%s, %s>::execute();" % (class_name, rec_ptr),
+         works_on_instance = False
+     )
+     c.add_registration_code(
+        "bp::implicitly_convertible<%s, OSG::%s*>();" % (rec_ptr, class_name),
+        works_on_instance = False
+     )
+
+  c = osg.class_("StatCollector")
+  c.noncopyable = True
+
+  # Expose stat classes
+  sedb = osg["StatElemDescBase"]
+  sedb.include()
+  osggen.handleClassDefaults(sedb, False)
+  sedb["findDescByName"].exclude()
+  #finalize(sedb)
+   
+  for t in stat_templates:
+     c = t.decl
+     c.include()
+     finalize(c)
+
+  ebdh = osg.class_("ExceptionBinaryDataHandler")
+
+  for f in ebdh.member_functions("getValue"):
+     arg_type = remove_cv(remove_reference(f.argument_types[0]))
+     if type(arg_type) == pd.cpptypes.bool_t:
+        f.add_transformation(FT.output(0), alias = "getBool")
+     elif type(arg_type) == pd.cpptypes.signed_char_t:
+        f.add_transformation(FT.output(0), alias = "getInt8")
+     elif type(arg_type) == pd.cpptypes.short_int_t:
+        f.add_transformation(FT.output(0), alias = "getInt16")
+     elif type(arg_type) == pd.cpptypes.int_t:
+        f.add_transformation(FT.output(0), alias = "getInt32")
+     elif arg_type.decl_string == 'OSG::Int64':
+        f.add_transformation(FT.output(0), alias = "getInt64")
+     elif type(arg_type) == pd.cpptypes.float_t:
+        f.add_transformation(FT.output(0), alias = "getReal32")
+     elif type(arg_type) == pd.cpptypes.double_t:
+        f.add_transformation(FT.output(0), alias = "getReal64")
+     elif type(arg_type) == pd.cpptypes.long_double_t:
+        f.add_transformation(FT.output(0), alias = "getReal128")
+     elif (arg_type.decl_string == 'std::string' or
+           arg_type.decl_string == '::std::string'):
+        f.add_transformation(FT.output(0), alias = "getString")
+     else:
+        #print "Excluding return type", arg_type.decl_string
+        f.exclude()
+
+  for f in ebdh.member_functions("putValue"):
+     arg_type = remove_cv(remove_reference(f.argument_types[0]))
+     if type(arg_type) == pd.cpptypes.bool_t:
+        f.alias = "putBool"
+     elif type(arg_type) == pd.cpptypes.signed_char_t:
+        f.alias = "putInt8"
+     elif type(arg_type) == pd.cpptypes.short_int_t:
+        f.alias = "putInt16"
+     elif type(arg_type) == pd.cpptypes.int_t:
+        f.alias = "putInt32"
+     elif arg_type.decl_string == 'OSG::Int64':
+        f.alias = "putInt64"
+     elif type(arg_type) == pd.cpptypes.float_t:
+        f.alias = "putReal32"
+     elif type(arg_type) == pd.cpptypes.double_t:
+        f.alias = "putReal64"
+     elif type(arg_type) == pd.cpptypes.long_double_t:
+        f.alias = "putReal128"
+     elif (arg_type.decl_string == 'std::string' or
+           arg_type.decl_string == '::std::string'):
+        f.alias = "putString"
+     else:
+        #print "Excluding data type", arg_type.decl_string
+        f.exclude()
+
+  # Base methods
+  osg["osgInit"].exclude()     # Add wrapper below to code creator
+  osg_exit = osg["osgExit"]
+  osg_exit.include()
+
+  #add_method(mb,"getRefCount","&osgwrap::ptrGetRefCount")
+  #add_method(mb,"getContainerId","&osgwrap::ptrGetContainerId")   
+  add_method(mb, "osgInit", "&osgwrap::osgInitWrapper")
+
+
+  mat_util = ["MatrixOrthogonal", "MatrixFrustum", "MatrixPerspective",
+              "MatrixStereoPerspective", "MatrixLookAt", "MatrixProjection"]
+  for f in mat_util:
+     decl = osg[f]
+     decl.include()
+
+
+  rc = osg.class_("ReflexiveContainer") 
+  rc.include()
+  rc["getClassType"].call_policies = return_value_policy(reference_existing_object)
+  for decl in rc["getFieldDescription"]:
+     decl.call_policies = return_internal_reference()
+  for name in ["getContainerSize", "changed"]:
+     rc[name].exclude()
+  for decl in rc["getType"]:
+     # Having both a const and a non-const version of this method is pointless in Python.
+     if is_const_ref(decl.return_type):
+        decl.exclude()
+     else:
+        decl.call_policies = return_internal_reference()
+
+  rc.variables(allow_empty = True).exclude()
+  finalize(rc)
+
+  fc = osg.class_("FieldContainer") 
+  fc.include()
+  dont_expose = ["onCreate", "onCreateAspect", "onDestroy", "NextFieldMask", 'isNodeCore',
+                 "editSField", "editMField", "getFieldFlags", "deregister", "shallowCopy",
+                 "shallowCopyLocal", "createAspectCopy", "getContainerSize"]
+  osggen.excludeMembers(fc, dont_expose)
+
+  for decl in fc["getType"]:
+     # Having both a const and a non-const version of this method is pointless in Python.
+     if is_const_ref(decl.return_type):
+        decl.exclude()
+     # OSG::ReflexiveContainer::getType() returns OSG::ReflexiveContainerType& while
+     # OSG::FieldContainer::getType() returns OSG::FieldContainerType&. The covariant return type
+     # does not seem to be handled correctly by Py++ (we want the most derived version), so we do
+     # it manually here.
+     elif decl.return_type.decl_string.find("ReflexiveContainerType") != -1:
+        decl.exclude()
+     else:
+        decl.call_policies = return_internal_reference()
+
+  # getClassType() is a static method that returns a reference to an existing
+  # object. Because it is a static method, it cannot use
+  # return_internal_refernce because there is no custodian object.
+  fc["getClassType"].call_policies = return_value_policy(reference_existing_object)
+
+  fc.variables(allow_empty=True).exclude()
+  finalize(fc)
+  osggen.addFCPtrCode(fc, mb, "FieldContainer", None)   
+
+
+def postFCDInfoSetup(osg, mb):
+
+  splitGenHelper.handleFindNamedComponent(osg, "FieldContainer")
+  splitGenHelper.handleFindNamedComponent(osg, "AttachmentContainer")
+
+  c = osg.class_("Node")
+  c.add_declaration_code("""
+namespace
+{
+
+bp::list getChildren(OSG::Node* node)
+{
+   bp::list children;
+
+   OSG::UInt32 num_children(node->getNChildren());
+   for ( OSG::UInt32 i = 0; i < num_children; ++i )
+   {
+      children.append(OSG::Node::ObjTransitPtr(node->getChild(i)));
+   }
+
+   return children;
+}
+
+}
+""")
+  c.add_registration_code('add_property("children", getChildren)')
+
+  c = osg.class_("AttachmentContainer")
+  c["findAttachment"].call_policies = return_internal_reference()
+
+  return

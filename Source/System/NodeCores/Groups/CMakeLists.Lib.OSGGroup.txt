@@ -44,6 +44,20 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Misc")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Stage")
 
 ##############################################################################
+# setup python bindings
+##############################################################################
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "GroupWrappers.h")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGRenderAction.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGStageParent.h")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_FCS "Group")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+##############################################################################
 # setup build
 ##############################################################################
 

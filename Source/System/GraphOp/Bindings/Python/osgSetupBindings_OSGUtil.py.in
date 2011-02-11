@@ -1,0 +1,79 @@
+
+from goodies import *
+
+import osggen
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  # Add basic classes that can just be wrapped with no customization
+  for c in ["NavigationManager", 
+            "SimpleSceneManager", 
+            "Navigator"]:
+      gen_classes.append(osggen.ClassInfo(c))
+
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  return
+
+
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+  
+  return
+
+
+
+def postGenClassesSetup(osg, mb):
+
+  # Graph ops   
+  for n in ["GraphOp", "MakeTransparentGraphOp", "MaterialMergeGraphOp",
+            "PruneGraphOp", "SharePtrGraphOp", "VerifyGeoGraphOp",
+            "GeoTypeGraphOp", "StripeGraphOp", "SplitGraphOp",
+            "VerifyGraphOp", "MergeGraphOp"]:
+     op = osg.class_(n)
+     op.include()
+     # OSG::GraphOp subclasses are not intended to be instantiated directly by user-level code.
+     op.no_init = True
+     osggen.handleClassDefaults(op, False)
+     op.decls("traverseEnter", allow_empty = True).include()
+     op.decls("traverseLeave", allow_empty = True).include()
+
+     if "GraphOp" != n:
+        op.add_registration_code(
+            "bp::implicitly_convertible<OSG::%s::ObjRefPtr, OSG::GraphOp::ObjRefPtr>();" % n,
+            works_on_instance = False
+        )
+        op.add_registration_code(
+            "bp::implicitly_convertible<OSG::%s::ObjTransitPtr, OSG::GraphOp::ObjRefPtr>();" % n,
+            works_on_instance = False
+        )
+
+     op.add_registration_code(
+         "bp::implicitly_convertible<OSG::%s::ObjTransitPtr, OSG::%s::ObjRefPtr>();" % (n, n),
+         works_on_instance = False
+     )
+
+     # The following may not be useful at all.
+     mb.add_registration_code('bp::def("getCPtr", &pyopensg::ToCPtr<OSG::%s::ObjRefPtr>, ' % n + \
+                              'bp::return_value_policy<bp::reference_existing_object>());')
+
+  c = osg.class_("MakeTransparentGraphOp").class_("MaterialObject")
+  c["getMaterial"].call_policies = return_value_policy(reference_existing_object)
+  c = osg.class_("MaterialMergeGraphOp").class_("MaterialObject")
+  c["getMaterial"].call_policies = return_value_policy(reference_existing_object)
+
+  return
+
+
+
+def postFCDInfoSetup(osg, mb):
+
+  return

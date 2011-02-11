@@ -1,0 +1,516 @@
+#!/usr/bin/env python
+
+# PyOpenSG is (C) Copyright 2005-2009 by Allen Bierbaum
+#
+# This file is part of PyOpenSG.
+#
+# PyOpenSG is free software; you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# PyOpenSG is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+# more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+# This script is derived from gen_bindings.py, all class specific tasks were
+# moved to per lib scripts for the integration with the OpenSG CMake system
+# (GV)
+#
+
+import sys
+import os
+import logging
+
+try:
+   import xml.etree.ElementTree as et
+except:
+   import elementtree.ElementTree as et
+
+import xml.parsers.expat
+
+if ${OSG_HAS_PYOSG_PYPLUSPLUS_DIR}:
+  sys.path.insert(0, "${PYOSG_PYPLUSPLUS_DIR}")
+
+if ${OSG_HAS_PYOSG_PYPLUSPLUS_GOODIES_DIR}:
+  sys.path.insert(0, "${PYOSG_PYPLUSPLUS_GOODIES_DIR}")
+
+sys.path.insert(0, "../Helper")
+
+
+import osggen
+
+from goodies import *
+from pyplusplus import messages
+import pygccxml.declarations as pd
+
+import osgSetupBindings_${PROJECT_NAME} as ${PROJECT_NAME}Gen
+
+pj = os.path.join
+
+use_profiler  = False
+use_query_opt = True
+
+# Setup global settings
+set_recursive_default(False)
+# Need a little more room for bindings
+sys.setrecursionlimit( sys.getrecursionlimit() * 10)   
+
+set_logger_level(logging.INFO)
+#set_logger_level(logging.DEBUG)
+messages.disable(*messages.all_warning_msgs)
+
+import pyplusplus.code_creators.calldef
+pyplusplus.code_creators.calldef.use_enum_workaround = True
+
+def findFcdFileInSubdirectories(fcdFilename, subdirectories=[]):
+
+  for subdir in subdirectories:
+    for root, dirs, names in os.walk(subdir):
+        if fcdFilename in names:
+            return os.path.join(root, fcdFilename)
+
+  return None
+
+def parseFCDFiles(fcdFullFilename, fcInfoDict, headerList, fc_ignore_list, skip_fcds):
+
+  if fcdFullFilename == None:
+    return
+
+  fcdName = os.path.basename(fcdFullFilename).replace('.fcd', '')
+  clsName = fcdName.replace("OSG", "")
+
+#  print "xbar ", fcdFullFilename
+#  print "xfoo ", fcdName
+#  print "xfb  ", fc_ignore_list
+#  print "xbb  ", skip_fcds
+
+  if clsName in fc_ignore_list or fcdFullFilename in skip_fcds:
+     print "IGNORE", clsName
+     return
+
+  headerList.append(fcdName+".h")
+
+  try:
+    tree = et.parse(fcdFullFilename)
+    fc_elt = tree.getroot()
+    assert fc_elt.tag == "FieldContainer"
+    attribs = fc_elt.attrib.copy()
+    parent = attribs["parent"]
+    name = attribs["name"]
+    doc = fc_elt.text.strip()
+  except xml.parsers.expat.ExpatError, ex:
+    #print "Error parsing file: %s"%f
+    #print str(ex)
+    #print "Trying re method instead. "
+
+    file_text = file(f).read()
+    name = re.search('name=\"(.*?)\"', file_text).group(1)
+    parent = re.search('parent=\"(.*?)\"', file_text).group(1)
+    library = re.search('library=\"(.*?)\"', file_text).group(1)
+    doc = ""
+
+  # Build up the class info
+  #print "   name: %s  parent: %s" % (name, parent)
+  if not fcInfoDict.has_key(name):
+    fcInfoDict[name] = osggen.FCInfo(name, parent, documentation = doc)
+
+def findAndParseFCDFiles(fcInfoDict, headerList, fc_ignore_list, skip_fcds):
+
+  for fcdName in ${PROJECT_NAME}Gen.moduleFCs:
+
+#    print "foo ", fcdName
+    fcdFilename = "OSG"+fcdName+".fcd"
+#    print "bar ", fcdFilename
+    fcdFullFilename = findFcdFileInSubdirectories(fcdFilename, 
+                                                  ${PROJECT_NAME}Gen.moduleIncludes)
+#    print "foobar ", fcdFullFilename
+
+    parseFCDFiles(fcdFullFilename, fcInfoDict, headerList, fc_ignore_list, skip_fcds)
+
+def parseFCDFileList(fcdInfoDict, headerList, fc_ignore_list, skip_fcds):
+
+  for fcdFilename in ${PROJECT_NAME}Gen.moduleFCDFiles:
+    parseFCDFiles(fcdFilename, fcdInfoDict, headerList, fc_ignore_list, skip_fcds)
+
+
+
+gen_classes    = []
+fc_infos       = {}
+core_mods      = {}
+free_funcs     = []
+
+free_func_mods = {}
+
+fc_ignore_list = []
+skip_fcds      = []
+
+exc_types      = []
+
+non_fc_template_instances = []
+
+modules        = [${PROJECT_NAME}Gen]
+
+for mod in modules:
+  mod.preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types)
+
+opensg_src_dir = "${CMAKE_SOURCE_DIR}/Source"
+
+def main():
+    
+  output_dir = "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}"
+  main_header_filename    = os.path.join(output_dir,
+                                         '${PROJECT_NAME}_mainheader.h')
+  main_header_filename_in = os.path.join(output_dir,
+                                         '${PROJECT_NAME}_mainheader.h.in')
+  exported_filename       = os.path.join(output_dir, 
+                                         'generated', 'osg_exported.txt')
+
+  all_headers = ${PROJECT_NAME}Gen.moduleHeaders
+
+  for mod in modules:
+    mod.excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds)
+
+  if ${PROJECT_NAME}Gen.moduleFCs != None:
+    findAndParseFCDFiles(fc_infos, all_headers, fc_ignore_list, skip_fcds)
+
+  if ${PROJECT_NAME}Gen.moduleFCDFiles != None:
+     parseFCDFileList(fc_infos, all_headers, fc_ignore_list, skip_fcds)
+
+  template_builder = osggen.LocalTemplateBuilder()
+  tbuilder         = TemplateBuilder()   
+
+  for mod in modules:
+    mod.genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances)
+
+  # Member template instantiations
+  template_instance_text  = "\n\n// Member template instantiations\n"
+  template_instance_text += "#if defined(__GCCXML__)\n"
+
+  for c in fc_infos.itervalues():
+    for t in c.templateInstances:
+      inst_text = "%s;\n"%t
+      template_instance_text = template_instance_text + inst_text
+
+  for t in non_fc_template_instances:
+    inst_text = "%s;\n" % t
+    template_instance_text = template_instance_text + inst_text
+
+  template_instance_text += "#endif\n"
+
+  tbuilder_tfc_txt = template_builder.buildTemplateFileContents();
+  tbuilder_bac_txt = tbuilder.buildAutogenContents();
+
+  header_extra_txt = "";
+
+  if tbuilder_tfc_txt != None:
+     header_extra_txt = header_extra_txt + tbuilder_tfc_txt
+
+  if tbuilder_bac_txt != None:
+     header_extra_txt = header_extra_txt + tbuilder_bac_txt
+
+  main_header_filename_in = osggen.buildContainerHeader(
+    all_headers, 
+    header_extra_txt + template_instance_text,
+    filename = main_header_filename_in)
+
+  cp_command  = "${CMAKE_COMMAND} -E copy_if_different "
+  cp_command += main_header_filename_in + " "
+  cp_command += main_header_filename
+
+  os.system(cp_command)
+
+  cache_file = "pypp.pyopensg.cache"
+
+  gcc_xml = "${GCCXML}"
+
+  inc_path = ${PROJECT_NAME}Gen.moduleIncludes
+
+  if ${PROJECT_NAME}Gen.moduleDepIncludes != None:
+    inc_path.extend(${PROJECT_NAME}Gen.moduleDepIncludes)
+
+  defines       = []              
+  opensg_cflags = ""
+  boost_cflags  = "-DBOOST_PYTHON_MAX_ARITY=21"
+
+  cflags = opensg_cflags + " " + boost_cflags
+
+
+  mb = ModuleBuilder([main_header_filename],
+                     working_directory = ".",
+                     include_paths = inc_path,
+                     cache = cache_file + ".module",
+                     define_symbols = defines,
+                     ignore_gccxml_output = True,
+                     optimize_queries = use_query_opt,
+                     #start_with_declarations = ["OSG"],
+                     cflags = cflags,
+                     gccxml_path=gcc_xml)
+                     #dependent_headers = all_headers_full_paths)
+
+  tbuilder.processTemplates(mb)
+  mb.BOOST_PYTHON_MAX_ARITY = 21
+  mb.global_ns.exclude()
+
+  osg = mb.global_ns.namespace("OSG", recursive=False)   
+
+  osggen.OSG_MODULE = osg
+
+  if ${PROJECT_NAME}Gen.moduleDepencies != None:
+    for moddep in ${PROJECT_NAME}Gen.moduleDepencies:
+      f = open(os.path.join(moddep, 'osg_exported.txt'), "r")
+
+      for line in f:
+        sline = line.rstrip()
+        try:
+          cls = osg.class_(sline)
+          cls.already_exposed = True
+
+        except Exception, ex:
+          print "class [%s] unknown" % sline
+
+      f.close()
+#        mb.register_module_dependency(moddep)
+
+  # take the pure virtual functions out immediately otherwise they show
+  # up in random places.
+  cls = osg["FieldContainer"]
+
+  for pvf in ["createAspectCopy", "shallowCopy", 
+              "shallowCopyDependent", "shallowCopyLocal",
+              "execSyncV"]:
+    cls[pvf].ignore = True
+    cls[pvf].set_virtuality(pd.VIRTUALITY_TYPES.NOT_VIRTUAL)
+
+  # Map from template alias name to real decl wrapper type
+  template_alias_db = {}
+  osg_typedef_db    = {}
+
+  global_typedefs = mb.global_ns.typedefs()   
+
+  for td in global_typedefs:
+    template_alias_db[td.name] = td.type
+
+  osg_typedefs = osg.typedefs()
+
+  for mod in modules:
+    mod.postScanSetup(osg, template_alias_db)
+
+  if "OSGBase" == "${PROJECT_NAME}":
+    ${PROJECT_NAME}Gen.tempLookatPostScanSetup(osg)
+
+
+  # Standard classes
+  for class_info in gen_classes:
+#    print "Class: %s"%class_info.name
+   
+    c = osg.class_(class_info.name)
+    c.include()
+    #base_c.finalize()
+    osggen.handleClassDefaults(c, class_info.finalize)
+    for x in class_info.excludes:            
+      c[x].exclude()
+    for (n,p) in class_info.policies:
+      c[n].call_policies = p      
+    if class_info.use_shared_ptr:
+      c.held_type = "boost::shared_ptr<OSG::%s>"%class_info.name
+    for d in class_info.declarations:
+      c.add_declaration_code(d)
+    for r in class_info.registrations:
+      c.add_registration_code(r)
+    if class_info.modCallable:         # Call any customizations needed
+      class_info.modCallable(c)
+    if class_info.finalize:
+      finalize(c)
+
+  for mod in modules:
+    mod.postGenClassesSetup(osg, mb)
+
+  
+  # Free functions.
+  for m in free_funcs:
+    #print "m: %s"%m
+    funcs = osg.decls(m)
+    funcs.include()
+    for f in funcs:
+      f.call_policies = osggen.FC_POLICY_RESOLVER(f)
+      for mod_callable in free_func_mods.get(m, []):
+        mod_callable(f)
+
+
+  # --- Exception Translation  --- #
+
+  for t in exc_types:
+    class_hierarchy = t[0].split('::')
+    ex_type_name = class_hierarchy.pop()
+    ns = osg
+    for c in class_hierarchy:
+      ns = ns.class_(c)
+    ex_type = ns.class_(ex_type_name)
+    ex_type.translate_exception_to_string('PyExc_%s' % t[1], 'exc.what()')
+    ex_type.include()
+    finalize(ex_type)
+
+   
+  
+  # For each field container class we have information about, do the following:
+  # - Generate code for class and classBase
+  for key, cinfo in fc_infos.iteritems():
+     base_name = None
+#     print "Field container: %s" % cinfo.name
+
+     # If requested, expose the base
+     #if has_base:
+     if cinfo.hasBase:
+       try:
+         base_name      = cinfo.name + "Base"
+         base_c = osg.class_(base_name)
+         base_c.include()
+         finalize(base_c)
+         osggen.handleClassDefaults(base_c, True)
+         finalize(base_c, True)
+       except Exception, ex:
+         print "Exception when exposing base class [%s].  Skipping" % base_name
+         print "  details: ", ex
+
+       #osggen.removePureVirtuals(base_c)
+       #for x in base_excludes:            
+       #   base_c[x].exclude()
+       #for (n,p) in base_policies:
+       #   base_c[n].call_policies = p      
+#       print "Done with %s" % base_name
+        
+     # Expose the core class
+     c = osg.class_(cinfo.name)
+     if cinfo.alias:
+       c.alias = cinfo.alias
+     c.include()
+     osggen.handleClassDefaults(c, True)
+     finalize(c, True)
+     #c.documentation = cinfo.documentation
+     #osggen.removePureVirtuals(c)
+      
+     for x in cinfo.excludes:
+       #print "   exclude:", x
+       try:
+         c[x].exclude()
+       except Exception, ex:
+         pass
+         #print "Exception excluding: %s\n%s"%(x,str(ex))
+     for (n,p) in cinfo.policies:
+       #print "   set policy for:", n
+       try:
+         c[n].call_policies = p   
+       except Exception, ex:
+         pass
+         #print "Exception setting policies on: %s\n%s"%(n,str(ex))
+
+     for method_info in cinfo.addMethods:         
+       add_member_function(c, method_info[0],method_info[1])
+
+     # Handle template naming.
+     # XXX: This is a hack for the one specific case where it is used right now.
+     # It should be refactored to use some hints from cinfo to choose naming method.
+     for mname in cinfo.templateMethods:
+#       print "  member:", mname
+       for f in c.member_functions(mname):
+         ret_type = f.return_type
+#         print "    ret type:", ret_type
+#         print "        dict:", ret_type.__dict__
+         if not is_void(ret_type):
+           if hasattr(ret_type, "declaration"):
+             ret_alias = ret_type.declaration.alias
+           else:
+             ret_alias = ret_type.CPPNAME.replace(" ", "_")
+           f.alias = "%s_%s" % (f.alias, ret_alias)
+#           print "    aliases: %s  %s" % (f.alias, ret_alias)
+         else:
+           f.alias = f.name
+         f.name = f.demangled_name
+         f.create_with_signature = True
+
+     # Register all the pointer conversions that we need and sets held type
+     osggen.addFCPtrCode(c, mb, cinfo.name, cinfo.parent)
+      
+     # Apply mods (modification methods)
+     if core_mods.has_key(key):
+       #print "Apply mods for: ", key
+       for class_mod in core_mods[key][0]:
+         class_mod(c)
+       for base_mod in core_mods[key][1]:
+         base_mod(base_c)
+
+  for mod in modules:
+    mod.postFCDInfoSetup(osg, mb)
+
+  # ------ Standard ------------- #
+  # - Remove all op=
+  # - Always expose with scope method
+  all_classes = osg.classes()
+  for c in all_classes:
+    c.operators(symbol="=", allow_empty=True).exclude()
+    c.always_expose_using_scope = True 
+
+
+
+  mb.build_code_creator(module_name='${PROJECT_NAME}Py')
+  mb.code_creator.add_namespace_usage("std")
+
+  extra_includes = ["OsgPtrHelpers.h",
+                    "boost/python/suite/indexing/map_indexing_suite.hpp",
+                    "boost/python/suite/indexing/vector_indexing_suite.hpp"]
+
+  mb.code_creator.replace_included_headers(
+     [main_header_filename] + extra_includes)
+
+  mb.code_creator.license = """
+// PyOpenSG is (C) Copyright 2005-2009 by Allen Bierbaum
+//
+// This file is part of PyOpenSG.
+//
+// PyOpenSG is free software; you can redistribute it and/or modify it under
+// the terms of the GNU Lesser General Public License as published by the Free
+// Software Foundation; either version 2 of the License, or (at your option)
+// any later version.
+//
+// PyOpenSG is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+// more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#endif
+"""
+
+  if False:
+    decl_file = file("new_decl_out_final.txt",'w', 1024000)
+    print "Writing out decls to file... ",
+    mb.print_declarations(osg, writer=decl_file.write)
+    #mb.print_declarations(my_class)
+    decl_file.close()
+    print "done."
+
+  mb.code_creator.user_defined_directories.append(output_dir)
+
+  mb.split_module(pj(output_dir,'generated'))
+
+
+  f = open(exported_filename, "w")
+
+  for cls in osg.classes():
+    if cls.ignore == False:
+      f.write(cls.alias + "\n")
+
+  f.close()
+
+
+main()

@@ -1,0 +1,179 @@
+
+from goodies import *
+
+import osggen
+import splitGenHelper
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  return
+
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  fc_ignore_list.extend(["ShadowMapEngine", "SimpleShadowMapEngine"])
+
+
+scp_temp = None
+spb_temp = None
+sp_temp  = None
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  global scp_temp
+  global spb_temp
+  global sp_temp
+
+  scp_temp = tbuilder.Template("OSG::ContainerMixinHead<OSG::StageDesc>",
+                               "StageContainerParent")
+
+  spb_temp = tbuilder.Template("OSG::TraversalValidationHandlerMixin< OSG::ContainerMixinHead<OSG::StageDesc> >",
+                               "StageParentBase")
+  sp_temp  = tbuilder.Template("OSG::StageParent", "StageParent")
+
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+  
+  splitGenHelper.exposeTemplateType(scp_temp)
+
+  splitGenHelper.exposeTemplateType(spb_temp)
+
+  spb_temp_decl = spb_temp.decl
+  spb_temp_decl["editSFUpdateMode"].exclude()
+  spb_temp_decl["getSFUpdateMode"].call_policies = return_internal_reference()
+
+  spb_temp_decl.add_declaration_code("""
+namespace
+{
+
+void destroyedCallback(bp::object callable, OSG::FieldContainer* fc,
+                       const OSG::UInt64 i)
+{
+   callable(fc, i);
+}
+
+void wrapAddDestroyedFunctor(alias_StageParentBase* spb, bp::object func,
+                             const std::string& createSymbol)
+{
+   spb->addDestroyedFunctor(boost::bind(destroyedCallback, func, _1, _2),
+                            createSymbol);
+}
+
+}
+""")
+  spb_temp_decl["addDestroyedFunctor"].exclude()
+  spb_temp_decl.add_registration_code("""
+      def("addDestroyedFunctor", wrapAddDestroyedFunctor,
+          (bp::arg("func"), bp::arg("createSymbol")))
+   """)
+
+  splitGenHelper.exposeTemplateType(sp_temp)
+
+  return
+
+
+def postGenClassesSetup(osg, mb):
+
+  return
+
+
+
+def postFCDInfoSetup(osg, mb):
+
+  splitGenHelper.handlAutoSlotReplace(osg, "DynamicStateGeneratorStageData")
+
+  c = osg.class_("RenderCallbackStage")
+  c["addPreRenderFunctor"].exclude()
+  c["addPostRenderFunctor"].exclude()
+  c["fillPreRenderStore"].exclude()
+  c["fillPostRenderStore"].exclude()
+
+  c.add_declaration_code("""
+namespace
+{
+
+void renderCallback(bp::object callable, OSG::DrawEnv* drawEnv)
+{
+   callable(drawEnv);
+}
+
+void wrapAddPreRenderFunctor(OSG::RenderCallbackStage* self,
+                             bp::object callable,
+                             const std::string& createSymbol)
+{
+   self->addPreRenderFunctor(boost::bind(renderCallback, callable, _1),
+                             createSymbol);
+}
+
+void wrapAddPostRenderFunctor(OSG::RenderCallbackStage* self,
+                              bp::object callable,
+                              const std::string& createSymbol)
+{
+   self->addPostRenderFunctor(boost::bind(renderCallback, callable, _1),
+                              createSymbol);
+}
+
+inline void
+fillFunctorStore(const bp::list& callables,
+                 OSG::RenderCallbackStage::RenderFunctorStore& store)
+{
+   const int length = bp::extract<int>(callables.attr("__len__")());
+   store.resize(length);
+
+   for ( int i = 0; i < length; ++i )
+   {
+      store[i] = boost::bind(renderCallback, callables[i], _1);
+   }
+}
+
+void wrapFillPreRenderStore(OSG::RenderCallbackStage* self, bp::list callables)
+{
+   OSG::RenderCallbackStage::RenderFunctorStore store;
+   fillFunctorStore(callables, store);
+   self->fillPreRenderStore(store);
+}
+
+void wrapFillPostRenderStore(OSG::RenderCallbackStage* self, bp::list callables)
+{
+   OSG::RenderCallbackStage::RenderFunctorStore store;
+   fillFunctorStore(callables, store);
+   self->fillPostRenderStore(store);
+}
+
+}
+""")
+  add_member_function(c, "addPreRenderFunctor", "wrapAddPreRenderFunctor")
+  add_member_function(c, "addPostRenderFunctor", "wrapAddPostRenderFunctor")
+  add_member_function(c, "fillPreRenderStore", "wrapFillPreRenderStore")
+  add_member_function(c, "fillPostRenderStore", "wrapFillPostRenderStore")
+
+
+  c = osg.class_("CubeMapGenerator")
+  c["initData"].call_policies = return_internal_reference()
+
+
+  c = osg.class_("DynamicStateGenerator")
+  c.add_declaration_code("""
+namespace
+{
+
+OSG::FrameBufferObjectRecPtr
+wrapGetRenderTarget(OSG::DynamicStateGenerator* dsg)
+{
+   return OSG::FrameBufferObjectRecPtr(
+             OSG::FrameBufferObject::ObjTransitPtr(dsg->getRenderTarget())
+          );
+}
+
+}
+""")
+
+
+  c["getRenderTarget"].exclude()
+  c.add_registration_code('def("getRenderTarget", wrapGetRenderTarget)')
+
+  return

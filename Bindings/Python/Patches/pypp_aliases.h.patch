@@ -1,0 +1,24 @@
+--- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/aliases.h	2011-02-10 12:40:47.219023137 +0800
++++ pypp_aliases.h.proc	2011-02-10 13:15:59.388044166 +0800
+@@ -22,10 +22,9 @@
+ #include <vector>
+ #include <map>
+ #include <utility>
+-#include <OpenSG/OSGBaseTypes.h>
+-#include <OpenSG/OSGGeoIntegralProperty.h>
+-#include <OpenSG/OSGContainerForwards.h>
+-#include <OpenSG/OSGPerfMonitor.h>
++#include <OSGBaseTypes.h>
++#include <OSGContainerForwards.h>
++#include <OSGPerfMonitor.h>
+ 
+ /**
+  * @file
+@@ -38,6 +37,7 @@
+ 
+ class GeoPumpGroup;
+ class Light;
++class GeoIntegralProperty;
+ 
+ OSG_END_NAMESPACE
+ 

@@ -1,0 +1,208 @@
+
+from goodies import *
+
+import osggen
+import settings
+import splitGenHelper
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  #fc_infos["GeoProperty"] = CoreInfo("GeoProperty", "StateChunk", ["getData"])
+
+  # Build up list of template methods that we need to instantiate so we can get all of them exposed.
+  gvp_tmpl_instances = \
+    ["template %s OSG::GeoVectorProperty::getValue<%s>(const OSG::UInt32) const" % \
+       (t, t) for t in settings.geo_vec_get_value_ret_types]
+  gvp_tmpl_instances.extend(
+    ["template void OSG::GeoVectorProperty::setValue<%s>(const %s&, const OSG::UInt32)" % \
+       (t, t) for t in settings.geo_vec_get_value_ret_types]
+  )
+  gvp_tmpl_instances.extend(
+    ["template void OSG::GeoVectorProperty::addValue<%s>(const %s&)" % \
+       (t, t) for t in settings.geo_vec_get_value_ret_types]
+  )
+  gvp_tmpl_instances.extend(
+    ["template void OSG::GeoVectorProperty::push_back<%s>(const %s&)" % \
+       (t, t) for t in settings.geo_vec_get_value_ret_types]
+  )
+                          
+  # Expose the GeoVectorProperty class
+  # - The getValue stuff will trigger code that renames the overloaded template methods to use names
+  #   sach as getValue_Color3f.
+  # - The tmpl_instances are used to make sure that the compiler sees all the versions of these
+  #   overloaded methods that we need.
+  # TODO: Determine if the return value from OSG::GeoVectorProperty::mapBuffer() could be mapped
+  # into something like a bytearray.
+  gvp = osggen.FCInfo("GeoVectorProperty", "GeoProperty", templateMethods = ["getValue"],
+                      templateInstances = gvp_tmpl_instances,
+                      excludeList = ["mapBuffer"])
+  fc_infos[gvp.name] = gvp
+
+  # Build up list of template methods that we need to instantiate so we can get all of them exposed.
+  gip_tmpl_instances = \
+    ["template OSG::%s OSG::GeoIntegralProperty::getValue<OSG::%s>(const OSG::UInt32) const" % \
+       (t, t) for t in settings.geo_integral_types]
+  gip_tmpl_instances.extend(
+    ["template void OSG::GeoIntegralProperty::setValue<OSG::%s>(const OSG::%s&, const OSG::UInt32)" % \
+      (t, t) for t in settings.geo_integral_param_types]
+  )
+  gip_tmpl_instances.extend(
+    ["template void OSG::GeoIntegralProperty::addValue<OSG::%s>(const OSG::%s&)" % \
+       (t, t) for t in settings.geo_integral_param_types]
+  )
+  gip_tmpl_instances.extend(
+    ["template void OSG::GeoIntegralProperty::push_back<OSG::%s>(const OSG::%s&)" % \
+       (t, t) for t in settings.geo_integral_param_types]
+  )
+
+  # Expose all the real versions we want
+
+
+  # Expose the GeoIntegralProperty class
+  # - The getValue stuff will trigger code that renames the overloaded template methods to use names
+  #   sach as getValue_Color3f.
+  # - The tmpl_instances are used to make sure that the compiler sees all the versions of these
+  #   overloaded methods that we need.
+  # TODO: Determine if the return value from OSG::GeoIntegralProperty::mapBuffer() could be mapped
+  # into something like a bytearray.
+  gip = osggen.FCInfo("GeoIntegralProperty", "GeoProperty",
+                      templateMethods = ["getValue"], templateInstances = gip_tmpl_instances,
+                      excludeList = ["mapBuffer"])
+  fc_infos[gip.name] = gip
+
+  # TODO: Determine if the return value from OSG::GeoIntegralBufferRefProperty::mapBuffer() could
+  # be mapped into something like a bytearray.
+  gibrp = osggen.FCInfo("GeoIntegralBufferRefProperty", "GeoIntegralBufferProperty",
+                        excludeList = ["mapBuffer"])
+  fc_infos[gibrp.name] = gibrp
+
+  # TODO: Determine if the return value from OSG::GeoVectorBufferRefProperty::mapBuffer() could
+  # be mapped into something like a bytearray.
+  gvbrp = osggen.FCInfo("GeoVectorBufferRefProperty", "GeoVectorBufferProperty",
+                        excludeList = ["mapBuffer"])
+  fc_infos[gvbrp.name] = gvbrp
+
+  def modGeoVectorProperty(cls):
+    pass
+    # Exclude get values that return by ref
+    #cls.member_functions("getValue", arg_types = [None, None]).exclude()
+   
+    # Exclude default setValue
+    #cls.member_functions(
+    #   calldef_matcher("setValue") & virtuality_type_matcher(VIRTUALITY_TYPES.PURE_VIRTUAL)
+    #).exclude()
+
+  core_mods[gvp.name] = [ [modGeoVectorProperty,],[]]
+
+  # Map of core id to callables to call on (class, base) decl
+  core_mods["Slices"] = [ [lambda c: c["Edge"].exclude(), 
+                           lambda c: c["Slice"].exclude(),
+                           lambda c: c["createSlice"].exclude(),
+                           lambda c: c["drawSlices"].exclude()],
+                          [] ]
+
+  # ---- Free functions ----- #
+
+  free_funcs.extend(["calcVertexNormals", 
+                     "calcVertexNormalsGeo", 
+                     "calcFaceNormalsGeo",
+                     "makePlane", 
+                     "makePlaneGeo",
+                     "makeCone", 
+                     "makeConeGeo",
+                     "makeCylinder", 
+                     "makeCylinderGeo",
+                     "makeConicalFrustum", 
+                     "makeConicalFrustumGeo",
+                     "makeTorus", 
+                     "makeTorusGeo",
+                     "makeSphere",
+                     "makeSphereGeo",
+                     "makeLatLongSphere", 
+                     "makeLatLongSphereGeo",
+                     "makeBox", 
+                     "makeBoxGeo",
+                     "makeCoordAxis", 
+                     "makeCoordAxisGeo",
+                     "makeTeapot", 
+                     "makeTeapotGeo"])
+
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  return
+
+cmh_sd_temp            = None
+sdp_temp               = None
+geo_vec_prop_templates = None
+geo_int_prop_templates = None
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  global cmh_sd_temp
+  global sdp_temp
+  global geo_vec_prop_templates
+  global geo_int_prop_templates
+
+  cmh_sd_temp = tbuilder.Template("OSG::ContainerMixinHead<OSG::StageDrawableDesc>",
+                                  "ContainerMixinHeadStageDrawableDesc")
+  sdp_temp    = tbuilder.Template("OSG::StageDrawableParent", "StageDrawableParent")
+
+
+  # Geo vector template types
+  geo_vec_prop_templates = []
+  for x in settings.geo_vec_prop_names:
+     geo_vec_prop_templates.append(tbuilder.Template("OSG::%s"%x, x))
+
+  geo_int_prop_templates = []
+  for x in settings.geo_integral_prop_names:
+     geo_int_prop_templates.append(tbuilder.Template("OSG::%s"%x, x))
+ 
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+
+  splitGenHelper.exposeTemplateType(cmh_sd_temp)
+  # XXX: This should work.
+  #cmh_sd_temp.decl["createAspectCopy"].exclude()
+
+  splitGenHelper.exposeTemplateType(sdp_temp)
+  
+  return
+
+
+def postGenClassesSetup(osg, mb):
+
+  return
+
+
+
+def postFCDInfoSetup(osg, mb):
+
+  # Expose the derived geo prop classes (there are a *lot* of them)
+  print "----- Geo Props -------"
+  # Helper method
+  def expose_geo_prop(temp, base_name):      
+    c = temp.decl
+    c.include()
+    osggen.handleClassDefaults(c, True)
+    finalize(c)
+    osggen.addFCPtrCode(c, mb, c.name, base_name)   # Register the fcptr conversions
+
+    # Exclude some methods that are difficult or impossible to wrap well
+    for p in ["editFieldPtr", "getFieldPtr", "editField", "mapBuffer"]:
+      c.decls(p,allow_empty=True).exclude()
+
+    # Just use the base class version of these methods
+    for n in ["getDimension","getNormalize","clear","resize","size","setValue","push_back","addValue"]:
+      c.decls(n,allow_empty=True).exclude()
+
+  for temp in geo_vec_prop_templates:
+    expose_geo_prop(temp, "OSG::GeoVectorProperty")
+  for temp in geo_int_prop_templates:
+    expose_geo_prop(temp, "OSG::GeoIntegralProperty")
+
+  return

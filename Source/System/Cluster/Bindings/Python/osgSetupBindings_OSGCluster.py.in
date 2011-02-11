@@ -1,0 +1,93 @@
+
+from goodies import *
+
+import osggen
+import splitGenHelper
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  # Add basic classes that can just be wrapped with no customization
+  for c in ["ClusterNetwork", 
+            "ClusterServer",]:
+      gen_classes.append(osggen.ClassInfo(c))
+
+  ra_decl_code = """
+namespace
+{
+
+bool invokeCallback(bp::object obj, const OSG::FieldContainer* fc,
+                    OSG::RemoteAspect* ra)
+{
+   return bp::extract<bool>(obj(fc, ra));
+}
+
+void wrapRegisterCreated(OSG::RemoteAspect* self,
+                         const OSG::FieldContainerType& type, bp::object func)
+{
+   self->registerCreated(type, boost::bind(invokeCallback, func, _1, _2));
+}
+
+void wrapRegisterDestroyed(OSG::RemoteAspect* self,
+                           const OSG::FieldContainerType& type,
+                           bp::object func)
+{
+   self->registerDestroyed(type, boost::bind(invokeCallback, func, _1, _2));
+}
+
+void wrapRegisterChanged(OSG::RemoteAspect* self,
+                         const OSG::FieldContainerType& type, bp::object func)
+{
+   self->registerChanged(type, boost::bind(invokeCallback, func, _1, _2));
+}
+
+}
+"""
+
+  ra_reg_code = [
+   'def("registerCreated", wrapRegisterCreated, (bp::arg("type"), bp::arg("func")))',
+   'def("registerDestroyed", wrapRegisterDestroyed, (bp::arg("type"), bp::arg("func")))',
+   'def("registerChanged", wrapRegisterChanged, (bp::arg("type"), bp::arg("func")))',
+]
+
+  gen_classes.append(
+    osggen.ClassInfo("RemoteAspect",
+                     excludeList = ["registerCreated", "registerDestroyed", "registerChanged"],
+                     declarationCode = [ra_decl_code],
+                     registrationCode = ra_reg_code)
+    )
+
+  # OpenSG exceptions to be translated into a Python exception type.
+  exc_types.extend([("ClusterException", "IOError")])
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  fc_ignore_list.extend(["ImageComposer", "DisplayCalibration", "SortFirstWindow", "SortLastWindow",
+                         "SepiaComposer", "BinarySwapComposer", "PipelineComposer",
+                         "ParallelComposer", "BalancedMultiWindow"])
+
+
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+  
+  return
+
+
+
+def postGenClassesSetup(osg, mb):
+
+  return
+
+
+
+def postFCDInfoSetup(osg, mb):
+
+  splitGenHelper.customizeWindow(osg, "ClusterWindow")  
+
+  return

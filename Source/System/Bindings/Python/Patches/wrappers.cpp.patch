@@ -1,0 +1,73 @@
+--- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/Wrappers.cpp	2011-01-12 10:25:49.000000000 +0800
++++ SystemWrappers.cpp.proc	2011-02-10 13:41:38.283397996 +0800
+@@ -15,12 +15,13 @@
+ // You should have received a copy of the GNU Lesser General Public License
+ // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+-#include "osg_module/osgmodule_mainheader.h"
+-#include <OpenSG/OSGLine.h>
+-#include <OpenSG/OSGContainerPtrFuncs.h>
++//#include "module/OSGBase_mainheader.h"
++#include <OSGLine.h>
++#include <OSGContainerPtrFuncs.h>
++#include <OSGViewport.h>
+ #include <boost/bind.hpp>
+ #include <boost/python.hpp>
+-#include "Wrappers.h"
++#include "SystemWrappers.h"
+ 
+ namespace bp = boost::python;
+ 
+@@ -132,20 +133,6 @@
+                         boost::bind(wrapExitCallback, exitFunc, _1, _2));
+ }
+ 
+-bool osgInitWrapper(bp::list pythonArgv)
+-{
+-   // Construct a vector of strings from the given list of Python strings.
+-   const unsigned int argc =
+-      bp::extract<unsigned int>(pythonArgv.attr("__len__")());
+-   std::vector<char*> argv(argc);
+-
+-   for ( unsigned int i = 0; i < argc; ++i )
+-   {
+-      argv[i] = bp::extract<char*>(pythonArgv[i]);
+-   }
+-
+-   return OSG::osgInit(argc, &argv[0]);
+-}
+ 
+ boost::python::tuple calcViewRay(OSG::Camera* self, OSG::Int32 x,
+                                  OSG::Int32 y, OSG::Viewport& port)
+@@ -167,31 +154,3 @@
+ 
+ } // namespace osgwrap
+ 
+-// Copyright David Abrahams 2001.
+-// Distributed under the Boost Software License, Version 1.0. (See
+-// accompanying file LICENSE_1_0.txt or copy at
+-// http://www.boost.org/LICENSE_1_0.txt)
+-
+-#if defined(_WIN32)
+-# ifdef __MWERKS__
+-#  pragma ANSI_strict off
+-# endif
+-# include <windows.h>
+-# ifdef __MWERKS__
+-#  pragma ANSI_strict reset
+-# endif
+-
+-# ifdef _MSC_VER
+-#  pragma warning(push)
+-#  pragma warning(disable:4297)
+-#  pragma warning(disable:4535)
+-extern "C" void straight_to_debugger(unsigned int, EXCEPTION_POINTERS*)
+-{
+-   throw;
+-}
+-extern "C" void (*old_translator)(unsigned, EXCEPTION_POINTERS*)
+-         = _set_se_translator(straight_to_debugger);
+-#  pragma warning(pop)
+-# endif
+-
+-#endif // _WIN32

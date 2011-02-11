@@ -46,6 +46,18 @@ OSG_ADD_DIRECTORY("Source/System/Window/Viewport")
 OSG_ADD_DIRECTORY("Source/System/Window/Passive")
 
 ##############################################################################
+# setup python bindings
+##############################################################################
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGRenderActionBase.h")
+
+ENDIF()
+
+#SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+
+##############################################################################
 # setup build
 ##############################################################################
 

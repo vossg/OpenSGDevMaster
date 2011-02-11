@@ -46,6 +46,23 @@ OSG_ADD_DIRECTORY("Source/System/Cluster/Window/SortFirst")
 OSG_ADD_DIRECTORY("Source/System/Cluster/Window/SortLast")
 
 ##############################################################################
+# setup python bindings
+##############################################################################
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "ClusterWrappers.h")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGRenderActionBase.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGClusterException.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGClusterServer.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGClusterNetwork.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGRemoteAspect.h")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_FCS "Group")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+##############################################################################
 # setup build
 ##############################################################################
 

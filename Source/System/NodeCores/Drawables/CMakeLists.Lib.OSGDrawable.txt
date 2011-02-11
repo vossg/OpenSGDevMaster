@@ -53,6 +53,27 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain/QuadTree")
 
 ##############################################################################
+# setup python bindings
+##############################################################################
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "DrawableWrappers.h")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGStageDrawableParent.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGSimpleGeometry.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGGeoFunctions.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGEdgeIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGTriangleIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGPrimitiveIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGFaceIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGLineIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGPointIterator.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGDrawableStatsAttachment.h")
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_FCS "Group")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+##############################################################################
 # setup build
 ##############################################################################
 

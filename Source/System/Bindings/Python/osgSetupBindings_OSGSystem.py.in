@@ -1,0 +1,1102 @@
+# PyOpenSG is (C) Copyright 2005-2009 by Allen Bierbaum
+#
+# This file is part of PyOpenSG.
+#
+# PyOpenSG is free software; you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# PyOpenSG is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+# more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#
+# This script is derived from gen_bindings.py, it contains all class specific 
+# tasks for the OSGBaseLib for the integration with the OpenSG CMake system
+# (GV)
+#
+
+from goodies import *
+
+import osggen
+import settings
+import splitGenHelper
+
+import pyplusplus.function_transformers as FT
+
+def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
+
+  # Add basic classes that can just be wrapped with no customization
+  for c in ["ActionBase", 
+            "RenderPartitionBase", 
+            "TreeBuilderBase"]:
+      gen_classes.append(osggen.ClassInfo(c))
+
+  action_callback_decl_code = """
+namespace
+{
+
+OSG::ActionBase::ResultE invokeCallback(bp::object obj,
+                                        OSG::NodeCore* const core,
+                                        OSG::Action* action)
+{
+   OSG::NodeCoreRecPtr core_ptr(core);
+   return bp::extract<OSG::ActionBase::ResultE>(obj(core_ptr, action));
+}
+
+}
+"""
+
+  action_static_decl_code = """
+namespace
+{
+
+void wrapRegisterEnterDefault(const OSG::FieldContainerType& type,
+                              bp::object func)
+{
+   OSG::%(Action)s::registerEnterDefault(type, boost::bind(invokeCallback, func, _1, _2));
+}
+
+void wrapRegisterLeaveDefault(const OSG::FieldContainerType& type,
+                              bp::object func)
+{
+   OSG::%(Action)s::registerLeaveDefault(type, boost::bind(invokeCallback, func, _1, _2));
+}
+
+}
+"""
+
+  action_mem_decl_code = """
+namespace
+{
+
+void wrapRegisterEnterFunction(OSG::Action* self,
+                               const OSG::FieldContainerType& type,
+                               bp::object func)
+{
+   self->registerEnterFunction(type,
+                               boost::bind(invokeCallback, func, _1, _2));
+}
+
+void wrapRegisterLeaveFunction(OSG::Action* self,
+                               const OSG::FieldContainerType& type,
+                               bp::object func)
+{
+   self->registerLeaveFunction(type,
+                               boost::bind(invokeCallback, func, _1, _2));
+}
+
+}
+"""
+
+  action_subclass_mem_decl_code = """
+namespace
+{
+
+OSG::ActionBase::ResultE wrapApply(OSG::%(class_name)s* self, bp::list nodes)
+{
+   const int num_nodes(bp::extract<int>(nodes.attr("__len__")()));
+   std::vector<OSG::Node*> node_vec(num_nodes);
+
+   for ( int i = 0; i < num_nodes; ++i )
+   {
+      OSG::NodeRecPtr n = bp::extract<OSG::NodeRecPtr>(nodes[i]);
+      node_vec[i] = n.get();
+   }
+
+   return self->apply(node_vec.begin(), node_vec.end());
+}
+
+}
+"""
+
+  action_static_reg_code = [
+   'def("registerEnterDefault", wrapRegisterEnterDefault, (bp::arg("type"), bp::arg("func")))',
+   'def("registerLeaveDefault", wrapRegisterLeaveDefault, (bp::arg("type"), bp::arg("func")))',
+]
+
+  action_mem_reg_code = [
+   'def("registerEnterFunction", wrapRegisterEnterFunction, (bp::arg("type"), bp::arg("func")))',
+   'def("registerLeaveFunction", wrapRegisterLeaveFunction, (bp::arg("type"), bp::arg("func")))',
+]
+
+  # We will keep the single-argument inherited overload of OSG::Action::apply(). For the
+  # two-argument overload of OSG::Action::apply(), we exclude the regular virtual version. For
+  # now, I do not see a need for a Python subclass to be able to customize OSG::IntersectAction
+  # or OSG::RenderAction. If that changes, then something similar to what is done for the
+  # two-argument OSG::Action::apply() overload can be applied to these classes.
+  action_wrapApply_reg_code = [
+     'def("apply", wrapApply, (bp::arg("nodes")))',
+  ]
+  action_subclass_mem_reg_code = [
+      action_wrapApply_reg_code[0],
+   """
+   def("apply",
+       (OSG::ActionBase::ResultE (OSG::Action::*)(OSG::Node* const)) &OSG::Action::apply,
+       (bp::arg("node")))
+   """,
+  ]
+
+  # OSG::Action can be customized by a Python subclass.
+  gen_classes.append(
+      osggen.ClassInfo(
+          "Action",
+          excludeList = ["registerEnterDefault", "registerEnterFunction",
+                         "registerLeaveDefault", "registerLeaveFunction"],
+          declarationCode = [action_callback_decl_code,
+                             action_static_decl_code % {'Action' : 'Action'},
+                             action_mem_decl_code,
+                             action_subclass_mem_decl_code % {'class_name' : 'Action'}],
+          registrationCode = action_static_reg_code + action_mem_reg_code + action_wrapApply_reg_code,
+          useSharedPtr = False
+          )
+      )
+
+  # OSG::RenderActionBase cannot be customized by a Python subclass.
+  gen_classes.append(osggen.ClassInfo("RenderActionBase", finalize = True))
+
+  # OSG::RenderAction cannot be customized by a Python subclass.
+  gen_classes.append(
+      osggen.ClassInfo(
+          "RenderAction", 
+          excludeList = ["dropFunctor", "registerEnterDefault", "registerLeaveDefault"],
+          declarationCode = [action_callback_decl_code,
+                             action_static_decl_code % {'Action' : 'RenderAction'},
+                             action_subclass_mem_decl_code % {'class_name' : 'RenderAction'}],
+          registrationCode = action_static_reg_code + action_subclass_mem_reg_code,
+          finalize = True
+          )
+      )
+
+  # OSG::IntersectAction cannot be customized by a Python subclass.
+  gen_classes.append(
+      osggen.ClassInfo(
+          "IntersectAction",
+          excludeList = ["registerEnterDefault", "registerLeaveDefault"],
+          declarationCode = [action_callback_decl_code,
+                             action_static_decl_code % {'Action' : 'IntersectAction'},
+                             action_subclass_mem_decl_code % {'class_name' : 'IntersectAction'}],
+          registrationCode = action_static_reg_code + action_subclass_mem_reg_code,
+          finalize = True
+          )
+      )
+
+  gen_classes.append(osggen.ClassInfo("RenderPartition", excludeList = ["dropFunctor"]))
+
+  # Exclude OSG::SceneFileType::read() and OSG::SceneFileType::write() because they require a C++
+  # stream object as an argument. We could probably devise a wrapper that maps between a Python list
+  # and a C++ stream, though.
+  gen_classes.append(osggen.ClassInfo("SceneFileType",
+                                      excludeList = ["read", "write", "suffixList"]))
+
+
+  gen_classes.append(osggen.ClassInfo("RenderTreeNode", excludeList = ["getFunctor", "setFunctor"]))
+
+  # Instead of excluding begin() and end() for OSG::StateOverride's ChunkStore, it would be nice to
+  # have a property such as "chunks" that returns an iterator.
+  gen_classes.append(osggen.ClassInfo("StateOverride", excludeList = ["begin", "end"]))
+
+  fc_infos["ChunkMaterial"] = \
+    osggen.FCInfo("ChunkMaterial", "Material",
+                  policyList = [("getChunk", return_value_policy(reference_existing_object))])
+
+  # OSG::CameraDecorator is a rare field container type that does not have a .fcd file.
+  fc_infos["CameraDecorator"] = osggen.FCInfo("CameraDecorator", "Camera")
+
+  # Field containers that need customization.
+  fc_infos["Image"] = osggen.FCInfo("Image", "AttachmentContainer",
+                                    excludeList = ["store", "restore", "getData", "getDataByTime",
+                                                   "getDataFast", "editDataByTime",
+                                                   "calcMipmapGeometry", "clearHalf"])
+
+  fc_infos["Window"] = osggen.FCInfo("Window","AttachmentContainer",
+                                     excludeList = ["getFunction", "getFunctionNoCheck",
+                                                    "getFunctionByName", "destroyGLObject",
+                                                    "getGLObjectsSize", "refreshAllGLObjects",
+                                                    "refreshGLObject", "registerGLObject",
+                                                    "reinitializeAllGLObjects",
+                                                    "reinitializeGLObject", "registerExtension",
+                                                    "registerFunction"])
+
+  # Build a list of pairs where the first element in the pair is the derived class name of interest
+  # and the second element is the field container base class name. These are classes that have
+  # member templates for accessing shader uniforms.
+  shader_obj_types = [("SimpleSHLChunk", "ShaderProgramChunk"),
+                      ("SimpleSHLVariableChunk", "StateChunk"),
+                      ("ShaderProgramVariableChunk", "StateChunk"),
+                      ("ShaderProgram", "FieldContainer")]
+
+  # Build up list of template methods that we need to instantiate so we can get all of them exposed.
+  for shader_obj_type, shader_base_type in shader_obj_types:
+     tmpl_instances = \
+       ["template bool OSG::%s::addUniformVariable(const OSG::Char8*, const %s&)" % \
+           (shader_obj_type, t) for t in settings.shl_variable_types]
+     tmpl_instances.extend(
+       ["template bool OSG::%s::updateUniformVariable(const OSG::Char8*, const %s&)" % \
+          (shader_obj_type, t) for t in settings.shl_variable_types]
+     )
+     # Handling for exposing this method to Python is done later on in this script.
+     tmpl_instances.extend(
+       ["template bool OSG::%s::getUniformVariable(const OSG::Char8*, %s&)" % \
+          (shader_obj_type, t) for t in settings.shl_variable_types]
+     )
+
+     fc_infos[shader_obj_type] = osggen.FCInfo(shader_obj_type, shader_base_type,
+                                               templateInstances = tmpl_instances)
+
+
+  #core_mods["Image"] = [ [lambda c: c["createMipmap"].use_overload_macro = True, ], []]
+
+  # ---- Free functions ----- #
+
+  free_funcs.extend(["stringAttributeMap",
+                     "getDefaultMaterial", 
+                     "getDefaultUnlitMaterial"])
+
+
+
+def excludeFCDSetup(opensg_src_dir, fc_ignore_list, skip_fcds):
+
+  return
+
+
+
+rtnp_temp = None
+sop_temp  = None
+gof_temp  = None
+sfh_temp  = None
+ifh_temp  = None
+
+def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
+
+  global rtnp_temp
+  global sop_temp
+  global gof_temp
+  global sfh_temp
+  global ifh_temp
+
+  gof_temp = tbuilder.Template("OSG::GraphOpFactory", "GraphOpFactory")
+  sfh_temp = tbuilder.Template("OSG::SceneFileHandler","SceneFileHandler")
+  ifh_temp = tbuilder.Template("OSG::ImageFileHandler","ImageFileHandler")
+
+  rtnp_temp = tbuilder.Template("OSG::RenderTreeNodePool", "RenderTreeNodePool")
+  sop_temp  = tbuilder.Template("OSG::StateOverridePool",  "StateOverridePool" )
+
+  non_fc_template_instances.extend(
+      ["template OSG::RenderTreeNode* OSG::RenderTreeNodePool::create<OSG::RenderTreeNode>()",
+       "template OSG::RenderTreeNode* OSG::RenderTreeNodePool::create<OSG::RenderTreeNode>(OSG::UInt32)"
+      ]
+   )
+
+  return
+
+
+
+def postScanSetup(osg, template_alias_db):
+  
+  # Expose instantiations of OSG::SimplePool<T>.
+  for d in [sop_temp.decl]:
+    osggen.exposeTemplateInst(d)
+    d["create"].call_policies = return_internal_reference()
+
+  # Expose instantiations of OSG::MultiPool<R,L>.
+  for d in [rtnp_temp.decl]:
+    osggen.exposeTemplateInst(d)
+    # XXX: The allow_empty setting here is because the create() member template isn't being
+    # picked up by GCC-XML correctly. See above for member template instantiations.
+    d.decls("create", allow_empty = True).call_policies = return_internal_reference()
+
+  # OSG::GraphOpFactoryBase and OSG:GraphOpFactory
+  c = osg["GraphOpFactoryBase"]
+  c.include()
+  # Exclude methods that return iterators.
+  c["begin"].exclude()
+  c["end"].exclude()
+  c = gof_temp.decl
+  c.include()
+  osggen.exposeSingleton(c, "GraphOpFactory")
+
+  return
+
+
+def postGenClassesSetup(osg, mb):
+
+  action = osg.class_("Action")
+  for aa in action['apply']:
+     if 2 == len(aa.arguments):
+        aa.exclude()
+
+  # This defines a means to override the multi-node version of OSG::Action::apply(). The C++
+  # signature is what is required for proper overriding, but the Python signature is what is
+  # defined by wrapApply().
+  action.add_wrapper_code("""
+virtual OSG::ActionBase::ResultE apply(std::vector<OSG::Node*>::iterator begin,
+                                       std::vector<OSG::Node*>::iterator end)
+{
+   // Transforms this apply() overload into something that works for Python.
+   if ( bp::override func_apply = this->get_override("apply") )
+   {
+      // Create a list containing the nodes in the range identified by the
+      // iterators.
+      bp::list nodes;
+      typedef std::vector<OSG::Node*>::iterator iter_type;
+      for ( iter_type i = begin; i != end; ++i )
+      {
+         nodes.append(OSG::Node::ObjTransitPtr(*i));
+      }
+
+      // Hand the list off to Python.
+      return func_apply(nodes);
+   }
+   else
+   {
+      return this->OSG::Action::apply(begin, end);
+   }
+}
+    
+OSG::ActionBase::ResultE default_apply(std::vector<OSG::Node*>::iterator begin,
+                                       std::vector<OSG::Node*>::iterator end)
+{
+   return OSG::Action::apply(begin, end);
+}
+""")
+
+  # We will keep the single-argument inherited overload of OSG::Action::apply(). For the
+  # two-argument overload of OSG::Action::apply(), we exclude the regular virtual version. For
+  # now, I do not see a need for a Python subclass to be able to customize OSG::IntersectAction
+  # or OSG::RenderAction. If that changes, then something similar to what is done for the
+  # two-argument OSG::Action::apply() overload can be applied to these classes.
+  for class_name in ["IntersectAction", "RenderActionBase", "RenderAction"]:
+     action = osg.class_(class_name)
+     for member in [member for member in action.redefined_funcs() if 'apply' == member.name]:
+        action.redefined_funcs().remove(member)
+
+
+
+  c = sfh_temp.decl
+  c.include()
+  osggen.exposeSingleton(c,"SceneFileHandler")
+  sfh_base = osg["SceneFileHandlerBase"]
+  sfh_base.include()
+  osggen.handleClassDefaults(sfh_base, True)
+  finalize(sfh_base)
+
+  for m in ["getPathHandler", "getDefaultGraphOp", "setReadCB", "getReadCB", "setWriteCB",
+            "getWriteCB", "getReadProgressCB", "setReadProgressCB", "setWriteProgressCB",
+            "getWriteProgressCB", "getGlobalResolver", "setGlobalResolver"]:
+     sfh_base[m].exclude()
+  # Need to do this because _defaultgraphOp is protected and can't be used as a default
+  sfh_base.calldefs("read").exclude()           #use_default_arguments = False   
+  sfh_base.add_declaration_code("""
+namespace
+{
+
+OSG::NodeTransitPtr sfh_custom_read(OSG::SceneFileHandlerBase& sfh,
+                                    const std::string& fileName)
+{
+   return sfh.read(fileName.c_str());
+}
+
+bp::list wrapGetSuffixList(OSG::SceneFileHandlerBase& sfh,
+                           const OSG::UInt32 flags)
+{
+   std::list<const OSG::Char8*> list;
+   sfh.getSuffixList(list, flags);
+   bp::list python_list;
+
+   typedef std::list<const OSG::Char8*>::iterator iter_type;
+   for ( iter_type i = list.begin(); i != list.end(); ++i )
+   {
+      python_list.append(*i);
+   }
+
+   return python_list;
+}
+
+OSG::FieldContainer* globalResolverCallback(bp::object callable,
+                                            const OSG::Char8* s)
+{
+   OSG::FieldContainerRecPtr fc =
+      bp::extract<OSG::FieldContainerRecPtr>(callable(s));
+   return fc.get();
+}
+/*
+bp::object wrapGetGlobalResolver(const OSG::SceneFileHandlerBase& sfh)
+{
+   OSG::SceneFileType::Resolver res(sfh.getGlobalResolver());
+   return bp::make_function(res, bp::return_value_policy<bp::reference_existing_object>());
+}
+*/
+void wrapSetGlobalResolver(OSG::SceneFileHandlerBase* sfh,
+                           bp::object callable)
+{
+   sfh->setGlobalResolver(boost::bind(globalResolverCallback, callable, _1));
+}
+
+}
+""")
+  add_member_function(sfh_base, "read", "sfh_custom_read")
+  add_member_function(sfh_base, "setGlobalResolver", "wrapSetGlobalResolver")
+  sfh_base["getSuffixList"].exclude()
+  sfh_base.add_registration_code("""
+      def("getSuffixList", wrapGetSuffixList,
+          (bp::arg("flags") = OSG::SceneFileType::OSG_READ_SUPPORTED |
+                              OSG::SceneFileType::OSG_WRITE_SUPPORTED))
+   """)
+
+  # Include ImageFileType
+  ift = osg["ImageFileType"]
+  ift.include()
+  ift.add_declaration_code("""
+namespace
+{
+
+bp::list wrapGetSuffixList(OSG::ImageFileType& ift)
+{
+   std::list<std::string> list = ift.getSuffixList();
+   bp::list python_list;
+
+   typedef std::list<std::string>::iterator iter_type;
+   for ( iter_type i = list.begin(); i != list.end(); ++i )
+   {
+      python_list.append(*i);
+   }
+
+   return python_list;
+}
+
+}
+""")
+  ift["getSuffixList"].exclude()
+  ift.add_registration_code("""
+      def("getSuffixList", wrapGetSuffixList)
+   """)
+
+  # ImageFileHandler
+  c = ifh_temp.decl
+  c.include()
+  osggen.exposeSingleton(c,"ImageFileHandler")
+  ifh_base = osg["ImageFileHandlerBase"]
+  ifh_base.include()
+  osggen.handleClassDefaults(ifh_base, True)
+  finalize(ifh_base)
+  for m in ["getPathHandler", "setReadCB", "getReadCB", "store"]:
+     ifh_base[m].exclude()
+  # Need to do this because _defaultgraphOp is protected and can't be used as a default
+  #ifh_base.calldefs("read").exclude()           #use_default_arguments = False   
+  #ifh_base.calldefs("readTopNodes").exclude()   #use_default_arguments = False   
+  ifh_base.add_declaration_code("""
+namespace
+{
+
+bp::list wrapGetSuffixList(OSG::ImageFileHandlerBase& ifh,
+                           const OSG::UInt32 flags)
+{
+   std::list<const OSG::Char8*> list;
+   ifh.getSuffixList(list, flags);
+   bp::list python_list;
+
+   typedef std::list<const OSG::Char8*>::iterator iter_type;
+   for ( iter_type i = list.begin(); i != list.end(); ++i )
+   {
+      python_list.append(*i);
+   }
+
+   return python_list;
+}
+
+bp::dict wrapGetMimeTypeMap(OSG::ImageFileHandlerBase& ifh)
+{
+   bp::dict python_dict;
+
+   const OSG::ImageFileHandlerBase::TypeMap& mime_type_map = ifh.getMimeTypeMap();
+   typedef OSG::ImageFileHandlerBase::TypeMap::const_iterator iter_type;
+   for (iter_type itr = mime_type_map.begin(); itr != mime_type_map.end(); itr++)
+   {
+      python_dict[(*itr).first] = bp::ptr((*itr).second);
+   }
+
+   return python_dict;
+}
+
+bp::dict wrapGetSuffixTypeMap(OSG::ImageFileHandlerBase& ifh)
+{
+   bp::dict python_dict;
+
+   const OSG::ImageFileHandlerBase::TypeMap& mime_type_map = ifh.getSuffixTypeMap();
+   typedef OSG::ImageFileHandlerBase::TypeMap::const_iterator iter_type;
+   for (iter_type itr = mime_type_map.begin(); itr != mime_type_map.end(); itr++)
+   {
+      python_dict[(*itr).first] = bp::ptr((*itr).second);
+   }
+
+   return python_dict;
+}
+
+}
+""")
+  #add_member_function(ifh_base, "read", "ifh_custom_read")
+  ifh_base["getSuffixList"].exclude()
+  ifh_base.add_registration_code("""
+      def("getSuffixList", wrapGetSuffixList,
+          (bp::arg("flags") = OSG::ImageFileType::OSG_READ_SUPPORTED |
+                              OSG::ImageFileType::OSG_WRITE_SUPPORTED))
+   """)
+  ifh_base["getMimeTypeMap"].exclude()
+  ifh_base.add_registration_code('def("getMimeTypeMap", wrapGetMimeTypeMap)')
+  ifh_base["getSuffixTypeMap"].exclude()
+  ifh_base.add_registration_code('def("getSuffixTypeMap", wrapGetSuffixTypeMap)')
+
+
+  osg["traverse"].exclude()
+  add_method(mb, "traverse", "&osgwrap::traverseWrapper1")
+  add_method(mb, "traverse", "&osgwrap::traverseWrapper2")
+  add_method(mb, "traverse", "&osgwrap::traverseWrapper3")
+  add_method(mb, "traverse", "&osgwrap::traverseWrapper4")
+
+  osg["drawVolume"].include()
+
+
+
+def postFCDInfoSetup(osg, mb):
+
+  splitGenHelper.customizeWindow(osg, "Window")  
+
+  for shader_obj_type in ["ShaderProgramVariableChunk", "ShaderProgram"]:
+    decl_code = """
+namespace
+{
+
+void destroyedCallback(bp::object callable, OSG::FieldContainer* fc,
+                       const OSG::UInt64 i)
+{
+   callable(fc, i);
+}
+
+void wrapAddDestroyedFunctor(OSG::%s* self, bp::object func,
+                             const std::string& createSymbol)
+{
+   self->addDestroyedFunctor(boost::bind(destroyedCallback, func, _1, _2),
+                             createSymbol);
+}
+
+}
+""" % shader_obj_type
+
+    c = osg.class_(shader_obj_type)
+    c["addDestroyedFunctor"].exclude()
+    c.add_declaration_code(decl_code)
+    c.add_registration_code("""
+         def("addDestroyedFunctor", wrapAddDestroyedFunctor,
+             (bp::arg("func"), bp::arg("createSymbol")))
+      """)
+
+
+
+  c = osg.class_("MultiCore")
+  c.add_declaration_code("""
+namespace
+{
+
+bp::list getCores(OSG::MultiCore* mc)
+{
+   bp::list cores;
+
+   OSG::UInt32 num_cores(mc->getNCores());
+   for ( OSG::UInt32 i = 0; i < num_cores; ++i )
+   {
+      cores.append(OSG::NodeCore::ObjTransitPtr(mc->getCores(i)));
+   }
+
+   return cores;
+}
+
+}
+""")
+  c.add_registration_code('add_property("cores", getCores)')
+
+
+  # There are two forms of OSG::ChunkMaterial::find(). One returns an OSG::Int32, and the other
+  # returns an OSG::StateChunk*. The former needs no return value policy while the latter most
+  # certainly does.
+  c = osg.class_("ChunkMaterial")
+  for m in c["find"]:
+    if is_pointer(m.return_type):
+      m.call_policies = return_value_policy(reference_existing_object)
+
+  # There are two forms of OSG::ChunkOverrideGroup::find(). One returns an OSG::Int32, and the
+  # other returns an OSG::StateChunk*. The former needs no return value policy while the latter
+  # most certainly does.
+  c = osg.class_("ChunkOverrideGroup")
+  for m in c["find"]:
+    if is_pointer(m.return_type):
+      m.call_policies = return_value_policy(reference_existing_object)
+
+
+  auto_slot_replace_users = ["ChunkMaterial", "ChunkOverrideGroup", "ChunkBlock"]
+
+  for cname in auto_slot_replace_users:
+    splitGenHelper.handlAutoSlotReplace(osg, cname)
+
+  
+  wrap_method(osg['Camera'], 'calcViewRay', 'osgwrap::calcViewRay')
+  # The following ought to be the preferred way to handle transforming the
+  # signature of OSG::Camera::calcViewRay(), but it does not work. This may
+  # be because Py++ sees the const reference to an OSG::Viewport object, a
+  # type that has a protected destructor, and sets up its own wrapper for
+  # that method. In so doing, perhaps it is ignoring the transformation added
+  # here. Or maybe this is just being done at the wrong point in this script.
+#   calc_view_ray = osg['Camera']['calcViewRay']
+#   calc_view_ray.add_transformation(FT.output(0), FT.output(4), alias = 'calcViewRay')
+
+  wrap_method(osg['Viewport'], 'getNormalizedCoordinates',
+              'osgwrap::getNormalizedCoordinates')
+   #vp = osg["Viewport"]
+#   vp["getNormalizedCoordinates"].add_transformation(
+#      FT.modify_type(0, declarations.remove_const), FT.output(0), FT.output(1),
+#      alias = "getNormalizedCoordinates"
+#   )
+
+   # Do not hold the GIL while OSG::Window::render() is invoked. This will
+   # allow other Python threads to run while the (relatively) slow rendering
+   # process takes place.
+  c = osg.class_("Window")
+  c["render"].add_transformation(osggen.unlocked_native(), alias = "render")
+
+
+  c = osg.class_("DrawableStatsAttachment")
+  exclude_ops = ["+=", "-="]
+  # XXX: There is probably a faster way to do this using a matcher or something.
+  for member in c.get_exportable_members():
+    if isinstance(member, operator_t) and member.symbol in exclude_ops:
+      member.exclude()
+
+  c.add_declaration_code("""
+namespace
+{
+
+void dsa_iadd(OSG::DrawableStatsAttachment* self,
+              OSG::DrawableStatsAttachment* other)
+{
+   *self += other;
+}
+
+void dsa_isub(OSG::DrawableStatsAttachment* self,
+              OSG::DrawableStatsAttachment* other)
+{
+   *self -= other;
+}
+
+}
+""")
+  add_member_function(c, "__iadd__", "dsa_iadd")
+  add_member_function(c, "__isub__", "dsa_isub")
+
+
+
+  for class_name in ["ShaderProgram", "SimpleSHLChunk"]:
+    c = osg[class_name]
+    for m in ["addProceduralVariable", "updateProceduralVariable"]:
+      c[m].exclude()
+
+    c.add_declaration_code("""
+namespace
+{
+
+void proceduralCallback(bp::object callable, OSG::DrawEnv* env, int i)
+{
+   callable(env, i);
+}
+
+bool
+wrapAddProceduralVariable(
+   OSG::%(class_name)s* self, const OSG::Char8* name, bp::object pFunc,
+   OSG::UInt32 uiDependency = OSG::ShaderProcVariable::SHDObject
+)
+{
+   return self->addProceduralVariable(name,
+                                      boost::bind(proceduralCallback, pFunc,
+                                                  _1, _2),
+                                      uiDependency);
+}
+
+bool
+wrapUpdateProceduralVariable(
+   OSG::%(class_name)s* self, const OSG::Char8* name, bp::object pFunc,
+   OSG::UInt32 uiDependency = OSG::ShaderProcVariable::SHDObject
+)
+{
+   return self->updateProceduralVariable(name,
+                                         boost::bind(proceduralCallback, pFunc,
+                                                     _1, _2),
+                                         uiDependency);
+}
+
+}
+""" % {'class_name' : class_name})
+    c.add_registration_code("""
+         def("addProceduralVariable", wrapAddProceduralVariable,
+             (bp::arg("name"), bp::arg("pFunc"),
+              bp::arg("uiDependency") = OSG::ShaderProcVariable::SHDObject))
+""")
+    c.add_registration_code("""
+         def("updateProceduralVariable", wrapUpdateProceduralVariable,
+             (bp::arg("name"), bp::arg("pFunc"),
+              bp::arg("uiDependency") = OSG::ShaderProcVariable::SHDObject))
+""")
+
+
+  shader_obj_types = [("SimpleSHLChunk", "ShaderProgramChunk"),
+                      ("SimpleSHLVariableChunk", "StateChunk"),
+                      ("ShaderProgramVariableChunk", "StateChunk"),
+                      ("ShaderProgram", "FieldContainer")]
+
+  for class_name, _ in shader_obj_types:
+    c = osg[class_name]
+
+    # Expose bool getUniformVariable<T>(const OSG::Char8*, T&) as
+    # (bool, T) getUniformVariable_T(const OSG::Char8*). This does double-duty of defining a
+    # Python-ready alias and transforming the signature so that the by-reference parameter is
+    # returned as part of a tuple.
+    for method in c["getUniformVariable"]:
+      naked_type = remove_reference(method.arguments[1].type)
+      if is_fundamental(naked_type):
+        ret_type = naked_type.CPPNAME.replace(" ", "_")
+      else:
+        ret_type = naked_type.declaration.alias
+      method.add_transformation(FT.output(1), alias = "getUniformVariable_%s" % ret_type)
+
+  c = osg["ShaderProgramVariables"]
+
+  for method in c["addProceduralVariable"]:
+    if len(method.arguments) == 4:
+      method.exclude()
+      break
+
+  c["getVariable"].call_policies = return_internal_reference()
+  c["updateProceduralVariable"].exclude()
+
+  c.add_declaration_code("""
+namespace
+{
+
+void proceduralCallback(bp::object callable, OSG::DrawEnv* env, int i)
+{
+   callable(env, i);
+}
+
+bool wrapAddProceduralVariable(OSG::ShaderProgramVariables* self,
+                               const OSG::Char8* name, bp::object pFunc,
+                               OSG::UInt32 uiDependency,
+                               OSG::MFInt32* pProcVarLoc)
+{
+   return self->addProceduralVariable(name,
+                                      boost::bind(proceduralCallback, pFunc,
+                                                  _1, _2),
+                                      uiDependency, pProcVarLoc);
+}
+
+bool wrapUpdateProceduralVariable(OSG::ShaderProgramVariables* self,
+                                  const OSG::Char8* name, bp::object pFunc,
+                                  OSG::UInt32 uiDependency)
+{
+   return self->updateProceduralVariable(name,
+                                         boost::bind(proceduralCallback, pFunc,
+                                                     _1, _2),
+                                         uiDependency);
+}
+
+}
+""")
+  c.add_registration_code("""
+      def("addProceduralVariable", wrapAddProceduralVariable,
+          (bp::arg("name"), bp::arg("pFunc"), bp::arg("uiDependency"),
+           bp::arg("pProcVarLoc")))
+""")
+  c.add_registration_code("""
+      def("updateProceduralVariable", wrapUpdateProceduralVariable,
+          (bp::arg("name"), bp::arg("pFunc"), bp::arg("uiDependency")))
+""")
+
+
+
+  c = osg["ShaderVariableFunctor"]
+  c.add_declaration_code("""
+namespace
+{
+
+void functorCallback(bp::object callable, OSG::DrawEnv* env, int i)
+{
+   callable(env, i);
+}
+
+void wrapSetFunctor(OSG::ShaderVariableFunctor* svf, bp::object pFunc)
+{
+   svf->setFunctor(boost::bind(functorCallback, pFunc, _1, _2));
+}
+
+}
+""")
+  c["setFunctor"].exclude()
+  c.add_registration_code('def("setFunctor", wrapSetFunctor, (bp::arg("pFunc")))')
+
+
+
+  c = osg["ShaderExecutableVarChunk"]
+  # This method has no C++ implementation behind it.
+  c["setShaderExecutableChunk"].exclude()
+
+
+  c = osg.class_("State")
+  c.add_declaration_code("""
+namespace
+{
+
+OSG::StateChunkRecPtr wrapGetChunk(OSG::State* state, OSG::UInt32 chunkId)
+{
+   return OSG::StateChunkRecPtr(
+             OSG::StateChunk::ObjTransitPtr(state->getChunk(chunkId))
+          );
+}
+
+}
+""")
+  c["getChunk"].exclude()
+  c.add_registration_code('def("getChunk", wrapGetChunk, (bp::arg("chunkId")))')
+
+
+  c = osg.class_("ChunkBlock")
+  for method in c["find"]:
+    if is_pointer(method.return_type):
+      method.call_policies = return_internal_reference()
+
+
+
+  c = osg.class_("ChunkOverrideGroup")
+  c["findChunkBlock"].call_policies = return_internal_reference()
+
+
+  for class_name in ["Material", "PrimeMaterial", "SwitchMaterial", "VariantMaterial"]:
+    c = osg.class_(class_name)
+    c["finalize"].call_policies = return_internal_reference()
+
+  c = osg.class_("VariantMaterial")
+  c["findMaterial"].call_policies = return_internal_reference()
+
+
+
+  # Places that take an OSG::NullFC as a default value
+  image_class = osg["Image"]
+  for x in ["createMipmap","scale","mirror", "reformat","scaleNextPower2","slice","subImage"]:
+    image_class[x].use_overload_macro = True   
+
+  for decl in image_class.decls("set"):
+    if 11 == len(decl.arguments):
+      decl.exclude()
+      break
+
+  image_class["setData"].exclude()
+  image_class["setSubData"].exclude()
+  image_class["write"].add_transformation(osggen.unlocked_native(), alias = "write")
+
+  image_class.add_declaration_code("""
+namespace
+{
+
+class ImageData : boost::noncopyable
+{
+public:
+   ImageData(const OSG::UInt8* data, const size_t size)
+      : mData(NULL)
+      , mSize(size)
+   {
+      if ( NULL != data && size > 0 )
+      {
+         mData = reinterpret_cast<OSG::UInt8*>(std::malloc(size));
+         std::memcpy(mData, data, size);
+      }
+   }
+
+   explicit ImageData(const size_t size)
+      : mData(NULL)
+      , mSize(size)
+   {
+      if ( size > 0 )
+      {
+         mData = reinterpret_cast<OSG::UInt8*>(std::malloc(size));
+      }
+   }
+
+   ~ImageData()
+   {
+      if ( NULL != mData )
+      {
+         std::free(mData);
+         mData = NULL;
+      }
+   }
+
+   const OSG::UInt8* getData() const
+   {
+      return mData;
+   }
+
+   OSG::UInt8* edit()
+   {
+      return mData;
+   }
+
+   size_t size() const
+   {
+      return mSize;
+   }
+
+   const std::string toString() const
+   {
+      return std::string(reinterpret_cast<const char*>(mData), mSize);
+   }
+
+   operator std::string() const
+   {
+      return toString();
+   }
+
+   operator const OSG::UInt8*() const
+   {
+      return getData();
+   }
+
+   bool operator==(const ImageData& other) const
+   {
+      return mData == other.mData;
+   }
+
+private:
+   OSG::UInt8* mData;
+   const size_t mSize;
+};
+
+typedef boost::shared_ptr<ImageData> ImageDataPtr;
+
+ImageDataPtr wrapGetData(const OSG::Image* image, const OSG::UInt32 mipmapNum,
+                         const OSG::UInt32 frameNum, const OSG::UInt32 sideNum)
+{
+   const bool with_mipmap(mipmapNum == 0);
+   const bool with_frame_num(mipmapNum == 0);
+   const bool with_side_count(mipmapNum == 0);
+   const unsigned long size(image->getSize(with_mipmap, with_frame_num,
+                                           with_side_count));
+   return ImageDataPtr(
+      new ImageData(image->getData(mipmapNum, frameNum, sideNum), size)
+   );
+}
+
+bool wrapSet(OSG::Image& image, const OSG::UInt32 pixelFormat,
+             const OSG::Int32 width, const OSG::Int32 height,
+             const OSG::Int32 depth, const OSG::Int32 mipmapCount,
+             const OSG::Int32 frameCount, const OSG::Time frameDelay,
+             ImageDataPtr data, const OSG::Int32 type, const bool allocMem,
+             const OSG::Int32 sideCount)
+{
+   const OSG::UInt8* data_ptr(NULL);
+   if ( data.get() != NULL )
+   {
+      data_ptr = data->getData();
+   }
+
+   return image.set(pixelFormat, width, height, depth, mipmapCount,
+                    frameCount, frameDelay, data_ptr, type, allocMem,
+                    sideCount);
+}
+
+bool wrapSetData(OSG::Image& image, ImageDataPtr data)
+{
+   if ( data.get() == NULL )
+   {
+      return image.setData();
+   }
+   else
+   {
+      return image.setData(*data);
+   }
+}
+
+bool wrapSetSubData(OSG::Image& image, const OSG::Int32 offX,
+                    const OSG::Int32 offY, const OSG::Int32 offZ,
+                    const OSG::Int32 srcW, const OSG::Int32 srcH,
+                    const OSG::Int32 srcD, ImageDataPtr data)
+{
+   return image.setSubData(offX, offY, offZ, srcW, srcH, srcD, *data);
+}
+
+ImageDataPtr wrapStore(OSG::Image& image, const OSG::Char8* mimeType,
+                       const OSG::Int32 memSize)
+{
+   const unsigned long size(image.getSize());
+   ImageDataPtr data(new ImageData(size));
+   image.store(mimeType, data->edit(), memSize);
+   return data;
+}
+
+}
+""")
+
+  image_class.add_registration_code("""
+      def("getData", wrapGetData,
+          (bp::arg("inst"), bp::arg("mipmapNum") = 0,
+           bp::arg("frameNum") = 0, bp::arg("sideNum") = 0))
+""")
+  image_class.add_registration_code("""
+      def("set", wrapSet,
+          (bp::arg("inst"), bp::arg("pixelFormat"),
+           bp::arg("width"), bp::arg("height") = (OSG::Int32) 1,
+           bp::arg("depth") = (OSG::Int32) 1,
+           bp::arg("mipmapCount") = (OSG::Int32) 1,
+           bp::arg("frameCount") = (OSG::Int32) 1,
+           bp::arg("frameDelay") = (OSG::Time) 0.0,
+           bp::arg("data") = ImageDataPtr(),
+           bp::arg("type") = (OSG::Int32) OSG::Image::OSG_UINT8_IMAGEDATA,
+           bp::arg("allocMem") = (bool) true,
+           bp::arg("sidecount") = (OSG::Int32) 1))
+""")
+  image_class.add_registration_code("""
+      def("setData", wrapSetData,
+          (bp::arg("inst"), bp::arg("data") = ImageDataPtr()))
+""")
+  image_class.add_registration_code("""
+      def("setSubData", wrapSetSubData,
+          (bp::arg("inst"), bp::arg("offX"), bp::arg("offY"),
+           bp::arg("offZ"), bp::arg("srcW"), bp::arg("srcH"),
+           bp::arg("srcD"), bp::arg("data")))
+""")
+  image_class.add_registration_code("""
+      def("store", wrapStore,
+          (bp::arg("inst"), bp::arg("mimeType"), bp::arg("memSize") = -1))
+""")
+  image_class.add_registration_code(
+      """
+      bp::class_<ImageData, ImageDataPtr, boost::noncopyable>("ImageData", bp::no_init)
+          .def("size", &ImageData::size)
+          .def("toString", &ImageData::toString)
+          .def(bp::self == bp::self)
+          .def(bp::self_ns::str(bp::self))
+          ;
+      bp::implicitly_convertible<ImageData, const OSG::UInt8*>();
+      """,
+      works_on_instance = False
+   )
+
+
+  return
+
+
+
+
+def tmp():
+
+  return
