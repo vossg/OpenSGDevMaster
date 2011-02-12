@@ -594,7 +594,12 @@ IF(NOT OSG_BUILD_DEPENDEND)
     FIND_PACKAGE(PythonLibs)
 
     IF(Boost_FOUND AND PYTHONLIBS_FOUND)
+
       FIND_PACKAGE(Boost COMPONENTS python)
+
+      # We ignore if boost python fails, we catch that somewhere else
+      # so if we get here Boost_FOUND was true in the first place
+      SET(Boost_FOUND TRUE)
 
       FIND_PACKAGE(GCCXML)
 
