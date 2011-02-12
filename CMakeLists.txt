@@ -793,6 +793,31 @@ IF(OSGBUILD_PYTHON_BINDINGS)
       SET(OSG_HAS_PYOSG_PYPLUSPLUS_GOODIES_DIR "False")
     ENDIF()
 
+    SET(OSG_CAN_REGEN_PYTHON_BINDINGS FALSE)
+
+    IF(GCCXML                       AND
+       PYOSG_DIRC                   AND
+       PYOSG_PYPLUSPLUS_DIR         AND 
+       PYOSG_PYPLUSPLUS_GOODIES_DIR)
+
+     IF(EXISTS ${GCCXML}                       AND
+        EXISTS ${PYOSG_DIRC}                   AND
+        EXISTS ${PYOSG_PYPLUSPLUS_DIR}         AND 
+        EXISTS ${PYOSG_PYPLUSPLUS_GOODIES_DIR})
+
+        SET(OSG_CAN_REGEN_PYTHON_BINDINGS TRUE)
+
+      ENDIF()
+    ENDIF()
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "${CMAKE_SOURCE_DIR}/Bindings/Python/genLibOrder.py"
+                "${CMAKE_BINARY_DIR}/Python/Helper/genLibOrder.py")
+
+    FILE(WRITE  "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "# Lib order information\n\n\nlibInfo = {}\n\n")
+    FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "fullLibInfo = {}\n\n")
+
     IF(EXISTS ${PYOSG_DIR})
       FILE(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Python/Helper")
       EXECUTE_PROCESS(
@@ -809,15 +834,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
         COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                   "${CMAKE_SOURCE_DIR}/Bindings/Python/splitGenHelper.py"
                   "${CMAKE_BINARY_DIR}/Python/Helper/splitGenHelper.py")
-
-      EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-                  "${CMAKE_SOURCE_DIR}/Bindings/Python/genLibOrder.py"
-                  "${CMAKE_BINARY_DIR}/Python/Helper/genLibOrder.py")
-
-      FILE(WRITE  "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "# Lib order information\n\n\nlibInfo = {}\n\n")
-      FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "fullLibInfo = {}\n\n")
-      
+     
       #########################
       # PreBoostPython.h
       #########################
@@ -1022,10 +1039,12 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_OUT_PROC}"
                   "${_OSG_FILE_OUT}")
 
-    ENDIF()
+    ENDIF(EXISTS ${PYOSG_DIR})
 
     ADD_CUSTOM_TARGET(OSGPy)
-    ADD_CUSTOM_TARGET(OSGPyGen)
+    IF(OSG_CAN_REGEN_PYTHON_BINDINGS)
+      ADD_CUSTOM_TARGET(OSGPyGen)
+    ENDIF()
 #    ADD_CUSTOM_TARGET(OSGPyBuild)
 
 ENDIF(OSGBUILD_PYTHON_BINDINGS)

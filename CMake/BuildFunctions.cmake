@@ -742,7 +742,11 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     IF(OSG_ENABLE_WRITE_PYTHON_TO_SOURCE)
       SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/module" CACHE INTERNAL "" FORCE)
     ELSE()
-      SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_BINARY_DIR}/Python/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
+      IF(OSG_PYTHON_MODULE_BASE_DIR)
+        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${OSG_PYTHON_MODULE_BASE_DIR}/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
+      ELSE()
+        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_BINARY_DIR}/Python/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
+      ENDIF()
     ENDIF()
 
     # read file lists
@@ -1495,142 +1499,153 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
   FILE(MAKE_DIRECTORY ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR})
 
-  SET(_OSG_GEN_CONFIG_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/osgGenBindings.py.in")
-  SET(_OSG_GEN_CONFIG_FILE_OUT "${CMAKE_CURRENT_BINARY_DIR}/osgGenBindings_${PROJECT_NAME}.py")
-  SET(_OSG_GEN_SETUP_FILE_IN   "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/osgSetupBindings_${PROJECT_NAME}.py.in")
-  SET(_OSG_GEN_SETUP_FILE      "${CMAKE_CURRENT_BINARY_DIR}/osgSetupBindings_${PROJECT_NAME}.py")
-
-  SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/__init__.py.in")
   SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
 
-  CONFIGURE_FILE("${_OSG_GEN_CONFIG_FILE_IN}"
-                 "${_OSG_GEN_CONFIG_FILE_OUT}")
+  IF(OSG_CAN_REGEN_PYTHON_BINDINGS)
 
-  CONFIGURE_FILE("${_OSG_GEN_INIT_FILE_IN}"
-                 "${_OSG_GEN_INIT_FILE_OUT}")
+    SET(_OSG_GEN_CONFIG_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/osgGenBindings.py.in")
+    SET(_OSG_GEN_CONFIG_FILE_OUT "${CMAKE_CURRENT_BINARY_DIR}/osgGenBindings_${PROJECT_NAME}.py")
+    SET(_OSG_GEN_SETUP_FILE_IN   "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/osgSetupBindings_${PROJECT_NAME}.py.in")
+    SET(_OSG_GEN_SETUP_FILE      "${CMAKE_CURRENT_BINARY_DIR}/osgSetupBindings_${PROJECT_NAME}.py")
+
+    SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+
+    CONFIGURE_FILE("${_OSG_GEN_CONFIG_FILE_IN}"
+                   "${_OSG_GEN_CONFIG_FILE_OUT}")
+
+    CONFIGURE_FILE("${_OSG_GEN_INIT_FILE_IN}"
+                   "${_OSG_GEN_INIT_FILE_OUT}")
+
+    ##################################
+    # Setup File Base
+    ##################################
+
+    IF(EXISTS ${_OSG_GEN_SETUP_FILE_IN})
+      CONFIGURE_FILE("${_OSG_GEN_SETUP_FILE_IN}"
+                     "${_OSG_GEN_SETUP_FILE}")
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "\n\n###############################\n")
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "#auto setup for python bindings\n\n")
+    ELSE()
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "${CMAKE_SOURCE_DIR}/Bindings/Python/osgDefaultGen.py"
+                "${_OSG_GEN_SETUP_FILE}")
+    ENDIF()
 
 
-  ##################################
-  # Setup File Base
-  ##################################
+    ##################################
+    # Setup File ModuleHeader
+    ##################################
 
-  IF(EXISTS ${_OSG_GEN_SETUP_FILE_IN})
-    CONFIGURE_FILE("${_OSG_GEN_SETUP_FILE_IN}"
-                   "${_OSG_GEN_SETUP_FILE}")
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "\n\n###############################\n")
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "#auto setup for python bindings\n\n")
-  ELSE()
-    EXECUTE_PROCESS(
-      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-              "${CMAKE_SOURCE_DIR}/Bindings/Python/osgDefaultGen.py"
-              "${_OSG_GEN_SETUP_FILE}")
-  ENDIF()
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleHeaders = \\\n[\n")
 
+    LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "pypp_aliases.h")
+    LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "PreBoostPython.h")
 
-  ##################################
-  # Setup File ModuleHeader
-  ##################################
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleHeaders = \\\n[\n")
-
-  LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "pypp_aliases.h")
-  LIST(INSERT ${PROJECT_NAME}_PYTHON_BIND_HEADERS 0 "PreBoostPython.h")
-
-  FOREACH(_OSG_HEADER ${${PROJECT_NAME}_PYTHON_BIND_HEADERS})
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_HEADER}\",\n")
-  ENDFOREACH()
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
-
-  ##################################
-  # Setup File ModuleFCs
-  ##################################
-
-  IF(${PROJECT_NAME}_PYTHON_BIND_FCS)
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = \\\n[\n")
-
-    FOREACH(_OSG_FC ${${PROJECT_NAME}_PYTHON_BIND_FCS})
-      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
+    FOREACH(_OSG_HEADER ${${PROJECT_NAME}_PYTHON_BIND_HEADERS})
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_HEADER}\",\n")
     ENDFOREACH()
 
     FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
 
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = None\n\n\n")
-  ELSE()
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = None\n\n\n")
+    ##################################
+    # Setup File ModuleFCs
+    ##################################
 
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = \\\n[\n")
+    IF(${PROJECT_NAME}_PYTHON_BIND_FCS)
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = \\\n[\n")
 
-    FOREACH(_OSG_FC ${${PROJECT_NAME}_FCD})
-      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
-    ENDFOREACH()
-
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
-  ENDIF()
-
-  ##################################
-  # Setup File ModuleIncludes
-  ##################################
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleIncludes = \\\n[\n")
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${PYTHON_INCLUDE_PATH}\",\n")
-
-  IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper")
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper\",\n")
-  ENDIF()
-  IF(EXISTS "${CMAKE_SOURCE_DIR}/Bindings/Python/Common")
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_SOURCE_DIR}/Bindings/Python/Common\",\n")
-  ENDIF()
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_BINARY_DIR}/Source/Base/Base\",\n")
-
-  FOREACH(_OSG_INC ${${PROJECT_NAME}_INC})
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
-  ENDFOREACH()
-
-  FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
-
-  ##################################
-  # Setup File ModuleDepIncludes
-  ##################################
-
-  IF(DEP_OSG_LIST)
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = \\\n[\n")
-
-    FOREACH(OSGDEP ${DEP_OSG_LIST})
-      FOREACH(_OSG_INC ${${OSGDEP}_INC})
-        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
+      FOREACH(_OSG_FC ${${PROJECT_NAME}_PYTHON_BIND_FCS})
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
       ENDFOREACH()
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = None\n\n\n")
+    ELSE()
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCs = None\n\n\n")
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleFCDFiles = \\\n[\n")
+
+      FOREACH(_OSG_FC ${${PROJECT_NAME}_FCD})
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_FC}\",\n")
+      ENDFOREACH()
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+    ENDIF()
+
+    ##################################
+    # Setup File ModuleIncludes
+    ##################################
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleIncludes = \\\n[\n")
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${PYTHON_INCLUDE_PATH}\",\n")
+
+    IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper")
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper\",\n")
+    ENDIF()
+    IF(EXISTS "${CMAKE_SOURCE_DIR}/Bindings/Python/Common")
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_SOURCE_DIR}/Bindings/Python/Common\",\n")
+    ENDIF()
+
+    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${CMAKE_BINARY_DIR}/Source/Base/Base\",\n")
+
+    FOREACH(_OSG_INC ${${PROJECT_NAME}_INC})
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
     ENDFOREACH()
 
     FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
-  ELSE()
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = None\n\n\n")
-  ENDIF()
 
-  ##################################
-  # Setup File PythonModuleDeps
-  ##################################
+    ##################################
+    # Setup File ModuleDepIncludes
+    ##################################
 
-  IF(DEP_OSG_LIST)
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = \\\n[\n")
+    IF(DEP_OSG_LIST)
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = \\\n[\n")
 
-    FOREACH(OSGDEP ${DEP_OSG_LIST})
-      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${OSG_PYTHON_${OSGDEP}_MODULE_DIR}/generated\",\n")
+      FOREACH(OSGDEP ${DEP_OSG_LIST})
+        FOREACH(_OSG_INC ${${OSGDEP}_INC})
+          FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_INC}\",\n")
+        ENDFOREACH()
+      ENDFOREACH()
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+    ELSE()
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepIncludes = None\n\n\n")
+    ENDIF()
+
+    ##################################
+    # Setup File PythonModuleDeps
+    ##################################
+
+    IF(DEP_OSG_LIST)
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = \\\n[\n")
+
+      FOREACH(OSGDEP ${DEP_OSG_LIST})
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${OSG_PYTHON_${OSGDEP}_MODULE_DIR}/generated\",\n")
+      ENDFOREACH()
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+    ELSE()
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = None\n\n\n")
+    ENDIF()
+
+    ##################################
+    # Bindings Gen Target
+    ##################################
+
+    ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGenOnly COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
+    ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGen     COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
+
+
+    FOREACH(OSG_DEP ${${PROJECT_NAME}_DEP_OSG_LIB})
+      ADD_DEPENDENCIES(${PROJECT_NAME}PyGen ${OSG_DEP}PyGen)
     ENDFOREACH()
 
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
-  ELSE()
-    FILE(APPEND ${_OSG_GEN_SETUP_FILE} "moduleDepencies = None\n\n\n")
-  ENDIF()
+    ADD_DEPENDENCIES(OSGPyGen   ${PROJECT_NAME}PyGen)
 
-  ##################################
-  # Bindings Gen Target
-  ##################################
-
-  ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGenOnly COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
-  ADD_CUSTOM_TARGET(${PROJECT_NAME}PyGen     COMMAND ${PYTHON_EXECUTABLE} osgGenBindings_${PROJECT_NAME}.py)
+  ENDIF(OSG_CAN_REGEN_PYTHON_BINDINGS)
 
   ##################################
   # Bindings Lib Target
@@ -1684,12 +1699,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
               DESTINATION ${_OSG_PY_INST_BASE})
     ENDIF(WIN32)
 
-    FOREACH(OSG_DEP ${${PROJECT_NAME}_DEP_OSG_LIB})
-      ADD_DEPENDENCIES(${PROJECT_NAME}PyGen ${OSG_DEP}PyGen)
-    ENDFOREACH()
-
     ADD_DEPENDENCIES(OSGPy      ${PROJECT_NAME}Py)
-    ADD_DEPENDENCIES(OSGPyGen   ${PROJECT_NAME}PyGen)
   ENDIF()
 
 ENDFUNCTION(OSG_SETUP_PYTHON_BUILD)
