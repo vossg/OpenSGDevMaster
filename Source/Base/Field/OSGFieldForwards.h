@@ -43,6 +43,7 @@
 #endif
 
 #include <boost/function.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include "OSGConfig.h"
 #include "OSGBaseTypes.h"
