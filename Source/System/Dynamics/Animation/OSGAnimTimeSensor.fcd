@@ -118,7 +118,7 @@
   </Field>
   <Field
      name="fraction"
-     type="Real"
+     type="Real32"
      category="data"
      cardinality="single"
      visibility="internal"

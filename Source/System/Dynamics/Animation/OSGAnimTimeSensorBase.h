@@ -144,7 +144,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
     typedef SFTime            SFTimeType;
     typedef SFTime            SFCycleLengthType;
     typedef SFReal32          SFTimeScaleType;
-    typedef SFReal            SFFractionType;
+    typedef SFReal32          SFFractionType;
     typedef SFReal32          SFAnimTimeType;
 
     /*---------------------------------------------------------------------*/
@@ -198,8 +198,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
                   SFReal32            *editSFTimeScale      (void);
             const SFReal32            *getSFTimeScale       (void) const;
 
-                  SFReal              *editSFFraction       (void);
-            const SFReal              *getSFFraction        (void) const;
+                  SFReal32            *editSFFraction       (void);
+            const SFReal32            *getSFFraction        (void) const;
 
                   SFReal32            *editSFAnimTime       (void);
             const SFReal32            *getSFAnimTime        (void) const;
@@ -232,8 +232,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
                   Real32              &editTimeScale      (void);
                   Real32               getTimeScale       (void) const;
 
-                  Real                &editFraction       (void);
-                  Real                 getFraction        (void) const;
+                  Real32              &editFraction       (void);
+                  Real32               getFraction        (void) const;
 
                   Real32              &editAnimTime       (void);
                   Real32               getAnimTime        (void) const;
@@ -252,7 +252,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
             void setTime           (const Time &value);
             void setCycleLength    (const Time &value);
             void setTimeScale      (const Real32 value);
-            void setFraction       (const Real value);
+            void setFraction       (const Real32 value);
             void setAnimTime       (const Real32 value);
 
     /*! \}                                                                 */
@@ -322,7 +322,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
     SFTime            _sfTime;
     SFTime            _sfCycleLength;
     SFReal32          _sfTimeScale;
-    SFReal            _sfFraction;
+    SFReal32          _sfFraction;
     SFReal32          _sfAnimTime;
 
     /*! \}                                                                 */

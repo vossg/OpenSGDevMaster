@@ -570,30 +570,37 @@ void SkinnedGeometryBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
+        editSField(SkeletonFieldMask);
         _sfSkeleton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BindShapeMatrixFieldMask & whichField))
     {
+        editSField(BindShapeMatrixFieldMask);
         _sfBindShapeMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointIdsFieldMask & whichField))
     {
+        editMField(JointIdsFieldMask, _mfJointIds);
         _mfJointIds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointIndexPropertyFieldMask & whichField))
     {
+        editSField(JointIndexPropertyFieldMask);
         _sfJointIndexProperty.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
     {
+        editSField(JointWeightPropertyFieldMask);
         _sfJointWeightProperty.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderModeFieldMask & whichField))
     {
+        editSField(RenderModeFieldMask);
         _sfRenderMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkinningAlgorithmFieldMask & whichField))
     {
+        editSField(SkinningAlgorithmFieldMask);
         _sfSkinningAlgorithm.copyFromBin(pMem);
     }
 }
@@ -768,7 +775,7 @@ bool SkinnedGeometryBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            if(pTypedChild == _sfSkinningAlgorithm.getValue())
+            if(_sfSkinningAlgorithm.getValue() == pTypedChild)
             {
                 editSField(SkinningAlgorithmFieldMask);
 
@@ -777,8 +784,15 @@ bool SkinnedGeometryBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("SkinnedGeometryBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

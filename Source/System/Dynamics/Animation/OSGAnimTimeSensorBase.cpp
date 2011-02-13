@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -62,7 +62,7 @@
 #include "OSGAnimTimeSensorBase.h"
 #include "OSGAnimTimeSensor.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -118,7 +118,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var Real            AnimTimeSensorBase::_sfFraction
+/*! \var Real32          AnimTimeSensorBase::_sfFraction
     
 */
 
@@ -264,8 +264,8 @@ void AnimTimeSensorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal::Description(
-        SFReal::getClassType(),
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
         "fraction",
         "",
         FractionFieldId, FractionFieldMask,
@@ -421,7 +421,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "     name=\"fraction\"\n"
-    "     type=\"Real\"\n"
+    "     type=\"Real32\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"internal\"\n"
@@ -582,14 +582,14 @@ const SFReal32 *AnimTimeSensorBase::getSFTimeScale(void) const
 }
 
 
-SFReal *AnimTimeSensorBase::editSFFraction(void)
+SFReal32 *AnimTimeSensorBase::editSFFraction(void)
 {
     editSField(FractionFieldMask);
 
     return &_sfFraction;
 }
 
-const SFReal *AnimTimeSensorBase::getSFFraction(void) const
+const SFReal32 *AnimTimeSensorBase::getSFFraction(void) const
 {
     return &_sfFraction;
 }
@@ -724,46 +724,57 @@ void AnimTimeSensorBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsActiveFieldMask & whichField))
     {
+        editSField(IsActiveFieldMask);
         _sfIsActive.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LoopFieldMask & whichField))
     {
+        editSField(LoopFieldMask);
         _sfLoop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ForwardFieldMask & whichField))
     {
+        editSField(ForwardFieldMask);
         _sfForward.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
+        editSField(StartTimeFieldMask);
         _sfStartTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StopTimeFieldMask & whichField))
     {
+        editSField(StopTimeFieldMask);
         _sfStopTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeFieldMask & whichField))
     {
+        editSField(TimeFieldMask);
         _sfTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CycleLengthFieldMask & whichField))
     {
+        editSField(CycleLengthFieldMask);
         _sfCycleLength.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
     {
+        editSField(TimeScaleFieldMask);
         _sfTimeScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FractionFieldMask & whichField))
     {
+        editSField(FractionFieldMask);
         _sfFraction.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AnimTimeFieldMask & whichField))
     {
+        editSField(AnimTimeFieldMask);
         _sfAnimTime.copyFromBin(pMem);
     }
 }
@@ -900,7 +911,7 @@ AnimTimeSensorBase::AnimTimeSensorBase(void) :
     _sfTime                   (Time(0.0)),
     _sfCycleLength            (Time(0.0)),
     _sfTimeScale              (Real32(1.f)),
-    _sfFraction               (Real(0.f)),
+    _sfFraction               (Real32(0.f)),
     _sfAnimTime               (Real32(0.f))
 {
 }
@@ -1156,8 +1167,8 @@ EditFieldHandlePtr AnimTimeSensorBase::editHandleTimeScale      (void)
 
 GetFieldHandlePtr AnimTimeSensorBase::getHandleFraction        (void) const
 {
-    SFReal::GetHandlePtr returnValue(
-        new  SFReal::GetHandle(
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
              &_sfFraction,
              this->getType().getFieldDesc(FractionFieldId),
              const_cast<AnimTimeSensorBase *>(this)));
@@ -1167,8 +1178,8 @@ GetFieldHandlePtr AnimTimeSensorBase::getHandleFraction        (void) const
 
 EditFieldHandlePtr AnimTimeSensorBase::editHandleFraction       (void)
 {
-    SFReal::EditHandlePtr returnValue(
-        new  SFReal::EditHandle(
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
              &_sfFraction,
              this->getType().getFieldDesc(FractionFieldId),
              this));

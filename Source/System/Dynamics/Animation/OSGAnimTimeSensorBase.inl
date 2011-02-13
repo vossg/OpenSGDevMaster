@@ -301,7 +301,7 @@ void AnimTimeSensorBase::setTimeScale(const Real32 value)
 //! Get the value of the AnimTimeSensor::_sfFraction field.
 
 inline
-Real &AnimTimeSensorBase::editFraction(void)
+Real32 &AnimTimeSensorBase::editFraction(void)
 {
     editSField(FractionFieldMask);
 
@@ -310,14 +310,14 @@ Real &AnimTimeSensorBase::editFraction(void)
 
 //! Get the value of the AnimTimeSensor::_sfFraction field.
 inline
-      Real  AnimTimeSensorBase::getFraction(void) const
+      Real32  AnimTimeSensorBase::getFraction(void) const
 {
     return _sfFraction.getValue();
 }
 
 //! Set the value of the AnimTimeSensor::_sfFraction field.
 inline
-void AnimTimeSensorBase::setFraction(const Real value)
+void AnimTimeSensorBase::setFraction(const Real32 value)
 {
     editSField(FractionFieldMask);
 

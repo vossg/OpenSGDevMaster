@@ -147,30 +147,30 @@ const Char8 *FieldTraits<TimeSensor *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsAnimationFieldSFields */
 typedef PointerSField<TimeSensor *,
                       RecordedRefCountPolicy  > SFRecTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsAnimationFieldSFields */
 typedef PointerSField<TimeSensor *,
                       UnrecordedRefCountPolicy> SFUnrecTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsAnimationFieldSFields */
 typedef PointerSField<TimeSensor *,
                       WeakRefCountPolicy      > SFWeakTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldSFields */
+/*! \ingroup GrpDynamicsAnimationFieldSFields */
 typedef PointerSField<TimeSensor *,
                       NoRefCountPolicy        > SFUncountedTimeSensorPtr;
 
 
-/*! \ingroup GrpDynamicsFieldMFields */
+/*! \ingroup GrpDynamicsAnimationFieldMFields */
 typedef PointerMField<TimeSensor *,
                       RecordedRefCountPolicy  > MFRecTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldMFields */
+/*! \ingroup GrpDynamicsAnimationFieldMFields */
 typedef PointerMField<TimeSensor *,
                       UnrecordedRefCountPolicy> MFUnrecTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldMFields */
+/*! \ingroup GrpDynamicsAnimationFieldMFields */
 typedef PointerMField<TimeSensor *,
                       WeakRefCountPolicy      > MFWeakTimeSensorPtr;
-/*! \ingroup GrpDynamicsFieldMFields */
+/*! \ingroup GrpDynamicsAnimationFieldMFields */
 typedef PointerMField<TimeSensor *,
                       NoRefCountPolicy        > MFUncountedTimeSensorPtr;
 
@@ -179,37 +179,37 @@ typedef PointerMField<TimeSensor *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFRecTimeSensorPtr : 
     public PointerSField<TimeSensor *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUnrecTimeSensorPtr : 
     public PointerSField<TimeSensor *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFWeakTimeSensorPtr :
     public PointerSField<TimeSensor *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUncountedTimeSensorPtr :
     public PointerSField<TimeSensor *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFRecTimeSensorPtr :
     public PointerMField<TimeSensor *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFUnrecTimeSensorPtr :
     public PointerMField<TimeSensor *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFWeakTimeSensorPtr :
     public PointerMField<TimeSensor *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
+/*! \ingroup GrpDynamicsAnimationFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFUncountedTimeSensorPtr :
     public PointerMField<TimeSensor *,
                          NoRefCountPolicy        > {};
