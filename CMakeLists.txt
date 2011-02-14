@@ -598,6 +598,25 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
       FIND_PACKAGE(Boost COMPONENTS python)
 
+      IF(Boost_FOUND AND WIN32)
+
+        SET(OSG_BOOST_PYTHON_TARGETS )
+        OSG_ADD_IMPORT_LIB(OSG_BOOST_PYTHON_TARGETS Boost_PYTHON_LIBRARY)
+        SET(OSG_BOOST_PYTHON_LIBS ${OSG_BOOST_PYTHON_TARGETS})
+      
+      ELSE(Boost_FOUND AND WIN32)
+
+        IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
+           CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
+
+          SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_DEBUG})
+
+        ELSE()
+          SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_RELEASE})
+        ENDIF()
+
+      ENDIF(Boost_FOUND AND WIN32)
+
       # We ignore if boost python fails, we catch that somewhere else
       # so if we get here Boost_FOUND was true in the first place
       SET(Boost_FOUND TRUE)
