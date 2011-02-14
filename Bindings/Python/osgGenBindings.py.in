@@ -491,7 +491,7 @@ def main():
 #endif
 """
 
-  if False:
+  if ${OSG_DO_DUMP_PYTHON_DECLS}:
     decl_file = file("new_decl_out_final.txt",'w', 1024000)
     print "Writing out decls to file... ",
     mb.print_declarations(osg, writer=decl_file.write)

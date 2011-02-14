@@ -300,6 +300,8 @@ def postScanSetup(osg, template_alias_db):
   fcf_base = osg["FieldContainerFactoryBase"]
   fcf_base.include()
   osggen.handleClassDefaults(fcf_base, True)
+  fcf_base["beginStore"].exclude()
+  fcf_base["endStore"].exclude()
   finalize(fcf_base)
 
   #for c in [c.related_class for c in fcf_base[0].recursive_bases]:

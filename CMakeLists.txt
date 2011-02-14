@@ -50,6 +50,7 @@ OSG_OPTION(OSGBUILD_UNITTESTS                    "Build/run unit test programs" 
 OSG_OPTION(OSGBUILD_EXAMPLES_SIMPLE              "Build example programs during system build" OFF)
 OSG_OPTION(OSGBUILD_EXAMPLES_ADVANCED            "Build advanced example programs during system build" OFF)
 OSG_OPTION(OSGBUILD_PYTHON_BINDINGS              "Build python bindings" OFF)
+OSG_OPTION(OSGBUILD_PYTHON_DUMP_DECLS            "Dump decls while building python" FALSE)
 
 OSG_OPTION(OSGEXCLUDE_TESTS_FROM_ALL             "Exclude test programs from all target" OFF)
 OSG_OPTION(OSGEXCLUDE_UNITTESTS_FROM_ALL         "Build/run unit test programs" OFF)
@@ -796,12 +797,12 @@ IF(OSGBUILD_PYTHON_BINDINGS)
     SET(OSG_CAN_REGEN_PYTHON_BINDINGS FALSE)
 
     IF(GCCXML                       AND
-       PYOSG_DIRC                   AND
+       PYOSG_DIR                    AND
        PYOSG_PYPLUSPLUS_DIR         AND 
        PYOSG_PYPLUSPLUS_GOODIES_DIR)
 
      IF(EXISTS ${GCCXML}                       AND
-        EXISTS ${PYOSG_DIRC}                   AND
+        EXISTS ${PYOSG_DIR}                    AND
         EXISTS ${PYOSG_PYPLUSPLUS_DIR}         AND 
         EXISTS ${PYOSG_PYPLUSPLUS_GOODIES_DIR})
 
