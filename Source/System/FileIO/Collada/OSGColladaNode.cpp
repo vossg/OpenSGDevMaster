@@ -133,13 +133,6 @@ ColladaNode::NodeLoaderState::dumpNodePath(void) const
 
     for(; npIt != npEnd; ++npIt)
     {
-    NodePathConstIt npIt  = _nodePath.begin();
-    NodePathConstIt npEnd = _nodePath.end  ();
-
-    OSG_COLLADA_LOG(("node path ["));
-
-    for(; npIt != npEnd; ++npIt)
-    {
         OSG_COLLADA_PLOG((" '%s'", npIt->c_str()));
     }
 
@@ -773,40 +766,6 @@ ColladaNode::handleTranslate(domTranslate *translate, InstData &instData)
     }
 
     appendXForm(m, nameSuffix, instData);  
-}
-
-void
-ColladaNode::appendXForm(const Matrix      &m,
-                         const std::string &nameSuffix,
-                         InstData          &instData   )
-{
-    if(getGlobal()->getOptions()->getMergeTransforms() == true)
-    {
-        if(instData._bottomN == NULL)
-        {
-            if(node->getType() == NODETYPE_JOINT)
-            {
-                SkeletonJointUnrecPtr joint = SkeletonJoint::create();
-                instData._bottomN           = makeNodeFor(joint);
-
-                joint->setMatrix(m);
-                joint->setJointId(state->getJointId());
-            }
-            else
-            {
-                TransformUnrecPtr xform = Transform::create();
-                instData._bottomN       = makeNodeFor(xform);
-
-                xform->setMatrix(m);
-            }
-
-
-    std::string xformSID;
-
-    if(translate->getSid() != NULL)
-        xformSID.assign(translate->getSid());
-
-    appendXForm(m, xformSID, instData);
 }
 
 void
