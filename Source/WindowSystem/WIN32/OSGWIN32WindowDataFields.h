@@ -46,13 +46,17 @@
 
 #include "OSGConfig.h"
 
-// Forget everything if we're not doing a windows compile
-#if defined(WIN32) || defined(OSG_DO_DOC)
-
 #include "OSGWindowWIN32Def.h"
 
 #include "OSGWindowFields.h"
 
+#if defined(__GCCXML__)
+// Hack so I can generated on non windows platforms ;) (GV)
+struct HWND        {};
+struct HDC         {};
+struct HGLRC       {};
+struct PAINTSTRUCT {};
+#endif
 
 /*! The field types for the local types needed by the WIN32WINdow class */
 
@@ -245,7 +249,5 @@ struct MFPAINTSTRUCT : public MField<PAINTSTRUCT> {};
 #endif
 
 OSG_END_NAMESPACE
-
-#endif /* WIN32 */
 
 #endif /* _OSGWIN32WINDOWDATAFIELDS_H_ */

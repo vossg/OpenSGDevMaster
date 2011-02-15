@@ -160,10 +160,10 @@ for mod in modules:
   mod.preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types)
 
 opensg_src_dir = "${CMAKE_SOURCE_DIR}/Source"
+output_dir     = "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}"
 
 def main():
     
-  output_dir = "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}"
   main_header_filename    = os.path.join(output_dir,
                                          '${PROJECT_NAME}_mainheader.h')
   main_header_filename_in = os.path.join(output_dir,
@@ -276,6 +276,14 @@ def main():
 
       f.close()
 #        mb.register_module_dependency(moddep)
+
+  if ${OSG_DO_DUMP_PYTHON_DECLS}:
+    decl_file = file("afterscan_decl_out_final.txt",'w', 1024000)
+    print "Writing out decls to file... ",
+    mb.print_declarations(osg, writer=decl_file.write)
+    #mb.print_declarations(my_class)
+    decl_file.close()
+    print "done."
 
   # take the pure virtual functions out immediately otherwise they show
   # up in random places.
@@ -512,5 +520,32 @@ def main():
 
   f.close()
 
+  if ${PROJECT_NAME}Gen.nativeWinDependends != None:
+    for nativeWinDep in ${PROJECT_NAME}Gen.nativeWinDependends:
+
+       nativeWinDepIn      = pj(output_dir, "generated", nativeWinDep + "Base.pypp.cpp")
+       nativeWinDepPatched = pj(output_dir, "generated", nativeWinDep + "Base.pypp.cpp.patched")
+       nativeWinDepOut     = pj(output_dir, "generated", nativeWinDep + "Base.pypp.patched.cpp")
+
+       _inFileContent      = open(nativeWinDepIn, "r").read();
+       _patchedFileContent = ""
+       _outFileContent     = ""
+
+       try:
+         _patchedFileContent = open(nativeWinDepPatched, "r").read()
+       except Exception, ex:
+         _patchedFileContent = "p"
+
+       try:
+         _outFileContent = open(nativeWinDepOut, "r").read()
+       except Exception, ex:
+         _outFileContent = "o"
+
+       _inFileContent = _inFileContent.replace(${PROJECT_NAME}Gen.nativeWin, "NativeWindow")
+
+       if _patchedFileContent != _outFileContent:
+          print "out file outdated"
+          open(nativeWinDepPatched, "w").write(_inFileContent)
+          open(nativeWinDepOut,     "w").write(_inFileContent)
 
 main()

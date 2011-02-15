@@ -57,6 +57,10 @@ OSG_ADD_DIRECTORY("Source/WindowSystem/GLUT")
 
 #SET(${PROJECT_NAME}_NO_PYTHON TRUE)
 
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+  SET(${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT GLUTWindow)
+ENDIF()
+
 ##############################################################################
 # setup build
 ##############################################################################

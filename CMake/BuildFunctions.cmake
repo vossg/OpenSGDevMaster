@@ -254,6 +254,16 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         RETURN()
     ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
+    IF(OSG_ENABLE_WRITE_PYTHON_TO_SOURCE)
+      SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/module" CACHE INTERNAL "" FORCE)
+    ELSE()
+      IF(OSG_PYTHON_MODULE_BASE_DIR)
+        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${OSG_PYTHON_MODULE_BASE_DIR}/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
+      ELSE()
+        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_BINARY_DIR}/Python/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
+      ENDIF()
+    ENDIF()
+
     #########################################
     # store dependencies for the build
 
@@ -737,16 +747,6 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     IF(${PROJECT_NAME}_NO_LIB)
         RETURN()
-    ENDIF()
-
-    IF(OSG_ENABLE_WRITE_PYTHON_TO_SOURCE)
-      SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/module" CACHE INTERNAL "" FORCE)
-    ELSE()
-      IF(OSG_PYTHON_MODULE_BASE_DIR)
-        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${OSG_PYTHON_MODULE_BASE_DIR}/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
-      ELSE()
-        SET(OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR "${CMAKE_BINARY_DIR}/Python/${PROJECT_NAME}/module" CACHE INTERNAL "" FORCE)
-      ENDIF()
     ENDIF()
 
     # read file lists
@@ -1638,6 +1638,30 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
     ENDIF()
 
     ##################################
+    # Setup File NativeWinDependents
+    ##################################
+
+    IF(${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT)
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "nativeWinDependends = \\\n[\n")
+
+      FOREACH(_OSG_NATIVEWIN_DEP ${${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT})
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "  \"${_OSG_NATIVEWIN_DEP}\",\n")
+      ENDFOREACH()
+
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "]\n\n\n")
+      IF(UNIX AND NOT APPLE)
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "nativeWin = \"XWindow\"\n\n\n")
+      ELSEIF(WIN32)
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "nativeWin = \"WIN32Window\"\n\n\n")
+      ELSEIF(UNIX AND APPLE)
+        FILE(APPEND ${_OSG_GEN_SETUP_FILE} "nativeWin = \"CocoaWindow\"\n\n\n")
+      ENDIF()
+    ELSE()
+      FILE(APPEND ${_OSG_GEN_SETUP_FILE} "nativeWinDependends = None\n\n\n")
+    ENDIF()
+
+
+    ##################################
     # Bindings Gen Target
     ##################################
 
@@ -1657,13 +1681,31 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
   # Bindings Lib Target
   ##################################
 
-  IF(EXISTS "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated")
+  IF(EXISTS "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated" AND NOT ${PROJECT_NAME}_PYTHON_GET_ONLY)
     FILE(GLOB   _OSG_BIND_SRC "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/*.pypp.cpp")
     LIST(APPEND _OSG_BIND_SRC "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${PROJECT_NAME}Py.main.cpp")
 
     FILE(GLOB   _OSG_BIND_SRC_TMP "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper/*.cpp")
 
     LIST(APPEND _OSG_BIND_SRC ${_OSG_BIND_SRC_TMP})
+
+    IF(${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT)
+
+      FOREACH(_OSG_NATIVEWIN_DEP ${${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT})
+        SET(_OSG_NATIVEWIN_DEP_IN      ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${_OSG_NATIVEWIN_DEP}Base.pypp.cpp)
+        SET(_OSG_NATIVEWIN_DEP_PATCHED ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${_OSG_NATIVEWIN_DEP}Base.pypp.cpp.patched)
+        SET(_OSG_NATIVEWIN_DEP_OUT     ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${_OSG_NATIVEWIN_DEP}Base.pypp.patched.cpp)
+
+        LIST(REMOVE_ITEM _OSG_BIND_SRC ${_OSG_NATIVEWIN_DEP_IN})
+        LIST(REMOVE_ITEM _OSG_BIND_SRC ${_OSG_NATIVEWIN_DEP_OUT})
+
+        IF(EXISTS ${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/generated/${_OSG_NATIVEWIN_DEP}Base.pypp.patched.cpp)
+          LIST(APPEND      _OSG_BIND_SRC ${_OSG_NATIVEWIN_DEP_OUT})
+        ENDIF()
+
+      ENDFOREACH()
+      
+    ENDIF(${PROJECT_NAME}_PYTHON_NATIVEWINDOW_DEPENDENT)
 
 
     ADD_LIBRARY(${PROJECT_NAME}Py EXCLUDE_FROM_ALL ${_OSG_BIND_SRC})

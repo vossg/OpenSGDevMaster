@@ -42,8 +42,6 @@
 #pragma once
 #endif
 
-#if defined(WIN32) || defined(OSG_DO_DOC)
-
 #include "OSGWIN32WindowBase.h"
 
 OSG_BEGIN_NAMESPACE
@@ -148,7 +146,5 @@ OSG_END_NAMESPACE
 
 #include "OSGWIN32Window.inl"
 #include "OSGWIN32WindowBase.inl"
-
-#endif /* WIN32 */
 
 #endif /* _OSGWIN32WINDOW_H_ */
