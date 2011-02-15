@@ -768,28 +768,6 @@ ColladaNode::handleTranslate(domTranslate *translate, InstData &instData)
 
 void
 ColladaNode::appendXForm(const Matrix      &m,
-                         const std::string &nameSuffix,
-                         InstData          &instData   )
-{
-    NodeLoaderState *state =
-        getGlobal()->getLoaderStateAs<NodeLoaderState>(_loaderStateName);
-    OSG_ASSERT(state != NULL);
-                   translate->getValue()[1],
-                   translate->getValue()[2] );
-
-    std::string nameSuffix;
-
-    if(translate->getSid() != NULL)
-    {
-        nameSuffix.append("."                );
-        nameSuffix.append(translate->getSid());
-    }
-
-    appendXForm(m, nameSuffix, instData);  
-}
-
-void
-ColladaNode::appendXForm(const Matrix      &m,
                          const std::string &xformSID,
                          InstData          &instData   )
 {
