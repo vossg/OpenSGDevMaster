@@ -150,7 +150,7 @@ IF(MSVC)
         CACHE STRING "OpenSG defaults" FORCE )
 
     SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
-        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib"
+        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /INCREMENTAL:NO msvcprtd.lib msvcrtd.lib"
         CACHE STRING "OpenSG defaults" FORCE )
 
     SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT 
