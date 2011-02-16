@@ -1712,6 +1712,16 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
     SET_TARGET_PROPERTIES(${PROJECT_NAME}Py PROPERTIES PREFIX "")
 
+    IF(WIN32)
+
+        SET_TARGET_PROPERTIES(${PROJECT_NAME}Py PROPERTIES
+            VERSION              ${OSG_VERSION}
+            SOVERSION            ${OSG_VERSION}
+            SUFFIX               ".pyd")
+
+    ENDIF(WIN32)
+
+
     INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
     INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/Bindings/Python/Common)
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/Wrapper)
@@ -1731,6 +1741,141 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
     TARGET_LINK_LIBRARIES(${PROJECT_NAME}Py ${PYTHON_LIBRARY})
 
     IF(WIN32) 
+
+      IF(OSG_INSTALL_SUBDIR)
+          SET(_OSG_ISC "${OSG_INSTALL_SUBDIR}/")
+      ELSE(OSG_INSTALL_SUBDIR)
+          SET(_OSG_ISC "")
+      ENDIF(OSG_INSTALL_SUBDIR)
+
+      SET(_OSG_TARGET_BINDIR_REL   bin/${_OSG_ISC}rel)
+      SET(_OSG_TARGET_BINDIR_DBG   bin/${_OSG_ISC}debug)
+      SET(_OSG_TARGET_BINDIR_RELNO bin/${_OSG_ISC}relnoopt)
+      SET(_OSG_TARGET_BINDIR_DBGO  bin/${_OSG_ISC}debugopt)
+
+      SET(_OSG_TARGET_LIBDIR_REL   lib/${_OSG_ISC}rel)
+      SET(_OSG_TARGET_LIBDIR_DBG   lib/${_OSG_ISC}debug)
+      SET(_OSG_TARGET_LIBDIR_RELNO lib/${_OSG_ISC}relnoopt)
+      SET(_OSG_TARGET_LIBDIR_DBGO  lib/${_OSG_ISC}debugopt)
+
+      SET(_OSG_TARGET_PYLIBDIR_REL   lib/python/${_OSG_ISC}rel/osg2/${PROJECT_NAME})
+      SET(_OSG_TARGET_PYLIBDIR_DBG   lib/python/${_OSG_ISC}debug/osg2/${PROJECT_NAME})
+      SET(_OSG_TARGET_PYLIBDIR_RELNO lib/python/${_OSG_ISC}relnoopt/osg2/${PROJECT_NAME})
+      SET(_OSG_TARGET_PYLIBDIR_DBO   lib/python/${_OSG_ISC}debugopt/osg2/${PROJECT_NAME})
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS Release
+              RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
+              COMPONENT release_runtimes)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS Release
+              LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
+              ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
+              COMPONENT release_libraries)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS Debug
+              RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+              COMPONENT debug_runtimes)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS Debug
+              LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+              ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+              COMPONENT debug_libraries)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS ReleaseNoOpt
+              RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
+              COMPONENT release_no_opt_runtimes)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS ReleaseNoOpt
+              LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
+              ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
+              COMPONENT release_no_opt_libraries)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS DebugOpt
+              RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+              COMPONENT debug_opt_runtimes)
+
+      INSTALL(TARGETS ${PROJECT_NAME}Py
+              CONFIGURATIONS DebugOpt
+              LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+              ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+              COMPONENT debug_opt_libraries)
+
+
+      IF(OSG_INSTALL_PDB_FILES)
+
+        GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py Release_LOCATION)
+
+        STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+        INSTALL(FILES ${_TMPVAL1}
+                CONFIGURATIONS Release
+                DESTINATION ${_OSG_TARGET_BINDIR_REL}
+                COMPONENT release_program_db)
+
+
+        GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py Debug_LOCATION)
+
+        STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+        INSTALL(FILES ${_TMPVAL1}
+                CONFIGURATIONS Debug
+                DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+                COMPONENT debug_program_db)
+
+
+        GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py ReleaseNoOpt_LOCATION)
+
+        STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+        INSTALL(FILES ${_TMPVAL1}
+                CONFIGURATIONS ReleaseNoOpt
+                DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
+                COMPONENT release_no_opt_program_db)
+
+
+        GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py DebugOpt_LOCATION)
+
+        STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+        INSTALL(FILES ${_TMPVAL1}
+                CONFIGURATIONS DebugOpt
+                DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+                COMPONENT debug_opt_program_db)
+
+      ENDIF(OSG_INSTALL_PDB_FILES)
+
+      SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
+
+      INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
+              DESTINATION    ${_OSG_TARGET_PYLIBDIR_REL}
+              CONFIGURATIONS Release)
+
+      SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
+  
+      INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+              DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
+              CONFIGURATIONS Debug)
+
+      SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
+  
+      INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+              DESTINATION ${_OSG_TARGET_PYLIBDIR_DBO}
+              CONFIGURATIONS DebugOpt)
+
+      SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
+  
+      INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+              DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
+              CONFIGURATIONS ReleaseNoOpt)
+
+
     ELSE(WIN32)   
       GET_FILENAME_COMPONENT(_PY_VERSION_DIR ${PYTHON_INCLUDE_PATH} NAME)
 

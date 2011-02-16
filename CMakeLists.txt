@@ -1480,7 +1480,7 @@ INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
 ##################
 
 IF(OSGBUILD_PYTHON_BINDINGS)
-  EXECUTE_PROCESS(COMMAND Python/Helper/genLibOrder.py
+  EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} Python/Helper/genLibOrder.py
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
                   OUTPUT_VARIABLE _OSG_LIBORDER)
 
@@ -1496,13 +1496,56 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                  "${_OSG_GEN_INIT_FILE_OUT}")
 
   IF(WIN32) 
-  ELSE(WIN32)   
-    GET_FILENAME_COMPONENT(_PY_VERSION_DIR ${PYTHON_INCLUDE_PATH} NAME)
-    SET(_OSG_PY_INST_BASE 
-        "lib${OSG_LIBDIR_BASE_SUFFIX}/${_PY_VERSION_DIR}/site-packages/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}/osg2/osg")
+
+    SET(_OSG_TARGET_PYLIBDIR    lib/python/${_OSG_ISC}rel/osg2)
+    SET(_OSG_TARGET_PYLIBDIR_D  lib/python/${_OSG_ISC}debug/osg2)
+    SET(_OSG_TARGET_PYLIBDIR_RN lib/python/${_OSG_ISC}relnoopt/osg2)
+    SET(_OSG_TARGET_PYLIBDIR_DO lib/python/${_OSG_ISC}debugopt/osg2)
+
+    INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR}/osg
+            CONFIGURATIONS Release)
 
     INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_D}/osg
+              CONFIGURATIONS Debug)
+
+    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_DO}/osg
+            CONFIGURATIONS DebugOpt)
+
+    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_RN}/osg
+            CONFIGURATIONS ReleaseNoOpt)
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR}
+            CONFIGURATIONS Release)
+
+    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_D}
+              CONFIGURATIONS Debug)
+
+    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_DO}
+            CONFIGURATIONS DebugOpt)
+
+    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
+            DESTINATION ${_OSG_TARGET_PYLIBDIR_RN}
+            CONFIGURATIONS ReleaseNoOpt)
+
+  ELSE(WIN32)   
+
+    GET_FILENAME_COMPONENT(_PY_VERSION_DIR ${PYTHON_INCLUDE_PATH} NAME)
+    SET(_OSG_PY_INST_BASE 
+        "lib${OSG_LIBDIR_BASE_SUFFIX}/${_PY_VERSION_DIR}/site-packages/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}/osg2")
+
+    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION ${_OSG_PY_INST_BASE}/osg)
+
+    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION ${_OSG_PY_INST_BASE})
+
   ENDIF(WIN32)
 
 ENDIF()
