@@ -81,7 +81,7 @@ bool ShaderVariableAccess::addVariableOSG(const Char8   *name,
     if(name == NULL)
         return false;
 
-    fprintf(stderr, "Add osg param %s\n", name);
+    FDEBUG(("Add osg param '%s'\n", name));
 
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
@@ -130,7 +130,7 @@ bool ShaderVariableAccess::updateProceduralVariable(
     if(name == NULL)
         return false;
 
-    fprintf(stderr, "Add proc param %s\n", name);
+    FDEBUG(("Update procedural param '%s'\n", name));
 
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
@@ -181,7 +181,7 @@ void ShaderVariableAccess::addVariable(ShaderVariable *pVar)
 
         if(pVar->isProcedural() == true)
         {
-            fprintf(stderr, "Add osg param sha %s\n", name.c_str());
+            FDEBUG(("Add procedural param variable '%s'\n", name.c_str()));
  
             ShaderProcVariable *pProcVar = 
                 static_cast<ShaderProcVariable *>(pVar);

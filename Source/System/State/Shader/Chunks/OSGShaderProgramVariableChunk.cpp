@@ -263,19 +263,19 @@ void ShaderProgramVariableChunk::clearUniformVariables(void)
 
 void ShaderProgramVariableChunk::activate(DrawEnv *pEnv, UInt32)
 {
-    fprintf(stderr, "ShaderProgramVariableChunk::activate\n");
+    SFATAL << "ShaderProgramVariableChunk::activate" << std::endl;
 }
 
 void ShaderProgramVariableChunk::changeFrom(DrawEnv    *pEnv, 
                                             StateChunk *pOther, 
                                             UInt32            )
 {
-    fprintf(stderr, "ShaderProgramVariableChunk::changeFrom\n");
+    SFATAL << "ShaderProgramVariableChunk::changeFrom" << std::endl;
 }
 
 void ShaderProgramVariableChunk::deactivate(DrawEnv*, UInt32)
 {
-    fprintf(stderr, "ShaderProgramVariableChunk::deactivate\n");
+    SFATAL << "ShaderProgramVariableChunk::deactivate" << std::endl;
 }
 
 void ShaderProgramVariableChunk::resolveLinks(void)

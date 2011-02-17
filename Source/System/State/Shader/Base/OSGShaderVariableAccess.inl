@@ -67,7 +67,7 @@ bool ShaderVariableAccess::addSVariable(const Char8     *name,
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::setVariable : Variable "
+                FWARNING(("ShaderVariableAccess::addSVariable : Variable "
                           "'%s' has wrong type!\n", name));
                 return returnValue;
             }
@@ -83,7 +83,7 @@ bool ShaderVariableAccess::addSVariable(const Char8     *name,
            name[1] != '\0' && name[1] == 'S' &&
            name[2] != '\0' && name[2] == 'G'   )
         {
-            fprintf(stderr, "Add osg param %s\n", name);
+            FDEBUG(("Add osg param '%s'\n", name));
 
             ShaderVariableOSGUnrecPtr p = ShaderVariableOSG::createDependent(
                 _oVariables.getFieldFlags()->_bNamespaceMask);
@@ -197,7 +197,7 @@ bool ShaderVariableAccess::updateSVariable(const Char8     *name,
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::setVariable : Variable "
+                FWARNING(("ShaderVariableAccess::updateSVariable : Variable "
                           "'%s' has wrong type!\n", name));
                 return false;
             }
@@ -209,7 +209,7 @@ bool ShaderVariableAccess::updateSVariable(const Char8     *name,
     }
     else
     {
-        FWARNING(("ShaderVariableAccess::updateVariable : Variable "
+        FWARNING(("ShaderVariableAccess::updateSVariable : Variable "
                   "'%s' not found!\n", name));
     }
 
@@ -244,8 +244,8 @@ bool ShaderVariableAccess::addMVariable(const char      *name,
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::setMVariable : Variable '%s' "
-                          "has wrong type!\n", name));
+                FWARNING(("ShaderVariableAccess::addMVariable : "
+                          "Variable '%s' has wrong type!\n", name));
 
                 return returnValue;
             }
@@ -259,7 +259,7 @@ bool ShaderVariableAccess::addMVariable(const char      *name,
            name[1] != '\0' && name[1] == 'S' &&
            name[2] != '\0' && name[2] == 'G'   )
         {
-            fprintf(stderr, "Add osg param %s\n", name);
+            FDEBUG(("Add osg param '%s'\n", name));
 
             ShaderVariableOSGUnrecPtr p = ShaderVariableOSG::createDependent(
                 _oVariables.getFieldFlags()->_bNamespaceMask);
@@ -374,8 +374,8 @@ bool ShaderVariableAccess::updateMVariable(const char      *name,
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::setMVariable : Variable '%s' "
-                          "has wrong type!\n", name));
+                FWARNING(("ShaderVariableAccess::updateMVariable : "
+                          "Variable '%s' has wrong type!\n", name));
 
                 return false;
             }
@@ -413,7 +413,7 @@ bool ShaderVariableAccess::getSVariable(const Char8 *name, ValueType &value)
             
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::getVariable : Variable "
+                FWARNING(("ShaderVariableAccess::getSVariable : Variable "
                           "'%s' has wrong type!\n", name));
 
                 return false;
@@ -428,7 +428,7 @@ bool ShaderVariableAccess::getSVariable(const Char8 *name, ValueType &value)
     }
     else
     {
-        FINFO(("ShaderVariableAccess::getVariable : Variable '%s' "
+        FINFO(("ShaderVariableAccess::getSVariable : Variable '%s' "
                "doesn't exist!\n", name));
 
         return false;
@@ -458,7 +458,7 @@ bool ShaderVariableAccess::getMVariable(const Char8 *name, ValueType &value)
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::getVariable : Variable "
+                FWARNING(("ShaderVariableAccess::getMVariable : Variable "
                           "'%s' has wrong type!\n", name));
                 
                 return false;
@@ -473,7 +473,7 @@ bool ShaderVariableAccess::getMVariable(const Char8 *name, ValueType &value)
     }
     else
     {
-        FINFO(("ShaderVariableAccess::getVariable : Variable '%s' "
+        FINFO(("ShaderVariableAccess::getMVariable : Variable '%s' "
                "doesn't exist!\n", name));
 
         return false;
@@ -492,7 +492,7 @@ bool ShaderVariableAccess::addProceduralVariable(
     if(name == NULL)
         return false;
 
-    fprintf(stderr, "Add proc param %s\n", name);
+    FDEBUG(("Add procedural param '%s'\n", name));
 
     bool                          returnValue = false;
     VariableIt it          = _mVarMap.find(name);
@@ -507,8 +507,8 @@ bool ShaderVariableAccess::addProceduralVariable(
 
             if(p == NULL)
             {
-                FWARNING(("ShaderVariableAccess::setVariable : Variable "
-                          "'%s' has wrong type!\n", name));
+                FWARNING(("ShaderVariableAccess::addProceduralVariable : "
+                          "Variable '%s' has wrong type!\n", name));
                 return false;
             }
 
