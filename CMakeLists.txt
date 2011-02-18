@@ -264,6 +264,19 @@ ENDIF()
 # External extensions
 #####################
 
+OSG_SET_CACHE(OSG_EXTRA_EXTERNAL_MODULES "" STRING
+              "Extra modules that OpenSG will try to import.")
+
+OSG_SET_CACHE(OSG_IGNORE_INSTALL "" STRING
+              "Extra modules that OpenSG will build but not installed.")
+
+OSG_SET_CACHE(OSG_EXTERNAL_MODULES_INCLUDE "" FILEPATH 
+              "Include file of extra modules")
+
+IF(EXISTS "${OSG_EXTERNAL_MODULES_INCLUDE}")
+  INCLUDE("${OSG_EXTERNAL_MODULES_INCLUDE}")
+ENDIF()
+
 FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_MODULES})
     OPTION(OSGBUILD_${EXTERNAL}
            "Build using ${EXTERNAL} module" OFF)
@@ -286,13 +299,8 @@ FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_MODULES})
     ENDIF()
 ENDFOREACH(EXTERNAL)
 
-OSG_SET_CACHE(OSG_EXTRA_EXTERNAL_MODULES "" STRING
-              "Extra modules that OpenSG will try to import.")
-
-OSG_SET_CACHE(OSG_IGNORE_INSTALL "" STRING
-              "Extra modules that OpenSG will build but not installed.")
-
 OSG_OPTION(OSG_LINK_EXTERNAL_MODULES_TO_CSM "" FALSE)
+
 
 ##############
 # Compiler
