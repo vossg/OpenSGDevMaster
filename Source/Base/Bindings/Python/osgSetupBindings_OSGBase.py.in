@@ -106,9 +106,9 @@ def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, e
                                                   excludeList = ["shallowCopy", "shallowCopyLocal",
                                                                  "createAspectCopy"])
 
-  fc_infos["Attachment"] = osggen.FCInfo("Attachment", "AttachmentContainer", hasBase = True,
-                                         excludeList = ["shallowCopy", "shallowCopyLocal",
-                                                        "createAspectCopy"])
+#  fc_infos["Attachment"] = osggen.FCInfo("Attachment", "AttachmentContainer", hasBase = True,
+#                                         excludeList = ["shallowCopy", "shallowCopyLocal",
+#                                                        "createAspectCopy"])
 
   # Base class for state chunks and other things
   #fc_infos["FieldContainerAttachment"] = osggen.FCInfo("FieldContainerAttachment",

@@ -51,6 +51,7 @@ namespace aliases
    typedef std::vector<OSG::GeoPumpGroup*> geo_pump_group_vector_t;
    typedef std::vector<OSG::Light*> light_vector_t;
    typedef std::vector<unsigned short> ushort_vector_t;
+   typedef std::vector<bool> bool_vector_t;
    typedef std::vector<int> int_vector_t;
    typedef std::map<unsigned int, unsigned int> uint_uint_map_t;
 
