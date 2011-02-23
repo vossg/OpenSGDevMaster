@@ -32,14 +32,30 @@ except:
    pass
 
 # Import everything from the opensg module
-${OSG_PYTHON_ALL_IMPORTS}
+from ${PROJECT_NAME}Py import *
 
 if original_dlopen_flags:
    sys.setdlopenflags(original_dlopen_flags)
 
+def _fc_cmp(self, other):
+   """ Comparison operator for field containers. """
+   id_self = None
+   id_other = None
+   if not self is None:
+      id_self = self.getId()
+   if not other is None:
+      id_other = other.getId()
+      
+   return cmp(id_self, id_other)
 
-# Import other things.
-from ..helpers.fcd_reflector import FcdReflector, FieldReflector
-import osg2.helpers as helpers
+def _fc_hash(self):
+   if self is None:
+      return -1
+   else:
+      return self.getId()
 
+for (n,c) in OSGBasePy.__dict__.iteritems():
+ if isinstance(c,type) and (${PROJECT_NAME}Py.AttachmentContainer in c.__mro__):
+  c.__cmp__  = _fc_cmp
+  c.__hash__ = _fc_hash
 

@@ -53,7 +53,7 @@ def postGenClassesSetup(osg, mb):
 
 
 
-def postFCDInfoSetup(osg, mb):
+def postFCDInfoSetup(osg, mb, adddition_exp):
 
   cls = osg["XWindowBase"]
   cls["getDisplay"].exclude()

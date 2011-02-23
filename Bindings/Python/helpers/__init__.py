@@ -15,31 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#
-# Init file for osg package.
-#
+# Helper class
 
-# Hack to bring in all symbols OpenSG is linked against and loads from plugins
-# Search for : setdlopenflags and RTLD_GLOBAL on google to see why
-
-original_dlopen_flags = None
-
-try:
-   import dl, sys
-   original_dlopen_flags = sys.getdlopenflags()
-   sys.setdlopenflags(original_dlopen_flags | dl.RTLD_GLOBAL)
-except:
-   pass
-
-# Import everything from the opensg module
-${OSG_PYTHON_ALL_IMPORTS}
-
-if original_dlopen_flags:
-   sys.setdlopenflags(original_dlopen_flags)
-
-
-# Import other things.
-from ..helpers.fcd_reflector import FcdReflector, FieldReflector
-import osg2.helpers as helpers
-
-
+from helpers import *

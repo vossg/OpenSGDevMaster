@@ -55,7 +55,7 @@ def postGenClassesSetup(osg, mb):
 
 
 
-def postFCDInfoSetup(osg, mb):
+def postFCDInfoSetup(osg, mb, adddition_exp):
 
   # OSG::ShadowStageData::ShadowMapElem
   c = osg["ShadowStageData"]["ShadowMapElem"]

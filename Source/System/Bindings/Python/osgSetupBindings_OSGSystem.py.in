@@ -563,7 +563,7 @@ bp::dict wrapGetSuffixTypeMap(OSG::ImageFileHandlerBase& ifh)
 
 
 
-def postFCDInfoSetup(osg, mb):
+def postFCDInfoSetup(osg, mb, adddition_exp):
 
   splitGenHelper.customizeWindow(osg, "Window")  
 

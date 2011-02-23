@@ -202,7 +202,7 @@ def postGenClassesSetup(osg, mb):
 
 
 
-def postFCDInfoSetup(osg, mb):
+def postFCDInfoSetup(osg, mb, adddition_exp):
 
   # Expose the derived geo prop classes (there are a *lot* of them)
   print "----- Geo Props -------"

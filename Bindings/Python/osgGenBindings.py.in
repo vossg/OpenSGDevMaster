@@ -151,6 +151,7 @@ fc_ignore_list = []
 skip_fcds      = []
 
 exc_types      = []
+adddition_exp  = []
 
 non_fc_template_instances = []
 
@@ -262,6 +263,7 @@ def main():
   osggen.OSG_MODULE = osg
 
   if ${PROJECT_NAME}Gen.moduleDepencies != None:
+    std = mb.global_ns.namespace("std", recursive=False)   
     for moddep in ${PROJECT_NAME}Gen.moduleDepencies:
       f = open(os.path.join(moddep, 'osg_exported.txt'), "r")
 
@@ -272,7 +274,12 @@ def main():
           cls.already_exposed = True
 
         except Exception, ex:
-          print "class [%s] unknown" % sline
+          try:
+            cls = std.class_(sline)
+            cls.already_exposed = True
+
+          except Exception, ex:
+            print "class [%s] unknown" % sline
 
       f.close()
 #        mb.register_module_dependency(moddep)
@@ -454,7 +461,7 @@ def main():
          base_mod(base_c)
 
   for mod in modules:
-    mod.postFCDInfoSetup(osg, mb)
+    mod.postFCDInfoSetup(osg, mb, adddition_exp)
 
   # ------ Standard ------------- #
   # - Remove all op=
@@ -517,6 +524,8 @@ def main():
   for cls in osg.classes():
     if cls.ignore == False:
       f.write(cls.alias + "\n")
+  for exp in adddition_exp:
+      f.write(exp + "\n")
 
   f.close()
 

@@ -1508,7 +1508,11 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
     SET(_OSG_GEN_SETUP_FILE_IN   "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/osgSetupBindings_${PROJECT_NAME}.py.in")
     SET(_OSG_GEN_SETUP_FILE      "${CMAKE_CURRENT_BINARY_DIR}/osgSetupBindings_${PROJECT_NAME}.py")
 
-    SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+    IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+      SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_CURRENT_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+    ELSE()
+      SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/__init__.py.in")
+    ENDIF()
 
     IF(OSGBUILD_PYTHON_DUMP_DECLS)
       SET(OSG_DO_DUMP_PYTHON_DECLS True)

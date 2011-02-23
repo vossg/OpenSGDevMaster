@@ -1,0 +1,23 @@
+--- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/lib/helpers.py	2011-01-12 10:25:49.000000000 +0800
++++ helpers.py.proc	2011-02-22 16:20:41.814402505 +0800
+@@ -24,16 +24,16 @@
+       self.depth = 0
+ 
+    def traverse(self, node):
+-      return osg2.traverse(node, self.enter, self.exit)
++      return osg2.osg.traverse(node, self.enter, self.exit)
+ 
+    def enter(self, node):
+       core = node.getCore()      
+-      print "  "*self.depth, "Enter: %s [%s]"%(osg2.getName(node),core)
++      print "  "*self.depth, "Enter: %s [%s]"%(osg2.osg.getName(node),core)
+       self.depth += 1
+-      return osg2.Action.Continue
++      return osg2.osg.Action.Continue
+ 
+    def exit(self, node, result):
+       self.depth -= 1
+       core = node.getCore()
+-      print "  "*self.depth, "Exit: %s [%s]"%(osg2.getName(node),core)
++      print "  "*self.depth, "Exit: %s [%s]"%(osg2.osg.getName(node),core)
+       return result

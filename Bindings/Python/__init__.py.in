@@ -22,7 +22,10 @@
 # Hack to bring in all symbols OpenSG is linked against and loads from plugins
 # Search for : setdlopenflags and RTLD_GLOBAL on google to see why
 
+from ..OSGBase import AttachmentContainer
+
 original_dlopen_flags = None
+
 try:
    import dl, sys
    original_dlopen_flags = sys.getdlopenflags()
@@ -36,3 +39,28 @@ from ${PROJECT_NAME}Py import *
 if original_dlopen_flags:
    sys.setdlopenflags(original_dlopen_flags)
 
+def _fc_cmp(self, other):
+   """ Comparison operator for field containers. """
+   id_self = None
+   id_other = None
+   if not self is None:
+      id_self = self.getId()
+   if not other is None:
+      id_other = other.getId()
+      
+   return cmp(id_self, id_other)
+
+def _fc_hash(self):
+   if self is None:
+      return -1
+   else:
+      return self.getId()
+
+for (n,c) in ${PROJECT_NAME}Py.__dict__.iteritems():
+  if isinstance(c,type) and (AttachmentContainer in c.__mro__):
+    c.__cmp__  = _fc_cmp
+    c.__hash__ = _fc_hash
+
+# Add cored node types
+import osg2.helpers.cored_node as cored_node
+cored_node.addNodeCoreTypes(globals(), ${PROJECT_NAME}Py)

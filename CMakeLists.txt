@@ -1059,6 +1059,78 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_OUT_PROC}"
                   "${_OSG_FILE_OUT}")
 
+
+      #########################
+      # helpers.py
+      #########################
+
+      SET(_OSG_FILE_IN       "${PYOSG_DIR}/src/osg_module/lib/helpers.py")
+      SET(_OSG_FILE_OUT_PROC "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed/helpers.py.proc")
+      SET(_OSG_FILE_OUT      "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py")
+      SET(_OSG_PATCH_FILE    "${CMAKE_SOURCE_DIR}/Bindings/Python/Patches/helpers.py.patch")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy
+                  "${_OSG_FILE_IN}"
+                  "${_OSG_FILE_OUT_PROC}")
+
+      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+                      INPUT_FILE "${_OSG_PATCH_FILE}"
+                      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                  "${_OSG_FILE_OUT_PROC}"
+                  "${_OSG_FILE_OUT}")
+
+
+      #########################
+      # cored_node.py
+      #########################
+
+      SET(_OSG_FILE_IN       "${PYOSG_DIR}/src/osg_module/lib/cored_node.py")
+      SET(_OSG_FILE_OUT_PROC "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed/cored_node.py.proc")
+      SET(_OSG_FILE_OUT      "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py")
+      SET(_OSG_PATCH_FILE    "${CMAKE_SOURCE_DIR}/Bindings/Python/Patches/cored_node.py.patch")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy
+                  "${_OSG_FILE_IN}"
+                  "${_OSG_FILE_OUT_PROC}")
+
+      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+                      INPUT_FILE "${_OSG_PATCH_FILE}"
+                      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                  "${_OSG_FILE_OUT_PROC}"
+                  "${_OSG_FILE_OUT}")
+
+
+      #########################
+      # fcd_reflector.py
+      #########################
+
+      SET(_OSG_FILE_IN       "${PYOSG_DIR}/src/osg_module/lib/fcd_reflector.py")
+      SET(_OSG_FILE_OUT_PROC "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed/fcd_reflector.py.proc")
+      SET(_OSG_FILE_OUT      "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py")
+      SET(_OSG_PATCH_FILE    "${CMAKE_SOURCE_DIR}/Bindings/Python/Patches/fcd_reflector.py.patch")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy
+                  "${_OSG_FILE_IN}"
+                  "${_OSG_FILE_OUT_PROC}")
+
+      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+                      INPUT_FILE "${_OSG_PATCH_FILE}"
+                      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                  "${_OSG_FILE_OUT_PROC}"
+                  "${_OSG_FILE_OUT}")
+
     ENDIF(EXISTS ${PYOSG_DIR})
 
     ADD_CUSTOM_TARGET(OSGPy)
@@ -1484,10 +1556,15 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
                   OUTPUT_VARIABLE _OSG_LIBORDER)
 
+  SET(_OSG_PY_MOD_LIST "osg2ModuleList = [\n")
+
   FOREACH(_OSG_LIB ${_OSG_LIBORDER})
     STRING(REPLACE "\n" "" _OSG_LIB ${_OSG_LIB})
     SET(OSG_PYTHON_ALL_IMPORTS "${OSG_PYTHON_ALL_IMPORTS}from ..${_OSG_LIB} import *\n")
+    SET(_OSG_PY_MOD_LIST "${_OSG_PY_MOD_LIST}  ${_OSG_LIB}Py,\n")
   ENDFOREACH()
+
+  SET(OSG_PYTHON_ALL_IMPORTS "${OSG_PYTHON_ALL_IMPORTS}\n\n${_OSG_PY_MOD_LIST}  ]\n\n")
 
   SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/osg.__init__.py.in")
   SET(_OSG_GEN_INIT_FILE_OUT "${CMAKE_SOURCE_DIR}/Bindings/Python/module/__init__.py")
@@ -1518,20 +1595,52 @@ IF(OSGBUILD_PYTHON_BINDINGS)
             DESTINATION ${_OSG_TARGET_PYLIBDIR_RN}/osg
             CONFIGURATIONS ReleaseNoOpt)
 
+
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}
             CONFIGURATIONS Release)
 
-    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_D}
-              CONFIGURATIONS Debug)
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR}/helpers
+            CONFIGURATIONS Release)
 
-    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_DO}
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}
+            CONFIGURATIONS Debug)
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_D/helpers}
+            CONFIGURATIONS Debug)
+
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}
             CONFIGURATIONS DebugOpt)
 
-    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_RN}
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/helpers
+            CONFIGURATIONS DebugOpt)
+
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}
+            CONFIGURATIONS ReleaseNoOpt)
+
+    INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
+                           ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/helpers
             CONFIGURATIONS ReleaseNoOpt)
 
   ELSE(WIN32)   
@@ -1545,6 +1654,12 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 
     INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION ${_OSG_PY_INST_BASE})
+
+    INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
+                        ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
+                        ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
+                        ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
+            DESTINATION ${_OSG_PY_INST_BASE}/helpers)
 
   ENDIF(WIN32)
 

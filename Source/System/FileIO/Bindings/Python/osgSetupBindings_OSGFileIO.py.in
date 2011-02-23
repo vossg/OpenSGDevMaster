@@ -56,6 +56,6 @@ def postGenClassesSetup(osg, mb):
 
 
 
-def postFCDInfoSetup(osg, mb):
+def postFCDInfoSetup(osg, mb, adddition_exp):
 
   return

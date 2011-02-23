@@ -34,7 +34,7 @@
 #endif
 
 #ifndef NDEBUG
-#define DEBUG_PTR_HELPERS 1
+//#define DEBUG_PTR_HELPERS 1
 #endif
 
 

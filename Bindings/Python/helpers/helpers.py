@@ -15,31 +15,25 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#
-# Init file for osg package.
-#
+# Helper class
 
-# Hack to bring in all symbols OpenSG is linked against and loads from plugins
-# Search for : setdlopenflags and RTLD_GLOBAL on google to see why
+import osg2
 
-original_dlopen_flags = None
+class PrintTreeTraverser(object):
+   def __init__(self):
+      self.depth = 0
 
-try:
-   import dl, sys
-   original_dlopen_flags = sys.getdlopenflags()
-   sys.setdlopenflags(original_dlopen_flags | dl.RTLD_GLOBAL)
-except:
-   pass
+   def traverse(self, node):
+      return osg2.osg.traverse(node, self.enter, self.exit)
 
-# Import everything from the opensg module
-${OSG_PYTHON_ALL_IMPORTS}
+   def enter(self, node):
+      core = node.getCore()      
+      print "  "*self.depth, "Enter: %s [%s]"%(osg2.osg.getName(node),core)
+      self.depth += 1
+      return osg2.osg.Action.Continue
 
-if original_dlopen_flags:
-   sys.setdlopenflags(original_dlopen_flags)
-
-
-# Import other things.
-from ..helpers.fcd_reflector import FcdReflector, FieldReflector
-import osg2.helpers as helpers
-
-
+   def exit(self, node, result):
+      self.depth -= 1
+      core = node.getCore()
+      print "  "*self.depth, "Exit: %s [%s]"%(osg2.osg.getName(node),core)
+      return result

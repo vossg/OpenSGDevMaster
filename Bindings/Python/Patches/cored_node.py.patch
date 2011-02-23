@@ -1,0 +1,32 @@
+--- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/lib/cored_node.py	2011-01-12 10:25:49.000000000 +0800
++++ cored_node.py.proc	2011-02-22 16:26:37.185423573 +0800
+@@ -28,7 +28,7 @@
+ 
+    def create(cls):
+       obj = cls()
+-      obj.mNode = osg2.Node.create()
++      obj.mNode = osg2.OSGBase.Node.create()
+       obj.mCore = cls.coreType.create()
+       obj.mNode.setCore(obj.mCore)
+       return obj
+@@ -67,12 +67,15 @@
+       self.mCore = newCore
+       self.mNode.setCore(newCore)
+ 
+-def addNodeCoreTypes():
+-   node_cores = [(n,c) for (n,c) in osg2.__dict__.iteritems() if isinstance(c,type) \
+-                     and (osg2.NodeCore in c.__mro__) and not c.__name__.endswith("Base")]
+-   
++def addNodeCoreTypes(globalDict, osg2Module):
++
++   node_cores = []
++
++   node_cores.extend([(n,c) for (n,c) in osg2Module.__dict__.iteritems() if isinstance(c,type) \
++                     and (osg2.OSGBase.NodeCore in c.__mro__) and not c.__name__.endswith("Base")])
++
+    for (name,ctype) in node_cores:
+       cored_node_classname = "%sNode"%name
+       cored_node_class = type(cored_node_classname, (CoredNode,), {'coreType':ctype,})            
+ 
+-      osg2.__dict__[cored_node_classname] = cored_node_class
++      globalDict[cored_node_classname] = cored_node_class
