@@ -1616,7 +1616,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
-            DESTINATION    ${_OSG_TARGET_PYLIBDIR_D/helpers}
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/helpers
             CONFIGURATIONS Debug)
 
 
