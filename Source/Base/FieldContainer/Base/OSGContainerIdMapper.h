@@ -61,7 +61,7 @@ struct OSG_BASE_DLLMAPPING ContainerIdMapper
       \param uiId  The id to map from.
       \return Returns the mapped id. Return 0 if no mapping is found.
     */
-    virtual UInt32 map(UInt32 uiId) = 0;
+    virtual UInt32 map(UInt32 uiId) const = 0;
 };
 
 OSG_END_NAMESPACE
