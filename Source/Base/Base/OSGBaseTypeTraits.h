@@ -1098,12 +1098,12 @@ struct TypeTraits<Real32> : public TypeTraitsTemplateBase<Real32>
 
     static        Real32             getMax        (void)
     {
-        return  FLT_MAX;
+        return  std::numeric_limits<float>::max();
     }
 
     static        Real32             getMin        (void)
     {
-        return -FLT_MAX;
+        return -std::numeric_limits<float>::max();
     }
 
 
@@ -1304,12 +1304,12 @@ struct TypeTraits<Real64> : public TypeTraitsTemplateBase<Real64>
 
     static        Real64             getMax        (void)
     {
-        return  DBL_MAX;
+        return  std::numeric_limits<double>::max();
     }
 
     static        Real64             getMin        (void)
     {
-        return -DBL_MAX;
+        return -std::numeric_limits<double>::max();
     }
 
 
@@ -1379,12 +1379,12 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
 
     static        Real128             getMax        (void)
     {
-        return  DBL_MAX;
+        return  std::numeric_limits<long double>::max();
     }
 
     static        Real128             getMin        (void)
     {
-        return -DBL_MAX;
+        return -std::numeric_limits<long double>::max();
     }
 
 
