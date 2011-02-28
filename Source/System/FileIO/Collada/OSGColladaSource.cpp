@@ -365,6 +365,8 @@ ColladaSource::getMatrixValue(UInt32 idx, Matrix &matVal)
             ++currCol;
         }
     }
+
+    return true;
 }
 
 
