@@ -61,10 +61,12 @@ typedef ContainerMixinHead<SkeletonDesc> SkeletonMixinParent;
 
 typedef StageHandlerMixin<SkeletonMixinParent> SkeletonParent;
 
+class Action;
+
 #ifdef WIN32
 template <> inline
 Action::ResultE 
-    StageHandlerMixin<SkeletonMixinParent>::recurseFromThis(RenderAction *)
+    StageHandlerMixin<SkeletonMixinParent>::recurseFromThis(Action *)
 {
     OSG_ASSERT(false);
     return Action::Continue;

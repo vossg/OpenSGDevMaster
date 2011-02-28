@@ -135,11 +135,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
     DataSourceMap        _dsMap;
 };
 
-Action::ResultE
-bindEnterDefault(NodeCore *core, Action *action);
+OSG_DYNAMICS_DLLMAPPING
+Action::ResultE bindEnterDefault(NodeCore *core, Action *action);
 
-Action::ResultE
-bindSkeletonEnter(NodeCore *core, Action *action);
+OSG_DYNAMICS_DLLMAPPING
+Action::ResultE bindSkeletonEnter(NodeCore *core, Action *action);
 
 OSG_END_NAMESPACE
 

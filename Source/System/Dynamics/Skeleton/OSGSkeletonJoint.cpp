@@ -66,7 +66,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-const Int16 SkeletonJoint::INVALID_JOINT_ID;
+//const Int16 SkeletonJoint::INVALID_JOINT_ID;
 
 /***************************************************************************\
  *                           Class methods                                 *
