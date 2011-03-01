@@ -127,49 +127,6 @@ void StatIntOnceElem::putToString(
         
         str = fmt.str();
     }
-        
-#if 0
-        const char *proc = strchr(format,'%');        
-              char *temp = new char [strlen(format) + 60];
-
-        if(proc)
-        {
-            if(! strncmp(proc, "%MB", 3))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc-format) + 1, 2);
-                fcopy.insert((proc - format) + 1,".2f ");
-                sprintf(temp, fcopy.c_str(), float(_value)/(1024.0*1024.0));
-            }
-            else if(! strncmp(proc, "%KB", 3))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc-format) + 1, 2);
-                fcopy.insert((proc - format) + 1,".2f ");
-                sprintf(temp, fcopy.c_str(), float(_value)/1024.0);
-            }
-            else if(! strncmp(proc, "%GB", 3))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc-format) + 1, 2);
-                fcopy.insert((proc - format) + 1,".2f ");
-                sprintf(temp, fcopy.c_str(), float(_value)/(1024.0*1024.0*1024.0));
-            }
-            else
-            {
-                sprintf(temp, format, _value);
-            }
-           
-        }
-        else
-        {
-            sprintf(temp, format, _value);
-        }
-
-        str = temp;
-        delete [] temp;
-    }
-#endif
 }
 
 bool StatIntOnceElem::getFromCString(const Char8 *&inVal)

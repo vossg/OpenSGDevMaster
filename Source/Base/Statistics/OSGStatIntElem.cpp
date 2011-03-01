@@ -124,17 +124,6 @@ void StatIntElem::putToString(
         
         str = fmt.str();
     }
-
-#if 0
-        char *temp = new char[strlen(format) + 40];
-
-        sprintf(temp, format, _value);
-
-        str = temp;
-
-        delete [] temp;
-    }
-#endif
 }
 
 bool StatIntElem::getFromCString(const Char8 *&inVal)

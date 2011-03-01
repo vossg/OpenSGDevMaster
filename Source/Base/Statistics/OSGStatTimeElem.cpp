@@ -133,41 +133,6 @@ void StatTimeElem::putToString(
         
         str = fmt.str();
     }
-
-#if 0
-        const Char8 *proc = strchr(format,'%');        
-              Char8 *temp = new Char8[strlen(format) + 60];
-
-        if(proc)
-        {
-            if(! strncmp(proc, "%ms", 3))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc - format) + 1, 2);
-                fcopy.insert((proc - format) + 1,".2f");
-                sprintf(temp, fcopy.c_str(), (double(_time))*1000.);
-            }
-            else if(! strncmp(proc, "%r", 2))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc - format) + 1, 1);
-                sprintf(temp, fcopy.c_str(), 1./double(_time));
-            }
-            else
-            {
-                sprintf(temp, format, double(_time));
-            }
-           
-        }
-        else
-        {
-            sprintf(temp, format, double(_time));
-        }
-        
-        str = temp;
-        delete [] temp;
-    }
-#endif
 }
 
 bool StatTimeElem::getFromCString(const Char8 *&inVal)

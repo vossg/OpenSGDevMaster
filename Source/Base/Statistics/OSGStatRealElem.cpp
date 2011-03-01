@@ -114,36 +114,6 @@ void StatRealElem::putToString(
         
         str = fmt.str();
     }
-
-#if 0
-        const Char8 *proc = strchr(format,'%');        
-              Char8 *temp = new Char8[strlen(format) + 60];
-
-        if(proc)
-        {
-            // Check private format options
-            if(!strncmp(proc, "%per", 4))
-            {
-                std::string fcopy(format);
-                fcopy.erase((proc - format) + 1, 3);
-                fcopy.insert((proc - format) + 1, ".2f");
-                sprintf(temp, fcopy.c_str(), _value*100.f);
-            }
-            else
-            {
-                sprintf(temp, format, _value);
-            }
-           
-        }
-        else
-        {
-            sprintf(temp, format, _value);
-        }
-        
-        str = temp;
-        delete [] temp;
-    }
-#endif
 }
 
 bool StatRealElem::getFromCString(const Char8 *&inVal)

@@ -99,13 +99,6 @@ void StatStringElem::putToString(
         fmt % _value;
         
         str = fmt.str();
-        
-#if 0
-        Char8 *temp = new Char8[strlen(format) + _value.size() + 10];
-        sprintf(temp, format, _value.c_str());
-        str = temp;
-        delete [] temp;
-#endif
     }
 }
 
