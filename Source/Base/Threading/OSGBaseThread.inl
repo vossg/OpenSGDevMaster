@@ -47,24 +47,6 @@ bool BaseThreadCommonBase::isInitialized(void)
 
 #if defined (OSG_USE_PTHREADS)
 
-/*------------------------------- Get -------------------------------------*/
-
-#if 0
-inline
-BaseThread *BasePThreadBase::getCurrent(void)
-{
-#ifdef OSG_PTHREAD_ELF_TLS
-    return _pLocalThread;
-#else
-    BaseThread **pThread;
-
-    pThread = (BaseThread **) pthread_getspecific(_threadKey);
-
-    return *pThread;
-#endif
-}
-#endif
-
 /*---------------------------- Blocking -----------------------------------*/
 
 inline
@@ -164,24 +146,6 @@ void BaseSprocBase::kill(void)
 
 
 #if defined (OSG_USE_WINTHREADS)
-
-/*------------------------------- Get -------------------------------------*/
-
-#if 0
-inline
-BaseThread *BaseWinThreadBase::getCurrent(void)
-{
-#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
-    BaseThread **pThread;
-
-    pThread = (BaseThread **) TlsGetValue(_threadKey);
-
-    return *pThread;
-#else
-    return _pThreadLocal;
-#endif
-}
-#endif
 
 /*----------------------------- Blocking ----------------------------------*/
 

@@ -42,13 +42,9 @@
 #include "OSGConfig.h"
 
 #include <iostream>
-
 #include "OSGLock.h"
-
 #include "OSGBaseFunctions.h"
-
 #include "OSGThreadManager.h"
-
 #include "OSGLog.h"
 
 OSG_USING_NAMESPACE
@@ -464,12 +460,5 @@ bool LockPool::init(void)
 
 void LockPool::shutdown(void)
 {
-#if 0
-    // done by each lock on destruction
-    for(UInt32 i = 0; i < uiLockPoolSize; i++)
-    {
-        _pLocks[i].shutdown();
-    }
-#endif
 }
 
