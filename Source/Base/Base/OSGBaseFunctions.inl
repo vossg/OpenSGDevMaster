@@ -2714,20 +2714,6 @@ void osgSleep(OSG::UInt32 millisecs)
     Sleep(millisecs);
 #else
 
-#if 0 // replaced by nanosleep to work around IRIX problems
-    // Rough aproximation, have to find a better way soon (GV)
-
-    if( (millisecs * 1000) > 1000000)
-    {
-        ::sleep(millisecs / 1000);
-    }
-    else
-    {
-        ::usleep(millisecs * 1000);
-    }
-
-#else
-
     struct timespec req;
     int ns;
 
@@ -2742,8 +2728,6 @@ void osgSleep(OSG::UInt32 millisecs)
             break;
         }
     }
-
-#endif
 #endif
 }
 

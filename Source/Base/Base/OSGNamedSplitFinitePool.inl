@@ -269,21 +269,6 @@ typename NamedSplitFinitePool<ValueT,
     return _oDefaultElement;
 }
 
-#if 0
-template <class  ValueT, 
-          struct SplitInfo, 
-          class  PoolTag, 
-          class  LockPolicy> inline
-void SimpleFinitePool<ValueT, PoolTag, LockPolicy>::release(StoredType oEntry)
-{
-    _oLockPolicy.acquire();
-
-    _vElementStore.push_back(oEntry);
-
-    _oLockPolicy.release();
-}
-#endif
-
 OSG_END_NAMESPACE
 
 

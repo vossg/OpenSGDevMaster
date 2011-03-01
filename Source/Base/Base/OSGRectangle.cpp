@@ -38,31 +38,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include "OSGRectangle.h"
-#include <algorithm>
 
 OSG_BEGIN_NAMESPACE
-
-#if 0
-template class Rectangle2<Real32>;
-template class Rectangle2<Real64>;
-template class Rectangle2<Int32 >;
-
-
-template Rectangle2<Real32> getIntersection(const Rectangle2<Real32> &lhs, 
-                                            const Rectangle2<Real32> &rhs);
-template Rectangle2<Real32> getUnion       (const Rectangle2<Real32> &lhs, 
-                                            const Rectangle2<Real32> &rhs);
-
-template Rectangle2<Real64> getIntersection(const Rectangle2<Real64> &lhs,
-                                            const Rectangle2<Real64> &rhs);
-template Rectangle2<Real64> getUnion       (const Rectangle2<Real64> &lhs, 
-                                            const Rectangle2<Real64> &rhs);
-
-template Rectangle2<Int32 > getIntersection(const Rectangle2<Int32 > &lhs, 
-                                            const Rectangle2<Int32 > &rhs);
-template Rectangle2<Int32 > getUnion       (const Rectangle2<Int32 > &lhs, 
-                                            const Rectangle2<Int32 > &rhs);
-
-#endif
 
 OSG_END_NAMESPACE

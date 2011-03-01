@@ -75,21 +75,6 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
 
   protected:
 
-#if 0
-    struct GLEnum
-    {
-        GLEnum(const GLenum val);
-
-        GLenum val(void) const;
-
-        bool operator <(const GLEnum &rhs) const;
-
-      protected:
-
-        GLenum _val;
-    };
-#endif
-
     typedef std::map<std::string,      GLenum> MapToEnum;
     typedef std::map<     GLenum, std::string> MapFromEnum; 
 
@@ -127,12 +112,6 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
     friend class SingletonHolder;
 };
 
-#if defined(WIN32)
-#    if !defined(OSG_COMPILE_GLDEFINEMAPPER)
-//OSG_BASE_EXPIMP_TMPL 
-//template class OSG_BASE_DLLMAPPING SingletonHolder<GLDefineMapperBase>;
-#    endif
-#endif
 
 /*! \typedef OSG::SingletonHolder<GLDefineMapperBase> GLDefineMapper;
     \ingroup GrpBaseBaseGL
@@ -142,7 +121,5 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
 typedef SingletonHolder<GLDefineMapperBase> GLDefineMapper;
 
 OSG_END_NAMESPACE
-
-#include "OSGGLDefineMapper.inl"
 
 #endif // _OSGGLDEFINEMAPPER_H_

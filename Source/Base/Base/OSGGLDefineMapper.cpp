@@ -52,13 +52,6 @@ OSG_SINGLETON_INST(GLDefineMapperBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<GLDefineMapperBase>;
 
-#if 0
-GLDefineMapperBase::GLEnum::GLEnum(const GLenum val) :
-    _val(val)
-{
-}
-#endif
-
 const std::string GLDefineMapperBase::szUnknown("NONEXX");
 
 

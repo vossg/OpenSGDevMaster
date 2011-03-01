@@ -54,19 +54,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if 0
-/*! Return a sphere containing a given box */
-void SphereVolume::circumscribe(const BoxVolume &box)
-{
-    float radius = 0.5 * (box.getMax() - box.getMin()).length();
-    Vec3f center;
-
-    box.getCenter(center);
-
-    setValue(center, radius);
-}
-#endif
-
 /*! Returns the center */
 
 void SphereVolume::getCenter(Pnt3f &center) const

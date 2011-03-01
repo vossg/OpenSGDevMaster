@@ -1192,52 +1192,11 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
         return Fixed32(-REAL16_MAX);
     }
 
-#if 0
-
-    static Real32 getFraction     (Real32 rVal) { return rVal; };
-    static Real32 getPortion      (Real32 rVal) { return rVal; };
-
-
-    static Real32 getFromCString   (const Char8 * pData,
-                                          Char8 *&pDataEnd)
-    {
-        if(pData != NULL)
-        {
-#if defined(__sgi) || defined(WIN32) || defined(__sun)
-            // FIXME
-            return Real32(atof  (pData));
-#else
-            return Real32(strtof(pData, &pDataEnd));
-#endif
-        }
-        else
-        {
-            return getZeroElement();
-        }
-    }
-
-    static Real32 getFromCString   (const Char8 *pData)
-    {
-        Char8 *pDataEnd;
-
-        return getFromCString(pData, pDataEnd);
-    }
-
-    static void putToString(const Real32       val,
-                                  std::string &out)
-    {
-        Char8 buffer[20];
-
-        sprintf(buffer, "%e", val);
-
-        out.append(buffer);
-    }
-#endif
-
-
     static Fixed32 getFromCString   (const Char8 * pData,
                                            Char8 *&OSG_CHECK_ARG(pDataEnd))
     {
+        // XXX TODO: implement
+
         if(pData != NULL)
         {
             return getZeroElement();
@@ -1250,6 +1209,8 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
 
     static Fixed32 getFromCString   (const Char8 *pData)
     {
+        // XXX TODO: implement
+
         Char8 *pDataEnd;
 
         return getFromCString(pData, pDataEnd);
@@ -1258,13 +1219,7 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
     static void putToString(const Fixed32       OSG_CHECK_ARG(val),
                                   std::string & OSG_CHECK_ARG(out))
     {
-/*
-        Char8 buffer[20];
-
-        sprintf(buffer, "%e", val);
-
-        out.append(buffer);
-*/
+        // XXX TODO: implement
     }
 };
 
