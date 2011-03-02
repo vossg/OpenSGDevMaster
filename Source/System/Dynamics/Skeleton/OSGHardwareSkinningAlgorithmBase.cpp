@@ -237,6 +237,7 @@ void HardwareSkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
     {
+        editSField(ShaderDataFieldMask);
         _sfShaderData.copyFromBin(pMem);
     }
 }

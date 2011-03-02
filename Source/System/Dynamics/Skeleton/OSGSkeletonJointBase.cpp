@@ -425,18 +425,22 @@ void SkeletonJointBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
+        editSField(SkeletonFieldMask);
         _sfSkeleton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointIdFieldMask & whichField))
     {
+        editSField(JointIdFieldMask);
         _sfJointId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InvBindMatrixFieldMask & whichField))
     {
+        editSField(InvBindMatrixFieldMask);
         _sfInvBindMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {
+        editSField(MatrixFieldMask);
         _sfMatrix.copyFromBin(pMem);
     }
 }
@@ -636,7 +640,7 @@ bool SkeletonJointBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfSkeleton.getValue() == pParent)
+            if(_sfSkeleton.getValue() == pTypedParent)
             {
                 editSField(SkeletonFieldMask);
 
@@ -645,8 +649,15 @@ bool SkeletonJointBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("SkeletonJointBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

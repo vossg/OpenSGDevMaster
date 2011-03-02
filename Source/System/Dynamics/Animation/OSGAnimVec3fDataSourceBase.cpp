@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -62,7 +62,7 @@
 #include "OSGAnimVec3fDataSourceBase.h"
 #include "OSGAnimVec3fDataSource.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -520,30 +520,37 @@ void AnimVec3fDataSourceBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {
+        editMField(ValuesFieldMask, _mfValues);
         _mfValues.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InTangentsXFieldMask & whichField))
     {
+        editMField(InTangentsXFieldMask, _mfInTangentsX);
         _mfInTangentsX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InTangentsYFieldMask & whichField))
     {
+        editMField(InTangentsYFieldMask, _mfInTangentsY);
         _mfInTangentsY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InTangentsZFieldMask & whichField))
     {
+        editMField(InTangentsZFieldMask, _mfInTangentsZ);
         _mfInTangentsZ.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutTangentsXFieldMask & whichField))
     {
+        editMField(OutTangentsXFieldMask, _mfOutTangentsX);
         _mfOutTangentsX.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutTangentsYFieldMask & whichField))
     {
+        editMField(OutTangentsYFieldMask, _mfOutTangentsY);
         _mfOutTangentsY.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutTangentsZFieldMask & whichField))
     {
+        editMField(OutTangentsZFieldMask, _mfOutTangentsZ);
         _mfOutTangentsZ.copyFromBin(pMem);
     }
 }

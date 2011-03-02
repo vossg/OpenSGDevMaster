@@ -286,10 +286,12 @@ void HardwareSkinningDataAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
     {
+        editSField(ShaderCodeFieldMask);
         _sfShaderCode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DataValidFieldMask & whichField))
     {
+        editSField(DataValidFieldMask);
         _sfDataValid.copyFromBin(pMem);
     }
 }

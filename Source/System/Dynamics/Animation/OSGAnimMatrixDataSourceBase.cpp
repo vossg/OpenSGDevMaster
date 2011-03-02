@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -62,7 +62,7 @@
 #include "OSGAnimMatrixDataSourceBase.h"
 #include "OSGAnimMatrixDataSource.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -238,6 +238,7 @@ void AnimMatrixDataSourceBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {
+        editMField(ValuesFieldMask, _mfValues);
         _mfValues.copyFromBin(pMem);
     }
 }

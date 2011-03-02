@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -63,7 +63,7 @@
 #include "OSGAnimTemplateBase.h"
 #include "OSGAnimTemplate.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -386,14 +386,17 @@ void AnimTemplateBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
+        editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SourcesFieldMask & whichField))
     {
+        editMField(SourcesFieldMask, _mfSources);
         _mfSources.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TargetIdsFieldMask & whichField))
     {
+        editMField(TargetIdsFieldMask, _mfTargetIds);
         _mfTargetIds.copyFromBin(pMem);
     }
 }

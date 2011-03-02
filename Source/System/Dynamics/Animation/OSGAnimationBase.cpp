@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -65,7 +65,7 @@
 #include "OSGAnimationBase.h"
 #include "OSGAnimation.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -513,22 +513,27 @@ void AnimationBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TimeSensorFieldMask & whichField))
     {
+        editSField(TimeSensorFieldMask);
         _sfTimeSensor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TemplateFieldMask & whichField))
     {
+        editSField(TemplateFieldMask);
         _sfTemplate.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ChannelsFieldMask & whichField))
     {
+        editMField(ChannelsFieldMask, _mfChannels);
         _mfChannels.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
+        editSField(EnabledFieldMask);
         _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
+        editSField(WeightFieldMask);
         _sfWeight.copyFromBin(pMem);
     }
 }
@@ -710,8 +715,15 @@ bool AnimationBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("AnimationBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

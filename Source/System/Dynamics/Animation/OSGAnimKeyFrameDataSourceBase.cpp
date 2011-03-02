@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -62,7 +62,7 @@
 #include "OSGAnimKeyFrameDataSourceBase.h"
 #include "OSGAnimKeyFrameDataSource.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -285,10 +285,12 @@ void AnimKeyFrameDataSourceBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (InValuesFieldMask & whichField))
     {
+        editMField(InValuesFieldMask, _mfInValues);
         _mfInValues.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InterpolationModesFieldMask & whichField))
     {
+        editMField(InterpolationModesFieldMask, _mfInterpolationModes);
         _mfInterpolationModes.copyFromBin(pMem);
     }
 }

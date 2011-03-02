@@ -293,10 +293,12 @@ void SkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SkinFieldMask & whichField))
     {
+        editSField(SkinFieldMask);
         _sfSkin.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
+        editSField(SkeletonFieldMask);
         _sfSkeleton.copyFromBin(pMem);
     }
 }
@@ -376,7 +378,7 @@ bool SkinningAlgorithmBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfSkin.getValue() == pParent)
+            if(_sfSkin.getValue() == pTypedParent)
             {
                 editSField(SkinFieldMask);
 
@@ -385,8 +387,15 @@ bool SkinningAlgorithmBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("SkinningAlgorithmBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

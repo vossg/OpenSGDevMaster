@@ -344,14 +344,17 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AnimationFieldMask & whichField))
     {
+        editSField(AnimationFieldMask);
         _sfAnimation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
+        editSField(WeightFieldMask);
         _sfWeight.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
+        editSField(InValueFieldMask);
         _sfInValue.copyFromBin(pMem);
     }
 }
@@ -433,7 +436,7 @@ bool AnimChannelBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfAnimation.getValue() == pParent)
+            if(_sfAnimation.getValue() == pTypedParent)
             {
                 editSField(AnimationFieldMask);
 
@@ -442,8 +445,15 @@ bool AnimChannelBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("AnimChannelBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }

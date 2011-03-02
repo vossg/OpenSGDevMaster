@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -63,7 +63,7 @@
 #include "OSGAnimTargetAttachmentBase.h"
 #include "OSGAnimTargetAttachment.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -333,10 +333,12 @@ void AnimTargetAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TargetIdFieldMask & whichField))
     {
+        editSField(TargetIdFieldMask);
         _sfTargetId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlendersFieldMask & whichField))
     {
+        editMField(BlendersFieldMask, _mfBlenders);
         _mfBlenders.copyFromBin(pMem);
     }
 }

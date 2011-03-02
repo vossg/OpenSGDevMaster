@@ -283,10 +283,12 @@ void SkeletonSkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (DrawPositionsFieldMask & whichField))
     {
+        editMField(DrawPositionsFieldMask, _mfDrawPositions);
         _mfDrawPositions.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawIndexFieldMask & whichField))
     {
+        editMField(DrawIndexFieldMask, _mfDrawIndex);
         _mfDrawIndex.copyFromBin(pMem);
     }
 }

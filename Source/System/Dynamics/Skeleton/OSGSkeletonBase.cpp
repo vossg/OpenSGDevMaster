@@ -884,34 +884,42 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (RootsFieldMask & whichField))
     {
+        editMField(RootsFieldMask, _mfRoots);
         _mfRoots.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointsFieldMask & whichField))
     {
+        editMField(JointsFieldMask, _mfJoints);
         _mfJoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
     {
+        editMField(ParentJointsFieldMask, _mfParentJoints);
         _mfParentJoints.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
+        editMField(JointMatricesFieldMask, _mfJointMatrices);
         _mfJointMatrices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
     {
+        editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
         _mfJointNormalMatrices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
     {
+        editSField(UseInvBindMatrixFieldMask);
         _sfUseInvBindMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
     {
+        editSField(CalcNormalMatricesFieldMask);
         _sfCalcNormalMatrices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (JointsChangedFieldMask & whichField))
     {
+        editSField(JointsChangedFieldMask);
         _sfJointsChanged.copyFromBin(pMem);
     }
 }
@@ -1099,8 +1107,15 @@ bool SkeletonBase::unlinkChild(
                 return true;
             }
 
-            FWARNING(("SkeletonBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
