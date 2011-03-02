@@ -2180,6 +2180,14 @@ MACRO(OSG_BOOST_DEP_SETUP)
           FIND_PACKAGE(Boost COMPONENTS system)
         ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
+        IF(PYTHON_INCLUDE_PATH AND PYTHON_LIBRARY)
+          FIND_PACKAGE(Boost COMPONENTS python)
+        ENDIF(PYTHON_INCLUDE_PATH AND PYTHON_LIBRARY)
+
+        # We ignore if boost python fails, we catch that somewhere else
+        # so if we get here Boost_FOUND was true in the first place
+        SET(Boost_FOUND TRUE)
+
         # Hide settings
         SET(Boost_FILESYSTEM_LIBRARY ${Boost_FILESYSTEM_LIBRARY}
                                      CACHE INTERNAL "")
@@ -2188,6 +2196,23 @@ MACRO(OSG_BOOST_DEP_SETUP)
         SET(Boost_FILESYSTEM_LIBRARY_RELEASE
            ${Boost_FILESYSTEM_LIBRARY_RELEASE}
            CACHE INTERNAL "")
+
+        SET(Boost_SYSTEM_LIBRARY ${Boost_SYSTEM_LIBRARY}
+                               CACHE INTERNAL "")
+        SET(Boost_SYSTEM_LIBRARY_DEBUG ${Boost_SYSTEM_LIBRARY_DEBUG}
+                                       CACHE INTERNAL "")
+        SET(Boost_SYSTEM_LIBRARY_RELEASE
+           ${Boost_SYSTEM_LIBRARY_RELEASE}
+           CACHE INTERNAL "")
+
+        SET(Boost_PYTHON_LIBRARY ${Boost_PYTHON_LIBRARY}
+                                     CACHE INTERNAL "")
+        SET(Boost_PYTHON_LIBRARY_DEBUG ${Boost_PYTHON_LIBRARY_DEBUG}
+                                           CACHE INTERNAL "")
+        SET(Boost_PYTHON_LIBRARY_RELEASE
+           ${Boost_PYTHON_LIBRARY_RELEASE}
+           CACHE INTERNAL "")
+
 
         SET(Boost_INCLUDE_DIR ${Boost_INCLUDE_DIR}
                               CACHE INTERNAL "")
@@ -2219,6 +2244,8 @@ MACRO(OSG_BOOST_DEP_SETUP)
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
           ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
+          SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_DEBUG})
+
         ELSE()
 
           IF(${Boost_MINOR_VERSION} GREATER 34)
@@ -2227,6 +2254,8 @@ MACRO(OSG_BOOST_DEP_SETUP)
           ELSE()
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
           ENDIF(${Boost_MINOR_VERSION} GREATER 34)
+
+          SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_RELEASE})
 
         ENDIF()
 
