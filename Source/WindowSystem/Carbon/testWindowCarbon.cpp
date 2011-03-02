@@ -42,6 +42,8 @@ OSG::PerspectiveCameraRecPtr cam;
 bool          stopIt = false;
 int           lastx=0, lasty=0;
 
+#if !defined(__LP64__)
+
 void redraw ( void )
 {
     OSG::Matrix m1, m2, m3;
@@ -520,3 +522,11 @@ int main (int argc, char **argv)
 
     return 0;
 }
+
+#else
+int main (int argc, char **argv)
+
+{
+    fprintf(stderr, "Carbon not available in 64bit\n");
+}
+#endif

@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && !defined(__LP64__)
 
 
 OSG_BEGIN_NAMESPACE
@@ -46,5 +46,5 @@ OSG_BEGIN_NAMESPACE
 OSG_END_NAMESPACE
 
 
-#endif // __APPLE__
+#endif // defined(__APPLE__) && !defined(__LP64__)
 

@@ -78,8 +78,12 @@ TextFaceFactoryBase::TextFaceFactoryBase(void)
 #if defined(_WIN32)
     _backend = new TextWIN32Backend();
 #elif defined(__APPLE__)
+# ifdef __LP64__
+    _backend = NULL;
+# else
     _backend = new TextMacBackend();
     //_backend = new TextFT2Backend();
+# endif
 #elif defined(OSG_WITH_FT2)
     _backend = new TextFT2Backend();
 #else

@@ -412,7 +412,6 @@ ENDMACRO(OSG_CONFIGURE_JPEG)
 ##############################################################################
 
 MACRO(OSG_CONFIGURE_COLLADA)
-
     IF(OSG_USE_OSGSUPPORT_LIBS)
 
         IF(EXISTS ${OSG_SUPPORT_ROOT}/include/dae.h)
@@ -431,11 +430,11 @@ MACRO(OSG_CONFIGURE_COLLADA)
                     SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.a "" CACHE INTERNAL "" FORCE)
                 ENDIF()
             ELSE(OSG_USE_STATIC_SUPPORT_LIBS)
-                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so)
-                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22${CMAKE_SHARED_LIBRARY_SUFFIX})
+                    SET(COLLADA_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgcollada14dom22${CMAKE_SHARED_LIBRARY_SUFFIX} "" CACHE INTERNAL "" FORCE)
                 ENDIF()
-                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so)
-                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22.so "" CACHE INTERNAL "" FORCE)
+                IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22${CMAKE_SHARED_LIBRARY_SUFFIX})
+                    SET(COLLADA_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgcollada14dom22${CMAKE_SHARED_LIBRARY_SUFFIX} "" CACHE INTERNAL "" FORCE)
                 ENDIF()
             ENDIF(OSG_USE_STATIC_SUPPORT_LIBS)
         ELSEIF(WIN32)
