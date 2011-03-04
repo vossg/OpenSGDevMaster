@@ -67,16 +67,17 @@ void ContainerChangeEntry::clear(ChangeList *pListParent)
 /* Commit                                                                  */
 
 inline
-void ChangeList::commitChanges(UInt32 origin)
+void ChangeList::commitChanges(UInt32 origin, UInt32 AdditionalChangeOrigin)
 {
-    doCommitChanges(origin);
+    doCommitChanges(origin | AdditionalChangeOrigin);
 }
 
 inline
-void ChangeList::commitChangesAndClear(UInt32 origin)
+void ChangeList::commitChangesAndClear(UInt32 origin,
+                                       UInt32 AdditionalChangeOrigin)
 {
-    doCommitChanges(origin);
-    clear          (      );
+    doCommitChanges(origin | AdditionalChangeOrigin);
+    clear          (                               );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -217,15 +218,16 @@ void ChangeList::setAspect(UInt32 uiAspect)
 /* Free Functions                                                          */
 
 inline
-void commitChanges(void)
+void commitChanges(UInt32 AdditionalChangeOrigin)
 {
-    Thread::getCurrentChangeList()->commitChanges();
+    Thread::getCurrentChangeList()->commitChanges(AdditionalChangeOrigin);
 }
 
 inline
-void commitChangesAndClear(void)
+void commitChangesAndClear(UInt32 AdditionalChangeOrigin)
 {
-    Thread::getCurrentChangeList()->commitChangesAndClear();
+    Thread::getCurrentChangeList()->commitChangesAndClear(
+        AdditionalChangeOrigin);
 }
 
 inline
