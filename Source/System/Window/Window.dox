@@ -25,7 +25,7 @@ using namespace OSG;
     \section PageSystemWindowBackgroundSky
     \section PageSystemWindowBackgroundSolid
     \section PageSystemTextureBackground
-    \section PageWindowGLUTTextureGrabBackground
+    \section PageSystemWindowBackgroundTextureGrab
     \section PageSystemWindowForegroundTextureGrab
     \section PageSystemWindowCameraDecoratorsTile
     \section PageSystemPolygonForeground

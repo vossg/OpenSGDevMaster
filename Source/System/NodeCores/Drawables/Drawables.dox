@@ -13,19 +13,19 @@ using namespace OSG;
     \section PageSystemGeometryIterators
     \section PageMyExtensionFatBorderChunk
     \section PageDrawableGeoIntegralBufferProperty
-    \section PageWindowGLUTGeoIntegralProperty
+    \section PageDrawableGeoIntegralProperty
     \section PageDrawableGeoIntegralBufferRefProperty
     \section PageSystemGeoProperty
-    \section PageWindowGLUTGeoMultiProperty
-    \section PageWindowGLUTGeoVectorProperty
-    \section PageWindowGLUTGeoMultiPropertyData
+    \section PageDrawableGeoMultiProperty
+    \section PageDrawableGeoVectorProperty
+    \section PageDrawableGeoMultiPropertyData
     \section PageDrawableGeoVectorBufferProperty
     \section PageDrawableGeoVectorBufferRefProperty
     \section PageExperimentalTerrain
     \section PageSystemMaterialTexturedSimpleMaterial
     \section PageSystemStageDrawable
     \section PageContribTiledQuadTreeTerrain
-    \section PageWindowGLUTGeometry
+    \section PageDrawableGeometry
     \section PageSystemGeoIndexing
     \section PageSystemEdgeIterator
     \section PageSystemFaceIterator
@@ -34,5 +34,5 @@ using namespace OSG;
     \section PageSystemTriangleIterator
     \section PageSystemGeoFunctionsMakeGeo
     \section PageSystemParticles
-    \section PageWINDOWGLUTGeoProperties
+    \section PageDrawableGeoProperties
  */

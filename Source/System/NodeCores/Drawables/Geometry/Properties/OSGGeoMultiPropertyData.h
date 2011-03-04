@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
 class Window;
 
 /*! \brief GeoMultiPropertyData class. See \ref 
-           PageWindowGLUTGeoMultiPropertyData for a description.
+           PageDrawableGeoMultiPropertyData for a description.
     \ingroup GrpDrawablesGeometryProperties
     \ingroup GrpLibOSGDrawables
     \includebasedoc

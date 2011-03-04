@@ -65,7 +65,7 @@ class PointIterator;
 class DrawEnv;
 
 /*! \brief Geometry class. See \ref
-           PageWindowGLUTGeometry for a description.
+           PageDrawableGeometry for a description.
     \ingroup GrpDrawablesGeometryObj
     \ingroup GrpLibOSGDrawables
     \includebasedoc

@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 class DrawEnv;
 
 /*! \brief GeoVectorProperty class. See \ref
-           PageWindowGLUTGeoVectorProperty for a description.
+           PageDrawableGeoVectorProperty for a description.
     \ingroup GrpDrawablesGeometryProperties
     \ingroup GrpLibOSGDrawables
     \includebasedoc

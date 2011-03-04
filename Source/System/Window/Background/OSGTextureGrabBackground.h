@@ -50,7 +50,7 @@ class Viewport;
 class DrawEnv;
 
 /*! \brief TextureGrabBackground class. See \ref 
-           PageWindowGLUTTextureGrabBackground for a description.
+           PageSystemWindowBackgroundTextureGrab for a description.
     \ingroup GrpWindowBackgroundObj
     \ingroup GrpLibOSGWindow
     \includebasedoc

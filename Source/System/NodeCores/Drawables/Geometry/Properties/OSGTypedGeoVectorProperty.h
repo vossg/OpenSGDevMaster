@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief GeoProperty is a specialized form of Attachment, used to
     define the properties of the geometry node. See \ref
-    PageWINDOWGLUTGeoProperties for a description.
+    PageDrawableGeoProperties for a description.
 
     \ingroup GrpDrawablesGeometryProperties
     \ingroup GrpLibOSGDrawables

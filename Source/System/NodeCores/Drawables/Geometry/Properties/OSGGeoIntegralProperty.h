@@ -49,7 +49,7 @@ OSG_BEGIN_NAMESPACE
 class GeoIntegralBufferRefProperty;
 
 /*! \brief GeoIntegralProperty class. See \ref 
-           PageWindowGLUTGeoIntegralProperty for a description.
+           PageDrawableGeoIntegralProperty for a description.
     \ingroup GrpDrawablesGeometryProperties
     \ingroup GrpLibOSGDrawables
     \includebasedoc
