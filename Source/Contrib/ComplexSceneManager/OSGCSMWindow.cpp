@@ -229,7 +229,13 @@ bool CSMWindow::init(void)
                 UInt32(ComplexSceneManager::the()->
                            getDrawManager()->getParallel()));
 
+#ifndef __APPLE__
         UInt32 uiDrawMode = this->getPartitionDrawMode();
+#else
+        UInt32 uiDrawMode = Window::SequentialPartitionDraw;
+
+        FWARNING(("Detected apple, only sequential draw mode available\n"));
+#endif
 
         if(ComplexSceneManager::the()->getDrawManager()->getParallel() == true)
         {

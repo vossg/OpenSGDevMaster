@@ -52,6 +52,7 @@ int           lastx=0, lasty=0;
 
 void redraw ( void )
 {
+    fprintf(stderr, "redraw\n");
     Matrix m1, m2, m3;
     Quaternion q1;
 
@@ -235,7 +236,8 @@ void redraw ( void )
     switch ([[event characters] characterAtIndex: 0])
     {
     case 27:
-        [NSApp terminate:nil];
+//        [NSApp terminate:nil];
+        [NSApp stop:nil];
         break;
     case 'a':
         glDisable( GL_LIGHTING );
@@ -287,9 +289,17 @@ void redraw ( void )
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication*) application;
 
+- (void) performer: (id) userInfo;
+
 @end
 
 @implementation MyDelegate
+
+- (void) performer: (id) userInfo
+{
+    fprintf(stderr, "perform\n");
+}
+
 
 - (void) dealloc
 {
@@ -388,6 +398,11 @@ void redraw ( void )
 }
 
 @end
+
+void doPerform(id userInfo)
+{
+    fprintf(stderr, "perform\n");
+}
 
 // A magic method that allows applications to react to events even
 // when they are not organized in a bundle
@@ -516,10 +531,25 @@ int doMain(int argc, char *argv[])
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    [NSApp setDelegate: [[MyDelegate new] autorelease]];
+    MyDelegate *delegate =  [[MyDelegate new] autorelease];
+
+    [NSApp setDelegate: delegate];
+
+    [[NSRunLoop currentRunLoop] performSelector: @selector(performer:) target:delegate argument:nil order:0 modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
+
+//    NSTimer *timer = [NSTimer timerWithTimeInterval: 0.0f
+//                     target: delegate
+//                     selector: @selector( performer: )
+//                     userInfo: nil
+//                     repeats: YES];
+
+//    [[NSRunLoop currentRunLoop] addTimer: timer
+//                                forMode: NSDefaultRunLoopMode];
 
     // Run the message loop
     [NSApp run];
+
+    fprintf(stderr, "exit\n");
 
     delete ract;
 
