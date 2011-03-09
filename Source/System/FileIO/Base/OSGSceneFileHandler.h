@@ -307,7 +307,8 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 
     struct progressS
     {
-        UInt64 length;
+        ThreadRefPtr  thread;
+        UInt64        length;
         std::istream *is;
     };
 
