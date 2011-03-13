@@ -169,14 +169,16 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    void   addChangedFunctor   (ChangedFunctor func,
-                                std::string    createSymbol);
+    void   addChangedFunctor   (ChangedFunctor     func,
+                                const std::string &createSymbol);
 
     template<class FunctorT>
-    void   subChangedFunctor   (FunctorT       func        );
+    void   subChangedFunctor   (FunctorT           func        );
+    void   subChangedFunctor   (const std::string &createSymbol);
 
     template<class FunctorT>
-    bool   hasChangedFunctor   (FunctorT       func        );
+    bool   hasChangedFunctor   (FunctorT           func        );
+    bool   hasChangedFunctor   (const std::string &createSymbol);
 
     void   clearChangedFunctors(void                       );
 

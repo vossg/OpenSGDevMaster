@@ -222,8 +222,8 @@ FieldContainer::~FieldContainer(void)
 }
 
 inline
-void FieldContainer::addChangedFunctor(ChangedFunctor func,
-                                       std::string    createSymbol)
+void FieldContainer::addChangedFunctor(ChangedFunctor     func,
+                                       const std::string &createSymbol)
 {
     ChangedFunctorCallback oTmp;
 
@@ -236,17 +236,33 @@ void FieldContainer::addChangedFunctor(ChangedFunctor func,
 template<class FunctorT> inline
 void FieldContainer::subChangedFunctor(FunctorT func)
 {
-    MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
-    MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
+    MFChangedFunctorCallback::iterator       cfIt  = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd = _mfChangedFunctors.end  ();
 
     for(; cfIt != cfEnd; ++cfIt)
     {
         if(cfIt->_func == func)
+        {
+            _mfChangedFunctors.erase(cfIt);
             break;
+        }
     }
+}
 
-    if(cfIt != cfEnd)
-        _mfChangedFunctors.erase(cfIt);
+inline
+void FieldContainer::subChangedFunctor(const std::string &createSymbol)
+{
+    MFChangedFunctorCallback::iterator       cfIt  = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd = _mfChangedFunctors.end  ();
+
+    for(; cfIt != cfEnd; ++cfIt)
+    {
+        if(cfIt->_createSymbol == createSymbol)
+        {
+            _mfChangedFunctors.erase(cfIt);
+            break;
+        }
+    }
 }
 
 template<class FunctorT> inline
@@ -254,9 +270,8 @@ bool FieldContainer::hasChangedFunctor(FunctorT func)
 {
     bool returnValue = false;
 
-    MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
-    MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
-
+    MFChangedFunctorCallback::iterator       cfIt  = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd = _mfChangedFunctors.end  ();
 
     for(; cfIt != cfEnd; ++cfIt)
     {
@@ -267,6 +282,26 @@ bool FieldContainer::hasChangedFunctor(FunctorT func)
         }
     }
     
+    return returnValue;
+}
+
+inline
+bool FieldContainer::hasChangedFunctor(const std::string &createSymbol)
+{
+    bool returnValue = false;
+
+    MFChangedFunctorCallback::iterator       cfIt  = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd = _mfChangedFunctors.end  ();
+
+    for(; cfIt != cfEnd; ++cfIt)
+    {
+        if(cfIt->_createSymbol == createSymbol)
+        {
+            returnValue = true;
+            break;
+        }
+    }
+
     return returnValue;
 }
 
