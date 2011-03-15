@@ -145,8 +145,8 @@ Action::ResultE
 SkeletonOgreJoint::renderEnter(Action *action)
 {
     Action::ResultE  res  = Action::Continue;
-    RenderAction    *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
+//    RenderAction    *ract =
+//        boost::polymorphic_downcast<RenderAction *>(action);
     Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG
@@ -168,8 +168,8 @@ SkeletonOgreJoint::renderEnter(Action *action)
     Int16                                jointId     = getJointId();
     Skeleton::MFJointMatricesType       *jointMats   =
         skel->editMFJointMatrices();
-    Skeleton::MFJointNormalMatricesType *jointNMats  =
-        skel->editMFJointNormalMatrices();
+//    Skeleton::MFJointNormalMatricesType *jointNMats  =
+//        skel->editMFJointNormalMatrices();
     SkeletonOgreJoint                   *parentJoint =
         dynamic_cast<SkeletonOgreJoint*>(skel->getParentJoints(jointId));
 
@@ -237,8 +237,8 @@ Action::ResultE
 SkeletonOgreJoint::renderLeave(Action *action)
 {
     Action::ResultE  res  = Action::Continue;
-    RenderAction    *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
+//    RenderAction    *ract =
+//        boost::polymorphic_downcast<RenderAction *>(action);
     Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG

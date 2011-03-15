@@ -544,7 +544,10 @@ OgreMeshReader::readGeometryVertexBuffer(UInt32              vertCount,
     OSG_OGRE_LOG(("OgreMeshReader::readGeometryVertexBuffer\n"));
 
     UInt16 bindIdx  = readUInt16(_is);
-    UInt16 vertSize = readUInt16(_is);
+#ifndef OSG_OGRE_SILENT
+    UInt16 vertSize = 
+#endif
+        readUInt16(_is);
 
     OSG_OGRE_LOG(("OgreMeshReader::readGeometryVertexBuffer: "
                   "bindIdx '%d' vertSize '%d'\n", bindIdx, vertSize));
@@ -717,8 +720,12 @@ OgreMeshReader::readMeshLOD(void)
     OSG_OGRE_LOG(("OgreMeshReader::readMeshLOD\n"));
 
     std::string strategyName = readString(_is);
-    UInt16      levelCount   = readUInt16(_is);
-    bool        manual       = readBool  (_is);
+
+    //UInt16 levelCount
+    readUInt16(_is);
+
+    // bool manual
+    readBool  (_is);
 
     bool stop = false;
 
@@ -752,7 +759,8 @@ OgreMeshReader::readMeshLODUsage(void)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readMeshLODUsage\n"));
 
-    Real32 lodValue = readReal32(_is);
+    //Real32 lodValue
+    readReal32(_is);
 
     bool stop = false;
 
@@ -834,7 +842,8 @@ OgreMeshReader::readMeshBounds(void)
     bbMax[1] = readReal32(_is);
     bbMax[2] = readReal32(_is);
 
-    Real32 radius = readReal32(_is);
+    //Real32 radius
+    readReal32(_is);
 
     OSG_OGRE_LOG(("OgreMeshReader::readMeshBounds: bbMin '(%f %f %f)' bbMax '(%f %f %f)'\n",
                   bbMin[0], bbMin[1], bbMin[2], bbMax[0], bbMax[1], bbMax[2]));
