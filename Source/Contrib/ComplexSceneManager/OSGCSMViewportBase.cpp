@@ -123,6 +123,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           CSMViewportBase::_sfServerId
+    If not -1 used by the cluster multi window to compute the corresponding
+    viewport
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -258,6 +263,19 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandlePassive));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "serverId",
+        "If not -1 used by the cluster multi window to compute the corresponding\n"
+        "viewport\n",
+        ServerIdFieldId, ServerIdFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleServerId),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleServerId));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -275,101 +293,113 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"CSMViewport\"\n"
-    "    parent=\"FieldContainer\"\n"
-    "    library=\"ContribCSM\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    isBundle=\"true\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"root\"\n"
-    "\t\ttype=\"Node\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"camera\"\n"
-    "\t\ttype=\"Camera\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"background\"\n"
-    "\t\ttype=\"Background\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"foregrounds\"\n"
-    "\t\ttype=\"Foreground\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"leftBottom\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.f, 0.f\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"rightTop\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"1.f, 1.f\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"renderOptions\"\n"
-    "\t   type=\"RenderOptionsPtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"stereoMode\"\n"
-    "\t   type=\"std::string\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue='\"none\"'\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "    <Field\n"
-    "       name=\"passive\"\n"
-    "       type=\"bool\"\n"
-    "       cardinality=\"single\"\n"
-    "       visibility=\"external\"\n"
-    "       access=\"public\"\n"
-    "       defaultValue=\"false\"\n"
-    "       >\n"
-    "    </Field>\n"
+    "   name=\"CSMViewport\"\n"
+    "   parent=\"FieldContainer\"\n"
+    "   library=\"ContribCSM\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   isBundle=\"true\"\n"
+    "   >\n"
+    "  <Field\n"
+    "     name=\"root\"\n"
+    "     type=\"Node\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"camera\"\n"
+    "     type=\"Camera\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"background\"\n"
+    "     type=\"Background\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"foregrounds\"\n"
+    "     type=\"Foreground\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"leftBottom\"\n"
+    "     type=\"Vec2f\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"0.f, 0.f\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"rightTop\"\n"
+    "     type=\"Vec2f\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"1.f, 1.f\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"renderOptions\"\n"
+    "     type=\"RenderOptionsPtr\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"stereoMode\"\n"
+    "     type=\"std::string\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue='\"none\"'\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"passive\"\n"
+    "     type=\"bool\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"false\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"serverId\"\n"
+    "     type=\"Int32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"-1\"\n"
+    "     >\n"
+    "    If not -1 used by the cluster multi window to compute the corresponding\n"
+    "    viewport\n"
+    "  </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -511,6 +541,19 @@ const SFBool *CSMViewportBase::getSFPassive(void) const
 }
 
 
+SFInt32 *CSMViewportBase::editSFServerId(void)
+{
+    editSField(ServerIdFieldMask);
+
+    return &_sfServerId;
+}
+
+const SFInt32 *CSMViewportBase::getSFServerId(void) const
+{
+    return &_sfServerId;
+}
+
+
 
 
 void CSMViewportBase::pushToForegrounds(Foreground * const value)
@@ -610,6 +653,10 @@ UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPassive.getBinSize();
     }
+    if(FieldBits::NoField != (ServerIdFieldMask & whichField))
+    {
+        returnValue += _sfServerId.getBinSize();
+    }
 
     return returnValue;
 }
@@ -654,6 +701,10 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PassiveFieldMask & whichField))
     {
         _sfPassive.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ServerIdFieldMask & whichField))
+    {
+        _sfServerId.copyToBin(pMem);
     }
 }
 
@@ -706,6 +757,11 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(PassiveFieldMask);
         _sfPassive.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ServerIdFieldMask & whichField))
+    {
+        editSField(ServerIdFieldMask);
+        _sfServerId.copyFromBin(pMem);
     }
 }
 
@@ -813,7 +869,8 @@ CSMViewportBase::CSMViewportBase(void) :
     _sfRightTop               (Vec2f(1.f, 1.f)),
     _sfRenderOptions          (NULL),
     _sfStereoMode             (std::string("none")),
-    _sfPassive                (bool(false))
+    _sfPassive                (bool(false)),
+    _sfServerId               (Int32(-1))
 {
 }
 
@@ -827,7 +884,8 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _sfRightTop               (source._sfRightTop               ),
     _sfRenderOptions          (NULL),
     _sfStereoMode             (source._sfStereoMode             ),
-    _sfPassive                (source._sfPassive                )
+    _sfPassive                (source._sfPassive                ),
+    _sfServerId               (source._sfServerId               )
 {
 }
 
@@ -1113,6 +1171,31 @@ EditFieldHandlePtr CSMViewportBase::editHandlePassive        (void)
 
 
     editSField(PassiveFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleServerId        (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfServerId,
+             this->getType().getFieldDesc(ServerIdFieldId),
+             const_cast<CSMViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleServerId       (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfServerId,
+             this->getType().getFieldDesc(ServerIdFieldId),
+             this));
+
+
+    editSField(ServerIdFieldMask);
 
     return returnValue;
 }

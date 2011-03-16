@@ -167,7 +167,24 @@ bool CSMClusterWindow::init(void)
         ++serverIt;
     }
 
-    _pClusterWindow->editMFServerIds()->setValues(*(this->getMFServerIds()));
+    bool bServerIdsValid = false;
+
+    if(this->getMFServers()->size() <= this->getMFServerIds()->size())
+    {
+        _pClusterWindow->editMFServerIds()->setValues(
+            *(this->getMFServerIds()));
+
+        bServerIdsValid = true;
+    }
+    else
+    {
+        if(this->getMFServerIds()->size() != 0)
+        {
+            FWARNING(("Not enough server ids (%d/%d), field ignored\n",
+                      this->getMFServerIds()->size(),
+                      this->getMFServers  ()->size()                  ));
+        }
+    }
 
     _pClusterWindow->setSize(UInt16(this->getXSize()), 
                              UInt16(this->getYSize()));
@@ -234,7 +251,44 @@ bool CSMClusterWindow::init(void)
         }
     }
 
+    if(pCMDWindow != NULL)
+    {
+        MFUnrecCSMViewportPtr::const_iterator vIt  = getMFViewports()->begin();
+        MFUnrecCSMViewportPtr::const_iterator vEnd = getMFViewports()->end  ();
 
+        while(vIt != vEnd)
+        {
+            if((*vIt)->getServerId() != -1)
+            {
+                UInt32 uiRealServerId = (*vIt)->getServerId();
+
+                if(bServerIdsValid == true)
+                {
+                    Int32 iIdx = 
+                        this->getMFServerIds()->findIndex(uiRealServerId);
+
+                    if(iIdx != -1)
+                        uiRealServerId = iIdx;
+                }
+
+                UInt32 uiHor  = uiRealServerId % pCMDWindow->getHServers();
+                UInt32 uiVert = uiRealServerId / pCMDWindow->getHServers();
+                
+                Real32 rHFact = 1.f / Real32(pCMDWindow->getHServers());
+                Real32 rVFact = 1.f / Real32(pCMDWindow->getVServers());
+
+                Vec2f leftBottom(Real32(uiHor ) * rHFact,
+                                 Real32(uiVert) * rVFact);
+
+                Vec2f rightTop  (Real32(uiHor  + 1) * rHFact,
+                                 Real32(uiVert + 1) * rVFact);
+
+                (*vIt)->setLeftBottom(leftBottom);
+                (*vIt)->setRightTop  (rightTop  );
+            }            
+            ++vIt;
+        }
+    }
 
     if(_sfClientWindow.getValue() != NULL)
     {

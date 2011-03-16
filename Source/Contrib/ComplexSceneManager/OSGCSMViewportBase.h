@@ -109,7 +109,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         RenderOptionsFieldId = RightTopFieldId + 1,
         StereoModeFieldId = RenderOptionsFieldId + 1,
         PassiveFieldId = StereoModeFieldId + 1,
-        NextFieldId = PassiveFieldId + 1
+        ServerIdFieldId = PassiveFieldId + 1,
+        NextFieldId = ServerIdFieldId + 1
     };
 
     static const OSG::BitVector RootFieldMask =
@@ -130,6 +131,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         (TypeTraits<BitVector>::One << StereoModeFieldId);
     static const OSG::BitVector PassiveFieldMask =
         (TypeTraits<BitVector>::One << PassiveFieldId);
+    static const OSG::BitVector ServerIdFieldMask =
+        (TypeTraits<BitVector>::One << ServerIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -142,6 +145,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
     typedef SFString          SFStereoModeType;
     typedef SFBool            SFPassiveType;
+    typedef SFInt32           SFServerIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -189,6 +193,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                   SFBool              *editSFPassive        (void);
             const SFBool              *getSFPassive         (void) const;
 
+                  SFInt32             *editSFServerId       (void);
+            const SFInt32             *getSFServerId        (void) const;
+
 
                   Node * getRoot           (void) const;
 
@@ -212,6 +219,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                   bool                &editPassive        (void);
                   bool                 getPassive         (void) const;
 
+                  Int32               &editServerId       (void);
+                  Int32                getServerId        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -225,6 +235,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
             void setRenderOptions  (RenderOptions * const value);
             void setStereoMode     (const std::string &value);
             void setPassive        (const bool value);
+            void setServerId       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -304,6 +315,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     SFUnrecRenderOptionsPtr _sfRenderOptions;
     SFString          _sfStereoMode;
     SFBool            _sfPassive;
+    SFInt32           _sfServerId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -350,6 +362,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     EditFieldHandlePtr editHandleStereoMode     (void);
     GetFieldHandlePtr  getHandlePassive         (void) const;
     EditFieldHandlePtr editHandlePassive        (void);
+    GetFieldHandlePtr  getHandleServerId        (void) const;
+    EditFieldHandlePtr editHandleServerId       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

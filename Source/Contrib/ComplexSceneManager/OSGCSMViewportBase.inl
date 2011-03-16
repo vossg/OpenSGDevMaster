@@ -237,6 +237,31 @@ void CSMViewportBase::setPassive(const bool value)
 
     _sfPassive.setValue(value);
 }
+//! Get the value of the CSMViewport::_sfServerId field.
+
+inline
+Int32 &CSMViewportBase::editServerId(void)
+{
+    editSField(ServerIdFieldMask);
+
+    return _sfServerId.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfServerId field.
+inline
+      Int32  CSMViewportBase::getServerId(void) const
+{
+    return _sfServerId.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfServerId field.
+inline
+void CSMViewportBase::setServerId(const Int32 value)
+{
+    editSField(ServerIdFieldMask);
+
+    _sfServerId.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
 inline
@@ -285,6 +310,9 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (PassiveFieldMask & whichField))
         _sfPassive.syncWith(pFrom->_sfPassive);
+
+    if(FieldBits::NoField != (ServerIdFieldMask & whichField))
+        _sfServerId.syncWith(pFrom->_sfServerId);
 }
 #endif
 
