@@ -599,7 +599,18 @@ MACRO(OSG_CONFIGURE_BOOST)
 
         IF(APPLE)
             FIND_PACKAGE(Boost COMPONENTS system)
-            SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} ${Boost_SYSTEM_LIBRARY})
+
+            IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
+               CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
+
+              SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} ${Boost_SYSTEM_LIBRARY_DEBUG})
+
+            ELSE()
+
+              SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} ${Boost_SYSTEM_LIBRARY_RELEASE})
+
+            ENDIF()
+
         ENDIF(APPLE)
 
     ELSE(Boost_FOUND)
