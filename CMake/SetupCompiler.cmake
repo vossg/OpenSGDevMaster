@@ -149,10 +149,6 @@ IF(MSVC)
         "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib"
         CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
-        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /INCREMENTAL:NO msvcprtd.lib msvcrtd.lib"
-        CACHE STRING "OpenSG defaults" FORCE )
-
     SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT 
         "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug msvcprtd.lib msvcrtd.lib"
         CACHE STRING "OpenSG defaults" FORCE )
@@ -168,6 +164,13 @@ IF(MSVC)
     SET(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO 
         "${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib"
         CACHE INTERNAL "OpenSG defaults" FORCE )
+    
+    STRING(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replacementFlags ${CMAKE_SHARED_LINKER_FLAGS_DEBUG})
+    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG "/INCREMENTAL:NO ${replacementFlags}" )
+    
+    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
+        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
 
 
 
