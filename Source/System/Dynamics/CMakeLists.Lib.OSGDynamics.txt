@@ -44,7 +44,9 @@ OSG_ADD_DIRECTORY("Source/System/Dynamics/VRMLAnimation/Helper")
 # setup python bindings
 ##############################################################################
 
-#SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGDrawableStatsAttachment.h")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
 
 ##############################################################################
 # setup build

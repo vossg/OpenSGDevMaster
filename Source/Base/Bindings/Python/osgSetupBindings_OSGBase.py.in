@@ -175,8 +175,8 @@ def genTemplatesSetup(template_builder, tbuilder, non_fc_template_instances):
   for vst in settings.vec_storage_typeinfo:
      template_builder.Template(vst.type, vst.alias)
    
-  for svst in settings.select_vec_storage_typeinfo:
-     template_builder.Template(svst.type, svst.alias)
+#  for svst in settings.select_vec_storage_typeinfo:
+#     template_builder.Template(svst.type, svst.alias)
    
   for vt in settings.vec_typeinfo:
      template_builder.Template(vt.type, vt.alias)
@@ -372,14 +372,14 @@ def postScanSetup(osg, template_alias_db):
 
   # Expose the SelectVecStorage classes. These are included to get the Python class hierarchy to
   # match the C++ class hierarchy.
-  for svst in settings.select_vec_storage_typeinfo:
-    size = svst.size
-    type_alias = svst.type_str
-    cname = template_alias_db[svst.alias].declaration.name      # Look up true class name by alias
-    c = osg.class_(cname)
-    c.include()
-    c.rename(svst.exposed_name)
-    exclude_protected(c)
+#  for svst in settings.select_vec_storage_typeinfo:
+#    size = svst.size
+#    type_alias = svst.type_str
+#    cname = template_alias_db[svst.alias].declaration.name      # Look up true class name by alias
+#    c = osg.class_(cname)
+#    c.include()
+#    c.rename(svst.exposed_name)
+#    exclude_protected(c)
 
   # VecXX classes
   for vt in settings.vec_typeinfo:      

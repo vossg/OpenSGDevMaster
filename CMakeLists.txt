@@ -850,16 +850,35 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${PYOSG_DIR}/src/osggen.py"
                   "${CMAKE_BINARY_DIR}/Python/Helper/osggen.py")
 
-      EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-                  "${PYOSG_DIR}/src/settings.py"
-                  "${CMAKE_BINARY_DIR}/Python/Helper/settings.py")
 
       EXECUTE_PROCESS(
         COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                   "${CMAKE_SOURCE_DIR}/Bindings/Python/splitGenHelper.py"
                   "${CMAKE_BINARY_DIR}/Python/Helper/splitGenHelper.py")
      
+      #########################
+      # settings.py
+      #########################
+
+      SET(_OSG_FILE_IN       "${PYOSG_DIR}/src/settings.py")
+      SET(_OSG_FILE_OUT_PROC "${CMAKE_BINARY_DIR}/Python/Helper/processed/settings.py.proc")
+      SET(_OSG_FILE_OUT      "${CMAKE_BINARY_DIR}/Python/Helper/settings.py")
+      SET(_OSG_PATCH_FILE    "${CMAKE_SOURCE_DIR}/Bindings/Python/Patches/settings.py.patch")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy
+                  "${_OSG_FILE_IN}"
+                  "${_OSG_FILE_OUT_PROC}")
+
+      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+                      INPUT_FILE "${_OSG_PATCH_FILE}"
+                      WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Python/Helper/processed")
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                  "${_OSG_FILE_OUT_PROC}"
+                  "${_OSG_FILE_OUT}")
+
       #########################
       # PreBoostPython.h
       #########################

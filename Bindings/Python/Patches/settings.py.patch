@@ -1,0 +1,36 @@
+--- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/settings.py	2011-03-17 12:03:30.825685965 +0800
++++ settings.py.proc	2011-03-17 12:04:15.690688125 +0800
+@@ -28,7 +28,7 @@
+ 
+ # List of types for Pnt types
+ if do_full:
+-   pnt_types = ['ub', 'b', 'us', 's', 'f', 'd', 'ld', 'fx']
++   pnt_types = ['ub', 'b', 'us', 's', 'f', 'd', 'ld']
+    pnt_sizes = [2, 3, 4]
+ else:
+    pnt_types = ['f', 'd']
+@@ -68,15 +68,15 @@
+ 
+ # Create SelectVecStorage_typeinfo
+ # Full type, alias, module_name, size, template_type
+-select_vec_storage_typeinfo = []
+-for size in vec_sizes:
+-   for vtype in vec_types:
+-      select_vec_storage_typeinfo.append(
+-         MathTypeInfo("OSG::SelectVecStorage<%s, %s>" % (type_map[vtype], size),
+-                      "alias_SelectVecStorage%s%s" % (size, vtype),
+-                      "SelectVecStorage%s%s" % (size, vtype),
+-                      size, type_map[vtype])
+-      )
++#select_vec_storage_typeinfo = []
++#for size in vec_sizes:
++#   for vtype in vec_types:
++#      select_vec_storage_typeinfo.append(
++#         MathTypeInfo("OSG::SelectVecStorage<%s, %s>" % (type_map[vtype], size)#,
++#                      "alias_SelectVecStorage%s%s" % (size, vtype),
++#                      "SelectVecStorage%s%s" % (size, vtype),
++#                      size, type_map[vtype])
++#      )
+ 
+ # Vec types
+ # Note: We use the osg typedefed type for the base type
