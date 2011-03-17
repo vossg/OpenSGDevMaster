@@ -173,6 +173,4 @@ void ScaleManipulator::doMovement(      Transform    *t,
     t->editMatrix().multLeft(mc);
     t->editMatrix().multLeft(md);
     t->editMatrix().multLeft(me);
-
-    commitChanges();
 }
