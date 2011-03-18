@@ -1186,6 +1186,28 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS RelWithDebInfo
                 RUNTIME DESTINATION lib/relwithdbg
                 COMPONENT release_with_debinfo_libraries)
+    ELSEIF(XCODE_VERSION)
+#        INSTALL(TARGETS ${PROJECT_NAME}
+#                CONFIGURATIONS Release
+#                RUNTIME DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}
+#                COMPONENT release_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Release
+                LIBRARY DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}
+                COMPONENT release_libraries)
+
+#        INSTALL(TARGETS ${PROJECT_NAME}
+#                CONFIGURATIONS Debug
+#                RUNTIME DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug
+#                COMPONENT debug_runtimes)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Debug
+                LIBRARY DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug
+                COMPONENT debug_libraries)
     ELSE(WIN32)
         INSTALL(TARGETS ${PROJECT_NAME}
                 RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
