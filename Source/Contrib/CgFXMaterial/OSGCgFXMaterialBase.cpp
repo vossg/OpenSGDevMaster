@@ -314,7 +314,7 @@ CgFXMaterialBase::TypeObject CgFXMaterialBase::_type(
     CgFXMaterial::exitMethod,
     reinterpret_cast<InitalInsertDescFunc>(&CgFXMaterial::classDescInserter),
     false,
-    TreatTechniquesAsVariantsFieldMask,
+    TreatTechniquesAsVariantsFieldMask | EffectStringFieldMask | EffectFileFieldMask,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

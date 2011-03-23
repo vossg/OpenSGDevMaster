@@ -261,6 +261,9 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     void addVariable           (      ShaderVariable *pVar      );
     const ShaderVariable *getVariable(const Char8    *name) const;
 
+    
+    void initContext           (      void                      );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */

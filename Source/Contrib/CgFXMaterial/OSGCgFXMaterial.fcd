@@ -10,7 +10,7 @@
     parentsystemcomponent="true"
     decoratable="false"
     useLocalIncludes="false"
-    fieldsUnmarkedOnCreate="TreatTechniquesAsVariantsFieldMask"
+    fieldsUnmarkedOnCreate="TreatTechniquesAsVariantsFieldMask | EffectStringFieldMask | EffectFileFieldMask"
     >
   <Field
       name="treatTechniquesAsVariants"

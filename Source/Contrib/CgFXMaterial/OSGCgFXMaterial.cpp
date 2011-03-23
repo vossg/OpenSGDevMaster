@@ -383,17 +383,24 @@ bool CgFXMaterial::checkForCgError(const Char8     *szSituation,
 {
     CGerror error;
 
+    //Get the last error string and value
     const Char8 *string = cgGetLastErrorString(&error);
 
+    //Was there an error
     if(error != CG_NO_ERROR)
     {
+        //Log the error
         SWARNING << "CgfxMaterial Cgfx Error: " << szSituation << ": " 
                  << string << std::endl;
 
+        //Give more detailed informatino if there was a compile error
         if(error == CG_COMPILER_ERROR)
         {
             SWARNING << cgGetLastListing(pCGcontext) << std::endl;
         }
+
+        //Clear the error
+        cgGetError();
 
         return true;
     }
@@ -476,18 +483,21 @@ void CgFXMaterial::readEffectFile(void)
 
     fclose(pFile);
 }
-
-void CgFXMaterial::processEffectString(void)
+    
+void CgFXMaterial::initContext(void)
 {
     checkForCgError("precheck", _pCGcontext);
 
-    if(_sfEffectString.getValue().empty() == true)
+    if(_pCGcontext != NULL)
+    {
+        //Already initialized
         return;
+    }
 
     _pCGcontext = cgCreateContext();
 
     if( checkForCgError("Creating Cg Context", _pCGcontext) == true || 
-        _pCGcontext                                          == NULL  )
+       _pCGcontext                                          == NULL  )
     {
         return;
     }
@@ -507,6 +517,16 @@ void CgFXMaterial::processEffectString(void)
                                   (CGIncludeCallbackFunc)cgIncludeCallback );
 #endif
 #endif
+}
+
+void CgFXMaterial::processEffectString(void)
+{
+    checkForCgError("precheck", _pCGcontext);
+
+    if(_sfEffectString.getValue().empty() == true)
+        return;
+
+    initContext();
 
     // we have to transform _compilerOptions to an array of
     // const char* to feed it to cgCreateEffect
@@ -519,6 +539,18 @@ void CgFXMaterial::processEffectString(void)
 
     const char **pRawOptions = &(vOptions[0]);
 
+    if(_pCGeffect != NULL)
+    {
+        //Destroy the effect
+        cgDestroyEffect(_pCGeffect);
+
+        if( checkForCgError("Destroying Cg Effect", _pCGcontext) == true ||
+           _pCGeffect                                            == NULL )
+        {
+            return;
+        }
+    }
+
     _pCGeffect = cgCreateEffect(_pCGcontext, 
                                 _sfEffectString.getValue().c_str(), 
                                  pRawOptions                      );
@@ -527,6 +559,14 @@ void CgFXMaterial::processEffectString(void)
        _pCGeffect                                          == NULL )
     {
         return;
+    }
+
+    //Any Compile warnings
+    const char *CompileWarnings = cgGetLastListing(_pCGcontext);
+
+    if(CompileWarnings != NULL)
+    {
+        SWARNING << CompileWarnings << std::endl;
     }
 
     CGtechnique pFirstTechnique = cgGetFirstTechnique(_pCGeffect);
@@ -564,6 +604,9 @@ void CgFXMaterial::processEffectString(void)
     extractParameters();
 
     CGtechnique pCGTech = cgGetFirstTechnique(_pCGeffect);
+
+    //Remove previous techniques
+    clearTechniques();
 
     while(pCGTech != NULL)  
     {
