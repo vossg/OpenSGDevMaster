@@ -180,6 +180,14 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    static bool checkForCgError(const Char8     *szSituation, 
+                                      CGcontext  pCGcontext );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
 
@@ -234,14 +242,6 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     static void   handleDestroyGL(DrawEnv                 *pEnv, 
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode     );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    static bool checkForCgError(const Char8     *szSituation, 
-                                      CGcontext  pCGcontext);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -137,6 +137,8 @@ void CgFXPassChunk::activate(DrawEnv       *pEnv,
 {
     cgSetPassState(_pCGPass);
 
+    CgFXMaterial::checkForCgError("cgSetPassState", NULL);
+
     pEnv->setActiveShader(TypeTraits<UInt32>::BitsSet);
 
     updateStateUniforms(pEnv);
@@ -147,6 +149,8 @@ void CgFXPassChunk::deactivate(DrawEnv       *pEnv,
                                StateOverride *pOverride)
 {
     cgResetPassState(_pCGPass);
+
+    CgFXMaterial::checkForCgError("cgResetPassState", NULL);
 
     pEnv->setActiveShader(TypeTraits<UInt32>::BitsClear);
 
@@ -165,6 +169,8 @@ void CgFXPassChunk::changeFrom(DrawEnv       *pEnv,
                                StateOverride *pOldOverride)
 {
     cgSetPassState(_pCGPass);
+
+    CgFXMaterial::checkForCgError("cgSetPassState", NULL);
 
     updateStateUniforms(pEnv);
 }
@@ -203,11 +209,16 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         vStateVarNames[
                             CgFXMaterial::CgProjection].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 cgGLSetMatrixParameterfc(
                     pMatrixParam,
                     pEnv->_openGLState.getProjection().getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", NULL);
             }
             break;
 
@@ -219,6 +230,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         vStateVarNames[
                             CgFXMaterial::CgModelViewProjection].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 Matrix mWorld2Scrn = pEnv->getWorldToScreen();
@@ -227,6 +241,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mWorld2Scrn.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
 
@@ -242,12 +259,19 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         vStateVarNames[
                             CgFXMaterial::CgModel].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mObj2World.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
+
             case CgFXMaterial::CgModelIMask:
             {
                  CGparameter pMatrixParam = 
@@ -255,6 +279,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         pEffect, 
                         vStateVarNames[
                             CgFXMaterial::CgModelI].c_str());
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pMatrixParam != NULL);
 
@@ -264,8 +291,12 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mModelI.getValues());
-           }
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
+            }
             break;
+
             case CgFXMaterial::CgModelITMask:
             {
                  CGparameter pMatrixParam = 
@@ -283,6 +314,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mModelIT.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
 
@@ -297,6 +331,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         pEffect, 
                         vStateVarNames[CgFXMaterial::CgModelView].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 Matrix mCameraViewing = pEnv->getCameraViewing();
@@ -305,14 +342,21 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mCameraViewing.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
+
             case CgFXMaterial::CgModelViewIMask:
             {
                 CGparameter pMatrixParam = 
                     cgGetNamedEffectParameter(
                         pEffect, 
                         vStateVarNames[CgFXMaterial::CgModelViewI].c_str());
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pMatrixParam != NULL);
 
@@ -323,14 +367,21 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mCameraViewing.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
+
             case CgFXMaterial::CgModelViewITMask:
             {
                 CGparameter pMatrixParam = 
                     cgGetNamedEffectParameter(
                         pEffect, 
                         vStateVarNames[CgFXMaterial::CgModelViewIT].c_str());
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pMatrixParam != NULL);
 
@@ -342,6 +393,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mCameraViewing.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
 
@@ -357,12 +411,19 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         vStateVarNames[
                             CgFXMaterial::CgView].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          pEnv->getCameraViewing().getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
+
             case CgFXMaterial::CgViewIMask:
             {
                  CGparameter pMatrixParam = 
@@ -370,6 +431,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         pEffect, 
                         vStateVarNames[
                             CgFXMaterial::CgViewI].c_str());
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pMatrixParam != NULL);
 
@@ -379,8 +443,12 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mCameraViewing.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
+
             case CgFXMaterial::CgViewITMask:
             {
                  CGparameter pMatrixParam = 
@@ -388,6 +456,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         pEffect, 
                         vStateVarNames[
                             CgFXMaterial::CgViewIT].c_str());
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pMatrixParam != NULL);
 
@@ -398,6 +469,9 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          mCameraViewing.getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
 
@@ -410,10 +484,16 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         vStateVarNames[
                             CgFXMaterial::CgViewProjection].c_str());
 
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
+
                 OSG_ASSERT(pMatrixParam != NULL);
 
                 cgGLSetMatrixParameterfc(pMatrixParam,
                                          pEnv->getWorldToScreen().getValues());
+
+                CgFXMaterial::checkForCgError("cgGLSetMatrixParameterfc", 
+                                              NULL);
             }
             break;
     
@@ -424,6 +504,10 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                         pEffect,
                         vStateVarNames[
                             CgFXMaterial::CgTime].c_str());
+
+
+                CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                              NULL);
 
                 OSG_ASSERT(pTime != NULL);
 

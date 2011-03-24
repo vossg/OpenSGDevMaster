@@ -72,6 +72,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 const std::string CgFXMaterial::FALBACK_MATERIAL_TECHNIQUE_NAME = 
     std::string("FALBACK_MATERIAL");
 
@@ -175,40 +176,40 @@ UInt32 CgFXMaterial::handleGL(DrawEnv                 *pEnv,
         pEnv->getWindow()->setGLObjectId(osgId, glId);
 
 #if OSG_CGFX_DUMP_DEBUG
-        fprintf(stderr, "setting gl id %"PRIUSize" | %p\n",
-                glId,
-               _pCGcontext);
+        fprintf( stderr, "setting gl id %"PRIUSize" | %p\n",
+                 glId,
+                _pCGcontext);
 #endif
     }
     else if(mode == Window::reinitialize)
     {
-        Window::GLObjectId oldGlId = pEnv->getWindow()->getGLObjectId(osgId);
+        //Window::GLObjectId oldGlId = pEnv->getWindow()->getGLObjectId(osgId);
 
-        Window::GLObjectId glId = 
-            reinterpret_cast<Window::GLObjectId>(_pCGcontext);
+        //Window::GLObjectId glId = 
+            //reinterpret_cast<Window::GLObjectId>(_pCGcontext);
 
-        OSG_ASSERT(oldGlId != glId);
+        //OSG_ASSERT(oldGlId != glId);
 
-        CGcontext pOldCGcontext = reinterpret_cast<CGcontext>(oldGlId);
+        //CGcontext pOldCGcontext = reinterpret_cast<CGcontext>(oldGlId);
 
-#if OSG_CGFX_DUMP_DEBUG
-        fprintf(stderr, "destroying gl id %"PRIUSize" | %p\n",
-                oldGlId,
-                pOldCGcontext);
-#endif
+//#if OSG_CGFX_DUMP_DEBUG
+        //fprintf(stderr, "destroying gl id %"PRIUSize" | %p\n",
+                //oldGlId,
+                //pOldCGcontext);
+//#endif
 
-        if(pOldCGcontext != NULL)
-        {
-            cgDestroyContext(pOldCGcontext);
-        }
+        //if(pOldCGcontext != NULL)
+        //{
+            //cgDestroyContext(pOldCGcontext);
+        //}
 
-        pEnv->getWindow()->setGLObjectId(osgId, glId);
+        //pEnv->getWindow()->setGLObjectId(osgId, glId);
 
-#if OSG_CGFX_DUMP_DEBUG
-        fprintf(stderr, "setting gl id %"PRIUSize" | %p\n",
-                glId,
-               _pCGcontext);
-#endif
+//#if OSG_CGFX_DUMP_DEBUG
+        //fprintf(stderr, "setting gl id %"PRIUSize" | %p\n",
+                //glId,
+               //_pCGcontext);
+//#endif
     }
 
     return 0;
@@ -232,6 +233,8 @@ void CgFXMaterial::handleDestroyGL(DrawEnv                 *pEnv,
         if(pCGcontext != NULL)
         {
             cgDestroyContext(pCGcontext);
+
+            CgFXMaterial::checkForCgError("cgDestroyContext", NULL);
         }
 
         win->setGLObjectId(osgId, 0);
@@ -278,7 +281,7 @@ void CgFXMaterial::changed(ConstFieldMaskArg whichField,
         //Update the sort key of all the techniques
         MFTechniquesType::const_iterator tIt  = _mfTechniques.begin();
         MFTechniquesType::const_iterator tEnd = _mfTechniques.end  ();
-       
+
         for(; tIt != tEnd; ++tIt)
         {
             (*tIt)->setSortKey(getSortKey());
@@ -292,7 +295,6 @@ void CgFXMaterial::changed(ConstFieldMaskArg whichField,
 
         if(getTreatTechniquesAsVariants() == true)
         {
-            
             Inherited::addElement(getFallbackMaterial(), 
                                   RenderPropertiesPool::the()->getDefault());
 
@@ -359,7 +361,7 @@ PrimeMaterial *CgFXMaterial::finalize(MaterialMapKey  oKey,
     // does
     MFTechniquesType::const_iterator tIt  = _mfTechniques.begin();
     MFTechniquesType::const_iterator tEnd = _mfTechniques.end  ();
-       
+
     for(; tIt != tEnd; ++tIt)
     {
         if((*tIt)->validate(this, &oEnv) == true)
@@ -514,6 +516,8 @@ void CgFXMaterial::initContext(void)
 #if CG_VERSION_NUM >= 2100
     registerIncludeCallback( (OSGCGcontext)context, this );
     cgSetCompilerIncludeCallback( context, 
+                                  CgFXMaterial::checkForCgError("", 
+                                                                _pCGcontext);
                                   (CGIncludeCallbackFunc)cgIncludeCallback );
 #endif
 #endif
@@ -530,7 +534,7 @@ void CgFXMaterial::processEffectString(void)
 
     // we have to transform _compilerOptions to an array of
     // const char* to feed it to cgCreateEffect
-    std::vector<const char*> vOptions(_mfCompilerOptions.size());
+    std::vector<const char *> vOptions(_mfCompilerOptions.size());
 
     for(UInt32 i = 0; i < _mfCompilerOptions.size(); ++i)
         vOptions[i] = _mfCompilerOptions[i].c_str();
@@ -571,12 +575,16 @@ void CgFXMaterial::processEffectString(void)
 
     CGtechnique pFirstTechnique = cgGetFirstTechnique(_pCGeffect);
 
+    CgFXMaterial::checkForCgError("pFirstTechnique", _pCGcontext);
+
     if(pFirstTechnique == NULL)
         return;
 
     CGannotation pVarAnno  = 
         cgGetNamedTechniqueAnnotation(pFirstTechnique,
                                       "treatTechniqueAsVariant");
+
+    CgFXMaterial::checkForCgError("cgGetNamedTechniqueAnnotation", _pCGcontext);
 
     if(pVarAnno != NULL)
     {
@@ -588,6 +596,9 @@ void CgFXMaterial::processEffectString(void)
 
         const int *pTechVar = cgGetBooleanAnnotationValues( pVarAnno,
                                                            &iNVals  );
+
+        CgFXMaterial::checkForCgError("cgGetBooleanAnnotationValues", 
+                                      _pCGcontext);
 
         if(pTechVar != NULL)
         {
@@ -605,6 +616,8 @@ void CgFXMaterial::processEffectString(void)
 
     CGtechnique pCGTech = cgGetFirstTechnique(_pCGeffect);
 
+    CgFXMaterial::checkForCgError("cgGetFirstTechnique", _pCGcontext);
+
     //Remove previous techniques
     clearTechniques();
 
@@ -618,10 +631,12 @@ void CgFXMaterial::processEffectString(void)
         CgFXTechniqueUnrecPtr pTechnique = CgFXTechnique::create();
 
         pTechnique->setTechnique(pCGTech);
-        
+
         this->pushToTechniques(pTechnique);
 
         pCGTech = cgGetNextTechnique(pCGTech);
+
+        CgFXMaterial::checkForCgError("cgGetNextTechnique", _pCGcontext);
     }
 
     setActiveTechnique(getSelectedTechnique());
@@ -631,6 +646,8 @@ CgFXTechnique *CgFXMaterial::getTechnique(
     const std::string& techniqueName) const
 {
     CGtechnique tech = cgGetNamedTechnique(_pCGeffect, techniqueName.c_str());
+
+    CgFXMaterial::checkForCgError("cgGetNamedTechnique", _pCGcontext);
 
     if(tech != NULL)
     {
@@ -657,6 +674,8 @@ bool CgFXMaterial::setActiveTechnique(const std::string &techniqueName)
     // is this a valid technique name?
     CGtechnique pTech = cgGetNamedTechnique(_pCGeffect, techniqueName.c_str());
 
+    CgFXMaterial::checkForCgError("cgGetNamedTechnique", _pCGcontext);
+
     if(pTech != NULL)
     { // if so, find the index of the technique to use for this material
         for(_pTechIdx = 0; _pTechIdx < _mfTechniques.size(); ++_pTechIdx)
@@ -671,8 +690,9 @@ bool CgFXMaterial::setActiveTechnique(const std::string &techniqueName)
     }
     else if(techniqueName.compare(FALBACK_MATERIAL_TECHNIQUE_NAME) == 0)
     {
-        //Special case: if the Technique is the Fallback material technique name
-        //Then disable CgFX and use the fallback material
+        //Special case: if the Technique is the Fallback material technique
+        //name. Then disable CgFX and use the fallback material
+
         _bForceUseFallback = true;
 
         return false;
@@ -681,6 +701,7 @@ bool CgFXMaterial::setActiveTechnique(const std::string &techniqueName)
     {
         // if the technique name wasn't valid, we just use
         // the default behavior (use the first valid technique)
+
         _bForceUseFallback = false;
 
         return false;
@@ -701,6 +722,8 @@ std::vector<std::string> CgFXMaterial::getAvailableTechniques(void) const
         std::string curTechName = 
             cgGetTechniqueName(_mfTechniques[i]->_pCGTechnique);
 
+        CgFXMaterial::checkForCgError("cgGetTechniqueName", _pCGcontext);
+
         if(curTechName.compare("") != 0) 
             techNames.push_back(curTechName);
     }
@@ -715,7 +738,9 @@ void CgFXMaterial::extractParameters(void)
     checkForCgError("extract precheck", _pCGcontext);
 #endif
 
-     CGparameter pParam = cgGetFirstEffectParameter(_pCGeffect);
+    CGparameter pParam = cgGetFirstEffectParameter(_pCGeffect);
+
+    CgFXMaterial::checkForCgError("cgGetFirstEffectParameter", _pCGcontext);
 
     if(pParam != NULL)
     {
@@ -730,8 +755,16 @@ void CgFXMaterial::extractParameters(void)
     while(pParam)
     {
         CGtype oParamType      = cgGetParameterType   (pParam);
+
+        CgFXMaterial::checkForCgError("cgGetParameterType", _pCGcontext);
+
         UInt32 uiNumRows       = cgGetParameterRows   (pParam);
+
+        CgFXMaterial::checkForCgError("cgGetParameterRows", _pCGcontext);
+
         UInt32 uiNumCols       = cgGetParameterColumns(pParam);
+
+        CgFXMaterial::checkForCgError("cgGetParameterColumns", _pCGcontext);
 
         UInt32 uiNumComponents = uiNumRows * uiNumCols;
 
@@ -912,7 +945,7 @@ void CgFXMaterial::extractParameters(void)
                 editStateVariables() |= CgModelViewITMask;
 
                 _vStateVarNames[CgModelViewIT] = szParamName;
-                
+
                 bFoundSemanticParam = true;
             }
 
@@ -961,7 +994,7 @@ void CgFXMaterial::extractParameters(void)
                 editStateVariables() |= CgModelViewITMask;
 
                 _vStateVarNames[CgModelViewIT] = szParamName;
-                
+
                 bFoundSemanticParam = true;
             }
 
@@ -1018,7 +1051,7 @@ void CgFXMaterial::extractParameters(void)
                 editStateVariables() |= CgViewProjectionMask;
 
                 _vStateVarNames[CgViewProjection] = szParamName;
-                
+
                 bFoundSemanticParam = true;
             } 
 
@@ -1026,7 +1059,7 @@ void CgFXMaterial::extractParameters(void)
             // Time / Timer
             // -------------
             else if(osgStringCaseCmp(szParamSemantic.c_str(), 
-                                     "TIME"       ) == 0)
+                                     "TIME"                 ) == 0)
             {
                 editStateVariables() |= CgTimeMask;
 
@@ -1038,6 +1071,9 @@ void CgFXMaterial::extractParameters(void)
             if(bFoundSemanticParam == true)
             {
                 pParam = cgGetNextParameter(pParam);
+
+                CgFXMaterial::checkForCgError("cgGetNextParameter", 
+                                              _pCGcontext);
                 continue;
             }
         }
@@ -1050,15 +1086,22 @@ void CgFXMaterial::extractParameters(void)
 
                 if(cgGetParameterValueir(pParam, 1, &val) == 1)
                 {
-
                     // check where what values we should be using
                     if(this->getParameterValueSource() == CURRENT)
                     {   // check if this is already a variable
+
                         Int32 tmp;
+
                         if(this->getUniformVariable(szParamName.c_str(), tmp))
                         {   // if it is, set the variable to value we already
                             // have for it. 
-                            cgSetParameterValueir(pParam,uiNumComponents, &tmp);
+                            cgSetParameterValueir( pParam, 
+                                                   uiNumComponents, 
+                                                  &tmp);
+
+                            CgFXMaterial::checkForCgError(
+                                "cgSetParameterValueir", _pCGcontext);
+
                         } // otherwise use the default value
                         else 
                         {
@@ -1088,14 +1131,19 @@ void CgFXMaterial::extractParameters(void)
                         if(this->getUniformVariable(szParamName.c_str(), tmp))
                         {   // if it is, set the variable to value we already
                             // have for it. 
-                            cgSetParameterValueir(pParam,uiNumComponents, &tmp);
+                            cgSetParameterValueir( pParam,
+                                                   uiNumComponents, 
+                                                  &tmp);
+
+                            CgFXMaterial::checkForCgError(
+                                "cgSetParameterValueir", _pCGcontext);
+
                         } // otherwise use the default value
                         else
                         {
                             this->addUniformVariable(szParamName.c_str(), 
                                                      val                );
                         }
-
                     }
                     else // use default value from .cgfx file
                     {
@@ -1104,7 +1152,7 @@ void CgFXMaterial::extractParameters(void)
                 }
             }
             break;
-            
+
             case CG_FLOAT:
             case CG_FLOAT2:
             case CG_FLOAT3:
@@ -1116,28 +1164,31 @@ void CgFXMaterial::extractParameters(void)
                     case 1:
                     {
                         Real32 val;
-
+                        
                         if(cgGetParameterValuefr(pParam, 1, &val) == 1)
                         {
                             // check where what values we should be using
                             if(this->getParameterValueSource() == CURRENT)
                             {   // check if this is already a variable
                                 Real32 tmp;
+
                                 if(this->getUniformVariable(
                                        szParamName.c_str(),
                                        tmp                ))
                                 {   // if it is, set the variable to value we
                                     // already have for it. 
-                                    cgSetParameterValuefr(pParam,
-                                                          uiNumComponents,
-                                                          &tmp           );
+                                    cgSetParameterValuefr( pParam,
+                                                           uiNumComponents,
+                                                          &tmp);
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgSetParameterValuefr", _pCGcontext);
                                 } // otherwise use the default value
                                 else 
                                 {
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
-                                        val                );
-                                }
+                                        val )               ;
                             }
                             else // use default value from .cgfx file
                             {
@@ -1147,11 +1198,11 @@ void CgFXMaterial::extractParameters(void)
                         }
                     }
                     break;
-                    
+
                     case 2:
                     {
                         Vec2f val;
-
+                        
                         if(cgGetParameterValuefr(pParam, 
                                                  2, 
                                                  val.getValues()) == 2)
@@ -1168,12 +1219,15 @@ void CgFXMaterial::extractParameters(void)
                                     cgSetParameterValuefr(pParam,
                                                           uiNumComponents,
                                                           tmp.getValues());
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgSetParameterValuefr", _pCGcontext);
                                 } // otherwise use the default value
-                                else
+                                else 
                                 {
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
-                                        val                );
+                                        val                 );
                                 }
                             }
                             else // use default value from .cgfx file
@@ -1184,7 +1238,7 @@ void CgFXMaterial::extractParameters(void)
                         }
                     }
                     break;
-
+                    
                     case 3:
                     {
                         Vec3f val;
@@ -1202,16 +1256,18 @@ void CgFXMaterial::extractParameters(void)
                                        tmp                ))
                                 {   // if it is, set the variable to value we
                                     // already have for it. 
-                                    cgSetParameterValuefr(
-                                        pParam,
-                                        uiNumComponents,
-                                        tmp.getValues()       );
+                                    cgSetParameterValuefr(pParam,
+                                                          uiNumComponents,
+                                                          tmp.getValues());
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgSetParameterValuefr", _pCGcontext);
                                 } // otherwise use the default value
                                 else 
                                 {
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
-                                        val                );
+                                        val                 );
                                 }
                             }
                             else // use default value from .cgfx file
@@ -1222,7 +1278,7 @@ void CgFXMaterial::extractParameters(void)
                         }
                     }
                     break;
-
+                    
                     case 4:
                     {
                         Vec4f val;
@@ -1243,12 +1299,15 @@ void CgFXMaterial::extractParameters(void)
                                     cgSetParameterValuefr(pParam,
                                                           uiNumComponents,
                                                           tmp.getValues());
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgSetParameterValuefr", _pCGcontext);
                                 } // otherwise use the default value
                                 else 
                                 {
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
-                                        val                );
+                                        val                 );
                                 }
                             }
                             else // use default value from .cgfx file
@@ -1259,12 +1318,12 @@ void CgFXMaterial::extractParameters(void)
                         }
                     }
                     break;
-
+                    
                     case 16:
                     {
                         // CHECK cgSetParameterValuefr or cgSetParameterValuefc
                         Matrix val;
-
+                        
                         if(cgGetParameterValuefr(pParam, 
                                                  16, 
                                                  val.getValues()) == 16)
@@ -1282,12 +1341,15 @@ void CgFXMaterial::extractParameters(void)
                                     cgSetParameterValuefr(pParam,
                                                           uiNumComponents,
                                                           tmp.getValues());
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgSetParameterValuefr", _pCGcontext);
                                 } // otherwise use the default value
                                 else 
                                 {
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
-                                        val                );
+                                        val                 );
                                 }
                             }
                             else // use default value from .cgfx file
@@ -1301,7 +1363,7 @@ void CgFXMaterial::extractParameters(void)
                 }
             }
             break;
- 
+
             case CG_TEXTURE:
                 break;
 
@@ -1344,15 +1406,25 @@ void CgFXMaterial::extractParameters(void)
                 {
                     CGannotation pAnno = cgGetNamedParameterAnnotation(pParam, 
                                                                        "File");
+
+                    CgFXMaterial::checkForCgError(
+                        "cgGetNamedParameterAnnotation", _pCGcontext);
+
                     if(pAnno == NULL)
                     {
                         pAnno = cgGetNamedParameterAnnotation(pParam, 
                                                               "ResourceName");
+
+                        CgFXMaterial::checkForCgError(
+                            "cgGetNamedParameterAnnotation", _pCGcontext);
                     }
 
                     if(pAnno != NULL)
                     {
                         szFilename = cgGetStringAnnotationValue(pAnno);
+
+                        CgFXMaterial::checkForCgError(
+                            "cgGetStringAnnotationValue", _pCGcontext);
                     }
                 }
 
@@ -1361,16 +1433,25 @@ void CgFXMaterial::extractParameters(void)
                     CGstateassignment pSamplerState = 
                         cgGetFirstSamplerStateAssignment(pParam);
 
+                    CgFXMaterial::checkForCgError(
+                        "cgGetFirstSamplerStateAssignment", _pCGcontext);
+
                     if(pSamplerState != NULL)
                     {
                         // cgGetSamplerStateAssignmentValue
                         CGparameter pTParam = 
                             cgGetTextureStateAssignmentValue(pSamplerState);
 
+                        CgFXMaterial::checkForCgError(
+                            "cgGetTextureStateAssignmentValue", _pCGcontext);
+
                         if(pTParam != NULL)
                         {
                             CGtype pTParamType = cgGetParameterType(pTParam);
-                        
+
+                            CgFXMaterial::checkForCgError(
+                                "cgGetParameterType", _pCGcontext);
+
                             // get tweakable parameters
                             if(cgGetFirstParameterAnnotation(pTParam) != NULL &&
                                pTParamType == CG_TEXTURE                       )
@@ -1378,18 +1459,31 @@ void CgFXMaterial::extractParameters(void)
                                 CGannotation pAnno = 
                                     cgGetNamedParameterAnnotation(pTParam, 
                                                                   "File");
+
+                                CgFXMaterial::checkForCgError(
+                                    "cgGetNamedParameterAnnotation", 
+                                    _pCGcontext);
+
                                 if(pAnno == NULL)
                                 {
                                     pAnno = 
                                         cgGetNamedParameterAnnotation(
                                             pTParam, 
                                             "ResourceName");
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgGetNamedParameterAnnotation", 
+                                        _pCGcontext);
                                 }
                                 
                                 if(pAnno != NULL)
                                 {
                                     szFilename = 
                                         cgGetStringAnnotationValue(pAnno);
+
+                                    CgFXMaterial::checkForCgError(
+                                        "cgGetStringAnnotationValue", 
+                                        _pCGcontext);
                                 }
                             }
                         }
@@ -1451,15 +1545,16 @@ void CgFXMaterial::extractParameters(void)
             }
             break;
         }
-
+        
         pParam = cgGetNextParameter(pParam);
+        CgFXMaterial::checkForCgError("cgGetNextParameter", _pCGcontext);
     }
 
 #if OSG_CGFX_DUMP_DEBUG
     checkForCgError("extract postcheck", _pCGcontext);
 #endif
 }
-   
+
 void CgFXMaterial::updateUniformVariables(void)
 {
 #if OSG_CGFX_DUMP_DEBUG
@@ -1484,6 +1579,7 @@ void CgFXMaterial::updateUniformVariables(void)
     }
 
     OSG_ASSERT(pMFVars->size() == pMFVarChg->size());
+
     ShaderProgramVariables::MFVariablesType::const_iterator mVarIt  =
         pMFVars->begin();
     ShaderProgramVariables::MFVariablesType::const_iterator mVarEnd =
@@ -1508,6 +1604,9 @@ void CgFXMaterial::updateUniformVariables(void)
             cgGetNamedEffectParameter(_pCGeffect, 
                                       pVar->getName().c_str());
 
+        CgFXMaterial::checkForCgError("cgGetNamedEffectParameter", 
+                                      _pCGcontext);
+
         switch(pVar->getTypeId())
         {
             case ShaderVariable::SHVTypeBool: 
@@ -1516,6 +1615,8 @@ void CgFXMaterial::updateUniformVariables(void)
                     dynamic_cast<ShaderVariableBool *>(pVar);
 
                 cgSetParameter1i(pParam, p->getValue() ? 1 : 0);
+
+                CgFXMaterial::checkForCgError("cgSetParameter1i", _pCGcontext);
             }
             break;
 
@@ -1523,8 +1624,10 @@ void CgFXMaterial::updateUniformVariables(void)
             {
                 ShaderVariableInt *p =
                     dynamic_cast<ShaderVariableInt *>(pVar);
-
+                
                 cgSetParameter1i(pParam, p->getValue());
+
+                CgFXMaterial::checkForCgError("cgSetParameter1i", _pCGcontext);
             }
             break;
 
@@ -1532,8 +1635,10 @@ void CgFXMaterial::updateUniformVariables(void)
             {
                 ShaderVariableReal *p =
                     dynamic_cast<ShaderVariableReal *>(pVar);
-
+                
                 cgSetParameter1f(pParam, p->getValue());
+
+                CgFXMaterial::checkForCgError("cgSetParameter1f", _pCGcontext);
             }
             break;
 
@@ -1543,6 +1648,8 @@ void CgFXMaterial::updateUniformVariables(void)
                     dynamic_cast<ShaderVariableVec2f *>(pVar);
 
                 cgSetParameter2fv(pParam, p->getValue().getValues());
+
+                CgFXMaterial::checkForCgError("cgSetParameter2fv", _pCGcontext);
             }
             break;
 
@@ -1552,6 +1659,8 @@ void CgFXMaterial::updateUniformVariables(void)
                     dynamic_cast<ShaderVariableVec3f *>(pVar);
 
                 cgSetParameter3fv(pParam, p->getValue().getValues());
+
+                CgFXMaterial::checkForCgError("cgSetParameter3fv", _pCGcontext);
             }
             break;
 
@@ -1559,8 +1668,10 @@ void CgFXMaterial::updateUniformVariables(void)
             {
                 ShaderVariableVec4f *p =
                     dynamic_cast<ShaderVariableVec4f *>(pVar);
-
+                
                 cgSetParameter4fv(pParam, p->getValue().getValues());
+
+                CgFXMaterial::checkForCgError("cgSetParameter4fv", _pCGcontext);
             }
             break;
 
@@ -1570,6 +1681,9 @@ void CgFXMaterial::updateUniformVariables(void)
                     dynamic_cast<ShaderVariableMatrix *>(pVar);
 
                 cgSetMatrixParameterfr(pParam, p->getValue().getValues());
+
+                CgFXMaterial::checkForCgError("cgSetMatrixParameterfr", 
+                                              _pCGcontext);
             }
             break;
 
