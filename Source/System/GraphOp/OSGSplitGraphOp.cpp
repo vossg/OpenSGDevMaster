@@ -208,7 +208,7 @@ for (UInt32 k=0; k<LENGTH; k++)                                         \
             cni[geoIndex][colInd]=colors[geoIndex]->size()-1;           \
         }                                                               \
     }                                                                   \
-    int scolInd=it.getSecondaryColorIndex(k+INDEX);  					\
+    int scolInd=it.getSecondaryColorIndex(k+INDEX);                     \
     if (sni[geoIndex])                                                  \
     {                                                                   \
         if (sni[geoIndex][scolInd]==-1)                                 \
@@ -261,29 +261,29 @@ for (UInt32 k=0; k<LENGTH; k++)                                         \
         }                                                               \
         else                                                            \
         {                                                               \
-            UInt32 * offsets = new UInt32 [ geos[geoIndex]->getIndexMapping().size() ];			   \
-            Int16 mind;																		 	   \
+            UInt32 * offsets = new UInt32 [ geos[geoIndex]->getIndexMapping().size() ];            \
+            Int16 mind;                                                                            \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapPosition ) ) >= 0 )       \
-                offsets[ mind ] = pni[geoIndex][posInd];									   	   \
+                offsets[ mind ] = pni[geoIndex][posInd];                                           \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapNormal ) ) >= 0 )         \
-                offsets[ mind ] = nni[geoIndex][normInd];										   \
+                offsets[ mind ] = nni[geoIndex][normInd];                                          \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapColor ) ) >= 0 )          \
-                offsets[ mind ] = cni[geoIndex][colInd];										   \
+                offsets[ mind ] = cni[geoIndex][colInd];                                           \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapSecondaryColor ) ) >= 0 ) \
-                offsets[ mind ] = sni[geoIndex][scolInd];										   \
+                offsets[ mind ] = sni[geoIndex][scolInd];                                          \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapTexCoords ) ) >= 0 )      \
-                offsets[ mind ] = tni[geoIndex][texInd];										   \
+                offsets[ mind ] = tni[geoIndex][texInd];                                           \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapTexCoords1 ) ) >= 0 )     \
-                offsets[ mind ] = t1ni[geoIndex][tex1Ind];										   \
+                offsets[ mind ] = t1ni[geoIndex][tex1Ind];                                         \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapTexCoords2 ) ) >= 0 )     \
-                offsets[ mind ] = t2ni[geoIndex][tex2Ind];										   \
+                offsets[ mind ] = t2ni[geoIndex][tex2Ind];                                         \
             if ( ( mind = geos[geoIndex]->calcMappingIndex( Geometry::MapTexCoords3 ) ) >= 0 )     \
-                offsets[ mind ] = t3ni[geoIndex][tex3Ind];										   \
-            for (UInt32 j=0; j<geos[geoIndex]->getIndexMapping().size(); j++)					   \
-                indices[geoIndex]->push_back(offsets[j]);										   \
-            delete [] offsets;																	   \
-        }																						   \
-    }																							   \
+                offsets[ mind ] = t3ni[geoIndex][tex3Ind];                                         \
+            for (UInt32 j=0; j<geos[geoIndex]->getIndexMapping().size(); j++)                      \
+                indices[geoIndex]->push_back(offsets[j]);                                          \
+            delete [] offsets;                                                                     \
+        }                                                                                          \
+    }                                                                                              \
 }
 
 #define setupAttr( type , arr1 , arr2 , getmethod )                                 \
