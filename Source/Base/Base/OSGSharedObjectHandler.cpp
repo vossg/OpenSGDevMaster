@@ -409,7 +409,7 @@ SharedObjectP SharedObjectHandler::getOSGSharedObject(
 #ifndef WIN32    
     tmpString.append(OSGT("lib"));
     tmpString.append(szName);
-    tmpString.append(OSGT(".so"));
+    tmpString.append(PluginExt  );
 #else
     tmpString.append(szName);
 
@@ -493,7 +493,7 @@ void SharedObjectHandler::registerLoadedObject(const TChar *szName)
 #ifndef WIN32    
     tmpString.append(OSGT("lib"));
     tmpString.append(szName);
-    tmpString.append(OSGT(".so"));
+    tmpString.append(PluginExt  );
 #else
     tmpString.append(szName);
     tmpString.append(OSGT(".dll"));
