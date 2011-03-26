@@ -320,9 +320,13 @@ void OSG::Window::onCreate(const Window *source)
         doResetGLObjectStatus(1, _glObjects.size() - 1);
     }
 
+    staticAcquire();
+
     _allWindows.push_back(this); 
 
     _windowId = _currentWindowId++;
+
+    staticRelease();
 
     _pContextThread = WindowDrawThread::get(NULL, false);
 }
@@ -374,6 +378,8 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
         }
     }
 
+    staticAcquire();
+
     WindowStore::iterator winIt;
 
     winIt = std::find(_allWindows.begin(), 
@@ -384,6 +390,8 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
 
     if(winIt != _allWindows.end()) 
         _allWindows.erase(winIt);
+
+    staticRelease();
 
     Inherited::onDestroy(uiContainerId);
 }
@@ -957,6 +965,8 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
+    staticAcquire();
+
     WindowStore::const_iterator winIt  = _allWindows.begin();
     WindowStore::const_iterator winEnd = _allWindows.end  ();
 
@@ -986,6 +996,8 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         if(pWin->getGlObjectLastReinitialize(osgId) != 0) 
             pWin->_glObjectDestroyList.push_back(DestroyEntry(osgId, num));
     }
+
+    staticRelease();
 }
 
 
