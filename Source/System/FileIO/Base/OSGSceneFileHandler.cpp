@@ -211,8 +211,8 @@ NodeTransitPtr SceneFileHandlerBase::read(
                     }
                     else
                     {
-                        SFATAL << "Compressed stream has wrong checksum."
-                               << std::endl;
+                        SWARNING << "Compressed stream has wrong checksum."
+                                 << std::endl;
                     }
                 }
                 terminateReadProgress();
@@ -258,6 +258,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
 
 NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
+                                                bool        bWarnNotFound,
                                                 GraphOpSeq *graphOpSeq,       
                                                 Resolver    resolver  )
 {
@@ -287,12 +288,14 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
             }
             else
             {
-                SWARNING << "Couldn't open file " << fileName << std::endl;
+                if(bWarnNotFound == true)
+                    SWARNING << "Couldn't open file " << fileName << std::endl;
             }
         }
         else
         {
-            SWARNING << "Couldn't open file " << fileName << std::endl;
+            if(bWarnNotFound == true)
+                SWARNING << "Couldn't open file " << fileName << std::endl;
         }
 
         commitChanges();
@@ -327,9 +330,12 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         }
         else
         {
-            SWARNING << "Couldn't open input stream for file "
-                     << fullFilePath
-                     << std::endl;
+            if(bWarnNotFound == true)
+            {
+                SWARNING << "Couldn't open input stream for file "
+                         << fullFilePath
+                         << std::endl;
+            }
         }
 
 #ifndef OSG_DISABLE_DEPRECATED
@@ -347,7 +353,8 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         }
         else
         {
-            SWARNING << "could not read " << std::endl;
+            if(bWarnNotFound == true)
+                SWARNING << "could not read " << std::endl;
         }
 #endif
 
@@ -361,8 +368,11 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
     }
     else
     {
-        SWARNING << "could not read "       << fullFilePath
-                 << "; unknown file format" << std::endl;
+        if(bWarnNotFound == true)
+        {
+            SWARNING << "could not read "       << fullFilePath
+                     << "; unknown file format" << std::endl;
+        }
     }
 
     commitChanges();

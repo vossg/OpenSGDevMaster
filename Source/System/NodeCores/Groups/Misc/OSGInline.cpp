@@ -142,11 +142,19 @@ void Inline::postOSGLoading(void)
                 _mfUrl[i].c_str());
 
         NodeUnrecPtr pFile = SceneFileHandler::the()->read(
-            szFName.c_str());
+            szFName.c_str(),
+            false);
 
         if(pFile == NULL)
         {
-            pFile = SceneFileHandler::the()->read(_mfUrl[i].c_str());
+            pFile = SceneFileHandler::the()->read(szFilenameResolved.c_str(),
+                                                  false);
+
+            if(pFile == NULL)
+            {
+                pFile = SceneFileHandler::the()->read(_mfUrl[i].c_str(),
+                                                      false);
+            }
         }
 
         if(pFile != NULL)
@@ -160,6 +168,12 @@ void Inline::postOSGLoading(void)
             SceneFileHandler::the()->getPathHandler()->popState();
 
             break;
+        }
+        else
+        {
+            SWARNING << "could not read " 
+                     << _mfUrl[i] 
+                     << std::endl;
         }
 
         SceneFileHandler::the()->getPathHandler()->popState();

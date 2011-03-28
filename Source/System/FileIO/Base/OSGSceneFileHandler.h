@@ -138,6 +138,7 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
                                        Resolver     resolver   = NULL);
 
     virtual NodeTransitPtr read(const  Char8       *fileName,
+                                       bool         bWarnNotFound = true,
                                        GraphOpSeq  *graphOpSeq = 
                                                            _defaultgraphOpSeq,
                                        Resolver     resolver   = NULL);
