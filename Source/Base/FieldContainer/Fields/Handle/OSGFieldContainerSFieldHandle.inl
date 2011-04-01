@@ -417,13 +417,13 @@ const FieldType &EditFCPtrSFieldHandle<FieldT>::getType(void) const
 template <class FieldT> inline
 bool EditFCPtrSFieldHandle<FieldT>::supportsSet(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return 
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
-          !_fSetMethod.empty()                                    )   );
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
+          !_fSetMethod.empty()                                 )   );
 }
 
 /*---------------------------------------------------------------------------*/
@@ -438,11 +438,13 @@ FieldContainer *EditFCPtrSFieldHandle<FieldT>::get(void) const
 template <class FieldT>
 bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC) const
 {
-    bool                         retVal     = false;
-    typename FieldT::const_value typedNewFC =
+    bool                         retVal      = false;
+    typename FieldT::const_value typedNewFC  =
         dynamic_cast<typename FieldT::const_value>(newFC);
+    BitVector                    accessFlags =
+        _pDescription->getFlags() & Field::FAccessMask;
 
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -458,7 +460,7 @@ bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC) const
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if(typedNewFC != NULL)
         {
@@ -466,7 +468,7 @@ bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC) const
             retVal = true;
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {

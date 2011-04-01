@@ -338,16 +338,18 @@ Int32 GetFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
     Int32                        retVal          = -1;
     typename FieldT::const_value typedExistingFC =
         dynamic_cast<typename FieldT::const_value>(existingFC);
+    BitVector                    accessFlags     =
+        _pDescription->getFlags() & Field::FAccessMask;
 
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess) ||
-       0x0000 != (_pDescription->getFlags() & Field::FStdAccess   )   )
+    if(0x0000 != (accessFlags & Field::FCustomAccess) ||
+       0x0000 != (accessFlags & Field::FStdAccess   )   )
     {
         if(typedExistingFC != NULL || existingFC == NULL)
         {
             retVal = dcast_const()->findIndex(typedExistingFC);
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         retVal = dcast_const()->findIndex(typedExistingFC);
     }
@@ -443,13 +445,13 @@ const FieldType &EditFCPtrMFieldHandle<FieldT>::getType(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsAdd(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
-          !_fAddMethod.empty()                                    )   );
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
+          !_fAddMethod.empty()                                 )   );
 }
 
 /*! Returns whether the edited field supports removal of values by index.
@@ -457,12 +459,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsAdd(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsRemove(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fRemoveMethod.empty()                                 )   );
 }
 
@@ -471,12 +473,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsRemove(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsRemoveObject(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fRemoveObjMethod.empty()                              )   );
 }
 
@@ -485,12 +487,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsRemoveObject(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsInsert(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return 
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fInsertMethod.empty()                                 )   );
 }
 
@@ -499,12 +501,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsInsert(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsReplace(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fReplaceMethod.empty()                                )   );
 }
 
@@ -513,12 +515,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsReplace(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsReplaceObject(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fReplaceObjMethod.empty()                                )   );
 }
 
@@ -527,12 +529,12 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsReplaceObject(void) const
 template <class FieldT> inline
 bool EditFCPtrMFieldHandle<FieldT>::supportsClear(void) const
 {
-    UInt32 fieldDescFlags = _pDescription->getFlags();
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
 
     return
-        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
-          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
-         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+        ((0x0000 != (accessFlags & Field::FStdAccess      ) ||
+          0x0000 != (accessFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (accessFlags & Field::FCustomAccess   ) &&
           !_fClearMethod.empty()                                  )   );
 }
 
@@ -565,16 +567,18 @@ Int32 EditFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
     Int32                        retVal          = -1;
     typename FieldT::const_value typedExistingFC =
         dynamic_cast<typename FieldT::const_value>(existingFC);
+    BitVector                    accessFlags     =
+        _pDescription->getFlags() & Field::FAccessMask;
 
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess) ||
-       0x0000 != (_pDescription->getFlags() & Field::FStdAccess   )   )
+    if(0x0000 != (accessFlags & Field::FCustomAccess) ||
+       0x0000 != (accessFlags & Field::FStdAccess   )   )
     {
         if(typedExistingFC != NULL || existingFC == NULL)
         {
             retVal = dcast_const()->findIndex(typedExistingFC);
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         retVal = dcast_const()->findIndex(typedExistingFC);
     }
@@ -595,11 +599,13 @@ Int32 EditFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
 template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
 {
-    bool                         retVal     = false;
-    typename FieldT::const_value typedNewFC =
+    bool                         retVal      = false;
+    typename FieldT::const_value typedNewFC  =
         dynamic_cast<typename FieldT::const_value>(newFC);
+    BitVector                    accessFlags =
+        _pDescription->getFlags() & Field::FAccessMask;
 
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -615,7 +621,7 @@ bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if(typedNewFC != NULL)
         {
@@ -623,7 +629,7 @@ bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
             retVal = true;
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -649,9 +655,10 @@ bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
 template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index) const
 {
-    bool retVal = false;
+    bool      retVal      = false;
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
     
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(!_fRemoveMethod.empty())
         {
@@ -664,12 +671,12 @@ bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index) const
                     "_fRemoveMethod is not set.\n", typeid(FieldT).name()));
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         dcast()->erase(index);
         retVal = true;
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         dcast()->erase(index);
         retVal = true;
@@ -697,8 +704,10 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(
     bool                         retVal          = false;
     typename FieldT::const_value typedExistingFC =
         dynamic_cast<typename FieldT::const_value>(existingFC);
+    BitVector                    accessFlags     =
+        _pDescription->getFlags() & Field::FAccessMask;
 
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(typedExistingFC != NULL || existingFC == NULL)
         {
@@ -715,7 +724,7 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if(typedExistingFC != NULL)
         {
@@ -728,7 +737,7 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if(typedExistingFC != NULL || existingFC == NULL)
         {
@@ -760,11 +769,13 @@ template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::insert(
     UInt32 index, FieldContainer *newFC) const
 {
-    bool                         retVal     = false;
-    typename FieldT::const_value typedNewFC =
+    bool                         retVal      = false;
+    typename FieldT::const_value typedNewFC  =
         dynamic_cast<typename FieldT::const_value>(newFC);
+    BitVector                    accessFlags =
+        _pDescription->getFlags() & Field::FAccessMask;
         
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -780,7 +791,7 @@ bool EditFCPtrMFieldHandle<FieldT>::insert(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if(typedNewFC != NULL)
         {
@@ -788,7 +799,7 @@ bool EditFCPtrMFieldHandle<FieldT>::insert(
             retVal = true;
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -815,11 +826,13 @@ template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::replace(
     UInt32 index, FieldContainer *newFC) const
 {
-    bool                         retVal     = false;
-    typename FieldT::const_value typedNewFC =
+    bool                         retVal      = false;
+    typename FieldT::const_value typedNewFC  =
         dynamic_cast<typename FieldT::const_value>(newFC);
+    BitVector                    accessFlags =
+        _pDescription->getFlags() & Field::FAccessMask;
         
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -835,7 +848,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replace(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if(typedNewFC != NULL)
         {
@@ -843,7 +856,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replace(
             retVal = true;
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if(typedNewFC != NULL || newFC == NULL)
         {
@@ -876,8 +889,10 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
         dynamic_cast<typename FieldT::const_value>(existingFC);
     typename FieldT::const_value typedNewFC      =
         dynamic_cast<typename FieldT::const_value>(newFC);
+    BitVector                    accessFlags     =
+        _pDescription->getFlags() & Field::FAccessMask;
         
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if((typedExistingFC != NULL || existingFC == NULL) &&
            (typedNewFC      != NULL || newFC      == NULL)   )
@@ -895,7 +910,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         if((typedExistingFC != NULL) && (typedNewFC != NULL))
         {
@@ -908,7 +923,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
             }
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         if((typedExistingFC != NULL || existingFC == NULL) &&
            (typedNewFC      != NULL || newFC      == NULL)   )
@@ -939,9 +954,10 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
 template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::clear(void) const
 {
-    bool retVal = false;
+    bool      retVal      = false;
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
     
-    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    if(0x0000 != (accessFlags & Field::FCustomAccess))
     {
         if(!_fClearMethod.empty())
         {
@@ -954,12 +970,12 @@ bool EditFCPtrMFieldHandle<FieldT>::clear(void) const
                     "_fClearMethod is not set.\n", typeid(FieldT).name()));
         }
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    else if(0x0000 != (accessFlags & Field::FNullCheckAccess))
     {
         dcast()->clear();
         retVal = true;
     }
-    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    else if(0x0000 != (accessFlags & Field::FStdAccess))
     {
         dcast()->clear();
         retVal = true;
