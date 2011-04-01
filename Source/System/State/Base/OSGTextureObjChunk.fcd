@@ -1,193 +1,193 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="TextureObjChunk"
-   parent="TextureBaseChunk"
-   library="System"
-   pointerfieldtypes="both"
-   structure="concrete"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   docGroupBase="GrpSystemState"
-   >
-See \ref PageSystemTextureObjChunk for a description.
+    name="TextureObjChunk"
+    parent="TextureBaseChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+    >
+    See \ref PageSystemTextureObjChunk for a description.
 
-This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,
-OSG::TextureObjChunk::_sfInternalFormat, OSG::TextureObjChunk::_sfExternalFormat),
-glTexParameter (OSG::TextureObjChunk::_sfMinFilter,
-OSG::TextureObjChunk::_sfMagFilter, OSG::TextureObjChunk::_sfWrapS,
-OSG::TextureObjChunk::_sfWrapT, OSG::TextureObjChunk::_sfWrapR), glTexEnv
-(OSG::TextureObjChunk::_sfEnvMode, OSG::TextureObjChunk::_sfEnvColor,
-OSG::TextureObjChunk::_sfPriority).
+    This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,
+    OSG::TextureObjChunk::_sfInternalFormat, OSG::TextureObjChunk::_sfExternalFormat),
+    glTexParameter (OSG::TextureObjChunk::_sfMinFilter,
+    OSG::TextureObjChunk::_sfMagFilter, OSG::TextureObjChunk::_sfWrapS,
+    OSG::TextureObjChunk::_sfWrapT, OSG::TextureObjChunk::_sfWrapR), glTexEnv
+    (OSG::TextureObjChunk::_sfEnvMode, OSG::TextureObjChunk::_sfEnvColor,
+    OSG::TextureObjChunk::_sfPriority).
 
-The ARB combine extension is also supported,
-where available (OSG::TextureObjChunk::_sfEnvCombineRGB,
-OSG::TextureObjChunk::_sfEnvScaleRGB, OSG::TextureObjChunk::_sfEnvSource0RGB,
-OSG::TextureObjChunk::_sfEnvSource1RGB, OSG::TextureObjChunk::_sfEnvSource2RGB,
-OSG::TextureObjChunk::_sfEnvOperand0RGB, OSG::TextureObjChunk::_sfEnvOperand1RGB,
-OSG::TextureObjChunk::_sfEnvOperand2RGB,
-OSG::TextureObjChunk::_sfEnvCombineAlpha,   OSG::TextureObjChunk::_sfEnvScaleAlpha,
-OSG::TextureObjChunk::_sfEnvSource0Alpha, OSG::TextureObjChunk::_sfEnvSource1Alpha,
-OSG::TextureObjChunk::_sfEnvSource2Alpha, OSG::TextureObjChunk::_sfEnvOperand0Alpha,
-OSG::TextureObjChunk::_sfEnvOperand1Alpha,
-OSG::TextureObjChunk::_sfEnvOperand2Alpha).
+    The ARB combine extension is also supported,
+    where available (OSG::TextureObjChunk::_sfEnvCombineRGB,
+    OSG::TextureObjChunk::_sfEnvScaleRGB, OSG::TextureObjChunk::_sfEnvSource0RGB,
+    OSG::TextureObjChunk::_sfEnvSource1RGB, OSG::TextureObjChunk::_sfEnvSource2RGB,
+    OSG::TextureObjChunk::_sfEnvOperand0RGB, OSG::TextureObjChunk::_sfEnvOperand1RGB,
+    OSG::TextureObjChunk::_sfEnvOperand2RGB,
+    OSG::TextureObjChunk::_sfEnvCombineAlpha,   OSG::TextureObjChunk::_sfEnvScaleAlpha,
+    OSG::TextureObjChunk::_sfEnvSource0Alpha, OSG::TextureObjChunk::_sfEnvSource1Alpha,
+    OSG::TextureObjChunk::_sfEnvSource2Alpha, OSG::TextureObjChunk::_sfEnvOperand0Alpha,
+    OSG::TextureObjChunk::_sfEnvOperand1Alpha,
+    OSG::TextureObjChunk::_sfEnvOperand2Alpha).
 
-It is possible to enable the point
-sprite coordinate replacement  (OSG::TextureObjChunk::_sfPointSprite), see \ref
-PageSystemPointChunk for details. The two parameters
-OSG::TextureObjChunk::_sfScale and OSG::TextureObjChunk::_sfFrame specify details
-about the texture.
+    It is possible to enable the point
+    sprite coordinate replacement  (OSG::TextureObjChunk::_sfPointSprite), see \ref
+    PageSystemPointChunk for details. The two parameters
+    OSG::TextureObjChunk::_sfScale and OSG::TextureObjChunk::_sfFrame specify details
+    about the texture.
 
-On hardware that supports it (i.e. NVidia boards) the texture shader
-extension(s) are also available.
-	<Field
-		name="image"
-		type="Image"
-		cardinality="single"
-		visibility="external"
-		access="public"
+    On hardware that supports it (i.e. NVidia boards) the texture shader
+    extension(s) are also available.
+    <Field
+        name="image"
+        type="Image"
+        cardinality="single"
+        visibility="external"
+        access="public"
         category="childpointer"
         childParentType="FieldContainer"
         linkParentField="Parents"
 	>
 	The texture image.
-	</Field>
-	<Field
-		name="internalFormat"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA"
+    </Field>
+    <Field
+        name="internalFormat"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_NONE"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA"
 	>
 	The internal texture format.
-	</Field>
-	<Field
-		name="externalFormat"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA"
+    </Field>
+    <Field
+        name="externalFormat"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_NONE"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA"
 	>
-	    The external texture format - overwrites 
+        The external texture format - overwrites 
         external format of image when set to a value not equal to 
         GL_NONE (which is the default).
-	</Field>
-	<Field
-		name="scale"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
+    </Field>
+    <Field
+        name="scale"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="public"
 	>
         Specifies whether the image should be scaled to the next power of two,
         thus filling the whole texture coordinate range, or if it should be put
         in the lower left corner, leaving the rest of the texture undefined.
         This is mainly used for rapidly changing non power of two textures, to
         get around the scaling overhead.
-	</Field>
-	<Field
-		name="frame"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
+    </Field>
+    <Field
+        name="frame"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
 	>
         Select the frame of the image to be used. See OSG::Image about details
         concerning multi-frame images.
         \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap
-		creation is slow right now \endhint.
-	</Field>
-	<Field
-		name="minFilter"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
+        creation is slow right now \endhint.
+    </Field>
+    <Field
+        name="minFilter"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_LINEAR_MIPMAP_LINEAR"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
 	>
         The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
-	</Field>
-	<Field
-		name="magFilter"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_LINEAR"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_NEAREST, GL_LINEAR"
+    </Field>
+    <Field
+        name="magFilter"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_LINEAR"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NEAREST, GL_LINEAR"
 	>
         The magnification filter, default GL_LINEAR.
-	</Field>
-	<Field
-		name="wrapS"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_REPEAT"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"
+    </Field>
+    <Field
+        name="wrapS"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_REPEAT"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"
 	>
         Texture coordinate S wrapping, default GL_REPEAT.
-	</Field>
-	<Field
-		name="wrapT"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_REPEAT"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
+    </Field>
+    <Field
+        name="wrapT"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_REPEAT"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
         Texture coordinate T wrapping, default GL_REPEAT.
-	</Field>
-	<Field
-		name="wrapR"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_REPEAT"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
+    </Field>
+    <Field
+        name="wrapR"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_REPEAT"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
         Texture coordinate R wrapping, default GL_REPEAT.
-	</Field>
-	<Field
-		name="GLId"
-		type="GLenum"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-		defaultValue="0"
+    </Field>
+    <Field
+        name="GLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
         fieldFlags="FClusterLocal"
 	>
         The OpenGL texture id for this texture.
-	</Field>
-	<Field
-		name="priority"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-		defaultValue="1.f"
+    </Field>
+    <Field
+        name="priority"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="1.f"
 	>
         Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)
-	</Field>
+    </Field>
     <Field
         name="dirtyLeft"
         type="Int32"
@@ -195,7 +195,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Left coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -207,7 +207,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Minimum X coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -219,7 +219,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Maximum X coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -231,7 +231,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Minimum Y coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -243,7 +243,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Maximum Y coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -255,7 +255,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Minimum Z coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -267,7 +267,7 @@ extension(s) are also available.
         visibility="external"
         defaultValue="-1"
         access="public"
-    >
+        >
         Maximum Z coordinate of the dirty rectangle to use for 
         imageContentChanged(). This doesn't make sense to be stored in files, 
         it does make sense on a cluster, though, that's why it's external.
@@ -279,82 +279,82 @@ extension(s) are also available.
         visibility="external"
         defaultValue="1.0f"
         access="public"
-    >
+        >
         Anisotropic filtering the default 1.0f means isotropic filtering.
-        </Field>
-	<Field
-		name="borderColor"
-		type="Color4f"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0,0,0,0"
-		access="public"
+    </Field>
+    <Field
+        name="borderColor"
+        type="Color4f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0,0,0,0"
+        access="public"
 	>
 	Texture border color
-	</Field>
-	<Field
-		name="compareMode"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_NONE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_NONE, GL_COMPARE_R_TO_TEXTURE"
+    </Field>
+    <Field
+        name="compareMode"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_NONE"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NONE, GL_COMPARE_R_TO_TEXTURE"
 	>
-	</Field>
-	<Field
-		name="compareFunc"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_LEQUAL"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER"
+    </Field>
+    <Field
+        name="compareFunc"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_LEQUAL"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER"
 	>
-	</Field>
-	<Field
-		name="depthMode"
-		type="GLenum"
-		cardinality="single"
-		visibility="external"
-		defaultValue="GL_LUMINANCE"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-                potential_values="GL_LUMINANCE, GL_INTENSITY, GL_ALPHA"
+    </Field>
+    <Field
+        name="depthMode"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_LUMINANCE"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_LUMINANCE, GL_INTENSITY, GL_ALPHA"
 	>
-	</Field>
-	<Field
-		name="borderWidth"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
+    </Field>
+    <Field
+        name="borderWidth"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
 	>
 	Texture border width in pixels.
-	</Field>
-<!-- DISABLED - was in 1.x, but does not interact well with TextureTransformChunk
-	<Field
-		name="NPOTMatrixScale"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
-	>
-	Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
-	</Field>
--->
-	<Field
-		name="skipMipMapLevels"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="0"
-		access="public"
+    </Field>
+    <!-- DISABLED - was in 1.x, but does not interact well with TextureTransformChunk
+         <Field
+         name="NPOTMatrixScale"
+         type="UInt32"
+         cardinality="single"
+         visibility="external"
+         defaultValue="0"
+         access="public"
+         >
+         Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
+         </Field>
+    -->
+    <Field
+        name="skipMipMapLevels"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
 	>
 	Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
-	</Field>
+    </Field>
 </FieldContainer>

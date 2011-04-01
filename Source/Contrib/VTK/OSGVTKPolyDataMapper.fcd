@@ -1,102 +1,102 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="VTKPolyDataMapper"
-	parent="Group"
-	library="ContribVTK"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-        isNodeCore="true"
->
-	<Field
-		name="root"
-		type="NodePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
+    name="VTKPolyDataMapper"
+    parent="Group"
+    library="ContribVTK"
+    structure="concrete"
+    pointerfieldtypes="both"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    isNodeCore="true"
+    >
+    <Field
+        name="root"
+        type="NodePtr"
+        cardinality="single"
+        visibility="external"
+        access="public"
 	>
-	</Field>
-	<Field
-		name="geoRoots"
-		type="NodePtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="geoRoots"
+        type="NodePtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="geometries"
-		type="GeometryPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="geometries"
+        type="GeometryPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="materials"
-		type="ChunkMaterialPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="materials"
+        type="ChunkMaterialPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="materialChunks"
-		type="MaterialChunkPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="materialChunks"
+        type="MaterialChunkPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="positions"
-		type="GeoPnt3fPropertyPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="positions"
+        type="GeoPnt3fPropertyPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="length"
-		type="GeoUInt32PropertyPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="length"
+        type="GeoUInt32PropertyPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="types"
-		type="GeoUInt8PropertyPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="types"
+        type="GeoUInt8PropertyPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="Colors"
-		type="GeoColor4fPropertyPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="Colors"
+        type="GeoColor4fPropertyPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
-	<Field
-		name="normals"
-		type="GeoVec3fPropertyPtr"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        fieldFlags="FClusterLocal"
+    </Field>
+    <Field
+        name="normals"
+        type="GeoVec3fPropertyPtr"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        fieldFlags="FStdAccess, FClusterLocal"
 	>
-	</Field>
+    </Field>
 </FieldContainer>

@@ -27,7 +27,7 @@
      cardinality="multi"
      visibility="external"
      access="public"
-     fieldFlags="FClusterLocal"
+     fieldFlags="FStdAccess, FClusterLocal"
      >
   </Field>
 </FieldContainer>

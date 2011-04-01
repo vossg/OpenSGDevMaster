@@ -13,53 +13,53 @@
     isNodeCore="false"
     isBundle="true"
     parentFields="none"
->
-	<Field
-		name="key"
-		type="std::string"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
+    >
+    <Field
+        name="key"
+        type="std::string"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
         defaultValue=""
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
  	>
-	</Field>
-	<Field
-		name="stateRaw"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
+    </Field>
+    <Field
+        name="stateRaw"
+        type="bool"
+        cardinality="single"
+        visibility="internal"
+        access="public"
         defaultValue="true"
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
  	>
-	</Field>
-	<Field
-		name="stateFlipFlop"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
+    </Field>
+    <Field
+        name="stateFlipFlop"
+        type="bool"
+        cardinality="single"
+        visibility="internal"
+        access="public"
         defaultValue="false"
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
 	>
-	</Field>
-	<Field
-		name="signalPressed"
-		type="OSGAny"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-        fieldFlags="FThreadLocal"
+    </Field>
+    <Field
+        name="signalPressed"
+        type="OSGAny"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FStdAccess, FThreadLocal"
  	>
-	</Field>
-	<Field
-		name="signalReleased"
-		type="OSGAny"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
-        fieldFlags="FThreadLocal"
+    </Field>
+    <Field
+        name="signalReleased"
+        type="OSGAny"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FStdAccess, FThreadLocal"
  	>
-	</Field>
+    </Field>
 </FieldContainer>

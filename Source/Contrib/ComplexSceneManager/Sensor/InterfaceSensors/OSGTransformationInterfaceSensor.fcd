@@ -13,59 +13,59 @@
     isNodeCore="false"
     isBundle="false"
     parentFields="none"
->
-  <Field
-     name="transformation"
-     type="Matrix"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    >
+    <Field
+        name="transformation"
+        type="Matrix"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 
-  <Field
-     name="translation"
-     type="Vec3f"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    <Field
+        name="translation"
+        type="Vec3f"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 
-  <Field
-     name="rotation"
-     type="Quaternion"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    <Field
+        name="rotation"
+        type="Quaternion"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 
-  <Field
-     name="rotationScale"
-     type="Real32"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue="1.f"
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    <Field
+        name="rotationScale"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="1.f"
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 
-  <Field
-     name="translationScale"
-     type="Real32"
-     cardinality="single"
-     visibility="internal"
-     access="protected"
-     defaultValue="1.f"
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    <Field
+        name="translationScale"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        defaultValue="1.f"
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 </FieldContainer>

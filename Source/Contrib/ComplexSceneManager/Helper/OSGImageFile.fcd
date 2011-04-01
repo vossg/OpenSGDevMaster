@@ -13,14 +13,14 @@
     isNodeCore="false"
     isBundle="false"
     parentFields="none"
->
-	<Field
-		name="url"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="public"
+    >
+    <Field
+        name="url"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
         fieldFlags="FClusterLocal"
 	>
-	</Field>
+    </Field>
 </FieldContainer>

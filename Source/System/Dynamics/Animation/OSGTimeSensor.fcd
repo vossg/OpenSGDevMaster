@@ -23,7 +23,7 @@
      visibility="internal"
      access="public"
      defaultValue="true"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -33,7 +33,7 @@
      visibility="internal"
      access="public"
      defaultValue="false"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -43,7 +43,7 @@
      visibility="internal"
      access="public"
      defaultValue="false"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -53,7 +53,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -63,7 +63,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -73,7 +73,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -83,7 +83,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -93,7 +93,7 @@
      visibility="internal"
      access="public"
      defaultValue="0.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
   <Field
@@ -103,7 +103,7 @@
      visibility="internal"
      access="public"
      defaultValue="1.0"
-     fieldFlags="FThreadLocal"
+     fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
 </FieldContainer>

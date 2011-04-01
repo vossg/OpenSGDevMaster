@@ -14,26 +14,26 @@
     isNodeCore="false"
     isBundle="false"
     parentFields="single"
->
-  <Field
-     name="interfaceName"
-     type="std::string"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
-     name="options"
-     type="InterfaceOptions"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     category="childpointer"
-     childParentType="DeviceInterfaceSensor"
-     linkParentField="Parent"
     >
-  </Field>
+    <Field
+        name="interfaceName"
+        type="std::string"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="options"
+        type="InterfaceOptions"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        category="childpointer"
+        childParentType="DeviceInterfaceSensor"
+        linkParentField="Parent"
+        >
+    </Field>
 </FieldContainer>

@@ -1,178 +1,178 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="Surface"
-   parent="Geometry"
-   library="Drawable"
-   pointerfieldtypes="both"
-   structure="concrete"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   isNodeCore="true"
-   docGroupBase="GrpDrawablesNurbs"
-   >
-  This is the OpenSG NURBS surface node. It supports an arbitrary number of
-  trimming curves. The interface lets you define both rational and nonrational
-  surfaces, and you can also vary rational and nonrational trimming curves.
-  <Field
-     name="dimU"
-     type="UInt32"
-     cardinality="single"
-     visibility="external"
-     defaultValue="0"
-     access="public"
-     >
-    The surface dimension in U
-  </Field>
-  <Field
-     name="dimV"
-     type="UInt32"
-     cardinality="single"
-     visibility="external"
-     defaultValue="0"
-     access="public"
-     >
-    The surface dimension in V
-  </Field>
-  <Field
-     name="knotsU"
-     type="Real32"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     >
-    The surface knots in U direction
-  </Field>
-  <Field
-     name="knotsV"
-     type="Real32"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     >
-    The surface knots in V direction
-  </Field>
-  <Field
-     name="controlPoints"
-     type="GeoVectorProperty"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     category="childpointer"
-     childParentType="FieldContainer"
-     linkParentField="Parents"
-     >
-    The control points for the surface
-  </Field>
-  <Field
-     name="error"
-     type="Real32"
-     cardinality="single"
-     visibility="external"
-     defaultValue="0.5"
-     access="public"
-     >
-    The approximation error for the tessellation
-  </Field>
-  <Field
-     name="numCurves"
-     type="UInt32"
-     cardinality="single"
-     visibility="external"
-     defaultValue="0"
-     access="protected"
-     >
-    The number of trimming curves
-  </Field>
-  <Field
-     name="knotLengths"
-     type="UInt32"
-     cardinality="multi"
-     visibility="external"
-     access="protected"
-     >
-    The knotlengths for the trimming curves
-  </Field>
-  <Field
-     name="dimensions"
-     type="UInt32"
-     cardinality="multi"
-     visibility="external"
-     access="protected"
-     >
-    The dimensions for the trimming curves
-  </Field>
-  <Field
-     name="curveControlPoints"
-     type="Pnt3f"
-     cardinality="multi"
-     visibility="external"
-     access="protected"
-     >
-    The control points for the trimming curves
-  </Field>
-  <Field
-     name="knots"
-     type="Real32"
-     cardinality="multi"
-     visibility="external"
-     access="protected"
-     >
-    The knotvectors for the trimming curves
-  </Field>
-  <Field
-     name="curvesPerLoop"
-     type="UInt32"
-     cardinality="multi"
-     visibility="external"
-     access="protected"
-     >
-    Specifies the number of trimming curves in each trimming curve loop
-  </Field>
-  <Field
-     name="isDelaunay"
-     type="bool"
-     cardinality="single"
-     visibility="external"
-     defaultValue="false"
-     access="public"
-     >
-    Whether to use Delaunay triangulation. Default is no, because it's faster
-    and slightly more robust numerically, but produces a somewhat less "nice"
-    triangulation. Set to true, if you want Delaunay triangulation. The number
-    of triangles generated is the same in both modes.
-  </Field>
-  <Field
-     name="textureControlPoints"
-     type="GeoVectorProperty"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     category="childpointer"
-     childParentType="FieldContainer"
-     linkParentField="Parents"
-     >
-    The control points for textures (always 2D)
-  </Field>
-  <Field
-     name="dirtyMask"
-     type="UInt32"
-     cardinality="single"
-     visibility="external"
-     defaultValue="0"
-     access="protected"
-     >
-  </Field>
-  <Field
-     name="surfaceGLId"
-     type="Int32"
-     cardinality="single"
-     visibility="internal"
-     defaultValue="0"
-     access="protected"
-     fieldFlags="FClusterLocal"
-     >
-    Surface GL Id, internal use.
-  </Field>
+    name="Surface"
+    parent="Geometry"
+    library="Drawable"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    isNodeCore="true"
+    docGroupBase="GrpDrawablesNurbs"
+    >
+    This is the OpenSG NURBS surface node. It supports an arbitrary number of
+    trimming curves. The interface lets you define both rational and nonrational
+    surfaces, and you can also vary rational and nonrational trimming curves.
+    <Field
+        name="dimU"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+        >
+        The surface dimension in U
+    </Field>
+    <Field
+        name="dimV"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+        >
+        The surface dimension in V
+    </Field>
+    <Field
+        name="knotsU"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+        The surface knots in U direction
+    </Field>
+    <Field
+        name="knotsV"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+        The surface knots in V direction
+    </Field>
+    <Field
+        name="controlPoints"
+        type="GeoVectorProperty"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        category="childpointer"
+        childParentType="FieldContainer"
+        linkParentField="Parents"
+        >
+        The control points for the surface
+    </Field>
+    <Field
+        name="error"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0.5"
+        access="public"
+        >
+        The approximation error for the tessellation
+    </Field>
+    <Field
+        name="numCurves"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="protected"
+        >
+        The number of trimming curves
+    </Field>
+    <Field
+        name="knotLengths"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        The knotlengths for the trimming curves
+    </Field>
+    <Field
+        name="dimensions"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        The dimensions for the trimming curves
+    </Field>
+    <Field
+        name="curveControlPoints"
+        type="Pnt3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        The control points for the trimming curves
+    </Field>
+    <Field
+        name="knots"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        The knotvectors for the trimming curves
+    </Field>
+    <Field
+        name="curvesPerLoop"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        Specifies the number of trimming curves in each trimming curve loop
+    </Field>
+    <Field
+        name="isDelaunay"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+        >
+        Whether to use Delaunay triangulation. Default is no, because it's faster
+        and slightly more robust numerically, but produces a somewhat less "nice"
+        triangulation. Set to true, if you want Delaunay triangulation. The number
+        of triangles generated is the same in both modes.
+    </Field>
+    <Field
+        name="textureControlPoints"
+        type="GeoVectorProperty"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        category="childpointer"
+        childParentType="FieldContainer"
+        linkParentField="Parents"
+        >
+        The control points for textures (always 2D)
+    </Field>
+    <Field
+        name="dirtyMask"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="protected"
+        >
+    </Field>
+    <Field
+        name="surfaceGLId"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="0"
+        access="protected"
+        fieldFlags="FClusterLocal"
+        >
+        Surface GL Id, internal use.
+    </Field>
 </FieldContainer>

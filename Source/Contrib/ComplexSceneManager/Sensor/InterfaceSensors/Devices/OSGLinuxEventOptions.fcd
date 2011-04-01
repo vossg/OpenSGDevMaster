@@ -14,45 +14,45 @@
     isBundle="true"
     parentFields="none"
     childFields="single"
->
-  <Field
-     name="device"
-     type="std::string"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
-     name="tRange"
-     type="Vec3f"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
-     name="rRange"
-     type="Vec3f"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
-     name="bufferSize"
-     type="UInt32"
-     cardinality="single"
-     visibility="internal"
-     access="public"
-     defaultValue="128"
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    >
+    <Field
+        name="device"
+        type="std::string"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="tRange"
+        type="Vec3f"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="rRange"
+        type="Vec3f"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="bufferSize"
+        type="UInt32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="128"
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 </FieldContainer>

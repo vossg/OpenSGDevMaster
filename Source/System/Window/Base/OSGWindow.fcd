@@ -1,49 +1,49 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="Window"
-   parent="HardwareContext"
-   library="System"
-   pointerfieldtypes="both"
-   structure="abstract"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   docGroupBase="GrpSystemWindow"
-   >
+    name="Window"
+    parent="HardwareContext"
+    library="System"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    docGroupBase="GrpSystemWindow"
+    >
 
-Window is the base class for all window management classes.  See \ref
-PageSystemWindowWindow for a description.
+    Window is the base class for all window management classes.  See \ref
+    PageSystemWindowWindow for a description.
 
-\ext
+    \ext
 
-To create a new Window the methods that have to be overridden are 
-init(void), activate(void), deactivate(void) and swap(void).
+    To create a new Window the methods that have to be overridden are 
+    init(void), activate(void), deactivate(void) and swap(void).
 
-\endext
-	<Field
-		name="width"
-		type="UInt16"
-		cardinality="single"
-		visibility="external"
-		access="public"
+    \endext
+    <Field
+        name="width"
+        type="UInt16"
+        cardinality="single"
+        visibility="external"
+        access="public"
 	>
-	</Field>
-	<Field
-		name="height"
-		type="UInt16"
-		cardinality="single"
-		visibility="external"
-		access="public"
+    </Field>
+    <Field
+        name="height"
+        type="UInt16"
+        cardinality="single"
+        visibility="external"
+        access="public"
 	>
-	</Field>
-	<Field
-		name="port"
-		type="Viewport"
-		cardinality="multi"
+    </Field>
+    <Field
+        name="port"
+        type="Viewport"
+        cardinality="multi"
         category="childpointer"
         childParentType="FieldContainer"
-		visibility="external"
-		access="public"
+        visibility="external"
+        access="public"
         pushToFieldAs="addPort"
         insertIntoMFieldAs="insertPort"
         replaceInMFieldIndexAs="replacePort"
@@ -54,120 +54,120 @@ init(void), activate(void), deactivate(void) and swap(void).
         ptrFieldAccess = "nullCheck"
         linkParentField="Parent"
 	>
-	</Field>
-	<Field
-		name="glObjectEventCounter"
-		type="UInt32"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="1"
-		access="protected"
-       fieldFlags="FClusterLocal,FThreadLocal"
+    </Field>
+    <Field
+        name="glObjectEventCounter"
+        type="UInt32"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="1"
+        access="protected"
+        fieldFlags="FClusterLocal, FThreadLocal"
 	>
 	Counter for GL object events. Needed for multi-aspect updates.
         Is used in glObjectLastRefresh and glObjectLastReinitialize.
-	</Field>
-	<Field
-		name="glObjectLastRefresh"
-		type="UInt32"
-		cardinality="multi"
-		visibility="internal"
-		access="protected"
-       fieldFlags="FClusterLocal,FThreadLocal"
+    </Field>
+    <Field
+        name="glObjectLastRefresh"
+        type="UInt32"
+        cardinality="multi"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FClusterLocal, FThreadLocal"
 	>
 	Indicates the last refresh for the GL object.
-	</Field>
-	<Field
-		name="glObjectLastReinitialize"
-		type="UInt32"
-		cardinality="multi"
-		visibility="internal"
-		access="protected"
-       fieldFlags="FClusterLocal,FThreadLocal"
+    </Field>
+    <Field
+        name="glObjectLastReinitialize"
+        type="UInt32"
+        cardinality="multi"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FClusterLocal, FThreadLocal"
 	>
 	Indicates the last reinit for the GL object.
-	</Field>
-	<Field
-	   name="drawerId"
-	   type="Int32"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       fieldFlags="FClusterLocal"
-       defaultValue="-1"
-	>
-    DrawerId to select window dependent elements (e.g. Distortion filter).
-    For cluster window this values equals the clusterId (shl chunk)
-	</Field>
-	<Field
-	   name="requestMajor"
-	   type="Int32"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       fieldFlags=""
-       defaultValue="-1"
-	>
-	</Field>
-	<Field
-	   name="requestMinor"
-	   type="Int32"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       fieldFlags=""
-       defaultValue="0"
-	>
-	</Field>
-	<Field
-	   name="contextFlags"
-	   type="Int32"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       fieldFlags=""
-       defaultValue="0"
-	>
-	</Field>
-	<Field
-	   name="renderOptions"
-	   type="RenderOptionsPtr"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       defaultValue="NULL"
-	>
-	</Field>
-    <Field
-	   name="drawMode"
-	   type="UInt32"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       defaultValue="(Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext)"
-       >
     </Field>
     <Field
-	   name="rendererInfo"
-	   type="std::string"
-	   cardinality="single"
-	   visibility="internal"
-	   access="public"
-       defaultValue='"unknown"'
-       >
+        name="drawerId"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        fieldFlags="FClusterLocal"
+        defaultValue="-1"
+	>
+        DrawerId to select window dependent elements (e.g. Distortion filter).
+        For cluster window this values equals the clusterId (shl chunk)
     </Field>
     <Field
-       name="drawTasks"
-       type="DrawTask"
-       cardinality="multi"
-       visibility="internal"
-       access="protected"
-       category="custompointer"
-       ptrFieldAccess="custom"
-       fieldHeader="OSGDrawTask.h"
-       typeHeader="OSGDrawTask.h"
-       fieldFlags="FClusterLocal"
-       >
+        name="requestMajor"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        fieldFlags=""
+        defaultValue="-1"
+	>
+    </Field>
+    <Field
+        name="requestMinor"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        fieldFlags=""
+        defaultValue="0"
+	>
+    </Field>
+    <Field
+        name="contextFlags"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        fieldFlags=""
+        defaultValue="0"
+	>
+    </Field>
+    <Field
+        name="renderOptions"
+        type="RenderOptionsPtr"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="NULL"
+	>
+    </Field>
+    <Field
+        name="drawMode"
+        type="UInt32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="(Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext)"
+        >
+    </Field>
+    <Field
+        name="rendererInfo"
+        type="std::string"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue='"unknown"'
+        >
+    </Field>
+    <Field
+        name="drawTasks"
+        type="DrawTask"
+        cardinality="multi"
+        visibility="internal"
+        access="protected"
+        category="custompointer"
+        ptrFieldAccess="custom"
+        fieldHeader="OSGDrawTask.h"
+        typeHeader="OSGDrawTask.h"
+        fieldFlags="FCustomAccess, FClusterLocal"
+        >
     </Field>
     
 </FieldContainer>

@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="SHLChunk"
-	parent="ShaderChunk"
-	library="State"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
-><![CDATA[
+    name="SHLChunk"
+    parent="ShaderChunk"
+    library="State"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    >
+    <![CDATA[
 This chunk provides support for GLSL.  It provides a wrapper for setting vertex
 and fragment programs.  Because it is derived from OSG::ShaderParameter it also
 allows setting uniform parameters for the shaders.
 
 The primary way to use this class is to:
 <ul>
-    <li>set/getVertexProgram</li>
-    <li>set/getFragmentProgram</li>
-    <li>setUniform</li>
+<li>set/getVertexProgram</li>
+<li>set/getFragmentProgram</li>
+<li>setUniform</li>
 </ul>
 
 To help with OpenSG application development this chunk provides support for
@@ -34,61 +35,62 @@ will ensure that the parameter is automatically updated each frame.
 
 The derived parameters supported by default are:
 <dl>
-    <dt>OSGCameraOrientation</dt><dd>Camera orientation matrix in world coords.</dd>
-    <dt>OSGCameraPosition</dt><dd>Camera position vec3 in world coordinates.</dd>
-    <dt>OSGViewMatrix</dt><dd>Camera viewing matrix in world coordinates.</dd>
-    <dt>OSGInvViewMatrix</dt><dd>Inverse camera viewing matrix in world coordinates.</dd>
-    <dt>OSGStereoLeftEye</dt><dd>Integer: -1 mono, 1 left eye, 0 right eye.</dd>
-    <dt>OSGClusterId</dt><dd>The int id set with setClusterId().</dd>
-    <dt>OSGActiveLightsMast</dt><dd>The active lights mast from the render action.</dd>
-    <dt>OSGLight0Active ... OSGLight7Active</dt><dd>int/bool flag of wether the light is active.</dd>
-</dl>]]>
-	<Field
-		name="cgFrontEnd"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="pointSize"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+<dt>OSGCameraOrientation</dt><dd>Camera orientation matrix in world coords.</dd>
+<dt>OSGCameraPosition</dt><dd>Camera position vec3 in world coordinates.</dd>
+<dt>OSGViewMatrix</dt><dd>Camera viewing matrix in world coordinates.</dd>
+<dt>OSGInvViewMatrix</dt><dd>Inverse camera viewing matrix in world coordinates.</dd>
+<dt>OSGStereoLeftEye</dt><dd>Integer: -1 mono, 1 left eye, 0 right eye.</dd>
+<dt>OSGClusterId</dt><dd>The int id set with setClusterId().</dd>
+<dt>OSGActiveLightsMast</dt><dd>The active lights mast from the render action.</dd>
+<dt>OSGLight0Active ... OSGLight7Active</dt><dd>int/bool flag of wether the light is active.</dd>
+</dl>
+    ]]>
+    <Field
+        name="cgFrontEnd"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="pointSize"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+        >
         Flag to indicate whether the shader can change the point size.
-	</Field>
-	<Field
-		name="programParameterNames"
-		type="GLenum"
-		cardinality="multi"
-		visibility="external"
-		defaultHeader="&quot;OSGGL.h&quot;"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="programParameterValues"
-		type="UInt32"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="GLId"
-		type="UInt32"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-		defaultValue="0"
+    </Field>
+    <Field
+        name="programParameterNames"
+        type="GLenum"
+        cardinality="multi"
+        visibility="external"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="programParameterValues"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="GLId"
+        type="UInt32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
         fieldFlags="FClusterLocal"
-	>
-	</Field>
+        >
+    </Field>
     <Field
         name="UnknownParameterWarning"
         type="bool"
@@ -96,7 +98,7 @@ The derived parameters supported by default are:
         visibility="external"
         defaultValue="true"
         access="public"
-    >
-    Whether to warn about unknown/unused paramters.
+        >
+        Whether to warn about unknown/unused paramters.
     </Field>
 </FieldContainer>

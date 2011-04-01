@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="VRMLScalarInterpolator"
-   parent="VRMLInterpolator"
-   library="Dynamics"
-   pointerfieldtypes="none"
-   structure="concrete"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   isNodeCore="true"
-   isBundle="false"
-   parentFields="none"
-   docGroupBase="GrpDynamicsVRMLAnimation"
-   >
-  <Field
-	 name="keyValue"
-	 type="Real32"
-	 cardinality="multi"
-	 visibility="external"
-	 access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-	 >
-  </Field>
-  <Field
-	 name="outValue"
-	 type="Real32"
-	 cardinality="single"
-	 visibility="internal"
-	 access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-	 >
-    This is VRML's value field.
-  </Field>
+    name="VRMLScalarInterpolator"
+    parent="VRMLInterpolator"
+    library="Dynamics"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="true"
+    isBundle="false"
+    parentFields="none"
+    docGroupBase="GrpDynamicsVRMLAnimation"
+    >
+    <Field
+        name="keyValue"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="outValue"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+        This is VRML's value field.
+    </Field>
 </FieldContainer>

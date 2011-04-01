@@ -1,50 +1,50 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-   name="VRMLInterpolator"
-   parent="NodeCore"
-   library="Dynamics"
-   pointerfieldtypes="none"
-   structure="concrete"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   decoratable="false"
-   useLocalIncludes="false"
-   isNodeCore="true"
-   isBundle="false"
-   parentFields="none"
-   fieldsUnmarkedOnCreate="ResortIndexFieldMask"
-   docGroupBase="GrpDynamicsVRMLAnimation"
-   >
-  <Field
-	 name="inValue"
-	 type="Real32"
-	 cardinality="single"
-	 visibility="internal"
-	 access="public"
-     defaultValue="0.f"
-     fieldFlags="FThreadLocal"
-	 >
-    This is VRML's fraction field.
-  </Field>
-  <Field
-	 name="key"
-	 type="Real32"
-	 cardinality="multi"
-	 visibility="external"
-	 access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-	 >
-  </Field>
-  <Field
-     name="resortIndex"
-     type="UInt32"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     defaultValue=""
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
+    name="VRMLInterpolator"
+    parent="NodeCore"
+    library="Dynamics"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="true"
+    isBundle="false"
+    parentFields="none"
+    fieldsUnmarkedOnCreate="ResortIndexFieldMask"
+    docGroupBase="GrpDynamicsVRMLAnimation"
+    >
+    <Field
+        name="inValue"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0.f"
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+        This is VRML's fraction field.
+    </Field>
+    <Field
+        name="key"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="resortIndex"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 </FieldContainer>

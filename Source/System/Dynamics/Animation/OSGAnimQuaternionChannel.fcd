@@ -22,7 +22,7 @@
      visibility="internal"
      access="public"
      defaultValue="NULL"
-     fieldFlags="FClusterLocal"
+     fieldFlags="FStdAccess, FClusterLocal"
      >
   </Field>
   <Field

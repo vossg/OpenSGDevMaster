@@ -13,35 +13,35 @@
     isNodeCore="false"
     isBundle="true"
     parentFields="none"
->
-	<Field
-		name="incTrigger"
-		type="OSGAny"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
+    >
+    <Field
+        name="incTrigger"
+        type="OSGAny"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
         defaultValue=""
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
 	>
-	</Field>
-	<Field
-		name="decTrigger"
-		type="OSGAny"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
+    </Field>
+    <Field
+        name="decTrigger"
+        type="OSGAny"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
         defaultValue=""
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
 	>
-	</Field>
-	<Field
-		name="resetTrigger"
-		type="OSGAny"
-		cardinality="single"
-		visibility="internal"
-		access="protected"
+    </Field>
+    <Field
+        name="resetTrigger"
+        type="OSGAny"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
         defaultValue=""
-        fieldFlags="FThreadLocal"
+        fieldFlags="FStdAccess, FThreadLocal"
 	>
-	</Field>
+    </Field>
 </FieldContainer>
