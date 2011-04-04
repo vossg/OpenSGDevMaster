@@ -143,17 +143,25 @@ void Inline::postOSGLoading(void)
 
         NodeUnrecPtr pFile = SceneFileHandler::the()->read(
             szFName.c_str(),
+            SceneFileHandler::the()->getDefaultGraphOp(),
+            NULL,
             false);
 
         if(pFile == NULL)
         {
-            pFile = SceneFileHandler::the()->read(szFilenameResolved.c_str(),
-                                                  false);
+            pFile = SceneFileHandler::the()->read(
+                szFilenameResolved.c_str(),
+                SceneFileHandler::the()->getDefaultGraphOp(),
+                NULL,
+                false);
 
             if(pFile == NULL)
             {
-                pFile = SceneFileHandler::the()->read(_mfUrl[i].c_str(),
-                                                      false);
+                pFile = SceneFileHandler::the()->read(
+                    _mfUrl[i].c_str(),
+                    SceneFileHandler::the()->getDefaultGraphOp(),
+                    NULL,
+                    false);
             }
         }
 

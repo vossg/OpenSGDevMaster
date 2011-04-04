@@ -258,9 +258,9 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
 
 NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
-                                                bool        bWarnNotFound,
                                                 GraphOpSeq *graphOpSeq,       
-                                                Resolver    resolver  )
+                                                Resolver    resolver,
+                                                bool        bWarnNotFound )
 {
     NodeTransitPtr returnValue(NULL);
 
