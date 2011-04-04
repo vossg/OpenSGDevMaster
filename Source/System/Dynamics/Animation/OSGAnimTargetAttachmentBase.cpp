@@ -136,7 +136,7 @@ void AnimTargetAttachmentBase::classDescInserter(TypeObject &oType)
         "blenders",
         "",
         BlendersFieldId, BlendersFieldMask,
-        false,
+        true,
         (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTargetAttachment::editHandleBlenders),
         static_cast<FieldGetMethodSig >(&AnimTargetAttachment::getHandleBlenders));
@@ -183,7 +183,7 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     "     type=\"AnimBlender\"\n"
     "     category=\"pointer\"\n"
     "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
+    "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"

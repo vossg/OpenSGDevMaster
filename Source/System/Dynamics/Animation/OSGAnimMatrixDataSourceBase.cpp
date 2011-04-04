@@ -119,7 +119,7 @@ void AnimMatrixDataSourceBase::classDescInserter(TypeObject &oType)
         "values",
         "",
         ValuesFieldId, ValuesFieldMask,
-        true,
+        false,
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixDataSource::editHandleValues),
         static_cast<FieldGetMethodSig >(&AnimMatrixDataSource::getHandleValues));
@@ -160,7 +160,7 @@ AnimMatrixDataSourceBase::TypeObject AnimMatrixDataSourceBase::_type(
     "     category=\"data\"\n"
     "     type=\"Matrix\"\n"
     "     cardinality=\"multi\"\n"
-    "     visibility=\"internal\"\n"
+    "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"

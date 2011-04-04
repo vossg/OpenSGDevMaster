@@ -25,7 +25,7 @@
      type="AnimBlender"
      category="pointer"
      cardinality="multi"
-     visibility="external"
+     visibility="internal"
      access="public"
      fieldFlags="FStdAccess, FClusterLocal"
      >

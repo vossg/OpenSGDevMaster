@@ -19,7 +19,7 @@
      category="data"
      type="Matrix"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >

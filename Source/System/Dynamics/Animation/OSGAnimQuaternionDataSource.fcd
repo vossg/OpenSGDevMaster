@@ -19,7 +19,7 @@
      category="data"
      type="Quaternion"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -29,7 +29,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -39,7 +39,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -49,7 +49,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -59,7 +59,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -69,7 +69,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -79,7 +79,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -89,7 +89,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
@@ -99,7 +99,7 @@
      category="data"
      type="Vec2f"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      access="public"
      fieldFlags="FClusterLocal"
      >
