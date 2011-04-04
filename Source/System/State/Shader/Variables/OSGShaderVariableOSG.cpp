@@ -153,6 +153,11 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGClusterId);
             setDependency(SHDScene    );
         }
+        else if(_sfName.getValue() == "OSGNodeId")
+        {
+            setOsgVarType(OSGNodeId);
+            setDependency(SHDObject);
+        }
         else if(_sfName.getValue() == "OSGActiveLightsMask")
         {
             setOsgVarType(OSGActiveLightsMask);
@@ -265,6 +270,11 @@ void ShaderVariableOSG::setName(const std::string &value)
     {
         setOsgVarType(OSGClusterId);
         setDependency(SHDScene    );
+    }
+    else if(_sfName.getValue() == "OSGNodeId")
+    {
+        setOsgVarType(OSGNodeId);
+        setDependency(SHDObject);
     }
     else if(_sfName.getValue() == "OSGActiveLightsMask")
     {
@@ -448,6 +458,23 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGClusterId:
         {
+        }
+        break;
+
+        case OSGNodeId:
+        {
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniform1iProc,
+                             osgGlUniform1i,
+                             ShaderProgram::getFuncIdUniform1i());
+
+                if(pEnv->getSGNode() != NULL)
+                {
+                    osgGlUniform1i(iLocation, 
+                                   GLint(pEnv->getSGNode()->getId()));
+                }
+            }
         }
         break;
 

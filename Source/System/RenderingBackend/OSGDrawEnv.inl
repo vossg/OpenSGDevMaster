@@ -51,6 +51,12 @@ void DrawEnv::setWindow(Window *pWindow)
     _pWindow = pWindow;
 }
 
+inline 
+void DrawEnv::setSGNode(Node *pSGNode)
+{
+    _pSGNode = pSGNode;
+}
+
 inline
 void DrawEnv::setupProjection(const Matrix &projection,
                               const Matrix &translation)
@@ -180,6 +186,12 @@ inline
 Window *DrawEnv::getWindow(void) const
 {
     return _pWindow;
+}
+
+inline
+Node *DrawEnv::getSGNode(void) const
+{
+    return _pSGNode;
 }
 
 inline

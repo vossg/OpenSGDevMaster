@@ -77,6 +77,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableOSG : public ShaderVariableOSGBase
         OSGInvViewMatrix,
         OSGStereoLeftEye,
         OSGClusterId,
+        OSGNodeId,
         OSGActiveLightsMask,
         OSGLight0Active,
         OSGLight1Active,

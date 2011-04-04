@@ -83,6 +83,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \{                                                                 */
 
     void   setWindow         (      Window   *pWindow       );
+    void   setSGNode         (      Node     *pSGNode       );
 
     void   setupProjection   (const Matrix   &projection,
                               const Matrix   &translation   );
@@ -121,6 +122,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
           Real32         getCameraFar            (void         ) const;
 
           Window        *getWindow               (void         ) const;
+          Node          *getSGNode               (void         ) const;
 
           GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
 
@@ -294,6 +296,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     UInt32         _uiLightState;
 
     Window        *_pWindow;
+    Node          *_pSGNode;
 
     State         *_pActiveState;
     StateOverride *_pActiveStateOverride;

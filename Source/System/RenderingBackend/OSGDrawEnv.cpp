@@ -85,6 +85,8 @@ DrawEnv::DrawEnv(void) :
     _uiLightState           (    0),
 
     _pWindow                (NULL ),
+    _pSGNode                (NULL ),
+
     _pActiveState           (NULL ),
     _pActiveStateOverride   (NULL ),
     _uiNumStateChanges      (0    ),

@@ -136,6 +136,7 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
         StateOverride *pNewStateOverride = pNode->getStateOverride();
 
         denv.setLightState(pNode->getLightState());
+        denv.setSGNode    (pNode->getNode      ());
 
         denv.activateState(pNewState, pNewStateOverride);
 
@@ -143,6 +144,8 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
         {
             pNode->getFunctor()(&denv);
         }
+
+        denv.setSGNode(NULL);
 
         if(pNode->getFirstChild() != NULL)
         {
