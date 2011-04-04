@@ -21,7 +21,7 @@
      category="pointer"
      type="FieldContainer"
      cardinality="multi"
-     visibility="internal"
+     visibility="external"
      >
     global elements store inside the attachment
   </Field>

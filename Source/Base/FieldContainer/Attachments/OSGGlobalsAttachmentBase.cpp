@@ -167,7 +167,7 @@ void GlobalsAttachmentBase::classDescInserter(TypeObject &oType)
         "elements",
         "global elements store inside the attachment\n",
         ElementsFieldId, ElementsFieldMask,
-        true,
+        false,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GlobalsAttachment::editHandleElements),
         static_cast<FieldGetMethodSig >(&GlobalsAttachment::getHandleElements));
@@ -210,7 +210,7 @@ GlobalsAttachmentBase::TypeObject GlobalsAttachmentBase::_type(
     "     category=\"pointer\"\n"
     "     type=\"FieldContainer\"\n"
     "     cardinality=\"multi\"\n"
-    "     visibility=\"internal\"\n"
+    "     visibility=\"external\"\n"
     "     >\n"
     "    global elements store inside the attachment\n"
     "  </Field>\n"
