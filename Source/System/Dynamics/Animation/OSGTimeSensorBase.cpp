@@ -154,7 +154,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         EnabledFieldId, EnabledFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleEnabled),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleEnabled));
 
@@ -166,7 +166,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         IsActiveFieldId, IsActiveFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleIsActive),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleIsActive));
 
@@ -178,7 +178,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         LoopFieldId, LoopFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleLoop),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleLoop));
 
@@ -190,7 +190,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         FractionFieldId, FractionFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleFraction),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleFraction));
 
@@ -202,7 +202,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StartTimeFieldId, StartTimeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleStartTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleStartTime));
 
@@ -214,7 +214,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StopTimeFieldId, StopTimeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleStopTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleStopTime));
 
@@ -226,7 +226,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         CycleTimeFieldId, CycleTimeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleCycleTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleCycleTime));
 
@@ -238,7 +238,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         TimeFieldId, TimeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleTime));
 
@@ -250,7 +250,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         CycleIntervalFieldId, CycleIntervalFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleCycleInterval),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleCycleInterval));
 
@@ -294,7 +294,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"true\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -304,7 +304,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"false\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -314,7 +314,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"false\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -324,7 +324,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -334,7 +334,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -344,7 +344,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -354,7 +354,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -364,7 +364,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -374,7 +374,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"1.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "</FieldContainer>\n",

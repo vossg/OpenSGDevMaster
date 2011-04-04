@@ -120,7 +120,7 @@ void VRMLInterpolatorBase::classDescInserter(TypeObject &oType)
         "This is VRML's fraction field.\n",
         InValueFieldId, InValueFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleInValue),
         static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleInValue));
 
@@ -132,7 +132,7 @@ void VRMLInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         KeyFieldId, KeyFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleKey),
         static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleKey));
 
@@ -144,7 +144,7 @@ void VRMLInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         ResortIndexFieldId, ResortIndexFieldMask,
         false,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleResortIndex),
         static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleResortIndex));
 
@@ -166,52 +166,52 @@ VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"VRMLInterpolator\"\n"
-    "   parent=\"NodeCore\"\n"
-    "   library=\"Dynamics\"\n"
-    "   pointerfieldtypes=\"none\"\n"
-    "   structure=\"concrete\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   decoratable=\"false\"\n"
-    "   useLocalIncludes=\"false\"\n"
-    "   isNodeCore=\"true\"\n"
-    "   isBundle=\"false\"\n"
-    "   parentFields=\"none\"\n"
-    "   fieldsUnmarkedOnCreate=\"ResortIndexFieldMask\"\n"
-    "   docGroupBase=\"GrpDynamicsVRMLAnimation\"\n"
-    "   >\n"
-    "  <Field\n"
-    "\t name=\"inValue\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t access=\"public\"\n"
-    "     defaultValue=\"0.f\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "    This is VRML's fraction field.\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "\t name=\"key\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"multi\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "     name=\"resortIndex\"\n"
-    "     type=\"UInt32\"\n"
-    "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    name=\"VRMLInterpolator\"\n"
+    "    parent=\"NodeCore\"\n"
+    "    library=\"Dynamics\"\n"
+    "    pointerfieldtypes=\"none\"\n"
+    "    structure=\"concrete\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    "    isBundle=\"false\"\n"
+    "    parentFields=\"none\"\n"
+    "    fieldsUnmarkedOnCreate=\"ResortIndexFieldMask\"\n"
+    "    docGroupBase=\"GrpDynamicsVRMLAnimation\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"inValue\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0.f\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "        This is VRML's fraction field.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"key\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"resortIndex\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

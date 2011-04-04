@@ -167,7 +167,7 @@ void AnimationBase::classDescInserter(TypeObject &oType)
         "",
         TimeSensorFieldId, TimeSensorFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&Animation::editHandleTimeSensor),
         static_cast<FieldGetMethodSig >(&Animation::getHandleTimeSensor));
 
@@ -179,7 +179,7 @@ void AnimationBase::classDescInserter(TypeObject &oType)
         "",
         TemplateFieldId, TemplateFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&Animation::editHandleTemplate),
         static_cast<FieldGetMethodSig >(&Animation::getHandleTemplate));
 
@@ -191,7 +191,7 @@ void AnimationBase::classDescInserter(TypeObject &oType)
         "",
         ChannelsFieldId, ChannelsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&Animation::editHandleChannels),
         static_cast<FieldGetMethodSig >(&Animation::getHandleChannels));
 
@@ -257,7 +257,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"protected\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -267,7 +267,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -278,7 +278,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"

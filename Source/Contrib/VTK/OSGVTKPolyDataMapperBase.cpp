@@ -177,7 +177,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleGeoRoots),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleGeoRoots));
 
@@ -189,7 +189,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleGeometries),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleGeometries));
 
@@ -201,7 +201,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleMaterials),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleMaterials));
 
@@ -213,7 +213,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleMaterialChunks),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleMaterialChunks));
 
@@ -225,7 +225,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         PositionsFieldId, PositionsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandlePositions),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandlePositions));
 
@@ -237,7 +237,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         LengthFieldId, LengthFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleLength),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleLength));
 
@@ -249,7 +249,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         TypesFieldId, TypesFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleTypes),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleTypes));
 
@@ -261,7 +261,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         ColorsFieldId, ColorsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleColors),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleColors));
 
@@ -273,7 +273,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         NormalsFieldId, NormalsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleNormals),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleNormals));
 
@@ -295,104 +295,104 @@ VTKPolyDataMapperBase::TypeObject VTKPolyDataMapperBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"VTKPolyDataMapper\"\n"
-    "\tparent=\"Group\"\n"
-    "\tlibrary=\"ContribVTK\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "        isNodeCore=\"true\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"root\"\n"
-    "\t\ttype=\"NodePtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "    name=\"VTKPolyDataMapper\"\n"
+    "    parent=\"Group\"\n"
+    "    library=\"ContribVTK\"\n"
+    "    structure=\"concrete\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"root\"\n"
+    "        type=\"NodePtr\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"geoRoots\"\n"
-    "\t\ttype=\"NodePtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"geoRoots\"\n"
+    "        type=\"NodePtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"geometries\"\n"
-    "\t\ttype=\"GeometryPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"geometries\"\n"
+    "        type=\"GeometryPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"materials\"\n"
-    "\t\ttype=\"ChunkMaterialPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"materials\"\n"
+    "        type=\"ChunkMaterialPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"materialChunks\"\n"
-    "\t\ttype=\"MaterialChunkPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"materialChunks\"\n"
+    "        type=\"MaterialChunkPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"positions\"\n"
-    "\t\ttype=\"GeoPnt3fPropertyPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"positions\"\n"
+    "        type=\"GeoPnt3fPropertyPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"length\"\n"
-    "\t\ttype=\"GeoUInt32PropertyPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"length\"\n"
+    "        type=\"GeoUInt32PropertyPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"types\"\n"
-    "\t\ttype=\"GeoUInt8PropertyPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"types\"\n"
+    "        type=\"GeoUInt8PropertyPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Colors\"\n"
-    "\t\ttype=\"GeoColor4fPropertyPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Colors\"\n"
+    "        type=\"GeoColor4fPropertyPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"normals\"\n"
-    "\t\ttype=\"GeoVec3fPropertyPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"normals\"\n"
+    "        type=\"GeoVec3fPropertyPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

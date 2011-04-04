@@ -141,7 +141,7 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         "",
         DeviceFieldId, DeviceFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleDevice),
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleDevice));
 
@@ -153,7 +153,7 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         "",
         TRangeFieldId, TRangeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleTRange),
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleTRange));
 
@@ -165,7 +165,7 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         "",
         RRangeFieldId, RRangeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleRRange),
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleRRange));
 
@@ -177,7 +177,7 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         "",
         BufferSizeFieldId, BufferSizeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleBufferSize),
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleBufferSize));
 
@@ -212,47 +212,47 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
     "    childFields=\"single\"\n"
-    ">\n"
-    "  <Field\n"
-    "     name=\"device\"\n"
-    "     type=\"std::string\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "     name=\"tRange\"\n"
-    "     type=\"Vec3f\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "     name=\"rRange\"\n"
-    "     type=\"Vec3f\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "     name=\"bufferSize\"\n"
-    "     type=\"UInt32\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"128\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"device\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"tRange\"\n"
+    "        type=\"Vec3f\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"rRange\"\n"
+    "        type=\"Vec3f\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"bufferSize\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"128\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

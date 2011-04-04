@@ -125,7 +125,7 @@ void AnimMatrixBlenderBase::classDescInserter(TypeObject &oType)
         "",
         ChannelsFieldId, ChannelsFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixBlender::editHandleChannels),
         static_cast<FieldGetMethodSig >(&AnimMatrixBlender::getHandleChannels));
 
@@ -179,7 +179,7 @@ AnimMatrixBlenderBase::TypeObject AnimMatrixBlenderBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "    </Field>\n"
     "  <Field\n"

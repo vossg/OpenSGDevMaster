@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          TextureObjRefChunkBase::_sfGLId
-    glid
+    OpenSG-OpenGL id of texture object.
 */
 
 
@@ -117,7 +117,7 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "GLId",
-        "glid\n",
+        "OpenSG-OpenGL id of texture object.\n",
         GLIdFieldId, GLIdFieldMask,
         false,
         (Field::FClusterLocal),
@@ -142,27 +142,27 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"TextureObjRefChunk\"\n"
-    "   parent=\"TextureBaseChunk\"\n"
-    "   library=\"State\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   structure=\"concrete\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   decoratable=\"false\"\n"
-    "   docGroupBase=\"GrpStateAuxiliary\"\n"
-    "   >\n"
-    "  <Field\n"
-    "\t name=\"GLId\"\n"
-    "\t type=\"GLenum\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
-    "\t defaultValue=\"0\"\n"
-    "\t fieldFlags=\"FClusterLocal\"\n"
-    "\t >\n"
-    "\tglid\n"
-    "  </Field>\n"
+    "    name=\"TextureObjRefChunk\"\n"
+    "    parent=\"TextureBaseChunk\"\n"
+    "    library=\"State\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"concrete\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    docGroupBase=\"GrpStateAuxiliary\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"GLId\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "        OpenSG-OpenGL id of texture object.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

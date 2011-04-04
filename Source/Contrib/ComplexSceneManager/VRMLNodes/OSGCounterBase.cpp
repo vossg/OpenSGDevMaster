@@ -120,7 +120,7 @@ void CounterBase::classDescInserter(TypeObject &oType)
         "",
         IncTriggerFieldId, IncTriggerFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&Counter::editHandleIncTrigger),
         static_cast<FieldGetMethodSig >(&Counter::getHandleIncTrigger));
 
@@ -132,7 +132,7 @@ void CounterBase::classDescInserter(TypeObject &oType)
         "",
         DecTriggerFieldId, DecTriggerFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&Counter::editHandleDecTrigger),
         static_cast<FieldGetMethodSig >(&Counter::getHandleDecTrigger));
 
@@ -144,7 +144,7 @@ void CounterBase::classDescInserter(TypeObject &oType)
         "",
         ResetTriggerFieldId, ResetTriggerFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&Counter::editHandleResetTrigger),
         static_cast<FieldGetMethodSig >(&Counter::getHandleResetTrigger));
 
@@ -178,37 +178,37 @@ CounterBase::TypeObject CounterBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"incTrigger\"\n"
-    "\t\ttype=\"OSGAny\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"incTrigger\"\n"
+    "        type=\"OSGAny\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
     "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"decTrigger\"\n"
-    "\t\ttype=\"OSGAny\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"decTrigger\"\n"
+    "        type=\"OSGAny\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
     "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"resetTrigger\"\n"
-    "\t\ttype=\"OSGAny\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"resetTrigger\"\n"
+    "        type=\"OSGAny\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
     "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

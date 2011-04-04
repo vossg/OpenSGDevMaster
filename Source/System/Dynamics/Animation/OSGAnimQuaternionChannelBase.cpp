@@ -125,7 +125,7 @@ void AnimQuaternionChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimQuaternionChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimQuaternionChannel::getHandleData));
 
@@ -180,7 +180,7 @@ AnimQuaternionChannelBase::TypeObject AnimQuaternionChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"

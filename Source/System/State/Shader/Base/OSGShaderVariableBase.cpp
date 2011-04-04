@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var std::string     ShaderVariableBase::_sfName
-    parameter name
+    Uniform name.
 */
 
 /*! \var FieldContainer * ShaderVariableBase::_mfParents
@@ -134,7 +134,7 @@ void ShaderVariableBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "name",
-        "parameter name\n",
+        "Uniform name.\n",
         NameFieldId, NameFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -149,7 +149,7 @@ void ShaderVariableBase::classDescInserter(TypeObject &oType)
         "",
         ParentsFieldId, ParentsFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&ShaderVariable::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderVariable::invalidGetField));
 
@@ -171,37 +171,37 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "     name=\"ShaderVariable\"\n"
-    "     parent=\"FieldContainer\"\n"
-    "     library=\"System\"\n"
-    "     pointerfieldtypes=\"both\"\n"
-    "     structure=\"abstract\"\n"
-    "     systemcomponent=\"true\"\n"
-    "     parentsystemcomponent=\"true\"\n"
-    "     decoratable=\"false\"\n"
-    "     useLocalIncludes=\"false\"\n"
-    "     childFields=\"multi\"\n"
-    "     docGroupBase=\"GrpSystemShader\"\n"
-    "     >\n"
+    "    name=\"ShaderVariable\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"System\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"abstract\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    useLocalIncludes=\"false\"\n"
+    "    childFields=\"multi\"\n"
+    "    docGroupBase=\"GrpSystemShader\"\n"
+    "    >\n"
     "    <Field\n"
-    "         name=\"name\"\n"
-    "         type=\"std::string\"\n"
-    "         cardinality=\"single\"\n"
-    "         visibility=\"external\"\n"
-    "         access=\"protected\"\n"
-    "         >\n"
-    "        parameter name\n"
+    "        name=\"name\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"protected\"\n"
+    "        >\n"
+    "        Uniform name.\n"
     "    </Field>\n"
     "\n"
     "    <Field\n"
-    "         name=\"parents\"\n"
-    "         type=\"FieldContainer\"\n"
-    "\t cardinality=\"multi\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t access=\"none\"\n"
-    "         category=\"parentpointer\"\n"
-    "         fieldFlags=\"FClusterLocal\"\n"
-    "\t >\n"
+    "        name=\"parents\"\n"
+    "        type=\"FieldContainer\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
+    "        >\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     ""

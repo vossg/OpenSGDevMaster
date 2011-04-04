@@ -128,7 +128,7 @@ void KeySensorBase::classDescInserter(TypeObject &oType)
         "",
         KeyFieldId, KeyFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&KeySensor::editHandleKey),
         static_cast<FieldGetMethodSig >(&KeySensor::getHandleKey));
 
@@ -140,7 +140,7 @@ void KeySensorBase::classDescInserter(TypeObject &oType)
         "",
         StateRawFieldId, StateRawFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&KeySensor::editHandleStateRaw),
         static_cast<FieldGetMethodSig >(&KeySensor::getHandleStateRaw));
 
@@ -152,7 +152,7 @@ void KeySensorBase::classDescInserter(TypeObject &oType)
         "",
         StateFlipFlopFieldId, StateFlipFlopFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&KeySensor::editHandleStateFlipFlop),
         static_cast<FieldGetMethodSig >(&KeySensor::getHandleStateFlipFlop));
 
@@ -164,7 +164,7 @@ void KeySensorBase::classDescInserter(TypeObject &oType)
         "",
         SignalPressedFieldId, SignalPressedFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&KeySensor::editHandleSignalPressed),
         static_cast<FieldGetMethodSig >(&KeySensor::getHandleSignalPressed));
 
@@ -176,7 +176,7 @@ void KeySensorBase::classDescInserter(TypeObject &oType)
         "",
         SignalReleasedFieldId, SignalReleasedFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&KeySensor::editHandleSignalReleased),
         static_cast<FieldGetMethodSig >(&KeySensor::getHandleSignalReleased));
 
@@ -210,55 +210,55 @@ KeySensorBase::TypeObject KeySensorBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"key\"\n"
-    "\t\ttype=\"std::string\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"key\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
     "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     " \t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stateRaw\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"stateRaw\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"true\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     " \t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"stateFlipFlop\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"stateFlipFlop\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"false\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"signalPressed\"\n"
-    "\t\ttype=\"OSGAny\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"signalPressed\"\n"
+    "        type=\"OSGAny\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     " \t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"signalReleased\"\n"
-    "\t\ttype=\"OSGAny\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"protected\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"signalReleased\"\n"
+    "        type=\"OSGAny\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     " \t>\n"
-    "\t</Field>\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

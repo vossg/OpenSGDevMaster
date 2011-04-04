@@ -141,7 +141,7 @@ void AnimTemplateBase::classDescInserter(TypeObject &oType)
         "",
         SourcesFieldId, SourcesFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimTemplate::editHandleSources),
         static_cast<FieldGetMethodSig >(&AnimTemplate::getHandleSources));
 
@@ -205,7 +205,7 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "    </Field>\n"
     "  <Field\n"

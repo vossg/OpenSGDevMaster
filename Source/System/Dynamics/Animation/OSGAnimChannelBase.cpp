@@ -147,7 +147,7 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
         "",
         AnimationFieldId, AnimationFieldMask,
         false,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&AnimChannel::invalidEditField),
         static_cast     <FieldGetMethodSig >(&AnimChannel::invalidGetField));
 
@@ -216,7 +216,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"none\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"

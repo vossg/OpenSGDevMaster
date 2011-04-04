@@ -146,7 +146,7 @@ void InterfaceOptionsBase::classDescInserter(TypeObject &oType)
         "",
         NapTimeFieldId, NapTimeFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&InterfaceOptions::editHandleNapTime),
         static_cast<FieldGetMethodSig >(&InterfaceOptions::getHandleNapTime));
 
@@ -181,27 +181,27 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
     "    childFields=\"single\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"parent\"\n"
-    "\t\ttype=\"DeviceInterfaceSensor\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"none\"\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"parent\"\n"
+    "        type=\"DeviceInterfaceSensor\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
     "        category=\"parentpointer\"\n"
     "\t>\n"
-    "\t</Field>\n"
+    "    </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"napTime\"\n"
-    "     type=\"UInt32\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"10\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"napTime\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"10\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "\n"
     "</FieldContainer>\n",
     ""

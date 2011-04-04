@@ -125,7 +125,7 @@ void AnimMatrixChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimMatrixChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimMatrixChannel::getHandleData));
 
@@ -180,7 +180,7 @@ AnimMatrixChannelBase::TypeObject AnimMatrixChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"

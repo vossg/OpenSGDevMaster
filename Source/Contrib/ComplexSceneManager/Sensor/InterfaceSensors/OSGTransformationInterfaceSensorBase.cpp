@@ -128,7 +128,7 @@ void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         TransformationFieldId, TransformationFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TransformationInterfaceSensor::editHandleTransformation),
         static_cast<FieldGetMethodSig >(&TransformationInterfaceSensor::getHandleTransformation));
 
@@ -140,7 +140,7 @@ void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         TranslationFieldId, TranslationFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TransformationInterfaceSensor::editHandleTranslation),
         static_cast<FieldGetMethodSig >(&TransformationInterfaceSensor::getHandleTranslation));
 
@@ -152,7 +152,7 @@ void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         RotationFieldId, RotationFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TransformationInterfaceSensor::editHandleRotation),
         static_cast<FieldGetMethodSig >(&TransformationInterfaceSensor::getHandleRotation));
 
@@ -164,7 +164,7 @@ void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         RotationScaleFieldId, RotationScaleFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TransformationInterfaceSensor::editHandleRotationScale),
         static_cast<FieldGetMethodSig >(&TransformationInterfaceSensor::getHandleRotationScale));
 
@@ -176,7 +176,7 @@ void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         TranslationScaleFieldId, TranslationScaleFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TransformationInterfaceSensor::editHandleTranslationScale),
         static_cast<FieldGetMethodSig >(&TransformationInterfaceSensor::getHandleTranslationScale));
 
@@ -210,61 +210,61 @@ TransformationInterfaceSensorBase::TypeObject TransformationInterfaceSensorBase:
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"false\"\n"
     "    parentFields=\"none\"\n"
-    ">\n"
-    "  <Field\n"
-    "     name=\"transformation\"\n"
-    "     type=\"Matrix\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    >\n"
+    "    <Field\n"
+    "        name=\"transformation\"\n"
+    "        type=\"Matrix\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"translation\"\n"
-    "     type=\"Vec3f\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"translation\"\n"
+    "        type=\"Vec3f\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"rotation\"\n"
-    "     type=\"Quaternion\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"rotation\"\n"
+    "        type=\"Quaternion\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"rotationScale\"\n"
-    "     type=\"Real32\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"1.f\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"rotationScale\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"1.f\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"translationScale\"\n"
-    "     type=\"Real32\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"protected\"\n"
-    "     defaultValue=\"1.f\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"translationScale\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        defaultValue=\"1.f\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );

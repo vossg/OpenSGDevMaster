@@ -125,7 +125,7 @@ void AnimVec3fChannelBase::classDescInserter(TypeObject &oType)
         "",
         DataFieldId, DataFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimVec3fChannel::getHandleData));
 
@@ -180,7 +180,7 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"NULL\"\n"
-    "     fieldFlags=\"FClusterLocal\"\n"
+    "     fieldFlags=\"FStdAccess, FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"

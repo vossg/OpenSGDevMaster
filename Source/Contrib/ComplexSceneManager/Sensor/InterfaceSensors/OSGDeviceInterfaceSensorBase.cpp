@@ -136,7 +136,7 @@ void DeviceInterfaceSensorBase::classDescInserter(TypeObject &oType)
         "",
         InterfaceNameFieldId, InterfaceNameFieldMask,
         true,
-        (Field::FThreadLocal),
+        (Field::FStdAccess | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&DeviceInterfaceSensor::editHandleInterfaceName),
         static_cast<FieldGetMethodSig >(&DeviceInterfaceSensor::getHandleInterfaceName));
 
@@ -183,28 +183,28 @@ DeviceInterfaceSensorBase::TypeObject DeviceInterfaceSensorBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"false\"\n"
     "    parentFields=\"single\"\n"
-    ">\n"
-    "  <Field\n"
-    "     name=\"interfaceName\"\n"
-    "     type=\"std::string\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
-    "     name=\"options\"\n"
-    "     type=\"InterfaceOptions\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     category=\"childpointer\"\n"
-    "     childParentType=\"DeviceInterfaceSensor\"\n"
-    "     linkParentField=\"Parent\"\n"
     "    >\n"
-    "  </Field>\n"
+    "    <Field\n"
+    "        name=\"interfaceName\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"options\"\n"
+    "        type=\"InterfaceOptions\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"DeviceInterfaceSensor\"\n"
+    "        linkParentField=\"Parent\"\n"
+    "        >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
