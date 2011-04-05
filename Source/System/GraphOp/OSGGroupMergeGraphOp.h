@@ -97,6 +97,8 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
 
   protected:
 
+    bool _ignoreAttachments; // Don't move attachments from child to parent
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructors                                     */
     /*! \{                                                                 */
@@ -109,12 +111,13 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
 
   private:
 
-    Action::ResultE traverseEnter(Node * const node                     );
-    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node                           );
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res      );
     
-    void handleNoChildren      (Node * const node, NodeCore * const core);
-    void handleSingleChild     (Node * const node, NodeCore * const core);
-    void handleMultipleChildren(Node * const node, NodeCore * const core);
+    void handleNoChildren      (Node * const node,   NodeCore * const core    );
+    void handleSingleChild     (Node * const node,   NodeCore * const core    );
+    void handleMultipleChildren(Node * const node,   NodeCore * const core    );
+    void mergeAttachments      (Node * const toNode, Node     * const fromNode);
 };
 
 OSG_GEN_MEMOBJPTR(GroupMergeGraphOp);
