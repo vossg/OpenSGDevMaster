@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGShaderVariableFunctorBase.h"
+#include "OSGDrawEnv.h"
 
 #include "boost/function.hpp"
 
@@ -71,7 +72,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableFunctor :
     typedef GLint (OSG_APIENTRY *GetUniformLocProc)(      GLuint  programObj,
                                                     const Char8  *name      );
 
-    typedef boost::function<void (DrawEnv *, Int32)> ProcVarFunctor;
+    typedef boost::function<void (DrawEnv *, Int32        )> ProcVarFunctor;
+    typedef boost::function<void (DrawEnv *, Int32, Node *)> ProcVarNodeFunctor;
 
 #ifdef OSG_1_COMPAT
     typedef boost::function<void (GetUniformLocProc  ,
@@ -104,13 +106,13 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableFunctor :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void   setFunctor (ProcVarFunctor  pFunc    );
-
+    void   setFunctor (ProcVarFunctor     pFunc    );
+    void   setFunctor (ProcVarNodeFunctor pFunc    );
 #ifdef OSG_1_COMPAT
-    void   setFunctor (ParamFunctor    pPFunc   );
-    void   setFunctor (OSGParamFunctor pOSGPFunc);
+    void   setFunctor (ParamFunctor       pPFunc   );
+    void   setFunctor (OSGParamFunctor    pOSGPFunc);
 
-    UInt32 getFuncMode(void                     );
+    UInt32 getFuncMode(void                        );
 #endif
 
     /*! \}                                                                 */
@@ -144,13 +146,14 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableFunctor :
   protected:
 
 #ifdef OSG_1_COMPAT
-    UInt32          _uiFuncMode;
+    UInt32             _uiFuncMode;
 
-    ParamFunctor    _pPFunc;
-    OSGParamFunctor _pOSGPFunc;
+    ParamFunctor       _pPFunc;
+    OSGParamFunctor    _pOSGPFunc;
 #endif
 
-    ProcVarFunctor  _pFunc;
+    ProcVarFunctor     _pFunc;
+    ProcVarNodeFunctor _pNodeFunc;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

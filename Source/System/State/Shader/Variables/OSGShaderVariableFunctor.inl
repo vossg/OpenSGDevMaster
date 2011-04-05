@@ -50,6 +50,16 @@ void ShaderVariableFunctor::setFunctor(ProcVarFunctor pFunc)
 #endif
 }
 
+inline
+void ShaderVariableFunctor::setFunctor(ProcVarNodeFunctor pFunc)
+{
+    _pNodeFunc = pFunc;
+
+#ifdef OSG_1_COMPAT
+    _uiFuncMode = 0;
+#endif
+}
+
 
 #ifdef OSG_1_COMPAT
 inline
@@ -82,6 +92,11 @@ void ShaderVariableFunctor::evaluate(DrawEnv *pEnv,
     if(_pFunc)
     {
         _pFunc(pEnv, iLocation);
+    }
+
+    if(_pNodeFunc)
+    {
+        _pNodeFunc(pEnv, iLocation, pEnv->getSGNode());
     }
 }
 

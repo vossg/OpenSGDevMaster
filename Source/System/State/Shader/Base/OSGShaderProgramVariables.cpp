@@ -741,10 +741,30 @@ bool ShaderProgramVariables::addProceduralVariable(
                                               pProcVarLoc);
 }
 
+bool ShaderProgramVariables::addNodeProceduralVariable(
+    const Char8              *name,
+          ProcVarNodeFunctor  pFunc,
+          UInt32              uiDependency,
+          MFInt32            *pProcVarLoc)
+{
+    return _pVarAccess->addProceduralVariable(name, 
+                                              pFunc, 
+                                              uiDependency,
+                                              pProcVarLoc);
+}
+
 bool ShaderProgramVariables::updateProceduralVariable(
     const Char8          *name,
           ProcVarFunctor  pFunc,
           UInt32          uiDependency)
+{
+    return _pVarAccess->updateProceduralVariable(name, pFunc, uiDependency);
+}
+
+bool ShaderProgramVariables::updateNodeProceduralVariable(
+    const Char8              *name,
+          ProcVarNodeFunctor  pFunc,
+          UInt32              uiDependency)
 {
     return _pVarAccess->updateProceduralVariable(name, pFunc, uiDependency);
 }

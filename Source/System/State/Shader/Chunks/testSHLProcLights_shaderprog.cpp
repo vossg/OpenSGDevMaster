@@ -182,7 +182,7 @@ static void light1Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
     }
 }
 
-static void light2Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
+static void light2Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc, OSG::Node *pNode)
 {
     if(iLoc != -1)
     {
@@ -240,9 +240,9 @@ int doMain(int argc, char **argv)
 
     shl->addShader(shl_fp);
 
-    shl_vp->addProceduralVariable("Light0Active", &light0Active);
-    shl_vp->addProceduralVariable("Light1Active", &light1Active);
-    shl_vp->addProceduralVariable("Light2Active", &light2Active);
+    shl_vp->addProceduralVariable    ("Light0Active", &light0Active);
+    shl_vp->addProceduralVariable    ("Light1Active", &light1Active);
+    shl_vp->addNodeProceduralVariable("Light2Active", &light2Active);
 
     cmat->addChunk(matc);
     cmat->addChunk(shl);

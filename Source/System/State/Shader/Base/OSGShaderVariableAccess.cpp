@@ -160,6 +160,45 @@ bool ShaderVariableAccess::updateProceduralVariable(
     return returnValue;
 }
 
+
+bool ShaderVariableAccess::updateProceduralVariable(
+    const Char8              *name, 
+          ProcVarNodeFunctor  pFunctor,                                        
+          UInt32              uiDependency)
+{
+    if(name == NULL)
+        return false;
+
+    FDEBUG(("Update procedural param '%s'\n", name));
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.second != -1)
+        {
+            ShaderVariableFunctor *p = 
+                dynamic_cast<ShaderVariableFunctor *>(
+                    _oVariables.getProceduralVariables((*it).second.second));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::setVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                return false;
+            }
+
+            p->setFunctor   (pFunctor    );
+            p->setDependency(uiDependency);
+
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
 void ShaderVariableAccess::addVariable(ShaderVariable *pVar)
 {
     if(pVar == NULL)

@@ -69,7 +69,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     typedef ShaderProgramBase Inherited;
     typedef ShaderProgram     Self;
 
-    typedef ShaderVariableFunctor::ProcVarFunctor ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarFunctor     ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarNodeFunctor ProcVarNodeFunctor;
 
     static const UInt32 KeepProgActive = 0x0001;
 
@@ -163,29 +164,44 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \{                                                                 */
 
     template<class ValueT>
-    bool addUniformVariable      (const Char8 *name, const ValueT &value);
+    bool addUniformVariable   (const Char8 *name, const ValueT &value);
 
     template<class ValueT>
-    bool updateUniformVariable   (const Char8 *name, const ValueT &value);
+    bool updateUniformVariable(const Char8 *name, const ValueT &value);
 
     template<class ValueT>
-    bool getUniformVariable      (const Char8 *name,       ValueT &value);
+    bool getUniformVariable   (const Char8 *name,       ValueT &value);
 
-    bool subUniformVariable      (const Char8 *name                     );
+    bool subUniformVariable   (const Char8 *name                     );
 
-    void clearUniformVariables   (      void                            );
+    void clearUniformVariables(      void                            );
 
-    bool addOSGVariable          (const Char8 *name                     );
+    bool addOSGVariable       (const Char8 *name                     );
 
-    bool addProceduralVariable   (const Char8          *name,
-                                        ProcVarFunctor  pFunc,
-                                        UInt32          uiDependency =
-                                           ShaderProcVariable::SHDObject);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
-    bool updateProceduralVariable(const Char8          *name,
-                                        ProcVarFunctor  pFunc,
-                                        UInt32          uiDependency =
-                                           ShaderProcVariable::SHDObject);
+    bool addProceduralVariable       (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool updateProceduralVariable    (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool addNodeProceduralVariable   (const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool updateNodeProceduralVariable(const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

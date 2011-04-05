@@ -88,7 +88,8 @@ ShaderVariableFunctor::ShaderVariableFunctor(void) :
     _pOSGPFunc ( ),
 #endif
 
-    _pFunc     ( )
+    _pFunc     ( ),
+    _pNodeFunc ( )
 {
     setTypeId(ShaderVariable::SHVTypeFunctor);
 }
@@ -104,7 +105,8 @@ ShaderVariableFunctor::ShaderVariableFunctor(
     _pOSGPFunc (      ),
 #endif
 
-    _pFunc     (      )
+    _pFunc     (      ),
+    _pNodeFunc (      )
 {
 }
 

@@ -68,14 +68,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
   public:
 
-    typedef ShaderProgramVariablesBase             Inherited;
-    typedef ShaderProgramVariables                 Self;
+    typedef ShaderProgramVariablesBase                Inherited;
+    typedef ShaderProgramVariables                    Self;
 
-    typedef ShaderVariableFunctor::ProcVarFunctor  ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarFunctor     ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarNodeFunctor ProcVarNodeFunctor;
 
 #ifdef OSG_1_COMPAT
-    typedef ShaderVariableFunctor::ParamFunctor    ParamFunctor;
-    typedef ShaderVariableFunctor::OSGParamFunctor OSGParamFunctor;
+    typedef ShaderVariableFunctor::ParamFunctor       ParamFunctor;
+    typedef ShaderVariableFunctor::OSGParamFunctor    OSGParamFunctor;
 #endif
 
     /*---------------------------------------------------------------------*/
@@ -275,26 +276,35 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool addOSGVariable          (const Char8           *name,
-                                        MFInt32         *pProcVarLoc );
+    bool addOSGVariable              (const Char8              *name,
+                                            MFInt32            *pProcVarLoc );
 
-    bool addProceduralVariable   (const Char8           *name,
-                                        ProcVarFunctor   pFunc,
-                                        UInt32           uiDependency,
-                                        MFInt32         *pProcVarLoc );
+    bool addProceduralVariable       (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency,
+                                            MFInt32            *pProcVarLoc );
 
-    bool updateProceduralVariable(const Char8           *name,
-                                        ProcVarFunctor   pFunc,
-                                        UInt32           uiDependency);
+    bool addNodeProceduralVariable   (const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency,
+                                            MFInt32            *pProcVarLoc );
+
+    bool updateProceduralVariable    (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency);
+
+    bool updateNodeProceduralVariable(const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency);
 
 #ifdef OSG_1_COMPAT
-    bool addProceduralVariable   (const Char8           *name,
-                                        ParamFunctor     pFunc,
-                                        MFInt32         *pProcVarLoc);
+    bool addProceduralVariable       (const Char8              *name,
+                                            ParamFunctor        pFunc,
+                                            MFInt32            *pProcVarLoc );
 
-    bool addProceduralVariable   (const Char8           *name,
-                                        OSGParamFunctor  pFunc,
-                                        MFInt32         *pProcVarLoc);
+    bool addProceduralVariable       (const Char8              *name,
+                                            OSGParamFunctor     pFunc,
+                                            MFInt32            *pProcVarLoc );
 #endif
 
     /*! \}                                                                 */

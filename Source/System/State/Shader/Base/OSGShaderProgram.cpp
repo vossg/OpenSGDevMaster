@@ -849,6 +849,34 @@ bool ShaderProgram::addProceduralVariable(const Char8          *name,
 #endif
 }
 
+bool ShaderProgram::addNodeProceduralVariable(
+    const Char8              *name,
+          ProcVarNodeFunctor  pFunc,
+          UInt32              uiDependency)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::create();
+
+        setVariables(pParam);
+    }
+
+#if 0
+    return _sfVariables.getValue()->addNodeProceduralVariable(
+        name, 
+        pFunc,
+        uiDependency,
+        editMFProceduralVariableLocations());
+#else
+    return _sfVariables.getValue()->addNodeProceduralVariable(
+        name, 
+        pFunc,
+        uiDependency,
+        NULL);
+#endif
+}
+
 /*! \nohierarchy
  */
 
@@ -941,6 +969,24 @@ bool ShaderProgram::updateProceduralVariable(const Char8          *name,
     return _sfVariables.getValue()->updateProceduralVariable(name, 
                                                              pFunc,
                                                              uiDependency);
+}
+
+bool ShaderProgram::updateNodeProceduralVariable(
+    const Char8              *name,
+          ProcVarNodeFunctor  pFunc,
+          UInt32              uiDependency)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::create();
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateNodeProceduralVariable(name, 
+                                                                 pFunc,
+                                                                 uiDependency);
 }
 
 bool ShaderProgram::readProgram(      std::string  &szTarget,

@@ -948,6 +948,46 @@ bool SimpleSHLChunk::addProceduralVariable(const Char8          *name,
         editMFProceduralVariableLocations());
 }
 
+bool SimpleSHLChunk::updateNodeProceduralVariable(
+    const Char8             *name,
+          ProcVarNodeFunctor pFunc,
+          UInt32             uiDependency)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateNodeProceduralVariable(name, 
+                                                                 pFunc,
+                                                                 uiDependency);
+}
+
+bool SimpleSHLChunk::addNodeProceduralVariable(
+    const Char8              *name,
+          ProcVarNodeFunctor  pFunc,
+          UInt32              uiDependency)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->addNodeProceduralVariable(
+        name, 
+        pFunc,
+        uiDependency,
+        editMFProceduralVariableLocations());
+}
+
 bool SimpleSHLChunk::updateProceduralVariable(const Char8         *name,
                                                     ProcVarFunctor pFunc,
                                                     UInt32         uiDependency)

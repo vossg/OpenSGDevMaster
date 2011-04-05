@@ -62,7 +62,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableAccess
     /*==========================  PUBLIC  =================================*/
   public:
 
-    typedef ShaderVariableFunctor::ProcVarFunctor ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarFunctor     ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarNodeFunctor ProcVarNodeFunctor;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -117,18 +118,22 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableAccess
     /*! \name                   Access                                     */
     /*! \{                                                                 */
 
-    bool addVariableOSG          (const Char8          *name,
-                                        MFInt32        *pProcVarLoc );
+    bool addVariableOSG          (const Char8              *name,
+                                        MFInt32            *pProcVarLoc );
 
     template<class FunctorT>
-    bool addProceduralVariable   (const Char8          *name, 
-                                        FunctorT        pFunctor,
-                                        UInt32          uiDependency,
-                                        MFInt32        *pProcVarLoc );
+    bool addProceduralVariable   (const Char8              *name, 
+                                        FunctorT            pFunctor,
+                                        UInt32              uiDependency,
+                                        MFInt32            *pProcVarLoc );
 
-    bool updateProceduralVariable(const Char8          *name, 
-                                        ProcVarFunctor  pFunctor,
-                                        UInt32          uiDependency);
+    bool updateProceduralVariable(const Char8              *name, 
+                                        ProcVarFunctor      pFunctor,
+                                        UInt32              uiDependency);
+
+    bool updateProceduralVariable(const Char8              *name, 
+                                        ProcVarNodeFunctor  pFunctor,
+                                        UInt32              uiDependency);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

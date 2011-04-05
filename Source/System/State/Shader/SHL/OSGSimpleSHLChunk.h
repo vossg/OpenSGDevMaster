@@ -69,19 +69,20 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
 
   public:
 
-    typedef SimpleSHLChunkBase Inherited;
-    typedef SimpleSHLChunk     Self;
+    typedef SimpleSHLChunkBase                           Inherited;
+    typedef SimpleSHLChunk                               Self;
 
-    typedef ShaderVariableFunctor::GetUniformLocProc GetUniformLocProc;
-    typedef ShaderVariableFunctor::ProcVarFunctor    ProcVarFunctor;
+    typedef ShaderVariableFunctor::GetUniformLocProc     GetUniformLocProc;
+    typedef ShaderVariableFunctor::ProcVarFunctor        ProcVarFunctor;
+    typedef ShaderVariableFunctor::ProcVarNodeFunctor    ProcVarNodeFunctor;
 
     static const UInt32 KeepProgActive = ShaderProgram::KeepProgActive;
 
     static const UInt32 ProgActive     = ShaderProgram::ProgActive;
 
 #ifdef OSG_1_COMPAT
-    typedef ShaderVariableFunctor::ParamFunctor      ParamFunctor;
-    typedef ShaderVariableFunctor::OSGParamFunctor   OSGParamFunctor;
+    typedef ShaderVariableFunctor::ParamFunctor          ParamFunctor;
+    typedef ShaderVariableFunctor::OSGParamFunctor       OSGParamFunctor;
 
     static const OSG::BitVector ParametersFieldMask = VariablesFieldMask;
 #endif
@@ -192,15 +193,31 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
 
     bool addOSGVariable          (const Char8 *name                     );
 
-    bool addProceduralVariable   (const Char8          *name,
-                                        ProcVarFunctor  pFunc,
-                                        UInt32          uiDependency =
-                                           ShaderProcVariable::SHDObject);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
-    bool updateProceduralVariable(const Char8          *name,
-                                        ProcVarFunctor  pFunc,
-                                        UInt32          uiDependency =
-                                           ShaderProcVariable::SHDObject);
+    bool addProceduralVariable       (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool updateProceduralVariable    (const Char8              *name,
+                                            ProcVarFunctor      pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool addNodeProceduralVariable   (const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
+    bool updateNodeProceduralVariable(const Char8              *name,
+                                            ProcVarNodeFunctor  pFunc,
+                                            UInt32              uiDependency =
+                                               ShaderProcVariable::SHDObject);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

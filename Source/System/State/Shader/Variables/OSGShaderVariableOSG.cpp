@@ -158,6 +158,21 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGNodeId);
             setDependency(SHDObject);
         }
+        else if(_sfName.getValue() == "OSGNodeWorldBoxMin")
+        {
+            setOsgVarType(OSGNodeWorldBoxMin);
+            setDependency(SHDObject         );
+        }
+        else if(_sfName.getValue() == "OSGNodeWorldBoxMax")
+        {
+            setOsgVarType(OSGNodeWorldBoxMax);
+            setDependency(SHDObject         );
+        }
+        else if(_sfName.getValue() == "OSGNodeWorldBoxCenter")
+        {
+            setOsgVarType(OSGNodeWorldBoxCenter);
+            setDependency(SHDObject            );
+        }
         else if(_sfName.getValue() == "OSGActiveLightsMask")
         {
             setOsgVarType(OSGActiveLightsMask);
@@ -275,6 +290,21 @@ void ShaderVariableOSG::setName(const std::string &value)
     {
         setOsgVarType(OSGNodeId);
         setDependency(SHDObject);
+    }
+    else if(_sfName.getValue() == "OSGNodeWorldBoxMin")
+    {
+        setOsgVarType(OSGNodeWorldBoxMin);
+        setDependency(SHDObject         );
+    }
+    else if(_sfName.getValue() == "OSGNodeWorldBoxMax")
+    {
+        setOsgVarType(OSGNodeWorldBoxMax);
+        setDependency(SHDObject         );
+    }
+    else if(_sfName.getValue() == "OSGNodeWorldBoxCenter")
+    {
+        setOsgVarType(OSGNodeWorldBoxCenter);
+        setDependency(SHDObject            );
     }
     else if(_sfName.getValue() == "OSGActiveLightsMask")
     {
@@ -465,14 +495,86 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             if(iLocation != -1)
             {
-                OSGGETGLFUNC(OSGglUniform1iProc,
-                             osgGlUniform1i,
-                             ShaderProgram::getFuncIdUniform1i());
-
                 if(pEnv->getSGNode() != NULL)
                 {
+                    OSGGETGLFUNC(OSGglUniform1iProc,
+                                 osgGlUniform1i,
+                                 ShaderProgram::getFuncIdUniform1i());
+
                     osgGlUniform1i(iLocation, 
                                    GLint(pEnv->getSGNode()->getId()));
+                }
+            }
+        }
+        break;
+
+        case OSGNodeWorldBoxMin:
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    BoxVolume bvWorldBox;
+
+                    pEnv->getSGNode()->getWorldVolume(bvWorldBox);
+
+                    osgGlUniform3f(iLocation, 
+                                   bvWorldBox.getMin()[0],
+                                   bvWorldBox.getMin()[1],
+                                   bvWorldBox.getMin()[2]);
+                }
+            }
+        }
+        break;
+
+        case OSGNodeWorldBoxMax :
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    BoxVolume bvWorldBox;
+
+                    pEnv->getSGNode()->getWorldVolume(bvWorldBox);
+
+                    osgGlUniform3f(iLocation, 
+                                   bvWorldBox.getMax()[0],
+                                   bvWorldBox.getMax()[1],
+                                   bvWorldBox.getMax()[2]);
+                }
+            }
+        }
+        break;
+
+        case OSGNodeWorldBoxCenter:
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    BoxVolume bvWorldBox;
+                    Pnt3f     vWorldBoxCenter;
+
+                    pEnv->getSGNode()->getWorldVolume(bvWorldBox);
+
+                    bvWorldBox.getCenter(vWorldBoxCenter);
+
+                    osgGlUniform3f(iLocation, 
+                                   vWorldBoxCenter[0],
+                                   vWorldBoxCenter[1],
+                                   vWorldBoxCenter[2]);
                 }
             }
         }
