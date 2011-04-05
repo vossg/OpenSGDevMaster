@@ -86,10 +86,9 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-VerifyGeoGraphOp::VerifyGeoGraphOp(bool repair, const char *name) :
-    Inherited  (name  ),
-    _errorCount(0),
-    _repair    (repair)
+VerifyGeoGraphOp::VerifyGeoGraphOp(const char *name) :
+    Inherited  (name),
+    _errorCount(0)
 {
 }
 
@@ -98,9 +97,9 @@ VerifyGeoGraphOp::~VerifyGeoGraphOp(void)
 }
 
 VerifyGeoGraphOpTransitPtr
-VerifyGeoGraphOp::create(bool repair)
+VerifyGeoGraphOp::create(void)
 {
-    return VerifyGeoGraphOpTransitPtr(new VerifyGeoGraphOp(repair));
+    return VerifyGeoGraphOpTransitPtr(new VerifyGeoGraphOp());
 }
 
 GraphOpTransitPtr VerifyGeoGraphOp::clone(void)
@@ -126,9 +125,7 @@ bool VerifyGeoGraphOp::traverse(Node *node)
 void VerifyGeoGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);
-    
-    ps("repair",  _repair);
-    
+
     std::string out = ps.getUnusedParams();
     if(out.length())
     {
@@ -140,16 +137,9 @@ void VerifyGeoGraphOp::setParams(const std::string params)
 std::string VerifyGeoGraphOp::usage(void)
 {
     return 
-    "Verify: Test validity of Geometries\n"
+    "VerifyGeo: Test validity of Geometries\n"
     "  Run some validity tests on Geometries, makes sure indices are\n"
-    "  in the valid range etc.\n"
-    "Params: name (type, default)\n"
-    "  repair (bool, true): try to repair consistency errors\n";
-}
-
-void VerifyGeoGraphOp::setRepair(bool repair)
-{
-    _repair = repair;
+    "  in the valid range etc.\n";
 }
 
 bool VerifyGeoGraphOp::travNodeEnter(Node *node)

@@ -79,9 +79,8 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    static  ObjTransitPtr     create(bool repair = true);
-
-    virtual GraphOpTransitPtr clone (void              );
+    static  ObjTransitPtr     create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -91,7 +90,6 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     virtual bool traverse(Node *root);
     
     void setParams(const std::string params);
-    void setRepair(bool repair);
 
     std::string usage(void);
 
@@ -107,8 +105,7 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-             VerifyGeoGraphOp(      bool  repair = true,
-                              const char *name   = "VerifyGeo");
+             VerifyGeoGraphOp(const char *name   = "VerifyGeo");
     virtual ~VerifyGeoGraphOp(void                            );
 
     /*! \}                                                                 */
@@ -120,7 +117,6 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     bool checkNonindexedGeo(Geometry *geo, UInt32 sumLengths);
     
     UInt32 _errorCount;
-    bool   _repair;
 };
 
 OSG_GEN_MEMOBJPTR(VerifyGeoGraphOp);
