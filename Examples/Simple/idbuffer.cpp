@@ -260,7 +260,10 @@ private:
             
             OSG::MaterialGroup *mg = dynamic_cast<OSG::MaterialGroup *>(root->getCore());
 
-            _mgswitches.push_back(MaterialGroupList::value_type(mg, NULL));
+            _mgswitches.push_back(
+                MaterialGroupList::value_type(
+                    mg, 
+                    static_cast<OSG::Material *>(NULL)));
         }
         
         if(root->getCore()->getType().isDerivedFrom(OSG::Geometry::getClassType()))

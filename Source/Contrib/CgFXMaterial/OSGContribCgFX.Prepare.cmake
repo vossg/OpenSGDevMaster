@@ -15,6 +15,12 @@ LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_CG 1")
 
 MESSAGE(STATUS "Cg Status: Cg: ${OSG_WITH_CG}")
 
+IF(WIN32 AND OSG_WITH_CG)
+  IF(EXISTS "${CG_INCLUDE_DIR}/GL")
+    MESSAGE(SEND_ERROR "Cg include dir contains GL subdir, this must be renamed prior to generation")
+  ENDIF()
+ENDIF(WIN32 AND OSG_WITH_CG)
+
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/FindCg.cmake"
         DESTINATION share/OpenSG/cmake)
 
