@@ -386,7 +386,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     bool          usesShader = false;
     
 #ifndef __APPLE__
-    usesShader = (pEnv->getActiveShader() != 0);
+//    usesShader = (pEnv->getActiveShader() != 0);
 #endif
 
     // store glColor.
