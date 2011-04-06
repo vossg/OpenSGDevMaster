@@ -145,12 +145,36 @@ bool StripeGraphOp::travNodeEnter(Node *node)
             
             if(t != NULL)
             {
+                bool gotNonTriangles = false;
+                bool gotTriStrips    = false;
+
                 for(UInt32 i = 0; i < t->size(); ++i)
                 {
-                    if(t->getValue(i) == GL_TRIANGLE_STRIP)
+                    switch(t->getValue(i))
                     {
-                        return true;
+                        case GL_TRIANGLE_STRIP:
+                        case GL_TRIANGLE_FAN:
+                            gotTriStrips = true;
+                            break;
+
+                        case GL_QUADS:
+                        case GL_QUAD_STRIP:
+                        case GL_POLYGON:
+                            gotNonTriangles = true;
+                            break;
+                            
+                        default:
+                            break;
                     }
+
+                    if(gotNonTriangles == true)
+                        break;
+                }
+
+                if(gotNonTriangles == false &&
+                   gotTriStrips    == true   )
+                {
+                    return true;
                 }
             }
         }
