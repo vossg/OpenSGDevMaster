@@ -139,9 +139,10 @@ inline
 EditSFieldHandle<SFAttachmentPtrMap>::EditSFieldHandle(
     const EditSFieldHandle &source) :
 
-     Inherited (source            ),
-    _pContainer(source._pContainer),
-    _fAddMethod(source._fAddMethod)
+     Inherited     (source                ),
+    _pContainer    (source._pContainer    ),
+    _fAddMethod    (source._fAddMethod    ),
+    _fReplaceMethod(source._fReplaceMethod)
 {
 }
 
@@ -151,11 +152,12 @@ EditSFieldHandle<SFAttachmentPtrMap>::EditSFieldHandle(
     const FieldDescriptionBase *pDescription,
           FieldContainer       *pContainer  ) :
 
-     Inherited (pField, 
-                pDescription,
-                pContainer  ),
-    _pContainer(NULL        ),
-    _fAddMethod(NULL        )
+     Inherited     (pField, 
+                    pDescription,
+                    pContainer  ),
+    _pContainer    (NULL        ),
+    _fAddMethod    (NULL        ),
+    _fReplaceMethod(NULL        )
 {
 }
 
@@ -224,6 +226,13 @@ void EditSFieldHandle<SFAttachmentPtrMap>::setAddMethod(
     AddMethod fMethod)
 {
     _fAddMethod = fMethod;
+}
+
+inline
+void EditSFieldHandle<SFAttachmentPtrMap>::setReplaceMethod(
+    ReplaceMethod fMethod)
+{
+    _fReplaceMethod = fMethod;
 }
 
 inline

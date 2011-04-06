@@ -209,6 +209,15 @@ void EditSFieldHandle<SFAttachmentPtrMap>::add(
     }
 }
 
+void EditSFieldHandle<SFAttachmentPtrMap>::replaceByObj(Attachment * const pOld,
+                                                        Attachment * const pNew)
+{
+    if(_fReplaceMethod)
+    {
+        _fReplaceMethod(pOld, pNew);
+    }
+}
+
 void EditSFieldHandle<SFAttachmentPtrMap>::traverse(TraverseCallback oCallback)
 {
     const SFAttachmentPtrMap *pMap = static_cast<SFAttachmentPtrMap *>(_pField);

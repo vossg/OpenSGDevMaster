@@ -129,18 +129,18 @@ class OSG_UTIL_DLLMAPPING SharePtrGraphOp : public GraphOp
     virtual Action::ResultE traverseLeave(Node            * const node,
                                           Action::ResultE         res  );
 
-    typedef std::set<UInt32          > FCIdSet;
-    typedef FCIdSet::iterator          FCIdSetIt;
-    typedef FCIdSet::const_iterator    FCIdSetConstIt;
+    typedef std::set<UInt32          >       FCIdSet;
+    typedef FCIdSet::iterator                FCIdSetIt;
+    typedef FCIdSet::const_iterator          FCIdSetConstIt;
     
-    typedef std::set<FieldContainer *> FCSet;
-    typedef FCSet::iterator            FCSetIt;
+    typedef std::set<FieldContainerUnrecPtr> FCSet;
+    typedef FCSet::iterator                  FCSetIt;
     
-    typedef std::map<UInt32, FCSet   > FCTypeMap;
-    typedef FCTypeMap::iterator        FCTypeMapIt;
+    typedef std::map<UInt32, FCSet   >       FCTypeMap;
+    typedef FCTypeMap::iterator              FCTypeMapIt;
     
-    typedef std::map<UInt32, UInt32  > ShareCount;
-    typedef ShareCount::iterator       ShareCountIt;
+    typedef std::map<UInt32, UInt32  >       ShareCount;
+    typedef ShareCount::iterator             ShareCountIt;
     
     FieldContainer *shareFC(FieldContainer *fc);
     
@@ -153,7 +153,7 @@ class OSG_UTIL_DLLMAPPING SharePtrGraphOp : public GraphOp
     FCIdSet    _includeSet;
     FCIdSet    _excludeSet;
 
-    FCIdSet    _visitedSet;
+//    FCIdSet    _visitedSet;
     
     ShareCount _shareCount;
     Time       _totalTime;

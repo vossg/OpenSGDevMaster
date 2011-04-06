@@ -136,11 +136,15 @@ class OSG_BASE_DLLMAPPING
 
     typedef boost::function<void(Attachment * const,
                                  UInt32            )> AddMethod;
-
+    
+    typedef boost::function<void(Attachment * const,
+                                 Attachment * const)> ReplaceMethod;
+    
     /*==========================  PUBLIC  =================================*/
 
     FieldContainer *_pContainer;
     AddMethod       _fAddMethod;
+    ReplaceMethod   _fReplaceMethod;
 
   public:
 
@@ -160,8 +164,11 @@ class OSG_BASE_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    virtual void add(      FieldContainer *rhs,
-                     const std::string    &szBindings);
+    virtual void add         (      FieldContainer *       rhs,
+                              const std::string    &       szBindings);
+
+    virtual void replaceByObj(      Attachment     * const pOld,
+                                    Attachment     * const pNew      );
 
     /*---------------------------------------------------------------------*/
 
@@ -192,9 +199,10 @@ class OSG_BASE_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    void         setAddMethod(AddMethod      fMethod);
+            void setAddMethod    (AddMethod     fMethod);
+            void setReplaceMethod(ReplaceMethod fMethod);
 
-    virtual bool equal       (Base::Ptr rhs    ) const;
+    virtual bool equal           (Base::Ptr     rhs    ) const;
 
     /*---------------------------------------------------------------------*/
 

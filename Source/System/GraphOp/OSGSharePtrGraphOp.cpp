@@ -89,8 +89,7 @@ SharePtrGraphOp::SharePtrGraphOp(const char* name):
     GraphOp(name),
     _typeMap(),
     _includeSet(),
-    _excludeSet(),
-    _visitedSet()
+    _excludeSet()
 {
 }
 
@@ -119,7 +118,6 @@ bool SharePtrGraphOp::traverse(Node *root)
     }
 
     _typeMap   .clear();
-    _visitedSet.clear();
     _shareCount.clear();
 
     _totalTime   = 0.0f;
@@ -145,7 +143,7 @@ bool SharePtrGraphOp::traverse(Node *root)
         FieldContainerType *fcType = FieldContainerFactory::the()->findType(typeId);
 
         SINFO << "TypeId [" << typeId << "] [" << (fcType != NULL ? fcType->getCName() : "")
-                << "] -- [" << tmIt->second.size() << "]\n";
+              << "] -- [" << tmIt->second.size() << "]\n";
     }
 
     SINFO << "SharePtrGraphOp::traverse: Shared containers by type:\n";
@@ -159,7 +157,7 @@ bool SharePtrGraphOp::traverse(Node *root)
         FieldContainerType *fcType = FieldContainerFactory::the()->findType(typeId);
 
         SINFO << "TypeId [" << typeId << "] [" << (fcType != NULL ? fcType->getCName() : "")
-                << "] -- [" << scIt->second << "]\n";
+              << "] -- [" << scIt->second << "]\n";
     }
 
     SINFO << std::flush;
@@ -301,14 +299,22 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
     if(fc == NULL)
         return fc;
 
-    if(_visitedSet.count(fc->getId()) > 0)
-        return fc;
-
-    _visitedSet.insert(fc->getId());
-
     bool   singleParent = false;
     UInt32 fcTypeId     = fc->getType().getId           ();
     UInt32 fCount       = fc->getType().getNumFieldDescs();
+
+
+    FCTypeMapIt tmIt = _typeMap.find(fcTypeId);
+
+    if(tmIt == _typeMap.end())
+    {
+        tmIt =
+            _typeMap.insert(FCTypeMap::value_type(fcTypeId, FCSet())).first;
+    }
+
+    if(tmIt->second.count(fc) > 0)
+        return fc;
+
 
     for(UInt32 i = 1; i <= fCount; ++i)
     {
@@ -323,9 +329,24 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
             continue;
         }
 
+        EditFieldHandlePtr fHandle = fc->editField(i);
+
         // skip non-pointer fields
+#if 1
         if(fDesc->getFieldType().isPtrField() == false)
             continue;
+#else
+        if(fHandle != NULL)
+        {
+            if(fHandle->isPointerField() == false)
+                continue;
+        }
+        else
+        {
+             if(fDesc->getFieldType().isPtrField() == false)
+                 continue;
+        }
+#endif
 
         // skip internal fields
         if(fDesc->isInternal() == true)
@@ -333,11 +354,11 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
 
         FieldContainerPtrSFieldBase::EditHandlePtr sfPtrHandle =
             boost::dynamic_pointer_cast<
-                FieldContainerPtrSFieldBase::EditHandle>(fc->editField(i));
+                FieldContainerPtrSFieldBase::EditHandle>(fHandle);
 
         FieldContainerPtrMFieldBase::EditHandlePtr mfPtrHandle =
             boost::dynamic_pointer_cast<
-                FieldContainerPtrMFieldBase::EditHandle>(fc->editField(i));
+                FieldContainerPtrMFieldBase::EditHandle>(fHandle);
 
         if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
         {
@@ -362,6 +383,38 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
                 }
             }
         }
+#if 0
+        else
+        {
+            SFAttachmentPtrMap::EditHandlePtr  amEditHandle =
+                boost::dynamic_pointer_cast<SFAttachmentPtrMap::EditHandle>(
+                    fHandle);
+
+            SFAttachmentPtrMap::GetHandlePtr  amGetHandle =
+                boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
+                    fc->getField(i));
+
+            if(amEditHandle != NULL && amEditHandle->isValid() == true)
+            {
+                 const AttachmentMap &oAttMap = (*amGetHandle)->getValue();
+
+                 AttachmentMap::const_iterator amIt  = oAttMap.begin();
+                 AttachmentMap::const_iterator amEnd = oAttMap.end  ();
+
+                 for(; amIt != amEnd; ++amIt)
+                 {
+                     Attachment *att      = (*amIt).second;
+                     Attachment *attEquiv =  
+                         dynamic_cast<Attachment *>(shareFC(att));
+
+                     if(attEquiv != att)
+                     {
+                         amEditHandle->replaceByObj(att, attEquiv);
+                     }
+                 }
+            }
+        }
+#endif
     }
 
     if(checkIncludeSet(fcTypeId) == false)
@@ -372,17 +425,6 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
 
     // can not share a FC with single parents
     if(singleParent == true)
-        return fc;
-
-    FCTypeMapIt tmIt = _typeMap.find(fcTypeId);
-
-    if(tmIt == _typeMap.end())
-    {
-        tmIt =
-            _typeMap.insert(FCTypeMap::value_type(fcTypeId, FCSet())).first;
-    }
-
-    if(tmIt->second.count(fc) > 0)
         return fc;
 
     FCSetIt fcsIt  = tmIt->second.begin();
@@ -439,27 +481,23 @@ bool SharePtrGraphOp::checkInSet(UInt32 fcTypeId, const FCIdSet &idSet)
 
 bool SharePtrGraphOp::checkIncludeSet(UInt32 fcTypeId)
 {
-    bool returnValue = false;
+    if(_includeSet.empty() == true)
+        return true;
 
-    if(_includeSet.empty(                     ) == false &&
-       checkInSet       (fcTypeId, _includeSet) == true     )
-    {
-        returnValue = true;
-    }
+    if(checkInSet(fcTypeId, _includeSet) == true)
+        return true;
 
-    return returnValue;
+    return false;
 }
 
 bool SharePtrGraphOp::checkExcludeSet(UInt32 fcTypeId)
 {
-    bool returnValue = false;
+    if(_excludeSet.empty() == true)
+        return false;
 
-    if(_excludeSet.empty(                     ) == false &&
-       checkInSet       (fcTypeId, _excludeSet) == true     )
-    {
-        returnValue = true;
-    }
+    if(checkInSet(fcTypeId, _excludeSet) == true)
+        return true;
 
-    return returnValue;
+    return false;
 }
 

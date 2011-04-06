@@ -122,6 +122,17 @@ bool compareContainerEqualImpl(
            lhsField->getType   ().getClass() == FieldType::ParentPtrField   )
             continue;
 
+        SFAttachmentPtrMap::GetHandlePtr  lhsAMHandle =
+            boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
+                lhsField);
+
+        if(lhsAMHandle            != NULL && 
+           lhsAMHandle->isValid() == true &&
+           ignoreAttachments      == true  )
+        {
+            continue;
+        }
+
         if(compareIdentity == true)
         {
             if(lhsField->equal(rhsField) == false)

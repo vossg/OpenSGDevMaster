@@ -322,6 +322,51 @@ void AttachmentContainer::subAttachment(
     }
 }
 
+void  AttachmentContainer::replaceAttachmentByObj(Attachment * const pOld,
+                                                  Attachment * const pNew)
+{
+    Self::editSField(AttachmentsFieldMask);
+
+    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().begin();
+    AttachmentObjPtrMapIt fcE = _sfAttachments.getValue().end  ();
+
+    for(; fcI != fcE; ++fcI)
+    {
+        if(fcI->second == pOld)
+        {
+            { // New
+                if(this->isMTLocal())
+                {
+                    RecordedRefCountPolicy::addRef(pNew);
+                }
+                else
+                {
+                    UnrecordedRefCountPolicy::addRef(pNew);
+                }
+                
+                pNew->linkParent(this, 
+                                 AttachmentsFieldId, 
+                                 Attachment::ParentsFieldId);
+            }
+            
+            { // Old
+                pOld->unlinkParent(this, 
+                                   Attachment::ParentsFieldId);
+
+                if(this->isMTLocal())
+                {
+                    RecordedRefCountPolicy::subRef(pOld);
+                }
+                else
+                {
+                    UnrecordedRefCountPolicy::subRef(pOld);
+                }
+            }
+
+            fcI->second = pNew;
+        }
+    }
+}
 
 const AttachmentContainer::SFAttachmentObjPtrMap *
     AttachmentContainer::getSFAttachments(void) const
@@ -482,6 +527,12 @@ EditFieldHandlePtr AttachmentContainer::editHandleAttachments(void)
              this));
 
     returnValue->setAddMethod(boost::bind(&AttachmentContainer::addAttachment,
+                                          this,
+                                          _1,
+                                          _2));
+
+    returnValue->setReplaceMethod(
+        boost::bind(&AttachmentContainer::replaceAttachmentByObj,
                                           this,
                                           _1,
                                           _2));
