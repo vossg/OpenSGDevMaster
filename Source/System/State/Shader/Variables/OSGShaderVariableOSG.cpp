@@ -158,6 +158,21 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGNodeId);
             setDependency(SHDObject);
         }
+        else if(_sfName.getValue() == "OSGNodeBoxMin")
+        {
+            setOsgVarType(OSGNodeBoxMin);
+            setDependency(SHDObject    );
+        }
+        else if(_sfName.getValue() == "OSGNodeBoxMax")
+        {
+            setOsgVarType(OSGNodeBoxMax);
+            setDependency(SHDObject    );
+        }
+        else if(_sfName.getValue() == "OSGNodeBoxCenter")
+        {
+            setOsgVarType(OSGNodeBoxCenter);
+            setDependency(SHDObject       );
+        }
         else if(_sfName.getValue() == "OSGNodeWorldBoxMin")
         {
             setOsgVarType(OSGNodeWorldBoxMin);
@@ -290,6 +305,21 @@ void ShaderVariableOSG::setName(const std::string &value)
     {
         setOsgVarType(OSGNodeId);
         setDependency(SHDObject);
+    }
+    else if(_sfName.getValue() == "OSGNodeBoxMin")
+    {
+        setOsgVarType(OSGNodeBoxMin);
+        setDependency(SHDObject    );
+    }
+    else if(_sfName.getValue() == "OSGNodeBoxMax")
+    {
+        setOsgVarType(OSGNodeBoxMax);
+        setDependency(SHDObject    );
+    }
+    else if(_sfName.getValue() == "OSGNodeBoxCenter")
+    {
+        setOsgVarType(OSGNodeBoxCenter);
+        setDependency(SHDObject       );
     }
     else if(_sfName.getValue() == "OSGNodeWorldBoxMin")
     {
@@ -507,6 +537,72 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
             }
         }
         break;
+
+        case OSGNodeBoxMin:
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    const BoxVolume &bvBox = pEnv->getSGNode()->getVolume();
+
+                    osgGlUniform3f(iLocation, 
+                                   bvBox.getMin()[0],
+                                   bvBox.getMin()[1],
+                                   bvBox.getMin()[2]);
+                }
+            }
+        }
+        break;
+
+        case OSGNodeBoxMax :
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    const BoxVolume &bvBox = pEnv->getSGNode()->getVolume();
+
+                    osgGlUniform3f(iLocation, 
+                                   bvBox.getMax()[0],
+                                   bvBox.getMax()[1],
+                                   bvBox.getMax()[2]);
+                }
+            }
+        }
+        break;
+
+        case OSGNodeBoxCenter:
+        {
+            if(iLocation != -1)
+            {
+                if(pEnv->getSGNode() != NULL)
+                {
+                    OSGGETGLFUNC(OSGglUniform3fProc,
+                                 osgGlUniform3f,
+                                 ShaderProgram::getFuncIdUniform3f());
+
+                    Pnt3f vBoxCenter;
+
+                    pEnv->getSGNode()->getVolume().getCenter(vBoxCenter);
+
+                    osgGlUniform3f(iLocation, 
+                                   vBoxCenter[0],
+                                   vBoxCenter[1],
+                                   vBoxCenter[2]);
+                }
+            }
+        }
+        break;
+
 
         case OSGNodeWorldBoxMin:
         {
