@@ -511,7 +511,26 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 OSG_ASSERT(pTime != NULL);
 
-                cgSetParameter1f(pTime, Real32(OSG::getSystemTime()));
+                static const UInt16 MaxLeftDecDigits(4);
+
+                // getSystemTime() returns a time value as a 64-bit floating
+                // point number.  But the time value taken by Cg is a 32-bit
+                // float.  This can cause a problem with precision when
+                // getSystemTime() returns large values, that truncate when cast
+                // to a 32-bit float.
+                //
+                // To deal with this, we are removing the most significant
+                // decimal digits left of the decimal points after the
+                // MaxLeftDecDigits one
+
+                Time tSysTime(OSG::getSystemTime());
+
+                Time tBase10Shift(osgPow<Time>(10, MaxLeftDecDigits));
+                Time tTruncValue(
+                    tSysTime - 
+                    (floor(tSysTime / tBase10Shift) * tBase10Shift));
+                
+                cgSetParameter1f(pTime, static_cast<Real32>(TruncValue));
             }
             break;
 
