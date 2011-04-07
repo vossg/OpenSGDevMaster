@@ -215,6 +215,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     virtual FunctorStore *getDefaultEnterFunctors(void);
     virtual FunctorStore *getDefaultLeaveFunctors(void);
 
+    ResultE onEnterNode(Node* node, Action* action);
+
   private:
 
     //-----------------------------------------------------------------------

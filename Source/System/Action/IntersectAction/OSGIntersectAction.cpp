@@ -51,6 +51,9 @@
 #include "OSGNodeCore.h"
 #include "OSGAction.h"
 #include "OSGIntersectAction.h"
+#include "OSGIntersectProxyAttachment.h"
+
+#include <boost/bind.hpp>
 
 OSG_USING_NAMESPACE
 
@@ -201,6 +204,8 @@ IntersectAction::IntersectAction(void) :
 
     if(_defaultLeaveFunctors)
         _leaveFunctors = *_defaultLeaveFunctors;
+
+    _nodeEnterCB = boost::bind(&IntersectAction::onEnterNode, this, _1, _2);
 }
 
 
@@ -395,4 +400,19 @@ Action::FunctorStore *IntersectAction::getDefaultLeaveFunctors(void)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
+Action::ResultE IntersectAction::onEnterNode(Node* node, Action* action)
+{
+    OSG_ASSERT(this == action && node == _actNode);
 
+    ResultE result = Continue;
+
+    IntersectProxyAttachment* ipa = dynamic_cast<IntersectProxyAttachment*>(
+        node->findAttachment(IntersectProxyAttachment::getClassType()));
+
+    if(ipa != NULL)
+    {
+        result = ipa->intersectEnter(node, this);
+    }
+
+    return result;
+}

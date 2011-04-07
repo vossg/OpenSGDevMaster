@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="IntersectProxyAttachment"
+    parent="Attachment"
+    library="System"
+    pointerfieldtypes="single"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemFieldContainer"
+    >
+    Base class for attachments that proxy the intersect testing for the
+    core they are attached to or the whole hierarchy below them.
+    This attachment should be attached to nodes.
+
+    <Field
+        name="visitChildren"
+        type="bool"
+        category="data"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+        >
+        Controls if the intersect should visit children of the node this
+        is attached to.
+        If true, the attachment is effectively a proxy for the core of the
+        node. If false, the attachment is a proxy for the whole hierarchy
+        below the node.
+    </Field>
+
+</FieldContainer>
