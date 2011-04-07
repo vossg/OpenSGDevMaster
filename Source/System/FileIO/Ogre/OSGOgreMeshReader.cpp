@@ -694,6 +694,9 @@ OgreMeshReader::readMeshSkeletonLink(SubMeshStore &subMeshInfo)
     std::string   skelFile = SceneFileHandler::the()->getPathHandler()->findFile(skelName.c_str());
     std::ifstream ifs(skelFile.c_str(), std::ios_base::in | std::ios_base::binary);
 
+    OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s' file '%s'\n",
+                  skelName.c_str(), skelFile.c_str()));
+
     OgreSkeletonReader osr(ifs);
     osr.read();
 
@@ -701,9 +704,6 @@ OgreMeshReader::readMeshSkeletonLink(SubMeshStore &subMeshInfo)
 
     if(osr.getGlobals() != NULL)
         _rootN->addAttachment(osr.getGlobals());
-
-    OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s' file '%s'\n",
-                  skelName.c_str(), skelFile.c_str()));
 }
 
 void
@@ -1054,50 +1054,66 @@ OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
 
     for(UInt32 i = 0; i < vertexElements.size(); ++i)
     {
+        Int32 usage   = -1;
+        Int16 propSlot = -1;
+
         switch(vertexElements[i].semantic)
         {
         case VES_POSITION:
-            smInfo.mesh->setProperty(vertexElements[i].prop,
-                                     Geometry::PositionsIndex);
-            smInfo.mesh->setIndex   (smInfo.propIdx,
-                                     Geometry::PositionsIndex);
+            usage    = GeoProperty::UsageObjectSpace;
+            propSlot = Geometry::PositionsIndex;
             break;
 
         case VES_BLEND_WEIGHTS:
         case VES_BLEND_INDICES:
         case VES_TEXTURE_COORDINATES:
+            usage    = GeoProperty::UsageParameterSpace;
+            propSlot = nextIdx++;
+            break;
+
         case VES_BINORMAL:
         case VES_TANGENT:
-            OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh: vertex elem semantic '%s'"
-                          " using property '%u'\n",
-                          getVertexElementSemanticString(vertexElements[i].semantic).c_str(),
-                          nextIdx));
-
-            smInfo.mesh->setProperty(vertexElements[i].prop, nextIdx);
-            smInfo.mesh->setIndex   (smInfo.propIdx,         nextIdx);
-            ++nextIdx;
+            usage    = GeoProperty::UsageTangentSpace;
+            propSlot = nextIdx++;
             break;
 
         case VES_NORMAL:
-            smInfo.mesh->setProperty(vertexElements[i].prop,
-                                     Geometry::NormalsIndex);
-            smInfo.mesh->setIndex   (smInfo.propIdx,
-                                     Geometry::NormalsIndex);
+            usage    = GeoProperty::UsageTangentSpace;
+            propSlot = Geometry::NormalsIndex;
             break;
 
         case VES_DIFFUSE:
-            smInfo.mesh->setProperty(vertexElements[i].prop,
-                                     Geometry::ColorsIndex);
-            smInfo.mesh->setIndex   (smInfo.propIdx,
-                                     Geometry::ColorsIndex);
+            usage    = GeoProperty::UsageColorSpace;
+            propSlot = Geometry::ColorsIndex;
             break;
 
         case VES_SPECULAR:
-            smInfo.mesh->setProperty(vertexElements[i].prop,
-                                     Geometry::SecondaryColorsIndex);
-            smInfo.mesh->setIndex   (smInfo.propIdx,
-                                     Geometry::SecondaryColorsIndex);
+            usage    = GeoProperty::UsageColorSpace;
+            propSlot = Geometry::SecondaryColorsIndex;
             break;
+        }
+
+        if(usage >= 0)
+        {
+            vertexElements[i].prop->setUsage(usage);
+        }
+
+        if(propSlot >= 0)
+        {
+            OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh: vertex elem semantic '%s'"
+                          " using property '%u'\n",
+                          getVertexElementSemanticString(vertexElements[i].semantic).c_str(),
+                          propSlot));
+
+            smInfo.mesh->setProperty(vertexElements[i].prop, propSlot);
+            smInfo.mesh->setIndex   (smInfo.propIdx,         propSlot);
+        }
+        else
+        {
+            SWARNING << "OgreMeshReader::constructSubMesh: no property slot found for "
+                     << "vertex elem semantic '"
+                     << getVertexElementSemanticString(vertexElements[i].semantic)
+                     << "'. Skipping." << std::endl;
         }
     }
 
