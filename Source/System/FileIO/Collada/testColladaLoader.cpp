@@ -286,13 +286,6 @@ OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
         skinnedGeoMat.push_back(sgeo->getMaterial());
 
         sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
-
-        if(sgeo->isSingleIndex() == false)
-        {
-            std::cout << "creating single index for skinned geometry."
-                      << std::endl;
-            OSG::createSingleIndex(sgeo);
-        }
     }
 
     return OSG::Action::Continue;
