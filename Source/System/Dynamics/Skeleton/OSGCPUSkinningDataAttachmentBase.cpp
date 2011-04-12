@@ -87,6 +87,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Matrix          CPUSkinningDataAttachmentBase::_mfJointMatrices
+    
+*/
+
+/*! \var Matrix          CPUSkinningDataAttachmentBase::_mfJointNormalMatrices
+    
+*/
+
 /*! \var bool            CPUSkinningDataAttachmentBase::_sfDataValid
     
 */
@@ -124,10 +132,34 @@ void CPUSkinningDataAttachmentBase::classDescInserter(TypeObject &oType)
         "properties",
         "",
         PropertiesFieldId, PropertiesFieldMask,
-        false,
+        true,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CPUSkinningDataAttachment::editHandleProperties),
         static_cast<FieldGetMethodSig >(&CPUSkinningDataAttachment::getHandleProperties));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFMatrix::Description(
+        MFMatrix::getClassType(),
+        "jointMatrices",
+        "",
+        JointMatricesFieldId, JointMatricesFieldMask,
+        true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CPUSkinningDataAttachment::editHandleJointMatrices),
+        static_cast<FieldGetMethodSig >(&CPUSkinningDataAttachment::getHandleJointMatrices));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFMatrix::Description(
+        MFMatrix::getClassType(),
+        "jointNormalMatrices",
+        "",
+        JointNormalMatricesFieldId, JointNormalMatricesFieldMask,
+        true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CPUSkinningDataAttachment::editHandleJointNormalMatrices),
+        static_cast<FieldGetMethodSig >(&CPUSkinningDataAttachment::getHandleJointNormalMatrices));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,10 +207,30 @@ CPUSkinningDataAttachmentBase::TypeObject CPUSkinningDataAttachmentBase::_type(
     "        type=\"GeoVectorProperty\"\n"
     "        category=\"childpointer\"\n"
     "        cardinality=\"multi\"\n"
-    "        visibility=\"external\"\n"
+    "        visibility=\"internal\"\n"
     "        access=\"public\"\n"
     "        childParentType=\"FieldContainer\"\n"
     "        linkParentField=\"Parents\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"jointMatrices\"\n"
+    "        type=\"Matrix\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"jointNormalMatrices\"\n"
+    "        type=\"Matrix\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
     "        >\n"
     "    </Field>\n"
     "\n"
@@ -229,6 +281,32 @@ MFUnrecChildGeoVectorPropertyPtr *CPUSkinningDataAttachmentBase::editMFPropertie
 
     return &_mfProperties;
 }
+
+MFMatrix *CPUSkinningDataAttachmentBase::editMFJointMatrices(void)
+{
+    editMField(JointMatricesFieldMask, _mfJointMatrices);
+
+    return &_mfJointMatrices;
+}
+
+const MFMatrix *CPUSkinningDataAttachmentBase::getMFJointMatrices(void) const
+{
+    return &_mfJointMatrices;
+}
+
+
+MFMatrix *CPUSkinningDataAttachmentBase::editMFJointNormalMatrices(void)
+{
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return &_mfJointNormalMatrices;
+}
+
+const MFMatrix *CPUSkinningDataAttachmentBase::getMFJointNormalMatrices(void) const
+{
+    return &_mfJointNormalMatrices;
+}
+
 
 SFBool *CPUSkinningDataAttachmentBase::editSFDataValid(void)
 {
@@ -310,6 +388,14 @@ UInt32 CPUSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfProperties.getBinSize();
     }
+    if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
+    {
+        returnValue += _mfJointMatrices.getBinSize();
+    }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        returnValue += _mfJointNormalMatrices.getBinSize();
+    }
     if(FieldBits::NoField != (DataValidFieldMask & whichField))
     {
         returnValue += _sfDataValid.getBinSize();
@@ -327,6 +413,14 @@ void CPUSkinningDataAttachmentBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfProperties.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
+    {
+        _mfJointMatrices.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        _mfJointNormalMatrices.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (DataValidFieldMask & whichField))
     {
         _sfDataValid.copyToBin(pMem);
@@ -342,6 +436,16 @@ void CPUSkinningDataAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(PropertiesFieldMask, _mfProperties);
         _mfProperties.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
+    {
+        editMField(JointMatricesFieldMask, _mfJointMatrices);
+        _mfJointMatrices.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+        _mfJointNormalMatrices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DataValidFieldMask & whichField))
     {
@@ -476,6 +580,8 @@ CPUSkinningDataAttachmentBase::CPUSkinningDataAttachmentBase(void) :
     _mfProperties             (this,
                           PropertiesFieldId,
                           GeoVectorProperty::ParentsFieldId),
+    _mfJointMatrices          (),
+    _mfJointNormalMatrices    (),
     _sfDataValid              (bool(false))
 {
 }
@@ -485,6 +591,8 @@ CPUSkinningDataAttachmentBase::CPUSkinningDataAttachmentBase(const CPUSkinningDa
     _mfProperties             (this,
                           PropertiesFieldId,
                           GeoVectorProperty::ParentsFieldId),
+    _mfJointMatrices          (source._mfJointMatrices          ),
+    _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
     _sfDataValid              (source._sfDataValid              )
 {
 }
@@ -600,6 +708,56 @@ EditFieldHandlePtr CPUSkinningDataAttachmentBase::editHandleProperties     (void
     return returnValue;
 }
 
+GetFieldHandlePtr CPUSkinningDataAttachmentBase::getHandleJointMatrices   (void) const
+{
+    MFMatrix::GetHandlePtr returnValue(
+        new  MFMatrix::GetHandle(
+             &_mfJointMatrices,
+             this->getType().getFieldDesc(JointMatricesFieldId),
+             const_cast<CPUSkinningDataAttachmentBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CPUSkinningDataAttachmentBase::editHandleJointMatrices  (void)
+{
+    MFMatrix::EditHandlePtr returnValue(
+        new  MFMatrix::EditHandle(
+             &_mfJointMatrices,
+             this->getType().getFieldDesc(JointMatricesFieldId),
+             this));
+
+
+    editMField(JointMatricesFieldMask, _mfJointMatrices);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CPUSkinningDataAttachmentBase::getHandleJointNormalMatrices (void) const
+{
+    MFMatrix::GetHandlePtr returnValue(
+        new  MFMatrix::GetHandle(
+             &_mfJointNormalMatrices,
+             this->getType().getFieldDesc(JointNormalMatricesFieldId),
+             const_cast<CPUSkinningDataAttachmentBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CPUSkinningDataAttachmentBase::editHandleJointNormalMatrices(void)
+{
+    MFMatrix::EditHandlePtr returnValue(
+        new  MFMatrix::EditHandle(
+             &_mfJointNormalMatrices,
+             this->getType().getFieldDesc(JointNormalMatricesFieldId),
+             this));
+
+
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr CPUSkinningDataAttachmentBase::getHandleDataValid       (void) const
 {
     SFBool::GetHandlePtr returnValue(
@@ -664,7 +822,20 @@ void CPUSkinningDataAttachmentBase::resolveLinks(void)
 
     static_cast<CPUSkinningDataAttachment *>(this)->clearProperties();
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
 
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfJointMatrices.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfJointNormalMatrices.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
 }
 
 

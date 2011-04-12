@@ -68,14 +68,12 @@ namespace
 {
     template <class PropertyTypeT>
     void xformObjectSpaceProperty(
-              Skeleton            *skel,
+        const MFMatrix            *mfJointMat,
         const GeoVec4fProperty    *jointIdxProp,
         const GeoVec4fProperty    *jointWeightProp,
         const GeoVectorProperty   *origProp,
               GeoVectorProperty   *prop      )
     {
-        const Skeleton::MFJointMatricesType *mfJointMat    =
-             skel->getMFJointMatrices();
         const PropertyTypeT                 *typedOrigProp =
             boost::polymorphic_downcast<const PropertyTypeT *>(origProp);
         PropertyTypeT                       *typedProp     =
@@ -115,15 +113,13 @@ namespace
 
     template <class PropertyTypeT, class PropIndexTypeT>
     void xformIndexedObjectSpaceProperty(
-              Skeleton            *skel,
+        const MFMatrix            *mfJointMat,
         const GeoVec4fProperty    *jointIdxProp,
         const GeoVec4fProperty    *jointWeightProp,
         const GeoIntegralProperty *origPropIdx,
         const GeoVectorProperty   *origProp,
               GeoVectorProperty   *prop      )
     {
-        const Skeleton::MFJointMatricesType *mfJointMat =
-             skel->getMFJointMatrices();
         const PropertyTypeT                 *typedOrigProp    =
             boost::polymorphic_downcast<const PropertyTypeT *>(origProp);
         const PropIndexTypeT                *typedOrigPropIdx =
@@ -168,23 +164,12 @@ namespace
 
     template <class PropertyTypeT>
     void xformTangentSpaceProperty(
-              Skeleton            *skel,
+        const MFMatrix            *mfJointMat,
         const GeoVec4fProperty    *jointIdxProp,
         const GeoVec4fProperty    *jointWeightProp,
         const GeoVectorProperty   *origProp,
               GeoVectorProperty   *prop      )
     {
-        const Skeleton::MFJointMatricesType *mfJointMat;
-
-        if(skel->getCalcNormalMatrices() == true)
-        {
-            mfJointMat = skel->getMFJointNormalMatrices();
-        }
-        else
-        {
-            mfJointMat = skel->getMFJointMatrices();
-        }
-
         const PropertyTypeT *typedOrigProp =
             boost::polymorphic_downcast<const PropertyTypeT *>(origProp);
         PropertyTypeT       *typedProp     =
@@ -207,6 +192,7 @@ namespace
                 if(jIdx >= 0)
                 {
                     typename PropertyTypeT::StoredType tmpVec;
+
                     (*mfJointMat)[jIdx].mult((*origVec)[i], tmpVec);
 
                     outVec     += (*jointWeightProp)[i][j] * tmpVec;
@@ -225,24 +211,13 @@ namespace
     
     template <class PropertyTypeT, class PropIndexTypeT>
     void xformIndexedTangentSpaceProperty(
-              Skeleton            *skel,
+        const MFMatrix            *mfJointMat,
         const GeoVec4fProperty    *jointIdxProp,
         const GeoVec4fProperty    *jointWeightProp,
         const GeoIntegralProperty *origPropIdx,
         const GeoVectorProperty   *origProp,
               GeoVectorProperty   *prop      )
     {
-        const Skeleton::MFJointMatricesType *mfJointMat;
-
-        if(skel->getCalcNormalMatrices() == true)
-        {
-            mfJointMat = skel->getMFJointNormalMatrices();
-        }
-        else
-        {
-            mfJointMat = skel->getMFJointMatrices();
-        }
-
         const PropertyTypeT  *typedOrigProp    =
             boost::polymorphic_downcast<const PropertyTypeT *>(origProp);
         const PropIndexTypeT *typedOrigPropIdx =
@@ -270,6 +245,7 @@ namespace
                 if(jIdx >= 0)
                 {
                     typename PropertyTypeT::StoredType tmpVec;
+
                     (*mfJointMat)[jIdx].mult((*origVec)[vIdx], tmpVec);
 
                     outVec     += (*jointWeightProp)[vIdx][j] * tmpVec;
@@ -428,6 +404,63 @@ void CPUSkinningAlgorithm::transformGeometry(
 
     mfProps->resize(mfOrigProps->size(), NULL);
 
+    const MFMatrix *mfJointMat       = NULL;
+    const MFMatrix *mfJointNormalMat = NULL;
+
+    // if the geometry has a non-identity bind shape matrix
+    // premultiply joint matrices with bind shape matrix and store in data
+    // attachment
+    if(skinGeo->getBindShapeMatrix().equals(Matrix::identity(), Eps) == false)
+    {
+        mfJointMat               = skel->getMFJointMatrices ();
+        MFMatrix *mfJointBindMat = data->editMFJointMatrices();
+
+        mfJointBindMat->resize(mfJointMat->size());
+
+        for(UInt32 i = 0; i < mfJointMat->size(); ++i)
+        {
+            (*mfJointBindMat)[i] = (*mfJointMat)[i];
+            (*mfJointBindMat)[i].mult(skinGeo->getBindShapeMatrix());
+        }
+
+        mfJointMat = data->getMFJointMatrices();
+
+        if(skel->getCalcNormalMatrices() == true)
+        {
+            mfJointNormalMat               = skel->getMFJointNormalMatrices ();
+            MFMatrix *mfJointNormalBindMat = data->editMFJointNormalMatrices();
+
+            mfJointNormalBindMat->resize(mfJointNormalMat->size());
+
+            for(UInt32 i = 0; i < mfJointNormalMat->size(); ++i)
+            {
+                (*mfJointNormalBindMat)[i] = (*mfJointNormalMat)[i];
+                (*mfJointNormalBindMat)[i].mult(skinGeo->getBindShapeMatrix());
+            }
+
+            mfJointNormalMat = data->getMFJointNormalMatrices();
+        }
+        else
+        {
+            mfJointNormalMat = data->getMFJointMatrices();
+        }
+    }
+    else
+    {
+        mfJointMat = skel->getMFJointMatrices();
+
+        if(skel->getCalcNormalMatrices() == true)
+        {
+            mfJointNormalMat = skel->getMFJointNormalMatrices();
+        }
+        else
+        {
+            mfJointNormalMat = skel->getMFJointMatrices();
+        }
+    }
+
+    // transform all properties
+
     for(UInt16 i = 0; i < mfProps->size(); ++i)
     {
         // do not transform the vertex joint indices/weights
@@ -462,7 +495,7 @@ void CPUSkinningAlgorithm::transformGeometry(
         case GeoProperty::UsageObjectSpace:
         {
              transformObjectSpaceProperty(
-                 skel,
+                 mfJointMat,
                  jointIdxProp, jointWeightProp,
                  origPropIdx, origProp, prop);
         }
@@ -471,7 +504,7 @@ void CPUSkinningAlgorithm::transformGeometry(
         case GeoProperty::UsageTangentSpace:
         {
             transformTangentSpaceProperty(
-                skel,
+                mfJointNormalMat,
                 jointIdxProp, jointWeightProp,
                 origPropIdx, origProp, prop);
         }
@@ -484,8 +517,10 @@ void CPUSkinningAlgorithm::transformGeometry(
     }
 }
 
+/*! Transforms a property that contains object space values (positions).
+ */
 void CPUSkinningAlgorithm::transformObjectSpaceProperty(
-          Skeleton            *skel,
+    const MFMatrix            *mfJointMat,
     const GeoVec4fProperty    *jointIdxProp,
     const GeoVec4fProperty    *jointWeightProp,
     const GeoIntegralProperty *origPropIdx,
@@ -502,7 +537,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
         {
             xformIndexedObjectSpaceProperty<
                 GeoPnt3fProperty,
-                GeoUInt16Property>(skel,
+                GeoUInt16Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx,  origProp, prop);
         }
@@ -512,7 +547,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
         {
             xformIndexedObjectSpaceProperty<
                 GeoPnt4fProperty,
-                GeoUInt16Property>(skel,
+                GeoUInt16Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -532,7 +567,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
         {
             xformIndexedObjectSpaceProperty<
                 GeoPnt3fProperty,
-                GeoUInt32Property>(skel,
+                GeoUInt32Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -542,7 +577,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
         {
             xformIndexedObjectSpaceProperty<
                 GeoPnt4fProperty,
-                GeoUInt32Property>(skel,
+                GeoUInt32Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -560,7 +595,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
            origProp->getFormat    () == GL_FLOAT                       )
         {
             xformObjectSpaceProperty<
-                GeoPnt3fProperty>(skel,
+                GeoPnt3fProperty>(mfJointMat,
                                   jointIdxProp, jointWeightProp,
                                   origProp, prop);
         }
@@ -569,7 +604,7 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
                 origProp->getFormat    () == GL_FLOAT                       )
         {
             xformObjectSpaceProperty<
-                GeoPnt4fProperty>(skel,
+                GeoPnt4fProperty>(mfJointMat,
                                   jointIdxProp, jointWeightProp,
                                   origProp, prop);
         }
@@ -586,8 +621,11 @@ void CPUSkinningAlgorithm::transformObjectSpaceProperty(
     }
 }
 
+/*! Transforms a property that contains tangent space values (normals,
+    tangents, bitangents).
+ */
 void CPUSkinningAlgorithm::transformTangentSpaceProperty(
-          Skeleton            *skel,
+    const MFMatrix            *mfJointMat,
     const GeoVec4fProperty    *jointIdxProp,
     const GeoVec4fProperty    *jointWeightProp,
     const GeoIntegralProperty *origPropIdx,
@@ -604,7 +642,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
         {
             xformIndexedTangentSpaceProperty<
                 GeoVec3fProperty,
-                GeoUInt16Property>(skel,
+                GeoUInt16Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -614,7 +652,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
         {
             xformIndexedTangentSpaceProperty<
                 GeoVec4fProperty,
-                GeoUInt16Property>(skel,
+                GeoUInt16Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -634,7 +672,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
         {
             xformIndexedTangentSpaceProperty<
                 GeoVec3fProperty,
-                GeoUInt32Property>(skel,
+                GeoUInt32Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -644,7 +682,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
         {
             xformIndexedTangentSpaceProperty<
                 GeoVec4fProperty,
-                GeoUInt32Property>(skel,
+                GeoUInt32Property>(mfJointMat,
                                    jointIdxProp, jointWeightProp,
                                    origPropIdx, origProp, prop);
         }
@@ -662,7 +700,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
            origProp->getFormat    () == GL_FLOAT                        )
         {
             xformTangentSpaceProperty<
-                GeoVec3fProperty>(skel,
+                GeoVec3fProperty>(mfJointMat,
                                   jointIdxProp, jointWeightProp,
                                   origProp, prop);
         }
@@ -671,7 +709,7 @@ void CPUSkinningAlgorithm::transformTangentSpaceProperty(
                 origProp->getFormat    () == GL_FLOAT                        )
         {
             xformTangentSpaceProperty<
-                GeoVec4fProperty>(skel,
+                GeoVec4fProperty>(mfJointMat,
                                   jointIdxProp, jointWeightProp,
                                   origProp, prop);
         }

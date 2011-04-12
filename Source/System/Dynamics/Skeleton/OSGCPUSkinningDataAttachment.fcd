@@ -17,10 +17,30 @@
         type="GeoVectorProperty"
         category="childpointer"
         cardinality="multi"
-        visibility="external"
+        visibility="internal"
         access="public"
         childParentType="FieldContainer"
         linkParentField="Parents"
+        >
+    </Field>
+
+    <Field
+        name="jointMatrices"
+        type="Matrix"
+        category="data"
+        cardinality="multi"
+        visibility="internal"
+        access="public"
+        >
+    </Field>
+
+    <Field
+        name="jointNormalMatrices"
+        type="Matrix"
+        category="data"
+        cardinality="multi"
+        visibility="internal"
+        access="public"
         >
     </Field>
 

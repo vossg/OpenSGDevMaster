@@ -125,13 +125,13 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithm
     void transformGeometry(SkinnedGeometry           *skinGeo,
                            Skeleton                  *skel,
                            CPUSkinningDataAttachment *data );
-    void transformObjectSpaceProperty (      Skeleton            *skel,
+    void transformObjectSpaceProperty (const MFMatrix            *jointMat,
                                        const GeoVec4fProperty    *jointIdx,
                                        const GeoVec4fProperty    *jointWeight,
                                        const GeoIntegralProperty *origIdx,
                                        const GeoVectorProperty   *origProp,
                                              GeoVectorProperty   *prop        );
-    void transformTangentSpaceProperty(      Skeleton            *skel,
+    void transformTangentSpaceProperty(const MFMatrix            *jointMat,
                                        const GeoVec4fProperty    *jointIdx,
                                        const GeoVec4fProperty    *jointWeight,
                                        const GeoIntegralProperty *origIdx,

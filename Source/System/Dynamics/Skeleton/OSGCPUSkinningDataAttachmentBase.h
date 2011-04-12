@@ -66,6 +66,7 @@
 #include "OSGAttachment.h" // Parent
 
 #include "OSGGeoVectorPropertyFields.h" // Properties type
+#include "OSGMathFields.h"              // JointMatrices type
 #include "OSGSysFields.h"               // DataValid type
 
 #include "OSGCPUSkinningDataAttachmentFields.h"
@@ -95,18 +96,26 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
     enum
     {
         PropertiesFieldId = Inherited::NextFieldId,
-        DataValidFieldId = PropertiesFieldId + 1,
+        JointMatricesFieldId = PropertiesFieldId + 1,
+        JointNormalMatricesFieldId = JointMatricesFieldId + 1,
+        DataValidFieldId = JointNormalMatricesFieldId + 1,
         NextFieldId = DataValidFieldId + 1
     };
 
     static const OSG::BitVector PropertiesFieldMask =
         (TypeTraits<BitVector>::One << PropertiesFieldId);
+    static const OSG::BitVector JointMatricesFieldMask =
+        (TypeTraits<BitVector>::One << JointMatricesFieldId);
+    static const OSG::BitVector JointNormalMatricesFieldMask =
+        (TypeTraits<BitVector>::One << JointNormalMatricesFieldId);
     static const OSG::BitVector DataValidFieldMask =
         (TypeTraits<BitVector>::One << DataValidFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUnrecChildGeoVectorPropertyPtr MFPropertiesType;
+    typedef MFMatrix          MFJointMatricesType;
+    typedef MFMatrix          MFJointNormalMatricesType;
     typedef SFBool            SFDataValidType;
 
     /*---------------------------------------------------------------------*/
@@ -135,11 +144,23 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
             const MFUnrecChildGeoVectorPropertyPtr *getMFProperties     (void) const;
                   MFUnrecChildGeoVectorPropertyPtr *editMFProperties     (void);
 
+                  MFMatrix            *editMFJointMatrices  (void);
+            const MFMatrix            *getMFJointMatrices   (void) const;
+
+                  MFMatrix            *editMFJointNormalMatrices(void);
+            const MFMatrix            *getMFJointNormalMatrices (void) const;
+
                   SFBool              *editSFDataValid      (void);
             const SFBool              *getSFDataValid       (void) const;
 
 
                   GeoVectorProperty * getProperties     (const UInt32 index) const;
+
+                  Matrix              &editJointMatrices  (const UInt32 index);
+            const Matrix              &getJointMatrices   (const UInt32 index) const;
+
+                  Matrix              &editJointNormalMatrices(const UInt32 index);
+            const Matrix              &getJointNormalMatrices (const UInt32 index) const;
 
                   bool                &editDataValid      (void);
                   bool                 getDataValid       (void) const;
@@ -221,6 +242,8 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
     /*! \{                                                                 */
 
     MFUnrecChildGeoVectorPropertyPtr _mfProperties;
+    MFMatrix          _mfJointMatrices;
+    MFMatrix          _mfJointNormalMatrices;
     SFBool            _sfDataValid;
 
     /*! \}                                                                 */
@@ -260,6 +283,10 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
 
     GetFieldHandlePtr  getHandleProperties      (void) const;
     EditFieldHandlePtr editHandleProperties     (void);
+    GetFieldHandlePtr  getHandleJointMatrices   (void) const;
+    EditFieldHandlePtr editHandleJointMatrices  (void);
+    GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
+    EditFieldHandlePtr editHandleJointNormalMatrices(void);
     GetFieldHandlePtr  getHandleDataValid       (void) const;
     EditFieldHandlePtr editHandleDataValid      (void);
 

@@ -106,6 +106,38 @@ GeoVectorProperty * CPUSkinningDataAttachmentBase::getProperties(const UInt32 in
     return _mfProperties[index];
 }
 
+//! Get the value of the \a index element the CPUSkinningDataAttachment::_mfJointMatrices field.
+inline
+const Matrix &CPUSkinningDataAttachmentBase::getJointMatrices(const UInt32 index) const
+{
+    return _mfJointMatrices[index];
+}
+
+inline
+Matrix &CPUSkinningDataAttachmentBase::editJointMatrices(const UInt32 index)
+{
+    editMField(JointMatricesFieldMask, _mfJointMatrices);
+
+    return _mfJointMatrices[index];
+}
+
+
+//! Get the value of the \a index element the CPUSkinningDataAttachment::_mfJointNormalMatrices field.
+inline
+const Matrix &CPUSkinningDataAttachmentBase::getJointNormalMatrices(const UInt32 index) const
+{
+    return _mfJointNormalMatrices[index];
+}
+
+inline
+Matrix &CPUSkinningDataAttachmentBase::editJointNormalMatrices(const UInt32 index)
+{
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return _mfJointNormalMatrices[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -119,6 +151,18 @@ void CPUSkinningDataAttachmentBase::execSync (      CPUSkinningDataAttachmentBas
 
     if(FieldBits::NoField != (PropertiesFieldMask & whichField))
         _mfProperties.syncWith(pFrom->_mfProperties,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
+        _mfJointMatrices.syncWith(pFrom->_mfJointMatrices,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+        _mfJointNormalMatrices.syncWith(pFrom->_mfJointNormalMatrices,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
