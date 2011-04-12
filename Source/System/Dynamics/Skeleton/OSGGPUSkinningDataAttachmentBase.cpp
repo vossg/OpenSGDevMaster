@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class HardwareSkinningDataAttachment!
+ **     class GPUSkinningDataAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -60,8 +60,8 @@
 
 #include "OSGShaderProgramChunk.h"      // ShaderCode Class
 
-#include "OSGHardwareSkinningDataAttachmentBase.h"
-#include "OSGHardwareSkinningDataAttachment.h"
+#include "OSGGPUSkinningDataAttachmentBase.h"
+#include "OSGGPUSkinningDataAttachment.h"
 
 #include <boost/bind.hpp>
 
@@ -75,7 +75,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::HardwareSkinningDataAttachment
+/*! \class OSG::GPUSkinningDataAttachment
     
  */
 
@@ -83,11 +83,11 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var ShaderProgramChunk * HardwareSkinningDataAttachmentBase::_sfShaderCode
+/*! \var ShaderProgramChunk * GPUSkinningDataAttachmentBase::_sfShaderCode
     
 */
 
-/*! \var bool            HardwareSkinningDataAttachmentBase::_sfDataValid
+/*! \var bool            GPUSkinningDataAttachmentBase::_sfDataValid
     
 */
 
@@ -97,24 +97,24 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HardwareSkinningDataAttachment *>::_type("HardwareSkinningDataAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<GPUSkinningDataAttachment *>::_type("GPUSkinningDataAttachmentPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(HardwareSkinningDataAttachment *)
+OSG_FIELDTRAITS_GETTYPE(GPUSkinningDataAttachment *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           HardwareSkinningDataAttachment *,
+                           GPUSkinningDataAttachment *,
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           HardwareSkinningDataAttachment *,
+                           GPUSkinningDataAttachment *,
                            0);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void HardwareSkinningDataAttachmentBase::classDescInserter(TypeObject &oType)
+void GPUSkinningDataAttachmentBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
@@ -126,8 +126,8 @@ void HardwareSkinningDataAttachmentBase::classDescInserter(TypeObject &oType)
         ShaderCodeFieldId, ShaderCodeFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&HardwareSkinningDataAttachment::editHandleShaderCode),
-        static_cast<FieldGetMethodSig >(&HardwareSkinningDataAttachment::getHandleShaderCode));
+        static_cast<FieldEditMethodSig>(&GPUSkinningDataAttachment::editHandleShaderCode),
+        static_cast<FieldGetMethodSig >(&GPUSkinningDataAttachment::getHandleShaderCode));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,28 +138,28 @@ void HardwareSkinningDataAttachmentBase::classDescInserter(TypeObject &oType)
         DataValidFieldId, DataValidFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&HardwareSkinningDataAttachment::editHandleDataValid),
-        static_cast<FieldGetMethodSig >(&HardwareSkinningDataAttachment::getHandleDataValid));
+        static_cast<FieldEditMethodSig>(&GPUSkinningDataAttachment::editHandleDataValid),
+        static_cast<FieldGetMethodSig >(&GPUSkinningDataAttachment::getHandleDataValid));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-HardwareSkinningDataAttachmentBase::TypeObject HardwareSkinningDataAttachmentBase::_type(
-    HardwareSkinningDataAttachmentBase::getClassname(),
+GPUSkinningDataAttachmentBase::TypeObject GPUSkinningDataAttachmentBase::_type(
+    GPUSkinningDataAttachmentBase::getClassname(),
     Inherited::getClassname(),
-    "HardwareSkinningDataAttachment",
+    "GPUSkinningDataAttachment",
     0,
-    reinterpret_cast<PrototypeCreateF>(&HardwareSkinningDataAttachmentBase::createEmptyLocal),
-    HardwareSkinningDataAttachment::initMethod,
-    HardwareSkinningDataAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&HardwareSkinningDataAttachment::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&GPUSkinningDataAttachmentBase::createEmptyLocal),
+    GPUSkinningDataAttachment::initMethod,
+    GPUSkinningDataAttachment::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&GPUSkinningDataAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"HardwareSkinningDataAttachment\"\n"
+    "   name=\"GPUSkinningDataAttachment\"\n"
     "   parent=\"Attachment\"\n"
     "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"both\"\n"
@@ -198,45 +198,45 @@ HardwareSkinningDataAttachmentBase::TypeObject HardwareSkinningDataAttachmentBas
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &HardwareSkinningDataAttachmentBase::getType(void)
+FieldContainerType &GPUSkinningDataAttachmentBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &HardwareSkinningDataAttachmentBase::getType(void) const
+const FieldContainerType &GPUSkinningDataAttachmentBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 HardwareSkinningDataAttachmentBase::getContainerSize(void) const
+UInt32 GPUSkinningDataAttachmentBase::getContainerSize(void) const
 {
-    return sizeof(HardwareSkinningDataAttachment);
+    return sizeof(GPUSkinningDataAttachment);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the HardwareSkinningDataAttachment::_sfShaderCode field.
-const SFUnrecShaderProgramChunkPtr *HardwareSkinningDataAttachmentBase::getSFShaderCode(void) const
+//! Get the GPUSkinningDataAttachment::_sfShaderCode field.
+const SFUnrecShaderProgramChunkPtr *GPUSkinningDataAttachmentBase::getSFShaderCode(void) const
 {
     return &_sfShaderCode;
 }
 
-SFUnrecShaderProgramChunkPtr *HardwareSkinningDataAttachmentBase::editSFShaderCode     (void)
+SFUnrecShaderProgramChunkPtr *GPUSkinningDataAttachmentBase::editSFShaderCode     (void)
 {
     editSField(ShaderCodeFieldMask);
 
     return &_sfShaderCode;
 }
 
-SFBool *HardwareSkinningDataAttachmentBase::editSFDataValid(void)
+SFBool *GPUSkinningDataAttachmentBase::editSFDataValid(void)
 {
     editSField(DataValidFieldMask);
 
     return &_sfDataValid;
 }
 
-const SFBool *HardwareSkinningDataAttachmentBase::getSFDataValid(void) const
+const SFBool *GPUSkinningDataAttachmentBase::getSFDataValid(void) const
 {
     return &_sfDataValid;
 }
@@ -248,7 +248,7 @@ const SFBool *HardwareSkinningDataAttachmentBase::getSFDataValid(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 HardwareSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 GPUSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -264,7 +264,7 @@ UInt32 HardwareSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichFie
     return returnValue;
 }
 
-void HardwareSkinningDataAttachmentBase::copyToBin(BinaryDataHandler &pMem,
+void GPUSkinningDataAttachmentBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -279,7 +279,7 @@ void HardwareSkinningDataAttachmentBase::copyToBin(BinaryDataHandler &pMem,
     }
 }
 
-void HardwareSkinningDataAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
+void GPUSkinningDataAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -297,58 +297,58 @@ void HardwareSkinningDataAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-HardwareSkinningDataAttachmentTransitPtr HardwareSkinningDataAttachmentBase::createLocal(BitVector bFlags)
+GPUSkinningDataAttachmentTransitPtr GPUSkinningDataAttachmentBase::createLocal(BitVector bFlags)
 {
-    HardwareSkinningDataAttachmentTransitPtr fc;
+    GPUSkinningDataAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<HardwareSkinningDataAttachment>(tmpPtr);
+        fc = dynamic_pointer_cast<GPUSkinningDataAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-HardwareSkinningDataAttachmentTransitPtr HardwareSkinningDataAttachmentBase::createDependent(BitVector bFlags)
+GPUSkinningDataAttachmentTransitPtr GPUSkinningDataAttachmentBase::createDependent(BitVector bFlags)
 {
-    HardwareSkinningDataAttachmentTransitPtr fc;
+    GPUSkinningDataAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<HardwareSkinningDataAttachment>(tmpPtr);
+        fc = dynamic_pointer_cast<GPUSkinningDataAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-HardwareSkinningDataAttachmentTransitPtr HardwareSkinningDataAttachmentBase::create(void)
+GPUSkinningDataAttachmentTransitPtr GPUSkinningDataAttachmentBase::create(void)
 {
-    HardwareSkinningDataAttachmentTransitPtr fc;
+    GPUSkinningDataAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<HardwareSkinningDataAttachment>(tmpPtr);
+        fc = dynamic_pointer_cast<GPUSkinningDataAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
-HardwareSkinningDataAttachment *HardwareSkinningDataAttachmentBase::createEmptyLocal(BitVector bFlags)
+GPUSkinningDataAttachment *GPUSkinningDataAttachmentBase::createEmptyLocal(BitVector bFlags)
 {
-    HardwareSkinningDataAttachment *returnValue;
+    GPUSkinningDataAttachment *returnValue;
 
-    newPtr<HardwareSkinningDataAttachment>(returnValue, bFlags);
+    newPtr<GPUSkinningDataAttachment>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -356,11 +356,11 @@ HardwareSkinningDataAttachment *HardwareSkinningDataAttachmentBase::createEmptyL
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-HardwareSkinningDataAttachment *HardwareSkinningDataAttachmentBase::createEmpty(void)
+GPUSkinningDataAttachment *GPUSkinningDataAttachmentBase::createEmpty(void)
 {
-    HardwareSkinningDataAttachment *returnValue;
+    GPUSkinningDataAttachment *returnValue;
 
-    newPtr<HardwareSkinningDataAttachment>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<GPUSkinningDataAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -369,12 +369,12 @@ HardwareSkinningDataAttachment *HardwareSkinningDataAttachmentBase::createEmpty(
 }
 
 
-FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopyLocal(
+FieldContainerTransitPtr GPUSkinningDataAttachmentBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    HardwareSkinningDataAttachment *tmpPtr;
+    GPUSkinningDataAttachment *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const HardwareSkinningDataAttachment *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const GPUSkinningDataAttachment *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -383,12 +383,12 @@ FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopyDependent(
+FieldContainerTransitPtr GPUSkinningDataAttachmentBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    HardwareSkinningDataAttachment *tmpPtr;
+    GPUSkinningDataAttachment *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const HardwareSkinningDataAttachment *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const GPUSkinningDataAttachment *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -397,12 +397,12 @@ FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopyDependen
     return returnValue;
 }
 
-FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopy(void) const
+FieldContainerTransitPtr GPUSkinningDataAttachmentBase::shallowCopy(void) const
 {
-    HardwareSkinningDataAttachment *tmpPtr;
+    GPUSkinningDataAttachment *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const HardwareSkinningDataAttachment *>(this),
+           dynamic_cast<const GPUSkinningDataAttachment *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -417,14 +417,14 @@ FieldContainerTransitPtr HardwareSkinningDataAttachmentBase::shallowCopy(void) c
 
 /*------------------------- constructors ----------------------------------*/
 
-HardwareSkinningDataAttachmentBase::HardwareSkinningDataAttachmentBase(void) :
+GPUSkinningDataAttachmentBase::GPUSkinningDataAttachmentBase(void) :
     Inherited(),
     _sfShaderCode             (NULL),
     _sfDataValid              (bool(false))
 {
 }
 
-HardwareSkinningDataAttachmentBase::HardwareSkinningDataAttachmentBase(const HardwareSkinningDataAttachmentBase &source) :
+GPUSkinningDataAttachmentBase::GPUSkinningDataAttachmentBase(const GPUSkinningDataAttachmentBase &source) :
     Inherited(source),
     _sfShaderCode             (NULL),
     _sfDataValid              (source._sfDataValid              )
@@ -434,34 +434,34 @@ HardwareSkinningDataAttachmentBase::HardwareSkinningDataAttachmentBase(const Har
 
 /*-------------------------- destructors ----------------------------------*/
 
-HardwareSkinningDataAttachmentBase::~HardwareSkinningDataAttachmentBase(void)
+GPUSkinningDataAttachmentBase::~GPUSkinningDataAttachmentBase(void)
 {
 }
 
-void HardwareSkinningDataAttachmentBase::onCreate(const HardwareSkinningDataAttachment *source)
+void GPUSkinningDataAttachmentBase::onCreate(const GPUSkinningDataAttachment *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        HardwareSkinningDataAttachment *pThis = static_cast<HardwareSkinningDataAttachment *>(this);
+        GPUSkinningDataAttachment *pThis = static_cast<GPUSkinningDataAttachment *>(this);
 
         pThis->setShaderCode(source->getShaderCode());
     }
 }
 
-GetFieldHandlePtr HardwareSkinningDataAttachmentBase::getHandleShaderCode      (void) const
+GetFieldHandlePtr GPUSkinningDataAttachmentBase::getHandleShaderCode      (void) const
 {
     SFUnrecShaderProgramChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecShaderProgramChunkPtr::GetHandle(
              &_sfShaderCode,
              this->getType().getFieldDesc(ShaderCodeFieldId),
-             const_cast<HardwareSkinningDataAttachmentBase *>(this)));
+             const_cast<GPUSkinningDataAttachmentBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr HardwareSkinningDataAttachmentBase::editHandleShaderCode     (void)
+EditFieldHandlePtr GPUSkinningDataAttachmentBase::editHandleShaderCode     (void)
 {
     SFUnrecShaderProgramChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecShaderProgramChunkPtr::EditHandle(
@@ -470,26 +470,26 @@ EditFieldHandlePtr HardwareSkinningDataAttachmentBase::editHandleShaderCode     
              this));
 
     returnValue->setSetMethod(
-        boost::bind(&HardwareSkinningDataAttachment::setShaderCode,
-                    static_cast<HardwareSkinningDataAttachment *>(this), _1));
+        boost::bind(&GPUSkinningDataAttachment::setShaderCode,
+                    static_cast<GPUSkinningDataAttachment *>(this), _1));
 
     editSField(ShaderCodeFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr HardwareSkinningDataAttachmentBase::getHandleDataValid       (void) const
+GetFieldHandlePtr GPUSkinningDataAttachmentBase::getHandleDataValid       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfDataValid,
              this->getType().getFieldDesc(DataValidFieldId),
-             const_cast<HardwareSkinningDataAttachmentBase *>(this)));
+             const_cast<GPUSkinningDataAttachmentBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr HardwareSkinningDataAttachmentBase::editHandleDataValid      (void)
+EditFieldHandlePtr GPUSkinningDataAttachmentBase::editHandleDataValid      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -505,15 +505,15 @@ EditFieldHandlePtr HardwareSkinningDataAttachmentBase::editHandleDataValid      
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void HardwareSkinningDataAttachmentBase::execSyncV(      FieldContainer    &oFrom,
+void GPUSkinningDataAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    HardwareSkinningDataAttachment *pThis = static_cast<HardwareSkinningDataAttachment *>(this);
+    GPUSkinningDataAttachment *pThis = static_cast<GPUSkinningDataAttachment *>(this);
 
-    pThis->execSync(static_cast<HardwareSkinningDataAttachment *>(&oFrom),
+    pThis->execSync(static_cast<GPUSkinningDataAttachment *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -523,24 +523,24 @@ void HardwareSkinningDataAttachmentBase::execSyncV(      FieldContainer    &oFro
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *HardwareSkinningDataAttachmentBase::createAspectCopy(
+FieldContainer *GPUSkinningDataAttachmentBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    HardwareSkinningDataAttachment *returnValue;
+    GPUSkinningDataAttachment *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const HardwareSkinningDataAttachment *>(pRefAspect),
-                  dynamic_cast<const HardwareSkinningDataAttachment *>(this));
+                  dynamic_cast<const GPUSkinningDataAttachment *>(pRefAspect),
+                  dynamic_cast<const GPUSkinningDataAttachment *>(this));
 
     return returnValue;
 }
 #endif
 
-void HardwareSkinningDataAttachmentBase::resolveLinks(void)
+void GPUSkinningDataAttachmentBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<HardwareSkinningDataAttachment *>(this)->setShaderCode(NULL);
+    static_cast<GPUSkinningDataAttachment *>(this)->setShaderCode(NULL);
 
 
 }

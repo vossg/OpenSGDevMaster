@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GPUSkinningAlgorithm
+ **     class CPUSkinningDataAttachment
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGGPUSKINNINGALGORITHMBASE_H_
-#define _OSGGPUSKINNINGALGORITHMBASE_H_
+#ifndef _OSGCPUSKINNINGDATAATTACHMENTBASE_H_
+#define _OSGCPUSKINNINGDATAATTACHMENTBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,29 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGSkinningAlgorithm.h" // Parent
+#include "OSGAttachment.h" // Parent
 
-#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
+#include "OSGGeoVectorPropertyFields.h" // Properties type
+#include "OSGSysFields.h"               // DataValid type
 
-#include "OSGGPUSkinningAlgorithmFields.h"
+#include "OSGCPUSkinningDataAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class GPUSkinningAlgorithm;
+class CPUSkinningDataAttachment;
 
-//! \brief GPUSkinningAlgorithm Base Class.
+//! \brief CPUSkinningDataAttachment Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorithm
+class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
 {
   public:
 
-    typedef SkinningAlgorithm Inherited;
-    typedef SkinningAlgorithm ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(GPUSkinningAlgorithm);
+    OSG_GEN_INTERNALPTR(CPUSkinningDataAttachment);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -93,16 +94,20 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
 
     enum
     {
-        ShaderDataFieldId = Inherited::NextFieldId,
-        NextFieldId = ShaderDataFieldId + 1
+        PropertiesFieldId = Inherited::NextFieldId,
+        DataValidFieldId = PropertiesFieldId + 1,
+        NextFieldId = DataValidFieldId + 1
     };
 
-    static const OSG::BitVector ShaderDataFieldMask =
-        (TypeTraits<BitVector>::One << ShaderDataFieldId);
+    static const OSG::BitVector PropertiesFieldMask =
+        (TypeTraits<BitVector>::One << PropertiesFieldId);
+    static const OSG::BitVector DataValidFieldMask =
+        (TypeTraits<BitVector>::One << DataValidFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
+    typedef MFUnrecChildGeoVectorPropertyPtr MFPropertiesType;
+    typedef SFBool            SFDataValidType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -127,18 +132,24 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData     (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
+            const MFUnrecChildGeoVectorPropertyPtr *getMFProperties     (void) const;
+                  MFUnrecChildGeoVectorPropertyPtr *editMFProperties     (void);
+
+                  SFBool              *editSFDataValid      (void);
+            const SFBool              *getSFDataValid       (void) const;
 
 
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
+                  GeoVectorProperty * getProperties     (const UInt32 index) const;
+
+                  bool                &editDataValid      (void);
+                  bool                 getDataValid       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setShaderData     (ShaderProgramVariableChunk * const value);
+            void setDataValid      (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,6 +160,12 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+    void pushToProperties           (GeoVectorProperty * const value   );
+    void assignProperties          (const MFUnrecChildGeoVectorPropertyPtr &value);
+    void removeFromProperties (UInt32               uiIndex );
+    void removeObjFromProperties(GeoVectorProperty * const value   );
+    void clearProperties            (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,16 +184,16 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GPUSkinningAlgorithmTransitPtr  create          (void);
-    static  GPUSkinningAlgorithm           *createEmpty     (void);
+    static  CPUSkinningDataAttachmentTransitPtr  create          (void);
+    static  CPUSkinningDataAttachment           *createEmpty     (void);
 
-    static  GPUSkinningAlgorithmTransitPtr  createLocal     (
+    static  CPUSkinningDataAttachmentTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  GPUSkinningAlgorithm            *createEmptyLocal(
+    static  CPUSkinningDataAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  GPUSkinningAlgorithmTransitPtr  createDependent  (BitVector bFlags);
+    static  CPUSkinningDataAttachmentTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -203,37 +220,48 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
+    MFUnrecChildGeoVectorPropertyPtr _mfProperties;
+    SFBool            _sfDataValid;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    GPUSkinningAlgorithmBase(void);
-    GPUSkinningAlgorithmBase(const GPUSkinningAlgorithmBase &source);
+    CPUSkinningDataAttachmentBase(void);
+    CPUSkinningDataAttachmentBase(const CPUSkinningDataAttachmentBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GPUSkinningAlgorithmBase(void);
+    virtual ~CPUSkinningDataAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const GPUSkinningAlgorithm *source = NULL);
+    void onCreate(const CPUSkinningDataAttachment *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderData      (void) const;
-    EditFieldHandlePtr editHandleShaderData     (void);
+    GetFieldHandlePtr  getHandleProperties      (void) const;
+    EditFieldHandlePtr editHandleProperties     (void);
+    GetFieldHandlePtr  getHandleDataValid       (void) const;
+    EditFieldHandlePtr editHandleDataValid      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,7 +275,7 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      GPUSkinningAlgorithmBase *pFrom,
+            void execSync (      CPUSkinningDataAttachmentBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -287,11 +315,11 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GPUSkinningAlgorithmBase &source);
+    void operator =(const CPUSkinningDataAttachmentBase &source);
 };
 
-typedef GPUSkinningAlgorithmBase *GPUSkinningAlgorithmBaseP;
+typedef CPUSkinningDataAttachmentBase *CPUSkinningDataAttachmentBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGGPUSKINNINGALGORITHMBASE_H_ */
+#endif /* _OSGCPUSKINNINGDATAATTACHMENTBASE_H_ */

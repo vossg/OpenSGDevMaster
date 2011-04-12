@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGHARDWARESKINNINGALGORITHM_H_
-#define _OSGHARDWARESKINNINGALGORITHM_H_
+#ifndef _OSGGPUSKINNINGALGORITHM_H_
+#define _OSGGPUSKINNINGALGORITHM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGHardwareSkinningAlgorithmBase.h"
+#include "OSGGPUSkinningAlgorithmBase.h"
 #include "OSGShaderProgramVariableChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief HardwareSkinningAlgorithm class. See \ref
-           PageDynamicsHardwareSkinningAlgorithm for a description.
+/*! \brief GPUSkinningAlgorithm class. See \ref
+           PageDynamicsGPUSkinningAlgorithm for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinningAlgorithmBase
+class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithm : public GPUSkinningAlgorithmBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinnin
 
   public:
 
-    typedef HardwareSkinningAlgorithmBase Inherited;
-    typedef HardwareSkinningAlgorithm     Self;
+    typedef GPUSkinningAlgorithmBase Inherited;
+    typedef GPUSkinningAlgorithm     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Execute                                 */
@@ -93,7 +93,7 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinnin
 
   protected:
 
-    // Variables should all be in HardwareSkinningAlgorithmBase.
+    // Variables should all be in GPUSkinningAlgorithmBase.
 
     static const std::string _vpVertexSkinning;
 
@@ -101,15 +101,15 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinnin
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    HardwareSkinningAlgorithm(void);
-    HardwareSkinningAlgorithm(const HardwareSkinningAlgorithm &source);
+    GPUSkinningAlgorithm(void);
+    GPUSkinningAlgorithm(const GPUSkinningAlgorithm &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~HardwareSkinningAlgorithm(void);
+    virtual ~GPUSkinningAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,17 +138,17 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningAlgorithm : public HardwareSkinnin
   private:
 
     friend class FieldContainer;
-    friend class HardwareSkinningAlgorithmBase;
+    friend class GPUSkinningAlgorithmBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const HardwareSkinningAlgorithm &source);
+    void operator =(const GPUSkinningAlgorithm &source);
 };
 
-typedef HardwareSkinningAlgorithm *HardwareSkinningAlgorithmP;
+typedef GPUSkinningAlgorithm *GPUSkinningAlgorithmP;
 
 OSG_END_NAMESPACE
 
-#include "OSGHardwareSkinningAlgorithmBase.inl"
-#include "OSGHardwareSkinningAlgorithm.inl"
+#include "OSGGPUSkinningAlgorithmBase.inl"
+#include "OSGGPUSkinningAlgorithm.inl"
 
-#endif /* _OSGHARDWARESKINNINGALGORITHM_H_ */
+#endif /* _OSGGPUSKINNINGALGORITHM_H_ */

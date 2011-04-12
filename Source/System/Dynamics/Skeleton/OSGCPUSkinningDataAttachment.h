@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGPUSKINNINGDATAATTACHMENT_H_
-#define _OSGGPUSKINNINGDATAATTACHMENT_H_
+#ifndef _OSGCPUSKINNINGDATAATTACHMENT_H_
+#define _OSGCPUSKINNINGDATAATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGGPUSkinningDataAttachmentBase.h"
-#include "OSGShaderProgramChunk.h"
+#include "OSGCPUSkinningDataAttachmentBase.h"
+#include "OSGGeoVectorProperty.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief GPUSkinningDataAttachment class. See \ref
-           PageDynamicsGPUSkinningDataAttachment for a description.
+/*! \brief CPUSkinningDataAttachment class. See \ref
+           PageDynamicsCPUSkinningDataAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningDataAttachmentBase
+class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachment : public CPUSkinningDataAttachmentBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
 
   public:
 
-    typedef GPUSkinningDataAttachmentBase Inherited;
-    typedef GPUSkinningDataAttachment     Self;
+    typedef CPUSkinningDataAttachmentBase Inherited;
+    typedef CPUSkinningDataAttachment     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -83,21 +83,21 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
 
   protected:
 
-    // Variables should all be in GPUSkinningDataAttachmentBase.
+    // Variables should all be in CPUSkinningDataAttachmentBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    GPUSkinningDataAttachment(void);
-    GPUSkinningDataAttachment(const GPUSkinningDataAttachment &source);
+    CPUSkinningDataAttachment(void);
+    CPUSkinningDataAttachment(const CPUSkinningDataAttachment &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GPUSkinningDataAttachment(void);
+    virtual ~CPUSkinningDataAttachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -112,20 +112,20 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
   private:
 
     friend class FieldContainer;
-    friend class GPUSkinningDataAttachmentBase;
+    friend class CPUSkinningDataAttachmentBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GPUSkinningDataAttachment &source);
+    void operator =(const CPUSkinningDataAttachment &source);
 };
 
-typedef GPUSkinningDataAttachment *GPUSkinningDataAttachmentP;
+typedef CPUSkinningDataAttachment *CPUSkinningDataAttachmentP;
 
-GPUSkinningDataAttachment *
-getGPUSkinningData(AttachmentContainer *attCon);
+CPUSkinningDataAttachment *
+getCPUSkinningData(AttachmentContainer *attCon);
 
 OSG_END_NAMESPACE
 
-#include "OSGGPUSkinningDataAttachmentBase.inl"
-#include "OSGGPUSkinningDataAttachment.inl"
+#include "OSGCPUSkinningDataAttachmentBase.inl"
+#include "OSGCPUSkinningDataAttachment.inl"
 
-#endif /* _OSGGPUSKINNINGDATAATTACHMENT_H_ */
+#endif /* _OSGCPUSKINNINGDATAATTACHMENT_H_ */

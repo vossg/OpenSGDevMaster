@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGHARDWARESKINNINGALGORITHMFIELDS_H_
-#define _OSGHARDWARESKINNINGALGORITHMFIELDS_H_
+#ifndef _OSGGPUSKINNINGALGORITHMFIELDS_H_
+#define _OSGGPUSKINNINGALGORITHMFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-class HardwareSkinningAlgorithm;
+class GPUSkinningAlgorithm;
 
-OSG_GEN_CONTAINERPTR(HardwareSkinningAlgorithm);
+OSG_GEN_CONTAINERPTR(GPUSkinningAlgorithm);
 
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<HardwareSkinningAlgorithm *> :
-    public FieldTraitsFCPtrBase<HardwareSkinningAlgorithm *>
+struct FieldTraits<GPUSkinningAlgorithm *> :
+    public FieldTraitsFCPtrBase<GPUSkinningAlgorithm *>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<HardwareSkinningAlgorithm *> :
 
   public:
 
-    typedef FieldTraits<HardwareSkinningAlgorithm *>  Self;
+    typedef FieldTraits<GPUSkinningAlgorithm *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,89 +90,89 @@ struct FieldTraits<HardwareSkinningAlgorithm *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFHardwareSkinningAlgorithmPtr"; }
+//    static const char *getSName(void) { return "SFGPUSkinningAlgorithmPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFHardwareSkinningAlgorithmPtr"; }
+//    static const char *getMName(void) { return "MFGPUSkinningAlgorithmPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecHardwareSkinningAlgorithmPtr"; 
+    return "SFRecGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecHardwareSkinningAlgorithmPtr"; 
+    return "SFUnrecGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakHardwareSkinningAlgorithmPtr"; 
+    return "SFWeakGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdHardwareSkinningAlgorithmPtr"; 
+    return "SFUnrefdGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecHardwareSkinningAlgorithmPtr"; 
+    return "MFRecGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecHardwareSkinningAlgorithmPtr"; 
+    return "MFUnrecGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakHardwareSkinningAlgorithmPtr"; 
+    return "MFWeakGPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareSkinningAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUSkinningAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdHardwareSkinningAlgorithmPtr"; 
+    return "MFUnrefdGPUSkinningAlgorithmPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<HardwareSkinningAlgorithm *,
-                      RecordedRefCountPolicy  > SFRecHardwareSkinningAlgorithmPtr;
+typedef PointerSField<GPUSkinningAlgorithm *,
+                      RecordedRefCountPolicy  > SFRecGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<HardwareSkinningAlgorithm *,
-                      UnrecordedRefCountPolicy> SFUnrecHardwareSkinningAlgorithmPtr;
+typedef PointerSField<GPUSkinningAlgorithm *,
+                      UnrecordedRefCountPolicy> SFUnrecGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<HardwareSkinningAlgorithm *,
-                      WeakRefCountPolicy      > SFWeakHardwareSkinningAlgorithmPtr;
+typedef PointerSField<GPUSkinningAlgorithm *,
+                      WeakRefCountPolicy      > SFWeakGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
-typedef PointerSField<HardwareSkinningAlgorithm *,
-                      NoRefCountPolicy        > SFUncountedHardwareSkinningAlgorithmPtr;
+typedef PointerSField<GPUSkinningAlgorithm *,
+                      NoRefCountPolicy        > SFUncountedGPUSkinningAlgorithmPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<HardwareSkinningAlgorithm *,
-                      RecordedRefCountPolicy  > MFRecHardwareSkinningAlgorithmPtr;
+typedef PointerMField<GPUSkinningAlgorithm *,
+                      RecordedRefCountPolicy  > MFRecGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<HardwareSkinningAlgorithm *,
-                      UnrecordedRefCountPolicy> MFUnrecHardwareSkinningAlgorithmPtr;
+typedef PointerMField<GPUSkinningAlgorithm *,
+                      UnrecordedRefCountPolicy> MFUnrecGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<HardwareSkinningAlgorithm *,
-                      WeakRefCountPolicy      > MFWeakHardwareSkinningAlgorithmPtr;
+typedef PointerMField<GPUSkinningAlgorithm *,
+                      WeakRefCountPolicy      > MFWeakGPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
-typedef PointerMField<HardwareSkinningAlgorithm *,
-                      NoRefCountPolicy        > MFUncountedHardwareSkinningAlgorithmPtr;
+typedef PointerMField<GPUSkinningAlgorithm *,
+                      NoRefCountPolicy        > MFUncountedGPUSkinningAlgorithmPtr;
 
 
 
@@ -180,38 +180,38 @@ typedef PointerMField<HardwareSkinningAlgorithm *,
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFRecHardwareSkinningAlgorithmPtr : 
-    public PointerSField<HardwareSkinningAlgorithm *,
+struct SFRecGPUSkinningAlgorithmPtr : 
+    public PointerSField<GPUSkinningAlgorithm *,
                          RecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFUnrecHardwareSkinningAlgorithmPtr : 
-    public PointerSField<HardwareSkinningAlgorithm *,
+struct SFUnrecGPUSkinningAlgorithmPtr : 
+    public PointerSField<GPUSkinningAlgorithm *,
                          UnrecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFWeakHardwareSkinningAlgorithmPtr :
-    public PointerSField<HardwareSkinningAlgorithm *,
+struct SFWeakGPUSkinningAlgorithmPtr :
+    public PointerSField<GPUSkinningAlgorithm *,
                          WeakRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFUncountedHardwareSkinningAlgorithmPtr :
-    public PointerSField<HardwareSkinningAlgorithm *,
+struct SFUncountedGPUSkinningAlgorithmPtr :
+    public PointerSField<GPUSkinningAlgorithm *,
                          NoRefCountPolicy> {};
 
 
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFRecHardwareSkinningAlgorithmPtr :
-    public PointerMField<HardwareSkinningAlgorithm *,
+struct MFRecGPUSkinningAlgorithmPtr :
+    public PointerMField<GPUSkinningAlgorithm *,
                          RecordedRefCountPolicy  > {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFUnrecHardwareSkinningAlgorithmPtr :
-    public PointerMField<HardwareSkinningAlgorithm *,
+struct MFUnrecGPUSkinningAlgorithmPtr :
+    public PointerMField<GPUSkinningAlgorithm *,
                          UnrecordedRefCountPolicy> {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFWeakHardwareSkinningAlgorithmPtr :
-    public PointerMField<HardwareSkinningAlgorithm *,
+struct MFWeakGPUSkinningAlgorithmPtr :
+    public PointerMField<GPUSkinningAlgorithm *,
                          WeakRefCountPolicy      > {};
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFUncountedHardwareSkinningAlgorithmPtr :
-    public PointerMField<HardwareSkinningAlgorithm *,
+struct MFUncountedGPUSkinningAlgorithmPtr :
+    public PointerMField<GPUSkinningAlgorithm *,
                          NoRefCountPolicy        > {};
 
 
@@ -220,4 +220,4 @@ struct MFUncountedHardwareSkinningAlgorithmPtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGHARDWARESKINNINGALGORITHMFIELDS_H_ */
+#endif /* _OSGGPUSKINNINGALGORITHMFIELDS_H_ */

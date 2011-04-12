@@ -45,23 +45,23 @@
 
 #include <OSGConfig.h>
 
-#include "OSGHardwareSkinningAlgorithm.h"
-#include "OSGHardwareSkinningDataAttachment.h"
+#include "OSGGPUSkinningAlgorithm.h"
+#include "OSGGPUSkinningDataAttachment.h"
 
 #include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGHardwareSkinningAlgorithmBase.cpp file.
-// To modify it, please change the .fcd file (OSGHardwareSkinningAlgorithm.fcd) and
+// OSGGPUSkinningAlgorithmBase.cpp file.
+// To modify it, please change the .fcd file (OSGGPUSkinningAlgorithm.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-const std::string HardwareSkinningAlgorithm::_vpVertexSkinning(
+const std::string GPUSkinningAlgorithm::_vpVertexSkinning(
     "#version 120\n"
     "\n"
     "uniform mat4 matBindShape;\n"
@@ -161,7 +161,7 @@ const std::string HardwareSkinningAlgorithm::_vpVertexSkinning(
  *                           Class methods                                 *
 \***************************************************************************/
 
-void HardwareSkinningAlgorithm::initMethod(InitPhase ePhase)
+void GPUSkinningAlgorithm::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -181,31 +181,31 @@ void HardwareSkinningAlgorithm::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-HardwareSkinningAlgorithm::HardwareSkinningAlgorithm(void) :
+GPUSkinningAlgorithm::GPUSkinningAlgorithm(void) :
     Inherited()
 {
 }
 
-HardwareSkinningAlgorithm::HardwareSkinningAlgorithm(const HardwareSkinningAlgorithm &source) :
+GPUSkinningAlgorithm::GPUSkinningAlgorithm(const GPUSkinningAlgorithm &source) :
     Inherited(source)
 {
 }
 
-HardwareSkinningAlgorithm::~HardwareSkinningAlgorithm(void)
+GPUSkinningAlgorithm::~GPUSkinningAlgorithm(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
 void
-HardwareSkinningAlgorithm::adjustVolume(Volume &volume)
+GPUSkinningAlgorithm::adjustVolume(Volume &volume)
 {
     if(_sfSkeleton.getValue() != NULL)
         _sfSkeleton.getValue()->adjustVolume(volume);
 }
 
 ActionBase::ResultE
-HardwareSkinningAlgorithm::renderEnter(Action *action)
+GPUSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
     SkinnedGeometry *skinGeo = getSkin    ();
@@ -216,11 +216,11 @@ HardwareSkinningAlgorithm::renderEnter(Action *action)
     OSG_ASSERT(skinGeo != NULL);
     OSG_ASSERT(skel    != NULL);
 
-    HardwareSkinningDataAttachmentUnrecPtr data = getHardwareSkinningData(skel);
+    GPUSkinningDataAttachmentUnrecPtr data = getGPUSkinningData(skel);
 
     if(data == NULL)
     {
-        data = HardwareSkinningDataAttachment::create();
+        data = GPUSkinningDataAttachment::create();
         skel->addAttachment(data);
     }
 
@@ -281,7 +281,7 @@ HardwareSkinningAlgorithm::renderEnter(Action *action)
 }
 
 ActionBase::ResultE
-HardwareSkinningAlgorithm::renderLeave(Action *action)
+GPUSkinningAlgorithm::renderLeave(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
     SkinnedGeometry *skinGeo = getSkin();
@@ -294,7 +294,7 @@ HardwareSkinningAlgorithm::renderLeave(Action *action)
     return res;
 }
 
-void HardwareSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
+void GPUSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
@@ -302,36 +302,36 @@ void HardwareSkinningAlgorithm::changed(ConstFieldMaskArg whichField,
        _sfSkeleton.getValue()           != NULL   )
     {
         if(_sfSkeleton.getValue()->hasChangedFunctor(boost::bind(
-               &HardwareSkinningAlgorithm::skeletonChanged,
+               &GPUSkinningAlgorithm::skeletonChanged,
                this, _1, _2                                )) == false)
         {
             _sfSkeleton.getValue()->addChangedFunctor(boost::bind(
-                &HardwareSkinningAlgorithm::skeletonChanged,
+                &GPUSkinningAlgorithm::skeletonChanged,
                 this, _1, _2                                ),
-                "HardwareSkinningAlgorithm::skeletonChanged"  );
+                "GPUSkinningAlgorithm::skeletonChanged"  );
         }
     }
 
     Inherited::changed(whichField, origin, details);
 }
 
-void HardwareSkinningAlgorithm::dump(      UInt32    ,
+void GPUSkinningAlgorithm::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump HardwareSkinningAlgorithm NI" << std::endl;
+    SLOG << "Dump GPUSkinningAlgorithm NI" << std::endl;
 }
 
 void
-HardwareSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
-                                           ConstFieldMaskArg  whichField)
+GPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
+                                      ConstFieldMaskArg  whichField)
 {
     if(((Skeleton::JointMatricesFieldMask      |
          Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
     {
         OSG_ASSERT(fc == _sfSkeleton.getValue());
 
-        HardwareSkinningDataAttachment *data =
-            getHardwareSkinningData(_sfSkeleton.getValue());
+        GPUSkinningDataAttachment *data =
+            getGPUSkinningData(_sfSkeleton.getValue());
 
         if(data != NULL)
             data->setDataValid(false);
@@ -339,14 +339,12 @@ HardwareSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
 }
 
 void
-HardwareSkinningAlgorithm::resolveLinks(void)
+GPUSkinningAlgorithm::resolveLinks(void)
 {
-    SLOG << "HardwareSkinningAlgorithm::resolveLinks" << std::endl;
-
     if(_sfSkeleton.getValue() != NULL)
     {
         _sfSkeleton.getValue()->subChangedFunctor(boost::bind(
-            &HardwareSkinningAlgorithm::skeletonChanged,
+            &GPUSkinningAlgorithm::skeletonChanged,
             this, _1, _2                                ));
     }
 

@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class HardwareSkinningDataAttachment
+ **     class GPUSkinningDataAttachment
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_
-#define _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_
+#ifndef _OSGGPUSKINNINGDATAATTACHMENTBASE_H_
+#define _OSGGPUSKINNINGDATAATTACHMENTBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -68,15 +68,15 @@
 #include "OSGShaderProgramChunkFields.h" // ShaderCode type
 #include "OSGSysFields.h"               // DataValid type
 
-#include "OSGHardwareSkinningDataAttachmentFields.h"
+#include "OSGGPUSkinningDataAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class HardwareSkinningDataAttachment;
+class GPUSkinningDataAttachment;
 
-//! \brief HardwareSkinningDataAttachment Base Class.
+//! \brief GPUSkinningDataAttachment Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attachment
+class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachmentBase : public Attachment
 {
   public:
 
@@ -86,7 +86,7 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attach
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(HardwareSkinningDataAttachment);
+    OSG_GEN_INTERNALPTR(GPUSkinningDataAttachment);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -179,16 +179,16 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attach
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HardwareSkinningDataAttachmentTransitPtr  create          (void);
-    static  HardwareSkinningDataAttachment           *createEmpty     (void);
+    static  GPUSkinningDataAttachmentTransitPtr  create          (void);
+    static  GPUSkinningDataAttachment           *createEmpty     (void);
 
-    static  HardwareSkinningDataAttachmentTransitPtr  createLocal     (
+    static  GPUSkinningDataAttachmentTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  HardwareSkinningDataAttachment            *createEmptyLocal(
+    static  GPUSkinningDataAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  HardwareSkinningDataAttachmentTransitPtr  createDependent  (BitVector bFlags);
+    static  GPUSkinningDataAttachmentTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,22 +223,22 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attach
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    HardwareSkinningDataAttachmentBase(void);
-    HardwareSkinningDataAttachmentBase(const HardwareSkinningDataAttachmentBase &source);
+    GPUSkinningDataAttachmentBase(void);
+    GPUSkinningDataAttachmentBase(const GPUSkinningDataAttachmentBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~HardwareSkinningDataAttachmentBase(void);
+    virtual ~GPUSkinningDataAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const HardwareSkinningDataAttachment *source = NULL);
+    void onCreate(const GPUSkinningDataAttachment *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -262,7 +262,7 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attach
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      HardwareSkinningDataAttachmentBase *pFrom,
+            void execSync (      GPUSkinningDataAttachmentBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -302,11 +302,11 @@ class OSG_DYNAMICS_DLLMAPPING HardwareSkinningDataAttachmentBase : public Attach
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const HardwareSkinningDataAttachmentBase &source);
+    void operator =(const GPUSkinningDataAttachmentBase &source);
 };
 
-typedef HardwareSkinningDataAttachmentBase *HardwareSkinningDataAttachmentBaseP;
+typedef GPUSkinningDataAttachmentBase *GPUSkinningDataAttachmentBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGHARDWARESKINNINGDATAATTACHMENTBASE_H_ */
+#endif /* _OSGGPUSKINNINGDATAATTACHMENTBASE_H_ */

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class HardwareSkinningAlgorithm!
+ **     class GPUSkinningAlgorithm!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &HardwareSkinningAlgorithmBase::getClassType(void)
+OSG::FieldContainerType &GPUSkinningAlgorithmBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 HardwareSkinningAlgorithmBase::getClassTypeId(void)
+OSG::UInt32 GPUSkinningAlgorithmBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 HardwareSkinningAlgorithmBase::getClassGroupId(void)
+OSG::UInt16 GPUSkinningAlgorithmBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,16 +74,16 @@ OSG::UInt16 HardwareSkinningAlgorithmBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the HardwareSkinningAlgorithm::_sfShaderData field.
+//! Get the value of the GPUSkinningAlgorithm::_sfShaderData field.
 inline
-ShaderProgramVariableChunk * HardwareSkinningAlgorithmBase::getShaderData(void) const
+ShaderProgramVariableChunk * GPUSkinningAlgorithmBase::getShaderData(void) const
 {
     return _sfShaderData.getValue();
 }
 
-//! Set the value of the HardwareSkinningAlgorithm::_sfShaderData field.
+//! Set the value of the GPUSkinningAlgorithm::_sfShaderData field.
 inline
-void HardwareSkinningAlgorithmBase::setShaderData(ShaderProgramVariableChunk * const value)
+void GPUSkinningAlgorithmBase::setShaderData(ShaderProgramVariableChunk * const value)
 {
     editSField(ShaderDataFieldMask);
 
@@ -93,7 +93,7 @@ void HardwareSkinningAlgorithmBase::setShaderData(ShaderProgramVariableChunk * c
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void HardwareSkinningAlgorithmBase::execSync (      HardwareSkinningAlgorithmBase *pFrom,
+void GPUSkinningAlgorithmBase::execSync (      GPUSkinningAlgorithmBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -108,11 +108,11 @@ void HardwareSkinningAlgorithmBase::execSync (      HardwareSkinningAlgorithmBas
 
 
 inline
-const Char8 *HardwareSkinningAlgorithmBase::getClassname(void)
+const Char8 *GPUSkinningAlgorithmBase::getClassname(void)
 {
-    return "HardwareSkinningAlgorithm";
+    return "GPUSkinningAlgorithm";
 }
-OSG_GEN_CONTAINERPTR(HardwareSkinningAlgorithm);
+OSG_GEN_CONTAINERPTR(GPUSkinningAlgorithm);
 
 OSG_END_NAMESPACE
 

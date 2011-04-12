@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CPUSkinningAlgorithm"
+    parent="SkinningAlgorithm"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    childFields="none"
+    parentFields="none"
+    >
+</FieldContainer>

@@ -43,15 +43,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include "OSGGPUSkinningDataAttachment.h"
+#include "OSGCPUSkinningDataAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGGPUSkinningDataAttachmentBase.cpp file.
-// To modify it, please change the .fcd file (OSGGPUSkinningDataAttachment.fcd) and
+// OSGCPUSkinningDataAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGCPUSkinningDataAttachment.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void GPUSkinningDataAttachment::initMethod(InitPhase ePhase)
+void CPUSkinningDataAttachment::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,45 +82,45 @@ void GPUSkinningDataAttachment::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-GPUSkinningDataAttachment::GPUSkinningDataAttachment(void) :
+CPUSkinningDataAttachment::CPUSkinningDataAttachment(void) :
     Inherited()
 {
 }
 
-GPUSkinningDataAttachment::GPUSkinningDataAttachment(const GPUSkinningDataAttachment &source) :
+CPUSkinningDataAttachment::CPUSkinningDataAttachment(const CPUSkinningDataAttachment &source) :
     Inherited(source)
 {
 }
 
-GPUSkinningDataAttachment::~GPUSkinningDataAttachment(void)
+CPUSkinningDataAttachment::~CPUSkinningDataAttachment(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void GPUSkinningDataAttachment::changed(ConstFieldMaskArg whichField, 
+void CPUSkinningDataAttachment::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void GPUSkinningDataAttachment::dump(      UInt32    ,
+void CPUSkinningDataAttachment::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump GPUSkinningDataAttachment NI" << std::endl;
+    SLOG << "Dump CPUSkinningDataAttachment NI" << std::endl;
 }
 
-GPUSkinningDataAttachment *
-getGPUSkinningData(AttachmentContainer *attCon)
+CPUSkinningDataAttachment *
+getCPUSkinningData(AttachmentContainer *attCon)
 {
-    GPUSkinningDataAttachment *retVal = NULL;
+    CPUSkinningDataAttachment *retVal = NULL;
 
     if(attCon != NULL)
     {
-        retVal = dynamic_cast<GPUSkinningDataAttachment *>(
+        retVal = dynamic_cast<CPUSkinningDataAttachment *>(
             attCon->findAttachment(
-                GPUSkinningDataAttachment::getClassType()));
+                CPUSkinningDataAttachment::getClassType()));
     }
 
     return retVal;

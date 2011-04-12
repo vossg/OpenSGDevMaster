@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GPUSkinningDataAttachment!
+ **     class CPUSkinningDataAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,72 +53,63 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &GPUSkinningDataAttachmentBase::getClassType(void)
+OSG::FieldContainerType &CPUSkinningDataAttachmentBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GPUSkinningDataAttachmentBase::getClassTypeId(void)
+OSG::UInt32 CPUSkinningDataAttachmentBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 GPUSkinningDataAttachmentBase::getClassGroupId(void)
+OSG::UInt16 CPUSkinningDataAttachmentBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the GPUSkinningDataAttachment::_sfShaderCode field.
-inline
-ShaderProgramChunk * GPUSkinningDataAttachmentBase::getShaderCode(void) const
-{
-    return _sfShaderCode.getValue();
-}
-
-//! Set the value of the GPUSkinningDataAttachment::_sfShaderCode field.
-inline
-void GPUSkinningDataAttachmentBase::setShaderCode(ShaderProgramChunk * const value)
-{
-    editSField(ShaderCodeFieldMask);
-
-    _sfShaderCode.setValue(value);
-}
-//! Get the value of the GPUSkinningDataAttachment::_sfDataValid field.
+//! Get the value of the CPUSkinningDataAttachment::_sfDataValid field.
 
 inline
-bool &GPUSkinningDataAttachmentBase::editDataValid(void)
+bool &CPUSkinningDataAttachmentBase::editDataValid(void)
 {
     editSField(DataValidFieldMask);
 
     return _sfDataValid.getValue();
 }
 
-//! Get the value of the GPUSkinningDataAttachment::_sfDataValid field.
+//! Get the value of the CPUSkinningDataAttachment::_sfDataValid field.
 inline
-      bool  GPUSkinningDataAttachmentBase::getDataValid(void) const
+      bool  CPUSkinningDataAttachmentBase::getDataValid(void) const
 {
     return _sfDataValid.getValue();
 }
 
-//! Set the value of the GPUSkinningDataAttachment::_sfDataValid field.
+//! Set the value of the CPUSkinningDataAttachment::_sfDataValid field.
 inline
-void GPUSkinningDataAttachmentBase::setDataValid(const bool value)
+void CPUSkinningDataAttachmentBase::setDataValid(const bool value)
 {
     editSField(DataValidFieldMask);
 
     _sfDataValid.setValue(value);
 }
 
+//! Get the value of the \a index element the CPUSkinningDataAttachment::_mfProperties field.
+inline
+GeoVectorProperty * CPUSkinningDataAttachmentBase::getProperties(const UInt32 index) const
+{
+    return _mfProperties[index];
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void GPUSkinningDataAttachmentBase::execSync (      GPUSkinningDataAttachmentBase *pFrom,
+void CPUSkinningDataAttachmentBase::execSync (      CPUSkinningDataAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -126,8 +117,11 @@ void GPUSkinningDataAttachmentBase::execSync (      GPUSkinningDataAttachmentBas
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
+    if(FieldBits::NoField != (PropertiesFieldMask & whichField))
+        _mfProperties.syncWith(pFrom->_mfProperties,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 
     if(FieldBits::NoField != (DataValidFieldMask & whichField))
         _sfDataValid.syncWith(pFrom->_sfDataValid);
@@ -136,11 +130,11 @@ void GPUSkinningDataAttachmentBase::execSync (      GPUSkinningDataAttachmentBas
 
 
 inline
-const Char8 *GPUSkinningDataAttachmentBase::getClassname(void)
+const Char8 *CPUSkinningDataAttachmentBase::getClassname(void)
 {
-    return "GPUSkinningDataAttachment";
+    return "CPUSkinningDataAttachment";
 }
-OSG_GEN_CONTAINERPTR(GPUSkinningDataAttachment);
+OSG_GEN_CONTAINERPTR(CPUSkinningDataAttachment);
 
 OSG_END_NAMESPACE
 

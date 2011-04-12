@@ -36,22 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGPUSKINNINGDATAATTACHMENT_H_
-#define _OSGGPUSKINNINGDATAATTACHMENT_H_
+#ifndef _OSGCPUSKINNINGALGORITHM_H_
+#define _OSGCPUSKINNINGALGORITHM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGGPUSkinningDataAttachmentBase.h"
-#include "OSGShaderProgramChunk.h"
+#include "OSGCPUSkinningAlgorithmBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief GPUSkinningDataAttachment class. See \ref
-           PageDynamicsGPUSkinningDataAttachment for a description.
+class CPUSkinningDataAttachment;
+
+/*! \brief CPUSkinningAlgorithm class. See \ref
+           PageDynamicsCPUSkinningAlgorithm for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningDataAttachmentBase
+class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithmBase
 {
   protected:
 
@@ -59,9 +60,19 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
 
   public:
 
-    typedef GPUSkinningDataAttachmentBase Inherited;
-    typedef GPUSkinningDataAttachment     Self;
+    typedef CPUSkinningAlgorithmBase Inherited;
+    typedef CPUSkinningAlgorithm     Self;
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Execute                                 */
+    /*! \{                                                                 */
+
+    virtual void                adjustVolume(Volume  &volume );
+
+    virtual ActionBase::ResultE renderEnter (Action  *action );
+    virtual ActionBase::ResultE renderLeave (Action  *action );
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -83,21 +94,21 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
 
   protected:
 
-    // Variables should all be in GPUSkinningDataAttachmentBase.
+    // Variables should all be in CPUSkinningAlgorithmBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    GPUSkinningDataAttachment(void);
-    GPUSkinningDataAttachment(const GPUSkinningDataAttachment &source);
+    CPUSkinningAlgorithm(void);
+    CPUSkinningAlgorithm(const CPUSkinningAlgorithm &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GPUSkinningDataAttachment(void);
+    virtual ~CPUSkinningAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -107,25 +118,64 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningData
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Transform                                  */
+    /*! \{                                                                 */
+
+    void transformGeometry(SkinnedGeometry           *skinGeo,
+                           Skeleton                  *skel,
+                           CPUSkinningDataAttachment *data );
+    void transformObjectSpaceProperty (      Skeleton            *skel,
+                                       const GeoVec4fProperty    *jointIdx,
+                                       const GeoVec4fProperty    *jointWeight,
+                                       const GeoIntegralProperty *origIdx,
+                                       const GeoVectorProperty   *origProp,
+                                             GeoVectorProperty   *prop        );
+    void transformTangentSpaceProperty(      Skeleton            *skel,
+                                       const GeoVec4fProperty    *jointIdx,
+                                       const GeoVec4fProperty    *jointWeight,
+                                       const GeoIntegralProperty *origIdx,
+                                       const GeoVectorProperty   *origProp,
+                                             GeoVectorProperty   *prop        );
+
+    void renderGeometry(RenderAction              *ract,
+                        SkinnedGeometry           *skinGeo,
+                        CPUSkinningDataAttachment *data    );
+    void drawPrimitives(SkinnedGeometry           *skinGeo,
+                        CPUSkinningDataAttachment *data,
+                        DrawEnv                   *pEnv    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Skeleton Change                             */
+    /*! \{                                                                 */
+
+    void skeletonChanged(FieldContainer *fc, ConstFieldMaskArg whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class GPUSkinningDataAttachmentBase;
+    friend class CPUSkinningAlgorithmBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GPUSkinningDataAttachment &source);
+    void operator =(const CPUSkinningAlgorithm &source);
 };
 
-typedef GPUSkinningDataAttachment *GPUSkinningDataAttachmentP;
-
-GPUSkinningDataAttachment *
-getGPUSkinningData(AttachmentContainer *attCon);
+typedef CPUSkinningAlgorithm *CPUSkinningAlgorithmP;
 
 OSG_END_NAMESPACE
 
-#include "OSGGPUSkinningDataAttachmentBase.inl"
-#include "OSGGPUSkinningDataAttachment.inl"
+#include "OSGCPUSkinningAlgorithmBase.inl"
+#include "OSGCPUSkinningAlgorithm.inl"
 
-#endif /* _OSGGPUSKINNINGDATAATTACHMENT_H_ */
+#endif /* _OSGCPUSKINNINGALGORITHM_H_ */

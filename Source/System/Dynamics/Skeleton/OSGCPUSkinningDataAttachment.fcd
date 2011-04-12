@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CPUSkinningDataAttachment"
+    parent="Attachment"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    childFields="none"
+    parentFields="none"
+    >
+    <Field
+        name="properties"
+        type="GeoVectorProperty"
+        category="childpointer"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        childParentType="FieldContainer"
+        linkParentField="Parents"
+        >
+    </Field>
+
+    <Field
+        name="dataValid"
+        type="bool"
+        category="data"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+        >
+    </Field>
+
+</FieldContainer>
