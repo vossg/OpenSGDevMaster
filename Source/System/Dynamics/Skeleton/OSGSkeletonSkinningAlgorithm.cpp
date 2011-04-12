@@ -211,6 +211,12 @@ SkeletonSkinningAlgorithm::renderLeave(Action *action)
     return Action::Continue;
 }
 
+SkeletonSkinningAlgorithm::RenderModeE
+SkeletonSkinningAlgorithm::getRenderMode(void) const
+{
+    return SkinnedGeometry::RMSkeleton;
+}
+
 ActionBase::ResultE
 SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
 {

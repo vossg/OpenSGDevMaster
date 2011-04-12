@@ -120,63 +120,68 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
 {
     if((RenderModeFieldMask & whichField) != 0)
     {
-        switch(_sfRenderMode.getValue())
+        if(_sfSkinningAlgorithm.getValue()                  == NULL ||
+           _sfSkinningAlgorithm.getValue()->getRenderMode() !=
+           _sfRenderMode.getValue()                                   )
         {
-        case RMUnskinned:
-        {
-            UnskinnedSkinningAlgorithmUnrecPtr algo =
-                UnskinnedSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
-                algo->setSkeleton(_sfSkeleton.getValue());
-        }
-        break;
-
-        case RMSkeleton:
-        {
-            SkeletonSkinningAlgorithmUnrecPtr algo =
-                SkeletonSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
+            switch(_sfRenderMode.getValue())
             {
-                algo->setSkeleton(_sfSkeleton.getValue());
-                _sfSkeleton.getValue()->setUseInvBindMatrix(false);
-            }
-        }
-        break;
-
-        case RMSkinnedCPU:
-        {
-            CPUSkinningAlgorithmUnrecPtr algo =
-                CPUSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
+            case RMUnskinned:
             {
-                algo->setSkeleton(_sfSkeleton.getValue());
-                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+                UnskinnedSkinningAlgorithmUnrecPtr algo =
+                    UnskinnedSkinningAlgorithm::create();
+                setSkinningAlgorithm(algo);
+
+                if(_sfSkeleton.getValue() != NULL)
+                    algo->setSkeleton(_sfSkeleton.getValue());
             }
-        }
-        break;
+            break;
 
-        case RMSkinnedGPU:
-        {
-            GPUSkinningAlgorithmUnrecPtr algo =
-                GPUSkinningAlgorithm::create();
-            setSkinningAlgorithm(algo);
-
-            if(_sfSkeleton.getValue() != NULL)
+            case RMSkeleton:
             {
-                algo->setSkeleton(_sfSkeleton.getValue());
-                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
-            }
-        }
-        break;
-        }
+                SkeletonSkinningAlgorithmUnrecPtr algo =
+                    SkeletonSkinningAlgorithm::create();
+                setSkinningAlgorithm(algo);
 
-        invalidateVolume();
+                if(_sfSkeleton.getValue() != NULL)
+                {
+                    algo->setSkeleton(_sfSkeleton.getValue());
+                    _sfSkeleton.getValue()->setUseInvBindMatrix(false);
+                }
+            }
+            break;
+
+            case RMSkinnedCPU:
+            {
+                CPUSkinningAlgorithmUnrecPtr algo =
+                    CPUSkinningAlgorithm::create();
+                setSkinningAlgorithm(algo);
+
+                if(_sfSkeleton.getValue() != NULL)
+                {
+                    algo->setSkeleton(_sfSkeleton.getValue());
+                    _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+                }
+            }
+            break;
+
+            case RMSkinnedGPU:
+            {
+                GPUSkinningAlgorithmUnrecPtr algo =
+                    GPUSkinningAlgorithm::create();
+                setSkinningAlgorithm(algo);
+
+                if(_sfSkeleton.getValue() != NULL)
+                {
+                    algo->setSkeleton(_sfSkeleton.getValue());
+                    _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+                }
+            }
+            break;
+            }
+
+            invalidateVolume();
+        }
     }
     
     if((SkeletonFieldMask & whichField) != 0)
@@ -194,7 +199,8 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
 Action::ResultE
 SkinnedGeometry::renderEnter(Action *action)
 {
-    if(_sfSkeleton.getValue() == NULL)
+    if(_sfRenderMode.getValue() != RMUnskinned &&
+       _sfSkeleton  .getValue() == NULL          )
     {
         SWARNING << "SkinnedGeometry::renderEnter: No skeleton." << std::endl;
 
@@ -214,7 +220,8 @@ SkinnedGeometry::renderEnter(Action *action)
 Action::ResultE
 SkinnedGeometry::renderLeave(Action *action)
 {
-    if(_sfSkeleton.getValue() == NULL)
+    if(_sfRenderMode.getValue() != RMUnskinned &&
+       _sfSkeleton  .getValue() == NULL          )
     {
         SWARNING << "SkinnedGeometry::renderLeave: No skeleton." << std::endl;
 

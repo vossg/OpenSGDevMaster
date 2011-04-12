@@ -46,7 +46,6 @@
 
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
-#include "OSGSkinningAlgorithm.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
@@ -159,6 +158,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 typedef SkinnedGeometry *SkinnedGeometryP;
 
 OSG_END_NAMESPACE
+
+#include "OSGSkinningAlgorithm.h"
 
 #include "OSGSkinnedGeometryBase.inl"
 #include "OSGSkinnedGeometry.inl"

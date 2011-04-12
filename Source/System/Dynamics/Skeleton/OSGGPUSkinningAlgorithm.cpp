@@ -294,6 +294,12 @@ GPUSkinningAlgorithm::renderLeave(Action *action)
     return res;
 }
 
+GPUSkinningAlgorithm::RenderModeE
+GPUSkinningAlgorithm::getRenderMode(void) const
+{
+    return SkinnedGeometry::RMSkinnedGPU;
+}
+
 void GPUSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)

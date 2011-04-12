@@ -61,11 +61,13 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
 
   public:
 
-    typedef SkinningAlgorithmBase Inherited;
-    typedef SkinningAlgorithm     Self;
+    typedef SkinningAlgorithmBase         Inherited;
+    typedef SkinningAlgorithm             Self;
+
+    typedef SkinnedGeometry::RenderModeE  RenderModeE;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Execute                                 */
+    /*! \name Execute                                                      */
     /*! \{                                                                 */
 
     virtual void adjustVolume(Volume  &volume ) = 0;
@@ -74,13 +76,14 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Parent                                */
+    /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    SkinnedGeometry *getSkin(void) const;
+            SkinnedGeometry *getSkin      (void) const;
+    virtual RenderModeE      getRenderMode(void) const = 0;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name  Sync                                                        */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
@@ -89,7 +92,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name Output                                                       */
     /*! \{                                                                 */
 
     virtual void dump(      UInt32     uiIndent = 0,

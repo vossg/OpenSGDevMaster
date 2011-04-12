@@ -347,6 +347,12 @@ Action::ResultE CPUSkinningAlgorithm::renderLeave(Action *action)
     return Action::Continue;
 }
 
+CPUSkinningAlgorithm::RenderModeE
+CPUSkinningAlgorithm::getRenderMode(void) const
+{
+    return SkinnedGeometry::RMSkinnedCPU;
+}
+
 void CPUSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
                                    UInt32            origin,
                                    BitVector         details)

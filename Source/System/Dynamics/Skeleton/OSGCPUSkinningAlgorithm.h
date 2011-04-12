@@ -60,8 +60,10 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithm
 
   public:
 
-    typedef CPUSkinningAlgorithmBase Inherited;
-    typedef CPUSkinningAlgorithm     Self;
+    typedef CPUSkinningAlgorithmBase      Inherited;
+    typedef CPUSkinningAlgorithm          Self;
+
+    typedef SkinnedGeometry::RenderModeE  RenderModeE;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Execute                                 */
@@ -71,6 +73,13 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithm
 
     virtual ActionBase::ResultE renderEnter (Action  *action );
     virtual ActionBase::ResultE renderLeave (Action  *action );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual RenderModeE getRenderMode(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

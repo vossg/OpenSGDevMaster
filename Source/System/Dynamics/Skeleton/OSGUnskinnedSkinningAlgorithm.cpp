@@ -124,6 +124,12 @@ UnskinnedSkinningAlgorithm::renderLeave(Action *action)
     return skinGeo->renderActionLeaveHandler(action);
 }
 
+UnskinnedSkinningAlgorithm::RenderModeE
+UnskinnedSkinningAlgorithm::getRenderMode(void) const
+{
+    return SkinnedGeometry::RMUnskinned;
+}
+
 void UnskinnedSkinningAlgorithm::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)

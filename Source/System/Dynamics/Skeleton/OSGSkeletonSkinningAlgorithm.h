@@ -61,6 +61,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonSkinningAlgorithm : public SkeletonSkinnin
     typedef SkeletonSkinningAlgorithmBase Inherited;
     typedef SkeletonSkinningAlgorithm     Self;
 
+    typedef SkinnedGeometry::RenderModeE  RenderModeE;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Execute                                 */
     /*! \{                                                                 */
@@ -69,6 +71,13 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonSkinningAlgorithm : public SkeletonSkinnin
 
     virtual ActionBase::ResultE renderEnter (Action  *action );
     virtual ActionBase::ResultE renderLeave (Action  *action );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual RenderModeE getRenderMode(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
