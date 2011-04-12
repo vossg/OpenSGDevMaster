@@ -124,11 +124,8 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         }
         else
         {
-#ifndef WIN32
-            FINFO(("%s: hit material with NULL state!\n", __func__));
-#else
-            FINFO(("Hit material with NULL state!\n"));
-#endif
+            FINFO(("%s: Material %p has NULL state for pass %d\n",
+                   OSG_FUNCNAME_MACRO, pPrimeMat, uiPass));
         }
     }
 
