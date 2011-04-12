@@ -865,7 +865,7 @@ bool @!Classname!@Base::linkParent(
             @@if field.isMField
             editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-            _@!field.VarName!@.push_back(pParent, childFieldId);
+            _@!field.VarName!@.push_back(pTypedParent, childFieldId);
             @@endif // @!field.cardinality!@ == "multi"
 
             return true;
@@ -903,7 +903,7 @@ bool @!Classname!@Base::unlinkParent(
             }
             @@endif // @!field.cardinality!@ == "single"
             @@if field.isMField
-            Int32 iParentIdx = _@!field.VarName!@.findIndex(pParent);
+            Int32 iParentIdx = _@!field.VarName!@.findIndex(pTypedParent);
 
             if(iParentIdx != -1)
             {

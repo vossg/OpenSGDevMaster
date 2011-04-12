@@ -326,7 +326,7 @@ bool NodeCoreBase::linkParent(
         {
             editMField(ParentsFieldMask, _mfParents);
 
-            _mfParents.push_back(pParent, childFieldId);
+            _mfParents.push_back(pTypedParent, childFieldId);
 
             return true;
         }
@@ -348,7 +348,7 @@ bool NodeCoreBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            Int32 iParentIdx = _mfParents.findIndex(pParent);
+            Int32 iParentIdx = _mfParents.findIndex(pTypedParent);
 
             if(iParentIdx != -1)
             {
