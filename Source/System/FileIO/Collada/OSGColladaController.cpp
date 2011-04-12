@@ -188,9 +188,40 @@ ColladaController::createInstance(ColladaInstInfo *colInstInfo)
 
         Inherited::handleBindMaterial(*gsIt, geo, colInstCtrl);
 
-        geo->setSkeleton       (_skeleton                         );
-        geo->setBindShapeMatrix(_matBindShape                     );
-        geo->setRenderMode     (SkinnedGeometry::RMSkinnedHardware);
+        geo->setSkeleton       (_skeleton                    );
+        geo->setBindShapeMatrix(_matBindShape                );
+        geo->setRenderMode     (SkinnedGeometry::RMSkinnedGPU);
+
+        PropStoreConstIt psIt  = (*gsIt)._propStore .begin();
+        PropStoreConstIt psEnd = (*gsIt)._propStore .end  ();
+
+        for(; psIt != psEnd; ++psIt)
+        {
+            if((*psIt)._semantic == "JOINT_INDEX")
+            {
+                for(UInt16 i = 0; i < geo->getMFProperties()->size(); ++i)
+                {
+                    if((*psIt)._prop == geo->getProperty(i))
+                    {
+                        geo->setJointIndexProperty(i);
+                        break;
+                    }
+                }
+            }
+
+            if((*psIt)._semantic == "JOINT_WEIGHT")
+            {
+                for(UInt16 i = 0; i < geo->getMFProperties()->size(); ++i)
+                {
+                    if((*psIt)._prop == geo->getProperty(i))
+                    {
+                        geo->setJointWeightProperty(i);
+                        break;
+                    }
+                }
+            }
+        }
+
 
         NodeUnrecPtr geoN = makeNodeFor(geo);
 

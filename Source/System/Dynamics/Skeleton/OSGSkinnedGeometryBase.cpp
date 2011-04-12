@@ -329,6 +329,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     defaultValue=\"TypeTraits&lt;UInt16&gt;::getMax()\"\n"
     "     >\n"
     "    Index of the property that stores the joint indices that influence\n"
     "    a vertex.\n"
@@ -341,6 +342,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     defaultValue=\"TypeTraits&lt;UInt16&gt;::getMax()\"\n"
     "     >\n"
     "    Index of the property that stores the joint weights that influence\n"
     "    a vertex.\n"
@@ -731,8 +733,8 @@ SkinnedGeometryBase::SkinnedGeometryBase(void) :
     _sfSkeleton               (NULL),
     _sfBindShapeMatrix        (),
     _mfJointIds               (),
-    _sfJointIndexProperty     (),
-    _sfJointWeightProperty    (),
+    _sfJointIndexProperty     (UInt16(TypeTraits<UInt16>::getMax())),
+    _sfJointWeightProperty    (UInt16(TypeTraits<UInt16>::getMax())),
     _sfRenderMode             (UInt32(0)),
     _sfSkinningAlgorithm      (this,
                           SkinningAlgorithmFieldId,

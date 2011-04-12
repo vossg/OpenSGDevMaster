@@ -286,6 +286,13 @@ OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
         skinnedGeoMat.push_back(sgeo->getMaterial());
 
         sgeo->setRenderMode(OSG::SkinnedGeometry::RMUnskinned);
+
+        if(sgeo->isSingleIndex() == false)
+        {
+            std::cout << "creating single index for skinned geometry."
+                      << std::endl;
+            OSG::createSingleIndex(sgeo);
+        }
     }
 
     return OSG::Action::Continue;
@@ -457,7 +464,8 @@ void display(void)
     {
         std::cout << "frame count [" << fc
                   << "] fc/tAcc [" << (fc/tAcc)
-                  << "] tAcc [" << tAcc << "]" << std::endl;
+                  << "] tAcc/fc [" << (1000.f * (tAcc/fc))
+                  << "] ms tAcc [" << tAcc << "] s" << std::endl;
 
         tAcc = 0;
         fc   = 0;
@@ -730,9 +738,17 @@ void keyboard(unsigned char k, int , int )
             OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
                 (*nIt)->getCore());
 
-            if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedHardware)
+            if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedCPU)
             {
-                std::cout << "Enabling SkinnedGeo DEBUG mode ["
+                std::cout << "Enabling SkinnedGeo GPU mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedGPU);
+                sgeo->setMaterial  (matSkin);
+            }
+            else if(sgeo->getRenderMode() == OSG::SkinnedGeometry::RMSkinnedGPU)
+            {
+                std::cout << "Enabling SkinnedGeo SKELETON mode ["
                           << sgeo << "]" << std::endl;
 
                 sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkeleton);
@@ -748,11 +764,11 @@ void keyboard(unsigned char k, int , int )
             }
             else
             {
-                std::cout << "Enabling SkinnedGeo HARDWARE mode ["
+                std::cout << "Enabling SkinnedGeo CPU mode ["
                           << sgeo << "]" << std::endl;
 
-                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedHardware);
-                sgeo->setMaterial(matSkin);
+                sgeo->setRenderMode(OSG::SkinnedGeometry::RMSkinnedCPU);
+                sgeo->setMaterial(skinnedGeoMat[i]);
             }
         }
     }

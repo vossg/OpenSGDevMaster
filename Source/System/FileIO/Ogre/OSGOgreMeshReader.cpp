@@ -1115,6 +1115,22 @@ OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
                      << getVertexElementSemanticString(vertexElements[i].semantic)
                      << "'. Skipping." << std::endl;
         }
+
+        if(vertexElements[i].semantic == VES_BLEND_INDICES)
+        {
+            SkinnedGeometry* skin =
+                dynamic_pointer_cast<SkinnedGeometry>(smInfo.mesh);
+
+            skin->setJointIndexProperty(propSlot);
+        }
+
+        if(vertexElements[i].semantic == VES_BLEND_WEIGHTS)
+        {
+            SkinnedGeometry* skin =
+                dynamic_pointer_cast<SkinnedGeometry>(smInfo.mesh);
+
+            skin->setJointWeightProperty(propSlot);
+        }
     }
 
     GeoUInt8PropertyUnrecPtr types = GeoUInt8Property::create();

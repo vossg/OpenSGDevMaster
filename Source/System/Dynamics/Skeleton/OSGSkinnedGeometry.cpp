@@ -45,7 +45,8 @@
 
 #include "OSGConfig.h"
 #include "OSGSkinnedGeometry.h"
-#include "OSGHardwareSkinningAlgorithm.h"
+#include "OSGCPUSkinningAlgorithm.h"
+#include "OSGGPUSkinningAlgorithm.h"
 #include "OSGSkeletonSkinningAlgorithm.h"
 #include "OSGUnskinnedSkinningAlgorithm.h"
 #include "OSGAnimBindAction.h"
@@ -146,10 +147,10 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
         }
         break;
 
-        case RMSkinnedHardware:
+        case RMSkinnedCPU:
         {
-            HardwareSkinningAlgorithmUnrecPtr algo =
-                HardwareSkinningAlgorithm::create();
+            CPUSkinningAlgorithmUnrecPtr algo =
+                CPUSkinningAlgorithm::create();
             setSkinningAlgorithm(algo);
 
             if(_sfSkeleton.getValue() != NULL)
@@ -160,11 +161,17 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
         }
         break;
 
-        case RMSkinnedSoftware:
+        case RMSkinnedGPU:
         {
-            SWARNING << "SkinnedGeometry: render mode 'RMSkinnedSoftware' NIY"
-                     << std::endl;
-            setSkinningAlgorithm(NULL);
+            GPUSkinningAlgorithmUnrecPtr algo =
+                GPUSkinningAlgorithm::create();
+            setSkinningAlgorithm(algo);
+
+            if(_sfSkeleton.getValue() != NULL)
+            {
+                algo->setSkeleton(_sfSkeleton.getValue());
+                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+            }
         }
         break;
         }

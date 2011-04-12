@@ -54,6 +54,7 @@
      cardinality="single"
      visibility="external"
      access="public"
+     defaultValue="TypeTraits&lt;UInt16&gt;::getMax()"
      >
     Index of the property that stores the joint indices that influence
     a vertex.
@@ -66,6 +67,7 @@
      cardinality="single"
      visibility="external"
      access="public"
+     defaultValue="TypeTraits&lt;UInt16&gt;::getMax()"
      >
     Index of the property that stores the joint weights that influence
     a vertex.

@@ -299,7 +299,7 @@ void buildScene(void)
     skin->setJointWeightProperty(SkinnedGeometry::TexCoords1Index);
 
 //     skin->setRenderMode(SkinnedGeometry::RMSkeleton       );
-    skin->setRenderMode(SkinnedGeometry::RMSkinnedHardware);
+    skin->setRenderMode(SkinnedGeometry::RMSkinnedGPU);
     
     ShaderProgramUnrecPtr vp = ShaderProgram::createVertexShader();
     vp->setProgram(vpCode);
