@@ -47,7 +47,7 @@
 #include "OSGConfig.h"
 
 #include "OSGGeometry.h"
-#include "OSGGeoImmediatePumpGroup.h"
+#include "OSGGeoPumpGroup.h"
 
 #include "OSGAction.h"
 #include "OSGRenderAction.h"
@@ -257,11 +257,13 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
 
         if (pump)
         {
-            pump(pEnv, this);
+            pump(pEnv,
+                 getLengths(),      getTypes(),
+                 getMFProperties(), getMFPropIndices());
         }
         else
         {
-            SWARNING << "Geometry::handleGL: no Pump found for geometry "
+            SWARNING << "Geometry::handleClassicGL: no Pump found for geometry "
                      << this
                      << std::endl;
         }
@@ -270,7 +272,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry(" << this << "::handleClassicGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 
@@ -336,11 +338,13 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
 
         if (pump)
         {
-            pump(pEnv, this);
+            pump(pEnv,
+                 getLengths(),      getTypes(),
+                 getMFProperties(), getMFPropIndices());
         }
         else
         {
-            SWARNING << "Geometry::handleGL: no Pump found for geometry "
+            SWARNING << "Geometry::handleAttGL: no Pump found for geometry "
                      << this
                      << std::endl;
         }
@@ -349,7 +353,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry(" << this << "::handleAttGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 
@@ -425,7 +429,9 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 
         if (pump)
         {
-            pump(pEnv, this);
+            pump(pEnv,
+                 getLengths(),      getTypes(),
+                 getMFProperties(), getMFPropIndices());
         }
         else
         {

@@ -46,11 +46,11 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
+#include "OSGGeometry.h"
 
 OSG_BEGIN_NAMESPACE
 
 class Window;
-class Geometry;
 
 /*! \brief A group of geometry pumps.
     \ingroup GrpDrawablesGeometryHelpers
@@ -83,43 +83,28 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
 
     static PropertyCharacteristics characterizeGeometry(Geometry *geo);
     
+    static PropertyCharacteristics
+        characterizeGeometry(const Geometry::MFPropertiesType  *prop,
+                             const Geometry::MFPropIndicesType *propIdx);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Pump Types                                */
     /*! \{                                                                 */
     
-    
-    typedef void (*GeoPump       ) (DrawEnv  *pEnv, 
-                                    Geometry *geo);
-
-    typedef void (*PartialGeoPump) (DrawEnv  *pEnv, 
-                                    Geometry *geo,
-                                    UInt32    primtype, 
-                                    UInt32    firstvert, 
-                                    UInt32    nvert   );
-
-    typedef void (*ExtIndexGeoPump)(DrawEnv  *pEnv, 
-                                    Geometry *geo,
-                                    UInt32   *indices, 
-                                    UInt32    nvert);
+    typedef void (*GeoPump)(      DrawEnv                     *pEnv,
+                            const GeoIntegralProperty         *lengths,
+                            const GeoIntegralProperty         *types,
+                            const Geometry::MFPropertiesType  *prop,
+                            const Geometry::MFPropIndicesType *propIdx );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Global Get                                */
     /*! \{                                                                 */
 
-    static GeoPump         findGeoPump(
-                                            DrawEnv                 *pEnv,
-                                            PropertyCharacteristics  acset);
-
-    static PartialGeoPump  findPartialGeoPump(
-                                            DrawEnv                 *pEnv, 
-                                            PropertyCharacteristics  acset);
-
-    static ExtIndexGeoPump findExtIndexGeoPump(
-                                            DrawEnv                 *pEnv, 
-                                            PropertyCharacteristics  acset);
-
+    static GeoPump findGeoPump(DrawEnv                 *pEnv,
+                               PropertyCharacteristics  acset);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -136,18 +121,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
     /*! \name               Single Group Get                               */
     /*! \{                                                                 */
 
-    virtual GeoPump getGeoPump(
-                    DrawEnv                 *pEnv,
-                    PropertyCharacteristics  acset) = 0;
-
-    virtual PartialGeoPump getPartialGeoPump(
-                    DrawEnv                 *pEnv, 
-                    PropertyCharacteristics  acset) = 0;
-
-    virtual ExtIndexGeoPump getExtIndexGeoPump(
-                    DrawEnv                 *pEnv, 
-                    PropertyCharacteristics  acset) = 0;
-
+    virtual GeoPump getGeoPump(DrawEnv                 *pEnv,
+                               PropertyCharacteristics  acset) = 0;
 
     /*! \}                                                                 */
     

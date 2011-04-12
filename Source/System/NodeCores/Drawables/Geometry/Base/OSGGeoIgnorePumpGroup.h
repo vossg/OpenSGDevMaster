@@ -46,7 +46,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
-#include "OSGGeometry.h"
 #include "OSGGeoPumpGroup.h"
 
 OSG_BEGIN_NAMESPACE
@@ -76,14 +75,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoIgnorePumpGroup :
     /*! \name                       Get                                    */
     /*! \{                                                                 */
 
-    GeoPump getGeoPump                (DrawEnv                 *pEnv,
-                                       PropertyCharacteristics  acset);
+    virtual GeoPump getGeoPump(DrawEnv                 *pEnv,
+                               PropertyCharacteristics  acset);
 
-    PartialGeoPump getPartialGeoPump  (DrawEnv                 *pEnv, 
-                                       PropertyCharacteristics  acset);
-
-    ExtIndexGeoPump getExtIndexGeoPump(DrawEnv                 *pEnv, 
-                                       PropertyCharacteristics  acset);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -95,20 +89,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoIgnorePumpGroup :
     /*! \name                    Pump functions                            */
     /*! \{                                                                 */
     
-    static void masterGeoPump        (DrawEnv  *pEnv, 
-                                      Geometry *geo); 
+    static void masterGeoPump(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
                                          
-    static void masterPartialGeoPump (DrawEnv  *pEnv,
-                                      Geometry *geo,
-                                      UInt32    primtype, 
-                                      UInt32    firstvert, 
-                                      UInt32    nvert   );
-
-    static void masterExtIndexGeoPump(DrawEnv  *pEnv,
-                                      Geometry *geo,
-                                      UInt32   *indices, 
-                                      UInt32    nvert);
-
     /*! \}                                                                 */
 };
 

@@ -113,1126 +113,557 @@ GeoVertexArrayPumpGroup::~GeoVertexArrayPumpGroup(void)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-// Pumping function definitions
-
-typedef void (OSG_APIENTRY *pumpFunc)(const UInt8 * data);
-typedef void (OSG_APIENTRY *multiPumpFunc)(GLenum which,  const UInt8 * data);
-typedef void (OSG_APIENTRY *attribPumpFunc)(GLuint index, const UInt8 * data);
-
-
-// Some helper arrays for function selection
-// indexed by data type and dimension
-
-static const int formatBase = GL_BYTE;
-static const int numFormats = GL_DOUBLE - GL_BYTE + 1;
-
-static const char *formatNames[] =
-{   "GL_BYTE", "GL_UNSIGNED_BYTE", "GL_SHORT", "GL_UNSIGNED_SHORT",
-    "GL_INT", "GL_UNSIGNED_INT", "GL_FLOAT", "GL_2_BYTES",
-    "GL_3_BYTES", "GL_4_BYTES", "GL_DOUBLE"
-};
-
-// little helper class for function init
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-class glextFuncInit
+namespace
 {
-    public:
+    // Pumping function definitions
 
-        glextFuncInit(const char *name, UInt32 format, UInt32 dim, 
-                bool normalizing = false) :
-            _name(name), _format(format), _dim(dim),
-            _normalizing(normalizing) {};
+    typedef void (OSG_APIENTRY *pumpFunc      )(              const UInt8 *data);
+    typedef void (OSG_APIENTRY *multiPumpFunc )(GLenum which, const UInt8 *data);
+    typedef void (OSG_APIENTRY *attribPumpFunc)(GLuint index, const UInt8 *data);
+
+    // Some helper arrays for function selection
+    // indexed by data type and dimension
+
+    const Int16 formatBase = GL_BYTE;
+    const Int16 numFormats = GL_DOUBLE - GL_BYTE + 1;
+
+    const char *formatNames[] =
+    {   "GL_BYTE",
+        "GL_UNSIGNED_BYTE",
+        "GL_SHORT",
+        "GL_UNSIGNED_SHORT",
+        "GL_INT",
+        "GL_UNSIGNED_INT",
+        "GL_FLOAT",
+        "GL_2_BYTES",
+        "GL_3_BYTES",
+        "GL_4_BYTES",
+        "GL_DOUBLE"
+    };
+
+    // little helper class for function init
+
+    class glextFuncInit
+    {
+      public:
+        glextFuncInit(const char *name, UInt32 format, UInt32 dim,
+                      bool normalizing = false) :
+            _name       (name),
+            _format     (format),
+            _dim        (dim),
+            _normalizing(normalizing)
+        {
+        };
 
         void init(UInt32 (&extids)[numFormats][4], UInt32 extension)
         {
             extids[_format - formatBase][_dim - 1] =
-                              Window::registerFunction(_name, extension);
+                Window::registerFunction(_name, extension);
         }
 
-    private:
+      private:
 
         const char   *_name;
-              UInt32  _format;
-              UInt32  _dim;
-              bool    _normalizing;
-};
+        UInt32  _format;
+        UInt32  _dim;
+        bool    _normalizing;
+    };
 
-static glextFuncInit secondaryColorInitFuncs[8] = {
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3bvEXT",
-                  GL_BYTE,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3ubvEXT",
-                  GL_UNSIGNED_BYTE,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3svEXT",
-                  GL_SHORT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3usvEXT",
-                  GL_UNSIGNED_SHORT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3ivEXT",
-                  GL_INT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3uivEXT",
-                  GL_UNSIGNED_INT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3fvEXT",
-                  GL_FLOAT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3dvEXT",
-                  GL_DOUBLE,
-                  3)
-};
+    glextFuncInit secondaryColorInitFuncs[8] = {
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3bvEXT",
+                      GL_BYTE,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3ubvEXT",
+                      GL_UNSIGNED_BYTE,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3svEXT",
+                      GL_SHORT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3usvEXT",
+                      GL_UNSIGNED_SHORT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3ivEXT",
+                      GL_INT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3uivEXT",
+                      GL_UNSIGNED_INT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3fvEXT",
+                      GL_FLOAT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glSecondaryColor3dvEXT",
+                      GL_DOUBLE,
+                      3)
+    };
 
-static glextFuncInit multiTexCoordsInitFuncs[16] = {
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1svARB",
-                  GL_SHORT,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2svARB",
-                  GL_SHORT,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3svARB",
-                  GL_SHORT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4svARB",
-                  GL_SHORT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1ivARB",
-                  GL_INT,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2ivARB",
-                  GL_INT,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3ivARB",
-                  GL_INT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4ivARB",
-                  GL_INT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1fvARB",
-                  GL_FLOAT,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2fvARB",
-                  GL_FLOAT,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3fvARB",
-                  GL_FLOAT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4fvARB",
-                  GL_FLOAT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1dvARB",
-                  GL_DOUBLE,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2dvARB",
-                  GL_DOUBLE,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3dvARB",
-                  GL_DOUBLE,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4dvARB",
-                  GL_DOUBLE,
-                  4)
-};
+    glextFuncInit multiTexCoordsInitFuncs[16] = {
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1svARB",
+                      GL_SHORT,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2svARB",
+                      GL_SHORT,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3svARB",
+                      GL_SHORT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4svARB",
+                      GL_SHORT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1ivARB",
+                      GL_INT,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2ivARB",
+                      GL_INT,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3ivARB",
+                      GL_INT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4ivARB",
+                      GL_INT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1fvARB",
+                      GL_FLOAT,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2fvARB",
+                      GL_FLOAT,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3fvARB",
+                      GL_FLOAT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4fvARB",
+                      GL_FLOAT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord1dvARB",
+                      GL_DOUBLE,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord2dvARB",
+                      GL_DOUBLE,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord3dvARB",
+                      GL_DOUBLE,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glMultiTexCoord4dvARB",
+                      GL_DOUBLE,
+                      4)
+    };
 
-static glextFuncInit attribInitFuncs[23] = {
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1svARB",
-                  GL_SHORT,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1fvARB",
-                  GL_FLOAT,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1dvARB",
-                  GL_DOUBLE,
-                  1),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2svARB",
-                  GL_SHORT,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2fvARB",
-                  GL_FLOAT,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2dvARB",
-                  GL_DOUBLE,
-                  2),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3svARB",
-                  GL_SHORT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3fvARB",
-                  GL_FLOAT,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3dvARB",
-                  GL_DOUBLE,
-                  3),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4bvARB",
-                  GL_BYTE,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4svARB",
-                  GL_SHORT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ivARB",
-                  GL_INT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ubvARB",
-                  GL_UNSIGNED_BYTE,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4usvARB",
-                  GL_UNSIGNED_SHORT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4uivARB",
-                  GL_UNSIGNED_INT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4bvARB",
-                  GL_BYTE,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4svARB",
-                  GL_SHORT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ivARB",
-                  GL_INT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ubvARB",
-                  GL_UNSIGNED_BYTE,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4usvARB",
-                  GL_UNSIGNED_SHORT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4uivARB",
-                  GL_UNSIGNED_INT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4fvARB",
-                  GL_FLOAT,
-                  4),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4dvARB",
-                  GL_DOUBLE,
-                  4),
-};
+    glextFuncInit attribInitFuncs[23] = {
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1svARB",
+                      GL_SHORT,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1fvARB",
+                      GL_FLOAT,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib1dvARB",
+                      GL_DOUBLE,
+                      1),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2svARB",
+                      GL_SHORT,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2fvARB",
+                      GL_FLOAT,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib2dvARB",
+                      GL_DOUBLE,
+                      2),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3svARB",
+                      GL_SHORT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3fvARB",
+                      GL_FLOAT,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib3dvARB",
+                      GL_DOUBLE,
+                      3),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4bvARB",
+                      GL_BYTE,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4svARB",
+                      GL_SHORT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ivARB",
+                      GL_INT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ubvARB",
+                      GL_UNSIGNED_BYTE,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4usvARB",
+                      GL_UNSIGNED_SHORT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4uivARB",
+                      GL_UNSIGNED_INT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4bvARB",
+                      GL_BYTE,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4svARB",
+                      GL_SHORT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ivARB",
+                      GL_INT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4ubvARB",
+                      GL_UNSIGNED_BYTE,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4usvARB",
+                      GL_UNSIGNED_SHORT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4uivARB",
+                      GL_UNSIGNED_INT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4fvARB",
+                      GL_FLOAT,
+                      4),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4dvARB",
+                      GL_DOUBLE,
+                      4),
+    };
 
+    glextFuncInit normAttribInitFuncs[6] = {
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NbvARB",
+                      GL_BYTE,
+                      4, true),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NsvARB",
+                      GL_SHORT,
+                      4, true),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NivARB",
+                      GL_INT,
+                      4, true),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NubvARB",
+                      GL_UNSIGNED_BYTE,
+                      4, true),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NusvARB",
+                      GL_UNSIGNED_SHORT,
+                      4, true),
+        glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NuivARB",
+                      GL_UNSIGNED_INT,
+                      4, true),
+    };
 
-static glextFuncInit normAttribInitFuncs[6] = {
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NbvARB",
-                  GL_BYTE,
-                  4, true),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NsvARB",
-                  GL_SHORT,
-                  4, true),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NivARB",
-                  GL_INT,
-                  4, true),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NubvARB",
-                  GL_UNSIGNED_BYTE,
-                  4, true),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NusvARB",
-                  GL_UNSIGNED_SHORT,
-                  4, true),
-    glextFuncInit(OSG_DLSYM_UNDERSCORE"glVertexAttrib4NuivARB",
-                  GL_UNSIGNED_INT,
-                  4, true),
-};
+    // Classic pumping functions
 
-// The real pumping functions
+    const UInt16 PositionsPumpSlot = 0;
+    const UInt16 NormalsPumpSlot   = 1;
+    const UInt16 ColorsPumpSlot    = 2;
+    const UInt16 TexCoordsPumpSlot = 3;
 
-static pumpFunc PositionFuncs[numFormats][4] = {
-    { NULL, NULL, NULL, NULL },                           // GL_BYTE
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { NULL, 
-      reinterpret_cast<pumpFunc>(glVertex2sv),
-      reinterpret_cast<pumpFunc>(glVertex3sv), 
-      reinterpret_cast<pumpFunc>(glVertex4sv) },          // GL_SHORT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { NULL, 
-      reinterpret_cast<pumpFunc>(glVertex2iv),
-      reinterpret_cast<pumpFunc>(glVertex3iv), 
-      reinterpret_cast<pumpFunc>(glVertex4iv) },          // GL_INT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { NULL, 
-      reinterpret_cast<pumpFunc>(glVertex2fv),
-      reinterpret_cast<pumpFunc>(glVertex3fv), 
-      reinterpret_cast<pumpFunc>(glVertex4fv) },          // GL_FLOAT
-    { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, 
-      reinterpret_cast<pumpFunc>(glVertex2dv),
-      reinterpret_cast<pumpFunc>(glVertex3dv), 
-      reinterpret_cast<pumpFunc>(glVertex4dv) },          // GL_DOUBLE
-};
+    pumpFunc pumpFuncs[4][numFormats][4] = {
+        { // Positions
+            { NULL, NULL, NULL, NULL },                           // GL_BYTE
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
+            { NULL,
+              reinterpret_cast<pumpFunc>(glVertex2sv),
+              reinterpret_cast<pumpFunc>(glVertex3sv),
+              reinterpret_cast<pumpFunc>(glVertex4sv) },          // GL_SHORT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
+            { NULL,
+              reinterpret_cast<pumpFunc>(glVertex2iv),
+              reinterpret_cast<pumpFunc>(glVertex3iv),
+              reinterpret_cast<pumpFunc>(glVertex4iv) },          // GL_INT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
+            { NULL,
+              reinterpret_cast<pumpFunc>(glVertex2fv),
+              reinterpret_cast<pumpFunc>(glVertex3fv),
+              reinterpret_cast<pumpFunc>(glVertex4fv) },          // GL_FLOAT
+            { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
+            { NULL,
+              reinterpret_cast<pumpFunc>(glVertex2dv),
+              reinterpret_cast<pumpFunc>(glVertex3dv),
+              reinterpret_cast<pumpFunc>(glVertex4dv) },          // GL_DOUBLE
+        },
+        { // Normals
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glNormal3sv),
+              NULL },                                             // GL_BYTE
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glNormal3sv),
+              NULL },                                             // GL_SHORT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
+            { NULL, NULL,
+              reinterpret_cast<pumpFunc>(glNormal3iv),
+              NULL },                                             // GL_INT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glNormal3fv),
+              NULL },                                             // GL_FLOAT
+            { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glNormal3dv),
+              NULL }
+        },
+        { // Colors
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3bv),
+              reinterpret_cast<pumpFunc>(glColor4bv) },           // GL_BYTE
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3ubv),
+              reinterpret_cast<pumpFunc>(glColor4ubv) },          // GL_UNSIGNED_BYTE
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3sv),
+              reinterpret_cast<pumpFunc>(glColor4sv) },           // GL_SHORT
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3usv),
+              reinterpret_cast<pumpFunc>(glColor4usv) },          // GL_UNSIGNED_SHORT
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3iv),
+              reinterpret_cast<pumpFunc>(glColor4iv) },           // GL_INT
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3uiv),
+              reinterpret_cast<pumpFunc>(glColor4uiv) },          // GL_UNSIGNED_INT
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3fv),
+              reinterpret_cast<pumpFunc>(glColor4fv) },           // GL_FLOAT
+            { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
+            { NULL,
+              NULL,
+              reinterpret_cast<pumpFunc>(glColor3dv),
+              reinterpret_cast<pumpFunc>(glColor4dv) },           // GL_DOUBLE
+        },
+        { // TexCoords
+            { NULL, NULL, NULL, NULL },                           // GL_BYTE
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
+            { reinterpret_cast<pumpFunc>(glTexCoord1sv),
+              reinterpret_cast<pumpFunc>(glTexCoord2sv),
+              reinterpret_cast<pumpFunc>(glTexCoord3sv),
+              reinterpret_cast<pumpFunc>(glTexCoord4sv) },        // GL_SHORT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
+            { reinterpret_cast<pumpFunc>(glTexCoord1iv),
+              reinterpret_cast<pumpFunc>(glTexCoord2iv),
+              reinterpret_cast<pumpFunc>(glTexCoord3iv),
+              reinterpret_cast<pumpFunc>(glTexCoord4iv) },        // GL_INT
+            { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
+            { reinterpret_cast<pumpFunc>(glTexCoord1fv),
+              reinterpret_cast<pumpFunc>(glTexCoord2fv),
+              reinterpret_cast<pumpFunc>(glTexCoord3fv),
+              reinterpret_cast<pumpFunc>(glTexCoord4fv) },        // GL_FLOAT
+            { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
+            { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
+            { reinterpret_cast<pumpFunc>(glTexCoord1dv),
+              reinterpret_cast<pumpFunc>(glTexCoord2dv),
+              reinterpret_cast<pumpFunc>(glTexCoord3dv),
+              reinterpret_cast<pumpFunc>(glTexCoord4dv) },        // GL_DOUBLE
+        }
+    };
 
-static pumpFunc NormalFuncs[numFormats][4] = {
-    { NULL, 
-      NULL, 
-      reinterpret_cast<pumpFunc>(glNormal3sv), 
-      NULL },                                             // GL_BYTE
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { NULL, 
-      NULL, 
-      reinterpret_cast<pumpFunc>(glNormal3sv), 
-      NULL },                                             // GL_SHORT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { NULL, NULL, 
-      reinterpret_cast<pumpFunc>(glNormal3iv),
-      NULL },                                             // GL_INT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { NULL, 
-      NULL, 
-      reinterpret_cast<pumpFunc>(glNormal3fv), 
-      NULL },                                             // GL_FLOAT
-    { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, 
-      NULL, 
-      reinterpret_cast<pumpFunc>(glNormal3dv),
-      NULL },                                             // GL_DOUBLE
-};
+    const UInt16 SecColorsPumpSlot  = 0;
+    const UInt16 TexCoords1PumpSlot = 1;
+    const UInt16 TexCoords2PumpSlot = 1;
+    const UInt16 TexCoords3PumpSlot = 1;
+    const UInt16 TexCoords4PumpSlot = 1;
+    const UInt16 TexCoords5PumpSlot = 1;
+    const UInt16 TexCoords6PumpSlot = 1;
+    const UInt16 TexCoords7PumpSlot = 1;
 
-static pumpFunc ColorFuncs[numFormats][4] = {
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3bv),
-      reinterpret_cast<pumpFunc>(glColor4bv) },           // GL_BYTE
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3ubv),
-      reinterpret_cast<pumpFunc>(glColor4ubv) },          // GL_UNSIGNED_BYTE
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3sv), 
-      reinterpret_cast<pumpFunc>(glColor4sv) },           // GL_SHORT
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3usv), 
-      reinterpret_cast<pumpFunc>(glColor4usv) },          // GL_UNSIGNED_SHORT
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3iv), 
-      reinterpret_cast<pumpFunc>(glColor4iv) },           // GL_INT
-    { NULL,
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3uiv),  
-      reinterpret_cast<pumpFunc>(glColor4uiv) },          // GL_UNSIGNED_INT
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3fv),
-      reinterpret_cast<pumpFunc>(glColor4fv) },           // GL_FLOAT
-    { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, 
-      NULL,
-      reinterpret_cast<pumpFunc>(glColor3dv), 
-      reinterpret_cast<pumpFunc>(glColor4dv) },           // GL_DOUBLE
-};
+    UInt32 pumpFuncIDs[2][numFormats][4];
 
-static UInt32 SecColorIDs[numFormats][4];
-
-static pumpFunc TexCoordsFuncs[numFormats][4] = {
-    { NULL, NULL, NULL, NULL },                           // GL_BYTE
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { reinterpret_cast<pumpFunc>(glTexCoord1sv), 
-      reinterpret_cast<pumpFunc>(glTexCoord2sv),
-      reinterpret_cast<pumpFunc>(glTexCoord3sv), 
-      reinterpret_cast<pumpFunc>(glTexCoord4sv) },        // GL_SHORT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { reinterpret_cast<pumpFunc>(glTexCoord1iv), 
-      reinterpret_cast<pumpFunc>(glTexCoord2iv),
-      reinterpret_cast<pumpFunc>(glTexCoord3iv), 
-      reinterpret_cast<pumpFunc>(glTexCoord4iv) },        // GL_INT
-    { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { reinterpret_cast<pumpFunc>(glTexCoord1fv), 
-      reinterpret_cast<pumpFunc>(glTexCoord2fv),
-      reinterpret_cast<pumpFunc>(glTexCoord3fv), 
-      reinterpret_cast<pumpFunc>(glTexCoord4fv) },        // GL_FLOAT
-    { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
-    { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { reinterpret_cast<pumpFunc>(glTexCoord1dv), 
-      reinterpret_cast<pumpFunc>(glTexCoord2dv),
-      reinterpret_cast<pumpFunc>(glTexCoord3dv), 
-      reinterpret_cast<pumpFunc>(glTexCoord4dv) },        // GL_DOUBLE
-};
-
-static UInt32 TexCoords1IDs[numFormats][4];
-
-#define TexCoords2IDs TexCoords1IDs
-#define TexCoords3IDs TexCoords1IDs
-#define TexCoords4IDs TexCoords1IDs
-#define TexCoords5IDs TexCoords1IDs
-#define TexCoords6IDs TexCoords1IDs
-#define TexCoords7IDs TexCoords1IDs
-
-static UInt32 AttribIDs[numFormats][4];
-static UInt32 NormAttribIDs[numFormats][4];
-
-#endif      // remove from all but dev docs
-
-
-#define pumpSetup( name, typename, getmethod )                              \
-    typename name##Ptr;                                                     \
-    GLubyte *name##Data   = NULL;                                           \
-    UInt32   name##Stride = 0;                                              \
-                                                                            \
-    name##Ptr = geo->getmethod();                                           \
-    if ( name##Ptr != NULL )                                                \
-    {                                                                       \
-        name##Data = name##Ptr->getData();                                  \
-        if ( ! ( name##Stride = name##Ptr->getStride() ) )                  \
-            name##Stride = name##Ptr->getFormatSize() *                     \
-            name##Ptr->getDimension();                                      \
-    }
+    UInt32 attribPumpFuncIDs    [numFormats][4];
+    UInt32 normAttribPumpFuncIDs[numFormats][4];
 
 
-// The master pump. Can render everything, but takes ages to do so.
-// A real fallback, when everything else fails.
-// Its second function is the example of how things are supposed to work.
-// If an optimized pump creates a different result, it's wrong.
-// The formal specification is defined in the design document though.
-
-// some little helper macros to make the code more readable
-
-// define and initialize the variables needed to access the data
-
-//    UInt32 name##Ind = 0;
-
-
-#define pumpInternalSetup( name, typename, getmethod, mandatory )           \
-    GeoIntegralProperty *name##Ptr;                                         \
-                                                                            \
-    name##Ptr = geo->getmethod();                                           \
-    if(mandatory && name##Ptr == NULL)                                      \
-    {                                                                       \
-        SWARNING << "masterPump: Geometry " << geo << " has no "            \
-                 << #name << "s!" << std::endl;                             \
-        return;                                                             \
-    }
-
-#define pumpGLSetup( name, propindex )                                      \
-    attribData[propindex] = NULL;                                           \
-    attribInd[propindex] = 0;                                               \
-    attribPtr[propindex] = NULL;                                            \
-    attribIndex[propindex] = NULL;                                          \
-    pumpFunc name##Func = NULL;                                             \
-                                                                            \
-    attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL &&                                      \
-       attribPtr[propindex]->getIgnore() == false)                          \
-    {                                                                       \
-        attribIndex[propindex] = geo->getIndex(propindex);                  \
-        attribData[propindex] = attribPtr[propindex]->getData();            \
-        if(!(attribStride[propindex] = attribPtr[propindex]->getStride()))  \
-            attribStride[propindex] =                                       \
-                            attribPtr[propindex]->getFormatSize() *         \
-                            attribPtr[propindex]->getDimension();           \
-        if(!(name##Func = name##Funcs[attribPtr[propindex]->getFormat() -   \
-                                            formatBase]                     \
-                                 [attribPtr[propindex]->getDimension() - 1] \
-          ) )                                                               \
-        {                                                                   \
-            SWARNING << "masterPump: Geometry " << geo << " has illegal "   \
-                     << #name << "s: "                                      \
-                     << attribPtr[propindex]->getDimension()                \
-                     << "D " << formatNames[                                \
-                            attribPtr[propindex]->getFormat() - formatBase ]\
-                     << "!" << std::endl;                                   \
-            return;                                                         \
-        }                                                                   \
-    }                                                                       \
-    else                                                                    \
-    {                                                                       \
-        attribPtr[propindex] = NULL;                                        \
-        attribData[propindex] = NULL;                                       \
-        name##Func = NULL;                                                  \
-        attribStride[propindex] = 0;                                        \
-    }
-
-#define pumpGLExtSetup( name, propindex )                                   \
-    attribInd[propindex] = 0;                                               \
-    attribIndex[propindex] = NULL;                                          \
-    pumpFunc name##Func;                                                    \
-                                                                            \
-    attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL &&                                      \
-       attribPtr[propindex]->getIgnore() == false)                          \
-    {                                                                       \
-        attribIndex[propindex] = geo->getIndex(propindex);                  \
-        attribData[propindex] = attribPtr[propindex]->getData();            \
-        if(!(attribStride[propindex] = attribPtr[propindex]->getStride()))  \
-            attribStride[propindex] = attribPtr                             \
-                [propindex]->getFormatSize() *                              \
-                attribPtr[propindex]->getDimension();                       \
-        if(name##IDs[attribPtr[propindex]->getFormat() - formatBase]        \
-                    [attribPtr[propindex]->getDimension() - 1] ==           \
-                    Window::invalidFunctionID)                              \
-        {                                                                   \
-            SWARNING << "masterPump: Geometry " << geo << " has illegal "   \
-                     << #name << "s: "                                      \
-                     << attribPtr[propindex]->getDimension()                \
-                     << "D " << formatNames[                                \
-                            attribPtr[propindex]->getFormat() - formatBase ]\
-                     << "!" << std::endl;                                   \
-            return;                                                         \
-        }                                                                   \
-        if(!(name##Func = reinterpret_cast<pumpFunc>(                       \
-                 win->getFunction(name##IDs                                 \
-                            [attribPtr[propindex]->getFormat() - formatBase]\
-                            [attribPtr[propindex]->getDimension() - 1]))    \
-          ) )                                                               \
-        {                                                                   \
-            SWARNING << "masterPump: Geometry " << geo << " uses "          \
-                     << #name << "s: "                                      \
-                     << attribPtr[propindex]->getDimension()                \
-                     << "D "                                                \
-                     << formatNames[ attribPtr[propindex]->getFormat() -    \
-                                            formatBase ]                    \
-                     << " which are not supported by Window " << win        \
-                     <<  "!" << std::endl;                                  \
-            return;                                                         \
-        }                                                                   \
-    }                                                                       \
-    else                                                                    \
-    {                                                                       \
-        attribPtr[propindex] = NULL;                                        \
-        attribData[propindex] = NULL;                                       \
-        name##Func = NULL;                                                  \
-        attribStride[propindex] = 0;                                        \
-    }
-
-
-#define pumpMultiGLExtSetup( name, propindex )                              \
-    attribInd[propindex] = 0;                                               \
-    multiPumpFunc name##Func;                                               \
-                                                                            \
-    attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL &&                                      \
-       attribPtr[propindex]->getIgnore() == false)                          \
-    {                                                                       \
-        attribIndex[propindex] = geo->getIndex(propindex);                  \
-        attribData[propindex] = attribPtr[propindex]->getData();            \
-        if(!(attribStride[propindex] = attribPtr[propindex]->getStride()))  \
-            attribStride[propindex] =                                       \
-                attribPtr[propindex]->getFormatSize() *                     \
-                attribPtr[propindex]->getDimension();                       \
-        if(name##IDs[attribPtr[propindex]->getFormat() - formatBase]        \
-                    [attribPtr[propindex]->getDimension() - 1] ==           \
-                    Window::invalidFunctionID)                              \
-        {                                                                   \
-            SWARNING << "masterPump: Geometry " << geo << " has illegal "   \
-                     << #name << "s: "                                      \
-                     << attribPtr[propindex]->getDimension()                \
-                     << "D "                                                \
-                     << formatNames[ attribPtr[propindex]->getFormat() -    \
-                                            formatBase ]                    \
-                     << "!" << std::endl;                                   \
-            return;                                                         \
-        }                                                                   \
-        if(!(name##Func = reinterpret_cast<multiPumpFunc>(                  \
-                 win->getFunction(name##IDs                                 \
-                            [attribPtr[propindex]->getFormat() - formatBase]\
-                            [attribPtr[propindex]->getDimension() - 1]))    \
-          ) )                                                               \
-        {                                                                   \
-            SWARNING << "masterPump: Geometry " << geo << " uses "          \
-                     << #name << "s: "                                      \
-                     << attribPtr[propindex]->getDimension()                \
-                     << "D "                                                \
-                     << formatNames[ attribPtr[propindex]->getFormat() -    \
-                                            formatBase ]                    \
-                     << " which are not supported by Window " << win        \
-                     <<  "!" << std::endl;                                  \
-            return;                                                         \
-        }                                                                   \
-    }                                                                       \
-    else                                                                    \
-    {                                                                       \
-        attribPtr[propindex] = NULL;                                        \
-        attribData[propindex] = NULL;                                       \
-        name##Func = NULL;                                                  \
-        attribStride[propindex] = 0;                                        \
-    }
-
-void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
-                                                   Geometry *geo)
-{
-    Window *win = pEnv->getWindow();
-    
-    // Setup: get all the data
-
-    pumpInternalSetup( Type, GeoPTypes *, getTypes, true );
-    pumpInternalSetup( Length, GeoPLengths *, getLengths, false );
-    
-    // check if the node is empty
-    if(TypePtr == NULL || TypePtr->getSize() == 0)
-        return;
-    
-    const UInt8               *attribData  [Geometry::MaxAttribs];
-          UInt32               attribStride[Geometry::MaxAttribs];
-          UInt32               attribInd   [Geometry::MaxAttribs];
-          GeoVectorProperty   *attribPtr   [Geometry::MaxAttribs];
-          GeoIntegralProperty *attribIndex [Geometry::MaxAttribs];
-
-    for(Int16 i = 0; i < Geometry::MaxAttribs; ++i)
+    struct PumpInfo
     {
-        attribData [i] = NULL;
-        attribPtr  [i] = NULL;
-        attribIndex[i] = NULL;        
-    }
+        explicit PumpInfo();
 
-    pumpGLSetup        ( Position,   Geometry::PositionsIndex      );
-    pumpGLSetup        ( Color,      Geometry::ColorsIndex         );
-    pumpGLSetup        ( Normal,     Geometry::NormalsIndex        );
-    pumpGLSetup        ( TexCoords,  Geometry::TexCoordsIndex      );
-    pumpGLExtSetup     ( SecColor,   Geometry::SecondaryColorsIndex);
-    pumpMultiGLExtSetup( TexCoords1, Geometry::TexCoords1Index     );
-    pumpMultiGLExtSetup( TexCoords2, Geometry::TexCoords2Index     );
-    pumpMultiGLExtSetup( TexCoords3, Geometry::TexCoords3Index     );
-    pumpMultiGLExtSetup( TexCoords4, Geometry::TexCoords4Index     );
-    pumpMultiGLExtSetup( TexCoords5, Geometry::TexCoords5Index     );
-    pumpMultiGLExtSetup( TexCoords6, Geometry::TexCoords6Index     );
-    pumpMultiGLExtSetup( TexCoords7, Geometry::TexCoords7Index     );
-    
-    // check if the node is empty
-    if(TypePtr == NULL || TypePtr->getSize() == 0)
-        return;
+        const GeoIntegralProperty         *lengths;
+        const GeoIntegralProperty         *types;
+        const Geometry::MFPropertiesType  *prop;
+        const Geometry::MFPropIndicesType *propIdx;
 
-    // if it's not empty we need positions
-    if(attribData[Geometry::PositionsIndex] == NULL)
+        const UInt8                       *attribData  [Geometry::MaxAttribs];
+              UInt32                       attribStride[Geometry::MaxAttribs];
+              GeoVectorProperty           *attribPtr   [Geometry::MaxAttribs];
+              GeoIntegralProperty         *attribIndex [Geometry::MaxAttribs];
+    };
+
+    PumpInfo::PumpInfo()
+        : lengths(NULL),
+          types  (NULL),
+          prop   (NULL),
+          propIdx(NULL)
     {
-        if(attribPtr[Geometry::PositionsIndex] == NULL ||
-           attribPtr[Geometry::PositionsIndex]->getUseVBO() == false)
+        for(Int16 i = 0; i < Geometry::MaxAttribs; ++i)
         {
-            SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
-                     << endLog;
-            return;
+            attribData  [i] = NULL;
+            attribStride[i] = 0;
+            attribPtr   [i] = NULL;
+            attribIndex [i] = NULL;
         }
     }
 
-    // overall attributes?
-    if(attribData[Geometry::NormalsIndex] != NULL && 
-       attribPtr[Geometry::NormalsIndex]->getSize() == 1) 
+    // check mandatory properties
+    bool pumpInternalSetup(const GeoIntegralProperty* prop, bool mandatory)
     {
-        NormalFunc(attribData[Geometry::NormalsIndex]);
-        attribData[Geometry::NormalsIndex] = NULL;
+        bool retVal = true;
+
+        if(mandatory == true && prop == NULL)
+        {
+            retVal = false;
+        }
+
+        return retVal;
     }
-    if(attribData[Geometry::ColorsIndex] != NULL&& 
-       attribPtr[Geometry::ColorsIndex]->getSize() == 1)   
+
+    // collect info for property in 'slot'
+    bool pumpGLSetup(PumpInfo &info, UInt16 slot)
     {
-        ColorFunc(attribData[Geometry::ColorsIndex]);
-        attribData[Geometry::ColorsIndex] = NULL;
-    }
-    if(win->hasExtension(_extSecondaryColor) && 
-       attribData[Geometry::SecondaryColorsIndex] != NULL&& 
-       attribPtr[Geometry::SecondaryColorsIndex]->getSize() == 1)    
-    {
-        SecColorFunc(attribData[Geometry::SecondaryColorsIndex]);
-        attribData[Geometry::SecondaryColorsIndex] = NULL;
-    }
-    if(attribData[Geometry::TexCoordsIndex] != NULL&& 
-       attribPtr[Geometry::TexCoordsIndex]->getSize() == 1)   
-    {
-        TexCoordsFunc(attribData[Geometry::TexCoordsIndex]);
-        attribData[Geometry::TexCoordsIndex] = NULL;
-    }
-    if(win->hasExtension(_extMultitexture))
-    {
-        if(attribData[Geometry::TexCoords1Index] != NULL&& 
-           attribPtr[Geometry::TexCoords1Index]->getSize() == 1)   
-        {
-            TexCoords1Func(GL_TEXTURE1_ARB, 
-                           attribData[Geometry::TexCoords1Index]);
-            attribData[Geometry::TexCoords1Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords2Index] != NULL&& 
-           attribPtr[Geometry::TexCoords2Index]->getSize() == 1)   
-        {
-            TexCoords2Func(GL_TEXTURE2_ARB, 
-                           attribData[Geometry::TexCoords2Index]);
-            attribData[Geometry::TexCoords2Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords3Index] != NULL&& 
-           attribPtr[Geometry::TexCoords3Index]->getSize() == 1)   
-        {
-            TexCoords3Func(GL_TEXTURE3_ARB, 
-                           attribData[Geometry::TexCoords3Index]);
-            attribData[Geometry::TexCoords3Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords4Index] != NULL&& 
-           attribPtr[Geometry::TexCoords4Index]->getSize() == 1)   
-        {
-            TexCoords2Func(GL_TEXTURE4_ARB, 
-                           attribData[Geometry::TexCoords4Index]);
-            attribData[Geometry::TexCoords4Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords5Index] != NULL&& 
-           attribPtr[Geometry::TexCoords5Index]->getSize() == 1)   
-        {
-            TexCoords2Func(GL_TEXTURE5_ARB, 
-                           attribData[Geometry::TexCoords5Index]);
-            attribData[Geometry::TexCoords5Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords6Index] != NULL&& 
-           attribPtr[Geometry::TexCoords6Index]->getSize() == 1)   
-        {
-            TexCoords2Func(GL_TEXTURE6_ARB, 
-                           attribData[Geometry::TexCoords6Index]);
-            attribData[Geometry::TexCoords6Index] = NULL;
-        }
-        if(attribData[Geometry::TexCoords7Index] != NULL&& 
-           attribPtr[Geometry::TexCoords7Index]->getSize() == 1)   
-        {
-            TexCoords2Func(GL_TEXTURE7_ARB, 
-                           attribData[Geometry::TexCoords7Index]);
-            attribData[Geometry::TexCoords7Index] = NULL;
-        }
-    }
-    
-    // Set up attribute arrays
-    // !!! This should be using the global state to reduce state changes
-    // and to allow sharing data between objects
+        bool retVal = false;
 
-    UInt16 nattrib = geo->getMFProperties()->size();
+        if(slot < info.prop->size())
+            info.attribPtr[slot] = (*info.prop)[slot];
 
-    for(Int16 i = nattrib - 1; i >= 0; --i)
-    {
-        if(attribPtr[i] != NULL)
+        if(slot < info.propIdx->size())
+            info.attribIndex[slot] = (*info.propIdx)[slot];
+
+        if(info.attribPtr[slot]              != NULL  &&
+           info.attribPtr[slot]->getIgnore() == false   )
         {
-            attribPtr[i]->activate(pEnv, i);
-        }
-    }
-    
-    // Length handling. Special case: no length given
+            info.attribData  [slot] = info.attribPtr[slot]->getData();
+            info.attribStride[slot] = info.attribPtr[slot]->getStride();
 
-    UInt32 curlen;
-    UInt32 nprims;
-
-    // no lengths? use all available data for the first type
-    if(LengthPtr == NULL)
-    {
-        if(TypePtr->getSize() != 1)
-        {
-            SWARNING << "masterPump: Geometry " << geo 
-                     << " has no length but more than one type!?!"
-                     << endLog;
-            return;
-        }
-        
-        nprims = 1;
-        if (attribIndex[Geometry::PositionsIndex] != NULL)
-        {
-            curlen = attribIndex[Geometry::PositionsIndex]->getSize();
-        }
-        else
-        {
-            curlen = attribPtr[Geometry::PositionsIndex]->getSize();
-        }
-    }
-    else
-    {
-        nprims = TypePtr->getSize();
-        LengthPtr->getValue(curlen, 0);
-    }
-    
-    UInt32 vertindex = 0;
-
-    if(attribIndex[0] != NULL)
-    {        
-        // Indexed, i.e. Single Indexed
-
-        GeoIntegralProperty *index = attribIndex[0];
-        GLenum               indexFormat = index->getFormat();
-        UInt32               indexSize   = index->getSize();
-        UInt32               indexStride = index->getStride() ? 
-                                index->getStride() : index->getFormatSize() *
-                                                     index->getDimension();
-        const UInt8  *indexData   = index->getData();
-        
-        index->activate(pEnv, 0);
-        
-        if(index->isInVBO(pEnv))
-            indexData = NULL;
-        else if (win->hasExtension(_extCompiledVertexArray))
-        {
-            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
-                reinterpret_cast<void (OSG_APIENTRY*) (GLint first, 
-                                                       GLsizei count)>(
-                    win->getFunction(_funcglLockArraysEXT));
-
-            _glLockArraysEXT(0, indexSize);
-        }
-
-        void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)
-                (GLenum mode, GLuint start,
-                 GLuint end, GLsizei count, 
-                 GLenum type, const GLvoid*indices) =
-            reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode, 
-                                                   GLuint start,
-                                                   GLuint end, 
-                                                   GLsizei count, 
-                                                   GLenum type, 
-                                                   const GLvoid*indices)>(
-                win->getFunction(_funcglDrawRangeElementsEXT));
-
-        if(win->hasExtension(_extDrawRangeElements))
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            if(info.attribStride[slot] == 0)
             {
-                if(primindex < LengthPtr->getSize())
-                    curlen = LengthPtr->getValue<UInt32>(primindex);
-
-                osgGLDrawRangeElementsEXT(TypePtr->getValue<UInt16>(primindex),
-                                          0, 
-                                          indexSize, 
-                                          curlen,
-                                          indexFormat, 
-                                          indexData + vertindex * indexStride);
-                
-                vertindex += curlen;
+                info.attribStride[slot] =
+                    info.attribPtr[slot]->getFormatSize() *
+                    info.attribPtr[slot]->getDimension();
             }
-        }
-        else
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-            {
-                if(primindex < LengthPtr->getSize())
-                    curlen = LengthPtr->getValue<UInt32>(primindex);
 
-                glDrawElements(TypePtr->getValue<UInt16>(primindex),
-                               curlen,
-                               indexFormat, 
-                               indexData + vertindex * indexStride);
-                
-                vertindex += curlen;
-            }
-        }        
-
-        if(!index->isInVBO(pEnv) && win->hasExtension(_extCompiledVertexArray))
-        {
-            void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
-                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
-                    win->getFunction(_funcglUnlockArraysEXT));
-
-            _glUnlockArraysEXT();
-        }
-        else
-        {
-            index->deactivate(pEnv);
+            retVal = true;
         }
 
-    }
-    else
-    {
-        // Non-indexed
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-        {
-            if(primindex < LengthPtr->getSize())
-                curlen = LengthPtr->getValue<UInt32>(primindex);
-
-            glDrawArrays(TypePtr->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
-
-        }
+        return retVal;
     }
 
-
-    // disable arrays
-    for(Int16 i = nattrib - 1; i >= 0; --i)
+    // handle vertex attrib with global value
+    void globalAttrib(PumpInfo &info, UInt16 slot, UInt16 pumpSlot)
     {
-        if(attribPtr[i] != NULL)
+        if(info.attribData[slot]            != NULL &&
+           info.attribPtr [slot]->getSize() == 1      )
         {
-            attribPtr[i]->deactivate(pEnv, i);
-        }
-    }
-}
+            UInt16 formatIdx = info.attribPtr[slot]->getFormat   () - formatBase;
+            UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
 
-void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
-                                                  Geometry *geo )
-{
-    Window *win = pEnv->getWindow();
-    
-    // Setup: get all the data
+            pumpFunc pump = pumpFuncs[pumpSlot][formatIdx][dimIdx];
 
-    pumpInternalSetup( Type, GeoPTypesPtr, getTypes, true );
-    pumpInternalSetup( Length, GeoPLengthsPtr, getLengths, false );
-       
-    // check if the node is empty
-    if(TypePtr == NULL || TypePtr->getSize() == 0)
-        return;
-
-    // Most of these are only needed for global attribs ...
-    
-    const UInt8               *attribData  [Geometry::MaxAttribs];
-          UInt32               attribStride[Geometry::MaxAttribs];
-          UInt32               attribInd   [Geometry::MaxAttribs];
-          GeoVectorProperty   *attribPtr   [Geometry::MaxAttribs];
-          GeoIntegralProperty *attribIndex [Geometry::MaxAttribs];
-          attribPumpFunc       attribFunc  [Geometry::MaxAttribs];
-
-    UInt16 nattrib = geo->getMFProperties()->size();
-    
-    for(UInt16 i = 0; i < nattrib; ++i)
-    {
-        attribInd[i] = 0;
-        attribPtr[i] = geo->getProperty(i);
-        if(attribPtr[i] != NULL)
-        {
-            attribIndex[i] = geo->getIndex(i);
-            attribData[i] = attribPtr[i]->getData();
-            if(!(attribStride[i] = attribPtr[i]->getStride()))
-                attribStride[i] = attribPtr[i]->getFormatSize() *
-                                  attribPtr[i]->getDimension();
-                                  
-            UInt32 funcid;
-            
-            if(attribPtr[i]->getNormalize())
+            if(pump == NULL)
             {
-                if(NormAttribIDs[attribPtr[i]->getFormat() - formatBase]
-                                [attribPtr[i]->getDimension() - 1] ==
-                            Window::invalidFunctionID)
-                {
-                    SWARNING << "masterPump: Geometry " << geo 
-                             << " has illegal attribute " << i 
-                             << ": " << attribPtr[i]->getDimension()
-                             << "D " << formatNames[ attribPtr[i]->getFormat() -
-                                                    formatBase ]
-                             << " (normalizing)!" << std::endl;
-                    return;
-                } 
-                funcid = NormAttribIDs[attribPtr[i]->getFormat() - formatBase]
-                                      [attribPtr[i]->getDimension() - 1];    
-            }
-            else
-            {
-                if(AttribIDs[attribPtr[i]->getFormat() - formatBase]
-                            [attribPtr[i]->getDimension() - 1] ==
-                            Window::invalidFunctionID)
-                {
-                    SWARNING << "masterPump: Geometry " << geo 
-                             << " has illegal attribute " << i 
-                             << ": " << attribPtr[i]->getDimension()
-                             << "D " << formatNames[ attribPtr[i]->getFormat() -
-                                                    formatBase ]
-                             << "!" << std::endl;
-                    return;
-                } 
-                funcid = AttribIDs[attribPtr[i]->getFormat() - formatBase]
-                                  [attribPtr[i]->getDimension() - 1];    
-            }
-            
-            if(!(attribFunc[i] = reinterpret_cast<attribPumpFunc>(
-                                     win->getFunction(funcid)) ) )
-            {
-                SWARNING << "masterPump: Geometry " << geo << " uses "
-                         << "attribute " << i << " "
-                         << attribPtr[i]->getDimension()
-                         << "D " << formatNames[ attribPtr[i]->getFormat() -
-                                                formatBase ]
-                         << " which are not supported by Window " << win
-                         <<  "!" << std::endl;
+                SWARNING << "GeoVertexArrayPumpGroup - globalExtAttrib: "
+                         << "Invalid pump function for property " << slot
+                         << " type " << info.attribPtr[slot]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << endLog;
                 return;
             }
-        }
-        else
-        {
-            attribData[i] = NULL;
-            attribFunc[i] = NULL;
-            attribStride[i] = 0;
+
+            pump(info.attribData[slot]);
+            info.attribData[slot] = NULL;
         }
     }
 
-    // if it's not empty we need positions
-    if(attribData[0] == NULL)
+    // handle vertex attrib with global value - using GL extension
+    void globalExtAttrib(PumpInfo &info,     UInt16  slot,
+                         UInt16    pumpSlot, Window *win)
     {
-        if(attribPtr[0] == NULL ||
-           attribPtr[0]->getUseVBO() == false)
+        if(info.attribData[slot]            != NULL &&
+           info.attribPtr [slot]->getSize() == 1      )
         {
-            SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
-                     << endLog;
-            return;
-        }
-    }
+            UInt16 formatIdx = info.attribPtr[slot]->getFormat   () - formatBase;
+            UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
+            UInt32 funcId    = pumpFuncIDs[pumpSlot][formatIdx][dimIdx];
 
-    // overall attributes?
-    for(Int16 i = 0; i < nattrib; ++i)
-    {
-        if(attribData[i] && attribPtr[i]->getSize() == 1)
-        {
-            attribFunc[i](i, attribData[i]);
-            attribData[i] = NULL;
-        }
-    }
-    
-    // Set up attribute arrays
-    // !!! This should be using the global state to reduce state changes
-    // and to allow sharing data between objects
-    for(Int16 i = nattrib - 1; i >= 0; --i)
-    {
-        if(attribPtr[i] != NULL)
-        {
-            attribPtr[i]->activate(pEnv, i + 16); // !!! HACK
-        }
-    }
-     
-
-    // Length handling. Special case: no length given
-
-    UInt32 curlen;
-    UInt32 nprims;
-
-    // no lengths? use all available data for the first type
-    if(LengthPtr == NULL)
-    {
-        if(TypePtr->getSize() != 1)
-        {
-            SWARNING << "masterPump: Geometry " << geo 
-                     << " has no length but more than one type!?!"
-                     << endLog;
-            return;
-        }
-        
-        nprims = 1;
-        if (attribIndex[0] != NULL)
-        {
-            curlen = attribIndex[0]->getSize();
-        }
-        else
-        {
-            curlen = attribPtr[0]->getSize();
-        }
-    }
-    else
-    {
-        nprims = TypePtr->getSize();
-        LengthPtr->getValue(curlen, 0);
-    }
-    
-    UInt32 vertindex = 0;
-
-
-    if(geo->getIndex(0) != NULL)
-    {        
-        // Single Indexed
-
-              GeoIntegralProperty *index       = geo->getIndex(0);
-        const UInt8               *indexData   = index->getData();
-              GLenum               indexFormat = index->getFormat();
-              UInt32               indexSize   = index->getSize();
-              UInt32               indexStride = index->getStride() ? 
-                index->getStride() : index->getFormatSize() *
-                                     index->getDimension();
-        
-        index->activate(pEnv, 0);
-        
-        if(index->isInVBO(pEnv))
-            indexData = NULL;
-        else if (win->hasExtension(_extCompiledVertexArray))
-        {
-            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
-                reinterpret_cast<void (OSG_APIENTRY*) (GLint first, 
-                                                       GLsizei count)>(
-                    win->getFunction(_funcglLockArraysEXT));
-
-            _glLockArraysEXT(0, indexSize);
-        }
-
-        void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)(GLenum mode, 
-                                                       GLuint start,
-                                                       GLuint end, 
-                                                       GLsizei count, 
-                                                       GLenum type, 
-                                                       const GLvoid*indices) =
-            reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode, 
-                                                   GLuint start,
-                                                   GLuint end, 
-                                                   GLsizei count, 
-                                                   GLenum type, 
-                                                   const GLvoid*indices)>(
-                win->getFunction(_funcglDrawRangeElementsEXT));
-
-        if(win->hasExtension(_extDrawRangeElements))
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            if(funcId == Window::invalidFunctionID)
             {
-                if(primindex < LengthPtr->getSize())
-                    curlen = LengthPtr->getValue<UInt32>(primindex);
-
-                osgGLDrawRangeElementsEXT(TypePtr->getValue<UInt16>(primindex),
-                                          0, 
-                                          indexSize, 
-                                          curlen,
-                                          indexFormat, 
-                                          indexData + vertindex * indexStride);
-                
-                vertindex += curlen;
+                SWARNING << "GeoVertexArrayPumpGroup - globalExtAttrib: "
+                         << "Invalid extension function for property " << slot
+                         << " type " << info.attribPtr[slot]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << endLog;
+                return;
             }
-        }
-        else
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+
+            pumpFunc pump =
+                reinterpret_cast<pumpFunc>(win->getFunction(funcId));
+
+            if(pump == NULL)
             {
-                if(primindex < LengthPtr->getSize())
-                    curlen = LengthPtr->getValue<UInt32>(primindex);
-
-                glDrawElements(TypePtr->getValue<UInt16>(primindex),
-                               curlen,
-                               indexFormat, 
-                               indexData + vertindex * indexStride);
-                
-                vertindex += curlen;
+                SWARNING << "GeoVertexArrayPumpGroup - globalExtAttrib: "
+                         << "Extension function for property " << slot
+                         << " type " << info.attribPtr[slot]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << " not supported by Window " << win
+                         << endLog;
+                return;
             }
-        }        
 
-        if(!index->isInVBO(pEnv) && win->hasExtension(_extCompiledVertexArray))
-        {
-            void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
-                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
-                    win->getFunction(_funcglUnlockArraysEXT));
-
-            _glUnlockArraysEXT();
-        }
-        else
-        {
-            index->deactivate(pEnv);
-        }
-    }
-    else
-    {
-        // Non-indexed
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-        {
-            if(primindex < LengthPtr->getSize())
-                curlen = LengthPtr->getValue<UInt32>(primindex);
-
-            glDrawArrays(TypePtr->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
+            pump(info.attribData[slot]);
+            info.attribData[slot] = NULL;
         }
     }
 
-    // disable arrays
-    for(Int16 i = nattrib - 1; i >= 0; --i)
+    // handle vertex attrib with global value - using GL extension, multi
+    void globalExtMultiAttrib(PumpInfo &info,     UInt16  slot,
+                              UInt16    pumpSlot, GLenum  attrib,
+                              Window   *win                      )
     {
-        if(attribData[i] != NULL)
+        if(info.attribData[slot]            != NULL &&
+           info.attribPtr [slot]->getSize() == 1      )
         {
-            attribPtr[i]->deactivate(pEnv, i + 16);
+            UInt16 formatIdx = info.attribPtr[slot]->getFormat   () - formatBase;
+            UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
+            UInt32 funcId    = pumpFuncIDs[pumpSlot][formatIdx][dimIdx];
+
+            if(funcId == Window::invalidFunctionID)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup - globalExtMultiAttrib: "
+                         << "Invalid extension function for property " << slot
+                         << " type " << info.attribPtr[slot]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << endLog;
+                return;
+            }
+
+            multiPumpFunc pump =
+                reinterpret_cast<multiPumpFunc>(win->getFunction(funcId));
+
+            if(pump == NULL)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup - globalExtMutliAttrib: "
+                         << "Extension function for property " << slot
+                         << " type " << info.attribPtr[slot]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << " not supported by Window " << win
+                         << endLog;
+                return;
+            }
+
+            pump(attrib, info.attribData[slot]);
+            info.attribData[slot] = NULL;
         }
     }
-}
 
-void GeoVertexArrayPumpGroup::masterGeoPump(DrawEnv  *pEnv,
-                                            Geometry *geo)
-{
-    Window *win = pEnv->getWindow();
-    
-    if(win->hasExtension(_arbVertexProgram))
-    {
-        masterAttribGeoPump(pEnv, geo);
-    }
-    else
-    {
-        masterClassicGeoPump(pEnv, geo);
-    }
-}
+} // namespace
+
+#endif      // remove from all but dev docs
 
 
 GeoPumpGroup::GeoPump GeoVertexArrayPumpGroup::getGeoPump(
@@ -1242,11 +673,11 @@ GeoPumpGroup::GeoPump GeoVertexArrayPumpGroup::getGeoPump(
     // Remove the stuff we can handle
     PropertyCharacteristics prop;
     prop = acset & ~(NonTraditionalProperties|UsesShader);
-    
+
     if(prop == SingleIndexed || prop == NonIndexed)
     {
         Window *win = pEnv->getWindow();
-        
+
         if(win->hasExtension(_arbVertexProgram) && (acset & UsesShader))
         {
             return masterAttribGeoPump;
@@ -1256,62 +687,45 @@ GeoPumpGroup::GeoPump GeoVertexArrayPumpGroup::getGeoPump(
             return masterClassicGeoPump;
         }
     }
-    
+
     return NULL;
 }
-
-GeoPumpGroup::PartialGeoPump GeoVertexArrayPumpGroup::getPartialGeoPump(
-    DrawEnv                 *pEnv, 
-    PropertyCharacteristics  acset)
-{
-    return NULL;
-}
-
-GeoPumpGroup::ExtIndexGeoPump GeoVertexArrayPumpGroup::getExtIndexGeoPump(
-    DrawEnv                 *pEnv, 
-    PropertyCharacteristics acset)
-{
-    return NULL;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174,1209
-#endif
 
 bool GeoVertexArrayPumpGroup::glextInitFunction(void)
 {
-    _extSecondaryColor      = 
+    _extSecondaryColor      =
         Window::registerExtension("GL_EXT_secondary_color");
-    _extMultitexture        = 
+    _extMultitexture        =
         Window::registerExtension("GL_ARB_multitexture");
-    _arbVertexProgram       = 
+    _arbVertexProgram       =
         Window::registerExtension("GL_ARB_vertex_program");
-    _extCompiledVertexArray = 
+    _extCompiledVertexArray =
         Window::registerExtension("GL_EXT_compiled_vertex_array");
-    _extDrawRangeElements   = 
+    _extDrawRangeElements   =
         Window::registerExtension("GL_EXT_draw_range_elements");
-        
-    UInt16 i,j;
-    for(i = 0; i < numFormats; i++)
+
+    for(UInt16 i = 0; i < numFormats; ++i)
     {
-        for(j = 0; j < 4; j++)
+        for(UInt16 j = 0; j < 4; ++j)
         {
-            SecColorIDs  [i][j] = Window::invalidFunctionID;
-            TexCoords1IDs[i][j] = Window::invalidFunctionID;
+            pumpFuncIDs[0][i][j] = Window::invalidFunctionID;
+            pumpFuncIDs[1][i][j] = Window::invalidFunctionID;
         }
     }
 
-    for(i = 0; i < 8; i++)
-        secondaryColorInitFuncs[i].init(SecColorIDs, _extSecondaryColor);
+    for(UInt16 i = 0; i < 8; ++i)
+        secondaryColorInitFuncs[i].init(pumpFuncIDs[SecColorsPumpSlot],
+                                        _extSecondaryColor             );
 
-    for(i = 0; i < 16; i++)
-        multiTexCoordsInitFuncs[i].init(TexCoords1IDs, _extMultitexture);
+    for(UInt16 i = 0; i < 16; ++i)
+        multiTexCoordsInitFuncs[i].init(pumpFuncIDs[TexCoords1PumpSlot],
+                                        _extMultitexture                );
 
-    for(i = 0; i < 23; i++)
-        attribInitFuncs[i].init(AttribIDs, _arbVertexProgram);
+    for(UInt16 i = 0; i < 23; ++i)
+        attribInitFuncs[i].init(attribPumpFuncIDs, _arbVertexProgram);
 
-    for(i = 0; i < 6; i++)
-        normAttribInitFuncs[i].init(NormAttribIDs, _arbVertexProgram);
+    for(UInt16 i = 0; i < 6; ++i)
+        normAttribInitFuncs[i].init(normAttribPumpFuncIDs, _arbVertexProgram);
 
     _funcglSecondaryColorPointer  = Window::registerFunction(
                             OSG_DLSYM_UNDERSCORE"glSecondaryColorPointerEXT",
@@ -1339,4 +753,514 @@ bool GeoVertexArrayPumpGroup::glextInitFunction(void)
                             _arbVertexProgram);
 
     return true;
+}
+
+
+void GeoVertexArrayPumpGroup::masterClassicGeoPump(
+          DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+    Window *win = pEnv->getWindow();
+
+    // Setup: get all the data
+
+    // check for empty geometry
+    if(types == NULL || types->getSize() == 0)
+        return;
+
+    if(!pumpInternalSetup(types,   true))
+        return;
+    if(!pumpInternalSetup(lengths, false))
+        return;
+
+    PumpInfo pumpInfo;
+    pumpInfo.lengths = lengths;
+    pumpInfo.types   = types;
+    pumpInfo.prop    = prop;
+    pumpInfo.propIdx = propIdx;
+
+    // setup standard properties
+    pumpGLSetup(pumpInfo, Geometry::PositionsIndex);
+    pumpGLSetup(pumpInfo, Geometry::ColorsIndex);
+    pumpGLSetup(pumpInfo, Geometry::NormalsIndex);
+    pumpGLSetup(pumpInfo, Geometry::TexCoordsIndex);
+
+    // setup extension properties
+    pumpGLSetup(pumpInfo, Geometry::SecondaryColorsIndex);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords1Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords2Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords3Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords4Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords5Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords6Index);
+    pumpGLSetup(pumpInfo, Geometry::TexCoords7Index);
+
+    // we need positions
+    if(pumpInfo.attribPtr[Geometry::PositionsIndex] == NULL)
+    {
+        if(pumpInfo.attribPtr[Geometry::PositionsIndex]              == NULL ||
+           pumpInfo.attribPtr[Geometry::PositionsIndex]->getUseVBO() == false)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterClassicGeoPump: "
+                     << "No positions." << endLog;
+            return;
+        }
+    }
+
+    // global attribs?
+    globalAttrib(pumpInfo, Geometry::NormalsIndex,   NormalsPumpSlot);
+    globalAttrib(pumpInfo, Geometry::ColorsIndex,    ColorsPumpSlot);
+    globalAttrib(pumpInfo, Geometry::TexCoordsIndex, TexCoordsPumpSlot);
+
+    if(win->hasExtension(_extSecondaryColor) == true)
+    {
+        globalExtAttrib(pumpInfo,          Geometry::SecondaryColorsIndex,
+                        SecColorsPumpSlot, win                            );
+    }
+
+    if(win->hasExtension(_extMultitexture) == true)
+    {
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords1PumpSlot, GL_TEXTURE1_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords2PumpSlot, GL_TEXTURE2_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords3PumpSlot, GL_TEXTURE3_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords4PumpSlot, GL_TEXTURE4_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords5PumpSlot, GL_TEXTURE5_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords6PumpSlot, GL_TEXTURE6_ARB, win);
+        globalExtMultiAttrib(pumpInfo,           Geometry::TexCoords1Index,
+                             TexCoords7PumpSlot, GL_TEXTURE7_ARB, win);
+    }
+
+    // activate vertex arrays
+    // !!! This should be using the global state to reduce state changes
+    // and to allow sharing data between objects
+
+    UInt16 nattrib = prop->size();
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpInfo.attribPtr[i] != NULL)
+        {
+            pumpInfo.attribPtr[i]->activate(pEnv, i);
+        }
+    }
+
+    // Length handling. Special case: no length given
+
+    UInt32 curlen;
+    UInt32 nprims;
+
+    // no lengths? use all available data for the first type
+    if(lengths == NULL)
+    {
+        if(types->getSize() != 1)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterClassicGeoPump: "
+                     << "No lengths, but more than one type?!"
+                     << endLog;
+            return;
+        }
+
+        nprims = 1;
+        if(pumpInfo.attribIndex[Geometry::PositionsIndex] != NULL)
+        {
+            curlen = pumpInfo.attribIndex[Geometry::PositionsIndex]->getSize();
+        }
+        else
+        {
+            curlen = pumpInfo.attribPtr[Geometry::PositionsIndex]->getSize();
+        }
+    }
+    else
+    {
+        nprims = types->getSize();
+        lengths->getValue(curlen, 0);
+    }
+
+    UInt32 vertindex = 0;
+
+    if(pumpInfo.attribIndex[0] != NULL)
+    {
+        // Indexed, i.e. Single Indexed
+
+        GeoIntegralProperty *index       = pumpInfo.attribIndex[0];
+        const UInt8         *indexData   = index->getData();
+        GLenum               indexFormat = index->getFormat();
+        UInt32               indexSize   = index->getSize();
+        UInt32               indexStride =
+            index->getStride() ? index->getStride() : index->getFormatSize() *
+                                                      index->getDimension();
+
+        index->activate(pEnv, 0);
+
+        if(index->isInVBO(pEnv) == true)
+        {
+            indexData = NULL;
+        }
+        else if(win->hasExtension(_extCompiledVertexArray) == true)
+        {
+            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
+                reinterpret_cast<void (OSG_APIENTRY*) (GLint first,
+                                                       GLsizei count)>(
+                    win->getFunction(_funcglLockArraysEXT));
+
+            _glLockArraysEXT(0, indexSize);
+        }
+
+        if(win->hasExtension(_extDrawRangeElements))
+        {
+            void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)
+                (GLenum mode, GLuint start,
+                 GLuint end, GLsizei count,
+                 GLenum type, const GLvoid*indices) =
+                reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode,
+                                                       GLuint start,
+                                                       GLuint end,
+                                                       GLsizei count,
+                                                       GLenum type,
+                                                       const GLvoid*indices)>(
+                    win->getFunction(_funcglDrawRangeElementsEXT));
+
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->getSize())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                osgGLDrawRangeElementsEXT(types->getValue<UInt16>(primindex),
+                                          0,
+                                          indexSize,
+                                          curlen,
+                                          indexFormat,
+                                          indexData + vertindex * indexStride);
+
+                vertindex += curlen;
+            }
+        }
+        else
+        {
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->getSize())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
+
+                vertindex += curlen;
+            }
+        }
+
+        if(index->isInVBO(pEnv)                       == false &&
+           win->hasExtension(_extCompiledVertexArray) == true    )
+        {
+            void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
+                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
+                    win->getFunction(_funcglUnlockArraysEXT));
+
+            _glUnlockArraysEXT();
+        }
+
+        index->deactivate(pEnv, 0);
+    }
+    else
+    {
+        // Non-indexed
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->getSize())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                         curlen);
+            vertindex += curlen;
+        }
+    }
+
+    // disable arrays
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpInfo.attribPtr[i] != NULL)
+        {
+            pumpInfo.attribPtr[i]->deactivate(pEnv, i);
+        }
+    }
+}
+
+void GeoVertexArrayPumpGroup::masterAttribGeoPump(
+          DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+    Window *win = pEnv->getWindow();
+
+    // Setup: get all the data
+
+    // check for empty geometry
+    if(types == NULL || types->getSize() == 0)
+        return;
+
+    if(!pumpInternalSetup(types,   true))
+        return;
+    if(!pumpInternalSetup(lengths, false))
+        return;
+
+    attribPumpFunc attribFunc[Geometry::MaxAttribs];
+    PumpInfo       pumpInfo;
+    pumpInfo.lengths = lengths;
+    pumpInfo.types   = types;
+    pumpInfo.prop    = prop;
+    pumpInfo.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpInfo, i) == false)
+            continue;
+
+        UInt16 formatIdx = pumpInfo.attribPtr[i]->getFormat   () - formatBase;
+        UInt16 dimIdx    = pumpInfo.attribPtr[i]->getDimension() - 1;
+        UInt32 funcId    = Window::invalidFunctionID;
+
+        if(pumpInfo.attribPtr[i]->getNormalize() == true)
+        {
+            funcId = normAttribPumpFuncIDs[formatIdx][dimIdx];
+
+            if(funcId == Window::invalidFunctionID)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                         << "Invalid pump function for property " << i
+                         << " type " << pumpInfo.attribPtr[i]->getDimension()
+                         << "D " << formatNames[formatIdx] << " (normalizing)."
+                         << endLog;
+
+                pumpInfo.attribData[i] = NULL;
+                pumpInfo.attribPtr [i] = NULL;
+                continue;
+            }
+        }
+        else
+        {
+            funcId = attribPumpFuncIDs[formatIdx][dimIdx];
+
+            if(funcId == Window::invalidFunctionID)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                         << "Invalid pump function for property " << i
+                         << " type " << pumpInfo.attribPtr[i]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << endLog;
+
+                pumpInfo.attribData[i] = NULL;
+                pumpInfo.attribPtr [i] = NULL;
+                continue;
+            }
+        }
+
+        attribFunc[i] = reinterpret_cast<attribPumpFunc>(
+            win->getFunction(funcId));
+
+        if(attribFunc[i] == NULL)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "Extension function for property " << i
+                     << " type " << pumpInfo.attribPtr[i]->getDimension()
+                     << "D " << formatNames[formatIdx]
+                     << " not supported by Window " << win
+                     << endLog;
+
+            pumpInfo.attribData[i] = NULL;
+            pumpInfo.attribPtr [i] = NULL;
+            continue;
+        }
+    }
+
+    // we need positions
+    if(pumpInfo.attribPtr[0] == NULL)
+    {
+        if(pumpInfo.attribPtr[0]              == NULL ||
+           pumpInfo.attribPtr[0]->getUseVBO() == false)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No positions." << endLog;
+            return;
+        }
+    }
+
+    // global attribs?
+    for(Int16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpInfo.attribData[i]            != NULL &&
+           pumpInfo.attribPtr [i]->getSize() == 1      )
+        {
+            attribFunc[i](i, pumpInfo.attribData[i]);
+            pumpInfo.attribData[i] = NULL;
+        }
+    }
+
+    // activate vertex arrays
+    // !!! This should be using the global state to reduce state changes
+    // and to allow sharing data between objects
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpInfo.attribPtr[i] != NULL)
+        {
+            pumpInfo.attribPtr[i]->activate(pEnv, i + 16); // XXX HACK
+        }
+    }
+
+    // Length handling. Special case: no length given
+
+    UInt32 curlen;
+    UInt32 nprims;
+
+    // no lengths? use all available data for the first type
+    if(lengths == NULL)
+    {
+        if(types->getSize() != 1)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No lengths, but more than one type?!"
+                     << endLog;
+            return;
+        }
+
+        nprims = 1;
+        if(pumpInfo.attribIndex[0] != NULL)
+        {
+            curlen = pumpInfo.attribIndex[0]->getSize();
+        }
+        else
+        {
+            curlen = pumpInfo.attribPtr[0]->getSize();
+        }
+    }
+    else
+    {
+        nprims = types->getSize();
+        lengths->getValue(curlen, 0);
+    }
+
+    UInt32 vertindex = 0;
+
+    if(pumpInfo.attribIndex[0] != NULL)
+    {
+        // Single Indexed
+
+        GeoIntegralProperty *index       = pumpInfo.attribIndex[0];
+        const UInt8         *indexData   = index->getData();
+        GLenum               indexFormat = index->getFormat();
+        UInt32               indexSize   = index->getSize();
+        UInt32               indexStride =
+            index->getStride() ? index->getStride() : index->getFormatSize() *
+                                                      index->getDimension();
+
+        index->activate(pEnv, 0);
+
+        if(index->isInVBO(pEnv))
+        {
+            indexData = NULL;
+        }
+        else if (win->hasExtension(_extCompiledVertexArray))
+        {
+            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
+                reinterpret_cast<void (OSG_APIENTRY*) (GLint first,
+                                                       GLsizei count)>(
+                                                           win->getFunction(_funcglLockArraysEXT));
+
+            _glLockArraysEXT(0, indexSize);
+        }
+
+        if(win->hasExtension(_extDrawRangeElements))
+        {
+            void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)
+                (GLenum mode, GLuint start,
+                 GLuint end, GLsizei count,
+                 GLenum type, const GLvoid*indices) =
+                reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode,
+                                                       GLuint start,
+                                                       GLuint end,
+                                                       GLsizei count,
+                                                       GLenum type,
+                                                       const GLvoid*indices)>(
+                    win->getFunction(_funcglDrawRangeElementsEXT));
+
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->getSize())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                osgGLDrawRangeElementsEXT(types->getValue<UInt16>(primindex),
+                                          0,
+                                          indexSize,
+                                          curlen,
+                                          indexFormat,
+                                          indexData + vertindex * indexStride);
+
+                vertindex += curlen;
+            }
+        }
+        else
+        {
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->getSize())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
+
+                vertindex += curlen;
+            }
+        }
+
+        if(index->isInVBO(pEnv)                       == false &&
+           win->hasExtension(_extCompiledVertexArray) == true    )
+        {
+            void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
+                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
+                    win->getFunction(_funcglUnlockArraysEXT));
+
+            _glUnlockArraysEXT();
+        }
+
+        index->deactivate(pEnv, 0);
+    }
+    else
+    {
+        // Non-indexed
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->getSize())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                         curlen);
+            vertindex += curlen;
+        }
+    }
+
+    // disable arrays
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpInfo.attribData[i] != NULL)
+        {
+            pumpInfo.attribPtr[i]->deactivate(pEnv, i + 16);
+        }
+    }
 }

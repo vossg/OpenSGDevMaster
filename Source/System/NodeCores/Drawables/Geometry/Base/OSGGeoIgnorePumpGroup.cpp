@@ -48,15 +48,10 @@
 
 #include "OSGConfig.h"
 
-#include "OSGGL.h"
-#include "OSGGLEXT.h"
-
 #include "OSGLog.h"
 
 #include "OSGGeometry.h"
 #include "OSGDrawEnv.h"
-
-#include "OSGMaterial.h"
 
 #include "OSGGeoIgnorePumpGroup.h"
 
@@ -90,45 +85,18 @@ GeoIgnorePumpGroup::~GeoIgnorePumpGroup(void)
 \*-------------------------------------------------------------------------*/
 
 
-void GeoIgnorePumpGroup::masterGeoPump(DrawEnv  *pEnv,
-                                       Geometry *geo)
-{
-}
-
-
-void GeoIgnorePumpGroup::masterPartialGeoPump(DrawEnv  *pEnv,
-                                              Geometry *geo,
-                                              UInt32    primtype, 
-                                              UInt32    firstvert, 
-                                              UInt32    nvert   )
-{
-}
-
-void GeoIgnorePumpGroup::masterExtIndexGeoPump(DrawEnv  *pEnv,
-                                               Geometry *geo,
-                                               UInt32   *indices, 
-                                               UInt32    nvert)
-{
-}
-
-
 GeoPumpGroup::GeoPump GeoIgnorePumpGroup::getGeoPump(
-                    DrawEnv                 *pEnv,
-                    PropertyCharacteristics  acset)
+    DrawEnv                 *pEnv,
+    PropertyCharacteristics  acset)
 {
     return masterGeoPump;
 }
 
-GeoPumpGroup::PartialGeoPump GeoIgnorePumpGroup::getPartialGeoPump(
-                    DrawEnv                 *pEnv, 
-                    PropertyCharacteristics  acset)
+void GeoIgnorePumpGroup::masterGeoPump(
+          DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx )
 {
-    return masterPartialGeoPump;
-}
-
-GeoPumpGroup::ExtIndexGeoPump GeoIgnorePumpGroup::getExtIndexGeoPump(
-                    DrawEnv                 *pEnv, 
-                    PropertyCharacteristics  acset)
-{
-    return masterExtIndexGeoPump;
 }

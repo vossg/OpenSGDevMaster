@@ -48,7 +48,6 @@
 
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGGeoIntegralProperty.h"
-#include "OSGGeoPumpGroup.h"
 #include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE

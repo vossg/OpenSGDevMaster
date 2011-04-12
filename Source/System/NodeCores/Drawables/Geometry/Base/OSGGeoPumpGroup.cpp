@@ -71,7 +71,7 @@ OSG_USING_NAMESPACE
 
 /* \class OSG::GeoPumpGroup
    \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
+
 The PumpGroup is responsible for selecting the most appropriate pump
 function to send the geometry's data to OpenGL in the most efficient manner.
 
@@ -95,10 +95,10 @@ InitFuncWrapper GeoPumpGroup::actInit(GeoPumpGroup::initActiveGroups);
 bool GeoPumpGroup::initActiveGroups(void)
 {
     _activeGroups = new std::vector<GeoPumpGroup*>;
-    
+
     _activeGroups->push_back(new GeoVertexArrayPumpGroup);
     _activeGroups->push_back(new GeoImmediatePumpGroup);
-    
+
     addPostFactoryExitFunction(&GeoPumpGroup::terminateActiveGroups);
 
     return true;
@@ -110,7 +110,7 @@ bool GeoPumpGroup::terminateActiveGroups(void)
     {
         delete (*_activeGroups)[i];
     }
-    
+
     delete _activeGroups;
 
     return true;
@@ -123,30 +123,37 @@ std::string GeoPumpGroup::describePropertyCharacteristics(
                                         PropertyCharacteristics ac)
 {
     std::string result;
-    
+
     if(ac & GeoPumpGroup::NonIndexed)    result += "NonIndexed,";
     if(ac & GeoPumpGroup::SingleIndexed) result += "SingleIndexed,";
     if(ac & GeoPumpGroup::MultiIndexed)  result += "MultiIndexed,";
-    if(ac & GeoPumpGroup::NonTraditionalProperties) 
+    if(ac & GeoPumpGroup::NonTraditionalProperties)
         result += "NonTraditionalProperties,";
 
     result.resize(result.length()-1);
-    
+
     return result;
 }
 
-GeoPumpGroup::PropertyCharacteristics 
-    GeoPumpGroup::characterizeGeometry(
-    Geometry* geo)
+GeoPumpGroup::PropertyCharacteristics
+GeoPumpGroup::characterizeGeometry(Geometry* geo)
 {
-    PropertyCharacteristics val = 0;
-    
-    Int16 natt = geo->getMFProperties ()->size();
-    Int16 nind = geo->getMFPropIndices()->size();
-    
+    return characterizeGeometry(geo->getMFProperties(),
+                                geo->getMFPropIndices());
+}
+
+GeoPumpGroup::PropertyCharacteristics
+GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
+                                   const Geometry::MFPropIndicesType *propIdx)
+{
+    PropertyCharacteristics retVal = 0;
+
+    Int16 natt = prop   ->size();
+    Int16 nind = propIdx->size();
+
     // Check for single- and multi-indexed
     GeoIntegralProperty *ind = NULL;
-    
+
     bool single = true;
     bool multi  = true;
     bool nonind = true;
@@ -154,11 +161,11 @@ GeoPumpGroup::PropertyCharacteristics
     for(Int16 i = 0; i < natt; ++i)
     {
         // Only count actual attributes
-        if(geo->getProperty(i) != NULL)
+        if((*prop)[i] != NULL)
         {
             if(i < nind)
             {
-                if(geo->getIndex(i) == NULL)
+                if((*propIdx)[i] == NULL)
                 {
                     single = false;
                     multi = false;
@@ -166,77 +173,63 @@ GeoPumpGroup::PropertyCharacteristics
                 else
                 {
                     nonind = false;
-                    
+
                     if(ind == NULL)
-                        ind = geo->getIndex(i);
-                    
-                    if(geo->getIndex(i) != ind)
+                        ind = (*propIdx)[i];
+
+                    if((*propIdx)[i] != ind)
                         single = false;
                 }
             }
             else
             {
-               single = false;
-               multi = false; 
+                single = false;
+                multi = false;
             }
         }
     }
-    
-         if(nonind)  val |= GeoPumpGroup::NonIndexed;
-    else if(single)  val |= GeoPumpGroup::SingleIndexed;
-    else if(multi)   val |= GeoPumpGroup::MultiIndexed;
-    
+
+         if(nonind)  retVal |= GeoPumpGroup::NonIndexed;
+    else if(single)  retVal |= GeoPumpGroup::SingleIndexed;
+    else if(multi)   retVal |= GeoPumpGroup::MultiIndexed;
+
     // Check for non-traditional properties.
     // Right now just check existence of attribs 6&7
-    // To be complete this would also have to check 
+    // To be complete this would also have to check
     // type compatibility! *DR*
-    
-    if(natt > 6 && geo->getProperty(6) != NULL)
-        val |= GeoPumpGroup::NonTraditionalProperties;
-    if(natt > 7 && geo->getProperty(7) != NULL)
-        val |= GeoPumpGroup::NonTraditionalProperties;
-        
-    return val;
+
+    if(natt > 6 && (*prop)[6] != NULL)
+        retVal |= GeoPumpGroup::NonTraditionalProperties;
+    if(natt > 7 && (*prop)[7] != NULL)
+        retVal |= GeoPumpGroup::NonTraditionalProperties;
+
+    return retVal;
 }
 
 /*! Find the actual pumps for the given Window/Geometry.
 */
- 
-GeoPumpGroup::GeoPump GeoPumpGroup::findGeoPump(DrawEnv                 *pEnv, 
+
+GeoPumpGroup::GeoPump GeoPumpGroup::findGeoPump(DrawEnv                 *pEnv,
                                                 PropertyCharacteristics  acset)
 {
-    GeoPump pump = NULL;
-    
-    Window *win = pEnv->getWindow();
-    
+    GeoPump  pump = NULL;
+    Window  *win  = pEnv->getWindow();
+
     for(std::vector<GeoPumpGroup*>::iterator it = _activeGroups->begin();
         it != _activeGroups->end() && pump == NULL;
         ++it)
     {
         pump = (*it)->getGeoPump(pEnv,acset);
     }
-    
+
     if(pump == NULL)
     {
         FWARNING(("GeoPumpGroup::findGeoPump: Couldn't find pump for"
-                "Window %p and characteristics %s!\n", win, 
-                describePropertyCharacteristics(acset).c_str() ));
+                  "Window %p and characteristics %s!\n", win,
+                  describePropertyCharacteristics(acset).c_str() ));
     }
+
     return pump;
-}
-
-GeoPumpGroup::PartialGeoPump GeoPumpGroup::findPartialGeoPump(
-    DrawEnv                 *pEnv, 
-    PropertyCharacteristics  acset)
-{
-    return NULL;
-}
-
-GeoPumpGroup::ExtIndexGeoPump GeoPumpGroup::findExtIndexGeoPump(
-    DrawEnv                 *pEnv, 
-    PropertyCharacteristics  acset)
-{
-    return NULL;
 }
 
 GeoPumpGroup::~GeoPumpGroup()
