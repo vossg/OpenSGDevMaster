@@ -55,8 +55,9 @@ OSG_BEGIN_NAMESPACE
 const std::string OgreMeshReader::_versionString("[MeshSerializer_v1.8]");
 
 /* explicit */
-OgreMeshReader::OgreMeshReader(std::istream& is)
+OgreMeshReader::OgreMeshReader(std::istream& is, const OgreOptions &options)
     : Inherited(is),
+      _options (options),
       _rootN   (),
       _skel    ()
 {
@@ -689,21 +690,28 @@ OgreMeshReader::readMeshSkeletonLink(SubMeshStore &subMeshInfo)
 {
     OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink\n"));
 
-    std::string skelName = readString(_is);
+    if(_options.getLoadSkeleton() == true)
+    {
+        std::string skelName = readString(_is);
 
-    std::string   skelFile = SceneFileHandler::the()->getPathHandler()->findFile(skelName.c_str());
-    std::ifstream ifs(skelFile.c_str(), std::ios_base::in | std::ios_base::binary);
+        std::string   skelFile = SceneFileHandler::the()->getPathHandler()->findFile(skelName.c_str());
+        std::ifstream ifs(skelFile.c_str(), std::ios_base::in | std::ios_base::binary);
 
-    OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s' file '%s'\n",
-                  skelName.c_str(), skelFile.c_str()));
+        OSG_OGRE_LOG(("OgreMeshReader::readMeshSkeletonLink: skelName '%s' file '%s'\n",
+                      skelName.c_str(), skelFile.c_str()));
 
-    OgreSkeletonReader osr(ifs);
-    osr.read();
+        OgreSkeletonReader osr(ifs, _options);
+        osr.read();
 
-    _skel = osr.getSkeleton();
+        _skel = osr.getSkeleton();
 
-    if(osr.getGlobals() != NULL)
-        _rootN->addAttachment(osr.getGlobals());
+        if(osr.getGlobals() != NULL)
+            _rootN->addAttachment(osr.getGlobals());
+    }
+    else
+    {
+        skip(_is, _header.chunkSize - _chunkHeaderSize);
+    }
 }
 
 void

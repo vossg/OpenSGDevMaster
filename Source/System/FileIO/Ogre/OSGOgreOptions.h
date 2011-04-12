@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2010 by the OpenSG Forum                     *
+ *                Copyright (C) 2011 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,32 +36,20 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOGRESKELETONREADER_H_
-#define _OSGOGRESKELETONREADER_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGOGREOPTIONS_H_
+#define _OSGOGREOPTIONS_H_
 
-/*! \file OSGOgreSkeletonReader.h
+/*! \file OSGOgreOptions.h
     \ingroup GrpLoader
  */
 
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGOgreChunkReader.h"
-#include "OSGOgreOptions.h"
-
-#include "OSGAnimMatrixDataSource.h"
-#include "OSGAnimQuaternionDataSource.h"
-#include "OSGAnimVec3fDataSource.h"
-#include "OSGAnimTemplate.h"
-#include "OSGGlobalsAttachment.h"
-#include "OSGNode.h"
-#include "OSGSkeleton.h"
+#include "OSGIOFileTypeBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING OgreSkeletonReader : public OgreChunkReader
+class OSG_FILEIO_DLLMAPPING OgreOptions
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -69,72 +57,39 @@ class OSG_FILEIO_DLLMAPPING OgreSkeletonReader : public OgreChunkReader
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef OgreChunkReader  Inherited;
+    typedef OgreOptions                Self;
+    typedef IOFileTypeBase::OptionSet  OptionSet;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Constructors/Destructor                                      */
+    /*! \name Constructor/Destructor                                       */
     /*! \{                                                                 */
 
-    explicit  OgreSkeletonReader(      std::istream &is,
-                                 const OgreOptions  &options);
-    virtual  ~OgreSkeletonReader(void                       );
+    explicit  OgreOptions(      void             );
+    explicit  OgreOptions(const OptionSet &optSet);
+             ~OgreOptions(      void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Read                                                         */
+    /*! \name Options                                                      */
     /*! \{                                                                 */
 
-    void read(void);
+    void parseOptions(const OptionSet &optSet);
 
-    Skeleton*          getSkeleton(void);
-    GlobalsAttachment* getGlobals (void);
+    bool getLoadAnimations(void      ) const;
+    void setLoadAnimations(bool value);
+
+    bool getLoadSkeleton  (void      ) const;
+    void setLoadSkeleton  (bool value);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
-    enum ChunkIds
-    {
-        CHUNK_HEADER                   = 0x1000,
-        CHUNK_BONE                     = 0x2000,
-        CHUNK_BONE_PARENT              = 0x3000,
 
-        CHUNK_ANIMATION                = 0x4000,
-        CHUNK_ANIMATION_TRACK          = 0x4100,
-        CHUNK_ANIMATION_TRACK_KEYFRAME = 0x4110,
-        CHUNK_ANIMATION_LINK           = 0x5000
-    };
-
-    typedef std::vector<NodeUnrecPtr> JointNodeStore;
-
-    static const std::string _versionString;
-    static const std::size_t _boneLengthNoScale;
-    static const std::size_t _keyFrameLengthNoScale;
-
-    void readContent               (void);
-    void readBone                  (JointNodeStore       &joints  );
-    void readBoneParent            (JointNodeStore       &joints  );
-    void readAnimation             (JointNodeStore       &joints  );
-    void readAnimationTrack        (JointNodeStore       &joints,
-                                    AnimTemplate         *animTmpl);
-    // void readAnimationTrackKeyFrame(AnimMatrixDataSource *dataSrc );
-    void readAnimationTrackKeyFrame(AnimVec3fDataSource      *translateSrc,
-                                    AnimVec3fDataSource      *scaleSrc,
-                                    AnimQuaternionDataSource *rotateSrc    );
-    void readAnimationLink         (void);
-
-    void calcInvBindMatrices(JointNodeStore &joints          );
-    void calcInvBindMatrix  (Node           *node,
-                             Vec3f           parentTranslate,
-                             Vec3f           parentScale,
-                             Quaternion      parentRotate    );
-
-    const OgreOptions         &_options;
-
-    SkeletonUnrecPtr           _skel;
-    GlobalsAttachmentUnrecPtr  _globals;
+    bool _loadAnimations;
+    bool _loadSkeleton;
 };
 
 OSG_END_NAMESPACE
 
-#endif // _OSGOGRESKELETONREADER_H_
+#endif // _OSGOGREOPTIONS_H_

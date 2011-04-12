@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2010 by the OpenSG Forum                     *
+ *                Copyright (C) 2011 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,56 +36,56 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGOgreFileType.h"
-#include "OSGOgreMeshReader.h"
+#include "OSGOgreOptions.h"
+#include "OSGOgreLog.h"
 
 OSG_BEGIN_NAMESPACE
 
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-const Char8        *OgreFileType::_suffixA[] = { "mesh" };
-      OgreFileType  OgreFileType::_the(_suffixA,
-                                       sizeof(_suffixA),
-                                       false,
-                                       10,
-                                       OSG_READ_SUPPORTED);
-
-const Char8 *
-OgreFileType::getName(void) const
-{
-    return "Ogre Mesh";
-}
-
-NodeTransitPtr
-OgreFileType::read(std::istream &is,
-                   const Char8  *fileNameOrExtension,
-                   Resolver      resolver            ) const
-{
-    NodeTransitPtr rootN;
-
-    OgreOptions    options(this->getOptions());
-    OgreMeshReader omr(is, options);
-    omr.read();
-
-    rootN = omr.getRoot();
-
-    return rootN;
-}
-
-OgreFileType::OgreFileType(
-    const Char8 *suffixArray[], UInt16 suffixByteCount,
-    bool         override,      UInt32 overridePriority,
-    UInt32       flags                                  )
-
-    : Inherited(suffixArray, suffixByteCount,
-                override, overridePriority, flags)
+OgreOptions::OgreOptions(void) :
+    _loadAnimations(true),
+    _loadSkeleton  (true)
 {
 }
 
-OgreFileType::~OgreFileType(void)
+OgreOptions::OgreOptions(const OptionSet &optSet) :
+    _loadAnimations(true),
+    _loadSkeleton  (true)
 {
+    parseOptions(optSet);
+}
+
+OgreOptions::~OgreOptions(void)
+{
+}
+
+void OgreOptions::parseOptions(const OptionSet &optSet)
+{
+    OSG_OGRE_LOG(("OgreOptions::parseOptions\n"));
+
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "loadAnimations", _loadAnimations);
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "loadSkeleton", _loadSkeleton);
+}
+
+bool OgreOptions::getLoadAnimations(void) const
+{
+    return _loadAnimations;
+}
+
+void OgreOptions::setLoadAnimations(bool value)
+{
+    _loadAnimations = value;
+}
+
+bool OgreOptions::getLoadSkeleton(void) const
+{
+    return _loadSkeleton;
+}
+
+void OgreOptions::setLoadSkeleton(bool value)
+{
+    _loadSkeleton = value;
 }
 
 OSG_END_NAMESPACE

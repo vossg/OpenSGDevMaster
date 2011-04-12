@@ -49,6 +49,7 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 #include "OSGOgreChunkReader.h"
+#include "OSGOgreOptions.h"
 #include "OSGGeometry.h"
 #include "OSGGeoIntegralProperty.h"
 #include "OSGGeoVectorProperty.h"
@@ -71,8 +72,9 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    explicit  OgreMeshReader(std::istream& is);
-    virtual  ~OgreMeshReader(void            );
+    explicit  OgreMeshReader(      std::istream &is,
+                             const OgreOptions  &options);
+    virtual  ~OgreMeshReader(void                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,10 +259,12 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
 
     static const std::string _versionString;
 
-    MaterialMap      _matMap;
+    const OgreOptions &_options;
 
-    NodeUnrecPtr     _rootN;
-    SkeletonUnrecPtr _skel;
+    MaterialMap        _matMap;
+
+    NodeUnrecPtr       _rootN;
+    SkeletonUnrecPtr   _skel;
 };
 
 OSG_END_NAMESPACE

@@ -55,8 +55,10 @@ const std::size_t OgreSkeletonReader::_boneLengthNoScale    (_chunkHeaderSize + 
 const std::size_t OgreSkeletonReader::_keyFrameLengthNoScale(_chunkHeaderSize + 8 * sizeof(Real32));
 
 /* explicit */
-OgreSkeletonReader::OgreSkeletonReader(std::istream& is)
+OgreSkeletonReader::OgreSkeletonReader(      std::istream &is, 
+                                       const OgreOptions  &options)
     : Inherited(is),
+      _options (options),
       _skel    (),
       _globals ()
 {
@@ -244,49 +246,50 @@ OgreSkeletonReader::readBoneParent(JointNodeStore &joints)
 void
 OgreSkeletonReader::readAnimation(JointNodeStore &joints)
 {
-    std::string animName = readString(_is);
-
-#ifndef OSG_OGRE_SILENT
-    Real32      animLen  = 
-#endif
-        readReal32(_is);
-
-    OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: "
-                  "animName '%s' animLen '%f'\n", animName.c_str(), animLen));
-
-    AnimTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
-    animTmpl->setName(animName);
-
-    bool stop = false;
-
-    while(_is)
+    if(_options.getLoadAnimations() == true)
     {
-        readChunkHeader(_is);
+        std::string animName = readString(_is);
+        Real32      animLen  = readReal32(_is);
 
-        switch(_header.chunkId)
+        OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: "
+                      "animName '%s' animLen '%f'\n", animName.c_str(), animLen));
+
+        AnimTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
+        animTmpl->setName(animName);
+
+        bool stop = false;
+
+        while(_is)
         {
-        case CHUNK_ANIMATION_TRACK:
-            readAnimationTrack(joints, animTmpl);
-            break;
+            readChunkHeader(_is);
 
-        default:
-            // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: Unknown chunkId '0x%x'\n",
-            //               _header.chunkId));
-            stop = true;
-            break;
+            switch(_header.chunkId)
+            {
+            case CHUNK_ANIMATION_TRACK:
+                readAnimationTrack(joints, animTmpl);
+                break;
+
+            default:
+                stop = true;
+                break;
+            }
+
+            if(stop == true)
+            {
+                skip(_is, -_chunkHeaderSize);
+                break;
+            }
         }
 
-        if(stop == true)
-        {
-            skip(_is, -_chunkHeaderSize);
-            break;
-        }
+        if(_globals == NULL)
+            _globals = GlobalsAttachment::create();
+
+        _globals->editMFElements()->push_back(animTmpl);
     }
-
-    if(_globals == NULL)
-        _globals = GlobalsAttachment::create();
-
-    _globals->editMFElements()->push_back(animTmpl);
+    else
+    {
+        skip(_is, _header.chunkSize - _chunkHeaderSize);
+    }
 }
 
 void
@@ -322,8 +325,6 @@ OgreSkeletonReader::readAnimationTrack(JointNodeStore &joints,
             break;
 
         default:
-            // OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationTrack: Unknown chunkId '0x%x'\n",
-            //               _header.chunkId));
             stop = true;
             break;
         }
@@ -412,11 +413,7 @@ void
 OgreSkeletonReader::readAnimationLink(void)
 {
     std::string skelName = readString(_is);
-
-#ifndef OSG_OGRE_SILENT
-    Real32      scale    = 
-#endif
-        readReal32(_is);
+    Real32      scale    = readReal32(_is);
 
     OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationLink "
                   "skelName '%s' scale '%f'\n", skelName.c_str(), scale));
