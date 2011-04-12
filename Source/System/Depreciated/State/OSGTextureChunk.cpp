@@ -2552,14 +2552,14 @@ bool TextureChunk::operator == (const StateChunk &other) const
 
 
         returnValue &=
-           ((        getEnvScaleRGB  () - tother->getEnvScaleRGB  ()) <
-            TypeTraits<Real>::getDefaultEps()                          ) &&
-           ((tother->getEnvScaleRGB  () -         getEnvScaleRGB  ()) <
-            TypeTraits<Real>::getDefaultEps()                          ) &&
-           ((        getEnvScaleAlpha() - tother->getEnvScaleAlpha()) <
-            TypeTraits<Real>::getDefaultEps()                          ) &&
-           ((tother->getEnvScaleAlpha() -         getEnvScaleAlpha()) <
-            TypeTraits<Real>::getDefaultEps()                          );
+            ((        getEnvScaleRGB  () - tother->getEnvScaleRGB  ()) <
+             TypeTraits<Real32>::getDefaultEps()                        ) &&
+            ((tother->getEnvScaleRGB  () -         getEnvScaleRGB  ()) <
+             TypeTraits<Real32>::getDefaultEps()                        ) &&
+            ((        getEnvScaleAlpha() - tother->getEnvScaleAlpha()) <
+             TypeTraits<Real32>::getDefaultEps()                        ) &&
+            ((tother->getEnvScaleAlpha() -         getEnvScaleAlpha()) <
+             TypeTraits<Real32>::getDefaultEps()                        );
 
 
     }

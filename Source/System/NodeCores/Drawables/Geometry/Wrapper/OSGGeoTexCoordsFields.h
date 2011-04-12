@@ -52,6 +52,9 @@ OSG_BEGIN_NAMESPACE
 typedef SFUnrecGeoVectorPropertyPtr SFGeoTexCoordsPtr;
 typedef SFUnrecGeoVectorPropertyPtr SFUnrecGeoTexCoordsPtr;
 
+typedef MFUnrecGeoVectorPropertyPtr MFGeoTexCoordsPtr;
+typedef MFUnrecGeoVectorPropertyPtr MFUnrecGeoTexCoordsPtr;
+
 OSG_END_NAMESPACE
 
 #endif

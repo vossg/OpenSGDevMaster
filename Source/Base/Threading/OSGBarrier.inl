@@ -103,7 +103,7 @@ UInt32 PThreadBarrierBase::getNumWaiting(void)
     numWaiting = _uiCount;
     pthread_mutex_unlock(&(_pLockOne));
 
-    return _uiCount;
+    return numWaiting;
 }
 
 #endif /* OSG_USE_PTHREADS */

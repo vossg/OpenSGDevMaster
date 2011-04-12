@@ -12,6 +12,9 @@
 // the general scene file loading handler
 #include "OSGSceneFileHandler.h"
 #include "OSGFieldContainerFactory.h"
+
+#define BOOST_FILESYSTEM_VERSION 2
+
 #include <boost/bind.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>

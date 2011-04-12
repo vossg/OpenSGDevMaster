@@ -405,23 +405,23 @@ void ply_header_complete(PlyFile *plyfile)
 
   /* write out the comments */
 
-  for (size_t i = 0; i < plyfile->comments.size(); i++)
+  for (std::size_t i = 0; i < plyfile->comments.size(); i++)
     *fp << "comment " << plyfile->comments[i] << "\n";
 
   /* write out object information */
 
-  for (size_t i = 0; i < plyfile->obj_info.size(); i++)
+  for (std::size_t i = 0; i < plyfile->obj_info.size(); i++)
     *fp << "obj_info " << plyfile->obj_info[i] << "%s\n";
 
   /* write out information about each element */
 
-  for (size_t i = 0; i < plyfile->elems.size(); i++) {
+  for (std::size_t i = 0; i < plyfile->elems.size(); i++) {
     PlyElement& elem = plyfile->elems[i];
 
     *fp << "element " << elem.name << " " << elem.num << "\n";
 
     /* write out each property */
-    for (size_t j = 0; j < elem.props.size(); j++) {
+    for (std::size_t j = 0; j < elem.props.size(); j++) {
       PlyProperty& prop = elem.props[j];
       if (prop.is_list) {
         *fp << "property list ";
@@ -498,7 +498,7 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
     /* write an ascii file */
 
     /* write out each property of the element */
-    for (size_t j = 0; j < elem->props.size(); j++) {
+    for (std::size_t j = 0; j < elem->props.size(); j++) {
       PlyProperty& prop = elem->props[j];
       if (elem->store_prop[j] == OTHER_PROP)
         elem_data = *other_ptr;
@@ -538,7 +538,7 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
     /* write a binary file */
 
     /* write out each property of the element */
-    for (size_t j = 0; j < elem->props.size(); j++) {
+    for (std::size_t j = 0; j < elem->props.size(); j++) {
       PlyProperty& prop = elem->props[j];
       if (elem->store_prop[j] == OTHER_PROP)
         elem_data = *other_ptr;
@@ -692,10 +692,10 @@ PlyFile *ply_read(std::istream *fp, std::vector<std::string>& elem_names)
   /* create tags for each property of each element, to be used */
   /* later to say whether or not to store each property for the user */
 
-  for (size_t i = 0; i < plyfile->elems.size(); i++) {
+  for (std::size_t i = 0; i < plyfile->elems.size(); i++) {
     elem = &plyfile->elems[i];
     elem->store_prop.resize(elem->props.size());
-    for (size_t j = 0; j < elem->props.size(); j++)
+    for (std::size_t j = 0; j < elem->props.size(); j++)
       elem->store_prop[j] = DONT_STORE_PROP;
     elem->other_offset = NO_OTHER_PROPS; /* no "other" props by default */
   }
@@ -703,7 +703,7 @@ PlyFile *ply_read(std::istream *fp, std::vector<std::string>& elem_names)
   /* set return values about the elements */
 
   elem_names.resize(plyfile->elems.size());
-  for (size_t i = 0; i < plyfile->elems.size(); i++)
+  for (std::size_t i = 0; i < plyfile->elems.size(); i++)
     elem_names[i] = plyfile->elems[i].name;
 
   /* return a pointer to the file's information */
@@ -978,7 +978,7 @@ void setup_other_props(PlyFile *plyfile, PlyElement *elem)
     /* add up the space taken by each property, and save this information */
     /* away in the property descriptor */
 
-    for (size_t i = 0; i < elem->props.size(); i++) {
+    for (std::size_t i = 0; i < elem->props.size(); i++) {
 
       /* don't bother with properties we've been asked to store explicitly */
       if (elem->store_prop[i])
@@ -1077,7 +1077,7 @@ PlyOtherProp *ply_get_other_properties(
   
   /* save descriptions of each "other" property */
   nprops = 0;
-  for (size_t i = 0; i < elem->props.size(); i++) {
+  for (std::size_t i = 0; i < elem->props.size(); i++) {
     if (elem->store_prop[i])
       continue;
     prop = new PlyProperty;
@@ -1185,7 +1185,7 @@ void ply_describe_other_elements (
 
   /* describe the other properties of this element */
 
-  for (size_t i = 0; i < other_elems.size(); i++) {
+  for (std::size_t i = 0; i < other_elems.size(); i++) {
     const OtherElem* other = &(other_elems[i]);
     ply_element_count (plyfile, other->elem_name, other->elem_count);
     ply_describe_other_properties (plyfile, other->other_props,
@@ -1205,7 +1205,7 @@ void ply_put_other_elements (PlyFile *plyfile)
 {
   /* write out the data for each "other" element */
 
-  for (size_t i = 0; i < plyfile->other_elems.size(); i++) {
+  for (std::size_t i = 0; i < plyfile->other_elems.size(); i++) {
 
     OtherElem* other = &(plyfile->other_elems[i]);
     ply_put_element_setup (plyfile, other->elem_name);
@@ -1292,7 +1292,7 @@ Exit:
 
 PlyElement *find_element(PlyFile *plyfile, const std::string& element)
 {
-  for (size_t i = 0; i < plyfile->elems.size(); i++)
+  for (std::size_t i = 0; i < plyfile->elems.size(); i++)
     if (element == plyfile->elems[i].name)
       return &plyfile->elems[i];
 
@@ -1317,7 +1317,7 @@ PlyProperty *find_property(
   const std::string& prop_name,
   int *index)
 {
-  for (size_t i = 0; i < elem->props.size(); i++)
+  for (std::size_t i = 0; i < elem->props.size(); i++)
     if (prop_name == elem->props[i].name) {
       *index = i;
       return &elem->props[i];
@@ -1378,7 +1378,7 @@ void ascii_get_element(PlyFile *plyfile, char *elem_ptr)
 
   int which_word = 0;
 
-  for (size_t j = 0; j < elem->props.size(); j++) {
+  for (std::size_t j = 0; j < elem->props.size(); j++) {
 
     PlyProperty* prop = &elem->props[j];
     store_it = (elem->store_prop[j] | other_flag);
@@ -1479,7 +1479,7 @@ void binary_get_element(PlyFile *plyfile, char *elem_ptr)
 
   /* read in a number of elements */
 
-  for (size_t j = 0; j < elem->props.size(); j++) {
+  for (std::size_t j = 0; j < elem->props.size(); j++) {
 
     PlyProperty* prop = &elem->props[j];
     int store_it = (elem->store_prop[j] | other_flag);
