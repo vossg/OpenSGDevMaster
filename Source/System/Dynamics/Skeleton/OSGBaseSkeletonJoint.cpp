@@ -62,6 +62,7 @@ BaseSkeletonJoint::JointTraverser::JointTraverser(Skeleton *skel) :
     _topMatrix(),
     _matStack ()
 {
+    _matStack.reserve(skel->getMFJointMatrices()->size());
 }
 
 void BaseSkeletonJoint::JointTraverser::pushMatrix(const Matrix &m)
