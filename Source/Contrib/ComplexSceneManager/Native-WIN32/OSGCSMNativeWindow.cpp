@@ -389,11 +389,15 @@ void CSMNativeWindow::resolveLinks(void)
 
 void CSMNativeWindow::terminateGLContext(void)
 {
+    if(_pWin32Window != NULL)
+    {
+        _pWin32Window->terminate();
+    }
+
     DestroyWindow(_pHWND);
 
     _pHWND = NULL;
 }
-
 bool CSMNativeWindow::init(void)
 {
     WIN32WindowUnrecPtr pWin32Win = OSG::WIN32Window::create();

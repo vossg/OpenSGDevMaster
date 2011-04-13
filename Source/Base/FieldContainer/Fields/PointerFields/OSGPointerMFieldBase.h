@@ -289,7 +289,7 @@ class OSG_BASE_DLLMAPPING PointerMFieldBaseConstIterator :
     typedef Inherited::pointer                 pointer;
     typedef Inherited::reference               reference;
 
-#if defined(WIN32) && _SECURE_SCL == 1
+#if defined(WIN32) && _SECURE_SCL == 1 && _MSC_VER < 1600
     typedef Inherited::_Checked_iterator_base_type 
                                                _Checked_iterator_base_type;
     typedef Inherited::_Checked_iterator_category

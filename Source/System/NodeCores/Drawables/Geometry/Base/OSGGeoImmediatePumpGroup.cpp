@@ -552,8 +552,11 @@ namespace
     {
         bool retVal = true;
 
-        info.attribPtr  [slot] = (*info.prop   )[slot];
-        info.attribIndex[slot] = (*info.propIdx)[slot];
+        if(slot < info.prop->size())
+            info.attribPtr  [slot] = (*info.prop   )[slot];
+
+        if(slot < info.propIdx->size())
+            info.attribIndex[slot] = (*info.propIdx)[slot];
 
         if(info.attribPtr[slot]              != NULL  &&
            info.attribPtr[slot]->getIgnore() == false   )

@@ -144,6 +144,8 @@ void WIN32Window::terminate(void)
          this->doDeactivate();
 
          wglDeleteContext(getHglrc());
+
+         setHglrc(NULL);
      }
 }
 
