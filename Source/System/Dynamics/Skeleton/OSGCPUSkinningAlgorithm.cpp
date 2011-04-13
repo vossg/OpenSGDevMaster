@@ -309,7 +309,8 @@ void CPUSkinningAlgorithm::adjustVolume(Volume &volume)
              << std::endl;
 }
 
-Action::ResultE CPUSkinningAlgorithm::renderEnter(Action *action)
+ActionBase::ResultE
+CPUSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
     SkinnedGeometry *skinGeo = getSkin    ();
@@ -342,9 +343,39 @@ Action::ResultE CPUSkinningAlgorithm::renderEnter(Action *action)
     return res;
 }
 
-Action::ResultE CPUSkinningAlgorithm::renderLeave(Action *action)
+ActionBase::ResultE
+CPUSkinningAlgorithm::renderLeave(Action *action)
 {
     return Action::Continue;
+}
+
+ActionBase::ResultE
+CPUSkinningAlgorithm::intersectEnter(Action *action)
+{
+    Action::ResultE  res     = Action::Continue;
+    SkinnedGeometry *skinGeo = getSkin    ();
+    Skeleton        *skel    = getSkeleton();
+
+    CPUSkinningDataAttachmentUnrecPtr data = getCPUSkinningData(skinGeo);
+
+    if(data == NULL)
+    {
+        data = CPUSkinningDataAttachment::create();
+        skinGeo->addAttachment(data);
+    }
+
+    skel->intersectEnter(action, skinGeo);
+
+    if(data->getDataValid() == false)
+    {
+        transformGeometry(skinGeo, skel, data);
+
+        data->setDataValid(true);
+    }
+
+    // intersectGeometry
+
+    return res;
 }
 
 CPUSkinningAlgorithm::RenderModeE

@@ -76,10 +76,12 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
-    Action::ResultE renderEnter  (Action *action, NodeCore *parent);
-    Action::ResultE renderLeave  (Action *action, NodeCore *parent);
+    Action::ResultE renderEnter   (Action *action, NodeCore *parent);
+    Action::ResultE renderLeave   (Action *action, NodeCore *parent);
 
-    Action::ResultE animBindEnter(Action *action, NodeCore *parent);
+    Action::ResultE intersectEnter(Action *action, NodeCore *parent);
+
+    Action::ResultE animBindEnter (Action *action, NodeCore *parent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

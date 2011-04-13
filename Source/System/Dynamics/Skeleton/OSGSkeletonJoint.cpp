@@ -76,13 +76,6 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
-        RenderAction::registerLeaveDefault(
-            SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
-
         AnimBindAction::registerEnterDefault(
             SkeletonJoint::getClassType(),
             reinterpret_cast<Action::Callback>(&SkeletonJoint::animBindEnter));
@@ -134,39 +127,39 @@ void SkeletonJoint::changed(ConstFieldMaskArg whichField,
 }
 
 Action::ResultE
-SkeletonJoint::renderEnter(Action *action)
+SkeletonJoint::jointUpdateEnter(JointTraverser *jt)
 {
     Action::ResultE  res  = Action::Continue;
-    RenderAction    *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
     Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
-        SWARNING << "SkeletonJoint::renderEnter: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
+        SWARNING << "SkeletonJoint::jointUpdateEnter: "
+                 << "Joint has invalid jointId. Ignoring." << std::endl;
         return res;
     }
     
     if(skel == NULL)
     {
-        SWARNING << "SkeletonJoint::renderEnter: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
+        SWARNING << "SkeletonJoint::jointUpdateEnter: "
+                 << "Joint has no skeleton. Ignoring." << std::endl;
         return res;
     }
 #endif
 
-    Int16                                jointId    = _sfJointId.getValue();
-    Skeleton::MFJointMatricesType       *jointMats  =
+    Int16                                jointId     = _sfJointId.getValue();
+    Skeleton::MFJointMatricesType       *jointMats   =
         skel->editMFJointMatrices();
-    Skeleton::MFJointNormalMatricesType *jointNMats =
+    Skeleton::MFJointNormalMatricesType *jointNMats  =
         skel->editMFJointNormalMatrices();
+    SkeletonJoint                       *parentJoint =
+        dynamic_cast<SkeletonJoint *>(skel->getParentJoints(jointId));
 
-    ract->pushMatrix(_sfMatrix      .getValue());
-    ract->pushMatrix(_sfOffsetMatrix.getValue());
+    jt->pushMatrix(_sfMatrix      .getValue());
+    jt->pushMatrix(_sfOffsetMatrix.getValue());
 
-    Matrix jointMat = ract->topMatrix();
+    Matrix jointMat = jt->topMatrix();
 
     if(skel->getUseInvBindMatrix() == true)
         jointMat.mult(_sfInvBindMatrix.getValue());
@@ -185,35 +178,28 @@ SkeletonJoint::renderEnter(Action *action)
 }
 
 Action::ResultE
-SkeletonJoint::renderLeave(Action *action)
+SkeletonJoint::jointUpdateLeave(JointTraverser *jt)
 {
-    Action::ResultE  res  = Action::Continue;
-    RenderAction    *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
-    Skeleton        *skel = getSkeleton();
-
-    // need to make symmetric checks to renderEnter, otherwise the
-    // matrix stack gets corrupted
 #ifdef OSG_DEBUG
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
-        SWARNING << "SkeletonJoint::renderLeave: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
-        return res;
+        SWARNING << "SkeletonJoint::jointUpdateLeave: "
+                 << "Joint has invalid jointId. Ignoring." << std::endl;
+        return Action::Continue;
     }
     
     if(skel == NULL)
     {
-        SWARNING << "SkeletonJoint::renderLeave: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
-        return res;
+        SWARNING << "SkeletonJoint::jointUpdateLeave: "
+                 << "Joint has no skeleton. Ignoring." << std::endl;
+        return Action::Continue;
     }
 #endif
 
-    ract->popMatrix();
-    ract->popMatrix();
+    jt->popMatrix();
+    jt->popMatrix();
 
-    return res;
+    return Action::Continue;
 }
 
 Action::ResultE

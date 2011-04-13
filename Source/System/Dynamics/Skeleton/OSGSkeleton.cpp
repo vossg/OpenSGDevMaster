@@ -48,6 +48,7 @@
 #include "OSGSkeleton.h"
 #include "OSGAction.h"
 #include "OSGBaseSkeletonJoint.h"
+#include "OSGIntersectAction.h"
 
 // debug only
 #include "OSGFieldContainerUtils.h"
@@ -130,32 +131,23 @@ void Skeleton::changed(ConstFieldMaskArg whichField,
 Action::ResultE
 Skeleton::renderEnter(Action *action, NodeCore *parent)
 {
-    RenderAction *ract = boost::polymorphic_downcast<RenderAction *>(action);
+    if(_jointMatricesValid == false)
+    {
+        BaseSkeletonJoint::JointTraverser jt(this);
 
-    if(_jointMatricesValid == true)
-        return Action::Continue;
+        TraverseEnterFunctor enterFunc =
+            boost::bind(&BaseSkeletonJoint::JointTraverser::enter, &jt, _1);
+        TraverseLeaveFunctor leaveFunc =
+            boost::bind(&BaseSkeletonJoint::JointTraverser::leave, &jt, _1, _2);
 
-    Matrix matWorldInv;
-    matWorldInv.invertFrom(ract->topMatrix());
+        MFRootsType::const_iterator rIt  = _mfRoots.begin();
+        MFRootsType::const_iterator rEnd = _mfRoots.end  ();
 
-    bool frustCull = ract->getFrustumCulling();
-    ract->getActivePartition()->setFrustumCulling(false);
-    ract->setFrustumCulling(false      );
-    ract->pushMatrix       (matWorldInv);
-    ract->useNodeList      (true       );
-        
-    MFRootsType::const_iterator rIt  = _mfRoots.begin();
-    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+        for(; rIt != rEnd; ++rIt)
+            traverse(*rIt, enterFunc, leaveFunc);
 
-    for(; rIt != rEnd; ++rIt)
-        ract->addNode(*rIt); 
-
-    this->recurseFrom(ract, parent);
-    _jointMatricesValid = true;
-
-    ract->popMatrix        (         );
-    ract->setFrustumCulling(frustCull);
-    ract->getActivePartition()->setFrustumCulling(frustCull);
+        _jointMatricesValid = true;
+    }
 
     return Action::Continue;
 }
@@ -163,6 +155,30 @@ Skeleton::renderEnter(Action *action, NodeCore *parent)
 Action::ResultE
 Skeleton::renderLeave(Action *action, NodeCore *parent)
 {
+    return Action::Continue;
+}
+
+Action::ResultE
+Skeleton::intersectEnter(Action *action, NodeCore *parent)
+{
+    if(_jointMatricesValid == false)
+    {
+        BaseSkeletonJoint::JointTraverser jt(this);
+
+        TraverseEnterFunctor enterFunc =
+            boost::bind(&BaseSkeletonJoint::JointTraverser::enter, &jt, _1);
+        TraverseLeaveFunctor leaveFunc =
+            boost::bind(&BaseSkeletonJoint::JointTraverser::leave, &jt, _1, _2);
+
+        MFRootsType::const_iterator rIt  = _mfRoots.begin();
+        MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+        for(; rIt != rEnd; ++rIt)
+            traverse(*rIt, enterFunc, leaveFunc);
+
+        _jointMatricesValid = true;
+    }
+
     return Action::Continue;
 }
 

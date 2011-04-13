@@ -294,6 +294,14 @@ GPUSkinningAlgorithm::renderLeave(Action *action)
     return res;
 }
 
+ActionBase::ResultE
+GPUSkinningAlgorithm::intersectEnter(Action *action)
+{
+    SkinnedGeometry *skinGeo = getSkin();
+
+    return skinGeo->intersect(action);
+}
+
 GPUSkinningAlgorithm::RenderModeE
 GPUSkinningAlgorithm::getRenderMode(void) const
 {

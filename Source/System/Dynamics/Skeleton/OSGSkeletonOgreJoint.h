@@ -71,11 +71,11 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonOgreJoint : public SkeletonOgreJointBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
+    /*! \name                     Actions                                  */
     /*! \{                                                                 */
 
-    Action::ResultE renderEnter  (Action *action);
-    Action::ResultE renderLeave  (Action *action);
+    virtual Action::ResultE jointUpdateEnter(JointTraverser *jt);
+    virtual Action::ResultE jointUpdateLeave(JointTraverser *jt);
 
     Action::ResultE animBindEnter(Action *action);
 

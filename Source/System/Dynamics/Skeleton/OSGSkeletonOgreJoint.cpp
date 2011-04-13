@@ -72,13 +72,6 @@ void SkeletonOgreJoint::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            SkeletonOgreJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonOgreJoint::renderEnter));
-        RenderAction::registerLeaveDefault(
-            SkeletonOgreJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonOgreJoint::renderLeave));
-
         AnimBindAction::registerEnterDefault(
             SkeletonOgreJoint::getClassType(),
             reinterpret_cast<Action::Callback>(&SkeletonOgreJoint::animBindEnter));
@@ -142,36 +135,32 @@ void SkeletonOgreJoint::changed(ConstFieldMaskArg whichField,
 }
 
 Action::ResultE
-SkeletonOgreJoint::renderEnter(Action *action)
+SkeletonOgreJoint::jointUpdateEnter(JointTraverser *jt)
 {
     Action::ResultE  res  = Action::Continue;
-//    RenderAction    *ract =
-//        boost::polymorphic_downcast<RenderAction *>(action);
     Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
-        SWARNING << "SkeletonOgreJoint::renderEnter: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
+        SWARNING << "SkeletonOgreJoint::jointUpdateEnter: "
+                 << "Joint has invalid jointId. Ignoring." << std::endl;
         return res;
     }
     
     if(skel == NULL)
     {
-        SWARNING << "SkeletonOgreJoint::renderEnter: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
+        SWARNING << "SkeletonOgreJoint::jointUpdateEnter: "
+                 << "Joint has no skeleton. Ignoring." << std::endl;
         return res;
     }
 #endif
 
-    Int16                                jointId     = getJointId();
-    Skeleton::MFJointMatricesType       *jointMats   =
+    Int16                          jointId     = getJointId();
+    Skeleton::MFJointMatricesType *jointMats   =
         skel->editMFJointMatrices();
-//    Skeleton::MFJointNormalMatricesType *jointNMats  =
-//        skel->editMFJointNormalMatrices();
-    SkeletonOgreJoint                   *parentJoint =
-        dynamic_cast<SkeletonOgreJoint*>(skel->getParentJoints(jointId));
+    SkeletonOgreJoint             *parentJoint =
+        dynamic_cast<SkeletonOgreJoint *>(skel->getParentJoints(jointId));
 
     if(parentJoint != NULL)
     {
@@ -234,30 +223,9 @@ SkeletonOgreJoint::renderEnter(Action *action)
 }
 
 Action::ResultE
-SkeletonOgreJoint::renderLeave(Action *action)
+SkeletonOgreJoint::jointUpdateLeave(JointTraverser *jt)
 {
-    Action::ResultE  res  = Action::Continue;
-//    RenderAction    *ract =
-//        boost::polymorphic_downcast<RenderAction *>(action);
-    Skeleton        *skel = getSkeleton();
-
-#ifdef OSG_DEBUG
-    if(_sfJointId.getValue() == INVALID_JOINT_ID)
-    {
-        SWARNING << "SkeletonOgreJoint::renderEnter: Joint has invalid jointId. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-    
-    if(skel == NULL)
-    {
-        SWARNING << "SkeletonOgreJoint::renderEnter: Joint has no skeleton. "
-                 << "Ignoring." << std::endl;
-        return res;
-    }
-#endif
-
-    return res;
+    return Action::Continue;
 }
 
 Action::ResultE

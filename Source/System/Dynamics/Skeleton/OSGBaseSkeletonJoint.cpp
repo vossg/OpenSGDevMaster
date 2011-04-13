@@ -46,6 +46,9 @@
 #include "OSGConfig.h"
 
 #include "OSGBaseSkeletonJoint.h"
+#include "OSGTransform.h"
+
+#include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -53,6 +56,76 @@ OSG_BEGIN_NAMESPACE
 // OSGBaseSkeletonJointBase.cpp file.
 // To modify it, please change the .fcd file (OSGBaseSkeletonJoint.fcd) and
 // regenerate the base file.
+
+BaseSkeletonJoint::JointTraverser::JointTraverser(Skeleton *skel) :
+    _skel     (skel),
+    _topMatrix(),
+    _matStack ()
+{
+}
+
+void BaseSkeletonJoint::JointTraverser::pushMatrix(const Matrix &m)
+{
+    _matStack.push_back(_topMatrix);
+
+    _topMatrix.mult(m);
+}
+
+void BaseSkeletonJoint::JointTraverser::popMatrix(void)
+{
+    OSG_ASSERT(_matStack.empty() == false);
+
+    _topMatrix = _matStack.back();
+    _matStack.pop_back();
+}
+
+const Matrix &BaseSkeletonJoint::JointTraverser::topMatrix(void) const
+{
+    return _topMatrix;
+}
+
+Action::ResultE BaseSkeletonJoint::JointTraverser::enter(Node * const node)
+{
+    Action::ResultE  retVal = Action::Continue;
+    NodeCore        *core   = node->getCore();
+
+    if(core->getType().isDerivedFrom(Transform::getClassType()))
+    {
+        Transform *xform = boost::polymorphic_downcast<Transform *>(core);
+
+        pushMatrix(xform->getMatrix());
+    }
+    else if(core->getType().isDerivedFrom(BaseSkeletonJoint::getClassType()))
+    {
+        BaseSkeletonJoint *joint =
+            boost::polymorphic_downcast<BaseSkeletonJoint *>(core);
+
+        retVal = joint->jointUpdateEnter(this);
+    }
+
+    return retVal;
+}
+
+Action::ResultE BaseSkeletonJoint::JointTraverser::leave(Node * const    node,
+                                                         Action::ResultE res  )
+{
+    Action::ResultE  retVal = Action::Continue;
+    NodeCore        *core   = node->getCore();
+
+    if(core->getType().isDerivedFrom(Transform::getClassType()))
+    {
+        popMatrix();
+    }
+    else if(core->getType().isDerivedFrom(BaseSkeletonJoint::getClassType()))
+    {
+        BaseSkeletonJoint *joint =
+            boost::polymorphic_downcast<BaseSkeletonJoint *>(core);
+
+        retVal = joint->jointUpdateLeave(this);
+    }
+
+    return retVal;
+}
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -72,7 +145,6 @@ void BaseSkeletonJoint::initMethod(InitPhase ePhase)
     {
     }
 }
-
 
 /***************************************************************************\
  *                           Instance methods                              *

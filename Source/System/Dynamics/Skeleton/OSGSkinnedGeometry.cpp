@@ -238,6 +238,29 @@ SkinnedGeometry::renderLeave(Action *action)
     return _sfSkinningAlgorithm.getValue()->renderLeave(action);
 }
 
+Action::ResultE
+SkinnedGeometry::intersectEnter(Action *action)
+{
+    if(_sfRenderMode.getValue() != RMUnskinned &&
+       _sfSkeleton  .getValue() == NULL          )
+    {
+        SWARNING << "SkinnedGeometry::intersectEnter: No skeleton."
+                 << std::endl;
+
+        return Action::Continue;
+    }
+
+    if(_sfSkinningAlgorithm.getValue() == NULL)
+    {
+        SWARNING << "SkinnedGeometry::intersectEnter: No SkinningAlgorithm"
+                 << std::endl;
+
+        return Action::Continue;
+    }
+
+    return _sfSkinningAlgorithm.getValue()->intersectEnter(action);
+}
+
 void
 SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
 {

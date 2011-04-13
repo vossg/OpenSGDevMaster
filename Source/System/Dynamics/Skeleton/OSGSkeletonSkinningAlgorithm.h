@@ -67,10 +67,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonSkinningAlgorithm : public SkeletonSkinnin
     /*! \name                      Execute                                 */
     /*! \{                                                                 */
 
-    virtual void                adjustVolume(Volume  &volume );
+    virtual void                adjustVolume  (Volume  &volume );
 
-    virtual ActionBase::ResultE renderEnter (Action  *action );
-    virtual ActionBase::ResultE renderLeave (Action  *action );
+    virtual ActionBase::ResultE renderEnter   (Action  *action );
+    virtual ActionBase::ResultE renderLeave   (Action  *action );
+
+    virtual ActionBase::ResultE intersectEnter(Action  *action );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

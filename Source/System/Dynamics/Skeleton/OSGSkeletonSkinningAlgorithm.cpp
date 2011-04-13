@@ -211,6 +211,14 @@ SkeletonSkinningAlgorithm::renderLeave(Action *action)
     return Action::Continue;
 }
 
+ActionBase::ResultE
+SkeletonSkinningAlgorithm::intersectEnter(Action *action)
+{
+    SkinnedGeometry *skinGeo = getSkin();
+
+    return skinGeo->intersect(action);
+}
+
 SkeletonSkinningAlgorithm::RenderModeE
 SkeletonSkinningAlgorithm::getRenderMode(void) const
 {

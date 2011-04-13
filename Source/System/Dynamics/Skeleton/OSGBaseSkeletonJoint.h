@@ -47,7 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
+// forward declaration
 class Skeleton;
 
 /*! \brief BaseSkeletonJoint class. See \ref
@@ -61,12 +61,39 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
     /*==========================  PUBLIC  =================================*/
 
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
 
     typedef BaseSkeletonJointBase Inherited;
     typedef BaseSkeletonJoint     Self;
 
+    class JointTraverser
+    {
+      public:
+        explicit JointTraverser(Skeleton *skel);
+
+        void          pushMatrix(const Matrix &m);
+        void          popMatrix (void           );
+        const Matrix &topMatrix (void           ) const;
+
+        Action::ResultE enter(Node * const node                     );
+        Action::ResultE leave(Node * const node, Action::ResultE res);
+
+      protected:
+        typedef std::vector<Matrix> MatrixStack;
+
+        Skeleton    *_skel;
+        Matrix       _topMatrix;
+        MatrixStack  _matStack;
+
+      private:
+        JointTraverser(const JointTraverser &other);
+    };
+
     static const Int16 INVALID_JOINT_ID;
 
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -82,6 +109,9 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
 
     const SFParentSkeletonPtr *getSFSkeleton(void) const;
     Skeleton                  *getSkeleton  (void) const;
+
+    virtual Action::ResultE jointUpdateEnter(JointTraverser *jt) = 0;
+    virtual Action::ResultE jointUpdateLeave(JointTraverser *jt) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

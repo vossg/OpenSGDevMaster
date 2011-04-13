@@ -124,6 +124,14 @@ UnskinnedSkinningAlgorithm::renderLeave(Action *action)
     return skinGeo->renderActionLeaveHandler(action);
 }
 
+ActionBase::ResultE
+UnskinnedSkinningAlgorithm::intersectEnter(Action *action)
+{
+    SkinnedGeometry *skinGeo = getSkin();
+
+    return skinGeo->intersect(action);
+}
+
 UnskinnedSkinningAlgorithm::RenderModeE
 UnskinnedSkinningAlgorithm::getRenderMode(void) const
 {
