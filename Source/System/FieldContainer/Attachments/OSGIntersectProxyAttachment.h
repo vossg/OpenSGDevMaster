@@ -63,7 +63,7 @@ class OSG_SYSTEM_DLLMAPPING IntersectProxyAttachment : public IntersectProxyAtta
     typedef IntersectProxyAttachment     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Intersect                                 */
     /*! \{                                                                 */
 
     virtual Action::ResultE intersectEnter(Node* node, Action* action) = 0;
