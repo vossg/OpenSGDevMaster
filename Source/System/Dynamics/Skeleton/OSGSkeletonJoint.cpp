@@ -133,6 +133,9 @@ SkeletonJoint::jointUpdateEnter(JointTraverser *jt)
     Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG
+    // checks here and in jointUpdateLeave need to be the same
+    // to keep the matrix stack in sync
+
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
         SWARNING << "SkeletonJoint::jointUpdateEnter: "
@@ -153,10 +156,6 @@ SkeletonJoint::jointUpdateEnter(JointTraverser *jt)
         skel->editMFJointMatrices();
     Skeleton::MFJointNormalMatricesType *jointNMats  =
         skel->editMFJointNormalMatrices();
-#if 0
-    SkeletonJoint                       *parentJoint =
-        dynamic_cast<SkeletonJoint *>(skel->getParentJoints(jointId));
-#endif
 
     jt->pushMatrix(_sfMatrix      .getValue());
     jt->pushMatrix(_sfOffsetMatrix.getValue());
@@ -183,6 +182,9 @@ Action::ResultE
 SkeletonJoint::jointUpdateLeave(JointTraverser *jt)
 {
 #ifdef OSG_DEBUG
+    // checks here and in jointUpdateEnter need to be the same
+    // to keep the matrix stack in sync
+
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
         SWARNING << "SkeletonJoint::jointUpdateLeave: "
@@ -190,14 +192,12 @@ SkeletonJoint::jointUpdateLeave(JointTraverser *jt)
         return Action::Continue;
     }
     
-# if 0
-    if(skel == NULL)
+    if(getSkeleton() == NULL)
     {
         SWARNING << "SkeletonJoint::jointUpdateLeave: "
                  << "Joint has no skeleton. Ignoring." << std::endl;
         return Action::Continue;
     }
-# endif
 #endif
 
     jt->popMatrix();
