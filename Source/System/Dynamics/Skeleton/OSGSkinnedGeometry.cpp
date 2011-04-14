@@ -122,7 +122,7 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
     {
         if(_sfSkinningAlgorithm.getValue()                  == NULL ||
            _sfSkinningAlgorithm.getValue()->getRenderMode() !=
-           _sfRenderMode.getValue()                                   )
+           RenderModeE(_sfRenderMode.getValue())                     )
         {
             switch(_sfRenderMode.getValue())
             {

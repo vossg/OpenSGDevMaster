@@ -249,7 +249,10 @@ OgreSkeletonReader::readAnimation(JointNodeStore &joints)
     if(_options.getLoadAnimations() == true)
     {
         std::string animName = readString(_is);
-        Real32      animLen  = readReal32(_is);
+#ifndef OSG_OGRE_SILENT        
+        Real32      animLen  = 
+#endif
+            readReal32(_is);
 
         OSG_OGRE_LOG(("OgreSkeletonReader::readAnimation: "
                       "animName '%s' animLen '%f'\n", animName.c_str(), animLen));
@@ -413,7 +416,10 @@ void
 OgreSkeletonReader::readAnimationLink(void)
 {
     std::string skelName = readString(_is);
-    Real32      scale    = readReal32(_is);
+#ifndef OSG_OGRE_SILENT
+    Real32      scale    = 
+#endif
+        readReal32(_is);
 
     OSG_OGRE_LOG(("OgreSkeletonReader::readAnimationLink "
                   "skelName '%s' scale '%f'\n", skelName.c_str(), scale));
