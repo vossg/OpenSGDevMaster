@@ -48,7 +48,9 @@
 #include "OSGCPUSkinningAlgorithm.h"
 #include "OSGCPUSkinningDataAttachment.h"
 #include "OSGGeoPumpGroup.h"
+#include "OSGIntersectAction.h"
 #include "OSGPrimeMaterial.h"
+#include "OSGTriangleIterator.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
 #include <boost/cast.hpp>
@@ -305,8 +307,12 @@ CPUSkinningAlgorithm::~CPUSkinningAlgorithm(void)
 
 void CPUSkinningAlgorithm::adjustVolume(Volume &volume)
 {
-    SWARNING << "CPUSkinningAlgorithm::adjustVolume: NIY"
-             << std::endl;
+    SkinnedGeometry *skinGeo = getSkin();
+
+    if(skinGeo != NULL)
+    {
+        skinGeo->Inherited::adjustVolume(volume);
+    }
 }
 
 ActionBase::ResultE
@@ -355,6 +361,8 @@ CPUSkinningAlgorithm::intersectEnter(Action *action)
     Action::ResultE  res     = Action::Continue;
     SkinnedGeometry *skinGeo = getSkin    ();
     Skeleton        *skel    = getSkeleton();
+    IntersectAction *iact    =
+        boost::polymorphic_downcast<IntersectAction *>(action);
 
     CPUSkinningDataAttachmentUnrecPtr data = getCPUSkinningData(skinGeo);
 
@@ -373,7 +381,7 @@ CPUSkinningAlgorithm::intersectEnter(Action *action)
         data->setDataValid(true);
     }
 
-    // intersectGeometry
+    intersectGeometry(iact, skinGeo, data);
 
     return res;
 }
@@ -846,6 +854,32 @@ void CPUSkinningAlgorithm::drawPrimitives(
     // restore glColor.
     if(skinGeo->getColors() != NULL)
         glColor4fv(color.getValuesRGBA());
+}
+
+void CPUSkinningAlgorithm::intersectGeometry(IntersectAction           *iact,
+                                             SkinnedGeometry           *skinGeo,
+                                             CPUSkinningDataAttachment *data    )
+{
+    const GeoVectorProperty *pos    =
+        data->getProperties(Geometry::PositionsIndex);
+    TriangleIterator         triIt  = skinGeo->beginTriangles();
+    TriangleIterator         triEnd = skinGeo->endTriangles  ();
+
+    const Line              &line   = iact->getLine();
+    Real32                   hitT   = 0.f;
+    Vec3f                    hitNorm;
+
+    for(; triIt != triEnd; ++triIt)
+    {
+        if(line.intersect(
+               pos->getValue<Pnt3f>(triIt.getPositionIndex(0)),
+               pos->getValue<Pnt3f>(triIt.getPositionIndex(1)),
+               pos->getValue<Pnt3f>(triIt.getPositionIndex(2)), hitT, &hitNorm))
+        {
+            iact->setHit(hitT, iact->getActNode(),
+                         triIt.getIndex(), hitNorm, -1);
+        }
+    }
 }
 
 void CPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,

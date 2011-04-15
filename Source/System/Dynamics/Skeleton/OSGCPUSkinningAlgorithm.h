@@ -47,6 +47,7 @@
 OSG_BEGIN_NAMESPACE
 
 class CPUSkinningDataAttachment;
+class IntersectAction;
 
 /*! \brief CPUSkinningAlgorithm class. See \ref
            PageDynamicsCPUSkinningAlgorithm for a description.
@@ -155,6 +156,10 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithm
     void drawPrimitives(SkinnedGeometry           *skinGeo,
                         CPUSkinningDataAttachment *data,
                         DrawEnv                   *pEnv    );
+
+    void intersectGeometry(IntersectAction           *iact,
+                           SkinnedGeometry           *skinGeo,
+                           CPUSkinningDataAttachment *data);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
