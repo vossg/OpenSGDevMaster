@@ -1020,7 +1020,7 @@ void ShaderExecutableChunk::updateAttribBindings(DrawEnv *pEnv,
 #else
     if(_mfAttributes.size() != NULL)
     {
-        SWARNING(("attributes given, but support not enabled, please"
+        FWARNING(("attributes given, but support not enabled, please"
                   " compile with OSG_ENABLE_OGL_VERTEXT_ATTRIB_FUNCS=ON\n"));
     }
 #endif

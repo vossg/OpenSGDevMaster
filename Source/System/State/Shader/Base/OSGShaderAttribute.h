@@ -66,6 +66,19 @@ namespace ShaderConstants
     static const UInt16 Attribute13Index     = 13;
     static const UInt16 Attribute14Index     = 14;
     static const UInt16 Attribute15Index     = 15;
+
+    static const UInt16 PositionsIndex       = Attribute0Index;
+    static const UInt16 NormalsIndex         = Attribute2Index;
+    static const UInt16 ColorsIndex          = Attribute3Index;
+    static const UInt16 SecondaryColorsIndex = Attribute4Index;
+    static const UInt16 TexCoordsIndex       = Attribute8Index;
+    static const UInt16 TexCoords1Index      = Attribute9Index;
+    static const UInt16 TexCoords2Index      = Attribute10Index;
+    static const UInt16 TexCoords3Index      = Attribute11Index;
+    static const UInt16 TexCoords4Index      = Attribute12Index;
+    static const UInt16 TexCoords5Index      = Attribute13Index;
+    static const UInt16 TexCoords6Index      = Attribute14Index;
+    static const UInt16 TexCoords7Index      = Attribute15Index;
 }
 
 /*! \brief Accessible via #ShaderAttrIndexMapper
@@ -74,7 +87,7 @@ namespace ShaderConstants
     \nohierarchy
  */
 
-class OSG_BASE_DLLMAPPING ShaderAttrIndexMapperBase : 
+class OSG_SYSTEM_DLLMAPPING ShaderAttrIndexMapperBase : 
     public StringValueMapper<UInt16>
 {
     /*==========================  PUBLIC  =================================*/
