@@ -64,7 +64,7 @@
 #include "OSGPointIterator.h"
 #include "OSGDrawableStatsAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
 // OSGGeometryBase.cpp file.
@@ -389,8 +389,25 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     bool          usesShader = false;
     
-#ifndef __APPLE__
+//#ifndef __APPLE__
 //    usesShader = (pEnv->getActiveShader() != 0);
+//#endif
+
+#ifdef OSG_OGL_VERTEXATTRIB_FUNCS
+    // Quick solution must be cleaned up.
+    if(pEnv->getActiveShader() != 0)
+    {
+        if((pEnv->getRequiredOGLFeature() & 
+            HardwareContext::HasAttribAliasing) == 0x0000)
+        {
+            usesShader = true;
+        }
+        else
+        {
+            usesShader = (pEnv->getWindow()->getOGLFeatures() &
+                          HardwareContext::HasAttribAliasing   ) != 0x0000;
+        }
+    }
 #endif
 
     // store glColor.
@@ -976,3 +993,5 @@ PointIterator Geometry::endPoints(void) const
 
     return it;
 }
+
+OSG_END_NAMESPACE

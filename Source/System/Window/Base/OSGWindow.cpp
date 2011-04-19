@@ -68,6 +68,8 @@
 #include <link.h>
 #endif
 
+#include <boost/algorithm/string.hpp>    
+
 #include "OSGBaseFunctions.h"
 
 #include "OSGViewport.h"
@@ -1880,6 +1882,19 @@ void OSG::Window::setupGL( void )
     _sfRendererInfo.getValue() += 
         reinterpret_cast<const char *>(glGetString(GL_RENDERER));
 
+#ifndef __APPLE__
+    std::string szVendor = 
+        reinterpret_cast<const char *>(glGetString(GL_VENDOR));
+
+    boost::to_lower(szVendor);
+
+    std::string::size_type rc = szVendor.find("nvidia", 0);
+
+    if(rc != std::string::npos)
+    {
+        _uiOGLFeatures |= HasAttribAliasing;
+    }
+#endif
 
     doFrameInit();    // call it to setup extensions
 }

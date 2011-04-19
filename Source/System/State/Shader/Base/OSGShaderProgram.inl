@@ -52,6 +52,12 @@ bool ShaderProgram::hasParameter(void)
     return _mfParameter.size() != 0;
 }
 
+inline
+bool ShaderProgram::hasAttributes(void)
+{
+    return _mfAttributes.size() != 0;
+}
+
 template<class ValueT> inline
 bool ShaderProgram::addUniformVariable(const Char8 *name, const ValueT &value)
 {
@@ -389,6 +395,12 @@ inline
 UInt32 ShaderProgram::getFuncIdProgramParameteri(void)
 {
     return FuncIdProgramParameteri;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdBindAttribLocation(void)
+{
+    return FuncIdBindAttribLocation;
 }
 
 inline

@@ -106,6 +106,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var ShaderAttribute ShaderProgramBase::_mfAttributes
+    
+*/
+
 /*! \var bool            ShaderProgramBase::_sfCgFrontEnd
     
 */
@@ -207,6 +211,18 @@ void ShaderProgramBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleParameter),
         static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleParameter));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFShaderAttribute::Description(
+        MFShaderAttribute::getClassType(),
+        "attributes",
+        "",
+        AttributesFieldId, AttributesFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleAttributes),
+        static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleAttributes));
 
     oType.addInitialDesc(pDesc);
 
@@ -333,6 +349,15 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "    <Field\n"
     "        name=\"parameter\"\n"
     "        type=\"ShaderParameter\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"attributes\"\n"
+    "        type=\"ShaderAttribute\"\n"
     "        cardinality=\"multi\"\n"
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
@@ -471,6 +496,19 @@ const MFShaderParameter *ShaderProgramBase::getMFParameter(void) const
 }
 
 
+MFShaderAttribute *ShaderProgramBase::editMFAttributes(void)
+{
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return &_mfAttributes;
+}
+
+const MFShaderAttribute *ShaderProgramBase::getMFAttributes(void) const
+{
+    return &_mfAttributes;
+}
+
+
 SFBool *ShaderProgramBase::editSFCgFrontEnd(void)
 {
     editSField(CgFrontEndFieldMask);
@@ -529,6 +567,10 @@ UInt32 ShaderProgramBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfParameter.getBinSize();
     }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        returnValue += _mfAttributes.getBinSize();
+    }
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
         returnValue += _sfCgFrontEnd.getBinSize();
@@ -573,6 +615,10 @@ void ShaderProgramBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
     {
         _mfParameter.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        _mfAttributes.copyToBin(pMem);
     }
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
@@ -621,6 +667,11 @@ void ShaderProgramBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(ParameterFieldMask, _mfParameter);
         _mfParameter.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        editMField(AttributesFieldMask, _mfAttributes);
+        _mfAttributes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
     {
@@ -774,6 +825,7 @@ ShaderProgramBase::ShaderProgramBase(void) :
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
     _mfParameter              (),
+    _mfAttributes             (),
     _sfCgFrontEnd             (bool(false)),
     _sfPointSize              (bool(false)),
     _mfParents                (),
@@ -790,6 +842,7 @@ ShaderProgramBase::ShaderProgramBase(const ShaderProgramBase &source) :
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
     _mfParameter              (source._mfParameter              ),
+    _mfAttributes             (source._mfAttributes             ),
     _sfCgFrontEnd             (source._sfCgFrontEnd             ),
     _sfPointSize              (source._sfPointSize              ),
     _mfParents                (),
@@ -1056,6 +1109,31 @@ EditFieldHandlePtr ShaderProgramBase::editHandleParameter      (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ShaderProgramBase::getHandleAttributes      (void) const
+{
+    MFShaderAttribute::GetHandlePtr returnValue(
+        new  MFShaderAttribute::GetHandle(
+             &_mfAttributes,
+             this->getType().getFieldDesc(AttributesFieldId),
+             const_cast<ShaderProgramBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProgramBase::editHandleAttributes     (void)
+{
+    MFShaderAttribute::EditHandlePtr returnValue(
+        new  MFShaderAttribute::EditHandle(
+             &_mfAttributes,
+             this->getType().getFieldDesc(AttributesFieldId),
+             this));
+
+
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ShaderProgramBase::getHandleCgFrontEnd      (void) const
 {
     SFBool::GetHandlePtr returnValue(
@@ -1181,6 +1259,10 @@ void ShaderProgramBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfParameter.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfAttributes.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT

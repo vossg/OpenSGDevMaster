@@ -82,22 +82,26 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    void   setWindow         (      Window   *pWindow       );
-    void   setSGNode         (      Node     *pSGNode       );
+    void   setWindow            (      Window   *pWindow       );
+    void   setSGNode            (      Node     *pSGNode       );
 
-    void   setupProjection   (const Matrix   &projection,
-                              const Matrix   &translation   );
-    void   setupViewing      (const Matrix   &matrix        );
-    void   setObjectToWorld  (const Matrix   &matrix        );
+    void   setupProjection      (const Matrix   &projection,
+                                 const Matrix   &translation   );
+    void   setupViewing         (const Matrix   &matrix        );
+    void   setObjectToWorld     (const Matrix   &matrix        );
 
-    void   setCameraNear     (const Real32   &camNear       );
-    void   setCameraFar      (const Real32   &camFar        );
+    void   setCameraNear        (const Real32   &camNear       );
+    void   setCameraFar         (const Real32   &camFar        );
 
-    void   setActiveTexTarget(      UInt32    uiSlot,
-                                    GLenum    uiTarget      );
+    void   setActiveTexTarget   (      UInt32    uiSlot,
+                                       GLenum    uiTarget      );
 
-    void   setActiveShader   (      UInt32    uiActiveShader);
-    UInt32 getActiveShader   (      void                    );
+    void   setActiveShader      (      UInt32    uiActiveShader);
+    UInt32 getActiveShader      (      void                    );
+
+    UInt32 getRequiredOGLFeature(      void                    );
+    void   addRequiredOGLFeature(      UInt32    uiFeatureMask );
+    void   subRequiredOGLFeature(      UInt32    uiFeatureMask );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -308,6 +312,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
     UInt32         _uiActiveShader;
+    UInt32         _uiRequiredOGLFeature;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

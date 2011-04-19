@@ -122,6 +122,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var ShaderAttribute ShaderExecutableChunkBase::_mfAttributes
+    
+*/
+
 /*! \var UInt32          ShaderExecutableChunkBase::_sfGLId
     
 */
@@ -263,6 +267,18 @@ void ShaderExecutableChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderExecutableChunk::editHandleGeometryOutputType),
         static_cast<FieldGetMethodSig >(&ShaderExecutableChunk::getHandleGeometryOutputType));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFShaderAttribute::Description(
+        MFShaderAttribute::getClassType(),
+        "attributes",
+        "",
+        AttributesFieldId, AttributesFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderExecutableChunk::editHandleAttributes),
+        static_cast<FieldGetMethodSig >(&ShaderExecutableChunk::getHandleAttributes));
 
     oType.addInitialDesc(pDesc);
 
@@ -422,6 +438,15 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     "    </Field>\n"
     "\n"
     "    <Field\n"
+    "        name=\"attributes\"\n"
+    "        type=\"ShaderAttribute\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
     "        name=\"GLId\"\n"
     "        type=\"UInt32\"\n"
     "        cardinality=\"single\"\n"
@@ -548,6 +573,19 @@ const SFGLenum *ShaderExecutableChunkBase::getSFGeometryOutputType(void) const
 }
 
 
+MFShaderAttribute *ShaderExecutableChunkBase::editMFAttributes(void)
+{
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return &_mfAttributes;
+}
+
+const MFShaderAttribute *ShaderExecutableChunkBase::getMFAttributes(void) const
+{
+    return &_mfAttributes;
+}
+
+
 SFUInt32 *ShaderExecutableChunkBase::editSFGLId(void)
 {
     editSField(GLIdFieldMask);
@@ -620,6 +658,10 @@ UInt32 ShaderExecutableChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfGeometryOutputType.getBinSize();
     }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        returnValue += _mfAttributes.getBinSize();
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         returnValue += _sfGLId.getBinSize();
@@ -672,6 +714,10 @@ void ShaderExecutableChunkBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GeometryOutputTypeFieldMask & whichField))
     {
         _sfGeometryOutputType.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        _mfAttributes.copyToBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
@@ -732,6 +778,11 @@ void ShaderExecutableChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(GeometryOutputTypeFieldMask);
         _sfGeometryOutputType.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+    {
+        editMField(AttributesFieldMask, _mfAttributes);
+        _mfAttributes.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
@@ -879,6 +930,7 @@ ShaderExecutableChunkBase::ShaderExecutableChunkBase(void) :
     _sfGeometryVerticesOut    (UInt32(0)),
     _sfGeometryInputType      (GLenum(GL_TRIANGLES)),
     _sfGeometryOutputType     (GLenum(GL_TRIANGLE_STRIP)),
+    _mfAttributes             (),
     _sfGLId                   (UInt32(0)),
     _sfPointSize              (bool(false))
 {
@@ -897,6 +949,7 @@ ShaderExecutableChunkBase::ShaderExecutableChunkBase(const ShaderExecutableChunk
     _sfGeometryVerticesOut    (source._sfGeometryVerticesOut    ),
     _sfGeometryInputType      (source._sfGeometryInputType      ),
     _sfGeometryOutputType     (source._sfGeometryOutputType     ),
+    _mfAttributes             (source._mfAttributes             ),
     _sfGLId                   (source._sfGLId                   ),
     _sfPointSize              (source._sfPointSize              )
 {
@@ -1159,6 +1212,31 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleGeometryOutputType(void)
     return returnValue;
 }
 
+GetFieldHandlePtr ShaderExecutableChunkBase::getHandleAttributes      (void) const
+{
+    MFShaderAttribute::GetHandlePtr returnValue(
+        new  MFShaderAttribute::GetHandle(
+             &_mfAttributes,
+             this->getType().getFieldDesc(AttributesFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderExecutableChunkBase::editHandleAttributes     (void)
+{
+    MFShaderAttribute::EditHandlePtr returnValue(
+        new  MFShaderAttribute::EditHandle(
+             &_mfAttributes,
+             this->getType().getFieldDesc(AttributesFieldId),
+             this));
+
+
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ShaderExecutableChunkBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
@@ -1260,6 +1338,10 @@ void ShaderExecutableChunkBase::resolveLinks(void)
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfProceduralVariableLocations.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfAttributes.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

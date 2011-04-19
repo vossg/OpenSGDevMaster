@@ -77,6 +77,7 @@
 
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderParameterFields.h"
+#include "OSGShaderAttributeFields.h"
 #endif
 
 #include "OSGFieldConnector.h"
@@ -266,6 +267,9 @@ void OSGLoader::initFieldTypeMapper(void)
 
 #ifdef OSG_NEW_SHADER
     setIntExtMapping(MFShaderParameter::getClassType().getId(),
+                     ScanParseSkel::OSGmfString);
+
+    setIntExtMapping(MFShaderAttribute::getClassType().getId(),
                      ScanParseSkel::OSGmfString);
 #endif
 

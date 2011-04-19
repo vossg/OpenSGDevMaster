@@ -80,7 +80,7 @@ struct FieldTraits<ShaderParameter> :
     }
 
    static void putToStream(const ShaderParameter &val,
-                                  OutStream       &outStr)
+                                 OutStream       &outStr)
     {
         const std::string &fVal = GLDefineMapper::the()->toString(val.first);
 

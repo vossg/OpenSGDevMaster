@@ -212,6 +212,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
                                    UInt32   uiProgram);
     void updateParameters         (DrawEnv *pEnv,
                                    UInt32   uiProgram);
+    void updateAttribBindings     (DrawEnv *pEnv,
+                                   UInt32   uiProgram);
 
     void updateProceduralVariables(DrawEnv *pEnv,
                                    UInt32   uiUpdateDependents);

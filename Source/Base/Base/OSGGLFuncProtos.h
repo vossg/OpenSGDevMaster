@@ -178,6 +178,10 @@ typedef void  (OSG_APIENTRY *
                                                                  GLenum, 
                                                                  GLint      );
 
+typedef void  (OSG_APIENTRY * OSGglBindAttribLocationProc)(      GLuint, 
+                                                                 GLuint, 
+                                                           const GLchar *   );
+
 /*! \}                                                                       */
 #endif
 /*---------------------------------------------------------------------------*/
@@ -341,8 +345,9 @@ typedef void (OSG_APIENTRY *OSGglGenBuffersARB   )(      GLsizei        n,
 typedef void (OSG_APIENTRY *OSGglDeleteBuffersARB)(      GLsizei        n, 
                                                    const GLuint        *bufs);
 
-typedef void *(OSG_APIENTRY * OSGglMapBufferARB)(GLenum target, GLenum access);
-typedef GLboolean (OSG_APIENTRY * OSGglUnmapBufferARB)(GLenum target);
+typedef void     *(OSG_APIENTRY *OSGglMapBufferARB  )(GLenum target, 
+                                                      GLenum access);
+typedef GLboolean (OSG_APIENTRY *OSGglUnmapBufferARB)(GLenum target);
 
 typedef void (OSG_APIENTRY *OSGglEnableVertexAttribArrayARB )(GLuint index);
 typedef void (OSG_APIENTRY *OSGglDisableVertexAttribArrayARB)(GLuint index);

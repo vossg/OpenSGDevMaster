@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,28 +36,26 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OGSHADERATTRIBUTEFIELDS_H_
+#define _OGSHADERATTRIBUTEFIELDS_H_
+
+#include "OSGShaderAttribute.h"
+#include "OSGMField.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline
-UInt32 HardwareContext::getInitState(void) const
-{
-    return _uiInitState;
-}
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-inline
-UInt32 HardwareContext::getOGLFeatures(void) const
-{
-    return _uiOGLFeatures;
-}
+/*! \ingroup GrpSystemShaderFieldSFields */
+typedef MField<ShaderAttribute> MFShaderAttribute;
 
-inline
-bool HardwareContext::hasAttribAliasing(void) const
-{
-    return (_uiOGLFeatures & HasAttribAliasing) != 0x0000;
-}
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct MFShaderAttribute : public MField<ShaderAttribute> {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
+
+#endif

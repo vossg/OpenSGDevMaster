@@ -67,6 +67,15 @@
     </Field>
 
     <Field
+        name="attributes"
+        type="ShaderAttribute"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+    </Field>
+
+    <Field
         name="cgFrontEnd"
         type="bool"
         cardinality="single"

@@ -93,7 +93,8 @@ DrawEnv::DrawEnv(void) :
     _uiNumShaderChanges     (0    ),
     _uiNumShaderParamChanges(0    ),
     _pStatCollector         (NULL ),
-    _uiActiveShader         (0    )
+    _uiActiveShader         (0    ),
+    _uiRequiredOGLFeature   (0    )
 {
     _cameraFullProjection   .setIdentity();
     _cameraProjection       .setIdentity();

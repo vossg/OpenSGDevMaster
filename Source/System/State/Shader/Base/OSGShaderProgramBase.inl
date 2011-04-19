@@ -231,6 +231,22 @@ ShaderParameter &ShaderProgramBase::editParameter(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the ShaderProgram::_mfAttributes field.
+inline
+const ShaderAttribute &ShaderProgramBase::getAttributes(const UInt32 index) const
+{
+    return _mfAttributes[index];
+}
+
+inline
+ShaderAttribute &ShaderProgramBase::editAttributes(const UInt32 index)
+{
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return _mfAttributes[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -256,6 +272,12 @@ void ShaderProgramBase::execSync (      ShaderProgramBase *pFrom,
 
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
         _mfParameter.syncWith(pFrom->_mfParameter,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+        _mfAttributes.syncWith(pFrom->_mfAttributes,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

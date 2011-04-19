@@ -277,9 +277,12 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     osgGlAttachShader(uiProgram, uiShader);
             }
 
+            // attribute binding must be done before linking
+            updateAttribBindings(pEnv, uiProgram);
+
             // parameters must be set before linking
             updateParameters(pEnv, uiProgram);
-
+            
             osgGlLinkProgram(uiProgram);
 
             GLint  iInfoLength;
@@ -481,8 +484,8 @@ void ShaderExecutableChunk::changed(ConstFieldMaskArg whichField,
             this->remergeVariables();
 
             Window::refreshGLObject(this->getGLId());
-         }
-
+        }
+        
         bMarkChanged = true;
     }
 
@@ -569,6 +572,11 @@ void ShaderExecutableChunk::activate(DrawEnv    *pEnv,
 
         pEnv->setActiveShader(uiProgId);
         osgGlUseProgram      (uiProgId);
+
+        if(_mfAttributes.size() == 0)
+        {
+            pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+        }
     }
 
     updateProceduralVariables(pEnv, ShaderProcVariable::SHDAll);
@@ -635,6 +643,11 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
             pEnv->setActiveShader(uiProgId);
             osgGlUseProgram      (uiProgId);
+
+            if(_mfAttributes.size() == 0)
+            {
+                pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+            }
         }
 
         if(_sfPointSize.getValue() == true)
@@ -674,6 +687,9 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
     }
 
     pEnv->setActiveShader(0);
+
+    pEnv->subRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+
     osgGlUseProgram      (0);
 }
 
@@ -682,6 +698,7 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
     editMField(VertexShaderFieldMask,   _mfVertexShader  );
     editMField(GeometryShaderFieldMask, _mfGeometryShader);
     editMField(FragmentShaderFieldMask, _mfFragmentShader);
+    editMField(AttributesFieldMask,     _mfAttributes    );
 
     if(_sfVariables.getValue() == NULL)
     {
@@ -701,6 +718,8 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
     ShaderProgramChunk::MFVertexShaderType::const_iterator sEnd = 
         pChunk->getMFVertexShader()->end();
 
+    _mfAttributes.clear();
+
     bool bPointSize = false;
 
     for(; sIt != sEnd; ++sIt)
@@ -715,6 +734,16 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
             this->editMFProceduralVariableLocations());
 
         bPointSize |= (*sIt)->getPointSize();
+        
+        if((*sIt)->hasAttributes() == true)
+        {
+            _mfAttributes.reserve(_mfAttributes.size() + 
+                                  (*sIt)->getMFAttributes()->size());
+
+            _mfAttributes.insert(_mfAttributes.end(),
+                                 (*sIt)->getMFAttributes()->begin(),
+                                 (*sIt)->getMFAttributes()->end  ());
+        }
     }
 
     if(bPointSize != _sfPointSize.getValue())
@@ -968,6 +997,34 @@ void ShaderExecutableChunk::updateVariables(DrawEnv *pEnv,
         osgUniformShaderVariableSwitch(pEnv,    pVar,
                                        *mLocIt, uiProgram, warnUnknown);
     }
+}
+
+void ShaderExecutableChunk::updateAttribBindings(DrawEnv *pEnv,
+                                                 UInt32   uiProgram)
+{
+#ifdef OSG_OGL_VERTEXATTRIB_FUNCS
+    MFAttributesType::const_iterator aIt  = _mfAttributes.begin();
+    MFAttributesType::const_iterator aEnd = _mfAttributes.end  ();
+        
+    if(aIt == aEnd)
+        return;
+
+    OSGGETGLFUNC(OSGglBindAttribLocationProc,
+                 osgGlBindAttribLocation,
+                 ShaderProgram::getFuncIdBindAttribLocation());
+
+    for(; aIt != aEnd; ++aIt)
+    {
+        osgGlBindAttribLocation(uiProgram, (*aIt).first, (*aIt).second.c_str());
+    }
+#else
+    if(_mfAttributes.size() != NULL)
+    {
+        SWARNING(("attributes given, but support not enabled, please"
+                  " compile with OSG_ENABLE_OGL_VERTEXT_ATTRIB_FUNCS=ON\n"));
+    }
+#endif
+
 }
 
 void ShaderExecutableChunk::updateParameters(DrawEnv *pEnv,

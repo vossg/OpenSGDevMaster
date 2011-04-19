@@ -1,0 +1,84 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      chunks
+      [
+        TextureObjChunk
+        {
+          image ImageFile
+          {
+            url "../../Shader/BumpMap/opensg_logoDOT3.png"
+          }
+
+          minFilter GL_LINEAR_MIPMAP_LINEAR
+          magFilter GL_LINEAR
+          wrapS     GL_REPEAT
+          wrapT     GL_REPEAT
+        }
+
+        TextureEnvChunk
+        {
+          envMode GL_MODULATE
+        }
+
+        ShaderProgramChunk
+        {
+          vertexShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_VERTEX_SHADER
+
+              programUrl "../../Shader/BumpMap/bumpAttr.vp"
+
+              attributes
+              [
+                "TexCoords0Index TexCoord0"
+                "NormalsIndex    Normal",
+                "PositionsIndex  Position",
+              ]
+            }
+          ]
+
+          fragmentShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_FRAGMENT_SHADER
+
+              variables ShaderProgramVariables
+              {
+                variables
+                [
+                  ShaderVariableInt
+                  {
+                    name "sampler2d"
+                    value 0
+                  }
+                ]
+              }
+
+              programUrl "../../Shader/BumpMap/bump.fp"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../../Models/plane.wrl"
+      }
+    }
+  ]
+}

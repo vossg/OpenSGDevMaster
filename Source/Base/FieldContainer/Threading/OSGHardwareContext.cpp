@@ -85,14 +85,16 @@ void HardwareContext::initMethod(InitPhase ePhase)
 HardwareContext::HardwareContext(void) :
      Inherited     (    ),
     _pContextThread(NULL),
-    _uiInitState   (0   )
+    _uiInitState   (0   ),
+    _uiOGLFeatures (0   )
 {
 }
 
 HardwareContext::HardwareContext(const HardwareContext &source) :
      Inherited     (source),
     _pContextThread(NULL  ),
-    _uiInitState   (0     )
+    _uiInitState   (0     ),
+    _uiOGLFeatures (0     )
 {
 }
 

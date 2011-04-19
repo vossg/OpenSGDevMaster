@@ -113,6 +113,7 @@ UInt32 ShaderProgram::FuncIdGetUniformiv       = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdGetUniformfv       = Window::invalidFunctionID;
 
 UInt32 ShaderProgram::FuncIdProgramParameteri  = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdBindAttribLocation = Window::invalidFunctionID;
 
 ShaderProgram::ProgramIdPool *ShaderProgram::_pProgIdPool = NULL;
 
@@ -395,6 +396,11 @@ void ShaderProgram::initMethod(InitPhase ePhase)
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glProgramParameteriEXT", 
                 _extGeoShader4);
+
+        FuncIdBindAttribLocation = 
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glBindAttribLocationARB",
+                _extSHL);
     }
 }
 
@@ -734,11 +740,14 @@ void ShaderProgram::changed(ConstFieldMaskArg whichField,
     }
 }
 
-ShaderProgramTransitPtr ShaderProgram::createVertexShader(void)
+ShaderProgramTransitPtr ShaderProgram::createVertexShader(
+    bool bCreateDefAttribMap)
 {
     ShaderProgramTransitPtr returnValue = ShaderProgram::create();
 
     returnValue->setShaderType(GL_VERTEX_SHADER);
+
+    returnValue->createDefaulAttribMapping();
 
     return returnValue;
 }
@@ -897,12 +906,12 @@ struct ParamEqual
 
 void ShaderProgram::setProgramParameter(GLenum name, UInt32 value)
 {
+    editMField(ParameterFieldMask, _mfParameter);
+
     MFShaderParameter::iterator pIt = 
         std::find_if(_mfParameter.begin(),
                      _mfParameter.end  (),
                      ParamEqual        (name));
-
-    editMField(ParameterFieldMask, _mfParameter);
 
     if(pIt != _mfParameter.end())
     {
@@ -933,6 +942,99 @@ void ShaderProgram::subProgramParameter(GLenum name)
         _mfParameter.erase(pIt);
     }
 }
+
+struct AttribEqual
+{
+    UInt16 _ref;
+
+    AttribEqual(UInt16 ref) : 
+        _ref(ref) 
+    {
+    }
+    
+    bool operator() (const ShaderAttribute &lhs)
+    {
+        return lhs.first == _ref;
+    }
+};
+
+void ShaderProgram::setProgramAttribute(UInt16 uiIndex, std::string szName)
+{
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    MFShaderAttribute::iterator aIt = 
+        std::find_if(_mfAttributes.begin(),
+                     _mfAttributes.end  (),
+                     AttribEqual        (uiIndex));
+    
+
+    if(aIt != _mfAttributes.end())
+    {
+        aIt->second = szName;
+    }
+    else
+    {
+        ShaderAttribute tmpAttr;
+
+        tmpAttr.first  = uiIndex;
+        tmpAttr.second = szName;
+
+        _mfAttributes.push_back(tmpAttr);
+    }
+}
+
+void ShaderProgram::subProgramAttribute(UInt16 uiIndex)
+{
+    MFAttributesType::iterator aIt = 
+        std::find_if(_mfAttributes.begin(),
+                     _mfAttributes.end  (),
+                     AttribEqual        (uiIndex));
+
+    if(aIt != _mfAttributes.end())
+    {
+        editMField(AttributesFieldMask, _mfAttributes);
+        
+        _mfAttributes.erase(aIt);
+    }
+}
+
+void ShaderProgram::createDefaulAttribMapping(void)
+{
+    if(_sfShaderType.getValue() == GL_VERTEX_SHADER)
+    {
+        this->setProgramAttribute(ShaderConstants::Attribute0Index,  
+                                  "osg_Vertex"                     );
+        this->setProgramAttribute(ShaderConstants::Attribute2Index, 
+                                  "osg_Normal"                     );
+
+        this->setProgramAttribute(ShaderConstants::Attribute3Index,  
+                                  "osg_Color"                      );
+        this->setProgramAttribute(ShaderConstants::Attribute4Index,  
+                                  "osg_SecondaryColor"             );
+
+        this->setProgramAttribute(ShaderConstants::Attribute8Index,  
+                                  "osg_MultiTexCoord0"             );
+        this->setProgramAttribute(ShaderConstants::Attribute9Index,  
+                                  "osg_MultiTexCoord1"             );
+        this->setProgramAttribute(ShaderConstants::Attribute10Index, 
+                                  "osg_MultiTexCoord2"             );
+        this->setProgramAttribute(ShaderConstants::Attribute11Index,
+                                  "osg_MultiTexCoord3"             );
+        this->setProgramAttribute(ShaderConstants::Attribute12Index,
+                                  "osg_MultiTexCoord4"             );
+        this->setProgramAttribute(ShaderConstants::Attribute13Index,
+                                  "osg_MultiTexCoord5"             );
+        this->setProgramAttribute(ShaderConstants::Attribute14Index,
+                                  "osg_MultiTexCoord6"             );
+        this->setProgramAttribute(ShaderConstants::Attribute15Index,
+                                  "osg_MultiTexCoord7"             );
+    }
+    else
+    {
+        FWARNING(("attrib map can only be created for a vertex shader"));
+    }
+}
+
 
 bool ShaderProgram::addOSGVariable(const Char8 *name)
 {

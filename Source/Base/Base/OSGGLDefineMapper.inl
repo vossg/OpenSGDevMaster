@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,35 +36,41 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//-------------------------------
-//  Includes
-//-------------------------------
-
-#define OSG_COMPILE_GLDEFINEMAPPER
-
-#include "OSGGLDefineMapper.h"
-
-#include "OSGSingletonHolder.ins"
-
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(GLDefineMapperBase, addPostFactoryExitFunction)
+template<typename ValueT> 
+const std::string StringValueMapper<ValueT>::szUnknown("NONEXX");
 
-template class SingletonHolder<GLDefineMapperBase>;
-
-
-GLenum GLDefineMapperBase::fromString(const Char8  *sval) const
+template<typename ValueT> inline
+const std::string &StringValueMapper<ValueT>::toString(const ValueT eval) const
 {
-    GLenum returnValue = 0x0000;
+    typename MapFromValue::const_iterator mIt = _mFromValue.find(eval);
+
+    if(mIt != _mFromValue.end())
+    {
+        return mIt->second;
+    }
+    else
+    {
+        return szUnknown;
+    }
+}
+
+template<typename ValueT> inline
+ValueT StringValueMapper<ValueT>::fromString(const Char8  *sval) const
+{
+    ValueT returnValue = 0;
 
     if(sval == NULL)
         return returnValue;
 
-    if((sval[0] != '\0' && sval[0] == 'G') &&
-       (sval[1] != '\0' && sval[1] == 'L') &&
-       (sval[2] != '\0' && sval[2] == '_')   )
+    if(sval[0] >= 48 && sval[0] <= 57)
     {
-        MapToValue::const_iterator mIt = _mToValue.find(sval + 3);
+        returnValue = TypeTraits<ValueT>::getFromCString(sval);
+    }
+    else
+    {
+        typename MapToValue::const_iterator mIt = _mToValue.find(sval);
 
         if(mIt != _mToValue.end())
         {
@@ -72,46 +78,85 @@ GLenum GLDefineMapperBase::fromString(const Char8  *sval) const
         }
         else
         {
-            FWARNING(("Unknow gl constant : %s\n", sval));
+            FWARNING(("Unknow string constant : %s\n", sval));
         }
     }
-    else
-    {
-        returnValue = Inherited::fromString(sval);
-    }
-
-#if 0
-    else if(sval[0] >= 48 && sval[0] <= 57)
-    {
-        returnValue = TypeTraits<GLenum>::getFromCString(sval);
-    }
-    else
-    {
-        MapToValue::const_iterator mIt = _mToValue.find(sval);
-
-        if(mIt != _mToValue.end())
-        {
-            returnValue = mIt->second;
-        }
-        else
-        {
-            FWARNING(("Unknow gl constant : %s\n", sval));
-        }
-    }
-#endif
 
     return returnValue;
 }
 
-
-GLDefineMapperBase::GLDefineMapperBase(void) :
-    Inherited()
+template<typename ValueT> inline
+void StringValueMapper<ValueT>::addToValuePair(const std::string &sval, 
+                                               const      ValueT   val)
 {
-    initMaps();
+#ifdef OSG_DEBUG
+    typename MapToValue::const_iterator mIt = _mToValue.find(sval);
+
+    if(mIt != _mToValue.end())
+    {
+        fprintf(stderr, "%s already present : %x|%x\n",
+                sval.c_str(),
+                val,
+                mIt->second);
+    }
+    else
+    {
+#endif
+        _mToValue.insert(std::make_pair(sval, val));
+#ifdef OSG_DEBUG
+    }
+#endif
 }
 
-GLDefineMapperBase::~GLDefineMapperBase(void)
+template<typename ValueT> inline
+void StringValueMapper<ValueT>::addFromValuePair(const      ValueT  val, 
+                                                 const std::string &sval)
 {
+#ifdef OSG_DEBUG
+    typename MapFromValue::const_iterator mIt = _mFromValue.find(val);
+
+    if(mIt != _mFromValue.end())
+    {
+        fprintf(stderr, "%x already present : %s|%s\n",
+                val,
+                sval.c_str(),
+                mIt->second.c_str());
+    }
+    else
+    {
+#endif
+        _mFromValue.insert(std::make_pair(val, sval));
+#ifdef OSG_DEBUG
+    }
+#endif
+}
+
+template<typename ValueT> inline
+StringValueMapper<ValueT>::StringValueMapper(void) :
+    _mToValue  (),
+    _mFromValue()
+{
+}
+
+template<typename ValueT> inline
+StringValueMapper<ValueT>::~StringValueMapper(void)
+{
+}
+
+
+inline
+void GLDefineMapperBase::addToEnumPair(const std::string &sval, 
+                                       const      GLenum  eval)
+{
+    Inherited::addToValuePair(sval, eval);
+}
+
+inline
+void GLDefineMapperBase::addFromEnumPair(const      GLenum  eval, 
+                                         const std::string &sval)
+{
+    Inherited::addFromValuePair(eval, sval);
 }
 
 OSG_END_NAMESPACE
+

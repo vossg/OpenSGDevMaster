@@ -77,6 +77,11 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
         OpenCLInitialized = 0x0004
     };
 
+    enum OpenGLFeatures
+    {
+        HasAttribAliasing = 0x0001
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -109,6 +114,14 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
     void setCudaInit(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    UInt32 getOGLFeatures   (void) const;
+    bool   hasAttribAliasing(void) const; 
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -117,6 +130,7 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
 
     HardwareContextThreadRefPtr _pContextThread;
     UInt32                      _uiInitState;
+    UInt32                      _uiOGLFeatures;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -154,7 +168,7 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
 
     void   setOpenGLInit(void);
 
-    UInt32 getInitState (void);
+    UInt32 getInitState (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

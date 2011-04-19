@@ -116,6 +116,24 @@ UInt32 DrawEnv::getActiveShader(void)
 }
 
 inline
+UInt32 DrawEnv::getRequiredOGLFeature(void)
+{
+    return _uiRequiredOGLFeature;
+}
+
+inline
+void DrawEnv::addRequiredOGLFeature(UInt32 uiFeatureMask)
+{
+    _uiRequiredOGLFeature |= uiFeatureMask;
+}
+
+inline
+void DrawEnv::subRequiredOGLFeature(UInt32 uiFeatureMask)
+{
+    _uiRequiredOGLFeature &= ~uiFeatureMask;
+}
+
+inline
 const Matrix &DrawEnv::getWorldToScreen(void) const
 {
     return _worldToScreen;

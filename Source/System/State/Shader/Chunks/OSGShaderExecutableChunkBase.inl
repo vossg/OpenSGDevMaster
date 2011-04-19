@@ -247,6 +247,22 @@ Int32 &ShaderExecutableChunkBase::editProceduralVariableLocations(const UInt32 i
 }
 
 
+//! Get the value of the \a index element the ShaderExecutableChunk::_mfAttributes field.
+inline
+const ShaderAttribute &ShaderExecutableChunkBase::getAttributes(const UInt32 index) const
+{
+    return _mfAttributes[index];
+}
+
+inline
+ShaderAttribute &ShaderExecutableChunkBase::editAttributes(const UInt32 index)
+{
+    editMField(AttributesFieldMask, _mfAttributes);
+
+    return _mfAttributes[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -299,6 +315,12 @@ void ShaderExecutableChunkBase::execSync (      ShaderExecutableChunkBase *pFrom
 
     if(FieldBits::NoField != (GeometryOutputTypeFieldMask & whichField))
         _sfGeometryOutputType.syncWith(pFrom->_sfGeometryOutputType);
+
+    if(FieldBits::NoField != (AttributesFieldMask & whichField))
+        _mfAttributes.syncWith(pFrom->_mfAttributes,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);

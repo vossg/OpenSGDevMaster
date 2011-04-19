@@ -69,6 +69,7 @@
 #include "OSGShaderProgramVariablesFields.h" // Variables type
 #include "OSGSysFields.h"               // VariableLocations type
 #include "OSGBaseFields.h"              // GeometryInputType type
+#include "OSGShaderAttributeFields.h"   // Attributes type
 
 #include "OSGShaderExecutableChunkFields.h"
 
@@ -105,7 +106,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
         GeometryVerticesOutFieldId = ProceduralVariableLocationsFieldId + 1,
         GeometryInputTypeFieldId = GeometryVerticesOutFieldId + 1,
         GeometryOutputTypeFieldId = GeometryInputTypeFieldId + 1,
-        GLIdFieldId = GeometryOutputTypeFieldId + 1,
+        AttributesFieldId = GeometryOutputTypeFieldId + 1,
+        GLIdFieldId = AttributesFieldId + 1,
         PointSizeFieldId = GLIdFieldId + 1,
         NextFieldId = PointSizeFieldId + 1
     };
@@ -128,6 +130,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << GeometryInputTypeFieldId);
     static const OSG::BitVector GeometryOutputTypeFieldMask =
         (TypeTraits<BitVector>::One << GeometryOutputTypeFieldId);
+    static const OSG::BitVector AttributesFieldMask =
+        (TypeTraits<BitVector>::One << AttributesFieldId);
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector PointSizeFieldMask =
@@ -144,6 +148,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
     typedef SFUInt32          SFGeometryVerticesOutType;
     typedef SFGLenum          SFGeometryInputTypeType;
     typedef SFGLenum          SFGeometryOutputTypeType;
+    typedef MFShaderAttribute MFAttributesType;
     typedef SFUInt32          SFGLIdType;
     typedef SFBool            SFPointSizeType;
 
@@ -182,6 +187,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
                   SFGLenum            *editSFGeometryOutputType(void);
             const SFGLenum            *getSFGeometryOutputType (void) const;
 
+                  MFShaderAttribute   *editMFAttributes     (void);
+            const MFShaderAttribute   *getMFAttributes      (void) const;
+
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
@@ -199,6 +207,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
 
                   GLenum              &editGeometryOutputType(void);
             const GLenum              &getGeometryOutputType (void) const;
+
+                  ShaderAttribute     &editAttributes     (const UInt32 index);
+            const ShaderAttribute     &getAttributes      (const UInt32 index) const;
 
                   UInt32              &editGLId           (void);
                   UInt32               getGLId            (void) const;
@@ -290,6 +301,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
     SFUInt32          _sfGeometryVerticesOut;
     SFGLenum          _sfGeometryInputType;
     SFGLenum          _sfGeometryOutputType;
+    MFShaderAttribute _mfAttributes;
     SFUInt32          _sfGLId;
     SFBool            _sfPointSize;
 
@@ -346,6 +358,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
     EditFieldHandlePtr editHandleGeometryInputType(void);
     GetFieldHandlePtr  getHandleGeometryOutputType (void) const;
     EditFieldHandlePtr editHandleGeometryOutputType(void);
+    GetFieldHandlePtr  getHandleAttributes      (void) const;
+    EditFieldHandlePtr editHandleAttributes     (void);
     GetFieldHandlePtr  getHandleGLId            (void) const;
     EditFieldHandlePtr editHandleGLId           (void);
     GetFieldHandlePtr  getHandlePointSize       (void) const;

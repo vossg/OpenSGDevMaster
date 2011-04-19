@@ -50,6 +50,10 @@
 #include "OSGGeoIntegralProperty.h"
 #include "OSGWindow.h"
 
+#ifdef OSG_NEW_SHADER
+#include "OSGShaderAttribute.h"
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 class GeoPumpGroup;
@@ -107,6 +111,25 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     static const UInt16 TexCoords5Index      = 13;
     static const UInt16 TexCoords6Index      = 14;
     static const UInt16 TexCoords7Index      = 15;
+
+#ifdef OSG_NEW_SHADER
+    static const UInt16 Attribute0Index     = ShaderConstants::Attribute0Index;
+    static const UInt16 Attribute1Index     = ShaderConstants::Attribute1Index;
+    static const UInt16 Attribute2Index     = ShaderConstants::Attribute2Index;
+    static const UInt16 Attribute3Index     = ShaderConstants::Attribute3Index;
+    static const UInt16 Attribute4Index     = ShaderConstants::Attribute4Index;
+    static const UInt16 Attribute5Index     = ShaderConstants::Attribute5Index;
+    static const UInt16 Attribute6Index     = ShaderConstants::Attribute6Index;
+    static const UInt16 Attribute7Index     = ShaderConstants::Attribute7Index;
+    static const UInt16 Attribute8Index     = ShaderConstants::Attribute8Index;
+    static const UInt16 Attribute9Index     = ShaderConstants::Attribute9Index;
+    static const UInt16 Attribute10Index    = ShaderConstants::Attribute10Index;
+    static const UInt16 Attribute11Index    = ShaderConstants::Attribute11Index;
+    static const UInt16 Attribute12Index    = ShaderConstants::Attribute12Index;
+    static const UInt16 Attribute13Index    = ShaderConstants::Attribute13Index;
+    static const UInt16 Attribute14Index    = ShaderConstants::Attribute14Index;
+    static const UInt16 Attribute15Index    = ShaderConstants::Attribute15Index;
+#endif
 
     static const UInt16 LastIndex            = 15;
 

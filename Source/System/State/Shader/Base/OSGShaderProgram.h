@@ -125,6 +125,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getFuncIdGetUniformfv      (void);
 
     static UInt32 getFuncIdProgramParameteri (void);
+    static UInt32 getFuncIdBindAttribLocation(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,9 +148,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    static ShaderProgramTransitPtr createVertexShader  (void);
-    static ShaderProgramTransitPtr createGeometryShader(void);
-    static ShaderProgramTransitPtr createFragmentShader(void);
+    static ShaderProgramTransitPtr createVertexShader  (
+                                             bool bCreateDefAttribMap = false);
+    static ShaderProgramTransitPtr createGeometryShader(void                 );
+    static ShaderProgramTransitPtr createFragmentShader(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -216,8 +218,19 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool   hasParameter(void);
-    UInt16 getProgramId(void);
+    void setProgramAttribute      (UInt16 uiIndex, std::string szName);
+    void subProgramAttribute      (UInt16 uiIndex                    );
+
+    void createDefaulAttribMapping(void                              );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    bool   hasParameter (void);
+    bool   hasAttributes(void);
+    UInt16 getProgramId (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,6 +322,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 FuncIdGetUniformfv;
 
     static UInt32 FuncIdProgramParameteri;
+    static UInt32 FuncIdBindAttribLocation;
 
     /*---------------------------------------------------------------------*/
 
