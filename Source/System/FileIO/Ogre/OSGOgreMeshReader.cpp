@@ -1020,7 +1020,31 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
 
     for(UInt16 i = 0; i < 4; ++i)
     {
-        if((*boneIdxF)[vertIdx][i] < 0.f)
+        if((*boneIdxF)[vertIdx][i] == boneIdx)
+        {
+            if((*boneWeightF)[vertIdx][i] < boneWeight)
+            {
+                SINFO << "OgreMeshReader::readBoneAssignment: "
+                      << "vertex '" << vertIdx
+                      << "' changing bone influence from ("
+                      << (*boneIdxF   )[vertIdx][i] << ", "
+                      << (*boneWeightF)[vertIdx][i]
+                      << ") to (" << boneIdx << ", " << boneWeight
+                      << ")." << std::endl;
+            }
+            else
+            {
+                SINFO << "OgreMeshReader::readBoneAssignment: "
+                      << "vertex '" << vertIdx
+                      << "' already influenced by bone ("
+                      << boneIdx << "' " << boneWeight << ")."
+                      << std::endl;
+            }
+
+            found = true;
+            break;
+        }
+        else if((*boneIdxF)[vertIdx][i] < 0.f)
         {
             (*boneIdxF   )[vertIdx][i] = boneIdx;
             (*boneWeightF)[vertIdx][i] = boneWeight;
@@ -1033,8 +1057,44 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
     if(found == false)
     {
         SWARNING << "OgreMeshReader::readBoneAssignment: "
-                 << "vertex '" << vertIdx << "' influenced by more than 4 "
-                 << "bones." << std::endl;
+                 << "vertex '" << vertIdx
+                 << "' has more than 4 bones assigned." << std::endl;
+
+        UInt16 smallestWeightIdx = 0;
+        Real32 smallestWeight    = TypeTraits<Real32>::getMax();
+
+        for(UInt16 i = 0; i < 4; ++i)
+        {
+            if((*boneWeightF)[vertIdx][i] < smallestWeight)
+            {
+                smallestWeightIdx = i;
+                smallestWeight    = (*boneWeightF)[vertIdx][i];
+            }
+        }
+
+        if((*boneWeightF)[vertIdx][smallestWeightIdx] < boneWeight)
+        {
+            SINFO << "OgreMeshReader::readBoneAssignment: "
+                  << "vertex '" << vertIdx
+                  << "' replacing smallest influence ("
+                  << (*boneIdxF   )[vertIdx][smallestWeightIdx] << ", "
+                  << (*boneWeightF)[vertIdx][smallestWeightIdx]
+                  << ") with (" << boneIdx << ", " << boneWeight << ")"
+                  << std::endl;
+
+            (*boneIdxF   )[vertIdx][smallestWeightIdx] = boneIdx;
+            (*boneWeightF)[vertIdx][smallestWeightIdx] = boneWeight;
+        }
+        else
+        {
+            SINFO << "OgreMeshReader::readBoneAssignment: "
+                  << "vertex '" << vertIdx
+                  << "' smallest existing influence ("
+                  << (*boneIdxF   )[vertIdx][smallestWeightIdx] << ", "
+                  << (*boneWeightF)[vertIdx][smallestWeightIdx]
+                  << ") is larger than " << boneIdx << ", " << boneWeight << ")"
+                  << std::endl;
+        }
     }
 }
 
