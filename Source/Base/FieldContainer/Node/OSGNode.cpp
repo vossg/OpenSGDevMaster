@@ -481,9 +481,10 @@ void Node::getWorldVolume(BoxVolume &result)
 
 void Node::updateVolume(void)
 {
-    // still valid, nothing to do
-    if(_sfVolume.getValue().isValid() == true ||
-       getTravMask()                  == 0x0000)
+    // still valid or static, nothing to do
+    if(_sfVolume.getValue().isValid () == true   ||
+       _sfVolume.getValue().isStatic() == true   ||
+       getTravMask()                   == 0x0000   )
     {
         return;
     }
@@ -495,7 +496,6 @@ void Node::updateVolume(void)
 
     MFUnrecChildNodePtr::const_iterator cIt  = 
         this->getMFChildren()->begin();
-
     MFUnrecChildNodePtr::const_iterator cEnd = 
         this->getMFChildren()->end();
 
@@ -515,6 +515,9 @@ void Node::updateVolume(void)
     {
         getCore()->adjustVolume(vol);
     }
+
+    // don't propagate the static flag from children
+    vol.setStatic(false);
 
     editSField(VolumeFieldMask);
 
