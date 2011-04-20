@@ -747,7 +747,8 @@ ShaderProgramTransitPtr ShaderProgram::createVertexShader(
 
     returnValue->setShaderType(GL_VERTEX_SHADER);
 
-    returnValue->createDefaulAttribMapping();
+    if(bCreateDefAttribMap == true)
+        returnValue->createDefaulAttribMapping();
 
     return returnValue;
 }
