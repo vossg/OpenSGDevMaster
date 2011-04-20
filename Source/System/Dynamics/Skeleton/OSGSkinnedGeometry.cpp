@@ -45,11 +45,13 @@
 
 #include "OSGConfig.h"
 #include "OSGSkinnedGeometry.h"
+
+#include "OSGAnimBindAction.h"
 #include "OSGCPUSkinningAlgorithm.h"
 #include "OSGGPUSkinningAlgorithm.h"
+#include "OSGIntersectAction.h"
 #include "OSGSkeletonSkinningAlgorithm.h"
 #include "OSGUnskinnedSkinningAlgorithm.h"
-#include "OSGAnimBindAction.h"
 
 #include <boost/cast.hpp>
 
@@ -81,9 +83,15 @@ void SkinnedGeometry::initMethod(InitPhase ePhase)
             SkinnedGeometry::getClassType(),
             reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderLeave));
 
+        IntersectAction::registerEnterDefault(
+            SkinnedGeometry::getClassType(),
+            reinterpret_cast<Action::Callback>(
+                &SkinnedGeometry::intersectEnter));
+
         AnimBindAction::registerEnterDefault(
             SkinnedGeometry::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkinnedGeometry::animBindEnter));
+            reinterpret_cast<Action::Callback>(
+                &SkinnedGeometry::animBindEnter));
     }
 }
 
