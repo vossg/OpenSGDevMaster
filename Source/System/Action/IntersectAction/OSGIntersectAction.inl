@@ -146,7 +146,7 @@ Pnt3f IntersectAction::getHitPoint(void) const
 }
 
 inline 
-Vec3f IntersectAction::getHitNormal(void) const
+const Vec3f &IntersectAction::getHitNormal(void) const
 {
     if(! didHit())
         return Vec3f::Null;

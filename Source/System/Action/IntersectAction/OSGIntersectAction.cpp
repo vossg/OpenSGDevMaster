@@ -313,11 +313,11 @@ Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
  *  @param normal   The normal at the hit location.
  *  @param lineIndex The index of the line in the geometry hit.
  */
-void IntersectAction::setHit(Real32  t, 
-                             Node   *obj, 
-                             Int32   triIndex, 
-                             Vec3f  &normal,
-                             Int32   lineIndex)
+void IntersectAction::setHit(      Real32  t, 
+                                   Node   *obj, 
+                                   Int32   triIndex, 
+                             const Vec3f  &normal,
+                                   Int32   lineIndex)
 {
     if(t < 0 || t > _hitT || t > _maxdist)
         return;
