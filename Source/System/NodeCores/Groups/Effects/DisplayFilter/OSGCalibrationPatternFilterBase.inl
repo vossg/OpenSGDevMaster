@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DisplayFilterStage!
+ **     class CalibrationPatternFilter!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,102 +53,56 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &DisplayFilterStageBase::getClassType(void)
+OSG::FieldContainerType &CalibrationPatternFilterBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DisplayFilterStageBase::getClassTypeId(void)
+OSG::UInt32 CalibrationPatternFilterBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 DisplayFilterStageBase::getClassGroupId(void)
+OSG::UInt16 CalibrationPatternFilterBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CalibrationPatternFilter::_sfEnabled field.
 
-//! Get the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
 inline
-CalibrationPatternFilter * DisplayFilterStageBase::getCalibrationPatternFilter(void) const
+bool &CalibrationPatternFilterBase::editEnabled(void)
 {
-    return _sfCalibrationPatternFilter.getValue();
+    editSField(EnabledFieldMask);
+
+    return _sfEnabled.getValue();
 }
 
-//! Set the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
+//! Get the value of the CalibrationPatternFilter::_sfEnabled field.
 inline
-void DisplayFilterStageBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
+      bool  CalibrationPatternFilterBase::getEnabled(void) const
 {
-    editSField(CalibrationPatternFilterFieldMask);
-
-    _sfCalibrationPatternFilter.setValue(value);
+    return _sfEnabled.getValue();
 }
 
-//! Get the value of the DisplayFilterStage::_sfResolutionFilter field.
+//! Set the value of the CalibrationPatternFilter::_sfEnabled field.
 inline
-ResolutionDisplayFilter * DisplayFilterStageBase::getResolutionFilter(void) const
+void CalibrationPatternFilterBase::setEnabled(const bool value)
 {
-    return _sfResolutionFilter.getValue();
-}
+    editSField(EnabledFieldMask);
 
-//! Set the value of the DisplayFilterStage::_sfResolutionFilter field.
-inline
-void DisplayFilterStageBase::setResolutionFilter(ResolutionDisplayFilter * const value)
-{
-    editSField(ResolutionFilterFieldMask);
-
-    _sfResolutionFilter.setValue(value);
-}
-
-//! Get the value of the DisplayFilterStage::_sfColorFilter field.
-inline
-ColorDisplayFilter * DisplayFilterStageBase::getColorFilter(void) const
-{
-    return _sfColorFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfColorFilter field.
-inline
-void DisplayFilterStageBase::setColorFilter(ColorDisplayFilter * const value)
-{
-    editSField(ColorFilterFieldMask);
-
-    _sfColorFilter.setValue(value);
-}
-
-//! Get the value of the DisplayFilterStage::_sfDistortionFilter field.
-inline
-DistortionDisplayFilter * DisplayFilterStageBase::getDistortionFilter(void) const
-{
-    return _sfDistortionFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfDistortionFilter field.
-inline
-void DisplayFilterStageBase::setDistortionFilter(DistortionDisplayFilter * const value)
-{
-    editSField(DistortionFilterFieldMask);
-
-    _sfDistortionFilter.setValue(value);
-}
-
-//! Get the value of the \a index element the DisplayFilterStage::_mfFilterGroups field.
-inline
-DisplayFilterGroup * DisplayFilterStageBase::getFilterGroups(const UInt32 index) const
-{
-    return _mfFilterGroups[index];
+    _sfEnabled.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
+void CalibrationPatternFilterBase::execSync (      CalibrationPatternFilterBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -156,33 +110,18 @@ void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
-        _sfCalibrationPatternFilter.syncWith(pFrom->_sfCalibrationPatternFilter);
-
-    if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
-        _sfResolutionFilter.syncWith(pFrom->_sfResolutionFilter);
-
-    if(FieldBits::NoField != (ColorFilterFieldMask & whichField))
-        _sfColorFilter.syncWith(pFrom->_sfColorFilter);
-
-    if(FieldBits::NoField != (DistortionFilterFieldMask & whichField))
-        _sfDistortionFilter.syncWith(pFrom->_sfDistortionFilter);
-
-    if(FieldBits::NoField != (FilterGroupsFieldMask & whichField))
-        _mfFilterGroups.syncWith(pFrom->_mfFilterGroups,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
 }
 #endif
 
 
 inline
-const Char8 *DisplayFilterStageBase::getClassname(void)
+const Char8 *CalibrationPatternFilterBase::getClassname(void)
 {
-    return "DisplayFilterStage";
+    return "CalibrationPatternFilter";
 }
-OSG_GEN_CONTAINERPTR(DisplayFilterStage);
+OSG_GEN_CONTAINERPTR(CalibrationPatternFilter);
 
 OSG_END_NAMESPACE
 

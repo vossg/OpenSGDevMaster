@@ -65,6 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGCalibrationPatternFilterFields.h" // CalibrationPatternFilter type
 #include "OSGResolutionDisplayFilterFields.h" // ResolutionFilter type
 #include "OSGColorDisplayFilterFields.h" // ColorFilter type
 #include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
@@ -96,7 +97,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
 
     enum
     {
-        ResolutionFilterFieldId = Inherited::NextFieldId,
+        CalibrationPatternFilterFieldId = Inherited::NextFieldId,
+        ResolutionFilterFieldId = CalibrationPatternFilterFieldId + 1,
         ColorFilterFieldId = ResolutionFilterFieldId + 1,
         DistortionFilterFieldId = ColorFilterFieldId + 1,
         DrawerIdFieldId = DistortionFilterFieldId + 1,
@@ -104,6 +106,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
         NextFieldId = DrawableIdFieldId + 1
     };
 
+    static const OSG::BitVector CalibrationPatternFilterFieldMask =
+        (TypeTraits<BitVector>::One << CalibrationPatternFilterFieldId);
     static const OSG::BitVector ResolutionFilterFieldMask =
         (TypeTraits<BitVector>::One << ResolutionFilterFieldId);
     static const OSG::BitVector ColorFilterFieldMask =
@@ -117,6 +121,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFUnrecCalibrationPatternFilterPtr SFCalibrationPatternFilterType;
     typedef SFUnrecResolutionDisplayFilterPtr SFResolutionFilterType;
     typedef SFUnrecColorDisplayFilterPtr SFColorFilterType;
     typedef SFUnrecDistortionDisplayFilterPtr SFDistortionFilterType;
@@ -146,6 +151,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+            const SFUnrecCalibrationPatternFilterPtr *getSFCalibrationPatternFilter(void) const;
+                  SFUnrecCalibrationPatternFilterPtr *editSFCalibrationPatternFilter(void);
             const SFUnrecResolutionDisplayFilterPtr *getSFResolutionFilter(void) const;
                   SFUnrecResolutionDisplayFilterPtr *editSFResolutionFilter(void);
             const SFUnrecColorDisplayFilterPtr *getSFColorFilter    (void) const;
@@ -159,6 +166,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
                   SFInt32             *editSFDrawableId     (void);
             const SFInt32             *getSFDrawableId      (void) const;
 
+
+                  CalibrationPatternFilter * getCalibrationPatternFilter(void) const;
 
                   ResolutionDisplayFilter * getResolutionFilter(void) const;
 
@@ -177,6 +186,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setCalibrationPatternFilter(CalibrationPatternFilter * const value);
             void setResolutionFilter(ResolutionDisplayFilter * const value);
             void setColorFilter    (ColorDisplayFilter * const value);
             void setDistortionFilter(DistortionDisplayFilter * const value);
@@ -246,6 +256,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFUnrecCalibrationPatternFilterPtr _sfCalibrationPatternFilter;
     SFUnrecResolutionDisplayFilterPtr _sfResolutionFilter;
     SFUnrecColorDisplayFilterPtr _sfColorFilter;
     SFUnrecDistortionDisplayFilterPtr _sfDistortionFilter;
@@ -279,6 +290,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
+    EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
     GetFieldHandlePtr  getHandleResolutionFilter (void) const;
     EditFieldHandlePtr editHandleResolutionFilter(void);
     GetFieldHandlePtr  getHandleColorFilter     (void) const;

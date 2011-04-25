@@ -1,0 +1,92 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF KeyR KeySensor
+    {
+      key "r"
+      stateFlipFlop FALSE
+    }
+    DEF KeyC KeySensor
+    {
+      key "c"
+      stateFlipFlop FALSE
+    }
+    DEF KeyD KeySensor
+    {
+      key "d"
+      stateFlipFlop FALSE
+    }
+    DEF KeyP KeySensor
+    {
+      key "p"
+      stateFlipFlop FALSE
+    }
+    DEF KeyO KeySensor
+    {
+      key "o"
+      stateFlipFlop TRUE
+    }
+
+    DEF CGUp KeySensor
+    {
+      key "G"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CGDown KeySensor
+    {
+      key "g"
+      stateFlipFlop TRUE
+    }       
+
+    DEF GammaCounter LimitedReal32Counter
+    {
+      value 1.0
+      step  0.01
+
+      upperLimit 10.00
+      lowerLimit  0.01
+    }
+
+    DEF CSUp KeySensor
+    {
+      key "S"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CSDown KeySensor
+    {
+      key "s"
+      stateFlipFlop TRUE
+    }       
+
+    DEF ScaleCounter LimitedReal32Counter
+    {
+      value 0.5
+      step  0.01
+
+      upperLimit  1.0
+      lowerLimit  0.1
+    }
+  ]
+}
+
+ROUTE KeyR.stateFlipFlop TO GlobalEffect1/resolutionFilter.enabled
+ROUTE KeyC.stateFlipFlop TO GlobalEffect1/colorFilter.enabled
+ROUTE KeyD.stateFlipFlop TO GlobalEffect1/distortionFilter.enabled
+ROUTE KeyP.stateFlipFlop TO GlobalEffect1/calibrationPatternFilter.enabled
+ROUTE KeyO.stateFlipFlop TO GlobalEffect1/calibrationPatternFilter.center
+
+ROUTE CGUp  .signalPressed  TO GammaCounter.incTrigger
+ROUTE CGDown.signalPressed  TO GammaCounter.decTrigger
+
+ROUTE GammaCounter.value    TO GlobalEffect1/colorFilter.gamma
+
+ROUTE CSUp  .signalPressed  TO ScaleCounter.incTrigger
+ROUTE CSDown.signalPressed  TO ScaleCounter.decTrigger
+
+ROUTE ScaleCounter.value    TO GlobalEffect1/resolutionFilter.downScale
+

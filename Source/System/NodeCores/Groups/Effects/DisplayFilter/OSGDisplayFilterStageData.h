@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
 
 class DistortionDisplayFilter;
 class ColorDisplayFilter;
+class CalibrationPatternFilter;
 
 /*! \brief DisplayFilterStageData class. See \ref
            PageGroupDisplayFilterStageData for a description.
@@ -86,11 +87,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageData :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void                     setColFilter (ColorDisplayFilter      *pFilter);
-    ColorDisplayFilter      *getColFilter (void                            );
+    void                      setColFilter  (ColorDisplayFilter        *pFilt);
+    ColorDisplayFilter       *getColFilter  (void                            );
 
-    void                     setDistFilter(DistortionDisplayFilter *pFilter);
-    DistortionDisplayFilter *getDistFilter(void                            );
+    void                      setDistFilter (DistortionDisplayFilter   *pFilt);
+    DistortionDisplayFilter  *getDistFilter (void                            );
+
+    void                      setCalibFilter(CalibrationPatternFilter *pFilt);
+    CalibrationPatternFilter *getCalibFilter(void                            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,8 +119,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageData :
 
     // Variables should all be in DisplayFilterStageDataBase.
     
-    ColorDisplayFilter      *_pColFilter;
-    DistortionDisplayFilter *_pDistFilter;
+    ColorDisplayFilter       *_pColFilter;
+    DistortionDisplayFilter  *_pDistFilter;
+    CalibrationPatternFilter *_pCalibFilter;
     
     ColorDisplayFilter      *_pInitColTableFrom;
     

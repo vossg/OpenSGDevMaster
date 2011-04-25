@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CalibrationPatternFilter"
+    parent="AttachmentContainer"
+    library="EffectGroups"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpEffectsGroupsDisplayFilter"
+    >   
+  <Field
+	 name="enabled"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue="true"
+	 >
+  </Field>
+</FieldContainer>

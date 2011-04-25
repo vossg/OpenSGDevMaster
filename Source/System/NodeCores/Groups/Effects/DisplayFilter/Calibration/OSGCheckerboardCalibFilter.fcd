@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="CheckerboardCalibFilter"
+   parent="CalibrationPatternFilter"
+   library="EffectGroups"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpEffectsGroupsDisplayFilter"
+   >   
+
+  <Field
+     name="colorBlack"
+     type="Color3f"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0.f, 0.f, 0.f"
+     >
+	color black
+  </Field>
+  <Field
+     name="colorWhite"
+     type="Color3f"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="1.f, 1.f, 1.f"
+     >
+	color white
+  </Field>
+
+  <Field
+	 name="resolution"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue="5"
+	 >
+  </Field>
+
+  <Field
+	 name="center"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue="true"
+	 >
+  </Field>
+</FieldContainer>

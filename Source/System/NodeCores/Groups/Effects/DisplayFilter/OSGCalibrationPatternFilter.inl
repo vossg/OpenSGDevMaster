@@ -4,8 +4,6 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- *                            www.opensg.org                                 *
- *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -40,85 +38,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGDisplayFilterStageData.h"
-
 OSG_BEGIN_NAMESPACE
-
-// Documentation for this class is emitted in the
-// OSGDisplayFilterStageDataBase.cpp file.
-// To modify it, please change the .fcd file (OSGDisplayFilterStageData.fcd) and
-// regenerate the base file.
-
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-void DisplayFilterStageData::initMethod(InitPhase ePhase)
-{
-    Inherited::initMethod(ePhase);
-
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
-
-
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-DisplayFilterStageData::DisplayFilterStageData(void) :
-     Inherited        (    ),
-    _pColFilter       (NULL),
-    _pDistFilter      (NULL),
-    _pCalibFilter     (NULL),
-    _pInitColTableFrom(NULL)
-{
-}
-
-DisplayFilterStageData::DisplayFilterStageData(
-    const DisplayFilterStageData &source) :
-
-     Inherited        (source),
-    _pColFilter       (NULL  ),
-    _pDistFilter      (NULL  ),
-    _pCalibFilter     (NULL  ),
-    _pInitColTableFrom(NULL  )
-{
-}
-
-DisplayFilterStageData::~DisplayFilterStageData(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void DisplayFilterStageData::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void DisplayFilterStageData::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump DisplayFilterStageData NI" << std::endl;
-}
 
 OSG_END_NAMESPACE

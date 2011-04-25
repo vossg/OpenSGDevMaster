@@ -41,9 +41,9 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-void DisplayFilterStageData::setColFilter(ColorDisplayFilter *pFilter)
+void DisplayFilterStageData::setColFilter(ColorDisplayFilter *pFilt)
 {
-    _pColFilter = pFilter;
+    _pColFilter = pFilt;
 }
 
 inline
@@ -53,15 +53,27 @@ ColorDisplayFilter *DisplayFilterStageData::getColFilter(void)
 }
 
 inline
-void DisplayFilterStageData::setDistFilter(DistortionDisplayFilter *pFilter)
+void DisplayFilterStageData::setDistFilter(DistortionDisplayFilter *pFilt)
 {
-    _pDistFilter = pFilter;
+    _pDistFilter = pFilt;
 }
 
 inline
 DistortionDisplayFilter *DisplayFilterStageData::getDistFilter(void)
 {
     return _pDistFilter;
+}
+
+inline
+void DisplayFilterStageData::setCalibFilter(CalibrationPatternFilter *pFilt)
+{
+    _pCalibFilter = pFilt;
+}
+
+inline
+CalibrationPatternFilter *DisplayFilterStageData::getCalibFilter(void)
+{
+    return _pCalibFilter;
 }
 
 inline

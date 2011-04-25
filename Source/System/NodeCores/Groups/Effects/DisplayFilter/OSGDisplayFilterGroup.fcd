@@ -13,6 +13,16 @@
    docGroupBase="GrpEffectsGroupsDisplayFilter"
    >
   <Field
+	 name="calibrationPatternFilter"
+	 type="CalibrationPatternFilter"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+     defaultValue="NULL"
+	 >
+  </Field>
+  <Field
 	 name="resolutionFilter"
 	 type="ResolutionDisplayFilter"
 	 cardinality="single"

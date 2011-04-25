@@ -1,0 +1,57 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF GlobalEffect1 DisplayFilterStage
+    {
+      calibrationPatternFilter DEF CalibFilter CheckerboardCalibFilter
+      {
+        enabled    FALSE
+        resolution 5
+        
+        colorBlack 0.3 0.3 0.3
+        colorWhite 1.0 0.0 0.0
+      }
+
+      resolutionFilter DEF ResFilter ResolutionDisplayFilter
+      {
+        enabled FALSE
+        downScale 0.5
+      }
+
+      colorFilter DEF ColFilter ColorDisplayFilter
+      {
+        enabled FALSE
+        gamma 1.0
+        matrix 0 1 0 0
+               1 0 0 0
+               0 0 1 0
+               0 0 0 1      
+      }
+
+      distortionFilter DEF DistFilter DistortionDisplayFilter
+      {
+        enabled FALSE
+        rows    3
+        columns 3
+
+        positions [ 0.0 0.1, 
+                    0.5 0.05
+                    1.0 0.0, 
+
+                    0.0 0.5
+                    0.5 0.5 
+                    1.0 0.5
+
+                    0.0 0.9, 
+                    0.5 0.95
+                    1.0 1.0 
+                  ]
+
+      }
+    }
+  ]
+}
+

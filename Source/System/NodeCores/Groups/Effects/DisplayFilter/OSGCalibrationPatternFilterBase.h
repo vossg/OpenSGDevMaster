@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DisplayFilterStage
+ **     class CalibrationPatternFilter
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGDISPLAYFILTERSTAGEBASE_H_
-#define _OSGDISPLAYFILTERSTAGEBASE_H_
+#ifndef _OSGCALIBRATIONPATTERNFILTERBASE_H_
+#define _OSGCALIBRATIONPATTERNFILTERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,33 +63,29 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGStage.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGCalibrationPatternFilterFields.h" // CalibrationPatternFilter type
-#include "OSGResolutionDisplayFilterFields.h" // ResolutionFilter type
-#include "OSGColorDisplayFilterFields.h" // ColorFilter type
-#include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
-#include "OSGDisplayFilterGroupFields.h" // FilterGroups type
+#include "OSGSysFields.h"               // Enabled type
 
-#include "OSGDisplayFilterStageFields.h"
+#include "OSGCalibrationPatternFilterFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DisplayFilterStage;
+class CalibrationPatternFilter;
 
-//! \brief DisplayFilterStage Base Class.
+//! \brief CalibrationPatternFilter Base Class.
 
-class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
+class OSG_EFFECTGROUPS_DLLMAPPING CalibrationPatternFilterBase : public AttachmentContainer
 {
   public:
 
-    typedef Stage Inherited;
-    typedef Stage ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(DisplayFilterStage);
+    OSG_GEN_INTERNALPTR(CalibrationPatternFilter);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -97,32 +93,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
 
     enum
     {
-        CalibrationPatternFilterFieldId = Inherited::NextFieldId,
-        ResolutionFilterFieldId = CalibrationPatternFilterFieldId + 1,
-        ColorFilterFieldId = ResolutionFilterFieldId + 1,
-        DistortionFilterFieldId = ColorFilterFieldId + 1,
-        FilterGroupsFieldId = DistortionFilterFieldId + 1,
-        NextFieldId = FilterGroupsFieldId + 1
+        EnabledFieldId = Inherited::NextFieldId,
+        NextFieldId = EnabledFieldId + 1
     };
 
-    static const OSG::BitVector CalibrationPatternFilterFieldMask =
-        (TypeTraits<BitVector>::One << CalibrationPatternFilterFieldId);
-    static const OSG::BitVector ResolutionFilterFieldMask =
-        (TypeTraits<BitVector>::One << ResolutionFilterFieldId);
-    static const OSG::BitVector ColorFilterFieldMask =
-        (TypeTraits<BitVector>::One << ColorFilterFieldId);
-    static const OSG::BitVector DistortionFilterFieldMask =
-        (TypeTraits<BitVector>::One << DistortionFilterFieldId);
-    static const OSG::BitVector FilterGroupsFieldMask =
-        (TypeTraits<BitVector>::One << FilterGroupsFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecCalibrationPatternFilterPtr SFCalibrationPatternFilterType;
-    typedef SFUnrecResolutionDisplayFilterPtr SFResolutionFilterType;
-    typedef SFUnrecColorDisplayFilterPtr SFColorFilterType;
-    typedef SFUnrecDistortionDisplayFilterPtr SFDistortionFilterType;
-    typedef MFUnrecDisplayFilterGroupPtr MFFilterGroupsType;
+    typedef SFBool            SFEnabledType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -147,53 +127,25 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecCalibrationPatternFilterPtr *getSFCalibrationPatternFilter(void) const;
-                  SFUnrecCalibrationPatternFilterPtr *editSFCalibrationPatternFilter(void);
-            const SFUnrecResolutionDisplayFilterPtr *getSFResolutionFilter(void) const;
-                  SFUnrecResolutionDisplayFilterPtr *editSFResolutionFilter(void);
-            const SFUnrecColorDisplayFilterPtr *getSFColorFilter    (void) const;
-                  SFUnrecColorDisplayFilterPtr *editSFColorFilter    (void);
-            const SFUnrecDistortionDisplayFilterPtr *getSFDistortionFilter(void) const;
-                  SFUnrecDistortionDisplayFilterPtr *editSFDistortionFilter(void);
-            const MFUnrecDisplayFilterGroupPtr *getMFFilterGroups   (void) const;
-                  MFUnrecDisplayFilterGroupPtr *editMFFilterGroups   (void);
+
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
 
 
-                  CalibrationPatternFilter * getCalibrationPatternFilter(void) const;
-
-                  ResolutionDisplayFilter * getResolutionFilter(void) const;
-
-                  ColorDisplayFilter * getColorFilter    (void) const;
-
-                  DistortionDisplayFilter * getDistortionFilter(void) const;
-
-                  DisplayFilterGroup * getFilterGroups   (const UInt32 index) const;
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setCalibrationPatternFilter(CalibrationPatternFilter * const value);
-            void setResolutionFilter(ResolutionDisplayFilter * const value);
-            void setColorFilter    (ColorDisplayFilter * const value);
-            void setDistortionFilter(DistortionDisplayFilter * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setEnabled        (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToFilterGroups           (DisplayFilterGroup * const value   );
-    void assignFilterGroups          (const MFUnrecDisplayFilterGroupPtr &value);
-    void removeFromFilterGroups (UInt32               uiIndex );
-    void removeObjFromFilterGroups(DisplayFilterGroup * const value   );
-    void clearFilterGroups            (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,33 +158,6 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    static  DisplayFilterStageTransitPtr  create          (void);
-    static  DisplayFilterStage           *createEmpty     (void);
-
-    static  DisplayFilterStageTransitPtr  createLocal     (
-                                               BitVector bFlags = FCLocal::All);
-
-    static  DisplayFilterStage            *createEmptyLocal(
-                                              BitVector bFlags = FCLocal::All);
-
-    static  DisplayFilterStageTransitPtr  createDependent  (BitVector bFlags);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Copy                                   */
-    /*! \{                                                                 */
-
-    virtual FieldContainerTransitPtr shallowCopy     (void) const;
-    virtual FieldContainerTransitPtr shallowCopyLocal(
-                                       BitVector bFlags = FCLocal::All) const;
-    virtual FieldContainerTransitPtr shallowCopyDependent(
-                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -248,49 +173,36 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecCalibrationPatternFilterPtr _sfCalibrationPatternFilter;
-    SFUnrecResolutionDisplayFilterPtr _sfResolutionFilter;
-    SFUnrecColorDisplayFilterPtr _sfColorFilter;
-    SFUnrecDistortionDisplayFilterPtr _sfDistortionFilter;
-    MFUnrecDisplayFilterGroupPtr _mfFilterGroups;
+    SFBool            _sfEnabled;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    DisplayFilterStageBase(void);
-    DisplayFilterStageBase(const DisplayFilterStageBase &source);
+    CalibrationPatternFilterBase(void);
+    CalibrationPatternFilterBase(const CalibrationPatternFilterBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DisplayFilterStageBase(void);
+    virtual ~CalibrationPatternFilterBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const DisplayFilterStage *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
-    EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
-    GetFieldHandlePtr  getHandleResolutionFilter (void) const;
-    EditFieldHandlePtr editHandleResolutionFilter(void);
-    GetFieldHandlePtr  getHandleColorFilter     (void) const;
-    EditFieldHandlePtr editHandleColorFilter    (void);
-    GetFieldHandlePtr  getHandleDistortionFilter (void) const;
-    EditFieldHandlePtr editHandleDistortionFilter(void);
-    GetFieldHandlePtr  getHandleFilterGroups    (void) const;
-    EditFieldHandlePtr editHandleFilterGroups   (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -304,7 +216,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      DisplayFilterStageBase *pFrom,
+            void execSync (      CalibrationPatternFilterBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -320,11 +232,6 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(
-                                    const FieldContainer *pRefAspect) const;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -344,11 +251,11 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DisplayFilterStageBase &source);
+    void operator =(const CalibrationPatternFilterBase &source);
 };
 
-typedef DisplayFilterStageBase *DisplayFilterStageBaseP;
+typedef CalibrationPatternFilterBase *CalibrationPatternFilterBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDISPLAYFILTERSTAGEBASE_H_ */
+#endif /* _OSGCALIBRATIONPATTERNFILTERBASE_H_ */

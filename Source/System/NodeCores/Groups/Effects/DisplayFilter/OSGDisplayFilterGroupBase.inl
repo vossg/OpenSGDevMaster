@@ -74,6 +74,22 @@ OSG::UInt16 DisplayFilterGroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
+//! Get the value of the DisplayFilterGroup::_sfCalibrationPatternFilter field.
+inline
+CalibrationPatternFilter * DisplayFilterGroupBase::getCalibrationPatternFilter(void) const
+{
+    return _sfCalibrationPatternFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterGroup::_sfCalibrationPatternFilter field.
+inline
+void DisplayFilterGroupBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
+{
+    editSField(CalibrationPatternFilterFieldMask);
+
+    _sfCalibrationPatternFilter.setValue(value);
+}
+
 //! Get the value of the DisplayFilterGroup::_sfResolutionFilter field.
 inline
 ResolutionDisplayFilter * DisplayFilterGroupBase::getResolutionFilter(void) const
@@ -182,6 +198,9 @@ void DisplayFilterGroupBase::execSync (      DisplayFilterGroupBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
+        _sfCalibrationPatternFilter.syncWith(pFrom->_sfCalibrationPatternFilter);
 
     if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
         _sfResolutionFilter.syncWith(pFrom->_sfResolutionFilter);

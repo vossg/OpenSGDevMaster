@@ -58,6 +58,7 @@
 
 
 
+#include "OSGCalibrationPatternFilter.h" // CalibrationPatternFilter Class
 #include "OSGResolutionDisplayFilter.h" // ResolutionFilter Class
 #include "OSGColorDisplayFilter.h"      // ColorFilter Class
 #include "OSGDistortionDisplayFilter.h" // DistortionFilter Class
@@ -84,6 +85,10 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
+
+/*! \var CalibrationPatternFilter * DisplayFilterGroupBase::_sfCalibrationPatternFilter
+    
+*/
 
 /*! \var ResolutionDisplayFilter * DisplayFilterGroupBase::_sfResolutionFilter
     
@@ -132,6 +137,18 @@ void DisplayFilterGroupBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFUnrecCalibrationPatternFilterPtr::Description(
+        SFUnrecCalibrationPatternFilterPtr::getClassType(),
+        "calibrationPatternFilter",
+        "",
+        CalibrationPatternFilterFieldId, CalibrationPatternFilterFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterGroup::editHandleCalibrationPatternFilter),
+        static_cast<FieldGetMethodSig >(&DisplayFilterGroup::getHandleCalibrationPatternFilter));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new SFUnrecResolutionDisplayFilterPtr::Description(
         SFUnrecResolutionDisplayFilterPtr::getClassType(),
@@ -221,6 +238,16 @@ DisplayFilterGroupBase::TypeObject DisplayFilterGroupBase::_type(
     "   docGroupBase=\"GrpEffectsGroupsDisplayFilter\"\n"
     "   >\n"
     "  <Field\n"
+    "\t name=\"calibrationPatternFilter\"\n"
+    "\t type=\"CalibrationPatternFilter\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"resolutionFilter\"\n"
     "\t type=\"ResolutionDisplayFilter\"\n"
     "\t cardinality=\"single\"\n"
@@ -291,6 +318,19 @@ UInt32 DisplayFilterGroupBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
+
+//! Get the DisplayFilterGroup::_sfCalibrationPatternFilter field.
+const SFUnrecCalibrationPatternFilterPtr *DisplayFilterGroupBase::getSFCalibrationPatternFilter(void) const
+{
+    return &_sfCalibrationPatternFilter;
+}
+
+SFUnrecCalibrationPatternFilterPtr *DisplayFilterGroupBase::editSFCalibrationPatternFilter(void)
+{
+    editSField(CalibrationPatternFilterFieldMask);
+
+    return &_sfCalibrationPatternFilter;
+}
 
 //! Get the DisplayFilterGroup::_sfResolutionFilter field.
 const SFUnrecResolutionDisplayFilterPtr *DisplayFilterGroupBase::getSFResolutionFilter(void) const
@@ -367,6 +407,10 @@ UInt32 DisplayFilterGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
+    {
+        returnValue += _sfCalibrationPatternFilter.getBinSize();
+    }
     if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
     {
         returnValue += _sfResolutionFilter.getBinSize();
@@ -396,6 +440,10 @@ void DisplayFilterGroupBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
+    {
+        _sfCalibrationPatternFilter.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
     {
         _sfResolutionFilter.copyToBin(pMem);
@@ -423,6 +471,11 @@ void DisplayFilterGroupBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
+    {
+        editSField(CalibrationPatternFilterFieldMask);
+        _sfCalibrationPatternFilter.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
     {
         editSField(ResolutionFilterFieldMask);
@@ -573,6 +626,7 @@ FieldContainerTransitPtr DisplayFilterGroupBase::shallowCopy(void) const
 
 DisplayFilterGroupBase::DisplayFilterGroupBase(void) :
     Inherited(),
+    _sfCalibrationPatternFilter(NULL),
     _sfResolutionFilter       (NULL),
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
@@ -583,6 +637,7 @@ DisplayFilterGroupBase::DisplayFilterGroupBase(void) :
 
 DisplayFilterGroupBase::DisplayFilterGroupBase(const DisplayFilterGroupBase &source) :
     Inherited(source),
+    _sfCalibrationPatternFilter(NULL),
     _sfResolutionFilter       (NULL),
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
@@ -606,12 +661,42 @@ void DisplayFilterGroupBase::onCreate(const DisplayFilterGroup *source)
     {
         DisplayFilterGroup *pThis = static_cast<DisplayFilterGroup *>(this);
 
+        pThis->setCalibrationPatternFilter(source->getCalibrationPatternFilter());
+
         pThis->setResolutionFilter(source->getResolutionFilter());
 
         pThis->setColorFilter(source->getColorFilter());
 
         pThis->setDistortionFilter(source->getDistortionFilter());
     }
+}
+
+GetFieldHandlePtr DisplayFilterGroupBase::getHandleCalibrationPatternFilter (void) const
+{
+    SFUnrecCalibrationPatternFilterPtr::GetHandlePtr returnValue(
+        new  SFUnrecCalibrationPatternFilterPtr::GetHandle(
+             &_sfCalibrationPatternFilter,
+             this->getType().getFieldDesc(CalibrationPatternFilterFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterGroupBase::editHandleCalibrationPatternFilter(void)
+{
+    SFUnrecCalibrationPatternFilterPtr::EditHandlePtr returnValue(
+        new  SFUnrecCalibrationPatternFilterPtr::EditHandle(
+             &_sfCalibrationPatternFilter,
+             this->getType().getFieldDesc(CalibrationPatternFilterFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&DisplayFilterGroup::setCalibrationPatternFilter,
+                    static_cast<DisplayFilterGroup *>(this), _1));
+
+    editSField(CalibrationPatternFilterFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr DisplayFilterGroupBase::getHandleResolutionFilter (void) const
@@ -784,6 +869,8 @@ FieldContainer *DisplayFilterGroupBase::createAspectCopy(
 void DisplayFilterGroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<DisplayFilterGroup *>(this)->setCalibrationPatternFilter(NULL);
 
     static_cast<DisplayFilterGroup *>(this)->setResolutionFilter(NULL);
 

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DisplayFilterStage!
+ **     class CheckerboardCalibFilter!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,102 +53,131 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &DisplayFilterStageBase::getClassType(void)
+OSG::FieldContainerType &CheckerboardCalibFilterBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DisplayFilterStageBase::getClassTypeId(void)
+OSG::UInt32 CheckerboardCalibFilterBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 DisplayFilterStageBase::getClassGroupId(void)
+OSG::UInt16 CheckerboardCalibFilterBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CheckerboardCalibFilter::_sfColorBlack field.
 
-//! Get the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
 inline
-CalibrationPatternFilter * DisplayFilterStageBase::getCalibrationPatternFilter(void) const
+Color3f &CheckerboardCalibFilterBase::editColorBlack(void)
 {
-    return _sfCalibrationPatternFilter.getValue();
+    editSField(ColorBlackFieldMask);
+
+    return _sfColorBlack.getValue();
 }
 
-//! Set the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
+//! Get the value of the CheckerboardCalibFilter::_sfColorBlack field.
 inline
-void DisplayFilterStageBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
+const Color3f &CheckerboardCalibFilterBase::getColorBlack(void) const
 {
-    editSField(CalibrationPatternFilterFieldMask);
-
-    _sfCalibrationPatternFilter.setValue(value);
+    return _sfColorBlack.getValue();
 }
 
-//! Get the value of the DisplayFilterStage::_sfResolutionFilter field.
+//! Set the value of the CheckerboardCalibFilter::_sfColorBlack field.
 inline
-ResolutionDisplayFilter * DisplayFilterStageBase::getResolutionFilter(void) const
+void CheckerboardCalibFilterBase::setColorBlack(const Color3f &value)
 {
-    return _sfResolutionFilter.getValue();
+    editSField(ColorBlackFieldMask);
+
+    _sfColorBlack.setValue(value);
+}
+//! Get the value of the CheckerboardCalibFilter::_sfColorWhite field.
+
+inline
+Color3f &CheckerboardCalibFilterBase::editColorWhite(void)
+{
+    editSField(ColorWhiteFieldMask);
+
+    return _sfColorWhite.getValue();
 }
 
-//! Set the value of the DisplayFilterStage::_sfResolutionFilter field.
+//! Get the value of the CheckerboardCalibFilter::_sfColorWhite field.
 inline
-void DisplayFilterStageBase::setResolutionFilter(ResolutionDisplayFilter * const value)
+const Color3f &CheckerboardCalibFilterBase::getColorWhite(void) const
 {
-    editSField(ResolutionFilterFieldMask);
-
-    _sfResolutionFilter.setValue(value);
+    return _sfColorWhite.getValue();
 }
 
-//! Get the value of the DisplayFilterStage::_sfColorFilter field.
+//! Set the value of the CheckerboardCalibFilter::_sfColorWhite field.
 inline
-ColorDisplayFilter * DisplayFilterStageBase::getColorFilter(void) const
+void CheckerboardCalibFilterBase::setColorWhite(const Color3f &value)
 {
-    return _sfColorFilter.getValue();
+    editSField(ColorWhiteFieldMask);
+
+    _sfColorWhite.setValue(value);
+}
+//! Get the value of the CheckerboardCalibFilter::_sfResolution field.
+
+inline
+UInt32 &CheckerboardCalibFilterBase::editResolution(void)
+{
+    editSField(ResolutionFieldMask);
+
+    return _sfResolution.getValue();
 }
 
-//! Set the value of the DisplayFilterStage::_sfColorFilter field.
+//! Get the value of the CheckerboardCalibFilter::_sfResolution field.
 inline
-void DisplayFilterStageBase::setColorFilter(ColorDisplayFilter * const value)
+      UInt32  CheckerboardCalibFilterBase::getResolution(void) const
 {
-    editSField(ColorFilterFieldMask);
-
-    _sfColorFilter.setValue(value);
+    return _sfResolution.getValue();
 }
 
-//! Get the value of the DisplayFilterStage::_sfDistortionFilter field.
+//! Set the value of the CheckerboardCalibFilter::_sfResolution field.
 inline
-DistortionDisplayFilter * DisplayFilterStageBase::getDistortionFilter(void) const
+void CheckerboardCalibFilterBase::setResolution(const UInt32 value)
 {
-    return _sfDistortionFilter.getValue();
+    editSField(ResolutionFieldMask);
+
+    _sfResolution.setValue(value);
+}
+//! Get the value of the CheckerboardCalibFilter::_sfCenter field.
+
+inline
+bool &CheckerboardCalibFilterBase::editCenter(void)
+{
+    editSField(CenterFieldMask);
+
+    return _sfCenter.getValue();
 }
 
-//! Set the value of the DisplayFilterStage::_sfDistortionFilter field.
+//! Get the value of the CheckerboardCalibFilter::_sfCenter field.
 inline
-void DisplayFilterStageBase::setDistortionFilter(DistortionDisplayFilter * const value)
+      bool  CheckerboardCalibFilterBase::getCenter(void) const
 {
-    editSField(DistortionFilterFieldMask);
-
-    _sfDistortionFilter.setValue(value);
+    return _sfCenter.getValue();
 }
 
-//! Get the value of the \a index element the DisplayFilterStage::_mfFilterGroups field.
+//! Set the value of the CheckerboardCalibFilter::_sfCenter field.
 inline
-DisplayFilterGroup * DisplayFilterStageBase::getFilterGroups(const UInt32 index) const
+void CheckerboardCalibFilterBase::setCenter(const bool value)
 {
-    return _mfFilterGroups[index];
+    editSField(CenterFieldMask);
+
+    _sfCenter.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
+void CheckerboardCalibFilterBase::execSync (      CheckerboardCalibFilterBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -156,33 +185,27 @@ void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
-        _sfCalibrationPatternFilter.syncWith(pFrom->_sfCalibrationPatternFilter);
+    if(FieldBits::NoField != (ColorBlackFieldMask & whichField))
+        _sfColorBlack.syncWith(pFrom->_sfColorBlack);
 
-    if(FieldBits::NoField != (ResolutionFilterFieldMask & whichField))
-        _sfResolutionFilter.syncWith(pFrom->_sfResolutionFilter);
+    if(FieldBits::NoField != (ColorWhiteFieldMask & whichField))
+        _sfColorWhite.syncWith(pFrom->_sfColorWhite);
 
-    if(FieldBits::NoField != (ColorFilterFieldMask & whichField))
-        _sfColorFilter.syncWith(pFrom->_sfColorFilter);
+    if(FieldBits::NoField != (ResolutionFieldMask & whichField))
+        _sfResolution.syncWith(pFrom->_sfResolution);
 
-    if(FieldBits::NoField != (DistortionFilterFieldMask & whichField))
-        _sfDistortionFilter.syncWith(pFrom->_sfDistortionFilter);
-
-    if(FieldBits::NoField != (FilterGroupsFieldMask & whichField))
-        _mfFilterGroups.syncWith(pFrom->_mfFilterGroups,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (CenterFieldMask & whichField))
+        _sfCenter.syncWith(pFrom->_sfCenter);
 }
 #endif
 
 
 inline
-const Char8 *DisplayFilterStageBase::getClassname(void)
+const Char8 *CheckerboardCalibFilterBase::getClassname(void)
 {
-    return "DisplayFilterStage";
+    return "CheckerboardCalibFilter";
 }
-OSG_GEN_CONTAINERPTR(DisplayFilterStage);
+OSG_GEN_CONTAINERPTR(CheckerboardCalibFilter);
 
 OSG_END_NAMESPACE
 

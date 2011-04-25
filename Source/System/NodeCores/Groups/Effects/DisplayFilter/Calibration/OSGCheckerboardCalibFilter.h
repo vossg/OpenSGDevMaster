@@ -36,31 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDISPLAYFILTERGROUP_H_
-#define _OSGDISPLAYFILTERGROUP_H_
+#ifndef _OSGCHECKERBOARDCALIBFILTER_H_
+#define _OSGCHECKERBOARDCALIBFILTER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGDisplayFilterGroupBase.h"
-#include "OSGDisplayFilter.h"
-#include "OSGResolutionDisplayFilter.h"
-#include "OSGDistortionDisplayFilter.h"
-#include "OSGColorDisplayFilter.h"
-#include "OSGCalibrationPatternFilter.h"
+#include "OSGCheckerboardCalibFilterBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DisplayFilterGroup class. See \ref
-           PageEffectGroupsDisplayFilterGroup for a description.
+class DisplayFilterStageData;
+class DrawEnv;
 
+/*! \brief CheckerboardCalibFilter class. See \ref
+           PageEffectGroupsCheckerboardCalibFilter for a description.
     \ingroup GrpEffectsGroupsDisplayFilterObj
     \ingroup GrpLibOSGEffectsGroups
     \includebasedoc
  */
 
-class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup : 
-    public DisplayFilterGroupBase
+class OSG_EFFECTGROUPS_DLLMAPPING CheckerboardCalibFilter : 
+    public CheckerboardCalibFilterBase
 {
   protected:
 
@@ -68,8 +65,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
 
   public:
 
-    typedef DisplayFilterGroupBase Inherited;
-    typedef DisplayFilterGroup     Self;
+    typedef CheckerboardCalibFilterBase Inherited;
+    typedef CheckerboardCalibFilter     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -84,36 +81,36 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual void process(DisplayFilterStageData *pData, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool matches(Int32 iDrawerId, Int32 iDrawableId) const;
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in DisplayFilterGroupBase.
+    // Variables should all be in CheckerboardCalibFilterBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    DisplayFilterGroup(void);
-    DisplayFilterGroup(const DisplayFilterGroup &source);
+    CheckerboardCalibFilter(void);
+    CheckerboardCalibFilter(const CheckerboardCalibFilter &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DisplayFilterGroup(void);
+    virtual ~CheckerboardCalibFilter(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -128,17 +125,17 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
   private:
 
     friend class FieldContainer;
-    friend class DisplayFilterGroupBase;
+    friend class CheckerboardCalibFilterBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DisplayFilterGroup &source);
+    void operator =(const CheckerboardCalibFilter &source);
 };
 
-typedef DisplayFilterGroup *DisplayFilterGroupP;
+typedef CheckerboardCalibFilter *CheckerboardCalibFilterP;
 
 OSG_END_NAMESPACE
 
-#include "OSGDisplayFilterGroupBase.inl"
-#include "OSGDisplayFilterGroup.inl"
+#include "OSGCheckerboardCalibFilterBase.inl"
+#include "OSGCheckerboardCalibFilter.inl"
 
-#endif /* _OSGDISPLAYFILTERGROUP_H_ */
+#endif /* _OSGCHECKERBOARDCALIBFILTER_H_ */

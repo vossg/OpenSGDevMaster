@@ -1,0 +1,7 @@
+--global ../../Common/default-setup.osg
+--global ./global-effect.osg
+--system ../../Common/system-native-cluster-multi.osg
+#--system ../../Common/system-native.osg
+--global keys.osg
+--data   ./object.wrl
+--global ../../Common/simple_mouse.osg

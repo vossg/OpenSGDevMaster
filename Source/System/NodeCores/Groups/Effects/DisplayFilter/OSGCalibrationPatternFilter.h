@@ -36,31 +36,29 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDISPLAYFILTERGROUP_H_
-#define _OSGDISPLAYFILTERGROUP_H_
+#ifndef _OSGCALIBRATIONPATTERNFILTER_H_
+#define _OSGCALIBRATIONPATTERNFILTER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGDisplayFilterGroupBase.h"
-#include "OSGDisplayFilter.h"
-#include "OSGResolutionDisplayFilter.h"
-#include "OSGDistortionDisplayFilter.h"
-#include "OSGColorDisplayFilter.h"
-#include "OSGCalibrationPatternFilter.h"
+#include "OSGCalibrationPatternFilterBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DisplayFilterGroup class. See \ref
-           PageEffectGroupsDisplayFilterGroup for a description.
+class DisplayFilterStageData;
+class DrawEnv;
+
+/*! \brief CalibrationPatternFilter class. See \ref
+           PageEffectGroupsColorDisplayFilter for a description.
 
     \ingroup GrpEffectsGroupsDisplayFilterObj
     \ingroup GrpLibOSGEffectsGroups
     \includebasedoc
  */
 
-class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup : 
-    public DisplayFilterGroupBase
+class OSG_EFFECTGROUPS_DLLMAPPING CalibrationPatternFilter : 
+    public CalibrationPatternFilterBase
 {
   protected:
 
@@ -68,8 +66,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
 
   public:
 
-    typedef DisplayFilterGroupBase Inherited;
-    typedef DisplayFilterGroup     Self;
+    typedef CalibrationPatternFilterBase Inherited;
+    typedef CalibrationPatternFilter     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -84,36 +82,44 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual void process(DisplayFilterStageData *pData, DrawEnv *pEnv);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool matches(Int32 iDrawerId, Int32 iDrawableId) const;
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in DisplayFilterGroupBase.
+    // Variables should all be in CalibrationPatternFilterBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    DisplayFilterGroup(void);
-    DisplayFilterGroup(const DisplayFilterGroup &source);
+    CalibrationPatternFilter(void);
+    CalibrationPatternFilter(const CalibrationPatternFilter &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DisplayFilterGroup(void);
+    virtual ~CalibrationPatternFilter(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
+    void onCreate(const CalibrationPatternFilter *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -128,17 +134,17 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroup :
   private:
 
     friend class FieldContainer;
-    friend class DisplayFilterGroupBase;
+    friend class CalibrationPatternFilterBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DisplayFilterGroup &source);
+    void operator =(const CalibrationPatternFilter &source);
 };
 
-typedef DisplayFilterGroup *DisplayFilterGroupP;
+typedef CalibrationPatternFilter *CalibrationPatternFilterP;
 
 OSG_END_NAMESPACE
 
-#include "OSGDisplayFilterGroupBase.inl"
-#include "OSGDisplayFilterGroup.inl"
+#include "OSGCalibrationPatternFilterBase.inl"
+#include "OSGCalibrationPatternFilter.inl"
 
-#endif /* _OSGDISPLAYFILTERGROUP_H_ */
+#endif /* _OSGCALIBRATIONPATTERNFILTER_H_ */

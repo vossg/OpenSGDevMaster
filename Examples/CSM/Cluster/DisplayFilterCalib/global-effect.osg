@@ -1,0 +1,115 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF GlobalEffect1 DisplayFilterStage
+    {
+      filterGroups
+      [
+        DisplayFilterGroup
+        {
+          drawerId      0
+          drawableId   -1
+
+          calibrationPatternFilter DEF CalibFilter CheckerboardCalibFilter
+          {
+            enabled FALSE
+            resolution 10
+        
+            colorBlack 0.3 0.3 0.3
+            colorWhite 1.0 0.0 0.0
+          }
+
+          resolutionFilter DEF ResFilterD1 ResolutionDisplayFilter
+          {
+            enabled FALSE
+            downScale 0.5
+          }
+
+          colorFilter DEF ColFilterD1 ColorDisplayFilter
+          {
+            enabled FALSE
+            gamma 1.0
+            matrix 0 1 0 0
+                   1 0 0 0
+                   0 0 1 0
+                   0 0 0 1      
+          }
+
+          distortionFilter DEF DistFilterD1 DistortionDisplayFilter
+          {
+            enabled FALSE
+            rows    3
+            columns 3
+
+            positions [ 0.0 0.0, 
+                        0.5 0.05
+                        1.0 0.1, 
+
+                        0.0 0.5
+                        0.5 0.5 
+                        1.0 0.5
+
+                        0.0 1.0, 
+                        0.5 0.95
+                        1.0 0.9 
+                      ]
+          }
+        }
+
+        DisplayFilterGroup
+        {
+          drawerId     1
+          drawableId  -1
+
+          calibrationPatternFilter DEF CalibFilter CheckerboardCalibFilter
+          {
+            enabled    FALSE
+            resolution 10
+        
+            colorBlack 0.3 0.3 0.3
+            colorWhite 0.0 1.0 0.0
+          }
+
+          resolutionFilter DEF ResFilterD2 ResolutionDisplayFilter
+          {
+            enabled FALSE
+            downScale 0.5
+          }
+
+          colorFilter DEF ColFilterD2 ColorDisplayFilter
+          {
+            enabled FALSE
+            gamma 1.0
+            matrix 0 0 1 0
+                   0 1 0 0
+                   1 0 0 0
+                   0 0 0 1      
+          }
+
+          distortionFilter DEF DistFilterD2 DistortionDisplayFilter
+          {
+            enabled FALSE
+            rows    3
+            columns 3
+
+            positions [ 0.0 0.1, 
+                        0.5 0.05
+                        1.0 0.0, 
+
+                        0.0 0.5
+                        0.5 0.5 
+                        1.0 0.5
+
+                        0.0 0.9, 
+                        0.5 0.95
+                        1.0 1.0 
+                      ]
+          }
+        }
+      ]
+    }
+  ]
+}
