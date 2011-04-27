@@ -137,6 +137,31 @@ void DisplayFilterStageBase::setDistortionFilter(DistortionDisplayFilter * const
 
     _sfDistortionFilter.setValue(value);
 }
+//! Get the value of the DisplayFilterStage::_sfActiveGroup field.
+
+inline
+Int32 &DisplayFilterStageBase::editActiveGroup(void)
+{
+    editSField(ActiveGroupFieldMask);
+
+    return _sfActiveGroup.getValue();
+}
+
+//! Get the value of the DisplayFilterStage::_sfActiveGroup field.
+inline
+      Int32  DisplayFilterStageBase::getActiveGroup(void) const
+{
+    return _sfActiveGroup.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfActiveGroup field.
+inline
+void DisplayFilterStageBase::setActiveGroup(const Int32 value)
+{
+    editSField(ActiveGroupFieldMask);
+
+    _sfActiveGroup.setValue(value);
+}
 
 //! Get the value of the \a index element the DisplayFilterStage::_mfFilterGroups field.
 inline
@@ -173,6 +198,9 @@ void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
+        _sfActiveGroup.syncWith(pFrom->_sfActiveGroup);
 }
 #endif
 

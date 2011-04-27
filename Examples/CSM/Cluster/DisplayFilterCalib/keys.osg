@@ -71,7 +71,28 @@ ContainerCollection
       upperLimit  1.0
       lowerLimit  0.1
     }
-  ]
+
+    DEF CAUp KeySensor
+    {
+      key "A"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CADown KeySensor
+    {
+      key "a"
+      stateFlipFlop TRUE
+    }       
+
+    DEF ActiveCounter LimitedInt32Counter
+    {
+      value -1
+      step   1
+
+      upperLimit   1
+      lowerLimit  -2
+    }
+   ]
 }
 
 ROUTE KeyR.stateFlipFlop TO GlobalEffect1/filterGroups(0)/resolutionFilter.enabled
@@ -103,3 +124,7 @@ ROUTE CSDown.signalPressed  TO ScaleCounter.decTrigger
 ROUTE ScaleCounter.value    TO ResFilterD1.downScale
 ROUTE ScaleCounter.value    TO ResFilterD2.downScale
 
+ROUTE CAUp  .signalPressed  TO ActiveCounter.incTrigger
+ROUTE CADown.signalPressed  TO ActiveCounter.decTrigger
+
+ROUTE ActiveCounter.value    TO GlobalEffect1.activeGroup

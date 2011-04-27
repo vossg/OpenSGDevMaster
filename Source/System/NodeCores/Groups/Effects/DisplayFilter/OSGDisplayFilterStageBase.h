@@ -70,6 +70,7 @@
 #include "OSGColorDisplayFilterFields.h" // ColorFilter type
 #include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
 #include "OSGDisplayFilterGroupFields.h" // FilterGroups type
+#include "OSGSysFields.h"               // ActiveGroup type
 
 #include "OSGDisplayFilterStageFields.h"
 
@@ -102,7 +103,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
         ColorFilterFieldId = ResolutionFilterFieldId + 1,
         DistortionFilterFieldId = ColorFilterFieldId + 1,
         FilterGroupsFieldId = DistortionFilterFieldId + 1,
-        NextFieldId = FilterGroupsFieldId + 1
+        ActiveGroupFieldId = FilterGroupsFieldId + 1,
+        NextFieldId = ActiveGroupFieldId + 1
     };
 
     static const OSG::BitVector CalibrationPatternFilterFieldMask =
@@ -115,6 +117,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
         (TypeTraits<BitVector>::One << DistortionFilterFieldId);
     static const OSG::BitVector FilterGroupsFieldMask =
         (TypeTraits<BitVector>::One << FilterGroupsFieldId);
+    static const OSG::BitVector ActiveGroupFieldMask =
+        (TypeTraits<BitVector>::One << ActiveGroupFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -123,6 +127,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     typedef SFUnrecColorDisplayFilterPtr SFColorFilterType;
     typedef SFUnrecDistortionDisplayFilterPtr SFDistortionFilterType;
     typedef MFUnrecDisplayFilterGroupPtr MFFilterGroupsType;
+    typedef SFInt32           SFActiveGroupType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -158,6 +163,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
             const MFUnrecDisplayFilterGroupPtr *getMFFilterGroups   (void) const;
                   MFUnrecDisplayFilterGroupPtr *editMFFilterGroups   (void);
 
+                  SFInt32             *editSFActiveGroup    (void);
+            const SFInt32             *getSFActiveGroup     (void) const;
+
 
                   CalibrationPatternFilter * getCalibrationPatternFilter(void) const;
 
@@ -169,6 +177,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
 
                   DisplayFilterGroup * getFilterGroups   (const UInt32 index) const;
 
+                  Int32               &editActiveGroup    (void);
+                  Int32                getActiveGroup     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -178,6 +189,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
             void setResolutionFilter(ResolutionDisplayFilter * const value);
             void setColorFilter    (ColorDisplayFilter * const value);
             void setDistortionFilter(DistortionDisplayFilter * const value);
+            void setActiveGroup    (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,6 +265,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     SFUnrecColorDisplayFilterPtr _sfColorFilter;
     SFUnrecDistortionDisplayFilterPtr _sfDistortionFilter;
     MFUnrecDisplayFilterGroupPtr _mfFilterGroups;
+    SFInt32           _sfActiveGroup;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,6 +304,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     EditFieldHandlePtr editHandleDistortionFilter(void);
     GetFieldHandlePtr  getHandleFilterGroups    (void) const;
     EditFieldHandlePtr editHandleFilterGroups   (void);
+    GetFieldHandlePtr  getHandleActiveGroup     (void) const;
+    EditFieldHandlePtr editHandleActiveGroup    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

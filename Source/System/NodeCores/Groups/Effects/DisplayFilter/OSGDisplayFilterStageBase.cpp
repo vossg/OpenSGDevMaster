@@ -107,6 +107,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           DisplayFilterStageBase::_sfActiveGroup
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -194,6 +198,18 @@ void DisplayFilterStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleFilterGroups));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "activeGroup",
+        "",
+        ActiveGroupFieldId, ActiveGroupFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleActiveGroup),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleActiveGroup));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -271,6 +287,17 @@ DisplayFilterStageBase::TypeObject DisplayFilterStageBase::_type(
     "     category=\"pointer\"\n"
     "\t >\n"
     "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "\t name=\"activeGroup\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "     defaultValue=\"-1\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -360,6 +387,19 @@ MFUnrecDisplayFilterGroupPtr *DisplayFilterStageBase::editMFFilterGroups   (void
     return &_mfFilterGroups;
 }
 
+SFInt32 *DisplayFilterStageBase::editSFActiveGroup(void)
+{
+    editSField(ActiveGroupFieldMask);
+
+    return &_sfActiveGroup;
+}
+
+const SFInt32 *DisplayFilterStageBase::getSFActiveGroup(void) const
+{
+    return &_sfActiveGroup;
+}
+
+
 
 
 void DisplayFilterStageBase::pushToFilterGroups(DisplayFilterGroup * const value)
@@ -443,6 +483,10 @@ UInt32 DisplayFilterStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfFilterGroups.getBinSize();
     }
+    if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
+    {
+        returnValue += _sfActiveGroup.getBinSize();
+    }
 
     return returnValue;
 }
@@ -471,6 +515,10 @@ void DisplayFilterStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FilterGroupsFieldMask & whichField))
     {
         _mfFilterGroups.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
+    {
+        _sfActiveGroup.copyToBin(pMem);
     }
 }
 
@@ -503,6 +551,11 @@ void DisplayFilterStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(FilterGroupsFieldMask, _mfFilterGroups);
         _mfFilterGroups.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
+    {
+        editSField(ActiveGroupFieldMask);
+        _sfActiveGroup.copyFromBin(pMem);
     }
 }
 
@@ -633,7 +686,8 @@ DisplayFilterStageBase::DisplayFilterStageBase(void) :
     _sfResolutionFilter       (NULL),
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
-    _mfFilterGroups           ()
+    _mfFilterGroups           (),
+    _sfActiveGroup            (Int32(-1))
 {
 }
 
@@ -643,7 +697,8 @@ DisplayFilterStageBase::DisplayFilterStageBase(const DisplayFilterStageBase &sou
     _sfResolutionFilter       (NULL),
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
-    _mfFilterGroups           ()
+    _mfFilterGroups           (),
+    _sfActiveGroup            (source._sfActiveGroup            )
 {
 }
 
@@ -829,6 +884,31 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleFilterGroups   (void)
                     static_cast<DisplayFilterStage *>(this)));
 
     editMField(FilterGroupsFieldMask, _mfFilterGroups);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DisplayFilterStageBase::getHandleActiveGroup     (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfActiveGroup,
+             this->getType().getFieldDesc(ActiveGroupFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleActiveGroup    (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfActiveGroup,
+             this->getType().getFieldDesc(ActiveGroupFieldId),
+             this));
+
+
+    editSField(ActiveGroupFieldMask);
 
     return returnValue;
 }

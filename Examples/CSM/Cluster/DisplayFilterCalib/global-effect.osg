@@ -6,6 +6,8 @@ ContainerCollection
   [
     DEF GlobalEffect1 DisplayFilterStage
     {
+      activeGroup 0
+
       filterGroups
       [
         DisplayFilterGroup

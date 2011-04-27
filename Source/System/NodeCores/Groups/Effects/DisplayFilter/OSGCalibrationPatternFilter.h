@@ -82,8 +82,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING CalibrationPatternFilter :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void process(DisplayFilterStageData *pData, DrawEnv *pEnv);
-
+    virtual void processActive  (DisplayFilterStageData *pData, 
+                                 DrawEnv                *pEnv);
+    virtual void processInactive(DisplayFilterStageData *pData, 
+                                 DrawEnv                *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

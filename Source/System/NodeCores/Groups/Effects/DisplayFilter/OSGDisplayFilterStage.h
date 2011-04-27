@@ -119,8 +119,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStage :
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    void processCalib(DrawEnv *pEnv);
-    void postProcess (DrawEnv *pEnv);
+    void processCalibActive  (DrawEnv *pEnv);
+    void processCalibInactive(DrawEnv *pEnv);
+    void postProcess         (DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

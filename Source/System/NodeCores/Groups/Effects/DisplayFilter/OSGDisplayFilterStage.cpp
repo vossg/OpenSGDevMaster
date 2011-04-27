@@ -258,6 +258,7 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
     ResolutionDisplayFilter  *pResFilter    = NULL;
     DistortionDisplayFilter  *pDistFilter   = NULL;
     ColorDisplayFilter       *pColFilter    = NULL;
+    bool                      bDoDraw       = true;
 
     if(_mfFilterGroups.size() == 0)
     {
@@ -267,53 +268,8 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
 
         pColFilter   = this->getColorFilter();
 
-        if(pCalibFilter != NULL && pCalibFilter->getEnabled() == true)
-        {
-            if(pData != NULL)
-                pData->setCalibFilter(pCalibFilter);
-            
-            bFilterActive = true;
-            partMode      = RenderPartition::SimpleCallback;
-        }
-        else
-        {
-            if(pData != NULL)
-                pData->setCalibFilter(NULL);
-        }
+        pDistFilter  = this->getDistortionFilter();
 
-        if(pColFilter               != NULL &&
-           pColFilter->getEnabled() == true  )
-        {
-            if(pData != NULL)
-                pData->setColFilter(pColFilter);
-
-            bFilterActive = true;
-        }
-        else
-        {
-            if(pData != NULL)
-            {
-                pData->setColFilter(NULL);
-
-                ColorDisplayFilter::deactivate(pData);
-            }
-        }        
-
-        pDistFilter = this->getDistortionFilter();
-
-        if(pDistFilter               != NULL &&
-           pDistFilter->getEnabled() == true  )
-        {
-            if(pData != NULL)
-               pData->setDistFilter(pDistFilter);
-
-            bFilterActive = true;
-        }
-        else
-        {
-            if(pData != NULL)
-                pData->setDistFilter(NULL);
-        }
     }
     else
     {
@@ -333,60 +289,62 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
 
                 pColFilter   = (*gIt)->getColorFilter();
 
-                if(pCalibFilter != NULL && pCalibFilter->getEnabled() == true)
-                {
-                    if(pData != NULL)
-                        pData->setCalibFilter(pCalibFilter);
-            
-                    bFilterActive = true;
-
-                    partMode      = RenderPartition::SimpleCallback;
-
-                }
-                else
-                {
-                    if(pData != NULL)
-                        pData->setCalibFilter(NULL);
-                }
-
-                if(pColFilter               != NULL &&
-                   pColFilter->getEnabled() == true  )
-                {
-                    if(pData != NULL)
-                        pData->setColFilter(pColFilter);
-                    
-                    bFilterActive = true;
-                }
-                else
-                {
-                    if(pData != NULL)
-                    {
-                        pData->setColFilter(NULL);
-                        
-                        ColorDisplayFilter::deactivate(pData);
-                    }
-                }
-
-
-                pDistFilter = (*gIt)->getDistortionFilter();
-
-                if(pDistFilter               != NULL &&
-                   pDistFilter->getEnabled() == true  )
-                {
-                    if(pData != NULL)
-                        pData->setDistFilter(pDistFilter);
-                    
-                    bFilterActive = true;
-                }
-                else
-                {
-                    if(pData != NULL)
-                        pData->setDistFilter(NULL);
-                }
+                pDistFilter  = (*gIt)->getDistortionFilter();
                 
+                bDoDraw = 
+                    ((*gIt)->matches(this->getActiveGroup(),
+                                     ract->getDrawableId () == true) ||
+                     (this->getActiveGroup()                == -1  )  );
+
                 break;
             }
         }
+    }
+
+
+    if(pCalibFilter != NULL && pCalibFilter->getEnabled() == true)
+    {
+        if(pData != NULL)
+            pData->setCalibFilter(pCalibFilter);
+            
+        bFilterActive = true;
+        partMode      = RenderPartition::SimpleCallback;
+    }
+    else
+    {
+        if(pData != NULL)
+            pData->setCalibFilter(NULL);
+    }
+
+    if(pColFilter               != NULL &&
+       pColFilter->getEnabled() == true  )
+    {
+        if(pData != NULL)
+            pData->setColFilter(pColFilter);
+        
+        bFilterActive = true;
+    }
+    else
+    {
+        if(pData != NULL)
+        {
+            pData->setColFilter(NULL);
+            
+            ColorDisplayFilter::deactivate(pData);
+        }
+    }        
+    if(pDistFilter               != NULL &&
+       pDistFilter->getEnabled() == true  )
+    {
+        if(pData != NULL)
+            pData->setDistFilter(pDistFilter);
+
+        bFilterActive = true;
+    }
+    else
+    {
+        if(pData != NULL)
+            pData->setDistFilter(NULL);
     }
 
     
@@ -516,10 +474,18 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
             if(pCalibFilter != NULL && pCalibFilter->getEnabled() == true)
             {
                 RenderPartition::SimpleDrawCallback f;
-                
-                f = boost::bind(&DisplayFilterStage::processCalib, 
-                                this, _1);
-                
+
+                if(bDoDraw == true)
+                {
+                    f = boost::bind(&DisplayFilterStage::processCalibActive, 
+                                    this, _1);
+                }
+                else
+                {
+                    f = boost::bind(&DisplayFilterStage::processCalibInactive, 
+                                    this, _1);
+                }
+
                 pPart->dropFunctor(f);
             }
             else
@@ -566,7 +532,7 @@ ActionBase::ResultE DisplayFilterStage::renderLeave(Action *action)
     return Action::Skip;
 }
 
-void DisplayFilterStage::processCalib(DrawEnv *pEnv)
+void DisplayFilterStage::processCalibActive(DrawEnv *pEnv)
 {
     DisplayFilterStageData *pData = 
         pEnv->getData<DisplayFilterStageData *>(_iDataSlotId);
@@ -579,7 +545,23 @@ void DisplayFilterStage::processCalib(DrawEnv *pEnv)
     if(pCalibFilter == NULL)
         return;
         
-    pCalibFilter->process(pData, pEnv);
+    pCalibFilter->processActive(pData, pEnv);
+}
+
+void DisplayFilterStage::processCalibInactive(DrawEnv *pEnv)
+{
+    DisplayFilterStageData *pData = 
+        pEnv->getData<DisplayFilterStageData *>(_iDataSlotId);
+
+    if(pData == NULL)
+        return;
+
+    CalibrationPatternFilter *pCalibFilter = pData->getCalibFilter();
+
+    if(pCalibFilter == NULL)
+        return;
+        
+    pCalibFilter->processInactive(pData, pEnv);
 }
 
 void DisplayFilterStage::postProcess(DrawEnv *pEnv)

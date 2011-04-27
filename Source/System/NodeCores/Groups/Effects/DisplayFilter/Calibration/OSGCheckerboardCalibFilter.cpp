@@ -115,8 +115,8 @@ void CheckerboardCalibFilter::dump(      UInt32    ,
     SLOG << "Dump CheckerboardCalibFilter NI" << std::endl;
 }
 
-void CheckerboardCalibFilter::process(DisplayFilterStageData *pData,
-                                      DrawEnv                *pEnv )
+void CheckerboardCalibFilter::processActive(DisplayFilterStageData *pData,
+                                            DrawEnv                *pEnv )
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -225,6 +225,12 @@ void CheckerboardCalibFilter::process(DisplayFilterStageData *pData,
     glPopMatrix();
 
     glPopAttrib();
+}
+
+void CheckerboardCalibFilter::processInactive(DisplayFilterStageData *pData,
+                                              DrawEnv                *pEnv )
+{
+    Inherited::processInactive(pData, pEnv);
 }
 
 OSG_END_NAMESPACE

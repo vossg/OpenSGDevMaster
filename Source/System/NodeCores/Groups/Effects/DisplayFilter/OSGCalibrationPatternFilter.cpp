@@ -51,80 +51,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-static std::string vp_program =
-    "varying vec2 position;\n"
-    "varying mat4 shadingTexMat;\n"
-    "\n"
-    "void main(void)\n"
-    "{\n"
-    "   gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;\n"
-    "   shadingTexMat  = gl_TextureMatrix[1];\n"
-    "   gl_Position    = ftransform();\n"
-    "   position       = gl_Vertex.xy;\n"
-    "}\n";
-
-static std::string fp_program =
-    "varying vec2 position;\n"
-    "varying mat4 shadingTexMat;\n"
-    "\n"
-    "uniform sampler2D grabTexture;\n"
-    "uniform sampler3D shadingTexture;\n"
-    "\n"
-    "uniform mat4      colorMatrix;\n"
-    "uniform float     gamma;\n"
-    "uniform int       shadingWidth;\n"
-    "uniform int       shadingHeight;\n"
-    "uniform int       shadingDepth;\n"
-    "\n"
-    "void main(void)\n"
-    "{\n"
-    "   // read color from grab texture\n"
-    "   vec4 color=texture2D(grabTexture,gl_TexCoord[0].xy);\n"
-    "   vec2 pos;\n"
-    "\n"
-    "   // clamp to 0-1\n"
-    "   color.rgb = clamp(color.rgb,0.0,1.0);\n"
-    "\n"
-    "   // make linear\n"
-    "   color.r = pow(color.r,gamma);\n"
-    "   color.g = pow(color.g,gamma);\n"
-    "   color.b = pow(color.b,gamma);\n"
-    "\n"
-    "   // color matrix transformation\n"
-    "   color *= colorMatrix;\n"
-    "\n"
-    "   // Scale color from the center of the first texel to the center of\n"
-    "   // the last texel\n"
-    "   float shadingScale  = (float(shadingDepth)-1.0)/float(shadingDepth);\n"
-    "   float shadingOffset = (1.0 - shadingScale) / 2.0;\n"
-    "   color.rgb *= shadingScale;\n"
-    "   color.rgb += vec3(shadingOffset);\n"
-    "\n"
-    "   shadingScale  = (float(shadingWidth)-1.0)/float(shadingWidth);\n"
-    "   shadingOffset = (1.0 - shadingScale) / 2.0;\n"
-    "   pos.x  = position.x * shadingScale;\n"
-    "   pos.x +=              shadingOffset;\n"
-    "\n"
-    "   shadingScale  = (float(shadingHeight)-1.0)/float(shadingHeight);\n"
-    "   shadingOffset = (1.0 - shadingScale) / 2.0;\n"
-    "   pos.y  = position.y * shadingScale;\n"
-    "   pos.y +=              shadingOffset;\n"
-    "\n"
-    "   vec4 lutCoordR = vec4(pos,color.r,1.0);\n"
-    "   lutCoordR = shadingTexMat * lutCoordR;\n"
-    "   vec4 lutCoordG = vec4(pos,color.g,1.0);\n"
-    "   lutCoordG = shadingTexMat * lutCoordG;\n"
-    "   vec4 lutCoordB = vec4(pos,color.b,1.0);\n"
-    "   lutCoordB = shadingTexMat * lutCoordB;\n"
-    "\n"   
-    "   // shading\n"
-    "   color.r = texture3D(shadingTexture,lutCoordR.rgb).r;\n"
-    "   color.g = texture3D(shadingTexture,lutCoordG.rgb).g;\n"
-    "   color.b = texture3D(shadingTexture,lutCoordB.rgb).b;\n"
-    "\n"
-    "   gl_FragColor = color;\n"
-    "}\n";
-
 // Documentation for this class is emitted in the
 // OSGCalibrationPatternFilterBase.cpp file.
 // To modify it, please change the .fcd file (OSGCalibrationPatternFilter.fcd)
@@ -198,9 +124,43 @@ void CalibrationPatternFilter::dump(      UInt32    ,
     SLOG << "Dump CalibrationPatternFilter NI" << std::endl;
 }
 
-void CalibrationPatternFilter::process(DisplayFilterStageData *pData,
-                                       DrawEnv                *pEnv)
+void CalibrationPatternFilter::processActive(DisplayFilterStageData *pData,
+                                            DrawEnv                *pEnv)
 {
+}
+
+void CalibrationPatternFilter::processInactive(DisplayFilterStageData *pData,
+                                               DrawEnv                *pEnv)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glOrtho(0, 1, 0, 1, 0, 1);
+
+    glColor3f(0.f, 0.f, 0.f);
+    
+    glBegin(GL_QUADS);
+    {
+        glVertex2f  (0.00, 0.00);
+        
+        glVertex2f  (1.00, 0.00);
+        
+        glVertex2f  (1.00, 1.00);
+        
+        glVertex2f  (0.00, 1.00);
+    }
+    glEnd();
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
 }
 
 
