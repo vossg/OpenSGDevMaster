@@ -212,6 +212,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- comparison ----------------------------------*/
 
+    /*------------------------- comparison ----------------------------------*/
+
     RenderPartition *getActivePartition(void);
 
     /*----------- multi-frame buffering / split cull/draw -------------------*/

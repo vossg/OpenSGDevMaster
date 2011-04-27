@@ -430,6 +430,30 @@ const Vec4f &DrawEnv::getTileRegion(void) const
 }
 
 inline
+Int32 DrawEnv::getDrawerId(void) const
+{
+    return _iDrawerId;
+}
+
+inline
+void DrawEnv::setDrawerId(Int32 iId)
+{
+    _iDrawerId = iId;
+}
+
+inline
+Int32 DrawEnv::getDrawableId(void) const
+{
+    return _iDrawableId;
+}
+
+inline
+void DrawEnv::setDrawableId(Int32 iId)
+{
+    _iDrawableId = iId;
+}
+
+inline
 void DrawEnv::setLightState(UInt32 uiState)
 {
     _uiLightState = uiState;

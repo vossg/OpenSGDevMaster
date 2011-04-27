@@ -148,10 +148,15 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGStereoLeftEye);
             setDependency(SHDScene        );
         }
-        else if(_sfName.getValue() == "OSGClusterId")
+        else if(_sfName.getValue() == "OSGDrawerId")
         {
-            setOsgVarType(OSGClusterId);
+            setOsgVarType(OSGDrawerId);
             setDependency(SHDScene    );
+        }
+        else if(_sfName.getValue() == "OSGDrawableId")
+        {
+            setOsgVarType(OSGDrawableId);
+            setDependency(SHDScene     );
         }
         else if(_sfName.getValue() == "OSGNodeId")
         {
@@ -296,10 +301,15 @@ void ShaderVariableOSG::setName(const std::string &value)
         setOsgVarType(OSGStereoLeftEye);
         setDependency(SHDScene        );
     }
-    else if(_sfName.getValue() == "OSGClusterId")
+    else if(_sfName.getValue() == "OSGDrawerId")
     {
-        setOsgVarType(OSGClusterId);
-        setDependency(SHDScene    );
+        setOsgVarType(OSGDrawerId);
+        setDependency(SHDScene   );
+    }
+    else if(_sfName.getValue() == "OSGDrawableId")
+    {
+        setOsgVarType(OSGDrawableId);
+        setDependency(SHDScene     );
     }
     else if(_sfName.getValue() == "OSGNodeId")
     {
@@ -516,9 +526,32 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         }
         break;
 
-        case OSGClusterId:
+        case OSGDrawerId:
         {
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniform1iProc,
+                             osgGlUniform1i,
+                             ShaderProgram::getFuncIdUniform1i());
+
+                osgGlUniform1i(iLocation, 
+                               GLint(pEnv->getDrawerId()));
+            }
         }
+        break;
+
+        case OSGDrawableId:
+        {
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniform1iProc,
+                             osgGlUniform1i,
+                             ShaderProgram::getFuncIdUniform1i());
+
+                osgGlUniform1i(iLocation, 
+                               GLint(pEnv->getDrawableId()));
+            }
+       }
         break;
 
         case OSGNodeId:

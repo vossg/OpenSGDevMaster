@@ -519,6 +519,9 @@ Action::ResultE RenderAction::start(void)
     _pActivePartition->setZWriteTrans    (_bZWriteTrans            );
     _pActivePartition->setCorrectNegScale(_bCorrectTwoSidedLighting);
 
+    _pActivePartition->getDrawEnv().setDrawerId  (_iDrawerId  );
+    _pActivePartition->getDrawEnv().setDrawableId(_iDrawableId);
+
     _pActivePartition->init();
 
     if(_pGlobalOverride != NULL)
@@ -886,6 +889,9 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setZWriteTrans    (_bZWriteTrans                     );
 
     _pActivePartition->setCorrectNegScale(_bCorrectTwoSidedLighting         );
+
+    _pActivePartition->getDrawEnv().setDrawerId  (_iDrawerId  );
+    _pActivePartition->getDrawEnv().setDrawableId(_iDrawableId);
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
                                 _vRenderPartitions[_currentBuffer][0],

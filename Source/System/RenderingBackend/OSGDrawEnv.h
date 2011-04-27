@@ -231,6 +231,17 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    Int32 getDrawerId  (void     ) const;
+    void  setDrawerId  (Int32 iId);
+          
+    Int32 getDrawableId(void     ) const;
+    void  setDrawableId(Int32 iId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
     void   setLightState(UInt32 uiState);
     UInt32 getLightState(void          );
 
@@ -296,6 +307,9 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Vec4f          _vTileRegion;
 
     bool           _bFull;
+
+    Int32          _iDrawerId;
+    Int32          _iDrawableId;
 
     UInt32         _uiLightState;
 

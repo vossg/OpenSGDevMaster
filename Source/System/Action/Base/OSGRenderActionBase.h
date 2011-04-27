@@ -197,14 +197,11 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    TraversalValidator *getTravValidator (void      );
-    UInt16              getFrameTravCount(void      );
+    TraversalValidator *getTravValidator (void     );
+    UInt16              getFrameTravCount(void     );
 
-    void                setDrawerId      (Int32 iId );
-    Int32               getDrawerId      (void      );
-
-    void                setDrawableId    (Int32 iId );
-    Int32               getDrawableId    (void      );
+    void                setDrawerId      (Int32 iId);
+    void                setDrawableId    (Int32 iId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -237,6 +234,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     template <class ParentT>
     friend class StageHandlerMixin;
 
+    friend class Viewport;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -262,7 +261,13 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Internal updates                           */
+    /*! \{                                                                 */
 
+    Int32 getDrawerId  (void);
+    Int32 getDrawableId(void);
+
+    /*! \}                                                                 */
     //-----------------------------------------------------------------------
     //   instance variables                                                  
     //-----------------------------------------------------------------------
@@ -292,6 +297,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     Int32               _iDrawerId;
     Int32               _iDrawableId;
+
     RenderPropType      _oCurrentRenderProp;
     bool                _bDrawPartPar;
 

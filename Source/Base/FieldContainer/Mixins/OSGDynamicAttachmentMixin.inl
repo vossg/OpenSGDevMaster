@@ -243,7 +243,9 @@ FieldContainer *DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
 template <class AttachmentDescT> inline
 FieldContainer *DynFieldAttachment<AttachmentDescT>::clone(void)
 {
-    ObjCPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
+    ObjCPtr returnValue = 
+        DynFieldAttachment<AttachmentDescT>::createEmptyLocal(
+            ~this->getFieldFlags()->_bNamespaceMask);
 
     for(UInt32 i  = Inherited::NextFieldId;
                i <= _localType.getNumFieldDescs();

@@ -903,7 +903,7 @@ void VRMLDefaultHelper::init(const Char8 *szName)
     _pNodeProto     = Node ::create();
     _pNodeCoreProto = Group::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -1361,7 +1361,7 @@ void VRMLShapeHelper::init(const Char8 *szName)
     _pNodeProto     = Node         ::create();
     _pNodeCoreProto = MaterialGroup::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -1615,7 +1615,7 @@ void VRMLAppearanceHelper::init(const Char8 *szName)
 
     _pNodeProto    = ChunkMaterial::create();
 
-    _pGenAttProto  = VRMLGenericAtt::create();
+    _pGenAttProto  = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -1926,7 +1926,7 @@ void VRMLIndexedGeometryHelper::init(const Char8 *szName)
     _pNodeProto     = Node      ::create();
     _pNodeCoreProto = Geometry  ::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 
     if(osgStringCaseCmp("IndexedFaceSet", szName) == 0)
@@ -2545,7 +2545,7 @@ void VRMLGeometryPartHelper::init(const Char8 *szName)
                  << std::endl;
     }
 
-    _pGenAttProto = VRMLGenericAtt::create();
+    _pGenAttProto = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -2766,7 +2766,7 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
         PWARNING << "GeoObjDesc::init : no prototype available" << std::endl;
     }
 
-    _pGenAttProto = VRMLGenericAtt::create();
+    _pGenAttProto = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -3927,7 +3927,7 @@ void VRMLInlineHelper::init(const Char8 *szName)
     _pNodeProto     = Node  ::create();
     _pNodeCoreProto = Inline::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 
@@ -4005,7 +4005,7 @@ void VRMLSwitchHelper::init(const Char8 *szName)
     _pNodeProto     = Node  ::create();
     _pNodeCoreProto = Switch::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 

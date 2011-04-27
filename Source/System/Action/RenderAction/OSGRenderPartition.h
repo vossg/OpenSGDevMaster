@@ -353,6 +353,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
+    /*-------------------------- comparison ---------------------------------*/
+
     UInt32 getNumMatrixChanges     (void);
     UInt32 getNumStateChanges      (void);
     UInt32 getNumShaderChanges     (void);

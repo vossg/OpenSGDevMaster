@@ -82,6 +82,9 @@ DrawEnv::DrawEnv(void) :
     _iPixelTop              (    1),
     _bFull                  ( true),
 
+    _iDrawerId              (-1   ),
+    _iDrawableId            (-1   ),
+
     _uiLightState           (    0),
 
     _pWindow                (NULL ),

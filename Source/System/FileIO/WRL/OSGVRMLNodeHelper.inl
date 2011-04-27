@@ -63,7 +63,7 @@ void VRMLGenericHelper<ContainerT>::init(const Char8 *szName)
     _pNodeProto     = Node      ::create();
     _pNodeCoreProto = ContainerT::create();
 
-    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
     _pGenAttProto->setInternal(true);
 }
 

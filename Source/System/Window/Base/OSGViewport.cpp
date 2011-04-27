@@ -379,6 +379,9 @@ void Viewport::render(RenderActionBase *action)
         oEnv.setTileFullSize(getCamera()->tileGetFullSize());
         oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
+        oEnv.setDrawerId  (action->getDrawerId  ());
+        oEnv.setDrawableId(action->getDrawableId());
+
         for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
         {
             Foreground        *pForeground = getForegrounds(i);

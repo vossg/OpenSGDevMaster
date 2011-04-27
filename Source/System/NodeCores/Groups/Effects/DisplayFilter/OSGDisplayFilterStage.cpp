@@ -280,8 +280,8 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
 
         for(; gIt != gEnd; ++gIt)
         {
-            if((*gIt)->matches(ract->getDrawerId(),
-                               ract->getDrawableId()) == true)
+            if((*gIt)->matches(oEnv.getDrawerId(),
+                               oEnv.getDrawableId()) == true)
             {
                 pCalibFilter = (*gIt)->getCalibrationPatternFilter();
 
@@ -293,7 +293,7 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 
                 bDoDraw = 
                     ((*gIt)->matches(this->getActiveGroup(),
-                                     ract->getDrawableId () == true) ||
+                                     oEnv. getDrawableId () == true) ||
                      (this->getActiveGroup()                == -1  )  );
 
                 break;
