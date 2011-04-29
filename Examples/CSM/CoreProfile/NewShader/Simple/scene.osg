@@ -1,0 +1,138 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      chunks
+      [
+        MaterialChunk  
+        { 
+          diffuse      0.8 0.8 0.8 1.0
+          ambient      0.0 0.0 0.0 1.0
+          specular     0.0 0.0 0.0 1.0
+          shininess    0.4
+        }
+
+        ShaderProgramChunk
+        {
+          vertexShader 
+          [
+            ShaderProgram
+            {
+              shaderType GL_VERTEX_SHADER
+
+              variables ShaderProgramVariables
+              {
+                proceduralVariables
+                [
+                  ShaderVariableOSG
+                  {
+                    name "OSGModelViewMatrix"
+                  }
+                  ShaderVariableOSG
+                  {
+                    name "OSGModelViewProjectionMatrix"
+                  }
+                  ShaderVariableOSG
+                  {
+                    name "OSGNormalMatrix"
+                  }
+                ]
+              }
+
+              program "
+
+                varying float Diffuse; 
+
+                uniform mat4 OSGModelViewMatrix;
+                uniform mat4 OSGModelViewProjectionMatrix;
+                uniform mat4 OSGNormalMatrix;
+
+                void main(void)
+                {
+                  // calculate vertex position in eye coordinates
+                  vec4 ecPosition = -normalize(OSGModelViewMatrix * gl_Vertex);
+
+                  // compute the transformed normal
+                  vec4 tnorm      = normalize(OSGNormalMatrix * 
+                                              vec4(gl_Normal, 0.0));
+
+                  // Calculate a diffuse light intensity
+                  Diffuse             = dot(ecPosition.xyz, 
+                                            tnorm.xyz     );
+
+                  // output final vertex information
+                  gl_Position     = OSGModelViewProjectionMatrix * gl_Vertex;
+                }
+              "
+            }
+          ]
+
+          fragmentShader 
+          [
+            ShaderProgram
+            {
+              shaderType GL_FRAGMENT_SHADER
+
+              variables ShaderProgramVariables
+              {
+                variables
+                [
+                  ShaderVariableReal
+                  {
+                    name "ColR"
+                    value 1.0
+                  }
+                  ShaderVariableReal
+                  {
+                    name "ColG"
+                    value 0.6
+                  }
+                  ShaderVariableReal
+                  {
+                    name "ColB"
+                    value 0.6
+                  }
+                  ShaderVariableReal
+                  {
+                    name "ColB"
+                    value 0.0
+                  }
+                ]
+              }
+
+              program "
+                varying float Diffuse; 
+                uniform float ColR;
+                uniform float ColG;
+                uniform float ColB;
+
+                void main (void)
+                {
+                  gl_FragColor = vec4(ColR * Diffuse, 
+                                      ColG * Diffuse, 
+                                      ColB * Diffuse, 
+                                      1.);
+                }
+              "
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../../../Models/teapot.wrl"
+      }
+    }
+  ]
+}

@@ -692,7 +692,7 @@ void RenderAction::drawBuffer(UInt32 buf)
 //        _vRenderPartitions[buf][i]->exit();
         }
 
-        _vRenderPartitions[buf][0]->doExecution();
+        _vRenderPartitions[buf][0]->doExecution(true);
 //    _vRenderPartitions[buf][0]->exit();
 
         if(_bUseGLFinish == true)

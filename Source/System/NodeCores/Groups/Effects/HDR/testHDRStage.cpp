@@ -552,7 +552,7 @@ int doMain (int argc, char **argv)
     OSG::SkyBackgroundUnrecPtr bkgnd = OSG::SkyBackground::create();
     {
         OSG::ImageUnrecPtr pBackImg = 
-            OSG::ImageFileHandler::the()->read("grace_cross.chdr");
+            OSG::ImageFileHandler::the()->read("data/grace_cross.chdr");
 
         OSG::TextureObjChunkUnrecPtr pBackTex = OSG::TextureObjChunk::create();
 

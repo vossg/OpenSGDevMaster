@@ -504,7 +504,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     // Roots
 
     void setupExecution(bool bUpdateGlobalViewport = false);
-    void doExecution   (void                              );
+    void doExecution   (bool bRestoreViewport      = false);
 
     /*-------------------------- comparison ---------------------------------*/
 

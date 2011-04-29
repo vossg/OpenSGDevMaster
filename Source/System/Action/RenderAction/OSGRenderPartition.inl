@@ -213,7 +213,7 @@ void RenderPartition::setupProjection(const Matrix4f &projection,
 inline
 const Matrix4f &RenderPartition::getFullProjection(void)
 {
-    return _oDrawEnv.getCameraFullProjection();
+    return _oDrawEnv._openGLState.getProjection();
 }
 
 inline

@@ -49,6 +49,30 @@
 
 OSG_USING_NAMESPACE
 
+/*! \class OSG::OpenGLState
+    \ingroup GrpSystemRenderingBackend
+ */
+
+OpenGLState::OpenGLState(void) :
+#ifdef OSG_OGL_COREONLY
+    _mModelViewProjection(),
+    _mNormalMatrix       (),
+#endif
+    _mProjection         (),
+    _mModelView          ()
+{
+#ifdef OSG_OGL_COREONLY
+    _mModelViewProjection.setIdentity();
+    _mNormalMatrix       .setIdentity();
+#endif
+    _mProjection         .setIdentity();
+    _mModelView          .setIdentity();
+}
+
+OpenGLState::~OpenGLState(void)
+{
+}
+
 /*! \class OSG::DrawEnv
     \ingroup GrpSystemRenderingBackend
  */
@@ -58,7 +82,6 @@ OSG_USING_NAMESPACE
 
 DrawEnv::DrawEnv(void) :
     _pRenderAction          (NULL ),
-    _cameraFullProjection   (     ),
     _cameraProjection       (     ),
     _cameraProjectionTrans  (     ),
     _cameraViewing          (     ),
@@ -99,7 +122,6 @@ DrawEnv::DrawEnv(void) :
     _uiActiveShader         (0    ),
     _uiRequiredOGLFeature   (0    )
 {
-    _cameraFullProjection   .setIdentity();
     _cameraProjection       .setIdentity();
     _cameraProjectionTrans  .setIdentity();
     _cameraViewing          .setIdentity();

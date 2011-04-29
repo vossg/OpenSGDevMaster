@@ -33,6 +33,8 @@
 
 #cmakedefine OSG_OGL_VERTEXATTRIB_FUNCS 1
 
+#cmakedefine OSG_OGL_COREONLY
+
 #cmakedefine OSG_WITH_ZLIB 1
 
 #cmakedefine OSG_WITH_TIF 1

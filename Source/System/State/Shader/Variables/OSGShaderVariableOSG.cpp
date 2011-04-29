@@ -143,6 +143,28 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGInvViewMatrix);
             setDependency(SHDScene        );
         }
+        else if(_sfName.getValue() == "OSGProjectionMatrix")
+        {
+            setOsgVarType(OSGProjectionMatrix);
+            setDependency(SHDScene           );
+        }
+        else if(_sfName.getValue() == "OSGModelViewMatrix")
+        {
+            setOsgVarType(OSGModelViewMatrix);
+            setDependency(SHDObject          );
+        }
+#ifdef OSG_OGL_COREONLY
+        else if(_sfName.getValue() == "OSGNormalMatrix")
+        {
+            setOsgVarType(OSGNormalMatrix);
+            setDependency(SHDObject      );
+        }
+        else if(_sfName.getValue() == "OSGModelViewProjectionMatrix")
+        {
+            setOsgVarType(OSGModelViewProjectionMatrix);
+            setDependency(SHDObject                   );
+        }
+#endif
         else if(_sfName.getValue() == "OSGStereoLeftEye")
         {
             setOsgVarType(OSGStereoLeftEye);
@@ -296,6 +318,28 @@ void ShaderVariableOSG::setName(const std::string &value)
         setOsgVarType(OSGInvViewMatrix);
         setDependency(SHDScene        );
     }
+    else if(_sfName.getValue() == "OSGProjectionMatrix")
+    {
+        setOsgVarType(OSGProjectionMatrix);
+        setDependency(SHDScene           );
+    }
+    else if(_sfName.getValue() == "OSGModelViewMatrix")
+    {
+        setOsgVarType(OSGModelViewMatrix);
+        setDependency(SHDObject         );
+    }
+#ifdef OSG_OGL_COREONLY
+    else if(_sfName.getValue() == "OSGNormalMatrix")
+    {
+        setOsgVarType(OSGNormalMatrix);
+        setDependency(SHDObject      );
+    }
+    else if(_sfName.getValue() == "OSGModelViewProjectionMatrix")
+    {
+        setOsgVarType(OSGModelViewProjectionMatrix);
+        setDependency(SHDObject                   );
+    }
+#endif
     else if(_sfName.getValue() == "OSGStereoLeftEye")
     {
         setOsgVarType(OSGStereoLeftEye);
@@ -520,6 +564,68 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
             }
         }
         break;
+
+        case OSGProjectionMatrix:
+        {
+            Matrix m = pEnv->_openGLState.getProjection();
+
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
+                             osgGlUniformMatrix4fv,
+                             ShaderProgram::getFuncIdUniformMatrix4fv());
+
+                osgGlUniformMatrix4fv(iLocation, 1, GL_FALSE, m.getValues());
+            }
+        }
+        break;
+
+        case OSGModelViewMatrix:
+        {
+            Matrix m = pEnv->_openGLState.getModelView();
+
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
+                             osgGlUniformMatrix4fv,
+                             ShaderProgram::getFuncIdUniformMatrix4fv());
+
+                osgGlUniformMatrix4fv(iLocation, 1, GL_FALSE, m.getValues());
+            }
+        }
+        break;
+
+#ifdef OSG_OGL_COREONLY
+        case OSGNormalMatrix:
+        {
+            Matrix m = pEnv->_openGLState.getNormalMatrix();
+
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
+                             osgGlUniformMatrix4fv,
+                             ShaderProgram::getFuncIdUniformMatrix4fv());
+
+                osgGlUniformMatrix4fv(iLocation, 1, GL_FALSE, m.getValues());
+            }
+        }
+        break;
+
+        case OSGModelViewProjectionMatrix:
+        {
+            Matrix m = pEnv->_openGLState.getModelViewProjection();
+
+            if(iLocation != -1)
+            {
+                OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
+                             osgGlUniformMatrix4fv,
+                             ShaderProgram::getFuncIdUniformMatrix4fv());
+
+                osgGlUniformMatrix4fv(iLocation, 1, GL_FALSE, m.getValues());
+            }
+        }
+        break;
+#endif
 
         case OSGStereoLeftEye:
         {

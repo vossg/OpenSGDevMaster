@@ -97,7 +97,9 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
 
         if(uiNextMatrix != 0 && uiNextMatrix != _uiActiveMatrix)
         {
+#ifndef OSG_OGL_COREONLY
             glLoadMatrixf(pNode->getMatrixStore().second.getValues());
+#endif
 
             _uiActiveMatrix = uiNextMatrix;
 
@@ -105,7 +107,8 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
 
             updateTopMatrix(denv);
 
-            denv.setObjectToWorld(_accMatrix);
+            denv             .setObjectToWorld(_accMatrix        );
+            denv._openGLState.setModelView    (_currMatrix.second);
 
             ++part->_uiNumMatrixChanges;
 

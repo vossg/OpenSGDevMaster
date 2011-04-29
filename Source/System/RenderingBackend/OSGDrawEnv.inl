@@ -40,6 +40,66 @@
 OSG_BEGIN_NAMESPACE
 
 inline
+void OpenGLState::setProjection(const Matrix &matrix)
+{
+    _mProjection = matrix;
+
+#ifdef OSG_OGL_COREONLY
+    _mModelViewProjection = _mProjection;
+    _mModelViewProjection.mult(_mModelView);
+#endif
+}
+
+inline
+const Matrix &OpenGLState::getProjection(void) const
+{
+    return _mProjection;
+}
+
+
+inline
+void OpenGLState::setModelView(const Matrix &matrix)
+{
+    _mModelView = matrix;
+
+#ifdef OSG_OGL_COREONLY
+    _mModelViewProjection = _mProjection;
+    _mModelViewProjection.mult(_mModelView);
+
+    _mNormalMatrix[0] = matrix[0];
+    _mNormalMatrix[1] = matrix[1];
+    _mNormalMatrix[2] = matrix[2];
+    
+    _mNormalMatrix.invert   ();
+    _mNormalMatrix.transpose();
+#endif
+}
+
+inline
+const Matrix &OpenGLState::getModelView(void) const
+{
+    return _mModelView;
+}
+
+
+#ifdef OSG_OGL_COREONLY
+inline
+const Matrix &OpenGLState::getModelViewProjection(void) const
+{
+    return _mModelViewProjection;
+}
+
+inline
+const Matrix &OpenGLState::getNormalMatrix(void) const
+{
+    return _mNormalMatrix;
+}
+#endif
+
+
+
+
+inline
 void DrawEnv::setAction(RAction *pAction)
 {
     _pRenderAction = pAction;
@@ -64,8 +124,14 @@ void DrawEnv::setupProjection(const Matrix &projection,
     _cameraProjection      = projection;
     _cameraProjectionTrans = translation;
 
-    _cameraFullProjection  = projection;
-    _cameraFullProjection.mult(translation);
+    Matrix proj = projection;
+
+    proj.mult(translation);
+
+    _openGLState.setProjection(proj);
+
+//    _openGLState._mProjection  = projection;
+//    _openGLState._mProjection.mult(translation);
 }
 
 inline
@@ -83,6 +149,7 @@ void DrawEnv::setObjectToWorld(const Matrix &matrix)
 {
     _objectToWorld = matrix;
 }
+
 
 inline
 void DrawEnv::setCameraNear(const Real32 &camNear)
@@ -139,11 +206,6 @@ const Matrix &DrawEnv::getWorldToScreen(void) const
     return _worldToScreen;
 }
 
-inline
-const Matrix &DrawEnv::getCameraFullProjection(void) const
-{
-    return _cameraFullProjection;
-}
 
 inline
 const Matrix &DrawEnv::getCameraProjection(void) const
@@ -176,11 +238,13 @@ const Matrix &DrawEnv::getCameraToWorld(void) const
     return _cameraToWorld;
 }
 
+
 inline
 const Matrix &DrawEnv::getObjectToWorld(void) const
 {
     return _objectToWorld;
 }
+
 
 inline
 Real32 DrawEnv::getCameraNear(void) const
@@ -264,7 +328,8 @@ void DrawEnv::setVPCameraMatrices(const Matrix &mFullprojection,
                                   const Matrix &mToWorld,
                                   const Matrix &mWorldToScreen  )
 {
-    _vpCameraFullProjection  = mFullprojection;
+    _openGLState.setProjection(mFullprojection);
+
     _vpCameraProjection      = mProjection;
     _vpCameraProjectionTrans = mProjectionTrans;
     _vpCameraViewing         = mViewing;
@@ -276,7 +341,8 @@ void DrawEnv::setVPCameraMatrices(const Matrix &mFullprojection,
 inline
 void DrawEnv::initVPMatricesFromCamera(void) 
 {
-    _vpCameraFullProjection  = _cameraFullProjection;
+    _vpCameraFullProjection  = _openGLState.getProjection();
+
     _vpCameraProjection      = _cameraProjection;
     _vpCameraProjectionTrans = _cameraProjectionTrans;
     _vpCameraViewing         = _cameraViewing;

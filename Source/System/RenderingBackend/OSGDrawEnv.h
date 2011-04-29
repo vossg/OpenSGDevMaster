@@ -62,6 +62,74 @@ class StateOverride;
 
 /*! \ingroup GrpSystemRenderingBackendBase
     \ingroup GrpLibOSGSystem
+
+   \brief Old OpenGL State Uniforms so this can be passed to the shader.
+ */
+
+class OpenGLState
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
+
+          void    setModelView          (const Matrix   &matrix);
+    const Matrix &getModelView          (      void            ) const;
+
+          void    setProjection         (const Matrix   &matrix);
+    const Matrix &getProjection         (      void            ) const;
+
+#ifdef OSG_OGL_COREONLY
+    const Matrix &getModelViewProjection(      void            ) const;
+    const Matrix &getNormalMatrix       (      void            ) const;
+#endif
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    OpenGLState(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~OpenGLState(void);
+
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+#ifdef OSG_OGL_COREONLY
+    Matrix _mModelViewProjection;
+    Matrix _mNormalMatrix;
+#endif
+    Matrix _mProjection;
+    Matrix _mModelView;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    OpenGLState(const OpenGLState &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const OpenGLState &source);
+};
+
+/*! \ingroup GrpSystemRenderingBackendBase
+    \ingroup GrpLibOSGSystem
  */
 
 class OSG_SYSTEM_DLLMAPPING DrawEnv
@@ -69,6 +137,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*==========================  PUBLIC  =================================*/
 
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Types                                    */
     /*! \{                                                                 */
@@ -76,6 +145,13 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     typedef RenderFunctor    DrawFunctor;
 
     typedef RenderActionBase RAction;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Vars                                    */
+    /*! \{                                                                 */
+
+    OpenGLState _openGLState;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -108,7 +184,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    const Matrix        &getCameraFullProjection (void         ) const;
     const Matrix        &getCameraProjection     (void         ) const;
     const Matrix        &getCameraProjectionTrans(void         ) const;
     const Matrix        &getCameraDecoration     (void         ) const;
@@ -278,7 +353,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     RAction       *_pRenderAction;
 
-    Matrix         _cameraFullProjection;
     Matrix         _cameraProjection;
     Matrix         _cameraProjectionTrans;
     Matrix         _cameraViewing;

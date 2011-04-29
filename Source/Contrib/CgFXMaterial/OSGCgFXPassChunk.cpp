@@ -207,7 +207,7 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
 
                 cgGLSetMatrixParameterfc(
                     pMatrixParam,
-                    pEnv->getCameraFullProjection().getValues());
+                    pEnv->_openGLState.getProjection().getValues());
             }
             break;
 
