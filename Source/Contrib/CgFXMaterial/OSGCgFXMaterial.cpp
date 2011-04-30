@@ -414,6 +414,7 @@ bool CgFXMaterial::checkForCgError(const Char8     *szSituation,
 
 void CgFXMaterial::readEffectFile(void)
 {
+
     if(_sfEffectFile.getValue().empty() == true)
         return;
 
@@ -773,6 +774,7 @@ void CgFXMaterial::extractParameters(void)
 
         std::string szParamSemantic = 
             cgGetParameterSemantic(pParam) ? cgGetParameterSemantic(pParam): "";
+
 
         if(szParamSemantic.empty() == false)
         {
@@ -1506,16 +1508,30 @@ void CgFXMaterial::extractParameters(void)
 
                         pTexO->setImage(pImg);
 
-                        if(varInitialized == false)
-                        {
-                            pVar = CgFXVariableTexObj::create();
-
-                            pVar->setName    (szParamName);
-                            pVar->setValue   (uiSamplerId);
-                            this->addVariable(pVar       );
-                        }
-
                         this->pushToTextures(pTexO);
+                    }
+                    else
+                    {
+                        MFTexturesType::const_iterator TexIt = 
+                            this->getMFTextures()->begin();
+
+                        for(; TexIt != getMFTextures()->end(); ++TexIt)
+                        {
+                            if(szParamName.compare(getName(*TexIt)) == 0)
+                            {
+                                pImg = (*TexIt)->getImage();
+                                break;
+                            }
+                        }
+                    }
+
+                    if(pImg != NULL && varIsInitialized == false)
+                    {
+                        pVar = CgFXVariableTexObj::create();
+                        
+                        pVar->setName    (szParamName);
+                        this->addVariable(pVar       );
+                        pVar->setValue   (uiSamplerId);
                     }
                 }
             }
