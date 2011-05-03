@@ -132,17 +132,21 @@ void LineChunk::activate(DrawEnv *, UInt32)
         glLineWidth(_sfWidth.getValue());
     }
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(_sfStipplePattern.getValue() != 0xffffu)
     {
         glLineStipple(_sfStippleRepeat.getValue(), 
                       _sfStipplePattern.getValue());
         glEnable(GL_LINE_STIPPLE);
     }
+#endif
     
+#ifndef OSG_OGL_ES2
     if(_sfSmooth.getValue())
     {
         glEnable(GL_LINE_SMOOTH);
     }
+#endif
 }
 
 void LineChunk::changeFrom(DrawEnv    *act, 
@@ -161,15 +165,19 @@ void LineChunk::deactivate(DrawEnv *, UInt32)
         glLineWidth(1);
     }
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(_sfStipplePattern.getValue() != 0xffffu)
     {
         glDisable(GL_LINE_STIPPLE);
     }
+#endif
     
+#ifndef OSG_OGL_ES2
     if(_sfSmooth.getValue())
     {
         glDisable(GL_LINE_SMOOTH);
     }
+#endif
 }
 
 /*-------------------------- Comparison -----------------------------------*/

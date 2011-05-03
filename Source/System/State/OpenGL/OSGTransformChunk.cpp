@@ -122,12 +122,15 @@ void TransformChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void TransformChunk::activate(DrawEnv *,  UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glPushMatrix();
     glMultMatrixf( getMatrix().getValues() );
+#endif
 }
 
 void TransformChunk::changeFrom(DrawEnv *,  StateChunk *old, UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // change from me to me?
     // this assumes I haven't changed in the meantime. 
     // is that a valid assumption?
@@ -138,11 +141,14 @@ void TransformChunk::changeFrom(DrawEnv *,  StateChunk *old, UInt32)
     glPopMatrix();
     glPushMatrix();
     glMultMatrixf( getMatrix().getValues() );
+#endif
 }
 
 void TransformChunk::deactivate(DrawEnv *,  UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glPopMatrix();
+#endif
 }
 
 /*-------------------------- Comparison -----------------------------------*/

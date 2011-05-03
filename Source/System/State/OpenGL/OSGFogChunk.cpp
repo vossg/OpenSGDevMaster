@@ -103,6 +103,7 @@ const StateChunkClass *FogChunk::getClass(void) const
 
 void FogChunk::activate(DrawEnv *pEnv, UInt32 /* index */)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glFogi (GL_FOG_MODE,    getMode   ()                );
     glFogf (GL_FOG_DENSITY, getDensity()                );
     glFogf (GL_FOG_START,   getStart  ()                );
@@ -110,6 +111,7 @@ void FogChunk::activate(DrawEnv *pEnv, UInt32 /* index */)
     glFogfv(GL_FOG_COLOR,   getColor  ().getValuesRGBA());
 
     glEnable(GL_FOG);
+#endif
 }
 
 void FogChunk::changeFrom(DrawEnv    *pEnv,
@@ -122,7 +124,9 @@ void FogChunk::changeFrom(DrawEnv    *pEnv,
 
 void FogChunk::deactivate(DrawEnv * /* pEnv */, UInt32 /* index */)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glDisable(GL_FOG);
+#endif
 }
 
 bool FogChunk::isTransparent(void) const

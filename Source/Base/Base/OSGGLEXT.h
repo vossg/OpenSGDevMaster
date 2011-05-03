@@ -84,12 +84,20 @@ typedef char GLchar;
 #ifndef GL_FILL
 #  define GL_FILL                   0x1B02
 #endif
+#ifndef GL_COPY
+#  define GL_COPY                   0x1503
+#endif
+#ifndef GL_EXP
+#  define GL_EXP                    0x0800
+#endif
+#ifndef GL_MODULATE
+#  define GL_MODULATE               0x2100
+#endif
+#ifndef GL_SMOOTH
+#  define GL_SMOOTH                 0x1D01
+#endif
 
 #if 0
-#  define GL_COPY                   0x1503
-#  define GL_SMOOTH                 0x1D01
-#  define GL_EXP                    0x0800
-#  define GL_MODULATE               0x2100
 #  define GL_DECAL                  0x2101
 #endif
 

@@ -149,6 +149,7 @@ const StateChunkClass *TextureEnvChunk::getClass(void) const
 
 void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(!win->hasExtension(_extTextureShader))
     {
         if(getShaderOperation() != GL_NONE)
@@ -271,6 +272,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     {
         FWARNING(("Texture shaders not consistent!\n"));
     }
+#endif
 #endif
 }
 
@@ -531,6 +533,7 @@ void TextureEnvChunk::dump(      UInt32    uiIndent,
 
 void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();
 
     Real32 nteximages, ntexcoords;
@@ -679,6 +682,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
             glEnable(GL_TEXTURE_SHADER_NV);
         }
     }
+#endif
 
     glErr("TextureEnvChunk::activate");
 }
@@ -687,6 +691,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
                                  StateChunk *old   ,
                                  UInt32      idx   )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // change from me to me?
     // this assumes I haven't changed in the meantime.
     // is that a valid assumption?
@@ -866,6 +871,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
             }
         }
     }
+#endif
 
     glErr("TextureEnvChunk::changeFrom");
 }
@@ -873,6 +879,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
 
 void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();
 
     Real32 nteximages, ntexcoords;
@@ -966,8 +973,9 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         if(idx == 0)
             glDisable(GL_TEXTURE_SHADER_NV);
     }
+#endif
 
-    glErr("CubeTextureBaseChunk::deactivate");
+    glErr("TextureEnvChunk::deactivate");
 }
 
 /*-------------------------- Comparison -----------------------------------*/

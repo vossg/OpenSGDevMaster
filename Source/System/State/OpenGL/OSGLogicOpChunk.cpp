@@ -102,11 +102,13 @@ void LogicOpChunk::dump(      UInt32    ,
 
 void LogicOpChunk::activate(DrawEnv *drawEnv, UInt32 index)
 {
+#ifndef OSG_OGL_ES2
     if(_sfLogicOp.getValue() != GL_COPY)
     {
         glLogicOp(_sfLogicOp.getValue());
         glEnable (GL_COLOR_LOGIC_OP    );
     }
+#endif
 }
 
 void LogicOpChunk::changeFrom(DrawEnv    *drawEnv,
@@ -119,11 +121,13 @@ void LogicOpChunk::changeFrom(DrawEnv    *drawEnv,
 
 void LogicOpChunk::deactivate(DrawEnv *drawEnv, UInt32 index)
 {
+#ifndef OSG_OGL_ES2
     if(_sfLogicOp.getValue() != GL_COPY)
     {
         glDisable(GL_COLOR_LOGIC_OP);
         glLogicOp(GL_COPY          );
     }
+#endif
 }
 
 /*------------------------------- Comparison -----------------------------*/

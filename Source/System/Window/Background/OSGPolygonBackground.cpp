@@ -101,6 +101,7 @@ PolygonBackground::~PolygonBackground(void)
 
 void PolygonBackground::clear(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(pEnv->getPixelWidth()  == 0 ||
        pEnv->getPixelHeight() == 0 )
     {
@@ -222,6 +223,7 @@ void PolygonBackground::clear(DrawEnv *pEnv)
     endOrthoRender(pEnv);
 
     glPopAttrib();
+#endif
 }
 
 void PolygonBackground::changed(ConstFieldMaskArg whichField,

@@ -147,11 +147,15 @@ void PointChunk::dump(      UInt32    ,
 
 void PointChunk::activate(DrawEnv *pEnv, UInt32)
 {
+#ifndef OSG_OGL_ES2
     if(getSize() != 1.f)
         glPointSize(getSize());
-    
+#endif
+
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getSmooth())
         glEnable(GL_POINT_SMOOTH);
+#endif
 
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
@@ -161,25 +165,30 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
             OSGGETGLFUNC(OSGglPointParameterfProc,
                          osgGlPointParameterf,
                          _funcIdPointParameterf);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             OSGGETGLFUNC(OSGglPointParameterfvProc,
                          osgGlPointParameterfv,
                          _funcIdPointParameterfv);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
+#endif
             osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
                                  getFadeThreshold());
             
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             GLfloat att[3] = { getConstantAttenuation (),
                                getLinearAttenuation   (),
                                getQuadraticAttenuation() };
             
             osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+#endif
         }
         
     }
 #endif
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
 #if GL_ARB_point_sprite
     if(getSprite())
     {
@@ -192,7 +201,8 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
                              osgGlPointParameterf,
                              _funcIdPointParameterf);
 
-                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, 
+                                     Real32(getRMode()));
             }
 #endif
             
@@ -201,7 +211,7 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
         
     }
 #endif
-
+#endif
 #if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)
     pEnv;
 #endif
@@ -213,9 +223,12 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
 {
     PointChunk *old = dynamic_cast<PointChunk *>(old_chunk);
 
+#ifndef OSG_OGL_ES2
     if(getSize() != old->getSize())
         glPointSize(getSize());
-    
+#endif
+
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getSmooth() && !old->getSmooth())
     {
         glEnable(GL_POINT_SMOOTH);
@@ -224,7 +237,8 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
     {
         glDisable(GL_POINT_SMOOTH);
     }
-    
+#endif
+
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
@@ -233,20 +247,24 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
             OSGGETGLFUNC(OSGglPointParameterfProc,
                          osgGlPointParameterf,
                          _funcIdPointParameterf);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             OSGGETGLFUNC(OSGglPointParameterfvProc,
                          osgGlPointParameterfv,
                          _funcIdPointParameterfv);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
+#endif
             osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 
                                  getFadeThreshold());
             
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             GLfloat att[3] = { getConstantAttenuation (),
                                getLinearAttenuation   (),
                                getQuadraticAttenuation() };
             
             osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+#endif
         }
         
     }
@@ -257,21 +275,26 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
             OSGGETGLFUNC(OSGglPointParameterfProc,
                          osgGlPointParameterf,
                          _funcIdPointParameterf);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             OSGGETGLFUNC(OSGglPointParameterfvProc,
                          osgGlPointParameterfv,
                          _funcIdPointParameterfv);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
+#endif
             osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
             
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             GLfloat att[3] = { 1, 0, 0 };
             
             osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+#endif
         }
     }
 #endif
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
 #if GL_ARB_point_sprite
     if(getSprite() && !old->getSprite())
     {
@@ -301,6 +324,7 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
         
     }
 #endif
+#endif
 
 #if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)
     pEnv;
@@ -309,11 +333,15 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
 
 void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
 {
+#ifndef OSG_OGL_ES2
     if(getSize() != 1.f)
         glPointSize(1.f);
-    
+#endif
+
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getSmooth())
         glDisable(GL_POINT_SMOOTH);
+#endif
 
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
@@ -323,22 +351,27 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
             OSGGETGLFUNC(OSGglPointParameterfProc,
                          osgGlPointParameterf,
                          _funcIdPointParameterf);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             OSGGETGLFUNC(OSGglPointParameterfvProc,
                          osgGlPointParameterfv,
                          _funcIdPointParameterfv);
  
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
+#endif
             osgGlPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 1);
             
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
             GLfloat att[3] = { 1, 0, 0 };
             
             osgGlPointParameterfv(GL_POINT_DISTANCE_ATTENUATION_ARB, att);
+#endif
         }
         
     }
 #endif
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
 #if GL_ARB_point_sprite
     if(getSprite())
     {
@@ -348,6 +381,7 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
         }
         
     }
+#endif
 #endif
 
 #if ! defined(GL_ARB_point_parameters) && ! defined(GL_ARB_point_sprite)

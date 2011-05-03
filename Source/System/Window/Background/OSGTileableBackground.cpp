@@ -134,6 +134,7 @@ void TileableBackground::beginOrthoRender(
     UInt32  &fullWidth,
     UInt32  &fullHeight)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -171,12 +172,14 @@ void TileableBackground::beginOrthoRender(
     Real32 projHeight = normY ? 1.0f : Real32(height);
 
     glOrtho(0, projWidth, 0, projHeight, -1.0f, 1.0f);
+#endif
 }
 
 /*! Clean up changes to the OpenGL matrix stacks done by beginOrthoRender
  */
 void TileableBackground::endOrthoRender(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     
@@ -185,6 +188,7 @@ void TileableBackground::endOrthoRender(DrawEnv *pEnv)
 
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+#endif
 }
 
 OSG_END_NAMESPACE

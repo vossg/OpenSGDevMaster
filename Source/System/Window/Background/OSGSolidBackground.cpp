@@ -118,7 +118,11 @@ void SolidBackground::clear(DrawEnv *)
     {
         clearMask |= GL_DEPTH_BUFFER_BIT;
         
+#ifndef OSG_OGL_ES2
         glClearDepth(getDepth());
+#else
+        glClearDepthf(getDepth());
+#endif
     }
 
     if(stencilBit >= 0)

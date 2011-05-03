@@ -123,13 +123,16 @@ void TwoSidedLightingChunk::dump(      UInt32    ,
 
 void TwoSidedLightingChunk::activate (DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+#endif
 }
 
 void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv, 
                                        StateChunk *old_chunk, 
                                        UInt32      idx      )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     TwoSidedLightingChunk *old = 
         dynamic_cast<TwoSidedLightingChunk *>(old_chunk);
 
@@ -145,11 +148,14 @@ void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv,
         return;
 
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+#endif
 }
 
 void TwoSidedLightingChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+#endif
 }
 
 

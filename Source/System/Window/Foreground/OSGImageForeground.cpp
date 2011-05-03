@@ -115,6 +115,7 @@ void ImageForeground::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void ImageForeground::draw(DrawEnv *, Viewport *vp)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getActive() == false)
         return;
 
@@ -186,4 +187,5 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
     glPopMatrix();
 
     glPopAttrib();
+#endif
 }

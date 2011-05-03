@@ -141,6 +141,7 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
                              const Pnt3f                &p4,
                              const Vec3f               * texCoord)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(tex != NULL)
     {
         if(oldtex != NULL)
@@ -205,11 +206,12 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
 
         oldtex = tex;
     }
-
+#endif
 }
 
 void SkyBackground::clear(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT |
                  GL_LIGHTING_BIT);
 
@@ -510,5 +512,6 @@ void SkyBackground::clear(DrawEnv *pEnv)
     glPopAttrib();
 
     glColor3f(1.0, 1.0, 1.0);
+#endif
 }
 

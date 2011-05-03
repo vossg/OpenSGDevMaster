@@ -175,7 +175,11 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
        }
        else
        {
+#ifndef OSG_OGL_ES2
            bindTarget = GL_TEXTURE_1D;        
+#else
+           return;
+#endif       
        }
     }
     
@@ -192,12 +196,14 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
         FWARNING(("TextureGrabForeground:: grabbing to 3D textures not "
                   "supported yet!\n"));      
     }
+#ifndef OSG_OGL_ES2
     else if(copyTarget == GL_TEXTURE_1D)
     {
         glCopyTexSubImage1D(copyTarget, 0, 0, 
                             port->getPixelLeft(), port->getPixelBottom(), 
                             w);
     }
+#endif
     else
     {
         glCopyTexSubImage2D(copyTarget, 0, 0, 0, 

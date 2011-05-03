@@ -137,6 +137,7 @@ static inline void setGenFunc(      GLenum   coord,
                                     UInt32   eyeMode,
                                     Matrix  &eyeMatrix)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
 	if(beacon != NULL)
     {
         Matrix beaconMat;
@@ -196,12 +197,14 @@ static inline void setGenFunc(      GLenum   coord,
 
         glEnable(gen);
     }
+#endif
 }
 
 void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::activate precheck");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -257,6 +260,7 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
     setGenFunc(GL_Q, GL_TEXTURE_GEN_Q, getGenFuncQ(), getGenFuncQPlane(),
                 getQBeacon(), cameraMat, _sfEyeModelViewMode.getValue(),
                _sfEyeModelViewMatrix.getValue());
+#endif
 	glErr("TexGenChunk::activateQ");
 }
 
@@ -272,6 +276,7 @@ static inline void changeGenFunc(      GLenum   oldfunc,
                                        UInt32   eyeMode,
                                        Matrix  &eyeMatrix)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
 	if(beacon != NULL)
     {
         Matrix beaconMat;
@@ -338,12 +343,14 @@ static inline void changeGenFunc(      GLenum   oldfunc,
     {
         glDisable(gen);  
     }
+#endif
 }
 
 void TexGenChunk::changeFrom(DrawEnv    *pEnv, 
                              StateChunk *old   , 
                              UInt32      idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // change from me to me?
     // this assumes I haven't changed in the meantime. 
     // is that a valid assumption?
@@ -429,6 +436,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
                   getGenFuncQ(), getGenFuncQPlane(), getQBeacon(), cameraMat, 
                   _sfEyeModelViewMode.getValue(),
                   _sfEyeModelViewMatrix.getValue());
+#endif
 
     glErr("TexGenChunk::changeFrom");
 }
@@ -437,6 +445,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::deactivate precheck");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -473,6 +482,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     if(getGenFuncQ() != GL_NONE || getQBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_Q);
+#endif
 
     glErr("TexGenChunk::deactivate");
 }

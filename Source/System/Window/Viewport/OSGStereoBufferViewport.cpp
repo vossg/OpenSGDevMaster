@@ -136,45 +136,9 @@ void StereoBufferViewport::deactivate(void)
 }
 #endif
 
-#ifdef OSG_OLD_RENDER_ACTION
-void StereoBufferViewport::render(DrawActionBase *action)
-{
-    if(getLeftBuffer())
-    {
-        if(getRightBuffer())
-        {
-            glDrawBuffer(GL_BACK);
-            glReadBuffer(GL_BACK);
-        }
-        else
-        {
-            glDrawBuffer(GL_BACK_LEFT);
-            glReadBuffer(GL_BACK_LEFT);
-        }
-    }
-    else
-    {
-        if(getRightBuffer())
-        {
-            glDrawBuffer(GL_BACK_RIGHT);
-            glReadBuffer(GL_BACK_RIGHT);
-        }
-        else
-        {
-            glDrawBuffer(GL_NONE);
-            glReadBuffer(GL_NONE);
-        }
-    }
-
-    Inherited::render(action);
-
-    glDrawBuffer(GL_BACK);
-    glReadBuffer(GL_BACK);
-}
-#endif
-
 void StereoBufferViewport::render(RenderActionBase *action)
 {
+#ifndef OSG_OGL_ES2
     if(getLeftBuffer())
     {
         if(getRightBuffer())
@@ -201,10 +165,13 @@ void StereoBufferViewport::render(RenderActionBase *action)
             glReadBuffer(GL_NONE);
         }
     }
+#endif
 
     Inherited::render(action);
 
+#ifndef OSG_OGL_ES2
     glDrawBuffer(GL_BACK);
     glReadBuffer(GL_BACK);
+#endif
 }
 

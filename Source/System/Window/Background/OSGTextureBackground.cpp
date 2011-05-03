@@ -193,6 +193,7 @@ void TextureBackground::updateGrid(void)
 
 void TextureBackground::clear(DrawEnv  *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     TextureBaseChunk *tex = getTexture();
 
     if(tex == NULL)
@@ -335,6 +336,7 @@ void TextureBackground::clear(DrawEnv  *pEnv)
     glPopAttrib();
 
     glColor3f(1.0f, 1.0f, 1.0f);
+#endif
 }
 
 

@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 
@@ -139,7 +139,9 @@ void LightModelChunk::dump(      UInt32    uiIndent,
 
 void LightModelChunk::activate(DrawEnv *pEnv, UInt32)
 {
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, _sfAmbient.getValue().getValuesRGBA());
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
+                   _sfAmbient.getValue().getValuesRGBA());
 
     if(_sfColorControl.getValue() != GL_SINGLE_COLOR)
     {
@@ -154,17 +156,20 @@ void LightModelChunk::activate(DrawEnv *pEnv, UInt32)
     {
         glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
     }
+#endif
 }
 
 void LightModelChunk::changeFrom(DrawEnv    *pEnv, 
                                  StateChunk *old_chunk, 
                                  UInt32               )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     LightModelChunk *old = dynamic_cast<LightModelChunk *>(old_chunk);
 
     if(old == NULL)
     {
-        FWARNING(( "LightModelChunk::changeFrom: caught non-LightModelChunk!\n"));
+        FWARNING(( "LightModelChunk::changeFrom: caught "
+                   "non-LightModelChunk!\n"));
         return;
     }
 
@@ -174,7 +179,8 @@ void LightModelChunk::changeFrom(DrawEnv    *pEnv,
 
     if(old->_sfAmbient.getValue() != _sfAmbient.getValue())
     {
-       glLightModelfv(GL_LIGHT_MODEL_AMBIENT, _sfAmbient.getValue().getValuesRGBA());
+       glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
+                      _sfAmbient.getValue().getValuesRGBA());
     }
 
     if(_sfColorControl.getValue() != old->_sfColorControl.getValue())
@@ -193,10 +199,12 @@ void LightModelChunk::changeFrom(DrawEnv    *pEnv,
             glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
         }
     }
+#endif
 }
 
 void LightModelChunk::deactivate(DrawEnv *pEnv, UInt32 )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     GLfloat ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 
@@ -209,6 +217,7 @@ void LightModelChunk::deactivate(DrawEnv *pEnv, UInt32 )
     {
        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
     }
+#endif
 }
 
 /*-------------------------- Comparison -----------------------------------*/

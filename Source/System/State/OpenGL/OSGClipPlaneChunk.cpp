@@ -123,6 +123,7 @@ void ClipPlaneChunk::dump(      UInt32    ,
 
 void ClipPlaneChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Matrix beaconMat;
 
     Matrix cameraMat = pEnv->getCameraViewing();
@@ -158,6 +159,7 @@ void ClipPlaneChunk::activate(DrawEnv *pEnv, UInt32 idx)
         
         glPopMatrix();
     }
+#endif
 }
 
 
@@ -167,6 +169,7 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
                                 StateChunk *old_chunk, 
                                 UInt32      idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     ClipPlaneChunk const *old = dynamic_cast<ClipPlaneChunk const*>(old_chunk);
 
     // change from me to me?
@@ -220,15 +223,18 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
             glDisable(GL_CLIP_PLANE0 + idx);
         }
     }
+#endif
 }
 
 
 void ClipPlaneChunk::deactivate(DrawEnv *, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getEnable() == true)
     {
         glDisable( GL_CLIP_PLANE0 + idx);
     }
+#endif
 }
 
 

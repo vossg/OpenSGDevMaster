@@ -129,6 +129,7 @@ void TextureTransformChunk::dump(      UInt32    ,
 
 void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();
     
     Real32 ntexcoords;
@@ -168,14 +169,18 @@ void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
         glLoadMatrixf(getMatrix().getValues());
     }
     glMatrixMode(GL_MODELVIEW);
+#endif
 }
 
 void TextureTransformChunk::changeFrom(DrawEnv    *pEnv, 
                                        StateChunk *old, 
                                        UInt32      idx )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // change from me to me?
-    // this assumes I haven't changed in the meantime. is that a valid assumption?
+    // this assumes I haven't changed in the meantime. is that a valid
+    // assumption? 
+
     if ( old == this )
         return;
 
@@ -217,10 +222,12 @@ void TextureTransformChunk::changeFrom(DrawEnv    *pEnv,
         glLoadMatrixf(getMatrix().getValues());
     }
     glMatrixMode(GL_MODELVIEW);
+#endif
 }
 
 void TextureTransformChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -249,6 +256,7 @@ void TextureTransformChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     glMatrixMode(GL_TEXTURE);
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
+#endif
 }
 
 

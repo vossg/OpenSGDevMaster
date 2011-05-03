@@ -138,6 +138,7 @@ Real32 PolygonForeground::mapCoordinate(Real32 val, Real32 max, bool norm)
     
 void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getActive() == false)
         return;
 
@@ -270,4 +271,5 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPopMatrix();
 
     glPopAttrib();
+#endif
 }

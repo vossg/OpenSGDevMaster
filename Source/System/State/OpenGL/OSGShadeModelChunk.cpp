@@ -125,8 +125,10 @@ void ShadeModelChunk::dump(      UInt32,
 
 void ShadeModelChunk::activate(DrawEnv *, UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getShadeModel() != GL_SMOOTH)
         glShadeModel(getShadeModel());
+#endif
 }
 
 void ShadeModelChunk::changeFrom(DrawEnv    *act,
@@ -137,7 +139,8 @@ void ShadeModelChunk::changeFrom(DrawEnv    *act,
 
     if(old == NULL)
     {
-        FWARNING(("ShadeModelChunk::changeFrom: caught non-ShadeModelChunk!\n"));
+        FWARNING(("ShadeModelChunk::changeFrom: caught "
+                  "non-ShadeModelChunk!\n"));
         return;
     }
 
@@ -145,14 +148,18 @@ void ShadeModelChunk::changeFrom(DrawEnv    *act,
     if(old == this)
         return;
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(old->getShadeModel() != getShadeModel())
         glShadeModel(getShadeModel());
+#endif
 }
 
 void ShadeModelChunk::deactivate(DrawEnv *, UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getShadeModel() != GL_SMOOTH)
         glShadeModel(GL_SMOOTH);
+#endif
 }
 
 

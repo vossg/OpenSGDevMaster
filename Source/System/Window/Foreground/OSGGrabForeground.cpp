@@ -128,6 +128,7 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
                h);
     }
     
+#ifndef OSG_OGL_ES2
     bool storeChanged = false;    
 
     if ( !getAutoResize() )
@@ -141,6 +142,7 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
             storeChanged = true;
         }
     }
+#endif
     
     glReadPixels(port->getPixelLeft(), 
                  port->getPixelBottom(), 
@@ -150,7 +152,9 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
                  i->getDataType(), 
                  i->editData());
 
+#ifndef OSG_OGL_ES2
     if(storeChanged)
         glPixelStorei(GL_PACK_ROW_LENGTH, 0);
+#endif
 }
 

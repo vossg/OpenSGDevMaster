@@ -113,6 +113,7 @@ void GradientBackground::changed(ConstFieldMaskArg whichField,
 
 void GradientBackground::clear(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Int32      stencilBit = getClearStencilBit();   // 0x0
     GLbitfield clearMask  = 0;
 
@@ -250,6 +251,7 @@ void GradientBackground::clear(DrawEnv *pEnv)
     {
         glClear(clearMask);
     }
+#endif
 }
 
 /*------------------------------- dump ----------------------------------*/
