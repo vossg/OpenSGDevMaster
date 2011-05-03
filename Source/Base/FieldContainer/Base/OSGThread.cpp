@@ -984,11 +984,13 @@ bool Thread::runFunction(ThreadFuncF  fThreadFunc,
                          UInt32       uiAspectId,
                          void        *pThreadArg)
 {
+#if 0
     if(uiAspectId >= ThreadManager::getNumAspects())
     {
         SFATAL << "OSGPTB : invalid aspect id" << std::endl;
         return false;
     }
+#endif
 
     Inherited::setAspect(uiAspectId);
 

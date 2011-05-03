@@ -518,7 +518,7 @@
 # endif // defined(__INTEL_COMPILER) && !defined(__linux)
 
 /*-------------------------------------------------------------------------*/
-/*                              Windows vc7                                */
+/*                              Windows vc ce                              */
 
 # if defined(_MSC_VER) && !defined(__ICL) && defined(_WIN32_WCE)
 # define OSG_WIN_TYPES
@@ -579,6 +579,8 @@
 
 # endif // defined(_MSC_VER) && !defined(__ICL)
 
+/*-------------------------------------------------------------------------*/
+/*                              Windows vc                                 */
 
 # if defined(_MSC_VER) && _MSC_VER >= 1300 && !defined(_WIN32_WCE)
 # define OSG_WIN_TYPES
@@ -877,9 +879,6 @@
 #define OSG_DLSYM_UNDERSCORE
 #endif
 
-#define OSG_DEFAULT_NUM_ASPECTS 5
-
-
 #ifdef OSG_WIN_TYPES
 #ifndef OSG_NO_WINDOWD_H_INCLUDE
 #include <windows.h>
@@ -920,8 +919,6 @@
 #else
 #define OSGLL(ARG) ARG
 #endif
-
-#define OSG_FIELDBUNDLE 1
 
 #include "OSGExportDefines.h"
 #include "OSGConfigured.h"
@@ -1022,9 +1019,6 @@
 
 #define OSG_DOUBLEMAGICROUNDEPS (.5-1.4e-11)
 #define OSG_DOUBLEMAGIC         double(6755399441055744.0)
-
-// XXX: This may not be needed any more, should just be default.
-#define OSG_OPT_DRAWTREE 1
 
 #if defined(WIN32)
 # if defined(OSG_DISABLE_MICROSOFT_SECURE_CXXX)

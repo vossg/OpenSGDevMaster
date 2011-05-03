@@ -224,15 +224,4 @@ UInt32 MPFieldStore<MPFieldT>::registerMPType(MPFieldType *pType)
     return returnValue;
 }
 
-
-inline
-UInt32 ThreadManager::getNumAspects(void)
-{
-#if defined(OSG_MT_CPTR_ASPECT)
-    return _uiNumAspects;
-#else
-    return 1;
-#endif
-}
-
 OSG_END_NAMESPACE

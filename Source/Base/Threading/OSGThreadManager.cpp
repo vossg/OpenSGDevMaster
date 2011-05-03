@@ -58,7 +58,6 @@ ThreadManager    *ThreadManager::_pThreadManager      = NULL;
 BaseThreadRefPtr  ThreadManager::_pAppThread          = NULL;
 
 bool              ThreadManager::_bShutdownInProgress = false;
-UInt32            ThreadManager::_uiNumAspects        = OSG_DEFAULT_NUM_ASPECTS;
 
 Char8            *ThreadManager::_szAppThreadType     = NULL;
 
@@ -83,21 +82,6 @@ ThreadManager *ThreadManager::the(void)
 BaseThread *ThreadManager::getAppThread(void)
 {
     return _pAppThread;
-}
-
-
-void ThreadManager::setNumAspects(UInt32 uiNumAspects)
-{
-    if(GlobalSystemState == Startup)
-    {
-        _uiNumAspects = uiNumAspects;
-    }
-    else
-    {
-        SWARNING << "ThreadManager::setNumAspects must be called "
-                 << "before osgInit is called"
-                 << std::endl;
-    }
 }
 
 

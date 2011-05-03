@@ -153,7 +153,7 @@ void AspectStore::fillOffsetArray(AspectOffsetStore &       oStore,
 {
     Char8 *pRefMem = reinterpret_cast<Char8 *>(pRef);
 
-    oStore.resize(ThreadManager::getNumAspects());
+    oStore.resize(_vAspects.size());
     
     std::fill(oStore.begin(), oStore.end(), -1);
 

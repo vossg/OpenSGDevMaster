@@ -196,9 +196,6 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
     static BaseThread    *getAppThread    (      void                   );
 
-    static void           setNumAspects   (      UInt32  uiNumApects    );
-    static UInt32         getNumAspects   (      void                   );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Create Threading Element                       */
@@ -344,8 +341,6 @@ class OSG_BASE_DLLMAPPING ThreadManager
     static BaseThreadRefPtr  _pAppThread;
 
     static bool              _bShutdownInProgress;
-
-    static UInt32            _uiNumAspects;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
