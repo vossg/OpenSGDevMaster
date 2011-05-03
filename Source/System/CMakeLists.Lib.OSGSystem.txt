@@ -36,6 +36,15 @@ ENDIF(OSG_WITH_CUDA)
 # SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
 # SET(${PROJECT_NAME}_DEP_TEST_INCDIR OSG_GLUT_INC_DIR)
 
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  SET(_OSG_EX_RBBASE "${CMAKE_CURRENT_SOURCE_DIR}/RenderingBackend")
+
+  SET(${PROJECT_NAME}_EXCL_FILES 
+      ${_OSG_EX_RBBASE}/OSGOcclusionCullingTreeBuilder.h
+      ${_OSG_EX_RBBASE}/OSGOcclusionCullingTreeBuilder.inl
+      ${_OSG_EX_RBBASE}/OSGOcclusionCullingTreeBuilder.cpp)
+ENDIF()
+
 OSG_ADD_GLUTPACKAGE(TRUE)
 
 # dependencies - Additional

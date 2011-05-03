@@ -48,12 +48,20 @@
 #include "OSGGL.h"
 #include <boost/function.hpp>
 
-#ifdef OSG_NOGLSUBDIR
-#include <glu.h>
-#elif defined(__APPLE__)
-#include <OpenGL/glu.h>
-#else
-#include <GL/glu.h>
+#if defined(OSG_OGL_ES2)
+
+# include<GLES2/glu2.h>
+
+#else 
+
+# ifdef OSG_NOGLSUBDIR
+#  include <glu.h>
+# elif defined(__APPLE__)
+#  include <OpenGL/glu.h>
+# else
+#  include <GL/glu.h>
+# endif
+
 #endif
 
 // _GLUfuncptr doesn't exist on all platforms.

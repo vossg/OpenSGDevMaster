@@ -848,6 +848,7 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
                            pState,
                            pStateOverride);
     }
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     else if(ract != NULL && ract->getOcclusionCulling() == true)
     {
         BuildKeyMapIt mapIt = _mMatTrees.lower_bound(iSortKey);
@@ -877,6 +878,7 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
                            pState,
                            pStateOverride);
     }
+#endif
     else
     {
         BuildKeyMapIt mapIt = _mMatTrees.lower_bound(iSortKey);

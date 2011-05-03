@@ -228,124 +228,11 @@ void MaterialChunk::dump(      UInt32    uiIndent,
 
 /*------------------------------ State ------------------------------------*/
 
-#if OSG_GL_ES_VERSION == 100
 void MaterialChunk::activate(DrawEnv *, UInt32)
 {
 	glErr("material:activate:precheck");
 
-    GLenum target;
-
-    target = GL_FRONT_AND_BACK;
-
-    if(getColorMaterial() == GL_NONE)
-    {
-        glDisable(GL_COLOR_MATERIAL);
-    }
-    else
-    {
-//        glColorMaterial(GL_FRONT_AND_BACK, getColorMaterial());
-        glEnable(GL_COLOR_MATERIAL);
-    }
-        
-	glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
-
-    if(getLit())
-    {
-        glMaterialfv(target, GL_DIFFUSE,
-                     _sfDiffuse.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_AMBIENT,
-                     _sfAmbient.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_SPECULAR,
-                     _sfSpecular.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_EMISSION,
-                     _sfEmission.getValue().getValuesRGBA());
-        glMaterialf (target, GL_SHININESS, _sfShininess.getValue());
-        
-        glEnable(GL_LIGHTING);
-    }
-    else
-    {
-        glDisable(GL_LIGHTING);
-    }
-
-	glErr("material:activate:postcheck");
-}
-
-void MaterialChunk::changeFrom(DrawEnv    *, 
-                               StateChunk * old_chunk, 
-                               UInt32                )
-{
-	glErr("material:changed:precheck");
-
-    MaterialChunk const *old = dynamic_cast<MaterialChunk const*>(old_chunk);
-
-    // change from me to me?
-    // this assumes I haven't changed in the meantime. is that a valid 
-    // assumption?
-
-    if(old == this)
-    {
-        // Reset it, as Geometry colors might have changed it
-        if(getColorMaterial() != GL_NONE)
-		{
-            glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
-        }
-
-        return;
-    }
-
-    if(getColorMaterial() != old->getColorMaterial())
-    {
-        if(getColorMaterial() == GL_NONE)
-        {
-            glDisable(GL_COLOR_MATERIAL);
-        }
-        else
-        {
-            //glColorMaterial(GL_FRONT_AND_BACK, getColorMaterial());
-            glEnable(GL_COLOR_MATERIAL);
-        }
-    }
-    
-    if(getColorMaterial() != GL_NONE)
-        glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
-
-    if(getLit() && ! old->getLit())
-        glEnable(GL_LIGHTING);
-
-    else if(! getLit() && old->getLit())
-        glDisable(GL_LIGHTING);
-
-    if(getLit())
-    {
-        GLenum target;
-
-        target = GL_FRONT_AND_BACK;
-        
-        glMaterialfv(target, GL_DIFFUSE,
-                     _sfDiffuse.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_AMBIENT,
-                     _sfAmbient.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_SPECULAR,
-                     _sfSpecular.getValue().getValuesRGBA());
-        glMaterialfv(target, GL_EMISSION,
-                     _sfEmission.getValue().getValuesRGBA());
-
-        // adjust shininess only if it differs enough
-        if(osgAbs(_sfShininess.getValue() - old->getShininess()) > 1e-4f)
-        {
-            glMaterialf(target, GL_SHININESS, 
-                        _sfShininess.getValue());
-        }
-    }
-
-	glErr("material:changed:precheck");
-}
-#else
-void MaterialChunk::activate(DrawEnv *, UInt32)
-{
-	glErr("material:activate:precheck");
-
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     GLenum target;
 
     if(getBackMaterial())
@@ -426,6 +313,7 @@ void MaterialChunk::activate(DrawEnv *, UInt32)
     {
         glDisable(GL_LIGHTING);
     }
+#endif
 
 	glErr("material:activate:postcheck");
 }
@@ -436,6 +324,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
 {
 	glErr("material:changed:precheck");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     MaterialChunk const *old = dynamic_cast<MaterialChunk const*>(old_chunk);
 
     // change from me to me?
@@ -455,13 +344,13 @@ void MaterialChunk::changeFrom(DrawEnv    *,
         return;
     }
 
-    if(getColorMaterial()     != old->getColorMaterial() || 
-       getBackColorMaterial() != old->getBackColorMaterial()
-      )
+    if(getColorMaterial()     != old->getColorMaterial    () || 
+       getBackColorMaterial() != old->getBackColorMaterial()  )
     {
         if(getBackMaterial())
         {
-            if(getColorMaterial() == GL_NONE && getBackColorMaterial() == GL_NONE)
+            if(getColorMaterial    () == GL_NONE && 
+               getBackColorMaterial() == GL_NONE  )
             {
                 glDisable(GL_COLOR_MATERIAL);
             }
@@ -532,7 +421,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
                       _sfEmission.getValue().getValuesRGBA());
         // adjust shininess only if it differs enough
         if(osgAbs(_sfShininess.getValue() - old->getShininess()) > 1e-4)
-            glMaterialf( target, GL_SHININESS, _sfShininess.getValue());
+            glMaterialf(target, GL_SHININESS, _sfShininess.getValue());
         
         if(getBackMaterial())
         {
@@ -546,23 +435,27 @@ void MaterialChunk::changeFrom(DrawEnv    *,
                           _sfBackEmission.getValue().getValuesRGBA());
             // adjust shininess only if it differs enough
             if(osgAbs(_sfBackShininess.getValue() - 
-                      old->getBackShininess()
-                     ) > 1e-4)
-                glMaterialf( GL_BACK, GL_SHININESS, _sfBackShininess.getValue());
+                      old->getBackShininess()      ) > 1e-4)
+            {
+                glMaterialf(GL_BACK, GL_SHININESS, 
+                            _sfBackShininess.getValue());
+            }
         }
     }
+#endif
 
 	glErr("material:changed:postcheck");
 }
-#endif
 
 void MaterialChunk::deactivate(DrawEnv *, UInt32)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getLit())
         glDisable(GL_LIGHTING);
 
     if(getColorMaterial() != GL_NONE)
         glDisable(GL_COLOR_MATERIAL);
+#endif
 }
 
 

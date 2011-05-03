@@ -1866,6 +1866,7 @@ void OSG::Window::setupGL( void )
     glDepthFunc(GL_LEQUAL    );
     glEnable   (GL_DEPTH_TEST);
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glEnable   (GL_NORMALIZE );
     
     // switch off default light
@@ -1873,6 +1874,7 @@ void OSG::Window::setupGL( void )
 
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
     glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+#endif
     
     _sfRendererInfo.getValue().assign(
         reinterpret_cast<const char *>(glGetString(GL_VERSION)));

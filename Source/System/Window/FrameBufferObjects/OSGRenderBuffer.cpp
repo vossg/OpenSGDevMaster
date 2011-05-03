@@ -299,7 +299,9 @@ void RenderBuffer::processPreDeactivate (DrawEnv *pEnv, UInt32 index)
         }
        
         // select GL_COLORATTACHMENTn and read data into image
+#ifndef OSG_OGL_ES2
         glReadBuffer(index);
+#endif
         glReadPixels(0, 0, 
                      pImg->getWidth      (), 
                      pImg->getHeight     (),
@@ -307,7 +309,9 @@ void RenderBuffer::processPreDeactivate (DrawEnv *pEnv, UInt32 index)
                      pImg->getDataType   (),
                      pImg->editData      ());
 
+#ifndef OSG_OGL_ES2
         glReadBuffer(GL_NONE);
+#endif
 
         glErr("renderbuffer:predeactivate");
     }

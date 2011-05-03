@@ -130,10 +130,12 @@ void DepthChunk::activate(DrawEnv *, UInt32)
         glDepthFunc(_sfFunc.getValue());
     }
     
+#ifndef OSG_OGL_ES2
     if(getNear() >= 0 && getFar() >= 0)
     {   
         glDepthRange(getNear(), getFar());
     }
+#endif
     
     if(getEnable())
     {
@@ -163,10 +165,12 @@ void DepthChunk::deactivate(DrawEnv *, UInt32)
         glDepthFunc(GL_LEQUAL);
     }
     
+#ifndef OSG_OGL_ES2
     if(getNear() >= 0 && getFar() >= 0)
     {   
         glDepthRange(0, 1);
     }
+#endif
     
     if(!getEnable())
     {

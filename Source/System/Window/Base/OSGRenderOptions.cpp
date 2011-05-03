@@ -107,6 +107,7 @@ void RenderOptions::changed(ConstFieldMaskArg whichField,
 
 void RenderOptions::setWireframe(bool value)
 {
+#ifndef OSG_OGL_ES2
     if(value)
     {
         setPolygonMode(GL_LINE);
@@ -115,11 +116,16 @@ void RenderOptions::setWireframe(bool value)
     {
         setPolygonMode(GL_FILL);
     }
+#endif
 }
 
 bool RenderOptions::getWireframe(void)
 {
+#ifndef OSG_OGL_ES2
 	return getPolygonMode() == GL_LINE;
+#else
+    return false;
+#endif
 }
 
 BitVector RenderOptions::getChanged(void)

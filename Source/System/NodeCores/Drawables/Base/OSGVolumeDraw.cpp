@@ -98,6 +98,7 @@ void drawVolume(const Volume &volume)
 
 void drawVolume(const BoxVolume &volume)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Pnt3f min,max;
     volume.getBounds(min, max);
 
@@ -126,6 +127,7 @@ void drawVolume(const BoxVolume &volume)
         glVertex3f(max[0], min[1], max[2]);   
     }
     glEnd();
+#endif
 }
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
@@ -146,6 +148,7 @@ void drawVolume(const SphereVolume &OSG_CHECK_ARG(volume))
 
 void drawVolume(const FrustumVolume &volume)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Line lines[4];
     
     // calc the intersection lines between left/right/bottom/top
@@ -251,6 +254,7 @@ void drawVolume(const FrustumVolume &volume)
         glVertex3fv(pnts[6].getValues());
     }
     glEnd();
+#endif
 }
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
@@ -335,7 +339,9 @@ class VolumeDrawWrapper
   
     Action::ResultE draw(DrawEnv *)
     {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         glColor3fv(_col.getValuesRGB());
+#endif
 
         drawVolume(_vol);
         

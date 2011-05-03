@@ -135,6 +135,7 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
 {
 	glErr("light:activate:precheck");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Matrix tobeacon;
 
     if(_sfBeacon.getValue() != NULL)
@@ -200,6 +201,7 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
     glEnable(GL_LIGHT0 + index);
 
     glPopMatrix();
+#endif
 
 	glErr("light:activate:postcheck");
 }
@@ -210,6 +212,7 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
 {
 	glErr("light:changed:precheck");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     LightChunk const *old = dynamic_cast<LightChunk const *>(old_chunk);
 
     // change from me to me?
@@ -284,13 +287,16 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
     }
 
     glPopMatrix();
+#endif
 
 	glErr("light:changed:postcheck");
 }
 
 void LightChunk::deactivate(DrawEnv *, UInt32 index)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glDisable(GL_LIGHT0 + index);
+#endif
 }
 
 

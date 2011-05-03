@@ -90,6 +90,7 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             
         switch(target)
         {
+#ifndef OSG_OGL_ES2
             case GL_TEXTURE_1D:
             {
                 OSGGETGLFUNC( OSGglFramebufferTexture1DProc,
@@ -104,6 +105,7 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                     getLevel());
              }
             break;
+#endif
                 
             case GL_TEXTURE_2D:
             case GL_TEXTURE_RECTANGLE_ARB:
@@ -224,7 +226,9 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
         }
 
         // select GL_COLORATTACHMENTn and read data into image
+#ifndef OSG_OGL_ES2
         glReadBuffer(index);
+#endif
         glReadPixels(0, 0, 
                      pTexImg->getWidth      (),
                      pTexImg->getHeight     (),
@@ -232,7 +236,9 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
                      pTexImg->getDataType   (),
                      pTexImg->editData      (mipMapLevel, frame, side));
         
+#ifndef OSG_OGL_ES2
         glReadBuffer(GL_NONE);
+#endif
     }
 }
 

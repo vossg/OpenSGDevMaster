@@ -44,22 +44,23 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_GLES
-#include <GLES/gl.h>
+#if defined(OSG_OGL_ES2)
 
-#ifndef GL_NONE
-#define GL_NONE GL_FALSE
-#endif
+# if defined(__APPLE__)
+#  include <OpenGLES/ES2/gl.h>
+# else
+#  include <GLES2/gl2.h>
+# endif
 
 #else
 
-#ifdef OSG_NOGLSUBDIR
-#include <gl.h>
-#elif defined(__APPLE__)
-#include <OpenGL/gl.h>
-#else
-#include <GL/gl.h>
-#endif
+# ifdef OSG_NOGLSUBDIR
+#  include <gl.h>
+# elif defined(__APPLE__)
+#  include <OpenGL/gl.h>
+# else
+#  include <GL/gl.h>
+# endif
 
 #endif
 

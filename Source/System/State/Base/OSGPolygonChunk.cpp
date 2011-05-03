@@ -138,19 +138,29 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
     if(_sfFrontFace.getValue() != GL_CCW)
         glFrontFace(_sfFrontFace.getValue());
 
+#ifndef OSG_OGL_ES2
 // smooth
 
     if(_sfSmooth.getValue())
         glEnable(GL_POLYGON_SMOOTH);
+#endif
 
+#ifndef OSG_OGL_ES2
 // mode
 
+# if !defined(OSG_OGL_COREONLY)
     if(_sfFrontMode.getValue() != GL_FILL)
         glPolygonMode(GL_FRONT, _sfFrontMode.getValue());
 
     if(_sfBackMode.getValue() != GL_FILL)
         glPolygonMode(GL_BACK, _sfBackMode.getValue());
+# else
+    if(_sfFrontMode.getValue() != GL_FILL)
+        glPolygonMode(GL_FRONT_AND_BACK, _sfFrontMode.getValue());
+# endif
+#endif
 
+#ifndef OSG_OGL_ES2
 // offset
 
     if(_sfOffsetFactor.getValue() != 0.f || _sfOffsetBias.getValue() != 0.f)
@@ -164,7 +174,9 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
 
     if(_sfOffsetFill.getValue())
         glEnable(GL_POLYGON_OFFSET_FILL);
+#endif
 
+#if !defined(OSG_OGL_COREONLY)
 // stipple
 
     if(_mfStipple.size() == 32)
@@ -172,6 +184,7 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
         glPolygonStipple(reinterpret_cast<const GLubyte *>(&(_mfStipple[0])));
         glEnable(GL_POLYGON_STIPPLE);
     }
+#endif
 }
 
 
@@ -206,6 +219,7 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
         glFrontFace(_sfFrontFace.getValue());
     }
 
+#ifndef OSG_OGL_ES2
 // smooth
 
     if(_sfSmooth.getValue() != old->_sfSmooth.getValue())
@@ -219,19 +233,28 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
             glDisable(GL_POLYGON_SMOOTH);
         }
     }
+#endif
 
+#ifndef OSG_OGL_ES2
 // mode
 
+# if !defined(OSG_OGL_COREONLY)
     if(_sfFrontMode.getValue() !=  old->_sfFrontMode.getValue())
         glPolygonMode(GL_FRONT, _sfFrontMode.getValue());
 
     if(_sfBackMode.getValue() !=  old->_sfBackMode.getValue())
         glPolygonMode(GL_BACK, _sfBackMode.getValue());
+# else
+    if(_sfFrontMode.getValue() !=  old->_sfFrontMode.getValue())
+        glPolygonMode(GL_FRONT_AND_BACK, _sfFrontMode.getValue());
+# endif
+#endif
 
+#ifndef OSG_OGL_ES2
 // offset
 
     if(_sfOffsetFactor.getValue() != old->_sfOffsetFactor.getValue() ||
-         _sfOffsetBias.getValue()   != old->_sfOffsetBias.getValue())
+       _sfOffsetBias.getValue()   != old->_sfOffsetBias.getValue())
     {
         glPolygonOffset(_sfOffsetFactor.getValue(), _sfOffsetBias.getValue());
     }
@@ -271,7 +294,9 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
             glDisable(GL_POLYGON_OFFSET_FILL);
         }
     }
+#endif
 
+#if !defined(OSG_OGL_COREONLY)
 // stipple
 
     if(_mfStipple.getValues() != old->_mfStipple.getValues())
@@ -284,7 +309,7 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
         }
         else glDisable(GL_POLYGON_STIPPLE);
     }
-
+#endif
 }
 
 void PolygonChunk::deactivate(DrawEnv *, UInt32)
@@ -300,19 +325,29 @@ void PolygonChunk::deactivate(DrawEnv *, UInt32)
     if(_sfFrontFace.getValue() != GL_CCW)
         glFrontFace(GL_CCW);
 
+#ifndef OSG_OGL_ES2
 // smooth
 
     if(_sfSmooth.getValue())
         glDisable(GL_POLYGON_SMOOTH);
+#endif
 
+#ifndef OSG_OGL_ES2
 // mode
 
+# if !defined(OSG_OGL_COREONLY)
     if(_sfFrontMode.getValue() != GL_FILL)
         glPolygonMode(GL_FRONT, GL_FILL);
 
     if(_sfBackMode.getValue() != GL_FILL)
         glPolygonMode(GL_BACK, GL_FILL);
+# else
+    if(_sfFrontMode.getValue() != GL_FILL)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+# endif
+#endif
 
+#ifndef OSG_OGL_ES2
 // offset
 
     if(_sfOffsetPoint.getValue())
@@ -323,12 +358,14 @@ void PolygonChunk::deactivate(DrawEnv *, UInt32)
 
     if(_sfOffsetFill.getValue())
         glDisable(GL_POLYGON_OFFSET_FILL);
+#endif
 
+#if !defined(OSG_OGL_COREONLY)
 // stipple
 
     if(_mfStipple.size() == 32)
         glDisable(GL_POLYGON_STIPPLE);
-
+#endif
 }
 
 

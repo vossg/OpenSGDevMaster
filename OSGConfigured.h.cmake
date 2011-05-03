@@ -33,7 +33,11 @@
 
 #cmakedefine OSG_OGL_VERTEXATTRIB_FUNCS 1
 
-#cmakedefine OSG_OGL_COREONLY
+#cmakedefine OSG_OGL_COREONLY 1
+
+#cmakedefine OSG_OGL_ES2 1
+
+#cmakedefine OSG_OGL_NO_DOUBLE 1
 
 #cmakedefine OSG_WITH_ZLIB 1
 

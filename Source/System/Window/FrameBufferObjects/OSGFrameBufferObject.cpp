@@ -360,8 +360,10 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
         }
         else
         {
+#ifndef OSG_OGL_ES2
             glDrawBuffer(GL_NONE);
             glReadBuffer(GL_NONE);
+#endif
         }
     }
     else

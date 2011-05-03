@@ -62,6 +62,39 @@
 typedef char GLchar;
 
 /*---------------------------------------------------------------------*/
+/*! \name OpenGL defines needed so things compile with ES              */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_MODELVIEW_MATRIX
+#  define GL_MODELVIEW_MATRIX		0x0BA6
+#endif
+#ifndef GL_MODELVIEW
+#  define GL_MODELVIEW				0x1700
+#endif
+#ifndef GL_MODELVIEW_STACK_DEPTH
+#  define GL_MODELVIEW_STACK_DEPTH	0x0BA3
+#endif
+#ifndef GL_INTENSITY
+#  define GL_INTENSITY              0x8049
+#endif
+#ifndef GL_DIFFUSE
+#  define GL_DIFFUSE                0x1201
+#endif
+#ifndef GL_FILL
+#  define GL_FILL                   0x1B02
+#endif
+
+#if 0
+#  define GL_COPY                   0x1503
+#  define GL_SMOOTH                 0x1D01
+#  define GL_EXP                    0x0800
+#  define GL_MODULATE               0x2100
+#  define GL_DECAL                  0x2101
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 /*! \name GL_EXT_secondary_color                                       */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
 /*! \{                                                                 */
@@ -1610,7 +1643,9 @@ typedef ptrdiff_t GLsizeiptrARB;
 /*! \{                                                                 */
 
 #ifndef GL_VERSION_2_0
-#define GL_BLEND_EQUATION_RGB             GL_BLEND_EQUATION
+#ifndef GL_BLEND_EQUATION_RGB
+#  define GL_BLEND_EQUATION_RGB             GL_BLEND_EQUATION
+#endif
 #define GL_VERTEX_ATTRIB_ARRAY_ENABLED    0x8622
 #define GL_VERTEX_ATTRIB_ARRAY_SIZE       0x8623
 #define GL_VERTEX_ATTRIB_ARRAY_STRIDE     0x8624

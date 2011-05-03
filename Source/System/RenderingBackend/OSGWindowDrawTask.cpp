@@ -45,7 +45,7 @@
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
 
-#ifdef OSG_WITH_CUDA
+#if defined(OSG_WITH_CUDA) && !defined(OSG_OGL_ES2)
 #include <cuda_runtime_api.h>
 #include <cuda_gl_interop.h>
 #endif
@@ -197,7 +197,7 @@ void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 #endif
             pWindow->doFrameExit();
             
-#ifdef OSG_WITH_CUDA
+#if defined(OSG_WITH_CUDA) && !defined(OSG_OGL_ES2)
             if(0x0000 != (pWindow->getInitState() & 
                           HardwareContext::CudaInitialized))
             {

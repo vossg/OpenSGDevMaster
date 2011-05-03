@@ -166,20 +166,6 @@ void BlendChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 /*------------------------------ State ------------------------------------*/
 
-#if OSG_GL_ES_VERSION == 100
-void BlendChunk::activate(DrawEnv *pEnv, UInt32)
-{
-}
-void BlendChunk::changeFrom(DrawEnv    *pEnv, 
-                            StateChunk *old_chunk, 
-                            UInt32               )
-{
-}
-
-void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
-{
-}
-#else
 void BlendChunk::activate(DrawEnv *pEnv, UInt32)
 {
     GLenum src   = _sfSrcFactor.getValue();
@@ -288,11 +274,13 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
         }
     }
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(_sfAlphaFunc.getValue() != GL_NONE)
     {
         glAlphaFunc(_sfAlphaFunc.getValue(), _sfAlphaValue.getValue());
         glEnable(GL_ALPHA_TEST);
     }
+#endif
 }
 
 void BlendChunk::changeFrom(DrawEnv    *pEnv, 
@@ -422,6 +410,7 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
         }
     }
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(_sfAlphaFunc.getValue() != GL_NONE)
     {
         if(old->_sfAlphaFunc.getValue()  != _sfAlphaFunc.getValue() ||
@@ -436,7 +425,7 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
         if(old->_sfAlphaFunc.getValue() != GL_NONE)
             glDisable(GL_ALPHA_TEST);        
     }
-    
+#endif    
 }
 
 void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
@@ -477,12 +466,13 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
         }
     }
     
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(_sfAlphaFunc.getValue() != GL_NONE)
     {
         glDisable(GL_ALPHA_TEST);
     }
-}
 #endif
+}
 
 /*-------------------------- Comparison -----------------------------------*/
 
