@@ -228,6 +228,7 @@ SkeletonSkinningAlgorithm::getRenderMode(void) const
 ActionBase::ResultE
 SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glEnableClientState(GL_VERTEX_ARRAY);
     {
         glVertexPointer(3, GL_FLOAT, 0, &(_mfDrawPositions.front()));
@@ -235,6 +236,7 @@ SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
                         &(_mfDrawIndex.front()));
     }
     glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 
     return Action::Continue;
 }

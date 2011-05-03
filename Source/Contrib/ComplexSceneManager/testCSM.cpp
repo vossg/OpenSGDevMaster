@@ -9,6 +9,7 @@ void dumpGLError(GLenum glError, const GLubyte *glErrorString)
     fprintf(stderr, "Custom error dump\n");
     fprintf(stderr, "-----------------\n");
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     switch(glError)
     {
         case GL_STACK_OVERFLOW:
@@ -41,6 +42,7 @@ void dumpGLError(GLenum glError, const GLubyte *glErrorString)
                     iProjMatInfo[1]);
         }
     };
+#endif
 }
 
 int init(int argc, char **argv)

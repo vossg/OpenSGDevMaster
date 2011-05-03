@@ -68,6 +68,7 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoPnt4fProperty> >
         _regPos4f("GeoPositions4f");
+#ifndef OSG_OGL_NO_DOUBLE
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoPnt2dProperty> >
         _regPos2d("GeoPositions2d");
@@ -77,6 +78,7 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoPnt4dProperty> >
         _regPos4d("GeoPositions4d");
+#endif
 
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoVec3sProperty> >
@@ -113,6 +115,7 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoVec4fProperty> >
         _regTexCoord4f("GeoTexCoords4f");
+#ifndef OSG_OGL_NO_DOUBLE
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoVec1dProperty> >
         _regTexCoord1d("GeoTexCoords1d");
@@ -125,6 +128,7 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoVec4dProperty> >
         _regTexCoord4d("GeoTexCoords4d");
+#endif
 
 static OSBElementRegistrationHelper<
     OSBGeoPropertyConversionElement<GeoUInt8Property> >

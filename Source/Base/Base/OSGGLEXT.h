@@ -96,8 +96,7 @@ typedef char GLchar;
 #ifndef GL_SMOOTH
 #  define GL_SMOOTH                 0x1D01
 #endif
-
-#if 0
+#ifndef GL_DECAL
 #  define GL_DECAL                  0x2101
 #endif
 

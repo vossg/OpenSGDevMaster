@@ -169,6 +169,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
     }
     else 
     {        
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         const void *pData = NULL;
 
         OSGGETGLFUNCBYID( OSGglBindBufferARB, 
@@ -272,6 +273,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
         {
             osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
         }
+#endif
     }
 }
 

@@ -752,6 +752,7 @@ OSG_MAKE_PROP(Vec4f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
 //********************************
 // Vec/Pnt d
 //********************************
+#ifndef OSG_OGL_NO_DOUBLE
 OSG_MAKE_PROP(Pnt1d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
 OSG_MAKE_PROP(Pnt2d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
 OSG_MAKE_PROP(Pnt3d, GL_DOUBLE, GLdouble, VectorTypePoint, UsageObjectSpace);
@@ -761,7 +762,7 @@ OSG_MAKE_PROP(Vec1d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_PROP(Vec2d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_PROP(Vec3d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_PROP(Vec4d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
-
+#endif
 
 //********************************
 // Color ub

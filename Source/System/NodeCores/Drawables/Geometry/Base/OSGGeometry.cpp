@@ -224,6 +224,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                                  Window::GLObjectStatusE  mode,
                                  UInt32                   uiOptions)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
 
@@ -275,6 +276,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         SWARNING << "Geometry(" << this << "::handleClassicGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
+#endif
 
     return 0;
 }
@@ -283,6 +285,7 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
                                       UInt32                   id, 
                                       Window::GLObjectStatusE  mode)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
 
@@ -301,7 +304,7 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
         SWARNING << "Geometry::handleClassicDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
-
+#endif
 }
 
 UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv, 
@@ -309,6 +312,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                              Window::GLObjectStatusE  mode,
                              UInt32                   uiOptions)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
 
@@ -356,6 +360,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         SWARNING << "Geometry(" << this << "::handleAttGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
+#endif
 
     return 0;
 }
@@ -364,6 +369,7 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
 
@@ -382,7 +388,7 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
         SWARNING << "Geometry::handleAttDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
-
+#endif
 }
 
 void Geometry::drawPrimitives(DrawEnv *pEnv)
@@ -410,12 +416,15 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     }
 #endif
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // store glColor.
     Color4f color;
 
     if(getColors() != NULL)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
+#endif
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getDlistCache() == true)
     {
         Int32 glid;
@@ -433,6 +442,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         glCallList(pEnv->getWindow()->getGLObjectId(glid));
     }
     else
+#endif
     {
         GeoPumpGroup::PropertyCharacteristics prop;
 
@@ -458,9 +468,11 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         }
     }
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // restore glColor.
     if(getColors() != NULL)
         glColor4fv(color.getValuesRGBA());
+#endif
 
 /*
     StatCollector *coll = action->getStatistics();

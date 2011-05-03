@@ -97,7 +97,9 @@ bool GeoPumpGroup::initActiveGroups(void)
     _activeGroups = new std::vector<GeoPumpGroup*>;
 
     _activeGroups->push_back(new GeoVertexArrayPumpGroup);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     _activeGroups->push_back(new GeoImmediatePumpGroup);
+#endif
 
     addPostFactoryExitFunction(&GeoPumpGroup::terminateActiveGroups);
 

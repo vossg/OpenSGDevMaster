@@ -232,6 +232,7 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
     }
     else 
     {        
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         const void *pData = NULL;
 
         OSGGETGLFUNCBYID( OSGglBindBufferARB, 
@@ -354,6 +355,7 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
         {
             osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
         }
+#endif
     }
 }
 
@@ -389,6 +391,7 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
     }
     else
     {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         switch(slot)
         {
             case 0:
@@ -444,6 +447,7 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
                           " attribute nr. %d unknown!\n", slot));
                 break;
         }
+#endif
     }
 }
 

@@ -79,9 +79,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoPnt1fProperty>,    // Obj, 1, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoPnt1dProperty>,    // Obj, 1, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Obj, 1, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoPnt2bProperty>,    // Obj, 2, byte
                   &createPropFunc<GeoPnt2NbProperty>
@@ -104,9 +110,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoPnt2fProperty>,    // Obj, 2, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoPnt2dProperty>,    // Obj, 2, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Obj, 2, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoPnt3bProperty>,    // Obj, 3, byte
                   &createPropFunc<GeoPnt3NbProperty>
@@ -129,9 +141,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoPnt3fProperty>,    // Obj, 3, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoPnt3dProperty>,    // Obj, 3, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Obj, 3, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoPnt4bProperty>,    // Obj, 4, byte
                   &createPropFunc<GeoPnt4NbProperty>
@@ -154,9 +172,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoPnt4fProperty>,    // Obj, 4, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoPnt4dProperty>,    // Obj, 4, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Obj, 4, double
+                  &invalidCreatePropFunc
+                }
+#endif
             }
         },
         {   {   { &createPropFunc<GeoVec1bProperty >,   // Tan/Tex, 1, byte
@@ -180,9 +204,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoVec1fProperty>,    // Tan/Tex, 1, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoVec1dProperty>,    // Tan/Tex, 1, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Tan/Tex, 1, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoVec2bProperty>,    // Tan/Tex, 2, byte
                   &createPropFunc<GeoVec2NbProperty>
@@ -205,9 +235,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoVec2fProperty>,    // Tan/Tex, 2, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoVec2dProperty>,    // Tan/Tex, 2, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Tan/Tex, 2, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoVec3bProperty>,    // Tan/Tex, 3, byte
                   &createPropFunc<GeoVec3NbProperty>
@@ -230,9 +266,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoVec3fProperty>,    // Tan/Tex, 3, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoVec3dProperty>,    // Tan/Tex, 3, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Tan/Tex, 3, double
+                  &invalidCreatePropFunc
+                }
+#endif
             },
             {   { &createPropFunc<GeoVec4bProperty>,    // Tan/Tex, 4, byte
                   &createPropFunc<GeoVec4NbProperty>
@@ -255,9 +297,15 @@ GeoPropertyFactoryBase::CreatePropFuncP
                 { &createPropFunc<GeoVec4fProperty>,    // Tan/Tex, 4, float
                   &invalidCreatePropFunc
                 },
+#ifndef OSG_OGL_NO_DOUBLE
                 { &createPropFunc<GeoVec4dProperty>,    // Tan/Tex, 4, double
                   &invalidCreatePropFunc
                 }
+#else
+                { &invalidCreatePropFunc,               // Tan/Tex, 4, double
+                  &invalidCreatePropFunc
+                }
+#endif
             }
         },
         {   {   { &invalidCreatePropFunc,               // Col, 1, byte
@@ -374,18 +422,19 @@ GeoIntegralPropertyTransitPtr GeoPropertyFactoryBase::create(UInt32 format)
 
     switch(format)
     {
-    case GL_UNSIGNED_BYTE:  returnValue = GeoUInt8Property::create();
-    break;
+        case GL_UNSIGNED_BYTE:  returnValue = GeoUInt8Property::create();
+            break;
+            
+        case GL_UNSIGNED_SHORT: returnValue = GeoUInt16Property::create();
+            break;
     
-    case GL_UNSIGNED_SHORT: returnValue = GeoUInt16Property::create();
-    break;
+        case GL_UNSIGNED_INT:   returnValue = GeoUInt32Property::create();
+            break;
     
-    case GL_UNSIGNED_INT:   returnValue = GeoUInt32Property::create();
-    break;
-    
-    default:
-        FWARNING(("GeoPropertyFactoryBase::create: Invalid paramter: format [%d].\n",
-                  format));
+        default:
+            FWARNING(("GeoPropertyFactoryBase::create: Invalid "
+                      "paramter: format [%d].\n",
+                      format));
     }
     
     return returnValue;

@@ -3408,7 +3408,7 @@ void VRMLTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapS(GL_CLAMP);
+                pTexture->setWrapS(GL_CLAMP_TO_EDGE);
             }
             if(_repeatT.getValue() == true)
             {
@@ -3416,7 +3416,7 @@ void VRMLTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapT(GL_CLAMP);
+                pTexture->setWrapT(GL_CLAMP_TO_EDGE);
             }
         }
         else
@@ -3641,7 +3641,7 @@ void VRMLImageTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapS(GL_CLAMP);
+                pTexture->setWrapS(GL_CLAMP_TO_EDGE);
             }
             if(_repeatT.getValue() == true)
             {
@@ -3649,7 +3649,7 @@ void VRMLImageTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapT(GL_CLAMP);
+                pTexture->setWrapT(GL_CLAMP_TO_EDGE);
             }
         }
         else
@@ -3840,7 +3840,7 @@ void VRMLPixelTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapS(GL_CLAMP);
+                pTexture->setWrapS(GL_CLAMP_TO_EDGE);
             }
             if(_repeatT.getValue() == true)
             {
@@ -3848,7 +3848,7 @@ void VRMLPixelTextureHelper::endNode(FieldContainer *pFC)
             }
             else
             {
-                pTexture->setWrapT(GL_CLAMP);
+                pTexture->setWrapT(GL_CLAMP_TO_EDGE);
             }
         }
     }

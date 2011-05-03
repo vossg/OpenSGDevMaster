@@ -170,6 +170,7 @@ static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt4fProperty> >
         _regPnt4f("GeoPnt4fProperty");
 
+#ifndef OSG_OGL_NO_DOUBLE
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt1dProperty> >
         _regPnt1d("GeoPnt1dProperty");
@@ -182,5 +183,6 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt4dProperty> >
         _regPnt4d("GeoPnt4dProperty");
+#endif
 
 } // namespace

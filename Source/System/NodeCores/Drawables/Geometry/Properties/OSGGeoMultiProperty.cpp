@@ -294,6 +294,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     }
     else
     {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         switch(slot)
         {
         case 0:     glVertexPointer(getDimension(), getFormat(),
@@ -351,6 +352,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
                         " attribute nr. %d unknown!\n", slot));
                     break;
         }     
+#endif
     } // isGeneric
 
     _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
@@ -460,22 +462,25 @@ GeoConvert::convertOut(eval, ival);                          \
 }
     switch(getFormat())
     {
-    case GL_BYTE:                   getValNormCase(Vec4b );
-                                    break;
-    case GL_UNSIGNED_BYTE:          getValNormCase(Vec4ub);
-                                    break;
-    case GL_SHORT:                  getValNormCase(Vec4s );
-                                    break;
-    case GL_UNSIGNED_SHORT:         getValNormCase(Vec4us);
-                                    break;
+        case GL_BYTE:                   getValNormCase(Vec4b );
+            break;
+        case GL_UNSIGNED_BYTE:          getValNormCase(Vec4ub);
+            break;
+        case GL_SHORT:                  getValNormCase(Vec4s );
+            break;
+        case GL_UNSIGNED_SHORT:         getValNormCase(Vec4us);
+            break;
 /*    case GL_INT:                    getValNormCase(Vec4i );
                                     break;
     case GL_UNSIGNED_INT:           getValNormCase(Vec4ui);
                                     break;
-*/    case GL_FLOAT:                  getValCase    (Vec4f );
-                                    break;
-    case GL_DOUBLE:                 getValCase    (Vec4d );
-                                    break;
+ */    
+        case GL_FLOAT:                  getValCase    (Vec4f );
+            break;
+#ifndef OSG_OGL_NO_DOUBLE
+        case GL_DOUBLE:                 getValCase    (Vec4d );
+            break;
+#endif
     }
 
 #undef getValNormCase
@@ -518,22 +523,25 @@ for (UInt16 i = 0; i < dim; ++i)                                \
     
     switch(getFormat())
     {
-    case GL_BYTE:                   setValNormCase(Vec4b );
-                                    break;
-    case GL_UNSIGNED_BYTE:          setValNormCase(Vec4ub);
-                                    break;
-    case GL_SHORT:                  setValNormCase(Vec4s );
-                                    break;
-    case GL_UNSIGNED_SHORT:         setValNormCase(Vec4us);
-                                    break;
+        case GL_BYTE:                   setValNormCase(Vec4b );
+            break;
+        case GL_UNSIGNED_BYTE:          setValNormCase(Vec4ub);
+            break;
+        case GL_SHORT:                  setValNormCase(Vec4s );
+            break;
+        case GL_UNSIGNED_SHORT:         setValNormCase(Vec4us);
+            break;
 /*    case GL_INT:                    setValNormCase(Vec4i );
-                                    break;
+      break;
     case GL_UNSIGNED_INT:           setValNormCase(Vec4ui);
-                                    break;
-*/    case GL_FLOAT:                  setValCase    (Vec4f );
-                                    break;
-    case GL_DOUBLE:                 setValCase    (Vec4d );
-                                    break;
+      break;
+ */    
+        case GL_FLOAT:                  setValCase    (Vec4f );
+            break;
+#ifndef OSG_OGL_NO_DOUBLE
+        case GL_DOUBLE:                 setValCase    (Vec4d );
+            break;
+#endif
     }
 
 #undef setValNormCase

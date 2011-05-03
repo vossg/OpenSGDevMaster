@@ -25,6 +25,15 @@ SET(${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB OSGGroup)
 # SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
 # SET(${PROJECT_NAME}_DEP_TEST_INCDIR OSG_GLUT_INC_DIR)
 
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  SET(_OSG_EX_GEOBASE "${CMAKE_CURRENT_SOURCE_DIR}/Geometry")
+
+  SET(${PROJECT_NAME}_EXCL_FILES 
+      ${_OSG_EX_GEOBASE}/Base/OSGGeoImmediatePumpGroup.h
+      ${_OSG_EX_GEOBASE}/Base/OSGGeoImmediatePumpGroup.inl
+      ${_OSG_EX_GEOBASE}/Base/OSGGeoImmediatePumpGroup.cpp)
+ENDIF()
+
 OSG_ADD_GLUTPACKAGE(TRUE)
 
 # dependencies - Additional
@@ -46,11 +55,14 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Iterator")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Properties")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Util")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/Wrapper")
-OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Nurbs")
-OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Nurbs/Internal")
-OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Particles")
-OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain")
-OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain/QuadTree")
+
+IF(NOT OSG_OGL_COREONLY OR OSG_CHECK_COREONLY)
+  OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Nurbs")
+  OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Nurbs/Internal")
+  OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Particles")
+  OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain")
+  OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain/QuadTree")
+ENDIF()
 
 ##############################################################################
 # setup python bindings

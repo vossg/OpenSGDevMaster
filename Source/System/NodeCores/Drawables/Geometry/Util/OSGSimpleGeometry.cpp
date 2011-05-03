@@ -2363,8 +2363,9 @@ GeometryTransitPtr makeCoordAxisGeo(Real32 length,
 
     mat->setLit(false);
     mat->addChunk(lineChunk);
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     mat->setColorMaterial(GL_AMBIENT_AND_DIFFUSE);
-
+#endif
 
     GeometryTransitPtr geo = Geometry::create();
     geo->setMaterial(mat);

@@ -170,6 +170,7 @@ static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec4fProperty> >
         _regVec4f("GeoVec4fProperty");
 
+#ifndef OSG_OGL_NO_DOUBLE
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec1dProperty> >
         _regVec1d("GeoVec1dProperty");
@@ -182,6 +183,7 @@ static OSBElementRegistrationHelper<
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec4dProperty> >
         _regVec4d("GeoVec4dProperty");
+#endif
 
 // Color properties
 static OSBElementRegistrationHelper<

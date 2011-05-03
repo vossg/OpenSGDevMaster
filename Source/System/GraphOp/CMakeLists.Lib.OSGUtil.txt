@@ -10,8 +10,12 @@ OSG_SELECT_PROJECT()
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGGroup
                                 OSGState
-                                OSGText
                                 OSGWindow)
+
+IF(NOT OSG_OGL_COREONLY OR OSG_CHECK_COREONLY)
+  SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB} OSGText)
+ENDIF()
+
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
                                      OSGWindowGLUT)
 
@@ -25,6 +29,32 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
 # SET(${PROJECT_NAME}_DEP_TEST_INCDIR OSG_GLUT_INC_DIR)
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGFileIO)
+
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  SET(_OSG_EX_FGBASE "${CMAKE_SOURCE_DIR}/Source/System/Statistics/Foregrounds")
+  SET(_OSG_EX_WUBASE "${CMAKE_SOURCE_DIR}/Source/System/Window/Utilities")
+
+  SET(${PROJECT_NAME}_EXCL_FILES 
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForeground.h
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForeground.inl
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForeground.cpp
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForegroundBase.h
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForegroundFields.h
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForegroundBase.inl
+      ${_OSG_EX_FGBASE}/OSGPerfMonitorForegroundBase.cpp
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForeground.h
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForeground.inl
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForeground.cpp
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundBase.h
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundFields.h
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundBase.inl
+      ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundBase.cpp
+      ${_OSG_EX_FGBASE}/OSGStatisticsDefaultFont.h
+      ${_OSG_EX_FGBASE}/OSGStatisticsDefaultFont.cpp
+      ${_OSG_EX_WUBASE}/OSGSimpleSceneManager.h
+      ${_OSG_EX_WUBASE}/OSGSimpleSceneManager.inl
+      ${_OSG_EX_WUBASE}/OSGSimpleSceneManager.cpp)
+ENDIF()
 
 OSG_ADD_GLUTPACKAGE(TRUE)
 

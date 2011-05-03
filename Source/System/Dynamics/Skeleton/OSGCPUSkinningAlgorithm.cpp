@@ -830,8 +830,10 @@ void CPUSkinningAlgorithm::drawPrimitives(
     // store glColor.
     Color4f color;
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(skinGeo->getColors() != NULL)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
+#endif
 
     GeoPumpGroup::PropertyCharacteristics prop =
         GeoPumpGroup::characterizeGeometry(skinGeo);
@@ -851,9 +853,11 @@ void CPUSkinningAlgorithm::drawPrimitives(
                  << std::endl;
     }
 
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // restore glColor.
     if(skinGeo->getColors() != NULL)
         glColor4fv(color.getValuesRGBA());
+#endif
 }
 
 void CPUSkinningAlgorithm::intersectGeometry(IntersectAction           *iact,

@@ -3111,126 +3111,141 @@ UInt32 calcMergeFormat(UInt32 format1, UInt32 format2)
 
     switch(format1)
     {
-    case GL_BYTE:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_BYTE;           break;
-        case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
-        case GL_SHORT:          format = GL_SHORT;          break;
-        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_INT;            break;
+        case GL_BYTE:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_BYTE;           break;
+                case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
+                case GL_SHORT:          format = GL_SHORT;          break;
+                case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_INT;            break;
         
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        
-        }
-    break;
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break; 
+#endif
+            }
+            break;
     
-    case GL_UNSIGNED_BYTE:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_SHORT;          break;
-        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_BYTE;  break;
-        case GL_SHORT:          format = GL_SHORT;          break;
-        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        case GL_UNSIGNED_BYTE:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_SHORT;          break;
+                case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_BYTE;  break;
+                case GL_SHORT:          format = GL_SHORT;          break;
+                case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
         
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_SHORT:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_SHORT;          break;
-        case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
-        case GL_SHORT:          format = GL_SHORT;          break;
-        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_INT;            break;
-        
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+        case GL_SHORT:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_SHORT;          break;
+                case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
+                case GL_SHORT:          format = GL_SHORT;          break;
+                case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_INT;            break;
+                    
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_UNSIGNED_SHORT:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_INT;            break;
-        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_SHORT; break;
-        case GL_SHORT:          format = GL_INT;            break;
-        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        case GL_UNSIGNED_SHORT:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_INT;            break;
+                case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_SHORT; break;
+                case GL_SHORT:          format = GL_INT;            break;
+                case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
         
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_INT:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_INT;            break;
-        case GL_UNSIGNED_BYTE:  format = GL_INT;            break;
-        case GL_SHORT:          format = GL_INT;            break;
-        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_INT;            break;
-        
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+        case GL_INT:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_INT;            break;
+                case GL_UNSIGNED_BYTE:  format = GL_INT;            break;
+                case GL_SHORT:          format = GL_INT;            break;
+                case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_INT;            break;
+                    
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_UNSIGNED_INT:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_INT;            break;
-        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_INT;   break;
-        case GL_SHORT:          format = GL_INT;            break;
-        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_INT;   break;
-        case GL_INT:            format = GL_INT;            break;
-        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        case GL_UNSIGNED_INT:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_INT;            break;
+                case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_INT;   break;
+                case GL_SHORT:          format = GL_INT;            break;
+                case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_INT;   break;
+                case GL_INT:            format = GL_INT;            break;
+                case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
         
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_FLOAT:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_FLOAT;          break;
-        case GL_UNSIGNED_BYTE:  format = GL_FLOAT;          break;
-        case GL_SHORT:          format = GL_FLOAT;          break;
-        case GL_UNSIGNED_SHORT: format = GL_FLOAT;          break;
-        case GL_INT:            format = GL_FLOAT;          break;
-        case GL_UNSIGNED_INT:   format = GL_FLOAT;          break;
-        
-        case GL_FLOAT:          format = GL_FLOAT;          break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;
+        case GL_FLOAT:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_FLOAT;          break;
+                case GL_UNSIGNED_BYTE:  format = GL_FLOAT;          break;
+                case GL_SHORT:          format = GL_FLOAT;          break;
+                case GL_UNSIGNED_SHORT: format = GL_FLOAT;          break;
+                case GL_INT:            format = GL_FLOAT;          break;
+                case GL_UNSIGNED_INT:   format = GL_FLOAT;          break;
+                    
+                case GL_FLOAT:          format = GL_FLOAT;          break;
+#ifndef OSG_OGL_NO_DOUBLE
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+#endif
+            }
+            break;
     
-    case GL_DOUBLE:
-        switch(format2)
-        {
-        case GL_BYTE:           format = GL_DOUBLE;         break;
-        case GL_UNSIGNED_BYTE:  format = GL_DOUBLE;         break;
-        case GL_SHORT:          format = GL_DOUBLE;         break;
-        case GL_UNSIGNED_SHORT: format = GL_DOUBLE;         break;
-        case GL_INT:            format = GL_DOUBLE;         break;
-        case GL_UNSIGNED_INT:   format = GL_DOUBLE;         break;
+#ifndef OSG_OGL_NO_DOUBLE
+        case GL_DOUBLE:
+            switch(format2)
+            {
+                case GL_BYTE:           format = GL_DOUBLE;         break;
+                case GL_UNSIGNED_BYTE:  format = GL_DOUBLE;         break;
+                case GL_SHORT:          format = GL_DOUBLE;         break;
+                case GL_UNSIGNED_SHORT: format = GL_DOUBLE;         break;
+                case GL_INT:            format = GL_DOUBLE;         break;
+                case GL_UNSIGNED_INT:   format = GL_DOUBLE;         break;
         
-        case GL_FLOAT:          format = GL_DOUBLE;         break;
-        case GL_DOUBLE:         format = GL_DOUBLE;         break;
-        }
-    break;   
+                case GL_FLOAT:          format = GL_DOUBLE;         break;
+                case GL_DOUBLE:         format = GL_DOUBLE;         break;
+            }
+            break;   
+#endif
     }
     
     return format;
@@ -3349,7 +3364,8 @@ GeoIntegralPropertyTransitPtr mergeIntegralProp(
     UInt32 szSrc1 = src1Prop->size();
     UInt32 szSrc2 = src2Prop->size();
 
-    // TODO: Optimize for matching src and dst types by not using generic interface
+    // TODO: Optimize for matching src and dst types by not using generic
+    // interface 
     for(UInt32 i = 0; i < szSrc1; ++i)
         dstProp->addValue(src1Prop->getValue(i));
         
