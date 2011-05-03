@@ -50,7 +50,12 @@
 
 #if defined(OSG_OGL_ES2)
 
-# include<GLES2/glu2.h>
+//# include<GLES2/glu2.h>
+
+const GLubyte *gluErrorString(GLenum eError)
+{
+    return reinterpret_cast<const GLubyte *> ("");
+}
 
 #else 
 

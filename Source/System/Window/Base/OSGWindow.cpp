@@ -1635,7 +1635,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 
     FDEBUG(("Window %p: GL Vendor: %s\n", this, glGetString(GL_VENDOR)));
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) && !defined(OSG_OGL_ES2)
 
     if (NSIsSymbolNameDefined(s))
     {
