@@ -82,25 +82,39 @@ OgreMeshReader::read(void)
 
     UInt16 headerId = readUInt16(_is);
 
-    if(headerId == CHUNK_HEADER)
+    if(_is)
     {
-        std::string version = readString(_is);
-
-        if(version == _versionString)
+        if(headerId == CHUNK_HEADER)
         {
-            readChunkHeader(_is);
-            readMesh();
+            std::string version = readString(_is);
+
+            if(version == _versionString)
+            {
+                readChunkHeader(_is);
+                readMesh();
+            }
+            else
+            {
+                SWARNING << "OgreMeshReader::read: Unsupported version '"
+                         << version << "'." << std::endl;
+
+                _rootN = NULL;
+            }
         }
         else
         {
-            SWARNING << "OgreMeshReader::read: Unsupported version '"
-                     << version << "'." << std::endl;
+            SWARNING << "OgreMeshReader::read: Unrecognized file header."
+                     << std::endl;
+
+            _rootN = NULL;
         }
     }
     else
     {
-        SWARNING << "OgreMeshReader::read: Unrecognized file header."
+        SWARNING << "OgreMeshReader::read: Bad stream."
                  << std::endl;
+
+        _rootN = NULL;
     }
 }
 

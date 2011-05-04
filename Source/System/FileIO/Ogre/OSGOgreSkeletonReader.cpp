@@ -77,23 +77,31 @@ OgreSkeletonReader::read(void)
 
     UInt16 headerId = readUInt16(_is);
 
-    if(headerId == CHUNK_HEADER)
+    if(_is)
     {
-        std::string version = readString(_is);
-
-        if(version == _versionString)
+        if(headerId == CHUNK_HEADER)
         {
-            readContent();
+            std::string version = readString(_is);
+
+            if(version == _versionString)
+            {
+                readContent();
+            }
+            else
+            {
+                SWARNING << "OgreSkeletonReader::read: Unsupported version '"
+                         << version << "'." << std::endl;
+            }
         }
         else
         {
-            SWARNING << "OgreSkeletonReader::read: Unsupported version '"
-                     << version << "'." << std::endl;
+            SWARNING << "OgreSkeletonReader::read: Unrecognized file header."
+                     << std::endl;
         }
     }
     else
     {
-        SWARNING << "OgreMeshReader::read: Unrecognized file heeader."
+        SWARNING << "OgreSkeletonReader::read: Bad stream."
                  << std::endl;
     }
 }
