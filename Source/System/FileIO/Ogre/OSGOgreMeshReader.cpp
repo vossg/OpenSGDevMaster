@@ -1116,7 +1116,9 @@ void
 OgreMeshReader::constructSubMesh(SubMeshInfo        &smInfo,
                                  VertexElementStore &vertexElements)
 {
-    OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh\n"));
+    OSG_OGRE_LOG(("OgreMeshReader::constructSubMesh: meshName '%s'"
+                  "matName '%s'\n",
+                  smInfo.name.c_str(), smInfo.matName.c_str()));
 
     if(smInfo.skelAnim == true)
     {
