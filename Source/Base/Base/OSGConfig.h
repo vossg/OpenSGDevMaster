@@ -1021,68 +1021,32 @@
 #define OSG_DOUBLEMAGIC         double(6755399441055744.0)
 
 #if defined(WIN32)
-# if defined(OSG_DISABLE_MICROSOFT_SECURE_CXXX)
 
-# if 0
-#  if !defined(_CRT_SECURE_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _CRT_SECURE_NO_DEPRECATE not set"
-#  endif
-#  if !defined(_CRT_SECURE_NO_WARNINGS)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _CRT_SECURE_NO_WARNINGS not set"
-#  endif
-#  if !defined(_CRT_NONSTDC_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _CRT_NONSTDC_NO_DEPRECATE not set"
-#  endif
-# endif
+//
+// OSG_DISABLE_MICROSOFT_SECURE_CXXX
+//          -D _CRT_SECURE_NO_DEPRECATE
+//          -D _CRT_SECURE_NO_WARNINGS
+//          -D _CRT_NONSTDC_NO_DEPRECATE
+//          -D _SECURE_SCL = 0
+//          -D _SCL_SECURE_NO_WARNINGS
+//          -D _SCL_SECURE_NO_DEPRECATE
+//
+# if defined(OSG_DISABLE_MICROSOFT_SECURE_CXXX)
 #  if !defined(_SECURE_SCL) || _SECURE_SCL != 0
 #    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _SECURE_SCL not set or not equal 0"
 #  endif
-# if 0
-#  if !defined(_SCL_SECURE_NO_WARNINGS)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _SCL_SECURE_NO_WARNINGS not set"
-#  endif
-#  if !defined(_SCL_SECURE_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _SCL_SECURE_NO_DEPRECATE not set"
-#  endif
-# endif
+# endif //OSG_DISABLE_MICROSOFT_SECURE_CXXX
+
+//
+// OSG_DISABLE_MS_ITERATOR_DEBUGGING
+//          -D _HAS_ITERATOR_DEBUGGING = 0
+//
+# if defined(OSG_DISABLE_MS_ITERATOR_DEBUGGING)
 #  if !defined(_HAS_ITERATOR_DEBUGGING) || _HAS_ITERATOR_DEBUGGING != 0
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX on, but _HAS_ITERATOR_DEBUGGING not set or not equal 0"
+#   error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MS_ITERATOR_DEBUGGING on, but _HAS_ITERATOR_DEBUGGING not set or not equal 0"
 #  endif
+# endif // OSG_DISABLE_MS_ITERATOR_DEBUGGING
 
-#else
-
-# if 0
-#  if defined(_CRT_SECURE_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _CRT_SECURE_NO_DEPRECATE set"
-#  endif
-#  if defined(_CRT_SECURE_NO_WARNINGS)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _CRT_SECURE_NO_WARNINGS set"
-#  endif
-#  if defined(_CRT_NONSTDC_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _CRT_NONSTDC_NO_DEPRECATE set"
-#  endif
-# endif
-# if (defined(NDEBUG) && defined(OSG_DEBUGRT)) || (defined(OSG_DEBUG) && defined(_DEBUG))
-#  if defined(_SECURE_SCL) && _SECURE_SCL != 1
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _SECURE_SCL set"
-#  endif
-# else
-#  if defined(_SECURE_SCL) && _SECURE_SCL != 0
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _SECURE_SCL set"
-#  endif
-# endif
-# if 0
-#  if defined(_SCL_SECURE_NO_WARNINGS)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _SCL_SECURE_NO_WARNINGS set"
-#  endif
-#  if defined(_SCL_SECURE_NO_DEPRECATE)
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _SCL_SECURE_NO_DEPRECATE set"
-#  endif
-# endif
-#  if defined(_HAS_ITERATOR_DEBUGGING) && ((defined(_DEBUG) && _HAS_ITERATOR_DEBUGGING != 1) || (!defined(_DEBUG) && _HAS_ITERATOR_DEBUGGING != 0))
-#    error "mixed up compiler settings, OpenSG libs with OSG_DISABLE_MICROSOFT_SECURE_CXXX off, but _HAS_ITERATOR_DEBUGGING set"
-#  endif
-# endif
-#endif
+#endif // WIN32
 
 #endif /* _OSGCONFIG_H_ */
