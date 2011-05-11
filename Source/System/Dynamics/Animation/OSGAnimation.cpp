@@ -159,11 +159,11 @@ void Animation::start(Time startTime)
 
     AnimTimeSensor *ts = _sfTimeSensor.getValue();
 
-    ts->setEnabled    (true       );
-    ts->setStartTime  (startTime  );
-    ts->setStopTime   (startTime  );
-    ts->setCycleLength(getLength());
-    ts->setLoop       (false      );
+    ts->setEnabled    (true                   );
+    ts->setStartTime  (startTime              );
+    ts->setStopTime   (startTime + getLength());
+    ts->setCycleLength(getLength()            );
+    ts->setLoop       (false                  );
 }
 
 /*! Start playing this animation in a loop at the given point in time.

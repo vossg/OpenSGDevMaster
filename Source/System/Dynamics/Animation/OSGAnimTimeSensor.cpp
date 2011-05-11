@@ -136,36 +136,60 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
     {
         if(oTime < startT)
         {
+            // BEFORE startT
+
             if(getIsActive() == true)
             {
-                SLOG << "ATS: start < stop, BEFORE startT, deactivating" << std::endl;
-
-                setFraction(0.f  );
-                setAnimTime(0.f  );
-                setIsActive(false);
+                if(getForward() == true)
+                {
+                    setFraction(0.f  );
+                    setAnimTime(0.f  );
+                    setIsActive(false);
+                }
+                else
+                {
+                    setFraction(1.f   );
+                    setAnimTime(length);
+                    setIsActive(false );
+                }
             }
 
             return;
         }
         else if(oTime > stopT)
         {
+            // AFTER stopT
+
             if(getIsActive() == true)
             {
-                SLOG << "ATS: start < stop, AFTER stopT";
-
-                setFraction(1.f   );
-                setAnimTime(length);
-
-                // only deactivate the second time oTime > stopT
-                // to propagate the final state
-                if(currT > stopT)
+                if(getForward() == true)
                 {
-                    PLOG << ", deactivating";
+                    setFraction(1.f   );
+                    setAnimTime(length);
 
-                    setIsActive(false);
+                    // only deactivate the second time oTime > stopT
+                    // to propagate the final state
+                    if(currT > stopT)
+                    {
+                        setIsActive(false);
+                    }
+
+                    PLOG << std::endl;
                 }
+                else
+                {
+                    setFraction(0.f);
+                    setAnimTime(0.f);
 
-                PLOG << std::endl;
+                    // only deactivate the second time oTime > stopT
+                    // to propagate the final state
+                    if(currT > stopT)
+                    {
+                         setIsActive(false);
+                    }
+
+                    PLOG << std::endl;
+                }
             }
 
             return;
@@ -186,13 +210,22 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
     {
         if(oTime < startT)
         {
+            // BEFORE startT
+
             if(getIsActive() == true)
             {
-                SLOG << "ATS: start >= stop, BEFORE startT, deactivating" << std::endl;
-
-                setFraction(0.f  );
-                setAnimTime(0.f  );
-                setIsActive(false);
+                if(getForward() == true)
+                {
+                    setFraction(0.f  );
+                    setAnimTime(0.f  );
+                    setIsActive(false);
+                }
+                else
+                {
+                    setFraction(1.f   );
+                    setAnimTime(length);
+                    setIsActive(false );
+                }
             }
 
             return;
@@ -210,7 +243,7 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
         }
     }
 
-    // use deltaT to update
+    // use deltaT to update animTime and fraction
 
     Real32 oldAnimT = getAnimTime();
     Real32 newAnimT = getAnimTime();
@@ -224,72 +257,16 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
         newAnimT -= getTimeScale() * deltaT;
     }
 
-    if(getLoop() == true)
-    {
-        newAnimT = osgMod<Real64>(newAnimT, length);
-        
-        while(newAnimT < 0.f)
-            newAnimT += length;
+    newAnimT = osgMod<Real64>(newAnimT, length);
 
-        setAnimTime(newAnimT         );
-        setFraction(newAnimT / length);
+    while(newAnimT < 0.f)
+        newAnimT += length;
 
-        if(getIsActive() == false)
-            setIsActive(true);
-    }
-    else
-    {
-        if(newAnimT < 0.f)
-        {
-            if(getIsActive() == true)
-            {
-                SLOG << "ATS: start >= stop, newAnimT < 0";
+    setAnimTime(newAnimT);
+    setFraction(newAnimT / length);
 
-                setAnimTime(0.f);
-                setFraction(0.f);
-
-                // only deactivate the second time newAnimT < 0.f
-                // to propagate the final state
-                if(oldAnimT <= 0.f)
-                {
-                    PLOG << ", deactivating";
-
-                    setIsActive(false);
-                }
-
-                PLOG << std::endl;
-            }
-        }
-        else if(newAnimT > length)
-        {
-            if(getIsActive() == true)
-            {
-                SLOG << "ATS: start >= stop, newAnimT > length";
-
-                setAnimTime(length);
-                setFraction(1.f   );
-
-                // only deactivate the second time newAnimT > length
-                // to propagate the final state
-                if(oldAnimT >= length)
-                {
-                    PLOG << ", deactivating";
-
-                    setIsActive(false);
-                }
-
-                PLOG << std::endl;
-            }
-        }
-        else
-        {
-            setAnimTime(newAnimT         );
-            setFraction(newAnimT / length);
-
-            if(getIsActive() == false)
-                setIsActive(true);
-        }
-    }
+    if(getIsActive() == false)
+        setIsActive(true);
 }
 
 OSG_END_NAMESPACE
