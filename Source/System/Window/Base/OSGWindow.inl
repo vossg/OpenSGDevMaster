@@ -56,7 +56,23 @@ void Window::setSize(UInt16 width, UInt16 height)
 inline 
 bool Window::hasExtension(UInt32 extId)
 {
-    return _availExtensions[extId];
+    return (_availExtensions[extId] & !_sfIgnoreAllExtensions.getValue());
+}
+
+inline 
+bool Window::hasExtOrVersion(UInt32 extId, 
+                             UInt32 uiGLVersion, 
+                             UInt32 uiGLESVersion)
+{
+#if defined(OSG_OGL_ES2)
+    return 
+        ((uiGLESVersion <= _glVersion) || 
+        (_availExtensions[extId] & !_sfIgnoreAllExtensions.getValue()));
+#else
+    return 
+        ((uiGLVersion <= _glVersion) || 
+         (_availExtensions[extId] & !_sfIgnoreAllExtensions.getValue()));
+#endif
 }
 
 /*! Check if the window has the indicated extension.
@@ -80,6 +96,11 @@ bool Window::hasCommonExtension(UInt32 extId)
 inline 
 Window::GLExtensionFunction Window::getFunction(UInt32 funcId)
 {
+    if(_sfIgnoreAllExtensions.getValue() == true)
+    {
+        return NULL;
+    }
+
     if(funcId >= _extFunctions.size())
     {
         FINFO(("Window::getFunction: illegal id %d!\n", funcId));
@@ -104,6 +125,9 @@ Window::GLExtensionFunction Window::getFunction(UInt32 funcId)
 inline 
 Window::GLExtensionFunction Window::getFunctionNoCheck(UInt32 funcId)
 {
+    if(_sfIgnoreAllExtensions.getValue() == true)
+        return NULL;
+
     return _extFunctions[ funcId ];
 }
 
@@ -129,7 +153,8 @@ void Window::setGLLibraryName(const Char8 *s)
 }
 
 /*! Return the version of OpenGL running in the Window in the form
-    0x&lt;major&gt;&lt;major&gt;&lt;minor&gt;&lt;minor&gt;, e.g. 0x0201 for version 2.1.
+    0x&lt;major&gt;&lt;major&gt;&lt;minor&gt;&lt;minor&gt;, e.g. 0x0201 for 
+    version 2.1.
  */
 
 inline 
@@ -142,13 +167,13 @@ UInt32 Window::getGLVersion(void)
     registered.
  */
 inline 
-Int32 Window::getExtensionId(const Char8  *s)
+Int32 Window::getExtensionIdX(const Char8  *s)
 {
     std::vector<std::string>::iterator it;
 
     it = std::find(_registeredExtensions.begin(),
-              _registeredExtensions.end(),
-              s);
+                   _registeredExtensions.end(),
+                    s);
 
     if(it == _registeredExtensions.end())
         return -1;
