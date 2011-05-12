@@ -260,11 +260,18 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 
     RenderAction *ract = dynamic_cast<RenderAction *>(action);
 
-    if(ract->getWindow()->hasExtension(_extSHL              ) == false ||
-       ract->getWindow()->hasExtension(_extDepthTexture     ) == false ||
-       ract->getWindow()->hasExtension(_extShadows          ) == false ||
-       ract->getWindow()->hasExtension(_extFramebufferObject) == false ||
-       ract->getWindow()->hasExtension(_extDrawBuffers      ) == false  )
+    if(ract->getWindow()->hasExtOrVersion(_extSHL, 
+                                           0x0200, 
+                                           0x0200              ) == false ||
+       ract->getWindow()->hasExtOrVersion(_extDepthTexture, 
+                                           0x0104              ) == false ||
+       ract->getWindow()->hasExtOrVersion(_extShadows, 
+                                           0x0104              ) == false ||
+       ract->getWindow()->hasExtOrVersion(_extFramebufferObject, 
+                                           0x0300, 
+                                           0x0200              ) == false ||
+       ract->getWindow()->hasExtOrVersion(_extDrawBuffers, 
+                                           0x0300              ) == false  )
     {
         return returnValue;
     }

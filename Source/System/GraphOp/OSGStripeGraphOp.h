@@ -111,8 +111,9 @@ class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
 
   private:
 
-    bool _force;  // Force striping striped geometries
-    bool _stitch; // Stitch strips together
+    bool _force;       // Force striping striped geometries
+    bool _stitch;      // Stitch strips together
+    bool _singleIndex; // Create single index before striping
 };
 
 OSG_GEN_MEMOBJPTR(StripeGraphOp);

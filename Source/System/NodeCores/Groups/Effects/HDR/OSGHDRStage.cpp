@@ -75,15 +75,11 @@ OSG_USING_NAMESPACE
 
 */
 
-UInt32 HDRStage::_uiFramebuffer_object_extension = 
+UInt32 HDRStage::_uiFramebufferObjectExt = 
     Window::invalidExtensionID;
 
-UInt32 HDRStage::_uiFuncDrawBuffers              =
+UInt32 HDRStage::_uiFuncDrawBuffers      =
     Window::invalidFunctionID;
-
-typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
-          GLsizei  n, 
-    const GLenum  *buffers);
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -283,13 +279,13 @@ void HDRStage::initMethod(InitPhase ePhase)
             HDRStage::getClassType(), 
             reinterpret_cast<Action::Callback>(&HDRStage::renderLeave));
 
-        _uiFramebuffer_object_extension = 
+        _uiFramebufferObjectExt = 
             Window::registerExtension("GL_EXT_framebuffer_object");
 
         _uiFuncDrawBuffers  =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
     }
 }
 
@@ -598,15 +594,16 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 {
     Window *win = pEnv->getWindow();
 
-    if(win->hasExtension(_uiFramebuffer_object_extension) == false)
+    if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
     {
         FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
         return;        
     }
 
-    GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-        reinterpret_cast<GLDrawBuffersEXTProcT>(
-            win->getFunction(_uiFuncDrawBuffers));
+    OSGGETGLFUNCBYID_GL3( glDrawBuffers,
+                          osgGlDrawBuffersProc,
+                         _uiFuncDrawBuffers,
+                          win);
 
     glColor3f(1.f, 1.f, 1.f);
     
@@ -717,7 +714,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     pEnv->activateState(pBlurState, &oOverride);
             
-    glDrawBuffersEXTProc(1, aDrawBuffers);
+    osgGlDrawBuffersProc(1, aDrawBuffers);
 
 
     glBegin(GL_QUADS);
@@ -750,7 +747,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     aDrawBuffers[0] = GL_COLOR_ATTACHMENT0_EXT;
     
-    glDrawBuffersEXTProc(1, aDrawBuffers);
+    osgGlDrawBuffersProc(1, aDrawBuffers);
     
     glBegin(GL_QUADS);
     {

@@ -49,6 +49,7 @@
 #include "OSGDrawEnv.h"
 
 #include "OSGShaderVariables.h"
+#include "OSGConceptPropertyChecks.h"
 
 #include <boost/bind.hpp>
 
@@ -88,7 +89,7 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
     UInt32  returnValue = 0;
     Window *pWin        = pEnv->getWindow();
 
-    if(!pWin->hasExtension(_extSHL))
+    if(!pWin->hasExtOrVersion(_extSHL, 0x02000, 0x0200))
     {
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));
@@ -108,24 +109,28 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
         {
             if(uiProgram != 0)
             {
-                OSGGETGLFUNC(OSGglDeleteProgramProc,
-                             osgGlDeleteProgram,
-                             ShaderProgram::getFuncIdDeleteProgram());
+                OSGGETGLFUNCBYID_GL3_ES(glDeleteProgram,
+                                        osgGlDeleteProgram,
+                                        ShaderProgram::getFuncIdDeleteProgram(),
+                                        pWin);
 
                 osgGlDeleteProgram(uiProgram);
             }
 
-            OSGGETGLFUNC(OSGglCreateProgramProc,
-                         osgGlCreateProgram,
-                         ShaderProgram::getFuncIdCreateProgram());
+            OSGGETGLFUNCBYID_GL3_ES(glCreateProgram,
+                                    osgGlCreateProgram,
+                                    ShaderProgram::getFuncIdCreateProgram(),
+                                    pWin);
 
-            OSGGETGLFUNC(OSGglAttachShaderProc,
-                         osgGlAttachShader,
-                         ShaderProgram::getFuncIdAttachShader());
+            OSGGETGLFUNCBYID_GL3_ES(glAttachShader,
+                                    osgGlAttachShader,
+                                    ShaderProgram::getFuncIdAttachShader(),
+                                    pWin);
 
-            OSGGETGLFUNC(OSGglLinkProgramProc,
-                         osgGlLinkProgram,
-                         ShaderProgram::getFuncIdLinkProgram());
+            OSGGETGLFUNCBYID_GL3_ES(glLinkProgram,
+                                    osgGlLinkProgram,
+                                    ShaderProgram::getFuncIdLinkProgram(),
+                                    pWin);
 
             uiProgram = osgGlCreateProgram();
 
@@ -179,9 +184,10 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
             GLint  iInfoLength;
             Char8 *szInfoBuffer = NULL;
 
-            OSGGETGLFUNC(OSGglGetProgramivProc,
-                         osgGlGetProgramiv,
-                         ShaderProgram::getFuncIdGetProgramiv());
+            OSGGETGLFUNCBYID_GL3_ES(glGetProgramiv,
+                                    osgGlGetProgramiv,
+                                    ShaderProgram::getFuncIdGetProgramiv(),
+                                    pWin);
 
             osgGlGetProgramiv(uiProgram, 
                               GL_OBJECT_INFO_LOG_LENGTH_ARB, 
@@ -192,9 +198,11 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
                 szInfoBuffer = new Char8[iInfoLength];
                 szInfoBuffer[0] = '\0';
 
-                OSGGETGLFUNC(OSGglGetProgramInfoLogProc,
-                             osgGlGetProgramInfoLog,
-                             ShaderProgram::getFuncIdGetProgramInfoLog());
+                OSGGETGLFUNCBYID_GL3_ES(
+                    glGetProgramInfoLog,
+                    osgGlGetProgramInfoLog,
+                    ShaderProgram::getFuncIdGetProgramInfoLog(),
+                    pWin);
 
                 osgGlGetProgramInfoLog( uiProgram, 
                                         iInfoLength, 
@@ -219,9 +227,10 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
                             "No further info available\n"));
                 }
 
-                OSGGETGLFUNC(OSGglDeleteProgramProc,
-                             osgGlDeleteProgram,
-                             ShaderProgram::getFuncIdDeleteProgram());
+                OSGGETGLFUNCBYID_GL3_ES(glDeleteProgram,
+                                        osgGlDeleteProgram,
+                                        ShaderProgram::getFuncIdDeleteProgram(),
+                                        pWin);
 
                 osgGlDeleteProgram(uiProgram);
 
@@ -243,9 +252,10 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
 
         if(uiProgram != 0)
         {
-            OSGGETGLFUNC(OSGglUseProgramProc,
-                         osgGlUseProgram,
-                         ShaderProgram::getFuncIdUseProgram());
+            OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
+                                    osgGlUseProgram,
+                                    ShaderProgram::getFuncIdUseProgram(),
+                                    pWin);
         
             osgGlUseProgram(uiProgram);
         
@@ -271,7 +281,7 @@ void SimpleSHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
 {
     Window *pWin = pEnv->getWindow();
 
-    if(!pWin->hasExtension(_extSHL))
+    if(!pWin->hasExtOrVersion(_extSHL, 0x0200, 0x0200))
     {
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));
@@ -288,9 +298,10 @@ void SimpleSHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
 
         if(uiProgram != 0)
         {
-            OSGGETGLFUNC(OSGglDeleteProgramProc,
-                         osgGlDeleteProgram,
-                         ShaderProgram::getFuncIdDeleteProgram());
+            OSGGETGLFUNCBYID_GL3_ES(glDeleteProgram,
+                                    osgGlDeleteProgram,
+                                    ShaderProgram::getFuncIdDeleteProgram(),
+                                    pWin);
 
             osgGlDeleteProgram(uiProgram);
 
@@ -586,9 +597,10 @@ void SimpleSHLChunk::activate(DrawEnv    *pEnv,
 
     if(0x0000 == (uiValRes & ProgActive))
     {
-        OSGGETGLFUNC(OSGglUseProgramProc,
-                     osgGlUseProgram,
-                     ShaderProgram::getFuncIdUseProgram());
+        OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
+                                osgGlUseProgram,
+                                ShaderProgram::getFuncIdUseProgram(),
+                                pWin);
 
         osgGlUseProgram(uiProgId);
     }
@@ -651,9 +663,10 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
 
         if(0x0000 == (uiValRes & ProgActive))
         {
-            OSGGETGLFUNC(OSGglUseProgramProc,
-                         osgGlUseProgram,
-                         ShaderProgram::getFuncIdUseProgram());
+            OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
+                                    osgGlUseProgram,
+                                    ShaderProgram::getFuncIdUseProgram(),
+                                    pWin);
 
             osgGlUseProgram(uiProgId);
         }
@@ -687,9 +700,9 @@ void SimpleSHLChunk::deactivate(DrawEnv    *pEnv,
 
     pEnv->setActiveShader(0);
 
-    OSGGETGLFUNC(OSGglUseProgramProc,
-                 osgGlUseProgram,
-                 ShaderProgram::getFuncIdUseProgram());
+    OSGGETGLFUNC_GL3_ES(glUseProgram,
+                        osgGlUseProgram,
+                        ShaderProgram::getFuncIdUseProgram());
 
     if(_sfPointSize.getValue() == true)
     {
@@ -1093,9 +1106,9 @@ void SimpleSHLChunk::updateVariableLocations(DrawEnv *pEnv,
         ShaderProgramVariables::MFVariablesType::const_iterator mVarEnd =
             pMFVars->end  ();
         
-        OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                     osgGlGetUniformLocation,
-                     ShaderProgram::getFuncIdGetUniformLocation());
+        OSGGETGLFUNC_GL3_ES(glGetUniformLocation,
+                            osgGlGetUniformLocation,
+                            ShaderProgram::getFuncIdGetUniformLocation());
 
         for(; mVarIt != mVarEnd; ++mVarIt, ++mLocIt)
         {
@@ -1117,9 +1130,9 @@ void SimpleSHLChunk::updateVariableLocations(DrawEnv *pEnv,
         ShaderProgramVariables::MFProceduralVariablesType::const_iterator 
             mVarEnd = pMFProcVars->end  ();
         
-        OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                     osgGlGetUniformLocation,
-                     ShaderProgram::getFuncIdGetUniformLocation());
+        OSGGETGLFUNC_GL3_ES(glGetUniformLocation,
+                            osgGlGetUniformLocation,
+                            ShaderProgram::getFuncIdGetUniformLocation());
 
         for(; mVarIt != mVarEnd; ++mVarIt, ++mLocIt)
         {
@@ -1190,9 +1203,9 @@ void SimpleSHLChunk::updateParameters(DrawEnv *pEnv,
     if(uiProgram == 0 || this->getGeometryVerticesOut() == 0)
         return;
 
-    OSGGETGLFUNC(OSGglProgramParameteriEXTProc,
-                 osgGlProgramParameteriEXT,
-                 ShaderProgram::getFuncIdProgramParameteri());
+    OSGGETGLFUNC_EXT(glProgramParameteriEXT,
+                     osgGlProgramParameteriEXT,
+                     ShaderProgram::getFuncIdProgramParameteri());
 
     osgGlProgramParameteriEXT(uiProgram,
                               GL_GEOMETRY_VERTICES_OUT_EXT, 
@@ -1237,12 +1250,17 @@ void SimpleSHLChunk::updateProceduralVariables(
     ShaderProgramVariables::MFProceduralVariablesType::const_iterator mVarEnd =
         pMFVars->end  ();
 
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
+
 #ifdef OSG_1_COMPAT
     if(_fParameterCallback)
     {
-        OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                     osgGlGetUniformLocation,
-                     ShaderProgram::getFuncIdGetUniformLocation());
+        OSGGETGLFUNCBYID_GL3_ES(OSGglGetUniformLocationProc,
+                                osgGlGetUniformLocation,
+                                ShaderProgram::getFuncIdGetUniformLocation(),
+                                pWin);
 
         _fParameterCallback(osgGlGetUniformLocation, pEnv, uiProgram);
     }
@@ -1264,9 +1282,11 @@ void SimpleSHLChunk::updateProceduralVariables(
 
                 if(*mLocIt == -1)
                 {
-                    OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                                 osgGlGetUniformLocation,
-                                 ShaderProgram::getFuncIdGetUniformLocation());
+                    OSGGETGLFUNCBYID_GL3_ES(
+                        glGetUniformLocation,
+                        osgGlGetUniformLocation,
+                        ShaderProgram::getFuncIdGetUniformLocation(),
+                        pWin);
 
                     *mLocIt = osgGlGetUniformLocation(uiProgram,
                                                       p->getName().c_str());
@@ -1286,9 +1306,11 @@ void SimpleSHLChunk::updateProceduralVariables(
 
                 if(*mLocIt == -1)
                 {
-                    OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                                 osgGlGetUniformLocation,
-                                 ShaderProgram::getFuncIdGetUniformLocation());
+                    OSGGETGLFUNCBYID_GL3_ES(
+                        glGetUniformLocation,
+                        osgGlGetUniformLocation,
+                        ShaderProgram::getFuncIdGetUniformLocation(),
+                        pWin);
 
                     *mLocIt = osgGlGetUniformLocation(uiProgram,
                                                       p->getName().c_str());
@@ -1305,10 +1327,11 @@ void SimpleSHLChunk::updateProceduralVariables(
                         
                     case 1:
                     {
-                        OSGGETGLFUNC(
-                            OSGglGetUniformLocationProc,
+                        OSGGETGLFUNCBYID_GL3_ES(
+                            glGetUniformLocation,
                             osgGlGetUniformLocation,
-                            ShaderProgram::getFuncIdGetUniformLocation());
+                            ShaderProgram::getFuncIdGetUniformLocation(),
+                            pWin);
 
                         p->evaluate(osgGlGetUniformLocation,
                                     pEnv,

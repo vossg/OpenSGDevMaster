@@ -131,7 +131,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjector :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _uiFramebuffer_object_extension;
+    static UInt32 _uiFramebufferObjectExt;
     static UInt32 _uiFuncDrawBuffers;
 
     /*! \}                                                                 */

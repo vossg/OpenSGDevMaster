@@ -380,9 +380,9 @@ void VarianceShadowMapHandler::genMipMapCB(DrawEnv *pEnv,
                   pEnv->getWindow()->getGLObjectId(
                       vShadowMaps[uiLightIdx].pTexO->getGLId()));
 
-    OSGGETGLFUNC(OSGglGenerateMipmapEXTProc,
-                 osgGlGenerateMipmap,
-                 ShadowStage::FuncIdGenMipmaps);
+    OSGGETGLFUNC_GL3_ES(glGenerateMipmapEXT,
+                        osgGlGenerateMipmap,
+                        ShadowStage::FuncIdGenMipmaps);
 
     osgGlGenerateMipmap(GL_TEXTURE_2D);
 

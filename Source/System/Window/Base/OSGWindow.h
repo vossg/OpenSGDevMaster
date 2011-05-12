@@ -178,7 +178,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
            UInt32               getGLVersion      (      void          );
 
-    static Int32                getExtensionId    (const Char8  *s     );
+    static Int32                getExtensionIdX   (const Char8  *s     );
            bool                 hasExtension      (      UInt32  extId );
            bool                 hasExtension      (const Char8  *s     );
     static bool                 hasCommonExtension(      UInt32  extId );
@@ -188,6 +188,11 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
            GLExtensionFunction  getFunctionByName (const Char8  *s     );
            Real32               getConstantValue  (      GLenum  val   );
     const  Vec2f               &getConstantValuev (      GLenum  val   );
+
+
+           bool                 hasExtOrVersion (UInt32 extId, 
+                                                 UInt32 uiGLVersion = 0xFFFF, 
+                                                 UInt32 uiGLESVersion = 0xFFFF);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

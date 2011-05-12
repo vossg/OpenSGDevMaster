@@ -161,7 +161,7 @@ UInt32 CubeTextureObjChunk::handleGL(DrawEnv                 *pEnv,
     Window *win = pEnv->getWindow();
 
     // does the window support cubemaps?
-    if(win->hasExtension(_arbCubeTex) == false)
+    if(win->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return 0;
 
     id = win->getGLObjectId(osgid);
@@ -259,7 +259,7 @@ void CubeTextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
     Window *win = pEnv->getWindow();
 
     // does the window support cubemaps?
-    if(win->hasExtension(_arbCubeTex) == false)
+    if(win->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return;
 
     id = win->getGLObjectId(osgid);
@@ -287,7 +287,7 @@ void CubeTextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
 void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {   
     // does the window support cubemaps?
-    if(pEnv->getWindow()->hasExtension(_arbCubeTex) == false)
+    if(pEnv->getWindow()->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return;
         
     Window *win = pEnv->getWindow();
@@ -363,7 +363,7 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
                                   UInt32      idx   )
 {
     // does the window support cubemaps?
-    if(pEnv->getWindow()->hasExtension(_arbCubeTex) == false)
+    if(pEnv->getWindow()->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return;
         
     // change from me to me?
@@ -450,7 +450,7 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
 void CubeTextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     // does the window support cubemaps?
-    if(pEnv->getWindow()->hasExtension(_arbCubeTex) == false)
+    if(pEnv->getWindow()->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return;
         
     Window *win = pEnv->getWindow();   

@@ -110,7 +110,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         EnableForwardCompatContextFieldId = RequestMinorFieldId + 1,
         EnableDebugContextFieldId = EnableForwardCompatContextFieldId + 1,
         IgnoreExtensionsFieldId = EnableDebugContextFieldId + 1,
-        RequestSamplesFieldId = IgnoreExtensionsFieldId + 1,
+        IgnoreAllExtensionsFieldId = IgnoreExtensionsFieldId + 1,
+        RequestSamplesFieldId = IgnoreAllExtensionsFieldId + 1,
         EnableFSAAFieldId = RequestSamplesFieldId + 1,
         FsaaHintFieldId = EnableFSAAFieldId + 1,
         RenderOptionsFieldId = FsaaHintFieldId + 1,
@@ -141,6 +142,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << EnableDebugContextFieldId);
     static const OSG::BitVector IgnoreExtensionsFieldMask =
         (TypeTraits<BitVector>::One << IgnoreExtensionsFieldId);
+    static const OSG::BitVector IgnoreAllExtensionsFieldMask =
+        (TypeTraits<BitVector>::One << IgnoreAllExtensionsFieldId);
     static const OSG::BitVector RequestSamplesFieldMask =
         (TypeTraits<BitVector>::One << RequestSamplesFieldId);
     static const OSG::BitVector EnableFSAAFieldMask =
@@ -167,6 +170,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFBool            SFEnableForwardCompatContextType;
     typedef SFBool            SFEnableDebugContextType;
     typedef MFString          MFIgnoreExtensionsType;
+    typedef SFBool            SFIgnoreAllExtensionsType;
     typedef SFUInt32          SFRequestSamplesType;
     typedef SFBool            SFEnableFSAAType;
     typedef SFUInt32          SFFsaaHintType;
@@ -227,6 +231,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   MFString            *editMFIgnoreExtensions(void);
             const MFString            *getMFIgnoreExtensions (void) const;
 
+                  SFBool              *editSFIgnoreAllExtensions(void);
+            const SFBool              *getSFIgnoreAllExtensions (void) const;
+
                   SFUInt32            *editSFRequestSamples (void);
             const SFUInt32            *getSFRequestSamples  (void) const;
 
@@ -274,6 +281,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   std::string         &editIgnoreExtensions(const UInt32 index);
             const std::string         &getIgnoreExtensions (const UInt32 index) const;
 
+                  bool                &editIgnoreAllExtensions(void);
+                  bool                 getIgnoreAllExtensions (void) const;
+
                   UInt32              &editRequestSamples (void);
                   UInt32               getRequestSamples  (void) const;
 
@@ -304,6 +314,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setRequestMinor   (const Int32 value);
             void setEnableForwardCompatContext(const bool value);
             void setEnableDebugContext(const bool value);
+            void setIgnoreAllExtensions(const bool value);
             void setRequestSamples (const UInt32 value);
             void setEnableFSAA     (const bool value);
             void setFsaaHint       (const UInt32 value);
@@ -364,6 +375,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFBool            _sfEnableForwardCompatContext;
     SFBool            _sfEnableDebugContext;
     MFString          _mfIgnoreExtensions;
+    SFBool            _sfIgnoreAllExtensions;
     SFUInt32          _sfRequestSamples;
     SFBool            _sfEnableFSAA;
     SFUInt32          _sfFsaaHint;
@@ -431,6 +443,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleEnableDebugContext(void);
     GetFieldHandlePtr  getHandleIgnoreExtensions (void) const;
     EditFieldHandlePtr editHandleIgnoreExtensions(void);
+    GetFieldHandlePtr  getHandleIgnoreAllExtensions (void) const;
+    EditFieldHandlePtr editHandleIgnoreAllExtensions(void);
     GetFieldHandlePtr  getHandleRequestSamples  (void) const;
     EditFieldHandlePtr editHandleRequestSamples (void);
     GetFieldHandlePtr  getHandleEnableFSAA      (void) const;

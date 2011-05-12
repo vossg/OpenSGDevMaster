@@ -37,6 +37,18 @@
 
 #cmakedefine OSG_OGL_ES2 1
 
+#ifndef GL_GLEXT_PROTOTYPES
+#cmakedefine GL_GLEXT_PROTOTYPES 1
+#endif
+
+#cmakedefine GL3_PROTOTYPES 1
+
+#cmakedefine OSG_USE_OGL3_PROTOS 1
+
+#cmakedefine OSG_USE_OGL4_PROTOS 1
+
+#cmakedefine OSG_USE_OGLES_PROTOS 1
+
 #cmakedefine OSG_OGL_NO_DOUBLE 1
 
 #cmakedefine OSG_WITH_ZLIB 1

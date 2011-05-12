@@ -52,6 +52,7 @@
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGStriperHalfEdgeGraph.h"
 #include "OSGPrimeMaterial.h"
+#include "OSGFieldContainerUtils.h"
 
 // #include "OSGSingletonHolder.ins"
 
@@ -2790,8 +2791,155 @@ Int32 createSharedIndex(Geometry *geoPtr)
 
 Int32 createSingleIndex(Geometry *geo)
 {
-    FFATAL(("createSingleIndex:: NYI!\n"));
-    return -1;
+    typedef std::vector<UInt16>::iterator IndexIt;
+
+    Int32 returnValue = -1;
+
+    if(geo == NULL)
+        return returnValue;
+
+    Geometry::IndexBag oGeoIndexBag = geo->getUniqueIndexBag();
+
+    if(oGeoIndexBag.size() == 1 || oGeoIndexBag.size() == 0)
+        return 0;
+
+
+#if 0
+    Geometry::IndexBag::iterator bIt  = oGeoIndexBag.begin();
+    Geometry::IndexBag::iterator bEnd = oGeoIndexBag.end  ();
+
+    for(; bIt != bEnd; ++bIt)
+    {
+        Geometry::IndexBag::iterator rIt = bIt + 1;
+
+        for(; rIt != bEnd; )
+        {
+            if(compareContainerEqual(bIt->first, rIt->first, true, true))
+            {
+                bIt->second.insert(bIt->second.end  (),
+                                   rIt->second.begin(),
+                                   rIt->second.end  ());
+
+                rIt = oGeoIndexBag.erase(rIt);
+
+                bEnd = oGeoIndexBag.end();
+            }
+            else
+            {
+                ++rIt;
+            }
+        }
+    }
+
+    if(oGeoIndexBag.size() == 1)
+    {
+        GeoIntegralProperty *pIndex = oGeoIndexBag.front().first;
+
+        IndexIt              pIt    = oGeoIndexBag.front().second.begin();
+        IndexIt              pEnd   = oGeoIndexBag.front().second.end  ();
+  
+        for(; pIt != pEnd; ++pIt)
+        {
+            geo->setIndex(pIndex, *pIt);
+        }
+
+        return 0;
+    }
+#endif
+
+    std::vector<Int32> indexVec;
+    std::vector<Int32> sIndex;
+
+    IndexDic           indexDic;
+
+    Int32              indexMapSize = oGeoIndexBag.size();
+    Int32              vCount       = 0;
+
+    indexVec.resize(indexMapSize);
+
+    Int32 indexCount = oGeoIndexBag.front().first->size();
+
+    sIndex.resize(indexCount);
+
+    for(Int32 i = 0; i < indexCount; i++)
+    {
+        for(Int32 j = 0; j < indexMapSize; j++)
+        {
+            indexVec[j] = oGeoIndexBag[j].first->getValue(i);
+        }
+        
+        sIndex[i] = indexDic.entry(indexVec);
+    }
+    
+    vCount = indexDic.entryCount();
+    
+    if(vCount)
+    {
+        for(Int32 i = 0; i < indexMapSize; i++)
+        {
+            if(i != 0)
+            {
+                oGeoIndexBag[0].second.insert(oGeoIndexBag[0].second.end  (),
+                                              oGeoIndexBag[i].second.begin(),
+                                              oGeoIndexBag[i].second.end  ());
+            }
+
+            for(UInt32 j = 0; j < oGeoIndexBag[i].second.size(); ++j)
+            {
+                GeoVectorProperty *pP = 
+                    geo->getProperty(oGeoIndexBag[i].second[j]);
+
+                if(pP == NULL || pP->getData() == NULL)
+                    continue;
+
+                UInt32 valueSize = (pP->getFormatSize() *
+                                    pP->getDimension () +
+                                    pP->getStride    ());
+                  
+                UInt32 memSize   = pP->size() * valueSize;
+
+                UInt8 *data  = new UInt8[memSize];
+
+                UInt8 *pData = pP->editData();
+                
+                memcpy(data, pData, memSize);
+
+                pP->resize(vCount);
+                
+                pData = pP->editData();
+
+                for(Int32 k = 0; k < vCount; k++)
+                {
+                    UInt32 index = indexDic.entry(k)[i];
+                    
+                    memcpy(pData + (valueSize * k),
+                           data  + (valueSize * index),
+                           valueSize);
+                }
+                    
+                delete[] data;
+            }
+        }
+
+        oGeoIndexBag.front().first->clear();
+
+        for(Int32 i = 0; i < indexCount; i++)
+        {
+            oGeoIndexBag.front().first->push_back(sIndex[i]);
+        }
+
+        GeoIntegralProperty *pIndex = oGeoIndexBag.front().first;
+
+        IndexIt              pIt    = oGeoIndexBag.front().second.begin();
+        IndexIt              pEnd   = oGeoIndexBag.front().second.end  ();
+  
+        for(; pIt != pEnd; ++pIt)
+        {
+            geo->setIndex(pIndex, *pIt);
+        }
+    }
+
+    return vCount;
 }
 
 

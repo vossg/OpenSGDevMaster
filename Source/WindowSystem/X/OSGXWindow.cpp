@@ -172,10 +172,10 @@ void XWindow::init(GLInitFunctor oFunc)
     }
     else
     {
-        OSGGETGLFUNCBYNAME(OSGglxChooseFBConfigProc, 
-                           osgGlxChooseFBConfig,
-                           "glXChooseFBConfig",
-                           this);
+        OSGGETGLFUNCBYNAME_EXT(glxChooseFBConfig, 
+                               osgGlxChooseFBConfig,
+                               "glXChooseFBConfig",
+                               this);
 
         OSG_ASSERT(osgGlxChooseFBConfig != NULL);
 
@@ -202,10 +202,10 @@ void XWindow::init(GLInitFunctor oFunc)
         }
 
 
-        OSGGETGLFUNCBYNAME(OSGglxCreateContextAttribsARB, 
-                           osgGlXCreateContextAttribsARB,
-                           "glXCreateContextAttribsARB",
-                           this);
+        OSGGETGLFUNCBYNAME_EXT(glxCreateContextAttribsARB, 
+                               osgGlXCreateContextAttribsARB,
+                               "glXCreateContextAttribsARB",
+                               this);
 
         if(osgGlXCreateContextAttribsARB != NULL)
         {
@@ -282,13 +282,15 @@ void XWindow::doActivate(void)
 
     if(getWindow() == 0)
     {
-        SWARNING << "XWindow::doActivate: Window is NULL, can not activate context."
+        SWARNING << "XWindow::doActivate: Window is NULL, can not activate "
+                 << "context."
                  << std::endl;
     }
 
     if(getContext() == NULL)
     {
-        SWARNING << "XWindow::doActivate: Context is NULL, can not activate context."
+        SWARNING << "XWindow::doActivate: Context is NULL, can not activate "
+                 << "context."
                  << std::endl;
     }
 #endif

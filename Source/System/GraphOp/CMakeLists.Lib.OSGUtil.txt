@@ -49,6 +49,8 @@ IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
       ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundFields.h
       ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundBase.inl
       ${_OSG_EX_FGBASE}/OSGSimpleStatisticsForegroundBase.cpp
+      ${_OSG_EX_FGBASE}/testStatisticsRender.cpp
+      ${_OSG_EX_FGBASE}/testPerfMonitorForeground.cpp
       ${_OSG_EX_FGBASE}/OSGStatisticsDefaultFont.h
       ${_OSG_EX_FGBASE}/OSGStatisticsDefaultFont.cpp
       ${_OSG_EX_WUBASE}/OSGSimpleSceneManager.h

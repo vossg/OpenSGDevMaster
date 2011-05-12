@@ -40,12 +40,14 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#define GL_GLEXT_PROTOTYPES
-
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
+
+#ifndef GL_GLEXT_PROTOTYPES
+# define GL_GLEXT_PROTOTYPES
+#endif
 
 #if defined (WIN32)
 #include <GL/glew.h>

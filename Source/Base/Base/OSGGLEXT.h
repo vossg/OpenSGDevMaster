@@ -67,13 +67,13 @@ typedef char GLchar;
 /*! \{                                                                 */
 
 #ifndef GL_MODELVIEW_MATRIX
-#  define GL_MODELVIEW_MATRIX		0x0BA6
+#  define GL_MODELVIEW_MATRIX       0x0BA6
 #endif
 #ifndef GL_MODELVIEW
-#  define GL_MODELVIEW				0x1700
+#  define GL_MODELVIEW              0x1700
 #endif
 #ifndef GL_MODELVIEW_STACK_DEPTH
-#  define GL_MODELVIEW_STACK_DEPTH	0x0BA3
+#  define GL_MODELVIEW_STACK_DEPTH  0x0BA3
 #endif
 #ifndef GL_INTENSITY
 #  define GL_INTENSITY              0x8049
@@ -98,6 +98,21 @@ typedef char GLchar;
 #endif
 #ifndef GL_DECAL
 #  define GL_DECAL                  0x2101
+#endif
+#ifndef GL_2_BYTES
+# define GL_2_BYTES                 0x1407
+#endif
+#ifndef GL_3_BYTES
+# define GL_3_BYTES                 0x1408
+# endif
+# ifndef GL_4_BYTES
+# define GL_4_BYTES                 0x1409
+#endif
+#ifndef GL_LUMINANCE
+#define GL_LUMINANCE                0x1909
+#endif
+#ifndef GL_LUMINANCE_ALPHA
+#define GL_LUMINANCE_ALPHA          0x190A
 #endif
 
 /*! \}                                                                 */
@@ -213,7 +228,7 @@ typedef char GLchar;
 /*! \{                                                                 */
 
 #ifndef GL_EXT_texture3D
-#define GL_EXT_texture3D				  1
+#define GL_EXT_texture3D                  1
 #define GL_PACK_SKIP_IMAGES               0x806B
 #define GL_PACK_SKIP_IMAGES_EXT           0x806B
 #define GL_PACK_IMAGE_HEIGHT              0x806C
@@ -553,9 +568,9 @@ typedef char GLchar;
 #ifndef GL_ARB_point_parameters
 #define GL_ARB_point_parameters 1
 
-#define GL_POINT_SIZE_MIN_ARB			    0x8126
-#define GL_POINT_SIZE_MAX_ARB			    0x8127
-#define GL_POINT_FADE_THRESHOLD_SIZE_ARB	0x8128
+#define GL_POINT_SIZE_MIN_ARB               0x8126
+#define GL_POINT_SIZE_MAX_ARB               0x8127
+#define GL_POINT_FADE_THRESHOLD_SIZE_ARB    0x8128
 #define GL_POINT_DISTANCE_ATTENUATION_ARB   0x8129
 
 #endif 
@@ -1431,6 +1446,10 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_ALIASED_LINE_WIDTH_RANGE       0x846E
 #endif
 
+#ifndef GL_SINGLE_COLOR
+#define GL_SINGLE_COLOR                   0x81F9
+#endif
+
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
 /*! \name GL_VERSION_1_3                                               */
@@ -1536,6 +1555,18 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_DOT3_RGBA                      0x86AF
 #endif
 
+// Missing defines if we work with the core profile headers
+#ifndef GL_SOURCE0_RGB
+#define GL_SOURCE0_RGB                    0x8580
+#define GL_SOURCE1_RGB                    0x8581
+#define GL_SOURCE2_RGB                    0x8582
+#define GL_SOURCE0_ALPHA                  0x8588
+#define GL_SOURCE1_ALPHA                  0x8589
+#define GL_SOURCE2_ALPHA                  0x858A
+
+#define GL_REFLECTION_MAP                 0x8512
+#endif
+
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
 /*! \name GL_VERSION_1_4                                               */
@@ -1582,6 +1613,19 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_TEXTURE_COMPARE_MODE           0x884C
 #define GL_TEXTURE_COMPARE_FUNC           0x884D
 #define GL_COMPARE_R_TO_TEXTURE           0x884E
+#endif
+
+// Missing defines if we work with the core profile headers
+#ifndef GL_CURRENT_FOG_COORDINATE
+#define GL_FOG_COORDINATE_SOURCE          0x8450
+#define GL_FOG_COORDINATE                 0x8451
+#define GL_CURRENT_FOG_COORDINATE         0x8453
+#define GL_FOG_COORDINATE_ARRAY_TYPE      0x8454
+#define GL_FOG_COORDINATE_ARRAY_STRIDE    0x8455
+#define GL_FOG_COORDINATE_ARRAY_POINTER   0x8456
+#define GL_FOG_COORDINATE_ARRAY           0x8457
+
+#define GL_DEPTH_TEXTURE_MODE             0x884B
 #endif
 
 /*! \}                                                                 */
@@ -1641,6 +1685,11 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_SRC0_ALPHA                     GL_SOURCE0_ALPHA
 #define GL_SRC1_ALPHA                     GL_SOURCE1_ALPHA
 #define GL_SRC2_ALPHA                     GL_SOURCE2_ALPHA
+#endif
+
+// Missing defines if we work with the core profile headers
+#ifndef GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING
+#define GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING 0x889D
 #endif
 
 /*! \}                                                                 */

@@ -58,18 +58,19 @@ UInt16 TextureBaseChunk::getChunkId(void)
 inline 
 bool TextureBaseChunk::hasMultiTexture(Window *win)
 {
-    return win->hasExtension(_arbMultiTex);
+    return win->hasExtOrVersion(_arbMultiTex, 0x0103, 0x0200);
 }
 
 //! call glActiveTexture via the extension mechanism
 inline 
 void TextureBaseChunk::activeTexture(Window *win, UInt16 texture)
 {
-    void (OSG_APIENTRY *ActiveTexture)(GLenum target) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target)>(
-            win->getFunction(_funcActiveTexture));
+    OSGGETGLFUNCBYID_GL3_ES( glActiveTexture,
+                             osgGlActiveTexture,
+                            _funcActiveTexture,
+                             win);
 
-    ActiveTexture(GL_TEXTURE0 + texture);
+    osgGlActiveTexture(GL_TEXTURE0 + texture);
 }
 
 //! call glActiveTexture via the extension mechanism, if MultiTextures

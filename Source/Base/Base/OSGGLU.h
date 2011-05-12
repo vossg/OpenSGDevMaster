@@ -52,6 +52,7 @@
 
 //# include<GLES2/glu2.h>
 
+inline
 const GLubyte *gluErrorString(GLenum eError)
 {
     return reinterpret_cast<const GLubyte *> ("");

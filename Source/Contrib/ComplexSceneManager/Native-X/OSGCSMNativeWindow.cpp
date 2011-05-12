@@ -408,10 +408,10 @@ bool CSMNativeWindow::init(void)
     if(iFlags != 0)
         pXWindow->setContextFlags(iFlags);
 
-    OSGGETGLFUNCBYNAME(OSGglxChooseFBConfigProc, 
-                       osgGlxChooseFBConfig,
-                       "glXChooseFBConfig",
-                       pXWindow);
+    OSGGETGLFUNCBYNAME_EXT(glxChooseFBConfig, 
+                           osgGlxChooseFBConfig,
+                           "glXChooseFBConfig",
+                           pXWindow.get());
     
     if(osgGlxChooseFBConfig == NULL)
     {

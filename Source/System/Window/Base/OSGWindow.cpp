@@ -1025,7 +1025,7 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
 
     // Check if it has already been registered and if it has then return the
     // index we already used.
-    Int32 r = getExtensionId(s);
+    Int32 r = getExtensionIdX(s);
 
     if(-1 != r)
     {
@@ -1052,6 +1052,9 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
 
 bool OSG::Window::hasExtension(const Char8 *s)
 {
+    if(_sfIgnoreAllExtensions.getValue() == true)
+        return NULL;
+
     if(std::find(_ignoredExtensions.begin(),
                  _ignoredExtensions.end(),
                  s)                         != _ignoredExtensions.end())
@@ -1630,6 +1633,11 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     const Char8 *s)
 {
     GLExtensionFunction retval = NULL;
+
+    if(_sfIgnoreAllExtensions.getValue() == true)
+    {
+        return NULL;
+    }
 
     FINFO(("Window::getFunctionByName: %s\n", s));
 

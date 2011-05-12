@@ -160,9 +160,9 @@ static void light0Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
 {
     if(iLoc != -1)
     {
-        OSGGETGLFUNC(OSG::OSGglUniform1iProc,
-                     osgGlUniform1i,
-                     OSG::ShaderProgram::getFuncIdUniform1i());
+        OSGGETGLFUNC_EXT(glUniform1i,
+                         osgGlUniform1i,
+                         OSG::ShaderProgram::getFuncIdUniform1i());
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0001));
@@ -173,9 +173,9 @@ static void light1Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
 {
     if(iLoc != -1)
     {
-        OSGGETGLFUNC(OSG::OSGglUniform1iProc,
-                     osgGlUniform1i,
-                     OSG::ShaderProgram::getFuncIdUniform1i());
+        OSGGETGLFUNC_EXT(glUniform1i,
+                         osgGlUniform1i,
+                         OSG::ShaderProgram::getFuncIdUniform1i());
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0002));
@@ -186,9 +186,9 @@ static void light2Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
 {
     if(iLoc != -1)
     {
-        OSGGETGLFUNC(OSG::OSGglUniform1iProc,
-                     osgGlUniform1i,
-                     OSG::ShaderProgram::getFuncIdUniform1i());
+        OSGGETGLFUNC_EXT(glUniform1i,
+                         osgGlUniform1i,
+                         OSG::ShaderProgram::getFuncIdUniform1i());
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0004));

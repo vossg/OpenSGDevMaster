@@ -46,6 +46,7 @@
 #include "OSGGLEXT.h"
 #include "OSGWindow.h"
 #include "OSGTextureBaseChunkBase.h"
+#include "OSGGLFuncProtos.h"
 
 OSG_BEGIN_NAMESPACE
 

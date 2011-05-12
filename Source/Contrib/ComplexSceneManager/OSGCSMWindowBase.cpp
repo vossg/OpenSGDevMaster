@@ -128,6 +128,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            CSMWindowBase::_sfIgnoreAllExtensions
+    
+*/
+
 /*! \var UInt32          CSMWindowBase::_sfRequestSamples
     
 */
@@ -327,6 +331,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleIgnoreExtensions),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleIgnoreExtensions));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "ignoreAllExtensions",
+        "",
+        IgnoreAllExtensionsFieldId, IgnoreAllExtensionsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleIgnoreAllExtensions),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleIgnoreAllExtensions));
 
     oType.addInitialDesc(pDesc);
 
@@ -533,6 +549,16 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "       fieldFlags=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"ignoreAllExtensions\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"false\"\n"
+    "       >\n"
+    "    </Field>\n"
     "    <Field\n"
     "\t   name=\"requestSamples\"\n"
     "\t   type=\"UInt32\"\n"
@@ -750,6 +776,19 @@ const MFString *CSMWindowBase::getMFIgnoreExtensions(void) const
 }
 
 
+SFBool *CSMWindowBase::editSFIgnoreAllExtensions(void)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    return &_sfIgnoreAllExtensions;
+}
+
+const SFBool *CSMWindowBase::getSFIgnoreAllExtensions(void) const
+{
+    return &_sfIgnoreAllExtensions;
+}
+
+
 SFUInt32 *CSMWindowBase::editSFRequestSamples(void)
 {
     editSField(RequestSamplesFieldMask);
@@ -935,6 +974,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfIgnoreExtensions.getBinSize();
     }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        returnValue += _sfIgnoreAllExtensions.getBinSize();
+    }
     if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
     {
         returnValue += _sfRequestSamples.getBinSize();
@@ -1011,6 +1054,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
     {
         _mfIgnoreExtensions.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        _sfIgnoreAllExtensions.copyToBin(pMem);
     }
     if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
     {
@@ -1098,6 +1145,11 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
         editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
         _mfIgnoreExtensions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        editSField(IgnoreAllExtensionsFieldMask);
+        _sfIgnoreAllExtensions.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
     {
         editSField(RequestSamplesFieldMask);
@@ -1148,6 +1200,7 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfEnableForwardCompatContext(bool(false)),
     _sfEnableDebugContext     (bool(false)),
     _mfIgnoreExtensions       (),
+    _sfIgnoreAllExtensions    (bool(false)),
     _sfRequestSamples         (UInt32(0)),
     _sfEnableFSAA             (bool(false)),
     _sfFsaaHint               (UInt32(GL_FASTEST)),
@@ -1170,6 +1223,7 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfEnableForwardCompatContext(source._sfEnableForwardCompatContext),
     _sfEnableDebugContext     (source._sfEnableDebugContext     ),
     _mfIgnoreExtensions       (source._mfIgnoreExtensions       ),
+    _sfIgnoreAllExtensions    (source._sfIgnoreAllExtensions    ),
     _sfRequestSamples         (source._sfRequestSamples         ),
     _sfEnableFSAA             (source._sfEnableFSAA             ),
     _sfFsaaHint               (source._sfFsaaHint               ),
@@ -1560,6 +1614,31 @@ EditFieldHandlePtr CSMWindowBase::editHandleIgnoreExtensions(void)
 
 
     editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleIgnoreAllExtensions (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfIgnoreAllExtensions,
+             this->getType().getFieldDesc(IgnoreAllExtensionsFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleIgnoreAllExtensions(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfIgnoreAllExtensions,
+             this->getType().getFieldDesc(IgnoreAllExtensionsFieldId),
+             this));
+
+
+    editSField(IgnoreAllExtensionsFieldMask);
 
     return returnValue;
 }

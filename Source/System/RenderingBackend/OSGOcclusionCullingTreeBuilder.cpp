@@ -61,6 +61,9 @@
 #include "OSGPolygonChunk.h"
 #include "OSGDrawableStatsAttachment.h"
 
+#include "OSGGLFuncProtos.h"
+#include "OSGConceptPropertyChecks.h"
+
 //#define OSG_DUMP_SORTING
 
 OSG_USING_NAMESPACE
@@ -280,7 +283,7 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
         }
     }
 
-    if(!win->hasExtension(_extOcclusionQuery))
+    if(!win->hasExtOrVersion(_extOcclusionQuery, 0x0200))
     {
         // Don't have it, just draw the whole tree.
         SLOG << "Missing OCC GL extensions!!" << endLog;
@@ -311,8 +314,11 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
         _testSamples.resize(_numTestSamples);
         //std::cout << "Performing OCC on " << _numNodes << " nodes." << std::endl;
 
-        GenQueryT genquer = reinterpret_cast<GenQueryT>(
-            win->getFunction(_funcGenQueriesARB));
+        OSGGETGLFUNCBYID_GL3( glGenQueries,
+                              genquer,
+                             _funcGenQueriesARB,
+                              win);
+
         genquer(_numTestSamples, &(_testSamples.front()));
         _occInitialized = true;
     }
@@ -585,6 +591,7 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
     Window* win = denv.getWindow();
     pNode->setIsRendered(false);
 
+    osgSinkUnusedWarning(win);
 
     if(_ract->getOcclusionCullingDebug() && pNode->getNode())
     {
@@ -626,8 +633,12 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
         sc->getElem(statNOccTests    )->inc();
 
     enterTesting(denv, part);
-    BeginQueryT beginq = reinterpret_cast<BeginQueryT>(
-        win->getFunction(_funcBeginQueryARB));
+
+    OSGGETGLFUNCBYID_GL3( glBeginQuery,
+                          beginq,
+                         _funcBeginQueryARB,
+                          win);
+
     //std::cout << "Push: " << _currSample << std::endl;
     pNode->setResultNum(_currSample);
     beginq(GL_SAMPLES_PASSED_ARB, _testSamples[_currSample]);
@@ -645,8 +656,10 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
     }
     glEnd();
 
-    EndQueryT endq = reinterpret_cast<EndQueryT>(
-        win->getFunction(_funcEndQueryARB));
+    OSGGETGLFUNCBYID_GL3( glEndQuery,
+                          endq,
+                         _funcEndQueryARB,
+                          win);
 
     endq(GL_SAMPLES_PASSED_ARB);
     _testPendingNodes.push(pNode);
@@ -731,9 +744,14 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
         if(pNode->hasFunctor() == true && !pNode->getIsRendered())
         {
             Window* win = denv.getWindow();
-            GetQueryObjectuivT getquiv =
-                reinterpret_cast<GetQueryObjectuivT>(
-                    win->getFunction(_funcGetQueryObjectuivARB));
+
+            osgSinkUnusedWarning(win);
+
+            OSGGETGLFUNCBYID_GL3( glGetQueryObjectuiv,
+                                  getquiv,
+                                 _funcGetQueryObjectuivARB,
+                                  win);
+
             GLuint available = 0;
             getquiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
             if (!available)

@@ -138,6 +138,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            WindowBase::_sfIgnoreAllExtensions
+    
+*/
+
 /*! \var UInt32          WindowBase::_sfDrawMode
     
 */
@@ -309,6 +313,18 @@ void WindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Window::editHandleRenderOptions),
         static_cast<FieldGetMethodSig >(&Window::getHandleRenderOptions));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "ignoreAllExtensions",
+        "",
+        IgnoreAllExtensionsFieldId, IgnoreAllExtensionsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleIgnoreAllExtensions),
+        static_cast<FieldGetMethodSig >(&Window::getHandleIgnoreAllExtensions));
 
     oType.addInitialDesc(pDesc);
 
@@ -499,6 +515,15 @@ WindowBase::TypeObject WindowBase::_type(
     "        visibility=\"internal\"\n"
     "        access=\"public\"\n"
     "        defaultValue=\"NULL\"\n"
+    "\t>\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ignoreAllExtensions\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"false\"\n"
     "\t>\n"
     "    </Field>\n"
     "    <Field\n"
@@ -701,6 +726,19 @@ SFUnrecRenderOptionsPtr *WindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+SFBool *WindowBase::editSFIgnoreAllExtensions(void)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    return &_sfIgnoreAllExtensions;
+}
+
+const SFBool *WindowBase::getSFIgnoreAllExtensions(void) const
+{
+    return &_sfIgnoreAllExtensions;
+}
+
+
 SFUInt32 *WindowBase::editSFDrawMode(void)
 {
     editSField(DrawModeFieldMask);
@@ -889,6 +927,10 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        returnValue += _sfIgnoreAllExtensions.getBinSize();
+    }
     if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
         returnValue += _sfDrawMode.getBinSize();
@@ -953,6 +995,10 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
         _sfRenderOptions.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        _sfIgnoreAllExtensions.copyToBin(pMem);
     }
     if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
@@ -1028,6 +1074,11 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(RenderOptionsFieldMask);
         _sfRenderOptions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+    {
+        editSField(IgnoreAllExtensionsFieldMask);
+        _sfIgnoreAllExtensions.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
         editSField(DrawModeFieldMask);
@@ -1065,6 +1116,7 @@ WindowBase::WindowBase(void) :
     _sfRequestMinor           (Int32(0)),
     _sfContextFlags           (Int32(0)),
     _sfRenderOptions          (NULL),
+    _sfIgnoreAllExtensions    (bool(false)),
     _sfDrawMode               (UInt32((Window::SequentialPartitionDraw | Window::StdDrawer | Window::ActiveContext))),
     _sfRendererInfo           (std::string("unknown")),
     _mfDrawTasks              ()
@@ -1086,6 +1138,7 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfRequestMinor           (source._sfRequestMinor           ),
     _sfContextFlags           (source._sfContextFlags           ),
     _sfRenderOptions          (NULL),
+    _sfIgnoreAllExtensions    (source._sfIgnoreAllExtensions    ),
     _sfDrawMode               (source._sfDrawMode               ),
     _sfRendererInfo           (source._sfRendererInfo           ),
     _mfDrawTasks              ()
@@ -1475,6 +1528,31 @@ EditFieldHandlePtr WindowBase::editHandleRenderOptions  (void)
                     static_cast<Window *>(this), _1));
 
     editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleIgnoreAllExtensions (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfIgnoreAllExtensions,
+             this->getType().getFieldDesc(IgnoreAllExtensionsFieldId),
+             const_cast<WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleIgnoreAllExtensions(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfIgnoreAllExtensions,
+             this->getType().getFieldDesc(IgnoreAllExtensionsFieldId),
+             this));
+
+
+    editSField(IgnoreAllExtensionsFieldMask);
 
     return returnValue;
 }

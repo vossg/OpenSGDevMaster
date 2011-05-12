@@ -52,6 +52,8 @@
 #include "OSGBlendChunk.h"
 #include "OSGDrawEnv.h"
 
+#include "OSGGLFuncProtos.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -173,6 +175,8 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
     GLenum asrc  = _sfAlphaSrcFactor.getValue();
     GLenum adest = _sfAlphaDestFactor.getValue();
 
+    Window *pWin = pEnv->getWindow();
+
     if((src   != GL_ONE        || dest  != GL_ZERO) ||
        (asrc  != OSG_GL_UNUSED && asrc  != GL_ONE ) || 
        (adest != OSG_GL_UNUSED && adest != GL_ZERO)  )
@@ -186,28 +190,23 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
                 
                 glBlendFunc(src, dest);
             }
-            else if(pEnv->getWindow()->hasExtension(_extBlendFuncSeparate))
+            else if(pWin->hasExtOrVersion(_extBlendFuncSeparate, 
+                                           0x0104, 
+                                           0x0200              ))
             {
                 // get "glBlendFuncSeparate" function pointer
-                void (OSG_APIENTRY *blendfuncsep)(GLenum,
-                                                  GLenum,
-                                                  GLenum,
-                                                  GLenum) =
-                    
-                    reinterpret_cast<void (OSG_APIENTRY*)(GLenum,
-                                                          GLenum,
-                                                          GLenum,
-                                                          GLenum)>( 
-                        pEnv->getWindow()->getFunction(
-                            _funcBlendFuncSeparateExt));
-
+                OSGGETGLFUNCBYID_GL3_ES( glBlendFuncSeparate, 
+                                         blendfuncsep,
+                                        _funcBlendFuncSeparateExt,
+                                         pWin);
+                
                 blendfuncsep(src, dest, asrc, adest);
             }
             else
             {
                 FWARNING(("BlendChunk::activate: Window %p doesn't "
                           "support EXT_blend_func_separate, ignored.\n",
-                          pEnv->getWindow()));
+                          pWin));
 
                 glBlendFunc(src, dest);
             }
@@ -228,23 +227,18 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
            (adest >= GL_CONSTANT_COLOR_EXT && 
             adest <= GL_ONE_MINUS_CONSTANT_ALPHA_EXT) )
         {
-            if(pEnv->getWindow()->hasExtension(_extBlend))
+            if(pWin->hasExtOrVersion(_extBlend, 0x0102, 0x0200))
             {
                 // get "glBlendColorEXT" function pointer
-                void (OSG_APIENTRY*blendcolor)(GLclampf red,
-                                               GLclampf green,
-                                               GLclampf blue,
-                                               GLclampf alpha ) =
-                    reinterpret_cast<void (OSG_APIENTRY*)(GLclampf red,
-                                                          GLclampf green,
-                                                          GLclampf blue,
-                                                          GLclampf alpha)>(
-                        pEnv->getWindow()->getFunction(_funcBlendColor));
+                OSGGETGLFUNCBYID_GL3_ES( glBlendColor, 
+                                         blendcolor,
+                                        _funcBlendColor,
+                                         pWin);
 
-                 blendcolor(_sfColor.getValue().red(),
-                            _sfColor.getValue().green(),
-                            _sfColor.getValue().blue(),
-                            _sfColor.getValue().alpha());
+                blendcolor(_sfColor.getValue().red(),
+                           _sfColor.getValue().green(),
+                           _sfColor.getValue().blue(),
+                           _sfColor.getValue().alpha());
             }
         }
         glEnable(GL_BLEND);
@@ -252,25 +246,27 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
 
     if(_sfEquation.getValue() != GL_NONE)
     {
-        if(pEnv->getWindow()->hasExtension(_extImaging))
+        if(pWin->hasExtOrVersion(_extImaging, 0x0104, 0x0200))
         {
             // get "glBlendEquation" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquation));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquation,
+                                     pWin);
 
-             blendeq(_sfEquation.getValue());
+            blendeq(_sfEquation.getValue());
         }
-        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pWin->hasExtOrVersion(_extBlendSubtract, 0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendMinMax,   0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendLogicOp,  0x0101, 0x0200)  )
         {
             // get "glBlendEquationEXT" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquation,
+                                     pWin);
 
-             blendeq(_sfEquation.getValue());
+            blendeq(_sfEquation.getValue());
         }
     }
     
@@ -298,6 +294,8 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
     GLenum oasrc  =  old->_sfAlphaSrcFactor.getValue();
     GLenum oadest =  old->_sfAlphaDestFactor.getValue();
 
+    Window *pWin = pEnv->getWindow();
+
     if((src   != GL_ONE        || dest  != GL_ZERO) ||
        (asrc  != OSG_GL_UNUSED && asrc  != GL_ONE ) || 
        (adest != OSG_GL_UNUSED && adest != GL_ZERO)  )
@@ -311,20 +309,18 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
 
                 glBlendFunc(src, dest);
             }
-            else if(pEnv->getWindow()->hasExtension(_extBlendFuncSeparate))
+            else if(pWin->hasExtOrVersion(_extBlendFuncSeparate, 
+                                           0x0104, 
+                                           0x0200              ))
             {
                 if(osrc  != src  || odest  != dest ||
                    oasrc != asrc || oadest != adest )
                 {
                     // get "glBlendFuncSeparate" function pointer
-                    void (OSG_APIENTRY* blendfuncsep)(GLenum,GLenum,
-                                                      GLenum,GLenum) =
-                        reinterpret_cast<void (OSG_APIENTRY*)(GLenum,
-                                                              GLenum,
-                                                              GLenum,
-                                                              GLenum)>(
-                            pEnv->getWindow()->getFunction(
-                                _funcBlendFuncSeparateExt));
+                    OSGGETGLFUNCBYID_GL3_ES( glBlendFuncSeparate, 
+                                             blendfuncsep,
+                                            _funcBlendFuncSeparateExt,
+                                             pWin);
 
                     blendfuncsep(src, dest, asrc, adest);
                 }
@@ -354,18 +350,13 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
            (adest >= GL_CONSTANT_COLOR_EXT && 
             adest <= GL_ONE_MINUS_CONSTANT_ALPHA_EXT ) )
         {
-            if ( pEnv->getWindow()->hasExtension(_extBlend ))
+            if(pWin->hasExtOrVersion(_extBlend, 0x0102, 0x0200))
             {
                 // get "glBlendColorEXT" function pointer
-                void (OSG_APIENTRY*blendcolor)(GLclampf red,
-                                               GLclampf green,
-                                               GLclampf blue,
-                                               GLclampf alpha ) =
-                    reinterpret_cast<void (OSG_APIENTRY*)(GLclampf red,
-                                                          GLclampf green,
-                                                          GLclampf blue,
-                                                          GLclampf alpha)>(
-                        pEnv->getWindow()->getFunction( _funcBlendColor ));
+                OSGGETGLFUNCBYID_GL3_ES( glBlendColor, 
+                                         blendcolor,
+                                        _funcBlendColor,
+                                         pWin);
 
                 blendcolor(_sfColor.getValue().red(),
                            _sfColor.getValue().green(),
@@ -388,25 +379,27 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
 
     if(_sfEquation.getValue() != old->_sfEquation.getValue())
     {
-        if(pEnv->getWindow()->hasExtension(_extImaging))
+        if(pWin->hasExtOrVersion(_extImaging, 0x0104, 0x0200))
         {
             // get "glBlendEquation" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquation));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquation,
+                                     pWin);
 
-             blendeq(_sfEquation.getValue());
+            blendeq(_sfEquation.getValue());
         }
-        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pWin->hasExtOrVersion(_extBlendSubtract, 0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendMinMax,   0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendLogicOp,  0x0101, 0x0200))
         {
             // get "glBlendEquationEXT" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquation,
+                                     pWin);
 
-             blendeq(_sfEquation.getValue());
+            blendeq(_sfEquation.getValue());
         }
     }
     
@@ -415,8 +408,10 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
     {
         if(old->_sfAlphaFunc.getValue()  != _sfAlphaFunc.getValue() ||
            old->_sfAlphaValue.getValue() != _sfAlphaValue.getValue())
+        {
             glAlphaFunc(_sfAlphaFunc.getValue(), _sfAlphaValue.getValue());
-        
+        }
+
         if(old->_sfAlphaFunc.getValue() == GL_NONE)
             glEnable(GL_ALPHA_TEST);
     }
@@ -435,6 +430,8 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
     GLenum asrc   = _sfAlphaSrcFactor.getValue();
     GLenum adest  = _sfAlphaDestFactor.getValue();
 
+    Window *pWin = pEnv->getWindow();
+
     if((src   != GL_ONE        || dest  != GL_ZERO) ||
        (asrc  != OSG_GL_UNUSED && asrc  != GL_ONE ) || 
        (adest != OSG_GL_UNUSED && adest != GL_ZERO)   )
@@ -444,25 +441,27 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
 
     if(_sfEquation.getValue() != GL_NONE)
     {
-        if(pEnv->getWindow()->hasExtension(_extImaging))
+        if(pWin->hasExtOrVersion(_extImaging, 0x0104, 0x0200))
         {
             // get "glBlendEquation" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquation));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquation,
+                                     pWin);
 
-             blendeq(GL_FUNC_ADD);
+            blendeq(GL_FUNC_ADD);
         }
-        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pWin->hasExtOrVersion(_extBlendSubtract, 0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendMinMax,   0x0102, 0x0200) ||
+                pWin->hasExtOrVersion(_extBlendLogicOp,  0x0101, 0x0200)  )
         {
             // get "glBlendEquationEXT" function pointer
-            void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
-                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
+            OSGGETGLFUNCBYID_GL3_ES( glBlendEquation, 
+                                     blendeq,
+                                    _funcBlendEquationExt,
+                                     pWin);
 
-             blendeq(GL_FUNC_ADD_EXT);
+            blendeq(GL_FUNC_ADD_EXT);
         }
     }
     

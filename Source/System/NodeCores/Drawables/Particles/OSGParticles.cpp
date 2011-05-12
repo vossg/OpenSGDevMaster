@@ -56,6 +56,9 @@
 #include "OSGParticles.h"
 #include "OSGDrawableStatsAttachment.h"
 
+#include "OSGGLFuncProtos.h"
+#include "OSGConceptPropertyChecks.h"
+
 #include <algorithm>
 
 OSG_BEGIN_NAMESPACE
@@ -2349,11 +2352,12 @@ struct drawShaderQuads : public ParticlesDrawer
     {
         Window *win = pEnv->getWindow();
 
-        void (OSG_APIENTRY*_glMultiTexCoord3fvARB)(GLenum which,
-                                                   GLubyte * data)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLenum which,
-                                                   GLubyte * data)>(
-                win->getFunction(_funcglMultiTexCoord3fvARB));
+        osgSinkUnusedWarning(win);
+
+        OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
+                              osgGlMultiTexCoord3fvARB,
+                             _funcglMultiTexCoord3fvARB,
+                              win);
 
         // init traits
         typename colTrait::dataType colData;
@@ -2413,18 +2417,15 @@ struct drawShaderQuads : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            _glMultiTexCoord3fvARB(
-                GL_TEXTURE1_ARB,
-                reinterpret_cast<GLubyte *>(
-                    posTrait::position(posData).getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
+                                     posTrait::position(posData).getValues()); 
 
-            _glMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fvARB(
                 GL_TEXTURE2_ARB,
-                reinterpret_cast<GLubyte *>(
-                    secPosTrait::position(secPosData).getValues()));
+                secPosTrait::position(secPosData).getValues()); 
 
-            _glMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                   reinterpret_cast<GLubyte *>(s.getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
+                                     s.getValues());
 
             texTrait::vertex(texData, 0, 0, 0);
             glVertex2f      (-.5f, -.5f);
@@ -2443,11 +2444,12 @@ struct drawShaderQuads : public ParticlesDrawer
     {
         Window *win = pEnv->getWindow();
 
-        void (OSG_APIENTRY*_glMultiTexCoord3fvARB)(GLenum which,
-                                                   GLubyte * data)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLenum which,
-                                                   GLubyte * data)>(
-                win->getFunction(_funcglMultiTexCoord3fvARB));
+        osgSinkUnusedWarning(win);
+
+        OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
+                              osgGlMultiTexCoord3fvARB,
+                             _funcglMultiTexCoord3fvARB,
+                              win);
 
         // init traits
         typename colTrait::dataType colData;
@@ -2498,18 +2500,15 @@ struct drawShaderQuads : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            _glMultiTexCoord3fvARB(
-                GL_TEXTURE1_ARB,
-                reinterpret_cast<GLubyte *>(
-                    posTrait::position(posData).getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
+                                     posTrait::position(posData).getValues()); 
 
-            _glMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fvARB(
                 GL_TEXTURE2_ARB,
-                reinterpret_cast<GLubyte *>(
-                    secPosTrait::position(secPosData).getValues()));
-
-            _glMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                   reinterpret_cast<GLubyte *>(s.getValues()));
+                secPosTrait::position(secPosData).getValues());
+            
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB, 
+                                     s.getValues());
 
             texTrait::vertex(texData, 0, 0, 0);
             glVertex2f      (-.5f, -.5f);
@@ -2539,11 +2538,12 @@ struct drawShaderStrips : public ParticlesDrawer
     {
         Window *win = pEnv->getWindow();
 
-        void (OSG_APIENTRY*_glMultiTexCoord3fvARB)(GLenum which,
-                                                   GLubyte * data)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLenum which,
-                                                   GLubyte * data)>(
-                win->getFunction(_funcglMultiTexCoord3fvARB));
+        osgSinkUnusedWarning(win);
+
+        OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
+                              osgGlMultiTexCoord3fvARB,
+                             _funcglMultiTexCoord3fvARB,
+                              win);
 
         // init traits
         typename colTrait::dataType colData;
@@ -2601,18 +2601,15 @@ struct drawShaderStrips : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            _glMultiTexCoord3fvARB(
-                GL_TEXTURE1_ARB,
-                reinterpret_cast<GLubyte *>(
-                    posTrait::position(posData).getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
+                                     posTrait::position(posData).getValues()); 
 
-            _glMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fvARB(
                 GL_TEXTURE2_ARB,
-                reinterpret_cast<GLubyte *>(
-                    secPosTrait::position(secPosData).getValues()));
+                secPosTrait::position(secPosData).getValues()); 
 
-            _glMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                   reinterpret_cast<GLubyte *>(s.getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
+                                     s.getValues());
 
             glBegin(GL_QUAD_STRIP);
 
@@ -2636,11 +2633,12 @@ struct drawShaderStrips : public ParticlesDrawer
     {
         Window *win = pEnv->getWindow();
 
-        void (OSG_APIENTRY*_glMultiTexCoord3fvARB) (GLenum which,
-                                                    GLubyte * data)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLenum which,
-                                                   GLubyte * data)>(
-                win->getFunction(_funcglMultiTexCoord3fvARB));
+        osgSinkUnusedWarning(win);
+
+        OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
+                              osgGlMultiTexCoord3fvARB,
+                             _funcglMultiTexCoord3fvARB,
+                              win);
 
         // init traits
         typename colTrait::dataType colData;
@@ -2689,18 +2687,15 @@ struct drawShaderStrips : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            _glMultiTexCoord3fvARB(
-                GL_TEXTURE1_ARB,
-                reinterpret_cast<GLubyte *>(
-                    posTrait::position(posData).getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
+                                     posTrait::position(posData).getValues()); 
 
-            _glMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fvARB(
                 GL_TEXTURE2_ARB,
-                reinterpret_cast<GLubyte *>(
-                    secPosTrait::position(secPosData).getValues()));
+                secPosTrait::position(secPosData).getValues()); 
 
-            _glMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                   reinterpret_cast<GLubyte *>(s.getValues()));
+            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
+                                     s.getValues());
 
             glBegin(GL_QUAD_STRIP);
 

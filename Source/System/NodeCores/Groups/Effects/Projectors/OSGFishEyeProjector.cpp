@@ -86,10 +86,10 @@ OSG_USING_NAMESPACE
 
  */
 
-UInt32 FishEyeProjector::_uiFramebuffer_object_extension = 
+UInt32 FishEyeProjector::_uiFramebufferObjectExt = 
     Window::invalidExtensionID;
 
-UInt32 FishEyeProjector::_uiFuncDrawBuffers              =
+UInt32 FishEyeProjector::_uiFuncDrawBuffers      =
     Window::invalidFunctionID;
 
 typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
@@ -606,13 +606,13 @@ void FishEyeProjector::initMethod(InitPhase ePhase)
             FishEyeProjector::getClassType(), 
             reinterpret_cast<Action::Callback>(&FishEyeProjector::renderLeave));
 
-        _uiFramebuffer_object_extension = 
+        _uiFramebufferObjectExt = 
             Window::registerExtension("GL_EXT_framebuffer_object");
 
         _uiFuncDrawBuffers  =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
     }
 }
 
@@ -1145,7 +1145,7 @@ void FishEyeProjector::postProcess(DrawEnv *pEnv)
 {
     Window *win = pEnv->getWindow();
 
-    if(win->hasExtension(_uiFramebuffer_object_extension) == false)
+    if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
     {
         FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
         return;        

@@ -117,6 +117,16 @@
 	>
 	</Field>
     <Field
+	   name="ignoreAllExtensions"
+	   type="bool"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="false"
+       >
+    </Field>
+    <Field
 	   name="requestSamples"
 	   type="UInt32"
 	   cardinality="single"

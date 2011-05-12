@@ -108,7 +108,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
         RequestMinorFieldId = RequestMajorFieldId + 1,
         ContextFlagsFieldId = RequestMinorFieldId + 1,
         RenderOptionsFieldId = ContextFlagsFieldId + 1,
-        DrawModeFieldId = RenderOptionsFieldId + 1,
+        IgnoreAllExtensionsFieldId = RenderOptionsFieldId + 1,
+        DrawModeFieldId = IgnoreAllExtensionsFieldId + 1,
         RendererInfoFieldId = DrawModeFieldId + 1,
         DrawTasksFieldId = RendererInfoFieldId + 1,
         NextFieldId = DrawTasksFieldId + 1
@@ -136,6 +137,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
         (TypeTraits<BitVector>::One << ContextFlagsFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
+    static const OSG::BitVector IgnoreAllExtensionsFieldMask =
+        (TypeTraits<BitVector>::One << IgnoreAllExtensionsFieldId);
     static const OSG::BitVector DrawModeFieldMask =
         (TypeTraits<BitVector>::One << DrawModeFieldId);
     static const OSG::BitVector RendererInfoFieldMask =
@@ -156,6 +159,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     typedef SFInt32           SFRequestMinorType;
     typedef SFInt32           SFContextFlagsType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
+    typedef SFBool            SFIgnoreAllExtensionsType;
     typedef SFUInt32          SFDrawModeType;
     typedef SFString          SFRendererInfoType;
     typedef MFDrawTask        MFDrawTasksType;
@@ -205,6 +209,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
+                  SFBool              *editSFIgnoreAllExtensions(void);
+            const SFBool              *getSFIgnoreAllExtensions (void) const;
+
                   SFUInt32            *editSFDrawMode       (void);
             const SFUInt32            *getSFDrawMode        (void) const;
 
@@ -234,6 +241,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
 
                   RenderOptions * getRenderOptions  (void) const;
 
+                  bool                &editIgnoreAllExtensions(void);
+                  bool                 getIgnoreAllExtensions (void) const;
+
                   UInt32              &editDrawMode       (void);
                   UInt32               getDrawMode        (void) const;
 
@@ -252,6 +262,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
             void setRequestMinor   (const Int32 value);
             void setContextFlags   (const Int32 value);
             void setRenderOptions  (RenderOptions * const value);
+            void setIgnoreAllExtensions(const bool value);
             void setDrawMode       (const UInt32 value);
             void setRendererInfo   (const std::string &value);
 
@@ -314,6 +325,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     SFInt32           _sfRequestMinor;
     SFInt32           _sfContextFlags;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
+    SFBool            _sfIgnoreAllExtensions;
     SFUInt32          _sfDrawMode;
     SFString          _sfRendererInfo;
     MFDrawTask        _mfDrawTasks;
@@ -375,6 +387,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     EditFieldHandlePtr editHandleContextFlags   (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
+    GetFieldHandlePtr  getHandleIgnoreAllExtensions (void) const;
+    EditFieldHandlePtr editHandleIgnoreAllExtensions(void);
     GetFieldHandlePtr  getHandleDrawMode        (void) const;
     EditFieldHandlePtr editHandleDrawMode       (void);
     GetFieldHandlePtr  getHandleRendererInfo    (void) const;

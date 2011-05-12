@@ -88,8 +88,9 @@ namespace
 
 StripeGraphOp::StripeGraphOp(const char* name) :
     Inherited(name),
-    _force   (false),
-    _stitch  (false)
+    _force      (false),
+    _stitch     (false),
+    _singleIndex(false)
 {
 }
 
@@ -112,9 +113,10 @@ void StripeGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);   
     
-    ps("force",  _force);
-    ps("stitch",  _stitch);
-    
+    ps("force",       _force);
+    ps("stitch",      _stitch);
+    ps("singleindex", _singleIndex);
+
     std::string out = ps.getUnusedParams();
     if(out.length())
     {
@@ -128,8 +130,9 @@ std::string StripeGraphOp::usage(void)
     return 
     "Stripe: Stripe Geometries\n"
     "Params: name (type, default)\n"
-    "  force  (bool, false): force striping even if already striped\n"
-    "  stitch (bool, false): stitch strips using degenerate triangles\n";
+    "  force       (bool, false): force striping even if already striped\n"
+    "  stitch      (bool, false): stitch strips using degenerate triangles\n"
+    "  singleIndex (bool, false): create single index before striping\n";
 }
 
 bool StripeGraphOp::travNodeEnter(Node *node)
@@ -180,6 +183,12 @@ bool StripeGraphOp::travNodeEnter(Node *node)
         }
 
         createSharedIndex(geo);
+
+        if(_singleIndex == true)
+        {
+            createSingleIndex(geo);
+        }
+
         createOptimizedPrimitives(geo, 1, true, true, 16, false, _stitch);
     }
     

@@ -53,6 +53,8 @@
 
 #include "OSGGLFuncProtos.h"
 
+#include "OSGConceptPropertyChecks.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -178,27 +180,36 @@ UInt32 GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
                                       Window::GLObjectStatusE  mode,
                                       UInt32                   uiOptions)
 {
-    Window *win = pEnv->getWindow();
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
 
     if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh )
+       mode == Window::needrefresh )
     {
-        OSGGETGLFUNCBYID(OSGglBindBufferARB, osgGlBindBufferARB,
-                         _funcBindBuffer,    win                );
-        OSGGETGLFUNCBYID(OSGglBufferDataARB, osgGlBufferDataARB,
-                         _funcBufferData,    win                );
+        OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
+                                 osgGlBindBufferARB,
+                                _funcBindBuffer,    
+                                 pWin              );
+        OSGGETGLFUNCBYID_GL3_ES( glBufferData,
+                                 osgGlBufferDataARB,
+                                _funcBufferData,    
+                                 pWin              );
 
         osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
-        osgGlBufferDataARB(GL_ARRAY_BUFFER_ARB,
+
+        osgGlBufferDataARB(  GL_ARRAY_BUFFER_ARB,
                             _mfIData.size(),
-                            &_mfIData[0],
-                            GL_STATIC_DRAW_ARB);
+                           &_mfIData[0],
+                             GL_STATIC_DRAW_ARB);
+
         osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     }
     else
     {
-        SWARNING << "GeoMultiPropertyData(" << this << "::handleGL: Illegal mode: "
-             << mode << " for id " << id << std::endl;
+        SWARNING << "GeoMultiPropertyData(" << this 
+                 << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
     }
 
     return 0;
@@ -212,17 +223,21 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
                                UInt32                   id, 
                                Window::GLObjectStatusE  mode)
 {
-    Window *win = pEnv->getWindow();
-    
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
+
     if(mode == Window::destroy)
     {   
-        OSGGETGLFUNCBYID(OSGglDeleteBuffersARB, osgGlDeleteBuffers,
-                         _funcDeleteBuffers,    win                );
+        OSGGETGLFUNCBYID_GL3_ES( glDeleteBuffers, 
+                                 osgGlDeleteBuffers,
+                                _funcDeleteBuffers,    
+                                 pWin              );
 
         GLuint buf = id;
         osgGlDeleteBuffers(1, &buf);
 
-        win->setGLObjectId(id, 0);
+        pWin->setGLObjectId(id, 0);
     }
     else if(mode == Window::finaldestroy)
     {
@@ -231,7 +246,7 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
     else
     {
         SWARNING << "GeoMultiPropertyData::handleDestroyGL: Illegal mode: "
-             << mode << " for id " << id << std::endl;
+                 << mode << " for id " << id << std::endl;
     }
 
 }
@@ -275,7 +290,8 @@ bool GeoMultiPropertyData::operator < (const StateChunk &other) const
 
 bool GeoMultiPropertyData::operator == (const StateChunk &other) const
 {
-    GeoMultiPropertyData const *tother = dynamic_cast<GeoMultiPropertyData const*>(&other);
+    GeoMultiPropertyData const *tother = 
+        dynamic_cast<GeoMultiPropertyData const*>(&other);
 
     if(!tother)
         return false;

@@ -49,6 +49,7 @@
 #include "OSGGLU.h"
 
 #include "OSGMaterialChunk.h"
+#include "OSGShaderAttribute.h"
 
 OSG_USING_NAMESPACE
 
@@ -313,6 +314,9 @@ void MaterialChunk::activate(DrawEnv *, UInt32)
     {
         glDisable(GL_LIGHTING);
     }
+#else
+    glVertexAttrib4fv( ShaderConstants::Attribute3Index,
+                      _sfDiffuse.getValue().getValuesRGBA());
 #endif
 
 	glErr("material:activate:postcheck");
@@ -442,6 +446,9 @@ void MaterialChunk::changeFrom(DrawEnv    *,
             }
         }
     }
+#else
+    glVertexAttrib4fv( ShaderConstants::Attribute3Index,
+                      _sfDiffuse.getValue().getValuesRGBA());
 #endif
 
 	glErr("material:changed:postcheck");

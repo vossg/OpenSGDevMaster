@@ -93,9 +93,10 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
 #ifndef OSG_OGL_ES2
             case GL_TEXTURE_1D:
             {
-                OSGGETGLFUNC( OSGglFramebufferTexture1DProc,
-                              osgGlFramebufferTexture1DProc,
-                             _uiFuncFramebufferTexture1D   );
+                OSGGETGLFUNCBYID_GL3( glFramebufferTexture1D,
+                                      osgGlFramebufferTexture1DProc,
+                                     _uiFuncFramebufferTexture1D,
+                                      pWindow);
 
                 osgGlFramebufferTexture1DProc(
                     GL_FRAMEBUFFER_EXT, 
@@ -116,9 +117,10 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
             {
-                OSGGETGLFUNC( OSGglFramebufferTexture2DProc,
-                              osgGlFramebufferTexture2DProc,
-                             _uiFuncFramebufferTexture2D   );
+                OSGGETGLFUNCBYID_GL3_ES( glFramebufferTexture2D,
+                                         osgGlFramebufferTexture2DProc,
+                                        _uiFuncFramebufferTexture2D,
+                                         pWindow);
 
                 osgGlFramebufferTexture2DProc(
                     GL_FRAMEBUFFER_EXT, 
@@ -131,9 +133,10 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                 
             case GL_TEXTURE_3D:
             {
-                OSGGETGLFUNC( OSGglFramebufferTexture3DProc,
-                              osgGlFramebufferTexture3DProc,
-                             _uiFuncFramebufferTexture3D   );
+                OSGGETGLFUNCBYID_GL3( glFramebufferTexture3D,
+                                      osgGlFramebufferTexture3DProc,
+                                     _uiFuncFramebufferTexture3D,
+                                      pWindow);
 
                 osgGlFramebufferTexture3DProc(
                     GL_FRAMEBUFFER_EXT, 
@@ -261,9 +264,10 @@ void TextureBuffer::processPostDeactivate(DrawEnv *pEnv)
         pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_LINEAR  ||
         pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_LINEAR     )   )
     {
-        OSGGETGLFUNC( OSGglGenerateMipmapProc,
-                      osgGlGenerateMipmapProc,
-                     _uiFuncGenerateMipmap  );
+        OSGGETGLFUNCBYID_GL3_ES( glGenerateMipmap,
+                                 osgGlGenerateMipmapProc,
+                                _uiFuncGenerateMipmap,
+                                 win);
 
         glBindTexture(target, win->getGLObjectId(pTexObj->getGLId()));
 

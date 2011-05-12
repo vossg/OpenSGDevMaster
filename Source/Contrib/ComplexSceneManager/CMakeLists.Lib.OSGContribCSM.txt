@@ -76,7 +76,8 @@ ELSE()
         ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.fcd
         ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptionsFields.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.inl)
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Native-X/testClusterServerX.cpp)
 ENDIF()
 
 IF(_BUILD_CSM_WINDOWX)

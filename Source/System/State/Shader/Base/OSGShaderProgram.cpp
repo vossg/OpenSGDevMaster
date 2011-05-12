@@ -512,7 +512,7 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 {
     Window *pWin = pEnv->getWindow();
 
-    if(pWin->hasExtension(_extSHL) == false)
+    if(pWin->hasExtOrVersion(_extSHL, 0x0200, 0x0200) == false)
     {
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));
@@ -544,9 +544,10 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 //            if(uiShader == 0)
             if(mode == Window::initialize)
             {      
-                OSGGETGLFUNC(OSGglCreateShaderProc,
-                             osgGlCreateShader,
-                             FuncIdCreateShader);
+                OSGGETGLFUNCBYID_GL3_ES(glCreateShader,
+                                        osgGlCreateShader,
+                                        FuncIdCreateShader,
+                                        pWin);
 
                 GLenum shaderType = _sfShaderType.getValue();
 
@@ -576,17 +577,20 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
             const Char8 *source = _sfProgram.getValue().c_str();
 
-            OSGGETGLFUNC(OSGglShaderSourceProc,
-                         osgGlShaderSource,
-                         FuncIdShaderSource);
+            OSGGETGLFUNCBYID_GL3_ES(glShaderSource,
+                                    osgGlShaderSource,
+                                    FuncIdShaderSource,
+                                    pWin);
 
-            OSGGETGLFUNC(OSGglCompileShaderProc,
-                         osgGlCompileShader,
-                         FuncIdCompileShader);
+            OSGGETGLFUNCBYID_GL3_ES(glCompileShader,
+                                    osgGlCompileShader,
+                                    FuncIdCompileShader,
+                                    pWin);
 
-            OSGGETGLFUNC(OSGglGetShaderivProc,
-                         osgGlGetShaderiv,
-                         FuncIdGetShaderiv);
+            OSGGETGLFUNCBYID_GL3_ES(glGetShaderiv,
+                                    osgGlGetShaderiv,
+                                    FuncIdGetShaderiv,
+                                    pWin);
 
             osgGlShaderSource(uiShader, 
                               1, 
@@ -612,9 +616,10 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
                 szDebug = new Char8[iDebugLength];
 
-                OSGGETGLFUNC(OSGglGetShaderInfoLogProc,
-                             osgGlGetShaderInfoLog,
-                             FuncIdGetShaderInfoLog);
+                OSGGETGLFUNCBYID_GL3_ES(glGetShaderInfoLog,
+                                        osgGlGetShaderInfoLog,
+                                        FuncIdGetShaderInfoLog,
+                                        pWin);
 
                 osgGlGetShaderInfoLog( uiShader, 
                                        iDebugLength, 
@@ -627,9 +632,10 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
                 delete [] szDebug;
 
-                OSGGETGLFUNC(OSGglDeleteShaderProc,
-                             osgGlDeleteShader,
-                             FuncIdDeleteShader);
+                OSGGETGLFUNCBYID_GL3_ES(glDeleteShader,
+                                        osgGlDeleteShader,
+                                        FuncIdDeleteShader,
+                                        pWin);
 
                 osgGlDeleteShader(uiShader);
 
@@ -655,7 +661,7 @@ void ShaderProgram::handleDestroyGL(DrawEnv                 *pEnv,
 {
     Window *pWin = pEnv->getWindow();
 
-    if(!pWin->hasExtension(_extSHL))
+    if(!pWin->hasExtOrVersion(_extSHL, 0x0200, 0x0200))
     {
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));
@@ -671,9 +677,10 @@ void ShaderProgram::handleDestroyGL(DrawEnv                 *pEnv,
 
         if(uiShader != 0)
         {
-            OSGGETGLFUNC(OSGglDeleteShaderProc,
-                         osgGlDeleteShader,
-                         FuncIdDeleteShader);
+            OSGGETGLFUNCBYID_GL3_ES(glDeleteShader,
+                                    osgGlDeleteShader,
+                                    FuncIdDeleteShader,
+                                    pWin);
             
             osgGlDeleteShader(uiShader);
 

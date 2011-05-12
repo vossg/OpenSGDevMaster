@@ -572,7 +572,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;
 
 #ifdef GL_ARB_point_sprite
-    if(getPointSprite() && win->hasExtension(_extPointSprite))
+    if(getPointSprite() && win->hasExtOrVersion(_extPointSprite, 0x0200))
     {
         if(idx < static_cast<UInt32>(ntexcoords))
         {
@@ -581,7 +581,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-    if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
+    if(getLodBias() != 0.0f && win->hasExtOrVersion(_extTextureLodBias, 0x0104))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT,
                   GL_TEXTURE_LOD_BIAS_EXT,
@@ -743,7 +743,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
     if(idx < ntexcoords)
     {
         if(oldp->getPointSprite() != getPointSprite() &&
-           win->hasExtension(_extPointSprite))
+           win->hasExtOrVersion(_extPointSprite, 0x0200))
         {
             glTexEnvi(GL_POINT_SPRITE_ARB,
                       GL_COORD_REPLACE_ARB,
@@ -753,7 +753,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
 #endif
 
     if(oldp->getLodBias() != getLodBias() &&
-       win->hasExtension(_extTextureLodBias))
+       win->hasExtOrVersion(_extTextureLodBias, 0x0104))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT,
                   GL_TEXTURE_LOD_BIAS_EXT,
@@ -918,7 +918,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
 #ifdef GL_ARB_point_sprite
     if(getPointSprite() &&
-       win->hasExtension(_extPointSprite) &&
+       win->hasExtOrVersion(_extPointSprite, 0x0200) &&
        idx < static_cast<UInt32>(ntexcoords) )
     {
         if(!isActive)
@@ -931,7 +931,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-    if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
+    if(getLodBias() != 0.0f && win->hasExtOrVersion(_extTextureLodBias, 0x0104))
     {
         if(!isActive)
         {

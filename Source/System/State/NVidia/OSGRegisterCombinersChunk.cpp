@@ -54,6 +54,8 @@
 #include "OSGRegisterCombinersChunk.h"
 #include "OSGWindow.h"
 
+#include "OSGGLFuncProtos.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -187,59 +189,32 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
  
     // functions
  
-    void (OSG_APIENTRY*CombinerParameterfv)(GLenum pname, GLfloat *params) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, GLfloat *params)>(
-            win->getFunction(_funcCombinerParameterfv));
+    OSGGETGLFUNCBYID_EXT( glCombinerParameterfvNV,
+                          CombinerParameterfv,
+                         _funcCombinerParameterfv,
+                          win);
+
+    OSGGETGLFUNCBYID_EXT( glCombinerStageParameterfvNV,
+                          CombinerStageParameterfv,
+                         _funcCombinerStageParameterfv,
+                          win);
   
-    void (OSG_APIENTRY*CombinerStageParameterfv)(GLenum stage, 
-                                                 GLenum pname, 
-                                                 GLfloat *params) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
-                                              GLenum pname, 
-                                              GLfloat *params)>(
-        win->getFunction(_funcCombinerStageParameterfv));
- 
-    void (OSG_APIENTRY*CombinerInput)(GLenum stage, 
-                                      GLenum portion, 
-                                      GLenum variable, 
-                                      GLenum input, 
-                                      GLenum mapping, 
-                                      GLenum component) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
-                                              GLenum portion, 
-                                              GLenum variable, 
-                                              GLenum input, 
-                                              GLenum mapping, 
-                                              GLenum component)>(
-        win->getFunction(_funcCombinerInput));
- 
-    void (OSG_APIENTRY*CombinerOutput)(GLenum stage, GLenum portion, 
-                           GLenum abOut, GLenum cdOut, GLenum sumOut, 
-                           GLenum scale, GLenum bias, 
-                           GLboolean abdot, GLboolean cddot, 
-                           GLboolean muxSum) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
-                                              GLenum portion, 
-                                              GLenum abOut, 
-                                              GLenum cdOut, 
-                                              GLenum sumOut, 
-                                              GLenum scale, 
-                                              GLenum bias, 
-                                              GLboolean abdot, 
-                                              GLboolean cddot, 
-                                              GLboolean muxSum)>(
-            win->getFunction(_funcCombinerOutput));
- 
-    void (OSG_APIENTRY*FinalCombinerInput)(GLenum variable, 
-                                           GLenum input, 
-                                           GLenum mapping, 
-                                           GLenum component) = 
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum variable, 
-                                              GLenum input, 
-                                              GLenum mapping, 
-                                              GLenum component)>(
-            win->getFunction(_funcFinalCombinerInput));
-    
+    OSGGETGLFUNCBYID_EXT( glCombinerInputNV,
+                          CombinerInput,
+                         _funcCombinerInput,
+                          win);
+
+    OSGGETGLFUNCBYID_EXT( glCombinerOutputNV,
+                          CombinerOutput,
+                         _funcCombinerOutput,
+                          win);
+
+    OSGGETGLFUNCBYID_EXT( glFinalCombinerInputNV,
+                          FinalCombinerInput,
+                         _funcFinalCombinerInput,
+                          win);
+
+   
     // how many combiners do we need?
     
     Int32 ncomb;

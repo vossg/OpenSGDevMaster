@@ -54,6 +54,8 @@
 
 #include "OSGGLFuncProtos.h"
 
+#include "OSGConceptPropertyChecks.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -252,34 +254,45 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
                              UInt32                   uiOptions)
 {
     GLuint  glid;
-    Window *win = pEnv->getWindow();
+
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
 
     if(mode == Window::initialize || mode == Window::reinitialize ||
        mode == Window::needrefresh )
     {
         if(mode == Window::initialize)
         {
-            OSGGETGLFUNCBYID(OSGglGenBuffersARB, osgGlGenBuffersARB,
-                             _funcGenBuffers, win);
+            OSGGETGLFUNCBYID_GL3_ES( glGenBuffers, 
+                                     osgGlGenBuffersARB,
+                                    _funcGenBuffers, 
+                                     pWin);
 
             osgGlGenBuffersARB(1, &glid);
 
-            win->setGLObjectId(id, glid);
+            pWin->setGLObjectId(id, glid);
         }
         else
         {
-            glid = win->getGLObjectId(id);
+            glid = pWin->getGLObjectId(id);
         }
 
-        OSGGETGLFUNCBYID(OSGglBindBufferARB, osgGlBindBufferARB,
-                         _funcBindBuffer, win);
+        OSGGETGLFUNCBYID_GL3_ES( glBindBuffer,
+                                 osgGlBindBufferARB,
+                                _funcBindBuffer, 
+                                 pWin);
 
-        OSGGETGLFUNCBYID(OSGglBufferDataARB, osgGlBufferDataARB,
-                         _funcBufferData, win);
+        OSGGETGLFUNCBYID_GL3_ES( glBufferData, 
+                                 osgGlBufferDataARB,
+                                _funcBufferData, 
+                                 pWin);
 
-        OSGGETGLFUNCBYID(OSGglBufferSubDataARB, osgGlBufferSubDataARB,
-                         _funcBufferSubData, win);
-
+        OSGGETGLFUNCBYID_GL3_ES( glBufferSubData, 
+                                 osgGlBufferSubDataARB,
+                                _funcBufferSubData, 
+                                 pWin);
+        
         osgGlBindBufferARB(getBufferType(), glid);
 
         if(mode == Window::initialize || mode == Window::reinitialize)
@@ -314,18 +327,23 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
                                Window::GLObjectStatusE  mode)
 {
     GLuint glid;
-    Window *win = pEnv->getWindow();
+
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
 
     if(mode == Window::destroy)
     {   
-        OSGGETGLFUNCBYID(OSGglDeleteBuffersARB, osgGlDeleteBuffers,
-                         _funcDeleteBuffers, win);
+        OSGGETGLFUNCBYID_GL3_ES( glDeleteBuffers, 
+                                 osgGlDeleteBuffers,
+                                _funcDeleteBuffers, 
+                                 pWin);
 
-        glid = win->getGLObjectId(id);
+        glid = pWin->getGLObjectId(id);
 
         osgGlDeleteBuffers(1, &glid);
 
-        win->setGLObjectId(id, 0);
+        pWin->setGLObjectId(id, 0);
     }
     else if(mode == Window::finaldestroy)
     {

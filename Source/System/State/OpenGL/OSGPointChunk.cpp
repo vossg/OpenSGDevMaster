@@ -52,6 +52,7 @@
 #include "OSGDrawEnv.h"
 
 #include "OSGPointChunk.h"
+#include "OSGConceptPropertyChecks.h"
 
 OSG_USING_NAMESPACE
 
@@ -89,11 +90,13 @@ void PointChunk::initMethod(InitPhase ePhase)
         _extPointSpriteNV       =
             Window::registerExtension("GL_NV_point_sprite");
         _funcIdPointParameterf  =
-            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glPointParameterfARB",
-                                      _extPointParameters);
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glPointParameterfARB",
+                _extPointParameters);
         _funcIdPointParameterfv =
-            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glPointParameterfvARB",
-                                      _extPointParameters);
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glPointParameterfvARB",
+                _extPointParameters);
     }
 }
 
@@ -157,18 +160,24 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
         glEnable(GL_POINT_SMOOTH);
 #endif
 
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
+
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_extPointParameters))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointParameters, 0x0104))
         {
-            OSGGETGLFUNC(OSGglPointParameterfProc,
-                         osgGlPointParameterf,
-                         _funcIdPointParameterf);
+            OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                  osgGlPointParameterf,
+                                 _funcIdPointParameterf,
+                                  pWin);
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-            OSGGETGLFUNC(OSGglPointParameterfvProc,
-                         osgGlPointParameterfv,
-                         _funcIdPointParameterfv);
+            OSGGETGLFUNCBYID_GL3( glPointParameterfv,
+                                  osgGlPointParameterfv,
+                                 _funcIdPointParameterfv,
+                                  pWin);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
@@ -192,14 +201,15 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
 #if GL_ARB_point_sprite
     if(getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointSpriteARB, 0x0200))
         {
 #if GL_NV_point_sprite
             if(pEnv->getWindow()->hasExtension(_extPointSpriteNV))
             {
-                OSGGETGLFUNC(OSGglPointParameterfProc,
-                             osgGlPointParameterf,
-                             _funcIdPointParameterf);
+                OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                      osgGlPointParameterf,
+                                     _funcIdPointParameterf,
+                                      pWin);
 
                 osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, 
                                      Real32(getRMode()));
@@ -239,18 +249,24 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
     }
 #endif
 
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
+
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_extPointParameters))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointParameters, 0x0104))
         {
-            OSGGETGLFUNC(OSGglPointParameterfProc,
-                         osgGlPointParameterf,
-                         _funcIdPointParameterf);
+            OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                  osgGlPointParameterf,
+                                 _funcIdPointParameterf,
+                                  pWin);
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-            OSGGETGLFUNC(OSGglPointParameterfvProc,
-                         osgGlPointParameterfv,
-                         _funcIdPointParameterfv);
+            OSGGETGLFUNCBYID_GL3( glPointParameterfv,
+                                  osgGlPointParameterfv,
+                                 _funcIdPointParameterfv,
+                                  pWin);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
@@ -270,15 +286,17 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
     }
     else if(old->getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_extPointParameters))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointParameters, 0x0104))
         {
-            OSGGETGLFUNC(OSGglPointParameterfProc,
-                         osgGlPointParameterf,
-                         _funcIdPointParameterf);
+            OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                  osgGlPointParameterf,
+                                 _funcIdPointParameterf,
+                                  pWin);
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-            OSGGETGLFUNC(OSGglPointParameterfvProc,
-                         osgGlPointParameterfv,
-                         _funcIdPointParameterfv);
+            OSGGETGLFUNCBYID_GL3( glPointParameterfv,
+                                  osgGlPointParameterfv,
+                                 _funcIdPointParameterfv,
+                                  pWin);
 
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
@@ -298,16 +316,18 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
 #if GL_ARB_point_sprite
     if(getSprite() && !old->getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointSpriteARB, 0x0200))
         {
 #if GL_NV_point_sprite
             if(pEnv->getWindow()->hasExtension(_extPointSpriteNV))
             {
-                OSGGETGLFUNC(OSGglPointParameterfProc,
-                             osgGlPointParameterf,
-                             _funcIdPointParameterf);
+                OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                      osgGlPointParameterf,
+                                     _funcIdPointParameterf,
+                                      pWin);
 
-                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
+                osgGlPointParameterf(GL_POINT_SPRITE_R_MODE_NV, 
+                                     Real32(getRMode()));
             }
 #endif
             
@@ -317,7 +337,7 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
     }
     else if(!getSprite() && old->getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointSpriteARB, 0x0200))
         {
            glDisable(GL_POINT_SPRITE_ARB);
         }
@@ -338,6 +358,10 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
         glPointSize(1.f);
 #endif
 
+    Window *pWin = pEnv->getWindow();
+
+    osgSinkUnusedWarning(pWin);
+
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getSmooth())
         glDisable(GL_POINT_SMOOTH);
@@ -346,15 +370,17 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
 #if GL_ARB_point_parameters
     if(getMinSize() >= 0.f)
     {
-        if(pEnv->getWindow()->hasExtension(_extPointParameters))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointParameters, 0x0104))
         {
-            OSGGETGLFUNC(OSGglPointParameterfProc,
-                         osgGlPointParameterf,
-                         _funcIdPointParameterf);
+            OSGGETGLFUNCBYID_GL3( glPointParameterf,
+                                  osgGlPointParameterf,
+                                 _funcIdPointParameterf,
+                                  pWin);
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-            OSGGETGLFUNC(OSGglPointParameterfvProc,
-                         osgGlPointParameterfv,
-                         _funcIdPointParameterfv);
+            OSGGETGLFUNCBYID_GL3( glPointParameterfv,
+                                  osgGlPointParameterfv,
+                                 _funcIdPointParameterfv,
+                                  pWin);
  
             osgGlPointParameterf(GL_POINT_SIZE_MIN_ARB, 0);
             osgGlPointParameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
@@ -375,7 +401,7 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
 #if GL_ARB_point_sprite
     if(getSprite())
     {
-        if(pEnv->getWindow()->hasExtension(_extPointSpriteARB))
+        if(pEnv->getWindow()->hasExtOrVersion(_extPointSpriteARB, 0x0200))
         {
             glDisable(GL_POINT_SPRITE_ARB);
         }

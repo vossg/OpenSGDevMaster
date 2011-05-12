@@ -264,6 +264,31 @@ void WindowBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
+//! Get the value of the Window::_sfIgnoreAllExtensions field.
+
+inline
+bool &WindowBase::editIgnoreAllExtensions(void)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    return _sfIgnoreAllExtensions.getValue();
+}
+
+//! Get the value of the Window::_sfIgnoreAllExtensions field.
+inline
+      bool  WindowBase::getIgnoreAllExtensions(void) const
+{
+    return _sfIgnoreAllExtensions.getValue();
+}
+
+//! Set the value of the Window::_sfIgnoreAllExtensions field.
+inline
+void WindowBase::setIgnoreAllExtensions(const bool value)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    _sfIgnoreAllExtensions.setValue(value);
+}
 //! Get the value of the Window::_sfDrawMode field.
 
 inline
@@ -413,6 +438,9 @@ void WindowBase::execSync (      WindowBase *pFrom,
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
+
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+        _sfIgnoreAllExtensions.syncWith(pFrom->_sfIgnoreAllExtensions);
 
     if(FieldBits::NoField != (DrawModeFieldMask & whichField))
         _sfDrawMode.syncWith(pFrom->_sfDrawMode);

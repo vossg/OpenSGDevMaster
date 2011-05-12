@@ -50,6 +50,8 @@
 #include "OSGGeoMultiProperty.h"
 #include "OSGDrawEnv.h"
 
+#include "OSGGLFuncProtos.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -245,7 +247,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;
     
-    if(!win->hasExtension(_extVertexBufferObject))
+    if(!win->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
     {
         FWARNING(("GeoMultiProperty::activate: Window %p doesn't "
                   "support VBOs!\n", win));
@@ -255,107 +257,107 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     win->validateGLObject(getContainer()->getGLId(), pEnv);
 
      // get "glBindBufferARB" function pointer
-    void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
-        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint buffer)>(
-            pEnv->getWindow()->getFunction(_funcBindBuffer));
-    
-    _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 
-                     win->getGLObjectId(getContainer()->getGLId()));
+
+    OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
+                             osgGlBindBufferARB,
+                            _funcBindBuffer, 
+                             win);
+   
+    osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 
+                       win->getGLObjectId(getContainer()->getGLId()));
 
 #define BUFFER_OFFSET(i)     (static_cast<char *>(NULL) + (i))
 
     if(isGeneric)
     {
-        void (OSG_APIENTRY*_glVertexAttribPointerARB) (GLuint index, 
-                                                       GLint size, 
-                                                       GLenum type, 
-                                                       GLboolean normalized,
-                                                       GLsizei stride, 
-                                                       const GLvoid *pointer)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLuint index, 
-                                                   GLint size, 
-                                                   GLenum type, 
-                                                   GLboolean normalized, 
-                                                   GLsizei stride, 
-                                                   const GLvoid *pointer)>(
-                win->getFunction(_funcglVertexAttribPointerARB));
+        OSGGETGLFUNCBYID_GL3_ES( glVertexAttribPointer, 
+                                 osgGlVertexAttribPointerARB,
+                                _funcglVertexAttribPointerARB,
+                                 win);
 
-        _glVertexAttribPointerARB(slot, getDimension(), 
-                                  getFormat(), 
-                                  getNormalize(),
-                                  getStride(), 
-                                  BUFFER_OFFSET(getOffset()));
+        osgGlVertexAttribPointerARB(slot, 
+                                    getDimension(), 
+                                    getFormat(), 
+                                    getNormalize(),
+                                    getStride(), 
+                                    BUFFER_OFFSET(getOffset()));
 
-        void (OSG_APIENTRY*_glEnableVertexAttribArrayARB)(GLuint index)=
-            reinterpret_cast<void (OSG_APIENTRY*) (GLuint index)>(
-                win->getFunction(_funcglEnableVertexAttribArrayARB));
-
-        _glEnableVertexAttribArrayARB(slot);
+        OSGGETGLFUNCBYID_GL3_ES( glEnableVertexAttribArray,
+                                 osgGlEnableVertexAttribArrayARB,
+                                _funcglEnableVertexAttribArrayARB,
+                                 win);
+ 
+        osgGlEnableVertexAttribArrayARB(slot);
     }
     else
     {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         switch(slot)
         {
-        case 0:     glVertexPointer(getDimension(), getFormat(),
-                        getStride(), BUFFER_OFFSET(getOffset()));
-                    glEnableClientState(GL_VERTEX_ARRAY);
-                    break;
-        case 2:     glNormalPointer(getFormat(),
-                        getStride(), BUFFER_OFFSET(getOffset()));
-                    glEnableClientState(GL_NORMAL_ARRAY);
-                    break;
-        case 3:     glColorPointer(getDimension(), getFormat(),
-                        getStride(), BUFFER_OFFSET(getOffset()));
-                    glEnableClientState(GL_COLOR_ARRAY);
-                    break;
-        case 4:     if (win->hasExtension(_extSecondaryColor))
-                    {
-                         void (OSG_APIENTRY*_glSecondaryColorPointerEXT)
-                              (GLint size,GLenum type,GLsizei stride,
-                               const GLvoid *pointer)=
-                             reinterpret_cast<void (OSG_APIENTRY*)(
-                                                   GLint size,
-                                                   GLenum type,
-                                                   GLsizei stride,
-                                                   const GLvoid *pointer)>(
-                                win->getFunction(_funcglSecondaryColorPointer));
+            case 0:     
+                glVertexPointer(getDimension(), getFormat(),
+                                getStride(), BUFFER_OFFSET(getOffset()));
+                glEnableClientState(GL_VERTEX_ARRAY);
+                break;
+            case 2:     
+                glNormalPointer(getFormat(),
+                                getStride(), BUFFER_OFFSET(getOffset()));
+                glEnableClientState(GL_NORMAL_ARRAY);
+                break;
+            case 3:     
+                glColorPointer(getDimension(), getFormat(),
+                               getStride(), BUFFER_OFFSET(getOffset()));
+                glEnableClientState(GL_COLOR_ARRAY);
+                break;
+            case 4:     
+                if (win->hasExtOrVersion(_extSecondaryColor, 0x0104))
+                {
+                    OSGGETGLFUNCBYID_EXT( glSecondaryColorPointer,
+                                          osgGlSecondaryColorPointerEXT,
+                                         _funcglSecondaryColorPointer,
+                                          win);
 
-                        _glSecondaryColorPointerEXT(getDimension(),
-                                                    getFormat(),
-                                                    getStride(), BUFFER_OFFSET(getOffset()));
-                        glEnableClientState(GL_SECONDARY_COLOR_ARRAY_EXT);
-                    }
-                    else
-                    {
-                        FWARNING(("GeoVectorProperty::activate: Window "
-                                    "has no Secondary Color extension\n"));
-                    }
-                    break;
-        case 8:  case 9: 
-        case 10: case 11: 
-        case 12: case 13: 
-        case 14: case 15: 
-                    {
-                    void (OSG_APIENTRY*_glClientActiveTextureARB) 
-                        (GLenum type)= 
-                        reinterpret_cast<void (OSG_APIENTRY*) (GLenum type)>(
-                            win->getFunction(_funcglClientActiveTextureARB));
-                        
-                    _glClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
-                    glTexCoordPointer(getDimension(), getFormat(),
-                                      getStride(), BUFFER_OFFSET(getOffset()));
-                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-                    }
-                    break;
-        default:    FWARNING(("GeoVectorProperty::activate: Non-Generic"
-                        " attribute nr. %d unknown!\n", slot));
-                    break;
+                    osgGlSecondaryColorPointerEXT(getDimension(),
+                                                  getFormat(),
+                                                  getStride(), 
+                                                  BUFFER_OFFSET(getOffset()));
+
+                    glEnableClientState(GL_SECONDARY_COLOR_ARRAY_EXT);
+                }
+                else
+                {
+                    FWARNING(("GeoVectorProperty::activate: Window "
+                              "has no Secondary Color extension\n"));
+                }
+                break;
+            case 8:  case 9: 
+            case 10: case 11: 
+            case 12: case 13: 
+            case 14: case 15: 
+            {
+                OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
+                                         osgGlClientActiveTextureARB,
+                                        _funcglClientActiveTextureARB,
+                                         win);
+
+                osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
+
+                glTexCoordPointer(getDimension(), 
+                                  getFormat(),
+                                  getStride(), 
+                                  BUFFER_OFFSET(getOffset()));
+
+                glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            }
+            break;
+            default:    FWARNING(("GeoVectorProperty::activate: Non-Generic"
+                                  " attribute nr. %d unknown!\n", slot));
+                break;
         }     
 #endif
     } // isGeneric
 
-    _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 void GeoMultiProperty::changeFrom(DrawEnv    *pEnv, 
@@ -392,7 +394,8 @@ bool GeoMultiProperty::operator < (const StateChunk &other) const
 
 bool GeoMultiProperty::operator == (const StateChunk &other) const
 {
-    GeoMultiProperty const *tother = dynamic_cast<GeoMultiProperty const*>(&other);
+    GeoMultiProperty const *tother = 
+        dynamic_cast<GeoMultiProperty const*>(&other);
 
     if(!tother)
         return false;

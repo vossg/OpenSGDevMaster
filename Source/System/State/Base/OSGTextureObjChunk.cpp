@@ -474,16 +474,15 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
-        if( bindtarget                   == GL_TEXTURE_3D && 
-           !win->hasExtension(_extTex3D)                  &&
-            win->getGLVersion()          <   0x0102        )
+        if( bindtarget == GL_TEXTURE_3D && 
+            !win->hasExtOrVersion(_extTex3D, 0x0102))
         {
             FWARNING(("3D textures not supported on Window %p!\n", win));
             return;
         }
 
         if(imgtarget == GL_TEXTURE_RECTANGLE_ARB &&
-           !win->hasExtension(_arbTextureRectangle))
+           !win->hasExtOrVersion(_arbTextureRectangle, 0x0301))
         {
             FWARNING(("Rectangular textures not supported on Window %p!\n",
                       win));
@@ -491,14 +490,14 @@ void TextureObjChunk::handleTexture(Window                  *win,
         }
 
         if(paramtarget == GL_TEXTURE_CUBE_MAP_ARB &&
-           !win->hasExtension(_arbCubeTex))
+           !win->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200))
         {
             FNOTICE(("Cube textures not supported on Window %p!\n", win));
             return;
         }
 
         if(img->hasCompressedData() &&
-           !win->hasExtension(_arbTextureCompression))
+           !win->hasExtOrVersion(_arbTextureCompression, 0x0103, 0x0200))
         {
             FWARNING(("Compressed textures not supported on Window %p!\n",
                       win));
@@ -514,24 +513,42 @@ void TextureObjChunk::handleTexture(Window                  *win,
 #endif
 
         // 3D texture functions
-        OSGGETGLFUNCBYID(OSGglTexImage3D,    TexImage3D,
-                         _funcTexImage3D,    win);
-        OSGGETGLFUNCBYID(OSGglTexSubImage3D, TexSubImage3D,
-                         _funcTexSubImage3D, win);
+        OSGGETGLFUNCBYID_GL3( glTexImage3D,    
+                              TexImage3D,
+                             _funcTexImage3D,    
+                              win);
+        OSGGETGLFUNCBYID_GL3( glTexSubImage3D, 
+                              TexSubImage3D,
+                             _funcTexSubImage3D, 
+                              win);
 
+#ifndef OSG_OGL_ES2
         // Compressed texture functions
-        OSGGETGLFUNCBYID(OSGglCompressedTexImage1D,    CompressedTexImage1D,
-                         _funcCompressedTexImage1D,    win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage1D, CompressedTexSubImage1D,
-                         _funcCompressedTexSubImage1D, win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexImage2D,    CompressedTexImage2D,
-                         _funcCompressedTexImage2D,    win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage2D, CompressedTexSubImage2D,
-                         _funcCompressedTexSubImage2D, win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexImage3D,    CompressedTexImage3D,
-                         _funcCompressedTexImage3D,    win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage3D, CompressedTexSubImage3D,
-                         _funcCompressedTexSubImage3D, win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexImage1D,    
+                                 CompressedTexImage1D,
+                                _funcCompressedTexImage1D,    
+                                 win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage1D, 
+                                 CompressedTexSubImage1D,
+                                _funcCompressedTexSubImage1D, 
+                                 win);
+#endif
+        OSGGETGLFUNCBYID_GL3_ES( glCompressedTexImage2D,    
+                                 CompressedTexImage2D,
+                                _funcCompressedTexImage2D,    
+                                 win);
+        OSGGETGLFUNCBYID_GL3_ES( glCompressedTexSubImage2D, 
+                                 CompressedTexSubImage2D,
+                                _funcCompressedTexSubImage2D, 
+                                 win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexImage3D,    
+                                 CompressedTexImage3D,
+                                _funcCompressedTexImage3D,    
+                                 win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage3D, 
+                                 CompressedTexSubImage3D,
+                                _funcCompressedTexSubImage3D, 
+                                 win);
 
         // as we're not allocating anything here, the same code can be used
         // for reinitialization
@@ -545,7 +562,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
         if(paramtarget != GL_NONE)
         {
             // set the parameters
-#ifndef OSG_OGL_ES2
+#if !defined(OSG_OGL_COREONLY) && !defined(OSG_OGL_ES2)
             glTexParameterf(paramtarget, GL_TEXTURE_PRIORITY,   getPriority());
 #endif
             glTexParameteri(paramtarget, GL_TEXTURE_MIN_FILTER, getMinFilter());
@@ -582,7 +599,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
 #endif
 
              if(getCompareMode() != GL_NONE &&
-                win->hasExtension(_extShadow))
+                win->hasExtOrVersion(_extShadow, 0x0104))
              {
                  glTexParameteri(paramtarget,
                                  GL_TEXTURE_COMPARE_MODE,
@@ -593,7 +610,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
              }
 
              if(getDepthMode() != GL_LUMINANCE &&
-                win->hasExtension(_extDepthTexture))
+                win->hasExtOrVersion(_extDepthTexture, 0x0104))
              {
                  glTexParameteri(paramtarget,
                                  GL_DEPTH_TEXTURE_MODE,
@@ -777,7 +794,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
             if(! defined)
             {
                 // Nope, do we have SGIS_generate_mipmaps?
-                if(win->hasExtension(_sgisGenerateMipmap))
+                if(win->hasExtOrVersion(_sgisGenerateMipmap, 0x0104))
                 {
                     if(paramtarget != GL_NONE)
                     {
@@ -947,7 +964,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
             // Do we need to massage the texture or can we just use it?
             if(imgtarget != GL_TEXTURE_RECTANGLE_ARB &&
-               !win->hasExtension(_arbTextureNonPowerOfTwo) &&
+               !win->hasExtOrVersion(_arbTextureNonPowerOfTwo, 
+                                     0x0200, 0x0200          ) &&
                (!osgIsPower2(width) || !osgIsPower2(height) || 
                 !osgIsPower2(depth)))
             {
@@ -1278,22 +1296,31 @@ void TextureObjChunk::handleTexture(Window                  *win,
     else if(mode == Window::needrefresh)
     {
         // 3D texture functions
-        OSGGETGLFUNCBYID(OSGglTexSubImage3D, TexSubImage3D,
-                         _funcTexSubImage3D, win);
+        OSGGETGLFUNCBYID_GL3( glTexSubImage3D, 
+                              TexSubImage3D,
+                             _funcTexSubImage3D, 
+                              win);
 
+#ifndef OSG_OGL_ES2
         // Compressed texture functions
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage1D, CompressedTexSubImage1D,
-                         _funcCompressedTexSubImage1D, win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage2D, CompressedTexSubImage2D,
-                         _funcCompressedTexSubImage2D, win);
-        OSGGETGLFUNCBYID(OSGglCompressedTexSubImage3D, CompressedTexSubImage3D,
-                         _funcCompressedTexSubImage3D, win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage1D, 
+                                 CompressedTexSubImage1D,
+                                _funcCompressedTexSubImage1D, 
+                                 win);
+#endif
+        OSGGETGLFUNCBYID_GL3_ES( glCompressedTexSubImage2D, 
+                                 CompressedTexSubImage2D,
+                                _funcCompressedTexSubImage2D, 
+                                 win);
+        OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage3D, 
+                                 CompressedTexSubImage3D,
+                                _funcCompressedTexSubImage3D, 
+                                 win);
 
         GLenum externalFormat = img->getPixelFormat();
         GLenum type           = img->getDataType();
         bool   compressedData = img->hasCompressedData();
-        bool   has3DTex       = win->hasExtension(_extTex3D) ||
-                                win->getGLVersion() >= 0x0102;
+        bool   has3DTex       = win->hasExtOrVersion(_extTex3D, 0x0102);
 
         if(bindtarget == GL_TEXTURE_3D && !has3DTex)
         {
@@ -1308,10 +1335,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
             externalFormat = getExternalFormat();
 
         if(!getScale() || imgtarget == GL_TEXTURE_RECTANGLE_ARB
-                       || win->hasExtension(_arbTextureNonPowerOfTwo)
-                       ||  (osgIsPower2(img->getWidth() ) &&
-                            osgIsPower2(img->getHeight()) &&
-                            osgIsPower2(img->getDepth() )
+           || win->hasExtOrVersion(_arbTextureNonPowerOfTwo, 0x0200, 0x0200)
+           ||  (osgIsPower2(img->getWidth() ) &&
+                osgIsPower2(img->getHeight()) &&
+                osgIsPower2(img->getDepth() )
           )                )
         {
             // activate the texture
@@ -1455,7 +1482,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
             if(paramtarget != GL_NONE)
             {
-#ifndef OSG_OGL_ES2
+#if !defined(OSG_OGL_COREONLY) && !defined(OSG_OGL_ES2)
                 glTexParameterf(paramtarget, GL_TEXTURE_PRIORITY,
                                   getPriority());
 #endif
@@ -1513,8 +1540,7 @@ UInt32 TextureObjChunk::handleGL(DrawEnv                 *pEnv,
                 {
                     if(img->getDepth() > 1)
                     {
-                        if(win->hasExtension(_extTex3D) ||
-                           win->getGLVersion() >= 0x0102)
+                        if(win->hasExtOrVersion(_extTex3D, 0x0102))
                         {
                             target = GL_TEXTURE_3D;
                         }
@@ -1678,8 +1704,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         {
             if(img->getDepth() > 1)
             {
-                if(win->hasExtension(_extTex3D) ||
-                   win->getGLVersion() >= 0x0102)
+                if(win->hasExtOrVersion(_extTex3D, 0x0102))
                 {
                     target = GL_TEXTURE_3D;
                 }
@@ -1838,8 +1863,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
         {
             if(img->getDepth() > 1)
             {
-                if(win->hasExtension(_extTex3D) ||
-                   win->getGLVersion() >= 0x0102)
+                if(win->hasExtOrVersion(_extTex3D, 0x0102))
                 {
                     target = GL_TEXTURE_3D;
                 }
@@ -1872,8 +1896,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
             {
                 if(oldp->getImage()->getDepth() > 1)
                 {
-                    if(win->hasExtension(_extTex3D) ||
-                       win->getGLVersion() >= 0x0102 )
+                    if(win->hasExtOrVersion(_extTex3D, 0x0102))
                     {
                         oldtarget = GL_TEXTURE_3D;
                     }
@@ -2006,8 +2029,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         {
             if ( img->getDepth() > 1 )
             {
-                if(win->hasExtension(_extTex3D) ||
-                   win->getGLVersion() >= 0x0102)
+                if(win->hasExtOrVersion(_extTex3D, 0x0102))
                 {
                     target = GL_TEXTURE_3D;
                 }
@@ -2052,7 +2074,7 @@ GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
         {
             if(img->getDepth() > 1)
             {
-                if(pWindow->hasExtension(_extTex3D))
+                if(pWindow->hasExtOrVersion(_extTex3D, 0x0102))
                 {
                     target = GL_TEXTURE_3D;
                 }

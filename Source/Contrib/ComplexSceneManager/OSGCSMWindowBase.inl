@@ -273,6 +273,31 @@ void CSMWindowBase::setEnableDebugContext(const bool value)
 
     _sfEnableDebugContext.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfIgnoreAllExtensions field.
+
+inline
+bool &CSMWindowBase::editIgnoreAllExtensions(void)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    return _sfIgnoreAllExtensions.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfIgnoreAllExtensions field.
+inline
+      bool  CSMWindowBase::getIgnoreAllExtensions(void) const
+{
+    return _sfIgnoreAllExtensions.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfIgnoreAllExtensions field.
+inline
+void CSMWindowBase::setIgnoreAllExtensions(const bool value)
+{
+    editSField(IgnoreAllExtensionsFieldMask);
+
+    _sfIgnoreAllExtensions.setValue(value);
+}
 //! Get the value of the CSMWindow::_sfRequestSamples field.
 
 inline
@@ -487,6 +512,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (IgnoreAllExtensionsFieldMask & whichField))
+        _sfIgnoreAllExtensions.syncWith(pFrom->_sfIgnoreAllExtensions);
 
     if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
         _sfRequestSamples.syncWith(pFrom->_sfRequestSamples);

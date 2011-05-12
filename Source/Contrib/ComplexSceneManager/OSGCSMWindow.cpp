@@ -249,6 +249,16 @@ bool CSMWindow::init(void)
         _pWindow->setRenderOptions    (this->getRenderOptions());
         _pWindow->setPartitionDrawMode(uiDrawMode              );
         _pWindow->setDrawerType       (uiDrawMode              );
+
+        _pWindow->setIgnoreAllExtensions(this->getIgnoreAllExtensions());
+
+        MFString::const_iterator ieIt  = _mfIgnoreExtensions.begin();
+        MFString::const_iterator ieEnd = _mfIgnoreExtensions.end  ();
+
+        for(; ieIt != ieEnd; ++ieIt)
+        {
+            Window::ignoreExtensions(ieIt->c_str());
+        }
     }
     
 //    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");

@@ -203,7 +203,7 @@ typedef GLXFBConfig *(* OSGglxChooseFBConfigProc)(      Display *dpy,
                                                   const int     *attrib_list, 
                                                         int     *nelements);
 
-typedef GLXContext (*OSGglxCreateContextAttribsARB)(
+typedef GLXContext (*OSGglxCreateContextAttribsARBProc)(
           Display     *dpy,
           GLXFBConfig  config,
           GLXContext   share_context,
@@ -225,10 +225,10 @@ typedef void (OSG_APIENTRY *OSGglClampColorARBProc)(GLenum, GLenum);
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef void (OSG_APIENTRY *OSGglTexImage3D)(
+typedef void (OSG_APIENTRY *OSGglTexImage3DProc)(
           GLenum  target,
           GLint   level,
-          GLenum  internalformat,
+          GLint   internalformat,
           GLsizei width,
           GLsizei height,
           GLsizei depth,
@@ -237,7 +237,7 @@ typedef void (OSG_APIENTRY *OSGglTexImage3D)(
           GLenum  type,
     const GLvoid *pixels);
 
-typedef void (OSG_APIENTRY*OSGglTexSubImage3D)(
+typedef void (OSG_APIENTRY*OSGglTexSubImage3DProc)(
           GLenum    target,
           GLint     level,
           GLint     xoffset,
@@ -256,7 +256,7 @@ typedef void (OSG_APIENTRY*OSGglTexSubImage3D)(
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexImage1D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage1DProc)(
           GLenum    target,
           GLint     level,
           GLenum    internalformat,
@@ -265,7 +265,7 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexImage1D)(
           GLsizei   imageSize,
     const GLvoid   *pixels);
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage1D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage1DProc)(
           GLenum   target,
           GLint    level,
           GLint    xoffset,
@@ -275,7 +275,7 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage1D)(
     const GLvoid  *pixels);
 
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexImage2D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage2DProc)(
           GLenum   target,
           GLint    level,
           GLenum   internalformat,
@@ -285,7 +285,7 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexImage2D)(
           GLsizei  imageSize,
     const GLvoid  *pixels);
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage2D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage2DProc)(
           GLenum   target,
           GLint    level,
           GLint    xoffset,
@@ -297,7 +297,7 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage2D)(
     const GLvoid  *pixels);
 
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexImage3D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage3DProc)(
           GLenum   target,
           GLint    level,
           GLenum   internalformat,
@@ -308,7 +308,7 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexImage3D)(
           GLsizei  imageSize,
     const GLvoid  *pixels);
 
-typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3D)(
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3DProc)(
           GLenum   target,
           GLint    level,
           GLint    xoffset,
@@ -327,45 +327,104 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3D)(
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef void (OSG_APIENTRY *OSGglBindBufferARB   )(      GLenum         target, 
-                                                         GLuint         buffer);
+typedef void       (OSG_APIENTRY *OSGglBindBufferProc              )(      
+          GLenum         target,
+          GLuint         buffer);
 
-typedef void (OSG_APIENTRY *OSGglBufferDataARB   )(      GLenum         target, 
-                                                         long           size, 
-                                                   const void          *data,
-                                                         GLenum         usage);
-typedef void (OSG_APIENTRY *OSGglBufferSubDataARB)(      GLenum         target, 
-                                                         GLintptrARB    offset, 
-                                                         GLsizeiptrARB  size,
-                                                   const void          *data);
+typedef void       (OSG_APIENTRY *OSGglBufferDataProc              )(      
+          GLenum         target, 
+          long           size, 
+    const void          *data,
+          GLenum         usage);
 
-typedef void (OSG_APIENTRY *OSGglGenBuffersARB   )(      GLsizei        n, 
-                                                         GLuint        *bufs);
+typedef void       (OSG_APIENTRY *OSGglBufferSubDataProc           )(      
+          GLenum         target,
+          GLintptrARB    offset,
+          GLsizeiptrARB  size,
+    const void          *data);
 
-typedef void (OSG_APIENTRY *OSGglDeleteBuffersARB)(      GLsizei        n, 
-                                                   const GLuint        *bufs);
+typedef void       (OSG_APIENTRY *OSGglGenBuffersProc              )(      
+          GLsizei        n, 
+          GLuint        *bufs);
 
-typedef void     *(OSG_APIENTRY *OSGglMapBufferARB  )(GLenum target, 
-                                                      GLenum access);
-typedef GLboolean (OSG_APIENTRY *OSGglUnmapBufferARB)(GLenum target);
+typedef void       (OSG_APIENTRY *OSGglDeleteBuffersProc           )(      
+          GLsizei        n, 
+    const GLuint        *bufs);
 
-typedef void (OSG_APIENTRY *OSGglEnableVertexAttribArrayARB )(GLuint index);
-typedef void (OSG_APIENTRY *OSGglDisableVertexAttribArrayARB)(GLuint index);
-typedef void (OSG_APIENTRY *OSGglClientActiveTextureARB     )(GLenum type );
+typedef void      *(OSG_APIENTRY *OSGglMapBufferProc               )(
+          GLenum         target, 
+          GLenum         access);
 
-typedef void (OSG_APIENTRY *OSGglVertexAttribPointerARB)(
-          GLuint     index, 
-          GLint      size, 
-          GLenum     type, 
-          GLboolean  normalized,
-          GLsizei    stride, 
-    const GLvoid    *pointer);
+typedef GLboolean  (OSG_APIENTRY *OSGglUnmapBufferProc             )(
+          GLenum         target);
 
-typedef void (OSG_APIENTRY *OSGglSecondaryColorPointerEXT)(
-          GLint    size,
-          GLenum   type,
-          GLsizei  stride,
-    const GLvoid  *pointer);
+typedef void       (OSG_APIENTRY *OSGglEnableVertexAttribArrayProc )(
+          GLuint         index);
+
+typedef void       (OSG_APIENTRY *OSGglDisableVertexAttribArrayProc)(
+          GLuint         index);
+
+typedef void       (OSG_APIENTRY *OSGglClientActiveTextureProc     )(
+          GLenum         type );
+
+typedef void       (OSG_APIENTRY *OSGglActiveTextureProc           )(
+          GLenum         texture);
+
+typedef void       (OSG_APIENTRY *OSGglVertexAttribPointerProc     )(
+          GLuint         index, 
+          GLint          size, 
+          GLenum         type, 
+          GLboolean      normalized,
+          GLsizei        stride, 
+    const GLvoid        *pointer);
+
+typedef void       (OSG_APIENTRY *OSGglSecondaryColorPointerProc   )(
+          GLint          size,
+          GLenum         type,
+          GLsizei        stride,
+    const GLvoid        *pointer);
+
+typedef void       (OSG_APIENTRY *OSGglGetBufferSubDataProc        )(
+          GLenum, 
+          GLintptr, 
+          GLsizeiptr, 
+          GLvoid *);
+
+typedef void       (OSG_APIENTRY *OSGglGetBufferParameterivProc    )(
+          GLenum, 
+          GLenum, 
+          GLint *);
+typedef void       (OSG_APIENTRY *OSGglGetBufferPointervProc       )(
+          GLenum, 
+          GLenum, 
+          GLvoid* *);
+
+typedef GLboolean  (OSG_APIENTRY *OSGglIsBufferProc                )(
+          GLuint);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Draw Elements                                                      */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglLockArraysProc       )(      GLint, 
+                                                              GLsizei);
+typedef void (OSG_APIENTRY *OSGglUnlockArraysProc     )(      void);
+typedef void (OSG_APIENTRY *OSGglDrawRangeElementsProc)(      GLenum, 
+                                                              GLuint, 
+                                                              GLuint, 
+                                                              GLsizei, 
+                                                              GLenum, 
+                                                        const GLvoid *);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Vertex Attribs                                                     */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglMultiTexCoord3fvProc)(GLenum, const GLfloat *);
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
@@ -465,54 +524,398 @@ typedef void   (OSG_APIENTRY *OSGglPointParameterfvProc       )(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name Queries                                                            */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void      (OSG_APIENTRY *OSGglGenQueriesProc       )(      GLsizei, 
+                                                                   GLuint *);
+typedef void      (OSG_APIENTRY *OSGglDeleteQueriesProc    )(      GLsizei, 
+                                                             const GLuint *);
+typedef GLboolean (OSG_APIENTRY *OSGglIsQueryProc          )(      GLuint);
+typedef void      (OSG_APIENTRY *OSGglBeginQueryProc       )(      GLenum, 
+                                                                   GLuint);
+typedef void      (OSG_APIENTRY *OSGglEndQueryProc         )(      GLenum);
+typedef void      (OSG_APIENTRY *OSGglGetQueryivProc       )(      GLenum, 
+                                                                   GLenum, 
+                                                                   GLint *);
+typedef void      (OSG_APIENTRY *OSGglGetQueryObjectivProc )(      GLuint, 
+                                                                   GLenum, 
+                                                                   GLint *);
+typedef void      (OSG_APIENTRY *OSGglGetQueryObjectuivProc)(      GLuint, 
+                                                                   GLenum, 
+                                                                   GLuint *);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Blending                                                           */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglBlendColorProc       )(GLclampf, 
+                                                        GLclampf, 
+                                                        GLclampf, 
+                                                        GLclampf);
+typedef void (OSG_APIENTRY *OSGglBlendEquationProc    )(GLenum);
+typedef void (OSG_APIENTRY *OSGglBlendFuncSeparateProc)(GLenum, 
+                                                        GLenum, 
+                                                        GLenum, 
+                                                        GLenum);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name ARB Program                                                        */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglProgramStringARBProc           )(
+          GLenum, 
+          GLenum, 
+          GLsizei, 
+    const GLvoid *);
+
+typedef void (OSG_APIENTRY *OSGglBindProgramARBProc             )(
+          GLenum, 
+          GLuint);
+
+typedef void (OSG_APIENTRY *OSGglDeleteProgramsARBProc          )(
+          GLsizei, 
+    const GLuint *);
+
+typedef void (OSG_APIENTRY *OSGglGenProgramsARBProc             )(
+          GLsizei, 
+          GLuint *);
+
+#ifndef OSG_OGL_NO_DOUBLE
+typedef void (OSG_APIENTRY *OSGglProgramEnvParameter4dARBProc   )(
+          GLenum, 
+          GLuint, 
+          GLdouble, 
+          GLdouble, 
+          GLdouble, 
+          GLdouble);
+
+typedef void (OSG_APIENTRY *OSGglProgramEnvParameter4dvARBProc  )(
+          GLenum, 
+          GLuint, 
+    const GLdouble *);
+#endif
+
+typedef void (OSG_APIENTRY *OSGglProgramEnvParameter4fARBProc   )(
+          GLenum, 
+          GLuint, 
+          GLfloat, 
+          GLfloat, 
+          GLfloat, 
+          GLfloat);
+
+typedef void (OSG_APIENTRY *OSGglProgramEnvParameter4fvARBProc  )(
+          GLenum, 
+          GLuint, 
+    const GLfloat *);
+
+#ifndef OSG_OGL_NO_DOUBLE
+typedef void (OSG_APIENTRY *OSGglProgramLocalParameter4dARBProc )(
+          GLenum, 
+          GLuint, 
+          GLdouble, 
+          GLdouble, 
+          GLdouble, 
+          GLdouble);
+
+typedef void (OSG_APIENTRY *OSGglProgramLocalParameter4dvARBProc)(
+          GLenum, 
+          GLuint, 
+    const GLdouble *);
+#endif
+
+typedef void (OSG_APIENTRY *OSGglProgramLocalParameter4fARBProc )(
+          GLenum, 
+          GLuint, 
+          GLfloat, 
+          GLfloat, 
+          GLfloat, 
+          GLfloat);
+
+typedef void (OSG_APIENTRY *OSGglProgramLocalParameter4fvARBProc)(
+          GLenum, 
+          GLuint, 
+    const GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglGetProgramivARBProc            )(
+          GLenum, 
+          GLenum, 
+          GLint *);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Register Combiner                                                  */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglCombinerParameterfvNVProc             )(
+          GLenum, 
+    const GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglCombinerParameterfNVProc              )(
+    GLenum, 
+    GLfloat);
+
+typedef void (OSG_APIENTRY *OSGglCombinerParameterivNVProc             )(
+          GLenum, 
+    const GLint *);
+
+typedef void (OSG_APIENTRY *OSGglCombinerParameteriNVProc              )(
+    GLenum, 
+    GLint);
+
+typedef void (OSG_APIENTRY *OSGglCombinerInputNVProc                   )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum);
+
+typedef void (OSG_APIENTRY *OSGglCombinerOutputNVProc                  )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLboolean, 
+    GLboolean, 
+    GLboolean);
+
+typedef void (OSG_APIENTRY *OSGglFinalCombinerInputNVProc              )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum);
+typedef void (OSG_APIENTRY *OSGglGetCombinerInputParameterfvNVProc     )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglGetCombinerInputParameterivNVProc     )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLint *);
+
+typedef void (OSG_APIENTRY *OSGglGetCombinerOutputParameterfvNVProc    )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglGetCombinerOutputParameterivNVProc    )(
+    GLenum, 
+    GLenum, 
+    GLenum, 
+    GLint *);
+
+typedef void (OSG_APIENTRY *OSGglGetFinalCombinerInputParameterfvNVProc)(
+    GLenum, 
+    GLenum, 
+    GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglGetFinalCombinerInputParameterivNVProc)(
+    GLenum, 
+    GLenum, 
+    GLint *);
+
+typedef void (OSG_APIENTRY *OSGglCombinerStageParameterfvNVProc        )(
+          GLenum, 
+          GLenum, 
+    const GLfloat *);
+
+typedef void (OSG_APIENTRY *OSGglGetCombinerStageParameterfvNVProc     )(
+    GLenum, 
+    GLenum, 
+    GLfloat *);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
 #ifdef OSG_DEBUG
 
-#define OSGGETGLFUNC(FUNCTYPE, FUNCVAR, FUNCID)                         \
-    FUNCTYPE FUNCVAR =                                                  \
-        reinterpret_cast<FUNCTYPE>(                                     \
+# define OSGGETGLFUNC_W(OGLFUNC, FUNCVAR, FUNCID)                       \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast<OSG::OSG##OGLFUNC##Proc>(                      \
             pEnv->getWindow()->getFunction(FUNCID));                    \
                                                                         \
     if(FUNCVAR == NULL)                                                 \
-        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
+        FFATAL(("Func %s of type %s NULL, window %p\n",                 \
+                #FUNCVAR, #OGLFUNC, pEnv->getWindow()))                 \
 
-#define OSGGETGLFUNCBYID(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)             \
-    FUNCTYPE FUNCVAR =                                                  \
-        reinterpret_cast< FUNCTYPE >(                                   \
+# define OSGGETGLFUNCBYID_W(OGLFUNC, FUNCVAR, FUNCID, WINDOW)           \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast< OSG::OSG##OGLFUNC##Proc >(                    \
             (WINDOW)->getFunction(FUNCID));                             \
                                                                         \
     if(FUNCVAR == NULL)                                                 \
-        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
+        FFATAL(("Func %s of type %s NULL, window %p\n",                 \
+                #FUNCVAR, #OGLFUNC, (WINDOW)))                          \
 
-#define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
-    FUNCTYPE FUNCVAR =                                                  \
-        reinterpret_cast<FUNCTYPE>(                                     \
+# define OSGGETGLFUNCBYNAME_W(OGLFUNC, FUNCVAR, FUNCNAME, WINDOW)       \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast<OSG::OSG##OGLFUNC##Proc>(                      \
             (WINDOW)->getFunctionByName(FUNCNAME));                     \
                                                                         \
     if(FUNCVAR == NULL)                                                 \
-        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
-        
+        FFATAL(("Func %s of type %s NULL, window %p\n",                 \
+                #FUNCVAR, #OGLFUNC, (WINDOW)))                          \
+
 #else
 
-#define OSGGETGLFUNC(FUNCTYPE, FUNCVAR, FUNCID)                         \
-    FUNCTYPE FUNCVAR =                                                  \
-        reinterpret_cast<FUNCTYPE>(                                     \
-            pEnv->getWindow()->getFunction(FUNCID))
+# define OSGGETGLFUNC_W(OGLFUNC, FUNCVAR, FUNCID)                       \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast<OSG::OSG##OGLFUNC##Proc>(                      \
+            pEnv->getWindow()->getFunction(FUNCID));
 
-#define OSGGETGLFUNCBYID(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)             \
-    FUNCTYPE FUNCVAR =                                                  \
-        reinterpret_cast< FUNCTYPE >(                                   \
+# define OSGGETGLFUNCBYID_W(OGLFUNC, FUNCVAR, FUNCID, WINDOW)           \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast<OSG::OSG##OGLFUNC##Proc>(                      \
             (WINDOW)->getFunction(FUNCID));
 
-#define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
- FUNCTYPE FUNCVAR =                                                     \
-    reinterpret_cast<FUNCTYPE>(                                         \
-        (WINDOW)->getFunctionByName(FUNCNAME));
+# define OSGGETGLFUNCBYNAME_W(OGLFUNC, FUNCVAR, FUNCNAME, WINDOW)       \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR =                                   \
+        reinterpret_cast<OSG::OSG##OGLFUNC##Proc>(                      \
+            (WINDOW)->getFunctionByName(FUNCNAME));
 
 #endif
+
+#define OSGGETGLFUNC_P(OGLFUNC, FUNCVAR, FUNCID)                        \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR = OGLFUNC;
+
+#define OSGGETGLFUNCBYID_P(OGLFUNC, FUNCVAR, FUNCID, WINDOW)            \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR = OGLFUNC;
+
+#define OSGGETGLFUNCBYNAME_P(OGLFUNC, FUNCVAR, FUNCNAME, WINDOW)        \
+    OSG::OSG##OGLFUNC##Proc FUNCVAR = OGLFUNC;
+       
+
+
+#ifdef OSG_USE_OGL3_PROTOS
+# define OSGGETGLFUNC_GL3(FUNCTYPE, FUNCVAR, FUNCID)                     \
+    OSGGETGLFUNC_P(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL3(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)         \
+    OSGGETGLFUNCBYID_P(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL3(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)     \
+    OSGGETGLFUNCBYNAME_P(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif //OSG_USE_OGL3_PROTOS
+
+#ifdef OSG_USE_OGL4_PROTOS
+# define OSGGETGLFUNC_GL4(FUNCTYPE, FUNCVAR, FUNCID)                     \
+    OSGGETGLFUNC_P(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL4(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)         \
+    OSGGETGLFUNCBYID_P(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL4(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)     \
+    OSGGETGLFUNCBYNAME_P(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif // OSG_USE_OGL4_PROTOS
+
+
+#if defined(OSG_USE_OGLES_PROTOS) || defined(OSG_USE_OGL3_PROTOS)
+# define OSGGETGLFUNC_GL3_ES(FUNCTYPE, FUNCVAR, FUNCID)                  \
+    OSGGETGLFUNC_P(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL3_ES(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)      \
+    OSGGETGLFUNCBYID_P(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL3_ES(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)  \
+    OSGGETGLFUNCBYNAME_P(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif
+
+
+#if defined(OSG_USE_OGLES_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+# define OSGGETGLFUNC_GL4_ES(FUNCTYPE, FUNCVAR, FUNCID)                  \
+    OSGGETGLFUNC_P(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL4_ES(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)      \
+    OSGGETGLFUNCBYID_P(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL4_ES(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)  \
+    OSGGETGLFUNCBYNAME_P(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif
+
+// OpenGL 3 Protos
+#ifndef OSGGETGLFUNC_GL3
+# define OSGGETGLFUNC_GL3(FUNCTYPE, FUNCVAR, FUNCID)                     \
+    OSGGETGLFUNC_W(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL3(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)         \
+    OSGGETGLFUNCBYID_W(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL3(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)     \
+    OSGGETGLFUNCBYNAME_W(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif //OSGGETGLFUNC_GL3
+
+
+// OpenGL 3 and ES Protos
+#ifndef OSGGETGLFUNC_GL3_ES
+# define OSGGETGLFUNC_GL3_ES(FUNCTYPE, FUNCVAR, FUNCID)                  \
+    OSGGETGLFUNC_W(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL3_ES(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)      \
+    OSGGETGLFUNCBYID_W(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL3_ES(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)  \
+    OSGGETGLFUNCBYNAME_W(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif //OSGGETGLFUNC_GL3_ES
+
+
+// OpenGL 4 Protos
+#ifndef OSGGETGLFUNC_GL4
+# define OSGGETGLFUNC_GL4(FUNCTYPE, FUNCVAR, FUNCID)                     \
+    OSGGETGLFUNC_W(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL4(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)         \
+    OSGGETGLFUNCBYID_W(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL4(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)     \
+    OSGGETGLFUNCBYNAME_W(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif //SGGETGLFUNC_GL4
+
+
+// OpenGL 4 and ES Protos
+#ifndef OSGGETGLFUNC_GL4_ES
+# define OSGGETGLFUNC_GL4_ES(FUNCTYPE, FUNCVAR, FUNCID)                  \
+    OSGGETGLFUNC_W(FUNCTYPE, FUNCVAR, FUNCID)
+
+# define OSGGETGLFUNCBYID_GL4_ES(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)      \
+    OSGGETGLFUNCBYID_W(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+# define OSGGETGLFUNCBYNAME_GL4_ES(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)  \
+    OSGGETGLFUNCBYNAME_W(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+#endif //OSGGETGLFUNC_GL4_ES
+
+
+// OpenGL Ext
+
+#define OSGGETGLFUNC_EXT(FUNCTYPE, FUNCVAR, FUNCID)                      \
+    OSGGETGLFUNC_W(FUNCTYPE, FUNCVAR, FUNCID)
+
+#define OSGGETGLFUNCBYID_EXT(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)          \
+    OSGGETGLFUNCBYID_W(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)
+
+#define OSGGETGLFUNCBYNAME_EXT(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)      \
+    OSGGETGLFUNCBYNAME_W(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)
+
+
+
 
 /*  \}                                                                       */
 /*---------------------------------------------------------------------------*/

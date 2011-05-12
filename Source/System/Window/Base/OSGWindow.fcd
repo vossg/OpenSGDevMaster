@@ -139,6 +139,15 @@
 	>
     </Field>
     <Field
+        name="ignoreAllExtensions"
+        type="bool"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="false"
+	>
+    </Field>
+    <Field
         name="drawMode"
         type="UInt32"
         cardinality="single"

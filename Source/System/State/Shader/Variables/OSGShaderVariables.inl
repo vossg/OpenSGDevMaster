@@ -50,9 +50,9 @@ void osgUniformShaderVariableLocation(DrawEnv        *pEnv,
 {
     if(loc == -1)
     {
-        OSGGETGLFUNC(OSGglGetUniformLocationProc,
-                     osgGlGetUniformLocation,
-                     ShaderProgram::getFuncIdGetUniformLocation());
+        OSGGETGLFUNC_GL3_ES(glGetUniformLocation,
+                            osgGlGetUniformLocation,
+                            ShaderProgram::getFuncIdGetUniformLocation());
 
         loc = osgGlGetUniformLocation(uiProgram, pVar->getName().c_str());
     }
@@ -69,9 +69,9 @@ void osgUniformShaderVariableBool(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform1iProc,
-                     osgGlUniform1i,
-                     ShaderProgram::getFuncIdUniform1i());
+        OSGGETGLFUNC_GL3_ES(glUniform1i,
+                            osgGlUniform1i,
+                            ShaderProgram::getFuncIdUniform1i());
 
         osgGlUniform1i(loc, GLint(p->getValue()));
     }
@@ -95,9 +95,9 @@ void osgUniformShaderVariableInt(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform1iProc,
-                     osgGlUniform1i,
-                     ShaderProgram::getFuncIdUniform1i());
+        OSGGETGLFUNC_GL3_ES(glUniform1i,
+                            osgGlUniform1i,
+                            ShaderProgram::getFuncIdUniform1i());
 
         osgGlUniform1i(loc, p->getValue());
     }
@@ -121,9 +121,9 @@ void osgUniformShaderVariableReal(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform1fProc,
-                     osgGlUniform1f,
-                     ShaderProgram::getFuncIdUniform1f());
+        OSGGETGLFUNC_GL3_ES(glUniform1f,
+                            osgGlUniform1f,
+                            ShaderProgram::getFuncIdUniform1f());
 
         osgGlUniform1f(loc, p->getValue());
     }
@@ -147,9 +147,9 @@ void osgUniformShaderVariableVec2f(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform2fvProc,
-                     osgGlUniform2fv,
-                     ShaderProgram::getFuncIdUniform2fv());
+        OSGGETGLFUNC_GL3_ES(glUniform2fv,
+                            osgGlUniform2fv,
+                            ShaderProgram::getFuncIdUniform2fv());
 
         osgGlUniform2fv(loc, 1, p->getValue().getValues());
     }
@@ -173,9 +173,9 @@ void osgUniformShaderVariableVec3f(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform3fvProc,
-                     osgGlUniform3fv,
-                     ShaderProgram::getFuncIdUniform3fv());
+        OSGGETGLFUNC_GL3_ES(glUniform3fv,
+                            osgGlUniform3fv,
+                            ShaderProgram::getFuncIdUniform3fv());
 
         osgGlUniform3fv(loc, 1, p->getValue().getValues());
     }
@@ -199,9 +199,9 @@ void osgUniformShaderVariableVec4f(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform4fvProc,
-                     osgGlUniform4fv,
-                     ShaderProgram::getFuncIdUniform4fv());
+        OSGGETGLFUNC_GL3_ES(glUniform4fv,
+                            osgGlUniform4fv,
+                            ShaderProgram::getFuncIdUniform4fv());
 
         osgGlUniform4fv(loc, 1, p->getValue().getValues());
     }
@@ -225,9 +225,9 @@ void osgUniformShaderVariablePnt2f(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform2fvProc,
-                     osgGlUniform2fv,
-                     ShaderProgram::getFuncIdUniform2fv());
+        OSGGETGLFUNC_GL3_ES(glUniform2fv,
+                            osgGlUniform2fv,
+                            ShaderProgram::getFuncIdUniform2fv());
 
         osgGlUniform2fv(loc, 1, p->getValue().getValues());
     }
@@ -251,9 +251,9 @@ void osgUniformShaderVariablePnt3f(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniform3fvProc,
-                     osgGlUniform3fv,
-                     ShaderProgram::getFuncIdUniform3fv());
+        OSGGETGLFUNC_GL3_ES(glUniform3fv,
+                            osgGlUniform3fv,
+                            ShaderProgram::getFuncIdUniform3fv());
 
         osgGlUniform3fv(loc, 1, p->getValue().getValues());
     }
@@ -277,9 +277,9 @@ void osgUniformShaderVariableMatrix(DrawEnv        *pEnv,
 
     if(loc != -1)
     {
-        OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
-                     osgGlUniformMatrix4fv,
-                     ShaderProgram::getFuncIdUniformMatrix4fv());
+        OSGGETGLFUNC_GL3_ES(glUniformMatrix4fv,
+                            osgGlUniformMatrix4fv,
+                            ShaderProgram::getFuncIdUniformMatrix4fv());
 
         osgGlUniformMatrix4fv(loc,
                               1,
@@ -306,10 +306,10 @@ void osgUniformShaderVariableMInt(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniform1ivProc,
-                     osgGlUniform1iv,
-                     ShaderProgram::getFuncIdUniform1iv());
-
+        OSGGETGLFUNC_GL3_ES(glUniform1iv,
+                            osgGlUniform1iv,
+                            ShaderProgram::getFuncIdUniform1iv());
+        
         osgGlUniform1iv(  loc,
                           p->getMFValue()->size (),
                         &(p->getMFValue()->front()));
@@ -334,9 +334,9 @@ void osgUniformShaderVariableMReal(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniform1fvProc,
-                     osgGlUniform1fv,
-                     ShaderProgram::getFuncIdUniform1fv());
+        OSGGETGLFUNC_GL3_ES(glUniform1fv,
+                            osgGlUniform1fv,
+                            ShaderProgram::getFuncIdUniform1fv());
 
         osgGlUniform1fv(  loc,
                           p->getMFValue()->size (),
@@ -362,9 +362,9 @@ void osgUniformShaderVariableMVec2f(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniform2fvProc,
-                     osgGlUniform2fv,
-                     ShaderProgram::getFuncIdUniform2fv());
+        OSGGETGLFUNC_GL3_ES(glUniform2fv,
+                            osgGlUniform2fv,
+                            ShaderProgram::getFuncIdUniform2fv());
 
         osgGlUniform2fv(loc,
                         p->getMFValue()->size (),
@@ -390,9 +390,9 @@ void osgUniformShaderVariableMVec3f(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniform3fvProc,
-                     osgGlUniform3fv,
-                     ShaderProgram::getFuncIdUniform3fv());
+        OSGGETGLFUNC_GL3_ES(glUniform3fv,
+                            osgGlUniform3fv,
+                            ShaderProgram::getFuncIdUniform3fv());
 
         osgGlUniform3fv(loc,
                         p->getMFValue()->size (),
@@ -418,9 +418,9 @@ void osgUniformShaderVariableMVec4f(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniform4fvProc,
-                     osgGlUniform4fv,
-                     ShaderProgram::getFuncIdUniform4fv());
+        OSGGETGLFUNC_GL3_ES(glUniform4fv,
+                            osgGlUniform4fv,
+                            ShaderProgram::getFuncIdUniform4fv());
 
         osgGlUniform4fv(loc,
                         p->getMFValue()->size (),
@@ -446,9 +446,9 @@ void osgUniformShaderVariableMMatrix(DrawEnv        *pEnv,
 
     if(loc != -1 && !p->getMFValue()->empty())
     {
-        OSGGETGLFUNC(OSGglUniformMatrix4fvProc,
-                     osgGlUniformMatrix4fv,
-                     ShaderProgram::getFuncIdUniformMatrix4fv());
+        OSGGETGLFUNC_GL3_ES(glUniformMatrix4fv,
+                            osgGlUniformMatrix4fv,
+                            ShaderProgram::getFuncIdUniformMatrix4fv());
 
         osgGlUniformMatrix4fv(loc,
                               p->getMFValue()->size (),
