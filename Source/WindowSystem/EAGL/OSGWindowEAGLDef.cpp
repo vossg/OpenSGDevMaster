@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,42 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGL_H_
-#define _OSGGL_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
 
 #include "OSGConfig.h"
+#include "OSGBaseInitFunctions.h"
 
-#if defined(OSG_OGL_ES2)
+#define SVN_REVISION "382"
 
-# if defined(__APPLE__)
-#  include <OpenGLES/ES2/gl.h>
-# else
-#  include <GLES2/gl2.h>
-# endif
+/*! Append our version to the library versions string 
+*/
+static bool versionAdder(void)
+{
+    OSG::addLibraryVersion("OSGWindowEAGL:      " OSG_VERSION_STRING 
+                           "\tRev: "              SVN_REVISION );    
+    return true;
+}
 
-#else
-
-# ifdef OSG_NOGLSUBDIR
-#  include <gl.h>
-# elif defined(__APPLE__)
-#  include <OpenGL/gl.h>
-# else
-#  include <GL/gl.h>
-# endif
-
-#endif
-
-// Need to define a definitely unused constant
-// OpenGL doesn't provide one... :(
-
-#define OSG_GL_UNUSED 0xffff
-
-#ifdef WIN32
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
-#endif
-
-#endif /* _OSGGL_H_ */
+static OSG::StaticInitFuncWrapper versionAdderWrapper(versionAdder);

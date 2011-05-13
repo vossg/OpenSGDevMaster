@@ -133,9 +133,9 @@ void LightChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
 {
-	glErr("light:activate:precheck");
-
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    glErr("light:activate:precheck");
+
     Matrix tobeacon;
 
     if(_sfBeacon.getValue() != NULL)
@@ -201,18 +201,18 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
     glEnable(GL_LIGHT0 + index);
 
     glPopMatrix();
-#endif
 
-	glErr("light:activate:postcheck");
+    glErr("light:activate:postcheck");
+#endif
 }
 
 void LightChunk::changeFrom(DrawEnv    *pEnv, 
                             StateChunk *old_chunk, 
                             UInt32      index    )
 {
-	glErr("light:changed:precheck");
-
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    glErr("light:changed:precheck");
+
     LightChunk const *old = dynamic_cast<LightChunk const *>(old_chunk);
 
     // change from me to me?
@@ -238,7 +238,7 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
     cameraMat.mult(tobeacon);
 
     glPushMatrix();
-	glLoadMatrixf(cameraMat.getValues());
+    glLoadMatrixf(cameraMat.getValues());
 
     // it could theoretically be more efficient to turn the light off before
     // changing its parameters, have to try that sometime
@@ -287,9 +287,9 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
     }
 
     glPopMatrix();
-#endif
 
-	glErr("light:changed:postcheck");
+    glErr("light:changed:postcheck");
+#endif
 }
 
 void LightChunk::deactivate(DrawEnv *, UInt32 index)

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,42 +36,86 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGL_H_
-#define _OSGGL_H_
+
+#ifndef _OSGEAGLWINDOWDATAFIELDS_H_
+#define _OSGEAGLWINDOWDATAFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
+
 #include "OSGConfig.h"
 
-#if defined(OSG_OGL_ES2)
+// Forget everything if we're not doing a Mac OS compile
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
-# if defined(__APPLE__)
-#  include <OpenGLES/ES2/gl.h>
-# else
-#  include <GLES2/gl2.h>
-# endif
+#include "OSGWindowEAGLDef.h"
 
+#include "OSGWindowFields.h"
+
+#ifndef __OBJC__
+struct EAGLContext;
 #else
-
-# ifdef OSG_NOGLSUBDIR
-#  include <gl.h>
-# elif defined(__APPLE__)
-#  include <OpenGL/gl.h>
-# else
-#  include <GL/gl.h>
-# endif
-
+@class EAGLContext;
 #endif
 
-// Need to define a definitely unused constant
-// OpenGL doesn't provide one... :(
+/*! \ingroup GrpWindowEAGLFieldTraits 
+ */
 
-#define OSG_GL_UNUSED 0xffff
+typedef EAGLContext *EAGLContextP;
 
-#ifdef WIN32
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
+/*! The field types for the local types needed by the EAGLWindow class */
+
+OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpWindowEAGLFieldTraits 
+ */
+
+template <>
+struct FieldTraits<EAGLContextP> : 
+    public FieldTraitsPtrToStringTemplateBase<EAGLContextP>
+{
+    typedef FieldTraits<EAGLContextP>  Self;
+    static  DataType                  _type;                       
+
+    enum                        { Convertible = (Self::ToStringConvertible  |
+                                                 Self::FromStringConvertible)};
+
+    OSG_WINDOWEAGL_DLLMAPPING
+    static DataType &getType (void);
+
+    static char     *getSName(void) { return "SFEAGLContextP"; }
+    static char     *getMName(void) { return "MFEAGLContextP"; }
+
+    static bool      getFromCString(      EAGLContextP    &,
+                                    const Char8           *)
+    {
+        return true;
+    }
+
+    static void      putToString  (const      EAGLContextP &,
+                                         std::string       &outStr)
+    {
+        outStr.assign("EAGLContextP");
+    }
+};
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowEAGLFieldSFields */
+typedef SField<EAGLContextP> SFEAGLContextP;
+
+/*! \ingroup GrpWindowEAGLFieldSFields */
+typedef MField<EAGLContextP> MFEAGLContextP;
+#else
+/*! \ingroup GrpWindowEAGLFieldSFields \ingroup GrpLibOSGWindowEAGL */
+struct SFEAGLContextP : public SField<EAGLContextP> {};
+
+/*! \ingroup GrpWindowEAGLFieldSFields \ingroup GrpLibOSGWindowEAGL */
+struct MFEAGLContextP : public MField<EAGLContextP> {};
 #endif
 
-#endif /* _OSGGL_H_ */
+OSG_END_NAMESPACE
+
+#endif /* __APPLE__ */
+
+#endif /* _OSGEAGLWINDOWDATAFIELDS_H_ */

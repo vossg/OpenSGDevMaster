@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,42 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGL_H_
-#define _OSGGL_H_
+#ifndef _OSGNATIVEWINDOW_H_
+#define _OSGNATIVEWINDOW_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
+#include "OSGEAGLWindow.h"
 
-#if defined(OSG_OGL_ES2)
+#ifndef OSG_DO_DOC
 
-# if defined(__APPLE__)
-#  include <OpenGLES/ES2/gl.h>
-# else
-#  include <GLES2/gl2.h>
-# endif
+OSG_BEGIN_NAMESPACE
 
-#else
+/*! \ingroup GrpWindowEAGLObj
+ */
 
-# ifdef OSG_NOGLSUBDIR
-#  include <gl.h>
-# elif defined(__APPLE__)
-#  include <OpenGL/gl.h>
-# else
-#  include <GL/gl.h>
-# endif
+typedef EAGLWindow NativeWindow;
+
+OSG_END_NAMESPACE
 
 #endif
 
-// Need to define a definitely unused constant
-// OpenGL doesn't provide one... :(
-
-#define OSG_GL_UNUSED 0xffff
-
-#ifdef WIN32
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
-#endif
-
-#endif /* _OSGGL_H_ */
+#endif // _OSGNATIVEWINDOW_H_

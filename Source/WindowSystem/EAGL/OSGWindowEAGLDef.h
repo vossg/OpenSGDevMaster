@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,42 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGL_H_
-#define _OSGGL_H_
+
+#ifndef _OSGWINDOWEAGLDEF_H_
+#define _OSGWINDOWEAGLDEF_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
+//---------------------------------------------------------------------------
+//  Defines
+//---------------------------------------------------------------------------
 
-#if defined(OSG_OGL_ES2)
-
-# if defined(__APPLE__)
-#  include <OpenGLES/ES2/gl.h>
-# else
-#  include <GLES2/gl2.h>
-# endif
-
+#if defined(WIN32)
+#   ifdef OSG_COMPILEWINDOWEAGLLIB
+#       define OSG_WINDOWEAGL_DLLMAPPING     __declspec(dllexport)
+#       define OSG_WINDOWEAGL_DLLTMPLMAPPING __declspec(dllexport)
+#   else
+#       define OSG_WINDOWEAGL_DLLMAPPING     __declspec(dllimport)
+#       define OSG_WINDOWEAGL_DLLTMPLMAPPING __declspec(dllimport)
+#   endif
 #else
-
-# ifdef OSG_NOGLSUBDIR
-#  include <gl.h>
-# elif defined(__APPLE__)
-#  include <OpenGL/gl.h>
-# else
-#  include <GL/gl.h>
-# endif
-
+#define OSG_WINDOWEAGL_DLLMAPPING
+#define OSG_WINDOWEAGL_DLLTMPLMAPPING
 #endif
 
-// Need to define a definitely unused constant
-// OpenGL doesn't provide one... :(
-
-#define OSG_GL_UNUSED 0xffff
-
-#ifdef WIN32
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
-#endif
-
-#endif /* _OSGGL_H_ */
+#endif /* _OSGWINDOWEAGLDEF_H_ */

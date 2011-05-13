@@ -36,42 +36,36 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGL_H_
-#define _OSGGL_H_
+#ifndef _OSGEAGLWINDOWWRAPPER_H_
+#define _OSGEAGLWINDOWWRAPPER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
 
-#if defined(OSG_OGL_ES2)
+// Forget everything if we're not doing a Mac OS compile
+#if defined(__APPLE__) || defined(OSG_DO_DOC)
 
-# if defined(__APPLE__)
-#  include <OpenGLES/ES2/gl.h>
-# else
-#  include <GLES2/gl2.h>
-# endif
+#include "OSGWindowEAGLDef.h"
 
+#include "OSGWindowFields.h"
+
+#ifndef __OBJC__
+struct EAGLContext;
 #else
-
-# ifdef OSG_NOGLSUBDIR
-#  include <gl.h>
-# elif defined(__APPLE__)
-#  include <OpenGL/gl.h>
-# else
-#  include <GL/gl.h>
-# endif
-
+@class EAGLContext;
 #endif
 
-// Need to define a definitely unused constant
-// OpenGL doesn't provide one... :(
+/* \ingroup GrpWindowEAGLObj
+ */
 
-#define OSG_GL_UNUSED 0xffff
+typedef EAGLContext *EAGLContextP;
 
-#ifdef WIN32
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
-#endif
+EAGLContextP eaglWrapperCurrentContext(void);
 
-#endif /* _OSGGL_H_ */
+#endif /* __APPLE__ */
+
+#endif /* _OSGEAGLWINDOWWRAPPER_H_ */
+
+

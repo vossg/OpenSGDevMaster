@@ -4743,7 +4743,7 @@ void setVBOUsageOnPropertyProtos(bool bVal)
             OSG_ASSERT(pProp != NULL);
 
             pProp->setUseVBO(bVal);
-        
+
         }   
 
         ++dtIt;

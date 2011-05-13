@@ -43,15 +43,22 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include "OSGAnimTimeSensor.h"
+// Forget everything if we're not doing a Mac OS X compile
+#ifdef __APPLE__
+
+//#import <Cocoa/Cocoa.h>
+//#import <AppKit/NSOpenGL.h>
+
+#include "OSGEAGLWindow.h"
+#include "OSGEAGLWindowWrapper.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimTimeSensorBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimTimeSensor.fcd) and
+// OSGEAGLWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGEAGLWindow.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +69,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimTimeSensor::initMethod(InitPhase ePhase)
+void EAGLWindow::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,193 +89,75 @@ void AnimTimeSensor::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimTimeSensor::AnimTimeSensor(void) :
+EAGLWindow::EAGLWindow(void) :
     Inherited()
 {
 }
 
-AnimTimeSensor::AnimTimeSensor(const AnimTimeSensor &source) :
+EAGLWindow::EAGLWindow(const EAGLWindow &source) :
     Inherited(source)
 {
 }
 
-AnimTimeSensor::~AnimTimeSensor(void)
+EAGLWindow::~EAGLWindow(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimTimeSensor::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void EAGLWindow::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void AnimTimeSensor::dump(      UInt32    ,
+void EAGLWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimTimeSensor NI" << std::endl;
+    SLOG << "Dump EAGLWindow NI" << std::endl;
 }
 
-void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
+/*-------------------------- your_category---------------------------------*/
+
+/*! Init the window: create the context and setup the OpenGL.
+*/
+void EAGLWindow::init(GLInitFunctor oFunc)
 {
-    Time startT = _sfStartTime  .getValue();
-    Time stopT  = _sfStopTime   .getValue();
-    Time currT  = _sfTime       .getValue();
+    Inherited::init(oFunc);
+}
 
-    Time length = _sfCycleLength.getValue();
-    Time deltaT = 0.0;
+void EAGLWindow::terminate(void)
+{
+}
 
-    setTime(oTime);
+// activate the window: bind the OGL context
+void EAGLWindow::doActivate(void)
+{
+//    [this->getContext() makeCurrentContext];
+}
 
-    if(getEnabled() == false)
-    {
-        if(getIsActive() == true)
-        {
-            setIsActive(false);
-        }
+// activate the window: bind the OGL context
+void EAGLWindow::doDeactivate(void)
+{
+//    [EAGLContext clearCurrentContext];
+}
 
-        return;
-    }
+// swap front and back buffers
+bool EAGLWindow::doSwap(void)
+{
+//    [this->getContext() flushBuffer];
 
-    if(startT < stopT)
-    {
-        if(oTime < startT)
-        {
-            // BEFORE startT
+    return true;
+}
 
-            if(getIsActive() == true)
-            {
-                if(getForward() == true)
-                {
-                    setFraction(0.f  );
-                    setAnimTime(0.f  );
-                    setIsActive(false);
-                }
-                else
-                {
-                    setFraction(1.f   );
-                    setAnimTime(length);
-                    setIsActive(false );
-                }
-            }
+bool EAGLWindow::hasContext(void)
+{
+//    return (this->getContext() != NULL);
 
-            return;
-        }
-        else if(oTime > stopT)
-        {
-            // AFTER stopT
-
-            if(getIsActive() == true)
-            {
-                if(getForward() == true)
-                {
-                    setFraction(1.f   );
-                    setAnimTime(length);
-
-                    // only deactivate the second time oTime > stopT
-                    // to propagate the final state
-                    if(currT > stopT)
-                    {
-                        setIsActive(false);
-                    }
-
-                    PLOG << std::endl;
-                }
-                else
-                {
-                    setFraction(0.f);
-                    setAnimTime(0.f);
-
-                    // only deactivate the second time oTime > stopT
-                    // to propagate the final state
-                    if(currT > stopT)
-                    {
-                         setIsActive(false);
-                    }
-
-                    PLOG << std::endl;
-                }
-            }
-
-            return;
-        }
-        else
-        {
-            if(currT <= 0.0)
-            {
-                deltaT = oTime - startT;
-            }
-            else
-            {
-                deltaT = oTime - currT;
-            }
-        }
-    }
-    else
-    {
-        if(oTime < startT)
-        {
-            // BEFORE startT
-
-            if(getIsActive() == true)
-            {
-                if(getForward() == true)
-                {
-                    setFraction(0.f  );
-                    setAnimTime(0.f  );
-                    setIsActive(false);
-                }
-                else
-                {
-                    setFraction(1.f   );
-                    setAnimTime(length);
-                    setIsActive(false );
-                }
-            }
-
-            return;
-        }
-        else
-        {
-            if(currT <= 0.0)
-            {
-                deltaT = oTime - startT;
-            }
-            else
-            {
-                deltaT = oTime - currT;
-            }
-        }
-    }
-
-    // use deltaT to update animTime and fraction
-
-#if 0
-    Real32 oldAnimT = getAnimTime();
-#endif
-    Real32 newAnimT = getAnimTime();
-
-    if(getForward() == true)
-    {
-        newAnimT += getTimeScale() * deltaT;
-    }
-    else
-    {
-        newAnimT -= getTimeScale() * deltaT;
-    }
-
-    newAnimT = osgMod<Real64>(newAnimT, length);
-
-    while(newAnimT < 0.f)
-        newAnimT += length;
-
-    setAnimTime(newAnimT);
-    setFraction(newAnimT / length);
-
-    if(getIsActive() == false)
-        setIsActive(true);
+    return true;
 }
 
 OSG_END_NAMESPACE
+
+#endif // __APPLE__

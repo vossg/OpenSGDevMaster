@@ -333,7 +333,7 @@ typedef void       (OSG_APIENTRY *OSGglBindBufferProc              )(
 
 typedef void       (OSG_APIENTRY *OSGglBufferDataProc              )(      
           GLenum         target, 
-          long           size, 
+          GLintptrARB    size, 
     const void          *data,
           GLenum         usage);
 

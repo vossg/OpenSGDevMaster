@@ -598,7 +598,6 @@ void ShaderExecutableChunk::activate(DrawEnv    *pEnv,
     {
         glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
     }
-
 }
 
 void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv, 

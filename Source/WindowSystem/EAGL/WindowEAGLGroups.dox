@@ -1,0 +1,32 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGWindowEAGL libOSGWindowEAGL
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpWindowEAGL OpenSG Window EAGL Library
+
+    \brief Contains Window EAGL classes
+
+    See \ref PageWindowEAGL for details.
+ */
+
+//*******************************************************************
+// EAGL
+//*******************************************************************
+
+/*! \defgroup GrpWindowEAGLObj Window
+    \ingroup GrpWindowEAGL
+ */
+
+/*! \defgroup GrpWindowEAGLFieldTraits Field Traits
+    \ingroup GrpWindowEAGL
+ */
+/*! \defgroup GrpWindowEAGLFieldSFields Single-Field
+    \ingroup GrpWindowEAGL
+ */
+/*! \defgroup GrpWindowEAGLFieldMFields Multi-Fields
+    \ingroup GrpWindowEAGL
+ */

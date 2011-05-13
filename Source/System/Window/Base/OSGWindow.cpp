@@ -1314,10 +1314,15 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
         const char *version = 
                 reinterpret_cast<const char *>(glGetString(GL_VERSION));
         
+#if defined(OSG_OGL_ES2)
+		UInt32 uiVersionOff = 10;
+#else
+		UInt32 uiVersionOff = 0;
+#endif		
         if(version != NULL)
         {
-            int major = atoi(version);
-            int minor = atoi(strchr(version, '.') + 1);
+            int major = atoi(version + uiVersionOff);
+            int minor = atoi(strchr(version + uiVersionOff, '.') + 1);
         
             _glVersion = (major << 8) + minor;
         }

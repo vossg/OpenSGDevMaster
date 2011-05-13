@@ -729,10 +729,14 @@ bool osgDoInit(OSG::Int32,
         delete pPlugins;
     }
 
-    FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
-    for(UInt16 i = 0; i < osgLibraryVersions->size(); ++i)
+    if(osgLibraryVersions != NULL)
     {
-        FNOTICE(("osgInit: %s\n", (*osgLibraryVersions)[i].c_str()));
+        FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
+
+        for(UInt16 i = 0; i < osgLibraryVersions->size(); ++i)
+        {
+            FNOTICE(("osgInit: %s\n", (*osgLibraryVersions)[i].c_str()));
+        }
     }
     
     //SharedObjectHandler::the()->dump();

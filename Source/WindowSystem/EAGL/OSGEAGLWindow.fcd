@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="EAGLWindow"
+   parent="Window"
+   library="WindowEAGL"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowCocao"
+   >
+  The class for MacOS X EAGL windows.
+  <Field
+	 name="context"
+	 type="EAGLContextP"
+	 cardinality="single"
+	 visibility="internal"
+	 defaultValue="0"
+	 fieldHeader="OSGEAGLWindowDataFields.h"
+	 access="public"
+	 >
+  </Field>
+</FieldContainer>

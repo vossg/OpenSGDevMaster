@@ -1,0 +1,13 @@
+#include "OSGConfig.h"
+
+using namespace OSG;
+
+/*!
+
+   \if separate
+     \page PageWindowEAGL Window EAGL Documentation
+   \else
+     \page PageWindowEAGL Window EAGL
+   \endif
+
+ */
