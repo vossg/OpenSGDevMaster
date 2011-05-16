@@ -416,6 +416,17 @@ struct GeoUInt32Property :
     public TypedGeoIntegralProperty<GeoUInt32PropertyDesc> {};
 #endif
 
+/*! \brief Common Index Property (UInt32 except for ES UInt16)
+ */
+
+#if !defined(OSG_OGL_ES2)
+typedef GeoUInt32Property    GeoIndexProperty;
+#else
+typedef GeoUInt16Property    GeoIndexProperty;
+#endif
+
+OSG_GEN_CONTAINERPTR(GeoIndexProperty);
+
 #ifdef OSG_DEPRECATED_PROPS
 /*! \brief Backwards Compatibility Typedefs
 */

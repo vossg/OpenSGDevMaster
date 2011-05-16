@@ -39,6 +39,7 @@
 #include "OSGMultiCore.h"
 #include "OSGNodeCore.h"
 #include "OSGAction.h"
+#include "OSGRootGroup.h"
 
 //#define BOOST_MEM_FN_ENABLE_CDECL
 #include <boost/bind.hpp>
@@ -783,14 +784,26 @@ ActionBase::ResultE traverse(Node                 * const node,
     if(node == NULL)
         return Action::Continue;
 
+    RootGroup *pRGroup = dynamic_cast<RootGroup *>(node->getCore());
+
     switch(res)
     {
         case ActionBase::Skip:
             return Action::Continue;
 
         case ActionBase::Continue:
-            return traverse(*(node->getMFChildren()),
-                            func                    );
+        {
+            if(pRGroup != NULL && pRGroup->getRoot() != NULL)
+            {
+                return traverse(pRGroup->getRoot(), func);
+            }
+            else
+            {
+                return traverse(*(node->getMFChildren()),
+                                func                    );
+            }
+        }
+        break;
 
         default:
             break;
@@ -856,6 +869,8 @@ ActionBase::ResultE traverse(Node                 * const node,
 
     res = enter(node);
 
+    RootGroup *pRGroup = dynamic_cast<RootGroup *>(node->getCore());
+
     switch(res)
     {
         case ActionBase::Skip:
@@ -863,10 +878,19 @@ ActionBase::ResultE traverse(Node                 * const node,
             break;
 
         case ActionBase::Continue:
-            res = traverse(*(node->getMFChildren()),
-                           enter,
-                           leave                   );
-
+        {
+            if(pRGroup != NULL && pRGroup->getRoot() != NULL)
+            {
+                res = traverse(pRGroup->getRoot(), enter, leave);
+            }
+            else
+            {
+                res = traverse(*(node->getMFChildren()),
+                               enter,
+                               leave                   );
+            }
+        }
+        break;
         default:
             break;
     }

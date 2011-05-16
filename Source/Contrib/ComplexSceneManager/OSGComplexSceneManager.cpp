@@ -59,6 +59,7 @@
 #include "OSGGeoProperty.h"
 
 #include "OSGGeoFunctions.h"
+#include "OSGGraphOpFactory.h"
 
 //#include "OSGFieldContainerFactory.h"
 //#include "OSGTypeFactory.h"
@@ -548,6 +549,15 @@ void ComplexSceneManager::addData(const std::string &filename)
 
     if(pFile != NULL)
     {
+#if defined(OSG_OGL_ES2)
+        OSG::GraphOpRefPtr op = 
+            OSG::GraphOpFactory::the()->create("PrepareES");
+
+        fprintf(stderr, "do es prep %p\n", op.get());
+
+        op->traverse(pFile);
+#endif
+
         pModelRoot->addChild(pFile);
     }
 }

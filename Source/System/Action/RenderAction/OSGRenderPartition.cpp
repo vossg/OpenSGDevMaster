@@ -550,7 +550,7 @@ void RenderPartition::doExecution(bool bRestoreViewport)
         ++cbIt;
     }
 
-#ifndef OSG_OGL_COREONLY
+#if !defined(OSG_OGL_COREONLY)
     if(0x0000 != (_uiSetupMode & ProjectionSetup))
     {
         glMatrixMode (GL_PROJECTION);

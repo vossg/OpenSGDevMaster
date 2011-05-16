@@ -52,6 +52,8 @@
 #include "GL/glx.h"
 #endif
 
+#include "OSGGLEXT.h"
+
 OSG_BEGIN_NAMESPACE
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -545,6 +547,9 @@ typedef void      (OSG_APIENTRY *OSGglGetQueryObjectivProc )(      GLuint,
 typedef void      (OSG_APIENTRY *OSGglGetQueryObjectuivProc)(      GLuint, 
                                                                    GLenum, 
                                                                    GLuint *);
+
+typedef const GLubyte * (OSG_APIENTRY *OSGglGetStringiProc)(GLenum name, 
+                                                            GLuint index);
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/

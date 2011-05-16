@@ -97,66 +97,6 @@ void Camera::changed(ConstFieldMaskArg whichField,
 }
 
 
-#ifdef OSG_OLD_RENDER_ACTION
-/*-------------------------- your_category---------------------------------*/
-
-/*! Setup OpenGL for rendering, call all the necessary commands to start
-    rendering with this camera.
- */
-
-void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action),
-                   const Viewport       &port                 )
-{
-    Matrix m, t;
-
-    // set the projection
-
-    getProjection           (m, port.getPixelWidth(), port.getPixelHeight());
-    getProjectionTranslation(t, port.getPixelWidth(), port.getPixelHeight());
-
-    m.mult(t);
-
-    //SDEBUG << "Projection matrix: " << m << std::endl;
-
-    glMatrixMode (GL_PROJECTION);
-    GLP::glLoadMatrixf(m.getValues());
-
-    // set the viewing
-
-    getViewing(m, port.getPixelWidth(), port.getPixelHeight());
-
-    //SDEBUG << "Viewing matrix: " << m << std::endl;
-
-    glMatrixMode (GL_MODELVIEW );
-    GLP::glLoadMatrixf(m.getValues());
-}
-
-/*! Setup OpenGL projection for rendering.
- */
-
-void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
-                             const Viewport       &port                 )
-{
-    Matrix m, t;
-
-    // set the projection
-
-    getProjection           (m, port.getPixelWidth(), port.getPixelHeight());
-    getProjectionTranslation(t, port.getPixelWidth(), port.getPixelHeight());
-
-    m.mult(t);
-
-    //SDEBUG << "Projection matrix: " << m << std::endl;
-
-    glMatrixMode (GL_PROJECTION);
-    GLP::glLoadMatrixf(m.getValues());
-}
-
-/*! Draw the camera's geometry (if any). Usually there is none.
- */
-
-#endif
-
 /*! Get/calculate the projection matrix for this camera.
  */
 

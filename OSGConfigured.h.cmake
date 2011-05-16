@@ -37,6 +37,8 @@
 
 #cmakedefine OSG_OGL_ES2 1
 
+#cmakedefine OSG_OGL_ES2_SIMGL3 1
+
 #ifndef GL_GLEXT_PROTOTYPES
 #cmakedefine GL_GLEXT_PROTOTYPES 1
 #endif

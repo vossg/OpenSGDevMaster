@@ -74,23 +74,23 @@
 #define OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
 #endif
 
-#define OSG_GEN_CONTAINERPTR(CLASST)                                            \
-    typedef TransitPtr   < CLASST                  > CLASST##TransitPtr;        \
-    typedef MTRefCountPtr< CLASST,                                              \
-                           NoRefCountPolicy        > CLASST##MTUncountedPtr;    \
-    typedef RefCountPtr  < CLASST,                                              \
-                           RecordedRefCountPolicy  > CLASST##RecPtr;            \
-    typedef RefCountPtr  < CLASST,                                              \
-                           UnrecordedRefCountPolicy> CLASST##UnrecPtr;          \
-    typedef RefCountPtr  < CLASST,                                              \
-                           WeakRefCountPolicy      > CLASST##WeakPtr;           \
-    typedef MTRefCountPtr< CLASST,                                              \
-                           RecordedRefCountPolicy  > CLASST##MTRecPtr;          \
-    typedef MTRefCountPtr< CLASST,                                              \
-                           WeakRefCountPolicy      > CLASST##MTWeakPtr;         \
-    typedef CLASST##RecPtr                           CLASST##RefPtr;            \
-    typedef CLASST##MTRecPtr                         CLASST##MTRefPtr;          \
-                                                                                \
+#define OSG_GEN_CONTAINERPTR(CLASST)                                          \
+    typedef TransitPtr   < CLASST                  > CLASST##TransitPtr;      \
+    typedef MTRefCountPtr< CLASST,                                            \
+                           NoRefCountPolicy        > CLASST##MTUncountedPtr;  \
+    typedef RefCountPtr  < CLASST,                                            \
+                           RecordedRefCountPolicy  > CLASST##RecPtr;          \
+    typedef RefCountPtr  < CLASST,                                            \
+                           UnrecordedRefCountPolicy> CLASST##UnrecPtr;        \
+    typedef RefCountPtr  < CLASST,                                            \
+                           WeakRefCountPolicy      > CLASST##WeakPtr;         \
+    typedef MTRefCountPtr< CLASST,                                            \
+                           RecordedRefCountPolicy  > CLASST##MTRecPtr;        \
+    typedef MTRefCountPtr< CLASST,                                            \
+                           WeakRefCountPolicy      > CLASST##MTWeakPtr;       \
+    typedef CLASST##RecPtr                           CLASST##RefPtr;          \
+    typedef CLASST##MTRecPtr                         CLASST##MTRefPtr;        \
+                                                                              \
     OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
 
 

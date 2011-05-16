@@ -2,7 +2,7 @@
 
 <FieldContainer
    name="Inline"
-   parent="NodeCore"
+   parent="RootGroup"
    library="Group"
    pointerfieldtypes="both"
    structure="concrete"

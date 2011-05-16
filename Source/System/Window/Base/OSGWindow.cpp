@@ -47,6 +47,8 @@
 
 #include "OSGGLU.h"
 
+#include "OSGGLFuncProtos.h"
+
 #if !defined(WIN32) && !defined(__APPLE__) && !defined(OSG_EMBEDDED)
 #include <GL/glx.h>
 #endif
@@ -1314,7 +1316,7 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
         const char *version = 
                 reinterpret_cast<const char *>(glGetString(GL_VERSION));
         
-#if defined(OSG_OGL_ES2)
+#if defined(OSG_OGL_ES2) && !defined(OSG_OGL_ES2_SIMGL3)
 		UInt32 uiVersionOff = 10;
 #else
 		UInt32 uiVersionOff = 0;
@@ -1355,6 +1357,36 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
 
 #endif // __APPLE
 
+#if defined(OSG_USE_OGL3_PROTOS) || \
+    defined(OSG_USE_OGL4_PROTOS) || \
+    defined(OSG_OGL_ES2_SIMGL3)  || \
+    (defined(OSG_OGL_COREONLY) && !defined(OSG_OGL_ES2))
+
+        Int32  iNumExtensions = 0;
+
+        glGetIntegerv(GL_NUM_EXTENSIONS, &iNumExtensions);
+
+        OSGGETGLFUNCBYNAME_GL3(glGetStringi,
+                               osgGlGetStringi,
+                               "glGetStringi",
+                               this);
+
+        for(Int32 i = 0; i < iNumExtensions; ++i)
+        {
+            std::string gl_extension = 
+                reinterpret_cast<const char *>(osgGlGetStringi(GL_EXTENSIONS, 
+                                                               i            ));
+
+            if(! std::binary_search(_ignoredExtensions.begin(),
+                                    _ignoredExtensions.end(),
+                                    gl_extension))
+            {
+                _extensions.push_back(gl_extension);
+            }
+        }
+
+#else
+
         const char *gl_extensions = 
             reinterpret_cast<const char*> (glGetString(GL_EXTENSIONS));
 
@@ -1382,8 +1414,11 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
             }
         }
         FPDEBUG(("\n"));
+
+#endif
+
         std::sort(_extensions.begin(), _extensions.end());
-                 
+            
         // if we don't have any extensions, add something anyway
         if(_extensions.empty())
             _availExtensions.resize(_registeredExtensions.size(), false);

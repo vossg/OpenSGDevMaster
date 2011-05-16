@@ -104,7 +104,7 @@ ComplexSceneManager
 #             ignoreExtensions [ "GL_ARB_framebuffer_object",
 #                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
 #             requestMajor 3
-#             requestMinor 0
+#             requestMinor 3
 
 #             enableForwardCompatContext TRUE
 #             enableDebugContext         TRUE

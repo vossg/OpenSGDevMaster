@@ -100,7 +100,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Inline *>::_type("InlinePtr", "NodeCorePtr");
+DataType FieldTraits<Inline *>::_type("InlinePtr", "RootGroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(Inline *)
@@ -175,7 +175,7 @@ InlineBase::TypeObject InlineBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Inline\"\n"
-    "   parent=\"NodeCore\"\n"
+    "   parent=\"RootGroup\"\n"
     "   library=\"Group\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"

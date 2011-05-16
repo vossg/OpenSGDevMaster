@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+   name="RootGroup"
+   parent="NodeCore"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   docGroupBase="GrpSystemNodeCoreGroups"
+   >
+
+  A group that stores its children not in the parent node but in a 
+  sfNodePtr locally with the core.
+</FieldContainer>

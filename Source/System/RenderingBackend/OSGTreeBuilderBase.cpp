@@ -46,6 +46,8 @@
 #include "OSGBaseFunctions.h"
 #include "OSGRenderPartitionBase.h"
 
+#include "OSGGLEXT.h"
+
 //#define OSG_DUMP_SORTING
 
 OSG_BEGIN_NAMESPACE
@@ -97,7 +99,7 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
 
         if(uiNextMatrix != 0 && uiNextMatrix != _uiActiveMatrix)
         {
-#ifndef OSG_OGL_COREONLY
+#if !defined(OSG_OGL_COREONLY)
             glLoadMatrixf(pNode->getMatrixStore().second.getValues());
 #endif
 
