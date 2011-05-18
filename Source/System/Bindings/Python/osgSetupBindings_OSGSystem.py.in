@@ -701,7 +701,8 @@ void dsa_isub(OSG::DrawableStatsAttachment* self,
 
   for class_name in ["ShaderProgram", "SimpleSHLChunk"]:
     c = osg[class_name]
-    for m in ["addProceduralVariable", "updateProceduralVariable"]:
+    for m in ["addProceduralVariable", "updateProceduralVariable",
+              "addNodeProceduralVariable", "updateNodeProceduralVariable"]:
       c[m].exclude()
 
     c.add_declaration_code("""
@@ -711,6 +712,14 @@ namespace
 void proceduralCallback(bp::object callable, OSG::DrawEnv* env, int i)
 {
    callable(env, i);
+}
+
+void proceduralNodeCallback(bp::object    callable, 
+                            OSG::DrawEnv *env, 
+                            int           i,
+                            OSG::Node    *node)
+{
+    callable(env, i, node);
 }
 
 bool
@@ -737,6 +746,32 @@ wrapUpdateProceduralVariable(
                                          uiDependency);
 }
 
+bool
+wrapAddNodeProceduralVariable(
+   OSG::%(class_name)s* self, const OSG::Char8* name, bp::object pFunc,
+   OSG::UInt32 uiDependency = OSG::ShaderProcVariable::SHDObject
+)
+{
+   return self->addNodeProceduralVariable(name,
+                                          boost::bind(proceduralNodeCallback, 
+                                                      pFunc,
+                                                      _1, _2, _3),
+                                      uiDependency);
+}
+
+bool
+wrapUpdateNodeProceduralVariable(
+   OSG::%(class_name)s* self, const OSG::Char8* name, bp::object pFunc,
+   OSG::UInt32 uiDependency = OSG::ShaderProcVariable::SHDObject
+)
+{
+   return self->updateNodeProceduralVariable(name,
+                                         boost::bind(proceduralNodeCallback, 
+                                                     pFunc,
+                                                     _1, _2, _3),
+                                         uiDependency);
+}
+
 }
 """ % {'class_name' : class_name})
     c.add_registration_code("""
@@ -746,6 +781,16 @@ wrapUpdateProceduralVariable(
 """)
     c.add_registration_code("""
          def("updateProceduralVariable", wrapUpdateProceduralVariable,
+             (bp::arg("name"), bp::arg("pFunc"),
+              bp::arg("uiDependency") = OSG::ShaderProcVariable::SHDObject))
+""")
+    c.add_registration_code("""
+         def("addNodeProceduralVariable", wrapAddNodeProceduralVariable,
+             (bp::arg("name"), bp::arg("pFunc"),
+              bp::arg("uiDependency") = OSG::ShaderProcVariable::SHDObject))
+""")
+    c.add_registration_code("""
+         def("updateNodeProceduralVariable", wrapUpdateNodeProceduralVariable,
              (bp::arg("name"), bp::arg("pFunc"),
               bp::arg("uiDependency") = OSG::ShaderProcVariable::SHDObject))
 """)
@@ -780,6 +825,8 @@ wrapUpdateProceduralVariable(
 
   c["getVariable"].call_policies = return_internal_reference()
   c["updateProceduralVariable"].exclude()
+  c["addNodeProceduralVariable"].exclude()
+  c["updateNodeProceduralVariable"].exclude()
 
   c.add_declaration_code("""
 namespace
@@ -788,6 +835,14 @@ namespace
 void proceduralCallback(bp::object callable, OSG::DrawEnv* env, int i)
 {
    callable(env, i);
+}
+
+void proceduralNodeCallback(bp::object    callable, 
+                            OSG::DrawEnv *env, 
+                            int           i,
+                            OSG::Node    *node)
+{
+  callable(env, i, node);
 }
 
 bool wrapAddProceduralVariable(OSG::ShaderProgramVariables* self,
@@ -811,6 +866,29 @@ bool wrapUpdateProceduralVariable(OSG::ShaderProgramVariables* self,
                                          uiDependency);
 }
 
+bool wrapAddNodeProceduralVariable(OSG::ShaderProgramVariables* self,
+                                   const OSG::Char8* name, bp::object pFunc,
+                                   OSG::UInt32 uiDependency,
+                                   OSG::MFInt32* pProcVarLoc)
+{
+   return self->addNodeProceduralVariable(name,
+                                      boost::bind(proceduralNodeCallback, 
+                                                  pFunc,
+                                                  _1, _2, _3),
+                                      uiDependency, pProcVarLoc);
+}
+
+bool wrapUpdateNodeProceduralVariable(OSG::ShaderProgramVariables* self,
+                                      const OSG::Char8* name, bp::object pFunc,
+                                      OSG::UInt32 uiDependency)
+{
+   return self->updateNodeProceduralVariable(name,
+                                             boost::bind(proceduralNodeCallback, 
+                                                         pFunc,
+                                                         _1, _2, _3),
+                                             uiDependency);
+}
+
 }
 """)
   c.add_registration_code("""
@@ -820,6 +898,15 @@ bool wrapUpdateProceduralVariable(OSG::ShaderProgramVariables* self,
 """)
   c.add_registration_code("""
       def("updateProceduralVariable", wrapUpdateProceduralVariable,
+          (bp::arg("name"), bp::arg("pFunc"), bp::arg("uiDependency")))
+""")
+  c.add_registration_code("""
+      def("addNodeProceduralVariable", wrapAddNodeProceduralVariable,
+          (bp::arg("name"), bp::arg("pFunc"), bp::arg("uiDependency"),
+           bp::arg("pProcVarLoc")))
+""")
+  c.add_registration_code("""
+      def("updateNodeProceduralVariable", wrapUpdateNodeProceduralVariable,
           (bp::arg("name"), bp::arg("pFunc"), bp::arg("uiDependency")))
 """)
 
@@ -837,7 +924,9 @@ void functorCallback(bp::object callable, OSG::DrawEnv* env, int i)
 
 void wrapSetFunctor(OSG::ShaderVariableFunctor* svf, bp::object pFunc)
 {
-   svf->setFunctor(boost::bind(functorCallback, pFunc, _1, _2));
+    OSG::ShaderVariableFunctor::ProcVarFunctor pvf = boost::bind(functorCallback, pFunc, _1, _2);
+
+    svf->setFunctor(pvf);
 }
 
 }
