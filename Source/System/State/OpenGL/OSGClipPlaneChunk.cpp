@@ -196,14 +196,14 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
     
     cameraMat.mult(beaconMat);
     
-    if(getEnable() != old->getEnable() ||
-       getBeacon() != old->getBeacon()  )
+    if(getEquation() != old->getEquation() ||
+       getEnable  () != old->getEnable  () ||
+       getBeacon  () != old->getBeacon  ()   )
     {
         if(getEnable() == true)
         {
-                  GLdouble  glEq[4];
-
-            const Vec4f    &eq = getEquation();
+            GLdouble     glEq[4];
+            const Vec4f &eq = getEquation();
 
             glEq[0] = eq[0];
             glEq[1] = eq[1];
