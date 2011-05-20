@@ -152,6 +152,18 @@ Material *RenderActionBase::getGlobalOverride(void) const
 }
 
 inline
+bool RenderActionBase::getResetStatistics(void) const
+{
+    return _bResetStatistics;
+}
+
+inline
+void RenderActionBase::setResetStatistics(bool value)
+{
+    _bResetStatistics = value;
+}
+
+inline
 TraversalValidator *RenderActionBase::getTravValidator(void)
 {
     return _pTravValidator;

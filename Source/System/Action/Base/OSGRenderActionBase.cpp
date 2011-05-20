@@ -86,6 +86,7 @@ RenderActionBase::RenderActionBase(void) :
     _pStatistics              (NULL  ),
     _pTravValidator           (NULL  ),
 
+    _bResetStatistics         (true  ),
     _bUseGLFinish             (false ),
 
     _bFrustumCulling          (true  ),
@@ -114,6 +115,7 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pStatistics             (NULL                            ),
     _pTravValidator          (NULL                            ),
 
+    _bResetStatistics        (source._bResetStatistics        ),
     _bUseGLFinish            (source._bUseGLFinish            ),
 
     _bFrustumCulling         (source._bFrustumCulling         ),
@@ -155,24 +157,10 @@ ActionBase::ResultE RenderActionBase::start(void)
 
     if(_pStatistics != NULL)
     {
-        _pStatistics->reset();
+        if(_bResetStatistics == true)
+            _pStatistics->reset();
 
-
-        _pStatistics->getElem(statTravTime       )->start();
-//    getStatistics()->getElem(statCullTestedNodes)->reset();
-//    getStatistics()->getElem(statCulledNodes    )->reset();
-    //getStatistics()->getElem(RenderAction::statNTextures)->reset();
-    //getStatistics()->getElem(RenderAction::statNTexBytes)->reset();
-
-    // this really doesn't belong here, but don't know a better place to put it
-        if(_pStatistics->getElem(Drawable::statNTriangles,false) != NULL)
-        {
-            _pStatistics->getElem(Drawable::statNTriangles )->set(0);
-            _pStatistics->getElem(Drawable::statNLines     )->set(0);
-            _pStatistics->getElem(Drawable::statNPoints    )->set(0);
-            _pStatistics->getElem(Drawable::statNVertices  )->set(0);
-            _pStatistics->getElem(Drawable::statNPrimitives)->set(0);
-        }
+        _pStatistics->getElem(statTravTime)->start();
     }
 
     _pTravValidator->incEventCounter();

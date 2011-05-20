@@ -143,11 +143,19 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
           Window        *getWindow        (void                      ) const;
           void           setWindow        (Window        *pWindow    );
     
-          StatCollector *getStatCollector (void                      ) const;
-          void           setStatCollector (StatCollector *pStat      );
-
           Material      *getGlobalOverride(void                      ) const;
           void           setGlobalOverride(Material      *pMat       );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistics                                 */
+    /*! \{                                                                 */
+
+    StatCollector *getStatCollector  (void                ) const;
+    void           setStatCollector  (StatCollector *pStat);
+
+    bool           getResetStatistics(void                ) const;
+    void           setResetStatistics(bool           value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,6 +289,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     StatCollector      *_pStatistics;
     TraversalValidator *_pTravValidator;
 
+    bool                _bResetStatistics;
     bool                _bUseGLFinish;
 
     // frustum culling attributes

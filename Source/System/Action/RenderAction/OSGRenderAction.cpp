@@ -655,11 +655,11 @@ Action::ResultE RenderAction::stop(ResultE res)
             }
 
 
-            _pStatistics->getElem(statNMatrices    )->set(uiNMatrix     );
-            _pStatistics->getElem(statNStates      )->set(uiNState      );
-            _pStatistics->getElem(statNShaders     )->set(uiNShader     );
-            _pStatistics->getElem(statNShaderParams)->set(uiNShaderParam);
-            _pStatistics->getElem(statNTriangles   )->set(uiNTriangles);
+            _pStatistics->getElem(statNMatrices    )->add(uiNMatrix     );
+            _pStatistics->getElem(statNStates      )->add(uiNState      );
+            _pStatistics->getElem(statNShaders     )->add(uiNShader     );
+            _pStatistics->getElem(statNShaderParams)->add(uiNShaderParam);
+            _pStatistics->getElem(statNTriangles   )->add(uiNTriangles  );
         }
     }
 
