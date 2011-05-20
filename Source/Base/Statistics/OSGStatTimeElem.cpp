@@ -70,8 +70,9 @@ OSG_USING_NAMESPACE
 /*------------- constructors & destructors --------------------------------*/
 
 StatTimeElem::StatTimeElem(StatElemDescBase *desc) :
-     StatElem(desc),
-    _time    (   0)
+     StatElem (desc),
+    _startTime(   0),
+    _time     (   0)
 {
 }
 
@@ -147,7 +148,7 @@ Real64 StatTimeElem::getValue(void) const
 
 void StatTimeElem::reset(void) 
 { 
-    // Time elements need to be started and stopped and can't be reset
+    _time = 0;
 }
 
 /*-------------------------- assignment -----------------------------------*/
@@ -157,7 +158,8 @@ StatTimeElem& StatTimeElem::operator = (const StatTimeElem &source)
     if (this == &source)
         return *this;
 
-    _time = source._time;
+    _startTime = source._startTime;
+    _time      = source._time;
     
     return *this;
 }

@@ -133,6 +133,7 @@ class OSG_BASE_DLLMAPPING StatTimeElem : public StatElem
 
     typedef StatElem Inherited;
 
+    Time _startTime;
     Time _time;
 
     // prohibit default functions (move to 'public' if you need one)
