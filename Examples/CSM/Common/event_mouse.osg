@@ -24,7 +24,7 @@ ContainerCollection
 
         options LinuxEventOptions
         {
-            device "/dev/input/event5"
+            device "/dev/input/event8"
             
             tRange -100 100 1
 

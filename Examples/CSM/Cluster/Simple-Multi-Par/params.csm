@@ -1,4 +1,4 @@
 --global ../../Common/default-setup.osg
 --system ../../Common/system-native-cluster-multi-par.osg
---data   ../../Simple/tie.wrl
+--data   ../../Models/tie.wrl
 --global ../../Common/simple_mouse.osg

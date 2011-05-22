@@ -34,8 +34,8 @@ IF(OSGGLEWSrcDir)
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                 CONFIGURATIONS Release Debug
                 RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
   ENDIF(BUILD_SHARED_LIBS)
 
 #  IF(BUILD_STATIC_LIBS)
