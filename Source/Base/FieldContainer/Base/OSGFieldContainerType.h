@@ -267,6 +267,9 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     template <class AttachmentDescT>
     friend class DynFieldAttachment;
 
+    template <class AttachmentDescT>
+    friend class DynFieldContainer;
+
     friend class ChangeList;
 
     typedef ReflexiveContainerType Inherited;

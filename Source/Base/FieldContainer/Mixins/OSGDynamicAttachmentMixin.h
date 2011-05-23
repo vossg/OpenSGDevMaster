@@ -56,6 +56,18 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
+class DynFieldContainerInterface
+{
+  public:
+    
+    DynFieldContainerInterface(void) {}
+
+    virtual ~DynFieldContainerInterface(void) {}
+
+    virtual UInt32 addField(const UInt32                uiFieldTypeId,
+                            const Char8                *szFieldName  ) = 0;
+};
+
 /*! \ingroup GrpBaseFieldContainerMixins
     \ingroup GrpLibOSGBase
  */
@@ -89,8 +101,10 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \name              Dynamic Field Access                            */
     /*! \{                                                                 */
 
-    UInt32 addField(const FieldDescriptionBase &fieldDesc);
-    void   subField(      UInt32                fieldId  );
+    UInt32 addField(const FieldDescriptionBase &fieldDesc    );
+    UInt32 addField(const UInt32                uiFieldTypeId,
+                    const Char8                *szFieldName  );
+    void   subField(      UInt32                fieldId      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

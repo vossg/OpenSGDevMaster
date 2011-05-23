@@ -114,6 +114,12 @@ class ReflexiveContainer;
 
 class DrawEnv;
 
+template <class AttachmentDescT>
+class DynFieldAttachment;
+
+template <class AttachmentDescT>
+class DynFieldContainer;
+
 struct ContainerChangeEntry;
 
 template<class ObjT> 

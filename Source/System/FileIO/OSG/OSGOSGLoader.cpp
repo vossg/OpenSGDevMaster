@@ -88,7 +88,9 @@
 
 
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+OSG_DYNFIELDATTACHMENT_INST(OSGGenericAttDesc)
 
 //---------------------------------------------------------------------------
 //  Class
@@ -842,3 +844,58 @@ FieldContainer *OSGLoader::getReference(const Char8 *szName)
 
     return entry->second; // return the stored FCPtr
 }
+
+void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
+                               const UInt32  uiFieldTypeId,
+                               const Char8  *szFieldName  )
+{
+    DynFieldContainerInterface *pIf = 
+        dynamic_cast<DynFieldContainerInterface *>(_pCurrentFC.get());
+
+    if(pIf != NULL)
+    {
+        GetFieldHandlePtr pField = _pCurrentFC->getField(szFieldName);
+
+        if(pField == NULL || pField->isValid() == false)
+        {
+            pIf->addField(uiFieldTypeId, szFieldName);
+        }
+
+        _pCurrentField = _pCurrentFC->editField(szFieldName);
+    }
+    else
+    {
+        AttachmentContainer *pAttCnt = 
+            dynamic_cast<AttachmentContainer *>(_pCurrentFC.get());
+
+        if(pAttCnt != NULL)
+        {
+            OSGGenericAttUnrecPtr pGenAtt = 
+                dynamic_cast<OSGGenericAtt *>(
+                    pAttCnt->findAttachment(OSGGenericAtt::getClassGroupId()));
+
+            if(pGenAtt == NULL)
+            {
+                pGenAtt = OSGGenericAtt::create();
+                
+                pAttCnt->addAttachment(pGenAtt);
+            }
+            
+            GetFieldHandlePtr pField = pGenAtt->getField(szFieldName);
+
+            if(pField == NULL || pField->isValid() == false)
+            {
+                pGenAtt->addField(uiFieldTypeId, szFieldName);
+            }
+            
+            _pCurrentField = pGenAtt->editField(szFieldName);
+        }
+    }
+}
+
+void OSGLoader::endFieldDecl(void)
+{
+}
+
+OSG_END_NAMESPACE
+

@@ -51,11 +51,45 @@
 #include "OSGField.h"
 #include "OSGFieldContainer.h"
 
+#include "OSGDynamicAttachmentMixin.h"
+
 #include <stack>
 #include <map>
 #include <string>
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpSystemFileIOOSG
+    \nohierarchy
+ */
+
+struct OSGGenericAttDesc
+{
+    typedef Attachment  Parent;
+    typedef Attachment *ParentPtr;
+
+    static const Char8 *getTypeName      (void) { return "OSGGenericAtt"; }
+    static const Char8 *getParentTypeName(void) 
+    {
+        return "Attachment"; 
+    }
+    static const Char8 *getGroupName     (void) { return "OSGGenAtt"; }
+
+
+    static InitContainerF         getInitMethod(void) { return NULL; }
+
+    static FieldDescriptionBase **getDesc      (void) { return NULL; }
+};
+
+/*! \ingroup GrpSystemFileIOOSG
+ */
+
+typedef DynFieldAttachment<OSGGenericAttDesc>  OSGGenericAtt;
+
+/*! \ingroup GrpSystemFileIOOSG
+ */
+typedef OSGGenericAtt::ObjUnrecPtr             OSGGenericAttUnrecPtr;
+
 
 /*! \brief native osg loader (vrml syntax)
     \ingroup GrpSystemFileIOOSG
@@ -135,6 +169,13 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
                                        const Char8  *szOutFieldname,
                                        const Char8  *szInNodename,
                                        const Char8  *szInFieldname    );
+
+    virtual void    beginFieldDecl    (const Char8  *szFieldType,
+                                       const UInt32  uiFieldTypeId,
+                                       const Char8  *szFieldName      );
+
+    virtual void    endFieldDecl      (      void                     );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

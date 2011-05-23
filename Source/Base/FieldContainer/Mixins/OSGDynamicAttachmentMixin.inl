@@ -112,6 +112,27 @@ UInt32 DynFieldAttachment<AttachmentDescT>::addField(
 }
 
 template <class AttachmentDescT> inline
+UInt32 DynFieldAttachment<AttachmentDescT>::addField(
+    const UInt32  uiFieldTypeId,
+    const Char8  *szFieldName  )
+{
+    FieldDescriptionBase *pDesc = 
+        FieldDescFactory::the()->createIdx(
+            uiFieldTypeId,
+            szFieldName,
+            static_cast<OSG::FieldIndexEditMethodSig>(
+                &Self::editDynamicField),
+            static_cast<OSG::FieldIndexGetMethodSig >(
+                &Self::getDynamicField));
+
+    UInt32 returnValue = this->addField(*pDesc);
+
+    delete pDesc;
+
+    return returnValue;
+}
+
+template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::subField(UInt32 fieldId)
 {
     FieldDescriptionBase *descP = _localType.getFieldDesc(fieldId);

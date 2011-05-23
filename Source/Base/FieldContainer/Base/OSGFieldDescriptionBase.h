@@ -55,9 +55,6 @@ OSG_BEGIN_NAMESPACE
 
 class Field;
 
-template <class AttachmentDescT>
-class DynFieldAttachment;
-
 class BasicFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerBase
@@ -219,6 +216,9 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 
     template <class AttachmentDescT>
     friend class DynFieldAttachment;
+
+    template <class AttachmentDescT>
+    friend class DynFieldContainer;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
