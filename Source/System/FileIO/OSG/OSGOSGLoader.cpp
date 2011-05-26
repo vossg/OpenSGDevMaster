@@ -861,8 +861,6 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
             pIf->addField(uiFieldTypeId, szFieldName);
         }
 
-        _pCurrentFC->dump();
-
         _pCurrentField     = _pCurrentFC->editField(szFieldName);
         _pCurrentFieldDesc =
             _pCurrentFC->getType().getFieldDesc(szFieldName);
