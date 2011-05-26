@@ -861,7 +861,11 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
             pIf->addField(uiFieldTypeId, szFieldName);
         }
 
-        _pCurrentField = _pCurrentFC->editField(szFieldName);
+        _pCurrentFC->dump();
+
+        _pCurrentField     = _pCurrentFC->editField(szFieldName);
+        _pCurrentFieldDesc =
+            _pCurrentFC->getType().getFieldDesc(szFieldName);
     }
     else
     {
@@ -888,13 +892,20 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
                 pGenAtt->addField(uiFieldTypeId, szFieldName);
             }
             
-            _pCurrentField = pGenAtt->editField(szFieldName);
+            _pCurrentField     = pGenAtt->editField(szFieldName);
+            _pCurrentFieldDesc =
+                pGenAtt->getType().getFieldDesc(szFieldName);
+
         }
     }
+
+    _fStack.push (_pCurrentField);
+    _fdStack.push(_pCurrentFieldDesc);
 }
 
 void OSGLoader::endFieldDecl(void)
 {
+    endField();
 }
 
 OSG_END_NAMESPACE

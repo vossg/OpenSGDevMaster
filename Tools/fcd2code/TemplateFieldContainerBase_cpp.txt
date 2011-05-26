@@ -259,7 +259,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @!Classname!@::initMethod,
     @!Classname!@::exitMethod,
     reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@::classDescInserter),
-    false,
+    @!TypeDescAddable!@,
     @!FieldsUnmarkedOnCreate!@,
     @!Fcdxml!@,
     @!SafeDescription!@

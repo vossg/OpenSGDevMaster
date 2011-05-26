@@ -31,11 +31,20 @@ IF(OSGGLEWSrcDir)
 
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} ${OPENGL_gl_LIBRARY})
 
-    INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    IF(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib
+                  ARCHIVE DESTINATION lib)
+    ELSE(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
+                  CONFIGURATIONS Release Debug
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    ENDIF(WIN32)
+
   ENDIF(BUILD_SHARED_LIBS)
 
 #  IF(BUILD_STATIC_LIBS)

@@ -44,7 +44,8 @@ class FieldContainer(FCDElement):
         self.setFCD("parentFields",               "none",   True);
         self.setFCD("docGroupBase",               "",       True);
         self.setFCD("realparent",                 "",       True);
-        self.setFCD("authors",                "",       True);
+        self.setFCD("authors",                    "",       True);
+        self.setFCD("typeDescAddable",            "false",  True);
     #
     # Access fields
     
@@ -352,7 +353,9 @@ class FieldContainer(FCDElement):
         else:
             self["LibNamespace"] = "OSG";
 
-        self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");   
+        self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");
+        self["TypeDescAddable"] = self.getFCD("typeDescAddable");
+
 
         decorateeFieldFlags = self.getFCD("decorateeFieldFlags");
         if decorateeFieldFlags == "":
