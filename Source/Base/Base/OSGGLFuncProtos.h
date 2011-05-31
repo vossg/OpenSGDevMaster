@@ -48,10 +48,6 @@
 #include "OSGGL.h"
 #endif
 
-#ifdef OSG_USE_GLX
-#include "GL/glx.h"
-#endif
-
 #include "OSGGLEXT.h"
 
 OSG_BEGIN_NAMESPACE
@@ -192,26 +188,6 @@ typedef void  (OSG_APIENTRY * OSGglBindAttribLocationProc)(      GLuint,
 /*! \{                                                                       */
 
 typedef void (OSG_APIENTRY *OSGglGenerateMipmapEXTProc)(GLenum);
-
-/*! \}                                                                       */
-/*---------------------------------------------------------------------------*/
-/*! \name FrameBuffer Config                                                 */
-/*! \ingroup GrpBaseBaseGLFunc                                               */
-/*! \{                                                                       */
-
-#ifdef OSG_USE_GLX
-typedef GLXFBConfig *(* OSGglxChooseFBConfigProc)(      Display *dpy, 
-                                                        int      screen, 
-                                                  const int     *attrib_list, 
-                                                        int     *nelements);
-
-typedef GLXContext (*OSGglxCreateContextAttribsARBProc)(
-          Display     *dpy,
-          GLXFBConfig  config,
-          GLXContext   share_context,
-          Bool         direct,
-    const int         *attrib_list);
-#endif
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/

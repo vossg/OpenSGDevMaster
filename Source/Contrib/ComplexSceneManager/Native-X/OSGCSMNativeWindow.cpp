@@ -52,6 +52,7 @@
 #include "OSGShaderCache.h"
 #endif
 #include "OSGGLFuncProtos.h"
+#include "OSGGLXFuncProtos.h"
 
 #include <X11/keysym.h>
 

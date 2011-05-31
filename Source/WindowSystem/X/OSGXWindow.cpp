@@ -49,12 +49,11 @@
 
 #include "OSGGLU.h"
 #include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
+#include "OSGGLXFuncProtos.h"
 
 #include "OSGXWindow.h"
 
-#include "OSGGLFuncProtos.h"
-
-#include "GL/glx.h"
 
 OSG_USING_NAMESPACE
 
