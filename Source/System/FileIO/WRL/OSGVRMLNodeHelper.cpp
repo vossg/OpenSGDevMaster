@@ -2384,7 +2384,7 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainer *pFC)
                                        dummyVec ,
                                        pColorIndex    ->getValues(),
                                        dummyVec ,
-                                       GL_LINES,
+                                       GL_LINE_STRIP,
                                        dummybool,
                                        dummybool,
                                        dummybool,

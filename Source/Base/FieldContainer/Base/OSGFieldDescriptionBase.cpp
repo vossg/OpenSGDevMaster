@@ -73,6 +73,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     _vFieldMask        (vFieldMask        ),
 
     _bInternal         (bInternal         ),
+    _bDynamic          (false             ),
     _uiFieldFlags      (uiFieldFlags      ),
 
     _fEditMethod       (fEditMethod       ),
@@ -101,6 +102,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     _vFieldMask        (vFieldMask        ),
 
     _bInternal         (bInternal         ),
+    _bDynamic          (false             ),
     _uiFieldFlags      (uiFieldFlags      ),
 
     _fEditMethod       (NULL              ),
@@ -119,6 +121,7 @@ FieldDescriptionBase::FieldDescriptionBase(const FieldDescriptionBase &source):
     _vFieldMask        (source._vFieldMask        ),
 
     _bInternal         (source._bInternal         ),
+    _bDynamic          (source._bDynamic          ),
     _uiFieldFlags      (source._uiFieldFlags      ),
 
     _fEditMethod       (source._fEditMethod       ),

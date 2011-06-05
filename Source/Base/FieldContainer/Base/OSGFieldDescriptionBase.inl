@@ -117,6 +117,12 @@ bool FieldDescriptionBase::isMField(void) const
 }
 
 inline
+bool FieldDescriptionBase::isDynamic(void) const
+{
+    return _bDynamic;
+}
+
+inline
 void FieldDescriptionBase::setFlags(UInt32 uiFlags)
 {
     _uiFieldFlags = uiFlags;
@@ -190,6 +196,12 @@ GetFieldHandlePtr FieldDescriptionBase::getField(
 #endif
 
     return pFieldHandle;
+}
+
+inline
+void FieldDescriptionBase::setDynamic(bool bDynamic)
+{
+    _bDynamic = bDynamic;
 }
 
 #if 0
@@ -566,6 +578,54 @@ bool FieldDescription<DescT,
     
     return FieldFunctions::isShared(pTypedField);
 }
+
+#if 0
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+UInt32 FieldDescription<DescT,
+                        eFieldCard, 
+                        RefCountPolicy,
+                        eFieldClass   >::getBinSize (Field *pField) const
+{
+    const HandledField *pTypedField = dcast_const(pField);
+
+    return pTypedField->getBinSize();
+}
+
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+void FieldDescription<DescT,
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::copyToBin(
+                          BinaryDataHandler &pMem,
+                          Field             *pField) const
+{
+    const HandledField *pTypedField = dcast_const(pField);
+
+    pTypedField->copyToBin(pMem);
+}
+
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+void FieldDescription<DescT,
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::copyFromBin(
+                          BinaryDataHandler &pMem,
+                          Field             *pField) 
+{
+    HandledField *pTypedField = dcast(pField);
+
+    pTypedField->copyFromBin(pMem);
+}
+#endif
 
 OSG_END_NAMESPACE
 

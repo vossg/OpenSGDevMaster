@@ -144,6 +144,8 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
           bool         isSField       (void                        ) const;
           bool         isMField       (void                        ) const;
 
+          bool         isDynamic      (void                        ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -171,6 +173,19 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \{                                                                 */
 
     virtual FieldDescriptionBase *clone(void) const = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
+
+#if 0
+    virtual UInt32 getBinSize (Field             *pField) const = 0;
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               Field             *pField) const = 0;
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               Field             *pField)       = 0;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -243,6 +258,7 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
           BitVector             _vFieldMask;
 
           bool                  _bInternal;
+          bool                  _bDynamic;
           UInt32                _uiFieldFlags;
 
           FieldEditMethod       _fEditMethod;
@@ -265,6 +281,8 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
+
+    void setDynamic(bool bDynamic);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -542,6 +560,13 @@ class FieldDescription : public FieldDescriptionBase
         const Field                *pSrc,
         const FieldDescriptionBase *pDstDesc,
               Field                *pDst    ) const;
+
+
+    virtual UInt32 getBinSize (Field             *pField) const;
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               Field             *pField) const;
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               Field             *pField);
 };
 
 OSG_END_NAMESPACE

@@ -52,22 +52,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Class
-//---------------------------------------------------------------------------
-
-class DynFieldContainerInterface
-{
-  public:
-    
-    DynFieldContainerInterface(void) {}
-
-    virtual ~DynFieldContainerInterface(void) {}
-
-    virtual UInt32 addField(const UInt32                uiFieldTypeId,
-                            const Char8                *szFieldName  ) = 0;
-};
-
 /*! \ingroup GrpBaseFieldContainerMixins
     \ingroup GrpLibOSGBase
  */

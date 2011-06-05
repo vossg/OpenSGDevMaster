@@ -46,6 +46,8 @@
 #include "OSGNode.h"
 #include "OSGStateChunk.h"
 
+#include "OSGDynFieldContainerInterface.h"
+
 OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
@@ -291,6 +293,19 @@ OSBCommonElement::readFieldContent(
 
         rh->skip(fieldSize);
         return false;
+    }
+
+    if(fieldDesc == 0)
+    {
+        DynFieldContainerInterface *pIf = 
+            dynamic_cast<DynFieldContainerInterface *>(getContainer());
+
+        if(pIf != NULL)
+        {
+            pIf->addField(fieldTypeName.c_str(), fieldName.c_str());
+
+            fieldDesc = getContainer()->getFieldDescription(fieldName.c_str());
+        }
     }
 
     if(fieldDesc == 0)

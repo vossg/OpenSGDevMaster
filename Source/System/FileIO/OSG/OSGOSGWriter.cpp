@@ -524,7 +524,18 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
     {
         //this Field contains data -> write it out
 
-        _outStream << BeginElem << hF->getName();
+        if(hF->getDescription()->isDynamic() == true)
+        {
+            _outStream << BeginElem 
+                       << "field "
+                       << hF->getType().getCName()
+                       << " "
+                       << hF->getName();
+        }
+        else
+        {
+            _outStream << BeginElem << hF->getName();
+        }
 
         //to access the content of a field via a Field*
         //one must know the cardinality

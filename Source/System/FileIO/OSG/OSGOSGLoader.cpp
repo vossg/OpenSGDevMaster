@@ -86,6 +86,7 @@
 
 #include "OSGFieldContainerUtils.h"
 
+#include "OSGDynFieldContainerInterface.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -310,6 +311,150 @@ void OSGLoader::initFieldTypeMapper(void)
 
     setIntExtMapping(SFBoxVolume::getClassType().getId(),
                      ScanParseSkel::OSGsfVolume);
+
+
+    // Map from scanner/parser to OSG
+
+    setExtIntMapping(ScanParseSkel::OSGsfBool,
+                     SFBool::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfColor,
+                     SFColor3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfColorRGBA,
+                     SFColor4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfDouble,
+                     SFReal64::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfFloat,
+                     SFReal32::getClassType().getId());
+
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGsfImage,
+                    ::getClassType().getId());
+#endif
+
+    setExtIntMapping(ScanParseSkel::OSGsfInt32,
+                     SFInt32::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGsfMatrix3d,
+                    ::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfMatrix3f,
+                    ::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGsfMatrix4d,
+                     SFMatrix4d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfMatrix4f,
+                     SFMatrix::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGsfNode,
+                    ::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGsfRotation,
+                     SFQuaternion::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfString,
+                     SFString::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfTime,
+                     SFTime::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec2d,
+                     SFVec2d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec2f,
+                     SFVec2f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec3d,
+                     SFVec3d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec3f,
+                     SFVec3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec4d,
+                     SFVec4d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVec4f,
+                     SFVec4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfBool,
+                     MFBool::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfColor,
+                     MFColor3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfColorRGBA,
+                     MFColor4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfDouble,
+                     MFReal64::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfFloat,
+                     MFReal32::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGmfImage,
+                     ::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGmfInt32,
+                     MFInt32::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGmfMatrix3d,
+                     ::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfMatrix3f,
+                    ::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGmfMatrix4d,
+                     MFMatrix4d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfMatrix4f,
+                     MFMatrix::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGmfNode,
+                    ::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGmfRotation,
+                     MFQuaternion::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfString,
+                     MFString::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfTime,
+                     MFTime::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec2d,
+                     MFVec2d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec2f,
+                     MFVec2f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec3d,
+                     MFVec3d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec3f,
+                     MFVec3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec4d,
+                     MFVec4d::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec4f,
+                     MFVec4f::getClassType().getId());
+
+    setExtIntMapping(ScanParseSkel::OSGmfColor4f,
+                     MFColor4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfColor4i,
+                     MFColor4ub::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfColor3f,
+                     MFColor3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfMatrix,
+                     MFMatrix::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfPnt2f,
+                     MFPnt2f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfPnt3f,
+                     MFPnt3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfPnt4f,
+                     MFPnt4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfPlane,
+                     MFPlane::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfColor4f,
+                     SFColor4f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfColor4i,
+                     SFColor4ub::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfColor3f,
+                     SFColor3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfMatrix,
+                     SFMatrix::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfPnt2f,
+                     SFPnt2f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfPnt3f,
+                     SFPnt3f::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfPnt4f,
+                     SFPnt4f::getClassType().getId());
+#if 0
+    setExtIntMapping(ScanParseSkel::OSGsfVec2i,
+                     SFVec2i::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGmfVec2i,
+                     MFVec2i::getClassType().getId());
+#endif
+    setExtIntMapping(ScanParseSkel::OSGsfPlane,
+                     SFPlane::getClassType().getId());
+    setExtIntMapping(ScanParseSkel::OSGsfVolume,
+                     SFBoxVolume::getClassType().getId());
+
 }
 
 void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
@@ -849,6 +994,8 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
                                const UInt32  uiFieldTypeId,
                                const Char8  *szFieldName  )
 {
+    UInt32 uiOSGFieldTypeId = mapIntExtFieldType(szFieldName, uiFieldTypeId);
+    
     DynFieldContainerInterface *pIf = 
         dynamic_cast<DynFieldContainerInterface *>(_pCurrentFC.get());
 
@@ -858,7 +1005,7 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
 
         if(pField == NULL || pField->isValid() == false)
         {
-            pIf->addField(uiFieldTypeId, szFieldName);
+            pIf->addField(uiOSGFieldTypeId, szFieldName);
         }
 
         _pCurrentField     = _pCurrentFC->editField(szFieldName);
@@ -887,7 +1034,7 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
 
             if(pField == NULL || pField->isValid() == false)
             {
-                pGenAtt->addField(uiFieldTypeId, szFieldName);
+                pGenAtt->addField(uiOSGFieldTypeId, szFieldName);
             }
             
             _pCurrentField     = pGenAtt->editField(szFieldName);

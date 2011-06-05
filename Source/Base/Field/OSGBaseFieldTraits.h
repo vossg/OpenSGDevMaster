@@ -556,7 +556,8 @@ struct FieldTraits<BoxVolume> :
  */
 
 template <>
-struct FieldTraits<BitVector, 1> : public FieldTraitsTemplateBase<BitVector, 1>
+struct FieldTraits<BitVector, 1> : 
+    public FieldTraitsPODTemplateBase<BitVector, 1>
 {
   private:
 
