@@ -562,11 +562,13 @@ class FieldDescription : public FieldDescriptionBase
               Field                *pDst    ) const;
 
 
+#if 0
     virtual UInt32 getBinSize (Field             *pField) const;
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                Field             *pField) const;
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                Field             *pField);
+#endif
 };
 
 OSG_END_NAMESPACE
