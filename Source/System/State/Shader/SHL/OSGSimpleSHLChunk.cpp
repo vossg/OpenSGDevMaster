@@ -1257,7 +1257,7 @@ void SimpleSHLChunk::updateProceduralVariables(
 #ifdef OSG_1_COMPAT
     if(_fParameterCallback)
     {
-        OSGGETGLFUNCBYID_GL3_ES(OSGglGetUniformLocationProc,
+        OSGGETGLFUNCBYID_GL3_ES(glGetUniformLocation,
                                 osgGlGetUniformLocation,
                                 ShaderProgram::getFuncIdGetUniformLocation(),
                                 pWin);
