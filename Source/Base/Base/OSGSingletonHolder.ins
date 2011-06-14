@@ -38,10 +38,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class SingletonT>
-SingletonT *SingletonHolder<SingletonT>::_the = NULL;
-
 #define OSG_SINGLETON_INST(OSG_CLASS, OSG_ADD_EXIT_FUNC)  \
+template<> OSG_DLL_EXPORT                                 \
+OSG_CLASS *SingletonHolder< OSG_CLASS >::_the = NULL;     \
+                                                          \
 template <> OSG_DLL_EXPORT                                \
 bool SingletonHolder< OSG_CLASS >::destroy(void)          \
 {                                                         \
@@ -55,17 +55,11 @@ bool SingletonHolder< OSG_CLASS >::destroy(void)          \
 }                                                         \
                                                           \
 template<> OSG_DLL_EXPORT                                 \
-OSG_CLASS *SingletonHolder< OSG_CLASS >::the(void)        \
+void SingletonHolder< OSG_CLASS >::init(void)             \
 {                                                         \
-    if(_the == NULL)                                      \
-    {                                                     \
-        _the = new OSG_CLASS();                           \
+    _the = new OSG_CLASS();                               \
                                                           \
-        OSG_ADD_EXIT_FUNC(&Self::destroy);                \
-    }                                                     \
-                                                          \
-    return _the;                                          \
-}                                                         \
-                                                          \
+    OSG_ADD_EXIT_FUNC(&Self::destroy);                    \
+}
 
 OSG_END_NAMESPACE

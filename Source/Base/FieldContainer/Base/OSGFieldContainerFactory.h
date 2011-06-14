@@ -310,6 +310,11 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     void operator =(const FieldContainerFactoryBase &source);
 };
 
+#if defined(WIN32)
+OSG_BASE_EXPIMP_TMPL
+template class OSG_BASE_DLLMAPPING SingletonHolder<FieldContainerFactoryBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::FieldContainerFactoryBase> FieldContainerFactory;
     \ingroup GrpBaseFieldContainerBase
     \relatesalso OSG::FieldContainerFactoryBase

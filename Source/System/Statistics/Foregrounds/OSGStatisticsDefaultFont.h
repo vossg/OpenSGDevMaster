@@ -89,10 +89,8 @@ class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
 };
 
 #if defined(WIN32)
-#    if !defined(OSG_COMPILEUTILLIB)
-OSG_SYSTEM_EXPIMP_TMPL 
-template class OSG_SYSTEM_DLLMAPPING SingletonHolder<StatisticsDefaultFontBase>;
-#    endif
+OSG_UTIL_EXPIMP_TMPL 
+template class OSG_UTIL_DLLMAPPING SingletonHolder<StatisticsDefaultFontBase>;
 #endif
 
 typedef SingletonHolder<StatisticsDefaultFontBase> StatisticsDefaultFont;

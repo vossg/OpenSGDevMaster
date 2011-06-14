@@ -179,7 +179,7 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-#if 0
+#if 1
     virtual UInt32 getBinSize (Field             *pField) const = 0;
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                Field             *pField) const = 0;
@@ -562,7 +562,7 @@ class FieldDescription : public FieldDescriptionBase
               Field                *pDst    ) const;
 
 
-#if 0
+#if 1
     virtual UInt32 getBinSize (Field             *pField) const;
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                Field             *pField) const;

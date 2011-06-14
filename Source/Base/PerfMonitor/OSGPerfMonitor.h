@@ -469,6 +469,11 @@ public:
     std::ofstream* mOutFile;  /**< The output file to use. */
 };
 
+#if defined(WIN32)
+OSG_BASE_EXPIMP_TMPL
+template class OSG_BASE_DLLMAPPING SingletonHolder<PerfMonitorBase>;
+#endif
+
 typedef SingletonHolder<PerfMonitorBase> PerfMonitor;
 
    

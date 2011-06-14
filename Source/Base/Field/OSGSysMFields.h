@@ -57,10 +57,7 @@ OSG_BEGIN_NAMESPACE
 
 typedef MField<bool, 2>   MFBool;
 
-#if 0
-#if ! defined(OSG_WIN32_CL)             || \
-      defined(OSG_WITH_STLPORT)         || \
-      defined(OSG_NEED_BOOL_MFIELD_SPEZ)
+#if defined(OSG_NEED_BOOL_MFIELD_SPEZ)
 template <> inline
 UInt32 MField<bool, 2>::getBinSize(void) const
 {
@@ -108,7 +105,6 @@ void MField<bool, 2>::copyFromBin(BinaryDataHandler &pMem)
         _values[i] = (tmpBVal != 0);
     }
 }
-#endif
 #endif
 
 

@@ -275,6 +275,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     /*! \}                                                                 */
 };
 
+#if defined(WIN32)
+OSG_SYSTEM_EXPIMP_TMPL
+template class OSG_SYSTEM_DLLMAPPING SingletonHolder<ImageFileHandlerBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::ImageFileHandlerBase> ImageFileHandler;
     \ingroup GrpSystemImageFileIOBase
     \relatesalso OSG::ImageFileHandlerBase

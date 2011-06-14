@@ -209,10 +209,8 @@ class OSG_BASE_DLLMAPPING FactoryControllerBase
 };
 
 #if defined(WIN32) 
-#    if !defined(OSG_COMPILE_FACTORYCONTROLLER)
-//OSG_BASE_EXPIMP_TMPL 
-//template class OSG_BASE_DLLMAPPING SingletonHolder<FactoryControllerBase>;
-#    endif
+OSG_BASE_EXPIMP_TMPL 
+template class OSG_BASE_DLLMAPPING SingletonHolder<FactoryControllerBase>;
 #endif
 
 /*! \typedef OSG::SingletonHolder<OSG::FactoryControllerBase> FactoryController;

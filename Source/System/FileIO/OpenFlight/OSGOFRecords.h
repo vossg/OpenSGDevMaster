@@ -210,6 +210,11 @@ class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
     void operator =(const OFRecordFactoryBase &source);
 };
 
+#if defined(WIN32)
+OSG_FILEIO_EXPIMP_TMPL
+template class OSG_FILEIO_DLLMAPPING SingletonHolder<OFRecordFactoryBase>;
+#endif
+
 /*! \ingroup GrpFileIOOpenFlight
  */
 

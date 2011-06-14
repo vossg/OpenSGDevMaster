@@ -193,6 +193,11 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
     TXFFaceMap _txfFaceMap;
 };
 
+#if defined(WIN32)
+OSG_TEXT_EXPIMP_TMPL
+template class OSG_TEXT_DLLMAPPING SingletonHolder<TextFaceFactoryBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::TextFaceFactoryBase> TextFaceFactory;
     \ingroup GrpTextFactory
     \relatesalso OSG::TextFaceFactoryBase

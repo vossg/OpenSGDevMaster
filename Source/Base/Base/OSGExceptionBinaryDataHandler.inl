@@ -157,6 +157,17 @@ void ExceptionBinaryDataHandler::putValue(const Real64 &value)
 }
 
 inline 
+void ExceptionBinaryDataHandler::putValue(const Real128 &value)
+{
+#if 0
+    UInt64 v = osgHostToNetFP(value);
+
+    put(&v, sizeof(UInt64));
+#endif
+    OSG_ASSERT(false); // have to implement this
+}
+
+inline 
 void ExceptionBinaryDataHandler::putValue(const std::string &value)
 {
     UInt32 len = value.length() + 1;
@@ -392,6 +403,24 @@ void ExceptionBinaryDataHandler::putValues(const Real64 *value, UInt32 size)
 }
 
 inline 
+void ExceptionBinaryDataHandler::putValues(const Real128 *value, UInt32 size)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if(_networkOrder == true)
+    {
+        for(UInt32 i = 0; i < size; ++i)
+        {
+            putValue(value[i]);
+        }
+    }
+    else
+#endif
+    {
+        put(value, size * sizeof(Real128));
+    }
+}
+
+inline 
 void ExceptionBinaryDataHandler::putValues(const std::string *value, 
                                                  UInt32       size )
 {
@@ -529,6 +558,19 @@ void ExceptionBinaryDataHandler::getValue(Real64 &value) throw (ReadError)
     get(&v, sizeof(UInt64));
 
     value = osgNetToHostFP(v);
+}
+
+inline
+void ExceptionBinaryDataHandler::getValue(Real128 &value) throw (ReadError)
+{
+#if 0
+    UInt64 v;
+    get(&v, sizeof(UInt64));
+
+    value = osgNetToHostFP(v);
+#endif
+
+    OSG_ASSERT(false); // have to implement this
 }
 
 inline 
@@ -755,6 +797,24 @@ void ExceptionBinaryDataHandler::getValues(Real64 *value,
         osgSwapMem<sizeof(Real64)>(value, size);
     }
 #endif
+}
+
+inline 
+void ExceptionBinaryDataHandler::getValues(Real128 *value, 
+                                           UInt32   size ) throw (ReadError)
+{
+#if 0
+    get(value, size * sizeof(Real128));
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if(_networkOrder == true)
+    {
+        osgSwapMem<sizeof(Real64)>(value, size);
+    }
+#endif
+#endif
+
+    OSG_ASSERT(false);
 }
 
 inline 

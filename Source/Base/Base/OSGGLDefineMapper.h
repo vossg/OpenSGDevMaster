@@ -150,6 +150,10 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase :
     friend class SingletonHolder;
 };
 
+#if defined(WIN32)
+OSG_BASE_EXPIMP_TMPL
+template class OSG_BASE_DLLMAPPING SingletonHolder<GLDefineMapperBase>;
+#endif
 
 /*! \typedef OSG::SingletonHolder<GLDefineMapperBase> GLDefineMapper;
     \ingroup GrpBaseBaseGL

@@ -83,6 +83,11 @@ class OSG_SYSTEM_DLLMAPPING GraphOpFactoryBase
     TypeMap _typeMap;
 };
 
+#if defined(WIN32)
+OSG_SYSTEM_EXPIMP_TMPL
+template class OSG_SYSTEM_DLLMAPPING SingletonHolder<GraphOpFactoryBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::GraphOpFactoryBase> GraphOpFactory;
     \ingroup GrpSystemGraphOp
     \relatesalso OSG::GraphOpFactoryBase

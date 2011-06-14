@@ -344,6 +344,11 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     SceneFileHandlerBase(const SceneFileHandlerBase &source);
 };
 
+#if defined(WIN32)
+OSG_SYSTEM_EXPIMP_TMPL
+template class OSG_SYSTEM_DLLMAPPING SingletonHolder<SceneFileHandlerBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::SceneFileHandlerBase> SceneFileHandler;
     \ingroup GrpSystemFileIOBase
     \relatesalso OSG::SceneFileHandlerBase

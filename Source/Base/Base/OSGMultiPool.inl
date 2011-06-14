@@ -65,7 +65,12 @@ inline bool
 MultiPool<RefCountPolicyT, LockPolicyT>::TypeInfoCmp::operator()(
     const std::type_info *lhs, const std::type_info *rhs) const
 {
+#if defined(_MSC_VER) 
+    // MS standard libs not compliant, returns int instead of bool 
+    return !!lhs->before(*rhs);
+#else
     return lhs->before(*rhs);
+#endif // _MSC_VER
 }
 
 

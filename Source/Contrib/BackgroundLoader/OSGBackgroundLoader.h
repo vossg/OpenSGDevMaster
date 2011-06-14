@@ -83,6 +83,11 @@ private:
    bool                      mStopRunning;
 };
 
+#if defined(WIN32)
+OSG_CONTRIBBACKGROUNDLOADER_EXPIMP_TMPL
+template class OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING SingletonHolder<BackgroundLoaderBase>;
+#endif
+
 typedef SingletonHolder<BackgroundLoaderBase> BackgroundLoader;
 
 OSG_END_NAMESPACE

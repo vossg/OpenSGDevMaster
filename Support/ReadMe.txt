@@ -68,10 +68,10 @@ configure -opensource -platform win32-msvc2008  -direct3d -D _CRT_SECURE_NO_DEPR
  1c) VTK
 
  1b) Rest
-http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
 
-http://pecl2.php.net/downloads/php-windows-builds/source/libpng-1.2.37-source.zip
-http://pecl2.php.net/downloads/php-windows-builds/source/libjpeg-6b-source.zip
+http://prdownloads.sourceforge.net/libpng/zlib-1.2.5.tar.gz?download
+http://prdownloads.sourceforge.net/libpng/libpng-1.5.2.tar.gz?download
+http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
  http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz\?download
@@ -81,9 +81,9 @@ ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
  http://www.xmission.com/~nate/glut/glut-3.7.6-src.zip
 
 http://nchc.dl.sourceforge.net/sourceforge/collada-dom/collada-dom-2.2.zip
-http://pecl2.php.net/downloads/php-windows-builds/source/libxml2-2.7.3-src.zip
+ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.9.zip
-http://pecl2.php.net/downloads/php-windows-builds/source/libiconv-1.12-source.zip
+http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
 
 http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
 
@@ -92,6 +92,16 @@ http://download.osgeo.org/gdal/gdal154.zip
 
 https://sourceforge.net/project/downloading.php\?group_id=67586\&filename=glew-1.5.1-src.zip
 http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
+
+
+original dl, currently down for maintenance
+
+  http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
+  http://pecl2.php.net/downloads/php-windows-builds/source/libpng-1.2.37-source.zip
+  http://pecl2.php.net/downloads/php-windows-builds/source/libjpeg-6b-source.zip
+  http://pecl2.php.net/downloads/php-windows-builds/source/libxml2-2.7.3-src.zip
+  http://pecl2.php.net/downloads/php-windows-builds/source/libiconv-1.12-source.zip
+
 
 2) Unpack to disk
 

@@ -51,9 +51,11 @@
 #   ifdef OSG_COMPILEUTILLIB
 #       define OSG_UTIL_DLLMAPPING     __declspec(dllexport)
 #       define OSG_UTIL_DLLTMPLMAPPING __declspec(dllexport)
+#       define OSG_UTIL_EXPIMP_TMPL
 #   else
 #       define OSG_UTIL_DLLMAPPING     __declspec(dllimport)
 #       define OSG_UTIL_DLLTMPLMAPPING __declspec(dllimport)
+#       define OSG_UTIL_EXPIMP_TMPL    extern
 #   endif
 #else
 #define OSG_UTIL_DLLMAPPING

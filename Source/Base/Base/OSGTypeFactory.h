@@ -231,10 +231,8 @@ class OSG_BASE_DLLMAPPING TypeFactoryBase : public FactoryBase
 };
 
 #if defined(WIN32)
-#    if !defined(OSG_COMPILE_TYPEFACTORY)
-//OSG_BASE_EXPIMP_TMPL 
-//template class OSG_BASE_DLLMAPPING SingletonHolder<TypeFactoryBase>;
-#    endif
+OSG_BASE_EXPIMP_TMPL 
+template class OSG_BASE_DLLMAPPING SingletonHolder<TypeFactoryBase>;
 #endif
 
 /*! \typedef OSG::SingletonHolder<OSG::TypeFactoryBase> TypeFactory;

@@ -157,6 +157,11 @@ class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
     ProfileHandlerMap _profileHandlerMap;
 };
 
+#if defined(WIN32)
+OSG_FILEIO_EXPIMP_TMPL
+template class OSG_FILEIO_DLLMAPPING SingletonHolder<ColladaElementFactorySingleton>;
+#endif
+
 /*! \ingroup GrpFileIOCollada
  */
 

@@ -144,10 +144,8 @@ class OSG_BASE_DLLMAPPING ConnectionFactoryBase
 };
 
 #if defined(WIN32)
-#    if !defined(OSG_COMPILE_CONNECTIONFACTORY)
-//OSG_BASE_EXPIMP_TMPL 
-//template class OSG_BASE_DLLMAPPING SingletonHolder<ConnectionFactoryBase>;
-#    endif
+OSG_BASE_EXPIMP_TMPL 
+template class OSG_BASE_DLLMAPPING SingletonHolder<ConnectionFactoryBase>;
 #endif
 
 /*! \typedef OSG::SingletonHolder<OSG::ConnectionFactoryBase> ConnectionFactory;

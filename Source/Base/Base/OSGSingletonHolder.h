@@ -87,6 +87,8 @@ class SingletonHolder
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    static void init(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
@@ -102,6 +104,18 @@ class SingletonHolder
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const SingletonHolder &source);
 };
+
+template<class SingletonT> inline
+SingletonT *SingletonHolder<SingletonT>::the(void)        
+{                                                         
+    if(_the == NULL)                                      
+    {                                                     
+        init();
+    }                                                     
+                                                          
+    return _the;                                          
+}                                                         
+
 
 OSG_END_NAMESPACE
 

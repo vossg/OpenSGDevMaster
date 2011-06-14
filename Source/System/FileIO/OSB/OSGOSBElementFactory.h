@@ -177,6 +177,11 @@ class OSG_FILEIO_DLLMAPPING OSBElementFactorySingleton
     OSBElementCreatorBase *_defaultCreator;
 };
 
+#if defined(WIN32)
+OSG_FILEIO_EXPIMP_TMPL
+template class OSG_FILEIO_DLLMAPPING SingletonHolder<OSBElementFactorySingleton>;
+#endif
+
 /*! \ingroup GrpFileIOOSB
  */
 

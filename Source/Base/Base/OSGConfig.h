@@ -185,6 +185,8 @@
 
 # define OSG_COMPILER_PART_SPEZ
 
+# define OSG_NEED_BOOL_MFIELD_SPEZ
+
 # if __GNUC__ >= 3
 #    define OSG_HASH_MAP_AS_EXT
 
@@ -569,7 +571,7 @@
 # endif
 
 # if _MSC_VER > 1300
-# define OSG_NEED_BOOL_MFIELD_SPEZ
+//# define OSG_NEED_BOOL_MFIELD_SPEZ
 # endif
 
 // vc 8.0

@@ -241,6 +241,11 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
     void operator =(const VRMLNodeHelperFactoryBase &source);
 };
 
+#if defined(WIN32)
+OSG_FILEIO_EXPIMP_TMPL
+template class OSG_FILEIO_DLLMAPPING SingletonHolder<VRMLNodeHelperFactoryBase>;
+#endif
+
 /*! \ingroup GrpFileIOWRLObj
  */
 

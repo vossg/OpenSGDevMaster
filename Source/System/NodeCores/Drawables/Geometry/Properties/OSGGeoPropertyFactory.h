@@ -77,6 +77,11 @@ class GeoPropertyFactoryBase
     static CreatePropFuncP _createFuncMap[3][4][8][2];
 };
 
+#if defined(WIN32)
+OSG_DRAWABLE_EXPIMP_TMPL
+template class OSG_DRAWABLE_DLLMAPPING SingletonHolder<GeoPropertyFactoryBase>;
+#endif
+
 /*! \typedef OSG::SingletonHolder<OSG::GeoPropertyFactoryBase> GeoPropertyFactory;
     \ingroup GrpDrawablesGeometryProperties
     \relatesalso OSG::GeoPropertyFactoryBase

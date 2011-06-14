@@ -579,7 +579,7 @@ bool FieldDescription<DescT,
     return FieldFunctions::isShared(pTypedField);
 }
 
-#if 0
+#if 1
 template<class    DescT, 
          enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
