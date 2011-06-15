@@ -173,8 +173,6 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
                     {
                         setIsActive(false);
                     }
-
-                    PLOG << std::endl;
                 }
                 else
                 {
@@ -187,8 +185,6 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
                     {
                          setIsActive(false);
                     }
-
-                    PLOG << std::endl;
                 }
             }
 
@@ -245,9 +241,6 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
 
     // use deltaT to update animTime and fraction
 
-#if 0
-    Real32 oldAnimT = getAnimTime();
-#endif
     Real32 newAnimT = getAnimTime();
 
     if(getForward() == true)

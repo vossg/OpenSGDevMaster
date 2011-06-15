@@ -89,7 +89,7 @@
      cardinality="single"
      visibility="internal"
      access="public"
-     defaultValue="0.0"
+     defaultValue="-1.0"
      fieldFlags="FClusterLocal"
      >
   </Field>

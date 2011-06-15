@@ -391,7 +391,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
-    "     defaultValue=\"0.0\"\n"
+    "     defaultValue=\"-1.0\"\n"
     "     fieldFlags=\"FClusterLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -907,7 +907,7 @@ AnimTimeSensorBase::AnimTimeSensorBase(void) :
     _sfForward                (bool(true)),
     _sfStartTime              (Time(0.0)),
     _sfStopTime               (Time(0.0)),
-    _sfTime                   (Time(0.0)),
+    _sfTime                   (Time(-1.0)),
     _sfCycleLength            (Time(0.0)),
     _sfTimeScale              (Real32(1.f)),
     _sfFraction               (Real32(0.f)),

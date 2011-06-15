@@ -195,13 +195,15 @@ void Animation::reset(void)
 
     if(ts->getForward() == true)
     {
-        ts->setAnimTime(0.f);
-        ts->setFraction(0.f);
+        ts->setAnimTime( 0.f);
+        ts->setFraction( 0.f);
+        ts->setTime    (-1.f);
     }
     else
     {
         ts->setAnimTime(getLength());
-        ts->setFraction(1.f        );
+        ts->setFraction( 1.f       );
+        ts->setTime    (-1.f       );
     }
 }
 
