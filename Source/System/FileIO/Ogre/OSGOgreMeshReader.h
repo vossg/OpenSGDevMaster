@@ -252,6 +252,9 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
     void readBoneAssignment           (VertexElementStore &vertexElements,
                                        Int16              &boneIdxVE,
                                        Int16              &boneWeightVE   );
+    void verifyBoneAssignment         (VertexElementStore &vertexElements,
+                                       Int16              &boneIdxVE,
+                                       Int16              &boneWeightVE   );
 
     void constructSubMesh             (SubMeshInfo        &smInfo,
                                        VertexElementStore &vertexElements );

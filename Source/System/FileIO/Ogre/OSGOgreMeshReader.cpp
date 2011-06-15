@@ -261,6 +261,11 @@ OgreMeshReader::readMesh(void)
         }
     }
 
+    if(boneIdxVE >= 0 || boneWeightVE >= 0)
+    {
+        verifyBoneAssignment(sharedVertexElements, boneIdxVE, boneWeightVE);
+    }
+
     SubMeshStore::iterator smIt  = subMeshInfo.begin();
     SubMeshStore::iterator smEnd = subMeshInfo.end  ();
 
@@ -358,6 +363,11 @@ OgreMeshReader::readSubMesh(SubMeshStore       &subMeshInfo,
             skip(_is, -_chunkHeaderSize);
             break;
         }
+    }
+
+    if(boneIdxVE >= 0 || boneWeightVE >= 0)
+    {
+        verifyBoneAssignment(smInfo.vertexElements, boneIdxVE, boneWeightVE);
     }
 }
 
@@ -1034,34 +1044,46 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
 
     for(UInt16 i = 0; i < 4; ++i)
     {
-        if((*boneIdxF)[vertIdx][i] == boneIdx)
+        if((*boneIdxF)[vertIdx][i] < 0.f)
         {
-            if((*boneWeightF)[vertIdx][i] < boneWeight)
+            if((*boneIdxF)[vertIdx][i] != -1.f)
             {
                 SINFO << "OgreMeshReader::readBoneAssignment: "
                       << "vertex '" << vertIdx
-                      << "' changing bone influence from ("
+                      << "' has negative influence from ("
                       << (*boneIdxF   )[vertIdx][i] << ", "
                       << (*boneWeightF)[vertIdx][i]
-                      << ") to (" << boneIdx << ", " << boneWeight
-                      << ")." << std::endl;
+                      << ")" << std::endl;
             }
-            else
-            {
-                SINFO << "OgreMeshReader::readBoneAssignment: "
-                      << "vertex '" << vertIdx
-                      << "' already influenced by bone ("
-                      << boneIdx << "' " << boneWeight << ")."
-                      << std::endl;
-            }
+
+            (*boneIdxF   )[vertIdx][i] = boneIdx;
+            (*boneWeightF)[vertIdx][i] = boneWeight;
 
             found = true;
             break;
         }
-        else if((*boneIdxF)[vertIdx][i] < 0.f)
+        else if((*boneIdxF)[vertIdx][i] == boneIdx)
         {
-            (*boneIdxF   )[vertIdx][i] = boneIdx;
-            (*boneWeightF)[vertIdx][i] = boneWeight;
+            if((*boneWeightF)[vertIdx][i] < boneWeight)
+            {
+                OSG_OGRE_LOG(("OgreMeshReader::readBoneAssignment: "
+                              "vertex '%u' changing bone influence from "
+                              "(%f, %f) to (%f %f).\n",
+                              vertIdx,
+                              (*boneIdxF   )[vertIdx][i],
+                              (*boneWeightF)[vertIdx][i],
+                              boneIdx, boneWeight));
+
+                (*boneWeightF)[vertIdx][i] = boneWeight;
+            }
+            else
+            {
+                OSG_OGRE_LOG(("OgreMeshReader::readBoneAssignment: "
+                              "vertex '%u' already influenced by bone "
+                              "(%u, %f) ignoring new weight %f.\n",
+                              vertIdx, boneIdx,
+                              (*boneWeightF)[vertIdx][i], boneWeight));
+            }
 
             found = true;
             break;
@@ -1088,26 +1110,94 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
 
         if((*boneWeightF)[vertIdx][smallestWeightIdx] < boneWeight)
         {
-            SINFO << "OgreMeshReader::readBoneAssignment: "
-                  << "vertex '" << vertIdx
-                  << "' replacing smallest influence ("
-                  << (*boneIdxF   )[vertIdx][smallestWeightIdx] << ", "
-                  << (*boneWeightF)[vertIdx][smallestWeightIdx]
-                  << ") with (" << boneIdx << ", " << boneWeight << ")"
-                  << std::endl;
+            OSG_OGRE_LOG(("OgreMeshReader::readBoneAssignment: "
+                          "vertex '%u' replacing smallest influence "
+                          "(%f, %f) with (%f, %f).\n",
+                          vertIdx,
+                          (*boneIdxF   )[vertIdx][smallestWeightIdx],
+                          (*boneWeightF)[vertIdx][smallestWeightIdx],
+                          boneIdx, boneWeight));
 
             (*boneIdxF   )[vertIdx][smallestWeightIdx] = boneIdx;
             (*boneWeightF)[vertIdx][smallestWeightIdx] = boneWeight;
         }
         else
         {
-            SINFO << "OgreMeshReader::readBoneAssignment: "
-                  << "vertex '" << vertIdx
-                  << "' smallest existing influence ("
-                  << (*boneIdxF   )[vertIdx][smallestWeightIdx] << ", "
-                  << (*boneWeightF)[vertIdx][smallestWeightIdx]
-                  << ") is larger than " << boneIdx << ", " << boneWeight << ")"
-                  << std::endl;
+            OSG_OGRE_LOG(("OgreMeshReader::readBoneAssignment: "
+                          "vertex '%u' smallest existing influence "
+                          "(%f, %f) is larger than (%f, %f).\n",
+                          (*boneIdxF   )[vertIdx][smallestWeightIdx],
+                          (*boneWeightF)[vertIdx][smallestWeightIdx],
+                          boneIdx, boneWeight));
+        }
+    }
+}
+
+void
+OgreMeshReader::verifyBoneAssignment(VertexElementStore &vertexElements,
+                                     Int16              &boneIdxVE,
+                                     Int16              &boneWeightVE   )
+{
+    OSG_OGRE_LOG(("OgreMeshReader::verifyBoneAssignment\n"));
+
+    GeoVec4fPropertyUnrecPtr boneIdxProp;
+    GeoVec4fPropertyUnrecPtr boneWeightProp;
+
+    if(boneIdxVE < 0)
+    {
+        SWARNING << "OgreMeshReader::verifyBoneAssignment: "
+                 << "Invalid bone index vertex element"
+                 << std::endl;
+        return;
+    }
+
+    if(boneWeightVE < 0)
+    {
+        SWARNING << "OgreMeshReader::verifyBoneAssignment: "
+                 << "Invalid bone weight vertex element"
+                 << std::endl;
+        return;
+    }
+
+    boneIdxProp    = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneIdxVE   ].prop);
+    boneWeightProp = dynamic_pointer_cast<GeoVec4fProperty>(vertexElements[boneWeightVE].prop);
+
+    GeoVec4fProperty::StoredFieldType* boneIdxF    = boneIdxProp   ->editFieldPtr();
+    GeoVec4fProperty::StoredFieldType* boneWeightF = boneWeightProp->editFieldPtr();
+
+    if(boneIdxF->size() != boneWeightF->size())
+    {
+        SWARNING << "OgreMeshReader::verifyBoneAssignment: "
+                 << "Size mismatch between bone indices and weights."
+                 << std::endl;
+        return;
+    }
+
+    for(UInt32 vertIdx = 0; vertIdx < boneIdxF->size(); ++vertIdx)
+    {
+        Real32 sumWeights = 0.f;
+        Real32 numWeights = 0.f;
+
+        for(UInt16 i = 0; i < 4; ++i)
+        {
+            if((*boneIdxF)[vertIdx][i] >= 0.f)
+            {
+                sumWeights += (*boneWeightF)[vertIdx][i];
+                numWeights += 1.f;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if(osgAbs(sumWeights - 1.f) > 1e-6f)
+        {
+            SWARNING << "OgreMeshReader::verifyBoneAssignment: "
+                     << "Vertex '" << vertIdx << "' influences not normalized,"
+                     << " sumWeights " << sumWeights
+                     << " numWeights " << numWeights
+                     << std::endl;
         }
     }
 }
