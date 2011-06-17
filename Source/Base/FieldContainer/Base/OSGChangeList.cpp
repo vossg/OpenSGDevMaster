@@ -814,9 +814,6 @@ void ChangeList::doApply(bool bClear)
                 pDst = pSrc->getType().createAspectCopy(pSrc,
                                                         (*ccIt)->uiContainerId);
 
-                pDstCL->addCreated((*ccIt)->uiContainerId,
-                                   TypeTraits<BitVector>::BitsClear);
-
 #ifndef SILENT_CPTR
                 FLOG(("CL apply: Setup aspect store, id %u %p\n",
                       (*ccIt)->uiContainerId,
@@ -881,9 +878,6 @@ void ChangeList::doApply(bool bClear)
 
                 if(pDst != NULL)
                 {
-                    pDstCL->addCreated((*cIt)->uiContainerId,
-                                       TypeTraits<BitVector>::BitsClear);
-
                     pDst->setupAspectStore(pHandler);
                 }
 
@@ -956,8 +950,7 @@ void ChangeList::doApply(bool bClear)
 
             UnrecordedRefCountPolicy::addRef(pDst);
         }
-        else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)// ||
-//            (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
+        else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)
         {
 #ifndef SILENT_CPTR
             FLOG(("CL apply: Sub ref, id %u, type id %u %s\n",
