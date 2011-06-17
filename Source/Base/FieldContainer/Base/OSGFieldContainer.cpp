@@ -274,17 +274,19 @@ void FieldContainer::registerChangedContainer(void)
 
 //    osgSpinLock(&_uiContainerId, SpinLockBit);
 
+    ChangeList* pCL = Thread::getCurrentChangeList();
+
     if(_pContainerChanges == NULL)
     {
-        _pContainerChanges = Thread::getCurrentChangeList()->getNewEntry();
+        _pContainerChanges                       = pCL->getNewEntry();
 
-        _pContainerChanges->uiEntryDesc   = ContainerChangeEntry::Change;
-        _pContainerChanges->pFieldFlags   = _pFieldFlags;
-        _pContainerChanges->uiContainerId = this->getId();
+        _pContainerChanges->uiEntryDesc          = ContainerChangeEntry::Change;
+        _pContainerChanges->pFieldFlags          = _pFieldFlags;
+        _pContainerChanges->uiContainerId        = this->getId();
         _pContainerChanges->bvUncommittedChanges = &_bvChanged;
     }
 
-    Thread::getCurrentChangeList()->addUncommited(_pContainerChanges);
+    pCL->addUncommited(_pContainerChanges);
 
 //    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
