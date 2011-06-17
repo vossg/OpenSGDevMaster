@@ -74,22 +74,6 @@ OSG::UInt16 GPUSkinningAlgorithmBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the GPUSkinningAlgorithm::_sfShaderData field.
-inline
-ShaderProgramVariableChunk * GPUSkinningAlgorithmBase::getShaderData(void) const
-{
-    return _sfShaderData.getValue();
-}
-
-//! Set the value of the GPUSkinningAlgorithm::_sfShaderData field.
-inline
-void GPUSkinningAlgorithmBase::setShaderData(ShaderProgramVariableChunk * const value)
-{
-    editSField(ShaderDataFieldMask);
-
-    _sfShaderData.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -100,9 +84,6 @@ void GPUSkinningAlgorithmBase::execSync (      GPUSkinningAlgorithmBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-        _sfShaderData.syncWith(pFrom->_sfShaderData);
 }
 #endif
 

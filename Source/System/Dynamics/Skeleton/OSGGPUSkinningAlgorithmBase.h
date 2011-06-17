@@ -65,7 +65,6 @@
 
 #include "OSGSkinningAlgorithm.h" // Parent
 
-#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
 
 #include "OSGGPUSkinningAlgorithmFields.h"
 
@@ -91,18 +90,6 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
 
   public:
 
-    enum
-    {
-        ShaderDataFieldId = Inherited::NextFieldId,
-        NextFieldId = ShaderDataFieldId + 1
-    };
-
-    static const OSG::BitVector ShaderDataFieldMask =
-        (TypeTraits<BitVector>::One << ShaderDataFieldId);
-    static const OSG::BitVector NextFieldMask =
-        (TypeTraits<BitVector>::One << NextFieldId);
-        
-    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -121,34 +108,6 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData     (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
-
-
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setShaderData     (ShaderProgramVariableChunk * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,13 +159,6 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -225,15 +177,12 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithmBase : public SkinningAlgorith
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const GPUSkinningAlgorithm *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderData      (void) const;
-    EditFieldHandlePtr editHandleShaderData     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

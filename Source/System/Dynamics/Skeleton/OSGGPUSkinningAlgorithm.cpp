@@ -226,8 +226,7 @@ GPUSkinningAlgorithm::renderEnter(Action *action)
 
     skel->renderEnter(action, skinGeo);
 
-    ShaderProgramChunkUnrecPtr         shCode = data->getShaderCode();
-    ShaderProgramVariableChunkUnrecPtr shData = getShaderData();
+    ShaderProgramChunkUnrecPtr shCode = data->getShaderCode();
 
     if(shCode == NULL)
     {
@@ -241,37 +240,26 @@ GPUSkinningAlgorithm::renderEnter(Action *action)
 
         vp->addUniformVariable(
             "matJoints",    (*skel->getMFJointMatrices()));
+        vp->addUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
     }
     else if(data->getDataValid() == false)
     {
         ShaderProgram *vp = shCode->getVertexShader(0);
+        OSG_ASSERT(vp != NULL);
 
         vp->updateUniformVariable(
             "matJoints",    (*skel->getMFJointMatrices()));
+        vp->updateUniformVariable(
+            "matBindShape", skinGeo->getBindShapeMatrix());
 
         data->setDataValid(true);
     }
 
-    if(shData == NULL)
-    {
-        shData = ShaderProgramVariableChunk::create();
-        setShaderData(shData);
-
-        shData->addUniformVariable(
-            "matBindShape", skinGeo->getBindShapeMatrix());
-    }
-    else
-    {
-        shData->updateUniformVariable(
-            "matBindShape", skinGeo->getBindShapeMatrix());
-    }
-
     ract->pushState();
     {
-        ract->addOverride(ShaderProgramChunk        ::getStaticClassId(),
-                          shCode                                         );
-        ract->addOverride(ShaderProgramVariableChunk::getStaticClassId(),
-                          shData                                         );
+        ract->addOverride(ShaderProgramChunk::getStaticClassId(),
+                          shCode                                 );
 
         res = skinGeo->renderActionEnterHandler(ract);
     }
@@ -381,7 +369,6 @@ GPUSkinningAlgorithm::resolveLinks(void)
         vp->setProgram(_vpVertexSkinning);
 
         shCode->addShader(vp);
-
 
         vp->addUniformVariable(
             "matBindShape", skinGeo->getBindShapeMatrix());

@@ -57,7 +57,6 @@
 
 
 
-#include "OSGShaderProgramVariableChunk.h" // ShaderData Class
 
 #include "OSGGPUSkinningAlgorithmBase.h"
 #include "OSGGPUSkinningAlgorithm.h"
@@ -81,10 +80,6 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
-
-/*! \var ShaderProgramVariableChunk * GPUSkinningAlgorithmBase::_sfShaderData
-    
-*/
 
 
 /***************************************************************************\
@@ -111,20 +106,6 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void GPUSkinningAlgorithmBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL;
-
-
-    pDesc = new SFUnrecShaderProgramVariableChunkPtr::Description(
-        SFUnrecShaderProgramVariableChunkPtr::getClassType(),
-        "shaderData",
-        "",
-        ShaderDataFieldId, ShaderDataFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&GPUSkinningAlgorithm::editHandleShaderData),
-        static_cast<FieldGetMethodSig >(&GPUSkinningAlgorithm::getHandleShaderData));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -153,16 +134,6 @@ GPUSkinningAlgorithmBase::TypeObject GPUSkinningAlgorithmBase::_type(
     "   childFields=\"none\"\n"
     "   parentFields=\"none\"\n"
     ">\n"
-    "  <Field\n"
-    "     name=\"shaderData\"\n"
-    "     type=\"ShaderProgramVariableChunk\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"NULL\"\n"
-    "     >\n"
-    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -187,19 +158,6 @@ UInt32 GPUSkinningAlgorithmBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the GPUSkinningAlgorithm::_sfShaderData field.
-const SFUnrecShaderProgramVariableChunkPtr *GPUSkinningAlgorithmBase::getSFShaderData(void) const
-{
-    return &_sfShaderData;
-}
-
-SFUnrecShaderProgramVariableChunkPtr *GPUSkinningAlgorithmBase::editSFShaderData     (void)
-{
-    editSField(ShaderDataFieldMask);
-
-    return &_sfShaderData;
-}
-
 
 
 
@@ -210,10 +168,6 @@ UInt32 GPUSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        returnValue += _sfShaderData.getBinSize();
-    }
 
     return returnValue;
 }
@@ -223,10 +177,6 @@ void GPUSkinningAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        _sfShaderData.copyToBin(pMem);
-    }
 }
 
 void GPUSkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
@@ -234,11 +184,6 @@ void GPUSkinningAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        editSField(ShaderDataFieldMask);
-        _sfShaderData.copyFromBin(pMem);
-    }
 }
 
 //! create a new instance of the class
@@ -363,14 +308,12 @@ FieldContainerTransitPtr GPUSkinningAlgorithmBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 GPUSkinningAlgorithmBase::GPUSkinningAlgorithmBase(void) :
-    Inherited(),
-    _sfShaderData             (NULL)
+    Inherited()
 {
 }
 
 GPUSkinningAlgorithmBase::GPUSkinningAlgorithmBase(const GPUSkinningAlgorithmBase &source) :
-    Inherited(source),
-    _sfShaderData             (NULL)
+    Inherited(source)
 {
 }
 
@@ -381,45 +324,6 @@ GPUSkinningAlgorithmBase::~GPUSkinningAlgorithmBase(void)
 {
 }
 
-void GPUSkinningAlgorithmBase::onCreate(const GPUSkinningAlgorithm *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        GPUSkinningAlgorithm *pThis = static_cast<GPUSkinningAlgorithm *>(this);
-
-        pThis->setShaderData(source->getShaderData());
-    }
-}
-
-GetFieldHandlePtr GPUSkinningAlgorithmBase::getHandleShaderData      (void) const
-{
-    SFUnrecShaderProgramVariableChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecShaderProgramVariableChunkPtr::GetHandle(
-             &_sfShaderData,
-             this->getType().getFieldDesc(ShaderDataFieldId),
-             const_cast<GPUSkinningAlgorithmBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr GPUSkinningAlgorithmBase::editHandleShaderData     (void)
-{
-    SFUnrecShaderProgramVariableChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecShaderProgramVariableChunkPtr::EditHandle(
-             &_sfShaderData,
-             this->getType().getFieldDesc(ShaderDataFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&GPUSkinningAlgorithm::setShaderData,
-                    static_cast<GPUSkinningAlgorithm *>(this), _1));
-
-    editSField(ShaderDataFieldMask);
-
-    return returnValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -457,8 +361,6 @@ FieldContainer *GPUSkinningAlgorithmBase::createAspectCopy(
 void GPUSkinningAlgorithmBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<GPUSkinningAlgorithm *>(this)->setShaderData(NULL);
 
 
 }

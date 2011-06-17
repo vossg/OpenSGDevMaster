@@ -12,14 +12,4 @@
    childFields="none"
    parentFields="none"
 >
-  <Field
-     name="shaderData"
-     type="ShaderProgramVariableChunk"
-     category="pointer"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     defaultValue="NULL"
-     >
-  </Field>
 </FieldContainer>
