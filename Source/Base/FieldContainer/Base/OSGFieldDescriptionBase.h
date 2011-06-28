@@ -50,6 +50,7 @@
 #include "OSGContainerForwards.h"
 #include "OSGField.h"
 #include "OSGFieldConnector.h"
+#include "OSGFieldConnectorFactory.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -407,7 +408,7 @@ class FieldDescription : public FieldDescriptionBase
     /*! \nohierarchy */
     struct SFieldFunctions
     {
-        typedef SFieldConnector<HandledField>     FConnector;
+        typedef SFieldConnector<HandledField, HandledField> FConnector;
 
         static void beginEdit(HandledField       *pField,
                               UInt32              uiAspect,
@@ -419,7 +420,7 @@ class FieldDescription : public FieldDescriptionBase
     /*! \nohierarchy */
     struct MFieldFunctions
     {
-        typedef MFieldConnector<HandledField>     FConnector;
+        typedef MFieldConnector<HandledField, HandledField> FConnector;
 
         static void beginEdit(HandledField       *pField,
                               UInt32              uiAspect,

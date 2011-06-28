@@ -427,7 +427,7 @@ BasicFieldConnector *FieldDescription<
 {
     typedef typename FieldFunctions::FConnector ReturnType;
 
-    ReturnType *returnValue = NULL;
+    BasicFieldConnector *returnValue = NULL;
 
     if(                    pSrc == NULL ||
        pDstDesc == NULL || pDst == NULL  )
@@ -437,9 +437,23 @@ BasicFieldConnector *FieldDescription<
 
     if(pSrcDesc->getFieldType() != pDstDesc->getFieldType())
     {
-        fprintf(stderr, "typemismatch failed (%s | %s)\n",
+#if 0
+        fprintf(stderr, "typemismatch try fact (%s | %s)\n",
                 pSrcDesc->getFieldType().getCName(),
                 pDstDesc->getFieldType().getCName());
+#endif
+
+        returnValue = FieldConnectorFactory::the()->createConnector(pSrcDesc,
+                                                                    pSrc,
+                                                                    pDstDesc,
+                                                                    pDst    );
+
+        if(returnValue == NULL)
+        {
+            fprintf(stderr, "typemismatch failed (%s | %s)\n",
+                    pSrcDesc->getFieldType().getCName(),
+                    pDstDesc->getFieldType().getCName());
+        }
 
 #if 0 // needs more infrastructure
         if(pSrcDesc->getFieldType().isPtrField() == true &&
@@ -466,9 +480,11 @@ BasicFieldConnector *FieldDescription<
 #endif
 
     }
-
-    returnValue = new ReturnType(pSrc, pSrcDesc->getFieldMask(),
-                                 pDst, pDstDesc->getFieldMask());
+    else
+    {
+        returnValue = new ReturnType(pSrc, pSrcDesc->getFieldMask(),
+                                     pDst, pDstDesc->getFieldMask());
+    }
 
     return returnValue;
 }

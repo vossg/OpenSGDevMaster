@@ -217,7 +217,10 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                     }
 
                     editSFMatrixResult()->setValue(
-                            _oTrackball.getFullTrackballMatrix());
+                        _oTrackball.getFullTrackballMatrix());
+
+                    editSFRotationMatrixResult()->setValue(
+                        _oTrackball.getRotationMatrix());
                 }
             }
 
@@ -234,6 +237,8 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                                       true                             );
 
         editSFMatrixResult()->setValue(_oTrackball.getFullTrackballMatrix());
+
+        editSFRotationMatrixResult()->setValue(_oTrackball.getRotationMatrix());
     }
 
     if(0x0000 != (whichField & ReferenceMatrixFieldMask))
@@ -265,6 +270,7 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                                      true);
 
         editSFMatrixResult()->setValue(_oTrackball.getFullTrackballMatrix());
+        editSFRotationMatrixResult()->setValue(_oTrackball.getRotationMatrix());
     }
 
     if(0x0000 != (whichField & TransformCenterFieldMask))

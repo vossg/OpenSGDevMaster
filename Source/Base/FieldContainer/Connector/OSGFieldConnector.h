@@ -43,6 +43,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class Field;
+
 /*! \ingroup GrpBaseFieldContainerConnector
     \ingroup GrpLibOSGBase
  */
@@ -68,6 +70,11 @@ class OSG_BASE_DLLMAPPING BasicFieldConnector
 
     FieldContainer *getDst(void) const;
 
+    virtual BasicFieldConnector *clone(const Field     *pSrcField,
+                                             BitVector  bSrcMask,
+                                             Field     *pDstField,
+                                             BitVector  bDstMask) = 0;
+
   protected:
 
     BitVector       _bSrcMask;
@@ -80,56 +87,64 @@ class OSG_BASE_DLLMAPPING BasicFieldConnector
     \ingroup GrpLibOSGBase
  */
 
-template <class FieldT>
+template <class SrcFieldT, class DstFieldT>
 class SFieldConnector : public BasicFieldConnector
 {
-    typedef BasicFieldConnector Inherited;
+    typedef BasicFieldConnector                   Inherited;
+    typedef SFieldConnector<SrcFieldT, DstFieldT> Self;
 
   public:
 
-    SFieldConnector(const FieldT    *pSrcField,
+    SFieldConnector(const SrcFieldT *pSrcField,
                           BitVector  bSrcMask,
-                          FieldT    *pDstField,
+                          DstFieldT *pDstField,
                           BitVector  bDstMask);
 
     virtual ~SFieldConnector(void);
 
     virtual void process(void);
 
+    virtual BasicFieldConnector *clone(const Field     *pSrcField,
+                                             BitVector  bSrcMask,
+                                             Field     *pDstField,
+                                             BitVector  bDstMask);
+
   protected:
     
-    const FieldT    *_pSrcField;
-
-    
-          FieldT    *_pDstField;
+    const SrcFieldT *_pSrcField;
+          DstFieldT *_pDstField;
 };
 
 /*! \ingroup GrpBaseFieldContainerConnector
     \ingroup GrpLibOSGBase
  */
 
-template <class FieldT>
+template <class SrcFieldT, class DstFieldT>
 class MFieldConnector : public BasicFieldConnector
 {
-    typedef BasicFieldConnector Inherited;
+    typedef BasicFieldConnector                   Inherited;
+    typedef MFieldConnector<SrcFieldT, DstFieldT> Self;
 
   public:
 
-    MFieldConnector(const FieldT    *pSrcField,
+    MFieldConnector(const SrcFieldT *pSrcField,
                           BitVector  bSrcMask,
-                          FieldT    *pDstField,
+                          DstFieldT *pDstField,
                           BitVector  bDstMask);
 
     virtual ~MFieldConnector(void);
 
     virtual void process(void);
 
+    virtual BasicFieldConnector *clone(const Field     *pSrcField,
+                                             BitVector  bSrcMask,
+                                             Field     *pDstField,
+                                             BitVector  bDstMask);
+
   protected:
     
-    const FieldT    *_pSrcField;
-
-    
-          FieldT    *_pDstField;
+    const SrcFieldT *_pSrcField;
+          DstFieldT *_pDstField;
 };
 
 OSG_BASE_DLLMAPPING

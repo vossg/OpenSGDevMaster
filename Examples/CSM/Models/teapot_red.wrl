@@ -13,7 +13,7 @@ Transform
       {
         material Material 
         { 
-          diffuseColor 1.0 0.5 0.5 
+          diffuseColor 1.0 0.5 0.5
           shininess    0.4
           transparency 0
         }

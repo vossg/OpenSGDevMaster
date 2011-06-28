@@ -100,7 +100,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
         ProcessingFieldId = ModifierMaskFieldId + 1,
         TranslationScaleFactorFieldId = ProcessingFieldId + 1,
         MatrixResultFieldId = TranslationScaleFactorFieldId + 1,
-        ReferencePositionFieldId = MatrixResultFieldId + 1,
+        RotationMatrixResultFieldId = MatrixResultFieldId + 1,
+        ReferencePositionFieldId = RotationMatrixResultFieldId + 1,
         ReferenceMatrixFieldId = ReferencePositionFieldId + 1,
         TransformCenterFieldId = ReferenceMatrixFieldId + 1,
         WorldDiagFieldId = TransformCenterFieldId + 1,
@@ -116,6 +117,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << TranslationScaleFactorFieldId);
     static const OSG::BitVector MatrixResultFieldMask =
         (TypeTraits<BitVector>::One << MatrixResultFieldId);
+    static const OSG::BitVector RotationMatrixResultFieldMask =
+        (TypeTraits<BitVector>::One << RotationMatrixResultFieldId);
     static const OSG::BitVector ReferencePositionFieldMask =
         (TypeTraits<BitVector>::One << ReferencePositionFieldId);
     static const OSG::BitVector ReferenceMatrixFieldMask =
@@ -133,6 +136,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     typedef SFUInt32          SFProcessingType;
     typedef SFReal32          SFTranslationScaleFactorType;
     typedef SFMatrix          SFMatrixResultType;
+    typedef SFMatrix          SFRotationMatrixResultType;
     typedef SFPnt3f           SFReferencePositionType;
     typedef SFMatrix          SFReferenceMatrixType;
     typedef SFPnt3f           SFTransformCenterType;
@@ -172,6 +176,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
                   SFMatrix            *editSFMatrixResult   (void);
             const SFMatrix            *getSFMatrixResult    (void) const;
 
+                  SFMatrix            *editSFRotationMatrixResult(void);
+            const SFMatrix            *getSFRotationMatrixResult (void) const;
+
                   SFPnt3f             *editSFReferencePosition(void);
             const SFPnt3f             *getSFReferencePosition (void) const;
 
@@ -197,6 +204,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
                   Matrix              &editMatrixResult   (void);
             const Matrix              &getMatrixResult    (void) const;
 
+                  Matrix              &editRotationMatrixResult(void);
+            const Matrix              &getRotationMatrixResult (void) const;
+
                   Pnt3f               &editReferencePosition(void);
             const Pnt3f               &getReferencePosition (void) const;
 
@@ -220,6 +230,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
             void setModifierMask   (const UInt32 value);
             void setTranslationScaleFactor(const Real32 value);
             void setMatrixResult   (const Matrix &value);
+            void setRotationMatrixResult(const Matrix &value);
             void setReferencePosition(const Pnt3f &value);
             void setReferenceMatrix(const Matrix &value);
             void setTransformCenter(const Pnt3f &value);
@@ -288,6 +299,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     SFUInt32          _sfProcessing;
     SFReal32          _sfTranslationScaleFactor;
     SFMatrix          _sfMatrixResult;
+    SFMatrix          _sfRotationMatrixResult;
     SFPnt3f           _sfReferencePosition;
     SFMatrix          _sfReferenceMatrix;
     SFPnt3f           _sfTransformCenter;
@@ -328,6 +340,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     EditFieldHandlePtr editHandleTranslationScaleFactor(void);
     GetFieldHandlePtr  getHandleMatrixResult    (void) const;
     EditFieldHandlePtr editHandleMatrixResult   (void);
+    GetFieldHandlePtr  getHandleRotationMatrixResult (void) const;
+    EditFieldHandlePtr editHandleRotationMatrixResult(void);
     GetFieldHandlePtr  getHandleReferencePosition (void) const;
     EditFieldHandlePtr editHandleReferencePosition(void);
     GetFieldHandlePtr  getHandleReferenceMatrix (void) const;

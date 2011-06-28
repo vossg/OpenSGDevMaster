@@ -583,8 +583,8 @@ void FieldContainer::newAspectCopy(typename ObjectT::ObjCPtr &result,
 }
 #endif
 
-template <class FieldT> inline
-void SFieldConnector<FieldT>::process(void)
+template <class SrcFieldT, class DstFieldT> inline
+void SFieldConnector<SrcFieldT, DstFieldT>::process(void)
 {
     _pDst->editSField(_bDstMask);
 
@@ -592,8 +592,8 @@ void SFieldConnector<FieldT>::process(void)
 }
 
 
-template <class FieldT> inline
-void MFieldConnector<FieldT>::process(void)
+template <class SrcFieldT, class DstFieldT> inline
+void MFieldConnector<SrcFieldT, DstFieldT>::process(void)
 {
     _pDst->editMField(_bDstMask, *_pDstField);
 

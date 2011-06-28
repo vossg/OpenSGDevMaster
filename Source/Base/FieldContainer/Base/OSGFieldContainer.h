@@ -66,10 +66,10 @@ class MTRefCountPtr;
 template<typename RefCountPolicyT>
 class ChildAccessHandler;
 
-template <class FieldT>
+template <class SrcFieldT, class DstFieldT>
 class SFieldConnector;
 
-template <class FieldT>
+template <class SrcFieldT, class DstFieldT>
 class MFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerBase
@@ -508,10 +508,10 @@ class FieldContainer : public ReflexiveContainer
     template<typename RefCountPolicyT>
     friend class ChildAccessHandler;
 
-    template <class FieldT>
+    template <class SrcFieldT, class DstFieldT>
     friend class SFieldConnector;
 
-    template <class FieldT>
+    template <class SrcFieldT, class DstFieldT>
     friend class MFieldConnector;
 
 

@@ -12,7 +12,7 @@ Node
         {
           image ImageFile
           {
-            url "Earth.jpg"
+            url "../../Models/Textures/Earth.jpg"
           }
 
           minFilter GL_LINEAR_MIPMAP_LINEAR
@@ -31,7 +31,7 @@ Node
         {
           image ImageFile
           {
-            url "EarthNight.jpg"
+            url "../../Models/Textures/EarthNight.jpg"
           }
 
           minFilter GL_LINEAR_MIPMAP_LINEAR
@@ -50,7 +50,7 @@ Node
         {
           image ImageFile
           {
-            url "EarthClouds.jpg"
+            url "../../Models/Textures/EarthClouds.jpg"
           }
 
           minFilter GL_LINEAR_MIPMAP_LINEAR

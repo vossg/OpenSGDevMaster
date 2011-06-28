@@ -1,6 +1,6 @@
---global ./local-setup.osg
---global ../FishEye/global-effect.osg
+--global ../../Models/Backgrounds/yard_cubemap.osg
+--global ../../Models/Effects/fisheye_project.osg
 --system ../../Common/system-native.osg
---global ../FishEye/keys.osg
---data   ./scene.wrl
+--global ../../Models/Effects/fisheye_project_keys.osg
+--data   ../../Models/Effects/spinning_cubes_reflect.wrl
 --global ../../Common/simple_mouse.osg

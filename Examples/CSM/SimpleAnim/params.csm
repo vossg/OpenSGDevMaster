@@ -1,5 +1,5 @@
 --global ../Common/default-setup.osg
 --system ../Common/system-native.osg
---data   ./anim.wrl
+--data   ../Models/anim.wrl
 --global ../Common/simple_mouse.osg
 #--global ./global.osg

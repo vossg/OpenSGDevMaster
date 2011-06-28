@@ -47,6 +47,14 @@
 	>
 	</Field>
 	<Field
+		name="rotationMatrixResult"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+        defaultValue=""
+	>
+	</Field>
+	<Field
 		name="referencePosition"
 		type="Pnt3f"
 		cardinality="single"

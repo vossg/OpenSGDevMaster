@@ -92,6 +92,7 @@ class OSG_UTIL_DLLMAPPING Trackball
     void updatePositionNeg(Real32 rLastX,    Real32 rLastY, 
                            Real32 rCurrentX, Real32 rCurrentY);
 
+    void incrementPos(const Vec3f &vDelta);
 
     void setAutoPositionIncrement(Real32 rVal);
     void setAutoPosition(bool bVal);
@@ -122,6 +123,7 @@ class OSG_UTIL_DLLMAPPING Trackball
 
     Matrix     &getFullExamineMatrix  (void);
     Matrix     &getFullTrackballMatrix(void);
+    Matrix     &getRotationMatrix     (void);
 
     void   setSize(Real32 s);
     Real32 getSize(void    ) const;

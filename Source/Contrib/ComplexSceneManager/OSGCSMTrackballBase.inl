@@ -173,6 +173,31 @@ void CSMTrackballBase::setMatrixResult(const Matrix &value)
 
     _sfMatrixResult.setValue(value);
 }
+//! Get the value of the CSMTrackball::_sfRotationMatrixResult field.
+
+inline
+Matrix &CSMTrackballBase::editRotationMatrixResult(void)
+{
+    editSField(RotationMatrixResultFieldMask);
+
+    return _sfRotationMatrixResult.getValue();
+}
+
+//! Get the value of the CSMTrackball::_sfRotationMatrixResult field.
+inline
+const Matrix &CSMTrackballBase::getRotationMatrixResult(void) const
+{
+    return _sfRotationMatrixResult.getValue();
+}
+
+//! Set the value of the CSMTrackball::_sfRotationMatrixResult field.
+inline
+void CSMTrackballBase::setRotationMatrixResult(const Matrix &value)
+{
+    editSField(RotationMatrixResultFieldMask);
+
+    _sfRotationMatrixResult.setValue(value);
+}
 //! Get the value of the CSMTrackball::_sfReferencePosition field.
 
 inline
@@ -321,6 +346,9 @@ void CSMTrackballBase::execSync (      CSMTrackballBase *pFrom,
 
     if(FieldBits::NoField != (MatrixResultFieldMask & whichField))
         _sfMatrixResult.syncWith(pFrom->_sfMatrixResult);
+
+    if(FieldBits::NoField != (RotationMatrixResultFieldMask & whichField))
+        _sfRotationMatrixResult.syncWith(pFrom->_sfRotationMatrixResult);
 
     if(FieldBits::NoField != (ReferencePositionFieldMask & whichField))
         _sfReferencePosition.syncWith(pFrom->_sfReferencePosition);

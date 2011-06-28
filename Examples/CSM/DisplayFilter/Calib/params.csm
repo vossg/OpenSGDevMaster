@@ -2,5 +2,5 @@
 --global global-effect.osg
 --system ../../Common/system-native.osg
 --global keys.osg
---data   ./object.wrl
+--data   ../../Models/teapot_red.wrl
 --global ../../Common/simple_mouse.osg

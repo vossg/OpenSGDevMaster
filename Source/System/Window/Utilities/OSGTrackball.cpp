@@ -113,7 +113,7 @@ void Trackball::setSum(bool bVal)
 }
 
 void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY, 
-                                 Real32 rCurrentX, Real32 rCurrentY)
+                               Real32 rCurrentX, Real32 rCurrentY)
 {
     Quaternion qCurrVal;
 
@@ -189,7 +189,7 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
 }
 
 void Trackball::updatePosition(Real32 rLastX,    Real32 rLastY, 
-                                 Real32 rCurrentX, Real32 rCurrentY)
+                               Real32 rCurrentX, Real32 rCurrentY)
 {
     if(_gTransMode == OSGFree)
     {
@@ -218,7 +218,7 @@ void Trackball::updatePosition(Real32 rLastX,    Real32 rLastY,
 }
 
 void Trackball::updatePositionNeg(Real32 /*rLastX*/,    Real32 rLastY, 
-                                    Real32 /*rCurrentX*/, Real32 rCurrentY)
+                                  Real32 /*rCurrentX*/, Real32 rCurrentY)
 {
     if(_gTransMode == OSGFree)
     {
@@ -237,6 +237,31 @@ void Trackball::updatePositionNeg(Real32 /*rLastX*/,    Real32 rLastY,
             m1.setRotate(getRotation());
 
             m1.mult(tmpVec, tmpVec);
+
+            _pVal[0] += tmpVec[0];
+            _pVal[1] += tmpVec[1];
+            _pVal[2] += tmpVec[2];
+        }
+    }
+}
+
+void Trackball::incrementPos(const Vec3f &vDelta)
+{
+    if(_gTransMode == OSGFree)
+    {
+        if(_gTransGen == OSGAbsoluteTranslation)
+        {
+            _pVal += vDelta;
+        }
+        else
+        {
+            Vec3f tmpVec;
+            
+            Matrix m1;
+            
+            m1.setRotate(getRotation());
+
+            m1.mult(vDelta, tmpVec);
 
             _pVal[0] += tmpVec[0];
             _pVal[1] += tmpVec[1];
@@ -437,5 +462,28 @@ Matrix &Trackball::getFullTrackballMatrix(void)
     return _fullMatrix;
 }
 
+Matrix &Trackball::getRotationMatrix(void)
+{
+    OSG::Matrix m1;
+
+    _fullMatrix.setIdentity();
+
+    _fullMatrix[3][0] = _pRotationCenter[0];
+    _fullMatrix[3][1] = _pRotationCenter[1];
+    _fullMatrix[3][2] = _pRotationCenter[2];
+    
+    m1.setRotate    (getRotation());
+    _fullMatrix.mult(m1);
+
+    m1.setIdentity();
+
+    m1[3][0] = -_pRotationCenter[0];
+    m1[3][1] = -_pRotationCenter[1];
+    m1[3][2] = -_pRotationCenter[2];
+
+    _fullMatrix.mult(m1);
+
+    return _fullMatrix;
+}
 
 

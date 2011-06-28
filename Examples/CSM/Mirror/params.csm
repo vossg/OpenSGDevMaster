@@ -1,5 +1,5 @@
---global ./local-setup.osg
+--global ../Models/Backgrounds/yard_cubemap.osg
 #--global ../Common/default-setup.osg
 --system ../Common/system-native.osg
---data   ./scene.wrl
+--data   ../Models/Effects/spinning_cubes_reflect.wrl
 --global ../Common/simple_mouse.osg

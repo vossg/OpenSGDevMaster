@@ -97,6 +97,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Matrix          CSMTrackballBase::_sfRotationMatrixResult
+    
+*/
+
 /*! \var Pnt3f           CSMTrackballBase::_sfReferencePosition
     
 */
@@ -190,6 +194,18 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleMatrixResult),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleMatrixResult));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFMatrix::Description(
+        SFMatrix::getClassType(),
+        "rotationMatrixResult",
+        "",
+        RotationMatrixResultFieldId, RotationMatrixResultFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleRotationMatrixResult),
+        static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleRotationMatrixResult));
 
     oType.addInitialDesc(pDesc);
 
@@ -315,6 +331,14 @@ CSMTrackballBase::TypeObject CSMTrackballBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"rotationMatrixResult\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"referencePosition\"\n"
     "\t\ttype=\"Pnt3f\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -430,6 +454,19 @@ const SFMatrix *CSMTrackballBase::getSFMatrixResult(void) const
 }
 
 
+SFMatrix *CSMTrackballBase::editSFRotationMatrixResult(void)
+{
+    editSField(RotationMatrixResultFieldMask);
+
+    return &_sfRotationMatrixResult;
+}
+
+const SFMatrix *CSMTrackballBase::getSFRotationMatrixResult(void) const
+{
+    return &_sfRotationMatrixResult;
+}
+
+
 SFPnt3f *CSMTrackballBase::editSFReferencePosition(void)
 {
     editSField(ReferencePositionFieldMask);
@@ -521,6 +558,10 @@ UInt32 CSMTrackballBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfMatrixResult.getBinSize();
     }
+    if(FieldBits::NoField != (RotationMatrixResultFieldMask & whichField))
+    {
+        returnValue += _sfRotationMatrixResult.getBinSize();
+    }
     if(FieldBits::NoField != (ReferencePositionFieldMask & whichField))
     {
         returnValue += _sfReferencePosition.getBinSize();
@@ -565,6 +606,10 @@ void CSMTrackballBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MatrixResultFieldMask & whichField))
     {
         _sfMatrixResult.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RotationMatrixResultFieldMask & whichField))
+    {
+        _sfRotationMatrixResult.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ReferencePositionFieldMask & whichField))
     {
@@ -612,6 +657,11 @@ void CSMTrackballBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(MatrixResultFieldMask);
         _sfMatrixResult.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RotationMatrixResultFieldMask & whichField))
+    {
+        editSField(RotationMatrixResultFieldMask);
+        _sfRotationMatrixResult.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ReferencePositionFieldMask & whichField))
     {
@@ -740,6 +790,7 @@ CSMTrackballBase::CSMTrackballBase(void) :
     _sfProcessing             (UInt32(false)),
     _sfTranslationScaleFactor (Real32(1.f)),
     _sfMatrixResult           (),
+    _sfRotationMatrixResult   (),
     _sfReferencePosition      (),
     _sfReferenceMatrix        (),
     _sfTransformCenter        (),
@@ -754,6 +805,7 @@ CSMTrackballBase::CSMTrackballBase(const CSMTrackballBase &source) :
     _sfProcessing             (source._sfProcessing             ),
     _sfTranslationScaleFactor (source._sfTranslationScaleFactor ),
     _sfMatrixResult           (source._sfMatrixResult           ),
+    _sfRotationMatrixResult   (source._sfRotationMatrixResult   ),
     _sfReferencePosition      (source._sfReferencePosition      ),
     _sfReferenceMatrix        (source._sfReferenceMatrix        ),
     _sfTransformCenter        (source._sfTransformCenter        ),
@@ -866,6 +918,31 @@ EditFieldHandlePtr CSMTrackballBase::editHandleMatrixResult   (void)
 
 
     editSField(MatrixResultFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMTrackballBase::getHandleRotationMatrixResult (void) const
+{
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfRotationMatrixResult,
+             this->getType().getFieldDesc(RotationMatrixResultFieldId),
+             const_cast<CSMTrackballBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMTrackballBase::editHandleRotationMatrixResult(void)
+{
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfRotationMatrixResult,
+             this->getType().getFieldDesc(RotationMatrixResultFieldId),
+             this));
+
+
+    editSField(RotationMatrixResultFieldMask);
 
     return returnValue;
 }

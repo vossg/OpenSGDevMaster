@@ -87,11 +87,13 @@ FieldContainer *BasicFieldConnector::getDst(void) const
     return _pDst;
 }
 
-template <class FieldT> inline
-SFieldConnector<FieldT>::SFieldConnector(const FieldT    *pSrcField,
-                                               BitVector  bSrcMask,
-                                               FieldT    *pDstField,
-                                               BitVector  bDstMask) :
+template <class SrcFieldT, class DstFieldT> inline
+SFieldConnector<SrcFieldT, DstFieldT>::SFieldConnector(
+    const SrcFieldT *pSrcField,
+          BitVector  bSrcMask,
+          DstFieldT *pDstField,
+          BitVector  bDstMask) :
+
      Inherited(bSrcMask,
                bDstMask ),
     _pSrcField(pSrcField),
@@ -99,18 +101,31 @@ SFieldConnector<FieldT>::SFieldConnector(const FieldT    *pSrcField,
 {
 }
 
-template <class FieldT> inline
-SFieldConnector<FieldT>::~SFieldConnector(void)
+template <class SrcFieldT, class DstFieldT> inline
+SFieldConnector<SrcFieldT, DstFieldT>::~SFieldConnector(void)
 {
 }
 
+template <class SrcFieldT, class DstFieldT> inline
+BasicFieldConnector *SFieldConnector<SrcFieldT, DstFieldT>::clone(
+    const Field     *pSrcField,
+          BitVector  bSrcMask,
+          Field     *pDstField,
+          BitVector  bDstMask )
+{
+    return new Self(static_cast<const SrcFieldT *>(pSrcField),
+                    bSrcMask,
+                    static_cast<      DstFieldT *>(pDstField),
+                    bDstMask                                 );
+}
 
+template <class SrcFieldT, class DstFieldT> inline
+MFieldConnector<SrcFieldT, DstFieldT>::MFieldConnector(
+    const SrcFieldT *pSrcField,
+          BitVector  bSrcMask,
+          DstFieldT *pDstField,
+          BitVector  bDstMask) :
 
-template <class FieldT> inline
-MFieldConnector<FieldT>::MFieldConnector(const FieldT    *pSrcField,
-                                               BitVector  bSrcMask,
-                                               FieldT    *pDstField,
-                                               BitVector  bDstMask) :
      Inherited(bSrcMask,
                bDstMask ),
     _pSrcField(pSrcField),
@@ -118,9 +133,23 @@ MFieldConnector<FieldT>::MFieldConnector(const FieldT    *pSrcField,
 {
 }
 
-template <class FieldT> inline
-MFieldConnector<FieldT>::~MFieldConnector(void)
+template <class SrcFieldT, class DstFieldT> inline
+MFieldConnector<SrcFieldT, DstFieldT>::~MFieldConnector(void)
 {
 }
+
+template <class SrcFieldT, class DstFieldT> inline
+BasicFieldConnector *MFieldConnector<SrcFieldT, DstFieldT>::clone(
+    const Field     *pSrcField,
+          BitVector  bSrcMask,
+          Field     *pDstField,
+          BitVector  bDstMask)
+{
+    return new Self(static_cast<const SrcFieldT *>(pSrcField),
+                    bSrcMask,
+                    static_cast<      DstFieldT *>(pDstField),
+                    bDstMask                                 );
+}
+
 
 OSG_END_NAMESPACE

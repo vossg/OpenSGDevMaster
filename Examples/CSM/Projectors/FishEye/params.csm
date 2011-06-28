@@ -1,6 +1,6 @@
 --global ../../Common/default-setup.osg
---global global-effect.osg
+--global ../../Models/Effects/fisheye_project.osg
 --system ../../Common/system-native.osg
---global keys.osg
---data   ./object.wrl
+--global ../../Models/Effects/fisheye_project_keys.osg
+--data   ../../Models/teapot_red.wrl
 --global ../../Common/simple_mouse.osg
