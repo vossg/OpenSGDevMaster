@@ -100,7 +100,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup :
     static UInt32 _extMultitexture;
     static UInt32 _arbVertexProgram;
     static UInt32 _extCompiledVertexArray;
-    static UInt32 _extDrawRangeElements;
 
     /*! OpenGL extension function indices.
     */
@@ -108,7 +107,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup :
     static UInt32 _funcglClientActiveTextureARB;
     static UInt32 _funcglLockArraysEXT;
     static UInt32 _funcglUnlockArraysEXT;
-    static UInt32 _funcglDrawRangeElementsEXT;
     static UInt32 _funcglVertexAttribPointerARB;
     static UInt32 _funcglEnableVertexAttribArrayARB;
     static UInt32 _funcglDisableVertexAttribArrayARB;

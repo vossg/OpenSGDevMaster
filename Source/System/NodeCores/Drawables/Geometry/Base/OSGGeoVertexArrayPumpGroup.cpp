@@ -88,7 +88,6 @@ UInt32 GeoVertexArrayPumpGroup::_extSecondaryColor;
 UInt32 GeoVertexArrayPumpGroup::_extMultitexture;
 UInt32 GeoVertexArrayPumpGroup::_arbVertexProgram;
 UInt32 GeoVertexArrayPumpGroup::_extCompiledVertexArray;
-UInt32 GeoVertexArrayPumpGroup::_extDrawRangeElements;
 
 /*! OpenGL extension function indices.
 */
@@ -96,7 +95,6 @@ UInt32 GeoVertexArrayPumpGroup::_funcglSecondaryColorPointer;
 UInt32 GeoVertexArrayPumpGroup::_funcglClientActiveTextureARB;
 UInt32 GeoVertexArrayPumpGroup::_funcglLockArraysEXT;
 UInt32 GeoVertexArrayPumpGroup::_funcglUnlockArraysEXT;
-UInt32 GeoVertexArrayPumpGroup::_funcglDrawRangeElementsEXT;
 UInt32 GeoVertexArrayPumpGroup::_funcglVertexAttribPointerARB;
 UInt32 GeoVertexArrayPumpGroup::_funcglEnableVertexAttribArrayARB;
 UInt32 GeoVertexArrayPumpGroup::_funcglDisableVertexAttribArrayARB;
@@ -310,8 +308,6 @@ bool GeoVertexArrayPumpGroup::glextInitFunction(void)
         Window::registerExtension("GL_ARB_vertex_program");
     _extCompiledVertexArray =
         Window::registerExtension("GL_EXT_compiled_vertex_array");
-    _extDrawRangeElements   =
-        Window::registerExtension("GL_EXT_draw_range_elements");
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     for(UInt16 i = 0; i < numFormats; ++i)
@@ -350,9 +346,6 @@ bool GeoVertexArrayPumpGroup::glextInitFunction(void)
     _funcglUnlockArraysEXT        = Window::registerFunction(
                             OSG_DLSYM_UNDERSCORE"glUnlockArraysEXT",
                             _extCompiledVertexArray);
-    _funcglDrawRangeElementsEXT   = Window::registerFunction(
-                            OSG_DLSYM_UNDERSCORE"glDrawRangeElementsEXT",
-                            _extDrawRangeElements);
     _funcglVertexAttribPointerARB   = Window::registerFunction(
                             OSG_DLSYM_UNDERSCORE"glVertexAttribPointerARB",
                             _arbVertexProgram);
@@ -527,42 +520,17 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
             osgGlLockArraysEXT(0, indexSize);
         }
 
-        if(win->hasExtOrVersion(_extDrawRangeElements, 0x0102))
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            OSGGETGLFUNCBYID_GL3( glDrawRangeElements,
-                                  osgGlDrawRangeElementsEXT,
-                                 _funcglDrawRangeElementsEXT,
-                                  win);
+            if(primindex < lengths->getSize())
+                curlen = lengths->getValue<UInt32>(primindex);
 
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-            {
-                if(primindex < lengths->getSize())
-                    curlen = lengths->getValue<UInt32>(primindex);
+            glDrawElements(types->getValue<UInt16>(primindex),
+                           curlen,
+                           indexFormat,
+                           indexData + vertindex * indexStride);
 
-                osgGlDrawRangeElementsEXT(types->getValue<UInt16>(primindex),
-                                          0,
-                                          indexSize,
-                                          curlen,
-                                          indexFormat,
-                                          indexData + vertindex * indexStride);
-
-                vertindex += curlen;
-            }
-        }
-        else
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-            {
-                if(primindex < lengths->getSize())
-                    curlen = lengths->getValue<UInt32>(primindex);
-
-                glDrawElements(types->getValue<UInt16>(primindex),
-                               curlen,
-                               indexFormat,
-                               indexData + vertindex * indexStride);
-
-                vertindex += curlen;
-            }
+            vertindex += curlen;
         }
 
         if(index->isInVBO(pEnv)                       == false &&
@@ -806,42 +774,17 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
             osgGlLockArraysEXT(0, indexSize);
         }
 
-        if(win->hasExtOrVersion(_extDrawRangeElements, 0x0102))
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            OSGGETGLFUNCBYID_GL3( glDrawRangeElements,
-                                  osgGlDrawRangeElementsEXT,
-                                 _funcglDrawRangeElementsEXT,
-                                  win);
+            if(primindex < lengths->getSize())
+                curlen = lengths->getValue<UInt32>(primindex);
 
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-            {
-                if(primindex < lengths->getSize())
-                    curlen = lengths->getValue<UInt32>(primindex);
+            glDrawElements(types->getValue<UInt16>(primindex),
+                           curlen,
+                           indexFormat,
+                           indexData + vertindex * indexStride);
 
-                osgGlDrawRangeElementsEXT(types->getValue<UInt16>(primindex),
-                                          0,
-                                          indexSize,
-                                          curlen,
-                                          indexFormat,
-                                          indexData + vertindex * indexStride);
-
-                vertindex += curlen;
-            }
-        }
-        else
-        {
-            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
-            {
-                if(primindex < lengths->getSize())
-                    curlen = lengths->getValue<UInt32>(primindex);
-
-                glDrawElements(types->getValue<UInt16>(primindex),
-                               curlen,
-                               indexFormat,
-                               indexData + vertindex * indexStride);
-
-                vertindex += curlen;
-            }
+            vertindex += curlen;
         }
 
         if(index->isInVBO(pEnv)                       == false &&
