@@ -114,7 +114,7 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
  */
 
 OSG_BASE_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+const Char8 *getName(AttachmentContainer const * const container);
 
 /*! \ingroup GrpBaseFieldContainerAttachments
     \relatesalso OSG::Name

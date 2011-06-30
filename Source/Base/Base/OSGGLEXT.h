@@ -577,6 +577,20 @@ typedef char GLchar;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
+/*! \name GL_ARB_point_sprite                                          */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_ARB_point_sprite
+#define GL_ARB_point_sprite 1
+
+#define GL_POINT_SPRITE_ARB                 0x8861
+#define GL_COORD_REPLACE_ARB                0x8862
+
+#endif 
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 /*! \name GL_NV_point_sprite                                           */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
 /*! \{                                                                 */

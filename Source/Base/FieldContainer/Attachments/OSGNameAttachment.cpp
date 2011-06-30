@@ -77,7 +77,7 @@ OSG_SIMPLEATTACHMENT_INST(NameAttachmentDesc);
   container is NULL.
  */
 
-const Char8 *getName(AttachmentContainer * const pContainer)
+const Char8 *getName(AttachmentContainer const * const pContainer)
 {
     if(pContainer == NULL)
         return NULL;
