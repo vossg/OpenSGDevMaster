@@ -118,7 +118,9 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
     /*! \name                     Init                                     */
     /*! \{                                                                 */
 
-    void rootChanged(FieldContainer *pFC, ConstFieldMaskArg whichField);
+    void rootChanged(FieldContainer    *pFC,
+                     ConstFieldMaskArg  whichField,
+                     UInt32             origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

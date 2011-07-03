@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGContainerBase.h"
 #include "OSGLog.h"
 #include "OSGMemoryObject.h"
 #include "OSGThread.h"
@@ -91,7 +92,7 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
     ContainerChangeEntry(void);
 
     void clear        (ChangeList *pListParent);
-    void commitChanges(void                   );
+    void commitChanges(UInt32      origin     );
     void release      (void                   );
 };
 
@@ -136,8 +137,8 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     /*! \name Commit                                                       */
     /*! \{                                                                 */
 
-    void commitChanges        (void);
-    void commitChangesAndClear(void);
+    void commitChanges        (UInt32 origin = ChangedOrigin::Commit);
+    void commitChangesAndClear(UInt32 origin = ChangedOrigin::Commit);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -299,7 +300,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     /*! \name Helper                                                       */
     /*! \{                                                                 */
 
-    void doCommitChanges(void           );
+    void doCommitChanges(UInt32 origin  );
     void doApply        (bool   bClear  );
     void doClear        (void           );
 

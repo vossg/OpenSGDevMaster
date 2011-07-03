@@ -67,16 +67,16 @@ void ContainerChangeEntry::clear(ChangeList *pListParent)
 /* Commit                                                                  */
 
 inline
-void ChangeList::commitChanges(void)
+void ChangeList::commitChanges(UInt32 origin)
 {
-    doCommitChanges();
+    doCommitChanges(origin);
 }
 
 inline
-void ChangeList::commitChangesAndClear(void)
+void ChangeList::commitChangesAndClear(UInt32 origin)
 {
-    doCommitChanges();
-    clear          ();
+    doCommitChanges(origin);
+    clear          (      );
 }
 
 /*-------------------------------------------------------------------------*/

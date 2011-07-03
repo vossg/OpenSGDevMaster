@@ -141,7 +141,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
     void adjustVolume(Volume            &volume    );
 
     void rootChanged (FieldContainer    *pFC, 
-                      ConstFieldMaskArg  whichField);
+                      ConstFieldMaskArg  whichField,
+                      UInt32             origin    );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

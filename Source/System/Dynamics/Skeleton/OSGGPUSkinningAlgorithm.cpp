@@ -305,12 +305,12 @@ void GPUSkinningAlgorithm::changed(ConstFieldMaskArg whichField,
     {
         if(_sfSkeleton.getValue()->hasChangedFunctor(boost::bind(
                &GPUSkinningAlgorithm::skeletonChanged,
-               this, _1, _2                                )) == false)
+               this, _1, _2, _3                            )) == false)
         {
             _sfSkeleton.getValue()->addChangedFunctor(boost::bind(
                 &GPUSkinningAlgorithm::skeletonChanged,
-                this, _1, _2                                ),
-                "GPUSkinningAlgorithm::skeletonChanged"  );
+                this, _1, _2, _3                           ),
+                "GPUSkinningAlgorithm::skeletonChanged");
         }
     }
 
@@ -325,9 +325,15 @@ void GPUSkinningAlgorithm::dump(      UInt32    ,
 
 void
 GPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
-                                      ConstFieldMaskArg  whichField)
+                                      ConstFieldMaskArg  whichField,
+                                      UInt32             origin    )
 {
-    if(((Skeleton::JointMatricesFieldMask      |
+    // if the skeleton was changed by a sync we don't invalidate
+    // the data - it either is updated by the same sync or
+    // the sync marks it as invalid.
+
+    if(origin != ChangedOrigin::Sync  &&
+       ((Skeleton::JointMatricesFieldMask      |
          Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
     {
         OSG_ASSERT(fc == _sfSkeleton.getValue());
@@ -347,7 +353,7 @@ GPUSkinningAlgorithm::resolveLinks(void)
     {
         _sfSkeleton.getValue()->subChangedFunctor(boost::bind(
             &GPUSkinningAlgorithm::skeletonChanged,
-            this, _1, _2                                ));
+            this, _1, _2, _3                       ));
     }
 
     Inherited::resolveLinks();

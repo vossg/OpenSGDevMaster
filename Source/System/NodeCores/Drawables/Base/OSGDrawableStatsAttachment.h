@@ -152,9 +152,9 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \{                                                                 */
     
     static void invalidateFunctor(FieldContainer *obj,
-                                  BitVector       mask);
-    
-    static void invalidate       (FieldContainer *obj );
+                                  BitVector       whichField,
+                                  UInt32          origin    );
+    static void invalidate       (FieldContainer *obj       );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

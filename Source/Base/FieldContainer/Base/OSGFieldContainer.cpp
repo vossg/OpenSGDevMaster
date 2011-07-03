@@ -318,7 +318,7 @@ bool FieldContainer::deregister(UInt32 uiContainerId)
 
 void FieldContainer::resolveLinks(void)
 {
-    callChangedFunctors(0);
+    callChangedFunctors(0, ChangedOrigin::External);
 }
 
 FieldContainer *FieldContainer::findNamedComponent(const Char8 *)

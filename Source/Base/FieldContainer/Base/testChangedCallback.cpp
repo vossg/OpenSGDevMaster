@@ -9,15 +9,15 @@ class Foo
 {
   public:
 
-    void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
+    void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField, OSG::UInt32 origin)
     {
-        fprintf(stderr, "Foo::testCB %"PRIx64"\n", whichField);
+        fprintf(stderr, "Foo::testCB %"PRIx64" origin %u\n", whichField, origin);
     }
 };
 
-void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
+void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField, OSG::UInt32 origin)
 {
-    fprintf(stderr, "testCB %"PRIx64"\n", whichField);
+    fprintf(stderr, "testCB %"PRIx64" origin %u\n", whichField, origin);
 }
 
 int main (int argc, char **argv)
@@ -30,7 +30,7 @@ int main (int argc, char **argv)
 
     OSG::NodeRecPtr pNode = OSG::Node::create();
 
-    OSG::ChangedFunctor objCB = boost::bind(&Foo::testCB, &foo, _1, _2);
+    OSG::ChangedFunctor objCB = boost::bind(&Foo::testCB, &foo, _1, _2, _3);
 
     pNode->addChangedFunctor(testCB, "");
     pNode->addChangedFunctor(objCB, "");

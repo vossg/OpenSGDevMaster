@@ -149,7 +149,7 @@ class FieldContainerFactoryBase;
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 
 typedef boost::function<
-              void (FieldContainer *, ConstFieldMaskArg )> ChangedFunctor;
+    void (FieldContainer *, ConstFieldMaskArg, UInt32)> ChangedFunctor;
 
 typedef boost::function<void (DrawEnv *)> RenderFunctor;
 

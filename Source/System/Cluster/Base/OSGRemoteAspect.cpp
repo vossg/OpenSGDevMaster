@@ -257,11 +257,11 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
     if(applyToChangelist)
     {
-        commitChanges();
+        Thread::getCurrentChangeList()->commitChanges(ChangedOrigin::Sync);
     }
     else
     {
-        commitChangesAndClear();
+        Thread::getCurrentChangeList()->commitChangesAndClear(ChangedOrigin::Sync);
     }
 
     // unregister mapper into factory
@@ -547,9 +547,8 @@ void RemoteAspect::receiveNewType(Connection                &con,
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
     SLOG << "Receive NEWTYPE: type name '" << typeName
-         << "' remote type '"              << remoteTypeId
-         << "' local type '"               << localTypeId
-         << "'\n";
+         << "' type id (r/l) '" << remoteTypeId
+         << "/" << localTypeId << "'\n";
 #endif
 }
 
@@ -590,10 +589,9 @@ void RemoteAspect::receiveCreated(Connection                &con,
             newContainers.push_back(fcPtr);
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
-            SLOG << "Receive CREATED: remote type '" << remoteTypeId
-                 << "' local type '"                 << localTypeId
-                 << "' remote id '"                  << remoteId
-                 << "' local id '"
+            SLOG << "Receive CREATED: type (r/l) '" << remoteTypeId
+                 << "/" << localTypeId
+                 << "' id (r/l) '" << remoteId << "/"
                  << (fcPtr  != NULL ? fcPtr->getId()     : 0)
                  << "' type name '"
                  << (fcType != NULL ? fcType->getName() : "")
@@ -602,7 +600,8 @@ void RemoteAspect::receiveCreated(Connection                &con,
         }
         else
         {
-            SWARNING << "Already created a local container for "
+            SWARNING << "Already created a local container ("
+                     << _localFC[fullRemoteId] << ") for "
                      << "remote container id '" << remoteId
                      << "'" << std::endl;
         }
@@ -633,11 +632,11 @@ void RemoteAspect::receiveChanged(Connection                &con,
         fcPtr = fcFactory->getContainer(localId);
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
-        SLOG << "Receive CHANGED: remote id '" << remoteId
-             << "' local id '"                 << localId
+        SLOG << "Receive CHANGED: id (r/l) '" << remoteId
+             << "/" << localId
              << "' mask '0x"
              << std::hex << fieldMask << std::dec
-             << "' len '"                      << len
+             << "' len '" << len
              << "' type name '"
              << (fcPtr != NULL ? fcPtr->getType().getName() : "")
              << "'\n";
@@ -690,9 +689,8 @@ void RemoteAspect::receiveAddRefed(Connection                &con,
         fcPtr = fcFactory->getContainer(localId);
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
-        SLOG << "Receive ADDREFED: remote id '" << remoteId
-             << "' local id '"                  << localId
-             << "' type name '"
+        SLOG << "Receive ADDREFED: id (r/l) '" << remoteId
+             << "/" << localId << "' type name '"
              << (fcPtr != NULL ? fcPtr->getType().getName() : "")
              << "'\n";
 #endif
@@ -728,9 +726,8 @@ void RemoteAspect::receiveSubRefed(Connection                &con,
         fcPtr = fcFactory->getContainer(localId);
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
-        SLOG << "Receive SUBREFED: remote id '" << remoteId
-             << "' local id '"                  << localId
-             << "' type name '"
+        SLOG << "Receive SUBREFED: id (r/l) '" << remoteId
+             << "/" << localId << "' type name '"
              << (fcPtr != NULL ? fcPtr->getType().getName() : "")
              << "'\n";
 #endif
@@ -762,9 +759,9 @@ void RemoteAspect::receiveIdMapping(Connection &con)
     con.getValue(localId);
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
-    SLOG << "Receive IDMAPPING: remote id '" << remoteId
-         << "' local id '"                   << localId
-         << "' local aspect '"               << localAspect
+    SLOG << "Receive IDMAPPING: id (r/l) '" << remoteId
+         << "/" << localId
+         << "' local aspect '"              << localAspect
          << "'\n";
 #endif
 

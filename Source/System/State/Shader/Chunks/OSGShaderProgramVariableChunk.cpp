@@ -289,7 +289,7 @@ void ShaderProgramVariableChunk::resolveLinks(void)
     for(; cfIt != cfEnd; ++cfIt)
     {
         if(cfIt->_func)
-            (cfIt->_func)(this, 0x0000);
+            (cfIt->_func)(this, 0x0000, ChangedOrigin::External);
     }
 
     Inherited::resolveLinks();

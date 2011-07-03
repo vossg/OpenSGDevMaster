@@ -124,8 +124,9 @@ void ConnectorAttachment::addConnection (BasicFieldConnector *pConnector)
     }
 }
 
-void ConnectorAttachment::processChanged(FieldContainer      *pObj, 
-                                         BitVector            whichField)
+void ConnectorAttachment::processChanged(FieldContainer *pObj,
+                                         BitVector       whichField,
+                                         UInt32          origin    )
 {
     ConnectionStore::const_iterator cIt  = _vConnections.begin();
     ConnectionStore::const_iterator cEnd = _vConnections.end  ();
@@ -141,8 +142,9 @@ void ConnectorAttachment::processChanged(FieldContainer      *pObj,
     }
 }
 
-void ConnectorAttachment::targetDestroyed(FieldContainer      *pObj, 
-                                          BitVector            whichField)
+void ConnectorAttachment::targetDestroyed(FieldContainer *pObj,
+                                          BitVector       whichField,
+                                          UInt32          origin    )
 {
     if(whichField == 0x0000)
     {
@@ -233,7 +235,8 @@ void ConnectorAttachment::removeConnections(      BitVector       bSrcMask,
                 boost::bind(&ConnectorAttachment::targetDestroyed, 
                             this, 
                             _1, 
-                            _2));
+                            _2,
+                            _3));
         }
 
         ++ccIt;
@@ -272,7 +275,8 @@ bool ConnectorAttachment::unlinkParent(FieldContainer * const pParent,
         boost::bind(&ConnectorAttachment::processChanged, 
                     this, 
                     _1, 
-                    _2));
+                    _2,
+                    _3));
     
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
@@ -287,7 +291,8 @@ void ConnectorAttachment::resolveLinks(void)
             boost::bind(&ConnectorAttachment::targetDestroyed, 
                         this, 
                         _1, 
-                        _2));
+                        _2,
+                        _3));
 
         delete _vConnections[i];
     }
@@ -332,7 +337,8 @@ void addConnector(OSG::AttachmentContainer *pContainer,
             boost::bind(&ConnectorAttachment::processChanged, 
                         pCA.get(), 
                         _1, 
-                        _2),
+                        _2,
+                        _3),
             "");
 
         pContainer->addAttachment(pCA);
@@ -356,7 +362,8 @@ void addConnector(OSG::AttachmentContainer *pContainer,
             boost::bind(&ConnectorAttachment::targetDestroyed, 
                         pCA.get(), 
                         _1, 
-                        _2),
+                        _2,
+                        _3),
             "");
     }
 

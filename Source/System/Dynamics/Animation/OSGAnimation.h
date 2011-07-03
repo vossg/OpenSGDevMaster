@@ -70,7 +70,7 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
 
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         details    );
+                         BitVector         details   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -141,7 +141,8 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
     /*! \{                                                                 */
 
     void timeSensorChanged(FieldContainer *fc,
-                           BitVector       whichField);
+                           BitVector       whichField,
+                           UInt32          origin    );
 
     void calcLength(void) const;
 

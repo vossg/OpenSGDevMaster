@@ -155,9 +155,10 @@ class FieldContainer : public ReflexiveContainer
 
     virtual void changed            (ConstFieldMaskArg whichField,
                                      UInt32            origin,
-                                     BitVector         details);
+                                     BitVector         details   );
 
-            void callChangedFunctors(ConstFieldMaskArg whichField );
+            void callChangedFunctors(ConstFieldMaskArg whichField,
+                                     UInt32            origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,18 +170,18 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    void   addChangedFunctor   (ChangedFunctor     func,
-                                const std::string &createSymbol);
+    void   addChangedFunctor   (      ChangedFunctor  func,
+                                const std::string    &createSymbol);
 
     template<class FunctorT>
-    void   subChangedFunctor   (FunctorT           func        );
-    void   subChangedFunctor   (const std::string &createSymbol);
+    void   subChangedFunctor   (      FunctorT        func        );
+    void   subChangedFunctor   (const std::string    &createSymbol);
 
     template<class FunctorT>
-    bool   hasChangedFunctor   (FunctorT           func        );
-    bool   hasChangedFunctor   (const std::string &createSymbol);
+    bool   hasChangedFunctor   (      FunctorT        func        );
+    bool   hasChangedFunctor   (const std::string    &createSymbol);
 
-    void   clearChangedFunctors(void                       );
+    void   clearChangedFunctors(      void                        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

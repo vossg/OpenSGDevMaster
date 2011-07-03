@@ -283,7 +283,8 @@ void DrawableStatsAttachment::operator -=(DrawableStatsAttachment *arg)
 
 void DrawableStatsAttachment::invalidateFunctor(
     FieldContainer *obj,
-    BitVector       mask)
+    BitVector       whichField,
+    UInt32          origin    )
 {
     invalidate(obj);
 }

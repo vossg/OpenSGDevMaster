@@ -80,13 +80,13 @@ void VisitSubTree::setSubTreeRoot(Node * const value)
     if(_sfSubTreeRoot.getValue() != NULL)
     {
         _sfSubTreeRoot.getValue()->subChangedFunctor(
-            boost::bind(&VisitSubTree::rootChanged, this, _1, _2));
+            boost::bind(&VisitSubTree::rootChanged, this, _1, _2, _3));
     }
 
     if(value != NULL)
     {
         value->addChangedFunctor(
-            boost::bind(&VisitSubTree::rootChanged, this, _1, _2),
+            boost::bind(&VisitSubTree::rootChanged, this, _1, _2, _3),
             "");
     }
 
@@ -94,7 +94,8 @@ void VisitSubTree::setSubTreeRoot(Node * const value)
 }
 
 void VisitSubTree::rootChanged(FieldContainer    *pFC, 
-                               ConstFieldMaskArg  whichField)
+                               ConstFieldMaskArg  whichField,
+                               UInt32             origin    )
 {
     if(0x0000 != (whichField & Node::VolumeFieldMask))
     {

@@ -66,7 +66,7 @@ OSG_BEGIN_NAMESPACE
 /* ContainerChangeEntry                                                    */
 
 
-void ContainerChangeEntry::commitChanges(void)
+void ContainerChangeEntry::commitChanges(UInt32 origin)
 {
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
@@ -93,7 +93,7 @@ void ContainerChangeEntry::commitChanges(void)
            whichField            |= *bvUncommittedChanges;
            *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
 
-           pTmp->changed(tmpChanges, ChangedOrigin::Commit, 0);
+           pTmp->changed(tmpChanges, origin, 0);
         }
     }
 }
@@ -385,9 +385,20 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        fprintf(stderr, "CE : %u %u\n",
+        FieldContainer *pTmp =
+            FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
+
+        std::string szTmp("Unknown");
+
+        if(pTmp != NULL)
+        {
+            szTmp.assign(pTmp->getType().getName());
+        }
+
+        fprintf(stderr, "CE : %u %u | %s\n",
                 (*cIt)->uiEntryDesc,
-                (*cIt)->uiContainerId);
+                (*cIt)->uiContainerId,
+                szTmp.c_str());
 
         ++cIt;
     }
@@ -411,7 +422,7 @@ void ChangeList::dump(      UInt32    uiIndent,
 
         if(pTmp != NULL)
         {
-            szTmp.assign(pTmp->getType().getCName());
+            szTmp.assign(pTmp->getType().getName());
         }
 
         BitVector tmpChanges = 0xDEADBEEF;
@@ -711,7 +722,7 @@ void ChangeList::clearPool(void)
 /*-------------------------------------------------------------------------*/
 /* Helper                                                                  */
 
-void ChangeList::doCommitChanges(void)
+void ChangeList::doCommitChanges(UInt32 origin)
 {
     if(_workStore.empty() == false)
     {
@@ -740,7 +751,7 @@ void ChangeList::doCommitChanges(void)
 
             if((*changesIt)->uiEntryDesc == ContainerChangeEntry::Change)
             {
-                (*changesIt)->commitChanges();
+                (*changesIt)->commitChanges(origin);
             }
 
             ++changesIt;
@@ -968,9 +979,13 @@ void ChangeList::doApply(bool bClear)
         ++cIt;
     }
 
-    commitDelayedSubRefs();
+    // I don't think clear is correct here if the apps expects to tap
+    // into the changes they will be gone (GV)
+    //pDstCL->commitChangesAndClear(ChangedOrigin::Sync);
 
-    pDstCL->commitDelayedSubRefs();
+    pDstCL->commitChanges(ChangedOrigin::Sync);
+    pDstCL->commitDelayedSubRefs ();
+
 #endif
 }
 

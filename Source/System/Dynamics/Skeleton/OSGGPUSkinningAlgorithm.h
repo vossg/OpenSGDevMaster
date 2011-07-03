@@ -134,7 +134,9 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningAlgorithm : public GPUSkinningAlgorithm
     /*! \name                  Skeleton Change                             */
     /*! \{                                                                 */
 
-    void skeletonChanged(FieldContainer *fc, ConstFieldMaskArg whichField);
+    void skeletonChanged(FieldContainer    *fc,
+                         ConstFieldMaskArg  whichField,
+                         UInt32             origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

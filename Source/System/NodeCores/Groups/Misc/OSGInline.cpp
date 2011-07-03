@@ -168,7 +168,7 @@ void Inline::postOSGLoading(void)
         if(pFile != NULL)
         {
             pFile->addChangedFunctor(
-                boost::bind(&Inline::rootChanged, this, _1, _2),
+                boost::bind(&Inline::rootChanged, this, _1, _2, _3),
                 "");
 
             setRoot(pFile);
@@ -190,7 +190,7 @@ void Inline::postOSGLoading(void)
     if(i == _mfUrl.size() && _sfRoot.getValue() != NULL)
     {
         _sfRoot.getValue()->subChangedFunctor(
-            boost::bind(&Inline::rootChanged, this, _1, _2));
+            boost::bind(&Inline::rootChanged, this, _1, _2, _3));
 
         setRoot(NULL);
     }
@@ -218,7 +218,9 @@ void Inline::adjustVolume(Volume &volume)
     }
 }
 
-void Inline::rootChanged(FieldContainer *pFC, ConstFieldMaskArg whichField)
+void Inline::rootChanged(FieldContainer    *pFC,
+                         ConstFieldMaskArg  whichField,
+                         UInt32             origin    )
 {
     if(0x0000 != (whichField & Node::VolumeFieldMask))
     {

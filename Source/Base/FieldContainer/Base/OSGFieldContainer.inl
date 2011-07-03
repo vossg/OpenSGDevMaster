@@ -63,14 +63,15 @@ UInt16 FieldContainer::getClassGroupId(void)
 
 inline
 void FieldContainer::changed(ConstFieldMaskArg whichField, 
-                             UInt32            ,
-                             BitVector         )
+                             UInt32            origin,
+                             BitVector         details   )
 {
-    callChangedFunctors(whichField);
+    callChangedFunctors(whichField, origin);
 }
 
 inline
-void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
+void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField,
+                                         UInt32            origin    )
 {
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
@@ -78,7 +79,7 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
     for(; cfIt != cfEnd; ++cfIt)
     {
         if(cfIt->_func)
-            (cfIt->_func)(this, whichField);
+            (cfIt->_func)(this, whichField, origin);
     }
 }
 

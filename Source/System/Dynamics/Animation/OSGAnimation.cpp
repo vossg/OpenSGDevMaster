@@ -132,7 +132,7 @@ void Animation::setTimeSensor(AnimTimeSensor *value)
     if(_sfTimeSensor.getValue() != NULL)
     {
         _sfTimeSensor.getValue()->subChangedFunctor(
-            boost::bind(&Animation::timeSensorChanged, this, _1, _2));
+            boost::bind(&Animation::timeSensorChanged, this, _1, _2, _3));
     }
 
     Inherited::setTimeSensor(value);
@@ -141,7 +141,7 @@ void Animation::setTimeSensor(AnimTimeSensor *value)
     {
         _sfTimeSensor.getValue()->setEnabled       (false               );
         _sfTimeSensor.getValue()->addChangedFunctor(
-            boost::bind(&Animation::timeSensorChanged, this, _1, _2), "");
+            boost::bind(&Animation::timeSensorChanged, this, _1, _2, _3), "");
     }
 }
 
@@ -218,7 +218,9 @@ void Animation::stop(void)
     ts->setEnabled(false);
 }
 
-void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
+void Animation::timeSensorChanged(FieldContainer *fc,
+                                  BitVector       whichField,
+                                  UInt32          origin    )
 {
     AnimTimeSensor *ts = _sfTimeSensor.getValue();
 

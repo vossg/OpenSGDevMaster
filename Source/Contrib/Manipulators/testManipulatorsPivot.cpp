@@ -333,13 +333,13 @@ namespace
         {
             if (!use_changed_functor_) {
                 xformTranslationN->getCore()->
-                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformTranslationN, _1, _2),
+                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformTranslationN, _1, _2, _3),
                                       "xform_translation_changed_cb");
                 xformRotationN->getCore()->
-                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformRotationN,    _1, _2),
+                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformRotationN,    _1, _2, _3),
                                       "xform_rotation_changed_cb");
                 xformScaleN->getCore()->
-                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformScaleN,       _1, _2),
+                    addChangedFunctor(boost::bind(&object_type::changed_cb, this, xformScaleN,       _1, _2, _3),
                                       "xform_scale_changed_cb");
             } else {
                 xformTranslationN->getCore()->clearChangedFunctors();
@@ -397,7 +397,7 @@ namespace
         bool use_changed_functor_;
 
         void
-        changed_cb(OSG::NodeRefPtr a, OSG::FieldContainer* fc, OSG::BitVector fm)
+        changed_cb(OSG::NodeRefPtr a, OSG::FieldContainer* fc, OSG::BitVector fm, OSG::UInt32 origin)
         {
             std::cout << "object_type::changed_cb(" << OSG::getName(a) << ")" << std::endl;
 

@@ -499,7 +499,7 @@ void ShaderProgram::resolveLinks(void)
     for(; dfIt != dfEnd; ++dfIt)
     {
         if(dfIt->_func.empty() == false)
-            (dfIt->_func)(this, 0x0000);
+            (dfIt->_func)(this, 0x0000, ChangedOrigin::External);
     }
 
     Inherited::resolveLinks();

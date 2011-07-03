@@ -458,6 +458,11 @@ void display(void)
             SLOG << e.what() << OSG::endLog;
             // try to restart server
             server->stop();
+
+            delete ract;
+
+            ract = OSG::RenderAction::create();
+
             // start server, wait for client to connect
             server->start();
         }

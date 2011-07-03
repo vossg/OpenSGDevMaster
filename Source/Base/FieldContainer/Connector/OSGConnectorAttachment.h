@@ -81,10 +81,12 @@ class OSG_BASE_DLLMAPPING ConnectorAttachment :
     void addConnection  (BasicFieldConnector *pConnector);
 
     void processChanged (FieldContainer      *pObj, 
-                         BitVector            whichField);
+                         BitVector            whichField,
+                         UInt32               origin    );
 
     void targetDestroyed(FieldContainer      *pObj, 
-                         BitVector            whichField);
+                         BitVector            whichField,
+                         UInt32               origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

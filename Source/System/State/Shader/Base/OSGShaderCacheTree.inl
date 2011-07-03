@@ -2768,7 +2768,7 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode::clear(void)
 template<class ObjectT, UInt32 LevelBits> inline
 ObjectT *ShaderCacheTreeV3<ObjectT, LevelBits>::find(const IdStore &vIds)
 {
-    if(vIds.size() < 1)
+    if(vIds.size() < 1 || _pRoot == NULL)
         return NULL;
 
     ObjectT *returnValue = NULL;
@@ -2924,7 +2924,15 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
     UInt32 uiCurrId     = 0;
     UInt32 uiLastId     = vIds.size();
 
-    
+    if(_pRoot == NULL)
+    {
+        _pRoot = allocateNode();
+
+        OSG_ASSERT(_vLevelEntries.size() == 0);
+
+        _vLevelEntries.push_back(_pRoot);
+    }
+
     if(uiStartLevel >= _vLevelEntries.size())
     {
         uiStartLevel = _vLevelEntries.size() - 1;
@@ -3649,6 +3657,8 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
     {
         *leIt = NULL;
     }
+
+    _vLevelEntries.clear();
 
     _pRoot = NULL;
 }
