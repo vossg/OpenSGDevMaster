@@ -49,8 +49,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class ShaderVariableAccess;
-
 /*! \brief ShaderVariableFunctor class. See \ref 
            PageSystemShaderVariableFunctor for a description.
     \ingroup GrpSystemShaderVariables
@@ -188,8 +186,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableFunctor :
 
     friend class FieldContainer;
     friend class ShaderVariableFunctorBase;
-
-    friend class ShaderVariableAccess;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderVariableFunctor &source);

@@ -46,7 +46,6 @@
 #include "OSGConfig.h"
 
 #include "OSGShaderProgramVariables.h"
-#include "OSGShaderVariableAccess.h"
 
 #include "OSGShaderVariables.h"
 
@@ -60,6 +59,514 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::addMapSVariable(const Char8     *name, 
+                                             const ValueType &value,
+                                                   MFInt32   *pVarLoc,
+                                                   MFInt32   *pProcVarLoc)
+{
+    typedef          VariableType              *VarPtr;
+    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = 
+                dynamic_cast<VarPtr>(this->getVariables((*it).second.first));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::addSVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                return returnValue;
+            }
+            
+            p->setValue(value);
+            
+            returnValue = true;
+        }
+    }
+    else
+    {
+        if(name[0] != '\0' && name[0] == 'O' &&
+           name[1] != '\0' && name[1] == 'S' &&
+           name[2] != '\0' && name[2] == 'G'   )
+        {
+            FDEBUG(("Add osg param '%s'\n", name));
+
+            ShaderVariableOSGUnrecPtr p = ShaderVariableOSG::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+            
+            if(p != NULL)
+            {
+                p->setName (name );
+                
+                this->editMFProceduralVariables()->push_back(p);
+
+                if(pProcVarLoc != NULL)
+                    pProcVarLoc->push_back(-1);
+
+                _mVarMap.insert(
+                    std::pair<std::string, IntPair>(
+                        name, 
+                        IntPair(-1,
+                                this->getMFProceduralVariables()->size() - 1)));
+
+                _uiMapsize = 
+                    this->getMFVariables          ()->size() +
+                    this->getMFProceduralVariables()->size();
+
+                returnValue = true;
+            }
+        }
+        else
+        {
+            VarUnrecPtr p = VariableType::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+            
+            if(p != NULL)
+            {
+                p->setName (name );
+                p->setValue(value);
+
+                Int32 iIdx = this->getMFVariables()->findIndex(NULL);
+
+                if(iIdx == -1)
+                {
+                    iIdx = this->getMFVariables()->size();
+
+                    p->addParent(this,
+                                 ShaderProgramVariables::VariablesFieldId,
+                                 iIdx                                    );
+                
+                    this->editMFVariables      ()->push_back(p   );
+                    this->editMFVariableChanged()->push_back(true);
+
+                    if(pVarLoc != NULL)
+                        pVarLoc->push_back(-1);
+                }
+                else
+                {
+                    p->addParent(this,
+                                 ShaderProgramVariables::VariablesFieldId,
+                                 iIdx                                    );
+                
+                    this->editMFVariables()->replace(iIdx, p);
+
+                    this->editVariableChanged(iIdx) = true;
+
+                    if(pVarLoc != NULL)
+                        (*pVarLoc)[iIdx] = -1;
+                }
+
+                _mVarMap.insert(
+                    std::pair<std::string, IntPair>(
+                        name, 
+                        IntPair(iIdx, -1)));
+
+                _uiMapsize = 
+                    this->getMFVariables          ()->size() +
+                    this->getMFProceduralVariables()->size();
+
+                returnValue = true;
+            }
+        }
+    }
+
+    OSG_ASSERT(this->getMFVariables      ()->size() == 
+               this->getMFVariableChanged()->size());
+
+    return returnValue;
+}
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::updateMapSVariable(const Char8     *name, 
+                                                const ValueType &value)
+{
+    typedef          VariableType              *VarPtr;
+    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = 
+                dynamic_cast<VarPtr>(this->getVariables((*it).second.first));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::updateSVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                return false;
+            }
+            
+            p->setValue(value);
+            
+            returnValue = true;
+        }
+    }
+    else
+    {
+        FWARNING(("ShaderVariableAccess::updateSVariable : Variable "
+                  "'%s' not found!\n", name));
+    }
+
+    return returnValue;
+}
+
+
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::addMapMVariable(const char      *name, 
+                                             const ValueType &value,
+                                                   MFInt32   *pVarLoc,
+                                                   MFInt32   *pProcVarLoc)
+{
+    typedef          VariableType              *VarPtr;
+    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = dynamic_cast<VarPtr>(
+                this->getVariables((*it).second.first));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::addMVariable : "
+                          "Variable '%s' has wrong type!\n", name));
+
+                return returnValue;
+            }
+
+            *(p->editMFValue()) = value;
+        }
+    }
+    else
+    {
+        if(name[0] != '\0' && name[0] == 'O' &&
+           name[1] != '\0' && name[1] == 'S' &&
+           name[2] != '\0' && name[2] == 'G'   )
+        {
+            FDEBUG(("Add osg param '%s'\n", name));
+
+            ShaderVariableOSGUnrecPtr p = ShaderVariableOSG::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+            
+            if(p != NULL)
+            {
+                p->setName(name);
+                
+                this->editMFProceduralVariables()->push_back(p);
+
+                if(pProcVarLoc != NULL)
+                    pProcVarLoc->push_back(-1);
+
+                _mVarMap.insert(
+                    std::pair<std::string, IntPair>(
+                        name, 
+                        IntPair(-1,
+                                this->getMFProceduralVariables()->size() - 1)));
+
+                _uiMapsize = 
+                    this->getMFVariables          ()->size() +
+                    this->getMFProceduralVariables()->size();
+
+                returnValue = true;
+            }
+        }
+        else
+        {
+            VarUnrecPtr p = VariableType::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+            if(p != NULL)
+            {
+                p->setName(name );
+                
+                *(p->editMFValue()) = value;
+
+                Int32 iIdx = this->getMFVariables()->findIndex(NULL);
+
+                if(iIdx == -1)
+                {
+                    iIdx = this->getMFVariables()->size();
+
+                    p->addParent(this,
+                                 ShaderProgramVariables::VariablesFieldId,
+                                 iIdx                                    );
+
+                    this->editMFVariables      ()->push_back(p   );
+                    this->editMFVariableChanged()->push_back(true);
+
+                    if(pVarLoc != NULL)
+                        pVarLoc->push_back(-1);
+                }
+                else
+                {
+                    p->addParent(this,
+                                 ShaderProgramVariables::VariablesFieldId,
+                                 iIdx                                    );
+                
+                    this->editMFVariables()->replace(iIdx, p);
+
+                    this->editVariableChanged(iIdx) = true;
+
+                    if(pVarLoc != NULL)
+                        (*pVarLoc)[iIdx] = -1;
+                }
+
+                _mVarMap.insert(
+                    std::pair<std::string, IntPair>(
+                        name, 
+                        IntPair(iIdx, -1)));
+
+                _uiMapsize = 
+                    this->getMFVariables          ()->size() +
+                    this->getMFProceduralVariables()->size();
+
+                returnValue = true;
+            }
+        }
+    }
+
+    OSG_ASSERT(this->getMFVariables      ()->size() == 
+               this->getMFVariableChanged()->size());
+
+    return returnValue;
+}
+
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::updateMapMVariable(const char      *name, 
+                                                const ValueType &value)
+{
+    typedef          VariableType              *VarPtr;
+    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = dynamic_cast<VarPtr>(
+                this->getVariables((*it).second.first));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::updateMVariable : "
+                          "Variable '%s' has wrong type!\n", name));
+
+                return false;
+            }
+
+            *(p->editMFValue()) = value;
+
+            returnValue = true;
+        }
+    }
+
+    OSG_ASSERT(this->getMFVariables      ()->size() == 
+               this->getMFVariableChanged()->size());
+
+    return returnValue;
+}
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::getMapSVariable(const Char8     *name, 
+                                                   ValueType &value)
+{
+    typedef VariableType *VarPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    VariableIt it = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = dynamic_cast<VarPtr>(
+                this->getVariables((*it).second.first));
+            
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::getSVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+
+                return false;
+            }
+
+            value = p->getValue();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        FINFO(("ShaderVariableAccess::getSVariable : Variable '%s' "
+               "doesn't exist!\n", name));
+
+        return false;
+    }
+
+    return true;
+}
+
+template<class VariableType, class ValueType> inline
+bool ShaderProgramVariables::getMapMVariable(const Char8     *name, 
+                                                   ValueType &value)
+{
+    typedef VariableType *VarPtr;
+
+    if(name == NULL)
+        return false;
+
+//    updateMap();
+
+    VariableIt it = _mVarMap.find(name);
+    
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.first != -1)
+        {
+            VarPtr p = dynamic_cast<VarPtr>(
+                this->getVariables((*it).second.first));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::getMVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                
+                return false;
+            }
+
+            value = *(p->getMFValue());
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        FINFO(("ShaderVariableAccess::getMVariable : Variable '%s' "
+               "doesn't exist!\n", name));
+
+        return false;
+    }
+
+    return true;
+}
+
+template<class FunctorT> inline
+bool ShaderProgramVariables::addMapProceduralVariable(
+    const Char8          *name, 
+          FunctorT        pFunctor,
+          UInt32          uiDependency,
+          MFInt32        *pProcVarLoc)
+{
+    if(name == NULL)
+        return false;
+
+    FDEBUG(("Add procedural param '%s'\n", name));
+
+    bool                          returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.second != -1)
+        {
+            ShaderVariableFunctor *p = 
+                dynamic_cast<ShaderVariableFunctor *>(
+                    this->getProceduralVariables((*it).second.second));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::addProceduralVariable : "
+                          "Variable '%s' has wrong type!\n", name));
+                return false;
+            }
+
+            p->setFunctor   (pFunctor    );
+            p->setDependency(uiDependency);
+
+            returnValue = true;
+        }
+    }
+    else
+    {
+        ShaderVariableFunctorUnrecPtr p= ShaderVariableFunctor::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+            
+        if(p != NULL)
+        {
+            p->setName      (name        );
+            p->setFunctor   (pFunctor    );
+            p->setDependency(uiDependency);
+
+            this->editMFProceduralVariables()->push_back(p);
+            
+            if(pProcVarLoc != NULL)
+                pProcVarLoc->push_back(-1);
+            
+            _mVarMap.insert(
+                std::pair<std::string, IntPair>(
+                    name, 
+                    IntPair(-1,
+                            this->getMFProceduralVariables()->size() - 1)));
+            
+            _uiMapsize = 
+                this->getMFVariables          ()->size() +
+                this->getMFProceduralVariables()->size();
+            
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -86,8 +593,9 @@ void ShaderProgramVariables::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderProgramVariables::ShaderProgramVariables(void) :
-     Inherited (    ),
-    _pVarAccess(NULL)
+     Inherited ( ),
+    _mVarMap   ( ),
+    _uiMapsize (0)
 {
 }
 
@@ -95,7 +603,8 @@ ShaderProgramVariables::ShaderProgramVariables(
     const ShaderProgramVariables &source) :
 
      Inherited (source),
-    _pVarAccess(NULL  )
+    _mVarMap   (      ),
+    _uiMapsize (     0)
 {
 }
 
@@ -209,16 +718,16 @@ ShaderProgramVariables::MFProceduralVariablesType *
 
 void ShaderProgramVariables::addVariable(ShaderVariable * const value)
 {
-    _pVarAccess->addVariable(value);
+    this->addMapVariable(value);
 }
 
 void ShaderProgramVariables::subVariable(UInt32 uiIndex)
 {
     if(uiIndex < _mfVariables.size())
     {
-        _pVarAccess->subVariable(_mfVariables[uiIndex]->getName().c_str(),
-                                 NULL,
-                                 NULL);
+        this->subMapVariable(_mfVariables[uiIndex]->getName().c_str(),
+                             NULL,
+                             NULL);
     }
 }
 
@@ -244,14 +753,13 @@ void ShaderProgramVariables::clearVariables(void)
 
     _mfVariableChanged.clear();
 
-    if(_pVarAccess != NULL)
-        _pVarAccess->updateMap();
+    this->updateMap();
 }
 
 const ShaderVariable *
     ShaderProgramVariables::getVariable(const Char8 *name) const
 {
-    return _pVarAccess->getVariable(name);
+    return this->getMapVariable(name);
 }
 
 void ShaderProgramVariables::markAllChanged(void)
@@ -264,17 +772,16 @@ void ShaderProgramVariables::markAllChanged(void)
 void ShaderProgramVariables::addProceduralVariable(
     ShaderVariable * const value)
 {
-    _pVarAccess->addVariable(value);
+    this->addMapVariable(value);
 }
 
 void ShaderProgramVariables::subProceduralVariable(UInt32 uiIndex)
 {
     if(uiIndex < _mfProceduralVariables.size())
     {
-        _pVarAccess->subVariable(
-            _mfProceduralVariables[uiIndex]->getName().c_str(),
-            NULL,
-            NULL);
+        this->subMapVariable(_mfProceduralVariables[uiIndex]->getName().c_str(),
+                              NULL,
+                              NULL);
     }
 }
 
@@ -284,8 +791,7 @@ void ShaderProgramVariables::clearProceduralVariables(void)
 
     _mfProceduralVariables.clear();
 
-    if(_pVarAccess != NULL)
-        _pVarAccess->updateMap();
+    this->updateMap();
 }
 
 void ShaderProgramVariables::merge(ShaderProgramVariables *pVars,
@@ -350,10 +856,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8    *name,
                                                       MFInt32  *pVarLoc,
                                                       MFInt32  *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableBool>(name, 
-                                                         value, 
-                                                         pVarLoc,
-                                                         pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableBool>(name, 
+                                                     value, 
+                                                     pVarLoc,
+                                                     pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name,       
@@ -361,10 +867,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableInt>(name, 
-                                                        value, 
-                                                        pVarLoc,
-                                                        pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableInt>(name, 
+                                                    value, 
+                                                    pVarLoc,
+                                                    pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
@@ -372,10 +878,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableReal>(name, 
-                                                         value, 
-                                                         pVarLoc,
-                                                         pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableReal>(name, 
+                                                     value, 
+                                                     pVarLoc,
+                                                     pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -383,10 +889,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableVec2f>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableVec2f>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -394,10 +900,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableVec3f>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableVec3f>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -405,10 +911,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableVec4f>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableVec4f>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -416,10 +922,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariableMatrix>(name, 
-                                                           value, 
-                                                           pVarLoc,
-                                                           pProcVarLoc);
+    return this->addMapSVariable<ShaderVariableMatrix>(name, 
+                                                       value, 
+                                                       pVarLoc,
+                                                       pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -427,10 +933,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariablePnt2f>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapSVariable<ShaderVariablePnt2f>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -438,10 +944,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addSVariable<ShaderVariablePnt3f>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapSVariable<ShaderVariablePnt3f>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -449,10 +955,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMInt>(name, 
-                                                         value, 
-                                                         pVarLoc,
-                                                         pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMInt>(name, 
+                                                     value, 
+                                                     pVarLoc,
+                                                     pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8    *name, 
@@ -460,10 +966,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8    *name,
                                                       MFInt32  *pVarLoc,
                                                       MFInt32  *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMReal>(name, 
-                                                          value, 
-                                                          pVarLoc,
-                                                          pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMReal>(name, 
+                                                      value, 
+                                                      pVarLoc,
+                                                      pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -471,10 +977,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMVec2f>(name, 
-                                                           value, 
-                                                           pVarLoc,
-                                                           pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMVec2f>(name, 
+                                                       value, 
+                                                       pVarLoc,
+                                                       pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -482,10 +988,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMVec3f>(name, 
-                                                           value, 
-                                                           pVarLoc,
-                                                           pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMVec3f>(name, 
+                                                       value, 
+                                                       pVarLoc,
+                                                       pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name, 
@@ -493,10 +999,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMVec4f>(name, 
-                                                           value, 
-                                                           pVarLoc,
-                                                           pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMVec4f>(name, 
+                                                       value, 
+                                                       pVarLoc,
+                                                       pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8    *name, 
@@ -504,10 +1010,10 @@ bool ShaderProgramVariables::addUniformVariable(const Char8    *name,
                                                       MFInt32  *pVarLoc,
                                                       MFInt32  *pProcVarLoc)
 {
-    return _pVarAccess->addMVariable<ShaderVariableMMatrix>(name, 
-                                                            value, 
-                                                            pVarLoc,
-                                                            pProcVarLoc);
+    return this->addMapMVariable<ShaderVariableMMatrix>(name, 
+                                                        value, 
+                                                        pVarLoc,
+                                                        pProcVarLoc);
 }
 
 #if 0
@@ -538,92 +1044,92 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name,
                                                          bool   value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableBool>(name, value);
+    return this->updateMapSVariable<ShaderVariableBool>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name,       
                                                          Int32  value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableInt>(name, value);
+    return this->updateMapSVariable<ShaderVariableInt>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8  *name,
                                                          Real32  value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableReal>(name, value);
+    return this->updateMapSVariable<ShaderVariableReal>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name, 
                                                    const Vec2f &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableVec2f>(name, value);
+    return this->updateMapSVariable<ShaderVariableVec2f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name, 
                                                    const Vec3f &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableVec3f>(name, value);
+    return this->updateMapSVariable<ShaderVariableVec3f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name, 
                                                    const Vec4f &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableVec4f>(name, value);
+    return this->updateMapSVariable<ShaderVariableVec4f>(name, value);
 }
 
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8  *name, 
                                                    const Matrix &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariableMatrix>(name, value);
+    return this->updateMapSVariable<ShaderVariableMatrix>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name, 
                                                    const Pnt2f &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariablePnt2f>(name, value);
+    return this->updateMapSVariable<ShaderVariablePnt2f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8 *name, 
                                                    const Pnt3f &value)
 {
-    return _pVarAccess->updateSVariable<ShaderVariablePnt3f>(name, value);
+    return this->updateMapSVariable<ShaderVariablePnt3f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8   *name, 
                                                    const MFInt32 &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMInt>(name, value);
+    return this->updateMapMVariable<ShaderVariableMInt>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8    *name, 
                                                    const MFReal32 &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMReal>(name, value);
+    return this->updateMapMVariable<ShaderVariableMReal>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8   *name, 
                                                    const MFVec2f &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMVec2f>(name, value);
+    return this->updateMapMVariable<ShaderVariableMVec2f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8   *name, 
                                                    const MFVec3f &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMVec3f>(name, value);
+    return this->updateMapMVariable<ShaderVariableMVec3f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8   *name, 
                                                    const MFVec4f &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMVec4f>(name, value);
+    return this->updateMapMVariable<ShaderVariableMVec4f>(name, value);
 }
 
 bool ShaderProgramVariables::updateUniformVariable(const Char8    *name, 
                                                    const MFMatrix &value)
 {
-    return _pVarAccess->updateMVariable<ShaderVariableMMatrix>(name, value);
+    return this->updateMapMVariable<ShaderVariableMMatrix>(name, value);
 }
 
 
@@ -632,92 +1138,92 @@ bool ShaderProgramVariables::updateUniformVariable(const Char8    *name,
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,  
                                                       bool     &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableBool>(name, value);
+    return this->getMapSVariable<ShaderVariableBool>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,       
                                                       Int32    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableInt>(name, value);
+    return this->getMapSVariable<ShaderVariableInt>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Real32   &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableReal>(name, value);
+    return this->getMapSVariable<ShaderVariableReal>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name, 
                                                       Vec2f    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableVec2f>(name, value);
+    return this->getMapSVariable<ShaderVariableVec2f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Vec3f    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableVec3f>(name, value);
+    return this->getMapSVariable<ShaderVariableVec3f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Vec4f    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableVec4f>(name, value);
+    return this->getMapSVariable<ShaderVariableVec4f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name, 
                                                       Matrix   &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariableMatrix>(name, value);
+    return this->getMapSVariable<ShaderVariableMatrix>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Pnt2f    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariablePnt2f>(name, value);
+    return this->getMapSVariable<ShaderVariablePnt2f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Pnt3f    &value)
 {
-    return _pVarAccess->getSVariable<ShaderVariablePnt3f>(name, value);
+    return this->getMapSVariable<ShaderVariablePnt3f>(name, value);
 }
 
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFInt32  &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMInt>(name, value);
+    return this->getMapMVariable<ShaderVariableMInt>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFReal32 &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMReal>(name, value);
+    return this->getMapMVariable<ShaderVariableMReal>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFVec2f  &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMVec2f>(name, value);
+    return this->getMapMVariable<ShaderVariableMVec2f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFVec3f  &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMVec3f>(name, value);
+    return this->getMapMVariable<ShaderVariableMVec3f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFVec4f  &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMVec4f>(name, value);
+    return this->getMapMVariable<ShaderVariableMVec4f>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFMatrix &value)
 {
-    return _pVarAccess->getMVariable<ShaderVariableMMatrix>(name, value);
+    return this->getMapMVariable<ShaderVariableMMatrix>(name, value);
 }
 
 
@@ -725,7 +1231,7 @@ bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
 bool ShaderProgramVariables::addOSGVariable(const Char8   *name,
                                                   MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->addVariableOSG(name, pProcVarLoc);
+    return this->addMapVariableOSG(name, pProcVarLoc);
 }
 
 
@@ -735,10 +1241,10 @@ bool ShaderProgramVariables::addProceduralVariable(
           UInt32          uiDependency,
           MFInt32        *pProcVarLoc)
 {
-    return _pVarAccess->addProceduralVariable(name, 
-                                              pFunc, 
-                                              uiDependency,
-                                              pProcVarLoc);
+    return this->addMapProceduralVariable(name, 
+                                          pFunc, 
+                                          uiDependency,
+                                          pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addNodeProceduralVariable(
@@ -747,10 +1253,10 @@ bool ShaderProgramVariables::addNodeProceduralVariable(
           UInt32              uiDependency,
           MFInt32            *pProcVarLoc)
 {
-    return _pVarAccess->addProceduralVariable(name, 
-                                              pFunc, 
-                                              uiDependency,
-                                              pProcVarLoc);
+    return this->addMapProceduralVariable(name, 
+                                          pFunc, 
+                                          uiDependency,
+                                          pProcVarLoc);
 }
 
 bool ShaderProgramVariables::updateProceduralVariable(
@@ -758,7 +1264,7 @@ bool ShaderProgramVariables::updateProceduralVariable(
           ProcVarFunctor  pFunc,
           UInt32          uiDependency)
 {
-    return _pVarAccess->updateProceduralVariable(name, pFunc, uiDependency);
+    return this->updateMapProceduralVariable(name, pFunc, uiDependency);
 }
 
 bool ShaderProgramVariables::updateNodeProceduralVariable(
@@ -766,7 +1272,7 @@ bool ShaderProgramVariables::updateNodeProceduralVariable(
           ProcVarNodeFunctor  pFunc,
           UInt32              uiDependency)
 {
-    return _pVarAccess->updateProceduralVariable(name, pFunc, uiDependency);
+    return this->updateMapProceduralVariable(name, pFunc, uiDependency);
 }
 
 #ifdef OSG_1_COMPAT
@@ -775,10 +1281,10 @@ bool ShaderProgramVariables::addProceduralVariable(
           ParamFunctor    pFunc,
           MFInt32        *pProcVarLoc)
 {
-    return _pVarAccess->addProceduralVariable(name, 
-                                              pFunc, 
-                                              ShaderProcVariable::SHDAll,
-                                              pProcVarLoc);
+    return this->addMapProceduralVariable(name, 
+                                          pFunc, 
+                                          ShaderProcVariable::SHDAll,
+                                          pProcVarLoc);
 }
 
 bool ShaderProgramVariables::addProceduralVariable(
@@ -786,10 +1292,10 @@ bool ShaderProgramVariables::addProceduralVariable(
           OSGParamFunctor  pFunc,
           MFInt32        *pProcVarLoc)
 {
-    return _pVarAccess->addProceduralVariable(name, 
-                                              pFunc, 
-                                              ShaderProcVariable::SHDAll,
-                                              pProcVarLoc);
+    return this->addMapProceduralVariable(name, 
+                                          pFunc, 
+                                          ShaderProcVariable::SHDAll,
+                                          pProcVarLoc);
 }
 #endif
 
@@ -797,7 +1303,7 @@ bool ShaderProgramVariables::subUniformVariable(const Char8   *name,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
 {
-    return _pVarAccess->subVariable(name, pVarLoc, pProcVarLoc);
+    return this->subMapVariable(name, pVarLoc, pProcVarLoc);
 }
                             
 void ShaderProgramVariables::clearUniformVariables(void)
@@ -815,17 +1321,11 @@ void ShaderProgramVariables::onCreateAspect(
     // Don't add the prototype instances to the list
     if(GlobalSystemState != Running)
         return;
-
-    _pVarAccess = new ShaderVariableAccess(*this);
 }
 
 void ShaderProgramVariables::onDestroyAspect(UInt32 uiContainerId,
                                              UInt32 uiAspect     )
 {
-    delete _pVarAccess;
-
-    _pVarAccess = NULL;
-
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
 
@@ -841,8 +1341,324 @@ void ShaderProgramVariables::execSync(
     if(FieldBits::NoField != 
        ((VariablesFieldMask | ProceduralVariablesFieldMask) & whichField))
     {
-        _pVarAccess->updateMap();
+        this->updateMap();
     }
 }
+
+
+
+
+
+
+
+
+
+bool ShaderProgramVariables::addMapVariableOSG(const Char8   *name,
+                                                     MFInt32 *pProcVarLoc)
+{
+    if(name == NULL)
+        return false;
+
+    FDEBUG(("Add osg param '%s'\n", name));
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+
+    if(it == _mVarMap.end())
+    {
+        ShaderVariableOSGUnrecPtr p = ShaderVariableOSG::create();
+            
+        if(p != NULL)
+        {
+            p->setName(name);
+            
+            if(p->getOsgVarType() != ShaderVariableOSG::OSGUnknown)
+            {
+                this->editMFProceduralVariables()->push_back(p);
+                
+                if(pProcVarLoc != NULL)
+                    pProcVarLoc->push_back(-1);
+                
+                _mVarMap.insert(
+                    std::pair<std::string, IntPair>(
+                        name, 
+                        IntPair(
+                            -1,
+                            this->getMFProceduralVariables()->size() - 1
+                               )));
+                
+                _uiMapsize = 
+                    this->getMFVariables          ()->size() +
+                    this->getMFProceduralVariables()->size();
+                
+                returnValue = true;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+
+bool ShaderProgramVariables::updateMapProceduralVariable(
+    const Char8          *name, 
+          ProcVarFunctor  pFunctor,                                        
+          UInt32          uiDependency)
+{
+    if(name == NULL)
+        return false;
+
+    FDEBUG(("Update procedural param '%s'\n", name));
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.second != -1)
+        {
+            ShaderVariableFunctor *p = 
+                dynamic_cast<ShaderVariableFunctor *>(
+                    this->getProceduralVariables((*it).second.second));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::setVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                return false;
+            }
+
+            p->setFunctor   (pFunctor    );
+            p->setDependency(uiDependency);
+
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
+
+bool ShaderProgramVariables::updateMapProceduralVariable(
+    const Char8              *name, 
+          ProcVarNodeFunctor  pFunctor,                                        
+          UInt32              uiDependency)
+{
+    if(name == NULL)
+        return false;
+
+    FDEBUG(("Update procedural param '%s'\n", name));
+
+    bool       returnValue = false;
+    VariableIt it          = _mVarMap.find(name);
+
+    if(it != _mVarMap.end())
+    {
+        if((*it).second.second != -1)
+        {
+            ShaderVariableFunctor *p = 
+                dynamic_cast<ShaderVariableFunctor *>(
+                    this->getProceduralVariables((*it).second.second));
+
+            if(p == NULL)
+            {
+                FWARNING(("ShaderVariableAccess::setVariable : Variable "
+                          "'%s' has wrong type!\n", name));
+                return false;
+            }
+
+            p->setFunctor   (pFunctor    );
+            p->setDependency(uiDependency);
+
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
+void ShaderProgramVariables::addMapVariable(ShaderVariable *pVar)
+{
+    if(pVar == NULL)
+        return;
+
+    VariableIt it = _mVarMap.find(pVar->getName());
+    
+    if(it != _mVarMap.end())
+    {
+        FWARNING(("ShaderVariables::addVariable : Variable "
+                  "'%s' already there, ignoring!\n", 
+                  pVar->getName().c_str()));
+
+        return ;
+    }
+    else
+    {
+        const std::string &name = pVar->getName();
+
+        if(pVar->isProcedural() == true)
+        {
+            FDEBUG(("Add procedural param variable '%s'\n", name.c_str()));
+ 
+            ShaderProcVariable *pProcVar = 
+                static_cast<ShaderProcVariable *>(pVar);
+
+            this->editMFProceduralVariables()->push_back(pProcVar);
+
+            _mVarMap.insert(
+                std::pair<std::string, IntPair>(
+                    pVar->getName(), 
+                    IntPair(
+                        -1,
+                        this->getMFProceduralVariables()->size() - 1)));
+
+            _uiMapsize = 
+                this->getMFVariables          ()->size() +
+                this->getMFProceduralVariables()->size();
+        }
+        else
+        {
+            ShaderValueVariable *pValVar = 
+                static_cast<ShaderValueVariable *>(pVar);
+
+            pValVar->addParent(this,
+                               ShaderProgramVariables::VariablesFieldId,
+                               this->getMFVariables()->size());
+
+            this->editMFVariables      ()->push_back(pValVar);
+            this->editMFVariableChanged()->push_back(true   );
+        
+            _mVarMap.insert(
+                std::pair<std::string, IntPair>(
+                    name,
+                    IntPair(this->getMFVariables()->size() - 1,
+                            -1)));
+        
+            _uiMapsize =
+                this->getMFVariables          ()->size() +
+                this->getMFProceduralVariables()->size();
+        }
+    }
+
+    OSG_ASSERT(this->getMFVariables      ()->size() == 
+               this->getMFVariableChanged()->size());
+}
+
+bool ShaderProgramVariables::subMapVariable(const Char8   *name,
+                                             MFInt32 *pVarLoc,
+                                             MFInt32 *pProcVarLoc)
+{
+    if(name == NULL)
+        return false;
+
+    VariableIt it = _mVarMap.find(name);
+    
+    if(it == _mVarMap.end())
+        return false;
+
+    if((*it).second.first != -1)
+    {
+        ShaderValueVariable *pVar = 
+            static_cast<ShaderValueVariable *>(
+                this->getVariables((*it).second.first));
+
+        pVar->subParent(this);
+
+#if 0
+        this->editMFVariables      ()->erase((*it).second.first);
+        this->editMFVariableChanged()->erase((*it).second.first);
+
+        if(pVarLoc != NULL)
+            pVarLoc->erase((*it).second.first);
+#endif
+
+        this->editMFVariables()->replace((*it).second.first, NULL);
+
+        this->editVariableChanged((*it).second.first) = false;
+
+        if(pVarLoc != NULL)
+            (*pVarLoc)[(*it).second.first] = -1;
+
+        _mVarMap.erase(it);
+
+        --_uiMapsize;
+    }
+    else if((*it).second.second != -1)
+    {
+        this->editMFProceduralVariables()->erase((*it).second.second);
+
+        if(pProcVarLoc != NULL)
+            pProcVarLoc->erase((*it).second.second);
+
+        _mVarMap.erase(it);
+
+        --_uiMapsize;
+    }
+
+    updateMap();
+
+    return true;
+}
+
+const ShaderVariable *
+    ShaderProgramVariables::getMapVariable(const Char8 *name) const
+{
+    if(name == NULL)
+        return NULL;
+
+    VariableConstIt it = _mVarMap.find(name);
+    
+    if(it == _mVarMap.end())
+        return NULL;
+
+    if((*it).second.first != -1)
+    {
+        return this->getVariables((*it).second.first);
+    }
+
+    return NULL;
+}
+
+void ShaderProgramVariables::updateMap(void)
+{
+    if(_uiMapsize == this->getMFVariables()->size())
+        return;
+    
+    UInt32 size = this->getMFVariables()->size();
+    
+    _uiMapsize = 0;
+
+    _mVarMap.clear();
+
+    for(UInt32 i = 0; i < size; ++i)
+    {
+        if(this->getVariables(i) != NULL)
+        {
+            _mVarMap.insert(
+                std::pair<std::string, IntPair>(
+                    this->getVariables(i)->getName(), 
+                    IntPair(i, -1)));
+
+            ++_uiMapsize;
+        }
+    }
+
+    size = this->getMFProceduralVariables()->size();
+
+    for(UInt32 i = 0; i < size; ++i)
+    {
+        _mVarMap.insert(
+            std::pair<std::string, IntPair>(
+                this->getProceduralVariables(i)->getName(), 
+                IntPair(-1, i)));
+    }
+
+    _uiMapsize += size;
+
+    OSG_ASSERT(this->getMFVariables      ()->size() == 
+               this->getMFVariableChanged()->size());
+}
+
+
 
 OSG_END_NAMESPACE

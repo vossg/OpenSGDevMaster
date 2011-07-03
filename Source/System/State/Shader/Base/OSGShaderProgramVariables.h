@@ -50,8 +50,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class ShaderVariableAccess;
-
 /*! \brief ShaderProgramVariables class. See \ref
            PageSystemShaderProgramVariables for a description.
     \ingroup GrpSystemShaderBase
@@ -342,7 +340,14 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     // Variables should all be in ShaderProgramParametersBase.
 
-    ShaderVariableAccess *_pVarAccess;
+    typedef std::pair<Int32,      Int32  > IntPair;
+    typedef std::map<std::string, IntPair> VariableMap;
+
+    typedef VariableMap::      iterator VariableIt;
+    typedef VariableMap::const_iterator VariableConstIt;
+
+    VariableMap _mVarMap;
+    UInt32      _uiMapsize;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -364,6 +369,73 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Var name handling                             */
+    /*! \{                                                                 */
+
+          void            updateMap     (      void                       );
+
+          void            addMapVariable(      ShaderVariable *pVar       );
+
+          bool            subMapVariable(const Char8          *name,
+                                               MFInt32        *pVarLoc,
+                                               MFInt32        *pProcVarLoc);
+
+    const ShaderVariable *getMapVariable(const Char8          *name) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Var name handling                             */
+    /*! \{                                                                 */
+
+    template<class VariableType, class ValueType> 
+    bool addMapSVariable            (const Char8              *name, 
+                                     const ValueType          &value,
+                                           MFInt32            *pVarLoc,
+                                           MFInt32            *pProcVarLoc );
+
+    template<class VariableType, class ValueType> 
+    bool updateMapSVariable         (const Char8              *name, 
+                                     const ValueType          &value       );
+    
+    template<class VariableType, class ValueType> 
+    bool getMapSVariable            (const Char8              *name, 
+                                           ValueType          &value       );
+
+
+    template<class VariableType, class ValueType> 
+    bool addMapMVariable            (const char               *name, 
+                                     const ValueType          &value,
+                                           MFInt32            *pVarLoc,
+                                           MFInt32            *pProcVarLoc );
+
+    template<class VariableType, class ValueType> 
+    bool updateMapMVariable         (const char               *name, 
+                                     const ValueType          &value       );
+
+    template<class VariableType, class ValueType> 
+    bool getMapMVariable            (const Char8              *name, 
+                                           ValueType          &value       );
+
+
+    bool addMapVariableOSG          (const Char8              *name,
+                                           MFInt32            *pProcVarLoc );
+
+    template<class FunctorT>
+    bool addMapProceduralVariable   (const Char8              *name, 
+                                           FunctorT            pFunctor,
+                                           UInt32              uiDependency,
+                                           MFInt32            *pProcVarLoc );
+
+    bool updateMapProceduralVariable(const Char8              *name, 
+                                           ProcVarFunctor      pFunctor,
+                                           UInt32              uiDependency);
+
+    bool updateMapProceduralVariable(const Char8              *name, 
+                                           ProcVarNodeFunctor  pFunctor,
+                                           UInt32              uiDependency);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -395,7 +467,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
   private:
 
-    friend class ShaderVariableAccess;
     friend class FieldContainer;
     friend class ShaderProgramVariablesBase;
 
