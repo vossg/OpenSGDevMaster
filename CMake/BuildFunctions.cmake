@@ -163,6 +163,8 @@ MACRO(OSG_SELECT_PROJECT)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
             "SET(${PROJECT_NAME}_TEST_SRC)\n")
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+            "SET(${PROJECT_NAME}_APP_SRC)\n")
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
             "SET(${PROJECT_NAME}_INC)\n\n")
     ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
@@ -520,6 +522,7 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
+        FILE(GLOB LOCAL_APP_SRC      "${CMAKE_SOURCE_DIR}/${DIRNAME}/app*.cpp")
         FILE(GLOB BASE_MM            "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
         SET(_OSG_CURR_DIRNAME "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
@@ -551,6 +554,7 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.mm")
+        FILE(GLOB LOCAL_APP_SRC      "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/app*.cpp")
         FILE(GLOB BASE_MM            "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSE()
         SET(_OSG_CURR_DIRNAME "${DIRNAME}")
@@ -581,7 +585,9 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_YY           "${DIRNAME}/OSG*.yy")
         FILE(GLOB LOCAL_MOC          "${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${DIRNAME}/OSG*Test.cpp")
-        FILE(GLOB LOCAL_TEST_SRC     "${DIRNAME}/test*.cpp" "${DIRNAME}/test*.mm")
+        FILE(GLOB LOCAL_TEST_SRC     "${DIRNAME}/test*.cpp"
+                                     "${DIRNAME}/test*.mm")
+        FILE(GLOB LOCAL_APP_SRC      "${DIRNAME}/app*.cpp")
         FILE(GLOB BASE_MM            "${DIRNAME}/OSG*Base.mm")
     ENDIF()
 
@@ -606,6 +612,7 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         LIST(REMOVE_ITEM LOCAL_YY           ${${PROJECT_NAME}_EXCL_FILES})
         LIST(REMOVE_ITEM LOCAL_UNITTEST_SRC ${${PROJECT_NAME}_EXCL_FILES})
         LIST(REMOVE_ITEM LOCAL_TEST_SRC     ${${PROJECT_NAME}_EXCL_FILES})
+        LIST(REMOVE_ITEM LOCAL_APP_SRC      ${${PROJECT_NAME}_EXCL_FILES})
     ENDIF(${PROJECT_NAME}_EXCL_FILES)
 
     # filter unittest sources out of library sources
@@ -722,6 +729,12 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_TEST_SRC \"${LOCAL_TEST_SRC}\")\n\n")
     ENDIF(LOCAL_TEST_SRC)
+
+    # apps
+    IF(LOCAL_APP_SRC)
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "LIST(APPEND ${PROJECT_NAME}_APP_SRC \"${LOCAL_APP_SRC}\")\n\n")
+    ENDIF(LOCAL_APP_SRC)
 
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -1330,7 +1343,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
     ENDFOREACH(LIBDIR)
 
     # build test programs
-    FOREACH(EXE_SRC ${${PROJECT_NAME}_TEST_SRC})
+    FOREACH(EXE_SRC ${${PROJECT_NAME}_TEST_SRC} ${${PROJECT_NAME}_APP_SRC})
         GET_FILENAME_COMPONENT(EXE ${EXE_SRC} NAME_WE)
 
         ADD_EXECUTABLE(${EXE} ${OSGEXCLUDE_TESTS} ${EXE_SRC} )
@@ -1385,6 +1398,82 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
                 PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_TEST_DEFS})
         ENDIF(${PROJECT_NAME}_DEP_TEST_DEFS)
     ENDFOREACH(EXE_SRC)
+
+    IF(OSG_INSTALL_APPS)
+      IF(WIN32)
+        IF(OSG_INSTALL_SUBDIR)
+            SET(_OSG_ISC "${OSG_INSTALL_SUBDIR}/")
+        ELSE(OSG_INSTALL_SUBDIR)
+            SET(_OSG_ISC "")
+        ENDIF(OSG_INSTALL_SUBDIR)
+
+        IF(OSG_USE_SEPARATE_LIBDIRS)
+          SET(_OSG_TARGET_BINDIR_REL bin/${_OSG_ISC}rel)
+          SET(_OSG_TARGET_BINDIR_DBG bin/${_OSG_ISC}debug)
+          SET(_OSG_TARGET_BINDIR_RELNO bin/${_OSG_ISC}relnoopt)
+          SET(_OSG_TARGET_BINDIR_DBGO bin/${_OSG_ISC}debugopt)
+
+          SET(_OSG_TARGET_LIBDIR_REL lib/${_OSG_ISC}rel)
+          SET(_OSG_TARGET_LIBDIR_DBG lib/${_OSG_ISC}debug)
+          SET(_OSG_TARGET_LIBDIR_RELNO lib/${_OSG_ISC}relnoopt)
+          SET(_OSG_TARGET_LIBDIR_DBGO lib/${_OSG_ISC}debugopt)
+        ELSE(OSG_USE_SEPARATE_LIBDIRS)
+          SET(_OSG_TARGET_BINDIR_REL bin/${_OSG_ISC})
+          SET(_OSG_TARGET_BINDIR_DBG bin/${_OSG_ISC})
+          SET(_OSG_TARGET_BINDIR_RELNO bin/${_OSG_ISC})
+          SET(_OSG_TARGET_BINDIR_DBGO bin/${_OSG_ISC})
+
+          SET(_OSG_TARGET_LIBDIR_REL lib/${_OSG_ISC})
+          SET(_OSG_TARGET_LIBDIR_DBG lib/${_OSG_ISC})
+          SET(_OSG_TARGET_LIBDIR_RELNO lib/${_OSG_ISC})
+          SET(_OSG_TARGET_LIBDIR_DBGO lib/${_OSG_ISC})
+        ENDIF(OSG_USE_SEPARATE_LIBDIRS)
+      ENDIF(WIN32)
+
+      FOREACH(EXE_SRC ${${PROJECT_NAME}_APP_SRC})
+        GET_FILENAME_COMPONENT(EXE ${EXE_SRC} NAME_WE)
+
+        SET_TARGET_PROPERTIES(${EXE} PROPERTIES EXCLUDE_FROM_ALL FALSE)
+
+        IF(WIN32)
+
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS Release
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
+                  COMPONENT release_binaries)
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+                  COMPONENT debug_binaries)
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS ReleaseNoOpt
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
+                  COMPONENT release_no_opt_binaries)
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS DebugOpt
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+                  COMPONENT debug_opt_binaries)
+
+        ELSE(WIN32)
+
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS Release
+                  RUNTIME DESTINATION bin
+                  COMPONENT release_binaries)
+
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION bin/debug
+                  COMPONENT debug_binaries)
+
+          INSTALL(TARGETS ${EXE}
+                  CONFIGURATIONS DebugGV
+                  RUNTIME DESTINATION bin/debug
+                  COMPONENT debug_binaries)
+
+        ENDIF(WIN32)
+      ENDFOREACH()
+    ENDIF(OSG_INSTALL_APPS)
 
 ENDFUNCTION(OSG_SETUP_TEST_BUILD)
 
