@@ -327,6 +327,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Access                              */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
@@ -375,7 +380,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \name                Var name handling                             */
     /*! \{                                                                 */
 
-          void            updateMap     (      void                       );
+          void            rebuildMap    (      void                       );
 
           void            addMapVariable(      ShaderVariable *pVar       );
 
@@ -447,12 +452,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     
     void onDestroyAspect(      UInt32                  uiContainerId,
                                UInt32                  uiAspect     );
-
-    void execSync       (      ShaderProgramVariables *pFrom,
-                               ConstFieldMaskArg       whichField,
-                               AspectOffsetStore      &oOffsets,
-                               ConstFieldMaskArg       syncMode  ,
-                         const UInt32                  uiSyncInfo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

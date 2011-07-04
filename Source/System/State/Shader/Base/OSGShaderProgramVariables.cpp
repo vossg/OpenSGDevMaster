@@ -72,8 +72,6 @@ bool ShaderProgramVariables::addMapSVariable(const Char8     *name,
     if(name == NULL)
         return false;
 
-//    updateMap();
-
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
     
@@ -199,8 +197,6 @@ bool ShaderProgramVariables::updateMapSVariable(const Char8     *name,
     if(name == NULL)
         return false;
 
-//    updateMap();
-
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
     
@@ -245,8 +241,6 @@ bool ShaderProgramVariables::addMapMVariable(const char      *name,
 
     if(name == NULL)
         return false;
-
-//    updateMap();
 
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
@@ -374,8 +368,6 @@ bool ShaderProgramVariables::updateMapMVariable(const char      *name,
     if(name == NULL)
         return false;
 
-//    updateMap();
-
     bool       returnValue = false;
     VariableIt it          = _mVarMap.find(name);
     
@@ -414,8 +406,6 @@ bool ShaderProgramVariables::getMapSVariable(const Char8     *name,
 
     if(name == NULL)
         return false;
-
-//    updateMap();
 
     VariableIt it = _mVarMap.find(name);
     
@@ -460,8 +450,6 @@ bool ShaderProgramVariables::getMapMVariable(const Char8     *name,
 
     if(name == NULL)
         return false;
-
-//    updateMap();
 
     VariableIt it = _mVarMap.find(name);
     
@@ -682,6 +670,13 @@ void ShaderProgramVariables::changed(ConstFieldMaskArg whichField,
         }
     }
 
+    if(origin == ChangedOrigin::Sync &&
+       FieldBits::NoField != 
+           ((VariablesFieldMask | ProceduralVariablesFieldMask) & whichField))
+    {
+        this->rebuildMap();
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -753,7 +748,7 @@ void ShaderProgramVariables::clearVariables(void)
 
     _mfVariableChanged.clear();
 
-    this->updateMap();
+    this->rebuildMap();
 }
 
 const ShaderVariable *
@@ -791,7 +786,7 @@ void ShaderProgramVariables::clearProceduralVariables(void)
 
     _mfProceduralVariables.clear();
 
-    this->updateMap();
+    this->rebuildMap();
 }
 
 void ShaderProgramVariables::merge(ShaderProgramVariables *pVars,
@@ -850,6 +845,7 @@ void ShaderProgramVariables::dump(      UInt32    ,
 {
     SLOG << "Dump ShaderProgramVariables NI" << std::endl;
 }
+
 
 bool ShaderProgramVariables::addUniformVariable(const Char8    *name,
                                                       bool      value,
@@ -1329,23 +1325,6 @@ void ShaderProgramVariables::onDestroyAspect(UInt32 uiContainerId,
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
 
-void ShaderProgramVariables::execSync(
-          ShaderProgramVariables *pFrom,
-          ConstFieldMaskArg       whichField,
-          AspectOffsetStore      &oOffsets,
-          ConstFieldMaskArg       syncMode  ,
-    const UInt32                  uiSyncInfo   )
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != 
-       ((VariablesFieldMask | ProceduralVariablesFieldMask) & whichField))
-    {
-        this->updateMap();
-    }
-}
-
-
 
 
 
@@ -1595,8 +1574,6 @@ bool ShaderProgramVariables::subMapVariable(const Char8   *name,
         --_uiMapsize;
     }
 
-    updateMap();
-
     return true;
 }
 
@@ -1619,10 +1596,12 @@ const ShaderVariable *
     return NULL;
 }
 
-void ShaderProgramVariables::updateMap(void)
+void ShaderProgramVariables::rebuildMap(void)
 {
+#if 0
     if(_uiMapsize == this->getMFVariables()->size())
         return;
+#endif
     
     UInt32 size = this->getMFVariables()->size();
     

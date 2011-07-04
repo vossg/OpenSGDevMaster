@@ -4,6 +4,7 @@
 #include "OSGNodeCore.h"
 #include "OSGTestFC.h"
 
+#if 0
 static void dumpAspect(OSG::TestFC *pFC, OSG::UInt32 uiAspect)
 {
     OSG::UInt32 uiCurrAspect= OSG::Thread::getCurrentAspect();
@@ -488,9 +489,11 @@ void testChangeList(void)
 
     pTestFC = NULL;
 }
+#endif
 
 int main (int argc, char **argv)
 {
+#if 0
     OSG::ThreadManager::setNumAspects(3);
     OSG::osgInit(argc, argv);
 
@@ -510,4 +513,7 @@ int main (int argc, char **argv)
     fprintf(stderr, "exit\n");
 
     OSG::osgExit();
+#endif
+
+    return 0;
 }

@@ -66,8 +66,6 @@ namespace
 {
     bool registerConversionConnectors(void)
     {
-        fprintf(stderr, "registerConversionConnectors\n");
-
         OSG::FieldConnectorFactory::the()->registerConnector(
             OSG::SFVec3f::getClassType(),
             OSG::SFPnt3f::getClassType(),
