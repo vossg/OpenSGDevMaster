@@ -977,12 +977,8 @@ void ChangeList::doApply(bool bClear)
         ++cIt;
     }
 
-    // I don't think clear is correct here if the apps expects to tap
-    // into the changes they will be gone (GV)
-    //pDstCL->commitChangesAndClear(ChangedOrigin::Sync);
-
-    pDstCL->commitChanges(ChangedOrigin::Sync);
-    pDstCL->commitDelayedSubRefs ();
+    pDstCL->commitChanges       (ChangedOrigin::Sync);
+    pDstCL->commitDelayedSubRefs();
 
 #endif
 }
