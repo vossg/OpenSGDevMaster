@@ -932,10 +932,8 @@ void ChangeList::doApply(bool bClear)
                     }
 #endif
 
-                    UInt32 uiSInfo =
-                        /*uiSyncInfo*/ 0 |
-                        (_uiAspect << 24) |
-                        (Thread::getCurrentAspect() << 16);
+                    UInt32 uiSInfo = (srcAspect << 24) |
+                                     (dstAspect << 16);
 
                     pDst->execSyncV(*pSrc,
                                     mask,
