@@ -97,7 +97,7 @@ OSBNodeElement::read(const std::string &typeName)
     NodeUnrecPtr node = Node::create();
 
     setContainer(node);
-    readFields("'volume'", "");
+    readFields("", "");
 }
 
 void
@@ -132,5 +132,14 @@ OSBNodeElement::write(void)
     wh->putValue(OSBCommonElement::FCPtrNode);
     wh->putValue(getVersion()               );
 
-    writeFields("'volume'", true);
+    Node*       node       = dynamic_cast<Node*>(getContainer());
+    std::string skipFields = "";
+
+    if(node->getVolume().isStatic  () == false &&
+       node->getVolume().isInfinite() == false   )
+    {
+        skipFields += "'volume'";
+    }
+
+    writeFields(skipFields, true);
 }

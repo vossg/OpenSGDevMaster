@@ -106,7 +106,7 @@ void Node::classDescInserter(TypeObject &oType)
         "volume",
         "Bounding volume for the node.",
         OSG_RC_FIELD_DESC(Node::Volume),
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Node::editHandleVolume),
         static_cast<FieldGetMethodSig >(&Node::getHandleVolume ));
