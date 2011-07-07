@@ -48,6 +48,8 @@
 #include "OSGCSMNativeWindow.h"
 #include "OSGComplexSceneManager.h"
 
+#define OSG_REG_CLASS_PERWINDOW 1
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -107,8 +109,8 @@ CSMNativeWindow::~CSMNativeWindow(void)
 /*----------------------------- class specific ----------------------------*/
 
 void CSMNativeWindow::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                              UInt32            origin,
+                              BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
@@ -373,13 +375,35 @@ void OSG_APIENTRY CSMNativeWindow::win32MainLoop(void)
     }
 
     ComplexSceneManager::the()->terminate();
-    
+
+   
+#if !defined(OSG_REG_CLASS_PERWINDOW)
     if(!UnregisterClass("OSG-CSM",
                         GetModuleHandle(NULL)))
     {
         fprintf(stderr, "unregister window class failed %ld\n", 
                 GetLastError());
     }
+#else
+    WindowListConstIt wIt  = _vWindowList.begin();
+    WindowListConstIt wEnd = _vWindowList.end  ();
+
+    for(; wIt != wEnd; ++wIt)
+    {
+        Char8 szClassName[64];
+
+        sprintf(szClassName, "OSG-CSM-%x", *wIt);
+
+        fprintf(stderr, "deregister %s\n", szClassName);
+
+        if(!UnregisterClass(szClassName,
+                            GetModuleHandle(NULL)))
+        {
+            fprintf(stderr, "unregister window class failed %ld\n", 
+                    GetLastError());
+        }
+    }
+#endif
 }
 
 void CSMNativeWindow::resolveLinks(void)
@@ -407,6 +431,38 @@ bool CSMNativeWindow::init(void)
 
     _vWindowList.push_back(this);
 
+#if !defined(OSG_REG_CLASS_PERWINDOW)
+    static bool bClassRegistered = false;
+
+    if(bClassRegistered == false)
+    {
+        WNDCLASS wndClass;
+
+        memset(&wndClass, 0, sizeof(wndClass));
+
+        wndClass.style         = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+        wndClass.lpfnWndProc   = CSMNativeWindow::WndProc;
+        wndClass.hInstance     = GetModuleHandle(NULL);
+        wndClass.hCursor       = LoadCursor(NULL, IDC_ARROW);
+        wndClass.lpszClassName = "OSG-CSM";
+
+        if (!RegisterClass(&wndClass)) 
+        {
+            fprintf(stderr, "register window class failed %ld\n", 
+                    GetLastError());
+
+            return false;
+        }
+
+        bClassRegistered = true;
+    }
+#else
+    Char8 szClassName[64];
+
+    sprintf(szClassName, "OSG-CSM-%x", this);
+
+    fprintf(stderr, "register %s\n", szClassName);
+
     WNDCLASS wndClass;
 
     memset(&wndClass, 0, sizeof(wndClass));
@@ -415,14 +471,16 @@ bool CSMNativeWindow::init(void)
     wndClass.lpfnWndProc   = CSMNativeWindow::WndProc;
     wndClass.hInstance     = GetModuleHandle(NULL);
     wndClass.hCursor       = LoadCursor(NULL, IDC_ARROW);
-    wndClass.lpszClassName = "OSG-CSM";
+    wndClass.lpszClassName = szClassName;
 
     if (!RegisterClass(&wndClass)) 
     {
-        fprintf(stderr, "register window class failed %ld\n", GetLastError());
+        fprintf(stderr, "register window class failed %ld\n", 
+                GetLastError());
 
         return false;
     }
+#endif
 
     Int32 iWidth  = CW_USEDEFAULT;
     Int32 iHeight = 0;
@@ -430,7 +488,7 @@ bool CSMNativeWindow::init(void)
     Int32  iXPos    = CW_USEDEFAULT;
     Int32  iYPos    = 0;
 
-    if(this->getXPos() > 0.f && this->getYPos() > 0.f)
+    if(this->getXPos() >= 0.f && this->getYPos() >= 0.f)
     {
         iXPos = Int32(this->getXPos());
         iYPos = Int32(this->getYPos());
@@ -445,20 +503,65 @@ bool CSMNativeWindow::init(void)
         iHeight = Int32(this->getYSize());
     }
 
-    // Create a Window
+#if 0
     _pHWND = CreateWindow("OSG-CSM", "OpenSG - CSM",
-                          (WS_OVERLAPPEDWINDOW | 
+                          (WS_OVERLAPPEDWINDOW |
                            WS_CLIPCHILDREN     | 
                            WS_CLIPSIBLINGS     ),
                           iXPos, 
                           iYPos, 
-                          iHeight, 
                           iWidth,
+                          iHeight, 
                           NULL, 
                           NULL, 
                           GetModuleHandle(NULL), 
                           this);
-    
+#else
+    DWORD dwExtStyle;
+    DWORD dwStyle;
+
+    if(this->getDecorEnabled() == false)
+    {
+        fprintf(stderr, "no border\n");
+        dwExtStyle = WS_EX_APPWINDOW;
+        dwStyle    = (WS_OVERLAPPED    |
+                      WS_CLIPCHILDREN  | 
+                      WS_CLIPSIBLINGS  );
+    }
+    else
+    {
+        dwExtStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+        dwStyle    = (WS_OVERLAPPEDWINDOW |
+                      WS_CLIPCHILDREN     | 
+                      WS_CLIPSIBLINGS     );
+    }
+
+    _pHWND = CreateWindowEx(dwExtStyle,
+#if !defined(OSG_REG_CLASS_PERWINDOW)
+                            "OSG-CSM", 
+#else
+                            szClassName,
+#endif
+                            "OpenSG - CSM",
+                            dwStyle,
+                            iXPos, 
+                            iYPos, 
+                            iWidth,
+                            iHeight, 
+                            NULL, 
+                            NULL, 
+                            GetModuleHandle(NULL), 
+                            this);
+#endif
+    if(this->getDecorEnabled() == false)
+    {
+        DWORD winStyle = ::GetWindowLong(_pHWND, GWL_STYLE);
+
+        winStyle  &= ~(WS_BORDER | WS_CAPTION);
+
+        ::SetWindowLong(_pHWND, GWL_STYLE, winStyle);
+     }
+
     ShowWindow(_pHWND, SW_SHOWNORMAL);
     SetActiveWindow(_pHWND);
 
@@ -468,6 +571,7 @@ bool CSMNativeWindow::init(void)
             &CSMNativeWindow::win32MainLoop);
     }
 
+    this->reshape(iWidth, iHeight);
     _pWin32Window->init();
 
     _bRun = true;
