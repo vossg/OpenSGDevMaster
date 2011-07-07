@@ -716,6 +716,9 @@ bool RenderPartition::pushShaderState(State *pState)
 
             _oDrawEnv.getWindow()->getShaderCache()->addShader(
                 _sStateOverrides.top()->getProgIds(), pShader);
+
+            // avoid rebuilding the shader in the next frame
+            commitChanges();
         }
 
         _sStateOverrides.top()->setShader(pShader);
