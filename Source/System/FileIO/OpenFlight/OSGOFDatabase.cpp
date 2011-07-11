@@ -39,127 +39,112 @@
 #include "OSGOFDatabase.h"
 
 #include "OSGNode.h"
+#include "OSGOFPrimaryRecords.h"
+#include "OSGOpenFlightLog.h"
 
 OSG_BEGIN_NAMESPACE
 
 OFDatabase::OFDatabase(void) :
-    _pHeader (NULL),
-    _pCurrRec(NULL),
-    _sRecords(    )
+    _pHeader         (NULL),
+    _sRecords        (    ),
+    _pCurr           (NULL),
+    _pCurrPrimary    (NULL),
+    _pVertexPalette  (NULL),
+    _pTexturePalette (NULL),
+    _pMaterialPalette(NULL),
+    _targetUnits     (VU_Meters),
+    _unitScale       (1.f)
 {
 }
 
 OFDatabase::~OFDatabase(void)
 {
-    _pHeader = NULL;
+    _pHeader          = NULL;
+    _pVertexPalette   = NULL;
+    _pTexturePalette  = NULL;
+    _pMaterialPalette = NULL;
 }
 
 bool OFDatabase::read(std::istream &is)
 {
     bool returnValue = true;
 
-//    fprintf(stderr, "Start to read openflight\n");
-
     OFRecordHeader  oRHeader;
 
     returnValue = oRHeader.read(is);
 
     if(returnValue == false)
-    {
         return returnValue;
-    }
 
-    _pHeader = new OFHeaderRecord(oRHeader);
+    _pHeader = dynamic_pointer_cast<OFHeaderRecord>(
+        OFHeaderRecord::create(oRHeader, *this));
 
-    returnValue = _pHeader->read(is, *this);
+    returnValue = _pHeader->read(is);
 
     if(returnValue == false)
-    {
         return returnValue;
-    }
 
-    OFRecordRCPtr pCurr = NULL;
+    _sRecords.push(_pHeader);
+
+    _pCurr        = _pHeader;
+    _pCurrPrimary = _pHeader;
 
     while(returnValue == true)
     {
         returnValue = oRHeader.read(is);
 
-        if(returnValue == true)
+        if(returnValue == false)
+            break;
+
+        if(oRHeader.sOpCode == OFContinuationOC)
         {
-            if(oRHeader.sOpCode == OFPushLevelOC)
+            if(_pCurr != NULL)
             {
-                if(_sRecords.empty() == true)
-                {
-                    _sRecords.push(_pHeader);
-                }
-                else
-                {
-                    _sRecords.push(_pCurrRec);
-                }
+                _pCurr->readContinue(is, oRHeader.sLength - 4);
             }
-            else if(oRHeader.sOpCode == OFPopLevelOC)
+            else
             {
-                _sRecords.pop();
+                FWARNING(("OFDatabase::read: Found ContinuationRecord, "
+                          "without preceding record.\n"));
             }
-            else if(oRHeader.sOpCode == OFContinuationOC)
+        }
+        else
+        {
+            _pCurr = OFRecordFactory::the()->createRecord(oRHeader, *this);
+
+            if(_pCurr != NULL)
             {
-                if(pCurr != NULL)
+                returnValue = _pCurr->read(is);
+
+                if(_pCurr->getCategory() == OFRecord::RC_Primary)
                 {
-                    pCurr->readContinue(is, *this, oRHeader.sLength - 4);
+                    _sRecords.top()->addChild(_pCurr);
+                    _pCurrPrimary = _pCurr;
                 }
-                else
+                else if(_pCurr->getCategory() == OFRecord::RC_Ancillary)
                 {
-                    FWARNING(("OFDatabase::read: Found ContinuationRecord, "
-                              "without preceding record.\n"))
+                    _pCurrPrimary->addChild(_pCurr);
                 }
             }
             else
             {
-                pCurr = OFRecordFactory::the()->createRecord(oRHeader);
-
-                if(pCurr != NULL)
-                {
-                    returnValue = pCurr->read(is, *this);
-
-                    switch(pCurr->getOpCode())
-                    {
-                        case 31:
-                        case 33:
-                        case 132:
-                            break;
-
-                        default:
-                        {
-                            if(_sRecords.empty() == false)
-                            {
-                                _sRecords.top()->addChild(pCurr);
-                            }
-                            else
-                            {
-                                _pHeader->addChild(pCurr);
-                            }
-
-                            _pCurrRec = pCurr;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    returnValue = false;
-                }
+                FFATAL(("OFDatabase::read: Failed to create record for "
+                        "[%u][%s].\n",
+                        oRHeader.sOpCode,
+                        OFRecord::getOpCodeString(oRHeader.sOpCode)));
             }
         }
     }
 
-    pCurr = NULL;
+    _pCurr        = NULL;
+    _pCurrPrimary = NULL;
+
+    _sRecords.pop();
 
     if(_sRecords.empty() != true)
     {
         FWARNING(("OFDatabase::read: Record stack inconsistent.\n"));
     }
-
-//    fprintf(stderr, "finished OpenFlight %d\n", returnValue);
 
     return true;
 }
@@ -171,36 +156,93 @@ NodeTransitPtr OFDatabase::convert(void)
     if(_pHeader == NULL)
         return returnValue;
 
-//    _pHeader->dump(0);
+#ifndef OSG_OPENFLIGHT_SILENT
+    _pHeader->dump(0);
+#endif
 
-    returnValue = _pHeader->convertToNode(*this);
+    returnValue = _pHeader->convertToNode();
 
     return returnValue;
 }
 
+void OFDatabase::pushLevel(void)
+{
+    _sRecords.push(_pCurrPrimary);
+}
+
+void OFDatabase::popLevel(void)
+{
+    _sRecords.pop();
+
+    _pCurrPrimary = _sRecords.top();
+}
+
+OFDatabase::VertexUnits OFDatabase::getTargetUnits(void) const
+{
+    return _targetUnits;
+}
+
+void OFDatabase::setTargetUnits(VertexUnits units)
+{
+    _targetUnits = units;
+}
+
+Real32 OFDatabase::getUnitScale(void) const
+{
+    return _unitScale;
+}
+
+void OFDatabase::setUnitScale(Real32 scale)
+{
+    _unitScale = scale;
+}
+
 const OFVertexPaletteRecord *OFDatabase::getVertexPalette(void)
 {
-    if(_pHeader == NULL)
+    if(_pVertexPalette == NULL)
         return NULL;
-
-    return _pHeader->getVertexPalette();
+  
+    return _pVertexPalette->getRecord();
 }
 
 const OFTexturePaletteRecord *OFDatabase::getTexRecord(UInt32 uiIdx)
 {
-    if(_pHeader == NULL)
+    if(_pTexturePalette == NULL)
         return NULL;
 
-    return _pHeader->getTexRecord(uiIdx);
+    return _pTexturePalette->getRecord(uiIdx);
 }
 
 const OFMaterialPaletteRecord *OFDatabase::getMatRecord(UInt32 uiIdx)
 {
-    if(_pHeader == NULL)
+    if(_pMaterialPalette == NULL)
         return NULL;
 
-    return _pHeader->getMatRecord(uiIdx);
+    return _pMaterialPalette->getRecord(uiIdx);
 }
 
+void OFDatabase::addVertexPaletteRecord(OFVertexPaletteRecord *pVertPal)
+{
+    if(_pVertexPalette == NULL)
+        _pVertexPalette = new OFVertexPalette;
+
+    _pVertexPalette->addRecord(pVertPal);
+}
+
+void OFDatabase::addTexturePaletteRecord(OFTexturePaletteRecord *pTexPal)
+{
+    if(_pTexturePalette == NULL)
+        _pTexturePalette = new OFTexturePalette;
+
+    _pTexturePalette->addRecord(pTexPal);
+}
+
+void OFDatabase::addMaterialPaletteRecord(OFMaterialPaletteRecord *pMatPal)
+{
+    if(_pMaterialPalette == NULL)
+        _pMaterialPalette = new OFMaterialPalette;
+
+    _pMaterialPalette->addRecord(pMatPal);
+}
 
 OSG_END_NAMESPACE

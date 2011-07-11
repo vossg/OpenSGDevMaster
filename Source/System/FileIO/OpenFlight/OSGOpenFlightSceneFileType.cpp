@@ -115,17 +115,14 @@ NodeTransitPtr OpenFlightSceneFileType::read(      std::istream &is,
                                                    Resolver      resolver) const
 {
     NodeTransitPtr returnValue(NULL);
+    OFDatabase     db;
 
-    OFDatabase *pDB = new OFDatabase;
-
-    bool rc = pDB->read(is);
+    bool rc = db.read(is);
 
     if(rc == true)
     {
-        returnValue = pDB->convert();
+        returnValue = db.convert();
     }
-
-    delete pDB;
 
     commitChanges();
 

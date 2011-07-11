@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2011 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -26,28 +26,15 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*\
- *                                Changes                                    *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
-\*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOFDATABASE_H_
-#define _OSGOFDATABASE_H_
-
-#include <istream>
+#ifndef _OSGOFPALETTES_H_
+#define _OSGOFPALETTES_H_
 
 #include "OSGFileIODef.h"
-#include "OSGContainerForwards.h"
+#include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
 
-#include "OSGOFRecords.h"
-#include "OSGOFPalettes.h"
-
-#include <stack>
+#include <map>
 
 OSG_BEGIN_NAMESPACE
 
@@ -79,85 +66,148 @@ class OFMaterialPaletteRecord;
 typedef RefCountPtr<OFMaterialPaletteRecord,
                     MemObjRefCountPolicy   >  OFMaterialPaletteRecordRCPtr;
 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
+{
+  protected:
+
+    typedef MemoryObject Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    OFVertexPaletteRecordRCPtr _pVertexPalette;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual ~OFVertexPalette(void);
+
+  public:
+
+    OFVertexPalette(void);
+
+    /*---------------------------------------------------------------------*/
+
+          void                   addRecord(OFVertexPaletteRecord *pVertexPal);
+    const OFVertexPaletteRecord *getRecord(void                             );
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
+};
+
 /*! \ingroup GrpFileIOOpenFlight
  */
-class OFHeaderRecord;
-/*! \ingroup GrpFileIOOpenFlight
- */
-typedef RefCountPtr<OFHeaderRecord,
-                    MemObjRefCountPolicy   >  OFHeaderRecordRCPtr;
+typedef RefCountPtr<OFVertexPalette,
+                    MemObjRefCountPolicy> OFVertexPaletteRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
 
-class OSG_FILEIO_DLLMAPPING OFDatabase
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
 {
-  public:
-
-    enum VertexUnits
-    {
-        VU_Meters        = 0,
-        VU_Kilometers    = 1,
-        VU_Feet          = 4,
-        VU_Inches        = 5,
-        VU_NauticalMiles = 8
-    };
-
-    /*---------------------------------------------------------------------*/
-
-     OFDatabase(void);
-    ~OFDatabase(void);
-
-    /*---------------------------------------------------------------------*/
-
-    bool           read   (std::istream &is);
-    NodeTransitPtr convert(void            );
-
-    /*---------------------------------------------------------------------*/
-
-    void pushLevel(void);
-    void popLevel (void);
-
-    /*---------------------------------------------------------------------*/
-
-    VertexUnits getTargetUnits(void             ) const;
-    void        setTargetUnits(VertexUnits units);
-
-    Real32      getUnitScale  (void             ) const;
-    void        setUnitScale  (Real32      scale);
-
-    /*---------------------------------------------------------------------*/
-
-    const OFVertexPaletteRecord   *getVertexPalette(void        );
-    const OFTexturePaletteRecord  *getTexRecord    (UInt32 uiIdx);
-    const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
-
-    void addVertexPaletteRecord  (OFVertexPaletteRecord   *vertPal);
-    void addTexturePaletteRecord (OFTexturePaletteRecord  *texPal );
-    void addMaterialPaletteRecord(OFMaterialPaletteRecord *matPal );
-
-    /*---------------------------------------------------------------------*/
   protected:
 
-    OFHeaderRecordRCPtr     _pHeader;
-    std::stack<OFRecord *>  _sRecords;
+    typedef MemoryObject Inherited;
 
-    OFRecordRCPtr           _pCurr;
-    OFRecordRCPtr           _pCurrPrimary;
+    /*---------------------------------------------------------------------*/
 
-    OFVertexPaletteRCPtr    _pVertexPalette;
-    OFTexturePaletteRCPtr   _pTexturePalette;
-    OFMaterialPaletteRCPtr  _pMaterialPalette;
+    typedef std::map<Int32,
+                     OFTexturePaletteRecordRCPtr>           TextureStore;
+    typedef std::map<Int32,
+                     OFTexturePaletteRecordRCPtr>::iterator TextureStoreIt;
 
-    VertexUnits             _targetUnits;
-    Real32                  _unitScale;
+    /*---------------------------------------------------------------------*/
 
-    // OpCode without object
+    TextureStore _mTextures;
 
-    static const UInt16 OFContinuationOC = 23;
+    /*---------------------------------------------------------------------*/
+
+    virtual ~OFTexturePalette(void);
+
+  public:
+
+    OFTexturePalette(void);
+
+    /*---------------------------------------------------------------------*/
+
+          void                    addRecord(OFTexturePaletteRecord *pTex);
+    const OFTexturePaletteRecord *getRecord(Int32                   uiId);
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
 };
+
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFTexturePalette,
+                    MemObjRefCountPolicy> OFTexturePaletteRCPtr;
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
+{
+  protected:
+    typedef MemoryObject Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    typedef std::map<Int32,
+                     OFMaterialPaletteRecordRCPtr>           MaterialStore;
+    typedef std::map<Int32,
+                     OFMaterialPaletteRecordRCPtr>::iterator MaterialStoreIt;
+
+    /*---------------------------------------------------------------------*/
+
+    MaterialStore _mMaterials;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual ~OFMaterialPalette(void);
+
+  public:
+
+    typedef RefCountPtr<OFMaterialPalette,
+                        MemObjRefCountPolicy> ObjRCPtr;
+    typedef TransitPtr <OFMaterialPalette   > ObjTransitPtr;
+
+    OFMaterialPalette(void);
+
+    /*---------------------------------------------------------------------*/
+
+          void                     addRecord(OFMaterialPaletteRecord *pMat);
+    const OFMaterialPaletteRecord *getRecord(Int32                    uiId);
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
+};
+
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef OFMaterialPalette::ObjRCPtr      OFMaterialPaletteRCPtr;
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef OFMaterialPalette::ObjTransitPtr OFMaterialPaletteTransitPtr;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGOFDATABASE_H
+#endif /* _OSGOFPALETTES_H_ */
