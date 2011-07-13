@@ -35,7 +35,6 @@
 #include "OSGGeometry.h"
 #include "OSGGeoFunctions.h"
 #include "OSGGroup.h"
-#include "OSGNameAttachment.h"
 #include "OSGPolygonChunk.h"
 #include "OSGRangeLOD.h"
 #include "OSGSceneFileHandler.h"
@@ -154,6 +153,7 @@ bool OFHeaderRecord::read(std::istream &is)
     Int8  faceTexWhite;      Inherited::readVal(is, faceTexWhite);
     Int32 flags;             Inherited::readVal(is, flags);
 
+#if 0
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read szAsciiId        [%s]\n", szAsciiId));
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read formatRev        [%u]\n", formatRev));
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read editRev          [%u]\n", editRev));
@@ -166,6 +166,7 @@ bool OFHeaderRecord::read(std::istream &is)
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read vertUnits        [%u]\n", vertUnits));
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read faceTexWhite     [%u]\n", faceTexWhite));
     OSG_OPENFLIGHT_LOG(("OFHeaderRecord::read flags            [%x]\n", flags));
+#endif
 
     OFDatabase::VertexUnits fileUnits =
         static_cast<OFDatabase::VertexUnits>(vertUnits);
@@ -173,13 +174,12 @@ bool OFHeaderRecord::read(std::istream &is)
                                         unitToMetersScale(_oDB.getTargetUnits());
     _oDB.setUnitScale(unitScale);
 
-#if 1
+    // read and discard remainder of header record
     std::vector<char> tmpBuf;
 
     tmpBuf.resize(_sLength);
 
     is.read(&(tmpBuf.front()), _sLength - 68);
-#endif
 
     return is.good();
 }
@@ -191,8 +191,6 @@ NodeTransitPtr OFHeaderRecord::convertToNode(void)
     if(_primaryChildren.empty() == false)
     {
         returnValue = makeCoredNode<Group>();
-
-        setName(returnValue, "HeaderRecord");
 
         for(UInt32 i = 0; i < _primaryChildren.size(); ++i)
         {
@@ -220,22 +218,28 @@ bool OFHeaderRecord::addChild(OFRecord *pChild)
     if(pChild == NULL)
         return false;
 
-    OSG_OPENFLIGHT_LOG(("OFHeaderRecord::addChild: [%u][%s][%s]\n",
-                        pChild->getOpCode(),
-                        pChild->getCategoryString(),
-                        pChild->getOpCodeString()   ));
-
     bool returnValue = false;
 
     switch(pChild->getOpCode())
     {
+    case OFColorPaletteRecord::OpCode:
+    {
+        OFColorPaletteRecord *pCol =
+            dynamic_cast<OFColorPaletteRecord *>(pChild);
+
+        _oDB.addColorPaletteRecord(pCol);
+
+        returnValue = true;
+    }
+    break;
+
     case OFTexturePaletteRecord::OpCode:
     {
         OFTexturePaletteRecord *pTex =
             dynamic_cast<OFTexturePaletteRecord *>(pChild);
 
         _oDB.addTexturePaletteRecord(pTex);
-            
+
         returnValue = true;
     }
     break;
@@ -277,13 +281,23 @@ UInt16 OFHeaderRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFHeaderRecord::dump(UInt32 uiIndent)
+void OFHeaderRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "HeaderRecord" << std::endl;
 
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    if(_oDB.getColorPalette() != NULL)
+        _oDB.getColorPalette()->dump(uiIndent);
+
+    if(_oDB.getVertexPalette() != NULL)
+        _oDB.getVertexPalette()->dump(uiIndent);
+
+    uiIndent -= 2;
 
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
@@ -349,9 +363,6 @@ NodeTransitPtr OFGroupRecord::convertToNode(void)
         }
     }
 
-    if(returnValue != NULL)
-        setName(returnValue, std::string("GroupRecord ") + szASCIIId);
-
     returnValue = convertAncillaryChildren(returnValue);
 
     return NodeTransitPtr(returnValue);
@@ -362,7 +373,7 @@ UInt16 OFGroupRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFGroupRecord::dump(UInt32 uiIndent)
+void OFGroupRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "GroupRecord" << std::endl;
@@ -423,7 +434,7 @@ OFObjectRecord::~OFObjectRecord(void)
 {
 }
 
-void OFObjectRecord::dump(UInt32 uiIndent)
+void OFObjectRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "ObjectRecord" << std::endl;
@@ -498,11 +509,6 @@ bool OFObjectRecord::addChild(OFRecord *pChild)
 {
     if(pChild == NULL)
         return false;
-
-    OSG_OPENFLIGHT_LOG(("OFObjectRecord::addChild: [%u][%s][%s]\n",
-                        pChild->getOpCode(),
-                        pChild->getCategoryString(),
-                        pChild->getOpCodeString()   ));
 
     bool returnValue = false;
 
@@ -633,11 +639,12 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
     GeoVec3fProperty::StoredFieldType *pNorm = NULL;
     GeoVec2fProperty::StoredFieldType *pTX   = NULL;
 
-    UInt16 uiVertexType = 0;
+    UInt16 uiFirstVType = 0;
     bool   bSingleIdx   = true;
 
     for(UInt32 i = 0; i < vFaceGroup.size(); ++i)
     {
+        OFFaceRecord       *pFace  = vFaceGroup[i];
         OFVertexListRecord *pVList = vFaceGroup[i]->getVertexList();
 
         if(pVList != NULL)
@@ -648,17 +655,26 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
 
             for(UInt32 j = 0; j < vIndices.size(); ++j)
             {
-                const VertexInfo *vInfo =
+                const VertexInfo *vInfo        =
                     pVertexPal->getVertexInfo(vIndices[j]);
+                UInt16            uiVType      = 0;
 
                 if(vInfo != NULL)
                 {
+                    uiVType = vInfo->uiType;
+
+                    if(pFace->getLightMode() == 0 ||
+                       pFace->getLightMode() == 1   )
+                    {
+                        uiVType &= ~OFVertexPaletteRecord::HasNorm;
+                    }
+
                     // First Vertex
                     if(i == 0 && j == 0)
                     {
-                        uiVertexType = vInfo->uiType;
+                        uiFirstVType = uiVType;
 
-                        if(uiVertexType & OFVertexPaletteRecord::HasNorm)
+                        if(uiFirstVType & OFVertexPaletteRecord::HasNorm)
                         {
                             norms  = GeoVec3fProperty ::create();
                             pNorm  = norms->editFieldPtr();
@@ -667,7 +683,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                             pNI    = nindex->editFieldPtr();
                         }
 
-                        if(uiVertexType & OFVertexPaletteRecord::HasTexCoord)
+                        if(uiFirstVType & OFVertexPaletteRecord::HasTexCoord)
                         {
                             tex    = GeoVec2fProperty ::create();
                             pTX    = tex ->editFieldPtr();
@@ -677,11 +693,13 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                        }
                     }
 
-                    if(uiVertexType != vInfo->uiType)
+                    if(uiFirstVType != uiVType)
                     {
                         FWARNING(("OFObjectRecord::convertFaceGroup: "
-                                  "Found different vtypes\n"));
-                        break;
+                                  "Found different vtypes - first [0x%x] "
+                                  "current [0x%x] face [%u/%u] vert [%u]\n",
+                                  uiFirstVType, uiVType,
+                                  i, vFaceGroup.size(), j));
                     }
 
                     UInt32 uiPosIdx =
@@ -691,22 +709,37 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
 
                     pPos->push_back(pVertexPal->getPos(uiPosIdx));
 
-                    if(uiVertexType & OFVertexPaletteRecord::HasNorm)
+                    if(uiFirstVType & OFVertexPaletteRecord::HasNorm)
                     {
-                        UInt32 uiNormIdx =
-                            vInfo->uiIdx[OFVertexPaletteRecord::NormIdx];
+                        // XXX TODO:
+                        // there are models where some vertices have normals
+                        // and others don't.
+                        // For now we insert a dummy normal
 
-                        pNI->push_back(pNorm->size());
-
-                        pNorm->push_back(pVertexPal->getNormal(uiNormIdx));
-
-                        if(uiNormIdx != uiPosIdx)
+                        if((uiVType & OFVertexPaletteRecord::HasNorm) != 0)
                         {
+                            UInt32 uiNormIdx =
+                                vInfo->uiIdx[OFVertexPaletteRecord::NormIdx];
+
+                            pNI->push_back(pNorm->size());
+
+                            pNorm->push_back(pVertexPal->getNormal(uiNormIdx));
+
+                            if(uiNormIdx != uiPosIdx)
+                            {
+                                bSingleIdx = false;
+                            }
+                        }
+                        else
+                        {
+                            pNI->push_back(pNorm->size());
+                            pNorm->push_back(Vec3f(0.f, 0.f, 1.f));
+
                             bSingleIdx = false;
                         }
                     }
 
-                    if(uiVertexType & OFVertexPaletteRecord::HasTexCoord)
+                    if(uiFirstVType & OFVertexPaletteRecord::HasTexCoord)
                     {
                         UInt32 uiTXIdx =
                             vInfo->uiIdx[OFVertexPaletteRecord::TexCoordIdx];
@@ -802,9 +835,9 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
 
                 pChunkMat->addChunk(pMatChunk);
             }
-            else if((vFaceGroup[0]->getFlags() & FlagPackedColor) != 0)
+            else
             {
-                // use uiPackedPrimCol and material
+                // use uiPackedPrimCol/uiPrimColIdx and material
                 Color4f colGeo;
                 Color4f colMat;
 
@@ -823,10 +856,12 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                 colMat[2] = colMat[2] * colGeo[2];
                 colMat[3] = pMatRec->getAlpha() * (1.f - (vFaceGroup[0]->getTransparency() / 65535.f));
 
-                SLOG << "OFObjectRecord::convertFaceGroup: "
-                        << "PC pMatRec->getAlpha() [" << pMatRec->getAlpha()
-                        << "] Transparency [" << vFaceGroup[0]->getTransparency()
-                        << "] colMat[3] [" << colMat[3] << "]" << std::endl;
+                OSG_OPENFLIGHT_LOG(("OFObjectRecord::convertFaceGroup: "
+                                    "PC pMatRec->getAlpha() [%f] "
+                                    "Transparency [%f] colMat[3] [%f]\n",
+                                    pMatRec->getAlpha(),
+                                    vFaceGroup[0]->getTransparency(),
+                                    colMat[3]));
 
                 pMatChunk->setDiffuse  (colMat                 );
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
@@ -834,10 +869,6 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                 pMatChunk->setEmission (pMatRec->getEmissive ());
 
                 pChunkMat->addChunk(pMatChunk);
-            }
-            else
-            {
-                // TODO: use uiPrimColIdx
             }
 
             if(pMatChunk->isTransparent() &&
@@ -851,6 +882,12 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                 pChunkMat->addChunk(pBlendChunk);
             }
         }
+        else
+        {
+            FWARNING(("OFObjectRecord::convertFaceGroup: "
+                      "No material record for index [%u].\n",
+                      vFaceGroup[0]->getMatIdx()));
+        }
     }
 
     if(vFaceGroup[0]->getTexIdx() != -1)
@@ -861,6 +898,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
         if(pTexRec != NULL)
         {
             TextureObjChunk *pTexObj = pTexRec->getTexObj();
+            TextureEnvChunk *pTexEnv = pTexRec->getTexEnv();
 
             if(pTexObj != NULL)
             {
@@ -876,6 +914,19 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
 
                     pChunkMat->addChunk(pBlendChunk);
                 }
+            }
+
+            if(pTexEnv != NULL)
+            {
+                pChunkMat->addChunk(pTexEnv);
+            }
+            else
+            {
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
+
+                pTexEnv->setEnvMode(GL_MODULATE);
+
+                pChunkMat->addChunk(pTexEnv);
             }
         }
         else
@@ -1144,11 +1195,6 @@ bool OFLocalVertexPoolRecord::addChild(OFRecord *pChild)
     if(pChild == NULL)
         return false;
 
-    OSG_OPENFLIGHT_LOG(("OFLocalVertexPoolRecord::addChild: [%u][%s][%s]\n",
-                        pChild->getOpCode(),
-                        pChild->getCategoryString(),
-                        pChild->getOpCodeString()   ));
-
     bool rc = false;
 
     switch(pChild->getOpCode())
@@ -1214,7 +1260,7 @@ UInt16 OFLocalVertexPoolRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFLocalVertexPoolRecord::dump(UInt32 uiIndent)
+void OFLocalVertexPoolRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "LocalVertexPoolRecord : " << std::endl;
@@ -1492,7 +1538,7 @@ UInt16 OFMeshPrimitiveRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFMeshPrimitiveRecord::dump(UInt32 uiIndent)
+void OFMeshPrimitiveRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "MeshPrimitiveRecord : " << std::endl;
@@ -1596,11 +1642,6 @@ bool OFMeshRecord::addChild(OFRecord *pChild)
     if(pChild == NULL)
         return false;
 
-    OSG_OPENFLIGHT_LOG(("OFMeshRecord::addChild: [%u][%s][%s]\n",
-                        pChild->getOpCode(),
-                        pChild->getCategoryString(),
-                        pChild->getOpCodeString()   ));
-
     bool rc = false;
 
     switch(pChild->getOpCode())
@@ -1632,7 +1673,7 @@ UInt16 OFMeshRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFMeshRecord::dump(UInt32 uiIndent)
+void OFMeshRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "MeshRecord : " << std::endl;
@@ -1734,8 +1775,6 @@ NodeTransitPtr OFMeshRecord::convertToNode(void)
     GeoUInt8PropertyUnrecPtr  pTypes      = GeoUInt8Property ::create();
     GeoUInt32PropertyUnrecPtr pLengths    = GeoUInt32Property::create();
 
-    setName(returnValue, std::string("MeshRecord ") + szASCIIId);
-
     pGeo->setTypes  (pTypes  );
     pGeo->setLengths(pLengths);
 
@@ -1835,6 +1874,7 @@ NodeTransitPtr OFMeshRecord::convertToNode(void)
         if(pTexRec != NULL)
         {
             TextureObjChunk *pTexObj = pTexRec->getTexObj();
+            TextureEnvChunk *pTexEnv = pTexRec->getTexEnv();
 
             if(pTexObj != NULL)
             {
@@ -1850,7 +1890,14 @@ NodeTransitPtr OFMeshRecord::convertToNode(void)
 
                     pChunkMat->addChunk(pBlendChunk);
                 }
+            }
 
+            if(pTexEnv != NULL)
+            {
+                pChunkMat->addChunk(pTexEnv);
+            }
+            else
+            {
                 TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
 
                 pTexEnv->setEnvMode(GL_MODULATE);
@@ -1996,11 +2043,6 @@ bool OFFaceRecord::addChild(OFRecord *pChild)
     if(pChild == NULL)
         return false;
 
-    OSG_OPENFLIGHT_LOG(("OFFaceRecord::addChild: [%u][%s][%s]\n",
-                        pChild->getOpCode(),
-                        pChild->getCategoryString(),
-                        pChild->getOpCodeString()   ));
-
     switch(pChild->getOpCode())
     {
         case OFVertexListRecord::OpCode:
@@ -2036,7 +2078,7 @@ OFVertexListRecord *OFFaceRecord::getVertexList(void)
     return _pVList;
 }
 
-void OFFaceRecord::dump(UInt32 uiIndent)
+void OFFaceRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "FaceRecord : " << std::endl;
@@ -2114,7 +2156,14 @@ bool OFFaceRecord::operator ==(const OFFaceRecord &rhs) const
 
     if(uiLightMode == 0 || uiLightMode == 2)
     {
-        returnValue &= (uiPackedPrimCol == rhs.uiPackedPrimCol);
+        if((iFlags & FlagPackedColor) != 0)
+        {
+            returnValue &= (uiPackedPrimCol == rhs.uiPackedPrimCol);
+        }
+        else
+        {
+            returnValue &= (uiPrimColIdx == rhs.uiPrimColIdx);
+        }
     }
 
     return returnValue;
@@ -2168,7 +2217,9 @@ Color4f OFFaceRecord::getPrimColor(void) const
     }
     else if((iFlags & FlagNoColor) == 0)
     {
-        // TODO lookup color in index
+        const OFColorPaletteRecord *colPal = _oDB.getColorPalette();
+
+        returnValue = colPal->getColor(uiPrimColIdx);
     }
 
     return returnValue;
@@ -2187,7 +2238,9 @@ Color4f OFFaceRecord::getAltColor(void) const
     }
     else if((iFlags & FlagNoColor) == 0)
     {
-        // TODO lookup color in index
+        const OFColorPaletteRecord *colPal = _oDB.getColorPalette();
+
+        returnValue = colPal->getColor(uiAltColIdx);
     }
 
     return returnValue;
@@ -2220,10 +2273,10 @@ OFVertexListRecord::~OFVertexListRecord(void)
 
 bool OFVertexListRecord::read(std::istream &is)
 {
-    OSG_OPENFLIGHT_LOG(("OFVertexListRecord::read len [%u]\n",
-                        _sLength));
-
     UInt32 uiListSize = (_sLength - 4) / 4;
+
+    OSG_OPENFLIGHT_LOG(("OFVertexListRecord::read len [%u], indices [%u]\n",
+                        _sLength, uiListSize));
 
     _vIndices.resize(uiListSize);
 
@@ -2304,7 +2357,7 @@ UInt16 OFLODRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFLODRecord::dump(UInt32 uiIndent)
+void OFLODRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "LODRecord" << std::endl;
@@ -2336,8 +2389,6 @@ NodeTransitPtr OFLODRecord::convertToNode(void)
     {
         RangeLODUnrecPtr pCore = RangeLOD::create();
         NodeUnrecPtr     pNode = makeNodeFor(pCore);
-
-        setName(pNode, std::string("LODRecord ") + szASCIIId);
 
         pCore->setSwitchIn (this->getSwitchIn ());
         pCore->setSwitchOut(this->getSwitchOut());
@@ -2455,7 +2506,7 @@ UInt16 OFSwitchRecord::getOpCode(void) const
 }
 
 
-void OFSwitchRecord::dump(UInt32 uiIndent)
+void OFSwitchRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "SwitchRecord" << std::endl;
@@ -2504,10 +2555,6 @@ NodeTransitPtr OFSwitchRecord::convertToNode(void)
     {
         GroupUnrecPtr pCore = Group::create();
         NodeUnrecPtr  pNode = makeNodeFor(pCore);
-
-        setName(pNode, std::string("SwitchRecord ") + szASCIIID);
-
-        FWARNING(("OFSwitchRecord::convertToNode: Switch NIY.\n"));
 
         if(returnValue != NULL)
         {
@@ -2590,7 +2637,7 @@ UInt16 OFExternalReferenceRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFExternalReferenceRecord::dump(UInt32 uiIndent)
+void OFExternalReferenceRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "ExternalReference : " << std::endl;
@@ -2648,6 +2695,10 @@ NodeTransitPtr OFExternalReferenceRecord::convertToNode(void)
             return NodeTransitPtr(returnValue);
         }
 
+        OSG_OPENFLIGHT_LOG(("OFExternalReferenceRecord::convertToNode: "
+                            "reading file [%s]\n",
+                            szFilenameResolved.c_str()));
+
         pHandler->pushState();
 
         pHandler->setBaseFile(szFilenameResolved.c_str());
@@ -2656,12 +2707,9 @@ NodeTransitPtr OFExternalReferenceRecord::convertToNode(void)
 
         is.open(szFilenameResolved.c_str(), std::ios::binary);
 
-        NodeUnrecPtr pExtNode = 
+        NodeUnrecPtr pExtNode =
             OpenFlightSceneFileType::the().read(is,
                                                 szFilenameResolved.c_str());
-
-        if(pExtNode != NULL)
-            setName(pExtNode, std::string("OFExternalReferenceRecord ") + szFilename);
 
         if(pExtNode != NULL && returnValue != NULL)
         {

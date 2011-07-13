@@ -82,7 +82,7 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 };
@@ -141,7 +141,7 @@ class OSG_FILEIO_DLLMAPPING OFGroupRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     NodeTransitPtr convertAncillaryChildren(Node *pNode);
 };
@@ -218,7 +218,7 @@ class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -366,7 +366,7 @@ class OSG_FILEIO_DLLMAPPING OFLocalVertexPoolRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -456,7 +456,7 @@ class OSG_FILEIO_DLLMAPPING OFMeshPrimitiveRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -580,7 +580,7 @@ class OSG_FILEIO_DLLMAPPING OFMeshRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 };
 
 /*! \ingroup GrpFileIOOpenFlight
@@ -707,7 +707,7 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -844,7 +844,7 @@ class OSG_FILEIO_DLLMAPPING OFLODRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -919,7 +919,7 @@ class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     NodeTransitPtr convertAncillaryChildren(Node *pNode);
 };
@@ -985,7 +985,7 @@ class OSG_FILEIO_DLLMAPPING OFExternalReferenceRecord : public OFPrimaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     NodeTransitPtr convertAncillaryChildren(Node *pNode);
 };

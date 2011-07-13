@@ -44,6 +44,14 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpFileIOOpenFlight
  */
+class OFColorPaletteRecord;
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFColorPaletteRecord,
+                    MemObjRefCountPolicy   >  OFColorPaletteRecordRCPtr;
+
+/*! \ingroup GrpFileIOOpenFlight
+ */
 class OFVertexPaletteRecord;
 /*! \ingroup GrpFileIOOpenFlight
  */
@@ -65,6 +73,47 @@ class OFMaterialPaletteRecord;
  */
 typedef RefCountPtr<OFMaterialPaletteRecord,
                     MemObjRefCountPolicy   >  OFMaterialPaletteRecordRCPtr;
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFColorPalette : public MemoryObject
+{
+  protected:
+
+    typedef MemoryObject Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    OFColorPaletteRecordRCPtr _pColorPalette;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual ~OFColorPalette(void);
+
+  public:
+
+    OFColorPalette(void);
+
+    /*---------------------------------------------------------------------*/
+
+          void                  addRecord(OFColorPaletteRecord *pColorPal);
+    const OFColorPaletteRecord *getRecord(void                           );
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent) const;
+};
+
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFColorPalette,
+                    MemObjRefCountPolicy> OFColorPaletteRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -99,7 +148,7 @@ class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    void dump(UInt32 uiIndent);
+    void dump(UInt32 uiIndent) const;
 };
 
 /*! \ingroup GrpFileIOOpenFlight
@@ -124,9 +173,10 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     typedef std::map<Int32,
-                     OFTexturePaletteRecordRCPtr>           TextureStore;
-    typedef std::map<Int32,
-                     OFTexturePaletteRecordRCPtr>::iterator TextureStoreIt;
+                     OFTexturePaletteRecordRCPtr> TextureStore;
+    typedef TextureStore::iterator                TextureStoreIt;
+    typedef TextureStore::const_iterator          TextureStoreConstIt;
+
 
     /*---------------------------------------------------------------------*/
 
@@ -147,7 +197,7 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    void dump(UInt32 uiIndent);
+    void dump(UInt32 uiIndent) const;
 };
 
 /*! \ingroup GrpFileIOOpenFlight
@@ -171,9 +221,9 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     typedef std::map<Int32,
-                     OFMaterialPaletteRecordRCPtr>           MaterialStore;
-    typedef std::map<Int32,
-                     OFMaterialPaletteRecordRCPtr>::iterator MaterialStoreIt;
+                     OFMaterialPaletteRecordRCPtr>  MaterialStore;
+    typedef MaterialStore::iterator                 MaterialStoreIt;
+    typedef MaterialStore::const_iterator           MaterialStoreConstIt;
 
     /*---------------------------------------------------------------------*/
 
@@ -198,7 +248,7 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    void dump(UInt32 uiIndent);
+    void dump(UInt32 uiIndent) const;
 };
 
 /*! \ingroup GrpFileIOOpenFlight

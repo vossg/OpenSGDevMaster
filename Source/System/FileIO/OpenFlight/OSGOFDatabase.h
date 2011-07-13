@@ -55,6 +55,7 @@ OSG_BEGIN_NAMESPACE
 //  Forward declarations
 //---------------------------------------------------------------------------
 
+#if 0
 /*! \ingroup GrpFileIOOpenFlight
  */
 class OFVertexPaletteRecord;
@@ -78,6 +79,7 @@ class OFMaterialPaletteRecord;
  */
 typedef RefCountPtr<OFMaterialPaletteRecord,
                     MemObjRefCountPolicy   >  OFMaterialPaletteRecordRCPtr;
+#endif
 
 /*! \ingroup GrpFileIOOpenFlight
  */
@@ -129,10 +131,13 @@ class OSG_FILEIO_DLLMAPPING OFDatabase
 
     /*---------------------------------------------------------------------*/
 
+    const OFColorPaletteRecord    *getColorPalette (void        );
     const OFVertexPaletteRecord   *getVertexPalette(void        );
+
     const OFTexturePaletteRecord  *getTexRecord    (UInt32 uiIdx);
     const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
 
+    void addColorPaletteRecord   (OFColorPaletteRecord    *colPal );
     void addVertexPaletteRecord  (OFVertexPaletteRecord   *vertPal);
     void addTexturePaletteRecord (OFTexturePaletteRecord  *texPal );
     void addMaterialPaletteRecord(OFMaterialPaletteRecord *matPal );
@@ -146,6 +151,7 @@ class OSG_FILEIO_DLLMAPPING OFDatabase
     OFRecordRCPtr           _pCurr;
     OFRecordRCPtr           _pCurrPrimary;
 
+    OFColorPaletteRCPtr     _pColorPalette;
     OFVertexPaletteRCPtr    _pVertexPalette;
     OFTexturePaletteRCPtr   _pTexturePalette;
     OFMaterialPaletteRCPtr  _pMaterialPalette;

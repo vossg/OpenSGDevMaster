@@ -34,12 +34,255 @@
 #include "OSGTransform.h"
 #include "OSGOFDatabase.h"
 #include "OSGOpenFlightLog.h"
+#include "OSGPathHandler.h"
 
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------
+// OFColorPaletteRecord
+//---------------------------------------------------------------------
+
+/* static */
+OFRecordTransitPtr OFColorPaletteRecord::create(const OFRecordHeader &oHeader,
+                                                      OFDatabase     &oDB     )
+{
+    return OFRecordTransitPtr(new OFColorPaletteRecord(oHeader, oDB));
+}
+
+OFColorPaletteRecord::OFColorPaletteRecord(const OFRecordHeader &oHeader,
+                                                 OFDatabase     &oDB     ) :
+    Inherited (oHeader, oDB),
+    colors    (),
+    colorNames()
+{
+}
+
+/* virtual */
+OFColorPaletteRecord::~OFColorPaletteRecord(void)
+{
+}
+
+/* virtual */
+bool OFColorPaletteRecord::read(std::istream &is)
+{
+    OSG_OPENFLIGHT_LOG(("OFColorPaletteRecord::read len [%u]\n", _sLength));
+
+    Char8 reserved1[128];
+    Inherited::readChar8(is, reserved1, 128);
+
+    bool   hasNames  = _sLength > 4228;
+    UInt32 numColors = 1024;
+
+    if(hasNames == false)
+    {
+        // number of colors derived from record size
+        UInt32 numColors2 = (_sLength - 132) / 4;
+
+        numColors = osgMin(numColors, numColors2);
+    }
+
+    for(UInt32 i = 0; i < numColors; ++i)
+    {
+        UChar8 alpha;
+        UChar8 blue;
+        UChar8 green;
+        UChar8 red;
+
+        Inherited::readVal(is, alpha);
+        Inherited::readVal(is, blue );
+        Inherited::readVal(is, green);
+        Inherited::readVal(is, red  );
+
+        colors.push_back(Color4f(red  / 255.f, green / 255.f,
+                                 blue / 255.f, alpha / 255.f ));
+    }
+
+    if(hasNames == true)
+    {
+        colorNames.resize(numColors);
+
+        Int32 numNames;
+        Inherited::readVal(is, numNames);
+
+        for(Int32 i = 0; i < numNames; ++i)
+        {
+            UInt16 nameLen;
+            Int16  reserved2;
+            Int16  colorIdx;
+            Int16  reserved3;
+            Char8  name[80];
+
+            Inherited::readVal  (is, nameLen);
+            Inherited::readVal  (is, reserved2);
+            Inherited::readVal  (is, colorIdx);
+            Inherited::readVal  (is, reserved3);
+            Inherited::readChar8(is, name, 80);
+
+            colorNames[colorIdx] = std::string(name);
+        }
+    }
+
+    return is.good();
+}
+
+/* virtual */
+UInt16 OFColorPaletteRecord::getOpCode(void) const
+{
+    return OpCode;
+}
+
+/* virtual */
+void OFColorPaletteRecord::dump(UInt32 uiIndent) const
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColorPaletteRecord" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    for(UInt32 i = 0; i < colors.size(); ++i)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "Color " << colors[i];
+
+        if(colorNames.empty() == false)
+            PLOG  << " name " << colorNames[i];
+
+        PLOG << std::endl;
+    }
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
+Color4f OFColorPaletteRecord::getColor(UInt32 uiIdx) const
+{
+    Color4f returnValue;
+    UInt32  uiRealIdx = uiIdx >> 7;
+    Real32  intensity = (uiIdx & 0x7f) / 127.f;
+
+    OSG_ASSERT(uiRealIdx < colors.size());
+
+    returnValue    =  colors[uiRealIdx];
+    returnValue[0] *= intensity;
+    returnValue[1] *= intensity;
+    returnValue[2] *= intensity;
+
+    return returnValue;
+}
+
+bool OFColorPaletteRecord::hasNames(void) const
+{
+    return !colorNames.empty();
+}
+
+std::string const &OFColorPaletteRecord::getName(UInt32 uiIdx) const
+{
+    return colorNames[uiIdx];
+}
+
+OFRecordFactoryBase::RegisterRecord OFColorPaletteRecord::_regHelper(
+    &OFColorPaletteRecord::create,
+    OFColorPaletteRecord::OpCode);
+
+//---------------------------------------------------------------------
 // OFTexturePaletteRecord
 //---------------------------------------------------------------------
+
+GLenum OFTexturePaletteRecord::TexAttr::getMinFilter(void)
+{
+    GLenum returnValue = GL_NEAREST;
+
+    switch(minFilter)
+    {
+    case 0: returnValue = GL_NEAREST;                 break; // point
+    case 1: returnValue = GL_LINEAR;                  break; // bilinear
+    case 3: returnValue = GL_NEAREST_MIPMAP_NEAREST;  break; // mipmap point
+    case 4: returnValue = GL_NEAREST_MIPMAP_LINEAR;   break; // mipmap linear
+    case 5: returnValue = GL_LINEAR_MIPMAP_NEAREST;   break; // mipmap bilinear
+    case 7: returnValue = GL_LINEAR_MIPMAP_LINEAR;    break; // mipmap trilinear
+
+    case 9:   // bicubic
+    case 10:  // bilinear GEQ
+    case 11:  // bilinear LEQ
+    case 12:  // bicubic GEQ
+    case 13:  // bicubic LEQ
+        returnValue = GL_LINEAR_MIPMAP_NEAREST;
+        break;
+
+    default: returnValue = GL_LINEAR_MIPMAP_LINEAR;   break;
+    }
+
+    return returnValue;
+}
+
+GLenum OFTexturePaletteRecord::TexAttr::getMagFilter(void)
+{
+    GLenum returnValue = GL_NEAREST;
+
+    switch(magFilter)
+    {
+    case 0: returnValue = GL_NEAREST; break;  // point
+
+    case  1: // bilinear
+    case  3: // bicubic
+    case  4: // sharpen
+    case  5: // add detail
+    case  6: // modulate detail
+    case  7: // bilinear GEQ
+    case  8: // bilinear LEQ
+    case  9: // bicubic GEQ
+    case 10: // bicubic LEQ
+        returnValue = GL_LINEAR;
+        break;
+    }
+
+    return returnValue;
+}
+
+GLenum OFTexturePaletteRecord::TexAttr::getWrapU(void)
+{
+    return getWrap(wrapU);
+}
+
+GLenum OFTexturePaletteRecord::TexAttr::getWrapV(void)
+{
+    return getWrap(wrapV);
+}
+
+GLenum OFTexturePaletteRecord::TexAttr::getEnvMode(void)
+{
+    GLenum returnValue = GL_MODULATE;
+
+    switch(envMode)
+    {
+    case 0: returnValue = GL_MODULATE;  break; // modulate
+    case 1: returnValue = GL_BLEND;     break; // blend
+    case 2: returnValue = GL_DECAL;     break; // decal
+    case 3: returnValue = GL_REPLACE;   break; // replace
+    case 4: returnValue = GL_ADD;       break; // add
+    }
+
+    return returnValue;
+}
+
+GLenum OFTexturePaletteRecord::TexAttr::getWrap(Int32 wrap)
+{
+    GLenum returnValue = GL_REPEAT;
+
+    switch(wrap)
+    {
+    case 0: returnValue = GL_REPEAT;        break;  // repeat
+    case 1: returnValue = GL_CLAMP_TO_EDGE; break;  // clamp
+    case 4: returnValue = GL_REPEAT;        break;  // mirror
+    }
+
+    return returnValue;
+}
 
 /* static */
 OFRecordTransitPtr OFTexturePaletteRecord::create(const OFRecordHeader &oHeader,
@@ -48,10 +291,60 @@ OFRecordTransitPtr OFTexturePaletteRecord::create(const OFRecordHeader &oHeader,
     return OFRecordTransitPtr(new OFTexturePaletteRecord(oHeader, oDB));
 }
 
+bool OFTexturePaletteRecord::readTexAttr(TexAttr &attr)
+{
+    bool        returnValue = false;
+    PathHandler *ph         = ImageFileHandler::the()->getPathHandler();
+
+    if(ph != NULL)
+    {
+        std::string imgFile  = szFilename;
+        std::string attrFile = imgFile + ".attr";
+
+        attrFile = ph->findFile(attrFile.c_str());
+
+        if(attrFile.empty() == false)
+        {
+            OSG_OPENFLIGHT_LOG(("OFTexturePaletteRecord::readTexAttr: [%s]\n",
+                                attrFile.c_str()));
+
+            std::ifstream ifs;
+            ifs.open(attrFile.c_str(), std::ios::in | std::ios::binary);
+
+            Inherited::readVal(ifs, attr.numTexelU);
+            Inherited::readVal(ifs, attr.numTexelV);
+            Inherited::readVal(ifs, attr.realSizeU);
+            Inherited::readVal(ifs, attr.realSizeV);
+            Inherited::readVal(ifs, attr.upX);
+            Inherited::readVal(ifs, attr.upY);
+            Inherited::readVal(ifs, attr.fileFormat);
+            Inherited::readVal(ifs, attr.minFilter);
+            Inherited::readVal(ifs, attr.magFilter);
+            Inherited::readVal(ifs, attr.wrapUV);
+            Inherited::readVal(ifs, attr.wrapU);
+            Inherited::readVal(ifs, attr.wrapV);
+            Inherited::readVal(ifs, attr.modified);
+            Inherited::readVal(ifs, attr.pivotX);
+            Inherited::readVal(ifs, attr.pivotY);
+            Inherited::readVal(ifs, attr.envMode);
+
+            if(attr.wrapU == 3)
+                attr.wrapU = attr.wrapUV;
+            if(attr.wrapV == 3)
+                attr.wrapV = attr.wrapUV;
+
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
 OFTexturePaletteRecord::OFTexturePaletteRecord(const OFRecordHeader &oHeader,
                                                      OFDatabase     &oDB     ) :
     Inherited(oHeader, oDB),
-    pTexObj  ()
+    pTexObj  (),
+    pTexEnv  ()
 {
 }
 
@@ -63,13 +356,14 @@ OFTexturePaletteRecord::~OFTexturePaletteRecord(void)
 /* virtual */
 bool OFTexturePaletteRecord::read(std::istream &is)
 {
-    OSG_OPENFLIGHT_LOG(("OFTexturePaletteRecord::read len [%u]\n",
-                        _sLength));
-
     Inherited::readChar8(is, szFilename, 200);
     Inherited::readVal  (is, iPatternIdx    );
     Inherited::readVal  (is, iPatternX      );
     Inherited::readVal  (is, iPatternY      );
+
+    OSG_OPENFLIGHT_LOG(("OFTexturePaletteRecord::read len "
+                        "[%u] file [%s] idx [%d]\n",
+                        _sLength, szFilename, iPatternIdx));
 
     ImageUnrecPtr pImage = ImageFileHandler::the()->read(szFilename);
 
@@ -109,6 +403,21 @@ bool OFTexturePaletteRecord::read(std::istream &is)
         }
     }
 
+    if(pTexObj != NULL)
+    {
+        TexAttr attr;
+        if(readTexAttr(attr) == true)
+        {
+            pTexObj->setMinFilter(attr.getMinFilter());
+            pTexObj->setMagFilter(attr.getMagFilter());
+            pTexObj->setWrapS    (attr.getWrapU    ());
+            pTexObj->setWrapT    (attr.getWrapV    ());
+
+            pTexEnv = TextureEnvChunk::create();
+            pTexEnv->setEnvMode(attr.getEnvMode());
+        }
+    }
+
     return is.good();
 }
 
@@ -118,7 +427,7 @@ UInt16 OFTexturePaletteRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFTexturePaletteRecord::dump(UInt32 uiIndent)
+void OFTexturePaletteRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "TexturePaletteRecord" << std::endl;
@@ -154,6 +463,11 @@ Int32 OFTexturePaletteRecord::getPatternIdx(void)
 TextureObjChunk *OFTexturePaletteRecord::getTexObj(void) const
 {
     return pTexObj;
+}
+
+TextureEnvChunk *OFTexturePaletteRecord::getTexEnv(void) const
+{
+    return pTexEnv;
 }
 
 OFRecordFactoryBase::RegisterRecord OFTexturePaletteRecord::_regHelper(
@@ -397,7 +711,7 @@ UInt16 OFMaterialPaletteRecord::getOpCode(void) const
     return OpCode;
 }
 
-void OFMaterialPaletteRecord::dump(UInt32 uiIndent)
+void OFMaterialPaletteRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "OFMaterialPaletteRecord : " << std::endl;
@@ -538,7 +852,7 @@ UInt16 OFMatrixRecord::getOpCode(void) const
 }
 
 /* virtual */
-void OFMatrixRecord::dump(UInt32 uiIndent)
+void OFMatrixRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "MatrixRecord" << std::endl;
@@ -594,6 +908,106 @@ OFRecordFactoryBase::RegisterRecord OFMatrixRecord::_regHelper(
     OFMatrixRecord::OpCode);
 
 //---------------------------------------------------------------------
+// OFIgnoredTransformRecord
+//---------------------------------------------------------------------
+
+/* static */
+OFRecordTransitPtr OFIgnoredTransformRecord::create(
+    const OFRecordHeader &oHeader,
+          OFDatabase     &oDB     )
+{
+    return OFRecordTransitPtr(new OFIgnoredTransformRecord(oHeader, oDB));
+}
+
+OFIgnoredTransformRecord::OFIgnoredTransformRecord(
+    const OFRecordHeader &oHeader,
+          OFDatabase     &oDB     ) :
+
+    Inherited(oHeader, oDB),
+    _sOpCode (oHeader.sOpCode)
+{
+}
+
+/* virtual */
+OFIgnoredTransformRecord::~OFIgnoredTransformRecord(void)
+{
+}
+
+/* virtual */
+bool OFIgnoredTransformRecord::read(std::istream &is)
+{
+    OSG_OPENFLIGHT_LOG(("OFIgnoredTransformRecord::read op [%u][%s] len [%u]\n",
+                        _sOpCode, getOpCodeString(_sOpCode), _sLength));
+
+    static std::vector<char> tmpBuf;
+
+    if(_sLength > 4)
+    {
+        tmpBuf.resize(_sLength);
+
+        is.read(&(tmpBuf.front()), _sLength - 4);
+    }
+
+    return is.good();
+}
+
+/* virtual */
+NodeTransitPtr OFIgnoredTransformRecord::convert(Node *pNode)
+{
+    return NodeTransitPtr(pNode);
+}
+
+/* virtual */
+UInt16 OFIgnoredTransformRecord::getOpCode(void) const
+{
+    return _sOpCode;
+}
+
+/* virtual */
+void OFIgnoredTransformRecord::dump(UInt32 uiIndent) const
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "OFIgnoredTransformRecord - " << _sOpCode
+         << " - "                         << getOpCodeString(_sOpCode)
+         << std::endl;
+}
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperRotateAboutEdge(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeRotateAboutEdge);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperTranslate(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeTranslate);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperScale(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeScale);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperRotateAboutPoint(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeRotateAboutPoint);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperRotateScaleToPoint(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeRotateScaleToPoint);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperPut(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodePut);
+
+OFRecordFactoryBase::RegisterRecord
+OFIgnoredTransformRecord::_regHelperGeneralMatrix(
+    &OFIgnoredTransformRecord::create,
+    OFIgnoredTransformRecord::OpCodeGeneralMatrix);
+
+//---------------------------------------------------------------------
 // OFLongIDRecord
 //---------------------------------------------------------------------
 
@@ -634,7 +1048,7 @@ UInt16 OFLongIDRecord::getOpCode(void) const
 }
 
 /* virtual */
-void OFLongIDRecord::dump(UInt32 uiIndent)
+void OFLongIDRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "LongIDRecord" << std::endl;

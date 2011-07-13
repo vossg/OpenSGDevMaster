@@ -35,6 +35,58 @@
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------
+// OFColorPalette
+//---------------------------------------------------------------------
+
+OFColorPalette::OFColorPalette(void) :
+     Inherited    (    ),
+    _pColorPalette(NULL)
+{
+}
+
+OFColorPalette::~OFColorPalette(void)
+{
+    _pColorPalette = NULL;
+}
+
+void OFColorPalette::addRecord(OFColorPaletteRecord *pColorPal)
+{
+    if(_pColorPalette == NULL)
+    {
+        _pColorPalette = pColorPal;
+    }
+    else
+    {
+        FFATAL(("OFColorPalette::addRecord: ColorPaletteRecord "
+                "already present\n"));
+    }
+}
+
+const OFColorPaletteRecord *OFColorPalette::getRecord(void)
+{
+    return _pColorPalette;
+}
+
+void OFColorPalette::dump(UInt32 uiIndent) const
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColorPalette : " << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    if(_pColorPalette != NULL)
+        _pColorPalette->dump(uiIndent);
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
+//---------------------------------------------------------------------
 // OFVertexPalette
 //---------------------------------------------------------------------
 
@@ -67,7 +119,7 @@ const OFVertexPaletteRecord *OFVertexPalette::getRecord(void)
     return _pVertexPalette;
 }
 
-void OFVertexPalette::dump(UInt32 uiIndent)
+void OFVertexPalette::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "VertexPalette : " << std::endl;
@@ -142,7 +194,7 @@ const OFTexturePaletteRecord *OFTexturePalette::getRecord(Int32 uiId)
     return returnValue;
 }
 
-void OFTexturePalette::dump(UInt32 uiIndent)
+void OFTexturePalette::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "TexturePalette : " << std::endl;
@@ -152,8 +204,8 @@ void OFTexturePalette::dump(UInt32 uiIndent)
 
     uiIndent += 2;
 
-    TextureStoreIt tIt  = _mTextures.begin();
-    TextureStoreIt tEnd = _mTextures.end  ();
+    TextureStoreConstIt tIt  = _mTextures.begin();
+    TextureStoreConstIt tEnd = _mTextures.end  ();
 
     for(; tIt != tEnd; ++tIt)
     {
@@ -214,7 +266,7 @@ const OFMaterialPaletteRecord *OFMaterialPalette::getRecord(Int32 uiId)
     return returnValue;
 }
 
-void OFMaterialPalette::dump(UInt32 uiIndent)
+void OFMaterialPalette::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "MaterialPalette : " << std::endl;
@@ -224,8 +276,8 @@ void OFMaterialPalette::dump(UInt32 uiIndent)
 
     uiIndent += 2;
 
-    MaterialStoreIt mIt  = _mMaterials.begin();
-    MaterialStoreIt mEnd = _mMaterials.end  ();
+    MaterialStoreConstIt mIt  = _mMaterials.begin();
+    MaterialStoreConstIt mEnd = _mMaterials.end  ();
 
     for(; mIt != mEnd; ++mIt)
         mIt->second->dump(uiIndent);

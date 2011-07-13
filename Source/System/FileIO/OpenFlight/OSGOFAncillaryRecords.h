@@ -42,7 +42,69 @@
 #include "OSGFileIODef.h"
 #include "OSGOFRecords.h"
 
+#include "OSGTextureEnvChunk.h"
+#include "OSGTextureObjChunk.h"
+
 OSG_BEGIN_NAMESPACE
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFColorPaletteRecord : public OFAncillaryRecord
+{
+  protected:
+
+    typedef OFAncillaryRecord  Inherited;
+
+    typedef std::vector<Color4f    >  ColorStore;
+    typedef std::vector<std::string>  ColorNameStore;
+
+    /*---------------------------------------------------------------------*/
+
+    static OFRecordFactoryBase::RegisterRecord _regHelper;
+
+    /*---------------------------------------------------------------------*/
+
+    ColorStore     colors;
+    ColorNameStore colorNames;
+
+    /*---------------------------------------------------------------------*/
+
+             OFColorPaletteRecord(const OFRecordHeader &oHeader,
+                                        OFDatabase     &oDB     );
+    virtual ~OFColorPaletteRecord(void                          );
+
+  public:
+
+    static const UInt16 OpCode = 32;
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader,
+                                           OFDatabase     &oDB     );
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool read(std::istream &is);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent) const;
+
+    /*---------------------------------------------------------------------*/
+
+    Color4f            getColor(UInt32 uiIdx) const;
+
+    bool               hasNames(void        ) const;
+    std::string const &getName (UInt32 uiIdx) const;
+};
 
 //---------------------------------------------------------------------------
 //  Class
@@ -58,6 +120,87 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFAncillaryRecord
 
     typedef OFAncillaryRecord Inherited;
 
+    struct TexAttr
+    {
+        Int32 numTexelU;   //  0   4  number of texels in u direction
+        Int32 numTexelV;   //  4   8  number of texels in v direction
+        Int32 realSizeU;   //  8   4  obsolete
+        Int32 realSizeV;   // 12   4  obsolete
+        Int32 upX;         // 16   4  x component of up vector
+        Int32 upY;         // 20   4  y component of up vector
+        Int32 fileFormat;  // 24   4  file format type
+                           //          0 AT&T image 8 pattern
+                           //          1 AT&T image 8 template
+                           //          2 SGI itensity modulation
+                           //          3 SGI inensity w/alpha
+                           //          4 SGI RGB
+                           //          5 SGI RGB w/alpha
+        Int32 minFilter;   // 28   4 minifiaction filter
+                           //         0 point
+                           //         1 bilinear
+                           //         2 mipmap (obsolete)
+                           //         3 mipmap point
+                           //         4 mipmap linear
+                           //         5 mipmap bilinear
+                           //         7 mipmap trilinear
+                           //         8 none
+                           //         9 bicubic
+                           //        10 bilinear GEQ
+                           //        11 bilinear LEQ
+                           //        12 bicubic GEQ
+                           //        13 bicubic LEQ
+        Int32 magFilter;   // 32   4 magnification filter
+                           //         0 point
+                           //         1 bilinear
+                           //         2 none
+                           //         3 bicubic
+                           //         4 sharpen
+                           //         5 add detail
+                           //         6 modulate detail
+                           //         7 bilinear GEQ
+                           //         8 bilinear LEQ
+                           //         9 bicubic GEQ
+                           //        10 bicubic LEQ
+        Int32 wrapUV;      // 36   4 wrap u,v
+                           //         0 repeat
+                           //         1 clamp
+                           //         4 mirror repeat
+        Int32 wrapU;       // 40   4 wrap u
+                           //         0 repeat
+                           //         1 clamp
+                           //         3 none - use wrapUV
+                           //         4 mirror repeat
+        Int32 wrapV;       // 44   4 wrap v
+                           //         0 repeat
+                           //         1 clamp
+                           //         3 none - use wrapUV
+                           //         4 mirror repeat
+        Int32 modified;    // 48   4 modified flag (internal use only)
+        Int32 pivotX;      // 52   4 x pivot for rotating textures
+        Int32 pivotY;      // 56   4 y pivot for rotating textures
+        Int32 envMode;     // 60   4 environment mode
+                           //         0 modulate
+                           //         1 blend
+                           //         2 decal
+                           //         3 replace
+                           //         4 add
+
+        // many more that are not read at this point.
+
+        GLenum getMinFilter(void);
+        GLenum getMagFilter(void);
+
+        GLenum getWrapU    (void);
+        GLenum getWrapV    (void);
+
+        GLenum getEnvMode  (void);
+
+      protected:
+        GLenum getWrap(Int32 wrap);
+    };
+
+    bool readTexAttr(TexAttr &attr);
+
     /*---------------------------------------------------------------------*/
 
     static OFRecordFactoryBase::RegisterRecord _regHelper;
@@ -72,6 +215,7 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFAncillaryRecord
     /*---------------------------------------------------------------------*/
 
     TextureObjChunkUnrecPtr pTexObj;
+    TextureEnvChunkUnrecPtr pTexEnv;
 
     /*---------------------------------------------------------------------*/
 
@@ -96,12 +240,13 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFAncillaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
     Int32            getPatternIdx(void);
     TextureObjChunk *getTexObj    (void) const;
+    TextureEnvChunk *getTexEnv    (void) const;
 };
 
 //---------------------------------------------------------------------------
@@ -263,7 +408,7 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPaletteRecord : public OFAncillaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -324,7 +469,72 @@ class OSG_FILEIO_DLLMAPPING OFMatrixRecord : public OFAncillaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
+
+    /*---------------------------------------------------------------------*/
+};
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFileIOOpenFlight
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING OFIgnoredTransformRecord : public OFAncillaryRecord
+{
+  protected:
+
+    typedef OFAncillaryRecord Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    static OFRecordFactoryBase::RegisterRecord _regHelperRotateAboutEdge;
+    static OFRecordFactoryBase::RegisterRecord _regHelperTranslate;
+    static OFRecordFactoryBase::RegisterRecord _regHelperScale;
+    static OFRecordFactoryBase::RegisterRecord _regHelperRotateAboutPoint;
+    static OFRecordFactoryBase::RegisterRecord _regHelperRotateScaleToPoint;
+    static OFRecordFactoryBase::RegisterRecord _regHelperPut;
+    static OFRecordFactoryBase::RegisterRecord _regHelperGeneralMatrix;
+
+    /*---------------------------------------------------------------------*/
+
+    UInt16 _sOpCode;
+
+    /*---------------------------------------------------------------------*/
+
+             OFIgnoredTransformRecord(const OFRecordHeader &oHeader,
+                                            OFDatabase     &oDB    );
+    virtual ~OFIgnoredTransformRecord(void                         );
+
+  public:
+
+    static const UInt16 OpCodeRotateAboutEdge    = 76;
+    static const UInt16 OpCodeTranslate          = 78;
+    static const UInt16 OpCodeScale              = 79;
+    static const UInt16 OpCodeRotateAboutPoint   = 80;
+    static const UInt16 OpCodeRotateScaleToPoint = 81;
+    static const UInt16 OpCodePut                = 82;
+    static const UInt16 OpCodeGeneralMatrix      = 94;
+
+    /*---------------------------------------------------------------------*/
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader,
+                                           OFDatabase     &oDB    );
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool           read   (std::istream &is   );
+    virtual NodeTransitPtr convert(Node         *pNode);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 };
@@ -376,7 +586,7 @@ class OSG_FILEIO_DLLMAPPING OFLongIDRecord : public OFAncillaryRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
     /*---------------------------------------------------------------------*/
 };

@@ -343,7 +343,7 @@ NodeTransitPtr OFRecord::convertToNode(void)
     return returnValue;
 }
 
-void OFRecord::dump(UInt32 uiIndent)
+void OFRecord::dump(UInt32 uiIndent) const
 {
 }
 
@@ -422,7 +422,7 @@ bool OFPrimaryRecord::addChild(OFRecord *pChild)
 }
 
 /* virtual */
-void OFPrimaryRecord::dump(UInt32 uiIndent)
+void OFPrimaryRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "#PrimaryChildren " << _primaryChildren.size() << std::endl;
@@ -459,7 +459,7 @@ void OFPrimaryRecord::dump(UInt32 uiIndent)
 
     indentLog(uiIndent, PLOG);
     PLOG << "]" << std::endl;
-    
+
 }
 
 OFPrimaryRecord::OFPrimaryRecord(const OFRecordHeader &oHeader,
@@ -645,7 +645,7 @@ NodeTransitPtr OFUnknownRecord::convertToNode(void)
     return returnValue;
 }
 
-void OFUnknownRecord::dump(UInt32 uiIndent)
+void OFUnknownRecord::dump(UInt32 uiIndent) const
 {
     indentLog(uiIndent, PLOG);
     PLOG << "OFUnknownRecord - " << _sOpCode

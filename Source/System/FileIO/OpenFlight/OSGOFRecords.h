@@ -46,7 +46,6 @@
 #include "OSGBaseFunctions.h"
 #include "OSGSingletonHolder.h"
 #include "OSGNode.h"
-#include "OSGTextureObjChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGMemoryObject.h"
 
@@ -268,7 +267,7 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
   protected:
 
@@ -344,7 +343,7 @@ class OFPrimaryRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 
   protected:
     typedef OFRecord  Inherited;
@@ -469,7 +468,7 @@ class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual void dump(UInt32 uiIndent);
+    virtual void dump(UInt32 uiIndent) const;
 };
 
 OSG_END_NAMESPACE

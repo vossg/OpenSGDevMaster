@@ -49,6 +49,7 @@ OFDatabase::OFDatabase(void) :
     _sRecords        (    ),
     _pCurr           (NULL),
     _pCurrPrimary    (NULL),
+    _pColorPalette   (NULL),
     _pVertexPalette  (NULL),
     _pTexturePalette (NULL),
     _pMaterialPalette(NULL),
@@ -60,6 +61,7 @@ OFDatabase::OFDatabase(void) :
 OFDatabase::~OFDatabase(void)
 {
     _pHeader          = NULL;
+    _pColorPalette    = NULL;
     _pVertexPalette   = NULL;
     _pTexturePalette  = NULL;
     _pMaterialPalette = NULL;
@@ -197,11 +199,19 @@ void OFDatabase::setUnitScale(Real32 scale)
     _unitScale = scale;
 }
 
+const OFColorPaletteRecord *OFDatabase::getColorPalette(void)
+{
+    if(_pColorPalette == NULL)
+        return NULL;
+
+    return _pColorPalette->getRecord();
+}
+
 const OFVertexPaletteRecord *OFDatabase::getVertexPalette(void)
 {
     if(_pVertexPalette == NULL)
         return NULL;
-  
+
     return _pVertexPalette->getRecord();
 }
 
@@ -219,6 +229,14 @@ const OFMaterialPaletteRecord *OFDatabase::getMatRecord(UInt32 uiIdx)
         return NULL;
 
     return _pMaterialPalette->getRecord(uiIdx);
+}
+
+void OFDatabase::addColorPaletteRecord(OFColorPaletteRecord *pColPal)
+{
+    if(_pColorPalette == NULL)
+        _pColorPalette = new OFColorPalette;
+
+    _pColorPalette->addRecord(pColPal);
 }
 
 void OFDatabase::addVertexPaletteRecord(OFVertexPaletteRecord *pVertPal)
