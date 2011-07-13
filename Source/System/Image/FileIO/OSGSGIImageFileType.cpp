@@ -65,7 +65,7 @@
 
 static const OSG::Char8 *suffixArray[] = 
 {
-    "rgb", "rgba", "sgi", "bw"
+    "rgb", "rgba", "sgi", "bw", "int", "inta"
 };
 
 OSG_BEGIN_NAMESPACE
