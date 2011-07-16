@@ -1239,6 +1239,28 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 
     ENDIF(EXISTS ${PYOSG_DIR})
 
+    SET(_OSG_SRC_PYPATH_HELPERS ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers)
+    SET(_OSG_SRC_PYPATH_OSG     ${CMAKE_BINARY_DIR}/Python/lib/osg2/helpers)
+
+    SET(_OSG_DST_PYPATH_HELPERS ${CMAKE_BINARY_DIR}/Python/lib/osg2/helpers)
+    SET(_OSG_DST_PYPATH_OSG     ${CMAKE_BINARY_DIR}/Python/lib/osg2/osg)
+
+    FILE(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Python/lib/osg2)
+    FILE(MAKE_DIRECTORY ${_OSG_DST_PYPATH_HELPERS})
+    FILE(MAKE_DIRECTORY ${_OSG_DST_PYPATH_OSG})
+
+    OSG_SYMLINK_CHECKED(${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
+                        ${CMAKE_BINARY_DIR}/Python/lib/osg2/__init__.py)
+
+    OSG_SYMLINK_CHECKED(${_OSG_SRC_PYPATH_HELPERS}/cored_node.py
+                        ${_OSG_DST_PYPATH_HELPERS}/cored_node.py)
+    OSG_SYMLINK_CHECKED(${_OSG_SRC_PYPATH_HELPERS}/fcd_reflector.py
+                        ${_OSG_DST_PYPATH_HELPERS}/fcd_reflector.py)
+    OSG_SYMLINK_CHECKED(${_OSG_SRC_PYPATH_HELPERS}/helpers.py
+                        ${_OSG_DST_PYPATH_HELPERS}/helpers.py)
+    OSG_SYMLINK_CHECKED(${_OSG_SRC_PYPATH_HELPERS}/__init__.py
+                        ${_OSG_DST_PYPATH_HELPERS}/__init__.py)
+
     ADD_CUSTOM_TARGET(OSGPy)
     IF(OSG_CAN_REGEN_PYTHON_BINDINGS)
       ADD_CUSTOM_TARGET(OSGPyGen)
@@ -1677,6 +1699,9 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 
   CONFIGURE_FILE("${_OSG_GEN_INIT_FILE_IN}"
                  "${_OSG_GEN_INIT_FILE_OUT}")
+
+  OSG_SYMLINK_CHECKED(${_OSG_GEN_INIT_FILE_OUT}
+                      ${CMAKE_BINARY_DIR}/Python/lib/osg2/osg/__init__.py)
 
   IF(WIN32) 
 

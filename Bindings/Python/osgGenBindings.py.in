@@ -41,6 +41,7 @@ if ${OSG_HAS_PYOSG_PYPLUSPLUS_GOODIES_DIR}:
   sys.path.insert(0, "${PYOSG_PYPLUSPLUS_GOODIES_DIR}")
 
 sys.path.insert(0, "../Helper")
+sys.path.insert(0, "../../../Python/Helper")
 
 
 import osggen
@@ -279,7 +280,8 @@ def main():
             cls.already_exposed = True
 
           except Exception, ex:
-            print "class [%s] unknown" % sline
+            #print "class [%s] unknown" % sline
+            pass
 
       f.close()
 #        mb.register_module_dependency(moddep)
