@@ -518,6 +518,8 @@ NodeTransitPtr OFAncillaryRecord::convert(Node *pNode)
 {
     FWARNING(("OFAncillaryRecord::convert: Not implemented for [%u][%s].\n",
               getOpCode(), getOpCodeString()));
+
+    return NodeTransitPtr(NULL);
 }
 
 OFAncillaryRecord::OFAncillaryRecord(const OFRecordHeader &oHeader,
