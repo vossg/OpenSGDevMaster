@@ -106,6 +106,11 @@ class OSG_FILEIO_DLLMAPPING OFColorPaletteRecord : public OFAncillaryRecord
     std::string const &getName (UInt32 uiIdx) const;
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFColorPaletteRecord,
+                    MemObjRefCountPolicy >  OFColorPaletteRecordRCPtr;
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -249,6 +254,11 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFAncillaryRecord
     TextureEnvChunk *getTexEnv    (void) const;
 };
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFTexturePaletteRecord,
+                    MemObjRefCountPolicy   >  OFTexturePaletteRecordRCPtr;
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -350,6 +360,11 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFAncillaryRecord
 bool operator <(const UInt32                             uiOff,
                 const OFVertexPaletteRecord::VertexInfo &vInfo );
 
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFVertexPaletteRecord,
+                    MemObjRefCountPolicy   >  OFVertexPaletteRecordRCPtr;
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -421,6 +436,11 @@ class OSG_FILEIO_DLLMAPPING OFMaterialPaletteRecord : public OFAncillaryRecord
           Real32   getShininess  (void) const;
           Real32   getAlpha      (void) const;
 };
+
+/*! \ingroup GrpFileIOOpenFlight
+ */
+typedef RefCountPtr<OFMaterialPaletteRecord,
+                    MemObjRefCountPolicy   >  OFMaterialPaletteRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class

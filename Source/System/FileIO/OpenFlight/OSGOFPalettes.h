@@ -33,46 +33,11 @@
 #include "OSGFileIODef.h"
 #include "OSGMemoryObject.h"
 #include "OSGRefCountPtr.h"
+#include "OSGOFAncillaryRecords.h"
 
 #include <map>
 
 OSG_BEGIN_NAMESPACE
-
-//---------------------------------------------------------------------------
-//  Forward declarations
-//---------------------------------------------------------------------------
-
-/*! \ingroup GrpFileIOOpenFlight
- */
-class OFColorPaletteRecord;
-/*! \ingroup GrpFileIOOpenFlight
- */
-typedef RefCountPtr<OFColorPaletteRecord,
-                    MemObjRefCountPolicy   >  OFColorPaletteRecordRCPtr;
-
-/*! \ingroup GrpFileIOOpenFlight
- */
-class OFVertexPaletteRecord;
-/*! \ingroup GrpFileIOOpenFlight
- */
-typedef RefCountPtr<OFVertexPaletteRecord,
-                    MemObjRefCountPolicy   >  OFVertexPaletteRecordRCPtr;
-
-/*! \ingroup GrpFileIOOpenFlight
- */
-class OFTexturePaletteRecord;
-/*! \ingroup GrpFileIOOpenFlight
- */
-typedef RefCountPtr<OFTexturePaletteRecord,
-                    MemObjRefCountPolicy   >  OFTexturePaletteRecordRCPtr;
-
-/*! \ingroup GrpFileIOOpenFlight
- */
-class OFMaterialPaletteRecord;
-/*! \ingroup GrpFileIOOpenFlight
- */
-typedef RefCountPtr<OFMaterialPaletteRecord,
-                    MemObjRefCountPolicy   >  OFMaterialPaletteRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
