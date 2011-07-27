@@ -230,9 +230,6 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
                 setName(pAttC, szKey);
             }
 
-
-            NameContainerMap::iterator mIt = _nameFCMap.find(szKey);
-
             // amz - I removed the map checks that's more spec conform.
             // From the spec:
             // If multiple nodes are given the same name,
@@ -240,6 +237,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
             // name preceding it 
             // in either the VRML file or prototype definition.
                 
+            //NameContainerMap::iterator mIt = _nameFCMap.find(szKey);
             //if(mIt == _nameFCMap.end())
             {
                 _nameFCMap[szKey] = pNewNode;

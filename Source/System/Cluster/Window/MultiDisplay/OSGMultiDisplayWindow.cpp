@@ -332,7 +332,6 @@ void MultiDisplayWindow::serverRender(Window           *window,
     TileCameraDecoratorUnrecPtr deco;
     ViewportUnrecPtr serverPort;
     Viewport * clientPort;
-    StereoBufferViewport *clientStereoPort;
     UInt32 sv,cv;
     Int32 l,r,t,b;
     Int32 cleft,cright,ctop,cbottom;
@@ -377,8 +376,6 @@ void MultiDisplayWindow::serverRender(Window           *window,
     for(cv=0,sv=0;cv<getMFPort()->size();cv++)
     {
         clientPort = getPort(cv);
-
-        clientStereoPort = dynamic_cast<StereoBufferViewport *>(clientPort);
 
         cleft   = Int32(clientPort->getPixelLeft()      * scaleCWidth)   ;
         cbottom = Int32(clientPort->getPixelBottom()    * scaleCHeight)  ;
@@ -606,7 +603,6 @@ void MultiDisplayWindow::clientSwap( void )
 void MultiDisplayWindow::updateViewport(Viewport *serverPort,
                                         Viewport *clientPort)
 {
-    bool equal;
 
     // Compare the pointers.
     if(serverPort == clientPort)
@@ -660,8 +656,6 @@ void MultiDisplayWindow::updateViewport(Viewport *serverPort,
 
         if(cdst_field == NULL || src_field == NULL)
             continue;
-
-        equal = true;
 
         if(src_field->isPointerField() == true)
         {

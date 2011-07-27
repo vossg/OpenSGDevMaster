@@ -37,6 +37,7 @@ WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <stddef.h>
 
 #include <algorithm>
 #include <string>

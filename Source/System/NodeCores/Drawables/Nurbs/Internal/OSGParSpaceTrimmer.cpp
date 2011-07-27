@@ -1449,7 +1449,7 @@ int ParSpaceTrimmer::PerformTrimming(void)
 #ifdef OSG_USE_SIMPLIFIER
         terr *= OSG_SIMPLIFIER_TESS_ERR;
 #endif
-        bezier2ddequevector::iterator tcs_end = tcs->end();
+//        bezier2ddequevector::iterator tcs_end = tcs->end();
         vcel.resize(tcs->size() );
 //		std::cerr << tcs->size( ) << " trimming loops" << std::endl;
         unsigned int       i = 0;

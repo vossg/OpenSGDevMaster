@@ -203,7 +203,7 @@ bool comparePointerFields(
                     rhsField);
 
             if(lhsAMHandle != NULL && lhsAMHandle->isValid() &&
-            rhsAMHandle != NULL && rhsAMHandle->isValid()   )
+               rhsAMHandle != NULL && rhsAMHandle->isValid()   )
             {
                 const AttachmentMap &lhsAM = (*lhsAMHandle)->getValue();
                 const AttachmentMap &rhsAM = (*rhsAMHandle)->getValue();
@@ -223,13 +223,12 @@ bool comparePointerFields(
                     AttachmentMap::const_iterator lhsAMEnd = lhsAM.end  ();
 
                     AttachmentMap::const_iterator rhsAMIt  = rhsAM.begin();
-                    AttachmentMap::const_iterator rhsAMEnd = rhsAM.end  ();
 
                     for(; lhsAMIt != lhsAMEnd && returnValue == true;
                         ++lhsAMIt, ++rhsAMIt)
                     {
                         if(lhsVisitedSet.count(lhsAMIt->second) == 0 ||
-                        rhsVisitedSet.count(rhsAMIt->second) == 0   )
+                           rhsVisitedSet.count(rhsAMIt->second) == 0   )
                         {
                             returnValue = compareContainerEqualImpl(
                                 lhsAMIt->second,   rhsAMIt->second,

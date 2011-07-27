@@ -259,7 +259,7 @@ ColladaElementFactorySingleton::doUnregisterElement(
         retVal = false;
     }
 
-    return false;
+    return retVal;
 }
 
 ColladaElementFactorySingleton::CreateFunctor

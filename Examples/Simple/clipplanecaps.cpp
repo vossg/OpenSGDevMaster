@@ -577,7 +577,8 @@ void keyboard(unsigned char k, int, int)
 
     case '5':
         {
-            bool ret = OSG::SceneFileHandler::the()->write(mgr->getRoot(), "clipplane_model.osb", true);
+            OSG::SceneFileHandler::the()->write(mgr->getRoot(), 
+                                                "clipplane_model.osb", true);
         }
         break;
     case 'n':   // move clip plane 0 opposite to the normal direction of the plane

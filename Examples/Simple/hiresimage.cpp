@@ -386,7 +386,7 @@ static void writeHiResScreenShot(
     // Calc the max y start position (width). We process the tiles from bottom
     // up and from left tp right as determined by the image format.
     //
-    Int32 yPosLast = 0;
+    UInt32 yPosLast = 0;
     for (; yPosLast < height-winHeight; yPosLast += winHeight);
 
     //
@@ -658,7 +658,7 @@ static void writeHiResScreenShotFBO(const char* name, UInt32 width, UInt32 heigh
     // Calc the max y start position (width). We process the tiles from bottom
     // up and from left tp right as determined by the image format.
     //
-    Int32 yPosLast = 0;
+    UInt32 yPosLast = 0;
     for (; yPosLast < height-winHeight; yPosLast += winHeight);
 
     //

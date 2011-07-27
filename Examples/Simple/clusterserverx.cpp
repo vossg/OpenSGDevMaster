@@ -65,7 +65,6 @@ int main(int argc,char **argv)
     bool            fullscreen     = true;
     std::string     address        = "";
     bool            doStereo       = false;
-    OSG::UInt32     servicePort    = 8437;
     std::string     serviceGroup   = "224.245.211.234";
 
 
@@ -102,13 +101,6 @@ int main(int argc,char **argv)
                           break;
 
 
-                case 'p':
-                    if(argv[a][2] != '\0')
-                        servicePort=atoi(argv[a]+2);
-                    else
-                        servicePort=atoi(argv[++a]);
-                    break;
-
                 case 'j':
                     if(argv[a][2] != '\0')
                         serviceGroup=argv[a]+2;
@@ -125,7 +117,6 @@ int main(int argc,char **argv)
                               << "-e "
                               << "-a Address "
                               << "-j group "
-                              << "-p servicePort "
                               << std::endl;
                     std::cout << "-m         use multicast" << std::endl;
                     std::cout << "-s         enable stereo" << std::endl;
@@ -164,8 +155,6 @@ int main(int argc,char **argv)
         dblBuf[4] = (doStereo == true) ? GLX_STEREO : None;
         dblBuf[5] = None;
 
-        GLboolean doubleBuffer = GL_FALSE;
-
         // X init
         OSG::DisplayP dpy = XOpenDisplay(NULL);
 
@@ -192,8 +181,6 @@ int main(int argc,char **argv)
             {
                 std::cerr << "no RGB visual with depth buffer" << std::endl;
             }
-            
-            doubleBuffer = GL_FALSE;
         }
 
         if(vi->c_class != TrueColor)

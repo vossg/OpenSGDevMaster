@@ -1653,7 +1653,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     Window *win = pEnv->getWindow();
 
-    Real32 nteximages, ntexcoords;
+    Real32 nteximages; //, ntexcoords;
 
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
        Window::unknownConstant)
@@ -1665,6 +1665,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
             nteximages = 1.0f;
     }
 
+#if 0
     if((ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
        Window::unknownConstant)
     {
@@ -1674,6 +1675,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         if(ntexcoords == Window::unknownConstant)
             ntexcoords = 1.0f;
     }
+#endif
 
     if(idx >= static_cast<UInt32>(nteximages))
     {
@@ -1812,7 +1814,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     if(activateTexture(win, idx))
         return; // trying to use too many textures
 
-    UInt32 nteximages, ntexcoords, ntexunits;
+    UInt32 nteximages, ntexunits; //, ntexcoords
 
     Real32 dummy = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
 
@@ -1836,6 +1838,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
         nteximages = static_cast<UInt32>(dummy);
     }
 
+#if 0
     if((dummy = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
        Window::unknownConstant
       )
@@ -1846,6 +1849,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     {
         ntexcoords = static_cast<UInt32>(dummy);
     }
+#endif
 
     if(idx >= nteximages)
     {
@@ -1969,7 +1973,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     Window *win = pEnv->getWindow();
 
-    Real32 nteximages, ntexcoords;
+    Real32 nteximages; //, ntexcoords;
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
        Window::unknownConstant
       )
@@ -1980,6 +1984,8 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         if(nteximages == Window::unknownConstant)
             nteximages = 1.0f;
     }
+
+#if 0
     if((ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
        Window::unknownConstant
       )
@@ -1990,6 +1996,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         if(ntexcoords == Window::unknownConstant)
             ntexcoords = 1.0f;
     }
+#endif
 
     if(idx >= static_cast<UInt32>(nteximages))
     {

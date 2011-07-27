@@ -970,7 +970,6 @@ void VarianceShadowMapHandler::render(RenderAction *a,
 
         //filterShadowMaps(pEnv);
         
-        bool   bClear             = true;
         UInt32 uiActiveLightCount = 0;
 
         for(UInt32 i = 0;i < vLights.size();i++)
@@ -985,7 +984,6 @@ void VarianceShadowMapHandler::render(RenderAction *a,
                                              i,
                                              uiActiveLightCount);
                     
-                    bClear = false;
                     ++uiActiveLightCount;
                 }
             }

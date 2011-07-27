@@ -952,7 +952,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
     Int32 minPType = (faceSet ? 3 : 2);
     Int32 beginIndex, endIndex, step, len, sysPType = 0;
     Int32 piN = 0, ciN = 0, niN = 0, tiN = 0;
-    Int32 pN = 0, nN = 0, cN = 0, tN = 0, tN1 = 0, tN2 = 0, tN3 = 0;
+    Int32 pN = 0, nN = 0, cN = 0, tN = 0;
     IndexType indexType[4];
     IndexType &coordIT = indexType[0];
     IndexType &normalIT = indexType[1];
@@ -1007,13 +1007,10 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
     tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords1();
-    tN1 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords2();
-    tN2 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords3();
-    tN3 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     FDEBUG(("vertex attrib count P/N/C/T: %d/%d/%d/%d\n", pN, nN, cN, tN));
 
