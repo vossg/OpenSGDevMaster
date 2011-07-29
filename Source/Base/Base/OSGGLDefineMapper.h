@@ -164,6 +164,6 @@ typedef SingletonHolder<GLDefineMapperBase> GLDefineMapper;
 
 OSG_END_NAMESPACE
 
-#include <OSGGLDefineMapper.inl>
+#include "OSGGLDefineMapper.inl"
 
 #endif // _OSGGLDEFINEMAPPER_H_
