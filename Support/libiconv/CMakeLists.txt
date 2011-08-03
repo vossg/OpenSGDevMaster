@@ -7,17 +7,49 @@ IF(OSGLibIconvSrcDir)
   SET(${PROJECT_NAME}SharedTarget osgiconv)
   SET(${PROJECT_NAME}StaticTarget libosgiconv)
 
-  SET(OSG_LIBICONV_SRCS ${OSGLibIconvSrcDir}/source/lib/iconv.c
-                        ${OSGLibIconvSrcDir}/source/libcharset/lib/localcharset.c
-                        ${OSGLibIconvSrcDir}/source/lib/relocatable.c)
+  IF(EXISTS ${OSGLibIconvSrcDir}/source)
+    SET(OSGLibIconvSrcDir ${OSGLibIconvSrcDir}/source CACHE PATH "")
+  ENDIF()
 
-  SET(OSG_LIBICONV_HDR ${OSGLibIconvSrcDir}/source/include/iconv.h)
+  SET(OSG_LIBICONV_SRCS ${OSGLibIconvSrcDir}/lib/iconv.c
+                        ${OSGLibIconvSrcDir}/libcharset/lib/localcharset.c
+                        ${OSGLibIconvSrcDir}/lib/relocatable.c)
+
+  IF(NOT EXISTS ${OSGLibIconvSrcDir}/include/iconv.h)
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${CMAKE_CURRENT_SOURCE_DIR}/iconv.h"
+                       "${CMAKE_BINARY_DIR}/libiconv/include/iconv.h")
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${CMAKE_CURRENT_SOURCE_DIR}/config.h"
+                       "${CMAKE_BINARY_DIR}/libiconv/config.h")
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${CMAKE_CURRENT_SOURCE_DIR}/localcharset.h"
+                       "${CMAKE_BINARY_DIR}/libiconv/localcharset.h")
+    
+
+    SET(OSG_LIBICONV_HDR ${CMAKE_BINARY_DIR}/libiconv/include/iconv.h)
+
+    INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/libiconv/include)
+    INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/libiconv)
+
+  ELSE()
+
+    SET(OSG_LIBICONV_HDR ${OSGLibIconvSrcDir}/include/iconv.h)
+
+  ENDIF()
+
 
   SET(OSGLIBICONV_DEF _UNICODE;UNICODE;relocate=libiconv_relocate;set_relocation_prefix=libiconv_set_relocation_prefix;HAVE_CONFIG_H;ENABLE_RELOCATABLE=1;IN_LIBRARY;NO_XMALLOC;INSTALLPREFIX="${CMAKE_INSTALL_PREFIX}";INSTALLDIR="${CMAKE_INSTALL_PREFIX}";LIBDIR="${CMAKE_INSTALL_PREFIX}")
   
-  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source)
-  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source/lib)
-  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source/include)
+  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir})
+  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/lib)
+  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/include)
 
   IF(BUILD_SHARED_LIBS)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTarget} SHARED ${OSG_LIBICONV_SRCS})
@@ -64,6 +96,15 @@ IF(OSGLibIconvSrcDir)
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
+
+  IF(NOT EXISTS ${OSGLibIconvSrcDir}/include/iconv.h)
+    SET(OSG_ICONV_INCLUDE_DIR ${CMAKE_BINARY_DIR}/libiconv/include CACHE PATH "" FORCE)
+  ELSE()
+    SET(OSG_ICONV_INCLUDE_DIR ${OSGLibIconvSrcDir}/include CACHE PATH "" FORCE)
+  ENDIF()
+
+  SET(OSG_ICONV_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "" FORCE)
+  SET(OSG_ICONV_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "" FORCE)
 
 ELSE(OSGLibIconvSrcDir)
   SET(OSGLibIconvSrcDir "" CACHE PATH "")

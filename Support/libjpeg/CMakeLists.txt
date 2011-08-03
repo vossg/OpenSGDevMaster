@@ -64,6 +64,12 @@ IF(OSGJpegLibSrcDir)
 
   EXECUTE_PROCESS(
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${OSGJpegLibSrcDir}/jconfig.vc"
+                     "${OSGJpegLibSrcDir}/jconfig.h")
+
+
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                      "${PROJECT_SOURCE_DIR}/jmorecfg.h"
                      "${OSGJpegLibSrcDir}/")
 

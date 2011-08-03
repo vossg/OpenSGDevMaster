@@ -7,33 +7,36 @@ IF(OSGZLibSrcDir)
   SET(${PROJECT_NAME}SharedTarget osgzlib)
   SET(${PROJECT_NAME}StaticTarget libosgzlib)
 
-#  SET(${PROJECT_NAME}SharedTargetMini osgminizip)
-  SET(${PROJECT_NAME}StaticTargetMini libosgminizip)
+  IF(EXISTS ${OSGZLibSrcDir}/source)
+    SET(OSGZLibSrcDir ${OSGZLibSrcDir}/source CACHE PATH "")
+  ENDIF()
 
-  SET(OSG_ZLIB_SRCS ${OSGZLibSrcDir}/source/adler32.c 
-                    ${OSGZLibSrcDir}/source/compress.c 
-                    ${OSGZLibSrcDir}/source/crc32.c 
-                    ${OSGZLibSrcDir}/source/deflate.c 
-                    ${OSGZLibSrcDir}/source/gzio.c 
-                    ${OSGZLibSrcDir}/source/infback.c 
-                    ${OSGZLibSrcDir}/source/inffast.c 
-                    ${OSGZLibSrcDir}/source/inflate.c 
-                    ${OSGZLibSrcDir}/source/inftrees.c 
-                    ${OSGZLibSrcDir}/source/trees.c 
-                    ${OSGZLibSrcDir}/source/uncompr.c 
-                    ${OSGZLibSrcDir}/source/zutil.c)
+  SET(OSG_ZLIB_SRCS ${OSGZLibSrcDir}/adler32.c 
+                    ${OSGZLibSrcDir}/compress.c 
+                    ${OSGZLibSrcDir}/crc32.c 
+                    ${OSGZLibSrcDir}/deflate.c 
+                    ${OSGZLibSrcDir}/infback.c 
+                    ${OSGZLibSrcDir}/inffast.c 
+                    ${OSGZLibSrcDir}/inflate.c 
+                    ${OSGZLibSrcDir}/inftrees.c 
+                    ${OSGZLibSrcDir}/trees.c 
+                    ${OSGZLibSrcDir}/uncompr.c 
+                    ${OSGZLibSrcDir}/zutil.c)
+  IF(EXISTS ${OSGZLibSrcDir}/gzio.c)
+    SET(OSG_ZLIB_SRCS ${OSG_ZLIB_SRCS}
+                      ${OSGZLibSrcDir}/gzio.c)
+  ELSE()
+    SET(OSG_ZLIB_SRCS ${OSG_ZLIB_SRCS}
+                      ${OSGZLibSrcDir}/gzclose.c
+                      ${OSGZLibSrcDir}/gzlib.c
+                      ${OSGZLibSrcDir}/gzread.c
+                      ${OSGZLibSrcDir}/gzwrite.c)
+  ENDIF()
 
-  SET(OSG_MINIZIP_SRCS ${OSGZLibSrcDir}/source/contrib/minizip/zip.c
-                       ${OSGZLibSrcDir}/source/contrib/minizip/unzip.c
-                       ${OSGZLibSrcDir}/source/contrib/minizip/ioapi.c)
+  SET(OSG_ZLIB_HDR ${OSGZLibSrcDir}/zlib.h 
+                   ${OSGZLibSrcDir}/zconf.h)
 
-  SET(OSG_ZLIB_HDR ${OSGZLibSrcDir}/source/zlib.h 
-                   ${OSGZLibSrcDir}/source/zconf.h
-                   ${OSGZLibSrcDir}/source/contrib/minizip/zip.h
-                   ${OSGZLibSrcDir}/source/contrib/minizip/unzip.h
-                   ${OSGZLibSrcDir}/source/contrib/minizip/ioapi.h)
-
-  INCLUDE_DIRECTORIES(${OSGZLibSrcDir}/source)
+  INCLUDE_DIRECTORIES(${OSGZLibSrcDir})
 
   IF(BUILD_SHARED_LIBS)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTarget} SHARED ${OSG_ZLIB_SRCS})
@@ -50,23 +53,6 @@ IF(OSGZLibSrcDir)
                 LIBRARY DESTINATION lib
                 ARCHIVE DESTINATION lib)
 
-
-#    ADD_LIBRARY(${${PROJECT_NAME}SharedTargetMini} SHARED ${OSG_MINIZIP_SRCS})
-
-#    SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTargetMini} PROPERTIES
-#                          DEFINE_SYMBOL ZLIB_DLL   
-#                          DEBUG_POSTFIX "D")
-
-#    SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTargetMini} PROPERTIES
-#                          COMPILE_DEFINITIONS "ZLIB_INTERNAL")
-
-#    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTargetMini} ${${PROJECT_NAME}SharedTarget})
-
-#    INSTALL(TARGETS ${${PROJECT_NAME}SharedTargetMini}
-#                CONFIGURATIONS Release Debug
-#                RUNTIME DESTINATION bin
-#                LIBRARY DESTINATION lib
-#                ARCHIVE DESTINATION lib)
   ENDIF(BUILD_SHARED_LIBS)
 
   IF(BUILD_STATIC_LIBS)
@@ -83,19 +69,6 @@ IF(OSGZLibSrcDir)
                 LIBRARY DESTINATION lib
                 ARCHIVE DESTINATION lib)
 
-
-    ADD_LIBRARY(${${PROJECT_NAME}StaticTargetMini} STATIC ${OSG_MINIZIP_SRCS})
-
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetMini})
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetMini} PROPERTIES
-                          DEBUG_POSTFIX "D")
-
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetMini}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_ZLIB_HDR}
@@ -104,7 +77,7 @@ IF(OSGZLibSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
-  SET(OSG_ZLIB_INCLUDE_DIR ${OSGZLibSrcDir}/source CACHE PATH "")
+  SET(OSG_ZLIB_INCLUDE_DIR ${OSGZLibSrcDir} CACHE PATH "")
   SET(OSG_ZLIB_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "")
   SET(OSG_ZLIB_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 

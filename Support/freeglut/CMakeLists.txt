@@ -23,6 +23,7 @@ IF(OSGFreeGlutSrcDir)
                         ${OSGFreeGlutSrcDir}/src/freeglut_menu.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_misc.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_overlay.c
+                        ${OSGFreeGlutSrcDir}/src/freeglut_spaceball.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_state.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_stroke_mono_roman.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_stroke_roman.c

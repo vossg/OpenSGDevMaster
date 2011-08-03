@@ -56,13 +56,19 @@ only seems to work with the single 'stage' dir.
 
  1b) Qt
 
+Download
+
+http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.6.4.tar.gz
+
+Build
+
  a) dll + opt + debug + 32Bit + vc9
 
-configure -opensource -platform win32-msvc2008  -direct3d 
+configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs
 
  b) dll + opt + debug + 32Bit + vc9 + no ms secure c****
 
-configure -opensource -platform win32-msvc2008  -direct3d -D _CRT_SECURE_NO_DEPRECATE -D _CRT_SECURE_NO_WARNINGS -D _CRT_NONSTDC_NO_DEPRECATE -D _SECURE_SCL=0 -D _SCL_SECURE_NO_WARNINGS -D _SCL_SECURE_NO_DEPRECATE -D _HAS_ITERATOR_DEBUGGING=0
+configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs -D _CRT_SECURE_NO_DEPRECATE -D _CRT_SECURE_NO_WARNINGS -D _CRT_NONSTDC_NO_DEPRECATE -D _SECURE_SCL=0 -D _SCL_SECURE_NO_WARNINGS -D _SCL_SECURE_NO_DEPRECATE -D _HAS_ITERATOR_DEBUGGING=0
 
 
  1c) VTK
@@ -70,19 +76,19 @@ configure -opensource -platform win32-msvc2008  -direct3d -D _CRT_SECURE_NO_DEPR
  1b) Rest
 
 http://prdownloads.sourceforge.net/libpng/zlib-1.2.5.tar.gz?download
-http://prdownloads.sourceforge.net/libpng/libpng-1.5.2.tar.gz?download
+http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/libpng-1.5.4.tar.gz/download
 http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
- http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz\?download
+ http://sourceforge.net/projects/freeglut/files/freeglut/freeglut-2.6.0.tar.gz/download
 
  or
 
  http://www.xmission.com/~nate/glut/glut-3.7.6-src.zip
 
-http://nchc.dl.sourceforge.net/sourceforge/collada-dom/collada-dom-2.2.zip
+http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download
 ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.9.zip
+http://sourceforge.net/projects/pcre/files/pcre/7.9/pcre-7.9.zip/download
 http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
 
 http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
@@ -90,7 +96,7 @@ http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
 http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download
 http://download.osgeo.org/gdal/gdal154.zip
 
-https://sourceforge.net/project/downloading.php\?group_id=67586\&filename=glew-1.5.1-src.zip
+http://sourceforge.net/projects/glew/files/glew/1.6.0/glew-1.6.0.tgz/download
 http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
 
 

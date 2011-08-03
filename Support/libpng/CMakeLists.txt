@@ -21,11 +21,27 @@ IF(OSGLibPNGSrcDir AND OSGZLibSrcDir)
                       ${OSGLibPNGSrcDir}/pngwio.c
                       ${OSGLibPNGSrcDir}/pngwrite.c
                       ${OSGLibPNGSrcDir}/pngwtran.c
-                      ${OSGLibPNGSrcDir}/pngwutil.c
-                      ${OSGLibPNGSrcDir}/scripts/pngw32.def)
+                      ${OSGLibPNGSrcDir}/pngwutil.c)
+
+  IF(EXISTS ${OSGLibPNGSrcDir}/scripts/pngw32.def)
+    SET(OSG_LIBPNG_SRCS ${OSG_LIBPNG_SRCS} 
+                        ${OSGLibPNGSrcDir}/scripts/pngw32.def)
+  ELSE()
+    SET(OSG_LIBPNG_SRCS ${OSG_LIBPNG_SRCS} 
+                        ${CMAKE_CURRENT_SOURCE_DIR}/symbols.def)
+  ENDIF()
 
   SET(OSG_LIBPNG_HDR ${OSGLibPNGSrcDir}/png.h 
                      ${OSGLibPNGSrcDir}/pngconf.h)
+
+  IF(EXISTS ${OSGLibPNGSrcDir}/scripts/pnglibconf.h.prebuilt)
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${OSGLibPNGSrcDir}/scripts/pnglibconf.h.prebuilt"
+                       "${OSGLibPNGSrcDir}/pnglibconf.h")
+
+    SET(OSG_LIBPNG_HDR ${OSG_LIBPNG_HDR} ${OSGLibPNGSrcDir}/pnglibconf.h)
+  ENDIF()
 
   INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
 

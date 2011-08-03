@@ -130,12 +130,6 @@ IF(OSGPcreSrcDir)
                 ARCHIVE DESTINATION lib)
   ENDIF(BUILD_STATIC_LIBS)
 
-#  INSTALL(FILES ${OSG_PCRE_HDR}
-#          DESTINATION include
-#          PERMISSIONS OWNER_WRITE OWNER_READ
-#                      GROUP_READ
-#                      WORLD_READ)
-
 ELSE(OSGPcreSrcDir)
   SET(OSGPcreSrcDir "" CACHE PATH "")
 ENDIF(OSGPcreSrcDir)

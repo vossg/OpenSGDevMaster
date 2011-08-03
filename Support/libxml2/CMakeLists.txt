@@ -101,8 +101,20 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
 
   SET(OSGLIBXML2_DEF HAVE_ZLIB_H)
 
+  IF(NOT EXISTS ${OSGLibXml2SrcDir}/config.h)
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${CMAKE_CURRENT_SOURCE_DIR}/config.h"
+                       "${CMAKE_BINARY_DIR}/libxml2/config.h")
+
+    INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/libxml2)
+
+  ENDIF()
+
+
   INCLUDE_DIRECTORIES(${OSGLibXml2SrcDir}/include)
-  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/source/include)
+  INCLUDE_DIRECTORIES(${OSG_ICONV_INCLUDE_DIR})
   INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
 
   IF(BUILD_SHARED_LIBS)

@@ -482,7 +482,7 @@ IF(OSGGdalSrcDir)
                           ${OSGGdalSrcDir}/frmts/pcidsk/pcidskdataset.cpp
                           ${OSGGdalSrcDir}/frmts/pcidsk/pcidsktiledrasterband.cpp
 
-                          ${OSGGdalSrcDir}/frmts/png/pngdataset.cpp
+                          ${CMAKE_BINARY_DIR}/gdal/pngdataset.cpp
 
                           ${OSGGdalSrcDir}/frmts/raw/atlsci_spheroid.cpp
                           ${OSGGdalSrcDir}/frmts/raw/btdataset.cpp
@@ -649,6 +649,16 @@ IF(OSGGdalSrcDir)
                    ${OSG_GDAL_OGR_FRMTS_HDR}
                    ${OSG_GDAL_FRMTS_HDR})
 
+  FILE(READ "${OSGGdalSrcDir}/frmts/png/pngdataset.cpp" _PNGDS_FILE_IN)
+          
+  string(REPLACE "#include \"png.h\""
+                 "#include \"png.h\"\n#include \"pngstruct.h\"" _PNGDS_FILE_IN_P1 "${_PNGDS_FILE_IN}")
+    
+  FILE(WRITE "${CMAKE_BINARY_DIR}/gdal/pngdataset.cpp.proc" "${_PNGDS_FILE_IN_P1}")
+
+  EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_BINARY_DIR}/gdal/pngdataset.cpp.proc" "${CMAKE_BINARY_DIR}/gdal/pngdataset.cpp")
+
   INCLUDE_DIRECTORIES(${OSGGdalSrcDir}/gcore)
   INCLUDE_DIRECTORIES(${OSGGdalSrcDir}/alg)
   INCLUDE_DIRECTORIES(${OSGGdalSrcDir}/port)
@@ -705,31 +715,6 @@ IF(OSGGdalSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
-#  SET(OSG_GLUT_INCLUDE_DIR ${OSGFreeGlutSrcDir}/include CACHE PATH "")
-#  SET(OSG_GLUT_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "")
-#  SET(OSG_GLUT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
-
 ELSE(OSGGdalSrcDir)
   SET(OSGGdalSrcDir "" CACHE PATH "")
 ENDIF(OSGGdalSrcDir)
-
-#/Od /I "..\..\frmts\mem" /I "..\..\frmts\gif\libungif" /I "..\..\frmts\raw" /I
-#"." /I "..\..\frmts\gtiff\libtiff" /I "..\..\frmts\gtiff\libgeotiff" /I
-#" /I "..\..\frmts\sdts" /I "..\..\frmts\iso8211" /I
-#"..\..\frmts\vrt" /I "..\..\port" /I "..\..\ogr" /I "..\..\ogr\ogrsf_frmts" /I
-#"..\..\ogr\ogrsf_frmts\avc" /I "..\..\alg" /I
-#"E:\user\gerrit\Projects\OpenSG\svn\OpenSG.Support.install\include" 
-
-
-#/D "WIN32" /D "_DEBUG" /D "_WINDOWS" 
-
-
-
-
-
-#/D"_CRT_SECURE_NO_DEPRECATE" 
-
-#/Gm /EHsc /RTC1 /MDd /Fo"Debug_DLL\\" /Fd"Debug_DLL\vc90.pdb" /W3 /c /Wp64 /Zi
-#/TP /wd4251 /errorReport:prompt 
-
-#/OUT:"Debug_DLL/gdal14d-vc8.dll" /INCREMENTAL /NOLOGO /LIBPATH:"E:\user\gerrit\Projects\OpenSG\svn\OpenSG.Support.install\lib" /DLL /MANIFEST /MANIFESTFILE:"Debug_DLL\gdal14d-vc8.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'"  /NODEFAULTLIB:"msvcrt.lib" /INCLUDE:"_GDALGCPTransform" /INCLUDE:"_OGRRegisterAll" /INCLUDE:"_OGRFeatureStylePuller" /INCLUDE:"_OSRValidate" /INCLUDE:"_OPTGetProjectionMethods" /INCLUDE:"_OGR_G_GetPointCount" /DEBUG /PDB:"Debug_DLL/gdal13d.pdb" /SUBSYSTEM:CONSOLE /DYNAMICBASE:NO /IMPLIB:"Debug_DLL/gdal_id-vc8.lib" /MACHINE:X86 /ERRORREPORT:PROMPT  libosgpngD.lib libosgjpgD.lib libosgzlibD.lib osgexpatD.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib  

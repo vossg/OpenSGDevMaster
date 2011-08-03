@@ -23,7 +23,6 @@
       IF(WIN32)
         TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgxml2)
         TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} osgpcrecpp)
-        TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} libosgminizip)
         TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_15} ${OSG_BOOST_LIBS})
       ELSE(WIN32)
         TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget_14} pcrecpp)
