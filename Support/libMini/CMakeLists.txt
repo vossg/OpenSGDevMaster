@@ -123,30 +123,26 @@ IF(OSGLibMiniSrcDir)
       COMMAND "${CMAKE_COMMAND}" -E remove_directory "${OSGLibMiniSrcDir}/GL")
   ENDIF()
 
-  IF(WIN32)
-    IF(EXISTS "${OSGLibMiniSrcDir}/miniOGL.h")
-      EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E rename "${OSGLibMiniSrcDir}/miniOGL.h" "${OSGLibMiniSrcDir}/miniOGL.h.in")
-    ENDIF()
-
-    FILE(READ "${OSGLibMiniSrcDir}/miniOGL.h.in" _MINIOGL_FILE_IN)
-
-    string(REPLACE "#include <GL/glext.h>"
-                   "#include \"miniGLext.h\"" _MINIOGL_FILE_IN_P1 "${_MINIOGL_FILE_IN}")
-
-    FILE(WRITE "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h.proc" "${_MINIOGL_FILE_IN_P1}")
-
+  IF(EXISTS "${OSGLibMiniSrcDir}/miniOGL.h")
     EXECUTE_PROCESS(
-      COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h.proc" "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h")
+      COMMAND "${CMAKE_COMMAND}" -E rename "${OSGLibMiniSrcDir}/miniOGL.h" "${OSGLibMiniSrcDir}/miniOGL.h.in")
+  ENDIF()
 
-    EXECUTE_PROCESS(
-      COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGLibMiniSrcDir}/GL.org/glext.h" "${CMAKE_BINARY_DIR}/External/mini/miniGLext.h")
+  FILE(READ "${OSGLibMiniSrcDir}/miniOGL.h.in" _MINIOGL_FILE_IN)
 
-    SET(OSG_LIBMINI_HDR ${OSG_LIBMINI_HDR} ${CMAKE_BINARY_DIR}/External/mini/miniOGL.h)
-    SET(OSG_LIBMINI_HDR ${OSG_LIBMINI_HDR} ${CMAKE_BINARY_DIR}/External/mini/miniGLext.h)
-  ELSE(WIN32)
-    SET(OSG_LIBMINI_HDR ${OSG_LIBMINI_HDR} ${OSGLibMiniSrcDir}/miniOGL.h)
-  ENDIF(WIN32)
+  string(REPLACE "#include <GL/glext.h>"
+                 "#include \"miniGLext.h\"" _MINIOGL_FILE_IN_P1 "${_MINIOGL_FILE_IN}")
+
+  FILE(WRITE "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h.proc" "${_MINIOGL_FILE_IN_P1}")
+
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h.proc" "${CMAKE_BINARY_DIR}/External/mini/miniOGL.h")
+
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGLibMiniSrcDir}/GL.org/glext.h" "${CMAKE_BINARY_DIR}/External/mini/miniGLext.h")
+
+  SET(OSG_LIBMINI_HDR ${OSG_LIBMINI_HDR} ${CMAKE_BINARY_DIR}/External/mini/miniOGL.h)
+  SET(OSG_LIBMINI_HDR ${OSG_LIBMINI_HDR} ${CMAKE_BINARY_DIR}/External/mini/miniGLext.h)
 
   IF(BUILD_STATIC_LIBS)
     ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_LIBMINI_SRCS})
