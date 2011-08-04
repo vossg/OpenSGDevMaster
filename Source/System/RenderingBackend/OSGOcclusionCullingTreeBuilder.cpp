@@ -315,11 +315,11 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
         //std::cout << "Performing OCC on " << _numNodes << " nodes." << std::endl;
 
         OSGGETGLFUNCBYID_GL3( glGenQueries,
-                              genquer,
+                              osgGlGenQueries,
                              _funcGenQueriesARB,
                               win);
 
-        genquer(_numTestSamples, &(_testSamples.front()));
+        osgGlGenQueries(_numTestSamples, &(_testSamples.front()));
         _occInitialized = true;
     }
 
@@ -635,13 +635,13 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
     enterTesting(denv, part);
 
     OSGGETGLFUNCBYID_GL3( glBeginQuery,
-                          beginq,
+                          osgGlBeginQuery,
                          _funcBeginQueryARB,
                           win);
 
     //std::cout << "Push: " << _currSample << std::endl;
     pNode->setResultNum(_currSample);
-    beginq(GL_SAMPLES_PASSED_ARB, _testSamples[_currSample]);
+    osgGlBeginQuery(GL_SAMPLES_PASSED_ARB, _testSamples[_currSample]);
     glBegin(GL_QUADS);
     for(UInt32 i = 0; i<6; i++)
     {
@@ -657,11 +657,11 @@ void OcclusionCullingTreeBuilder::drawTestNode(OCRenderTreeNode    *pNode,
     glEnd();
 
     OSGGETGLFUNCBYID_GL3( glEndQuery,
-                          endq,
+                          osgGlEndQuery,
                          _funcEndQueryARB,
                           win);
 
-    endq(GL_SAMPLES_PASSED_ARB);
+    osgGlEndQuery(GL_SAMPLES_PASSED_ARB);
     _testPendingNodes.push(pNode);
 }
 
@@ -748,19 +748,19 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
             osgSinkUnusedWarning(win);
 
             OSGGETGLFUNCBYID_GL3( glGetQueryObjectuiv,
-                                  getquiv,
+                                  osgGlGetQueryObjectuiv,
                                  _funcGetQueryObjectuivARB,
                                   win);
 
             GLuint available = 0;
-            getquiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
+            osgGlGetQueryObjectuiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
             if (!available)
             {
                 //std::cout << "Waiting on " << pNode->getResultNum() << " buf size:" << _testPendingNodes.size() << std::endl;
                 return;
             }
             GLuint sampleCount = 1;  //XXX: Set to what it should be from calc above.
-            getquiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_ARB, &sampleCount);
+            osgGlGetQueryObjectuiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_ARB, &sampleCount);
 
             if(sampleCount > _visPixelThreshold)
             {

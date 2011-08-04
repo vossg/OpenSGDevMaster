@@ -94,11 +94,11 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             case GL_TEXTURE_1D:
             {
                 OSGGETGLFUNCBYID_GL3( glFramebufferTexture1D,
-                                      osgGlFramebufferTexture1DProc,
+                                      osgGlFramebufferTexture1D,
                                      _uiFuncFramebufferTexture1D,
                                       pWindow);
 
-                osgGlFramebufferTexture1DProc(
+                osgGlFramebufferTexture1D(
                     GL_FRAMEBUFFER_EXT, 
                     index,
                     target,
@@ -118,11 +118,11 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
             {
                 OSGGETGLFUNCBYID_GL3_ES( glFramebufferTexture2D,
-                                         osgGlFramebufferTexture2DProc,
+                                         osgGlFramebufferTexture2D,
                                         _uiFuncFramebufferTexture2D,
                                          pWindow);
 
-                osgGlFramebufferTexture2DProc(
+                osgGlFramebufferTexture2D(
                     GL_FRAMEBUFFER_EXT, 
                     index,
                     target,
@@ -134,11 +134,11 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             case GL_TEXTURE_3D:
             {
                 OSGGETGLFUNCBYID_GL3( glFramebufferTexture3D,
-                                      osgGlFramebufferTexture3DProc,
+                                      osgGlFramebufferTexture3D,
                                      _uiFuncFramebufferTexture3D,
                                       pWindow);
 
-                osgGlFramebufferTexture3DProc(
+                osgGlFramebufferTexture3D(
                     GL_FRAMEBUFFER_EXT, 
                     index,
                     target,
@@ -265,13 +265,13 @@ void TextureBuffer::processPostDeactivate(DrawEnv *pEnv)
         pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_LINEAR     )   )
     {
         OSGGETGLFUNCBYID_GL3_ES( glGenerateMipmap,
-                                 osgGlGenerateMipmapProc,
+                                 osgGlGenerateMipmap,
                                 _uiFuncGenerateMipmap,
                                  win);
 
         glBindTexture(target, win->getGLObjectId(pTexObj->getGLId()));
 
-        osgGlGenerateMipmapProc(target);
+        osgGlGenerateMipmap(target);
     }
 }
 

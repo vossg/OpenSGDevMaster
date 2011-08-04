@@ -514,39 +514,39 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
         // 3D texture functions
         OSGGETGLFUNCBYID_GL3( glTexImage3D,    
-                              TexImage3D,
+                              osgGlTexImage3D,
                              _funcTexImage3D,    
                               win);
         OSGGETGLFUNCBYID_GL3( glTexSubImage3D, 
-                              TexSubImage3D,
+                              osgGlTexSubImage3D,
                              _funcTexSubImage3D, 
                               win);
 
 #ifndef OSG_OGL_ES2
         // Compressed texture functions
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexImage1D,    
-                                 CompressedTexImage1D,
+                                 osgGlCompressedTexImage1D,
                                 _funcCompressedTexImage1D,    
                                  win);
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage1D, 
-                                 CompressedTexSubImage1D,
+                                 osgGlCompressedTexSubImage1D,
                                 _funcCompressedTexSubImage1D, 
                                  win);
 #endif
         OSGGETGLFUNCBYID_GL3_ES( glCompressedTexImage2D,    
-                                 CompressedTexImage2D,
+                                 osgGlCompressedTexImage2D,
                                 _funcCompressedTexImage2D,    
                                  win);
         OSGGETGLFUNCBYID_GL3_ES( glCompressedTexSubImage2D, 
-                                 CompressedTexSubImage2D,
+                                 osgGlCompressedTexSubImage2D,
                                 _funcCompressedTexSubImage2D, 
                                  win);
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexImage3D,    
-                                 CompressedTexImage3D,
+                                 osgGlCompressedTexImage3D,
                                 _funcCompressedTexImage3D,    
                                  win);
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage3D, 
-                                 CompressedTexSubImage3D,
+                                 osgGlCompressedTexSubImage3D,
                                 _funcCompressedTexSubImage3D, 
                                  win);
 
@@ -679,7 +679,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         {
 #ifndef OSG_OGL_ES2
                             case GL_TEXTURE_1D:
-                                CompressedTexImage1D(
+                                osgGlCompressedTexImage1D(
                                     GL_TEXTURE_1D, 
                                     i - baseLevel, 
                                     internalFormat,
@@ -690,7 +690,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                 break;
 #endif
                             case GL_TEXTURE_2D:
-                                CompressedTexImage2D(
+                                osgGlCompressedTexImage2D(
                                     imgtarget, 
                                     i - baseLevel, 
                                     internalFormat,
@@ -706,7 +706,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
                             case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                             case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                                CompressedTexImage2D(
+                                osgGlCompressedTexImage2D(
                                     imgtarget, 
                                     i - baseLevel, 
                                     internalFormat,
@@ -717,7 +717,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                     img->getData(i, frame, side));
                                 break;
                             case GL_TEXTURE_3D:
-                                CompressedTexImage3D(
+                                osgGlCompressedTexImage3D(
                                     GL_TEXTURE_3D, 
                                     i - baseLevel, 
                                     internalFormat,
@@ -769,16 +769,16 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                              img->getData(i, frame, side));
                                 break;
                             case GL_TEXTURE_3D:
-                                TexImage3D(GL_TEXTURE_3D, 
-                                           i - baseLevel, 
-                                           internalFormat,
-                                           w, 
-                                           h, 
-                                           d, 
-                                           getBorderWidth(),
-                                           externalFormat, 
-                                           type,
-                                           img->getData(i, frame, side));
+                                osgGlTexImage3D(GL_TEXTURE_3D, 
+                                                i - baseLevel, 
+                                                internalFormat,
+                                                w, 
+                                                h, 
+                                                d, 
+                                                getBorderWidth(),
+                                                externalFormat, 
+                                                type,
+                                                img->getData(i, frame, side));
                                 break;
                             default:
                                 SFATAL << "TextureObjChunk::initialize1: "
@@ -1027,33 +1027,34 @@ void TextureObjChunk::handleTexture(Window                  *win,
                        {
 #ifndef OSG_OGL_ES2
                            case GL_TEXTURE_1D:
-                               CompressedTexImage1D(GL_TEXTURE_1D, 0, 
-                                                    internalFormat,
-                                                    osgNextPower2(width), 
-                                                    getBorderWidth(), 0, NULL);
-                               CompressedTexSubImage1D(GL_TEXTURE_1D, 
-                                                       0, 0, width,
-                                                       externalFormat,
-                                                       img->getFrameSize(),
-                                                       img->getData(0, 
-                                                                    frame, 
-                                                                    side));
+                               osgGlCompressedTexImage1D(GL_TEXTURE_1D, 0, 
+                                                         internalFormat,
+                                                         osgNextPower2(width), 
+                                                         getBorderWidth(), 
+                                                         0, NULL);
+                               osgGlCompressedTexSubImage1D(GL_TEXTURE_1D, 
+                                                            0, 0, width,
+                                                            externalFormat,
+                                                            img->getFrameSize(),
+                                                            img->getData(0, 
+                                                                         frame, 
+                                                                         side));
                                break;
 #endif
                            case GL_TEXTURE_2D:
-                               CompressedTexImage2D(imgtarget, 0, 
-                                                    internalFormat,
-                                                    osgNextPower2(width),
-                                                    osgNextPower2(height), 
-                                                    getBorderWidth(),
-                                                    0, NULL);
-                               CompressedTexSubImage2D(imgtarget, 0, 0, 0, 
-                                                       width, height,
-                                                       externalFormat,
-                                                       img->getFrameSize(),
-                                                       img->getData(0, 
-                                                                    frame, 
-                                                                    side));
+                               osgGlCompressedTexImage2D(imgtarget, 0, 
+                                                         internalFormat,
+                                                         osgNextPower2(width),
+                                                         osgNextPower2(height), 
+                                                         getBorderWidth(),
+                                                         0, NULL);
+                               osgGlCompressedTexSubImage2D(imgtarget, 0, 0, 0, 
+                                                            width, height,
+                                                            externalFormat,
+                                                            img->getFrameSize(),
+                                                            img->getData(0, 
+                                                                         frame, 
+                                                                         side));
                                break;
                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
@@ -1061,46 +1062,50 @@ void TextureObjChunk::handleTexture(Window                  *win,
                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                               CompressedTexImage2D(imgtarget, 0, 
-                                                    internalFormat,
-                                                    osgNextPower2(width),
-                                                    osgNextPower2(height), 
-                                                    getBorderWidth(),
-                                                    0, NULL);
-                               CompressedTexSubImage2D(imgtarget, 0, 0, 0, 
-                                                       width, height,
-                                                       externalFormat,
-                                                       (img->getSideCount() > 1) ? img->getSideSize() :
-                                                       img->getFrameSize(),
-                                                       img->getData(0, 
-                                                                    frame, 
-                                                                    side));
+                               osgGlCompressedTexImage2D(imgtarget, 0, 
+                                                         internalFormat,
+                                                         osgNextPower2(width),
+                                                         osgNextPower2(height), 
+                                                         getBorderWidth(),
+                                                         0, NULL);
+                               osgGlCompressedTexSubImage2D(imgtarget, 0, 0, 0, 
+                                                            width, height,
+                                                            externalFormat,
+                                                            (img->getSideCount() > 1) ? img->getSideSize() :
+                                                            img->getFrameSize(),
+                                                            img->getData(0, 
+                                                                         frame, 
+                                                                         side));
                                break;
                            case GL_TEXTURE_RECTANGLE_ARB:
-                               CompressedTexImage2D( GL_TEXTURE_RECTANGLE_ARB, 
-                                                     0, internalFormat,
-                                                     width, height, 
-                                                     getBorderWidth(),
-                                                     img->getFrameSize(),
-                                                     img->getData(0, 
-                                                                  frame, 
-                                                                  side));
+                               osgGlCompressedTexImage2D(
+                                   GL_TEXTURE_RECTANGLE_ARB, 
+                                   0, internalFormat,
+                                   width, height, 
+                                   getBorderWidth(),
+                                   img->getFrameSize(),
+                                   img->getData(0, 
+                                                frame, 
+                                                side));
                                break;
                            case GL_TEXTURE_3D:
-                               CompressedTexImage3D(GL_TEXTURE_3D, 0, 
-                                                    internalFormat,
-                                                    osgNextPower2(width),
-                                                    osgNextPower2(height),
-                                                    osgNextPower2(depth),
-                                                    getBorderWidth(), 0, NULL);
-                               CompressedTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0,
-                                                       0,
-                                                       width, height, depth,
-                                                       externalFormat,
-                                                       img->getFrameSize(),
-                                                       img->getData(0, 
-                                                                    frame, 
-                                                                    side));
+                               osgGlCompressedTexImage3D(GL_TEXTURE_3D, 0, 
+                                                         internalFormat,
+                                                         osgNextPower2(width),
+                                                         osgNextPower2(height),
+                                                         osgNextPower2(depth),
+                                                         getBorderWidth(), 0, 
+                                                         NULL);
+                               osgGlCompressedTexSubImage3D(GL_TEXTURE_3D, 
+                                                            0,  0, 0,
+                                                            0,
+                                                            width, height, 
+                                                            depth,
+                                                            externalFormat,
+                                                            img->getFrameSize(),
+                                                            img->getData(0, 
+                                                                         frame, 
+                                                                         side));
                                break;
                            default:
                                SFATAL << "TextureObjChunk::initialize4: "
@@ -1150,16 +1155,18 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                              img->getData(0, frame, side));
                                break;
                            case GL_TEXTURE_3D:
-                               TexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                          osgNextPower2(width),
-                                          osgNextPower2(height),
-                                          osgNextPower2(depth),
-                                          getBorderWidth(), 
-                                          externalFormat, type, NULL);
-                               TexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
-                                             width, height, depth,
-                                             externalFormat, type,
-                                             img->getData(0, frame, side));
+                               osgGlTexImage3D(GL_TEXTURE_3D, 
+                                               0, 
+                                               internalFormat,
+                                               osgNextPower2(width),
+                                               osgNextPower2(height),
+                                               osgNextPower2(depth),
+                                               getBorderWidth(), 
+                                               externalFormat, type, NULL);
+                               osgGlTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
+                                                  width, height, depth,
+                                                  externalFormat, type,
+                                                  img->getData(0, frame, side));
                                break;
                            default:
                                SFATAL << "TextureObjChunk::initialize4: "
@@ -1195,10 +1202,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
                     {
 #ifndef OSG_OGL_ES2
                         case GL_TEXTURE_1D:
-                            CompressedTexImage1D(GL_TEXTURE_1D, 0, 
-                                                 internalFormat,
-                                                 width, getBorderWidth(),
-                                                 datasize, data);
+                            osgGlCompressedTexImage1D(GL_TEXTURE_1D, 0, 
+                                                      internalFormat,
+                                                      width, getBorderWidth(),
+                                                      datasize, data);
                             break;
 #endif
                         case GL_TEXTURE_2D:
@@ -1208,24 +1215,26 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                            CompressedTexImage2D(imgtarget, 0, internalFormat,
-                                                 width, height, 
-                                                 getBorderWidth(),
-                                                 datasize, data);
+                            osgGlCompressedTexImage2D(imgtarget, 
+                                                      0, internalFormat,
+                                                      width, height, 
+                                                      getBorderWidth(),
+                                                      datasize, data);
                             break;
                         case GL_TEXTURE_RECTANGLE_ARB:
-                            CompressedTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 
-                                                 internalFormat,
-                                                 width, height, 
-                                                 getBorderWidth(),
-                                                 datasize, data);
+                            osgGlCompressedTexImage2D(GL_TEXTURE_RECTANGLE_ARB,
+                                                      0, 
+                                                      internalFormat,
+                                                      width, height, 
+                                                      getBorderWidth(),
+                                                      datasize, data);
                             break;
                         case GL_TEXTURE_3D:
-                            CompressedTexImage3D(GL_TEXTURE_3D, 0, 
-                                                 internalFormat,
-                                                 width, height, depth, 
-                                                 getBorderWidth(),
-                                                 datasize, data);
+                            osgGlCompressedTexImage3D(GL_TEXTURE_3D, 0, 
+                                                      internalFormat,
+                                                      width, height, depth, 
+                                                      getBorderWidth(),
+                                                      datasize, data);
                             break;
                         default:
                             SFATAL << "TextureObjChunk::initialize3: "
@@ -1265,10 +1274,11 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                          data);
                             break;
                         case GL_TEXTURE_3D:
-                            TexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                       width, height, depth, getBorderWidth(),
-                                       externalFormat, type,
-                                       data);
+                            osgGlTexImage3D(GL_TEXTURE_3D, 0, internalFormat,
+                                            width, height, depth, 
+                                            getBorderWidth(),
+                                            externalFormat, type,
+                                            data);
                             break;
                         default:
                             SFATAL << "TextureObjChunk::initialize3: "
@@ -1297,23 +1307,23 @@ void TextureObjChunk::handleTexture(Window                  *win,
     {
         // 3D texture functions
         OSGGETGLFUNCBYID_GL3( glTexSubImage3D, 
-                              TexSubImage3D,
+                              osgGlTexSubImage3D,
                              _funcTexSubImage3D, 
                               win);
 
 #ifndef OSG_OGL_ES2
         // Compressed texture functions
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage1D, 
-                                 CompressedTexSubImage1D,
+                                 osgGlCompressedTexSubImage1D,
                                 _funcCompressedTexSubImage1D, 
                                  win);
 #endif
         OSGGETGLFUNCBYID_GL3_ES( glCompressedTexSubImage2D, 
-                                 CompressedTexSubImage2D,
+                                 osgGlCompressedTexSubImage2D,
                                 _funcCompressedTexSubImage2D, 
                                  win);
         OSGGETGLFUNCBYID_GL3   ( glCompressedTexSubImage3D, 
-                                 CompressedTexSubImage3D,
+                                 osgGlCompressedTexSubImage3D,
                                 _funcCompressedTexSubImage3D, 
                                  win);
 
@@ -1375,21 +1385,21 @@ void TextureObjChunk::handleTexture(Window                  *win,
                 {
 #ifndef OSG_OGL_ES2
                     case GL_TEXTURE_1D:
-                        CompressedTexSubImage1D(GL_TEXTURE_1D, 0, ix, w,
-                                                externalFormat, 
-                                                img->getFrameSize(),
-                                                img->getData( 0, 
-                                                              getFrame(), 
-                                                              side ) );
+                        osgGlCompressedTexSubImage1D(GL_TEXTURE_1D, 0, ix, w,
+                                                     externalFormat, 
+                                                     img->getFrameSize(),
+                                                     img->getData( 0, 
+                                                                   getFrame(), 
+                                                                   side ) );
                         break;
 #endif
                     case GL_TEXTURE_2D:
-                        CompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
-                                                externalFormat, 
-                                                img->getFrameSize(),
-                                                img->getData( 0, 
-                                                              getFrame(), 
-                                                              side ) );
+                        osgGlCompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
+                                                     externalFormat, 
+                                                     img->getFrameSize(),
+                                                     img->getData( 0, 
+                                                                   getFrame(), 
+                                                                   side ) );
                         break;
                     case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                     case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
@@ -1397,31 +1407,33 @@ void TextureObjChunk::handleTexture(Window                  *win,
                     case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
                     case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                     case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                        CompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
-                                                externalFormat,
-                                                (img->getSideCount() > 1) ? img->getSideSize() :
-                                                img->getFrameSize(),
-                                                img->getData( 0, 
-                                                              getFrame(), 
-                                                              side ) );
+                        osgGlCompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
+                                                     externalFormat,
+                                                     (img->getSideCount() > 1) ? img->getSideSize() :
+                                                     img->getFrameSize(),
+                                                     img->getData( 0, 
+                                                                   getFrame(), 
+                                                                   side ) );
                         break;
                     case GL_TEXTURE_RECTANGLE_ARB:
-                        CompressedTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0,
-                                                ix, iy, w, h,
-                                                externalFormat, 
-                                                img->getFrameSize(),
-                                                img->getData( 0, 
-                                                              getFrame(), 
-                                                              side ) );
+                        osgGlCompressedTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB,
+                                                     0,
+                                                     ix, iy, w, h,
+                                                     externalFormat, 
+                                                     img->getFrameSize(),
+                                                     img->getData( 0, 
+                                                                   getFrame(), 
+                                                                   side ) );
                         break;
                     case GL_TEXTURE_3D:
-                        CompressedTexSubImage3D(GL_TEXTURE_3D, 0,  ix, iy, iz,
-                                                w, h, d,
-                                                externalFormat, 
-                                                img->getFrameSize(),
-                                                img->getData( 0, 
-                                                              getFrame(), 
-                                                              side ) );
+                        osgGlCompressedTexSubImage3D(GL_TEXTURE_3D, 0,  
+                                                     ix, iy, iz,
+                                                     w, h, d,
+                                                     externalFormat, 
+                                                     img->getFrameSize(),
+                                                     img->getData( 0, 
+                                                                   getFrame(), 
+                                                                   side ) );
                         break;
                     default:
                         SFATAL << "TextureObjChunk::refresh: unknown target "
@@ -1457,10 +1469,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                         img->getData( 0, getFrame(), side ) );
                         break;
                     case GL_TEXTURE_3D:
-                        TexSubImage3D(GL_TEXTURE_3D, 0,  ix, iy, iz,
-                                      w, h, d,
-                                      externalFormat, type,
-                                      img->getData( 0, getFrame(), side ) );
+                        osgGlTexSubImage3D(GL_TEXTURE_3D, 0,  ix, iy, iz,
+                                           w, h, d,
+                                           externalFormat, type,
+                                           img->getData(0, getFrame(), side));
                         break;
                     default:
                         SFATAL << "TextureObjChunk::refresh: unknown target "

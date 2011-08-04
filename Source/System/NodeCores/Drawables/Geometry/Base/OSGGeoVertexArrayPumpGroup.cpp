@@ -513,11 +513,11 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
         else if(win->hasExtension(_extCompiledVertexArray) == true)
         {
             OSGGETGLFUNCBYID_EXT( glLockArrays,
-                                   osgGlLockArraysEXT,
-                                  _funcglLockArraysEXT,
-                                   win);
+                                  osgGlLockArrays,
+                                 _funcglLockArraysEXT,
+                                  win);
 
-            osgGlLockArraysEXT(0, indexSize);
+            osgGlLockArrays(0, indexSize);
         }
 
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
@@ -537,11 +537,11 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
            win->hasExtension(_extCompiledVertexArray) == true    )
         {
             OSGGETGLFUNCBYID_EXT( glUnlockArrays,
-                                  osgGlUnlockArraysEXT,
+                                  osgGlUnlockArrays,
                                  _funcglUnlockArraysEXT,
                                   win);
 
-            osgGlUnlockArraysEXT();
+            osgGlUnlockArrays();
         }
 
         index->deactivate(pEnv, 0);
@@ -767,11 +767,11 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
         else if (win->hasExtension(_extCompiledVertexArray))
         {
             OSGGETGLFUNCBYID_EXT( glLockArrays,
-                                  osgGlLockArraysEXT,
+                                  osgGlLockArrays,
                                  _funcglLockArraysEXT,
                                   win);
 
-            osgGlLockArraysEXT(0, indexSize);
+            osgGlLockArrays(0, indexSize);
         }
 
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
@@ -791,11 +791,11 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
            win->hasExtension(_extCompiledVertexArray) == true    )
         {
             OSGGETGLFUNCBYID_EXT( glUnlockArrays,
-                                  osgGlUnlockArraysEXT,
+                                  osgGlUnlockArrays,
                                  _funcglUnlockArraysEXT,
                                   win);
 
-            osgGlUnlockArraysEXT();
+            osgGlUnlockArrays();
         }
 
         index->deactivate(pEnv, 0);

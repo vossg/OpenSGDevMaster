@@ -202,11 +202,11 @@ void XWindow::init(GLInitFunctor oFunc)
 
 
         OSGGETGLFUNCBYNAME_EXT(glxCreateContextAttribsARB, 
-                               osgGlXCreateContextAttribsARB,
+                               osgGlxCreateContextAttribsARB,
                                "glXCreateContextAttribsARB",
                                this);
 
-        if(osgGlXCreateContextAttribsARB != NULL)
+        if(osgGlxCreateContextAttribsARB != NULL)
         {
             std::vector<int> ctxAttr;
         
@@ -226,7 +226,7 @@ void XWindow::init(GLInitFunctor oFunc)
             
             ctxAttr.push_back(None);
             
-            this->setContext(osgGlXCreateContextAttribsARB( getDisplay(),
+            this->setContext(osgGlxCreateContextAttribsARB( getDisplay(),
                                                             fbConfigs[0],
                                                             None,
                                                             GL_TRUE,

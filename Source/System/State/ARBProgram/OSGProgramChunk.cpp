@@ -374,23 +374,23 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
         {
             // get "glGenProgramsARB" function pointer
             OSGGETGLFUNCBYID_EXT( glGenProgramsARB,
-                                  genPrograms,
+                                  osgGlGenProgramsARB,
                                  _funcGenPrograms,
                                   win);
 
-            genPrograms(1, &id);
+            osgGlGenProgramsARB(1, &id);
             win->setGLObjectId(osgid, id);
         }
 
         // get "glBindProgramARB" function pointer
         OSGGETGLFUNCBYID_EXT( glBindProgramARB,
-                              bindProgram,
+                              osgGlBindProgramARB,
                              _funcBindProgram,
                               win);
              
         glErr("ProgramChunk::handleGL: bindProgram precheck");
         
-        bindProgram(target, id);
+        osgGlBindProgramARB(target, id);
              
         glErr("ProgramChunk::handleGL: bindProgram postcheck");
         
@@ -398,7 +398,7 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
         {
             // get "glProgramStringARB" function pointer
             OSGGETGLFUNCBYID_EXT( glProgramStringARB,
-                                  programString,
+                                  osgGlProgramStringARB,
                                  _funcProgramString,
                                   win);
 
@@ -408,8 +408,8 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
             
             glErr("ProgramChunk::handleGL: enable postcheck");
             
-            programString(target, GL_PROGRAM_FORMAT_ASCII_ARB,
-                            getProgram().size(), getProgram().c_str());
+            osgGlProgramStringARB(target, GL_PROGRAM_FORMAT_ASCII_ARB,
+                                  getProgram().size(), getProgram().c_str());
             
             GLenum err = glGetError();
             
@@ -429,7 +429,7 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
         }
         
         OSGGETGLFUNCBYID_EXT( glProgramEnvParameter4fvARB,
-                              programLocalParameter4fv,
+                              osgGlProgramEnvParameter4fvARB,
                              _funcProgramLocalParameter4fv,
                               win);
              
@@ -439,7 +439,7 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
         {
             const Vec4f &val = _mfParamValues[i];
             
-            programLocalParameter4fv(target, i, val.getValues());
+            osgGlProgramEnvParameter4fvARB(target, i, val.getValues());
             
             glErr("ProgramChunk::handleGL: programLocalParameter");
         }      
@@ -478,11 +478,11 @@ void ProgramChunk::handleDestroyGL(DrawEnv *pEnv, UInt32   osgid,
     {
         // get "glDeleteProgramsARB" function pointer
         OSGGETGLFUNCBYID_EXT( glDeleteProgramsARB,
-                              deletePrograms,
+                              osgGlDeleteProgramsARB,
                              _funcDeletePrograms,
                               win);
 
-        deletePrograms(1, &id);
+        osgGlDeleteProgramsARB(1, &id);
 
         win->setGLObjectId(osgid, 0);
     }
@@ -516,7 +516,7 @@ void ProgramChunk::activate(DrawEnv *pEnv, UInt32)
            
     // get "glBindProgramARB" function pointer
     OSGGETGLFUNC_EXT( glBindProgramARB,
-                      bindProgram,
+                      osgGlBindProgramARB,
                      _funcBindProgram);
              
     glErr("ProgramChunk::activate: bindProgram precheck");
@@ -525,7 +525,7 @@ void ProgramChunk::activate(DrawEnv *pEnv, UInt32)
              
     glErr("ProgramChunk::activate: enable postcheck");
 
-    bindProgram(target, pEnv->getWindow()->getGLObjectId(getGLId()));
+    osgGlBindProgramARB(target, pEnv->getWindow()->getGLObjectId(getGLId()));
              
     glErr("ProgramChunk::activate: bindProgram postcheck");
 }
@@ -561,7 +561,7 @@ void ProgramChunk::changeFrom(DrawEnv     *pEnv,
            
     // get "glBindProgramARB" function pointer
     OSGGETGLFUNC_EXT( glBindProgramARB,
-                      bindProgram,
+                      osgGlBindProgramARB,
                      _funcBindProgram);
              
     glErr("ProgramChunk::changeFrom: bindProgram precheck");
@@ -571,7 +571,7 @@ void ProgramChunk::changeFrom(DrawEnv     *pEnv,
              
     glErr("ProgramChunk::changeFrom: enable postcheck");
 
-    bindProgram(target, pEnv->getWindow()->getGLObjectId(getGLId()));
+    osgGlBindProgramARB(target, pEnv->getWindow()->getGLObjectId(getGLId()));
              
     glErr("ProgramChunk::changeFrom: bindProgram postcheck");
 }
@@ -594,12 +594,12 @@ void ProgramChunk::deactivate(DrawEnv *pEnv, UInt32)
            
     // get "glBindProgramARB" function pointer
     OSGGETGLFUNC_EXT( glBindProgramARB,
-                      bindProgram,
+                      osgGlBindProgramARB,
                      _funcBindProgram);
              
     glErr("ProgramChunk::deactivate: bindProgram precheck");
 
-    bindProgram(target, pEnv->getWindow()->getGLObjectId(getGLId()));
+    osgGlBindProgramARB(target, pEnv->getWindow()->getGLObjectId(getGLId()));
              
     glErr("ProgramChunk::deactivate: bindProgram postcheck");
 

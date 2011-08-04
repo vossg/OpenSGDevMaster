@@ -190,27 +190,27 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
     // functions
  
     OSGGETGLFUNCBYID_EXT( glCombinerParameterfvNV,
-                          CombinerParameterfv,
+                          osgGlCombinerParameterfvNV,
                          _funcCombinerParameterfv,
                           win);
 
     OSGGETGLFUNCBYID_EXT( glCombinerStageParameterfvNV,
-                          CombinerStageParameterfv,
+                          osgGlCombinerStageParameterfvNV,
                          _funcCombinerStageParameterfv,
                           win);
   
     OSGGETGLFUNCBYID_EXT( glCombinerInputNV,
-                          CombinerInput,
+                          osgGlCombinerInputNV,
                          _funcCombinerInput,
                           win);
 
     OSGGETGLFUNCBYID_EXT( glCombinerOutputNV,
-                          CombinerOutput,
+                          osgGlCombinerOutputNV,
                          _funcCombinerOutput,
                           win);
 
     OSGGETGLFUNCBYID_EXT( glFinalCombinerInputNV,
-                          FinalCombinerInput,
+                          osgGlFinalCombinerInputNV,
                          _funcFinalCombinerInput,
                           win);
 
@@ -236,16 +236,18 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
     ncomb++;
     
     GLfloat dummy = GLfloat(ncomb);
-    CombinerParameterfv(GL_NUM_GENERAL_COMBINERS_NV, &dummy);
+    osgGlCombinerParameterfvNV(GL_NUM_GENERAL_COMBINERS_NV, &dummy);
 
-    CombinerParameterfv(GL_CONSTANT_COLOR0_NV, 
-                        const_cast<GLfloat *>(getColor0().getValuesRGBA()));
+    osgGlCombinerParameterfvNV(GL_CONSTANT_COLOR0_NV, 
+                               const_cast<GLfloat *>(
+                                   getColor0().getValuesRGBA()));
 
-    CombinerParameterfv(GL_CONSTANT_COLOR1_NV, 
-                        const_cast<GLfloat *>(getColor1().getValuesRGBA()));
+    osgGlCombinerParameterfvNV(GL_CONSTANT_COLOR1_NV, 
+                               const_cast<GLfloat *>(
+                                   getColor1().getValuesRGBA()));
     
     dummy = getColorSumClamp();
-    CombinerParameterfv(GL_COLOR_SUM_CLAMP_NV, &dummy);
+    osgGlCombinerParameterfvNV(GL_COLOR_SUM_CLAMP_NV, &dummy);
     
     // setup the general combiners
 
@@ -256,112 +258,120 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
         if(getVariableArgb(i * 3) != unused)
         {
             // RGB inputs
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_A_NV,
-                          getVariableArgb(i * 3),
-                          getVariableArgb(i * 3 + 1),
-                          getVariableArgb(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_B_NV,
-                          getVariableBrgb(i * 3),
-                          getVariableBrgb(i * 3 + 1),
-                          getVariableBrgb(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_C_NV,
-                          getVariableCrgb(i * 3),
-                          getVariableCrgb(i * 3 + 1),
-                          getVariableCrgb(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_D_NV,
-                          getVariableDrgb(i * 3),
-                          getVariableDrgb(i * 3 + 1),
-                          getVariableDrgb(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_A_NV,
+                                 getVariableArgb(i * 3),
+                                 getVariableArgb(i * 3 + 1),
+                                 getVariableArgb(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_B_NV,
+                                 getVariableBrgb(i * 3),
+                                 getVariableBrgb(i * 3 + 1),
+                                 getVariableBrgb(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_C_NV,
+                                 getVariableCrgb(i * 3),
+                                 getVariableCrgb(i * 3 + 1),
+                                 getVariableCrgb(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_D_NV,
+                                 getVariableDrgb(i * 3),
+                                 getVariableDrgb(i * 3 + 1),
+                                 getVariableDrgb(i * 3 + 2) );
 
             // RGB output
-            CombinerOutput(GL_COMBINER0_NV + i, GL_RGB, 
-                           getOutputABrgb    (i),
-                           getOutputCDrgb    (i),
-                           getOutputSumrgb   (i),
-                           getScalergb       (i),
-                           getBiasrgb        (i),
-                           getDotABrgb       (i),
-                           getDotCDrgb       (i),
-                           getMuxSumrgb      (i) );
+            osgGlCombinerOutputNV(GL_COMBINER0_NV + i, GL_RGB, 
+                                  getOutputABrgb    (i),
+                                  getOutputCDrgb    (i),
+                                  getOutputSumrgb   (i),
+                                  getScalergb       (i),
+                                  getBiasrgb        (i),
+                                  getDotABrgb       (i),
+                                  getDotCDrgb       (i),
+                                  getMuxSumrgb      (i) );
 
         }
         else
         {
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_A_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_B_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_C_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_D_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_A_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_B_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_C_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_RGB, GL_VARIABLE_D_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_RGB); 
 
-            CombinerOutput(GL_COMBINER0_NV + i, GL_RGB, 
-                            GL_DISCARD_NV, GL_DISCARD_NV, GL_DISCARD_NV,
-                            GL_NONE, GL_NONE,
-                            GL_FALSE, GL_FALSE, GL_FALSE );   
+            osgGlCombinerOutputNV(GL_COMBINER0_NV + i, GL_RGB, 
+                                  GL_DISCARD_NV, GL_DISCARD_NV, GL_DISCARD_NV,
+                                  GL_NONE, GL_NONE,
+                                  GL_FALSE, GL_FALSE, GL_FALSE );   
                             
         }
         
         if(getVariableAalpha(i * 3) != unused)
         {
             // Alpha inputs
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_A_NV,
-                          getVariableAalpha(i * 3),
-                          getVariableAalpha(i * 3 + 1),
-                          getVariableAalpha(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_B_NV,
-                          getVariableBalpha(i * 3),
-                          getVariableBalpha(i * 3 + 1),
-                          getVariableBalpha(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_C_NV,
-                          getVariableCalpha(i * 3),
-                          getVariableCalpha(i * 3 + 1),
-                          getVariableCalpha(i * 3 + 2) );
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_D_NV,
-                          getVariableDalpha(i * 3),
-                          getVariableDalpha(i * 3 + 1),
-                          getVariableDalpha(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, 
+                                 GL_ALPHA, GL_VARIABLE_A_NV,
+                                 getVariableAalpha(i * 3),
+                                 getVariableAalpha(i * 3 + 1),
+                                 getVariableAalpha(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_B_NV,
+                                 getVariableBalpha(i * 3),
+                                 getVariableBalpha(i * 3 + 1),
+                                 getVariableBalpha(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_C_NV,
+                                 getVariableCalpha(i * 3),
+                                 getVariableCalpha(i * 3 + 1),
+                                 getVariableCalpha(i * 3 + 2) );
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_D_NV,
+                                 getVariableDalpha(i * 3),
+                                 getVariableDalpha(i * 3 + 1),
+                                 getVariableDalpha(i * 3 + 2) );
 
             // ALPHA output
-            CombinerOutput(GL_COMBINER0_NV + i, GL_ALPHA, 
-                           getOutputABalpha    (i),
-                           getOutputCDalpha    (i),
-                           getOutputSumalpha   (i),
-                           getScalealpha       (i),
-                           getBiasalpha        (i),
-                           GL_FALSE,
-                           GL_FALSE,
-                           getMuxSumalpha      (i) );
-            }
+            osgGlCombinerOutputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                  getOutputABalpha    (i),
+                                  getOutputCDalpha    (i),
+                                  getOutputSumalpha   (i),
+                                  getScalealpha       (i),
+                                  getBiasalpha        (i),
+                                  GL_FALSE,
+                                  GL_FALSE,
+                                  getMuxSumalpha      (i) );
+        }
         else
         {
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_A_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_B_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_C_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
-            CombinerInput(GL_COMBINER0_NV + i, GL_ALPHA, GL_VARIABLE_D_NV,
-                            GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, 
+                                 GL_ALPHA, GL_VARIABLE_A_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_B_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_C_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
+            osgGlCombinerInputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                 GL_VARIABLE_D_NV,
+                                 GL_ZERO, GL_UNSIGNED_INVERT_NV, GL_ALPHA); 
 
-            CombinerOutput(GL_COMBINER0_NV + i, GL_ALPHA, 
-                            GL_DISCARD_NV, GL_DISCARD_NV, GL_DISCARD_NV,
-                            GL_NONE, GL_NONE,
-                            GL_FALSE, GL_FALSE, GL_FALSE );   
+            osgGlCombinerOutputNV(GL_COMBINER0_NV + i, GL_ALPHA, 
+                                  GL_DISCARD_NV, GL_DISCARD_NV, GL_DISCARD_NV,
+                                  GL_NONE, GL_NONE,
+                                  GL_FALSE, GL_FALSE, GL_FALSE );   
         }
         
         if(getPerStageConstants())
         {
             if(hasRC2)
             {
-                CombinerStageParameterfv(
+                osgGlCombinerStageParameterfvNV(
                     GL_COMBINER0_NV + i, 
                     GL_CONSTANT_COLOR0_NV, 
                     const_cast<GLfloat *>(
                         getCombinerColor0(i).getValuesRGBA()));
 
-                CombinerStageParameterfv(
+                osgGlCombinerStageParameterfvNV(
                     GL_COMBINER0_NV + i, 
                     GL_CONSTANT_COLOR1_NV, 
                     const_cast<GLfloat *>(
@@ -392,52 +402,52 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
  
     // setup the final combiner
      
-    FinalCombinerInput(GL_VARIABLE_A_NV,
-                       getVariableArgb(OSG_NUM_COMBINERS * 3),
-                       getVariableArgb(OSG_NUM_COMBINERS * 3 + 1),
-                       getVariableArgb(OSG_NUM_COMBINERS * 3 + 2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_A_NV,
+                              getVariableArgb(OSG_NUM_COMBINERS * 3),
+                              getVariableArgb(OSG_NUM_COMBINERS * 3 + 1),
+                              getVariableArgb(OSG_NUM_COMBINERS * 3 + 2));
     
     glErr("RegisterCombinersChunk::final combiner var a setup");
  
-    FinalCombinerInput(GL_VARIABLE_B_NV,
-                       getVariableBrgb(OSG_NUM_COMBINERS * 3),
-                       getVariableBrgb(OSG_NUM_COMBINERS * 3 + 1),
-                       getVariableBrgb(OSG_NUM_COMBINERS * 3 + 2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_B_NV,
+                              getVariableBrgb(OSG_NUM_COMBINERS * 3),
+                              getVariableBrgb(OSG_NUM_COMBINERS * 3 + 1),
+                              getVariableBrgb(OSG_NUM_COMBINERS * 3 + 2));
  
     glErr("RegisterCombinersChunk::final combiner var b setup");
     
-    FinalCombinerInput(GL_VARIABLE_C_NV,
-                       getVariableCrgb(OSG_NUM_COMBINERS * 3),
-                       getVariableCrgb(OSG_NUM_COMBINERS * 3 + 1),
-                       getVariableCrgb(OSG_NUM_COMBINERS * 3 + 2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_C_NV,
+                              getVariableCrgb(OSG_NUM_COMBINERS * 3),
+                              getVariableCrgb(OSG_NUM_COMBINERS * 3 + 1),
+                              getVariableCrgb(OSG_NUM_COMBINERS * 3 + 2));
  
     glErr("RegisterCombinersChunk::final combiner var c setup");
  
-    FinalCombinerInput(GL_VARIABLE_D_NV,
-                       getVariableDrgb(OSG_NUM_COMBINERS * 3),
-                       getVariableDrgb(OSG_NUM_COMBINERS * 3 + 1),
-                       getVariableDrgb(OSG_NUM_COMBINERS * 3 + 2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_D_NV,
+                              getVariableDrgb(OSG_NUM_COMBINERS * 3),
+                              getVariableDrgb(OSG_NUM_COMBINERS * 3 + 1),
+                              getVariableDrgb(OSG_NUM_COMBINERS * 3 + 2));
  
     glErr("RegisterCombinersChunk::final combiner var d setup");
  
-    FinalCombinerInput(GL_VARIABLE_E_NV,
-                       getVariableE(0),
-                       getVariableE(1),
-                       getVariableE(2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_E_NV,
+                              getVariableE(0),
+                              getVariableE(1),
+                              getVariableE(2));
  
     glErr("RegisterCombinersChunk::final combiner var e setup");
  
-    FinalCombinerInput(GL_VARIABLE_F_NV,
-                       getVariableF(0),
-                       getVariableF(1),
-                       getVariableF(2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_F_NV,
+                              getVariableF(0),
+                              getVariableF(1),
+                              getVariableF(2));
  
     glErr("RegisterCombinersChunk::final combiner var f setup");
  
-    FinalCombinerInput(GL_VARIABLE_G_NV,
-                       getVariableG(0),
-                       getVariableG(1),
-                       getVariableG(2));
+    osgGlFinalCombinerInputNV(GL_VARIABLE_G_NV,
+                              getVariableG(0),
+                              getVariableG(1),
+                              getVariableG(2));
     
     glErr("RegisterCombinersChunk::final combiner setup");
     // and activate everything

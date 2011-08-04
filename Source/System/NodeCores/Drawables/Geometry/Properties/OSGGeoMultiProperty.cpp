@@ -259,35 +259,35 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
      // get "glBindBufferARB" function pointer
 
     OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                             osgGlBindBufferARB,
+                             osgGlBindBuffer,
                             _funcBindBuffer, 
                              win);
    
-    osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 
-                       win->getGLObjectId(getContainer()->getGLId()));
+    osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, 
+                    win->getGLObjectId(getContainer()->getGLId()));
 
 #define BUFFER_OFFSET(i)     (static_cast<char *>(NULL) + (i))
 
     if(isGeneric)
     {
         OSGGETGLFUNCBYID_GL3_ES( glVertexAttribPointer, 
-                                 osgGlVertexAttribPointerARB,
+                                 osgGlVertexAttribPointer,
                                 _funcglVertexAttribPointerARB,
                                  win);
 
-        osgGlVertexAttribPointerARB(slot, 
-                                    getDimension(), 
-                                    getFormat(), 
-                                    getNormalize(),
-                                    getStride(), 
-                                    BUFFER_OFFSET(getOffset()));
+        osgGlVertexAttribPointer(slot, 
+                                 getDimension(), 
+                                 getFormat(), 
+                                 getNormalize(),
+                                 getStride(), 
+                                 BUFFER_OFFSET(getOffset()));
 
         OSGGETGLFUNCBYID_GL3_ES( glEnableVertexAttribArray,
-                                 osgGlEnableVertexAttribArrayARB,
+                                 osgGlEnableVertexAttribArray,
                                 _funcglEnableVertexAttribArrayARB,
                                  win);
  
-        osgGlEnableVertexAttribArrayARB(slot);
+        osgGlEnableVertexAttribArray(slot);
     }
     else
     {
@@ -313,14 +313,14 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
                 if (win->hasExtOrVersion(_extSecondaryColor, 0x0104))
                 {
                     OSGGETGLFUNCBYID_EXT( glSecondaryColorPointer,
-                                          osgGlSecondaryColorPointerEXT,
+                                          osgGlSecondaryColorPointer,
                                          _funcglSecondaryColorPointer,
                                           win);
 
-                    osgGlSecondaryColorPointerEXT(getDimension(),
-                                                  getFormat(),
-                                                  getStride(), 
-                                                  BUFFER_OFFSET(getOffset()));
+                    osgGlSecondaryColorPointer(getDimension(),
+                                               getFormat(),
+                                               getStride(), 
+                                               BUFFER_OFFSET(getOffset()));
 
                     glEnableClientState(GL_SECONDARY_COLOR_ARRAY_EXT);
                 }
@@ -336,11 +336,11 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
             case 14: case 15: 
             {
                 OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
-                                         osgGlClientActiveTextureARB,
+                                         osgGlClientActiveTexture,
                                         _funcglClientActiveTextureARB,
                                          win);
 
-                osgGlClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
+                osgGlClientActiveTexture(GL_TEXTURE0_ARB + slot - 8);
 
                 glTexCoordPointer(getDimension(), 
                                   getFormat(),
@@ -357,7 +357,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
 #endif
     } // isGeneric
 
-    osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 void GeoMultiProperty::changeFrom(DrawEnv    *pEnv, 

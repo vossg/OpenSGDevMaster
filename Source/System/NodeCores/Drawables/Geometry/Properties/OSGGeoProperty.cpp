@@ -265,11 +265,11 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         if(mode == Window::initialize)
         {
             OSGGETGLFUNCBYID_GL3_ES( glGenBuffers, 
-                                     osgGlGenBuffersARB,
+                                     osgGlGenBuffers,
                                     _funcGenBuffers, 
                                      pWin);
 
-            osgGlGenBuffersARB(1, &glid);
+            osgGlGenBuffers(1, &glid);
 
             pWin->setGLObjectId(id, glid);
         }
@@ -279,39 +279,39 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         }
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer,
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer, 
                                  pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBufferData, 
-                                 osgGlBufferDataARB,
+                                 osgGlBufferData,
                                 _funcBufferData, 
                                  pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBufferSubData, 
-                                 osgGlBufferSubDataARB,
+                                 osgGlBufferSubData,
                                 _funcBufferSubData, 
                                  pWin);
         
-        osgGlBindBufferARB(getBufferType(), glid);
+        osgGlBindBuffer(getBufferType(), glid);
 
         if(mode == Window::initialize || mode == Window::reinitialize)
         {
-            osgGlBufferDataARB(getBufferType(), 
-                               getFormatSize() * getDimension() * getSize(), 
-                               NULL, //getData      (), 
-                               getVboUsage  ());
+            osgGlBufferData(getBufferType(), 
+                            getFormatSize() * getDimension() * getSize(), 
+                            NULL, //getData      (), 
+                            getVboUsage  ());
         }
 
         if(getData() != NULL)
         {
-            osgGlBufferSubDataARB(getBufferType(),
-                                  0,
-                                  getFormatSize() * getDimension() * getSize(), 
-                                  getData());
+            osgGlBufferSubData(getBufferType(),
+                               0,
+                               getFormatSize() * getDimension() * getSize(), 
+                               getData());
         }
 
-        osgGlBindBufferARB(getBufferType(), 0);
+        osgGlBindBuffer(getBufferType(), 0);
     }
     else
     {

@@ -170,12 +170,12 @@ void GeoIntegralProperty::activate(DrawEnv *pEnv, UInt32 slot)
         pWin->validateGLObject(getGLId(), pEnv);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer, 
                                  pWin);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
-                           pWin->getGLObjectId(getGLId()));
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 
+                        pWin->getGLObjectId(getGLId()));
     }
 }
 
@@ -197,7 +197,7 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
         return;
 
     OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                             osgGlBindBufferARB,
+                             osgGlBindBuffer,
                             _funcBindBuffer, 
                              pWin);
 
@@ -205,12 +205,12 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
     {
         pWin->validateGLObject(getGLId(), pEnv);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
-                           pWin->getGLObjectId(getGLId()));
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 
+                        pWin->getGLObjectId(getGLId()));
     }
     else if(o != NULL && o->getGLId() != 0 && o->getUseVBO())
     {
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);            
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);            
     }
 }
 
@@ -226,11 +226,11 @@ void GeoIntegralProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer, 
                                  pWin);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
     }
 }
 
@@ -257,23 +257,23 @@ void *GeoIntegralProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer, 
                                  pWin);
 
         OSGGETGLFUNCBYID_GL3   ( glMapBuffer, 
-                                 osgGlMapBufferARB,
+                                 osgGlMapBuffer,
                                 _funcMapBuffer, 
                                  pWin);
 
         pWin->validateGLObject(getGLId(), pEnv);                
         
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB,
-                           pWin->getGLObjectId(getGLId()));
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
+                        pWin->getGLObjectId(getGLId()));
 
-        returnValue = osgGlMapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, eAccess);
+        returnValue = osgGlMapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, eAccess);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
     }
 
     return returnValue;
@@ -290,21 +290,21 @@ bool GeoIntegralProperty::unmapBuffer(DrawEnv *pEnv)
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer, 
                                  pWin);
 
         OSGGETGLFUNCBYID_GL3   ( glUnmapBuffer, 
-                                 osgGlUnmapBufferARB,
+                                 osgGlUnmapBuffer,
                                 _funcUnmapBuffer, 
                                  pWin);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB,
-                           pWin->getGLObjectId(getGLId()));
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
+                        pWin->getGLObjectId(getGLId()));
 
-        returnValue = osgGlUnmapBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB);
+        returnValue = osgGlUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB);
 
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
     }
     
     return returnValue;

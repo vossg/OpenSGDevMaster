@@ -45,10 +45,10 @@
     GLenum status;                                                     \
                                                                        \
     OSGGETGLFUNC_GL3_ES( glCheckFramebufferStatus,                     \
-                         osgGlCheckFramebufferStatusProc,              \
+                         osgGlCheckFramebufferStatus,                  \
                         _uiFuncCheckFramebufferStatus    );            \
                                                                        \
-    status = osgGlCheckFramebufferStatusProc(GL_FRAMEBUFFER_EXT);      \
+    status = osgGlCheckFramebufferStatus(GL_FRAMEBUFFER_EXT);          \
                                                                        \
                                                                        \
     switch(status)                                                     \
@@ -338,12 +338,12 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     win->validateGLObject(getGLId(), pEnv);
 
     OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
-                             osgGlBindFramebufferProc,
+                             osgGlBindFramebuffer,
                             _uiFuncBindFramebuffer,
                              win);
 
-    osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, 
-                             win->getGLObjectId(getGLId()));
+    osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 
+                         win->getGLObjectId(getGLId()));
 
     glErr("FrameBufferObject::activate::bind");
 
@@ -355,11 +355,11 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
         if(_mfDrawBuffers.size() != 0)
         {
             OSGGETGLFUNCBYID_GL3( glDrawBuffers,
-                                  osgGlDrawBuffersProc,
+                                  osgGlDrawBuffers,
                                  _uiFuncDrawBuffers,
                                   win);
 
-            osgGlDrawBuffersProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
+            osgGlDrawBuffers(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
         }
         else
         {
@@ -370,11 +370,11 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     else
     {
         OSGGETGLFUNCBYID_GL3( glDrawBuffers,
-                              osgGlDrawBuffersProc,
+                              osgGlDrawBuffers,
                              _uiFuncDrawBuffers,
                               win);
         
-        osgGlDrawBuffersProc(1, &eDrawBuffer );
+        osgGlDrawBuffers(1, &eDrawBuffer );
     }
 #endif
 
@@ -394,7 +394,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 //    FLOG(("FBO DeActivate %p\n", this));
 
     OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
-                             osgGlBindFramebufferProc,
+                             osgGlBindFramebuffer,
                             _uiFuncBindFramebuffer,
                              win);
 
@@ -443,7 +443,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
         }
     }
 
-    osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, 0);
+    osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
     
     if(_sfPostProcessOnDeactivate.getValue() == true)
     {
@@ -476,11 +476,11 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         if(mode == Window::initialize)
         {
             OSGGETGLFUNCBYID_GL3_ES( glGenFramebuffers,
-                                     osgGlGenFramebuffersProc,
+                                     osgGlGenFramebuffers,
                                     _uiFuncGenFramebuffers,
                                      win);
 
-            osgGlGenFramebuffersProc(1, &uiFBOId);
+            osgGlGenFramebuffers(1, &uiFBOId);
 
             win->setGLObjectId(osgid, uiFBOId);
         }
@@ -495,16 +495,16 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
         OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
-                                 osgGlBindFramebufferProc,
+                                 osgGlBindFramebuffer,
                                 _uiFuncBindFramebuffer,
                                  win);
 
         OSGGETGLFUNCBYID_GL3_ES( glFramebufferRenderbuffer,
-                                 osgGlFramebufferRenderbufferProc,
+                                 osgGlFramebufferRenderbuffer,
                                 _uiFuncFramebufferRenderbuffer,
                                  win);
 
-        osgGlBindFramebufferProc(GL_FRAMEBUFFER_EXT, uiFBOId);
+        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, uiFBOId);
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
             _mfColorAttachments.begin();
@@ -527,10 +527,10 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             }
             else
             {
-                osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
-                                                 index,
-                                                 GL_RENDERBUFFER_EXT,
-                                                 0);
+                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                             index,
+                                             GL_RENDERBUFFER_EXT,
+                                             0);
             }
 
             glErr("FrameBufferObject::color");
@@ -541,10 +541,10 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         while(index < iMaxColorAttachments)
         {
-            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
-                                             index,
-                                             GL_RENDERBUFFER_EXT,
-                                             0);
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         index,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
             
             glErr("FrameBufferObject::coloroff");
 
@@ -558,10 +558,10 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         }
         else
         {
-            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
-                                             GL_DEPTH_ATTACHMENT_EXT,
-                                             GL_RENDERBUFFER_EXT,
-                                             0);
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         GL_DEPTH_ATTACHMENT_EXT,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
         }
 
         glErr("FrameBufferObject::depth");
@@ -573,10 +573,10 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         }
         else
         {
-            osgGlFramebufferRenderbufferProc(GL_FRAMEBUFFER_EXT,
-                                             GL_STENCIL_ATTACHMENT_EXT,
-                                             GL_RENDERBUFFER_EXT,
-                                             0);
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         GL_STENCIL_ATTACHMENT_EXT,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
         }
 
         glErr("FrameBufferObject::stencil");
@@ -629,11 +629,11 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
                                 0x0200                 ) != false)
         {
             OSGGETGLFUNCBYID_GL3_ES( glDeleteFramebuffers,
-                                     osgGlDeleteFramebuffersProc,
+                                     osgGlDeleteFramebuffers,
                                     _uiFuncDeleteFramebuffers,
                                      win);
 
-            osgGlDeleteFramebuffersProc(1, &uiFBOId);
+            osgGlDeleteFramebuffers(1, &uiFBOId);
         }
     }
 }

@@ -55,12 +55,12 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef GLXFBConfig *(* OSGglxChooseFBConfigProc)(      Display *dpy, 
+typedef GLXFBConfig *(* osgGlxChooseFBConfigProc)(      Display *dpy, 
                                                         int      screen, 
                                                   const int     *attrib_list, 
                                                         int     *nelements);
 
-typedef GLXContext (*OSGglxCreateContextAttribsARBProc)(
+typedef GLXContext (*osgGlxCreateContextAttribsARBProc)(
           Display     *dpy,
           GLXFBConfig  config,
           GLXContext   share_context,

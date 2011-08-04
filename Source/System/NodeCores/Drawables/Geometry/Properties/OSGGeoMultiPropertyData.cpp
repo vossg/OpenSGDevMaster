@@ -188,22 +188,22 @@ UInt32 GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
        mode == Window::needrefresh )
     {
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
-                                 osgGlBindBufferARB,
+                                 osgGlBindBuffer,
                                 _funcBindBuffer,    
                                  pWin              );
         OSGGETGLFUNCBYID_GL3_ES( glBufferData,
-                                 osgGlBufferDataARB,
+                                 osgGlBufferData,
                                 _funcBufferData,    
                                  pWin              );
 
-        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
+        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, id);
 
-        osgGlBufferDataARB(  GL_ARRAY_BUFFER_ARB,
-                            _mfIData.size(),
-                           &_mfIData[0],
+        osgGlBufferData(  GL_ARRAY_BUFFER_ARB,
+                         _mfIData.size(),
+                        &_mfIData[0],
                              GL_STATIC_DRAW_ARB);
 
-        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, 0);
     }
     else
     {

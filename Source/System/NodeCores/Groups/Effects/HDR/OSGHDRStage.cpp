@@ -601,7 +601,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     }
 
     OSGGETGLFUNCBYID_GL3( glDrawBuffers,
-                          osgGlDrawBuffersProc,
+                          osgGlDrawBuffers,
                          _uiFuncDrawBuffers,
                           win);
 
@@ -714,7 +714,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     pEnv->activateState(pBlurState, &oOverride);
             
-    osgGlDrawBuffersProc(1, aDrawBuffers);
+    osgGlDrawBuffers(1, aDrawBuffers);
 
 
     glBegin(GL_QUADS);
@@ -747,7 +747,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     aDrawBuffers[0] = GL_COLOR_ATTACHMENT0_EXT;
     
-    osgGlDrawBuffersProc(1, aDrawBuffers);
+    osgGlDrawBuffers(1, aDrawBuffers);
     
     glBegin(GL_QUADS);
     {

@@ -2355,7 +2355,7 @@ struct drawShaderQuads : public ParticlesDrawer
         osgSinkUnusedWarning(win);
 
         OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
-                              osgGlMultiTexCoord3fvARB,
+                              osgGlMultiTexCoord3fv,
                              _funcglMultiTexCoord3fvARB,
                               win);
 
@@ -2417,15 +2417,15 @@ struct drawShaderQuads : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
-                                     posTrait::position(posData).getValues()); 
+            osgGlMultiTexCoord3fv(GL_TEXTURE1_ARB,
+                                  posTrait::position(posData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fv(
                 GL_TEXTURE2_ARB,
                 secPosTrait::position(secPosData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                     s.getValues());
+            osgGlMultiTexCoord3fv(GL_TEXTURE3_ARB,
+                                  s.getValues());
 
             texTrait::vertex(texData, 0, 0, 0);
             glVertex2f      (-.5f, -.5f);
@@ -2447,7 +2447,7 @@ struct drawShaderQuads : public ParticlesDrawer
         osgSinkUnusedWarning(win);
 
         OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
-                              osgGlMultiTexCoord3fvARB,
+                              osgGlMultiTexCoord3fv,
                              _funcglMultiTexCoord3fvARB,
                               win);
 
@@ -2500,15 +2500,15 @@ struct drawShaderQuads : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
-                                     posTrait::position(posData).getValues()); 
+            osgGlMultiTexCoord3fv(GL_TEXTURE1_ARB,
+                                  posTrait::position(posData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fv(
                 GL_TEXTURE2_ARB,
                 secPosTrait::position(secPosData).getValues());
             
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB, 
-                                     s.getValues());
+            osgGlMultiTexCoord3fv(GL_TEXTURE3_ARB, 
+                                  s.getValues());
 
             texTrait::vertex(texData, 0, 0, 0);
             glVertex2f      (-.5f, -.5f);
@@ -2541,7 +2541,7 @@ struct drawShaderStrips : public ParticlesDrawer
         osgSinkUnusedWarning(win);
 
         OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
-                              osgGlMultiTexCoord3fvARB,
+                              osgGlMultiTexCoord3fv,
                              _funcglMultiTexCoord3fvARB,
                               win);
 
@@ -2601,15 +2601,15 @@ struct drawShaderStrips : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
-                                     posTrait::position(posData).getValues()); 
+            osgGlMultiTexCoord3fv(GL_TEXTURE1_ARB,
+                                  posTrait::position(posData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fv(
                 GL_TEXTURE2_ARB,
                 secPosTrait::position(secPosData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                     s.getValues());
+            osgGlMultiTexCoord3fv(GL_TEXTURE3_ARB,
+                                  s.getValues());
 
             glBegin(GL_QUAD_STRIP);
 
@@ -2636,7 +2636,7 @@ struct drawShaderStrips : public ParticlesDrawer
         osgSinkUnusedWarning(win);
 
         OSGGETGLFUNCBYID_GL3( glMultiTexCoord3fv,
-                              osgGlMultiTexCoord3fvARB,
+                              osgGlMultiTexCoord3fv,
                              _funcglMultiTexCoord3fvARB,
                               win);
 
@@ -2687,15 +2687,15 @@ struct drawShaderStrips : public ParticlesDrawer
 
             normalTrait::normal(normalData, 0);
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE1_ARB,
-                                     posTrait::position(posData).getValues()); 
+            osgGlMultiTexCoord3fv(GL_TEXTURE1_ARB,
+                                  posTrait::position(posData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(
+            osgGlMultiTexCoord3fv(
                 GL_TEXTURE2_ARB,
                 secPosTrait::position(secPosData).getValues()); 
 
-            osgGlMultiTexCoord3fvARB(GL_TEXTURE3_ARB,
-                                     s.getValues());
+            osgGlMultiTexCoord3fv(GL_TEXTURE3_ARB,
+                                  s.getValues());
 
             glBegin(GL_QUAD_STRIP);
 
