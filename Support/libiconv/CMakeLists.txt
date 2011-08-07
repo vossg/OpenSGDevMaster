@@ -7,13 +7,18 @@ IF(OSGLibIconvSrcDir)
   SET(${PROJECT_NAME}SharedTarget osgiconv)
   SET(${PROJECT_NAME}StaticTarget libosgiconv)
 
+  SET(OSGLibIconvLibSrcDir ${OSGLibIconvSrcDir} CACHE PATH "")
+
   IF(EXISTS ${OSGLibIconvSrcDir}/source)
-    SET(OSGLibIconvSrcDir ${OSGLibIconvSrcDir}/source CACHE PATH "")
+    SET(OSGLibIconvSrcDir ${OSGLibIconvSrcDir}/source CACHE PATH "" FORCE)
+  ELSEIF(EXISTS ${OSGLibIconvSrcDir}/src/libiconv/1.9.2/libiconv-1.9.2)
+    SET(OSGLibIconvLibSrcDir ${OSGLibIconvSrcDir}/src/libiconv/1.9.2/libiconv-1.9.2-src CACHE PATH "" FORCE)
+    SET(OSGLibIconvSrcDir ${OSGLibIconvSrcDir}/src/libiconv/1.9.2/libiconv-1.9.2 CACHE PATH "" FORCE)
   ENDIF()
 
-  SET(OSG_LIBICONV_SRCS ${OSGLibIconvSrcDir}/lib/iconv.c
-                        ${OSGLibIconvSrcDir}/libcharset/lib/localcharset.c
-                        ${OSGLibIconvSrcDir}/lib/relocatable.c)
+  SET(OSG_LIBICONV_SRCS ${OSGLibIconvLibSrcDir}/lib/iconv.c
+                        ${OSGLibIconvLibSrcDir}/libcharset/lib/localcharset.c
+                        ${OSGLibIconvLibSrcDir}/lib/relocatable.c)
 
   IF(NOT EXISTS ${OSGLibIconvSrcDir}/include/iconv.h)
 
@@ -49,6 +54,7 @@ IF(OSGLibIconvSrcDir)
   
   INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir})
   INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/lib)
+  INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/libcharset/include)
   INCLUDE_DIRECTORIES(${OSGLibIconvSrcDir}/include)
 
   IF(BUILD_SHARED_LIBS)
