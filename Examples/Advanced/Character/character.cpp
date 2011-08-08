@@ -88,11 +88,14 @@ struct GlobalVars
 
     CharacterStateE          charState;
     AnimStateE               animState[AnimIdMAX];
-    OSG::AnimationUnrecPtr   anims    [AnimIdMAX];
+    OSG::AnimationRefPtr     anims    [AnimIdMAX];
 
-    SkinnedGeoStore     skinGeos;
-    MaterialStore       materials;
-    TextureMap          texMap;
+    SkinnedGeoStore          skinGeos;
+    MaterialStore            materials;
+    TextureMap               texMap;
+
+    OSG::SkinnedGeometry::RenderModeE renderMode;
+    OSG::ShaderProgramChunkRefPtr     skinShader;
 };
 
 boost::array<const std::string, AnimIdMAX> animNames = {
@@ -115,6 +118,8 @@ void loadCharacter (void);
 void loadTextures  (void);
 void initAnimations(void);
 void loadBackground(void);
+void initShader    (void);
+void enableRenderMode(OSG::SkinnedGeometry::RenderModeE rm);
 
 void reshapeCB (int w, int h);
 void displayCB (void);
@@ -156,11 +161,14 @@ void init(int argc, char *argv[])
     g->rootN = OSG::makeCoredNode<OSG::Group>();
     g->mgr->setRoot(g->rootN);
 
+    g->renderMode = OSG::SkinnedGeometry::RMSkinnedCPU;
+
     loadCharacter ();
     loadTextures  ();
     initAnimations();
 
     loadBackground();
+    initShader    ();
 
     g->mgr->showAll();
 }
@@ -231,7 +239,7 @@ void loadCharacter(void)
 
     for(; sIt != sEnd; ++sIt)
     {
-        (*sIt)->setRenderMode(OSG::SkinnedGeometry::RMSkinnedCPU);
+        (*sIt)->setRenderMode(g->renderMode);
     }
 
     g->xform = OSG::Transform::create();
@@ -460,6 +468,72 @@ void loadBackground(void)
 }
 
 // ============================================================================
+
+void initShader(void)
+{
+    OSG::ShaderProgramUnrecPtr vp = OSG::ShaderProgram::createVertexShader();
+    vp->readProgram("vertex_skinned.vp.glsl");
+
+    OSG::ShaderProgramUnrecPtr fp = OSG::ShaderProgram::createFragmentShader();
+    fp->readProgram("vertex_skinned.fp.glsl");
+
+    fp->addUniformVariable("diffuseMap", 0);
+    fp->addOSGVariable    ("OSGLight0Active");
+
+    g->skinShader = OSG::ShaderProgramChunk::create();
+    g->skinShader->addShader(vp);
+    g->skinShader->addShader(fp);
+}
+
+void enableRenderMode(OSG::SkinnedGeometry::RenderModeE rm)
+{
+    if(g->renderMode == rm)
+        return;
+
+    if(g->renderMode == OSG::SkinnedGeometry::RMSkinnedGPU)
+    {
+        // remove shader chunk
+        MaterialStore::iterator mIt  = g->materials.begin();
+        MaterialStore::iterator mEnd = g->materials.end  ();
+
+        for(; mIt != mEnd; ++mIt)
+        {
+            OSG::ChunkMaterial *chunkMat = dynamic_cast<OSG::ChunkMaterial *>((*mIt));
+
+            if(chunkMat != NULL)
+                chunkMat->subChunk(g->skinShader);
+        }
+    }
+
+    if(rm == OSG::SkinnedGeometry::RMSkinnedGPU)
+    {
+        // add shader chunk
+        MaterialStore::iterator mIt  = g->materials.begin();
+        MaterialStore::iterator mEnd = g->materials.end  ();
+
+        for(; mIt != mEnd; ++mIt)
+        {
+            OSG::ChunkMaterial *chunkMat = dynamic_cast<OSG::ChunkMaterial *>((*mIt));
+
+            if(chunkMat != NULL)
+                chunkMat->addChunk(g->skinShader);
+        }
+    }
+
+    SkinnedGeoStore::iterator sIt  = g->skinGeos.begin();
+    SkinnedGeoStore::iterator sEnd = g->skinGeos.end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        (*sIt)->setRenderMode(rm);
+    }
+
+    FLOG(("enable render mode %d\n", rm));
+
+    g->renderMode = rm;
+}
+
+// ============================================================================
 // GLUT callback functions
 //
 
@@ -580,6 +654,15 @@ void keyboardCB(unsigned char k, int mouseX, int mouseY)
             g->animState[AnimIdWalkLB] = AnimFadeOut;
 
         g->charState = CharStop;
+    }
+    break;
+
+    case 'r':
+    {
+        OSG::SkinnedGeometry::RenderModeE newRM =
+            static_cast<OSG::SkinnedGeometry::RenderModeE>((g->renderMode + 1) % 4);
+
+        enableRenderMode(newRM);
     }
     break;
     }
