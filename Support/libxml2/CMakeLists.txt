@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
+IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
 
   PROJECT(OSGLibXml2)
 
@@ -112,9 +112,55 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
 
   ENDIF()
 
+  IF(EXISTS ${OSGLibXml2SrcDir}/include/libxml/xmlversion.h.in)
+    SET(VERSION               2.7.8)
+    SET(LIBXML_VERSION_NUMBER 20708)
+    SET(LIBXML_VERSION_EXTRA -GITv2.7.7-40-g82143f4)
+    SET(MODULE_EXTENSION .dll)
+
+    SET(WITH_TRIO       0)
+    SET(WITH_THREADS    1)
+    SET(WITH_TREE       1)
+    SET(WITH_OUTPUT     1)
+    SET(WITH_PUSH       1)
+    SET(WITH_READER     1)
+    SET(WITH_PATTERN    1)
+    SET(WITH_WRITER     1)
+    SET(WITH_SAX1       1)
+    SET(WITH_FTP        1)
+    SET(WITH_HTTP       1)
+    SET(WITH_VALID      1)
+    SET(WITH_HTML       1)
+    SET(WITH_LEGACY     1)
+    SET(WITH_C14N       1)
+    SET(WITH_CATALOG    1)
+    SET(WITH_DOCB       1)
+    SET(WITH_XPATH      1)
+    SET(WITH_XPTR       1)
+    SET(WITH_XINCLUDE   1)
+    SET(WITH_ICONV      0)
+    SET(WITH_ICU        0)
+    SET(WITH_ISO8859X   1)
+    SET(WITH_DEBUG      1)
+    SET(WITH_MEM_DEBUG  1)
+    SET(WITH_RUN_DEBUG  1)
+    SET(WITH_REGEXPS    1)
+    SET(WITH_SCHEMAS    1)
+    SET(WITH_SCHEMATRON 1)
+    SET(WITH_MODULES    1)
+    SET(WITH_ZLIB       1)
+
+    CONFIGURE_FILE(${OSGLibXml2SrcDir}/include/libxml/xmlversion.h.in
+                   ${CMAKE_CURRENT_BINARY_DIR}/libxml2/xmlversion.h.proc)
+
+    EXECUTE_PROCESS(
+      COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                       "${CMAKE_CURRENT_BINARY_DIR}/libxml2/xmlversion.h.proc"
+                       "${OSGLibXml2SrcDir}/include/libxml/xmlversion.h")
+
+  ENDIF()
 
   INCLUDE_DIRECTORIES(${OSGLibXml2SrcDir}/include)
-  INCLUDE_DIRECTORIES(${OSG_ICONV_INCLUDE_DIR})
   INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
 
   IF(BUILD_SHARED_LIBS)
@@ -131,7 +177,6 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
                           COMPILE_DEFINITIONS "${OSGLIBXML2_DEF_SHARED}")
 
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} osgzlib)
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} osgiconv)
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                 CONFIGURATIONS Release Debug
@@ -166,6 +211,6 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
-ELSE(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
+ELSE(OSGLibXml2SrcDir AND OSGZLibSrcDir)
   SET(OSGLibXml2SrcDir "" CACHE PATH "")
-ENDIF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
+ENDIF(OSGLibXml2SrcDir AND OSGZLibSrcDir)

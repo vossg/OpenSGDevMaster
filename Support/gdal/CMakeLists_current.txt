@@ -1,7 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-  MESSAGE("Processing 154 gdal")
-
   PROJECT(OSGGdal)
 
   SET(${PROJECT_NAME}SharedTarget osggdal)

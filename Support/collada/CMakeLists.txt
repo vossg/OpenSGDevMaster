@@ -1,11 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 IF(WIN32)
-  IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+  IF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibXml2SrcDir)
     SET(_OSG_COLLADA_PRECOND TRUE)
   ELSE()
     SET(_OSG_COLLADA_PRECOND FALSE)
-  ENDIF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibIconvSrcDir AND OSGLibXml2SrcDir)
+  ENDIF(OSGColladaSrcDir AND OSGPcreSrcDir AND OSGLibXml2SrcDir)
 ELSE(WIN32)
   FIND_PACKAGE(LibXml2)
 
@@ -939,6 +939,19 @@ IF(_OSG_COLLADA_PRECOND)
 
   SET(OSGCOLLADA_DEF DOM_INCLUDE_LIBXML)
 
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${OSGColladaSrcDir}/dom/external-libs/minizip/include/crypt.h"
+                     "${CMAKE_BINARY_DIR}/collada/include/crypt.h")
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${OSGColladaSrcDir}/dom/external-libs/minizip/include/ioapi.h"
+                     "${CMAKE_BINARY_DIR}/collada/include/ioapi.h")
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${OSGColladaSrcDir}/dom/external-libs/minizip/include/unzip.h"
+                     "${CMAKE_BINARY_DIR}/collada/include/unzip.h")
+
   INCLUDE_DIRECTORIES(${OSG_BOOST_INCDIRS})
   INCLUDE_DIRECTORIES(${OSGColladaSrcDir}/dom/include)
 
@@ -954,11 +967,9 @@ IF(_OSG_COLLADA_PRECOND)
     INCLUDE_DIRECTORIES(${OSGPcreSrcDir})
     INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/pcre)
     INCLUDE_DIRECTORIES(${OSGLibXml2SrcDir}/include)
-    INCLUDE_DIRECTORIES(${OSG_ICONV_INCLUDE_DIR})
     INCLUDE_DIRECTORIES(${OSG_ZLIB_INCLUDE_DIR})
-    INCLUDE_DIRECTORIES(${OSGColladaSrcDir}/dom/external-libs/minizip/include)
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/include)
   ELSE(WIN32)
-    INCLUDE_DIRECTORIES(${OSGColladaSrcDir}/dom/external-libs/minizip/include)
     INCLUDE_DIRECTORIES(${LIBXML2_INCLUDE_DIR})
   ENDIF(WIN32)
 

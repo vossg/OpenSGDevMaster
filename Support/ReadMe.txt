@@ -75,7 +75,7 @@ configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -n
 
  1b) Rest
 
-http://prdownloads.sourceforge.net/libpng/zlib-1.2.5.tar.gz?download
+http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib-1.2.5.tar.gz/download
 http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/libpng-1.5.4.tar.gz/download
 http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
@@ -88,25 +88,16 @@ ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
 http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download
 ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-http://sourceforge.net/projects/pcre/files/pcre/7.9/pcre-7.9.zip/download
-http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.tar.gz/download
 
-http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
+http://download.savannah.nongnu.org/releases/openexr/openexr-1.7.0.tar.gz
+http://download.savannah.nongnu.org/releases/openexr/ilmbase-1.0.2.tar.gz
 
 http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download
-http://download.osgeo.org/gdal/gdal154.zip
-
+http://download.osgeo.org/gdal/gdal180.zip
 http://sourceforge.net/projects/glew/files/glew/1.6.0/glew-1.6.0.tgz/download
 http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
-
-
-original dl, currently down for maintenance
-
-  http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
-  http://pecl2.php.net/downloads/php-windows-builds/source/libpng-1.2.37-source.zip
-  http://pecl2.php.net/downloads/php-windows-builds/source/libjpeg-6b-source.zip
-  http://pecl2.php.net/downloads/php-windows-builds/source/libxml2-2.7.3-src.zip
-  http://pecl2.php.net/downloads/php-windows-builds/source/libiconv-1.12-source.zip
+http://stereofx.org/download/mini/MINI-9.8.zip
 
 
 2) Unpack to disk
