@@ -1372,7 +1372,7 @@ OgreMeshReader::constructMaterial(SubMeshInfo &smInfo)
     else
     {
         SimpleMaterialUnrecPtr newMat = SimpleMaterial::create();
-        newMat->setDiffuse  (Color3f(0.7f, 0.7f, 0.5f));
+        newMat->setDiffuse  (Color3f(1.0f, 1.0f, 1.0f));
         newMat->setAmbient  (Color3f(0.1f, 0.1f, 0.1f));
         newMat->setSpecular (Color3f(0.3f, 0.3f, 0.3f));
         newMat->setShininess(20.f);
