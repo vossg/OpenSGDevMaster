@@ -102,6 +102,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
     virtual bool                   getHeadlightState  ( void );
     virtual DirectionalLight      *getHeadlight       ( void );
     virtual Camera                *getCamera          ( void );
+    virtual Background            *getBackground      ( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,6 +122,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
     virtual void  turnHeadlightOn  (void                    );
     virtual void  turnHeadlightOff (void                    );
     virtual void  setCamera        (Camera       *camera    );
+    virtual void  setBackground    (Background   *bg        );
 
     virtual void setUseTraversalAction(bool s               );
     virtual bool getUseTraversalAction(void                 );

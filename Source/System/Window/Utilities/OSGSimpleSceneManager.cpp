@@ -239,6 +239,11 @@ Camera *SimpleSceneManager::getCamera(void)
     return _camera;
 }
 
+Background *SimpleSceneManager::getBackground(void)
+{
+    return _win->getPort(0)->getBackground();
+}
+
 /*! get the highlight object
  */
 Node *SimpleSceneManager::getHighlight(void)
@@ -417,6 +422,11 @@ void SimpleSceneManager::setCamera(Camera *camera)
 
     // set new camera
     _camera = camera;
+}
+
+void SimpleSceneManager::setBackground(Background *bg)
+{
+    _win->getPort(0)->setBackground(bg);
 }
 
 /*! set the highlight object
