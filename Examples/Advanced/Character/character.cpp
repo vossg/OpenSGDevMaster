@@ -11,10 +11,12 @@
 #include <OSGGLUT.h>
 #include <OSGGLUTWindow.h>
 #include <OSGImageFileHandler.h>
+#include <OSGMatrixUtility.h>
 #include <OSGNameAttachment.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGShaderProgram.h>
 #include <OSGShaderProgramChunk.h>
+#include <OSGSimpleGeometry.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGSkinnedGeometry.h>
 #include <OSGSkyBackground.h>
@@ -31,9 +33,11 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGImageFileHandler.h>
 #include <OpenSG/OSGNameAttachment.h>
+#include <OpenSG/OSGMatrixUtility.h>
 #include <OpenSG/OSGSceneFileHandler.h>
 #include <OpenSG/OSGShaderProgram.h>
 #include <OpenSG/OSGShaderProgramChunk.h>
+#include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 #include <OpenSG/OSGSkinnedGeometry.h>
 #include <OpenSG/OSGSkyBackground.h>
@@ -73,7 +77,7 @@ enum AnimStateE
 
 enum CharacterStateE
 {
-    CharStop,
+    CharIdle,
     CharWalk,
     CharRun
 };
@@ -85,8 +89,11 @@ struct GlobalVars
 
     OSG::NodeRefPtr          rootN;
     OSG::TransformRefPtr     xform;
+    OSG::Real32              angle;
+    OSG::Real32              angleVel;
 
     CharacterStateE          charState;
+    CharacterStateE          prevCharState;
     AnimStateE               animState[AnimIdMAX];
     OSG::AnimationRefPtr     anims    [AnimIdMAX];
 
@@ -97,6 +104,10 @@ struct GlobalVars
     OSG::SkinnedGeometry::RenderModeE renderMode;
     OSG::ShaderProgramChunkRefPtr     skinShader;
 };
+
+const OSG::Real32 idleAngleVel = 0.f;
+const OSG::Real32 walkAngleVel = OSG::TwoPi / 20.f;
+const OSG::Real32 runAngleVel  = OSG::TwoPi / 10.f;
 
 boost::array<const std::string, AnimIdMAX> animNames = {
     {
@@ -118,6 +129,7 @@ void loadCharacter (void);
 void loadTextures  (void);
 void initAnimations(void);
 void loadBackground(void);
+void initFloor     (void);
 void initShader    (void);
 void enableRenderMode(OSG::SkinnedGeometry::RenderModeE rm);
 
@@ -160,7 +172,15 @@ void init(int argc, char *argv[])
 
     g->rootN = OSG::makeCoredNode<OSG::Group>();
     g->mgr->setRoot(g->rootN);
+    g->mgr->getHeadlight()->setDiffuse (0.7f, 0.7f, 0.5f, 1.f);
+    g->mgr->getHeadlight()->setAmbient (0.3f, 0.3f, 0.3f, 1.f);
+    g->mgr->getHeadlight()->setSpecular(0.3f, 0.3f, 0.3f, 1.f);
 
+    g->charState     = CharIdle;
+    g->prevCharState = CharIdle;
+
+    g->angle      = 0.f;
+    g->angleVel   = idleAngleVel;
     g->renderMode = OSG::SkinnedGeometry::RMSkinnedCPU;
 
     loadCharacter ();
@@ -168,6 +188,7 @@ void init(int argc, char *argv[])
     initAnimations();
 
     loadBackground();
+    initFloor     ();
     initShader    ();
 
     g->mgr->showAll();
@@ -230,8 +251,6 @@ ObjectCollector::enterFunc(OSG::Node *node)
 void loadCharacter(void)
 {
     OSG::NodeUnrecPtr modelN = OSG::SceneFileHandler::the()->read("western.male01.mesh", NULL);
-    g->charState = CharStop;
-
     ObjectCollector()(modelN);
 
     SkinnedGeoStore::iterator sIt  = g->skinGeos.begin();
@@ -348,8 +367,8 @@ void updateAnimations(OSG::Time currT, OSG::Time deltaT)
         {
             if(g->anims[i]->getEnabled() == true)
             {
-                FLOG(("AnimOff: disabling anim %d %s\n",
-                      i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimOff: disabling anim %d %s\n",
+                //       i, g->anims[i]->getName().c_str()));
 
                 g->anims[i]->stop      ();
                 g->anims[i]->setEnabled(false);
@@ -364,23 +383,23 @@ void updateAnimations(OSG::Time currT, OSG::Time deltaT)
             OSG::Real32 newW = OSG::osgMin<OSG::Real32>(1.f, oldW + deltaT);
             if(oldW < 1.f)
             {
-                FLOG(("AnimFadeIn: new weight %f - %d %s\n",
-                      newW, i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimFadeIn: new weight %f - %d %s\n",
+                //       newW, i, g->anims[i]->getName().c_str()));
                 g->anims[i]->setWeight(newW);
             }
 
             if(newW >= 1.f)
             {
-                FLOG(("AnimFadeIn: new state AnimOn %d %s\n",
-                      i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimFadeIn: new state AnimOn %d %s\n",
+                //       i, g->anims[i]->getName().c_str()));
                 g->animState[i] = AnimOn;
                 g->anims    [i]->setWeight(1.f);
             }
 
             if(g->anims[i]->getEnabled() == false)
             {
-                FLOG(("AnimFadeIn: enabling anim %d %s\n",
-                      i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimFadeIn: enabling anim %d %s\n",
+                //       i, g->anims[i]->getName().c_str()));
 
                 g->anims[i]->reset     ();
                 g->anims[i]->setEnabled(true);
@@ -395,15 +414,15 @@ void updateAnimations(OSG::Time currT, OSG::Time deltaT)
             OSG::Real32 newW = OSG::osgMax<OSG::Real32>(0.f, oldW - deltaT);
             if(oldW > 0.f)
             {
-                FLOG(("AnimFadeOut: new weight %f - %d %s\n",
-                      newW, i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimFadeOut: new weight %f - %d %s\n",
+                //       newW, i, g->anims[i]->getName().c_str()));
                 g->anims[i]->setWeight(newW);
             }
 
             if(newW <= 0.f)
             {
-                FLOG(("AnimFadeOut: new state AnimOff %d %s\n",
-                      i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimFadeOut: new state AnimOff %d %s\n",
+                //       i, g->anims[i]->getName().c_str()));
                 g->animState[i] = AnimOff;
                 g->anims    [i]->setWeight(0.f);
             }
@@ -414,8 +433,8 @@ void updateAnimations(OSG::Time currT, OSG::Time deltaT)
         {
             if(g->anims[i]->getEnabled() == false)
             {
-                FLOG(("AnimOn: enabling anim %d %s\n",
-                      i, g->anims[i]->getName().c_str()));
+                // FLOG(("AnimOn: enabling anim %d %s\n",
+                //       i, g->anims[i]->getName().c_str()));
 
                 g->anims[i]->reset     ();
                 g->anims[i]->setEnabled(true);
@@ -426,6 +445,82 @@ void updateAnimations(OSG::Time currT, OSG::Time deltaT)
         break;
         }
     }
+}
+
+// ============================================================================
+
+OSG::Real32 speedByState(CharacterStateE state)
+{
+    OSG::Real32 retVal = 0.f;
+
+    switch(state)
+    {
+    case CharIdle:
+        retVal = idleAngleVel;
+        break;
+    case CharWalk:
+        retVal = walkAngleVel;
+        break;
+    case CharRun:
+        retVal = runAngleVel;
+        break;       
+    }
+
+    return retVal;
+}
+
+void updatePosition(OSG::Time deltaT)
+{
+    OSG::Real32 oldVel = speedByState(g->prevCharState);
+    OSG::Real32 newVel = speedByState(g->charState    );
+
+    switch(g->charState)
+    {
+    case CharIdle:
+    {
+        OSG::Real32 w1 = g->anims[AnimIdIdleLB]->getWeight();
+        OSG::Real32 w0 = 1.f - w1;
+
+        g->angleVel = w0 * oldVel + w1 * newVel;
+    }
+    break;
+
+    case CharWalk:
+    {
+        OSG::Real32 w1 = g->anims[AnimIdWalkLB]->getWeight();
+        OSG::Real32 w0 = 1.f - w1;
+
+        g->angleVel = w0 * oldVel + w1 * newVel;
+    }
+    break;
+
+    case CharRun:
+    {
+        OSG::Real32 w1 = g->anims[AnimIdRunLB]->getWeight();
+        OSG::Real32 w0 = 1.f - w1;
+
+        g->angleVel = w0 * oldVel + w1 * newVel;
+    }
+    break;
+    }
+
+    g->angle += deltaT * g->angleVel;
+
+    OSG::Pnt3f from;
+    from[0] = 500.f * OSG::osgCos(g->angle);
+    from[2] = 500.f * OSG::osgSin(g->angle);
+
+    OSG::Pnt3f at;
+    at[0] = from[0] + from[2];
+    at[2] = from[2] - from[0];
+
+    OSG::Vec3f up;
+    up[1] = 1.f;
+
+    OSG::Matrix mat;
+    OSG::MatrixLookAt(mat, from, at, up);
+
+    g->xform->setMatrix(mat);
 }
 
 // ============================================================================
@@ -469,6 +564,34 @@ void loadBackground(void)
 
 // ============================================================================
 
+void initFloor(void)
+{
+    OSG::GeometryUnrecPtr  floor  = OSG::makePlaneGeo(2000.f, 2000.f, 10, 10);   
+    OSG::NodeUnrecPtr      floorN = OSG::makeNodeFor(floor);
+    OSG::TransformUnrecPtr xform  = OSG::Transform::create();
+    OSG::NodeUnrecPtr      xformN = OSG::makeNodeFor(xform);
+
+    OSG::ImageUnrecPtr           img = OSG::ImageFileHandler::the()->read("sand1Tile.png");
+    OSG::TextureObjChunkUnrecPtr tex = OSG::TextureObjChunk::create();
+    tex->setImage(img);
+
+    OSG::ChunkMaterial *chunkMat = dynamic_cast<OSG::ChunkMaterial *>(floor->getMaterial());
+    if(chunkMat != NULL)
+    {
+        chunkMat->addChunk(tex);
+    }
+
+    OSG::Quaternion quat;
+    quat.setValueAsAxisDeg(OSG::Vec3f(1.f, 0.f, 0.f), -90.f);
+
+    xform->editMatrix().setRotate(quat);
+
+    xformN->addChild(floorN);
+    g->rootN->addChild(xformN);
+}
+
+// ============================================================================
+
 void initShader(void)
 {
     OSG::ShaderProgramUnrecPtr vp = OSG::ShaderProgram::createVertexShader();
@@ -479,6 +602,9 @@ void initShader(void)
 
     fp->addUniformVariable("diffuseMap", 0);
     fp->addOSGVariable    ("OSGLight0Active");
+    fp->addOSGVariable    ("OSGLight1Active");
+    fp->addOSGVariable    ("OSGLight2Active");
+    fp->addOSGVariable    ("OSGLight3Active");
 
     g->skinShader = OSG::ShaderProgramChunk::create();
     g->skinShader->addShader(vp);
@@ -550,6 +676,7 @@ void displayCB(void)
     OSG::Time        deltaT = currT - prevT;
 
     updateAnimations(currT, deltaT);
+    updatePosition  (deltaT);
 
     OSG::FrameHandler::the()->frame(currT);
 
@@ -607,7 +734,8 @@ void keyboardCB(unsigned char k, int mouseX, int mouseY)
         if(g->animState[AnimIdIdleLB] != AnimOff)
             g->animState[AnimIdIdleLB] = AnimFadeOut;
 
-        g->charState = CharWalk;
+        g->prevCharState = g->charState;
+        g->charState     = CharWalk;
     }
     break;
 
@@ -630,7 +758,8 @@ void keyboardCB(unsigned char k, int mouseX, int mouseY)
         if(g->animState[AnimIdIdleLB] != AnimOff)
             g->animState[AnimIdIdleLB] = AnimFadeOut;
         
-        g->charState = CharRun;
+        g->prevCharState = g->charState;
+        g->charState     = CharRun;
     }
     break;
 
@@ -653,7 +782,8 @@ void keyboardCB(unsigned char k, int mouseX, int mouseY)
         if(g->animState[AnimIdWalkLB] != AnimOff)
             g->animState[AnimIdWalkLB] = AnimFadeOut;
 
-        g->charState = CharStop;
+        g->prevCharState = g->charState;
+        g->charState     = CharIdle;
     }
     break;
 
