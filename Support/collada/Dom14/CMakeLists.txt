@@ -3,9 +3,8 @@
 
   IF(NOT WIN32 AND NOT EXISTS ${OSGColladaSrcDir}/dom/include/1.4/dom/domAsset.h AND EXISTS ${OSGColladaSrcDir}/dom/include/1.4/dom/domasset.h)
     EXECUTE_PROCESS(
-      COMMAND "${CMAKE_COMMAND}" 
-                        WORKING_DIRECTORY "${OSGColladaSrcDir}/dom/include/1.4/dom"
-                        -E create_symlink domasset.h domAsset.h)
+      COMMAND           "${CMAKE_COMMAND}" -E create_symlink domasset.h domAsset.h
+      WORKING_DIRECTORY "${OSGColladaSrcDir}/dom/include/1.4/dom")
   ENDIF()
 
   IF(BUILD_SHARED_LIBS)
