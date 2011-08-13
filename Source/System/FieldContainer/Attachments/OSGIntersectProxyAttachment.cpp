@@ -98,6 +98,17 @@ IntersectProxyAttachment::~IntersectProxyAttachment(void)
 
 /*----------------------------- class specific ----------------------------*/
 
+Action::ResultE IntersectProxyAttachment::intersectEnter(Node   *node,
+                                                         Action *action)
+{
+    Action::ResultE retVal = Action::Continue;
+
+    if(_sfVisitChildren.getValue() == false)
+        retVal = Action::Skip;
+
+    return retVal;
+}
+
 void IntersectProxyAttachment::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)

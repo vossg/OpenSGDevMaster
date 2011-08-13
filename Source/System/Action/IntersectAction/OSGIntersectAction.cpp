@@ -224,6 +224,7 @@ IntersectAction::IntersectAction(const IntersectAction& source) :
     _hitNormal    (source._hitNormal  ),
     _hitLine      (source._hitLine    )
 {
+    _nodeEnterCB = boost::bind(&IntersectAction::onEnterNode, this, _1, _2);
 }
 
 
