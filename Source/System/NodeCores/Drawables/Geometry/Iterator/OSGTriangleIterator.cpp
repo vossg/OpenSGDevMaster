@@ -285,7 +285,8 @@ void TriangleIterator::startPrim(void)
 */
 void TriangleIterator::seek(Int32 index)
 {
-    setToBegin();
+    if(index < getIndex())
+        setToBegin();
     
     while(getIndex() != index)
         ++(*this);

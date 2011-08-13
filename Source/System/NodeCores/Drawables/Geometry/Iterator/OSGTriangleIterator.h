@@ -94,6 +94,9 @@ class OSG_DRAWABLE_DLLMAPPING TriangleIterator : public PrimitiveIterator
 
     inline Int32        getPropertyIndex        (Int32 att, 
                                                  Int32 which) const;
+    template <class ReturnT>
+    inline ReturnT      getPropertyValue        (Int32 att,
+                                                 Int32 which) const;
 
     inline Int32        getPositionIndex        (Int32 which) const;
     inline Pnt3f        getPosition             (Int32 which) const;
@@ -155,6 +158,8 @@ class OSG_DRAWABLE_DLLMAPPING TriangleIterator : public PrimitiveIterator
     void setToBegin(void);
     void setToEnd(void);
     
+    UInt32 getTrisInPrim(UInt32 primIdx) const;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:

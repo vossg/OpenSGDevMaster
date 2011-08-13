@@ -66,6 +66,15 @@ Int32 TriangleIterator::getPropertyIndex(Int32 att,
     return Inherited::getPropertyIndex(att, _triPntIndex[which]);
 }
 
+template <class ReturnT> inline
+ReturnT TriangleIterator::getPropertyValue(Int32 att,
+                                           Int32 which) const
+{
+    Int32 ind = getPropertyIndex(att, which);
+
+    return _props[att]->getValue<ReturnT>(ind);
+}
+
 inline       
 Int32 TriangleIterator::getPositionIndex(Int32 which) const
 {
@@ -77,7 +86,7 @@ Pnt3f TriangleIterator::getPosition(Int32 which) const
 {
     Int32 ind = getPositionIndex(which);
     
-    return getGeometry()->getPositions()->getValue<Pnt3f>(ind);
+    return _props[Geometry::PositionsIndex]->getValue<Pnt3f>(ind);
 }
 
 inline 
@@ -89,7 +98,7 @@ Vec3f TriangleIterator::getNormal(Int32 att,
     if(ind < 0)
         return Vec3f::Null;
         
-    return getGeometry()->getProperty(att)->getValue<Vec3f>(ind);
+    return _props[att]->getValue<Vec3f>(ind);
 }
 
 inline       
@@ -106,7 +115,7 @@ Vec3f TriangleIterator::getNormal(Int32 which) const
     if(ind < 0)
         return Vec3f::Null;
         
-    return getGeometry()->getNormals()->getValue<Vec3f>(ind);
+    return _props[Geometry::NormalsIndex]->getValue<Vec3f>(ind);
 }
 
 inline       
@@ -123,7 +132,7 @@ Color3f TriangleIterator::getColor(Int32 which) const
     if(ind < 0)
         return Color3f::Null;
         
-    return getGeometry()->getColors()->getValue<Color3f>(ind);
+    return _props[Geometry::ColorsIndex]->getValue<Color3f>(ind);
 }
 
 inline       
@@ -140,7 +149,7 @@ Color3f TriangleIterator::getSecondaryColor(Int32 which) const
     if(ind < 0)
         return Color3f::Null;
         
-    return getGeometry()->getSecondaryColors()->getValue<Color3f>(ind);
+    return _props[Geometry::SecondaryColorsIndex]->getValue<Color3f>(ind);
 }
 
 inline 
@@ -152,7 +161,7 @@ Vec2f TriangleIterator::getTexCoords(Int32 att,
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getProperty(att)->getValue<Vec2f>(ind);
+    return _props[att]->getValue<Vec2f>(ind);
 }
 
 inline       
@@ -169,7 +178,7 @@ Vec2f TriangleIterator::getTexCoords(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoordsIndex]->getValue<Vec2f>(ind);
 }
 
 
@@ -187,7 +196,7 @@ Vec2f TriangleIterator::getTexCoords1(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords1()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords1Index]->getValue<Vec2f>(ind);
 }
 
 
@@ -205,7 +214,7 @@ Vec2f TriangleIterator::getTexCoords2(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords2()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords2Index]->getValue<Vec2f>(ind);
 }
 
 
@@ -223,7 +232,7 @@ Vec2f TriangleIterator::getTexCoords3(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords3()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords3Index]->getValue<Vec2f>(ind);
 }
 
 inline
@@ -240,7 +249,7 @@ Vec2f TriangleIterator::getTexCoords4(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords4()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords4Index]->getValue<Vec2f>(ind);
 }
 
 inline
@@ -257,7 +266,7 @@ Vec2f TriangleIterator::getTexCoords5(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords5()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords5Index]->getValue<Vec2f>(ind);
 }
 
 inline
@@ -274,7 +283,7 @@ Vec2f TriangleIterator::getTexCoords6(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords6()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords6Index]->getValue<Vec2f>(ind);
 }
 
 inline
@@ -291,7 +300,7 @@ Vec2f TriangleIterator::getTexCoords7(Int32 which) const
     if(ind < 0)
         return Vec2f::Null;
         
-    return getGeometry()->getTexCoords7()->getValue<Vec2f>(ind);
+    return _props[Geometry::TexCoords7Index]->getValue<Vec2f>(ind);
 }
 
 OSG_END_NAMESPACE

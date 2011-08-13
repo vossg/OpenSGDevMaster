@@ -80,9 +80,8 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     PrimitiveIterator(void);
 
     PrimitiveIterator(const PrimitiveIterator &source);
-
-    PrimitiveIterator(Geometry const *       geo);
-    PrimitiveIterator(Node           * const geo);
+    PrimitiveIterator(const Geometry          *geo   );
+    PrimitiveIterator(const Node              *geo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -96,11 +95,11 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Set                                    */
     /*! \{                                                                 */
 
-    void setGeo(Geometry const *       geo);
-    void setGeo(Node           * const geo);
+            void setGeo    (Geometry const *geo);
+            void setGeo    (Node     const *geo);
 
-    void setToBegin(void);
-    void setToEnd  (void);
+    virtual void setToBegin(void);
+    virtual void setToEnd  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -123,7 +122,7 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     {
         Int32 ind = getPropertyIndex(att, which);
         
-        return _geo->getProperty(att)->template getValue<ReturnType>(ind);
+        return _props[att]->template getValue<ReturnType>(ind);
     }
 
     // Backwards compatibility calls 
@@ -182,11 +181,6 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
-
-
-    /*==========================  PRIVATE  ================================*/
-  private:
-
     friend class Geometry;
 
     /*---------------------------------------------------------------------*/

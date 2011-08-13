@@ -145,7 +145,7 @@ PrimitiveIterator::PrimitiveIterator(void) :
     Otherwise, use Geometry::beginPrimitives() resp. Geometry::endPrimitives()
     to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(Geometry const * geo) :
+PrimitiveIterator::PrimitiveIterator(const Geometry *geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
@@ -169,7 +169,7 @@ PrimitiveIterator::PrimitiveIterator(Geometry const * geo) :
     to a specific indexed face. Otherwise, use Geometry::beginPrimitives()
     resp. Geometry::endPrimitives() to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(Node * const geo) :
+PrimitiveIterator::PrimitiveIterator(const Node *geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
@@ -216,7 +216,8 @@ PrimitiveIterator::~PrimitiveIterator(void)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(Geometry const * geo)
+
+void PrimitiveIterator::setGeo(const Geometry *geo)
 {
     OSG_ASSERT(geo != NULL);
 
@@ -237,9 +238,9 @@ void PrimitiveIterator::setGeo(Geometry const * geo)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(Node * const geo)
+void PrimitiveIterator::setGeo(const Node *geo)
 {
-    Geometry *gc = dynamic_cast<Geometry *>(geo->getCore());
+    const Geometry *gc = dynamic_cast<const Geometry *>(geo->getCore());
     
     if(gc == NULL)
     {
