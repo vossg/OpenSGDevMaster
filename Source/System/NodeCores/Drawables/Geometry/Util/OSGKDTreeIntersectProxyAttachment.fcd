@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="KDTreeIntersectProxyAttachment"
+   parent="IntersectProxyAttachment"
+   group="IntersectProxyAttachment"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpDrawablesGeometry"
+   >
+  <Field
+      name="geometry"
+      type="Geometry"
+      category="pointer"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+    Geometry proxied by this attachment.
+  </Field>
+  <Field
+      name="maxDepth"
+      type="Int32"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="-1"
+      >
+    Maximal depth of IntersectKDTree, auto determined if negative.
+  </Field>
+  <Field
+      name="treeNodes"
+      type="IntersectKDTreeNode"
+      category="data"
+      cardinality="multi"
+      visibility="external"
+      access="protected"
+      >
+    Stores the nodes of the IntersectKDTree.
+  </Field>
+  <Field
+      name="triIndices"
+      type="UInt32"
+      category="data"
+      cardinality="multi"
+      visibility="external"
+      access="protected"
+      >
+    Stores triangle indices referenced from leaf nodes of the IntersectKDTree.
+  </Field>
+</FieldContainer>
