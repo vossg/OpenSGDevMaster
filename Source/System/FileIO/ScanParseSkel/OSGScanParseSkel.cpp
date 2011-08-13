@@ -64,12 +64,22 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 ScanParseSkel::ScanParseSkel(void) :
-    _bMapTypeIds      (false ),
-    _szReferenceHeader(NULL  ),
-    _pLexer           (new OSGScanParseLexer),
-    _image            (NULL  ),
-    _imageDataPtr     (0     ),
-    _options          (0     )
+    _bMapTypeIds      (false                           ),
+    _szReferenceHeader(NULL                            ),
+    _pLexer           (new OSGScanParseLexer           ),
+
+    _tmpString1       (                                ),
+    _tmpString2       (                                ),
+    _tmpString3       (                                ),
+    _tmpFloat1        (0.f                             ),
+    _tmpFloat2        (0.f                             ),
+    _tmpFloat3        (0.f                             ),
+    _tmpFloat4        (0.f                             ),
+    _tmpBitVector1    (TypeTraits<BitVector>::BitsClear),
+
+    _image            (NULL                            ),
+    _imageDataPtr     (0                               ),
+    _options          (0                               )
 {
 }
 
@@ -299,8 +309,9 @@ void ScanParseSkel::endField(void)
 /*-------------------------------------------------------------------------*/
 /*                               Nodes                                     */
 
-void ScanParseSkel::beginNode(const Char8 *szNodeTypename,
-                              const Char8 *szNodename)
+void ScanParseSkel::beginNode(const Char8     *szNodeTypename,
+                              const Char8     *szNodename,
+                              const BitVector  bvLocalFlags)
 {
     fprintf(stderr, "Calling default begin node %s %s\n",
             szNodeTypename,

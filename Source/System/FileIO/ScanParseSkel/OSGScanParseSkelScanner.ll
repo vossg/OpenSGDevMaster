@@ -125,6 +125,8 @@ exposedField   BEGIN(NODE); return TOK_exposedField;
 inputOutput    BEGIN(NODE); return TOK_exposedField;
 field          BEGIN(NODE); return TOK_field;
 initializeOnly BEGIN(NODE); return TOK_field;
+ClusterLocal   BEGIN(NODE); return TOK_ClusterLocal;
+ThreadLocal    BEGIN(NODE); return TOK_ThreadLocal;
 
 MFBool      BEGIN(NODE); lvalp->intVal = TOK_MFBool; return TOK_MFBool;
 MFColor     BEGIN(NODE); lvalp->intVal = TOK_MFColor; return TOK_MFColor;

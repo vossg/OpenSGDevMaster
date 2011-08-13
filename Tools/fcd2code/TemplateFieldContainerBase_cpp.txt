@@ -575,12 +575,14 @@ UInt32 @!Classname!@Base::getBinSize(ConstFieldMaskArg whichField)
         returnValue += _sfDecoratee.getBinSize();
     }
 @@else // isDecorator
-    @@BeginFieldLoop@@
+  @@BeginFieldLoop@@
+    @@if !field.customBinCopy
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
         returnValue += _@!field.VarName!@.getBinSize();
     }
-    @@EndFieldLoop@@
+    @@endif
+  @@EndFieldLoop@@
 @@endif // isDecorator
 
     return returnValue;
@@ -597,12 +599,14 @@ void @!Classname!@Base::copyToBin(BinaryDataHandler &pMem,
         _sfDecoratee.copyToBin(pMem);
     }
 @@else // isDecorator
-    @@BeginFieldLoop@@
+  @@BeginFieldLoop@@
+    @@if !field.customBinCopy
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
         _@!field.VarName!@.copyToBin(pMem);
     }
-    @@EndFieldLoop@@
+    @@endif
+  @@EndFieldLoop@@
 @@endif // isDecorator
 }
 
@@ -618,7 +622,8 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
         _sfDecoratee.copyFromBin(pMem);
     }
 @@else // isDecorator
-    @@BeginFieldLoop@@
+  @@BeginFieldLoop@@
+    @@if !field.customBinCopy
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
     @@if field.isSField
@@ -628,7 +633,8 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     @@endif
         _@!field.VarName!@.copyFromBin(pMem);
     }
-    @@EndFieldLoop@@
+    @@endif
+  @@EndFieldLoop@@
 @@endif // isDecorator
 }
 

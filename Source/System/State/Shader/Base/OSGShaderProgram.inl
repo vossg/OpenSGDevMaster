@@ -64,7 +64,8 @@ bool ShaderProgram::addUniformVariable(const Char8 *name, const ValueT &value)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -91,7 +92,8 @@ bool ShaderProgram::updateUniformVariable(const Char8  *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }

@@ -195,19 +195,21 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
         _sfDecoratee.syncWith(pFrom->_sfDecoratee);
     }
 @@else // isDecorator
-    @@BeginFieldLoop@@
+  @@BeginFieldLoop@@
+    @@if !field.customSync
 
-    @@if field.isSField
+      @@if field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pFrom->_@!field.VarName!@);
-    @@else // field.isSField
+      @@else // field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pFrom->_@!field.VarName!@,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-    @@endif // field.isSField
-    @@EndFieldLoop@@
+      @@endif // field.isSField
+    @@endif // field.customSync
+  @@EndFieldLoop@@
 @@endif // isDecorator
 }
 #endif

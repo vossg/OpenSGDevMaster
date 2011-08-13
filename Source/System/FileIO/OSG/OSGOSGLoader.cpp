@@ -603,8 +603,9 @@ bool OSGLoader::checkHeader(void)
 #pragma warning (disable : 383)
 #endif
 
-void OSGLoader::beginNode(const Char8 *szNodeTypename,
-                          const Char8 *szNodename)
+void OSGLoader::beginNode(const Char8     *szNodeTypename,
+                          const Char8     *szNodename,
+                          const BitVector  bvLocalFlags  )
 {
     FieldContainerUnrecPtr pNewNode;
 
@@ -624,9 +625,17 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
     PINFO << std::endl;
 
-    pNewNode =
-        FieldContainerFactory::the()->createContainer(szNodeTypename);
-
+    if(bvLocalFlags != TypeTraits<BitVector>::BitsClear)
+    {
+        pNewNode =
+            FieldContainerFactory::the()->createLocalContainer(szNodeTypename,
+                                                               bvLocalFlags   );
+    }
+    else
+    {
+        pNewNode =
+            FieldContainerFactory::the()->createContainer(szNodeTypename);
+    }
     
     if(pNewNode == NULL)
     {

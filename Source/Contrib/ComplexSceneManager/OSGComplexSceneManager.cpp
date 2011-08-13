@@ -564,8 +564,8 @@ void ComplexSceneManager::addData(const std::string &filename)
 
 Node *ComplexSceneManager::findNode(const std::string &filename) const
 {
-    MFUnrecFieldContainerPtr::const_iterator gIt  = _mfGlobals.begin();
-    MFUnrecFieldContainerPtr::const_iterator gEnd = _mfGlobals.end  ();
+    MFGlobalsType::const_iterator gIt  = _mfGlobals.begin();
+    MFGlobalsType::const_iterator gEnd = _mfGlobals.end  ();
 
     Node                *pNode       = NULL;
     Node                *returnValue = NULL;
@@ -624,8 +624,8 @@ FieldContainerTransitPtr ComplexSceneManager::readOSGFile(
 FieldContainer *ComplexSceneManager::findNamedComponent(
     const Char8 *szName) const
 {
-    MFUnrecFieldContainerPtr::const_iterator gIt  = _mfGlobals.begin();
-    MFUnrecFieldContainerPtr::const_iterator gEnd = _mfGlobals.end  ();
+    MFGlobalsType::const_iterator gIt  = _mfGlobals.begin();
+    MFGlobalsType::const_iterator gEnd = _mfGlobals.end  ();
 
           AttachmentContainer *pAttCnt     = NULL;
           Node                *pNode       = NULL;
@@ -939,8 +939,8 @@ void ComplexSceneManager::frame(void)
 
 void ComplexSceneManager::resetScene(void)
 {
-    MFUnrecFieldContainerPtr::const_iterator gIt  = _mfGlobals.begin();
-    MFUnrecFieldContainerPtr::const_iterator gEnd = _mfGlobals.end  ();
+    MFGlobalsType::const_iterator gIt  = _mfGlobals.begin();
+    MFGlobalsType::const_iterator gEnd = _mfGlobals.end  ();
 
     CSMResetInterface *pIf = NULL;
 

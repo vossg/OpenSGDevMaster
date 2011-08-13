@@ -175,6 +175,9 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 
 %token TOK_Error
 
+%token TOK_ClusterLocal
+%token TOK_ThreadLocal
+
 %type <stringVal> profileNameId
 %type <stringVal> componentNameId
 /*%type <intVal> componentSupportLevel*/
@@ -263,18 +266,52 @@ statement:
     | importStatement
     | exportStatement;
 
+/*
 nodeStatement:
-    nodeTypeId { SKEL->beginNode($1, 0); }
-    node
+      nodeTypeId { SKEL->beginNode($1, 0); }
+      node
     | TOK_DEF
-    nodeNameId { SKEL->_tmpString1 = $2; }
-    nodeTypeId { SKEL->beginNode($4, SKEL->_tmpString1.c_str()); }
-    node
+      nodeNameId { SKEL->_tmpString1 = $2; }
+      nodeTypeId { SKEL->beginNode($4, SKEL->_tmpString1.c_str()); }
+      node
     | TOK_USE
-    nodeNameId { SKEL->use($2); };
+      nodeNameId { SKEL->use($2); };
+*/
+
+nodeStatement:
+      nodeTypeId          { SKEL->_tmpString1 = $1; 
+                            SKEL->_tmpBitVector1 = 
+                                TypeTraits<BitVector>::BitsClear; }
+      nodeOptionStatement { SKEL->beginNode(SKEL->_tmpString1.c_str(), 
+                                            0,
+                                            SKEL->_tmpBitVector1     ); }
+      node
+    | TOK_DEF
+      nodeNameId          { SKEL->_tmpString1 = $2; 
+                            SKEL->_tmpBitVector1 = 
+                                TypeTraits<BitVector>::BitsClear; }
+      nodeTypeId          { SKEL->_tmpString2 = $4; }
+      nodeOptionStatement { SKEL->beginNode(SKEL->_tmpString2.c_str(), 
+                                            SKEL->_tmpString1.c_str(),
+                                            SKEL->_tmpBitVector1     ); }
+      node
+    | TOK_USE
+      nodeNameId { SKEL->use($2); };
+
+nodeOptionStatement:
+      '[' nodeOptions ']' 
+    | /* empty */;
+
+nodeOptions:
+      nodeOptions nodeOption
+    | /* empty */;
+
+nodeOption:
+      TOK_ClusterLocal { SKEL->_tmpBitVector1 |= FCLocal::Cluster; }
+    | TOK_ThreadLocal  { SKEL->_tmpBitVector1 |= FCLocal::MT;      };
 
 protoStatement:
-    proto
+      proto
     | externproto;
 
 protoStatements:

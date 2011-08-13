@@ -1607,7 +1607,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       RETURN()
   ENDIF(${PROJECT_NAME}_NO_PYTHON OR NOT PYTHONLIBS_FOUND)
 
-  MESSAGE("  setup python for ${PROJECT_NAME}")
+  MESSAGE("  setup python for ${PROJECT_NAME} | ${OSG_CAN_REGEN_PYTHON_BINDINGS}")
 
   ##################################
   # Dependency includes

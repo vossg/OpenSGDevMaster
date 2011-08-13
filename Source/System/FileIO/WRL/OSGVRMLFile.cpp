@@ -71,7 +71,7 @@
 
 #define OSG_DEBUG_VRML
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::VRMLFile
  */
@@ -177,8 +177,9 @@ void VRMLFile::handleError(const Char8 *szErrorText)
 #endif
 }
 
-void VRMLFile::beginNode(const Char8 *szNodeTypename,
-                         const Char8 *szNodename)
+void VRMLFile::beginNode(const Char8     *szNodeTypename,
+                         const Char8     *szNodename,
+                         const BitVector  bvLocalFlags  )
 {
     SceneFileHandler::the()->updateReadProgress();
 
@@ -357,7 +358,7 @@ void VRMLFile::endNode(void)
 
 void VRMLFile::beginScript(const Char8 *szNodename)
 {
-    beginNode("Script", szNodename);
+    beginNode("Script", szNodename, TypeTraits<BitVector>::BitsClear);
 }
 
 void VRMLFile::endScript(void)
@@ -1098,3 +1099,5 @@ FieldContainer *VRMLFile::findReference(const Char8 *szName)
 
 
 #include "OSGVRMLProtos.inl"
+
+OSG_END_NAMESPACE

@@ -207,7 +207,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "        type=\"bool\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
-    "        defaultValue=\"false\"\n"
+    "        defaultValue=\"true\"\n"
     "        access=\"public\"\n"
     "        >\n"
     "        The id used to register with the Window, 0 if not set up yet.\n"
@@ -408,7 +408,7 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
 GeoPropertyBase::GeoPropertyBase(void) :
     Inherited(),
-    _sfUseVBO                 (bool(false)),
+    _sfUseVBO                 (bool(true)),
     _sfUsage                  (UInt32(0)),
     _sfGLId                   (UInt32(0)),
     _sfVboUsage               (Int32(GL_STATIC_DRAW_ARB))

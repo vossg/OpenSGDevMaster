@@ -16,7 +16,7 @@
         type="bool"
         cardinality="single"
         visibility="external"
-        defaultValue="false"
+        defaultValue="true"
         access="public"
         >
         The id used to register with the Window, 0 if not set up yet.

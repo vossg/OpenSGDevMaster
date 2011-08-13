@@ -261,16 +261,18 @@ void CSMNativeWindow::xMainLoop(void)
 /*----------------------- constructors & destructors ----------------------*/
 
 CSMNativeWindow::CSMNativeWindow(void) :
-     Inherited(    ),
-    _pXWindow (NULL),
-    _pDisplay (NULL)
+     Inherited  (    ),
+    _pXWindow   (NULL),
+    _pDisplay   (NULL),
+    _pRootWindow(   0)
 {
 }
 
 CSMNativeWindow::CSMNativeWindow(const CSMNativeWindow &source) :
-     Inherited(source),
-    _pXWindow (NULL  ),
-    _pDisplay (NULL  )
+     Inherited  (source),
+    _pXWindow   (NULL  ),
+    _pDisplay   (NULL  ),
+    _pRootWindow(     0)
 {
 }
 
@@ -285,6 +287,78 @@ void CSMNativeWindow::changed(ConstFieldMaskArg whichField,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+}
+
+Vec2i CSMNativeWindow::translateGlobalCoordinatesRel(Real32 rX,
+                                                     Real32 rY)
+{
+    Vec2i returnValue(0, 0);
+
+    X11Window qRoot   = 0;
+
+    Int32     qX      = 0;
+    Int32     qY      = 0;
+
+    UInt32    qW      = 0;
+    UInt32    qH      = 0;
+
+    UInt32    qBorder = 0;
+    UInt32    qDepth  = 0;
+
+    XGetGeometry( _pDisplay, 
+                  _pRootWindow, 
+                 
+                 & qRoot,
+                 
+                 & qX,
+                 & qY,
+                 
+                 & qW,
+                 & qH, 
+                      
+                 & qBorder, 
+                 & qDepth );
+
+    qX = Int32(floor(rX * qW));
+    qY = Int32(floor(rY * qH));
+
+    X11Window qChild = 0;
+
+    XTranslateCoordinates( _pDisplay, 
+                           _pRootWindow, 
+                           _pXWindow->getWindow(), 
+                          
+                            qX, 
+                            qY, 
+                          
+                          & (returnValue[0]), 
+                          & (returnValue[1]), 
+                          
+                          & qChild);
+
+    return returnValue;
+}
+
+Vec2i CSMNativeWindow::translateGlobalCoordinatesAbs(Int32  iX,
+                                                     Int32  iY)
+{
+    Vec2i returnValue(0, 0);
+
+    X11Window qChild = 0;
+
+    XTranslateCoordinates( _pDisplay, 
+                           _pRootWindow, 
+                           _pXWindow->getWindow(), 
+                          
+                            iX, 
+                            iY, 
+                          
+                          & (returnValue[0]), 
+                          & (returnValue[1]), 
+                          
+                          & qChild);
+
+    return returnValue;
 }
 
 void CSMNativeWindow::dump(      UInt32    ,
@@ -741,7 +815,13 @@ bool CSMNativeWindow::init(void)
 
     Inherited::init();
 
-//    _pXWindow->deactivate(         );
+    XWindowAttributes oWinAttr;
+
+    XGetWindowAttributes( _pDisplay, 
+                           pHWin, 
+                         & oWinAttr);
+
+    _pRootWindow = oWinAttr.root;
 
     return true;
 }

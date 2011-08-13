@@ -76,6 +76,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    virtual Vec2i translateGlobalCoordinatesRel(Real32 rX,
+                                                Real32 rY);
+
+    virtual Vec2i translateGlobalCoordinatesAbs(Int32  iX,
+                                                Int32  iY);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual bool init(void);
 
     /*! \}                                                                 */
@@ -102,8 +113,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     static WindowList _vWindowList;
 
 
-    XWindow *_pXWindow;
-    Display *_pDisplay;
+    XWindow   *_pXWindow;
+    Display   *_pDisplay;
+    X11Window  _pRootWindow;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

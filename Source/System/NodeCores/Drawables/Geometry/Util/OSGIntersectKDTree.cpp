@@ -374,7 +374,7 @@ namespace
         UInt32 belowCount = 0;
         UInt32 aboveCount = 0;
 
-        for(UInt32 i = 0; i < bestOffset; ++i)
+        for(Int32 i = 0; i < bestOffset; ++i)
         {
             if(state._edges[bestAxis][i]._type == BoundEdge::EdgeStart)
                 trisBelow[belowCount++] = state._edges[bestAxis][i]._triIdx;
@@ -582,7 +582,7 @@ intersectIntersectKDTree(const Line                  &ray,
 
     // keep track of relevant part of the ray that can intersect
     // with the KDTree
-    Real32 rayMinT = boundMinT - 10.f * Eps;
+//  Real32 rayMinT = boundMinT - 10.f * Eps;
     Real32 rayMaxT = boundMaxT + 10.f * Eps;
     Vec3f  invDir(1.f / rayD[0],
                   1.f / rayD[1],

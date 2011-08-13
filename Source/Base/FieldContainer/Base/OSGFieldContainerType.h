@@ -139,7 +139,8 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                    Create                                    */
     /*! \{                                                                 */
 
-    FieldContainerTransitPtr createContainer(void) const;
+    FieldContainerTransitPtr createContainer     (      void            ) const;
+    FieldContainerTransitPtr createLocalContainer(const BitVector lFlags) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

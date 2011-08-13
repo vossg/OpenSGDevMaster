@@ -211,6 +211,23 @@ typename ContainerFactory<DescT>::ContainerTransitPtr
     return returnValue;
 }
 
+template <class DescT> inline
+typename ContainerFactory<DescT>::ContainerTransitPtr
+ContainerFactory<DescT>::createLocalContainer(const Char8     *szName,
+                                              const BitVector  bvLocalFlags)
+{
+    ContainerTransitPtr returnValue(NULL);
+
+    const ContainerType *pType = Self::findType(szName);
+
+    if(pType != NULL)
+    {
+        returnValue = pType->createLocalContainer(bvLocalFlags);
+    }
+
+    return returnValue;
+}
+
 #ifdef OSG_1_COMPAT
 template <class DescT> inline
 typename ContainerFactory<DescT>::ContainerTransitPtr

@@ -192,7 +192,7 @@ FastTriangleIterator::seek(Int32 index)
             numTris = getTrisInActPrim();
         }
 
-        UInt32 leftTris = numTris - tri - 1;
+        Int32 leftTris = numTris - tri - 1;
 
         // skip whole primitives
         while(index > _triIndex + leftTris)

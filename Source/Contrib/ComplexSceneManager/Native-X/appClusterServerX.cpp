@@ -23,6 +23,7 @@
 #include "OSGXWindow.h"
 // Render action definition. 
 #include "OSGRenderAction.h"
+#include "OSGGeoFunctions.h"
 
 // local glut window
 OSG::XWindowRefPtr    window      = NULL;
@@ -169,6 +170,8 @@ int main(int argc,char **argv)
     {
         // init OpenSG
         OSG::osgInit(argc, argv);
+
+        OSG::setVBOUsageOnPropertyProtos(true);
 
         int snglBuf[] = {GLX_RGBA, 
                          GLX_DEPTH_SIZE, 16, 

@@ -135,8 +135,8 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecFieldContainerPtr::Description(
-        MFUnrecFieldContainerPtr::getClassType(),
+    pDesc = new MFRecFieldContainerPtr::Description(
+        MFRecFieldContainerPtr::getClassType(),
         "globals",
         "",
         GlobalsFieldId, GlobalsFieldMask,
@@ -266,7 +266,7 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
+    "        category=\"recpointer\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -373,12 +373,12 @@ UInt32 ComplexSceneManagerBase::getContainerSize(void) const
 
 
 //! Get the ComplexSceneManager::_mfGlobals field.
-const MFUnrecFieldContainerPtr *ComplexSceneManagerBase::getMFGlobals(void) const
+const MFRecFieldContainerPtr *ComplexSceneManagerBase::getMFGlobals(void) const
 {
     return &_mfGlobals;
 }
 
-MFUnrecFieldContainerPtr *ComplexSceneManagerBase::editMFGlobals        (void)
+MFRecFieldContainerPtr *ComplexSceneManagerBase::editMFGlobals        (void)
 {
     editMField(GlobalsFieldMask, _mfGlobals);
 
@@ -485,11 +485,11 @@ void ComplexSceneManagerBase::pushToGlobals(FieldContainer * const value)
     _mfGlobals.push_back(value);
 }
 
-void ComplexSceneManagerBase::assignGlobals  (const MFUnrecFieldContainerPtr &value)
+void ComplexSceneManagerBase::assignGlobals  (const MFRecFieldContainerPtr &value)
 {
-    MFUnrecFieldContainerPtr::const_iterator elemIt  =
+    MFRecFieldContainerPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecFieldContainerPtr::const_iterator elemEnd =
+    MFRecFieldContainerPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<ComplexSceneManager *>(this)->clearGlobals();
@@ -796,9 +796,9 @@ void ComplexSceneManagerBase::onCreate(const ComplexSceneManager *source)
     {
         ComplexSceneManager *pThis = static_cast<ComplexSceneManager *>(this);
 
-        MFUnrecFieldContainerPtr::const_iterator GlobalsIt  =
+        MFRecFieldContainerPtr::const_iterator GlobalsIt  =
             source->_mfGlobals.begin();
-        MFUnrecFieldContainerPtr::const_iterator GlobalsEnd =
+        MFRecFieldContainerPtr::const_iterator GlobalsEnd =
             source->_mfGlobals.end  ();
 
         while(GlobalsIt != GlobalsEnd)
@@ -814,8 +814,8 @@ void ComplexSceneManagerBase::onCreate(const ComplexSceneManager *source)
 
 GetFieldHandlePtr ComplexSceneManagerBase::getHandleGlobals         (void) const
 {
-    MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
-        new  MFUnrecFieldContainerPtr::GetHandle(
+    MFRecFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFRecFieldContainerPtr::GetHandle(
              &_mfGlobals,
              this->getType().getFieldDesc(GlobalsFieldId),
              const_cast<ComplexSceneManagerBase *>(this)));
@@ -825,8 +825,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleGlobals         (void) const
 
 EditFieldHandlePtr ComplexSceneManagerBase::editHandleGlobals        (void)
 {
-    MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
-        new  MFUnrecFieldContainerPtr::EditHandle(
+    MFRecFieldContainerPtr::EditHandlePtr returnValue(
+        new  MFRecFieldContainerPtr::EditHandle(
              &_mfGlobals,
              this->getType().getFieldDesc(GlobalsFieldId),
              this));

@@ -227,7 +227,7 @@ KDTreeIntersectProxyAttachmentBase::TypeObject KDTreeIntersectProxyAttachmentBas
     "      category=\"data\"\n"
     "      cardinality=\"multi\"\n"
     "      visibility=\"external\"\n"
-    "      access=\"public\"\n"
+    "      access=\"protected\"\n"
     "      >\n"
     "    Stores the nodes of the IntersectKDTree.\n"
     "  </Field>\n"

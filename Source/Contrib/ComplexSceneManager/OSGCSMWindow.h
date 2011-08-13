@@ -101,6 +101,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    virtual Vec2i translateGlobalCoordinatesRel(Real32 rX,
+                                                Real32 rY);
+
+    virtual Vec2i translateGlobalCoordinatesAbs(Int32  iX,
+                                                Int32  iY);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
 
     /*! \}                                                                 */

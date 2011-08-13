@@ -133,8 +133,9 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     virtual void   endFieldDecl  (void                      );
 
-    virtual void   beginNode     (const Char8 *szNodeTypename,
-                                  const Char8 *szNodename);
+    virtual void   beginNode     (const Char8     *szNodeTypename,
+                                  const Char8     *szNodename,
+                                  const BitVector  bvLocalFlags  );
 
     virtual void   endNode       (void);
 

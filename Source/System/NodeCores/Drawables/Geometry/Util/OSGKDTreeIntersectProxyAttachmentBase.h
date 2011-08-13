@@ -147,17 +147,11 @@ class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachmentBase : public Inters
                   SFInt32             *editSFMaxDepth       (void);
             const SFInt32             *getSFMaxDepth        (void) const;
 
-                  MFIntersectKDTreeNode *editMFTreeNodes      (void);
-            const MFIntersectKDTreeNode *getMFTreeNodes       (void) const;
-
 
                   Geometry * getGeometry       (void) const;
 
                   Int32               &editMaxDepth       (void);
                   Int32                getMaxDepth        (void) const;
-
-                  IntersectKDTreeNode &editTreeNodes      (const UInt32 index);
-            const IntersectKDTreeNode &getTreeNodes       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -277,9 +271,15 @@ class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachmentBase : public Inters
     /*! \{                                                                 */
 
 
+                  MFIntersectKDTreeNode *editMFTreeNodes      (void);
+            const MFIntersectKDTreeNode *getMFTreeNodes       (void) const;
+
                   MFUInt32            *editMFTriIndices     (void);
             const MFUInt32            *getMFTriIndices      (void) const;
 
+
+                  IntersectKDTreeNode &editTreeNodes      (const UInt32 index);
+            const IntersectKDTreeNode &getTreeNodes       (const UInt32 index) const;
 
                   UInt32              &editTriIndices     (const UInt32 index);
                   UInt32               getTriIndices      (const UInt32 index) const;

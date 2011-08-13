@@ -126,7 +126,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecFieldContainerPtr MFGlobalsType;
+    typedef MFRecFieldContainerPtr MFGlobalsType;
     typedef SFUnrecCSMDrawManagerPtr SFDrawManagerType;
     typedef SFTime            SFStartTimeType;
     typedef SFTime            SFTimeScaleType;
@@ -158,8 +158,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecFieldContainerPtr *getMFGlobals        (void) const;
-                  MFUnrecFieldContainerPtr *editMFGlobals        (void);
+            const MFRecFieldContainerPtr *getMFGlobals        (void) const;
+                  MFRecFieldContainerPtr *editMFGlobals        (void);
             const SFUnrecCSMDrawManagerPtr *getSFDrawManager    (void) const;
                   SFUnrecCSMDrawManagerPtr *editSFDrawManager    (void);
 
@@ -228,7 +228,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \{                                                                 */
 
     void pushToGlobals             (FieldContainer * const value   );
-    void assignGlobals            (const MFUnrecFieldContainerPtr &value);
+    void assignGlobals            (const MFRecFieldContainerPtr &value);
     void removeFromGlobals (UInt32               uiIndex );
     void removeObjFromGlobals(FieldContainer * const value   );
     void clearGlobals               (void                         );
@@ -286,7 +286,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecFieldContainerPtr _mfGlobals;
+    MFRecFieldContainerPtr _mfGlobals;
     SFUnrecCSMDrawManagerPtr _sfDrawManager;
     SFTime            _sfStartTime;
     SFTime            _sfTimeScale;

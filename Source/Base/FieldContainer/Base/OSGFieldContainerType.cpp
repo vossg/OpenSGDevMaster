@@ -211,6 +211,19 @@ FieldContainerTransitPtr FieldContainerType::createContainer(void) const
     return fc;
 }
 
+FieldContainerTransitPtr FieldContainerType::createLocalContainer(
+    const BitVector lFlags) const
+{
+    FieldContainerTransitPtr fc(NULL);
+
+    if(this->isAbstract() == false)
+    {
+        fc = _pPrototype->shallowCopyLocal(lFlags);
+    }
+
+    return fc;
+}
+
 void FieldContainerType::markFieldsThreadLocal(const BitVector bvFieldMasks)
 {
     if(_pPrototype != NULL)

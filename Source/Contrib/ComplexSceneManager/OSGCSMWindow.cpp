@@ -118,6 +118,8 @@ void CSMWindow::reshape(Int32 w,
 {
     if(_pWindow != NULL)
     {
+        this->setSize(Vec2f(w, h));
+
         _pWindow->resize(w, h);
     }
 }
@@ -187,6 +189,22 @@ void CSMWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump CSMWindow NI" << std::endl;
+}
+
+Vec2i CSMWindow::translateGlobalCoordinatesRel(Real32 rX,
+                                               Real32 rY)
+{
+    Vec2i returnValue(0, 0);
+
+    return returnValue;
+}
+
+Vec2i CSMWindow::translateGlobalCoordinatesAbs(Int32  iX,
+                                               Int32  iY)
+{
+    Vec2i returnValue(0, 0);
+
+    return returnValue;
 }
 
 bool CSMWindow::init(void)

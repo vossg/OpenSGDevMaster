@@ -20,7 +20,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        category="pointer"
+        category="recpointer"
 	>
 	</Field>
 	<Field

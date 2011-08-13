@@ -250,8 +250,9 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     /*! \name                     Nodes                                    */
     /*! \{                                                                 */
 
-    virtual void beginNode(const Char8 *szNodeTypename,
-                           const Char8 *szNodename);
+    virtual void beginNode(const Char8     *szNodeTypename,
+                           const Char8     *szNodename,
+                           const BitVector  bvLocalFlags);
 
     virtual void endNode  (void);
 
@@ -400,6 +401,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     std::string _tmpString1, _tmpString2, _tmpString3;
     Real32 _tmpFloat1, _tmpFloat2, _tmpFloat3, _tmpFloat4;
+    BitVector _tmpBitVector1;
 
     void beginValue();
 

@@ -117,7 +117,9 @@ class ContainerFactory : public FactoryBase
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    ContainerTransitPtr createContainer(const Char8 *szName);
+    ContainerTransitPtr createContainer     (const Char8     *szName      );
+    ContainerTransitPtr createLocalContainer(const Char8     *szName,
+                                             const BitVector  bvLocalFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -198,6 +198,8 @@ class Field(FCDElement):
         self.setFCD("linkParentField",                "XX",       True);
 
         self.setFCD("interfaceType",                  "",         True);
+        self.setFCD("customBinCopy",                  "false",    True);
+        self.setFCD("customSync",                     "false",    True);
 
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
@@ -294,6 +296,16 @@ class Field(FCDElement):
             FieldType     = "Unrec" + TypeRaw + "Ptr"; # + "InternalPtr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Unrec" + TypeRawCaps + "Ptr"; # + "InternalPtr";
+
+        elif self.getFCD("category") == "recpointer":
+            self["category"]        = "pointer";
+            self["pointertype"]     = "internal";
+         
+            TypeCaps      = self._upcaseFirst(Type + "Ptr");
+            Type          = Type + " *";
+            FieldType     = "Rec" + TypeRaw + "Ptr"; # + "InternalPtr";
+            FieldTypeNS   = TypeNS;
+            FieldTypeCaps = "Rec" + TypeRawCaps + "Ptr"; # + "InternalPtr";
             
         elif self.getFCD("category") == "childpointer":
             self["category"]        = "pointer";
@@ -374,6 +386,20 @@ class Field(FCDElement):
         self["FieldTypeCaps"] = FieldTypeCaps
         
         self["linkParentField"] = self.getFCD("linkParentField");
+
+        if self.getFCD("customBinCopy") == "" or \
+           self.getFCD("customBinCopy") == "false":
+
+            self["customBinCopy"] = False
+        else:
+            self["customBinCopy"] = True
+
+        if self.getFCD("customSync") == "" or \
+           self.getFCD("customSync") == "false":
+
+            self["customSync"] = False
+        else:
+            self["customSync"] = True
 
         # -----------------------------------------------------------------
         # Name and Cardinality
