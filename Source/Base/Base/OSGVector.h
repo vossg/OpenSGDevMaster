@@ -490,6 +490,7 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>::Type
           RealReturnType  dist2   (const Point      &pnt      ) const;
 
           RealReturnType  maxValue(      void                 ) const;
+          UInt32          maxDim  (      void                 ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

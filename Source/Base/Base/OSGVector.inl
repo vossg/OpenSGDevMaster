@@ -932,6 +932,23 @@ typename Point<ValueTypeT, SizeI>::RealReturnType
     return returnValue;
 }
 
+//! Returns which axis contains the largest value.
+
+template <class  ValueTypeT,
+          UInt32 SizeI      > inline
+UInt32 Point<ValueTypeT, SizeI>::maxDim(void) const
+{
+    UInt32 returnValue = 0;
+
+    for(UInt32 i = 1; i < Self::_uiSize; ++i)
+    {
+        if(Self::_values[i] > Self::_values[returnValue])
+            returnValue = i;
+    }
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                                Math                                     */
 
