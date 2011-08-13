@@ -120,7 +120,9 @@
      TOK_NULL = 336,
      TOK_Id = 337,
      TOK_ImageFinished = 338,
-     TOK_Error = 339
+     TOK_Error = 339,
+     TOK_ClusterLocal = 340,
+     TOK_ThreadLocal = 341
    };
 #endif
 
@@ -142,7 +144,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 146 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.hpp"
+#line 148 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.hpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
