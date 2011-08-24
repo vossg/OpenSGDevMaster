@@ -114,9 +114,7 @@ KDTreeIntersectProxyAttachment::intersectEnter(Node *node, Action *action)
 
     if(_mfTreeNodes.empty() == false)
     {
-        // FLOG(("KDTreeIntersectProxyAttachment::intersectEnter: node id %d\n",
-        //       node->getId()));
-
+        UInt32 numTris = 0;
         bool hit = intersectIntersectKDTree(iact->getLine(),
                                             node->getVolume(),
                                             _sfGeometry.getValue(),
@@ -124,19 +122,19 @@ KDTreeIntersectProxyAttachment::intersectEnter(Node *node, Action *action)
                                             &_mfTriIndices,
                                             closestHitT,
                                             hitNormal,
-                                            hitTriangle);
+                                            hitTriangle,
+                                            &numTris    );
 
         if(hit == true)
         {
-            // FLOG(("KDTreeIntersectProxyAttachment::intersectEnter: "
-            //       "storing hit: hitT %f node id %d tri %d\n",
-            //       closestHitT, node->getId(), hitTriangle));
-
             iact->setHit(closestHitT,
                          node,
                          hitTriangle,
                          hitNormal, 0);
         }
+
+        iact->getStatCollector()->getElem(
+            IntersectAction::statNTriangles)->add(numTris);
     }
     else
     {

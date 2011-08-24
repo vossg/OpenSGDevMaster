@@ -52,6 +52,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGAction.h"
 #include "OSGLine.h"
+#include "OSGStatCollector.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -78,13 +79,9 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 {
   public:
 
-    //-----------------------------------------------------------------------
-    //   enums                                                               
-    //-----------------------------------------------------------------------
-
-    //-----------------------------------------------------------------------
-    //   types                                                               
-    //-----------------------------------------------------------------------
+    static StatElemDesc<StatTimeElem>  statTravTime;
+    static StatElemDesc<StatIntElem >  statNNodes;
+    static StatElemDesc<StatIntElem >  statNTriangles;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -108,6 +105,19 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     IntersectAction& operator =(const IntersectAction &source);
 
     virtual ~IntersectAction(void); 
+
+    /*---------------------------------------------------------------------*/
+    /*! \name Statistics                                                   */
+    /*! \{                                                                 */
+
+    StatCollector *getStatCollector(void             ) const;
+    void           setStatCollector(StatCollector *sc);
+
+    bool           getResetStatistics(void      ) const;
+    void           setResetStatistics(bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     /*------------------------- your_category -------------------------------*/
 
@@ -208,7 +218,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     IntersectAction(void);
     IntersectAction(const IntersectAction &source);
 
-    virtual Action::ResultE start(void);  
+    virtual Action::ResultE start(void               );
+    virtual Action::ResultE stop (Action::ResultE res);
 
     // access default functors
 
@@ -286,6 +297,9 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     // Index of the hit line ( from LineInterator::getIndex() )
     Int32   _hitLine;
     
+    StatCollectorRefPtr _statistics;
+    bool                _resetStatistics;
+
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------

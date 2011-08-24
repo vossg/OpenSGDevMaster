@@ -564,7 +564,8 @@ intersectIntersectKDTree(const Line                  &ray,
                          const MFUInt32              *mfTriIndices,
                                Real32                &closestHitT,
                                Vec3f                 &hitNormal,
-                               UInt32                &hitTriangle)
+                               UInt32                &hitTriangle,
+                               UInt32                *numTris     )
 {
     typedef IntersectKDTreeNode KDNode;
 
@@ -582,7 +583,7 @@ intersectIntersectKDTree(const Line                  &ray,
 
     // keep track of relevant part of the ray that can intersect
     // with the KDTree
-//  Real32 rayMinT = boundMinT - 10.f * Eps;
+    // Real32 rayMinT = boundMinT - 10.f * Eps;
     Real32 rayMaxT = boundMaxT + 10.f * Eps;
     Vec3f  invDir(1.f / rayD[0],
                   1.f / rayD[1],
@@ -593,6 +594,7 @@ intersectIntersectKDTree(const Line                  &ray,
     TravItem             items[maxItems];
     FastTriangleIterator triIt(geo);
 
+    UInt32        triTests = 0;
     bool          hit  = false;
     const KDNode *node = &(*mfNodes)[0];
 
@@ -657,6 +659,8 @@ intersectIntersectKDTree(const Line                  &ray,
 
                 triIt.seek(triIdx);
 
+                ++triTests;
+
                 if(ray.intersect(triIt.getPropertyValue<Pnt3f>(Geometry::PositionsIndex, 0),
                                  triIt.getPropertyValue<Pnt3f>(Geometry::PositionsIndex, 1),
                                  triIt.getPropertyValue<Pnt3f>(Geometry::PositionsIndex, 2),
@@ -687,6 +691,9 @@ intersectIntersectKDTree(const Line                  &ray,
             }
         }
     }
+
+    if(numTris != NULL)
+        *numTris = triTests;
 
     return hit;
 }

@@ -77,6 +77,18 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
+StatElemDesc<StatTimeElem>  IntersectAction::statTravTime(
+    "IA-Time",
+    "time needed for intersect");
+
+StatElemDesc<StatIntElem >  IntersectAction::statNNodes(
+    "IA-NNodes",
+    "number of nodes visited");
+
+StatElemDesc<StatIntElem >  IntersectAction::statNTriangles(
+    "IA-NTrianles",
+    "number of triangles tested");
+
 IntersectAction      *IntersectAction::_prototype            = NULL;
 
 Action::FunctorStore *IntersectAction::_defaultEnterFunctors = NULL;
@@ -160,6 +172,26 @@ IntersectAction *IntersectAction::getPrototype(void)
     return _prototype;
 }
 
+StatCollector *IntersectAction::getStatCollector(void) const
+{
+    return _statistics;
+}
+
+void IntersectAction::setStatCollector(StatCollector *sc)
+{
+    _statistics = sc;
+}
+
+bool IntersectAction::getResetStatistics(void) const
+{
+    return _resetStatistics;
+}
+
+void IntersectAction::setResetStatistics(bool value)
+{
+    _resetStatistics = value;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
@@ -185,19 +217,21 @@ IntersectAction *IntersectAction::getPrototype(void)
  */
 
 IntersectAction::IntersectAction(void) :
-     Inherited    (     ),
-    _line         (     ),
-    _testLines    (false),
-    _lineTestWidth(  0.0),
-    _maxdist      (     ), 
-    _hit          (false), 
-    _enterT       (   -1), 
-    _leaveT       (   -1), 
-    _hitT         (   -1), 
-    _hitObject    (     ),
-    _hitTriangle  (   -1),
-    _hitNormal    (     ),
-    _hitLine      (   -1)
+     Inherited      (     ),
+    _line           (     ),
+    _testLines      (false),
+    _lineTestWidth  (  0.0),
+    _maxdist        (     ),
+    _hit            (false),
+    _enterT         (   -1),
+    _leaveT         (   -1),
+    _hitT           (   -1),
+    _hitObject      (     ),
+    _hitTriangle    (   -1),
+    _hitNormal      (     ),
+    _hitLine        (   -1),
+    _statistics     (NULL ),
+    _resetStatistics(true )
 {
     if(_defaultEnterFunctors)
         _enterFunctors = *_defaultEnterFunctors;
@@ -210,19 +244,21 @@ IntersectAction::IntersectAction(void) :
 
 
 IntersectAction::IntersectAction(const IntersectAction& source) :
-     Inherited    (source             ),
-    _line         (source._line       ),
-    _testLines    (source._testLines  ),
-    _lineTestWidth( source._lineTestWidth),
-    _maxdist      (source._maxdist    ), 
-    _hit          (source._hit        ), 
-    _enterT       (source._enterT     ), 
-    _leaveT       (source._leaveT     ), 
-    _hitT         (source._hitT       ), 
-    _hitObject    (source._hitObject  ),
-    _hitTriangle  (source._hitTriangle),
-    _hitNormal    (source._hitNormal  ),
-    _hitLine      (source._hitLine    )
+     Inherited      (source                 ),
+    _line           (source._line           ),
+    _testLines      (source._testLines      ),
+    _lineTestWidth  (source._lineTestWidth  ),
+    _maxdist        (source._maxdist        ),
+    _hit            (source._hit            ),
+    _enterT         (source._enterT         ),
+    _leaveT         (source._leaveT         ),
+    _hitT           (source._hitT           ),
+    _hitObject      (source._hitObject      ),
+    _hitTriangle    (source._hitTriangle    ),
+    _hitNormal      (source._hitNormal      ),
+    _hitLine        (source._hitLine        ),
+    _statistics     (source._statistics     ),
+    _resetStatistics(source._resetStatistics)
 {
     _nodeEnterCB = boost::bind(&IntersectAction::onEnterNode, this, _1, _2);
 }
@@ -348,7 +384,22 @@ Action::ResultE IntersectAction::start(void)
     _hitLine     = -1;
     _hit         = false;
 
+    if(_statistics == NULL)
+        _statistics = new StatCollector;
+
+    if(_resetStatistics == true)
+        _statistics->reset();
+
+    _statistics->getElem(statTravTime)->start();
+
     return Continue;
+}
+
+Action::ResultE IntersectAction::stop(ResultE res)
+{
+    _statistics->getElem(statTravTime)->stop();
+
+    return res;
 }
 
 
@@ -406,6 +457,8 @@ Action::ResultE IntersectAction::onEnterNode(Node* node, Action* action)
     OSG_ASSERT(this == action && node == _actNode);
 
     ResultE result = Continue;
+
+    _statistics->getElem(statNNodes)->inc();
 
     IntersectProxyAttachment* ipa = dynamic_cast<IntersectProxyAttachment*>(
         node->findAttachment(IntersectProxyAttachment::getClassType()));

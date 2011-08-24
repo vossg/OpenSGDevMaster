@@ -61,7 +61,8 @@ intersectIntersectKDTree(const Line                  &ray,
                          const MFUInt32              *mfTriIndices,
                                Real32                &closestHitT,
                                Vec3f                 &hitNormal,
-                               UInt32                &hitTriangle);
+                               UInt32                &hitTriangle,
+                               UInt32                *numTris      = NULL);
 
 OSG_END_NAMESPACE
 

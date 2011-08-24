@@ -534,14 +534,17 @@ Action::ResultE Geometry::intersect(Action * action)
         return Action::Skip; //bv missed -> can not hit children
     }
 
-    TriangleIterator it  = this->beginTriangles();
-    TriangleIterator end = this->endTriangles  ();
+    UInt32           numTris = 0;
+    TriangleIterator it      = this->beginTriangles();
+    TriangleIterator end     = this->endTriangles  ();
     Real32           t;
     Vec3f            norm;
-    Line             ia_line(ia->getLine());
+    const Line      &ia_line = ia->getLine();
 
     for(; it != end; ++it)
     {
+        ++numTris;
+
         if(ia_line.intersect(it.getPosition(0),
                              it.getPosition(1),
                              it.getPosition(2), t, &norm))
@@ -553,28 +556,30 @@ Action::ResultE Geometry::intersect(Action * action)
     // If we need to test lines, iterate over lines and test for
     // lines that are within width distance from the line
     if(ia->getTestLines())
-    {       
-       Real32 range_sq  = ia->getTestLineWidth();
-       range_sq         = range_sq * range_sq;
-       LineIterator it  = this->beginLines();
-       LineIterator end = this->endLines  ();
-       Pnt3f  pt1, pt2;
-       OSG::Vec3f  norm;       
+    {
+        Real32 range_sq  = ia->getTestLineWidth();
+        range_sq         = range_sq * range_sq;
+        LineIterator it  = this->beginLines();
+        LineIterator end = this->endLines  ();
+        Pnt3f  pt1, pt2;
+        OSG::Vec3f  norm;
 
-       // Find closest points and if they are within the range, then add a hit
-       for(; it != end; ++it)
-       {          
-          Line cur_line(it.getPosition(0), it.getPosition(1));
-          ia_line.getClosestPoints(cur_line, pt1, pt2);
-          Real32 dist_sq( pt1.dist2(pt2) );
+        // Find closest points and if they are within the range, then add a hit
+        for(; it != end; ++it)
+        {
+            Line cur_line(it.getPosition(0), it.getPosition(1));
+            ia_line.getClosestPoints(cur_line, pt1, pt2);
+            Real32 dist_sq( pt1.dist2(pt2) );
 
-          if (dist_sq <= range_sq)
-          {
-             t = ia_line.getPosition().dist(pt1);
-             ia->setHit(t, ia->getActNode(), -1, norm, it.getIndex());
-          }
-       }
+            if (dist_sq <= range_sq)
+            {
+                t = ia_line.getPosition().dist(pt1);
+                ia->setHit(t, ia->getActNode(), -1, norm, it.getIndex());
+            }
+        }
     }
+
+    ia->getStatCollector()->getElem(IntersectAction::statNTriangles)->add(numTris);
 
     return Action::Continue;
 }
