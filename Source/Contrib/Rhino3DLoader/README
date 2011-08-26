@@ -1,0 +1,48 @@
+
+README for Rhino3DLoader
+=========================
+
+Name:                   Rhino3DLoader
+License:                LGPL
+Maintainer:             Akos Balazs    <edhellon@cs.uni-bonn.de>
+Initial Author:         Antonio Bleile <antonio.bleile@gmail.com>
+                        Patrik Mueller <muellerptr@users.sourceforge.net>
+                        Akos Balazs    <edhellon@cs.uni-bonn.de>
+Additional Libraries:   openNURBS
+Added:                  07/08/2008
+Last modified:          07/08/2008
+Last tested:            07/08/2008
+
+Description:
+
+This is a relatively fully featured loader for OpenNURBS (or Rhino3D, .3dm)
+files. The loader supports some extra features not found in "standard"
+OpenSG loaders, take a look at the testRhino3DRender.cpp file to see
+how to use them.
+
+What works:
+
+- loading of trimmed NURBS patches
+- curves
+- meshes (basic support)
+- materials
+
+What doesn't work:
+
+- topology is discarded (no support in OpenSG and unfortunately it won't
+  be supported anytime soon :( )
+- textures (coming)
+- rendermesh support (coming)
+- groups/layers/instances/visibility (coming)
+
+In order to actually load Rhino3D files, it needs the OpenNURBS library
+to be installed. The library is available from http://www.opennurbs.org.
+When configuring OpenSG, the path to the OpenNURBS library and headers
+must be specified. The headers are expected under a subfolder called
+opennurbs. You should call configure like:
+
+./configure  <your usual options> \
+--with-add-incdir=/path/to/openNURBS-headers \
+--with-add-libdir=/path/to/openNURBS-lib --with-add-lib=openNURBS
+
+I don't know how to pass these options with the scons build, sorry.

@@ -668,6 +668,12 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
     OSG_CONFIGURE_LIBMINI()
 
+    ###############
+    #### OpenNurbs
+    ###############
+
+    OSG_CONFIGURE_OPENNURBS()
+
     #############
     #### Python
     #############
