@@ -59,6 +59,14 @@ typedef MField<bool, 2>   MFBool;
 
 #if defined(OSG_NEED_BOOL_MFIELD_SPEZ)
 template <> inline
+void MField<bool, 2>::syncWith(Self               &source, 
+                               ConstFieldMaskArg   syncMode,
+                               UInt32              uiSyncInfo,
+                               AspectOffsetStore  &oOffsets  )
+{
+}
+
+template <> inline
 UInt32 MField<bool, 2>::getBinSize(void) const
 {
     return sizeof(UInt32) + // num elements

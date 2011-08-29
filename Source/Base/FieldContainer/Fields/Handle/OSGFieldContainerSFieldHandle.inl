@@ -328,7 +328,9 @@ void GetFCPtrSFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
 {
     FWARNING(("illegal pushValueToStream called for %s\n", 
               this->getName().c_str()));
-    OSG_ASSERT(false);
+
+    str << this->get();
+//    OSG_ASSERT(false);
 }
 
 template <class FieldT> inline

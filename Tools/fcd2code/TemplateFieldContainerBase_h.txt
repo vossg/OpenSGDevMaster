@@ -394,6 +394,16 @@ class @!Classname!@Base : public @!Parent!@
 
     virtual ~@!Classname!@Base(void);
 
+@@if isDynFCDerived
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Type                                  */
+    /*! \{                                                                 */
+
+    virtual       TypeObject &getFinalType(void);
+    virtual const TypeObject &getFinalType(void) const;
+
+@@endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */

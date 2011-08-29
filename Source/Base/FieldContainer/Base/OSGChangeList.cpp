@@ -183,8 +183,10 @@ void ChangeList::merge(ChangeList &other)
     {
         ContainerChangeEntry *pEntry = getNewCreatedEntry();
 
-        pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
+        pEntry->uiEntryDesc   = (*cIt)->uiEntryDesc;
         pEntry->uiContainerId = (*cIt)->uiContainerId;
+        pEntry->whichField    = (*cIt)->whichField;
+        pEntry->pList         = this;
 
         ++cIt;
     }
@@ -630,8 +632,8 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId,
     pEntry->pList         = this;
 }
 
-void ChangeList::addCreated(const UInt32 uiContainerId,
-                                  BitVector bFlags    )
+void ChangeList::addCreated(const UInt32    uiContainerId,
+                                  BitVector bFlags       )
 {
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
@@ -653,6 +655,33 @@ void ChangeList::addCreated(const UInt32 uiContainerId,
     ContainerChangeEntry *pEntry = getNewCreatedEntry();
 
     pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
+    pEntry->uiContainerId = uiContainerId;
+    pEntry->whichField    = bFlags;
+}
+
+void ChangeList::addNewField(const UInt32    uiContainerId,
+                                   BitVector bFlags       )
+{
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+    VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
+#endif
+
+#ifndef SILENT
+    FieldContainer *fcPtr =
+        FieldContainerFactory::the()->getContainer(uiContainerId);
+
+    FLOG(("Add NewField id %u : type id %d : %s\n",
+          uiContainerId,
+          fcPtr != NULL ? fcPtr->getTypeId() : -1,
+          fcPtr != NULL ? fcPtr->getType  ().getCName() : "Unknown"));
+#endif
+
+    if(_bReadOnly == true)
+        return;
+
+    ContainerChangeEntry *pEntry = getNewCreatedEntry();
+
+    pEntry->uiEntryDesc   = ContainerChangeEntry::AddField;
     pEntry->uiContainerId = uiContainerId;
     pEntry->whichField    = bFlags;
 }
@@ -791,6 +820,12 @@ void ChangeList::doApply(bool bClear)
 
     while(ccIt != ccEnd)
     {
+        if((*ccIt)->uiEntryDesc != ContainerChangeEntry::Create)
+        {
+            ++ccIt;
+            continue;
+        }
+
         AspectStoreP pHandler =
             FieldContainerFactory::the()->getContainerHandler(
                 (*ccIt)->uiContainerId);

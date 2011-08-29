@@ -160,6 +160,12 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \name                  Set from String                             */
     /*! \{                                                                 */
 
+    virtual void sync(      Field             *pTo, 
+                            Field             *pFrom,
+                            AspectOffsetStore &oOffsets,
+                            ConstFieldMaskArg  syncMode,
+                      const UInt32             uiSyncInfo) const = 0;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Set from Field                           */
@@ -410,11 +416,17 @@ class FieldDescription : public FieldDescriptionBase
     {
         typedef SFieldConnector<HandledField, HandledField> FConnector;
 
-        static void beginEdit(HandledField       *pField,
-                              UInt32              uiAspect,
-                              AspectOffsetStore  &oOffsets);
+        static void beginEdit(      HandledField      *pField,
+                                    UInt32             uiAspect,
+                                    AspectOffsetStore &oOffsets);
 
-        static bool isShared (HandledField       *pField  );
+        static bool isShared (      HandledField      *pField  );
+
+        static void sync     (      HandledField      *pTo, 
+                                    HandledField      *pFrom,
+                                    AspectOffsetStore &oOffsets,
+                                    ConstFieldMaskArg  syncMode,
+                              const UInt32             uiSyncInfo);
     };
 
     /*! \nohierarchy */
@@ -422,11 +434,17 @@ class FieldDescription : public FieldDescriptionBase
     {
         typedef MFieldConnector<HandledField, HandledField> FConnector;
 
-        static void beginEdit(HandledField       *pField,
-                              UInt32              uiAspect,
-                              AspectOffsetStore  &oOffsets);
+        static void beginEdit(      HandledField      *pField,
+                                    UInt32             uiAspect,
+                                    AspectOffsetStore &oOffsets);
 
-        static bool isShared (HandledField       *pField  );
+        static bool isShared (      HandledField      *pField  );
+
+        static void sync     (      HandledField      *pTo, 
+                                    HandledField      *pFrom,
+                                    AspectOffsetStore &oOffsets,
+                                    ConstFieldMaskArg  syncMode,
+                              const UInt32             uiSyncInfo);
     };
 
     /*! \nohierarchy */
@@ -562,6 +580,11 @@ class FieldDescription : public FieldDescriptionBase
         const FieldDescriptionBase *pDstDesc,
               Field                *pDst    ) const;
 
+    virtual void sync(      Field             *pTo, 
+                            Field             *pFrom,
+                            AspectOffsetStore &oOffsets,
+                            ConstFieldMaskArg  syncMode,
+                      const UInt32             uiSyncInfo) const;
 
 #if 1
     virtual UInt32 getBinSize (Field             *pField) const;

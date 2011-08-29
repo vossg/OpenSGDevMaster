@@ -60,6 +60,8 @@ class SprocBase;
 class WinThreadBase;
 class StatCollector;
 class FieldContainer;
+template <class ParentT>
+class DynFieldContainer;
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpLibOSGBase
@@ -74,7 +76,9 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
         AddReference    = 0x0002,
         SubReference    = 0x0004,
         DepSubReference = 0x0008,
-        Change          = 0x0010
+        Change          = 0x0010,
+        AddField        = 0x0020,
+        SubField        = 0x0020
     };
 
           UInt32      uiEntryDesc;
@@ -274,6 +278,8 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
                              bool                  ignoreLevel = false);
     void addCreated   (const UInt32                uiContainerId,
                              BitVector             bFlags             );
+    void addNewField  (const UInt32                uiContainerId,
+                             BitVector             bFlags             );
     void addUncommited(      ContainerChangeEntry *pEntry             );
 
     /*! \}                                                                 */
@@ -317,6 +323,9 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     friend class  FieldContainer;
     friend struct RecordedRefCountPolicy;
     friend struct ContainerChangeEntry;
+
+    template <class ParentT>
+    friend class DynFieldContainer;
 
     typedef MemoryObject Inherited;
 

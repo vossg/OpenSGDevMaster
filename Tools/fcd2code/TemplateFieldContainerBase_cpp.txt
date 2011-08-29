@@ -269,12 +269,20 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 
 FieldContainerType &@!Classname!@Base::getType(void)
 {
+@@if isDynFCDerived
+    return _localType;
+@@else
     return _type;
+@@endif
 }
 
 const FieldContainerType &@!Classname!@Base::getType(void) const
 {
+@@if isDynFCDerived
+    return _localType;
+@@else
     return _type;
+@@endif
 }
 
 UInt32 @!Classname!@Base::getContainerSize(void) const
@@ -282,6 +290,18 @@ UInt32 @!Classname!@Base::getContainerSize(void) const
     return sizeof(@!Classname!@);
 }
 
+@@if isDynFCDerived
+@!Classname!@Base::TypeObject &@!Classname!@Base::getFinalType(void)
+{
+    return _type;
+}
+
+const @!Classname!@Base::TypeObject &@!Classname!@Base::getFinalType(void) const
+{
+    return _type;
+}
+
+@@endif
 /*------------------------- decorator get ------------------------------*/
 
 @@if isDecorator

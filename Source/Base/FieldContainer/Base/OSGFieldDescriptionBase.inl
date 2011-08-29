@@ -562,8 +562,42 @@ bool FieldDescription<DescT,
 {
     return pField->isShared();
 }
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+void FieldDescription<DescT,
+                      eFieldCard,
+                      RefCountPolicy,
+                      eFieldClass   >::SFieldFunctions::sync(      
+                                HandledField      *pTo, 
+                                HandledField      *pFrom,
+                                AspectOffsetStore &oOffsets,
+                                ConstFieldMaskArg  syncMode,
+                          const UInt32             uiSyncInfo)
+{
+    pTo->syncWith(*pFrom);
+}
 
-
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+void FieldDescription<DescT,
+                      eFieldCard,  
+                      RefCountPolicy,
+                      eFieldClass   >::MFieldFunctions::sync(      
+                                HandledField      *pTo, 
+                                HandledField      *pFrom,
+                                AspectOffsetStore &oOffsets,
+                                ConstFieldMaskArg  syncMode,
+                          const UInt32             uiSyncInfo)
+{
+    pTo->syncWith(*pFrom,
+                   syncMode, 
+                   uiSyncInfo,
+                   oOffsets  );
+}
 
 template<class    DescT, 
          enum     FieldType::Cardinality eFieldCard, 
@@ -593,6 +627,30 @@ bool FieldDescription<DescT,
     HandledField *pTypedField = dcast(pField);
     
     return FieldFunctions::isShared(pTypedField);
+}
+
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldType::Class       eFieldClass> inline
+void FieldDescription<DescT,
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::sync(      
+                                Field             *pTo, 
+                                Field             *pFrom,
+                                AspectOffsetStore &oOffsets,
+                                ConstFieldMaskArg  syncMode,
+                          const UInt32             uiSyncInfo) const
+{
+    HandledField *pTypedTo   = dcast(pTo  );
+    HandledField *pTypedFrom = dcast(pFrom);
+
+    FieldFunctions::sync(pTypedTo,
+                         pTypedFrom,
+                         oOffsets,
+                         syncMode,
+                         uiSyncInfo );
 }
 
 #if 1

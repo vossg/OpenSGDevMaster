@@ -46,6 +46,7 @@ class FieldContainer(FCDElement):
         self.setFCD("realparent",                 "",       True);
         self.setFCD("authors",                    "",       True);
         self.setFCD("typeDescAddable",            "false",  True);
+        self.setFCD("dynFCDerived",               "false",  True);
     #
     # Access fields
     
@@ -355,7 +356,12 @@ class FieldContainer(FCDElement):
 
         self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");
         self["TypeDescAddable"] = self.getFCD("typeDescAddable");
+        self["DynFCDerived"] = self.getFCD("dynFCDerived");
 
+        if self.getFCD("dynFCDerived") == "true":
+            self["isDynFCDerived"] = True;
+        else:
+            self["isDynFCDerived"] = False;
 
         decorateeFieldFlags = self.getFCD("decorateeFieldFlags");
         if decorateeFieldFlags == "":
