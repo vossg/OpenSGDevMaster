@@ -527,16 +527,8 @@ bool JPGImageFileType::write(const Image        *OSG_JPG_ARG(pImage  ),
 
     if (setjmp(jerr.setjmp_buffer))
         return false;
-    cinfo.err->error_exit = osg_jpeg_error_exit;
+    cinfo.err->error_exit     = osg_jpeg_error_exit;
     cinfo.err->output_message = osg_jpeg_output_message;
-
-    cinfo.density_unit = 1;  // dpi
-    cinfo.X_density = UInt16(pImage->getResX() < 0.0f ?
-                             pImage->getResX() - 0.5f :
-                             pImage->getResX() + 0.5f);
-    cinfo.Y_density = UInt16(pImage->getResY() < 0.0f ?
-                             pImage->getResY() - 0.5f :
-                             pImage->getResY() + 0.5f);
 
     jpeg_create_compress(&cinfo);
 
@@ -546,20 +538,28 @@ bool JPGImageFileType::write(const Image        *OSG_JPG_ARG(pImage  ),
                                        sizeof(DestinationManager)))
         DestinationManager(&cinfo, os);
 
-    cinfo.dest = reinterpret_cast<jpeg_destination_mgr*>(destinationManager);
-
-    cinfo.image_width = pImage->getWidth();
-    cinfo.image_height = pImage->getHeight();
+    cinfo.dest             =
+        reinterpret_cast<jpeg_destination_mgr*>(destinationManager);
+    cinfo.image_width      = pImage->getWidth();
+    cinfo.image_height     = pImage->getHeight();
     cinfo.input_components = pImage->getBpp();
-    cinfo.in_color_space = (pImage->getBpp() == 1) ? JCS_GRAYSCALE : JCS_RGB;
+    cinfo.in_color_space   = (pImage->getBpp() == 1) ? JCS_GRAYSCALE : JCS_RGB;
 
     jpeg_set_defaults(&cinfo);
-    jpeg_set_quality(&cinfo, _quality, TRUE);
+
+    cinfo.density_unit = 1;  // dpi
+    cinfo.X_density    = UInt16(pImage->getResX() < 0.0f ?
+                                pImage->getResX() - 0.5f :
+                                pImage->getResX() + 0.5f);
+    cinfo.Y_density    = UInt16(pImage->getResY() < 0.0f ?
+                                pImage->getResY() - 0.5f :
+                                pImage->getResY() + 0.5f);
+
+    jpeg_set_quality   (&cinfo, _quality, TRUE);
     jpeg_start_compress(&cinfo, TRUE);
 
     unsigned char *srcData = 
-        const_cast<UInt8 *>(pImage->getData()) + 
-        pImage->getSize();
+        const_cast<UInt8 *>(pImage->getData()) + pImage->getSize();
     int row_stride = cinfo.image_width * cinfo.input_components;
 
     while (cinfo.next_scanline < cinfo.image_height)
