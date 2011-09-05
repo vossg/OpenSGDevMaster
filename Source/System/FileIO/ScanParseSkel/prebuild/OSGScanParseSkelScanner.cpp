@@ -323,13 +323,7 @@ typedef unsigned char YY_CHAR;
 #define yytext_ptr yytext
 #define YY_INTERACTIVE
 
-#include "OSGConfig.h"
-
-#ifdef OSG_PREBUILD_SCANPARSE
-#  include "OSGScanParseSkelScanner_FlexLexer.h"
-#else
-#  include "FlexLexer.h"
-#endif
+#include <FlexLexer.h>
 
 int yyFlexLexer::yywrap() { return 1; }
 int yyFlexLexer::yylex()

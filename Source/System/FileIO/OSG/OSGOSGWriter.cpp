@@ -473,8 +473,19 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
     {
         //this Field points to FC
 
-        _outStream << BeginElem 
-                   << hF->getName();
+        if(hF->getDescription()->isDynamic() == true)
+        {
+            _outStream << BeginElem 
+                       << "field "
+                       << hF->getType().getCName()
+                       << " "
+                       << hF->getName();
+        }
+        else
+        {
+            _outStream << BeginElem 
+                       << hF->getName();
+        }
 
         if(sfFCPtr != NULL && sfFCPtr->isValid() == true)
         {

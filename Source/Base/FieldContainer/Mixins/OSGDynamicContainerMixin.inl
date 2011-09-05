@@ -132,7 +132,8 @@ template <class ParentT> inline
 UInt32 DynFieldContainer<ParentT>::addField(const UInt32  uiFieldTypeId,
                                             const Char8  *szFieldName  )
 {
-    FieldDescriptionBase *pDesc = 
+    UInt32                returnValue = 0;
+    FieldDescriptionBase *pDesc       = 
         FieldDescFactory::the()->createIdx(
             uiFieldTypeId,
             szFieldName,
@@ -141,9 +142,12 @@ UInt32 DynFieldContainer<ParentT>::addField(const UInt32  uiFieldTypeId,
             static_cast<OSG::FieldIndexGetMethodSig >(
                 &Self::getDynamicField));
 
-    UInt32 returnValue = this->addField(*pDesc);
+    if(pDesc != NULL)
+    {
+        returnValue = this->addField(*pDesc);
 
-    delete pDesc;
+        delete pDesc;
+    }
 
     return returnValue;
 }

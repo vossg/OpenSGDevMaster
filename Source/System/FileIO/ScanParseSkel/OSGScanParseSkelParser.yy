@@ -445,6 +445,19 @@ fieldDeclaration:
     fieldType { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
     fieldId { SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), $2, $4); SKEL->getLexer()->expectType($2); }
     fieldDeclarationEnd { SKEL->endFieldDecl(); };
+   | TOK_field 
+     TOK_Id  { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+     fieldId { 
+               SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), 0, $4); 
+
+               Int32 iFieldTypeId = SKEL->getFieldType($4);
+
+               if(SKEL->getMapFieldTypes() == true)
+                 iFieldTypeId = SKEL->mapExtIntFieldType($4, iFieldTypeId);
+
+               SKEL->getLexer()->expectType(iFieldTypeId);
+             }
+     fieldDeclarationEnd { SKEL->endFieldDecl(); };
 
 exposedFieldDeclaration:
     TOK_exposedField

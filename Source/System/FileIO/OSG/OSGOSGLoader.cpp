@@ -1014,7 +1014,14 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
 
         if(pField == NULL || pField->isValid() == false)
         {
-            pIf->addField(uiOSGFieldTypeId, szFieldName);
+            if(uiFieldTypeId == 0)
+            {
+                pIf->addField(szFieldType, szFieldName);
+            }
+            else
+            {
+                pIf->addField(uiOSGFieldTypeId, szFieldName);
+            }
         }
 
         _pCurrentField     = _pCurrentFC->editField(szFieldName);
@@ -1043,7 +1050,14 @@ void OSGLoader::beginFieldDecl(const Char8  *szFieldType,
 
             if(pField == NULL || pField->isValid() == false)
             {
-                pGenAtt->addField(uiOSGFieldTypeId, szFieldName);
+                if(uiFieldTypeId == 0)
+                {
+//                    pGenAtt->addField(szFieldType, szFieldName);
+                }
+                else
+                {
+                    pGenAtt->addField(uiOSGFieldTypeId, szFieldName);
+                }
             }
             
             _pCurrentField     = pGenAtt->editField(szFieldName);
