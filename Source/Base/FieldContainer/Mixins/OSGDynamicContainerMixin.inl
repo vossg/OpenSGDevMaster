@@ -415,6 +415,7 @@ void DynFieldContainer<ParentT>::dump(
           UInt32    uiIndent, 
     const BitVector bvFlags ) const
 {
+#if !defined(__GCCXML__)
     indentLog(uiIndent, PLOG);
     PLOG << "DynFieldContainer ("
          << _dynFieldsV.size()
@@ -547,6 +548,7 @@ void DynFieldContainer<ParentT>::dump(
 
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
+#endif
 }
 
 OSG_FIELD_CONTAINER_ABSTR_TMPL_NO_TYPE_DEF(DynFieldContainer, ParentT)
