@@ -5,7 +5,6 @@ IF(OSGFreeGlutSrcDir)
   PROJECT(OSGFreeGlut)
 
   SET(${PROJECT_NAME}SharedTarget osgglut)
-  SET(${PROJECT_NAME}StaticTarget libosgglut)
 
   SET(OSG_FREEGLUT_SRCS ${OSGFreeGlutSrcDir}/src/freeglut_callbacks.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_cursor.c
@@ -57,22 +56,6 @@ IF(OSGFreeGlutSrcDir)
                 ARCHIVE DESTINATION lib)
   ENDIF(BUILD_SHARED_LIBS)
 
-  IF(BUILD_STATIC_LIBS)
-    ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_FREEGLUT_SRCS})
-
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
-                          DEBUG_POSTFIX "D"
-                          COMPILE_DEFINITIONS FREEGLUT_STATIC)
-
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
-  ENDIF(BUILD_STATIC_LIBS)
-
   INSTALL(FILES ${OSG_FREEGLUT_HDR}
           DESTINATION include/GL
           PERMISSIONS OWNER_WRITE OWNER_READ
@@ -80,7 +63,6 @@ IF(OSGFreeGlutSrcDir)
                       WORLD_READ)
 
   SET(OSG_GLUT_INCLUDE_DIR ${OSGFreeGlutSrcDir}/include CACHE PATH "" FORCE)
-  SET(OSG_GLUT_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "" FORCE)
   SET(OSG_GLUT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "" FORCE)
 
 ELSE(OSGFreeGlutSrcDir)

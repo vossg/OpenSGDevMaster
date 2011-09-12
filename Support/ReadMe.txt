@@ -11,8 +11,11 @@ How to build and work with the support packages:
 
   Otherwise download:
 
-http://nchc.dl.sourceforge.net/sourceforge/boost/boost_1_37_0.tar.gz
-http://nchc.dl.sourceforge.net/sourceforge/boost/boost-jam-3.1.17-1-ntx86.zip
+http://sourceforge.net/projects/boost/files/boost/1.44.0/boost_1_44_0.zip/download
+#http://nchc.dl.sourceforge.net/sourceforge/boost/boost_1_37_0.tar.gz
+
+http://sourceforge.net/projects/boost/files/boost-jam/3.1.18/boost-jam-3.1.18-1-ntx86.zip/download
+#http://nchc.dl.sourceforge.net/sourceforge/boost/boost-jam-3.1.17-1-ntx86.zip
 
 build 
 
@@ -75,9 +78,14 @@ configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -n
 
  1b) Rest
 
-http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib-1.2.5.tar.gz/download
-http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/libpng-1.5.4.tar.gz/download
-http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
+http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib125.zip/download
+#http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib-1.2.5.tar.gz/download
+
+http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/lpng154.zip/download
+#http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/libpng-1.5.4.tar.gz/download
+
+http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsr6.zip/download
+#http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
  http://sourceforge.net/projects/freeglut/files/freeglut/freeglut-2.6.0.tar.gz/download
@@ -88,7 +96,8 @@ ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
 http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download
 ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.tar.gz/download
+http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.zip/download
+#http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.tar.gz/download
 
 http://download.savannah.nongnu.org/releases/openexr/openexr-1.7.0.tar.gz
 http://download.savannah.nongnu.org/releases/openexr/ilmbase-1.0.2.tar.gz
