@@ -5,7 +5,11 @@ IF(OSGOpenNurbsSrcDir)
   PROJECT(OSGOpenNurbs)
 
   SET(${PROJECT_NAME}SharedTarget osgopennurbs)
-  SET(${PROJECT_NAME}StaticTarget osgopennurbslib)
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget libosgopennurbs)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget osgopennurbslib)
+  ENDIF(WIN32)
 
   SET(OSG_OPENNURBS_SRCS ${OSGOpenNurbsSrcDir}/opennurbs_3dm_attributes.cpp  
                          ${OSGOpenNurbsSrcDir}/opennurbs_3dm_properties.cpp  
@@ -241,6 +245,10 @@ IF(OSGOpenNurbsSrcDir)
 
   SET(OSGOPENNURBS_DEF  _GNU_SOURCE;MY_ZCALLOC;Z_PREFIX)
 
+  IF(WIN32)
+    SET(OSGOPENNURBS_DEF  ${OSGOPENNURBS_DEF};UNICODE;_UNICODE)
+  ENDIF(WIN32)
+
 #  EXECUTE_PROCESS(
 #    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
 #                     "${OSGTiffLibSrcDir}/libtiff/tif_config.h.vc"
@@ -267,10 +275,14 @@ IF(OSGOpenNurbsSrcDir)
     IF(WIN32)
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES
                             DEBUG_POSTFIX "D")
+
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} ${OPENGL_gl_LIBRARY}
+                                                           ${OPENGL_glu_LIBRARY}
+                                                           Rpcrt4)
     ENDIF(WIN32)
 
     IF(WIN32)
-      SET(OSGOPENNURBS_DEF_SHARED ${OSGOPENNURBS_DEF};ON_DLL_EXPORTS)
+      SET(OSGOPENNURBS_DEF_SHARED ${OSGOPENNURBS_DEF};ON_DLL_EXPORTS;ON_COMPILING_OPENNURBS)
     ELSE(WIN32)
       SET(OSGOPENNURBS_DEF_SHARED ${OSGOPENNURBS_DEF})
     ENDIF(WIN32)

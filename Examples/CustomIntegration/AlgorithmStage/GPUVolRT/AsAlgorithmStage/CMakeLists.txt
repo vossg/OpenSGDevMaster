@@ -47,6 +47,6 @@ ELSE(OSG_BUILD_ACTIVE)
   ## important, must be done here, inside collect it does not work
   SET(OSG_BUILD_ACTIVE TRUE)
 
-  OSG_COLLECT_LIBS()
+  OSG_COLLECT_LIBS(FALSE)
 
 ENDIF(OSG_BUILD_ACTIVE)

@@ -39,6 +39,7 @@
 ////////////////////////////////////////////////////////////////
 */
 
+#include <OSGTime.h>
 #include "OSGrhino2osb.h"
 #include <opennurbs/opennurbs.h>
 #include <OSGSurface.h>
