@@ -137,19 +137,27 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     virtual void           subHandleGeo(Node * n);
     void                   reverseTransform();
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Helpers                                */
+    /*! \{                                                                 */
+
     virtual void    doMovement(      Transform   *t,
                                const Int32        coord,
                                const Real32       value,
                                const Vec3f        &translation,
                                const Quaternion   &rotation,
                                const Vec3f        &scaleFactor,
-                               const Quaternion   &scaleOrientation) = 0;
+                               const Quaternion   &scaleOrientation);
 
     Pnt2f calcScreenProjection(const Pnt3f    &,
                                      Viewport * const port);
 
+    const Vec3f& getActiveAxis(void) const;
+
     NodeRefPtr              _activeParent;
     ExternalUpdateHandler*  _externalUpdateHandler;
+
+    /*! \}                                                                 */
 
     /*==========================  PRIVATE  ================================*/
   private:

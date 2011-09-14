@@ -519,3 +519,45 @@ void Manipulator::mouseButtonRelease(const UInt16 button,
 {
     setActive(false);
 }
+
+void Manipulator::doMovement(          Transform    *t,
+                                 const Int32         coord,
+                                 const Real32        value,
+                                 const Vec3f        &translation,
+                                 const Quaternion   &rotation,
+                                 const Vec3f        &scaleFactor,
+                                 const Quaternion   &scaleOrientation)
+{
+    SWARNING << "MoveManipulator::doMovement: called. Shouldn't happen!" << endLog;
+}
+
+const Vec3f& Manipulator::getActiveAxis(void) const
+{
+    static const Vec3f coordVector[] = {
+        Vec3f(1.0f, 0.0f, 0.0f),
+        Vec3f(0.0f, 1.0f, 0.0f),
+        Vec3f(0.0f, 0.0f, 1.0f),
+        Vec3f(-1.0f, -1.0f, -1.0f)
+    };
+
+    UInt16 coord;
+    //  check for the active handle
+    if(     getActiveSubHandle() == getHandleXNode())
+    {
+        coord = 0;
+    }
+    else if(getActiveSubHandle() == getHandleYNode())
+    {
+        coord = 1;
+    }
+    else if(getActiveSubHandle() == getHandleZNode())
+    {
+        coord = 2;
+    }
+    else
+    {
+        coord = 3;
+    }
+
+    return coordVector[coord];
+}

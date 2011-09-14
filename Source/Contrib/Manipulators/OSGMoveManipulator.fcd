@@ -11,5 +11,32 @@
 	decoratable="false"
 	useLocalIncludes="true"
 >
+	<Field
+		name="axisBase"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Axis being manipulated on, in world space.
+	</Field>
+	<Field
+		name="axisDirection"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Axis being manipulated on, in world space.
+	</Field>
+	<Field
+		name="baseTranslation"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Translation value at the beginning of manipulation.
+	</Field>
 The MoveHandle is used for moving objects. It consist of three axis which can be picked and translated and one center box to translate freely in 3D.
 </FieldContainer>

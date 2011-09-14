@@ -139,6 +139,24 @@ void Line::setValue(const Pnt3f &pos, const Vec3f &dir)
     _dir.normalize();
 }
 
+/*! Transform the line by the given matrix
+ */
+void Line::transform(const Matrix4f &mat)
+{ 
+    Pnt3f pos;
+    Vec3f dir;
+
+    mat.multFull(getPosition (), pos);
+    mat.mult    (getDirection(), dir);
+    
+    Real32 length = dir.length();
+
+    if(length < TypeTraits<Real32>::getDefaultEps())
+        SWARNING << "Line::transform: Near-zero scale!" << std::endl;
+
+    setValue(pos, dir);
+}
+
 /*! Find closest points between the two lines. Return false if they are
     parallel, otherwise return true.
  */
@@ -146,6 +164,27 @@ void Line::setValue(const Pnt3f &pos, const Vec3f &dir)
 bool Line::getClosestPoints(const Line  &line2    ,
                                   Pnt3f &ptOnThis ,
                                   Pnt3f &ptOnLine2) const
+{
+    Real32 s,t;
+    
+    if (!getClosestPoints(line2, s, t))
+    {
+        return false;
+    }
+    
+    ptOnThis  =       _pos + s *       _dir;
+    ptOnLine2 = line2._pos + t * line2._dir;
+
+    return true;
+}
+
+/*! Find t values for closest points between the two lines. Return false if they are
+    parallel, otherwise return true.
+ */
+
+bool Line::getClosestPoints(const Line  &line2    ,
+                                  Real32 &tOnThis ,
+                                  Real32 &tOnLine2) const
 {
     // Assumes that _dir and line2._dir are valid and normalized
 
@@ -157,11 +196,9 @@ bool Line::getClosestPoints(const Line  &line2    ,
     Vec3f p0p1 = line2._pos - _pos;
 
     Real32 lengthSqr = normal.squareLength();
-    Real32 s         = p0p1.cross(line2._dir).dot(normal) / lengthSqr;
-    Real32 t         = p0p1.cross(      _dir).dot(normal) / lengthSqr;
-
-    ptOnThis  =       _pos + s *       _dir;
-    ptOnLine2 = line2._pos + t * line2._dir;
+    
+    tOnThis   = p0p1.cross(line2._dir).dot(normal) / lengthSqr;
+    tOnLine2  = p0p1.cross(      _dir).dot(normal) / lengthSqr;
 
     return true;
 }

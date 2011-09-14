@@ -42,6 +42,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
 #include "OSGVector.h"
+#include "OSGMatrix.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -98,14 +99,24 @@ class OSG_BASE_DLLMAPPING Line
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                 Transform                                    */
+    /*! \{                                                                 */
+
+    void transform(const Matrix4f &mat);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Class Specific                            */
     /*! \{                                                                 */
 
-    bool   getClosestPoints(const Line  &line2,
-                                  Pnt3f &ptOnThis, 
-                                  Pnt3f &ptOnLine2) const;
-    Pnt3f  getClosestPoint (const Pnt3f &point    ) const;
-    Real32 distance        (const Pnt3f &point    ) const;
+    bool   getClosestPoints(const Line   &line2,
+                                  Pnt3f  &ptOnThis, 
+                                  Pnt3f  &ptOnLine2) const;
+    bool   getClosestPoints(const Line   &line2,
+                                  Real32 &tOnThis, 
+                                  Real32 &tOnLine2 ) const;
+    Pnt3f  getClosestPoint (const Pnt3f  &point    ) const;
+    Real32 distance        (const Pnt3f  &point    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

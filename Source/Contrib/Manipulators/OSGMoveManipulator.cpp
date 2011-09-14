@@ -141,27 +141,157 @@ NodeTransitPtr MoveManipulator::makeHandleGeo()
     return makeCone(0.75f, 0.1f, 12, true, true);
 }
 
-void MoveManipulator::doMovement(      Transform    *t,
-                                 const Int32         coord,
-                                 const Real32        value,
-                                 const Vec3f        &translation,
-                                 const Quaternion   &rotation,
-                                 const Vec3f        &scaleFactor,
-                                 const Quaternion   &scaleOrientation)
+/*! The mouseMove is called by the viewer when the mouse is moved in the
+    viewer and this handle is the active one.
+
+    \param x the x-pos of the mouse (pixel)
+    \param y the y-pos of the mouse (pixel)
+ */
+void MoveManipulator::mouseMove(const Int16 x,
+                            const Int16 y)
 {
-    Vec3f trans(0.0f, 0.0f, 0.0f);
-    trans[coord] = value;
+    //SLOG << "==============================" << endLog;
+    //SLOG << "Manipulator::mouseMove() enter x=" << x << " y=" << y << endLog;
 
-    Matrix ma, mb, mc, md, me;
+    // get the beacon's core (must be ComponentTransform) and it's center
+    if( getTarget() != NULL )
+    {
+        // get transformation of beacon
+        Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
 
-    ma.setTranslate( -translation        );
-    mb.setRotate   (  rotation.inverse() );
-    mc.setTransform(  trans              );
-    md.setRotate   (  rotation           );
-    me.setTranslate(  translation        );
-    t->editMatrix().multLeft(ma);
-    t->editMatrix().multLeft(mb);
-    t->editMatrix().multLeft(mc);
-    t->editMatrix().multLeft(md);
-    t->editMatrix().multLeft(me);
+        if( t != NULL )
+        {
+            Vec3f      translation;       // for matrix decomposition
+            Quaternion rotation;
+            Vec3f      scaleFactor;
+            Quaternion scaleOrientation;
+
+            t->getMatrix().getTransform(translation, rotation, scaleFactor,
+                                        scaleOrientation);
+
+            OSG::Line viewray;
+            getViewport()->getCamera()->calcViewRay(viewray, x, y, *getViewport());
+            
+            //SLOG << "Manipulator::mouseMove(): viewray: " << viewray << endLog;
+
+            Line axis(getAxisBase(), getAxisDirection()); // HACK: Should add a Line Fieldtype
+
+            //SLOG << "Manipulator::mouseMove(): axis: " << axis << endLog;
+
+            Real32 axist, viewrayt;
+            
+            axis.getClosestPoints(viewray, axist, viewrayt);
+
+            //SLOG << "Manipulator::mouseMove(): axist=" << axist <<endLog;
+
+            Vec3f rot_axis;
+            
+            rotation.multVec(getActiveAxis(), rot_axis);
+            Vec3f trans = getBaseTranslation() + rot_axis * axist;
+            
+            Matrix m;
+            
+            m.setTransform(trans, rotation, scaleFactor, scaleOrientation);
+            
+            t->setMatrix(m);
+        }
+        else
+        {
+            SWARNING << "handled object has no parent transform!\n";
+        }
+        callExternalUpdateHandler();
+    }
+    else
+    {
+        SWARNING << "Handle has no target.\n";
+    }
+
+    setLastMousePos(Pnt2f(Real32(x), Real32(y)));
+    reverseTransform();
+
+    //SLOG << "Manipulator::mouseMove() leave\n" << std::flush;
+}
+
+/*! The mouseButtonPress is called by the viewer when the mouse is
+    pressed in the viewer above a subhandle of this handle.
+
+    \param button the button pressed
+    \param x the x-pos of the mouse (pixel)
+    \param y the y-pos of the mouse (pixel)
+ */
+
+void MoveManipulator::mouseButtonPress(const UInt16 button,
+                                   const Int16  x,
+                                   const Int16  y     )
+{
+    Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
+    
+    if (t == NULL)
+    {
+        SWARNING << "Manipulator::mouseButtonPress() target is not a Transform!" << endLog;
+        return;
+    }
+
+    //SLOG << "Manipulator::mouseButtonPress() button=" << button << " x=" << x << " y=" << y  << std::endl << endLog;
+
+    OSG::Line viewray;
+    getViewport()->getCamera()->calcViewRay(viewray, x, y, *getViewport());
+
+    OSG::Node *scene = getTarget();
+    while (scene->getParent() != 0)
+    {
+        scene = scene->getParent();
+    }
+
+    OSG::IntersectAction *act = OSG::IntersectAction::create();
+    act->setLine( viewray );
+    act->apply( scene );
+
+    //SLOG << "Manipulator::mouseButtonPress() viewray=" << viewray << " scene=" << scene << endLog;
+ 
+    if ( act->didHit() )
+    {
+        //SLOG << "Manipulator::mouseButtonPress() hit! at " << act->getHitPoint() << endLog;
+
+        // Get manipulator axis into world space
+        OSG::Matrix m = getTarget()->getToWorld();
+
+        Pnt3f origin(0,0,0), base, dummy;
+        Vec3f dir;
+
+        m.mult(origin, base);
+        m.mult(getActiveAxis(), dir);
+
+        Line axis(base, dir);
+
+        Pnt3f apoint;
+        axis.getClosestPoints(viewray, apoint, dummy);
+
+        //SLOG << "Manipulator::mouseButtonPress() apoint " << apoint << endLog;
+   
+        setAxisBase(apoint);
+        setAxisDirection(dir);
+
+        Vec3f      translation;       // for matrix decomposition
+        Quaternion rotation;
+        Vec3f      scaleFactor;
+        Quaternion scaleOrientation;
+
+        t->getMatrix().getTransform(translation, rotation, scaleFactor,
+                                    scaleOrientation);
+
+        setBaseTranslation(translation);
+        
+        setActive(true);
+    }
+
+    delete act;
+}
+
+void MoveManipulator::mouseButtonRelease(const UInt16 button,
+                                     const Int16  x,
+                                     const Int16  y     )
+{
+    //SLOG << "Manipulator::mouseButtonRelease() button=" << button << " x=" << x << " y=" << y  << std::endl << endLog;
+    setActive(false);
 }
