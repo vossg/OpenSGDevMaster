@@ -73,6 +73,81 @@ OSG::UInt16 MoveManipulatorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the MoveManipulator::_sfAxisBase field.
+
+inline
+Pnt3f &MoveManipulatorBase::editAxisBase(void)
+{
+    editSField(AxisBaseFieldMask);
+
+    return _sfAxisBase.getValue();
+}
+
+//! Get the value of the MoveManipulator::_sfAxisBase field.
+inline
+const Pnt3f &MoveManipulatorBase::getAxisBase(void) const
+{
+    return _sfAxisBase.getValue();
+}
+
+//! Set the value of the MoveManipulator::_sfAxisBase field.
+inline
+void MoveManipulatorBase::setAxisBase(const Pnt3f &value)
+{
+    editSField(AxisBaseFieldMask);
+
+    _sfAxisBase.setValue(value);
+}
+//! Get the value of the MoveManipulator::_sfAxisDirection field.
+
+inline
+Vec3f &MoveManipulatorBase::editAxisDirection(void)
+{
+    editSField(AxisDirectionFieldMask);
+
+    return _sfAxisDirection.getValue();
+}
+
+//! Get the value of the MoveManipulator::_sfAxisDirection field.
+inline
+const Vec3f &MoveManipulatorBase::getAxisDirection(void) const
+{
+    return _sfAxisDirection.getValue();
+}
+
+//! Set the value of the MoveManipulator::_sfAxisDirection field.
+inline
+void MoveManipulatorBase::setAxisDirection(const Vec3f &value)
+{
+    editSField(AxisDirectionFieldMask);
+
+    _sfAxisDirection.setValue(value);
+}
+//! Get the value of the MoveManipulator::_sfBaseTranslation field.
+
+inline
+Vec3f &MoveManipulatorBase::editBaseTranslation(void)
+{
+    editSField(BaseTranslationFieldMask);
+
+    return _sfBaseTranslation.getValue();
+}
+
+//! Get the value of the MoveManipulator::_sfBaseTranslation field.
+inline
+const Vec3f &MoveManipulatorBase::getBaseTranslation(void) const
+{
+    return _sfBaseTranslation.getValue();
+}
+
+//! Set the value of the MoveManipulator::_sfBaseTranslation field.
+inline
+void MoveManipulatorBase::setBaseTranslation(const Vec3f &value)
+{
+    editSField(BaseTranslationFieldMask);
+
+    _sfBaseTranslation.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -84,6 +159,15 @@ void MoveManipulatorBase::execSync (      MoveManipulatorBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AxisBaseFieldMask & whichField))
+        _sfAxisBase.syncWith(pFrom->_sfAxisBase);
+
+    if(FieldBits::NoField != (AxisDirectionFieldMask & whichField))
+        _sfAxisDirection.syncWith(pFrom->_sfAxisDirection);
+
+    if(FieldBits::NoField != (BaseTranslationFieldMask & whichField))
+        _sfBaseTranslation.syncWith(pFrom->_sfBaseTranslation);
 }
 #endif
 

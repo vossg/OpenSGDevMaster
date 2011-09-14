@@ -65,6 +65,7 @@
 
 #include "OSGManipulator.h" // Parent
 
+#include "OSGVecFields.h"               // AxisBase type
 
 #include "OSGMoveManipulatorFields.h"
 
@@ -90,6 +91,26 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
 
   public:
 
+    enum
+    {
+        AxisBaseFieldId = Inherited::NextFieldId,
+        AxisDirectionFieldId = AxisBaseFieldId + 1,
+        BaseTranslationFieldId = AxisDirectionFieldId + 1,
+        NextFieldId = BaseTranslationFieldId + 1
+    };
+
+    static const OSG::BitVector AxisBaseFieldMask =
+        (TypeTraits<BitVector>::One << AxisBaseFieldId);
+    static const OSG::BitVector AxisDirectionFieldMask =
+        (TypeTraits<BitVector>::One << AxisDirectionFieldId);
+    static const OSG::BitVector BaseTranslationFieldMask =
+        (TypeTraits<BitVector>::One << BaseTranslationFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFPnt3f           SFAxisBaseType;
+    typedef SFVec3f           SFAxisDirectionType;
+    typedef SFVec3f           SFBaseTranslationType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -159,6 +180,15 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFPnt3f           _sfAxisBase;
+    SFVec3f           _sfAxisDirection;
+    SFVec3f           _sfBaseTranslation;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -183,6 +213,51 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleAxisBase        (void) const;
+    EditFieldHandlePtr editHandleAxisBase       (void);
+    GetFieldHandlePtr  getHandleAxisDirection   (void) const;
+    EditFieldHandlePtr editHandleAxisDirection  (void);
+    GetFieldHandlePtr  getHandleBaseTranslation (void) const;
+    EditFieldHandlePtr editHandleBaseTranslation(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFPnt3f             *editSFAxisBase       (void);
+            const SFPnt3f             *getSFAxisBase        (void) const;
+
+                  SFVec3f             *editSFAxisDirection  (void);
+            const SFVec3f             *getSFAxisDirection   (void) const;
+
+                  SFVec3f             *editSFBaseTranslation(void);
+            const SFVec3f             *getSFBaseTranslation (void) const;
+
+
+                  Pnt3f               &editAxisBase       (void);
+            const Pnt3f               &getAxisBase        (void) const;
+
+                  Vec3f               &editAxisDirection  (void);
+            const Vec3f               &getAxisDirection   (void) const;
+
+                  Vec3f               &editBaseTranslation(void);
+            const Vec3f               &getBaseTranslation (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setAxisBase       (const Pnt3f &value);
+            void setAxisDirection  (const Vec3f &value);
+            void setBaseTranslation(const Vec3f &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

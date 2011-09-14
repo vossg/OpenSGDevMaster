@@ -81,6 +81,18 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var Pnt3f           MoveManipulatorBase::_sfAxisBase
+    Axis being manipulated on, in world space.
+*/
+
+/*! \var Vec3f           MoveManipulatorBase::_sfAxisDirection
+    Axis being manipulated on, in world space.
+*/
+
+/*! \var Vec3f           MoveManipulatorBase::_sfBaseTranslation
+    Translation value at the beginning of manipulation.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -98,6 +110,44 @@ OSG_FIELDTRAITS_GETTYPE(MoveManipulator *)
 
 void MoveManipulatorBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFPnt3f::Description(
+        SFPnt3f::getClassType(),
+        "axisBase",
+        "Axis being manipulated on, in world space.\n",
+        AxisBaseFieldId, AxisBaseFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MoveManipulator::editHandleAxisBase),
+        static_cast<FieldGetMethodSig >(&MoveManipulator::getHandleAxisBase));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec3f::Description(
+        SFVec3f::getClassType(),
+        "axisDirection",
+        "Axis being manipulated on, in world space.\n",
+        AxisDirectionFieldId, AxisDirectionFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MoveManipulator::editHandleAxisDirection),
+        static_cast<FieldGetMethodSig >(&MoveManipulator::getHandleAxisDirection));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec3f::Description(
+        SFVec3f::getClassType(),
+        "baseTranslation",
+        "Translation value at the beginning of manipulation.\n",
+        BaseTranslationFieldId, BaseTranslationFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MoveManipulator::editHandleBaseTranslation),
+        static_cast<FieldGetMethodSig >(&MoveManipulator::getHandleBaseTranslation));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -125,6 +175,33 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"true\"\n"
     ">\n"
+    "\t<Field\n"
+    "\t\tname=\"axisBase\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tAxis being manipulated on, in world space.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"axisDirection\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tAxis being manipulated on, in world space.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"baseTranslation\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tTranslation value at the beginning of manipulation.\n"
+    "\t</Field>\n"
     "The MoveHandle is used for moving objects. It consist of three axis which can be picked and translated and one center box to translate freely in 3D.\n"
     "</FieldContainer>\n",
     "The MoveHandle is used for moving objects. It consist of three axis which can be picked and translated and one center box to translate freely in 3D.\n"
@@ -150,6 +227,45 @@ UInt32 MoveManipulatorBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFPnt3f *MoveManipulatorBase::editSFAxisBase(void)
+{
+    editSField(AxisBaseFieldMask);
+
+    return &_sfAxisBase;
+}
+
+const SFPnt3f *MoveManipulatorBase::getSFAxisBase(void) const
+{
+    return &_sfAxisBase;
+}
+
+
+SFVec3f *MoveManipulatorBase::editSFAxisDirection(void)
+{
+    editSField(AxisDirectionFieldMask);
+
+    return &_sfAxisDirection;
+}
+
+const SFVec3f *MoveManipulatorBase::getSFAxisDirection(void) const
+{
+    return &_sfAxisDirection;
+}
+
+
+SFVec3f *MoveManipulatorBase::editSFBaseTranslation(void)
+{
+    editSField(BaseTranslationFieldMask);
+
+    return &_sfBaseTranslation;
+}
+
+const SFVec3f *MoveManipulatorBase::getSFBaseTranslation(void) const
+{
+    return &_sfBaseTranslation;
+}
+
+
 
 
 
@@ -160,6 +276,18 @@ UInt32 MoveManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (AxisBaseFieldMask & whichField))
+    {
+        returnValue += _sfAxisBase.getBinSize();
+    }
+    if(FieldBits::NoField != (AxisDirectionFieldMask & whichField))
+    {
+        returnValue += _sfAxisDirection.getBinSize();
+    }
+    if(FieldBits::NoField != (BaseTranslationFieldMask & whichField))
+    {
+        returnValue += _sfBaseTranslation.getBinSize();
+    }
 
     return returnValue;
 }
@@ -169,6 +297,18 @@ void MoveManipulatorBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (AxisBaseFieldMask & whichField))
+    {
+        _sfAxisBase.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (AxisDirectionFieldMask & whichField))
+    {
+        _sfAxisDirection.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (BaseTranslationFieldMask & whichField))
+    {
+        _sfBaseTranslation.copyToBin(pMem);
+    }
 }
 
 void MoveManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
@@ -176,6 +316,21 @@ void MoveManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (AxisBaseFieldMask & whichField))
+    {
+        editSField(AxisBaseFieldMask);
+        _sfAxisBase.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AxisDirectionFieldMask & whichField))
+    {
+        editSField(AxisDirectionFieldMask);
+        _sfAxisDirection.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BaseTranslationFieldMask & whichField))
+    {
+        editSField(BaseTranslationFieldMask);
+        _sfBaseTranslation.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
@@ -300,12 +455,18 @@ FieldContainerTransitPtr MoveManipulatorBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 MoveManipulatorBase::MoveManipulatorBase(void) :
-    Inherited()
+    Inherited(),
+    _sfAxisBase               (),
+    _sfAxisDirection          (),
+    _sfBaseTranslation        ()
 {
 }
 
 MoveManipulatorBase::MoveManipulatorBase(const MoveManipulatorBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfAxisBase               (source._sfAxisBase               ),
+    _sfAxisDirection          (source._sfAxisDirection          ),
+    _sfBaseTranslation        (source._sfBaseTranslation        )
 {
 }
 
@@ -316,6 +477,81 @@ MoveManipulatorBase::~MoveManipulatorBase(void)
 {
 }
 
+
+GetFieldHandlePtr MoveManipulatorBase::getHandleAxisBase        (void) const
+{
+    SFPnt3f::GetHandlePtr returnValue(
+        new  SFPnt3f::GetHandle(
+             &_sfAxisBase,
+             this->getType().getFieldDesc(AxisBaseFieldId),
+             const_cast<MoveManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MoveManipulatorBase::editHandleAxisBase       (void)
+{
+    SFPnt3f::EditHandlePtr returnValue(
+        new  SFPnt3f::EditHandle(
+             &_sfAxisBase,
+             this->getType().getFieldDesc(AxisBaseFieldId),
+             this));
+
+
+    editSField(AxisBaseFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MoveManipulatorBase::getHandleAxisDirection   (void) const
+{
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
+             &_sfAxisDirection,
+             this->getType().getFieldDesc(AxisDirectionFieldId),
+             const_cast<MoveManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MoveManipulatorBase::editHandleAxisDirection  (void)
+{
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
+             &_sfAxisDirection,
+             this->getType().getFieldDesc(AxisDirectionFieldId),
+             this));
+
+
+    editSField(AxisDirectionFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MoveManipulatorBase::getHandleBaseTranslation (void) const
+{
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
+             &_sfBaseTranslation,
+             this->getType().getFieldDesc(BaseTranslationFieldId),
+             const_cast<MoveManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MoveManipulatorBase::editHandleBaseTranslation(void)
+{
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
+             &_sfBaseTranslation,
+             this->getType().getFieldDesc(BaseTranslationFieldId),
+             this));
+
+
+    editSField(BaseTranslationFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
