@@ -156,7 +156,7 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
 
             return;
         }
-        else if(oTime > stopT)
+        else if(oTime >= stopT)
         {
             // AFTER stopT
 
@@ -252,10 +252,17 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
         newAnimT -= getTimeScale() * deltaT;
     }
 
-    newAnimT = osgMod<Real64>(newAnimT, length);
+    if(getLoop() == true)
+    {
+        newAnimT = osgMod<Real64>(newAnimT, length);
 
-    while(newAnimT < 0.f)
-        newAnimT += length;
+        while(newAnimT < 0.f)
+            newAnimT += length;
+    }
+    else
+    {
+        newAnimT = osgClamp<Real32>(0.f, newAnimT, length);
+    }
 
     setAnimTime(newAnimT);
     setFraction(newAnimT / length);

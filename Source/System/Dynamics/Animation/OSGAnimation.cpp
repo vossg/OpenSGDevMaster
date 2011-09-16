@@ -231,8 +231,9 @@ void Animation::timeSensorChanged(FieldContainer *fc,
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
             
-//         SLOG << "Animation::timeSensorChanged: " << ts->getAnimTime()
-//              << std::endl;
+        // SLOG << "Animation::timeSensorChanged: " << ts->getAnimTime()
+        //      << " - " << ts->getFraction()
+        //      << std::endl;
 
         for(; cIt != cEnd; ++cIt)
         {
