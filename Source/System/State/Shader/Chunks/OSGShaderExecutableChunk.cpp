@@ -304,7 +304,7 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                 osgGlTransformFeedbackVaryings(uiProgram, 
                                                vTFVaryings.size(), 
                                                &(vTFVaryings.front()),
-                                               GL_INTERLEAVED_ATTRIBS_EXT); 
+                                               GL_INTERLEAVED_ATTRIBS); 
             }
 
             // attribute binding must be done before linking
