@@ -215,6 +215,22 @@ void ShaderProgramBase::setPointSize(const bool value)
     _sfPointSize.setValue(value);
 }
 
+//! Get the value of the \a index element the ShaderProgram::_mfFeedbackVaryings field.
+inline
+const std::string &ShaderProgramBase::getFeedbackVaryings(const UInt32 index) const
+{
+    return _mfFeedbackVaryings[index];
+}
+
+inline
+std::string &ShaderProgramBase::editFeedbackVaryings(const UInt32 index)
+{
+    editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);
+
+    return _mfFeedbackVaryings[index];
+}
+
+
 //! Get the value of the \a index element the ShaderProgram::_mfParameter field.
 inline
 const ShaderParameter &ShaderProgramBase::getParameter(const UInt32 index) const
@@ -269,6 +285,12 @@ void ShaderProgramBase::execSync (      ShaderProgramBase *pFrom,
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
         _sfVariables.syncWith(pFrom->_sfVariables);
+
+    if(FieldBits::NoField != (FeedbackVaryingsFieldMask & whichField))
+        _mfFeedbackVaryings.syncWith(pFrom->_mfFeedbackVaryings,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
         _mfParameter.syncWith(pFrom->_mfParameter,

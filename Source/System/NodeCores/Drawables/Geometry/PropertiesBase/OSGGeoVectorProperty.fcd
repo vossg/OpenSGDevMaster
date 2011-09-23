@@ -3,7 +3,7 @@
 <FieldContainer
    name="GeoVectorProperty"
    parent="GeoProperty"
-   library="Drawable"
+   library="System"
    pointerfieldtypes="both"
    structure="abstract"
    systemcomponent="true"

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGSystemDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class GeoVectorBufferRefProperty;
 
 //! \brief GeoVectorBufferRefProperty Base Class.
 
-class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferRefPropertyBase : public GeoVectorBufferProperty
+class OSG_SYSTEM_DLLMAPPING GeoVectorBufferRefPropertyBase : public GeoVectorBufferProperty
 {
   public:
 

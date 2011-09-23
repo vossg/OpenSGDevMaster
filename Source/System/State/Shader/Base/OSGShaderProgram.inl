@@ -405,6 +405,42 @@ UInt32 ShaderProgram::getFuncIdBindAttribLocation(void)
     return FuncIdBindAttribLocation;
 }
 
+inline 
+UInt32 ShaderProgram::getFuncIdBindBufferBase(void)
+{
+    return FuncIdBindBufferBase;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdTransformFeedbackVaryings(void)
+{
+    return FuncIdTransformFeedbackVaryings;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdBeginTransformFeedback(void)
+{
+    return FuncIdBeginTransformFeedback;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdEndTransformFeedback(void)
+{
+    return FuncIdEndTransformFeedback;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdPauseTransformFeedback(void)
+{
+    return FuncIdPauseTransformFeedback;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdResumeTransformFeedback(void)
+{
+    return FuncIdResumeTransformFeedback;
+}
+
 inline
 UInt16 ShaderProgram::getProgramId(void)
 {

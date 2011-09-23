@@ -61,59 +61,73 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-UInt32 ShaderProgram::_extSHL                  = Window::invalidExtensionID;
-UInt32 ShaderProgram::_extCG                   = Window::invalidExtensionID;
-UInt32 ShaderProgram::_extGeoShader4           = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extSHL                = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extCG                 = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extGeoShader4         = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extTransformFeedback2 = Window::invalidExtensionID;
 
-UInt32 ShaderProgram::FuncIdCreateShader       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdDeleteShader       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdShaderSource       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdCompileShader      = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdAttachShader       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdGetShaderiv        = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdGetShaderInfoLog   = Window::invalidFunctionID;
-
-
-UInt32 ShaderProgram::FuncIdCreateProgram      = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdDeleteProgram      = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdLinkProgram        = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdGetProgramiv       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdGetProgramInfoLog  = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUseProgram         = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdCreateShader            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdDeleteShader            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdShaderSource            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdCompileShader           = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdAttachShader            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetShaderiv             = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetShaderInfoLog        = Window::invalidFunctionID;
 
 
-UInt32 ShaderProgram::FuncIdGetUniformLocation = Window::invalidFunctionID;
-
-UInt32 ShaderProgram::FuncIdUniform1i          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform2i          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform3i          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform4i          = Window::invalidFunctionID;
-
-UInt32 ShaderProgram::FuncIdUniform1f          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform2f          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform3f          = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform4f          = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdCreateProgram           = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdDeleteProgram           = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdLinkProgram             = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetProgramiv            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetProgramInfoLog       = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUseProgram              = Window::invalidFunctionID;
 
 
-UInt32 ShaderProgram::FuncIdUniform1iv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform2iv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform3iv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform4iv         = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetUniformLocation      = Window::invalidFunctionID;
 
-UInt32 ShaderProgram::FuncIdUniform1fv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform2fv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform3fv         = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniform4fv         = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform1i               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform2i               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform3i               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform4i               = Window::invalidFunctionID;
 
-UInt32 ShaderProgram::FuncIdUniformMatrix2fv   = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniformMatrix3fv   = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdUniformMatrix4fv   = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform1f               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform2f               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform3f               = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform4f               = Window::invalidFunctionID;
 
-UInt32 ShaderProgram::FuncIdGetUniformiv       = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdGetUniformfv       = Window::invalidFunctionID;
 
-UInt32 ShaderProgram::FuncIdProgramParameteri  = Window::invalidFunctionID;
-UInt32 ShaderProgram::FuncIdBindAttribLocation = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform1iv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform2iv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform3iv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform4iv              = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdUniform1fv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform2fv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform3fv              = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniform4fv              = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdUniformMatrix2fv        = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniformMatrix3fv        = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniformMatrix4fv        = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdGetUniformiv            = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdGetUniformfv            = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdProgramParameteri       = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdBindAttribLocation      = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdBindBufferBase          = Window::invalidFunctionID;
+
+UInt32 
+  ShaderProgram::FuncIdTransformFeedbackVaryings    = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdBeginTransformFeedback  = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdEndTransformFeedback    = Window::invalidFunctionID;
+
+UInt32 ShaderProgram::FuncIdPauseTransformFeedback  = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdResumeTransformFeedback = Window::invalidFunctionID;
+
+const Char8 *ShaderProgram::NextBufferToken = "gl_NextBuffer";
 
 ShaderProgram::ProgramIdPool *ShaderProgram::_pProgIdPool = NULL;
 
@@ -143,6 +157,9 @@ void ShaderProgram::initMethod(InitPhase ePhase)
 
         _extGeoShader4 = 
             Window::registerExtension("GL_EXT_geometry_shader4");
+
+        _extTransformFeedback2 = 
+            Window::registerExtension("GL_EXT_transform_feedback2");
 
 #ifdef OSG_OGL2_SHADERFUNCS
         FuncIdCreateShader =
@@ -401,6 +418,36 @@ void ShaderProgram::initMethod(InitPhase ePhase)
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glBindAttribLocationARB",
                 _extSHL);
+
+        FuncIdBindBufferBase = 
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glBindBufferBase",
+                _extTransformFeedback2);
+
+        FuncIdTransformFeedbackVaryings =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glTransformFeedbackVaryings",
+                _extTransformFeedback2);
+
+        FuncIdBeginTransformFeedback =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glBeginTransformFeedback",
+                _extTransformFeedback2);
+
+        FuncIdEndTransformFeedback =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glEndTransformFeedback",
+                _extTransformFeedback2);
+
+        FuncIdPauseTransformFeedback =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glPauseTransformFeedback",
+                _extTransformFeedback2);
+
+        FuncIdResumeTransformFeedback =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glResumeTransformFeedback",
+                _extTransformFeedback2);
     }
 }
 
@@ -776,6 +823,34 @@ ShaderProgramTransitPtr ShaderProgram::createFragmentShader(void)
     returnValue->setShaderType(GL_FRAGMENT_SHADER);
 
     return returnValue;
+}
+
+void ShaderProgram::accumulateFeedback(
+    DrawEnv                    *pEnv,
+    UInt32                      uiProgram,
+    std::vector<const Char8 *> &vTFVaryings,
+    UInt32                     &uiVaryingBufferIndex)
+{
+    if(((_sfShaderType.getValue() == GL_VERTEX_SHADER)      ||
+        (_sfShaderType.getValue() == GL_GEOMETRY_SHADER_EXT)  ) == false)
+    {
+        return;
+    }
+
+    if(vTFVaryings.size() != 0)
+    {
+        vTFVaryings.push_back(NextBufferToken);
+    }
+
+    MFFeedbackVaryingsType::const_iterator vIt  =
+        this->getMFFeedbackVaryings()->begin();
+    MFFeedbackVaryingsType::const_iterator vEnd =
+        this->getMFFeedbackVaryings()->end  ();
+    
+    for(; vIt != vEnd; ++vIt)
+    {
+        vTFVaryings.push_back((*vIt).c_str());
+    }
 }
 
 void ShaderProgram::addParent(FieldContainer * const pParent,

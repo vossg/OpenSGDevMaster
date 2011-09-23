@@ -13,10 +13,8 @@ IF(OSGNVidiaSDKSrcDir)
 
   IF(WIN32)
     SET(${PROJECT_NAME}StaticTarget    libosgcudacommon)
-    SET(${PROJECT_NAME}EmuStaticTarget libosgcudacommonE)
   ELSE(WIN32)
     SET(${PROJECT_NAME}StaticTarget    osgcudacommon)
-    SET(${PROJECT_NAME}EmuStaticTarget osgcudacommonE)
   ENDIF(WIN32)
 
   SET(OSG_CUDACOMMON_SRC_INPUT param.cpp
@@ -73,42 +71,14 @@ IF(OSGNVidiaSDKSrcDir)
                           COMPILE_DEFINITIONS "${OSGCUDACOMLIB_DEF_STATIC}")
 
 
-    ## emu lib
-
-    ADD_LIBRARY(${${PROJECT_NAME}EmuStaticTarget} STATIC ${OSG_CUDACOMMON_SRCS})
-
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}EmuStaticTarget})
-
-    IF(WIN32)
-      SET_TARGET_PROPERTIES(${${PROJECT_NAME}EmuStaticTarget} PROPERTIES
-                            DEBUG_POSTFIX "D")
-    ENDIF(WIN32)
-
-    SET(OSGCUDACOMEMULIB_DEF_STATIC ${OSGCUDACOMLIB_DEF};__DEVICE_EMULATION__)
-
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}EmuStaticTarget} PROPERTIES
-                          COMPILE_DEFINITIONS "${OSGCUDACOMEMULIB_DEF_STATIC}")
-
-
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                  CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
-
-      INSTALL(TARGETS ${${PROJECT_NAME}EmuStaticTarget}
                   CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
                   RUNTIME DESTINATION bin
                   LIBRARY DESTINATION lib
                   ARCHIVE DESTINATION lib)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
-
-      INSTALL(TARGETS ${${PROJECT_NAME}EmuStaticTarget}
                   RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
                   LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
                   ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})

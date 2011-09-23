@@ -223,7 +223,7 @@ void Window::setGLObjectId(UInt32 osgId, GLObjectId id2)
     }
     else
     {
-        _ids.resize(_glObjects.size());
+        _ids.resize(_glObjects.size(), 0);
 
         if(osgId < _ids.size())
         {
@@ -244,6 +244,40 @@ Window::GLObjectId Window::getGLObjectId(UInt32 osgId)
 {
     if(osgId < _ids.size())
         return _ids[osgId];
+
+    return 0;
+}
+
+inline 
+void Window::setGLObjectInfo(UInt32 osgId, GLObjectId info)
+{
+    if(osgId < _idInfo.size())
+    {
+        _idInfo[osgId] = info;
+    }
+    else
+    {
+        _idInfo.resize(_glObjects.size(), 0);
+
+        if(osgId < _idInfo.size())
+        {
+            _idInfo[osgId] = info;
+        }
+        else
+        {
+            SWARNING << "Window::setGLObjectId: id (" 
+                     << osgId 
+                     << ") is not valid!" 
+                     << std::endl;
+        }
+    }
+}
+
+inline
+Window::GLObjectId Window::getGLObjectInfo(UInt32 osgId)
+{
+    if(osgId < _idInfo.size())
+        return _idInfo[osgId];
 
     return 0;
 }

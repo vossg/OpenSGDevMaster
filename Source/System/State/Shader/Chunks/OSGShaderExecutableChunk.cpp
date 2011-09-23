@@ -255,6 +255,9 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     osgGlAttachShader(uiProgram, uiShader);
             }
     
+            std::vector<const Char8 *> vTFVaryings;
+            UInt32                     uiVaryingBufferIndex = 0;
+
             GeometryShaderIt gIt  = _mfGeometryShader.begin();
             GeometryShaderIt gEnd = _mfGeometryShader.end  ();
             
@@ -266,7 +269,14 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     GLuint(pWin->getGLObjectId((*gIt)->getGLId()));
 
                 if(uiShader != 0)
+                {
                     osgGlAttachShader(uiProgram, uiShader);
+
+                    (*gIt)->accumulateFeedback(pEnv,
+                                               uiProgram, 
+                                               vTFVaryings,
+                                               uiVaryingBufferIndex);
+                }
             }
         
             VertexShaderIt vIt  = _mfVertexShader.begin();
@@ -281,6 +291,20 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
 
                 if(uiShader != 0)
                     osgGlAttachShader(uiProgram, uiShader);
+            }
+
+            if(vTFVaryings.size() != 0)
+            {
+                OSGGETGLFUNCBYID_GL3(
+                    glTransformFeedbackVaryings,
+                    osgGlTransformFeedbackVaryings,
+                    ShaderProgram::getFuncIdTransformFeedbackVaryings(),
+                    pEnv->getWindow()                                  );
+
+                osgGlTransformFeedbackVaryings(uiProgram, 
+                                               vTFVaryings.size(), 
+                                               &(vTFVaryings.front()),
+                                               GL_INTERLEAVED_ATTRIBS_EXT); 
             }
 
             // attribute binding must be done before linking
@@ -539,32 +563,6 @@ void ShaderExecutableChunk::dump(      UInt32    ,
 void ShaderExecutableChunk::activate(DrawEnv    *pEnv,              
                                      UInt32      uiIdx)
 {
-#if 0
-    FragmentShaderIt fIt  = _mfFragmentShader.begin();
-    FragmentShaderIt fEnd = _mfFragmentShader.end  ();
-
-    for(; fIt != fEnd; ++fIt)
-    {
-        (*fIt)->validate(pEnv);
-    }
-
-    GeometryShaderIt gIt  = _mfGeometryShader.begin();
-    GeometryShaderIt gEnd = _mfGeometryShader.end  ();
-
-    for(; gIt != gEnd; ++gIt)
-    {
-        (*gIt)->validate(pEnv);
-    }
-
-    VertexShaderIt vIt  = _mfVertexShader.begin();
-    VertexShaderIt vEnd = _mfVertexShader.end  ();
-
-    for(; vIt != vEnd; ++vIt)
-    {
-        (*vIt)->validate(pEnv);
-    }
-#endif
-      
     Window *pWin    = pEnv->getWindow();
 
     UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
@@ -613,32 +611,6 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
     if(uiProgId != pEnv->getActiveShader())
     {
-#if 0
-        FragmentShaderIt fIt  = _mfFragmentShader.begin();
-        FragmentShaderIt fEnd = _mfFragmentShader.end  ();
-
-        for(; fIt != fEnd; ++fIt)
-        {
-            (*fIt)->validate(pEnv);
-        }
-
-        GeometryShaderIt gIt  = _mfGeometryShader.begin();
-        GeometryShaderIt gEnd = _mfGeometryShader.end  ();
-        
-        for(; gIt != gEnd; ++gIt)
-        {
-            (*gIt)->validate(pEnv);
-        }
-        
-        VertexShaderIt vIt  = _mfVertexShader.begin();
-        VertexShaderIt vEnd = _mfVertexShader.end  ();
-        
-        for(; vIt != vEnd; ++vIt)
-        {
-            (*vIt)->validate(pEnv);
-        }
-#endif
-
         UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
                                                  pEnv, 
                                                  KeepProgActive);
@@ -703,7 +675,19 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
 
     pEnv->subRequiredOGLFeature(HardwareContext::HasAttribAliasing);
 
-    osgGlUseProgram      (0);
+    if(pEnv->_openGLState.isTransformFeedbackActive() == true)
+    {
+        pEnv->_openGLState.setTransformFeedbackInactive();
+
+        OSGGETGLFUNCBYID_GL3(glEndTransformFeedback,
+                             osgGlEndTransformFeedback,
+                             ShaderProgram::getFuncIdEndTransformFeedback(),
+                             pEnv->getWindow());
+
+        osgGlEndTransformFeedback();
+    }
+
+    osgGlUseProgram(0);
 }
 
 void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)

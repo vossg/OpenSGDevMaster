@@ -194,7 +194,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "<FieldContainer\n"
     "    name=\"GeoProperty\"\n"
     "    parent=\"StateChunk\"\n"
-    "    library=\"Drawable\"\n"
+    "    library=\"System\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"

@@ -38,6 +38,11 @@
 //  Includes
 //-------------------------------
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#pragma GCC diagnostic warning "-Wignored-qualifiers"
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 

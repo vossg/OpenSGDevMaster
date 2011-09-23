@@ -345,6 +345,8 @@ initAnimationsEnterFunc(OSG::Node *node)
             }
         }
     }
+
+    return retVal;
 }
 
 void initAnimations(void)

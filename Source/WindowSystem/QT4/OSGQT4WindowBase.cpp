@@ -95,7 +95,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "NativeWindowPtr");
+DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "WindowPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(QT4Window *)
@@ -145,29 +145,30 @@ QT4WindowBase::TypeObject QT4WindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"QT4Window\"\n"
-    "   parent=\"NativeWindow\"\n"
-    "   library=\"WindowQT4\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   structure=\"concrete\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   docGroupBase=\"GrpWindowQt4\"\n"
-    "   >\n"
+    "    name=\"QT4Window\"\n"
+    "    parent=\"NativeWindow\"\n"
+    "    library=\"WindowQT4\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"concrete\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    realparent=\"Window\"\n"
+    "    docGroupBase=\"GrpWindowQt4\"\n"
+    "    >\n"
     "  The class for QT windows.\n"
-    "\n"
+    "  \n"
     "  Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
     "  beast that derives from XWindow on Unix and WIN32Window on Windows, and as\n"
     "  such can't be recreated automatically.\n"
     "  <Field\n"
-    "\t name=\"GlWidget\"\n"
-    "\t type=\"OSGQGLWidgetP\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t defaultValue=\"NULL\"\n"
-    "\t fieldHeader=\"OSGQT4WindowDataFields.h\"\n"
-    "\t access=\"public\"\n"
-    "\t >\n"
+    "      name=\"GlWidget\"\n"
+    "      type=\"OSGQGLWidgetP\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      defaultValue=\"NULL\"\n"
+    "      fieldHeader=\"OSGQT4WindowDataFields.h\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     "The class for QT windows.\n"

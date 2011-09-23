@@ -58,6 +58,15 @@
     </Field>
 
     <Field
+        name="feedbackVaryings"
+        type="std::string"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+    </Field>
+   
+    <Field
         name="parameter"
         type="ShaderParameter"
         cardinality="multi"

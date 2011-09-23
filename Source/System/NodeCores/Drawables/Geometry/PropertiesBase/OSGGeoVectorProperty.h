@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,27 +36,29 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGEOPROPERTY_H_
-#define _OSGGEOPROPERTY_H_
+#ifndef _OSGGEOVECTORPROPERTY_H_
+#define _OSGGEOVECTORPROPERTY_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGGeoPropertyBase.h"
-#include "OSGWindow.h"
+#include "OSGVector.h"
+#include "OSGGeoVectorPropertyBase.h"
+#include "OSGGeoVectorPropertyConversion.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Window;
+class DrawEnv;
 
-/*! \brief GeoProperty class. See \ref
-           PageSystemGeoProperty for a description.
+/*! \brief GeoVectorProperty class. See \ref
+           PageDrawableGeoVectorProperty for a description.
     \ingroup GrpDrawablesGeometryProperties
     \ingroup GrpLibOSGDrawables
     \includebasedoc
  */
 
-class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
+class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
+    public GeoVectorPropertyBase
 {
   private:
 
@@ -64,42 +66,91 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 
   public:
 
-    typedef GeoPropertyBase                             Inherited;
+    typedef GeoVectorPropertyBase                             Inherited;
 
-    static const UInt32 UsageUnspecified      = 0x00000000;
-    
-    static const UInt32 UsageSpaceMask        = 0x0000000F;
-    
-    static const UInt32 UsageObjectSpace      = 0x00000001;  // pos
-    static const UInt32 UsageTangentSpace     = 0x00000002;  // norm, binorm, tang
-    static const UInt32 UsageParameterSpace   = 0x00000004;  // tex coord
-    static const UInt32 UsageColorSpace       = 0x00000008;  // color
-    
-    static const UInt32 UsageSystemSet        = 0x10000000;  // mark as set by OpenSG
-    
-    
-    static const UInt32 VectorTypeScalar      = 0x00000000;
-    static const UInt32 VectorTypePoint       = 0x00000001;
-    static const UInt32 VectorTypeVector      = 0x00000002;
-    static const UInt32 VectorTypeColor       = 0x00000003;
-    
     /*---------------------------------------------------------------------*/
-    /*! \name                 Property Interface                           */
+    /*! \name        Arbitrary Type Interface Methods                      */
     /*! \{                                                                 */
 
-    virtual       UInt32                 getFormat    (void) const = 0;
-    virtual       UInt32                 getFormatSize(void) const = 0;
-    virtual       UInt32                 getVectorType(void) const = 0;
-    virtual       UInt32                 getStride    (void) const = 0;
-    virtual       UInt32                 getDimension (void) const = 0;
-    virtual       UInt32                 getSize      (void) const;
-    virtual       UInt32                 size         (void) const = 0;
-    virtual const UInt8                 *getData      (void) const
-    { return NULL;  }
-    virtual       UInt8                 *editData     (void)
-    { return NULL;  }
-    virtual       GeoPropertyTransitPtr  clone        (void)       = 0;
-    
+    typedef Vec4d MaxTypeT;
+
+    // MSVC 7.0 is a little weird about template member methods, that's why
+    // the code has to be here...
+
+    template <class ExternalType>
+    ExternalType getValue(const UInt32 index) const
+    {
+        ExternalType eval;
+        MaxTypeT     ival;
+        getGenericValue(ival, index);
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
+        {
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
+        }
+        else
+        {
+            GeoConvert::convertOut(eval, ival);
+        }
+        return eval;
+    }
+
+    template <class ExternalType>
+    void getValue(ExternalType &eval, const UInt32 index) const
+    {
+        MaxTypeT ival;
+        getGenericValue(ival, index);
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
+        {
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
+        }
+        else
+        {
+            GeoConvert::convertOut(eval, ival);
+        }
+    }
+
+    template <class ExternalType>
+    void setValue(const ExternalType &val, const UInt32 index)
+    {
+        MaxTypeT ival;
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
+        {
+            GeoConvertNormalize::convertIn(ival, val,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
+        }
+        else
+        {
+            GeoConvert::convertIn(ival, val);
+        }
+        setGenericValue(ival, index);
+    }
+
+    template <class ExternalType>
+    void addValue(const ExternalType &val)
+    {
+         push_back(val);
+    }
+
+    template <class ExternalType>
+    void push_back(const ExternalType &val)
+    {
+        resize(size() + 1);
+        setValue(val, size() - 1);
+    }
+
+    virtual bool   getNormalize(void          ) const = 0;
+    virtual void   clear       (void          )       = 0;
+    virtual void   resize      (size_t newsize)       = 0;
+    virtual UInt32 size        (void          ) const = 0;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -137,129 +188,89 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv *pEnv, UInt32 index = 0) = 0;
+    virtual void activate      (DrawEnv    *pEnv,
+                                UInt32      index = 0);
 
     virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
-                                UInt32      index = 0)  = 0;
+                                UInt32      index = 0);
 
-    virtual void deactivate    (DrawEnv *pEnv, UInt32 index = 0) = 0;
-
-    virtual bool isTransparent (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Limited Access                             */
-    /*! \{                                                                 */
-
-    UInt32 getGLId(void) const;
+    virtual void deactivate    (DrawEnv    *pEnv,
+                                UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Comparison                                 */
+    /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual Real32 switchCost  ( StateChunk * chunk );
-
-    virtual bool   operator <  (const StateChunk &other) const;
-
-    virtual bool   operator == (const StateChunk &other) const;
-    virtual bool   operator != (const StateChunk &other) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Helper                                 */
-    /*! \{                                                                 */
-
-    inline static UInt32 MapFormatToSize(GLenum format);
+    virtual void *mapBuffer  (GLenum eAccess, DrawEnv *pEnv);
+    virtual bool  unmapBuffer(                DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in GeoPropertyBase.
+    // Variables should all be in GeoVectorPropertyBase.
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-           UInt32 handleGL       (DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions);
-    static void   handleDestroyGL(DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode     );
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    GeoProperty(void);
-    GeoProperty(const GeoProperty &source);
+    GeoVectorProperty(void);
+    GeoVectorProperty(const GeoVectorProperty &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoProperty(void);
+    virtual ~GeoVectorProperty(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Generic Access                             */
+    /*! \{                                                                 */
+
+    // This is the fallback, it has to be implemented by the concrete Props!
+    virtual void getGenericValue(      MaxTypeT &val,
+                                 const UInt32 index  ) const = 0;
+    virtual void setGenericValue(const MaxTypeT &val,
+                                 const UInt32 index  )       = 0;
 
     /*! \}                                                                 */
 
-    virtual GLenum getBufferType(void) = 0; // buffer type for VBOs
+    virtual GLenum getBufferType(void); // buffer type for VBOs
 
-    static StateChunkClass _class;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name               OpenGL Extensions Used                         */
-    /*! \{                                                                 */
-
-    static UInt32 _extVertexBufferObject;
-    static UInt32 _extMultitexture;
-    static UInt32 _arbVertexProgram;
+    // extension indices for used extensions;
     static UInt32 _extSecondaryColor;
-    static UInt32 _funcBindBuffer;
-    static UInt32 _funcMapBuffer;
-    static UInt32 _funcUnmapBuffer;
-    static UInt32 _funcBufferData;
-    static UInt32 _funcBufferSubData;
-    static UInt32 _funcDeleteBuffers;
-    static UInt32 _funcGenBuffers;
-    static UInt32 _funcglVertexAttribPointerARB;
-    static UInt32 _funcglEnableVertexAttribArrayARB;
-    static UInt32 _funcglDisableVertexAttribArrayARB;
+    static UInt32 _extMultitexture;
 
-    static UInt32 _glClientActiveTextureARB;
-    static UInt32 _glSecondaryColorPointerEXT;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
+    // extension indices for used fucntions;
+    static UInt32 _funcglSecondaryColorPointer;
+    static UInt32 _funcglClientActiveTextureARB;
 
     static void initMethod(InitPhase ePhase);
 
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
 
     friend class FieldContainer;
-    friend class GeoPropertyBase;
-
+    friend class GeoVectorPropertyBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GeoProperty &source);
+    void operator =(const GeoVectorProperty &source);
 };
 
-typedef GeoProperty *GeoPropertyP;
+typedef GeoVectorProperty *GeoVectorPropertyP;
+
+//typedef GeoVectorProperty::ObjPtr         GeoVectorPropertyPtr;
+//typedef GeoVectorProperty::ConstObjPtr    ConstGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 
-#include "OSGGeoPropertyBase.inl"
-#include "OSGGeoProperty.inl"
+#include "OSGGeoVectorPropertyBase.inl"
+#include "OSGGeoVectorProperty.inl"
 
-#endif /* _OSGGEOPROPERTY_H_ */
+#endif /* _OSGGEOVECTORPROPERTY_H_ */

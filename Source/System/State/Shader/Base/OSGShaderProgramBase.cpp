@@ -101,6 +101,10 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+/*! \var std::string     ShaderProgramBase::_mfFeedbackVaryings
+    
+*/
+
 /*! \var ShaderParameter ShaderProgramBase::_mfParameter
     
 */
@@ -198,6 +202,18 @@ void ShaderProgramBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleVariables),
         static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleVariables));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFString::Description(
+        MFString::getClassType(),
+        "feedbackVaryings",
+        "",
+        FeedbackVaryingsFieldId, FeedbackVaryingsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleFeedbackVaryings),
+        static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleFeedbackVaryings));
 
     oType.addInitialDesc(pDesc);
 
@@ -346,6 +362,15 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "    </Field>\n"
     "\n"
     "    <Field\n"
+    "        name=\"feedbackVaryings\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "   \n"
+    "    <Field\n"
     "        name=\"parameter\"\n"
     "        type=\"ShaderParameter\"\n"
     "        cardinality=\"multi\"\n"
@@ -482,6 +507,19 @@ SFUnrecChildShaderProgramVariablesPtr *ShaderProgramBase::editSFVariables      (
     return &_sfVariables;
 }
 
+MFString *ShaderProgramBase::editMFFeedbackVaryings(void)
+{
+    editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);
+
+    return &_mfFeedbackVaryings;
+}
+
+const MFString *ShaderProgramBase::getMFFeedbackVaryings(void) const
+{
+    return &_mfFeedbackVaryings;
+}
+
+
 MFShaderParameter *ShaderProgramBase::editMFParameter(void)
 {
     editMField(ParameterFieldMask, _mfParameter);
@@ -562,6 +600,10 @@ UInt32 ShaderProgramBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfVariables.getBinSize();
     }
+    if(FieldBits::NoField != (FeedbackVaryingsFieldMask & whichField))
+    {
+        returnValue += _mfFeedbackVaryings.getBinSize();
+    }
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
     {
         returnValue += _mfParameter.getBinSize();
@@ -610,6 +652,10 @@ void ShaderProgramBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {
         _sfVariables.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FeedbackVaryingsFieldMask & whichField))
+    {
+        _mfFeedbackVaryings.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
     {
@@ -661,6 +707,11 @@ void ShaderProgramBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(VariablesFieldMask);
         _sfVariables.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FeedbackVaryingsFieldMask & whichField))
+    {
+        editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);
+        _mfFeedbackVaryings.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ParameterFieldMask & whichField))
     {
@@ -823,6 +874,7 @@ ShaderProgramBase::ShaderProgramBase(void) :
     _sfVariables              (this,
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
+    _mfFeedbackVaryings       (),
     _mfParameter              (),
     _mfAttributes             (),
     _sfCgFrontEnd             (bool(false)),
@@ -840,6 +892,7 @@ ShaderProgramBase::ShaderProgramBase(const ShaderProgramBase &source) :
     _sfVariables              (this,
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
+    _mfFeedbackVaryings       (source._mfFeedbackVaryings       ),
     _mfParameter              (source._mfParameter              ),
     _mfAttributes             (source._mfAttributes             ),
     _sfCgFrontEnd             (source._sfCgFrontEnd             ),
@@ -1083,6 +1136,31 @@ EditFieldHandlePtr ShaderProgramBase::editHandleVariables      (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ShaderProgramBase::getHandleFeedbackVaryings (void) const
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfFeedbackVaryings,
+             this->getType().getFieldDesc(FeedbackVaryingsFieldId),
+             const_cast<ShaderProgramBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProgramBase::editHandleFeedbackVaryings(void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfFeedbackVaryings,
+             this->getType().getFieldDesc(FeedbackVaryingsFieldId),
+             this));
+
+
+    editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ShaderProgramBase::getHandleParameter       (void) const
 {
     MFShaderParameter::GetHandlePtr returnValue(
@@ -1256,6 +1334,10 @@ void ShaderProgramBase::resolveLinks(void)
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfFeedbackVaryings.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfParameter.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);

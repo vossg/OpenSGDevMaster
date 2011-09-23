@@ -295,19 +295,28 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         
         osgGlBindBuffer(getBufferType(), glid);
 
-        if(mode == Window::initialize || mode == Window::reinitialize)
+        UInt32 uiBufferSize = getFormatSize() * getDimension() * getSize();
+
+        bool   bSizeChanged = (uiBufferSize != pWin->getGLObjectInfo(id));
+                             
+
+        if(mode         == Window::initialize   || 
+           mode         == Window::reinitialize ||
+           bSizeChanged == true                  )
         {
             osgGlBufferData(getBufferType(), 
-                            getFormatSize() * getDimension() * getSize(), 
+                            uiBufferSize, 
                             NULL, //getData      (), 
                             getVboUsage  ());
+
+            pWin->setGLObjectInfo(id, uiBufferSize);
         }
 
         if(getData() != NULL)
         {
             osgGlBufferSubData(getBufferType(),
                                0,
-                               getFormatSize() * getDimension() * getSize(), 
+                               uiBufferSize, 
                                getData());
         }
 
@@ -323,8 +332,8 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
 }
 
 void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode)
 {
     GLuint glid;
 

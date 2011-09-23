@@ -10,6 +10,7 @@ IF(OSGGLEWSrcDir)
   SET(OSG_GLEW_SRCS ${OSGGLEWSrcDir}/src/glew.c)
 
   SET(OSG_GLEW_HDR ${OSGGLEWSrcDir}/include/GL/glew.h
+                   ${OSGGLEWSrcDir}/include/GL/glxew.h
                    ${OSGGLEWSrcDir}/include/GL/wglew.h)
 
   INCLUDE_DIRECTORIES(${OSGGLEWSrcDir}/include)

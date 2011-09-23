@@ -39,6 +39,11 @@
 ////////////////////////////////////////////////////////////////
 */
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#pragma GCC diagnostic warning "-Wignored-qualifiers"
+#endif
+
 #include <OSGTime.h>
 #include "OSGrhino2osb.h"
 #include <opennurbs/opennurbs.h>

@@ -103,7 +103,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
         ProgramFieldId = ShaderTypeFieldId + 1,
         GLIdFieldId = ProgramFieldId + 1,
         VariablesFieldId = GLIdFieldId + 1,
-        ParameterFieldId = VariablesFieldId + 1,
+        FeedbackVaryingsFieldId = VariablesFieldId + 1,
+        ParameterFieldId = FeedbackVaryingsFieldId + 1,
         AttributesFieldId = ParameterFieldId + 1,
         CgFrontEndFieldId = AttributesFieldId + 1,
         PointSizeFieldId = CgFrontEndFieldId + 1,
@@ -120,6 +121,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector VariablesFieldMask =
         (TypeTraits<BitVector>::One << VariablesFieldId);
+    static const OSG::BitVector FeedbackVaryingsFieldMask =
+        (TypeTraits<BitVector>::One << FeedbackVaryingsFieldId);
     static const OSG::BitVector ParameterFieldMask =
         (TypeTraits<BitVector>::One << ParameterFieldId);
     static const OSG::BitVector AttributesFieldMask =
@@ -139,6 +142,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     typedef SFString          SFProgramType;
     typedef SFUInt32          SFGLIdType;
     typedef SFUnrecChildShaderProgramVariablesPtr SFVariablesType;
+    typedef MFString          MFFeedbackVaryingsType;
     typedef MFShaderParameter MFParameterType;
     typedef MFShaderAttribute MFAttributesType;
     typedef SFBool            SFCgFrontEndType;
@@ -181,6 +185,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
             const SFUnrecChildShaderProgramVariablesPtr *getSFVariables      (void) const;
                   SFUnrecChildShaderProgramVariablesPtr *editSFVariables      (void);
 
+                  MFString            *editMFFeedbackVaryings(void);
+            const MFString            *getMFFeedbackVaryings (void) const;
+
                   MFShaderParameter   *editMFParameter      (void);
             const MFShaderParameter   *getMFParameter       (void) const;
 
@@ -204,6 +211,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
                   UInt32               getGLId            (void) const;
 
                   ShaderProgramVariables * getVariables      (void) const;
+
+                  std::string         &editFeedbackVaryings(const UInt32 index);
+            const std::string         &getFeedbackVaryings (const UInt32 index) const;
 
                   ShaderParameter     &editParameter      (const UInt32 index);
             const ShaderParameter     &getParameter       (const UInt32 index) const;
@@ -296,6 +306,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     SFString          _sfProgram;
     SFUInt32          _sfGLId;
     SFUnrecChildShaderProgramVariablesPtr _sfVariables;
+    MFString          _mfFeedbackVaryings;
     MFShaderParameter _mfParameter;
     MFShaderAttribute _mfAttributes;
     SFBool            _sfCgFrontEnd;
@@ -357,6 +368,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     EditFieldHandlePtr editHandleGLId           (void);
     GetFieldHandlePtr  getHandleVariables       (void) const;
     EditFieldHandlePtr editHandleVariables      (void);
+    GetFieldHandlePtr  getHandleFeedbackVaryings (void) const;
+    EditFieldHandlePtr editHandleFeedbackVaryings(void);
     GetFieldHandlePtr  getHandleParameter       (void) const;
     EditFieldHandlePtr editHandleParameter      (void);
     GetFieldHandlePtr  getHandleAttributes      (void) const;

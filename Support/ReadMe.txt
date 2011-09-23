@@ -86,7 +86,8 @@ http://sourceforge.net/projects/libpng/files/libpng15/1.5.4/lpng154.zip/download
 
 http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsr6.zip/download
 #http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsrc.v6b.tar.gz/download
-ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
+http://download.osgeo.org/libtiff/tiff-3.8.2.zip
+#ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
  http://sourceforge.net/projects/freeglut/files/freeglut/freeglut-2.6.0.tar.gz/download
 
@@ -104,10 +105,11 @@ http://download.savannah.nongnu.org/releases/openexr/ilmbase-1.0.2.tar.gz
 
 http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download
 http://download.osgeo.org/gdal/gdal180.zip
-http://sourceforge.net/projects/glew/files/glew/1.6.0/glew-1.6.0.tgz/download
+http://sourceforge.net/projects/glew/files/glew/1.7.0/glew-1.7.0.zip/download
+#http://sourceforge.net/projects/glew/files/glew/1.6.0/glew-1.6.0.tgz/download
 http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
 http://stereofx.org/download/mini/MINI-9.8.zip
-
+http://files.na.mcneel.com/opennurbs/5.0/2011-02-02/opennurbs_20110202.zip
 
 2) Unpack to disk
 

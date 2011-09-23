@@ -523,9 +523,16 @@ typedef void      (OSG_APIENTRY *osgGlGetQueryObjectivProc )(      GLuint,
 typedef void      (OSG_APIENTRY *osgGlGetQueryObjectuivProc)(      GLuint, 
                                                                    GLenum, 
                                                                    GLuint *);
+typedef void      (OSG_APIENTRY *osgGlBeginQueryIndexedProc)(      GLenum, 
+                                                                   GLuint, 
+                                                                   GLuint  );
+typedef void      (OSG_APIENTRY *osgGlEndQueryIndexedProc  )(      GLenum, 
+                                                                   GLuint  );
+
 
 typedef const GLubyte * (OSG_APIENTRY *osgGlGetStringiProc)(GLenum name, 
                                                             GLuint index);
+
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
@@ -720,6 +727,27 @@ typedef void (OSG_APIENTRY *osgGlGetCombinerStageParameterfvNVProc     )(
     GLenum, 
     GLenum, 
     GLfloat *);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Register Combiner                                                  */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlBindBufferBaseProc           )(      GLenum, 
+                                                                      GLuint, 
+                                                                      GLuint  );
+typedef void (OSG_APIENTRY *osgGlTransformFeedbackVaryingsProc)(      GLuint,
+                                                                      GLsizei, 
+                                                                const GLchar **,
+                                                                      GLenum  );
+
+typedef void (OSG_APIENTRY *osgGlBeginTransformFeedbackProc   )(      GLenum  );
+typedef void (OSG_APIENTRY *osgGlEndTransformFeedbackProc     )(      void    );
+
+typedef void (OSG_APIENTRY *osgGlPauseTransformFeedbackProc   )(      void    );
+typedef void (OSG_APIENTRY *osgGlResumeTransformFeedbackProc  )(      void    );
+
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/

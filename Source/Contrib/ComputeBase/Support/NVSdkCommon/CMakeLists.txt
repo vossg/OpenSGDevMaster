@@ -20,14 +20,16 @@ IF(OSGNVidiaSDKSrcDir)
   IF(EXISTS ${OSGNVidiaSDKSrcDir}/shared)
     MESSAGE(STATUS "With OpenCL SDK")
 
-    SET(OSG_NVSDKCOMMON_SRC_INPUT rendercheckGL.cpp
-                                  cmd_arg_reader.cpp
-                                  shrUtils.cpp)
-    SET(OSG_NVSDKCOMMON_HDR_INPUT rendercheckGL.h
-                                  exception.h
+    SET(OSG_NVSDKCOMMON_SRC_INPUT cmd_arg_reader.cpp
+                                  rendercheckGL.cpp
+                                  shrUtils.cpp      )
+
+    SET(OSG_NVSDKCOMMON_HDR_INPUT shrUtils.h
+                                  shrQATest.h
+                                  nvShaderUtils.h
                                   cmd_arg_reader.h
-                                  shrUtils.h
-                                  nvShaderUtils.h)
+                                  exception.h
+                                  rendercheckGL.h )
 
     SET(OSG_NVSDKCOMMON_LNK_HDR ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheck_gl.h)
 
@@ -75,12 +77,12 @@ IF(OSGNVidiaSDKSrcDir)
   ENDIF(NOT WIN32)
 
   INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src")
-#  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
-#  INCLUDE_DIRECTORIES("${OSG_CUDA_UTIL_INCLUDEDIR}")
+##  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
+##  INCLUDE_DIRECTORIES("${OSG_CUDA_UTIL_INCLUDEDIR}")
 
   IF(WIN32)
-    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
-    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
+#    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
+#    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
   ENDIF(WIN32)
 
   IF(UNIX)

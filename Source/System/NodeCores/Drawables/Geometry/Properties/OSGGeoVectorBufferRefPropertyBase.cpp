@@ -143,7 +143,7 @@ GeoVectorBufferRefPropertyBase::TypeObject GeoVectorBufferRefPropertyBase::_type
     "<FieldContainer\n"
     "   name=\"GeoVectorBufferRefProperty\"\n"
     "   parent=\"GeoVectorBufferProperty\"\n"
-    "   library=\"Drawable\"\n"
+    "   library=\"System\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"

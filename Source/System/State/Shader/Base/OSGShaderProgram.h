@@ -80,52 +80,61 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    static UInt32 getFuncIdCreateShader      (void);
-    static UInt32 getFuncIdDeleteShader      (void);
-    static UInt32 getFuncIdShaderSource      (void);
-    static UInt32 getFuncIdCompileShader     (void);
-    static UInt32 getFuncIdAttachShader      (void);
-    static UInt32 getFuncIdGetShaderiv       (void);
-    static UInt32 getFuncIdGetShaderInfoLog  (void);
+    static UInt32 getFuncIdCreateShader             (void);
+    static UInt32 getFuncIdDeleteShader             (void);
+    static UInt32 getFuncIdShaderSource             (void);
+    static UInt32 getFuncIdCompileShader            (void);
+    static UInt32 getFuncIdAttachShader             (void);
+    static UInt32 getFuncIdGetShaderiv              (void);
+    static UInt32 getFuncIdGetShaderInfoLog         (void);
 
-    static UInt32 getFuncIdCreateProgram     (void);
-    static UInt32 getFuncIdDeleteProgram     (void);
-    static UInt32 getFuncIdLinkProgram       (void);
-    static UInt32 getFuncIdGetProgramiv      (void);
-    static UInt32 getFuncIdGetProgramInfoLog (void);
-    static UInt32 getFuncIdUseProgram        (void);
+    static UInt32 getFuncIdCreateProgram            (void);
+    static UInt32 getFuncIdDeleteProgram            (void);
+    static UInt32 getFuncIdLinkProgram              (void);
+    static UInt32 getFuncIdGetProgramiv             (void);
+    static UInt32 getFuncIdGetProgramInfoLog        (void);
+    static UInt32 getFuncIdUseProgram               (void);
 
-    static UInt32 getFuncIdGetUniformLocation(void);
+    static UInt32 getFuncIdGetUniformLocation       (void);
 
-    static UInt32 getFuncIdUniform1i         (void);
-    static UInt32 getFuncIdUniform2i         (void);
-    static UInt32 getFuncIdUniform3i         (void);
-    static UInt32 getFuncIdUniform4i         (void);
+    static UInt32 getFuncIdUniform1i                (void);
+    static UInt32 getFuncIdUniform2i                (void);
+    static UInt32 getFuncIdUniform3i                (void);
+    static UInt32 getFuncIdUniform4i                (void);
 
-    static UInt32 getFuncIdUniform1f         (void);
-    static UInt32 getFuncIdUniform2f         (void);
-    static UInt32 getFuncIdUniform3f         (void);
-    static UInt32 getFuncIdUniform4f         (void);
+    static UInt32 getFuncIdUniform1f                (void);
+    static UInt32 getFuncIdUniform2f                (void);
+    static UInt32 getFuncIdUniform3f                (void);
+    static UInt32 getFuncIdUniform4f                (void);
 
-    static UInt32 getFuncIdUniform1iv        (void);
-    static UInt32 getFuncIdUniform2iv        (void);
-    static UInt32 getFuncIdUniform3iv        (void);
-    static UInt32 getFuncIdUniform4iv        (void);
+    static UInt32 getFuncIdUniform1iv               (void);
+    static UInt32 getFuncIdUniform2iv               (void);
+    static UInt32 getFuncIdUniform3iv               (void);
+    static UInt32 getFuncIdUniform4iv               (void);
 
-    static UInt32 getFuncIdUniform1fv        (void);
-    static UInt32 getFuncIdUniform2fv        (void);
-    static UInt32 getFuncIdUniform3fv        (void);
-    static UInt32 getFuncIdUniform4fv        (void);
+    static UInt32 getFuncIdUniform1fv               (void);
+    static UInt32 getFuncIdUniform2fv               (void);
+    static UInt32 getFuncIdUniform3fv               (void);
+    static UInt32 getFuncIdUniform4fv               (void);
 
-    static UInt32 getFuncIdUniformMatrix2fv  (void);
-    static UInt32 getFuncIdUniformMatrix3fv  (void);
-    static UInt32 getFuncIdUniformMatrix4fv  (void);
+    static UInt32 getFuncIdUniformMatrix2fv         (void);
+    static UInt32 getFuncIdUniformMatrix3fv         (void);
+    static UInt32 getFuncIdUniformMatrix4fv         (void);
 
-    static UInt32 getFuncIdGetUniformiv      (void);
-    static UInt32 getFuncIdGetUniformfv      (void);
+    static UInt32 getFuncIdGetUniformiv             (void);
+    static UInt32 getFuncIdGetUniformfv             (void);
 
-    static UInt32 getFuncIdProgramParameteri (void);
-    static UInt32 getFuncIdBindAttribLocation(void);
+    static UInt32 getFuncIdProgramParameteri        (void);
+    static UInt32 getFuncIdBindAttribLocation       (void);
+
+    static UInt32 getFuncIdBindBufferBase           (void);
+    static UInt32 getFuncIdTransformFeedbackVaryings(void);
+
+    static UInt32 getFuncIdBeginTransformFeedback   (void);
+    static UInt32 getFuncIdEndTransformFeedback     (void);
+
+    static UInt32 getFuncIdPauseTransformFeedback   (void);
+    static UInt32 getFuncIdResumeTransformFeedback  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -237,6 +246,16 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    void accumulateFeedback(DrawEnv                    *pEnv,
+                            UInt32                      uiProgram,
+                            std::vector<const Char8 *> &vTFVaryings,
+                            UInt32                     &uiVaryingBufferIndex);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     void addParent(FieldContainer * const pParent,
                    UInt16                 uiParentFieldId);
 
@@ -273,56 +292,66 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
 
   protected:
 
-    static UInt32 _extSHL;
-    static UInt32 _extCG;
-    static UInt32 _extGeoShader4;
+    static       UInt32  _extSHL;
+    static       UInt32  _extCG;
+    static       UInt32  _extGeoShader4;
+    static       UInt32  _extTransformFeedback2;
 
-    static UInt32 FuncIdCreateShader;
-    static UInt32 FuncIdDeleteShader;
-    static UInt32 FuncIdShaderSource;
-    static UInt32 FuncIdCompileShader;
-    static UInt32 FuncIdAttachShader;
-    static UInt32 FuncIdGetShaderiv;
-    static UInt32 FuncIdGetShaderInfoLog;
+    static       UInt32  FuncIdCreateShader;
+    static       UInt32  FuncIdDeleteShader;
+    static       UInt32  FuncIdShaderSource;
+    static       UInt32  FuncIdCompileShader;
+    static       UInt32  FuncIdAttachShader;
+    static       UInt32  FuncIdGetShaderiv;
+    static       UInt32  FuncIdGetShaderInfoLog;
 
-    static UInt32 FuncIdCreateProgram;
-    static UInt32 FuncIdDeleteProgram;
-    static UInt32 FuncIdLinkProgram;
-    static UInt32 FuncIdGetProgramiv;
-    static UInt32 FuncIdGetProgramInfoLog;
-    static UInt32 FuncIdUseProgram;
+    static       UInt32  FuncIdCreateProgram;
+    static       UInt32  FuncIdDeleteProgram;
+    static       UInt32  FuncIdLinkProgram;
+    static       UInt32  FuncIdGetProgramiv;
+    static       UInt32  FuncIdGetProgramInfoLog;
+    static       UInt32  FuncIdUseProgram;
 
-    static UInt32 FuncIdGetUniformLocation;
+    static       UInt32  FuncIdGetUniformLocation;
 
-    static UInt32 FuncIdUniform1i;
-    static UInt32 FuncIdUniform2i;
-    static UInt32 FuncIdUniform3i;
-    static UInt32 FuncIdUniform4i;
+    static       UInt32  FuncIdUniform1i;
+    static       UInt32  FuncIdUniform2i;
+    static       UInt32  FuncIdUniform3i;
+    static       UInt32  FuncIdUniform4i;
 
-    static UInt32 FuncIdUniform1f;
-    static UInt32 FuncIdUniform2f;
-    static UInt32 FuncIdUniform3f;
-    static UInt32 FuncIdUniform4f;
+    static       UInt32  FuncIdUniform1f;
+    static       UInt32  FuncIdUniform2f;
+    static       UInt32  FuncIdUniform3f;
+    static       UInt32  FuncIdUniform4f;
 
-    static UInt32 FuncIdUniform1iv;
-    static UInt32 FuncIdUniform2iv;
-    static UInt32 FuncIdUniform3iv;
-    static UInt32 FuncIdUniform4iv;
+    static       UInt32  FuncIdUniform1iv;
+    static       UInt32  FuncIdUniform2iv;
+    static       UInt32  FuncIdUniform3iv;
+    static       UInt32  FuncIdUniform4iv;
 
-    static UInt32 FuncIdUniform1fv;
-    static UInt32 FuncIdUniform2fv;
-    static UInt32 FuncIdUniform3fv;
-    static UInt32 FuncIdUniform4fv;
+    static       UInt32  FuncIdUniform1fv;
+    static       UInt32  FuncIdUniform2fv;
+    static       UInt32  FuncIdUniform3fv;
+    static       UInt32  FuncIdUniform4fv;
 
-    static UInt32 FuncIdUniformMatrix2fv;
-    static UInt32 FuncIdUniformMatrix3fv;
-    static UInt32 FuncIdUniformMatrix4fv;
+    static       UInt32  FuncIdUniformMatrix2fv;
+    static       UInt32  FuncIdUniformMatrix3fv;
+    static       UInt32  FuncIdUniformMatrix4fv;
 
-    static UInt32 FuncIdGetUniformiv;
-    static UInt32 FuncIdGetUniformfv;
+    static       UInt32  FuncIdGetUniformiv;
+    static       UInt32  FuncIdGetUniformfv;
 
-    static UInt32 FuncIdProgramParameteri;
-    static UInt32 FuncIdBindAttribLocation;
+    static       UInt32  FuncIdProgramParameteri;
+    static       UInt32  FuncIdBindAttribLocation;
+
+    static       UInt32  FuncIdBindBufferBase;
+    static       UInt32  FuncIdTransformFeedbackVaryings;
+    static       UInt32  FuncIdBeginTransformFeedback;
+    static       UInt32  FuncIdEndTransformFeedback;
+    static       UInt32  FuncIdPauseTransformFeedback;
+    static       UInt32  FuncIdResumeTransformFeedback;
+    
+    static const Char8  *NextBufferToken;
 
     /*---------------------------------------------------------------------*/
 

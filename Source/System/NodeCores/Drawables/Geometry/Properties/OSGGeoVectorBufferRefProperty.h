@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
     \includebasedoc
  */
 
-class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferRefProperty : 
+class OSG_SYSTEM_DLLMAPPING GeoVectorBufferRefProperty : 
     public GeoVectorBufferRefPropertyBase
 {
   protected:

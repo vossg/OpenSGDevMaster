@@ -55,11 +55,12 @@ OSG_USING_NAMESPACE
 
 OpenGLState::OpenGLState(void) :
 #ifdef OSG_OGL_COREONLY
-    _mModelViewProjection(),
-    _mNormalMatrix       (),
+    _mModelViewProjection(    ),
+    _mNormalMatrix       (    ),
 #endif
-    _mProjection         (),
-    _mModelView          ()
+    _mProjection         (    ),
+    _mModelView          (    ),
+    _uiTransformFeedback (0x00)
 {
 #ifdef OSG_OGL_COREONLY
     _mModelViewProjection.setIdentity();

@@ -70,6 +70,12 @@ class OpenGLState
 {
     /*==========================  PUBLIC  =================================*/
 
+    static const UInt8 TransformFeedbackModeMask   = 0x0F;
+    static const UInt8 TransformFeedbackActiveMask = 0xF0;
+
+    static const UInt8 TransformFeedbackActive     = 0x80;
+    static const UInt8 TransformFeedbackPaused     = 0x40;
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -87,6 +93,21 @@ class OpenGLState
     const Matrix &getNormalMatrix       (      void            ) const;
 #endif
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    void setTransformFeedbackActive  (UInt8 uiMode);
+    void setTransformFeedbackInactive(void        );
+
+    void pauseTransformFeedback      (void        );
+    void resumeTransformFeedback     (void        );
+
+    bool isTransformFeedbackActive   (void        );
+    bool isTransformFeedbackPaused   (void        );
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -116,6 +137,8 @@ class OpenGLState
 #endif
     Matrix _mProjection;
     Matrix _mModelView;
+
+    UInt8  _uiTransformFeedback;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -96,6 +96,50 @@ const Matrix &OpenGLState::getNormalMatrix(void) const
 }
 #endif
 
+inline
+void OpenGLState::setTransformFeedbackActive(UInt8 uiMode)
+{
+    _uiTransformFeedback |= TransformFeedbackActive;
+}
+
+inline
+void OpenGLState::setTransformFeedbackInactive(void)
+{
+    _uiTransformFeedback &= ~(TransformFeedbackActive | 
+                              TransformFeedbackPaused );
+}
+
+inline
+void OpenGLState::pauseTransformFeedback(void)
+{
+    _uiTransformFeedback |= TransformFeedbackPaused;
+}
+
+inline
+void OpenGLState::resumeTransformFeedback(void)
+{
+    _uiTransformFeedback &= ~TransformFeedbackPaused;
+}
+
+inline
+bool OpenGLState::isTransformFeedbackActive(void)
+{
+    return ((_uiTransformFeedback & (TransformFeedbackActive | 
+                                     TransformFeedbackPaused )) == 
+
+            TransformFeedbackActive);
+}
+
+inline
+bool OpenGLState::isTransformFeedbackPaused(void)
+{
+    return ((_uiTransformFeedback & (TransformFeedbackActive | 
+                                     TransformFeedbackPaused )) == 
+
+            (TransformFeedbackActive | TransformFeedbackPaused));
+}
+
+
 
 
 

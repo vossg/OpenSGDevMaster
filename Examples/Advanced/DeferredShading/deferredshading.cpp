@@ -130,6 +130,7 @@ const std::string dsSpotLightVPFile       ("DSSpotLight.vp.glsl"       );
 const std::string dsSpotLightFPFile       ("DSSpotLight.fp.glsl"       );
 const std::string dsSpotLightShadowFPFile ("DSSpotLightShadow.fp.glsl" );
 
+const std::string dsUnknownFile           ("unknownFile");
 
 void initialize(int  argc, char *argv[]);
 void cleanup   (void                   );
@@ -351,6 +352,8 @@ const std::string &getLightVPFile(
     case LightEngine::Spot:
         return dsSpotLightVPFile;
     };
+
+    return dsUnknownFile;
 }
 
 // file containing fragment shader code for the light type
@@ -378,6 +381,8 @@ const std::string &getLightFPFile(
         else
             return dsSpotLightShadowFPFile;
     };
+
+    return dsUnknownFile;
 }
 
 

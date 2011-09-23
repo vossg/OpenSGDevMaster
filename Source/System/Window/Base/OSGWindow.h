@@ -227,6 +227,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
                                     GLObjectId  id2          );
     GLObjectId getGLObjectId       (UInt32      osgId        );
 
+    void       setGLObjectInfo     (UInt32      osgId,
+                                    GLObjectId  infi         );
+    GLObjectId getGLObjectInfo     (UInt32      osgId        );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name            static GL object handling                         */
@@ -552,6 +556,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     std::vector<UInt32             >  _lastValidate;
     std::vector<GLObjectId         >  _ids;
+    std::vector<GLObjectId         >  _idInfo;
 
     UInt32                            _glVersion;
     std::vector<std::string        >  _extensions;

@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -69,7 +69,7 @@ class GeoVectorProperty;
 OSG_GEN_CONTAINERPTR(GeoVectorProperty);
 
 /*! \ingroup GrpDrawablesGeometryFieldTraits
-    \ingroup GrpLibOSGDrawable
+    \ingroup GrpLibOSGSystem
  */
 template <>
 struct FieldTraits<GeoVectorProperty *> :
@@ -85,7 +85,7 @@ struct FieldTraits<GeoVectorProperty *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -159,7 +159,7 @@ struct FieldTraits<GeoVectorProperty *, 1> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -264,44 +264,44 @@ typedef ChildPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecGeoVectorPropertyPtr : 
     public PointerSField<GeoVectorProperty *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecGeoVectorPropertyPtr : 
     public PointerSField<GeoVectorProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakGeoVectorPropertyPtr :
     public PointerSField<GeoVectorProperty *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedGeoVectorPropertyPtr :
     public PointerSField<GeoVectorProperty *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGSystem */
 struct MFRecGeoVectorPropertyPtr :
     public PointerMField<GeoVectorProperty *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecGeoVectorPropertyPtr :
     public PointerMField<GeoVectorProperty *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGSystem */
 struct MFWeakGeoVectorPropertyPtr :
     public PointerMField<GeoVectorProperty *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUncountedGeoVectorPropertyPtr :
     public PointerMField<GeoVectorProperty *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecChildGeoVectorPropertyPtr :
     public ChildPointerSField<
         GeoVectorProperty *, 
@@ -309,7 +309,7 @@ struct SFUnrecChildGeoVectorPropertyPtr :
         1             > {};
 
 
-/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGSystem */
 struct MFUnrecChildGeoVectorPropertyPtr :
     public ChildPointerMField<
         GeoVectorProperty *, 

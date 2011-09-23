@@ -145,7 +145,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     "<FieldContainer\n"
     "   name=\"GeoVectorProperty\"\n"
     "   parent=\"GeoProperty\"\n"
-    "   library=\"Drawable\"\n"
+    "   library=\"System\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"abstract\"\n"
     "   systemcomponent=\"true\"\n"

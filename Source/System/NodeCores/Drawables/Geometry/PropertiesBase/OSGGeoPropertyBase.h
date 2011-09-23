@@ -45,51 +45,76 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GeoVectorProperty
+ **     class GeoProperty
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGGEOVECTORPROPERTYBASE_H_
-#define _OSGGEOVECTORPROPERTYBASE_H_
+#ifndef _OSGGEOPROPERTYBASE_H_
+#define _OSGGEOPROPERTYBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGSystemDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGGeoProperty.h" // Parent
+#include "OSGStateChunk.h" // Parent
 
+#include "OSGSysFields.h"               // UseVBO type
 
-#include "OSGGeoVectorPropertyFields.h"
+#include "OSGGeoPropertyFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class GeoVectorProperty;
+class GeoProperty;
 
-//! \brief GeoVectorProperty Base Class.
+//! \brief GeoProperty Base Class.
 
-class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
+class OSG_SYSTEM_DLLMAPPING GeoPropertyBase : public StateChunk
 {
   public:
 
-    typedef GeoProperty Inherited;
-    typedef GeoProperty ParentContainer;
+    typedef StateChunk Inherited;
+    typedef StateChunk ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(GeoVectorProperty);
+    OSG_GEN_INTERNALPTR(GeoProperty);
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    enum
+    {
+        UseVBOFieldId = Inherited::NextFieldId,
+        UsageFieldId = UseVBOFieldId + 1,
+        GLIdFieldId = UsageFieldId + 1,
+        VboUsageFieldId = GLIdFieldId + 1,
+        NextFieldId = VboUsageFieldId + 1
+    };
+
+    static const OSG::BitVector UseVBOFieldMask =
+        (TypeTraits<BitVector>::One << UseVBOFieldId);
+    static const OSG::BitVector UsageFieldMask =
+        (TypeTraits<BitVector>::One << UsageFieldId);
+    static const OSG::BitVector GLIdFieldMask =
+        (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector VboUsageFieldMask =
+        (TypeTraits<BitVector>::One << VboUsageFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFUseVBOType;
+    typedef SFUInt32          SFUsageType;
+    typedef SFUInt32          SFGLIdType;
+    typedef SFInt32           SFVboUsageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -108,6 +133,45 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFBool              *editSFUseVBO         (void);
+            const SFBool              *getSFUseVBO          (void) const;
+
+                  SFUInt32            *editSFUsage          (void);
+            const SFUInt32            *getSFUsage           (void) const;
+
+                  SFInt32             *editSFVboUsage       (void);
+            const SFInt32             *getSFVboUsage        (void) const;
+
+
+                  bool                &editUseVBO         (void);
+                  bool                 getUseVBO          (void) const;
+
+                  UInt32              &editUsage          (void);
+                  UInt32               getUsage           (void) const;
+
+                  Int32               &editVboUsage       (void);
+                  Int32                getVboUsage        (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setUseVBO         (const bool value);
+            void setUsage          (const UInt32 value);
+            void setVboUsage       (const Int32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,18 +196,28 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFBool            _sfUseVBO;
+    SFUInt32          _sfUsage;
+    SFUInt32          _sfGLId;
+    SFInt32           _sfVboUsage;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    GeoVectorPropertyBase(void);
-    GeoVectorPropertyBase(const GeoVectorPropertyBase &source);
+    GeoPropertyBase(void);
+    GeoPropertyBase(const GeoPropertyBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoVectorPropertyBase(void);
+    virtual ~GeoPropertyBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,6 +230,39 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleUseVBO          (void) const;
+    EditFieldHandlePtr editHandleUseVBO         (void);
+    GetFieldHandlePtr  getHandleUsage           (void) const;
+    EditFieldHandlePtr editHandleUsage          (void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleVboUsage        (void) const;
+    EditFieldHandlePtr editHandleVboUsage       (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFUInt32            *editSFGLId           (void);
+            const SFUInt32            *getSFGLId            (void) const;
+
+
+                  UInt32              &editGLId           (void);
+                  UInt32               getGLId            (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setGLId           (const UInt32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +276,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      GeoVectorPropertyBase *pFrom,
+            void execSync (      GeoPropertyBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -204,11 +311,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GeoVectorPropertyBase &source);
+    void operator =(const GeoPropertyBase &source);
 };
 
-typedef GeoVectorPropertyBase *GeoVectorPropertyBaseP;
+typedef GeoPropertyBase *GeoPropertyBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGGEOVECTORPROPERTYBASE_H_ */
+#endif /* _OSGGEOPROPERTYBASE_H_ */
