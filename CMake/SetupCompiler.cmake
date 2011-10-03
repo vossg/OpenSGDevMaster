@@ -273,14 +273,14 @@ SET(CMAKE_SHARED_LINKER_FLAGS ${OSG_SHARED_LINKER_FLAGS}
 IF(CMAKE_COMPILER_IS_GNUCC)
 #    SET(OSG_CXX_FLAGS_GV " -Wall -Wextra -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
 
-    SET(OSG_CXX_FLAGS_GV " -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
+    SET(OSG_CXX_FLAGS_GV " -Wall -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
 
 #    SET(OSG_C_FLAGS_GV " -Wall -Wextra -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
-    SET(OSG_C_FLAGS_GV " -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
+    SET(OSG_C_FLAGS_GV " -Wall -Wextra -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
 
 
-    SET(OSG_ADD_CXX_FLAGS_GV " -Wall -Wextra")
-    SET(OSG_ADD_C_FLAGS_GV " -Wall -Wextra ")
+    SET(OSG_ADD_CXX_FLAGS_GV "")
+    SET(OSG_ADD_C_FLAGS_GV "")
 
     SET(OSG_SHARED_LINKER_FLAGS_GV " -Wl,--no-undefined")
 

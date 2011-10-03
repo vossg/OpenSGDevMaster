@@ -79,6 +79,7 @@ ENDIF(NOT OSG_COMPILER_DEFAULTS)
 INCLUDE(../CMake/UpdateCompiler.cmake)
 INCLUDE(../CMake/BuildFunctions.cmake)
 INCLUDE(../CMake/ConfigurePackages.cmake)
+INCLUDE(../CMake/OpenSGVersion)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "" FORCE)
 
@@ -147,11 +148,11 @@ FILE(WRITE  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake"
 FILE(APPEND  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake" 
              "SET(OSG_SUPPORT_DISABLE_MS_ITERATOR_DEBUGGING ${OSG_DISABLE_MS_ITERATOR_DEBUGGING} CACHE INTERNAL \"\")\n\n")
 
-  INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
-          DESTINATION include
-          PERMISSIONS OWNER_WRITE OWNER_READ
-                      GROUP_READ
-                      WORLD_READ)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
+        DESTINATION include
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ)
 
 IF(CUDA_FOUND)
   CUDA_BUILD_CLEAN_TARGET()

@@ -844,7 +844,7 @@ void reshape(int w, int h)
 
 void display(void)
 {
-    static OSG::Time   tStart  = OSG::getSystemTime();
+//    static OSG::Time   tStart  = OSG::getSystemTime();
     static OSG::Time   tLast   = OSG::getSystemTime();
     static OSG::Time   tAnim   = OSG::getSystemTime();
     static OSG::Time   tFrames = OSG::getSystemTime();
@@ -970,8 +970,8 @@ void keyboard(unsigned char k, int , int )
     case 'o':
     {
         // toggle current light on/off
-        if(gv->currentLight <  gv->lightInfos.size() &&
-           gv->currentLight >= 0                       )
+        if(gv->currentLight <  Int32(gv->lightInfos.size()) &&
+           gv->currentLight >= 0                              )
         {
             Light *light = gv->lightInfos[gv->currentLight].light;
 
@@ -996,8 +996,8 @@ void keyboard(unsigned char k, int , int )
     case '-':
     {
         // remove current light
-        if(gv->currentLight <  gv->lightInfos.size() &&
-           gv->currentLight >= 0                       )
+        if(gv->currentLight <  Int32(gv->lightInfos.size()) &&
+           gv->currentLight >= 0                              )
         {
             std::cout << "removing light " << gv->currentLight << " "
                       << gv->lightInfos[gv->currentLight]
@@ -1011,8 +1011,8 @@ void keyboard(unsigned char k, int , int )
     case 's':
     {
         // cycle through shadow types for current light
-        if(gv->currentLight <  gv->lightInfos.size() &&
-           gv->currentLight >= 0                       )
+        if(gv->currentLight <  Int32(gv->lightInfos.size()) &&
+           gv->currentLight >= 0                              )
         {
             if(gv->lightInfos[gv->currentLight].shadowType == ST_NONE)
             {
@@ -1039,11 +1039,11 @@ void keyboard(unsigned char k, int , int )
     {
         // select previous light
         gv->currentLight += 1;
-        if(gv->currentLight >= gv->lightInfos.size())
+        if(gv->currentLight >= Int32(gv->lightInfos.size()))
             gv->currentLight = 0;
 
-        if(gv->currentLight <  gv->lightInfos.size() &&
-           gv->currentLight >= 0                       )
+        if(gv->currentLight <  Int32(gv->lightInfos.size()) &&
+           gv->currentLight >= 0                              )
         {
             std::cout << "currentLight " << gv->currentLight
                       << " (total: " << gv->lightInfos.size() << ") "
@@ -1061,8 +1061,8 @@ void keyboard(unsigned char k, int , int )
         if(gv->currentLight < 0)
             gv->currentLight = gv->lightInfos.size() - 1;
          
-        if(gv->currentLight <  gv->lightInfos.size() &&
-           gv->currentLight >= 0                       )
+        if(gv->currentLight <  Int32(gv->lightInfos.size()) &&
+           gv->currentLight >= 0                              )
         {
             std::cout << "currentLight " << gv->currentLight
                       << " (total: " << gv->lightInfos.size() << ") "

@@ -668,11 +668,16 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
     OSG_CONFIGURE_LIBMINI()
 
+    OSG_ADD_OPT(OSG_LIBMINI_FOUND)
+
     ###############
     #### OpenNurbs
     ###############
 
     OSG_CONFIGURE_OPENNURBS()
+
+    OSG_ADD_OPT(OPENNURBS_FOUND)
+    OSG_ADD_OPT(OPENNURBS_INCLUDE_DIR)
 
     #############
     #### Python
