@@ -907,7 +907,7 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     mkInstCmd = ["make", "install"]
     retcode = subprocess.call(mkInstCmd)
 
-    cmCfgOptCmd = ["cmake", "-DCMAKE_BUILD_TYPE:STRING=Release", "."]
+    cmCfgOptCmd = ["cmake", "-DCMAKE_BUILD_TYPE:STRING=Debug", "."]
     retcode = subprocess.call(cmCfgOptCmd)
 
     mkBldCmd = ["make"]
