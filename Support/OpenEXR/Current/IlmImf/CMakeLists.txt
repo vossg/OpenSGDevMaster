@@ -5,7 +5,7 @@
     ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTargetIlmImf})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTargetIlmImf} PROPERTIES
-                          COMPILE_DEFINITIONS "ZLIB_DLL"
+#                          COMPILE_DEFINITIONS "ZLIB_DLL"
                           DEBUG_POSTFIX "D")
 
     INCLUDE_DIRECTORIES(${OSGIlmBaseSrcDir}/Half 
