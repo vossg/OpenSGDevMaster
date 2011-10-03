@@ -75,7 +75,7 @@ void keyboard(unsigned char k, int, int)
         {
             mgr->getRenderAction()->setVolumeDrawing(
                 !mgr->getRenderAction()->getVolumeDrawing());
-		    std::cerr << "Volume Drawing: " 
+            std::cerr << "Volume Drawing: " 
                       << (mgr->getRenderAction()->getVolumeDrawing()?"on":"off") 
                       << std::endl;
         }
@@ -134,7 +134,7 @@ int doMain(int argc, char **argv)
     if(argc > 1 && !strncmp(argv[1], "-e=", 3))
     {
         // the user supplied a tessellation error, let's that too
-        float tessError = strtof(argv[1] + 3, NULL);
+        float tessError = TypeTraits<Real32>::getFromCString(argv[1] + 3);
         if(tessError > 0)
         {            
             SceneFileHandler::the()->setOption("3dm", 
