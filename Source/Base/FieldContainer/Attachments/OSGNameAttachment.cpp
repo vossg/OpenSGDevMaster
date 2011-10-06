@@ -46,6 +46,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+OSG_SIMPLEATTACHMENT_INST(NameAttachmentDesc);
+
 template <>
 SimpleAttachment<NameAttachmentDesc>::TypeObject &
     SimpleAttachment<NameAttachmentDesc>::getType(void)
@@ -66,8 +68,6 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
 {
     return _type;
 }
-
-OSG_SIMPLEATTACHMENT_INST(NameAttachmentDesc);
 
 /*-------------------------------------------------------------------------*/
 /*                   Name Attachment Utility Functions                     */

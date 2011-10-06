@@ -320,7 +320,7 @@ void SimpleAttachment< DESC >::classDescInserter(TypeObject &oType)       \
                                                                           \
     pDesc = new SFDesc(                                                   \
         StoredFieldType::getClassType(),                                  \
-        SimpleDesc::getFieldName(),                                       \
+        DESC::getFieldName(),                                             \
         "",                                                               \
         OSG_RC_FIELD_DESC(Self::Simple),                                  \
         false,                                                            \
@@ -334,9 +334,9 @@ void SimpleAttachment< DESC >::classDescInserter(TypeObject &oType)       \
 template <>                                                               \
 SimpleAttachment< DESC >::TypeObject                                      \
     SimpleAttachment<DESC >::_type(                                       \
-        SimpleDesc::getTypeName      (),                                  \
-        SimpleDesc::getParentTypeName(),                                  \
-        SimpleDesc::getGroupName     (),                                  \
+        DESC::getTypeName      (),                                        \
+        DESC::getParentTypeName(),                                        \
+        DESC::getGroupName     (),                                        \
         0,                                                                \
         reinterpret_cast<PrototypeCreateF>(&Self::createEmptyLocal),      \
         NULL,                                                             \
