@@ -4,8 +4,6 @@
  *                                                                           *
  *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
  *                                                                           *
- *                            www.opensg.org                                 *
- *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -36,60 +34,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMANIPULATORMANAGER_H_
-#define _OSGMANIPULATORMANAGER_H_
-
-#include "OSGConfig.h"
-#include "OSGBaseTypes.h"
-#include "OSGNodeFields.h"
-
-#include "OSGManipulator.h"
-#include "OSGMoveManipulator.h"
-#include "OSGRotateManipulator.h"
-#include "OSGScaleManipulator.h"
-#include "OSGPlaneMoveManipulator.h"
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
-{
- public:
-    enum    ManipulatorType { ROTATE, SCALE, TRANSLATE, PLANE };
-
-     ManipulatorManager();
-    ~ManipulatorManager();
-
-    Node*           createManipulator    (const ManipulatorType  type   );
-    void            changeManipulator    (const ManipulatorType  type   );
-    void            changeEnablePivot    (      bool enablePivot        );
-    ManipulatorType getCurrentType       (                              ) const;
-    bool            getCurrentEnablePivot(                              ) const;
-    const Pnt3f &   getCurrentPivot      (                              ) const;
-    bool            activate             (      Node            *n      );
-    
-    void            setTarget            (      Node     * const value);
-    void            setViewport          (      Viewport * const value);
-    bool            isActive             (      void                  );
-    
-    void            mouseMove             (const Int16  x,
-                                           const Int16  y);
-    void            mouseButtonPress      (const UInt16 button,
-                                           const Int16  x,
-                                           const Int16  y     );
-    void            mouseButtonRelease    (const UInt16 button,
-                                           const Int16  x,
-                                           const Int16  y     );
-private:
-
-    NodeRefPtr         _maniN;
-    ManipulatorType    _currentType;
-    bool               _currentEnablePivot;
-    Pnt3f              _currentPivot;
-    NodeRefPtr         _target;
-    ViewportRefPtr     _viewport;
-    bool               _pivotChangePending;
-};
-
 OSG_END_NAMESPACE
-
-#endif // _OSGMANIPULATORMANAGER_H_

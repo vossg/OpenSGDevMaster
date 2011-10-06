@@ -89,6 +89,31 @@ void ManipulatorBase::setTarget(Node * const value)
 
     _sfTarget.setValue(value);
 }
+//! Get the value of the Manipulator::_sfEnablePivot field.
+
+inline
+bool &ManipulatorBase::editEnablePivot(void)
+{
+    editSField(EnablePivotFieldMask);
+
+    return _sfEnablePivot.getValue();
+}
+
+//! Get the value of the Manipulator::_sfEnablePivot field.
+inline
+      bool  ManipulatorBase::getEnablePivot(void) const
+{
+    return _sfEnablePivot.getValue();
+}
+
+//! Set the value of the Manipulator::_sfEnablePivot field.
+inline
+void ManipulatorBase::setEnablePivot(const bool value)
+{
+    editSField(EnablePivotFieldMask);
+
+    _sfEnablePivot.setValue(value);
+}
 
 //! Get the value of the Manipulator::_sfActiveSubHandle field.
 inline
@@ -196,6 +221,31 @@ void ManipulatorBase::setLength(const Vec3f &value)
 
     _sfLength.setValue(value);
 }
+//! Get the value of the Manipulator::_sfPivot field.
+
+inline
+Pnt3f &ManipulatorBase::editPivot(void)
+{
+    editSField(PivotFieldMask);
+
+    return _sfPivot.getValue();
+}
+
+//! Get the value of the Manipulator::_sfPivot field.
+inline
+const Pnt3f &ManipulatorBase::getPivot(void) const
+{
+    return _sfPivot.getValue();
+}
+
+//! Set the value of the Manipulator::_sfPivot field.
+inline
+void ManipulatorBase::setPivot(const Pnt3f &value)
+{
+    editSField(PivotFieldMask);
+
+    _sfPivot.setValue(value);
+}
 
 //! Get the value of the Manipulator::_sfHandleXNode field.
 inline
@@ -243,6 +293,22 @@ void ManipulatorBase::setHandleZNode(Node * const value)
     editSField(HandleZNodeFieldMask);
 
     _sfHandleZNode.setValue(value);
+}
+
+//! Get the value of the Manipulator::_sfHandlePNode field.
+inline
+Node * ManipulatorBase::getHandlePNode(void) const
+{
+    return _sfHandlePNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfHandlePNode field.
+inline
+void ManipulatorBase::setHandlePNode(Node * const value)
+{
+    editSField(HandlePNodeFieldMask);
+
+    _sfHandlePNode.setValue(value);
 }
 
 //! Get the value of the Manipulator::_sfTransXNode field.
@@ -293,6 +359,22 @@ void ManipulatorBase::setTransZNode(Node * const value)
     _sfTransZNode.setValue(value);
 }
 
+//! Get the value of the Manipulator::_sfPivotNode field.
+inline
+Node * ManipulatorBase::getPivotNode(void) const
+{
+    return _sfPivotNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfPivotNode field.
+inline
+void ManipulatorBase::setPivotNode(Node * const value)
+{
+    editSField(PivotNodeFieldMask);
+
+    _sfPivotNode.setValue(value);
+}
+
 //! Get the value of the Manipulator::_sfMaterialX field.
 inline
 Material * ManipulatorBase::getMaterialX(void) const
@@ -341,6 +423,22 @@ void ManipulatorBase::setMaterialZ(Material * const value)
     _sfMaterialZ.setValue(value);
 }
 
+//! Get the value of the Manipulator::_sfMaterialPivot field.
+inline
+Material * ManipulatorBase::getMaterialPivot(void) const
+{
+    return _sfMaterialPivot.getValue();
+}
+
+//! Set the value of the Manipulator::_sfMaterialPivot field.
+inline
+void ManipulatorBase::setMaterialPivot(Material * const value)
+{
+    editSField(MaterialPivotFieldMask);
+
+    _sfMaterialPivot.setValue(value);
+}
+
 //! Get the value of the Manipulator::_sfAxisLinesN field.
 inline
 Node * ManipulatorBase::getAxisLinesN(void) const
@@ -371,6 +469,9 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
     if(FieldBits::NoField != (TargetFieldMask & whichField))
         _sfTarget.syncWith(pFrom->_sfTarget);
 
+    if(FieldBits::NoField != (EnablePivotFieldMask & whichField))
+        _sfEnablePivot.syncWith(pFrom->_sfEnablePivot);
+
     if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
         _sfActiveSubHandle.syncWith(pFrom->_sfActiveSubHandle);
 
@@ -386,6 +487,9 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
     if(FieldBits::NoField != (LengthFieldMask & whichField))
         _sfLength.syncWith(pFrom->_sfLength);
 
+    if(FieldBits::NoField != (PivotFieldMask & whichField))
+        _sfPivot.syncWith(pFrom->_sfPivot);
+
     if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
         _sfHandleXNode.syncWith(pFrom->_sfHandleXNode);
 
@@ -394,6 +498,9 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
 
     if(FieldBits::NoField != (HandleZNodeFieldMask & whichField))
         _sfHandleZNode.syncWith(pFrom->_sfHandleZNode);
+
+    if(FieldBits::NoField != (HandlePNodeFieldMask & whichField))
+        _sfHandlePNode.syncWith(pFrom->_sfHandlePNode);
 
     if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
         _sfTransXNode.syncWith(pFrom->_sfTransXNode);
@@ -404,6 +511,9 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
     if(FieldBits::NoField != (TransZNodeFieldMask & whichField))
         _sfTransZNode.syncWith(pFrom->_sfTransZNode);
 
+    if(FieldBits::NoField != (PivotNodeFieldMask & whichField))
+        _sfPivotNode.syncWith(pFrom->_sfPivotNode);
+
     if(FieldBits::NoField != (MaterialXFieldMask & whichField))
         _sfMaterialX.syncWith(pFrom->_sfMaterialX);
 
@@ -412,6 +522,9 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
 
     if(FieldBits::NoField != (MaterialZFieldMask & whichField))
         _sfMaterialZ.syncWith(pFrom->_sfMaterialZ);
+
+    if(FieldBits::NoField != (MaterialPivotFieldMask & whichField))
+        _sfMaterialPivot.syncWith(pFrom->_sfMaterialPivot);
 
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
         _sfAxisLinesN.syncWith(pFrom->_sfAxisLinesN);

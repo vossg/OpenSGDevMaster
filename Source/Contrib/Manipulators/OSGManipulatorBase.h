@@ -66,9 +66,9 @@
 #include "OSGTransform.h" // Parent
 
 #include "OSGNodeFields.h"              // Target type
+#include "OSGSysFields.h"               // EnablePivot type
 #include "OSGVecFields.h"               // LastMousePos type
 #include "OSGViewportFields.h"          // Viewport type
-#include "OSGSysFields.h"               // Active type
 #include "OSGMaterialFields.h"          // MaterialX type
 
 #include "OSGManipulatorFields.h"
@@ -98,26 +98,33 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     enum
     {
         TargetFieldId = Inherited::NextFieldId,
-        ActiveSubHandleFieldId = TargetFieldId + 1,
+        EnablePivotFieldId = TargetFieldId + 1,
+        ActiveSubHandleFieldId = EnablePivotFieldId + 1,
         LastMousePosFieldId = ActiveSubHandleFieldId + 1,
         ViewportFieldId = LastMousePosFieldId + 1,
         ActiveFieldId = ViewportFieldId + 1,
         LengthFieldId = ActiveFieldId + 1,
-        HandleXNodeFieldId = LengthFieldId + 1,
+        PivotFieldId = LengthFieldId + 1,
+        HandleXNodeFieldId = PivotFieldId + 1,
         HandleYNodeFieldId = HandleXNodeFieldId + 1,
         HandleZNodeFieldId = HandleYNodeFieldId + 1,
-        TransXNodeFieldId = HandleZNodeFieldId + 1,
+        HandlePNodeFieldId = HandleZNodeFieldId + 1,
+        TransXNodeFieldId = HandlePNodeFieldId + 1,
         TransYNodeFieldId = TransXNodeFieldId + 1,
         TransZNodeFieldId = TransYNodeFieldId + 1,
-        MaterialXFieldId = TransZNodeFieldId + 1,
+        PivotNodeFieldId = TransZNodeFieldId + 1,
+        MaterialXFieldId = PivotNodeFieldId + 1,
         MaterialYFieldId = MaterialXFieldId + 1,
         MaterialZFieldId = MaterialYFieldId + 1,
-        AxisLinesNFieldId = MaterialZFieldId + 1,
+        MaterialPivotFieldId = MaterialZFieldId + 1,
+        AxisLinesNFieldId = MaterialPivotFieldId + 1,
         NextFieldId = AxisLinesNFieldId + 1
     };
 
     static const OSG::BitVector TargetFieldMask =
         (TypeTraits<BitVector>::One << TargetFieldId);
+    static const OSG::BitVector EnablePivotFieldMask =
+        (TypeTraits<BitVector>::One << EnablePivotFieldId);
     static const OSG::BitVector ActiveSubHandleFieldMask =
         (TypeTraits<BitVector>::One << ActiveSubHandleFieldId);
     static const OSG::BitVector LastMousePosFieldMask =
@@ -128,44 +135,57 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
         (TypeTraits<BitVector>::One << ActiveFieldId);
     static const OSG::BitVector LengthFieldMask =
         (TypeTraits<BitVector>::One << LengthFieldId);
+    static const OSG::BitVector PivotFieldMask =
+        (TypeTraits<BitVector>::One << PivotFieldId);
     static const OSG::BitVector HandleXNodeFieldMask =
         (TypeTraits<BitVector>::One << HandleXNodeFieldId);
     static const OSG::BitVector HandleYNodeFieldMask =
         (TypeTraits<BitVector>::One << HandleYNodeFieldId);
     static const OSG::BitVector HandleZNodeFieldMask =
         (TypeTraits<BitVector>::One << HandleZNodeFieldId);
+    static const OSG::BitVector HandlePNodeFieldMask =
+        (TypeTraits<BitVector>::One << HandlePNodeFieldId);
     static const OSG::BitVector TransXNodeFieldMask =
         (TypeTraits<BitVector>::One << TransXNodeFieldId);
     static const OSG::BitVector TransYNodeFieldMask =
         (TypeTraits<BitVector>::One << TransYNodeFieldId);
     static const OSG::BitVector TransZNodeFieldMask =
         (TypeTraits<BitVector>::One << TransZNodeFieldId);
+    static const OSG::BitVector PivotNodeFieldMask =
+        (TypeTraits<BitVector>::One << PivotNodeFieldId);
     static const OSG::BitVector MaterialXFieldMask =
         (TypeTraits<BitVector>::One << MaterialXFieldId);
     static const OSG::BitVector MaterialYFieldMask =
         (TypeTraits<BitVector>::One << MaterialYFieldId);
     static const OSG::BitVector MaterialZFieldMask =
         (TypeTraits<BitVector>::One << MaterialZFieldId);
+    static const OSG::BitVector MaterialPivotFieldMask =
+        (TypeTraits<BitVector>::One << MaterialPivotFieldId);
     static const OSG::BitVector AxisLinesNFieldMask =
         (TypeTraits<BitVector>::One << AxisLinesNFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecNodePtr    SFTargetType;
+    typedef SFBool            SFEnablePivotType;
     typedef SFUnrecNodePtr    SFActiveSubHandleType;
     typedef SFPnt2f           SFLastMousePosType;
     typedef SFUnrecViewportPtr SFViewportType;
     typedef SFBool            SFActiveType;
     typedef SFVec3f           SFLengthType;
+    typedef SFPnt3f           SFPivotType;
     typedef SFUnrecNodePtr    SFHandleXNodeType;
     typedef SFUnrecNodePtr    SFHandleYNodeType;
     typedef SFUnrecNodePtr    SFHandleZNodeType;
+    typedef SFUnrecNodePtr    SFHandlePNodeType;
     typedef SFUnrecNodePtr    SFTransXNodeType;
     typedef SFUnrecNodePtr    SFTransYNodeType;
     typedef SFUnrecNodePtr    SFTransZNodeType;
+    typedef SFUnrecNodePtr    SFPivotNodeType;
     typedef SFUnrecMaterialPtr SFMaterialXType;
     typedef SFUnrecMaterialPtr SFMaterialYType;
     typedef SFUnrecMaterialPtr SFMaterialZType;
+    typedef SFUnrecMaterialPtr SFMaterialPivotType;
     typedef SFUnrecNodePtr    SFAxisLinesNType;
 
     /*---------------------------------------------------------------------*/
@@ -193,6 +213,9 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
             const SFUnrecNodePtr      *getSFTarget         (void) const;
                   SFUnrecNodePtr      *editSFTarget         (void);
+
+                  SFBool              *editSFEnablePivot    (void);
+            const SFBool              *getSFEnablePivot     (void) const;
             const SFUnrecNodePtr      *getSFActiveSubHandle(void) const;
                   SFUnrecNodePtr      *editSFActiveSubHandle(void);
             const SFUnrecViewportPtr  *getSFViewport       (void) const;
@@ -203,29 +226,41 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
                   SFVec3f             *editSFLength         (void);
             const SFVec3f             *getSFLength          (void) const;
+
+                  SFPnt3f             *editSFPivot          (void);
+            const SFPnt3f             *getSFPivot           (void) const;
             const SFUnrecNodePtr      *getSFHandleXNode    (void) const;
                   SFUnrecNodePtr      *editSFHandleXNode    (void);
             const SFUnrecNodePtr      *getSFHandleYNode    (void) const;
                   SFUnrecNodePtr      *editSFHandleYNode    (void);
             const SFUnrecNodePtr      *getSFHandleZNode    (void) const;
                   SFUnrecNodePtr      *editSFHandleZNode    (void);
+            const SFUnrecNodePtr      *getSFHandlePNode    (void) const;
+                  SFUnrecNodePtr      *editSFHandlePNode    (void);
             const SFUnrecNodePtr      *getSFTransXNode     (void) const;
                   SFUnrecNodePtr      *editSFTransXNode     (void);
             const SFUnrecNodePtr      *getSFTransYNode     (void) const;
                   SFUnrecNodePtr      *editSFTransYNode     (void);
             const SFUnrecNodePtr      *getSFTransZNode     (void) const;
                   SFUnrecNodePtr      *editSFTransZNode     (void);
+            const SFUnrecNodePtr      *getSFPivotNode      (void) const;
+                  SFUnrecNodePtr      *editSFPivotNode      (void);
             const SFUnrecMaterialPtr  *getSFMaterialX      (void) const;
                   SFUnrecMaterialPtr  *editSFMaterialX      (void);
             const SFUnrecMaterialPtr  *getSFMaterialY      (void) const;
                   SFUnrecMaterialPtr  *editSFMaterialY      (void);
             const SFUnrecMaterialPtr  *getSFMaterialZ      (void) const;
                   SFUnrecMaterialPtr  *editSFMaterialZ      (void);
+            const SFUnrecMaterialPtr  *getSFMaterialPivot  (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterialPivot  (void);
             const SFUnrecNodePtr      *getSFAxisLinesN     (void) const;
                   SFUnrecNodePtr      *editSFAxisLinesN     (void);
 
 
                   Node * getTarget         (void) const;
+
+                  bool                &editEnablePivot    (void);
+                  bool                 getEnablePivot     (void) const;
 
                   Node * getActiveSubHandle(void) const;
 
@@ -237,11 +272,16 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
                   Vec3f               &editLength         (void);
             const Vec3f               &getLength          (void) const;
 
+                  Pnt3f               &editPivot          (void);
+            const Pnt3f               &getPivot           (void) const;
+
                   Node * getHandleXNode    (void) const;
 
                   Node * getHandleYNode    (void) const;
 
                   Node * getHandleZNode    (void) const;
+
+                  Node * getHandlePNode    (void) const;
 
                   Node * getTransXNode     (void) const;
 
@@ -249,11 +289,15 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
                   Node * getTransZNode     (void) const;
 
+                  Node * getPivotNode      (void) const;
+
                   Material * getMaterialX      (void) const;
 
                   Material * getMaterialY      (void) const;
 
                   Material * getMaterialZ      (void) const;
+
+                  Material * getMaterialPivot  (void) const;
 
                   Node * getAxisLinesN     (void) const;
 
@@ -263,19 +307,24 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \{                                                                 */
 
             void setTarget         (Node * const value);
+            void setEnablePivot    (const bool value);
             void setActiveSubHandle(Node * const value);
             void setViewport       (Viewport * const value);
             void setActive         (const bool value);
             void setLength         (const Vec3f &value);
+            void setPivot          (const Pnt3f &value);
             void setHandleXNode    (Node * const value);
             void setHandleYNode    (Node * const value);
             void setHandleZNode    (Node * const value);
+            void setHandlePNode    (Node * const value);
             void setTransXNode     (Node * const value);
             void setTransYNode     (Node * const value);
             void setTransZNode     (Node * const value);
+            void setPivotNode      (Node * const value);
             void setMaterialX      (Material * const value);
             void setMaterialY      (Material * const value);
             void setMaterialZ      (Material * const value);
+            void setMaterialPivot  (Material * const value);
             void setAxisLinesN     (Node * const value);
 
     /*! \}                                                                 */
@@ -315,20 +364,25 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \{                                                                 */
 
     SFUnrecNodePtr    _sfTarget;
+    SFBool            _sfEnablePivot;
     SFUnrecNodePtr    _sfActiveSubHandle;
     SFPnt2f           _sfLastMousePos;
     SFUnrecViewportPtr _sfViewport;
     SFBool            _sfActive;
     SFVec3f           _sfLength;
+    SFPnt3f           _sfPivot;
     SFUnrecNodePtr    _sfHandleXNode;
     SFUnrecNodePtr    _sfHandleYNode;
     SFUnrecNodePtr    _sfHandleZNode;
+    SFUnrecNodePtr    _sfHandlePNode;
     SFUnrecNodePtr    _sfTransXNode;
     SFUnrecNodePtr    _sfTransYNode;
     SFUnrecNodePtr    _sfTransZNode;
+    SFUnrecNodePtr    _sfPivotNode;
     SFUnrecMaterialPtr _sfMaterialX;
     SFUnrecMaterialPtr _sfMaterialY;
     SFUnrecMaterialPtr _sfMaterialZ;
+    SFUnrecMaterialPtr _sfMaterialPivot;
     SFUnrecNodePtr    _sfAxisLinesN;
 
     /*! \}                                                                 */
@@ -360,6 +414,8 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
     GetFieldHandlePtr  getHandleTarget          (void) const;
     EditFieldHandlePtr editHandleTarget         (void);
+    GetFieldHandlePtr  getHandleEnablePivot     (void) const;
+    EditFieldHandlePtr editHandleEnablePivot    (void);
     GetFieldHandlePtr  getHandleActiveSubHandle (void) const;
     EditFieldHandlePtr editHandleActiveSubHandle(void);
     GetFieldHandlePtr  getHandleLastMousePos    (void) const;
@@ -370,24 +426,32 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     EditFieldHandlePtr editHandleActive         (void);
     GetFieldHandlePtr  getHandleLength          (void) const;
     EditFieldHandlePtr editHandleLength         (void);
+    GetFieldHandlePtr  getHandlePivot           (void) const;
+    EditFieldHandlePtr editHandlePivot          (void);
     GetFieldHandlePtr  getHandleHandleXNode     (void) const;
     EditFieldHandlePtr editHandleHandleXNode    (void);
     GetFieldHandlePtr  getHandleHandleYNode     (void) const;
     EditFieldHandlePtr editHandleHandleYNode    (void);
     GetFieldHandlePtr  getHandleHandleZNode     (void) const;
     EditFieldHandlePtr editHandleHandleZNode    (void);
+    GetFieldHandlePtr  getHandleHandlePNode     (void) const;
+    EditFieldHandlePtr editHandleHandlePNode    (void);
     GetFieldHandlePtr  getHandleTransXNode      (void) const;
     EditFieldHandlePtr editHandleTransXNode     (void);
     GetFieldHandlePtr  getHandleTransYNode      (void) const;
     EditFieldHandlePtr editHandleTransYNode     (void);
     GetFieldHandlePtr  getHandleTransZNode      (void) const;
     EditFieldHandlePtr editHandleTransZNode     (void);
+    GetFieldHandlePtr  getHandlePivotNode       (void) const;
+    EditFieldHandlePtr editHandlePivotNode      (void);
     GetFieldHandlePtr  getHandleMaterialX       (void) const;
     EditFieldHandlePtr editHandleMaterialX      (void);
     GetFieldHandlePtr  getHandleMaterialY       (void) const;
     EditFieldHandlePtr editHandleMaterialY      (void);
     GetFieldHandlePtr  getHandleMaterialZ       (void) const;
     EditFieldHandlePtr editHandleMaterialZ      (void);
+    GetFieldHandlePtr  getHandleMaterialPivot   (void) const;
+    EditFieldHandlePtr editHandleMaterialPivot  (void);
     GetFieldHandlePtr  getHandleAxisLinesN      (void) const;
     EditFieldHandlePtr editHandleAxisLinesN     (void);
 

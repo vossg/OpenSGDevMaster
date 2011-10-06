@@ -160,17 +160,25 @@ void ScaleManipulator::doMovement(      Transform    *t,
         scale[coord] += value;
     }
 
-    Matrix ma, mb, mc, md, me;
+    Matrix ma, mb, mc, md, me, mf, mg;
+    
+    Vec3f sp( getPivot()[0] * scaleFactor[0],
+              getPivot()[1] * scaleFactor[1],
+              getPivot()[2] * scaleFactor[2]);
 
     ma.setTranslate(-translation       );
     mb.setRotate   ( rotation.inverse());
-    mc.setScale    ( scale             );
-    md.setRotate   ( rotation          );
-    me.setTranslate( translation       );
+    mc.setTranslate( - sp               );
+    md.setScale    ( scale             );
+    me.setTranslate( sp               );
+    mf.setRotate   ( rotation          );
+    mg.setTranslate( translation       );
 
     t->editMatrix().multLeft(ma);
     t->editMatrix().multLeft(mb);
     t->editMatrix().multLeft(mc);
     t->editMatrix().multLeft(md);
     t->editMatrix().multLeft(me);
+    t->editMatrix().multLeft(mf);
+    t->editMatrix().multLeft(mg);
 }

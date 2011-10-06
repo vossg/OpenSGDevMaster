@@ -41,6 +41,7 @@
 //---------------------------------------------------------------------------
 
 #include "OSGConfig.h"
+#include "OSGIntersectAction.h"
 #include "OSGManipulatorManager.h"
 
 OSG_BEGIN_NAMESPACE
@@ -50,10 +51,12 @@ OSG_BEGIN_NAMESPACE
 // wenn der ManipulatorManager sich den Node merken wuerde!?!
 
 ManipulatorManager::ManipulatorManager()
-    : _maniN      (),
-      _currentType(),
-      _target     (),
-      _viewport   ()
+    : _maniN             (),
+      _currentType       (),
+      _currentEnablePivot(),
+      _currentPivot      (),
+      _target            (),
+      _viewport          ()
 {
 }
 
@@ -79,9 +82,15 @@ Node* ManipulatorManager::createManipulator(const ManipulatorType type)
         case TRANSLATE:
             mani = MoveManipulator::create();    
             break;
+        case PLANE:
+            mani = PlaneMoveManipulator::create();    
+            break;
     }
     
     _currentType = type;
+    
+    mani->setEnablePivot(_currentEnablePivot);
+    mani->setPivot      (_currentPivot);
 
     _maniN = makeNodeFor(mani);
     commitChanges();
@@ -98,32 +107,64 @@ void ManipulatorManager::changeManipulator(const ManipulatorType type)
   
         switch (type)
         {
-        case ROTATE:
-            mani = RotateManipulator::create();
-            break;
-        case SCALE:
-            mani = ScaleManipulator::create();
-            break;
-        case TRANSLATE:
-            mani = MoveManipulator::create();    
-            break;
-        }
+            case ROTATE:
+                mani = RotateManipulator::create();
+                break;
+            case SCALE:
+                mani = ScaleManipulator::create();
+                break;
+            case TRANSLATE:
+                mani = MoveManipulator::create();    
+                break;
+            case PLANE:
+                mani = PlaneMoveManipulator::create();    
+                break;
+       }
 
         _currentType = type;
 
         _maniN->setCore(mani);
 
-        commitChanges();
+        mani->setTarget     (_target  );
+        mani->setViewport   (_viewport);
+        mani->setEnablePivot(_currentEnablePivot);
+        mani->setPivot      (_currentPivot);
 
-        mani->setTarget  (_target  );
-        mani->setViewport(_viewport);
+        commitChanges();
     }
+}
+
+void ManipulatorManager::changeEnablePivot(bool enablePivot)
+{
+    Manipulator* mani = _maniN->getCore<Manipulator>();
+   
+    mani->setEnablePivot(enablePivot);   
+    _currentEnablePivot = enablePivot;
+    
+    if (! enablePivot)
+    {
+        _currentPivot.setValues(0,0,0);
+        mani->setPivot(Pnt3f(0,0,0));
+        mani->updateHandleTransform();
+    }
+
+    commitChanges();
 }
 
 ManipulatorManager::ManipulatorType
 ManipulatorManager::getCurrentType() const
 {
     return _currentType;
+}
+
+bool ManipulatorManager::getCurrentEnablePivot() const
+{
+    return _currentEnablePivot;
+}
+
+const Pnt3f &ManipulatorManager::getCurrentPivot() const
+{
+    return _currentPivot;
 }
 
 void ManipulatorManager::setTarget(Node * const value)
@@ -183,7 +224,52 @@ void ManipulatorManager::mouseButtonPress(const UInt16 uiButton,
 {
     Manipulator* mani = _maniN->getCore<Manipulator>();
 
-    mani->mouseButtonPress(uiButton, x, y);
+    if (! _pivotChangePending)
+    {
+        mani->mouseButtonPress(uiButton, x, y);
+    }
+    else
+    {
+        OSG::Line viewray;
+        _viewport->getCamera()->calcViewRay(viewray, x, y, *_viewport);
+
+        OSG::Node *scene = _target;
+        while (scene->getParent() != 0)
+        {
+            scene = scene->getParent();
+        }
+
+        OSG::IntersectAction *act = OSG::IntersectAction::create();
+        act->setLine( viewray );
+        act->apply( scene );
+
+        if ( act->didHit() )
+        {
+            Pnt3f hitw = act->getHitPoint();
+            
+            // Transform from world to target space
+            
+            Matrix m = _target->getToWorld();
+            m.invert();
+            
+            Pnt3f hitl;
+            
+            m.mult(hitw, hitl);
+            
+            mani->setPivot(hitl);           
+            mani->updateHandleTransform();
+            
+            _currentPivot = hitl;
+            
+            //SLOG << "ManipulatorManager::mouseButtonPress: pivot changed to " << hitl << " (world:" << hitw << endLog;
+        }
+        else
+        {
+           SWARNING << "ManipulatorManager::mouseButtonPress: expected pivot change, bu no hit!?!" << endLog;
+        }
+        
+        _pivotChangePending= false;
+    }
 }
 
 void ManipulatorManager::mouseButtonRelease(const UInt16 uiButton,
@@ -203,6 +289,20 @@ bool ManipulatorManager::activate(Node *n)
     {
         mani->setActiveSubHandle(n);
         return true;
+    }
+    else if (mani->getEnablePivot())
+    {
+        // Clicking on something below the target?
+        while (n != 0 && n != _target)
+        {
+            n = n->getParent();
+        }
+        
+        if (n != 0)
+        {
+            _pivotChangePending = true;
+            
+        }
     }
     else
     {

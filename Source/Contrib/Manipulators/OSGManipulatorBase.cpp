@@ -85,7 +85,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Node *          ManipulatorBase::_sfTarget
-    
+    The target node to be manipulated.
+*/
+
+/*! \var bool            ManipulatorBase::_sfEnablePivot
+    Flag to enable the pivot point manipulation.
 */
 
 /*! \var Node *          ManipulatorBase::_sfActiveSubHandle
@@ -108,6 +112,10 @@ OSG_BEGIN_NAMESPACE
     The length of the three axes in one vector
 */
 
+/*! \var Pnt3f           ManipulatorBase::_sfPivot
+    The position of the pivot point, in local object coordinates.
+*/
+
 /*! \var Node *          ManipulatorBase::_sfHandleXNode
     The node for the x-handle geometry
 */
@@ -118,6 +126,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Node *          ManipulatorBase::_sfHandleZNode
     The node for the z-handle geometry
+*/
+
+/*! \var Node *          ManipulatorBase::_sfHandlePNode
+    The node for the pivot geometry
 */
 
 /*! \var Node *          ManipulatorBase::_sfTransXNode
@@ -132,6 +144,10 @@ OSG_BEGIN_NAMESPACE
     The node for the z-handle transform
 */
 
+/*! \var Node *          ManipulatorBase::_sfPivotNode
+    The node for the pivot transform
+*/
+
 /*! \var Material *      ManipulatorBase::_sfMaterialX
     material for the x-axis geometry
 */
@@ -142,6 +158,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Material *      ManipulatorBase::_sfMaterialZ
     material for the z-axis geometry
+*/
+
+/*! \var Material *      ManipulatorBase::_sfMaterialPivot
+    material for the pivot geometry
 */
 
 /*! \var Node *          ManipulatorBase::_sfAxisLinesN
@@ -179,12 +199,24 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecNodePtr::Description(
         SFUnrecNodePtr::getClassType(),
         "target",
-        "",
+        "The target node to be manipulated.\n",
         TargetFieldId, TargetFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Manipulator::editHandleTarget),
         static_cast<FieldGetMethodSig >(&Manipulator::getHandleTarget));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enablePivot",
+        "Flag to enable the pivot point manipulation.\n",
+        EnablePivotFieldId, EnablePivotFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleEnablePivot),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleEnablePivot));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,6 +280,18 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFPnt3f::Description(
+        SFPnt3f::getClassType(),
+        "pivot",
+        "The position of the pivot point, in local object coordinates.\n",
+        PivotFieldId, PivotFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandlePivot),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandlePivot));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFUnrecNodePtr::Description(
         SFUnrecNodePtr::getClassType(),
         "handleXNode",
@@ -281,6 +325,18 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Manipulator::editHandleHandleZNode),
         static_cast<FieldGetMethodSig >(&Manipulator::getHandleHandleZNode));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
+        "handlePNode",
+        "The node for the pivot geometry\n",
+        HandlePNodeFieldId, HandlePNodeFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleHandlePNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleHandlePNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -320,6 +376,18 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
+        "pivotNode",
+        "The node for the pivot transform\n",
+        PivotNodeFieldId, PivotNodeFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandlePivotNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandlePivotNode));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFUnrecMaterialPtr::Description(
         SFUnrecMaterialPtr::getClassType(),
         "materialX",
@@ -353,6 +421,18 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Manipulator::editHandleMaterialZ),
         static_cast<FieldGetMethodSig >(&Manipulator::getHandleMaterialZ));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecMaterialPtr::Description(
+        SFUnrecMaterialPtr::getClassType(),
+        "materialPivot",
+        "material for the pivot geometry\n",
+        MaterialPivotFieldId, MaterialPivotFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleMaterialPivot),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleMaterialPivot));
 
     oType.addInitialDesc(pDesc);
 
@@ -402,6 +482,17 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
+    "        The target node to be manipulated.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"enablePivot\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                defaultValue=\"false\"\n"
+    "\t>\n"
+    "        Flag to enable the pivot point manipulation.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"activeSubHandle\"\n"
@@ -449,6 +540,16 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\tThe length of the three axes in one vector\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"pivot\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe position of the pivot point, in local object coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"handleXNode\"\n"
     "\t\ttype=\"NodePtr\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -474,6 +575,15 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tThe node for the z-handle geometry\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"handlePNode\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe node for the pivot geometry\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"transXNode\"\n"
@@ -503,6 +613,15 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\tThe node for the z-handle transform\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"pivotNode\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe node for the pivot transform\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"materialX\"\n"
     "\t\ttype=\"MaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -528,6 +647,15 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tmaterial for the z-axis geometry\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"materialPivot\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tmaterial for the pivot geometry\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"axisLinesN\"\n"
@@ -573,6 +701,19 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTarget         (void)
 
     return &_sfTarget;
 }
+
+SFBool *ManipulatorBase::editSFEnablePivot(void)
+{
+    editSField(EnablePivotFieldMask);
+
+    return &_sfEnablePivot;
+}
+
+const SFBool *ManipulatorBase::getSFEnablePivot(void) const
+{
+    return &_sfEnablePivot;
+}
+
 
 //! Get the Manipulator::_sfActiveSubHandle field.
 const SFUnrecNodePtr *ManipulatorBase::getSFActiveSubHandle(void) const
@@ -639,6 +780,19 @@ const SFVec3f *ManipulatorBase::getSFLength(void) const
 }
 
 
+SFPnt3f *ManipulatorBase::editSFPivot(void)
+{
+    editSField(PivotFieldMask);
+
+    return &_sfPivot;
+}
+
+const SFPnt3f *ManipulatorBase::getSFPivot(void) const
+{
+    return &_sfPivot;
+}
+
+
 //! Get the Manipulator::_sfHandleXNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandleXNode(void) const
 {
@@ -676,6 +830,19 @@ SFUnrecNodePtr      *ManipulatorBase::editSFHandleZNode    (void)
     editSField(HandleZNodeFieldMask);
 
     return &_sfHandleZNode;
+}
+
+//! Get the Manipulator::_sfHandlePNode field.
+const SFUnrecNodePtr *ManipulatorBase::getSFHandlePNode(void) const
+{
+    return &_sfHandlePNode;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFHandlePNode    (void)
+{
+    editSField(HandlePNodeFieldMask);
+
+    return &_sfHandlePNode;
 }
 
 //! Get the Manipulator::_sfTransXNode field.
@@ -717,6 +884,19 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTransZNode     (void)
     return &_sfTransZNode;
 }
 
+//! Get the Manipulator::_sfPivotNode field.
+const SFUnrecNodePtr *ManipulatorBase::getSFPivotNode(void) const
+{
+    return &_sfPivotNode;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFPivotNode      (void)
+{
+    editSField(PivotNodeFieldMask);
+
+    return &_sfPivotNode;
+}
+
 //! Get the Manipulator::_sfMaterialX field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialX(void) const
 {
@@ -756,6 +936,19 @@ SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialZ      (void)
     return &_sfMaterialZ;
 }
 
+//! Get the Manipulator::_sfMaterialPivot field.
+const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialPivot(void) const
+{
+    return &_sfMaterialPivot;
+}
+
+SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialPivot  (void)
+{
+    editSField(MaterialPivotFieldMask);
+
+    return &_sfMaterialPivot;
+}
+
 //! Get the Manipulator::_sfAxisLinesN field.
 const SFUnrecNodePtr *ManipulatorBase::getSFAxisLinesN(void) const
 {
@@ -783,6 +976,10 @@ UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfTarget.getBinSize();
     }
+    if(FieldBits::NoField != (EnablePivotFieldMask & whichField))
+    {
+        returnValue += _sfEnablePivot.getBinSize();
+    }
     if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
     {
         returnValue += _sfActiveSubHandle.getBinSize();
@@ -803,6 +1000,10 @@ UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLength.getBinSize();
     }
+    if(FieldBits::NoField != (PivotFieldMask & whichField))
+    {
+        returnValue += _sfPivot.getBinSize();
+    }
     if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
     {
         returnValue += _sfHandleXNode.getBinSize();
@@ -814,6 +1015,10 @@ UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (HandleZNodeFieldMask & whichField))
     {
         returnValue += _sfHandleZNode.getBinSize();
+    }
+    if(FieldBits::NoField != (HandlePNodeFieldMask & whichField))
+    {
+        returnValue += _sfHandlePNode.getBinSize();
     }
     if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
     {
@@ -827,6 +1032,10 @@ UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfTransZNode.getBinSize();
     }
+    if(FieldBits::NoField != (PivotNodeFieldMask & whichField))
+    {
+        returnValue += _sfPivotNode.getBinSize();
+    }
     if(FieldBits::NoField != (MaterialXFieldMask & whichField))
     {
         returnValue += _sfMaterialX.getBinSize();
@@ -838,6 +1047,10 @@ UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (MaterialZFieldMask & whichField))
     {
         returnValue += _sfMaterialZ.getBinSize();
+    }
+    if(FieldBits::NoField != (MaterialPivotFieldMask & whichField))
+    {
+        returnValue += _sfMaterialPivot.getBinSize();
     }
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
     {
@@ -855,6 +1068,10 @@ void ManipulatorBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {
         _sfTarget.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnablePivotFieldMask & whichField))
+    {
+        _sfEnablePivot.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
     {
@@ -876,6 +1093,10 @@ void ManipulatorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLength.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PivotFieldMask & whichField))
+    {
+        _sfPivot.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
     {
         _sfHandleXNode.copyToBin(pMem);
@@ -887,6 +1108,10 @@ void ManipulatorBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (HandleZNodeFieldMask & whichField))
     {
         _sfHandleZNode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (HandlePNodeFieldMask & whichField))
+    {
+        _sfHandlePNode.copyToBin(pMem);
     }
     if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
     {
@@ -900,6 +1125,10 @@ void ManipulatorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfTransZNode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PivotNodeFieldMask & whichField))
+    {
+        _sfPivotNode.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (MaterialXFieldMask & whichField))
     {
         _sfMaterialX.copyToBin(pMem);
@@ -911,6 +1140,10 @@ void ManipulatorBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MaterialZFieldMask & whichField))
     {
         _sfMaterialZ.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MaterialPivotFieldMask & whichField))
+    {
+        _sfMaterialPivot.copyToBin(pMem);
     }
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
     {
@@ -927,6 +1160,11 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(TargetFieldMask);
         _sfTarget.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnablePivotFieldMask & whichField))
+    {
+        editSField(EnablePivotFieldMask);
+        _sfEnablePivot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
     {
@@ -953,6 +1191,11 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(LengthFieldMask);
         _sfLength.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (PivotFieldMask & whichField))
+    {
+        editSField(PivotFieldMask);
+        _sfPivot.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
     {
         editSField(HandleXNodeFieldMask);
@@ -967,6 +1210,11 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(HandleZNodeFieldMask);
         _sfHandleZNode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (HandlePNodeFieldMask & whichField))
+    {
+        editSField(HandlePNodeFieldMask);
+        _sfHandlePNode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
     {
@@ -983,6 +1231,11 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(TransZNodeFieldMask);
         _sfTransZNode.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (PivotNodeFieldMask & whichField))
+    {
+        editSField(PivotNodeFieldMask);
+        _sfPivotNode.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (MaterialXFieldMask & whichField))
     {
         editSField(MaterialXFieldMask);
@@ -997,6 +1250,11 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(MaterialZFieldMask);
         _sfMaterialZ.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MaterialPivotFieldMask & whichField))
+    {
+        editSField(MaterialPivotFieldMask);
+        _sfMaterialPivot.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
     {
@@ -1013,20 +1271,25 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 ManipulatorBase::ManipulatorBase(void) :
     Inherited(),
     _sfTarget                 (NULL),
+    _sfEnablePivot            (bool(false)),
     _sfActiveSubHandle        (NULL),
     _sfLastMousePos           (),
     _sfViewport               (NULL),
     _sfActive                 (),
     _sfLength                 (Vec3f(1,1,1)),
+    _sfPivot                  (Pnt3f(0,0,0)),
     _sfHandleXNode            (NULL),
     _sfHandleYNode            (NULL),
     _sfHandleZNode            (NULL),
+    _sfHandlePNode            (NULL),
     _sfTransXNode             (NULL),
     _sfTransYNode             (NULL),
     _sfTransZNode             (NULL),
+    _sfPivotNode              (NULL),
     _sfMaterialX              (NULL),
     _sfMaterialY              (NULL),
     _sfMaterialZ              (NULL),
+    _sfMaterialPivot          (NULL),
     _sfAxisLinesN             (NULL)
 {
 }
@@ -1034,20 +1297,25 @@ ManipulatorBase::ManipulatorBase(void) :
 ManipulatorBase::ManipulatorBase(const ManipulatorBase &source) :
     Inherited(source),
     _sfTarget                 (NULL),
+    _sfEnablePivot            (source._sfEnablePivot            ),
     _sfActiveSubHandle        (NULL),
     _sfLastMousePos           (source._sfLastMousePos           ),
     _sfViewport               (NULL),
     _sfActive                 (source._sfActive                 ),
     _sfLength                 (source._sfLength                 ),
+    _sfPivot                  (source._sfPivot                  ),
     _sfHandleXNode            (NULL),
     _sfHandleYNode            (NULL),
     _sfHandleZNode            (NULL),
+    _sfHandlePNode            (NULL),
     _sfTransXNode             (NULL),
     _sfTransYNode             (NULL),
     _sfTransZNode             (NULL),
+    _sfPivotNode              (NULL),
     _sfMaterialX              (NULL),
     _sfMaterialY              (NULL),
     _sfMaterialZ              (NULL),
+    _sfMaterialPivot          (NULL),
     _sfAxisLinesN             (NULL)
 {
 }
@@ -1079,17 +1347,23 @@ void ManipulatorBase::onCreate(const Manipulator *source)
 
         pThis->setHandleZNode(source->getHandleZNode());
 
+        pThis->setHandlePNode(source->getHandlePNode());
+
         pThis->setTransXNode(source->getTransXNode());
 
         pThis->setTransYNode(source->getTransYNode());
 
         pThis->setTransZNode(source->getTransZNode());
 
+        pThis->setPivotNode(source->getPivotNode());
+
         pThis->setMaterialX(source->getMaterialX());
 
         pThis->setMaterialY(source->getMaterialY());
 
         pThis->setMaterialZ(source->getMaterialZ());
+
+        pThis->setMaterialPivot(source->getMaterialPivot());
 
         pThis->setAxisLinesN(source->getAxisLinesN());
     }
@@ -1119,6 +1393,31 @@ EditFieldHandlePtr ManipulatorBase::editHandleTarget         (void)
                     static_cast<Manipulator *>(this), _1));
 
     editSField(TargetFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ManipulatorBase::getHandleEnablePivot     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnablePivot,
+             this->getType().getFieldDesc(EnablePivotFieldId),
+             const_cast<ManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ManipulatorBase::editHandleEnablePivot    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnablePivot,
+             this->getType().getFieldDesc(EnablePivotFieldId),
+             this));
+
+
+    editSField(EnablePivotFieldMask);
 
     return returnValue;
 }
@@ -1254,6 +1553,31 @@ EditFieldHandlePtr ManipulatorBase::editHandleLength         (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ManipulatorBase::getHandlePivot           (void) const
+{
+    SFPnt3f::GetHandlePtr returnValue(
+        new  SFPnt3f::GetHandle(
+             &_sfPivot,
+             this->getType().getFieldDesc(PivotFieldId),
+             const_cast<ManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ManipulatorBase::editHandlePivot          (void)
+{
+    SFPnt3f::EditHandlePtr returnValue(
+        new  SFPnt3f::EditHandle(
+             &_sfPivot,
+             this->getType().getFieldDesc(PivotFieldId),
+             this));
+
+
+    editSField(PivotFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ManipulatorBase::getHandleHandleXNode     (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
@@ -1334,6 +1658,34 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
                     static_cast<Manipulator *>(this), _1));
 
     editSField(HandleZNodeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ManipulatorBase::getHandleHandlePNode     (void) const
+{
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
+             &_sfHandlePNode,
+             this->getType().getFieldDesc(HandlePNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ManipulatorBase::editHandleHandlePNode    (void)
+{
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
+             &_sfHandlePNode,
+             this->getType().getFieldDesc(HandlePNodeFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&Manipulator::setHandlePNode,
+                    static_cast<Manipulator *>(this), _1));
+
+    editSField(HandlePNodeFieldMask);
 
     return returnValue;
 }
@@ -1422,6 +1774,34 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransZNode     (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ManipulatorBase::getHandlePivotNode       (void) const
+{
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
+             &_sfPivotNode,
+             this->getType().getFieldDesc(PivotNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ManipulatorBase::editHandlePivotNode      (void)
+{
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
+             &_sfPivotNode,
+             this->getType().getFieldDesc(PivotNodeFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&Manipulator::setPivotNode,
+                    static_cast<Manipulator *>(this), _1));
+
+    editSField(PivotNodeFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ManipulatorBase::getHandleMaterialX       (void) const
 {
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
@@ -1506,6 +1886,34 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ManipulatorBase::getHandleMaterialPivot   (void) const
+{
+    SFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::GetHandle(
+             &_sfMaterialPivot,
+             this->getType().getFieldDesc(MaterialPivotFieldId),
+             const_cast<ManipulatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ManipulatorBase::editHandleMaterialPivot  (void)
+{
+    SFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::EditHandle(
+             &_sfMaterialPivot,
+             this->getType().getFieldDesc(MaterialPivotFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&Manipulator::setMaterialPivot,
+                    static_cast<Manipulator *>(this), _1));
+
+    editSField(MaterialPivotFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr ManipulatorBase::getHandleAxisLinesN      (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
@@ -1570,17 +1978,23 @@ void ManipulatorBase::resolveLinks(void)
 
     static_cast<Manipulator *>(this)->setHandleZNode(NULL);
 
+    static_cast<Manipulator *>(this)->setHandlePNode(NULL);
+
     static_cast<Manipulator *>(this)->setTransXNode(NULL);
 
     static_cast<Manipulator *>(this)->setTransYNode(NULL);
 
     static_cast<Manipulator *>(this)->setTransZNode(NULL);
 
+    static_cast<Manipulator *>(this)->setPivotNode(NULL);
+
     static_cast<Manipulator *>(this)->setMaterialX(NULL);
 
     static_cast<Manipulator *>(this)->setMaterialY(NULL);
 
     static_cast<Manipulator *>(this)->setMaterialZ(NULL);
+
+    static_cast<Manipulator *>(this)->setMaterialPivot(NULL);
 
     static_cast<Manipulator *>(this)->setAxisLinesN(NULL);
 

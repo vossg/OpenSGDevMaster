@@ -213,6 +213,16 @@ Pnt3f Line::getClosestPoint(const Pnt3f &point) const
     return _pos + _dir * vec.dot(_dir);
 }
 
+/*! Returns the t parameter for the closest point on the line to the given point.
+ */
+
+Real32 Line::getClosestPointT(const Pnt3f &point) const
+{
+    Vec3f vec(point - _pos);
+
+    return vec.dot(_dir);
+}
+
 
 /*! Returns the distance of the given point to the line.
  */

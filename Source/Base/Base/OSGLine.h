@@ -116,6 +116,7 @@ class OSG_BASE_DLLMAPPING Line
                                   Real32 &tOnThis, 
                                   Real32 &tOnLine2 ) const;
     Pnt3f  getClosestPoint (const Pnt3f  &point    ) const;
+    Real32 getClosestPointT(const Pnt3f  &point    ) const;
     Real32 distance        (const Pnt3f  &point    ) const;
 
     /*! \}                                                                 */

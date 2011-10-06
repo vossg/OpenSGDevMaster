@@ -40,10 +40,20 @@ int main(int argc, char **argv)
     OSG::GroupUnrecPtr g = OSG::Group::create();
     scene = OSG::Node::create();
 
+    OSG::TransformUnrecPtr offsetTC   = OSG::Transform::create();
+    OSG::NodeUnrecPtr      offsetN    = OSG::Node::create();
+
+    OSG::Matrix m;
+    m.setIdentity();
+    m.setTransform( OSG::Vec3f(2,1,0), 
+                    OSG::Quaternion(OSG::Vec3f(1,0,0), OSG::osgDegree2Rad(0)),
+                    OSG::Vec3f(1,1,1) );
+    offsetTC->setMatrix(m);
+    offsetN->setCore(offsetTC);
+   
     interTC = OSG::Transform::create();
     interN    = OSG::Node::create();
 
-    OSG::Matrix m;
     m.setIdentity();
     m.setTransform( OSG::Vec3f(1.0f, 1.0f, 1.0f) );
     interTC->setMatrix(m);
@@ -53,7 +63,8 @@ int main(int argc, char **argv)
 
     scene->setCore(g);
     scene->addChild(makeCoordAxes());
-    scene->addChild(interN);
+    scene->addChild(offsetN);
+    offsetN->addChild(interN);
 
     maniN = mama->createManipulator(OSG::ManipulatorManager::TRANSLATE);
 
@@ -160,6 +171,8 @@ void keyboard(unsigned char k, int x, int y)
     case 'r':
     case 't':
     case 's':
+    case 'p':
+    case 'P':
     {
         maniN->setTravMask(OSG::TypeTraits<OSG::UInt32>::getMax());
         if (k == 't')
@@ -173,6 +186,14 @@ void keyboard(unsigned char k, int x, int y)
         else if (k == 's')
         {
             mama->changeManipulator(OSG::ManipulatorManager::SCALE);
+        }
+        else if (k == 'p')
+        {
+            mama->changeManipulator(OSG::ManipulatorManager::PLANE);
+        }
+        else if (k == 'P')
+        {
+            mama->changeEnablePivot(! mama->getCurrentEnablePivot());
         }
         glutPostRedisplay();
         break;

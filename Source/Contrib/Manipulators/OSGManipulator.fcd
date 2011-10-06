@@ -19,6 +19,17 @@ Baseclass for all Manipulators
 		visibility="external"
 		access="public"
 	>
+        The target node to be manipulated.
+	</Field>
+	<Field
+		name="enablePivot"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		access="public"
+                defaultValue="false"
+	>
+        Flag to enable the pivot point manipulation.
 	</Field>
 	<Field
 		name="activeSubHandle"
@@ -66,6 +77,16 @@ Baseclass for all Manipulators
 	The length of the three axes in one vector
 	</Field>
 	<Field
+		name="pivot"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0,0"
+		access="public"
+	>
+	The position of the pivot point, in local object coordinates.
+	</Field>
+	<Field
 		name="handleXNode"
 		type="NodePtr"
 		cardinality="single"
@@ -91,6 +112,15 @@ Baseclass for all Manipulators
 		access="public"
 	>
 	The node for the z-handle geometry
+	</Field>
+	<Field
+		name="handlePNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the pivot geometry
 	</Field>
 	<Field
 		name="transXNode"
@@ -120,6 +150,15 @@ Baseclass for all Manipulators
 	The node for the z-handle transform
 	</Field>
 	<Field
+		name="pivotNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the pivot transform
+	</Field>
+	<Field
 		name="materialX"
 		type="MaterialPtr"
 		cardinality="single"
@@ -145,6 +184,15 @@ Baseclass for all Manipulators
 		access="public"
 	>
 	material for the z-axis geometry
+	</Field>
+	<Field
+		name="materialPivot"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	material for the pivot geometry
 	</Field>
 	<Field
 		name="axisLinesN"

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="PlaneMoveManipulator"
+	parent="Manipulator"
+	library="ContribGUI"
+	pointerfieldtypes="none"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="true"
+>
+	<Field
+		name="axis"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+                defaultValue="1"
+	>
+	Rotation axis to rotate around (0:X, 1:Y, 2:Z). Translation plane is defined by the other two axes. *** Not implemented yet ***
+	</Field>
+	<Field
+		name="baseTranslation"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Translation value at the beginning of manipulation.
+	</Field>
+	<Field
+		name="baseRotation"
+		type="Quaternion"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Rotation value at the beginning of manipulation.
+	</Field>
+	<Field
+		name="clickPoint"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Point clicked on to start manipulation.
+	</Field>
+The PlaneMoveHandle is used for moving objects in a plane and rotating them around one axis.
+</FieldContainer>

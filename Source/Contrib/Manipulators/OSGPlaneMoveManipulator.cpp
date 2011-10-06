@@ -46,10 +46,15 @@
 #define OSG_COMPILEMANIPULATORSLIB
 
 #include "OSGConfig.h"
+#include "OSGPlane.h"
 #include "OSGRenderAction.h"
 #include "OSGIntersectAction.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGNameAttachment.h"
+#include "OSGGeoBuilder.h"
+#include "OSGLineChunk.h"
 
-#include "OSGMoveManipulator.h"
+#include "OSGPlaneMoveManipulator.h"
 
 OSG_USING_NAMESPACE
 
@@ -57,7 +62,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::MoveManipulator
+/*! \class OSG::PlaneMoveManipulator
  * The MoveHandle is used for moving objects. It consist of three axis which
  * can be picked and translated and one center box to translate freely in 3D.
  */
@@ -70,7 +75,7 @@ OSG_USING_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void MoveManipulator::initMethod(InitPhase ePhase)
+void PlaneMoveManipulator::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -79,20 +84,20 @@ void MoveManipulator::initMethod(InitPhase ePhase)
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MoveManipulator::intersectEnter));
+                &PlaneMoveManipulator::intersectEnter));
 
         IntersectAction::registerLeaveDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MoveManipulator::intersectLeave));
+                &PlaneMoveManipulator::intersectLeave));
 
         RenderAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&MoveManipulator::renderEnter));
+            reinterpret_cast<Action::Callback>(&PlaneMoveManipulator::renderEnter));
 
         RenderAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&MoveManipulator::renderLeave));
+            reinterpret_cast<Action::Callback>(&PlaneMoveManipulator::renderLeave));
     }
 }
 
@@ -107,38 +112,132 @@ void MoveManipulator::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-MoveManipulator::MoveManipulator(void) :
+PlaneMoveManipulator::PlaneMoveManipulator(void) :
     Inherited()
 {
 }
 
-MoveManipulator::MoveManipulator(const MoveManipulator &source) :
+PlaneMoveManipulator::PlaneMoveManipulator(const PlaneMoveManipulator &source) :
     Inherited(source)
 {
 }
 
-MoveManipulator::~MoveManipulator(void)
+PlaneMoveManipulator::~PlaneMoveManipulator(void)
 {
+}
+
+void PlaneMoveManipulator::onCreate()
+{
+}
+
+void PlaneMoveManipulator::onCreate(const PlaneMoveManipulator* source)
+{
+    // Skip direct parent, don't want the default geometry creation
+    Transform::onCreate(source);
+
+    SimpleMaterialUnrecPtr pMat = SimpleMaterial::create();
+    pMat->setDiffuse(Color3f(.5, .5, .5));
+    pMat->setLit    (false              );
+    setMaterialX(pMat);
+
+    pMat = SimpleMaterial::create();
+    pMat->setDiffuse(Color3f(0, 1, 0));
+    pMat->setLit    (false           );
+    LineChunkUnrecPtr lc = LineChunk::create();
+    lc->setWidth(3);
+    pMat->addChunk(lc);
+    setMaterialY(pMat);
+
+    pMat = SimpleMaterial::create();
+    pMat->setDiffuse(Color3f(0., 0., 1.));
+    pMat->setLit    (true               );
+    setMaterialZ(pMat);
+
+    SimpleMaterial *simpleMat;
+    Geometry       *geo;
+
+    setExternalUpdateHandler(NULL);
+
+    // add a name attachment
+    NameUnrecPtr nameN = Name::create();
+    nameN->editFieldPtr()->setValue("XYManipulator");
+    addAttachment(nameN);
+
+    // make the axis line. Not really a handle, but easier to manage this way.
+       
+    GeoBuilder b;
+    
+    b.vertex(Pnt3f(0,0,0));
+    b.vertex(Pnt3f(0,getLength()[1],0));
+    
+    b.line(0, 1);
+    
+    GeometryUnrecPtr g = b.getGeometry();
+    
+    g->setMaterial(getMaterialY());
+    
+    NodeUnrecPtr pNode = makeNodeFor(g);
+    setTransYNode(pNode);
+
+    // make the plane handle
+
+    pNode = Node::create();
+    setTransXNode(pNode);
+
+    g = makePlaneGeo(getLength()[0] / 2.f, getLength()[2] / 2.f, 1, 1);
+    g->setMaterial(getMaterialX());   
+    pNode = makeNodeFor(g);
+    
+    OSG::ComponentTransformUnrecPtr transHandleXC = ComponentTransform::create();
+
+    setHandleXNode(pNode);
+
+    getTransXNode()->setCore (transHandleXC   );
+    getTransXNode()->addChild(getHandleXNode());
+
+    transHandleXC->setTranslation(Vec3f(0, getLength()[1], 0));
+    transHandleXC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
+
+    //
+    // make the rotate handle
+
+    pNode = Node::create();
+    setTransZNode(pNode);
+
+    g = makeCylinderGeo(0.05f, 0.1f, 16, true, true, true);
+    g->setMaterial(getMaterialZ());   
+    pNode = makeNodeFor(g);
+    
+    OSG::ComponentTransformUnrecPtr transHandleZC = ComponentTransform::create();
+
+    setHandleZNode(pNode);
+
+    getTransZNode()->setCore (transHandleZC   );
+    getTransZNode()->addChild(getHandleZNode());
+
+    transHandleZC->setTranslation(Vec3f(0, getLength()[1], 0));
+
+    commitChanges();
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void MoveManipulator::changed(ConstFieldMaskArg whichField,
+void PlaneMoveManipulator::changed(ConstFieldMaskArg whichField,
                               UInt32            origin,
                               BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void MoveManipulator::dump(      UInt32    uiIndent,
+void PlaneMoveManipulator::dump(      UInt32    uiIndent,
                            const BitVector bvFlags ) const
 {
     Inherited::dump(uiIndent, bvFlags);
 }
 
-NodeTransitPtr MoveManipulator::makeHandleGeo()
+NodeTransitPtr PlaneMoveManipulator::makeHandleGeo()
 {
-    return makeCone(0.75f, 0.1f, 12, true, true);
+    return Node::create();
 }
 
 /*! The mouseMove is called by the viewer when the mouse is moved in the
@@ -147,69 +246,113 @@ NodeTransitPtr MoveManipulator::makeHandleGeo()
     \param x the x-pos of the mouse (pixel)
     \param y the y-pos of the mouse (pixel)
  */
-void MoveManipulator::mouseMove(const Int16 x,
+void PlaneMoveManipulator::mouseMove(const Int16 x,
                             const Int16 y)
 {
-    //SLOG << "==============================" << endLog;
-    //SLOG << "Manipulator::mouseMove() enter x=" << x << " y=" << y << endLog;
+    SLOG << "==============================" << endLog;
+    SLOG << "PlaneMoveManipulator::mouseMove() enter x=" << x << " y=" << y << endLog;
 
     // get the beacon's core (must be ComponentTransform) and it's center
-    if( getTarget() != NULL )
-    {
-        // get transformation of beacon
-        Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
-
-        if( t != NULL )
-        {
-            Vec3f      translation;       // for matrix decomposition
-            Quaternion rotation;
-            Vec3f      scaleFactor;
-            Quaternion scaleOrientation;
-
-            t->getMatrix().getTransform(translation, rotation, scaleFactor,
-                                        scaleOrientation);
-
-            OSG::Line viewray;
-            getViewport()->getCamera()->calcViewRay(viewray, x, y, *getViewport());
-            
-            //SLOG << "Manipulator::mouseMove(): viewray: " << viewray << endLog;
-
-            Line axis(getAxisBase(), getAxisDirection()); // HACK: Should add a Line Fieldtype
-
-            //SLOG << "Manipulator::mouseMove(): axis: " << axis << endLog;
-
-            Real32 axist, viewrayt;
-            
-            axis.getClosestPoints(viewray, axist, viewrayt);
-            
-            // Only accept cases where the closest point is not behind the viewer
-            if (viewrayt >= 0)
-            {
-                axist /= getAxisDirection().length();
-
-                //SLOG << "Manipulator::mouseMove(): axist=" << axist << " viewrayt=" << viewrayt <<endLog;
-
-                Vec3f rot_axis;
-
-                rotation.multVec(getActiveAxis(), rot_axis);
-                Vec3f trans = getBaseTranslation() + rot_axis * axist;
-
-                Matrix m;
-
-                m.setTransform(trans, rotation, scaleFactor, scaleOrientation);
-
-                t->setMatrix(m);
-            }
-        }
-        else
-        {
-            SWARNING << "handled object has no parent transform!\n";
-        }
-        callExternalUpdateHandler();
-    }
-    else
+    if( getTarget() == NULL )
     {
         SWARNING << "Handle has no target.\n";
+        return;
+        
+    }
+    // get transformation of beacon
+    Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
+
+    if( t == NULL )
+    {
+        SWARNING << "handled object has no parent transform!\n";
+        return;
+    }
+
+    Vec3f      translation;       // for matrix decomposition
+    Quaternion rotation;
+    Vec3f      scaleFactor;
+    Quaternion scaleOrientation;
+
+    t->getMatrix().getTransform(translation, rotation, scaleFactor,
+                                scaleOrientation);
+
+    OSG::Line viewray;
+    getViewport()->getCamera()->calcViewRay(viewray, x, y, *getViewport());
+
+    SLOG << "Manipulator::mouseMove(): viewray: " << viewray << endLog;
+
+    // Get manipulator axes into world space
+    OSG::Matrix tm = getTarget()->getToWorld();
+    
+    Vec3f rot_axis;
+    tm.multFull(Vec3f(0,1,0), rot_axis);
+
+    Plane pl(rot_axis, getClickPoint());
+
+    Pnt3f plpoint;
+    
+    if (pl.intersect(viewray, plpoint) == true) // Ignore moving out of the plane...
+    {
+        SLOG << "Manipulator::mouseMove(): plpoint: " << plpoint << endLog;
+         
+        Vec3f      trans = getBaseTranslation();
+        Quaternion rot   = getBaseRotation();
+
+        // Get manipulator axes into world space
+        Vec3f xp,zp;
+
+        tm.multFull(Vec3f(1,0,0), xp);
+        tm.multFull(Vec3f(0,0,1), zp);
+        
+        if (getActiveSubHandle() == getHandleXNode())
+        {
+            Line xaxis(getClickPoint(), xp);
+            Line zaxis(getClickPoint(), zp);
+
+            Real32 fx = xaxis.getClosestPointT(plpoint);
+            Real32 fz = zaxis.getClosestPointT(plpoint);
+
+            SLOG << "Manipulator::mouseMove(): xaxis: " << xaxis << " zaxis: " << zaxis <<endLog;
+            SLOG << "Manipulator::mouseMove(): fx: " << fx << " fz: " << fz <<endLog;
+        
+            // Alternative: transform hitpoint into manip space
+            OSG::Matrix m = getTarget()->getToWorld();
+            m.invert();
+            
+            Pnt3f mpoint;
+            m.mult(plpoint, mpoint);
+            
+            SLOG << "Manipulator::mouseMove(): mpoint:" << mpoint << endLog;
+
+            trans = trans + xp * fx + zp * fz;
+        }
+        else if (getActiveSubHandle() == getHandleZNode())
+        {
+            Pnt3f wcenter;
+            
+            tm.multFull(Pnt3f(0,getLength()[1],0), wcenter);
+            
+            Vec3f vclick, vcurrent;
+            
+            vclick = getClickPoint() - wcenter;
+            vcurrent = plpoint - wcenter;
+            
+            vclick.normalize();
+            vcurrent.normalize();
+            
+            Real32 a = vclick.enclosedAngle(vcurrent);
+            
+            SLOG << "Manipulator::mouseMove(): wcenter:" << wcenter << "" <<endLog;
+            SLOG << "Manipulator::mouseMove(): vclick:" << vclick << " vcurrent:" << vcurrent <<endLog;
+            SLOG << "Manipulator::mouseMove(): angle:" << a << " deg: " << osgRad2Degree(a) << endLog;
+        }
+        
+        Matrix m;
+
+        m.setTransform(trans, rot, scaleFactor, scaleOrientation);
+
+        t->setMatrix(m);
+        
     }
 
     setLastMousePos(Pnt2f(Real32(x), Real32(y)));
@@ -226,7 +369,7 @@ void MoveManipulator::mouseMove(const Int16 x,
     \param y the y-pos of the mouse (pixel)
  */
 
-void MoveManipulator::mouseButtonPress(const UInt16 button,
+void PlaneMoveManipulator::mouseButtonPress(const UInt16 button,
                                    const Int16  x,
                                    const Int16  y     )
 {
@@ -234,11 +377,11 @@ void MoveManipulator::mouseButtonPress(const UInt16 button,
     
     if (t == NULL)
     {
-        SWARNING << "Manipulator::mouseButtonPress() target is not a Transform!" << endLog;
+        SWARNING << "PlaneMoveManipulator::mouseButtonPress() target is not a Transform!" << endLog;
         return;
     }
 
-    //SLOG << "Manipulator::mouseButtonPress() button=" << button << " x=" << x << " y=" << y  << std::endl << endLog;
+    SLOG << "PlaneMoveManipulator::mouseButtonPress() button=" << button << " x=" << x << " y=" << y  << std::endl << endLog;
 
     OSG::Line viewray;
     getViewport()->getCamera()->calcViewRay(viewray, x, y, *getViewport());
@@ -253,32 +396,14 @@ void MoveManipulator::mouseButtonPress(const UInt16 button,
     act->setLine( viewray );
     act->apply( scene );
 
-    //SLOG << "Manipulator::mouseButtonPress() viewray=" << viewray << " scene=" << scene << endLog;
+    SLOG << "PlaneMoveManipulator::mouseButtonPress() viewray=" << viewray << " scene=" << scene << endLog;
  
     if ( act->didHit() )
     {
-        //SLOG << "Manipulator::mouseButtonPress() hit! at " << act->getHitPoint() << endLog;
+        SLOG << "PlaneMoveManipulator::mouseButtonPress() hit! at " << act->getHitPoint() << endLog;
 
-        // Get manipulator axis into world space
+        // Get manipulator plane into world space
         OSG::Matrix m = getTarget()->getToWorld();
-
-        Pnt3f origin(0,0,0), base, dummy;
-        Vec3f dir;
-
-        m.multFull(origin, base);
-        m.multFull(getActiveAxis(), dir);
-
-        Line axis(base, dir);
-        
-        //SLOG << "Manipulator::mouseButtonPress() world axis=" << axis << endLog;
-
-        Pnt3f apoint;
-        axis.getClosestPoints(viewray, apoint, dummy);
-
-        //SLOG << "Manipulator::mouseButtonPress() apoint " << apoint << endLog;
-   
-        setAxisBase(apoint);
-        setAxisDirection(dir);
 
         Vec3f      translation;       // for matrix decomposition
         Quaternion rotation;
@@ -288,7 +413,17 @@ void MoveManipulator::mouseButtonPress(const UInt16 button,
         t->getMatrix().getTransform(translation, rotation, scaleFactor,
                                     scaleOrientation);
 
+        Vec3f rot_axis;
+        rotation.multVec(Vec3f(0,1,0), rot_axis);
+
+        Plane pl(rot_axis, act->getHitPoint());
+
+        SLOG << "PlaneMoveManipulator::mouseButtonPress() world plane: " << pl << endLog;
+ 
+        setClickPoint(act->getHitPoint());
+
         setBaseTranslation(translation);
+        setBaseRotation(rotation);
         
         setActive(true);
     }
@@ -296,7 +431,7 @@ void MoveManipulator::mouseButtonPress(const UInt16 button,
     delete act;
 }
 
-void MoveManipulator::mouseButtonRelease(const UInt16 button,
+void PlaneMoveManipulator::mouseButtonRelease(const UInt16 button,
                                      const Int16  x,
                                      const Int16  y     )
 {

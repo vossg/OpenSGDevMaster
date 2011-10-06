@@ -36,29 +36,37 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMANIPULATOR_H_
-#define _OSGMANIPULATOR_H_
+#ifndef _OSGPLANEMOVEMANIPULATOR_H_
+#define _OSGPLANEMOVEMANIPULATOR_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
 
-#include "OSGManipulatorBase.h"
-#include "OSGExternalUpdateHandler.h"
-
-#include "OSGComponentTransform.h"
+#include "OSGPlaneMoveManipulatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Manipulator class. See \ref
-           PageManipulatorsManipulator for a description.
+/*! \brief PlaneMoveManipulator class. See \ref
+           PageManipulatorsPlaneMoveManipulator for a description.
 */
 
-class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
+class OSG_CONTRIBGUI_DLLMAPPING PlaneMoveManipulator : public PlaneMoveManipulatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:
+
+    virtual void mouseMove(Int16        x,
+                           Int16        y);
+
+    virtual void mouseButtonPress(UInt16        button,
+                                   Int16        x,
+                                   Int16        y     );
+
+    virtual void mouseButtonRelease(UInt16      button,
+                                     Int16      x,
+                                     Int16      y     );
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -76,105 +84,53 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
-    virtual void mouseMove(Int16        x,
-                           Int16        y);
-
-    virtual void mouseButtonPress(UInt16        button,
-                                   Int16        x,
-                                   Int16        y     );
-
-    virtual void mouseButtonRelease(UInt16      button,
-                                     Int16      x,
-                                     Int16      y     );
-
-    virtual bool hasSubHandle(Node * const n);
-
-    void setExternalUpdateHandler(ExternalUpdateHandler* h);
-
-    void callExternalUpdateHandler();
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    typedef ManipulatorBase Inherited;
-
-    // Variables should all be in ManipulatorBase.
+    // Variables should all be in PlaneMoveManipulatorBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    Manipulator(void);
-    Manipulator(const Manipulator &source);
+    PlaneMoveManipulator(void);
+    PlaneMoveManipulator(const PlaneMoveManipulator &source);
 
     void onCreate();
-    void onCreate(const Manipulator* source);
-
+    void onCreate(const PlaneMoveManipulator* source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Manipulator(void);
+    virtual ~PlaneMoveManipulator(void);
 
-    void    onDestroy();
-
-    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Init                                  */
-    /*! \{                                                                 */
+
+    virtual NodeTransitPtr makeHandleGeo();
+
+    /*==========================  PRIVATE  ================================*/
+private:
+
+    typedef PlaneMoveManipulatorBase Inherited;
+
+    friend class FieldContainer;
+    friend class PlaneMoveManipulatorBase;
 
     static void initMethod(InitPhase ePhase);
 
-    /*! \}                                                                 */
-
-    virtual NodeTransitPtr makeHandleGeo() = 0;
-    virtual void           addHandleGeo(Node * n);
-    virtual void           subHandleGeo(Node * n);
-    void                   updateHandleTransform();
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Helpers                                */
-    /*! \{                                                                 */
-
-    virtual void    doMovement(      Transform   *t,
-                               const Int32        coord,
-                               const Real32       value,
-                               const Vec3f        &translation,
-                               const Quaternion   &rotation,
-                               const Vec3f        &scaleFactor,
-                               const Quaternion   &scaleOrientation);
-
-    Pnt2f calcScreenProjection(const Pnt3f    &,
-                                     Viewport * const port);
-
-    const Vec3f& getActiveAxis(void) const;
-
-    NodeRefPtr              _activeParent;
-    ExternalUpdateHandler*  _externalUpdateHandler;
-
-    /*! \}                                                                 */
-
-    /*==========================  PRIVATE  ================================*/
-  private:
-    friend class FieldContainer;
-    friend class ManipulatorBase;
-
-    friend class ManipulatorManager;
-
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const Manipulator &source);
+    void operator =(const PlaneMoveManipulator &source);
 };
 
-typedef Manipulator *ManipulatorP;
+typedef PlaneMoveManipulator *PlaneMoveManipulatorP;
 
 OSG_END_NAMESPACE
 
-#include "OSGManipulatorBase.inl"
-#include "OSGManipulator.inl"
+#include "OSGPlaneMoveManipulatorBase.inl"
+#include "OSGPlaneMoveManipulator.inl"
 
-#endif /* _OSGMANIPULATOR_H_ */
+#endif /* _OSGMOVEMANIPULATOR_H_ */

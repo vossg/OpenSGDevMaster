@@ -134,9 +134,9 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
 
     if ( (whichField & TargetFieldMask) == TargetFieldMask )
     {
-        reverseTransform();
+        updateHandleTransform();
     }
-    else if ( (whichField & ParentsFieldMask) == ParentsFieldMask )
+    if ( (whichField & ParentsFieldMask) == ParentsFieldMask )
     {
         Node *parent;
 
@@ -173,6 +173,21 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
             _activeParent = parent;
         }
     }
+    if ( (whichField & EnablePivotFieldMask) == EnablePivotFieldMask )
+    { 
+        if (getPivotNode() != 0) // Some manips don't support a pivot and don't create a node for it
+        {
+            if (!getEnablePivot())
+            {
+                getPivotNode()->setTravMask(0x0);
+            }
+            else
+            {
+                getPivotNode()->setTravMask(0xffffffff);
+            }
+        }
+    }
+    
 }
 
 void Manipulator::addHandleGeo(Node *n)
@@ -181,6 +196,7 @@ void Manipulator::addHandleGeo(Node *n)
     n->addChild(getTransYNode());
     n->addChild(getTransZNode());
     n->addChild(getAxisLinesN());
+    n->addChild(getPivotNode());
 }
 
 void Manipulator::subHandleGeo(Node *n)
@@ -189,9 +205,10 @@ void Manipulator::subHandleGeo(Node *n)
     n->subChild(getTransYNode());
     n->subChild(getTransZNode());
     n->subChild(getAxisLinesN());
+    n->subChild(getPivotNode());
 }
 
-void Manipulator::reverseTransform()
+void Manipulator::updateHandleTransform()
 {
     if ( getTarget() != NULL )
     {
@@ -212,10 +229,19 @@ void Manipulator::reverseTransform()
         }
         else
         {
-            n.setIdentity (           );
-            n.setTransform(translation);
-            n.setRotate   (rotation   );
-            n.multLeft    (o          );
+            Matrix n,ma,mb,mc,md;
+            
+            mb.setTranslate(translation);
+            ma.setTranslate(Vec3f(getPivot()[0] * scaleFactor[0], 
+                                  getPivot()[1] * scaleFactor[1], 
+                                  getPivot()[2] * scaleFactor[2]) 
+                            );
+            mc.setRotate(rotation);
+           
+            n.multLeft(ma);
+            n.multLeft(mc);
+            n.multLeft(mb);
+            n.multLeft(o);
 
             setMatrix(n);
         }
@@ -238,17 +264,7 @@ void Manipulator::onCreate(const Manipulator* source)
 {
     Inherited::onCreate(source);
 
-    SimpleMaterialUnrecPtr pMat = SimpleMaterial::create();
-
-    setMaterialX(pMat);
-
-    pMat = SimpleMaterial::create();
-
-    setMaterialY(pMat);
-
-    pMat = SimpleMaterial::create();
-
-    setMaterialZ(pMat);
+    SimpleMaterialUnrecPtr pMat;
 
     SimpleMaterial *simpleMat;
     Geometry       *geo;
@@ -281,13 +297,11 @@ void Manipulator::onCreate(const Manipulator* source)
     transHandleXC->setTranslation(Vec3f(getLength()[0], 0, 0)                   );
     transHandleXC->setRotation   (Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialX());
-
-    simpleMat->setDiffuse(Color3f(1, 0, 0));
-    simpleMat->setLit    (true            );
+    pMat->setDiffuse(Color3f(1, 0, 0));
+    pMat->setLit    (true            );
 
     geo = dynamic_cast<Geometry *>(getHandleXNode()->getCore());
-    geo->setMaterial(simpleMat);
+    geo->setMaterial(pMat);
 
     //
     // make the green y-axis transform and handle
@@ -306,12 +320,11 @@ void Manipulator::onCreate(const Manipulator* source)
     transHandleYC->setTranslation(Vec3f(0, getLength()[1], 0)                    );
 //    transHandleYC->setRotation   ( Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialY());
-    simpleMat->setDiffuse(Color3f(0, 1, 0));
-    simpleMat->setLit    (true            );
+    pMat->setDiffuse(Color3f(0, 1, 0));
+    pMat->setLit    (true            );
 
     geo = dynamic_cast<Geometry *>(getHandleYNode()->getCore());
-    geo->setMaterial(simpleMat);
+    geo->setMaterial(pMat);
 
     //
     // make the blue z-axis transform and handle
@@ -330,12 +343,38 @@ void Manipulator::onCreate(const Manipulator* source)
     transHandleZC->setTranslation(Vec3f(0, 0, getLength()[2])                  );
     transHandleZC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
 
-    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialZ());
-    simpleMat->setDiffuse(Color3f(0, 0, 1));
-    simpleMat->setLit    (true            );
+    pMat->setDiffuse(Color3f(0, 0, 1));
+    pMat->setLit    (true            );
 
     geo = dynamic_cast<Geometry *>(getHandleZNode()->getCore());
-    geo->setMaterial(simpleMat);
+    geo->setMaterial(pMat);
+
+    //
+    // make the yellow pivot transform and handle
+
+    pNode = Node::create();
+    setPivotNode(pNode);
+    OSG::ComponentTransformUnrecPtr transHandlePivotC = ComponentTransform::create();
+    pNode = makeSphere(2, 0.05f);
+    setHandlePNode(pNode);
+    pMat = SimpleMaterial::create();
+    setMaterialPivot  (pMat);
+
+    getPivotNode()->setCore (transHandlePivotC   );
+    getPivotNode()->addChild(getHandlePNode());
+
+    transHandlePivotC->setTranslation(Vec3f(0, 0, 0));
+
+    pMat->setDiffuse(Color3f(1, 1, 0));
+    pMat->setLit    (true            );
+
+    geo = dynamic_cast<Geometry *>(getHandlePNode()->getCore());
+    geo->setMaterial(pMat);
+
+    if (!getEnablePivot())
+    {
+        getPivotNode()->setTravMask(0x0);
+    }
 
     commitChanges();
 }
@@ -492,7 +531,7 @@ void Manipulator::mouseMove(const Int16 x,
     }
 
     setLastMousePos(Pnt2f(Real32(x), Real32(y)));
-    reverseTransform();
+    updateHandleTransform();
 
     //SLOG << "Manipulator::mouseMove() leave\n" << std::flush;
 }
