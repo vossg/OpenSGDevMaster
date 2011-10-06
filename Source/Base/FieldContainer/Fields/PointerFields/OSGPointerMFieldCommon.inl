@@ -86,8 +86,9 @@ PointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline
 PointerMFieldCommon<AccessHandlerT,
                     NamespaceI    >::PointerMFieldCommon(const UInt32 size) :
-    Inherited(size)
+    Inherited()
 {
+    Self::ptrStoreResize(size, NULL);
 }
 
 /*-------------------------------------------------------------------------*/

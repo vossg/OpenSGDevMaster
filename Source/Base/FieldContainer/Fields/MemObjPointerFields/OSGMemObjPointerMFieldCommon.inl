@@ -91,8 +91,9 @@ MemObjPointerMFieldCommon<AccessHandlerT,
                           NamespaceI    >::MemObjPointerMFieldCommon(
                               const UInt32 size) :
 
-    Inherited(size)
+    Inherited()
 {
+    Self::ptrStoreResize(size, NULL);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -501,7 +502,7 @@ void MemObjPointerMFieldCommon<AccessHandlerT,
         n = 0;
         for(; sIt != sEnd; ++sIt)
         {
-            FieldContainer *pNewObj = convertToCurrentAspect(*sIt);
+            MemoryObject *pNewObj = *sIt;
             
             if(pNewObj != NULL                                ||
                0x0000  == (syncMode & Field::MFNullCheckSync)  )
