@@ -901,19 +901,19 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
 
     os.chdir(self.suppBuild_path)
 
-    mkBldCmd = ["make"]
+    mkBldCmd = [self.makeCmd]
     retcode = subprocess.call(mkBldCmd)
 
-    mkInstCmd = ["make", "install"]
+    mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
-    cmCfgOptCmd = ["cmake", "-DCMAKE_BUILD_TYPE:STRING=Debug", "."]
+    cmCfgOptCmd = [self.cmakeCmd, "-DCMAKE_BUILD_TYPE:STRING=Debug", "."]
     retcode = subprocess.call(cmCfgOptCmd)
 
-    mkBldCmd = ["make"]
+    mkBldCmd = [self.makeCmd]
     retcode = subprocess.call(mkBldCmd)
 
-    mkInstCmd = ["make", "install"]
+    mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
     os.chdir(self.startup_path)
@@ -927,10 +927,10 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
 
     os.chdir(self.dbgBuild_path)
 
-    mkBldCmd = ["make", "OSGAll"]
+    mkBldCmd = [self.makeCmd, "OSGAll"]
     retcode = subprocess.call(mkBldCmd)
 
-    mkInstCmd = ["make", "install"]
+    mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
     os.chdir(self.startup_path)
@@ -953,10 +953,10 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     print "runnuing ", cmCfgCmd
     retcode = subprocess.call(cmCfgCmd)
 
-    mkBldCmd = ["make", "OSGAll"]
+    mkBldCmd = [self.makeCmd, "OSGAll"]
     retcode = subprocess.call(mkBldCmd)
 
-    mkInstCmd = ["make", "install"]
+    mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
     os.chdir(self.startup_path)
