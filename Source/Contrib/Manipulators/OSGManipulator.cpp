@@ -266,7 +266,7 @@ void Manipulator::onCreate(const Manipulator* source)
 
     SimpleMaterialUnrecPtr pMat;
 
-    SimpleMaterial *simpleMat;
+//    SimpleMaterial *simpleMat;
     Geometry       *geo;
 
     setExternalUpdateHandler(NULL);

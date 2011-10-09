@@ -153,8 +153,8 @@ void PlaneMoveManipulator::onCreate(const PlaneMoveManipulator* source)
     pMat->setLit    (true               );
     setMaterialZ(pMat);
 
-    SimpleMaterial *simpleMat;
-    Geometry       *geo;
+//    SimpleMaterial *simpleMat;
+//    Geometry       *geo;
 
     setExternalUpdateHandler(NULL);
 

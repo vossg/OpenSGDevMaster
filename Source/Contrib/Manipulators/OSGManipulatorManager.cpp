@@ -303,6 +303,8 @@ bool ManipulatorManager::activate(Node *n)
             _pivotChangePending = true;
             
         }
+        
+        return false;
     }
     else
     {
