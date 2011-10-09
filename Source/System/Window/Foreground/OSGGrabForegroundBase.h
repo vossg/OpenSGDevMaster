@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GrabForeground;
 
 //! \brief GrabForeground Base Class.

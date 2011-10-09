@@ -212,18 +212,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderOptions *>::_type("RenderOptionsPtr", "AttachmentPtr");
+DataType FieldTraits<RenderOptions *, nsOSG>::_type("RenderOptionsPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RenderOptions *)
+OSG_FIELDTRAITS_GETTYPE_NS(RenderOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            RenderOptions *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            RenderOptions *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -612,7 +612,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     RenderOptionsBase::getClassname(),
     Inherited::getClassname(),
     "RenderOptions",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RenderOptionsBase::createEmptyLocal),
     RenderOptions::initMethod,
     RenderOptions::exitMethod,

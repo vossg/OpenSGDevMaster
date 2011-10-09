@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Transform;
 
 //! \brief Transform Base Class.

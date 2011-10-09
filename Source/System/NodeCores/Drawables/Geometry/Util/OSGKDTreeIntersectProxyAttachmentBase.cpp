@@ -104,18 +104,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<KDTreeIntersectProxyAttachment *>::_type("KDTreeIntersectProxyAttachmentPtr", "IntersectProxyAttachmentPtr");
+DataType FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::_type("KDTreeIntersectProxyAttachmentPtr", "IntersectProxyAttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(KDTreeIntersectProxyAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(KDTreeIntersectProxyAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            KDTreeIntersectProxyAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            KDTreeIntersectProxyAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -180,7 +180,7 @@ KDTreeIntersectProxyAttachmentBase::TypeObject KDTreeIntersectProxyAttachmentBas
     KDTreeIntersectProxyAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "IntersectProxyAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&KDTreeIntersectProxyAttachmentBase::createEmptyLocal),
     KDTreeIntersectProxyAttachment::initMethod,
     KDTreeIntersectProxyAttachment::exitMethod,

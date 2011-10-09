@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimMatrixChannel *>::_type("AnimMatrixChannelPtr", "AnimChannelPtr");
+DataType FieldTraits<AnimMatrixChannel *, nsOSG>::_type("AnimMatrixChannelPtr", "AnimChannelPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimMatrixChannel *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimMatrixChannel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimMatrixChannel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimMatrixChannel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimMatrixChannelBase::TypeObject AnimMatrixChannelBase::_type(
     AnimMatrixChannelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixChannelBase::createEmptyLocal),
     AnimMatrixChannel::initMethod,
     AnimMatrixChannel::exitMethod,

@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GPUSkinningDataAttachment;
 
 //! \brief GPUSkinningDataAttachment Base Class.

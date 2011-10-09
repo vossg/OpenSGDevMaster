@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScreenGroup;
 
 OSG_GEN_CONTAINERPTR(ScreenGroup);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<ScreenGroup *> :
-    public FieldTraitsFCPtrBase<ScreenGroup *>
+struct FieldTraits<ScreenGroup *, nsOSG> :
+    public FieldTraitsFCPtrBase<ScreenGroup *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ScreenGroup *> :
 
   public:
 
-    typedef FieldTraits<ScreenGroup *>  Self;
+    typedef FieldTraits<ScreenGroup *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ScreenGroup *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFScreenGroupPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFScreenGroupPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakScreenGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScreenGroup *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ScreenGroup *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdScreenGroupPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ScreenGroup *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ScreenGroup *,
-                      RecordedRefCountPolicy  > SFRecScreenGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ScreenGroup *,
-                      UnrecordedRefCountPolicy> SFUnrecScreenGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ScreenGroup *,
-                      WeakRefCountPolicy      > SFWeakScreenGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ScreenGroup *,
-                      NoRefCountPolicy        > SFUncountedScreenGroupPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedScreenGroupPtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ScreenGroup *,
-                      RecordedRefCountPolicy  > MFRecScreenGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ScreenGroup *,
-                      UnrecordedRefCountPolicy> MFUnrecScreenGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ScreenGroup *,
-                      WeakRefCountPolicy      > MFWeakScreenGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakScreenGroupPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ScreenGroup *,
-                      NoRefCountPolicy        > MFUncountedScreenGroupPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedScreenGroupPtr;
 
 
 

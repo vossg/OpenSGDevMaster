@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PlaneMoveManipulator;
 
 OSG_GEN_CONTAINERPTR(PlaneMoveManipulator);
-
 /*! \ingroup GrpContribGUIFieldTraits
     \ingroup GrpLibOSGContribGUI
  */
 template <>
-struct FieldTraits<PlaneMoveManipulator *> :
-    public FieldTraitsFCPtrBase<PlaneMoveManipulator *>
+struct FieldTraits<PlaneMoveManipulator *, nsOSG> :
+    public FieldTraitsFCPtrBase<PlaneMoveManipulator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PlaneMoveManipulator *> :
 
   public:
 
-    typedef FieldTraits<PlaneMoveManipulator *>  Self;
+    typedef FieldTraits<PlaneMoveManipulator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

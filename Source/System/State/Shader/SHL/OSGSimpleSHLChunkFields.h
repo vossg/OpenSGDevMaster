@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleSHLChunk;
 
 OSG_GEN_CONTAINERPTR(SimpleSHLChunk);
-
 /*! \ingroup GrpSystemShaderFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<SimpleSHLChunk *> :
-    public FieldTraitsFCPtrBase<SimpleSHLChunk *>
+struct FieldTraits<SimpleSHLChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleSHLChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleSHLChunk *> :
 
   public:
 
-    typedef FieldTraits<SimpleSHLChunk *>  Self;
+    typedef FieldTraits<SimpleSHLChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<SimpleSHLChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSimpleSHLChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSimpleSHLChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSimpleSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSimpleSHLChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
-                      RecordedRefCountPolicy  > SFRecSimpleSHLChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecSimpleSHLChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
-                      WeakRefCountPolicy      > SFWeakSimpleSHLChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
-                      NoRefCountPolicy        > SFUncountedSimpleSHLChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSimpleSHLChunkPtr;
 
 
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
-                      RecordedRefCountPolicy  > MFRecSimpleSHLChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecSimpleSHLChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
-                      WeakRefCountPolicy      > MFWeakSimpleSHLChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSimpleSHLChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
-                      NoRefCountPolicy        > MFUncountedSimpleSHLChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSimpleSHLChunkPtr;
 
 
 

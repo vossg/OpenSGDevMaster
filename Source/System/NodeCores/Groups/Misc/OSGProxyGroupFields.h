@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ProxyGroup;
 
 OSG_GEN_CONTAINERPTR(ProxyGroup);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<ProxyGroup *> :
-    public FieldTraitsFCPtrBase<ProxyGroup *>
+struct FieldTraits<ProxyGroup *, nsOSG> :
+    public FieldTraitsFCPtrBase<ProxyGroup *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ProxyGroup *> :
 
   public:
 
-    typedef FieldTraits<ProxyGroup *>  Self;
+    typedef FieldTraits<ProxyGroup *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

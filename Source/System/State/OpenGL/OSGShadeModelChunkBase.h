@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShadeModelChunk;
 
 //! \brief ShadeModelChunk Base Class.

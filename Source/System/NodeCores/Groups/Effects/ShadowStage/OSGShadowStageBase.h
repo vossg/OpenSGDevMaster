@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShadowStage;
 
 //! \brief ShadowStage Base Class.

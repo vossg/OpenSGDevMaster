@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class NodeCore;
 
 OSG_GEN_CONTAINERPTR(NodeCore);
-
 /*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<NodeCore *> :
-    public FieldTraitsFCPtrBase<NodeCore *>
+struct FieldTraits<NodeCore *, nsOSG> :
+    public FieldTraitsFCPtrBase<NodeCore *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<NodeCore *> :
 
   public:
 
-    typedef FieldTraits<NodeCore *>  Self;
+    typedef FieldTraits<NodeCore *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<NodeCore *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFNodeCorePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFNodeCorePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdNodeCorePtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
-struct FieldTraits<NodeCore *, 1> :
-    public FieldTraitsFCPtrBase<NodeCore *, 1>
+struct FieldTraits<NodeCore *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<NodeCore *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<NodeCore *, 1>  Self;
+    typedef FieldTraits<NodeCore *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<NodeCore *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildNodeCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodeCore *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<NodeCore *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildNodeCorePtr"; 
 }
@@ -220,8 +218,8 @@ const Char8 *FieldTraits<NodeCore *, 1>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
-struct FieldTraits<NodeCore *, 2> : 
-    public FieldTraitsFCPtrBase<NodeCore *, 2>
+struct FieldTraits<NodeCore *, nsOSG + 2> : 
+    public FieldTraitsFCPtrBase<NodeCore *, nsOSG + 2>
 {
   private:
 
@@ -231,7 +229,7 @@ struct FieldTraits<NodeCore *, 2> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<NodeCore *, 2>        Self;
+    typedef FieldTraits<NodeCore *, nsOSG + 2> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -253,30 +251,30 @@ struct FieldTraits<NodeCore *, 2> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
-                      RecordedRefCountPolicy  > SFRecNodeCorePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
-                      UnrecordedRefCountPolicy> SFUnrecNodeCorePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
-                      WeakRefCountPolicy      > SFWeakNodeCorePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<NodeCore *,
-                      NoRefCountPolicy        > SFUncountedNodeCorePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedNodeCorePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
-                      RecordedRefCountPolicy  > MFRecNodeCorePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
-                      UnrecordedRefCountPolicy> MFUnrecNodeCorePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
-                      WeakRefCountPolicy      > MFWeakNodeCorePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakNodeCorePtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<NodeCore *,
-                      NoRefCountPolicy        > MFUncountedNodeCorePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedNodeCorePtr;
 
 
 
@@ -284,27 +282,27 @@ typedef PointerMField<NodeCore *,
 typedef ChildPointerSField<
           NodeCore *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildNodeCorePtr;
+          nsOSG + 1             > SFUnrecChildNodeCorePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField<
           NodeCore *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildNodeCorePtr;
+          nsOSG + 1             > MFUnrecChildNodeCorePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ParentPointerSField<
           NodeCore *, 
           NoRefCountPolicy,
-          2    > SFParentNodeCorePtr;
+          nsOSG + 2    > SFParentNodeCorePtr;
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ParentPointerMField<
           NodeCore *, 
           NoRefCountPolicy,
-          2    > MFParentNodeCorePtr;
+          nsOSG + 2    > MFParentNodeCorePtr;
 
 
 
@@ -352,7 +350,7 @@ struct SFUnrecChildNodeCorePtr :
     public ChildPointerSField<
         NodeCore *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
@@ -360,7 +358,7 @@ struct MFUnrecChildNodeCorePtr :
     public ChildPointerMField<
         NodeCore *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
@@ -368,14 +366,14 @@ struct SFParentNodeCorePtr :
     public ParentPointerSField<
         NodeCore *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentNodeCorePtr :
     public  ParentPointerMField<
         NodeCore *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 
 #endif // these are the doxygen hacks

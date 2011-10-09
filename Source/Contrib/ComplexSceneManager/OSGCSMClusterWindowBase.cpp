@@ -126,34 +126,34 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMClusterWindow *>::_type("CSMClusterWindowPtr", "CSMWindowPtr");
+DataType FieldTraits<CSMClusterWindow *, nsOSG>::_type("CSMClusterWindowPtr", "CSMWindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMClusterWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMClusterWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMClusterWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMClusterWindow *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits<CSMClusterWindow *, 1 >::getType(void)
+DataType &FieldTraits<CSMClusterWindow *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<CSMClusterWindow *, 0>::getType();
+    return FieldTraits<CSMClusterWindow *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     CSMClusterWindow *,
                     NoRefCountPolicy,
-                    1);
+                    nsOSG + 1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          CSMClusterWindow *,
                          NoRefCountPolicy,
-                         1);
+                         nsOSG + 1);
 
 
 /***************************************************************************\
@@ -279,7 +279,7 @@ CSMClusterWindowBase::TypeObject CSMClusterWindowBase::_type(
     CSMClusterWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMClusterWindowBase::createEmptyLocal),
     CSMClusterWindow::initMethod,
     CSMClusterWindow::exitMethod,

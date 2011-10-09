@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MatrixCameraDecorator;
 
 //! \brief MatrixCameraDecorator Base Class.

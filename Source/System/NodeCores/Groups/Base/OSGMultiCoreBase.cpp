@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiCore *>::_type("MultiCorePtr", "GroupPtr");
+DataType FieldTraits<MultiCore *, nsOSG>::_type("MultiCorePtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MultiCore *)
+OSG_FIELDTRAITS_GETTYPE_NS(MultiCore *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MultiCore *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MultiCore *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     MultiCoreBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MultiCoreBase::createEmptyLocal),
     MultiCore::initMethod,
     MultiCore::exitMethod,

@@ -88,14 +88,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthClearBackground *>::_type("DepthClearBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<DepthClearBackground *, nsOSG>::_type("DepthClearBackgroundPtr", "BackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DepthClearBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(DepthClearBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DepthClearBackground *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -111,7 +111,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     DepthClearBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DepthClearBackgroundBase::createEmptyLocal),
     DepthClearBackground::initMethod,
     DepthClearBackground::exitMethod,

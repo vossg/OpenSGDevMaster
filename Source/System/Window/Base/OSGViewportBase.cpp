@@ -174,29 +174,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Viewport *>::_type("ViewportPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Viewport *, nsOSG>::_type("ViewportPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Viewport *)
+OSG_FIELDTRAITS_GETTYPE_NS(Viewport *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Viewport *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Viewport *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< Viewport *, 1 >::getType(void)
+DataType &FieldTraits< Viewport *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<Viewport *, 0>::getType();
+    return FieldTraits<Viewport *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Viewport *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -378,7 +378,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     ViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ViewportBase::createEmptyLocal),
     Viewport::initMethod,
     Viewport::exitMethod,

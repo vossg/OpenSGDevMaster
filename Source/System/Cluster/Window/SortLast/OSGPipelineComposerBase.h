@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PipelineComposer;
 
 //! \brief PipelineComposer Base Class.

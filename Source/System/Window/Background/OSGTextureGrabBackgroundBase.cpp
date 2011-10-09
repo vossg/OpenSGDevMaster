@@ -109,10 +109,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureGrabBackground *>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
+DataType FieldTraits<TextureGrabBackground *, nsOSG>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureGrabBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextureGrabBackground *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -178,7 +178,7 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     TextureGrabBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureGrabBackgroundBase::createEmptyLocal),
     TextureGrabBackground::initMethod,
     TextureGrabBackground::exitMethod,

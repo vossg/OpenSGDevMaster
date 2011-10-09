@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AlgorithmStage;
 
 //! \brief AlgorithmStage Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StereoBufferViewport;
 
 OSG_GEN_CONTAINERPTR(StereoBufferViewport);
-
 /*! \ingroup GrpWindowViewportFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<StereoBufferViewport *> :
-    public FieldTraitsFCPtrBase<StereoBufferViewport *>
+struct FieldTraits<StereoBufferViewport *, nsOSG> :
+    public FieldTraitsFCPtrBase<StereoBufferViewport *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<StereoBufferViewport *> :
 
   public:
 
-    typedef FieldTraits<StereoBufferViewport *>  Self;
+    typedef FieldTraits<StereoBufferViewport *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<StereoBufferViewport *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFStereoBufferViewportPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFStereoBufferViewportPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStereoBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StereoBufferViewport *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStereoBufferViewportPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
-                      RecordedRefCountPolicy  > SFRecStereoBufferViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
-                      UnrecordedRefCountPolicy> SFUnrecStereoBufferViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
-                      WeakRefCountPolicy      > SFWeakStereoBufferViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
-                      NoRefCountPolicy        > SFUncountedStereoBufferViewportPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedStereoBufferViewportPtr;
 
 
 /*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
-                      RecordedRefCountPolicy  > MFRecStereoBufferViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
-                      UnrecordedRefCountPolicy> MFUnrecStereoBufferViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
-                      WeakRefCountPolicy      > MFWeakStereoBufferViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakStereoBufferViewportPtr;
 /*! \ingroup GrpWindowViewportFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
-                      NoRefCountPolicy        > MFUncountedStereoBufferViewportPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedStereoBufferViewportPtr;
 
 
 

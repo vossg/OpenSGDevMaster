@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CallbackAlgorithm;
 
 //! \brief CallbackAlgorithm Base Class.

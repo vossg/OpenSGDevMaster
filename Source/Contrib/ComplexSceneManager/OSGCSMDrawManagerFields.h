@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMDrawManager;
 
 OSG_GEN_CONTAINERPTR(CSMDrawManager);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMDrawManager *> :
-    public FieldTraitsFCPtrBase<CSMDrawManager *>
+struct FieldTraits<CSMDrawManager *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMDrawManager *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMDrawManager *> :
 
   public:
 
-    typedef FieldTraits<CSMDrawManager *>  Self;
+    typedef FieldTraits<CSMDrawManager *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMDrawManager *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMDrawManagerPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMDrawManagerPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMDrawManagerPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
-                      RecordedRefCountPolicy  > SFRecCSMDrawManagerPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMDrawManagerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
-                      WeakRefCountPolicy      > SFWeakCSMDrawManagerPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
-                      NoRefCountPolicy        > SFUncountedCSMDrawManagerPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMDrawManagerPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
-                      RecordedRefCountPolicy  > MFRecCSMDrawManagerPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMDrawManagerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
-                      WeakRefCountPolicy      > MFWeakCSMDrawManagerPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMDrawManagerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
-                      NoRefCountPolicy        > MFUncountedCSMDrawManagerPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMDrawManagerPtr;
 
 
 

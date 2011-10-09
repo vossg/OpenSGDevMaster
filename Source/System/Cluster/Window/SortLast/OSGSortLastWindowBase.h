@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SortLastWindow;
 
 //! \brief SortLastWindow Base Class.

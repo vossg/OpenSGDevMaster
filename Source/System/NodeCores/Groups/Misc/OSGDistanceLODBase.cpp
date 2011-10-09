@@ -130,10 +130,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistanceLOD *>::_type("DistanceLODPtr", "GroupPtr");
+DataType FieldTraits<DistanceLOD *, nsOSG>::_type("DistanceLODPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DistanceLOD *)
+OSG_FIELDTRAITS_GETTYPE_NS(DistanceLOD *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -174,7 +174,7 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(
     DistanceLODBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DistanceLODBase::createEmptyLocal),
     DistanceLOD::initMethod,
     DistanceLOD::exitMethod,

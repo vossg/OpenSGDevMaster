@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GPUSkinningAlgorithm;
 
 //! \brief GPUSkinningAlgorithm Base Class.

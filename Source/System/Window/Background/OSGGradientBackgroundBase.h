@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GradientBackground;
 
 //! \brief GradientBackground Base Class.

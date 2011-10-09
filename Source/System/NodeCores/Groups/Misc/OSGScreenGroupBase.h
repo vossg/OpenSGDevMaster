@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScreenGroup;
 
 //! \brief ScreenGroup Base Class.

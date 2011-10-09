@@ -98,10 +98,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScreenLOD *>::_type("ScreenLODPtr", "GroupPtr");
+DataType FieldTraits<ScreenLOD *, nsOSG>::_type("ScreenLODPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ScreenLOD *)
+OSG_FIELDTRAITS_GETTYPE_NS(ScreenLOD *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -134,7 +134,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     ScreenLODBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ScreenLODBase::createEmptyLocal),
     ScreenLOD::initMethod,
     ScreenLOD::exitMethod,

@@ -77,6 +77,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CubeMapGenerator;
 
 //! \brief CubeMapGenerator Base Class.

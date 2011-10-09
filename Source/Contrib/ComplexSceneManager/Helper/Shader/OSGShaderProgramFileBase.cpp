@@ -91,10 +91,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramFile *>::_type("ShaderProgramFilePtr", "ShaderProgramPtr");
+DataType FieldTraits<ShaderProgramFile *, nsOSG>::_type("ShaderProgramFilePtr", "ShaderProgramPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramFile *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderProgramFile *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -123,7 +123,7 @@ ShaderProgramFileBase::TypeObject ShaderProgramFileBase::_type(
     ShaderProgramFileBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramFileBase::createEmptyLocal),
     ShaderProgramFile::initMethod,
     ShaderProgramFile::exitMethod,

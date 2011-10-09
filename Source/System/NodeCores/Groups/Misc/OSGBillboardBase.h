@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Billboard;
 
 //! \brief Billboard Base Class.

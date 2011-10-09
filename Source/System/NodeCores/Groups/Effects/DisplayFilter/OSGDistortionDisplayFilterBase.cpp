@@ -99,18 +99,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistortionDisplayFilter *>::_type("DistortionDisplayFilterPtr", "DisplayFilterPtr");
+DataType FieldTraits<DistortionDisplayFilter *, nsOSG>::_type("DistortionDisplayFilterPtr", "DisplayFilterPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DistortionDisplayFilter *)
+OSG_FIELDTRAITS_GETTYPE_NS(DistortionDisplayFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DistortionDisplayFilter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DistortionDisplayFilter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -163,7 +163,7 @@ DistortionDisplayFilterBase::TypeObject DistortionDisplayFilterBase::_type(
     DistortionDisplayFilterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DistortionDisplayFilterBase::createEmptyLocal),
     DistortionDisplayFilter::initMethod,
     DistortionDisplayFilter::exitMethod,

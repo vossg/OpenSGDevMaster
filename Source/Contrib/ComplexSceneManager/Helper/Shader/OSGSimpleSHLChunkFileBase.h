@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleSHLChunkFile;
 
 //! \brief SimpleSHLChunkFile Base Class.

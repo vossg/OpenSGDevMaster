@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimQuaternionBlender;
 
 OSG_GEN_CONTAINERPTR(AnimQuaternionBlender);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimQuaternionBlender *> :
-    public FieldTraitsFCPtrBase<AnimQuaternionBlender *>
+struct FieldTraits<AnimQuaternionBlender *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimQuaternionBlender *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimQuaternionBlender *> :
 
   public:
 
-    typedef FieldTraits<AnimQuaternionBlender *>  Self;
+    typedef FieldTraits<AnimQuaternionBlender *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimQuaternionBlender *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimQuaternionBlenderPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimQuaternionBlenderPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimQuaternionBlenderPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionBlender *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimQuaternionBlenderPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimQuaternionBlender *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionBlender *,
-                      RecordedRefCountPolicy  > SFRecAnimQuaternionBlenderPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionBlender *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimQuaternionBlenderPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionBlender *,
-                      WeakRefCountPolicy      > SFWeakAnimQuaternionBlenderPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionBlender *,
-                      NoRefCountPolicy        > SFUncountedAnimQuaternionBlenderPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimQuaternionBlenderPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionBlender *,
-                      RecordedRefCountPolicy  > MFRecAnimQuaternionBlenderPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionBlender *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimQuaternionBlenderPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionBlender *,
-                      WeakRefCountPolicy      > MFWeakAnimQuaternionBlenderPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimQuaternionBlenderPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionBlender *,
-                      NoRefCountPolicy        > MFUncountedAnimQuaternionBlenderPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimQuaternionBlenderPtr;
 
 
 

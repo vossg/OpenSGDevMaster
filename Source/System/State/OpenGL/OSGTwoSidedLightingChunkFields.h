@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TwoSidedLightingChunk;
 
 OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<TwoSidedLightingChunk *> :
-    public FieldTraitsFCPtrBase<TwoSidedLightingChunk *>
+struct FieldTraits<TwoSidedLightingChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<TwoSidedLightingChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TwoSidedLightingChunk *> :
 
   public:
 
-    typedef FieldTraits<TwoSidedLightingChunk *>  Self;
+    typedef FieldTraits<TwoSidedLightingChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

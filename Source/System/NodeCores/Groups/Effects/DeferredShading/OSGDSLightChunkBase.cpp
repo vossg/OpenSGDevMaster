@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DSLightChunk *>::_type("DSLightChunkPtr", "LightChunkPtr");
+DataType FieldTraits<DSLightChunk *, nsOSG>::_type("DSLightChunkPtr", "LightChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DSLightChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(DSLightChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DSLightChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DSLightChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ DSLightChunkBase::TypeObject DSLightChunkBase::_type(
     DSLightChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DSLightChunkBase::createEmptyLocal),
     DSLightChunk::initMethod,
     DSLightChunk::exitMethod,

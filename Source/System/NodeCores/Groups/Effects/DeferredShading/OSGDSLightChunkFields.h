@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DSLightChunk;
 
 OSG_GEN_CONTAINERPTR(DSLightChunk);
-
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DSLightChunk *> :
-    public FieldTraitsFCPtrBase<DSLightChunk *>
+struct FieldTraits<DSLightChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<DSLightChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DSLightChunk *> :
 
   public:
 
-    typedef FieldTraits<DSLightChunk *>  Self;
+    typedef FieldTraits<DSLightChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DSLightChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDSLightChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDSLightChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDSLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DSLightChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDSLightChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DSLightChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
-                      RecordedRefCountPolicy  > SFRecDSLightChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecDSLightChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
-                      WeakRefCountPolicy      > SFWeakDSLightChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DSLightChunk *,
-                      NoRefCountPolicy        > SFUncountedDSLightChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDSLightChunkPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
-                      RecordedRefCountPolicy  > MFRecDSLightChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecDSLightChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
-                      WeakRefCountPolicy      > MFWeakDSLightChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDSLightChunkPtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DSLightChunk *,
-                      NoRefCountPolicy        > MFUncountedDSLightChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDSLightChunkPtr;
 
 
 

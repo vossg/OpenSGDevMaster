@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SkeletonSkinningAlgorithm;
 
 //! \brief SkeletonSkinningAlgorithm Base Class.

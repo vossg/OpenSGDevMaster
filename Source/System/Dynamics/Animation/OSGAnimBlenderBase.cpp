@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimBlender *>::_type("AnimBlenderPtr", "AttachmentContainerPtr");
+DataType FieldTraits<AnimBlender *, nsOSG>::_type("AnimBlenderPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimBlender *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimBlender *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimBlender *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimBlender *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -115,7 +115,7 @@ AnimBlenderBase::TypeObject AnimBlenderBase::_type(
     AnimBlenderBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     AnimBlender::initMethod,
     AnimBlender::exitMethod,

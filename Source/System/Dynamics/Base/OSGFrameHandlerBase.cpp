@@ -123,14 +123,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FrameHandler *>::_type("FrameHandlerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<FrameHandler *, nsOSG>::_type("FrameHandlerPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FrameHandler *)
+OSG_FIELDTRAITS_GETTYPE_NS(FrameHandler *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FrameHandler *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -256,7 +256,7 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     FrameHandlerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FrameHandlerBase::createEmptyLocal),
     FrameHandler::initMethod,
     FrameHandler::exitMethod,

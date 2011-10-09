@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Counter;
 
 OSG_GEN_CONTAINERPTR(Counter);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<Counter *> :
-    public FieldTraitsFCPtrBase<Counter *>
+struct FieldTraits<Counter *, nsOSG> :
+    public FieldTraitsFCPtrBase<Counter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Counter *> :
 
   public:
 
-    typedef FieldTraits<Counter *>  Self;
+    typedef FieldTraits<Counter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

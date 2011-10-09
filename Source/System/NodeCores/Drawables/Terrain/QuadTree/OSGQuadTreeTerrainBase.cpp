@@ -187,18 +187,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QuadTreeTerrain *>::_type("QuadTreeTerrainPtr", "GeometryPtr");
+DataType FieldTraits<QuadTreeTerrain *, nsOSG>::_type("QuadTreeTerrainPtr", "GeometryPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrain *)
+OSG_FIELDTRAITS_GETTYPE_NS(QuadTreeTerrain *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            QuadTreeTerrain *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            QuadTreeTerrain *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -505,7 +505,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     QuadTreeTerrainBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&QuadTreeTerrainBase::createEmptyLocal),
     QuadTreeTerrain::initMethod,
     QuadTreeTerrain::exitMethod,

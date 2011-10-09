@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DisplayFilterStageData;
 
 OSG_GEN_CONTAINERPTR(DisplayFilterStageData);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DisplayFilterStageData *> :
-    public FieldTraitsFCPtrBase<DisplayFilterStageData *>
+struct FieldTraits<DisplayFilterStageData *, nsOSG> :
+    public FieldTraitsFCPtrBase<DisplayFilterStageData *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DisplayFilterStageData *> :
 
   public:
 
-    typedef FieldTraits<DisplayFilterStageData *>  Self;
+    typedef FieldTraits<DisplayFilterStageData *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

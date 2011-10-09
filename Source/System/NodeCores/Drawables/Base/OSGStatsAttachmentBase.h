@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StatsAttachment;
 
 //! \brief StatsAttachment Base Class.

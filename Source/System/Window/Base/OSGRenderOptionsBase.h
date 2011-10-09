@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RenderOptions;
 
 //! \brief RenderOptions Base Class.

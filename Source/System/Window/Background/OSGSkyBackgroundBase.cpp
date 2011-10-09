@@ -185,15 +185,15 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkyBackground *>::_type("SkyBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<SkyBackground *, nsOSG>::_type("SkyBackgroundPtr", "BackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkyBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(SkyBackground *, nsOSG)
 
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkyBackground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -459,7 +459,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     SkyBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkyBackgroundBase::createEmptyLocal),
     SkyBackground::initMethod,
     SkyBackground::exitMethod,

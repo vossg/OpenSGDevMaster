@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TransformationInterfaceSensor;
 
 OSG_GEN_CONTAINERPTR(TransformationInterfaceSensor);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<TransformationInterfaceSensor *> :
-    public FieldTraitsFCPtrBase<TransformationInterfaceSensor *>
+struct FieldTraits<TransformationInterfaceSensor *, nsOSG> :
+    public FieldTraitsFCPtrBase<TransformationInterfaceSensor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TransformationInterfaceSensor *> :
 
   public:
 
-    typedef FieldTraits<TransformationInterfaceSensor *>  Self;
+    typedef FieldTraits<TransformationInterfaceSensor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

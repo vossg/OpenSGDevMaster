@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Drawable *>::_type("DrawablePtr", "NodeCorePtr");
+DataType FieldTraits<Drawable *, nsOSG>::_type("DrawablePtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Drawable *)
+OSG_FIELDTRAITS_GETTYPE_NS(Drawable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Drawable *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Drawable *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ DrawableBase::TypeObject DrawableBase::_type(
     DrawableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Drawable::initMethod,
     Drawable::exitMethod,

@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DistanceLOD;
 
 //! \brief DistanceLOD Base Class.

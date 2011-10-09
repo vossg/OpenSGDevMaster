@@ -89,18 +89,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Group *>::_type("GroupPtr", "NodeCorePtr");
+DataType FieldTraits<Group *, nsOSG>::_type("GroupPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Group *)
+OSG_FIELDTRAITS_GETTYPE_NS(Group *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Group *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Group *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -115,7 +115,7 @@ GroupBase::TypeObject GroupBase::_type(
     GroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GroupBase::createEmptyLocal),
     Group::initMethod,
     Group::exitMethod,

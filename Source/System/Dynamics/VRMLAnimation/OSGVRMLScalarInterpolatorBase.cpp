@@ -95,10 +95,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLScalarInterpolator *>::_type("VRMLScalarInterpolatorPtr", "VRMLInterpolatorPtr");
+DataType FieldTraits<VRMLScalarInterpolator *, nsOSG>::_type("VRMLScalarInterpolatorPtr", "VRMLInterpolatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VRMLScalarInterpolator *)
+OSG_FIELDTRAITS_GETTYPE_NS(VRMLScalarInterpolator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -139,7 +139,7 @@ VRMLScalarInterpolatorBase::TypeObject VRMLScalarInterpolatorBase::_type(
     VRMLScalarInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLScalarInterpolatorBase::createEmptyLocal),
     VRMLScalarInterpolator::initMethod,
     VRMLScalarInterpolator::exitMethod,

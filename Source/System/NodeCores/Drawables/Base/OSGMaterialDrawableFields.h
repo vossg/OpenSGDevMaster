@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MaterialDrawable;
 
 OSG_GEN_CONTAINERPTR(MaterialDrawable);
-
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<MaterialDrawable *> :
-    public FieldTraitsFCPtrBase<MaterialDrawable *>
+struct FieldTraits<MaterialDrawable *, nsOSG> :
+    public FieldTraitsFCPtrBase<MaterialDrawable *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<MaterialDrawable *> :
 
   public:
 
-    typedef FieldTraits<MaterialDrawable *>  Self;
+    typedef FieldTraits<MaterialDrawable *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<MaterialDrawable *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFMaterialDrawablePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFMaterialDrawablePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMaterialDrawablePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<NoRefCountPolicy>(void
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
-                      RecordedRefCountPolicy  > SFRecMaterialDrawablePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
-                      UnrecordedRefCountPolicy> SFUnrecMaterialDrawablePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
-                      WeakRefCountPolicy      > SFWeakMaterialDrawablePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<MaterialDrawable *,
-                      NoRefCountPolicy        > SFUncountedMaterialDrawablePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedMaterialDrawablePtr;
 
 
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
-                      RecordedRefCountPolicy  > MFRecMaterialDrawablePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
-                      UnrecordedRefCountPolicy> MFUnrecMaterialDrawablePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
-                      WeakRefCountPolicy      > MFWeakMaterialDrawablePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakMaterialDrawablePtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<MaterialDrawable *,
-                      NoRefCountPolicy        > MFUncountedMaterialDrawablePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedMaterialDrawablePtr;
 
 
 

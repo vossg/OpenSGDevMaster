@@ -145,18 +145,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClusterWindow *>::_type("ClusterWindowPtr", "WindowPtr");
+DataType FieldTraits<ClusterWindow *, nsOSG>::_type("ClusterWindowPtr", "WindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ClusterWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(ClusterWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ClusterWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ClusterWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -341,7 +341,7 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     ClusterWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ClusterWindowBase::createEmptyLocal),
     ClusterWindow::initMethod,
     ClusterWindow::exitMethod,

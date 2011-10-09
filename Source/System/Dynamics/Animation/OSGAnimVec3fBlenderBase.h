@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimVec3fBlender;
 
 //! \brief AnimVec3fBlender Base Class.

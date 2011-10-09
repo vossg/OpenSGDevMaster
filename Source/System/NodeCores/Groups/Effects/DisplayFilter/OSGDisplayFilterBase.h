@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DisplayFilter;
 
 //! \brief DisplayFilter Base Class.

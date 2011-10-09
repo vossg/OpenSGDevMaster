@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GlobalsAttachment;
 
 OSG_GEN_CONTAINERPTR(GlobalsAttachment);
-
 /*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<GlobalsAttachment *> :
-    public FieldTraitsFCPtrBase<GlobalsAttachment *>
+struct FieldTraits<GlobalsAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<GlobalsAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GlobalsAttachment *> :
 
   public:
 
-    typedef FieldTraits<GlobalsAttachment *>  Self;
+    typedef FieldTraits<GlobalsAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<GlobalsAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGlobalsAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGlobalsAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGlobalsAttachmentPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<GlobalsAttachment *, 0>::getMName<NoRefCountPolicy>(voi
 /*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
-struct FieldTraits<GlobalsAttachment *, 1> :
-    public FieldTraitsFCPtrBase<GlobalsAttachment *, 1>
+struct FieldTraits<GlobalsAttachment *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<GlobalsAttachment *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<GlobalsAttachment *, 1>  Self;
+    typedef FieldTraits<GlobalsAttachment *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<GlobalsAttachment *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildGlobalsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GlobalsAttachment *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildGlobalsAttachmentPtr"; 
 }
@@ -220,8 +218,8 @@ const Char8 *FieldTraits<GlobalsAttachment *, 1>::getMName<NoRefCountPolicy>(voi
 /*! \ingroup GrpBaseFieldContainerFieldTraits
  */
 template <>
-struct FieldTraits<GlobalsAttachment *, 2> : 
-    public FieldTraitsFCPtrBase<GlobalsAttachment *, 2>
+struct FieldTraits<GlobalsAttachment *, nsOSG + 2> : 
+    public FieldTraitsFCPtrBase<GlobalsAttachment *, nsOSG + 2>
 {
   private:
 
@@ -231,7 +229,7 @@ struct FieldTraits<GlobalsAttachment *, 2> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<GlobalsAttachment *, 2>        Self;
+    typedef FieldTraits<GlobalsAttachment *, nsOSG + 2> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -253,30 +251,30 @@ struct FieldTraits<GlobalsAttachment *, 2> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
-                      RecordedRefCountPolicy  > SFRecGlobalsAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecGlobalsAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
-                      WeakRefCountPolicy      > SFWeakGlobalsAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<GlobalsAttachment *,
-                      NoRefCountPolicy        > SFUncountedGlobalsAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGlobalsAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
-                      RecordedRefCountPolicy  > MFRecGlobalsAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecGlobalsAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
-                      WeakRefCountPolicy      > MFWeakGlobalsAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGlobalsAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<GlobalsAttachment *,
-                      NoRefCountPolicy        > MFUncountedGlobalsAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGlobalsAttachmentPtr;
 
 
 
@@ -284,27 +282,27 @@ typedef PointerMField<GlobalsAttachment *,
 typedef ChildPointerSField<
           GlobalsAttachment *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildGlobalsAttachmentPtr;
+          nsOSG + 1             > SFUnrecChildGlobalsAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField<
           GlobalsAttachment *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildGlobalsAttachmentPtr;
+          nsOSG + 1             > MFUnrecChildGlobalsAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ParentPointerSField<
           GlobalsAttachment *, 
           NoRefCountPolicy,
-          2    > SFParentGlobalsAttachmentPtr;
+          nsOSG + 2    > SFParentGlobalsAttachmentPtr;
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ParentPointerMField<
           GlobalsAttachment *, 
           NoRefCountPolicy,
-          2    > MFParentGlobalsAttachmentPtr;
+          nsOSG + 2    > MFParentGlobalsAttachmentPtr;
 
 
 
@@ -352,7 +350,7 @@ struct SFUnrecChildGlobalsAttachmentPtr :
     public ChildPointerSField<
         GlobalsAttachment *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
@@ -360,7 +358,7 @@ struct MFUnrecChildGlobalsAttachmentPtr :
     public ChildPointerMField<
         GlobalsAttachment *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
@@ -368,14 +366,14 @@ struct SFParentGlobalsAttachmentPtr :
     public ParentPointerSField<
         GlobalsAttachment *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentGlobalsAttachmentPtr :
     public  ParentPointerMField<
         GlobalsAttachment *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 
 #endif // these are the doxygen hacks

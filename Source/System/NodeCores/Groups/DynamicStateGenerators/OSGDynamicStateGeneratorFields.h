@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DynamicStateGenerator;
 
 OSG_GEN_CONTAINERPTR(DynamicStateGenerator);
-
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<DynamicStateGenerator *> :
-    public FieldTraitsFCPtrBase<DynamicStateGenerator *>
+struct FieldTraits<DynamicStateGenerator *, nsOSG> :
+    public FieldTraitsFCPtrBase<DynamicStateGenerator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DynamicStateGenerator *> :
 
   public:
 
-    typedef FieldTraits<DynamicStateGenerator *>  Self;
+    typedef FieldTraits<DynamicStateGenerator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DynamicStateGenerator *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDynamicStateGeneratorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDynamicStateGeneratorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DynamicStateGenerator *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDynamicStateGeneratorPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
-                      RecordedRefCountPolicy  > SFRecDynamicStateGeneratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
-                      UnrecordedRefCountPolicy> SFUnrecDynamicStateGeneratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
-                      WeakRefCountPolicy      > SFWeakDynamicStateGeneratorPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
-                      NoRefCountPolicy        > SFUncountedDynamicStateGeneratorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDynamicStateGeneratorPtr;
 
 
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
-                      RecordedRefCountPolicy  > MFRecDynamicStateGeneratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
-                      UnrecordedRefCountPolicy> MFUnrecDynamicStateGeneratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
-                      WeakRefCountPolicy      > MFWeakDynamicStateGeneratorPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDynamicStateGeneratorPtr;
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
-                      NoRefCountPolicy        > MFUncountedDynamicStateGeneratorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDynamicStateGeneratorPtr;
 
 
 

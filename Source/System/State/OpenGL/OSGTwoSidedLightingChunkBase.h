@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TwoSidedLightingChunk;
 
 //! \brief TwoSidedLightingChunk Base Class.

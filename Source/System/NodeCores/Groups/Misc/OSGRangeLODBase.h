@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RangeLOD;
 
 //! \brief RangeLOD Base Class.

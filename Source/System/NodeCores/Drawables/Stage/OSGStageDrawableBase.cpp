@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StageDrawable *>::_type("StageDrawablePtr", "DrawablePtr");
+DataType FieldTraits<StageDrawable *, nsOSG>::_type("StageDrawablePtr", "DrawablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StageDrawable *)
+OSG_FIELDTRAITS_GETTYPE_NS(StageDrawable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StageDrawable *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            StageDrawable *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -115,7 +115,7 @@ StageDrawableBase::TypeObject StageDrawableBase::_type(
     StageDrawableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     StageDrawable::initMethod,
     StageDrawable::exitMethod,

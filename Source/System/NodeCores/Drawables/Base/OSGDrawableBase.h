@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Drawable;
 
 //! \brief Drawable Base Class.

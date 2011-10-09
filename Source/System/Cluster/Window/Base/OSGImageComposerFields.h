@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageComposer;
 
 OSG_GEN_CONTAINERPTR(ImageComposer);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<ImageComposer *> :
-    public FieldTraitsFCPtrBase<ImageComposer *>
+struct FieldTraits<ImageComposer *, nsOSG> :
+    public FieldTraitsFCPtrBase<ImageComposer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ImageComposer *> :
 
   public:
 
-    typedef FieldTraits<ImageComposer *>  Self;
+    typedef FieldTraits<ImageComposer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ImageComposer *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFImageComposerPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFImageComposerPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposer *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageComposer *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImageComposerPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ImageComposer *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
-                      RecordedRefCountPolicy  > SFRecImageComposerPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
-                      UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
-                      WeakRefCountPolicy      > SFWeakImageComposerPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldSFields */
 typedef PointerSField<ImageComposer *,
-                      NoRefCountPolicy        > SFUncountedImageComposerPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedImageComposerPtr;
 
 
 /*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
-                      RecordedRefCountPolicy  > MFRecImageComposerPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
-                      UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
-                      WeakRefCountPolicy      > MFWeakImageComposerPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakImageComposerPtr;
 /*! \ingroup GrpClusterWindowFieldMFields */
 typedef PointerMField<ImageComposer *,
-                      NoRefCountPolicy        > MFUncountedImageComposerPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedImageComposerPtr;
 
 
 

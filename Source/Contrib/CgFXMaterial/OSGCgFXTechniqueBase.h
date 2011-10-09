@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXTechnique;
 
 //! \brief CgFXTechnique Base Class.

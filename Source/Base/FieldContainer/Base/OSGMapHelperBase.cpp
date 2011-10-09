@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MapHelper *>::_type("MapHelperPtr", "FieldContainerPtr");
+DataType FieldTraits<MapHelper *, nsOSG>::_type("MapHelperPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MapHelper *)
+OSG_FIELDTRAITS_GETTYPE_NS(MapHelper *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MapHelper *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MapHelper *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ MapHelperBase::TypeObject MapHelperBase::_type(
     MapHelperBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MapHelperBase::createEmptyLocal),
     MapHelper::initMethod,
     MapHelper::exitMethod,

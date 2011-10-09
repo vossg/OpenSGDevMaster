@@ -121,10 +121,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComplexSceneManager *>::_type("ComplexSceneManagerPtr", "FieldContainerPtr");
+DataType FieldTraits<ComplexSceneManager *, nsOSG>::_type("ComplexSceneManagerPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComplexSceneManager *)
+OSG_FIELDTRAITS_GETTYPE_NS(ComplexSceneManager *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -237,7 +237,7 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     ComplexSceneManagerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComplexSceneManagerBase::createEmptyLocal),
     ComplexSceneManager::initMethod,
     ComplexSceneManager::exitMethod,

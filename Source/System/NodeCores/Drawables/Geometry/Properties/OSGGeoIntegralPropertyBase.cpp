@@ -88,35 +88,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralProperty *>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr");
+DataType FieldTraits<GeoIntegralProperty *, nsOSG>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoIntegralProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoIntegralProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoIntegralProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoIntegralProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoIntegralProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoIntegralProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoIntegralProperty *, 0>::getType();
+    return FieldTraits<GeoIntegralProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoIntegralProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoIntegralProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -132,7 +132,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     GeoIntegralPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     GeoIntegralProperty::initMethod,
     GeoIntegralProperty::exitMethod,

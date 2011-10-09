@@ -110,34 +110,34 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Animation *>::_type("AnimationPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Animation *, nsOSG>::_type("AnimationPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Animation *)
+OSG_FIELDTRAITS_GETTYPE_NS(Animation *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Animation *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Animation *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits<Animation *, 1 >::getType(void)
+DataType &FieldTraits<Animation *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<Animation *, 0>::getType();
+    return FieldTraits<Animation *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     Animation *,
                     NoRefCountPolicy,
-                    1);
+                    nsOSG + 1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Animation *,
                          NoRefCountPolicy,
-                         1);
+                         nsOSG + 1);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -226,7 +226,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     AnimationBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimationBase::createEmptyLocal),
     Animation::initMethod,
     Animation::exitMethod,

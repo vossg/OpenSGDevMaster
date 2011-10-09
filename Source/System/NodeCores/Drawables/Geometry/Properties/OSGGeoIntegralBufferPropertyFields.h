@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoIntegralBufferProperty;
 
 OSG_GEN_CONTAINERPTR(GeoIntegralBufferProperty);
-
 /*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<GeoIntegralBufferProperty *> :
-    public FieldTraitsFCPtrBase<GeoIntegralBufferProperty *>
+struct FieldTraits<GeoIntegralBufferProperty *, nsOSG> :
+    public FieldTraitsFCPtrBase<GeoIntegralBufferProperty *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GeoIntegralBufferProperty *> :
 
   public:
 
-    typedef FieldTraits<GeoIntegralBufferProperty *>  Self;
+    typedef FieldTraits<GeoIntegralBufferProperty *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<GeoIntegralBufferProperty *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGeoIntegralBufferPropertyPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGeoIntegralBufferPropertyPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeoIntegralBufferPropertyPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<GeoIntegralBufferProperty *, 0>::getMName<NoRefCountPol
 /*! \ingroup GrpDrawablesGeometryFieldTraits
  */
 template <>
-struct FieldTraits<GeoIntegralBufferProperty *, 1> :
-    public FieldTraitsFCPtrBase<GeoIntegralBufferProperty *, 1>
+struct FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<GeoIntegralBufferProperty *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<GeoIntegralBufferProperty *, 1>  Self;
+    typedef FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<GeoIntegralBufferProperty *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildGeoIntegralBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoIntegralBufferProperty *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildGeoIntegralBufferPropertyPtr"; 
 }
@@ -220,30 +218,30 @@ const Char8 *FieldTraits<GeoIntegralBufferProperty *, 1>::getMName<NoRefCountPol
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralBufferProperty *,
-                      RecordedRefCountPolicy  > SFRecGeoIntegralBufferPropertyPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralBufferProperty *,
-                      UnrecordedRefCountPolicy> SFUnrecGeoIntegralBufferPropertyPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralBufferProperty *,
-                      WeakRefCountPolicy      > SFWeakGeoIntegralBufferPropertyPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoIntegralBufferProperty *,
-                      NoRefCountPolicy        > SFUncountedGeoIntegralBufferPropertyPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGeoIntegralBufferPropertyPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralBufferProperty *,
-                      RecordedRefCountPolicy  > MFRecGeoIntegralBufferPropertyPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralBufferProperty *,
-                      UnrecordedRefCountPolicy> MFUnrecGeoIntegralBufferPropertyPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralBufferProperty *,
-                      WeakRefCountPolicy      > MFWeakGeoIntegralBufferPropertyPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGeoIntegralBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoIntegralBufferProperty *,
-                      NoRefCountPolicy        > MFUncountedGeoIntegralBufferPropertyPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGeoIntegralBufferPropertyPtr;
 
 
 
@@ -251,14 +249,14 @@ typedef PointerMField<GeoIntegralBufferProperty *,
 typedef ChildPointerSField<
           GeoIntegralBufferProperty *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildGeoIntegralBufferPropertyPtr;
+          nsOSG + 1             > SFUnrecChildGeoIntegralBufferPropertyPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef ChildPointerMField<
           GeoIntegralBufferProperty *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildGeoIntegralBufferPropertyPtr;
+          nsOSG + 1             > MFUnrecChildGeoIntegralBufferPropertyPtr;
 
 
 
@@ -306,7 +304,7 @@ struct SFUnrecChildGeoIntegralBufferPropertyPtr :
     public ChildPointerSField<
         GeoIntegralBufferProperty *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
@@ -314,7 +312,7 @@ struct MFUnrecChildGeoIntegralBufferPropertyPtr :
     public ChildPointerMField<
         GeoIntegralBufferProperty *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

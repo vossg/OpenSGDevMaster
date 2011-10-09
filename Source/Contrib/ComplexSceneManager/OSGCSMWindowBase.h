@@ -77,6 +77,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMWindow;
 
 //! \brief CSMWindow Base Class.

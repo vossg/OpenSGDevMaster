@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ProxyGroup;
 
 //! \brief ProxyGroup Base Class.

@@ -122,18 +122,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
+DataType FieldTraits<Geometry *, nsOSG>::_type("GeometryPtr", "MaterialDrawablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Geometry *)
+OSG_FIELDTRAITS_GETTYPE_NS(Geometry *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Geometry *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Geometry *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -239,7 +239,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     GeometryBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeometryBase::createEmptyLocal),
     Geometry::initMethod,
     Geometry::exitMethod,

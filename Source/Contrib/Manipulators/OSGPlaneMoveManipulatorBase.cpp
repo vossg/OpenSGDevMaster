@@ -103,10 +103,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PlaneMoveManipulator *>::_type("PlaneMoveManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<PlaneMoveManipulator *, nsOSG>::_type("PlaneMoveManipulatorPtr", "ManipulatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PlaneMoveManipulator *)
+OSG_FIELDTRAITS_GETTYPE_NS(PlaneMoveManipulator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -171,7 +171,7 @@ PlaneMoveManipulatorBase::TypeObject PlaneMoveManipulatorBase::_type(
     PlaneMoveManipulatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PlaneMoveManipulatorBase::createEmptyLocal),
     PlaneMoveManipulator::initMethod,
     PlaneMoveManipulator::exitMethod,

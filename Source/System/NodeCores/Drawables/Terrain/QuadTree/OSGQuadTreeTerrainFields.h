@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class QuadTreeTerrain;
 
 OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
-
 /*! \ingroup GrpDrawablesTerrainFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<QuadTreeTerrain *> :
-    public FieldTraitsFCPtrBase<QuadTreeTerrain *>
+struct FieldTraits<QuadTreeTerrain *, nsOSG> :
+    public FieldTraitsFCPtrBase<QuadTreeTerrain *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<QuadTreeTerrain *> :
 
   public:
 
-    typedef FieldTraits<QuadTreeTerrain *>  Self;
+    typedef FieldTraits<QuadTreeTerrain *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<QuadTreeTerrain *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFQuadTreeTerrainPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFQuadTreeTerrainPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<QuadTreeTerrain *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdQuadTreeTerrainPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
-                      RecordedRefCountPolicy  > SFRecQuadTreeTerrainPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
-                      UnrecordedRefCountPolicy> SFUnrecQuadTreeTerrainPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
-                      WeakRefCountPolicy      > SFWeakQuadTreeTerrainPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
-                      NoRefCountPolicy        > SFUncountedQuadTreeTerrainPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedQuadTreeTerrainPtr;
 
 
 /*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
-                      RecordedRefCountPolicy  > MFRecQuadTreeTerrainPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
-                      UnrecordedRefCountPolicy> MFUnrecQuadTreeTerrainPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
-                      WeakRefCountPolicy      > MFWeakQuadTreeTerrainPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakQuadTreeTerrainPtr;
 /*! \ingroup GrpDrawablesTerrainFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
-                      NoRefCountPolicy        > MFUncountedQuadTreeTerrainPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedQuadTreeTerrainPtr;
 
 
 

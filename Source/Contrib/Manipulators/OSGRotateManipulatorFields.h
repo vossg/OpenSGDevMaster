@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RotateManipulator;
 
 OSG_GEN_CONTAINERPTR(RotateManipulator);
-
 /*! \ingroup GrpContribGUIFieldTraits
     \ingroup GrpLibOSGContribGUI
  */
 template <>
-struct FieldTraits<RotateManipulator *> :
-    public FieldTraitsFCPtrBase<RotateManipulator *>
+struct FieldTraits<RotateManipulator *, nsOSG> :
+    public FieldTraitsFCPtrBase<RotateManipulator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RotateManipulator *> :
 
   public:
 
-    typedef FieldTraits<RotateManipulator *>  Self;
+    typedef FieldTraits<RotateManipulator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

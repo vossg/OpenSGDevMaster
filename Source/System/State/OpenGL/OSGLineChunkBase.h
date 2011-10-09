@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LineChunk;
 
 //! \brief LineChunk Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StringAttributeMap;
 
 OSG_GEN_CONTAINERPTR(StringAttributeMap);
-
 /*! \ingroup GrpSystemFieldContainerFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<StringAttributeMap *> :
-    public FieldTraitsFCPtrBase<StringAttributeMap *>
+struct FieldTraits<StringAttributeMap *, nsOSG> :
+    public FieldTraitsFCPtrBase<StringAttributeMap *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<StringAttributeMap *> :
 
   public:
 
-    typedef FieldTraits<StringAttributeMap *>  Self;
+    typedef FieldTraits<StringAttributeMap *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<StringAttributeMap *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFStringAttributeMapPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStringAttributeMapPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
-                      RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecStringAttributeMapPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
-                      UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecStringAttributeMapPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
-                      WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakStringAttributeMapPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<StringAttributeMap *,
-                      NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedStringAttributeMapPtr;
 
 
 

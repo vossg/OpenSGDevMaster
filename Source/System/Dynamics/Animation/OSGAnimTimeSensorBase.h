@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTimeSensor;
 
 //! \brief AnimTimeSensor Base Class.

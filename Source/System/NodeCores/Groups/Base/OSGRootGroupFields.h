@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RootGroup;
 
 OSG_GEN_CONTAINERPTR(RootGroup);
-
 /*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<RootGroup *> :
-    public FieldTraitsFCPtrBase<RootGroup *>
+struct FieldTraits<RootGroup *, nsOSG> :
+    public FieldTraitsFCPtrBase<RootGroup *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RootGroup *> :
 
   public:
 
-    typedef FieldTraits<RootGroup *>  Self;
+    typedef FieldTraits<RootGroup *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<RootGroup *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFRootGroupPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFRootGroupPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRootGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RootGroup *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RootGroup *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRootGroupPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<RootGroup *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<RootGroup *,
-                      RecordedRefCountPolicy  > SFRecRootGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<RootGroup *,
-                      UnrecordedRefCountPolicy> SFUnrecRootGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<RootGroup *,
-                      WeakRefCountPolicy      > SFWeakRootGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<RootGroup *,
-                      NoRefCountPolicy        > SFUncountedRootGroupPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedRootGroupPtr;
 
 
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<RootGroup *,
-                      RecordedRefCountPolicy  > MFRecRootGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<RootGroup *,
-                      UnrecordedRefCountPolicy> MFUnrecRootGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<RootGroup *,
-                      WeakRefCountPolicy      > MFWeakRootGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakRootGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<RootGroup *,
-                      NoRefCountPolicy        > MFUncountedRootGroupPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedRootGroupPtr;
 
 
 

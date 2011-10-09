@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXVariableTexObj *>::_type("CgFXVariableTexObjPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<CgFXVariableTexObj *, nsOSG>::_type("CgFXVariableTexObjPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CgFXVariableTexObj *)
+OSG_FIELDTRAITS_GETTYPE_NS(CgFXVariableTexObj *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CgFXVariableTexObj *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CgFXVariableTexObj *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ CgFXVariableTexObjBase::TypeObject CgFXVariableTexObjBase::_type(
     CgFXVariableTexObjBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CgFXVariableTexObjBase::createEmptyLocal),
     CgFXVariableTexObj::initMethod,
     CgFXVariableTexObj::exitMethod,

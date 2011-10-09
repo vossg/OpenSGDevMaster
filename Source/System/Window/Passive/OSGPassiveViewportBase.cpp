@@ -88,18 +88,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveViewport *>::_type("PassiveViewportPtr", "ViewportPtr");
+DataType FieldTraits<PassiveViewport *, nsOSG>::_type("PassiveViewportPtr", "ViewportPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PassiveViewport *)
+OSG_FIELDTRAITS_GETTYPE_NS(PassiveViewport *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PassiveViewport *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PassiveViewport *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -114,7 +114,7 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     PassiveViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PassiveViewportBase::createEmptyLocal),
     PassiveViewport::initMethod,
     PassiveViewport::exitMethod,

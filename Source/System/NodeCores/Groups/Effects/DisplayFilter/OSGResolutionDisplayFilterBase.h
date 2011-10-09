@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ResolutionDisplayFilter;
 
 //! \brief ResolutionDisplayFilter Base Class.

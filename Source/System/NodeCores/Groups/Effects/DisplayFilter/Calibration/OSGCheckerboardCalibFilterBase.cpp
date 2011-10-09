@@ -103,18 +103,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CheckerboardCalibFilter *>::_type("CheckerboardCalibFilterPtr", "CalibrationPatternFilterPtr");
+DataType FieldTraits<CheckerboardCalibFilter *, nsOSG>::_type("CheckerboardCalibFilterPtr", "CalibrationPatternFilterPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CheckerboardCalibFilter *)
+OSG_FIELDTRAITS_GETTYPE_NS(CheckerboardCalibFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CheckerboardCalibFilter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CheckerboardCalibFilter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -179,7 +179,7 @@ CheckerboardCalibFilterBase::TypeObject CheckerboardCalibFilterBase::_type(
     CheckerboardCalibFilterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CheckerboardCalibFilterBase::createEmptyLocal),
     CheckerboardCalibFilter::initMethod,
     CheckerboardCalibFilter::exitMethod,

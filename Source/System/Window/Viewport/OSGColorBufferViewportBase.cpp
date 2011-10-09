@@ -107,18 +107,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorBufferViewport *>::_type("ColorBufferViewportPtr", "ViewportPtr");
+DataType FieldTraits<ColorBufferViewport *, nsOSG>::_type("ColorBufferViewportPtr", "ViewportPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ColorBufferViewport *)
+OSG_FIELDTRAITS_GETTYPE_NS(ColorBufferViewport *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ColorBufferViewport *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ColorBufferViewport *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -183,7 +183,7 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     ColorBufferViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ColorBufferViewportBase::createEmptyLocal),
     ColorBufferViewport::initMethod,
     ColorBufferViewport::exitMethod,

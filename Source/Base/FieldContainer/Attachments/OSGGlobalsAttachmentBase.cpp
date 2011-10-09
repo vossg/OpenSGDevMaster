@@ -93,52 +93,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GlobalsAttachment *>::_type("GlobalsAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<GlobalsAttachment *, nsOSG>::_type("GlobalsAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GlobalsAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(GlobalsAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GlobalsAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GlobalsAttachment *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GlobalsAttachment *, 1 >::getType(void)
+DataType &FieldTraits< GlobalsAttachment *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GlobalsAttachment *, 0>::getType();
+    return FieldTraits<GlobalsAttachment *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GlobalsAttachment *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GlobalsAttachment *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<GlobalsAttachment *, 2 >::getType(void)
+DataType &FieldTraits<GlobalsAttachment *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<GlobalsAttachment *, 0>::getType();
+    return FieldTraits<GlobalsAttachment *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     GlobalsAttachment *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          GlobalsAttachment *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -179,7 +179,7 @@ GlobalsAttachmentBase::TypeObject GlobalsAttachmentBase::_type(
     GlobalsAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "globals",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GlobalsAttachmentBase::createEmptyLocal),
     GlobalsAttachment::initMethod,
     GlobalsAttachment::exitMethod,

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DepthChunk;
 
 OSG_GEN_CONTAINERPTR(DepthChunk);
-
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<DepthChunk *> :
-    public FieldTraitsFCPtrBase<DepthChunk *>
+struct FieldTraits<DepthChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<DepthChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DepthChunk *> :
 
   public:
 
-    typedef FieldTraits<DepthChunk *>  Self;
+    typedef FieldTraits<DepthChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DepthChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDepthChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDepthChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDepthChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DepthChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
-                      RecordedRefCountPolicy  > SFRecDepthChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecDepthChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
-                      WeakRefCountPolicy      > SFWeakDepthChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
-                      NoRefCountPolicy        > SFUncountedDepthChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDepthChunkPtr;
 
 
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
-                      RecordedRefCountPolicy  > MFRecDepthChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecDepthChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
-                      WeakRefCountPolicy      > MFWeakDepthChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDepthChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
-                      NoRefCountPolicy        > MFUncountedDepthChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDepthChunkPtr;
 
 
 

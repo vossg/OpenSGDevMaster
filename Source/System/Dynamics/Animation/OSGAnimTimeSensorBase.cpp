@@ -131,18 +131,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimTimeSensor *>::_type("AnimTimeSensorPtr", "NodeCorePtr");
+DataType FieldTraits<AnimTimeSensor *, nsOSG>::_type("AnimTimeSensorPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimTimeSensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimTimeSensor *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimTimeSensor *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimTimeSensor *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -293,7 +293,7 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     AnimTimeSensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimTimeSensorBase::createEmptyLocal),
     AnimTimeSensor::initMethod,
     AnimTimeSensor::exitMethod,

@@ -126,10 +126,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowStageData *>::_type("ShadowStageDataPtr", "StageDataPtr");
+DataType FieldTraits<ShadowStageData *, nsOSG>::_type("ShadowStageDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShadowStageData *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShadowStageData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -254,7 +254,7 @@ ShadowStageDataBase::TypeObject ShadowStageDataBase::_type(
     ShadowStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShadowStageDataBase::createEmptyLocal),
     ShadowStageData::initMethod,
     ShadowStageData::exitMethod,

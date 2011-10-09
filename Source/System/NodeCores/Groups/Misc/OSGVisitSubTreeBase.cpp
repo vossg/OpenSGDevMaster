@@ -106,10 +106,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VisitSubTree *>::_type("VisitSubTreePtr", "GroupPtr");
+DataType FieldTraits<VisitSubTree *, nsOSG>::_type("VisitSubTreePtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VisitSubTree *)
+OSG_FIELDTRAITS_GETTYPE_NS(VisitSubTree *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -165,7 +165,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     VisitSubTreeBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VisitSubTreeBase::createEmptyLocal),
     VisitSubTree::initMethod,
     VisitSubTree::exitMethod,

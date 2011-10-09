@@ -87,35 +87,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralBufferRefProperty *>::_type("GeoIntegralBufferRefPropertyPtr", "GeoIntegralBufferPropertyPtr");
+DataType FieldTraits<GeoIntegralBufferRefProperty *, nsOSG>::_type("GeoIntegralBufferRefPropertyPtr", "GeoIntegralBufferPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoIntegralBufferRefProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoIntegralBufferRefProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoIntegralBufferRefProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoIntegralBufferRefProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoIntegralBufferRefProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoIntegralBufferRefProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoIntegralBufferRefProperty *, 0>::getType();
+    return FieldTraits<GeoIntegralBufferRefProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoIntegralBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoIntegralBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -131,7 +131,7 @@ GeoIntegralBufferRefPropertyBase::TypeObject GeoIntegralBufferRefPropertyBase::_
     GeoIntegralBufferRefPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeoIntegralBufferRefPropertyBase::createEmptyLocal),
     GeoIntegralBufferRefProperty::initMethod,
     GeoIntegralBufferRefProperty::exitMethod,

@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FrameBufferObject;
 
 //! \brief FrameBufferObject Base Class.

@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CheckerboardCalibFilter;
 
 //! \brief CheckerboardCalibFilter Base Class.

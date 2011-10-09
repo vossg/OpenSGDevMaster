@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PointChunk;
 
 //! \brief PointChunk Base Class.

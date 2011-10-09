@@ -104,18 +104,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Camera *>::_type("CameraPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Camera *, nsOSG>::_type("CameraPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Camera *)
+OSG_FIELDTRAITS_GETTYPE_NS(Camera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Camera *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Camera *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -170,7 +170,7 @@ CameraBase::TypeObject CameraBase::_type(
     CameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Camera::initMethod,
     Camera::exitMethod,

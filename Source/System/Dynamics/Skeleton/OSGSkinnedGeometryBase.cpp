@@ -121,34 +121,34 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkinnedGeometry *>::_type("SkinnedGeometryPtr", "GeometryPtr");
+DataType FieldTraits<SkinnedGeometry *, nsOSG>::_type("SkinnedGeometryPtr", "GeometryPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkinnedGeometry *)
+OSG_FIELDTRAITS_GETTYPE_NS(SkinnedGeometry *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkinnedGeometry *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkinnedGeometry *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits<SkinnedGeometry *, 1 >::getType(void)
+DataType &FieldTraits<SkinnedGeometry *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<SkinnedGeometry *, 0>::getType();
+    return FieldTraits<SkinnedGeometry *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     SkinnedGeometry *,
                     NoRefCountPolicy,
-                    1);
+                    nsOSG + 1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          SkinnedGeometry *,
                          NoRefCountPolicy,
-                         1);
+                         nsOSG + 1);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -265,7 +265,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     SkinnedGeometryBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkinnedGeometryBase::createEmptyLocal),
     SkinnedGeometry::initMethod,
     SkinnedGeometry::exitMethod,

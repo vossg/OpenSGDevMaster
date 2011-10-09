@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CPUSkinningDataAttachment;
 
 OSG_GEN_CONTAINERPTR(CPUSkinningDataAttachment);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<CPUSkinningDataAttachment *> :
-    public FieldTraitsFCPtrBase<CPUSkinningDataAttachment *>
+struct FieldTraits<CPUSkinningDataAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<CPUSkinningDataAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CPUSkinningDataAttachment *> :
 
   public:
 
-    typedef FieldTraits<CPUSkinningDataAttachment *>  Self;
+    typedef FieldTraits<CPUSkinningDataAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CPUSkinningDataAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCPUSkinningDataAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCPUSkinningDataAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCPUSkinningDataAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningDataAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCPUSkinningDataAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CPUSkinningDataAttachment *, 0>::getMName<NoRefCountPol
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningDataAttachment *,
-                      RecordedRefCountPolicy  > SFRecCPUSkinningDataAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningDataAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecCPUSkinningDataAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningDataAttachment *,
-                      WeakRefCountPolicy      > SFWeakCPUSkinningDataAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningDataAttachment *,
-                      NoRefCountPolicy        > SFUncountedCPUSkinningDataAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCPUSkinningDataAttachmentPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningDataAttachment *,
-                      RecordedRefCountPolicy  > MFRecCPUSkinningDataAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningDataAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecCPUSkinningDataAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningDataAttachment *,
-                      WeakRefCountPolicy      > MFWeakCPUSkinningDataAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCPUSkinningDataAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningDataAttachment *,
-                      NoRefCountPolicy        > MFUncountedCPUSkinningDataAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCPUSkinningDataAttachmentPtr;
 
 
 

@@ -116,18 +116,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DeferredShadingStage *>::_type("DeferredShadingStagePtr", "SimpleStagePtr");
+DataType FieldTraits<DeferredShadingStage *, nsOSG>::_type("DeferredShadingStagePtr", "SimpleStagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DeferredShadingStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(DeferredShadingStage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DeferredShadingStage *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DeferredShadingStage *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -217,7 +217,7 @@ DeferredShadingStageBase::TypeObject DeferredShadingStageBase::_type(
     DeferredShadingStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DeferredShadingStageBase::createEmptyLocal),
     DeferredShadingStage::initMethod,
     DeferredShadingStage::exitMethod,

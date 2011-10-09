@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialGroup *>::_type("MaterialGroupPtr", "GroupPtr");
+DataType FieldTraits<MaterialGroup *, nsOSG>::_type("MaterialGroupPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(MaterialGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MaterialGroup *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MaterialGroup *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -135,7 +135,7 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     MaterialGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MaterialGroupBase::createEmptyLocal),
     MaterialGroup::initMethod,
     MaterialGroup::exitMethod,

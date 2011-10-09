@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimQuaternionChannel;
 
 OSG_GEN_CONTAINERPTR(AnimQuaternionChannel);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimQuaternionChannel *> :
-    public FieldTraitsFCPtrBase<AnimQuaternionChannel *>
+struct FieldTraits<AnimQuaternionChannel *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimQuaternionChannel *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimQuaternionChannel *> :
 
   public:
 
-    typedef FieldTraits<AnimQuaternionChannel *>  Self;
+    typedef FieldTraits<AnimQuaternionChannel *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimQuaternionChannel *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimQuaternionChannelPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimQuaternionChannelPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimQuaternionChannelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionChannel *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimQuaternionChannelPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimQuaternionChannel *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionChannel *,
-                      RecordedRefCountPolicy  > SFRecAnimQuaternionChannelPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionChannel *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimQuaternionChannelPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionChannel *,
-                      WeakRefCountPolicy      > SFWeakAnimQuaternionChannelPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionChannel *,
-                      NoRefCountPolicy        > SFUncountedAnimQuaternionChannelPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimQuaternionChannelPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionChannel *,
-                      RecordedRefCountPolicy  > MFRecAnimQuaternionChannelPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionChannel *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimQuaternionChannelPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionChannel *,
-                      WeakRefCountPolicy      > MFWeakAnimQuaternionChannelPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimQuaternionChannelPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionChannel *,
-                      NoRefCountPolicy        > MFUncountedAnimQuaternionChannelPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimQuaternionChannelPtr;
 
 
 

@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RootGroup;
 
 //! \brief RootGroup Base Class.

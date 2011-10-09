@@ -76,6 +76,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DisplayFilterStage;
 
 //! \brief DisplayFilterStage Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoVectorBufferProperty;
 
 OSG_GEN_CONTAINERPTR(GeoVectorBufferProperty);
-
 /*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<GeoVectorBufferProperty *> :
-    public FieldTraitsFCPtrBase<GeoVectorBufferProperty *>
+struct FieldTraits<GeoVectorBufferProperty *, nsOSG> :
+    public FieldTraitsFCPtrBase<GeoVectorBufferProperty *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GeoVectorBufferProperty *> :
 
   public:
 
-    typedef FieldTraits<GeoVectorBufferProperty *>  Self;
+    typedef FieldTraits<GeoVectorBufferProperty *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<GeoVectorBufferProperty *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGeoVectorBufferPropertyPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGeoVectorBufferPropertyPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeoVectorBufferPropertyPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<GeoVectorBufferProperty *, 0>::getMName<NoRefCountPolic
 /*! \ingroup GrpDrawablesGeometryFieldTraits
  */
 template <>
-struct FieldTraits<GeoVectorBufferProperty *, 1> :
-    public FieldTraitsFCPtrBase<GeoVectorBufferProperty *, 1>
+struct FieldTraits<GeoVectorBufferProperty *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<GeoVectorBufferProperty *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<GeoVectorBufferProperty *, 1>  Self;
+    typedef FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<GeoVectorBufferProperty *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildGeoVectorBufferPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoVectorBufferProperty *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildGeoVectorBufferPropertyPtr"; 
 }
@@ -220,30 +218,30 @@ const Char8 *FieldTraits<GeoVectorBufferProperty *, 1>::getMName<NoRefCountPolic
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferProperty *,
-                      RecordedRefCountPolicy  > SFRecGeoVectorBufferPropertyPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferProperty *,
-                      UnrecordedRefCountPolicy> SFUnrecGeoVectorBufferPropertyPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferProperty *,
-                      WeakRefCountPolicy      > SFWeakGeoVectorBufferPropertyPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<GeoVectorBufferProperty *,
-                      NoRefCountPolicy        > SFUncountedGeoVectorBufferPropertyPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGeoVectorBufferPropertyPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferProperty *,
-                      RecordedRefCountPolicy  > MFRecGeoVectorBufferPropertyPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferProperty *,
-                      UnrecordedRefCountPolicy> MFUnrecGeoVectorBufferPropertyPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferProperty *,
-                      WeakRefCountPolicy      > MFWeakGeoVectorBufferPropertyPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGeoVectorBufferPropertyPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<GeoVectorBufferProperty *,
-                      NoRefCountPolicy        > MFUncountedGeoVectorBufferPropertyPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGeoVectorBufferPropertyPtr;
 
 
 
@@ -251,14 +249,14 @@ typedef PointerMField<GeoVectorBufferProperty *,
 typedef ChildPointerSField<
           GeoVectorBufferProperty *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildGeoVectorBufferPropertyPtr;
+          nsOSG + 1             > SFUnrecChildGeoVectorBufferPropertyPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef ChildPointerMField<
           GeoVectorBufferProperty *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildGeoVectorBufferPropertyPtr;
+          nsOSG + 1             > MFUnrecChildGeoVectorBufferPropertyPtr;
 
 
 
@@ -306,7 +304,7 @@ struct SFUnrecChildGeoVectorBufferPropertyPtr :
     public ChildPointerSField<
         GeoVectorBufferProperty *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields \ingroup GrpLibOSGDrawable */
@@ -314,7 +312,7 @@ struct MFUnrecChildGeoVectorBufferPropertyPtr :
     public ChildPointerMField<
         GeoVectorBufferProperty *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

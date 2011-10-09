@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GPUVolRTV0;
 
 //! \brief GPUVolRTV0 Base Class.

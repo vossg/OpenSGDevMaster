@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Stage;
 
 OSG_GEN_CONTAINERPTR(Stage);
-
 /*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<Stage *> :
-    public FieldTraitsFCPtrBase<Stage *>
+struct FieldTraits<Stage *, nsOSG> :
+    public FieldTraitsFCPtrBase<Stage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Stage *> :
 
   public:
 
-    typedef FieldTraits<Stage *>  Self;
+    typedef FieldTraits<Stage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Stage *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFStagePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFStagePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Stage *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Stage *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStagePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Stage *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
-                      RecordedRefCountPolicy  > SFRecStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecStagePtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
-                      UnrecordedRefCountPolicy> SFUnrecStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecStagePtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
-                      WeakRefCountPolicy      > SFWeakStagePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakStagePtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<Stage *,
-                      NoRefCountPolicy        > SFUncountedStagePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedStagePtr;
 
 
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
-                      RecordedRefCountPolicy  > MFRecStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecStagePtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
-                      UnrecordedRefCountPolicy> MFUnrecStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecStagePtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
-                      WeakRefCountPolicy      > MFWeakStagePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakStagePtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<Stage *,
-                      NoRefCountPolicy        > MFUncountedStagePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedStagePtr;
 
 
 

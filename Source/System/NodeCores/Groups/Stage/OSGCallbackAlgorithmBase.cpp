@@ -99,18 +99,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CallbackAlgorithm *>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
+DataType FieldTraits<CallbackAlgorithm *, nsOSG>::_type("CallbackAlgorithmPtr", "AlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(CallbackAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CallbackAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CallbackAlgorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -163,7 +163,7 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     CallbackAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CallbackAlgorithmBase::createEmptyLocal),
     CallbackAlgorithm::initMethod,
     CallbackAlgorithm::exitMethod,

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TileableBackground;
 
 OSG_GEN_CONTAINERPTR(TileableBackground);
-
 /*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<TileableBackground *> :
-    public FieldTraitsFCPtrBase<TileableBackground *>
+struct FieldTraits<TileableBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<TileableBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TileableBackground *> :
 
   public:
 
-    typedef FieldTraits<TileableBackground *>  Self;
+    typedef FieldTraits<TileableBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<TileableBackground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTileableBackgroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TileableBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileableBackground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTileableBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileableBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileableBackground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTileableBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileableBackground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TileableBackground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTileableBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileableBackground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TileableBackground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTileableBackgroundPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<TileableBackground *, 0>::getSName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
-                      RecordedRefCountPolicy  > SFRecTileableBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTileableBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
-                      UnrecordedRefCountPolicy> SFUnrecTileableBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTileableBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
-                      WeakRefCountPolicy      > SFWeakTileableBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTileableBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TileableBackground *,
-                      NoRefCountPolicy        > SFUncountedTileableBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTileableBackgroundPtr;
 
 
 

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GPUVolRTV2;
 
 //! \brief GPUVolRTV2 Base Class.

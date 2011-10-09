@@ -157,18 +157,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Surface *>::_type("SurfacePtr", "GeometryPtr");
+DataType FieldTraits<Surface *, nsOSG>::_type("SurfacePtr", "GeometryPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Surface *)
+OSG_FIELDTRAITS_GETTYPE_NS(Surface *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Surface *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Surface *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -380,7 +380,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     SurfaceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SurfaceBase::createEmptyLocal),
     Surface::initMethod,
     Surface::exitMethod,

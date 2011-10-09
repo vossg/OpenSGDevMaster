@@ -92,14 +92,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TileableBackground *>::_type("TileableBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<TileableBackground *, nsOSG>::_type("TileableBackgroundPtr", "BackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TileableBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(TileableBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TileableBackground *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -129,7 +129,7 @@ TileableBackgroundBase::TypeObject TileableBackgroundBase::_type(
     TileableBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TileableBackground::initMethod,
     TileableBackground::exitMethod,

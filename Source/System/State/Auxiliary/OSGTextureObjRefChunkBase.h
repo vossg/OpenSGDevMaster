@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureObjRefChunk;
 
 //! \brief TextureObjRefChunk Base Class.

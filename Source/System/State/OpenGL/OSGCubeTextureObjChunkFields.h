@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CubeTextureObjChunk;
 
 OSG_GEN_CONTAINERPTR(CubeTextureObjChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<CubeTextureObjChunk *> :
-    public FieldTraitsFCPtrBase<CubeTextureObjChunk *>
+struct FieldTraits<CubeTextureObjChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<CubeTextureObjChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CubeTextureObjChunk *> :
 
   public:
 
-    typedef FieldTraits<CubeTextureObjChunk *>  Self;
+    typedef FieldTraits<CubeTextureObjChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CubeTextureObjChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCubeTextureObjChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCubeTextureObjChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCubeTextureObjChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureObjChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCubeTextureObjChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<NoRefCountPolicy>(v
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
-                      RecordedRefCountPolicy  > SFRecCubeTextureObjChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecCubeTextureObjChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
-                      WeakRefCountPolicy      > SFWeakCubeTextureObjChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
-                      NoRefCountPolicy        > SFUncountedCubeTextureObjChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCubeTextureObjChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
-                      RecordedRefCountPolicy  > MFRecCubeTextureObjChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecCubeTextureObjChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
-                      WeakRefCountPolicy      > MFWeakCubeTextureObjChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCubeTextureObjChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
-                      NoRefCountPolicy        > MFUncountedCubeTextureObjChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCubeTextureObjChunkPtr;
 
 
 

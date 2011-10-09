@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GlobalsAttachment;
 
 //! \brief GlobalsAttachment Base Class.

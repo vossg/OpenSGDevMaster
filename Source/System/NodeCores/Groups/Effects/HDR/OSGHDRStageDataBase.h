@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class HDRStageData;
 
 //! \brief HDRStageData Base Class.

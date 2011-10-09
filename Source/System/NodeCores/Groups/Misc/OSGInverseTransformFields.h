@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InverseTransform;
 
 OSG_GEN_CONTAINERPTR(InverseTransform);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<InverseTransform *> :
-    public FieldTraitsFCPtrBase<InverseTransform *>
+struct FieldTraits<InverseTransform *, nsOSG> :
+    public FieldTraitsFCPtrBase<InverseTransform *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<InverseTransform *> :
 
   public:
 
-    typedef FieldTraits<InverseTransform *>  Self;
+    typedef FieldTraits<InverseTransform *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<InverseTransform *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFInverseTransformPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFInverseTransformPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransform *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInverseTransformPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<InverseTransform *, 0>::getMName<NoRefCountPolicy>(void
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
-                      RecordedRefCountPolicy  > SFRecInverseTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
-                      UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
-                      WeakRefCountPolicy      > SFWeakInverseTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<InverseTransform *,
-                      NoRefCountPolicy        > SFUncountedInverseTransformPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedInverseTransformPtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
-                      RecordedRefCountPolicy  > MFRecInverseTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
-                      UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
-                      WeakRefCountPolicy      > MFWeakInverseTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakInverseTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<InverseTransform *,
-                      NoRefCountPolicy        > MFUncountedInverseTransformPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedInverseTransformPtr;
 
 
 

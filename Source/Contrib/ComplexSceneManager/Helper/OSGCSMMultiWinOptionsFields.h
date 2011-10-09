@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMMultiWinOptions;
 
 OSG_GEN_CONTAINERPTR(CSMMultiWinOptions);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMMultiWinOptions *> :
-    public FieldTraitsFCPtrBase<CSMMultiWinOptions *>
+struct FieldTraits<CSMMultiWinOptions *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMMultiWinOptions *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMMultiWinOptions *> :
 
   public:
 
-    typedef FieldTraits<CSMMultiWinOptions *>  Self;
+    typedef FieldTraits<CSMMultiWinOptions *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

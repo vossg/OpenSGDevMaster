@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleSHLChunkFile;
 
 OSG_GEN_CONTAINERPTR(SimpleSHLChunkFile);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<SimpleSHLChunkFile *> :
-    public FieldTraitsFCPtrBase<SimpleSHLChunkFile *>
+struct FieldTraits<SimpleSHLChunkFile *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleSHLChunkFile *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleSHLChunkFile *> :
 
   public:
 
-    typedef FieldTraits<SimpleSHLChunkFile *>  Self;
+    typedef FieldTraits<SimpleSHLChunkFile *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

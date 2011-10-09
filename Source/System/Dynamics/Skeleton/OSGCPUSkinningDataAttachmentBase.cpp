@@ -104,18 +104,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CPUSkinningDataAttachment *>::_type("CPUSkinningDataAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<CPUSkinningDataAttachment *, nsOSG>::_type("CPUSkinningDataAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CPUSkinningDataAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(CPUSkinningDataAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CPUSkinningDataAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CPUSkinningDataAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -180,7 +180,7 @@ CPUSkinningDataAttachmentBase::TypeObject CPUSkinningDataAttachmentBase::_type(
     CPUSkinningDataAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "CPUSkinningDataAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CPUSkinningDataAttachmentBase::createEmptyLocal),
     CPUSkinningDataAttachment::initMethod,
     CPUSkinningDataAttachment::exitMethod,

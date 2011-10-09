@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderExecutableChunk;
 
 //! \brief ShaderExecutableChunk Base Class.

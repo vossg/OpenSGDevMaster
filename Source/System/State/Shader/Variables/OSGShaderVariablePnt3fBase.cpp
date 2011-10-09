@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariablePnt3f *>::_type("ShaderVariablePnt3fPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<ShaderVariablePnt3f *, nsOSG>::_type("ShaderVariablePnt3fPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariablePnt3f *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariablePnt3f *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariablePnt3f *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariablePnt3f *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ShaderVariablePnt3fBase::TypeObject ShaderVariablePnt3fBase::_type(
     ShaderVariablePnt3fBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariablePnt3fBase::createEmptyLocal),
     ShaderVariablePnt3f::initMethod,
     ShaderVariablePnt3f::exitMethod,

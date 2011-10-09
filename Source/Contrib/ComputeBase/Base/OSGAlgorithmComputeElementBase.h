@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AlgorithmComputeElement;
 
 //! \brief AlgorithmComputeElement Base Class.

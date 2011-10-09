@@ -107,35 +107,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralBufferProperty *>::_type("GeoIntegralBufferPropertyPtr", "GeoIntegralPropertyPtr");
+DataType FieldTraits<GeoIntegralBufferProperty *, nsOSG>::_type("GeoIntegralBufferPropertyPtr", "GeoIntegralPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoIntegralBufferProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoIntegralBufferProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoIntegralBufferProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoIntegralBufferProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoIntegralBufferProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoIntegralBufferProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoIntegralBufferProperty *, 0>::getType();
+    return FieldTraits<GeoIntegralBufferProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoIntegralBufferProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoIntegralBufferProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -213,7 +213,7 @@ GeoIntegralBufferPropertyBase::TypeObject GeoIntegralBufferPropertyBase::_type(
     GeoIntegralBufferPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeoIntegralBufferPropertyBase::createEmptyLocal),
     GeoIntegralBufferProperty::initMethod,
     GeoIntegralBufferProperty::exitMethod,

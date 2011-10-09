@@ -107,18 +107,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBuffer *>::_type("TextureBufferPtr", "FrameBufferAttachmentPtr");
+DataType FieldTraits<TextureBuffer *, nsOSG>::_type("TextureBufferPtr", "FrameBufferAttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBuffer *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextureBuffer *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextureBuffer *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TextureBuffer *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -184,7 +184,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     TextureBufferBase::getClassname(),
     Inherited::getClassname(),
     "TextureBuffer",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureBufferBase::createEmptyLocal),
     TextureBuffer::initMethod,
     TextureBuffer::exitMethod,

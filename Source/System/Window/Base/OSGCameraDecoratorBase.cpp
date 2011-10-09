@@ -93,18 +93,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CameraDecorator *>::_type("CameraDecoratorPtr", "CameraPtr");
+DataType FieldTraits<CameraDecorator *, nsOSG>::_type("CameraDecoratorPtr", "CameraPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(CameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(
     CameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     CameraDecorator::initMethod,
     CameraDecorator::exitMethod,

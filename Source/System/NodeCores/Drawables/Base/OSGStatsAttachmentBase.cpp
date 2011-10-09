@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatsAttachment *>::_type("StatsAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<StatsAttachment *, nsOSG>::_type("StatsAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StatsAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(StatsAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StatsAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            StatsAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     StatsAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "StatsAttachment",
-    0,
+    nsOSG, //Namespace
     NULL,
     StatsAttachment::initMethod,
     StatsAttachment::exitMethod,

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMPerspectiveCamera;
 
 OSG_GEN_CONTAINERPTR(CSMPerspectiveCamera);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMPerspectiveCamera *> :
-    public FieldTraitsFCPtrBase<CSMPerspectiveCamera *>
+struct FieldTraits<CSMPerspectiveCamera *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMPerspectiveCamera *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMPerspectiveCamera *> :
 
   public:
 
-    typedef FieldTraits<CSMPerspectiveCamera *>  Self;
+    typedef FieldTraits<CSMPerspectiveCamera *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMPerspectiveCamera *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMPerspectiveCameraPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMPerspectiveCameraPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPerspectiveCamera *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMPerspectiveCameraPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMPerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPerspectiveCamera *,
-                      RecordedRefCountPolicy  > SFRecCSMPerspectiveCameraPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPerspectiveCamera *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMPerspectiveCameraPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPerspectiveCamera *,
-                      WeakRefCountPolicy      > SFWeakCSMPerspectiveCameraPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPerspectiveCamera *,
-                      NoRefCountPolicy        > SFUncountedCSMPerspectiveCameraPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMPerspectiveCameraPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPerspectiveCamera *,
-                      RecordedRefCountPolicy  > MFRecCSMPerspectiveCameraPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPerspectiveCamera *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMPerspectiveCameraPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPerspectiveCamera *,
-                      WeakRefCountPolicy      > MFWeakCSMPerspectiveCameraPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMPerspectiveCameraPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPerspectiveCamera *,
-                      NoRefCountPolicy        > MFUncountedCSMPerspectiveCameraPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMPerspectiveCameraPtr;
 
 
 

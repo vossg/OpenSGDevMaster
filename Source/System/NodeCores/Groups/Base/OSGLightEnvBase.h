@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightEnv;
 
 //! \brief LightEnv Base Class.

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ProjectionCameraDecorator;
 
 //! \brief ProjectionCameraDecorator Base Class.

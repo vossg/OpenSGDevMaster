@@ -99,52 +99,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkeletonJoint *>::_type("SkeletonJointPtr", "BaseSkeletonJointPtr");
+DataType FieldTraits<SkeletonJoint *, nsOSG>::_type("SkeletonJointPtr", "BaseSkeletonJointPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkeletonJoint *)
+OSG_FIELDTRAITS_GETTYPE_NS(SkeletonJoint *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkeletonJoint *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkeletonJoint *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< SkeletonJoint *, 1 >::getType(void)
+DataType &FieldTraits< SkeletonJoint *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<SkeletonJoint *, 0>::getType();
+    return FieldTraits<SkeletonJoint *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       SkeletonJoint *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       SkeletonJoint *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<SkeletonJoint *, 2 >::getType(void)
+DataType &FieldTraits<SkeletonJoint *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<SkeletonJoint *, 0>::getType();
+    return FieldTraits<SkeletonJoint *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     SkeletonJoint *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          SkeletonJoint *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -209,7 +209,7 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     SkeletonJointBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkeletonJointBase::createEmptyLocal),
     SkeletonJoint::initMethod,
     SkeletonJoint::exitMethod,

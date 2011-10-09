@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLAttachment *>::_type("VRMLAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<VRMLAttachment *, nsOSG>::_type("VRMLAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VRMLAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(VRMLAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            VRMLAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            VRMLAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ VRMLAttachmentBase::TypeObject VRMLAttachmentBase::_type(
     VRMLAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "VRMLAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLAttachmentBase::createEmptyLocal),
     VRMLAttachment::initMethod,
     VRMLAttachment::exitMethod,

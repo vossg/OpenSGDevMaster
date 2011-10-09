@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "GroupPtr");
+DataType FieldTraits<ChunkOverrideGroup *, nsOSG>::_type("ChunkOverrideGroupPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(ChunkOverrideGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ChunkOverrideGroup *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ChunkOverrideGroup *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -135,7 +135,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     ChunkOverrideGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ChunkOverrideGroupBase::createEmptyLocal),
     ChunkOverrideGroup::initMethod,
     ChunkOverrideGroup::exitMethod,

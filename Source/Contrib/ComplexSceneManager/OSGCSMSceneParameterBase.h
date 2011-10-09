@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMSceneParameter;
 
 //! \brief CSMSceneParameter Base Class.

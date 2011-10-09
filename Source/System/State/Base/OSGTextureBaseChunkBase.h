@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureBaseChunk;
 
 //! \brief TextureBaseChunk Base Class.

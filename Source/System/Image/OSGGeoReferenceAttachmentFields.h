@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoReferenceAttachment;
 
 OSG_GEN_CONTAINERPTR(GeoReferenceAttachment);
-
 /*! \ingroup GrpSystemImageFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<GeoReferenceAttachment *> :
-    public FieldTraitsFCPtrBase<GeoReferenceAttachment *>
+struct FieldTraits<GeoReferenceAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<GeoReferenceAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GeoReferenceAttachment *> :
 
   public:
 
-    typedef FieldTraits<GeoReferenceAttachment *>  Self;
+    typedef FieldTraits<GeoReferenceAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<GeoReferenceAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGeoReferenceAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGeoReferenceAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeoReferenceAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GeoReferenceAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeoReferenceAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<GeoReferenceAttachment *, 0>::getMName<NoRefCountPolicy
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
-                      RecordedRefCountPolicy  > SFRecGeoReferenceAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecGeoReferenceAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
-                      WeakRefCountPolicy      > SFWeakGeoReferenceAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<GeoReferenceAttachment *,
-                      NoRefCountPolicy        > SFUncountedGeoReferenceAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGeoReferenceAttachmentPtr;
 
 
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
-                      RecordedRefCountPolicy  > MFRecGeoReferenceAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecGeoReferenceAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
-                      WeakRefCountPolicy      > MFWeakGeoReferenceAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGeoReferenceAttachmentPtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<GeoReferenceAttachment *,
-                      NoRefCountPolicy        > MFUncountedGeoReferenceAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGeoReferenceAttachmentPtr;
 
 
 

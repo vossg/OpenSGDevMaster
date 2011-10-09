@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class KDTreeIntersectProxyAttachment;
 
 //! \brief KDTreeIntersectProxyAttachment Base Class.

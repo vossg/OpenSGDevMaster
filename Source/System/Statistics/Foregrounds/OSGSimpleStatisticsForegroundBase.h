@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleStatisticsForeground;
 
 //! \brief SimpleStatisticsForeground Base Class.

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLCoordinateInterpolator;
 
 //! \brief VRMLCoordinateInterpolator Base Class.

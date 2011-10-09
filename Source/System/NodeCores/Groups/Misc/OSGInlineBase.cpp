@@ -100,18 +100,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Inline *>::_type("InlinePtr", "RootGroupPtr");
+DataType FieldTraits<Inline *, nsOSG>::_type("InlinePtr", "RootGroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Inline *)
+OSG_FIELDTRAITS_GETTYPE_NS(Inline *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Inline *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Inline *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -164,7 +164,7 @@ InlineBase::TypeObject InlineBase::_type(
     InlineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&InlineBase::createEmptyLocal),
     Inline::initMethod,
     Inline::exitMethod,

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Light;
 
 //! \brief Light Base Class.

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMPassiveWindow;
 
 //! \brief CSMPassiveWindow Base Class.

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Foreground;
 
 //! \brief Foreground Base Class.

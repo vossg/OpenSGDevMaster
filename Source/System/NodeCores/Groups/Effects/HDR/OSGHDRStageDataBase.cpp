@@ -126,10 +126,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HDRStageData *>::_type("HDRStageDataPtr", "StageDataPtr");
+DataType FieldTraits<HDRStageData *, nsOSG>::_type("HDRStageDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(HDRStageData *)
+OSG_FIELDTRAITS_GETTYPE_NS(HDRStageData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -254,7 +254,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     HDRStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&HDRStageDataBase::createEmptyLocal),
     HDRStageData::initMethod,
     HDRStageData::exitMethod,

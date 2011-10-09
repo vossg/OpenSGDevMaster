@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FrameBufferAttachment;
 
 //! \brief FrameBufferAttachment Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PassiveBackground;
 
 OSG_GEN_CONTAINERPTR(PassiveBackground);
-
 /*! \ingroup GrpWindowPassiveFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<PassiveBackground *> :
-    public FieldTraitsFCPtrBase<PassiveBackground *>
+struct FieldTraits<PassiveBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<PassiveBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PassiveBackground *> :
 
   public:
 
-    typedef FieldTraits<PassiveBackground *>  Self;
+    typedef FieldTraits<PassiveBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<PassiveBackground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFPassiveBackgroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPassiveBackgroundPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
-                      RecordedRefCountPolicy  > SFRecPassiveBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecPassiveBackgroundPtr;
 /*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
-                      UnrecordedRefCountPolicy> SFUnrecPassiveBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecPassiveBackgroundPtr;
 /*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
-                      WeakRefCountPolicy      > SFWeakPassiveBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakPassiveBackgroundPtr;
 /*! \ingroup GrpWindowPassiveFieldSFields */
 typedef PointerSField<PassiveBackground *,
-                      NoRefCountPolicy        > SFUncountedPassiveBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedPassiveBackgroundPtr;
 
 
 

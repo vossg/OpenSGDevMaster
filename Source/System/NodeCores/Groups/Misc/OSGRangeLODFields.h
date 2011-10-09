@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RangeLOD;
 
 OSG_GEN_CONTAINERPTR(RangeLOD);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<RangeLOD *> :
-    public FieldTraitsFCPtrBase<RangeLOD *>
+struct FieldTraits<RangeLOD *, nsOSG> :
+    public FieldTraitsFCPtrBase<RangeLOD *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RangeLOD *> :
 
   public:
 
-    typedef FieldTraits<RangeLOD *>  Self;
+    typedef FieldTraits<RangeLOD *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

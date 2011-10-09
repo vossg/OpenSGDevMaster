@@ -103,18 +103,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderBuffer *>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr");
+DataType FieldTraits<RenderBuffer *, nsOSG>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RenderBuffer *)
+OSG_FIELDTRAITS_GETTYPE_NS(RenderBuffer *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            RenderBuffer *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            RenderBuffer *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -167,7 +167,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     RenderBufferBase::getClassname(),
     Inherited::getClassname(),
     "RenderBuffer",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RenderBufferBase::createEmptyLocal),
     RenderBuffer::initMethod,
     RenderBuffer::exitMethod,

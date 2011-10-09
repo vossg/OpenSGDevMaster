@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FBOViewport;
 
 //! \brief FBOViewport Base Class.

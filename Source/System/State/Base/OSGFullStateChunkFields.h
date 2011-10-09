@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FullStateChunk;
 
 OSG_GEN_CONTAINERPTR(FullStateChunk);
-
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<FullStateChunk *> :
-    public FieldTraitsFCPtrBase<FullStateChunk *>
+struct FieldTraits<FullStateChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<FullStateChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FullStateChunk *> :
 
   public:
 
-    typedef FieldTraits<FullStateChunk *>  Self;
+    typedef FieldTraits<FullStateChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FullStateChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFullStateChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFullStateChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFullStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FullStateChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FullStateChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFullStateChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FullStateChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<FullStateChunk *,
-                      RecordedRefCountPolicy  > SFRecFullStateChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<FullStateChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecFullStateChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<FullStateChunk *,
-                      WeakRefCountPolicy      > SFWeakFullStateChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<FullStateChunk *,
-                      NoRefCountPolicy        > SFUncountedFullStateChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFullStateChunkPtr;
 
 
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<FullStateChunk *,
-                      RecordedRefCountPolicy  > MFRecFullStateChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<FullStateChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecFullStateChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<FullStateChunk *,
-                      WeakRefCountPolicy      > MFWeakFullStateChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFullStateChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<FullStateChunk *,
-                      NoRefCountPolicy        > MFUncountedFullStateChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFullStateChunkPtr;
 
 
 

@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PassiveBackground;
 
 //! \brief PassiveBackground Base Class.

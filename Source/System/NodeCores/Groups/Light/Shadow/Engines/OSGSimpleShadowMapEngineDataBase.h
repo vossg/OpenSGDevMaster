@@ -78,6 +78,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleShadowMapEngineData;
 
 //! \brief SimpleShadowMapEngineData Base Class.

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiPassMaterial;
 
 //! \brief MultiPassMaterial Base Class.

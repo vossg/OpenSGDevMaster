@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimQuaternionChannel *>::_type("AnimQuaternionChannelPtr", "AnimChannelPtr");
+DataType FieldTraits<AnimQuaternionChannel *, nsOSG>::_type("AnimQuaternionChannelPtr", "AnimChannelPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimQuaternionChannel *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionChannel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimQuaternionChannel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimQuaternionChannel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimQuaternionChannelBase::TypeObject AnimQuaternionChannelBase::_type(
     AnimQuaternionChannelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionChannelBase::createEmptyLocal),
     AnimQuaternionChannel::initMethod,
     AnimQuaternionChannel::exitMethod,

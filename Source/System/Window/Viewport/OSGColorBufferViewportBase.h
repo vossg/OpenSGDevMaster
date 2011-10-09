@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ColorBufferViewport;
 
 //! \brief ColorBufferViewport Base Class.

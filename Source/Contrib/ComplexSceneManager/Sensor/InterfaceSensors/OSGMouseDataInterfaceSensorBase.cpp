@@ -91,10 +91,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MouseDataInterfaceSensor *>::_type("MouseDataInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
+DataType FieldTraits<MouseDataInterfaceSensor *, nsOSG>::_type("MouseDataInterfaceSensorPtr", "DeviceInterfaceSensorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MouseDataInterfaceSensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(MouseDataInterfaceSensor *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -123,7 +123,7 @@ MouseDataInterfaceSensorBase::TypeObject MouseDataInterfaceSensorBase::_type(
     MouseDataInterfaceSensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MouseDataInterfaceSensorBase::createEmptyLocal),
     MouseDataInterfaceSensor::initMethod,
     MouseDataInterfaceSensor::exitMethod,

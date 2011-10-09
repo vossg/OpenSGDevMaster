@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DoubleTransform *>::_type("DoubleTransformPtr", "GroupPtr");
+DataType FieldTraits<DoubleTransform *, nsOSG>::_type("DoubleTransformPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DoubleTransform *)
+OSG_FIELDTRAITS_GETTYPE_NS(DoubleTransform *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DoubleTransform *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DoubleTransform *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ DoubleTransformBase::TypeObject DoubleTransformBase::_type(
     DoubleTransformBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DoubleTransformBase::createEmptyLocal),
     DoubleTransform::initMethod,
     DoubleTransform::exitMethod,

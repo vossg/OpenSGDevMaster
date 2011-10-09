@@ -123,18 +123,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCameraDecorator *>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<MatrixCameraDecorator *, nsOSG>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(MatrixCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MatrixCameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MatrixCameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -229,7 +229,7 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     MatrixCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraDecoratorBase::createEmptyLocal),
     MatrixCameraDecorator::initMethod,
     MatrixCameraDecorator::exitMethod,

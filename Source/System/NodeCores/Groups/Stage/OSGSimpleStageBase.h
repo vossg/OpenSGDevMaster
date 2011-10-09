@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleStage;
 
 //! \brief SimpleStage Base Class.

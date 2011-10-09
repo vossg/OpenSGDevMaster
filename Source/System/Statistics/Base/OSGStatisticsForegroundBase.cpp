@@ -114,18 +114,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatisticsForeground *>::_type("StatisticsForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<StatisticsForeground *, nsOSG>::_type("StatisticsForegroundPtr", "ForegroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StatisticsForeground *)
+OSG_FIELDTRAITS_GETTYPE_NS(StatisticsForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StatisticsForeground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            StatisticsForeground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -166,7 +166,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     StatisticsForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     StatisticsForeground::initMethod,
     StatisticsForeground::exitMethod,

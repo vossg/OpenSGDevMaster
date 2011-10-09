@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageForeground;
 
 OSG_GEN_CONTAINERPTR(ImageForeground);
-
 /*! \ingroup GrpWindowForegroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<ImageForeground *> :
-    public FieldTraitsFCPtrBase<ImageForeground *>
+struct FieldTraits<ImageForeground *, nsOSG> :
+    public FieldTraitsFCPtrBase<ImageForeground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ImageForeground *> :
 
   public:
 
-    typedef FieldTraits<ImageForeground *>  Self;
+    typedef FieldTraits<ImageForeground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ImageForeground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFImageForegroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFImageForegroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImageForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageForeground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ImageForeground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImageForegroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ImageForeground *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
-                      RecordedRefCountPolicy  > SFRecImageForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
-                      UnrecordedRefCountPolicy> SFUnrecImageForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
-                      WeakRefCountPolicy      > SFWeakImageForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<ImageForeground *,
-                      NoRefCountPolicy        > SFUncountedImageForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedImageForegroundPtr;
 
 
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
-                      RecordedRefCountPolicy  > MFRecImageForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
-                      UnrecordedRefCountPolicy> MFUnrecImageForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
-                      WeakRefCountPolicy      > MFWeakImageForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakImageForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<ImageForeground *,
-                      NoRefCountPolicy        > MFUncountedImageForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedImageForegroundPtr;
 
 
 

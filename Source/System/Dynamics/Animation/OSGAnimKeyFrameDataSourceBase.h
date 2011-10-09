@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimKeyFrameDataSource;
 
 //! \brief AnimKeyFrameDataSource Base Class.

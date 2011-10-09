@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Camera;
 
 //! \brief Camera Base Class.

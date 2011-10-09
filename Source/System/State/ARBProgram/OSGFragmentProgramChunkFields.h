@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FragmentProgramChunk;
 
 OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
-
 /*! \ingroup GrpStateARBProgramFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<FragmentProgramChunk *> :
-    public FieldTraitsFCPtrBase<FragmentProgramChunk *>
+struct FieldTraits<FragmentProgramChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<FragmentProgramChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FragmentProgramChunk *> :
 
   public:
 
-    typedef FieldTraits<FragmentProgramChunk *>  Self;
+    typedef FieldTraits<FragmentProgramChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FragmentProgramChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFragmentProgramChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFragmentProgramChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFragmentProgramChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
-                      RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
-                      WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
-                      NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFragmentProgramChunkPtr;
 
 
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
-                      RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
-                      WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFragmentProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
-                      NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFragmentProgramChunkPtr;
 
 
 

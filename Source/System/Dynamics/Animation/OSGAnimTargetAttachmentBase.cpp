@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimTargetAttachment *>::_type("AnimTargetAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<AnimTargetAttachment *, nsOSG>::_type("AnimTargetAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimTargetAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimTargetAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimTargetAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimTargetAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     AnimTargetAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "AnimTargetAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimTargetAttachmentBase::createEmptyLocal),
     AnimTargetAttachment::initMethod,
     AnimTargetAttachment::exitMethod,

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MaterialChunkOverrideGroup;
 
 //! \brief MaterialChunkOverrideGroup Base Class.

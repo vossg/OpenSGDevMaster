@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FogChunk;
 
 OSG_GEN_CONTAINERPTR(FogChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<FogChunk *> :
-    public FieldTraitsFCPtrBase<FogChunk *>
+struct FieldTraits<FogChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<FogChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FogChunk *> :
 
   public:
 
-    typedef FieldTraits<FogChunk *>  Self;
+    typedef FieldTraits<FogChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FogChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFogChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFogChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFogChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FogChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FogChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFogChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FogChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<FogChunk *,
-                      RecordedRefCountPolicy  > SFRecFogChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<FogChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecFogChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<FogChunk *,
-                      WeakRefCountPolicy      > SFWeakFogChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<FogChunk *,
-                      NoRefCountPolicy        > SFUncountedFogChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFogChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<FogChunk *,
-                      RecordedRefCountPolicy  > MFRecFogChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<FogChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecFogChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<FogChunk *,
-                      WeakRefCountPolicy      > MFWeakFogChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFogChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<FogChunk *,
-                      NoRefCountPolicy        > MFUncountedFogChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFogChunkPtr;
 
 
 

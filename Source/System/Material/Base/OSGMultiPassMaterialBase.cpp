@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiPassMaterial *>::_type("MultiPassMaterialPtr", "PrimeMaterialPtr");
+DataType FieldTraits<MultiPassMaterial *, nsOSG>::_type("MultiPassMaterialPtr", "PrimeMaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MultiPassMaterial *)
+OSG_FIELDTRAITS_GETTYPE_NS(MultiPassMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MultiPassMaterial *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MultiPassMaterial *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     MultiPassMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MultiPassMaterialBase::createEmptyLocal),
     MultiPassMaterial::initMethod,
     MultiPassMaterial::exitMethod,

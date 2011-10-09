@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariableInt;
 
 //! \brief ShaderVariableInt Base Class.

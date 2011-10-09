@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class State;
 
 OSG_GEN_CONTAINERPTR(State);
-
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<State *> :
-    public FieldTraitsFCPtrBase<State *>
+struct FieldTraits<State *, nsOSG> :
+    public FieldTraitsFCPtrBase<State *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<State *> :
 
   public:
 
-    typedef FieldTraits<State *>  Self;
+    typedef FieldTraits<State *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<State *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFStatePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFStatePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<State *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<State *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStatePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<State *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
-                      RecordedRefCountPolicy  > SFRecStatePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecStatePtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
-                      UnrecordedRefCountPolicy> SFUnrecStatePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecStatePtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
-                      WeakRefCountPolicy      > SFWeakStatePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakStatePtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
-                      NoRefCountPolicy        > SFUncountedStatePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedStatePtr;
 
 
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
-                      RecordedRefCountPolicy  > MFRecStatePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecStatePtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
-                      UnrecordedRefCountPolicy> MFUnrecStatePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecStatePtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
-                      WeakRefCountPolicy      > MFWeakStatePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakStatePtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
-                      NoRefCountPolicy        > MFUncountedStatePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedStatePtr;
 
 
 

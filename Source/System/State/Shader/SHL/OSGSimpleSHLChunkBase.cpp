@@ -124,18 +124,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLChunk *>::_type("SimpleSHLChunkPtr", "ShaderProgramChunkPtr");
+DataType FieldTraits<SimpleSHLChunk *, nsOSG>::_type("SimpleSHLChunkPtr", "ShaderProgramChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleSHLChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleSHLChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleSHLChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleSHLChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -260,7 +260,7 @@ SimpleSHLChunkBase::TypeObject SimpleSHLChunkBase::_type(
     SimpleSHLChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkBase::createEmptyLocal),
     SimpleSHLChunk::initMethod,
     SimpleSHLChunk::exitMethod,

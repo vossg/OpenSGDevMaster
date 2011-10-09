@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GPUVolRTV2;
 
 OSG_GEN_CONTAINERPTR(GPUVolRTV2);
-
 /*! \ingroup GrpExGPUVolRTFieldTraits
     \ingroup GrpLibOSGExGPUVolRT
  */
 template <>
-struct FieldTraits<GPUVolRTV2 *> :
-    public FieldTraitsFCPtrBase<GPUVolRTV2 *>
+struct FieldTraits<GPUVolRTV2 *, nsOSG> :
+    public FieldTraitsFCPtrBase<GPUVolRTV2 *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GPUVolRTV2 *> :
 
   public:
 
-    typedef FieldTraits<GPUVolRTV2 *>  Self;
+    typedef FieldTraits<GPUVolRTV2 *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<GPUVolRTV2 *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGPUVolRTV2Ptr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGPUVolRTV2Ptr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGPUVolRTV2Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GPUVolRTV2 *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGPUVolRTV2Ptr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<GPUVolRTV2 *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpExGPUVolRTFieldSFields */
 typedef PointerSField<GPUVolRTV2 *,
-                      RecordedRefCountPolicy  > SFRecGPUVolRTV2Ptr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldSFields */
 typedef PointerSField<GPUVolRTV2 *,
-                      UnrecordedRefCountPolicy> SFUnrecGPUVolRTV2Ptr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldSFields */
 typedef PointerSField<GPUVolRTV2 *,
-                      WeakRefCountPolicy      > SFWeakGPUVolRTV2Ptr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldSFields */
 typedef PointerSField<GPUVolRTV2 *,
-                      NoRefCountPolicy        > SFUncountedGPUVolRTV2Ptr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGPUVolRTV2Ptr;
 
 
 /*! \ingroup GrpExGPUVolRTFieldMFields */
 typedef PointerMField<GPUVolRTV2 *,
-                      RecordedRefCountPolicy  > MFRecGPUVolRTV2Ptr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldMFields */
 typedef PointerMField<GPUVolRTV2 *,
-                      UnrecordedRefCountPolicy> MFUnrecGPUVolRTV2Ptr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldMFields */
 typedef PointerMField<GPUVolRTV2 *,
-                      WeakRefCountPolicy      > MFWeakGPUVolRTV2Ptr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGPUVolRTV2Ptr;
 /*! \ingroup GrpExGPUVolRTFieldMFields */
 typedef PointerMField<GPUVolRTV2 *,
-                      NoRefCountPolicy        > MFUncountedGPUVolRTV2Ptr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGPUVolRTV2Ptr;
 
 
 

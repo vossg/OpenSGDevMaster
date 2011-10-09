@@ -92,10 +92,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AlgorithmComputeElement *>::_type("AlgorithmComputeElementPtr", "ComputeElementPtr");
+DataType FieldTraits<AlgorithmComputeElement *, nsOSG>::_type("AlgorithmComputeElementPtr", "ComputeElementPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AlgorithmComputeElement *)
+OSG_FIELDTRAITS_GETTYPE_NS(AlgorithmComputeElement *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -124,7 +124,7 @@ AlgorithmComputeElementBase::TypeObject AlgorithmComputeElementBase::_type(
     AlgorithmComputeElementBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AlgorithmComputeElementBase::createEmptyLocal),
     AlgorithmComputeElement::initMethod,
     AlgorithmComputeElement::exitMethod,

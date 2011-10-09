@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DynamicStateGeneratorStageData;
 
 OSG_GEN_CONTAINERPTR(DynamicStateGeneratorStageData);
-
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<DynamicStateGeneratorStageData *> :
-    public FieldTraitsFCPtrBase<DynamicStateGeneratorStageData *>
+struct FieldTraits<DynamicStateGeneratorStageData *, nsOSG> :
+    public FieldTraitsFCPtrBase<DynamicStateGeneratorStageData *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DynamicStateGeneratorStageData *> :
 
   public:
 
-    typedef FieldTraits<DynamicStateGeneratorStageData *>  Self;
+    typedef FieldTraits<DynamicStateGeneratorStageData *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CameraDecorator;
 
 //! \brief CameraDecorator Base Class.

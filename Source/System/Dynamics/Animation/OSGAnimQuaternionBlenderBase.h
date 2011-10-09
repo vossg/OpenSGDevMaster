@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimQuaternionBlender;
 
 //! \brief AnimQuaternionBlender Base Class.

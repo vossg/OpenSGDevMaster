@@ -92,10 +92,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadeModelChunk *>::_type("ShadeModelChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ShadeModelChunk *, nsOSG>::_type("ShadeModelChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShadeModelChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShadeModelChunk *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -124,7 +124,7 @@ ShadeModelChunkBase::TypeObject ShadeModelChunkBase::_type(
     ShadeModelChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShadeModelChunkBase::createEmptyLocal),
     ShadeModelChunk::initMethod,
     ShadeModelChunk::exitMethod,

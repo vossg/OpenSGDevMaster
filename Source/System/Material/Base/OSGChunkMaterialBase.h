@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ChunkMaterial;
 
 //! \brief ChunkMaterial Base Class.

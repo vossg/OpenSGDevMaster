@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FileGrabForeground;
 
 OSG_GEN_CONTAINERPTR(FileGrabForeground);
-
 /*! \ingroup GrpWindowForegroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<FileGrabForeground *> :
-    public FieldTraitsFCPtrBase<FileGrabForeground *>
+struct FieldTraits<FileGrabForeground *, nsOSG> :
+    public FieldTraitsFCPtrBase<FileGrabForeground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FileGrabForeground *> :
 
   public:
 
-    typedef FieldTraits<FileGrabForeground *>  Self;
+    typedef FieldTraits<FileGrabForeground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FileGrabForeground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFileGrabForegroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFileGrabForegroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FileGrabForeground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFileGrabForegroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<FileGrabForeground *,
-                      RecordedRefCountPolicy  > SFRecFileGrabForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<FileGrabForeground *,
-                      UnrecordedRefCountPolicy> SFUnrecFileGrabForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<FileGrabForeground *,
-                      WeakRefCountPolicy      > SFWeakFileGrabForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<FileGrabForeground *,
-                      NoRefCountPolicy        > SFUncountedFileGrabForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFileGrabForegroundPtr;
 
 
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<FileGrabForeground *,
-                      RecordedRefCountPolicy  > MFRecFileGrabForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<FileGrabForeground *,
-                      UnrecordedRefCountPolicy> MFUnrecFileGrabForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<FileGrabForeground *,
-                      WeakRefCountPolicy      > MFWeakFileGrabForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFileGrabForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<FileGrabForeground *,
-                      NoRefCountPolicy        > MFUncountedFileGrabForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFileGrabForegroundPtr;
 
 
 

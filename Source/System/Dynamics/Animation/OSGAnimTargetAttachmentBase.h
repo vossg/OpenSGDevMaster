@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTargetAttachment;
 
 //! \brief AnimTargetAttachment Base Class.

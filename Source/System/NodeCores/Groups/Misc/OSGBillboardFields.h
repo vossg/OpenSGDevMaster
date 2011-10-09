@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Billboard;
 
 OSG_GEN_CONTAINERPTR(Billboard);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<Billboard *> :
-    public FieldTraitsFCPtrBase<Billboard *>
+struct FieldTraits<Billboard *, nsOSG> :
+    public FieldTraitsFCPtrBase<Billboard *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Billboard *> :
 
   public:
 
-    typedef FieldTraits<Billboard *>  Self;
+    typedef FieldTraits<Billboard *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Billboard *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFBillboardPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFBillboardPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Billboard *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Billboard *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBillboardPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Billboard *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Billboard *,
-                      RecordedRefCountPolicy  > SFRecBillboardPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Billboard *,
-                      UnrecordedRefCountPolicy> SFUnrecBillboardPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Billboard *,
-                      WeakRefCountPolicy      > SFWeakBillboardPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Billboard *,
-                      NoRefCountPolicy        > SFUncountedBillboardPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedBillboardPtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Billboard *,
-                      RecordedRefCountPolicy  > MFRecBillboardPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Billboard *,
-                      UnrecordedRefCountPolicy> MFUnrecBillboardPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Billboard *,
-                      WeakRefCountPolicy      > MFWeakBillboardPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakBillboardPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Billboard *,
-                      NoRefCountPolicy        > MFUncountedBillboardPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedBillboardPtr;
 
 
 

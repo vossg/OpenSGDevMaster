@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TileCameraDecorator;
 
 //! \brief TileCameraDecorator Base Class.

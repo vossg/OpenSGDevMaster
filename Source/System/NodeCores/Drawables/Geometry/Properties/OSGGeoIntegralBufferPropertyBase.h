@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoIntegralBufferProperty;
 
 //! \brief GeoIntegralBufferProperty Base Class.

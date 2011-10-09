@@ -97,18 +97,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Stage *>::_type("StagePtr", "GroupPtr");
+DataType FieldTraits<Stage *, nsOSG>::_type("StagePtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Stage *)
+OSG_FIELDTRAITS_GETTYPE_NS(Stage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Stage *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Stage *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -151,7 +151,7 @@ StageBase::TypeObject StageBase::_type(
     StageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&StageBase::createEmptyLocal),
     Stage::initMethod,
     Stage::exitMethod,

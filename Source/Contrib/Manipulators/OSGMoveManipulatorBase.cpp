@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MoveManipulator *>::_type("MoveManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<MoveManipulator *, nsOSG>::_type("MoveManipulatorPtr", "ManipulatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MoveManipulator *)
+OSG_FIELDTRAITS_GETTYPE_NS(MoveManipulator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     MoveManipulatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MoveManipulatorBase::createEmptyLocal),
     MoveManipulator::initMethod,
     MoveManipulator::exitMethod,

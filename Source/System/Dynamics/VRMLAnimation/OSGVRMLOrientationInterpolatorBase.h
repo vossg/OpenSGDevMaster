@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLOrientationInterpolator;
 
 //! \brief VRMLOrientationInterpolator Base Class.

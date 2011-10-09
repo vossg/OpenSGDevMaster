@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScreenGroup *>::_type("ScreenGroupPtr", "GroupPtr");
+DataType FieldTraits<ScreenGroup *, nsOSG>::_type("ScreenGroupPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ScreenGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(ScreenGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ScreenGroup *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ScreenGroup *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ ScreenGroupBase::TypeObject ScreenGroupBase::_type(
     ScreenGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ScreenGroupBase::createEmptyLocal),
     ScreenGroup::initMethod,
     ScreenGroup::exitMethod,

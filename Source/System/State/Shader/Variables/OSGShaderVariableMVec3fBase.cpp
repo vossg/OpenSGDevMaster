@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMVec3f *>::_type("ShaderVariableMVec3fPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<ShaderVariableMVec3f *, nsOSG>::_type("ShaderVariableMVec3fPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableMVec3f *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariableMVec3f *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariableMVec3f *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariableMVec3f *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ShaderVariableMVec3fBase::TypeObject ShaderVariableMVec3fBase::_type(
     ShaderVariableMVec3fBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMVec3fBase::createEmptyLocal),
     ShaderVariableMVec3f::initMethod,
     ShaderVariableMVec3f::exitMethod,

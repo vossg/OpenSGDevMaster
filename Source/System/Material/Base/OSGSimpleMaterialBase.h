@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleMaterial;
 
 //! \brief SimpleMaterial Base Class.

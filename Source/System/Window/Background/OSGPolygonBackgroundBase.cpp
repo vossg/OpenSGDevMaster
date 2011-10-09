@@ -124,18 +124,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "TileableBackgroundPtr");
+DataType FieldTraits<PolygonBackground *, nsOSG>::_type("PolygonBackgroundPtr", "TileableBackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PolygonBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(PolygonBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PolygonBackground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PolygonBackground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -260,7 +260,7 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     PolygonBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PolygonBackgroundBase::createEmptyLocal),
     PolygonBackground::initMethod,
     PolygonBackground::exitMethod,

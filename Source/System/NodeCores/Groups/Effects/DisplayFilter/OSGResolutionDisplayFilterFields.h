@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ResolutionDisplayFilter;
 
 OSG_GEN_CONTAINERPTR(ResolutionDisplayFilter);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<ResolutionDisplayFilter *> :
-    public FieldTraitsFCPtrBase<ResolutionDisplayFilter *>
+struct FieldTraits<ResolutionDisplayFilter *, nsOSG> :
+    public FieldTraitsFCPtrBase<ResolutionDisplayFilter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ResolutionDisplayFilter *> :
 
   public:
 
-    typedef FieldTraits<ResolutionDisplayFilter *>  Self;
+    typedef FieldTraits<ResolutionDisplayFilter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ResolutionDisplayFilter *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFResolutionDisplayFilterPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFResolutionDisplayFilterPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakResolutionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ResolutionDisplayFilter *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdResolutionDisplayFilterPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ResolutionDisplayFilter *, 0>::getMName<NoRefCountPolic
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ResolutionDisplayFilter *,
-                      RecordedRefCountPolicy  > SFRecResolutionDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ResolutionDisplayFilter *,
-                      UnrecordedRefCountPolicy> SFUnrecResolutionDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ResolutionDisplayFilter *,
-                      WeakRefCountPolicy      > SFWeakResolutionDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ResolutionDisplayFilter *,
-                      NoRefCountPolicy        > SFUncountedResolutionDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedResolutionDisplayFilterPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ResolutionDisplayFilter *,
-                      RecordedRefCountPolicy  > MFRecResolutionDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ResolutionDisplayFilter *,
-                      UnrecordedRefCountPolicy> MFUnrecResolutionDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ResolutionDisplayFilter *,
-                      WeakRefCountPolicy      > MFWeakResolutionDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakResolutionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ResolutionDisplayFilter *,
-                      NoRefCountPolicy        > MFUncountedResolutionDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedResolutionDisplayFilterPtr;
 
 
 

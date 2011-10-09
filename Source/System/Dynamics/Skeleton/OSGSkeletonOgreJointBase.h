@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SkeletonOgreJoint;
 
 //! \brief SkeletonOgreJoint Base Class.

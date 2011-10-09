@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimVec3fChannel *>::_type("AnimVec3fChannelPtr", "AnimChannelPtr");
+DataType FieldTraits<AnimVec3fChannel *, nsOSG>::_type("AnimVec3fChannelPtr", "AnimChannelPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimVec3fChannel *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimVec3fChannel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimVec3fChannel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimVec3fChannel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     AnimVec3fChannelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fChannelBase::createEmptyLocal),
     AnimVec3fChannel::initMethod,
     AnimVec3fChannel::exitMethod,

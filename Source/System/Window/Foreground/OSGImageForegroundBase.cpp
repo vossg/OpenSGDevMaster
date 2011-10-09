@@ -100,18 +100,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageForeground *>::_type("ImageForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<ImageForeground *, nsOSG>::_type("ImageForegroundPtr", "ForegroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImageForeground *)
+OSG_FIELDTRAITS_GETTYPE_NS(ImageForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ImageForeground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ImageForeground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -152,7 +152,7 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     ImageForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ImageForegroundBase::createEmptyLocal),
     ImageForeground::initMethod,
     ImageForeground::exitMethod,

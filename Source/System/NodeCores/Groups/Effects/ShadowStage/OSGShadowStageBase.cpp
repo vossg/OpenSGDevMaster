@@ -167,18 +167,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowStage *>::_type("ShadowStagePtr", "StagePtr");
+DataType FieldTraits<ShadowStage *, nsOSG>::_type("ShadowStagePtr", "StagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShadowStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShadowStage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShadowStage *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShadowStage *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -412,7 +412,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     ShadowStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShadowStageBase::createEmptyLocal),
     ShadowStage::initMethod,
     ShadowStage::exitMethod,

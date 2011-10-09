@@ -107,10 +107,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SortFirstWindow *>::_type("SortFirstWindowPtr", "ClusterWindowPtr");
+DataType FieldTraits<SortFirstWindow *, nsOSG>::_type("SortFirstWindowPtr", "ClusterWindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SortFirstWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(SortFirstWindow *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -187,7 +187,7 @@ SortFirstWindowBase::TypeObject SortFirstWindowBase::_type(
     SortFirstWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SortFirstWindowBase::createEmptyLocal),
     SortFirstWindow::initMethod,
     SortFirstWindow::exitMethod,

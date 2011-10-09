@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DoubleTransform;
 
 OSG_GEN_CONTAINERPTR(DoubleTransform);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<DoubleTransform *> :
-    public FieldTraitsFCPtrBase<DoubleTransform *>
+struct FieldTraits<DoubleTransform *, nsOSG> :
+    public FieldTraitsFCPtrBase<DoubleTransform *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DoubleTransform *> :
 
   public:
 
-    typedef FieldTraits<DoubleTransform *>  Self;
+    typedef FieldTraits<DoubleTransform *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DoubleTransform *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDoubleTransformPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDoubleTransformPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDoubleTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DoubleTransform *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDoubleTransformPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<DoubleTransform *,
-                      RecordedRefCountPolicy  > SFRecDoubleTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<DoubleTransform *,
-                      UnrecordedRefCountPolicy> SFUnrecDoubleTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<DoubleTransform *,
-                      WeakRefCountPolicy      > SFWeakDoubleTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<DoubleTransform *,
-                      NoRefCountPolicy        > SFUncountedDoubleTransformPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDoubleTransformPtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<DoubleTransform *,
-                      RecordedRefCountPolicy  > MFRecDoubleTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<DoubleTransform *,
-                      UnrecordedRefCountPolicy> MFUnrecDoubleTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<DoubleTransform *,
-                      WeakRefCountPolicy      > MFWeakDoubleTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDoubleTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<DoubleTransform *,
-                      NoRefCountPolicy        > MFUncountedDoubleTransformPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDoubleTransformPtr;
 
 
 

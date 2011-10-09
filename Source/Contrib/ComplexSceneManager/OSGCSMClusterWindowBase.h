@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMClusterWindow;
 
 //! \brief CSMClusterWindow Base Class.

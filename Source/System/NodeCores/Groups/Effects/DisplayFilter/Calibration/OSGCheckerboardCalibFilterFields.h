@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CheckerboardCalibFilter;
 
 OSG_GEN_CONTAINERPTR(CheckerboardCalibFilter);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<CheckerboardCalibFilter *> :
-    public FieldTraitsFCPtrBase<CheckerboardCalibFilter *>
+struct FieldTraits<CheckerboardCalibFilter *, nsOSG> :
+    public FieldTraitsFCPtrBase<CheckerboardCalibFilter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CheckerboardCalibFilter *> :
 
   public:
 
-    typedef FieldTraits<CheckerboardCalibFilter *>  Self;
+    typedef FieldTraits<CheckerboardCalibFilter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CheckerboardCalibFilter *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCheckerboardCalibFilterPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCheckerboardCalibFilterPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCheckerboardCalibFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CheckerboardCalibFilter *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCheckerboardCalibFilterPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CheckerboardCalibFilter *, 0>::getMName<NoRefCountPolic
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CheckerboardCalibFilter *,
-                      RecordedRefCountPolicy  > SFRecCheckerboardCalibFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CheckerboardCalibFilter *,
-                      UnrecordedRefCountPolicy> SFUnrecCheckerboardCalibFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CheckerboardCalibFilter *,
-                      WeakRefCountPolicy      > SFWeakCheckerboardCalibFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CheckerboardCalibFilter *,
-                      NoRefCountPolicy        > SFUncountedCheckerboardCalibFilterPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCheckerboardCalibFilterPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CheckerboardCalibFilter *,
-                      RecordedRefCountPolicy  > MFRecCheckerboardCalibFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CheckerboardCalibFilter *,
-                      UnrecordedRefCountPolicy> MFUnrecCheckerboardCalibFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CheckerboardCalibFilter *,
-                      WeakRefCountPolicy      > MFWeakCheckerboardCalibFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCheckerboardCalibFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CheckerboardCalibFilter *,
-                      NoRefCountPolicy        > MFUncountedCheckerboardCalibFilterPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCheckerboardCalibFilterPtr;
 
 
 

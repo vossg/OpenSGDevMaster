@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LogicOpChunk;
 
 //! \brief LogicOpChunk Base Class.

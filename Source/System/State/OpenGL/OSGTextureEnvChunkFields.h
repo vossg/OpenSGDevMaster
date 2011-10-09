@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureEnvChunk;
 
 OSG_GEN_CONTAINERPTR(TextureEnvChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<TextureEnvChunk *> :
-    public FieldTraitsFCPtrBase<TextureEnvChunk *>
+struct FieldTraits<TextureEnvChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<TextureEnvChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TextureEnvChunk *> :
 
   public:
 
-    typedef FieldTraits<TextureEnvChunk *>  Self;
+    typedef FieldTraits<TextureEnvChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<TextureEnvChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTextureEnvChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTextureEnvChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureEnvChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextureEnvChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
-                      RecordedRefCountPolicy  > SFRecTextureEnvChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecTextureEnvChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
-                      WeakRefCountPolicy      > SFWeakTextureEnvChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
-                      NoRefCountPolicy        > SFUncountedTextureEnvChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTextureEnvChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
-                      RecordedRefCountPolicy  > MFRecTextureEnvChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecTextureEnvChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
-                      WeakRefCountPolicy      > MFWeakTextureEnvChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakTextureEnvChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
-                      NoRefCountPolicy        > MFUncountedTextureEnvChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTextureEnvChunkPtr;
 
 
 

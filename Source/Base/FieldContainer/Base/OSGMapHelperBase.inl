@@ -51,6 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 
+
 //! access the type of the class
 inline
 OSG::FieldContainerType &MapHelperBase::getClassType(void)

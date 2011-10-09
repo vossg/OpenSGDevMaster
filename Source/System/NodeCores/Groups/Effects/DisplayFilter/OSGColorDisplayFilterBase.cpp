@@ -121,18 +121,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorDisplayFilter *>::_type("ColorDisplayFilterPtr", "DisplayFilterPtr");
+DataType FieldTraits<ColorDisplayFilter *, nsOSG>::_type("ColorDisplayFilterPtr", "DisplayFilterPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ColorDisplayFilter *)
+OSG_FIELDTRAITS_GETTYPE_NS(ColorDisplayFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ColorDisplayFilter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ColorDisplayFilter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -245,7 +245,7 @@ ColorDisplayFilterBase::TypeObject ColorDisplayFilterBase::_type(
     ColorDisplayFilterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ColorDisplayFilterBase::createEmptyLocal),
     ColorDisplayFilter::initMethod,
     ColorDisplayFilter::exitMethod,

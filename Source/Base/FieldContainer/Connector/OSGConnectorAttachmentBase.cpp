@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ConnectorAttachment *>::_type("ConnectorAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<ConnectorAttachment *, nsOSG>::_type("ConnectorAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ConnectorAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(ConnectorAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ConnectorAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ConnectorAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ ConnectorAttachmentBase::TypeObject ConnectorAttachmentBase::_type(
     ConnectorAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "ConnectorAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ConnectorAttachmentBase::createEmptyLocal),
     ConnectorAttachment::initMethod,
     ConnectorAttachment::exitMethod,

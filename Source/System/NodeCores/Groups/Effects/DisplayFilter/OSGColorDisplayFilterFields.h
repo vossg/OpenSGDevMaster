@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ColorDisplayFilter;
 
 OSG_GEN_CONTAINERPTR(ColorDisplayFilter);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<ColorDisplayFilter *> :
-    public FieldTraitsFCPtrBase<ColorDisplayFilter *>
+struct FieldTraits<ColorDisplayFilter *, nsOSG> :
+    public FieldTraitsFCPtrBase<ColorDisplayFilter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ColorDisplayFilter *> :
 
   public:
 
-    typedef FieldTraits<ColorDisplayFilter *>  Self;
+    typedef FieldTraits<ColorDisplayFilter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ColorDisplayFilter *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFColorDisplayFilterPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFColorDisplayFilterPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorDisplayFilter *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorDisplayFilterPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
-                      RecordedRefCountPolicy  > SFRecColorDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
-                      UnrecordedRefCountPolicy> SFUnrecColorDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
-                      WeakRefCountPolicy      > SFWeakColorDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
-                      NoRefCountPolicy        > SFUncountedColorDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedColorDisplayFilterPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
-                      RecordedRefCountPolicy  > MFRecColorDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
-                      UnrecordedRefCountPolicy> MFUnrecColorDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
-                      WeakRefCountPolicy      > MFWeakColorDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakColorDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
-                      NoRefCountPolicy        > MFUncountedColorDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedColorDisplayFilterPtr;
 
 
 

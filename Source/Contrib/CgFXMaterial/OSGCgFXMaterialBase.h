@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXMaterial;
 
 //! \brief CgFXMaterial Base Class.

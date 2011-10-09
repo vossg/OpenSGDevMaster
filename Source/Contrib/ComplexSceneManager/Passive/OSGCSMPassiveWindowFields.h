@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMPassiveWindow;
 
 OSG_GEN_CONTAINERPTR(CSMPassiveWindow);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMPassiveWindow *> :
-    public FieldTraitsFCPtrBase<CSMPassiveWindow *>
+struct FieldTraits<CSMPassiveWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMPassiveWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMPassiveWindow *> :
 
   public:
 
-    typedef FieldTraits<CSMPassiveWindow *>  Self;
+    typedef FieldTraits<CSMPassiveWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMPassiveWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMPassiveWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMPassiveWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMPassiveWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMPassiveWindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMPassiveWindow *, 0>::getMName<NoRefCountPolicy>(void
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPassiveWindow *,
-                      RecordedRefCountPolicy  > SFRecCSMPassiveWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPassiveWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMPassiveWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPassiveWindow *,
-                      WeakRefCountPolicy      > SFWeakCSMPassiveWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMPassiveWindow *,
-                      NoRefCountPolicy        > SFUncountedCSMPassiveWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMPassiveWindowPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPassiveWindow *,
-                      RecordedRefCountPolicy  > MFRecCSMPassiveWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPassiveWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMPassiveWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPassiveWindow *,
-                      WeakRefCountPolicy      > MFWeakCSMPassiveWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMPassiveWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMPassiveWindow *,
-                      NoRefCountPolicy        > MFUncountedCSMPassiveWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMPassiveWindowPtr;
 
 
 

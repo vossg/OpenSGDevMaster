@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class HardwareContext;
 
 OSG_GEN_CONTAINERPTR(HardwareContext);
-
 /*! \ingroup GrpBaseHardwareContextFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<HardwareContext *> :
-    public FieldTraitsFCPtrBase<HardwareContext *>
+struct FieldTraits<HardwareContext *, nsOSG> :
+    public FieldTraitsFCPtrBase<HardwareContext *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<HardwareContext *> :
 
   public:
 
-    typedef FieldTraits<HardwareContext *>  Self;
+    typedef FieldTraits<HardwareContext *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<HardwareContext *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFHardwareContextPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFHardwareContextPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdHardwareContextPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<HardwareContext *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseHardwareContextFieldTraits
  */
 template <>
-struct FieldTraits<HardwareContext *, 1> :
-    public FieldTraitsFCPtrBase<HardwareContext *, 1>
+struct FieldTraits<HardwareContext *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<HardwareContext *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<HardwareContext *, 1>  Self;
+    typedef FieldTraits<HardwareContext *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<HardwareContext *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildHardwareContextPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<HardwareContext *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<HardwareContext *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildHardwareContextPtr"; 
 }
@@ -220,8 +218,8 @@ const Char8 *FieldTraits<HardwareContext *, 1>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseHardwareContextFieldTraits
  */
 template <>
-struct FieldTraits<HardwareContext *, 2> : 
-    public FieldTraitsFCPtrBase<HardwareContext *, 2>
+struct FieldTraits<HardwareContext *, nsOSG + 2> : 
+    public FieldTraitsFCPtrBase<HardwareContext *, nsOSG + 2>
 {
   private:
 
@@ -231,7 +229,7 @@ struct FieldTraits<HardwareContext *, 2> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<HardwareContext *, 2>        Self;
+    typedef FieldTraits<HardwareContext *, nsOSG + 2> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -253,30 +251,30 @@ struct FieldTraits<HardwareContext *, 2> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
-                      RecordedRefCountPolicy  > SFRecHardwareContextPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
-                      UnrecordedRefCountPolicy> SFUnrecHardwareContextPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
-                      WeakRefCountPolicy      > SFWeakHardwareContextPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef PointerSField<HardwareContext *,
-                      NoRefCountPolicy        > SFUncountedHardwareContextPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedHardwareContextPtr;
 
 
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
-                      RecordedRefCountPolicy  > MFRecHardwareContextPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
-                      UnrecordedRefCountPolicy> MFUnrecHardwareContextPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
-                      WeakRefCountPolicy      > MFWeakHardwareContextPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakHardwareContextPtr;
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef PointerMField<HardwareContext *,
-                      NoRefCountPolicy        > MFUncountedHardwareContextPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedHardwareContextPtr;
 
 
 
@@ -284,27 +282,27 @@ typedef PointerMField<HardwareContext *,
 typedef ChildPointerSField<
           HardwareContext *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildHardwareContextPtr;
+          nsOSG + 1             > SFUnrecChildHardwareContextPtr;
 
 
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef ChildPointerMField<
           HardwareContext *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildHardwareContextPtr;
+          nsOSG + 1             > MFUnrecChildHardwareContextPtr;
 
 
 /*! \ingroup GrpBaseHardwareContextFieldSFields */
 typedef ParentPointerSField<
           HardwareContext *, 
           NoRefCountPolicy,
-          2    > SFParentHardwareContextPtr;
+          nsOSG + 2    > SFParentHardwareContextPtr;
 
 /*! \ingroup GrpBaseHardwareContextFieldMFields */
 typedef ParentPointerMField<
           HardwareContext *, 
           NoRefCountPolicy,
-          2    > MFParentHardwareContextPtr;
+          nsOSG + 2    > MFParentHardwareContextPtr;
 
 
 
@@ -352,7 +350,7 @@ struct SFUnrecChildHardwareContextPtr :
     public ChildPointerSField<
         HardwareContext *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
@@ -360,7 +358,7 @@ struct MFUnrecChildHardwareContextPtr :
     public ChildPointerMField<
         HardwareContext *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseHardwareContextFieldSFields \ingroup GrpLibOSGBase */
@@ -368,14 +366,14 @@ struct SFParentHardwareContextPtr :
     public ParentPointerSField<
         HardwareContext *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 /*! \ingroup GrpBaseHardwareContextFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentHardwareContextPtr :
     public  ParentPointerMField<
         HardwareContext *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 
 #endif // these are the doxygen hacks

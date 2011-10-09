@@ -100,18 +100,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimTemplate *>::_type("AnimTemplatePtr", "AttachmentContainerPtr");
+DataType FieldTraits<AnimTemplate *, nsOSG>::_type("AnimTemplatePtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimTemplate *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimTemplate *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimTemplate *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimTemplate *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -164,7 +164,7 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     AnimTemplateBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     AnimTemplate::initMethod,
     AnimTemplate::exitMethod,

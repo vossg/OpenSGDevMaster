@@ -103,26 +103,26 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LinuxEventOptions *>::_type("LinuxEventOptionsPtr", "InterfaceOptionsPtr");
+DataType FieldTraits<LinuxEventOptions *, nsOSG>::_type("LinuxEventOptionsPtr", "InterfaceOptionsPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LinuxEventOptions *)
+OSG_FIELDTRAITS_GETTYPE_NS(LinuxEventOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LinuxEventOptions *,
-                           0);
+                           nsOSG);
 
 
-DataType &FieldTraits< LinuxEventOptions *, 1 >::getType(void)
+DataType &FieldTraits< LinuxEventOptions *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<LinuxEventOptions *, 0>::getType();
+    return FieldTraits<LinuxEventOptions *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       LinuxEventOptions *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -188,7 +188,7 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     LinuxEventOptionsBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LinuxEventOptionsBase::createEmptyLocal),
     LinuxEventOptions::initMethod,
     LinuxEventOptions::exitMethod,

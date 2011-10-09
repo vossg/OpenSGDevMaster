@@ -97,35 +97,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkinningAlgorithm *>::_type("SkinningAlgorithmPtr", "AlgorithmPtr");
+DataType FieldTraits<SkinningAlgorithm *, nsOSG>::_type("SkinningAlgorithmPtr", "AlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkinningAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(SkinningAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< SkinningAlgorithm *, 1 >::getType(void)
+DataType &FieldTraits< SkinningAlgorithm *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<SkinningAlgorithm *, 0>::getType();
+    return FieldTraits<SkinningAlgorithm *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       SkinningAlgorithm *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       SkinningAlgorithm *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -167,7 +167,7 @@ SkinningAlgorithmBase::TypeObject SkinningAlgorithmBase::_type(
     SkinningAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     SkinningAlgorithm::initMethod,
     SkinningAlgorithm::exitMethod,

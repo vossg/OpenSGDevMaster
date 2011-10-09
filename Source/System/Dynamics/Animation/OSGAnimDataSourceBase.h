@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimDataSource;
 
 //! \brief AnimDataSource Base Class.

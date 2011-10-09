@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StageData;
 
 //! \brief StageData Base Class.

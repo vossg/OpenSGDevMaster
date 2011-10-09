@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GroupingStage;
 
 //! \brief GroupingStage Base Class.

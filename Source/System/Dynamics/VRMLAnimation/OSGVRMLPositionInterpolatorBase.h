@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLPositionInterpolator;
 
 //! \brief VRMLPositionInterpolator Base Class.

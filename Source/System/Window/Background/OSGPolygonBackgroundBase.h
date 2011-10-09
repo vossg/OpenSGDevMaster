@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PolygonBackground;
 
 //! \brief PolygonBackground Base Class.

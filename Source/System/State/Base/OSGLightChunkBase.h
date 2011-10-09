@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightChunk;
 
 //! \brief LightChunk Base Class.

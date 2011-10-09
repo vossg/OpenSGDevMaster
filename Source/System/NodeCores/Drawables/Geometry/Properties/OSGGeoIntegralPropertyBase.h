@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoIntegralProperty;
 
 //! \brief GeoIntegralProperty Base Class.

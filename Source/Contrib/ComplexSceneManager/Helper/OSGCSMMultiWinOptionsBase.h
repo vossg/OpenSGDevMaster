@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMMultiWinOptions;
 
 //! \brief CSMMultiWinOptions Base Class.

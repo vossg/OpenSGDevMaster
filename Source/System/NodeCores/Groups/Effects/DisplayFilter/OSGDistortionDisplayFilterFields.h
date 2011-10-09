@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DistortionDisplayFilter;
 
 OSG_GEN_CONTAINERPTR(DistortionDisplayFilter);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DistortionDisplayFilter *> :
-    public FieldTraitsFCPtrBase<DistortionDisplayFilter *>
+struct FieldTraits<DistortionDisplayFilter *, nsOSG> :
+    public FieldTraitsFCPtrBase<DistortionDisplayFilter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DistortionDisplayFilter *> :
 
   public:
 
-    typedef FieldTraits<DistortionDisplayFilter *>  Self;
+    typedef FieldTraits<DistortionDisplayFilter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DistortionDisplayFilter *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDistortionDisplayFilterPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDistortionDisplayFilterPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDistortionDisplayFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DistortionDisplayFilter *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDistortionDisplayFilterPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DistortionDisplayFilter *, 0>::getMName<NoRefCountPolic
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DistortionDisplayFilter *,
-                      RecordedRefCountPolicy  > SFRecDistortionDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DistortionDisplayFilter *,
-                      UnrecordedRefCountPolicy> SFUnrecDistortionDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DistortionDisplayFilter *,
-                      WeakRefCountPolicy      > SFWeakDistortionDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DistortionDisplayFilter *,
-                      NoRefCountPolicy        > SFUncountedDistortionDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDistortionDisplayFilterPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DistortionDisplayFilter *,
-                      RecordedRefCountPolicy  > MFRecDistortionDisplayFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DistortionDisplayFilter *,
-                      UnrecordedRefCountPolicy> MFUnrecDistortionDisplayFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DistortionDisplayFilter *,
-                      WeakRefCountPolicy      > MFWeakDistortionDisplayFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDistortionDisplayFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DistortionDisplayFilter *,
-                      NoRefCountPolicy        > MFUncountedDistortionDisplayFilterPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDistortionDisplayFilterPtr;
 
 
 

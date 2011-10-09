@@ -101,18 +101,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderExecutableVarChunk *>::_type("ShaderExecutableVarChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ShaderExecutableVarChunk *, nsOSG>::_type("ShaderExecutableVarChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderExecutableVarChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderExecutableVarChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderExecutableVarChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderExecutableVarChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -165,7 +165,7 @@ ShaderExecutableVarChunkBase::TypeObject ShaderExecutableVarChunkBase::_type(
     ShaderExecutableVarChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderExecutableVarChunkBase::createEmptyLocal),
     ShaderExecutableVarChunk::initMethod,
     ShaderExecutableVarChunk::exitMethod,

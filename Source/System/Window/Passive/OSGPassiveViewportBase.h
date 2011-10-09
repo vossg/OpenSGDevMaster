@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PassiveViewport;
 
 //! \brief PassiveViewport Base Class.

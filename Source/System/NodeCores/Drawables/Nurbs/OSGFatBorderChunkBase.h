@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FatBorderChunk;
 
 //! \brief FatBorderChunk Base Class.

@@ -123,18 +123,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "NodeCorePtr");
+DataType FieldTraits<TimeSensor *, nsOSG>::_type("TimeSensorPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(TimeSensor *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TimeSensor *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TimeSensor *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -261,7 +261,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     TimeSensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TimeSensorBase::createEmptyLocal),
     TimeSensor::initMethod,
     TimeSensor::exitMethod,

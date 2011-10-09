@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderExecutableVarChunk;
 
 //! \brief ShaderExecutableVarChunk Base Class.

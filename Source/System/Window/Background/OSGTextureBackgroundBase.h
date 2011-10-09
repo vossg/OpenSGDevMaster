@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureBackground;
 
 //! \brief TextureBackground Base Class.

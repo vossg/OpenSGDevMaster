@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<UnskinnedSkinningAlgorithm *>::_type("UnskinnedSkinningAlgorithmPtr", "SkinningAlgorithmPtr");
+DataType FieldTraits<UnskinnedSkinningAlgorithm *, nsOSG>::_type("UnskinnedSkinningAlgorithmPtr", "SkinningAlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(UnskinnedSkinningAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(UnskinnedSkinningAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            UnskinnedSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            UnskinnedSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ UnskinnedSkinningAlgorithmBase::TypeObject UnskinnedSkinningAlgorithmBase::_type
     UnskinnedSkinningAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&UnskinnedSkinningAlgorithmBase::createEmptyLocal),
     UnskinnedSkinningAlgorithm::initMethod,
     UnskinnedSkinningAlgorithm::exitMethod,

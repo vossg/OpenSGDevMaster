@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Viewport;
 
 OSG_GEN_CONTAINERPTR(Viewport);
-
 /*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<Viewport *> :
-    public FieldTraitsFCPtrBase<Viewport *>
+struct FieldTraits<Viewport *, nsOSG> :
+    public FieldTraitsFCPtrBase<Viewport *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Viewport *> :
 
   public:
 
-    typedef FieldTraits<Viewport *>  Self;
+    typedef FieldTraits<Viewport *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Viewport *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFViewportPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFViewportPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdViewportPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpSystemWindowFieldTraits
  */
 template <>
-struct FieldTraits<Viewport *, 1> :
-    public FieldTraitsFCPtrBase<Viewport *, 1>
+struct FieldTraits<Viewport *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<Viewport *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<Viewport *, 1>  Self;
+    typedef FieldTraits<Viewport *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<Viewport *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Viewport *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildViewportPtr"; 
 }
@@ -220,30 +218,30 @@ const Char8 *FieldTraits<Viewport *, 1>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
-                      RecordedRefCountPolicy  > SFRecViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecViewportPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
-                      UnrecordedRefCountPolicy> SFUnrecViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecViewportPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
-                      WeakRefCountPolicy      > SFWeakViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakViewportPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Viewport *,
-                      NoRefCountPolicy        > SFUncountedViewportPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedViewportPtr;
 
 
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
-                      RecordedRefCountPolicy  > MFRecViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecViewportPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
-                      UnrecordedRefCountPolicy> MFUnrecViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecViewportPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
-                      WeakRefCountPolicy      > MFWeakViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakViewportPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Viewport *,
-                      NoRefCountPolicy        > MFUncountedViewportPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedViewportPtr;
 
 
 
@@ -251,7 +249,7 @@ typedef PointerMField<Viewport *,
 typedef ChildPointerMField<
           Viewport *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildViewportPtr;
+          nsOSG + 1             > MFUnrecChildViewportPtr;
 
 
 
@@ -299,7 +297,7 @@ struct MFUnrecChildViewportPtr :
     public ChildPointerMField<
         Viewport *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

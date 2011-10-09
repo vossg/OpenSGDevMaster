@@ -100,52 +100,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Attachment *>::_type("AttachmentPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Attachment *, nsOSG>::_type("AttachmentPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Attachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(Attachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Attachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Attachment *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< Attachment *, 1 >::getType(void)
+DataType &FieldTraits< Attachment *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<Attachment *, 0>::getType();
+    return FieldTraits<Attachment *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Attachment *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Attachment *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<Attachment *, 2 >::getType(void)
+DataType &FieldTraits<Attachment *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<Attachment *, 0>::getType();
+    return FieldTraits<Attachment *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     Attachment *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Attachment *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -200,7 +200,7 @@ AttachmentBase::TypeObject AttachmentBase::_type(
     AttachmentBase::getClassname(),
     Inherited::getClassname(),
     "FieldContainer",
-    0,
+    nsOSG, //Namespace
     NULL,
     Attachment::initMethod,
     Attachment::exitMethod,

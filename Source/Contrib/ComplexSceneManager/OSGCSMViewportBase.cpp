@@ -133,18 +133,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMViewport *>::_type("CSMViewportPtr", "FieldContainerPtr");
+DataType FieldTraits<CSMViewport *, nsOSG>::_type("CSMViewportPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMViewport *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMViewport *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMViewport *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMViewport *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -282,7 +282,7 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     CSMViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMViewportBase::createEmptyLocal),
     CSMViewport::initMethod,
     CSMViewport::exitMethod,

@@ -154,18 +154,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStatisticsForeground *>::_type("SimpleStatisticsForegroundPtr", "StatisticsForegroundPtr");
+DataType FieldTraits<SimpleStatisticsForeground *, nsOSG>::_type("SimpleStatisticsForegroundPtr", "StatisticsForegroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleStatisticsForeground *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleStatisticsForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleStatisticsForeground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleStatisticsForeground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -327,7 +327,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     SimpleStatisticsForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleStatisticsForegroundBase::createEmptyLocal),
     SimpleStatisticsForeground::initMethod,
     SimpleStatisticsForeground::exitMethod,

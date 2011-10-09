@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CPUSkinningAlgorithm;
 
 OSG_GEN_CONTAINERPTR(CPUSkinningAlgorithm);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<CPUSkinningAlgorithm *> :
-    public FieldTraitsFCPtrBase<CPUSkinningAlgorithm *>
+struct FieldTraits<CPUSkinningAlgorithm *, nsOSG> :
+    public FieldTraitsFCPtrBase<CPUSkinningAlgorithm *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CPUSkinningAlgorithm *> :
 
   public:
 
-    typedef FieldTraits<CPUSkinningAlgorithm *>  Self;
+    typedef FieldTraits<CPUSkinningAlgorithm *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CPUSkinningAlgorithm *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCPUSkinningAlgorithmPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCPUSkinningAlgorithmPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCPUSkinningAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CPUSkinningAlgorithm *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCPUSkinningAlgorithmPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CPUSkinningAlgorithm *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningAlgorithm *,
-                      RecordedRefCountPolicy  > SFRecCPUSkinningAlgorithmPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningAlgorithm *,
-                      UnrecordedRefCountPolicy> SFUnrecCPUSkinningAlgorithmPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningAlgorithm *,
-                      WeakRefCountPolicy      > SFWeakCPUSkinningAlgorithmPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<CPUSkinningAlgorithm *,
-                      NoRefCountPolicy        > SFUncountedCPUSkinningAlgorithmPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCPUSkinningAlgorithmPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningAlgorithm *,
-                      RecordedRefCountPolicy  > MFRecCPUSkinningAlgorithmPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningAlgorithm *,
-                      UnrecordedRefCountPolicy> MFUnrecCPUSkinningAlgorithmPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningAlgorithm *,
-                      WeakRefCountPolicy      > MFWeakCPUSkinningAlgorithmPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCPUSkinningAlgorithmPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<CPUSkinningAlgorithm *,
-                      NoRefCountPolicy        > MFUncountedCPUSkinningAlgorithmPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCPUSkinningAlgorithmPtr;
 
 
 

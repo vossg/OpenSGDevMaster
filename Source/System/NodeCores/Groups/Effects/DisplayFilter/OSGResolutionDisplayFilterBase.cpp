@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ResolutionDisplayFilter *>::_type("ResolutionDisplayFilterPtr", "DisplayFilterPtr");
+DataType FieldTraits<ResolutionDisplayFilter *, nsOSG>::_type("ResolutionDisplayFilterPtr", "DisplayFilterPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ResolutionDisplayFilter *)
+OSG_FIELDTRAITS_GETTYPE_NS(ResolutionDisplayFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ResolutionDisplayFilter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ResolutionDisplayFilter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ResolutionDisplayFilterBase::TypeObject ResolutionDisplayFilterBase::_type(
     ResolutionDisplayFilterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ResolutionDisplayFilterBase::createEmptyLocal),
     ResolutionDisplayFilter::initMethod,
     ResolutionDisplayFilter::exitMethod,

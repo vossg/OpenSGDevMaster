@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StageDrawable;
 
 //! \brief StageDrawable Base Class.

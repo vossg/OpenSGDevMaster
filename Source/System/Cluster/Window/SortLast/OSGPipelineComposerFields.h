@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PipelineComposer;
 
 OSG_GEN_CONTAINERPTR(PipelineComposer);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<PipelineComposer *> :
-    public FieldTraitsFCPtrBase<PipelineComposer *>
+struct FieldTraits<PipelineComposer *, nsOSG> :
+    public FieldTraitsFCPtrBase<PipelineComposer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PipelineComposer *> :
 
   public:
 
-    typedef FieldTraits<PipelineComposer *>  Self;
+    typedef FieldTraits<PipelineComposer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

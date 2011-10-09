@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimMatrixBlender;
 
 //! \brief AnimMatrixBlender Base Class.

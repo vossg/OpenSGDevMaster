@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CallbackAlgorithm;
 
 OSG_GEN_CONTAINERPTR(CallbackAlgorithm);
-
 /*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<CallbackAlgorithm *> :
-    public FieldTraitsFCPtrBase<CallbackAlgorithm *>
+struct FieldTraits<CallbackAlgorithm *, nsOSG> :
+    public FieldTraitsFCPtrBase<CallbackAlgorithm *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CallbackAlgorithm *> :
 
   public:
 
-    typedef FieldTraits<CallbackAlgorithm *>  Self;
+    typedef FieldTraits<CallbackAlgorithm *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CallbackAlgorithm *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCallbackAlgorithmPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCallbackAlgorithmPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCallbackAlgorithmPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
-                      RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
-                      UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
-                      WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
-                      NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCallbackAlgorithmPtr;
 
 
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
-                      RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
-                      UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
-                      WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCallbackAlgorithmPtr;
 /*! \ingroup GrpGroupStageFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
-                      NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCallbackAlgorithmPtr;
 
 
 

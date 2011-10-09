@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ProjectionCameraDecorator;
 
 OSG_GEN_CONTAINERPTR(ProjectionCameraDecorator);
-
 /*! \ingroup GrpWindowCameraFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<ProjectionCameraDecorator *> :
-    public FieldTraitsFCPtrBase<ProjectionCameraDecorator *>
+struct FieldTraits<ProjectionCameraDecorator *, nsOSG> :
+    public FieldTraitsFCPtrBase<ProjectionCameraDecorator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ProjectionCameraDecorator *> :
 
   public:
 
-    typedef FieldTraits<ProjectionCameraDecorator *>  Self;
+    typedef FieldTraits<ProjectionCameraDecorator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ProjectionCameraDecorator *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFProjectionCameraDecoratorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFProjectionCameraDecoratorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ProjectionCameraDecorator *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdProjectionCameraDecoratorPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<NoRefCountPol
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
-                      RecordedRefCountPolicy  > SFRecProjectionCameraDecoratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
-                      UnrecordedRefCountPolicy> SFUnrecProjectionCameraDecoratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
-                      WeakRefCountPolicy      > SFWeakProjectionCameraDecoratorPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
-                      NoRefCountPolicy        > SFUncountedProjectionCameraDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedProjectionCameraDecoratorPtr;
 
 
 /*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
-                      RecordedRefCountPolicy  > MFRecProjectionCameraDecoratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
-                      UnrecordedRefCountPolicy> MFUnrecProjectionCameraDecoratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
-                      WeakRefCountPolicy      > MFWeakProjectionCameraDecoratorPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakProjectionCameraDecoratorPtr;
 /*! \ingroup GrpWindowCameraFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
-                      NoRefCountPolicy        > MFUncountedProjectionCameraDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedProjectionCameraDecoratorPtr;
 
 
 

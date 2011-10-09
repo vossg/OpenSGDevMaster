@@ -101,18 +101,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OrthographicCamera *>::_type("OrthographicCameraPtr", "CameraPtr");
+DataType FieldTraits<OrthographicCamera *, nsOSG>::_type("OrthographicCameraPtr", "CameraPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(OrthographicCamera *)
+OSG_FIELDTRAITS_GETTYPE_NS(OrthographicCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            OrthographicCamera *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            OrthographicCamera *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -167,7 +167,7 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     OrthographicCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&OrthographicCameraBase::createEmptyLocal),
     OrthographicCamera::initMethod,
     OrthographicCamera::exitMethod,

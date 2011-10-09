@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VisitSubTree;
 
 OSG_GEN_CONTAINERPTR(VisitSubTree);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<VisitSubTree *> :
-    public FieldTraitsFCPtrBase<VisitSubTree *>
+struct FieldTraits<VisitSubTree *, nsOSG> :
+    public FieldTraitsFCPtrBase<VisitSubTree *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VisitSubTree *> :
 
   public:
 
-    typedef FieldTraits<VisitSubTree *>  Self;
+    typedef FieldTraits<VisitSubTree *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

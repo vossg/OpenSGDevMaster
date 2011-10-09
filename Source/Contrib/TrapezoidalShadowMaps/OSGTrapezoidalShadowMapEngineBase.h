@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TrapezoidalShadowMapEngine;
 
 //! \brief TrapezoidalShadowMapEngine Base Class.

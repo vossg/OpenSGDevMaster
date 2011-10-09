@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderProgramVariables;
 
 //! \brief ShaderProgramVariables Base Class.

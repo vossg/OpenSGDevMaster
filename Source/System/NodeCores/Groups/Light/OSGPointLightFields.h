@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PointLight;
 
 OSG_GEN_CONTAINERPTR(PointLight);
-
 /*! \ingroup GrpGroupLightFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<PointLight *> :
-    public FieldTraitsFCPtrBase<PointLight *>
+struct FieldTraits<PointLight *, nsOSG> :
+    public FieldTraitsFCPtrBase<PointLight *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PointLight *> :
 
   public:
 
-    typedef FieldTraits<PointLight *>  Self;
+    typedef FieldTraits<PointLight *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoVectorProperty;
 
 //! \brief GeoVectorProperty Base Class.

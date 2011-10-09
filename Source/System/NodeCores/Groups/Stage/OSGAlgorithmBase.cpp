@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Algorithm *>::_type("AlgorithmPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Algorithm *, nsOSG>::_type("AlgorithmPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Algorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(Algorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Algorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Algorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(
     AlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Algorithm::initMethod,
     Algorithm::exitMethod,

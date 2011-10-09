@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariableFunctor;
 
 //! \brief ShaderVariableFunctor Base Class.

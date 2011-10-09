@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ChunkOverrideGroup;
 
 //! \brief ChunkOverrideGroup Base Class.

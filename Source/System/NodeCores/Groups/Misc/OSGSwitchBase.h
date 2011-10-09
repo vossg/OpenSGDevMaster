@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Switch;
 
 //! \brief Switch Base Class.

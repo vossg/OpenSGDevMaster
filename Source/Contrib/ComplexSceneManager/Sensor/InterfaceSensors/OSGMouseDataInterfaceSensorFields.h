@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MouseDataInterfaceSensor;
 
 OSG_GEN_CONTAINERPTR(MouseDataInterfaceSensor);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<MouseDataInterfaceSensor *> :
-    public FieldTraitsFCPtrBase<MouseDataInterfaceSensor *>
+struct FieldTraits<MouseDataInterfaceSensor *, nsOSG> :
+    public FieldTraitsFCPtrBase<MouseDataInterfaceSensor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<MouseDataInterfaceSensor *> :
 
   public:
 
-    typedef FieldTraits<MouseDataInterfaceSensor *>  Self;
+    typedef FieldTraits<MouseDataInterfaceSensor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

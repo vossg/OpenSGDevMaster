@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RenderBuffer;
 
 //! \brief RenderBuffer Base Class.

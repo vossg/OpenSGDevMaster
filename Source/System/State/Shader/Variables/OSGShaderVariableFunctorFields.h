@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariableFunctor;
 
 OSG_GEN_CONTAINERPTR(ShaderVariableFunctor);
-
 /*! \ingroup GrpSystemShaderFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ShaderVariableFunctor *> :
-    public FieldTraitsFCPtrBase<ShaderVariableFunctor *>
+struct FieldTraits<ShaderVariableFunctor *, nsOSG> :
+    public FieldTraitsFCPtrBase<ShaderVariableFunctor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ShaderVariableFunctor *> :
 
   public:
 
-    typedef FieldTraits<ShaderVariableFunctor *>  Self;
+    typedef FieldTraits<ShaderVariableFunctor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ShaderVariableFunctor *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFShaderVariableFunctorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFShaderVariableFunctorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderVariableFunctorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderVariableFunctor *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderVariableFunctorPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ShaderVariableFunctor *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableFunctor *,
-                      RecordedRefCountPolicy  > SFRecShaderVariableFunctorPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableFunctor *,
-                      UnrecordedRefCountPolicy> SFUnrecShaderVariableFunctorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableFunctor *,
-                      WeakRefCountPolicy      > SFWeakShaderVariableFunctorPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableFunctor *,
-                      NoRefCountPolicy        > SFUncountedShaderVariableFunctorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedShaderVariableFunctorPtr;
 
 
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableFunctor *,
-                      RecordedRefCountPolicy  > MFRecShaderVariableFunctorPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableFunctor *,
-                      UnrecordedRefCountPolicy> MFUnrecShaderVariableFunctorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableFunctor *,
-                      WeakRefCountPolicy      > MFWeakShaderVariableFunctorPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakShaderVariableFunctorPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableFunctor *,
-                      NoRefCountPolicy        > MFUncountedShaderVariableFunctorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedShaderVariableFunctorPtr;
 
 
 

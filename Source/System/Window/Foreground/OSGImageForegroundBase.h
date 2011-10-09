@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageForeground;
 
 //! \brief ImageForeground Base Class.

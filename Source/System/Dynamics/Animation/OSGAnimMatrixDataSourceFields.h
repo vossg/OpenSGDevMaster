@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimMatrixDataSource;
 
 OSG_GEN_CONTAINERPTR(AnimMatrixDataSource);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimMatrixDataSource *> :
-    public FieldTraitsFCPtrBase<AnimMatrixDataSource *>
+struct FieldTraits<AnimMatrixDataSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimMatrixDataSource *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimMatrixDataSource *> :
 
   public:
 
-    typedef FieldTraits<AnimMatrixDataSource *>  Self;
+    typedef FieldTraits<AnimMatrixDataSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimMatrixDataSource *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimMatrixDataSourcePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimMatrixDataSourcePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimMatrixDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimMatrixDataSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimMatrixDataSourcePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimMatrixDataSource *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimMatrixDataSource *,
-                      RecordedRefCountPolicy  > SFRecAnimMatrixDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimMatrixDataSource *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimMatrixDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimMatrixDataSource *,
-                      WeakRefCountPolicy      > SFWeakAnimMatrixDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimMatrixDataSource *,
-                      NoRefCountPolicy        > SFUncountedAnimMatrixDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimMatrixDataSourcePtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimMatrixDataSource *,
-                      RecordedRefCountPolicy  > MFRecAnimMatrixDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimMatrixDataSource *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimMatrixDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimMatrixDataSource *,
-                      WeakRefCountPolicy      > MFWeakAnimMatrixDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimMatrixDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimMatrixDataSource *,
-                      NoRefCountPolicy        > MFUncountedAnimMatrixDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimMatrixDataSourcePtr;
 
 
 

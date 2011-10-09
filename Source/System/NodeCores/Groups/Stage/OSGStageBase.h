@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Stage;
 
 //! \brief Stage Base Class.

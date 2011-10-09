@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RangeLOD *>::_type("RangeLODPtr", "GroupPtr");
+DataType FieldTraits<RangeLOD *, nsOSG>::_type("RangeLODPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RangeLOD *)
+OSG_FIELDTRAITS_GETTYPE_NS(RangeLOD *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ RangeLODBase::TypeObject RangeLODBase::_type(
     RangeLODBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RangeLODBase::createEmptyLocal),
     RangeLOD::initMethod,
     RangeLOD::exitMethod,

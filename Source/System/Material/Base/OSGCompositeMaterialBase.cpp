@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CompositeMaterial *>::_type("CompositeMaterialPtr", "MaterialPtr");
+DataType FieldTraits<CompositeMaterial *, nsOSG>::_type("CompositeMaterialPtr", "MaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CompositeMaterial *)
+OSG_FIELDTRAITS_GETTYPE_NS(CompositeMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CompositeMaterial *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CompositeMaterial *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ CompositeMaterialBase::TypeObject CompositeMaterialBase::_type(
     CompositeMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     CompositeMaterial::initMethod,
     CompositeMaterial::exitMethod,

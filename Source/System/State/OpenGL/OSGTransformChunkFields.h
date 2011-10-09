@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TransformChunk;
 
 OSG_GEN_CONTAINERPTR(TransformChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<TransformChunk *> :
-    public FieldTraitsFCPtrBase<TransformChunk *>
+struct FieldTraits<TransformChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<TransformChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TransformChunk *> :
 
   public:
 
-    typedef FieldTraits<TransformChunk *>  Self;
+    typedef FieldTraits<TransformChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<TransformChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTransformChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTransformChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTransformChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<TransformChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
-                      RecordedRefCountPolicy  > SFRecTransformChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
-                      WeakRefCountPolicy      > SFWeakTransformChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TransformChunk *,
-                      NoRefCountPolicy        > SFUncountedTransformChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTransformChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
-                      RecordedRefCountPolicy  > MFRecTransformChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
-                      WeakRefCountPolicy      > MFWeakTransformChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakTransformChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TransformChunk *,
-                      NoRefCountPolicy        > MFUncountedTransformChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTransformChunkPtr;
 
 
 

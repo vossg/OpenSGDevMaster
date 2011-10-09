@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class UnskinnedSkinningAlgorithm;
 
 //! \brief UnskinnedSkinningAlgorithm Base Class.

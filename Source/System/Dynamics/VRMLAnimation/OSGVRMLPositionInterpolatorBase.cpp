@@ -95,10 +95,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLPositionInterpolator *>::_type("VRMLPositionInterpolatorPtr", "VRMLInterpolatorPtr");
+DataType FieldTraits<VRMLPositionInterpolator *, nsOSG>::_type("VRMLPositionInterpolatorPtr", "VRMLInterpolatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VRMLPositionInterpolator *)
+OSG_FIELDTRAITS_GETTYPE_NS(VRMLPositionInterpolator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -139,7 +139,7 @@ VRMLPositionInterpolatorBase::TypeObject VRMLPositionInterpolatorBase::_type(
     VRMLPositionInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLPositionInterpolatorBase::createEmptyLocal),
     VRMLPositionInterpolator::initMethod,
     VRMLPositionInterpolator::exitMethod,

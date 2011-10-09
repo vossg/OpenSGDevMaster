@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimKeyFrameTemplate;
 
 //! \brief AnimKeyFrameTemplate Base Class.

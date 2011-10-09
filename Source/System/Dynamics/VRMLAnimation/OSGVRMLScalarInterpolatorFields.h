@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLScalarInterpolator;
 
 OSG_GEN_CONTAINERPTR(VRMLScalarInterpolator);
-
 /*! \ingroup GrpDynamicsVRMLAnimationFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<VRMLScalarInterpolator *> :
-    public FieldTraitsFCPtrBase<VRMLScalarInterpolator *>
+struct FieldTraits<VRMLScalarInterpolator *, nsOSG> :
+    public FieldTraitsFCPtrBase<VRMLScalarInterpolator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VRMLScalarInterpolator *> :
 
   public:
 
-    typedef FieldTraits<VRMLScalarInterpolator *>  Self;
+    typedef FieldTraits<VRMLScalarInterpolator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

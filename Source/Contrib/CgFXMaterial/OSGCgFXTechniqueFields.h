@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXTechnique;
 
 OSG_GEN_CONTAINERPTR(CgFXTechnique);
-
 /*! \ingroup GrpContribCgFXFieldTraits
     \ingroup GrpLibOSGContribCgFX
  */
 template <>
-struct FieldTraits<CgFXTechnique *> :
-    public FieldTraitsFCPtrBase<CgFXTechnique *>
+struct FieldTraits<CgFXTechnique *, nsOSG> :
+    public FieldTraitsFCPtrBase<CgFXTechnique *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CgFXTechnique *> :
 
   public:
 
-    typedef FieldTraits<CgFXTechnique *>  Self;
+    typedef FieldTraits<CgFXTechnique *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CgFXTechnique *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCgFXTechniquePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCgFXTechniquePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCgFXTechniquePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXTechnique *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXTechnique *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCgFXTechniquePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CgFXTechnique *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXTechnique *,
-                      RecordedRefCountPolicy  > SFRecCgFXTechniquePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXTechnique *,
-                      UnrecordedRefCountPolicy> SFUnrecCgFXTechniquePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXTechnique *,
-                      WeakRefCountPolicy      > SFWeakCgFXTechniquePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXTechnique *,
-                      NoRefCountPolicy        > SFUncountedCgFXTechniquePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCgFXTechniquePtr;
 
 
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXTechnique *,
-                      RecordedRefCountPolicy  > MFRecCgFXTechniquePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXTechnique *,
-                      UnrecordedRefCountPolicy> MFUnrecCgFXTechniquePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXTechnique *,
-                      WeakRefCountPolicy      > MFWeakCgFXTechniquePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCgFXTechniquePtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXTechnique *,
-                      NoRefCountPolicy        > MFUncountedCgFXTechniquePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCgFXTechniquePtr;
 
 
 

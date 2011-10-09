@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MouseDataInterfaceSensor;
 
 //! \brief MouseDataInterfaceSensor Base Class.

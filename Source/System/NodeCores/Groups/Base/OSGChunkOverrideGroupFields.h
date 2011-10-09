@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ChunkOverrideGroup;
 
 OSG_GEN_CONTAINERPTR(ChunkOverrideGroup);
-
 /*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ChunkOverrideGroup *> :
-    public FieldTraitsFCPtrBase<ChunkOverrideGroup *>
+struct FieldTraits<ChunkOverrideGroup *, nsOSG> :
+    public FieldTraitsFCPtrBase<ChunkOverrideGroup *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ChunkOverrideGroup *> :
 
   public:
 
-    typedef FieldTraits<ChunkOverrideGroup *>  Self;
+    typedef FieldTraits<ChunkOverrideGroup *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ChunkOverrideGroup *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFChunkOverrideGroupPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFChunkOverrideGroupPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChunkOverrideGroupPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<ChunkOverrideGroup *,
-                      RecordedRefCountPolicy  > SFRecChunkOverrideGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<ChunkOverrideGroup *,
-                      UnrecordedRefCountPolicy> SFUnrecChunkOverrideGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<ChunkOverrideGroup *,
-                      WeakRefCountPolicy      > SFWeakChunkOverrideGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<ChunkOverrideGroup *,
-                      NoRefCountPolicy        > SFUncountedChunkOverrideGroupPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedChunkOverrideGroupPtr;
 
 
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<ChunkOverrideGroup *,
-                      RecordedRefCountPolicy  > MFRecChunkOverrideGroupPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<ChunkOverrideGroup *,
-                      UnrecordedRefCountPolicy> MFUnrecChunkOverrideGroupPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<ChunkOverrideGroup *,
-                      WeakRefCountPolicy      > MFWeakChunkOverrideGroupPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakChunkOverrideGroupPtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<ChunkOverrideGroup *,
-                      NoRefCountPolicy        > MFUncountedChunkOverrideGroupPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedChunkOverrideGroupPtr;
 
 
 

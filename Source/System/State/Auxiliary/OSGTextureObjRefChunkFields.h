@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureObjRefChunk;
 
 OSG_GEN_CONTAINERPTR(TextureObjRefChunk);
-
 /*! \ingroup GrpStateAuxiliaryFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<TextureObjRefChunk *> :
-    public FieldTraitsFCPtrBase<TextureObjRefChunk *>
+struct FieldTraits<TextureObjRefChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<TextureObjRefChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TextureObjRefChunk *> :
 
   public:
 
-    typedef FieldTraits<TextureObjRefChunk *>  Self;
+    typedef FieldTraits<TextureObjRefChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<TextureObjRefChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTextureObjRefChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTextureObjRefChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureObjRefChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextureObjRefChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<TextureObjRefChunk *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
-                      RecordedRefCountPolicy  > SFRecTextureObjRefChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecTextureObjRefChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
-                      WeakRefCountPolicy      > SFWeakTextureObjRefChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldSFields */
 typedef PointerSField<TextureObjRefChunk *,
-                      NoRefCountPolicy        > SFUncountedTextureObjRefChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTextureObjRefChunkPtr;
 
 
 /*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
-                      RecordedRefCountPolicy  > MFRecTextureObjRefChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecTextureObjRefChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
-                      WeakRefCountPolicy      > MFWeakTextureObjRefChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakTextureObjRefChunkPtr;
 /*! \ingroup GrpStateAuxiliaryFieldMFields */
 typedef PointerMField<TextureObjRefChunk *,
-                      NoRefCountPolicy        > MFUncountedTextureObjRefChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTextureObjRefChunkPtr;
 
 
 

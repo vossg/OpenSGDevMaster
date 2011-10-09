@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GPUVolRTV0 *>::_type("GPUVolRTV0Ptr", "AlgorithmPtr");
+DataType FieldTraits<GPUVolRTV0 *, nsOSG>::_type("GPUVolRTV0Ptr", "AlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GPUVolRTV0 *)
+OSG_FIELDTRAITS_GETTYPE_NS(GPUVolRTV0 *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GPUVolRTV0 *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GPUVolRTV0 *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ GPUVolRTV0Base::TypeObject GPUVolRTV0Base::_type(
     GPUVolRTV0Base::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GPUVolRTV0Base::createEmptyLocal),
     GPUVolRTV0::initMethod,
     GPUVolRTV0::exitMethod,

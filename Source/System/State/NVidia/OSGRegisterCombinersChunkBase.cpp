@@ -239,18 +239,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RegisterCombinersChunk *>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
+DataType FieldTraits<RegisterCombinersChunk *, nsOSG>::_type("RegisterCombinersChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(RegisterCombinersChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            RegisterCombinersChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            RegisterCombinersChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -639,7 +639,7 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     RegisterCombinersChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RegisterCombinersChunkBase::createEmptyLocal),
     RegisterCombinersChunk::initMethod,
     RegisterCombinersChunk::exitMethod,

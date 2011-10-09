@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariableMVec3f;
 
 //! \brief ShaderVariableMVec3f Base Class.

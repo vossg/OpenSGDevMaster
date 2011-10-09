@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariableMatrix;
 
 //! \brief ShaderVariableMatrix Base Class.

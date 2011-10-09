@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageFile;
 
 OSG_GEN_CONTAINERPTR(ImageFile);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<ImageFile *> :
-    public FieldTraitsFCPtrBase<ImageFile *>
+struct FieldTraits<ImageFile *, nsOSG> :
+    public FieldTraitsFCPtrBase<ImageFile *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ImageFile *> :
 
   public:
 
-    typedef FieldTraits<ImageFile *>  Self;
+    typedef FieldTraits<ImageFile *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

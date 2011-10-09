@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RenderCallbackStage;
 
 //! \brief RenderCallbackStage Base Class.

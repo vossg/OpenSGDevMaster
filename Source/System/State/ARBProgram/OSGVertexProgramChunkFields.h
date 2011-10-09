@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VertexProgramChunk;
 
 OSG_GEN_CONTAINERPTR(VertexProgramChunk);
-
 /*! \ingroup GrpStateARBProgramFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<VertexProgramChunk *> :
-    public FieldTraitsFCPtrBase<VertexProgramChunk *>
+struct FieldTraits<VertexProgramChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<VertexProgramChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VertexProgramChunk *> :
 
   public:
 
-    typedef FieldTraits<VertexProgramChunk *>  Self;
+    typedef FieldTraits<VertexProgramChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<VertexProgramChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFVertexProgramChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFVertexProgramChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVertexProgramChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
-                      RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
-                      WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
-                      NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedVertexProgramChunkPtr;
 
 
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
-                      RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
-                      WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakVertexProgramChunkPtr;
 /*! \ingroup GrpStateARBProgramFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
-                      NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedVertexProgramChunkPtr;
 
 
 

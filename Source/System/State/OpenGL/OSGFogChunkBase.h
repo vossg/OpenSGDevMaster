@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FogChunk;
 
 //! \brief FogChunk Base Class.

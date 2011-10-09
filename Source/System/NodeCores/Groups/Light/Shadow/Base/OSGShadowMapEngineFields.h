@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShadowMapEngine;
 
 OSG_GEN_CONTAINERPTR(ShadowMapEngine);
-
 /*! \ingroup GrpGroupLightShadowBaseFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<ShadowMapEngine *> :
-    public FieldTraitsFCPtrBase<ShadowMapEngine *>
+struct FieldTraits<ShadowMapEngine *, nsOSG> :
+    public FieldTraitsFCPtrBase<ShadowMapEngine *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ShadowMapEngine *> :
 
   public:
 
-    typedef FieldTraits<ShadowMapEngine *>  Self;
+    typedef FieldTraits<ShadowMapEngine *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ShadowMapEngine *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFShadowMapEnginePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFShadowMapEnginePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShadowMapEngine *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShadowMapEnginePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupLightShadowBaseFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
-                      RecordedRefCountPolicy  > SFRecShadowMapEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
-                      UnrecordedRefCountPolicy> SFUnrecShadowMapEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
-                      WeakRefCountPolicy      > SFWeakShadowMapEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
-                      NoRefCountPolicy        > SFUncountedShadowMapEnginePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedShadowMapEnginePtr;
 
 
 /*! \ingroup GrpGroupLightShadowBaseFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
-                      RecordedRefCountPolicy  > MFRecShadowMapEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
-                      UnrecordedRefCountPolicy> MFUnrecShadowMapEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
-                      WeakRefCountPolicy      > MFWeakShadowMapEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakShadowMapEnginePtr;
 /*! \ingroup GrpGroupLightShadowBaseFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
-                      NoRefCountPolicy        > MFUncountedShadowMapEnginePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedShadowMapEnginePtr;
 
 
 

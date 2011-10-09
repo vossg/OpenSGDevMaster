@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLChunkFile *>::_type("SimpleSHLChunkFilePtr", "SimpleSHLChunkPtr");
+DataType FieldTraits<SimpleSHLChunkFile *, nsOSG>::_type("SimpleSHLChunkFilePtr", "SimpleSHLChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleSHLChunkFile *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleSHLChunkFile *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ SimpleSHLChunkFileBase::TypeObject SimpleSHLChunkFileBase::_type(
     SimpleSHLChunkFileBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkFileBase::createEmptyLocal),
     SimpleSHLChunkFile::initMethod,
     SimpleSHLChunkFile::exitMethod,

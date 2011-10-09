@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimVec3fDataSource;
 
 //! \brief AnimVec3fDataSource Base Class.

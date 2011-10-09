@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMatrix *>::_type("ShaderVariableMatrixPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<ShaderVariableMatrix *, nsOSG>::_type("ShaderVariableMatrixPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableMatrix *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariableMatrix *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariableMatrix *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariableMatrix *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ShaderVariableMatrixBase::TypeObject ShaderVariableMatrixBase::_type(
     ShaderVariableMatrixBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMatrixBase::createEmptyLocal),
     ShaderVariableMatrix::initMethod,
     ShaderVariableMatrix::exitMethod,

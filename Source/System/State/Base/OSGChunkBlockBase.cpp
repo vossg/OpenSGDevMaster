@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkBlock *>::_type("ChunkBlockPtr", "FieldContainerPtr");
+DataType FieldTraits<ChunkBlock *, nsOSG>::_type("ChunkBlockPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkBlock *)
+OSG_FIELDTRAITS_GETTYPE_NS(ChunkBlock *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ChunkBlock *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ChunkBlock *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ ChunkBlockBase::TypeObject ChunkBlockBase::_type(
     ChunkBlockBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ChunkBlockBase::createEmptyLocal),
     ChunkBlock::initMethod,
     ChunkBlock::exitMethod,

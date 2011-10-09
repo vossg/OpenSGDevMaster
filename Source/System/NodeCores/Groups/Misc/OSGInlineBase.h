@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Inline;
 
 //! \brief Inline Base Class.

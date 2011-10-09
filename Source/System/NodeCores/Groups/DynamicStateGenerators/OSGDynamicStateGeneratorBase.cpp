@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
+DataType FieldTraits<DynamicStateGenerator *, nsOSG>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
+OSG_FIELDTRAITS_GETTYPE_NS(DynamicStateGenerator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DynamicStateGenerator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DynamicStateGenerator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -134,7 +134,7 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     DynamicStateGeneratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorBase::createEmptyLocal),
     DynamicStateGenerator::initMethod,
     DynamicStateGenerator::exitMethod,

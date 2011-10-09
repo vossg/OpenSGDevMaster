@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageFile;
 
 //! \brief ImageFile Base Class.

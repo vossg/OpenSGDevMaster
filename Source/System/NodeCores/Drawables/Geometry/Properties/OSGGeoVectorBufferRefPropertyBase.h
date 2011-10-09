@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -69,6 +69,7 @@
 #include "OSGGeoVectorBufferRefPropertyFields.h"
 
 OSG_BEGIN_NAMESPACE
+
 
 class GeoVectorBufferRefProperty;
 

@@ -111,10 +111,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMMultiWinOptions *>::_type("CSMMultiWinOptionsPtr", "CSMClusterWinOptionsPtr");
+DataType FieldTraits<CSMMultiWinOptions *, nsOSG>::_type("CSMMultiWinOptionsPtr", "CSMClusterWinOptionsPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMMultiWinOptions *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMMultiWinOptions *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -203,7 +203,7 @@ CSMMultiWinOptionsBase::TypeObject CSMMultiWinOptionsBase::_type(
     CSMMultiWinOptionsBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMMultiWinOptionsBase::createEmptyLocal),
     CSMMultiWinOptions::initMethod,
     CSMMultiWinOptions::exitMethod,

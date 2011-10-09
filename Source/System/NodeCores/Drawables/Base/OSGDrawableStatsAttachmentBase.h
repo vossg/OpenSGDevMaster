@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DrawableStatsAttachment;
 
 //! \brief DrawableStatsAttachment Base Class.

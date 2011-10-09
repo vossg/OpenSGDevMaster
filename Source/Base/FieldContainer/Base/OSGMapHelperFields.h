@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MapHelper;
 
 OSG_GEN_CONTAINERPTR(MapHelper);
-
 /*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<MapHelper *> :
-    public FieldTraitsFCPtrBase<MapHelper *>
+struct FieldTraits<MapHelper *, nsOSG> :
+    public FieldTraitsFCPtrBase<MapHelper *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<MapHelper *> :
 
   public:
 
-    typedef FieldTraits<MapHelper *>  Self;
+    typedef FieldTraits<MapHelper *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<MapHelper *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFMapHelperPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFMapHelperPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMapHelperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MapHelper *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MapHelper *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMapHelperPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<MapHelper *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
-                      RecordedRefCountPolicy  > SFRecMapHelperPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
-                      UnrecordedRefCountPolicy> SFUnrecMapHelperPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
-                      WeakRefCountPolicy      > SFWeakMapHelperPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
-                      NoRefCountPolicy        > SFUncountedMapHelperPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedMapHelperPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
-                      RecordedRefCountPolicy  > MFRecMapHelperPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
-                      UnrecordedRefCountPolicy> MFUnrecMapHelperPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
-                      WeakRefCountPolicy      > MFWeakMapHelperPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakMapHelperPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
-                      NoRefCountPolicy        > MFUncountedMapHelperPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedMapHelperPtr;
 
 
 

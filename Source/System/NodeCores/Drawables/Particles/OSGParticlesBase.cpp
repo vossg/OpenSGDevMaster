@@ -154,18 +154,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Particles *>::_type("ParticlesPtr", "MaterialDrawablePtr");
+DataType FieldTraits<Particles *, nsOSG>::_type("ParticlesPtr", "MaterialDrawablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Particles *)
+OSG_FIELDTRAITS_GETTYPE_NS(Particles *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Particles *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Particles *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -352,7 +352,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     ParticlesBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ParticlesBase::createEmptyLocal),
     Particles::initMethod,
     Particles::exitMethod,

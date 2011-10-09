@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TimeSensor;
 
 //! \brief TimeSensor Base Class.

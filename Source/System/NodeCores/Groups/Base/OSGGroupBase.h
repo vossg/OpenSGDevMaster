@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Group;
 
 //! \brief Group Base Class.

@@ -118,18 +118,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureObjChunk *>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr");
+DataType FieldTraits<CubeTextureObjChunk *, nsOSG>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(CubeTextureObjChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CubeTextureObjChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CubeTextureObjChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -206,7 +206,7 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     CubeTextureObjChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CubeTextureObjChunkBase::createEmptyLocal),
     CubeTextureObjChunk::initMethod,
     CubeTextureObjChunk::exitMethod,

@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkeletonSkinningAlgorithm *>::_type("SkeletonSkinningAlgorithmPtr", "SkinningAlgorithmPtr");
+DataType FieldTraits<SkeletonSkinningAlgorithm *, nsOSG>::_type("SkeletonSkinningAlgorithmPtr", "SkinningAlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkeletonSkinningAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(SkeletonSkinningAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkeletonSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkeletonSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -147,7 +147,7 @@ SkeletonSkinningAlgorithmBase::TypeObject SkeletonSkinningAlgorithmBase::_type(
     SkeletonSkinningAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkeletonSkinningAlgorithmBase::createEmptyLocal),
     SkeletonSkinningAlgorithm::initMethod,
     SkeletonSkinningAlgorithm::exitMethod,

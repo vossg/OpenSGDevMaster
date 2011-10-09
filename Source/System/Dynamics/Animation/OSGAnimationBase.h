@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Animation;
 
 //! \brief Animation Base Class.

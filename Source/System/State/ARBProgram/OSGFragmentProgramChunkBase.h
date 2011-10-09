@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FragmentProgramChunk;
 
 //! \brief FragmentProgramChunk Base Class.

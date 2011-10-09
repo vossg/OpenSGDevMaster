@@ -98,18 +98,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StereoCameraDecorator *>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<StereoCameraDecorator *, nsOSG>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StereoCameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(StereoCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StereoCameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            StereoCameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -150,7 +150,7 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     StereoCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     StereoCameraDecorator::initMethod,
     StereoCameraDecorator::exitMethod,

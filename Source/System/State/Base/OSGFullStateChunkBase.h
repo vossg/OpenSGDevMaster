@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FullStateChunk;
 
 //! \brief FullStateChunk Base Class.

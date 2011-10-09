@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTemplate;
 
 OSG_GEN_CONTAINERPTR(AnimTemplate);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimTemplate *> :
-    public FieldTraitsFCPtrBase<AnimTemplate *>
+struct FieldTraits<AnimTemplate *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimTemplate *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimTemplate *> :
 
   public:
 
-    typedef FieldTraits<AnimTemplate *>  Self;
+    typedef FieldTraits<AnimTemplate *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimTemplate *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimTemplatePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimTemplatePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimTemplatePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTemplate *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTemplate *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimTemplatePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimTemplate *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTemplate *,
-                      RecordedRefCountPolicy  > SFRecAnimTemplatePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTemplate *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimTemplatePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTemplate *,
-                      WeakRefCountPolicy      > SFWeakAnimTemplatePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTemplate *,
-                      NoRefCountPolicy        > SFUncountedAnimTemplatePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimTemplatePtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTemplate *,
-                      RecordedRefCountPolicy  > MFRecAnimTemplatePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTemplate *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimTemplatePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTemplate *,
-                      WeakRefCountPolicy      > MFWeakAnimTemplatePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimTemplatePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTemplate *,
-                      NoRefCountPolicy        > MFUncountedAnimTemplatePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimTemplatePtr;
 
 
 

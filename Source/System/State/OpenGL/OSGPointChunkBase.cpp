@@ -140,18 +140,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PointChunk *>::_type("PointChunkPtr", "StateChunkPtr");
+DataType FieldTraits<PointChunk *, nsOSG>::_type("PointChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PointChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(PointChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PointChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PointChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -289,7 +289,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     PointChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PointChunkBase::createEmptyLocal),
     PointChunk::initMethod,
     PointChunk::exitMethod,

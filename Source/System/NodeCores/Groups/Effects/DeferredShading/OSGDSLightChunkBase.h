@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DSLightChunk;
 
 //! \brief DSLightChunk Base Class.

@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VisitSubTree;
 
 //! \brief VisitSubTree Base Class.

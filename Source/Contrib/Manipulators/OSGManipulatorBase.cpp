@@ -174,18 +174,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Manipulator *>::_type("ManipulatorPtr", "TransformPtr");
+DataType FieldTraits<Manipulator *, nsOSG>::_type("ManipulatorPtr", "TransformPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Manipulator *)
+OSG_FIELDTRAITS_GETTYPE_NS(Manipulator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Manipulator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Manipulator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -454,7 +454,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     ManipulatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Manipulator::initMethod,
     Manipulator::exitMethod,

@@ -123,18 +123,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimQuaternionDataSource *>::_type("AnimQuaternionDataSourcePtr", "AnimKeyFrameDataSourcePtr");
+DataType FieldTraits<AnimQuaternionDataSource *, nsOSG>::_type("AnimQuaternionDataSourcePtr", "AnimKeyFrameDataSourcePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimQuaternionDataSource *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionDataSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimQuaternionDataSource *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimQuaternionDataSource *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -259,7 +259,7 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     AnimQuaternionDataSourceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionDataSourceBase::createEmptyLocal),
     AnimQuaternionDataSource::initMethod,
     AnimQuaternionDataSource::exitMethod,

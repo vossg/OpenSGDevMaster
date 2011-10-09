@@ -87,52 +87,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HardwareContext *>::_type("HardwareContextPtr", "AttachmentContainerPtr");
+DataType FieldTraits<HardwareContext *, nsOSG>::_type("HardwareContextPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(HardwareContext *)
+OSG_FIELDTRAITS_GETTYPE_NS(HardwareContext *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            HardwareContext *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            HardwareContext *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< HardwareContext *, 1 >::getType(void)
+DataType &FieldTraits< HardwareContext *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<HardwareContext *, 0>::getType();
+    return FieldTraits<HardwareContext *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       HardwareContext *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       HardwareContext *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<HardwareContext *, 2 >::getType(void)
+DataType &FieldTraits<HardwareContext *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<HardwareContext *, 0>::getType();
+    return FieldTraits<HardwareContext *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     HardwareContext *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          HardwareContext *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -161,7 +161,7 @@ HardwareContextBase::TypeObject HardwareContextBase::_type(
     HardwareContextBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     HardwareContext::initMethod,
     HardwareContext::exitMethod,

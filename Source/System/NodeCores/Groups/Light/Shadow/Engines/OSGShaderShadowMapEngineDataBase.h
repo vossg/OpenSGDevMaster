@@ -76,6 +76,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderShadowMapEngineData;
 
 //! \brief ShaderShadowMapEngineData Base Class.

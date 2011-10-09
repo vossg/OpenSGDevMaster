@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ParallelComposer *>::_type("ParallelComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<ParallelComposer *, nsOSG>::_type("ParallelComposerPtr", "ImageComposerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ParallelComposer *)
+OSG_FIELDTRAITS_GETTYPE_NS(ParallelComposer *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     ParallelComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ParallelComposerBase::createEmptyLocal),
     ParallelComposer::initMethod,
     ParallelComposer::exitMethod,

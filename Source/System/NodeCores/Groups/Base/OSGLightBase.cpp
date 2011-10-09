@@ -137,18 +137,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
+DataType FieldTraits<Light *, nsOSG>::_type("LightPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Light *)
+OSG_FIELDTRAITS_GETTYPE_NS(Light *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Light *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Light *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -297,7 +297,7 @@ LightBase::TypeObject LightBase::_type(
     LightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Light::initMethod,
     Light::exitMethod,

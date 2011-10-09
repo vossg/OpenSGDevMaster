@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MapHelper;
 
 //! \brief MapHelper Base Class.

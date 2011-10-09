@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMInt *>::_type("ShaderVariableMIntPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<ShaderVariableMInt *, nsOSG>::_type("ShaderVariableMIntPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableMInt *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariableMInt *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariableMInt *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariableMInt *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ShaderVariableMIntBase::TypeObject ShaderVariableMIntBase::_type(
     ShaderVariableMIntBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMIntBase::createEmptyLocal),
     ShaderVariableMInt::initMethod,
     ShaderVariableMInt::exitMethod,

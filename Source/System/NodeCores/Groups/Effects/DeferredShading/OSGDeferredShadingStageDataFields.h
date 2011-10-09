@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DeferredShadingStageData;
 
 OSG_GEN_CONTAINERPTR(DeferredShadingStageData);
-
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DeferredShadingStageData *> :
-    public FieldTraitsFCPtrBase<DeferredShadingStageData *>
+struct FieldTraits<DeferredShadingStageData *, nsOSG> :
+    public FieldTraitsFCPtrBase<DeferredShadingStageData *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DeferredShadingStageData *> :
 
   public:
 
-    typedef FieldTraits<DeferredShadingStageData *>  Self;
+    typedef FieldTraits<DeferredShadingStageData *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

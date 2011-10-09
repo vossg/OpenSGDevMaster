@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CubeTextureObjChunk;
 
 //! \brief CubeTextureObjChunk Base Class.

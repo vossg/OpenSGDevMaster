@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DeviceInterfaceSensor;
 
 //! \brief DeviceInterfaceSensor Base Class.

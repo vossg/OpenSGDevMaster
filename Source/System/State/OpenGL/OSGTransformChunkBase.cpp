@@ -93,18 +93,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformChunk *>::_type("TransformChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TransformChunk *, nsOSG>::_type("TransformChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TransformChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(TransformChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TransformChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TransformChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -133,7 +133,7 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     TransformChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TransformChunkBase::createEmptyLocal),
     TransformChunk::initMethod,
     TransformChunk::exitMethod,

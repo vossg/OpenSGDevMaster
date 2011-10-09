@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TransformationInterfaceSensor;
 
 //! \brief TransformationInterfaceSensor Base Class.

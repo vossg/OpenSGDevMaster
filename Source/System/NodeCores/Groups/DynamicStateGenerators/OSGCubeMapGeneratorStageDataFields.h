@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CubeMapGeneratorStageData;
 
 OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
-
 /*! \ingroup GrpGroupDynamicStateGeneratorsFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<CubeMapGeneratorStageData *> :
-    public FieldTraitsFCPtrBase<CubeMapGeneratorStageData *>
+struct FieldTraits<CubeMapGeneratorStageData *, nsOSG> :
+    public FieldTraitsFCPtrBase<CubeMapGeneratorStageData *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CubeMapGeneratorStageData *> :
 
   public:
 
-    typedef FieldTraits<CubeMapGeneratorStageData *>  Self;
+    typedef FieldTraits<CubeMapGeneratorStageData *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -92,26 +92,26 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMClusterWinOptions *>::_type("CSMClusterWinOptionsPtr", "FieldContainerPtr");
+DataType FieldTraits<CSMClusterWinOptions *, nsOSG>::_type("CSMClusterWinOptionsPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMClusterWinOptions *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMClusterWinOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMClusterWinOptions *,
-                           0);
+                           nsOSG);
 
 
-DataType &FieldTraits< CSMClusterWinOptions *, 1 >::getType(void)
+DataType &FieldTraits< CSMClusterWinOptions *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<CSMClusterWinOptions *, 0>::getType();
+    return FieldTraits<CSMClusterWinOptions *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       CSMClusterWinOptions *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -141,7 +141,7 @@ CSMClusterWinOptionsBase::TypeObject CSMClusterWinOptionsBase::_type(
     CSMClusterWinOptionsBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMClusterWinOptionsBase::createEmptyLocal),
     CSMClusterWinOptions::initMethod,
     CSMClusterWinOptions::exitMethod,

@@ -89,35 +89,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorProperty *>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr");
+DataType FieldTraits<GeoVectorProperty *, nsOSG>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoVectorProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoVectorProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoVectorProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoVectorProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoVectorProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoVectorProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoVectorProperty *, 0>::getType();
+    return FieldTraits<GeoVectorProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoVectorProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoVectorProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -133,7 +133,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     GeoVectorPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     GeoVectorProperty::initMethod,
     GeoVectorProperty::exitMethod,

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ClusterWindow;
 
 //! \brief ClusterWindow Base Class.

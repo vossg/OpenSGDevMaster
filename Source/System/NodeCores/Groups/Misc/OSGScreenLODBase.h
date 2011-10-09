@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScreenLOD;
 
 //! \brief ScreenLOD Base Class.

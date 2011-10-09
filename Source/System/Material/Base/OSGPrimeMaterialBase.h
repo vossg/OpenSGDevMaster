@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PrimeMaterial;
 
 //! \brief PrimeMaterial Base Class.

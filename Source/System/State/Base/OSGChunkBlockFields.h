@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ChunkBlock;
 
 OSG_GEN_CONTAINERPTR(ChunkBlock);
-
 /*! \ingroup GrpSystemFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ChunkBlock *> :
-    public FieldTraitsFCPtrBase<ChunkBlock *>
+struct FieldTraits<ChunkBlock *, nsOSG> :
+    public FieldTraitsFCPtrBase<ChunkBlock *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ChunkBlock *> :
 
   public:
 
-    typedef FieldTraits<ChunkBlock *>  Self;
+    typedef FieldTraits<ChunkBlock *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ChunkBlock *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFChunkBlockPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFChunkBlockPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChunkBlockPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkBlock *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkBlock *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChunkBlockPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ChunkBlock *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkBlock *,
-                      RecordedRefCountPolicy  > SFRecChunkBlockPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecChunkBlockPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkBlock *,
-                      UnrecordedRefCountPolicy> SFUnrecChunkBlockPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecChunkBlockPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkBlock *,
-                      WeakRefCountPolicy      > SFWeakChunkBlockPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakChunkBlockPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkBlock *,
-                      NoRefCountPolicy        > SFUncountedChunkBlockPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedChunkBlockPtr;
 
 
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkBlock *,
-                      RecordedRefCountPolicy  > MFRecChunkBlockPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecChunkBlockPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkBlock *,
-                      UnrecordedRefCountPolicy> MFUnrecChunkBlockPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecChunkBlockPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkBlock *,
-                      WeakRefCountPolicy      > MFWeakChunkBlockPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakChunkBlockPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkBlock *,
-                      NoRefCountPolicy        > MFUncountedChunkBlockPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedChunkBlockPtr;
 
 
 

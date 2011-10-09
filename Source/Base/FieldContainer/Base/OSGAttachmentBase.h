@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Attachment;
 
 //! \brief Attachment Base Class.

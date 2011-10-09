@@ -107,18 +107,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComponentTransform *>::_type("ComponentTransformPtr", "TransformPtr");
+DataType FieldTraits<ComponentTransform *, nsOSG>::_type("ComponentTransformPtr", "TransformPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComponentTransform *)
+OSG_FIELDTRAITS_GETTYPE_NS(ComponentTransform *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ComponentTransform *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComponentTransform *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -195,7 +195,7 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     ComponentTransformBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComponentTransformBase::createEmptyLocal),
     ComponentTransform::initMethod,
     ComponentTransform::exitMethod,

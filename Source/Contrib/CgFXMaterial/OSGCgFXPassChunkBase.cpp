@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXPassChunk *>::_type("CgFXPassChunkPtr", "FullStateChunkPtr");
+DataType FieldTraits<CgFXPassChunk *, nsOSG>::_type("CgFXPassChunkPtr", "FullStateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CgFXPassChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(CgFXPassChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CgFXPassChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CgFXPassChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ CgFXPassChunkBase::TypeObject CgFXPassChunkBase::_type(
     CgFXPassChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CgFXPassChunkBase::createEmptyLocal),
     CgFXPassChunk::initMethod,
     CgFXPassChunk::exitMethod,

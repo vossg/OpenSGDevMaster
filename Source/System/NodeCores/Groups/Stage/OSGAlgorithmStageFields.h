@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AlgorithmStage;
 
 OSG_GEN_CONTAINERPTR(AlgorithmStage);
-
 /*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<AlgorithmStage *> :
-    public FieldTraitsFCPtrBase<AlgorithmStage *>
+struct FieldTraits<AlgorithmStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<AlgorithmStage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AlgorithmStage *> :
 
   public:
 
-    typedef FieldTraits<AlgorithmStage *>  Self;
+    typedef FieldTraits<AlgorithmStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

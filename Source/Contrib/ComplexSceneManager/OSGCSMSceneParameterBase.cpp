@@ -108,18 +108,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMSceneParameter *>::_type("CSMSceneParameterPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMSceneParameter *, nsOSG>::_type("CSMSceneParameterPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMSceneParameter *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMSceneParameter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMSceneParameter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMSceneParameter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -196,7 +196,7 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     CSMSceneParameterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMSceneParameterBase::createEmptyLocal),
     CSMSceneParameter::initMethod,
     CSMSceneParameter::exitMethod,

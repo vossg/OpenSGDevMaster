@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Image;
 
 OSG_GEN_CONTAINERPTR(Image);
-
 /*! \ingroup GrpSystemImageFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<Image *> :
-    public FieldTraitsFCPtrBase<Image *>
+struct FieldTraits<Image *, nsOSG> :
+    public FieldTraitsFCPtrBase<Image *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Image *> :
 
   public:
 
-    typedef FieldTraits<Image *>  Self;
+    typedef FieldTraits<Image *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Image *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFImagePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFImagePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImagePtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<Image *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpSystemImageFieldTraits
  */
 template <>
-struct FieldTraits<Image *, 1> :
-    public FieldTraitsFCPtrBase<Image *, 1>
+struct FieldTraits<Image *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<Image *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<Image *, 1>  Self;
+    typedef FieldTraits<Image *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<Image *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Image *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Image *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildImagePtr"; 
 }
@@ -220,30 +218,30 @@ const Char8 *FieldTraits<Image *, 1>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
-                      RecordedRefCountPolicy  > SFRecImagePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecImagePtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
-                      UnrecordedRefCountPolicy> SFUnrecImagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecImagePtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
-                      WeakRefCountPolicy      > SFWeakImagePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakImagePtr;
 /*! \ingroup GrpSystemImageFieldSFields */
 typedef PointerSField<Image *,
-                      NoRefCountPolicy        > SFUncountedImagePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedImagePtr;
 
 
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
-                      RecordedRefCountPolicy  > MFRecImagePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecImagePtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
-                      UnrecordedRefCountPolicy> MFUnrecImagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecImagePtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
-                      WeakRefCountPolicy      > MFWeakImagePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakImagePtr;
 /*! \ingroup GrpSystemImageFieldMFields */
 typedef PointerMField<Image *,
-                      NoRefCountPolicy        > MFUncountedImagePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedImagePtr;
 
 
 
@@ -251,7 +249,7 @@ typedef PointerMField<Image *,
 typedef ChildPointerSField<
           Image *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildImagePtr;
+          nsOSG + 1             > SFUnrecChildImagePtr;
 
 
 
@@ -299,7 +297,7 @@ struct SFUnrecChildImagePtr :
     public ChildPointerSField<
         Image *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class QuadTreeTerrain;
 
 //! \brief QuadTreeTerrain Base Class.

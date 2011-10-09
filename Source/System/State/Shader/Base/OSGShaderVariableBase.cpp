@@ -96,29 +96,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariable *>::_type("ShaderVariablePtr", "FieldContainerPtr");
+DataType FieldTraits<ShaderVariable *, nsOSG>::_type("ShaderVariablePtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariable *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariable *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariable *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< ShaderVariable *, 1 >::getType(void)
+DataType &FieldTraits< ShaderVariable *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<ShaderVariable *, 0>::getType();
+    return FieldTraits<ShaderVariable *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       ShaderVariable *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -160,7 +160,7 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     ShaderVariableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ShaderVariable::initMethod,
     ShaderVariable::exitMethod,

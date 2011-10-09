@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXVariableTexObj;
 
 OSG_GEN_CONTAINERPTR(CgFXVariableTexObj);
-
 /*! \ingroup GrpSystemShaderFieldTraits
     \ingroup GrpLibOSGContribCgFX
  */
 template <>
-struct FieldTraits<CgFXVariableTexObj *> :
-    public FieldTraitsFCPtrBase<CgFXVariableTexObj *>
+struct FieldTraits<CgFXVariableTexObj *, nsOSG> :
+    public FieldTraitsFCPtrBase<CgFXVariableTexObj *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CgFXVariableTexObj *> :
 
   public:
 
-    typedef FieldTraits<CgFXVariableTexObj *>  Self;
+    typedef FieldTraits<CgFXVariableTexObj *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CgFXVariableTexObj *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCgFXVariableTexObjPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCgFXVariableTexObjPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCgFXVariableTexObjPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXVariableTexObj *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCgFXVariableTexObjPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CgFXVariableTexObj *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<CgFXVariableTexObj *,
-                      RecordedRefCountPolicy  > SFRecCgFXVariableTexObjPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<CgFXVariableTexObj *,
-                      UnrecordedRefCountPolicy> SFUnrecCgFXVariableTexObjPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<CgFXVariableTexObj *,
-                      WeakRefCountPolicy      > SFWeakCgFXVariableTexObjPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<CgFXVariableTexObj *,
-                      NoRefCountPolicy        > SFUncountedCgFXVariableTexObjPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCgFXVariableTexObjPtr;
 
 
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<CgFXVariableTexObj *,
-                      RecordedRefCountPolicy  > MFRecCgFXVariableTexObjPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<CgFXVariableTexObj *,
-                      UnrecordedRefCountPolicy> MFUnrecCgFXVariableTexObjPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<CgFXVariableTexObj *,
-                      WeakRefCountPolicy      > MFWeakCgFXVariableTexObjPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCgFXVariableTexObjPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<CgFXVariableTexObj *,
-                      NoRefCountPolicy        > MFUncountedCgFXVariableTexObjPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCgFXVariableTexObjPtr;
 
 
 

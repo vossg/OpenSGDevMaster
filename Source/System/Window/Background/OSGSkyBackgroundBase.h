@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SkyBackground;
 
 //! \brief SkyBackground Base Class.

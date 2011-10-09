@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMDrawManager;
 
 //! \brief CSMDrawManager Base Class.

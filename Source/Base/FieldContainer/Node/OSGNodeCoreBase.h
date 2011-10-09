@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class NodeCore;
 
 //! \brief NodeCore Base Class.

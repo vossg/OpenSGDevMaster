@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTimeSensor;
 
 OSG_GEN_CONTAINERPTR(AnimTimeSensor);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimTimeSensor *> :
-    public FieldTraitsFCPtrBase<AnimTimeSensor *>
+struct FieldTraits<AnimTimeSensor *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimTimeSensor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimTimeSensor *> :
 
   public:
 
-    typedef FieldTraits<AnimTimeSensor *>  Self;
+    typedef FieldTraits<AnimTimeSensor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimTimeSensor *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimTimeSensorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimTimeSensorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimTimeSensorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTimeSensor *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTimeSensor *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimTimeSensorPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimTimeSensor *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTimeSensor *,
-                      RecordedRefCountPolicy  > SFRecAnimTimeSensorPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTimeSensor *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimTimeSensorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTimeSensor *,
-                      WeakRefCountPolicy      > SFWeakAnimTimeSensorPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTimeSensor *,
-                      NoRefCountPolicy        > SFUncountedAnimTimeSensorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimTimeSensorPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTimeSensor *,
-                      RecordedRefCountPolicy  > MFRecAnimTimeSensorPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTimeSensor *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimTimeSensorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTimeSensor *,
-                      WeakRefCountPolicy      > MFWeakAnimTimeSensorPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimTimeSensorPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTimeSensor *,
-                      NoRefCountPolicy        > MFUncountedAnimTimeSensorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimTimeSensorPtr;
 
 
 

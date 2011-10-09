@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLScalarInterpolator;
 
 //! \brief VRMLScalarInterpolator Base Class.

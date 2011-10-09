@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComputeAlgorithm;
 
 //! \brief ComputeAlgorithm Base Class.

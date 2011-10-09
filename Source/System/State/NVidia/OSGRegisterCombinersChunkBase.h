@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RegisterCombinersChunk;
 
 //! \brief RegisterCombinersChunk Base Class.

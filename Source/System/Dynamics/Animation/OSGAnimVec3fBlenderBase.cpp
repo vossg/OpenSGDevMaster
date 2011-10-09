@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimVec3fBlender *>::_type("AnimVec3fBlenderPtr", "AnimBlenderPtr");
+DataType FieldTraits<AnimVec3fBlender *, nsOSG>::_type("AnimVec3fBlenderPtr", "AnimBlenderPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimVec3fBlender *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimVec3fBlender *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimVec3fBlender *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimVec3fBlender *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     AnimVec3fBlenderBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fBlenderBase::createEmptyLocal),
     AnimVec3fBlender::initMethod,
     AnimVec3fBlender::exitMethod,

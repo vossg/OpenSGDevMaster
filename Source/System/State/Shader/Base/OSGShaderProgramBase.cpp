@@ -135,18 +135,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgram *>::_type("ShaderProgramPtr", "FieldContainerPtr");
+DataType FieldTraits<ShaderProgram *, nsOSG>::_type("ShaderProgramPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderProgram *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderProgram *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderProgram *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderProgram *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -295,7 +295,7 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     ShaderProgramBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramBase::createEmptyLocal),
     ShaderProgram::initMethod,
     ShaderProgram::exitMethod,

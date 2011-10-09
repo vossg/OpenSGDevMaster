@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShearedStereoCameraDecorator *>::_type("ShearedStereoCameraDecoratorPtr", "StereoCameraDecoratorPtr");
+DataType FieldTraits<ShearedStereoCameraDecorator *, nsOSG>::_type("ShearedStereoCameraDecoratorPtr", "StereoCameraDecoratorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShearedStereoCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShearedStereoCameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShearedStereoCameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     ShearedStereoCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShearedStereoCameraDecoratorBase::createEmptyLocal),
     ShearedStereoCameraDecorator::initMethod,
     ShearedStereoCameraDecorator::exitMethod,

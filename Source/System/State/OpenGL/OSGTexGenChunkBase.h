@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TexGenChunk;
 
 //! \brief TexGenChunk Base Class.

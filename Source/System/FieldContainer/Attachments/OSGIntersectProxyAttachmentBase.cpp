@@ -97,14 +97,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<IntersectProxyAttachment *>::_type("IntersectProxyAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<IntersectProxyAttachment *, nsOSG>::_type("IntersectProxyAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(IntersectProxyAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(IntersectProxyAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            IntersectProxyAttachment *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -138,7 +138,7 @@ IntersectProxyAttachmentBase::TypeObject IntersectProxyAttachmentBase::_type(
     IntersectProxyAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "IntersectProxyAttachment",
-    0,
+    nsOSG, //Namespace
     NULL,
     IntersectProxyAttachment::initMethod,
     IntersectProxyAttachment::exitMethod,

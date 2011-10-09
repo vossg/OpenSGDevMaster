@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class BalancedMultiWindow;
 
 //! \brief BalancedMultiWindow Base Class.

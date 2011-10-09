@@ -97,10 +97,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGeneratorStageData *>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr");
+DataType FieldTraits<DynamicStateGeneratorStageData *, nsOSG>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorStageData *)
+OSG_FIELDTRAITS_GETTYPE_NS(DynamicStateGeneratorStageData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -141,7 +141,7 @@ DynamicStateGeneratorStageDataBase::TypeObject DynamicStateGeneratorStageDataBas
     DynamicStateGeneratorStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorStageDataBase::createEmptyLocal),
     DynamicStateGeneratorStageData::initMethod,
     DynamicStateGeneratorStageData::exitMethod,

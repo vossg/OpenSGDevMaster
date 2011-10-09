@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialDrawable *>::_type("MaterialDrawablePtr", "DrawablePtr");
+DataType FieldTraits<MaterialDrawable *, nsOSG>::_type("MaterialDrawablePtr", "DrawablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialDrawable *)
+OSG_FIELDTRAITS_GETTYPE_NS(MaterialDrawable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MaterialDrawable *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MaterialDrawable *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     MaterialDrawableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     MaterialDrawable::initMethod,
     MaterialDrawable::exitMethod,

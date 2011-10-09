@@ -91,10 +91,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageFile *>::_type("ImageFilePtr", "ImagePtr");
+DataType FieldTraits<ImageFile *, nsOSG>::_type("ImageFilePtr", "ImagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImageFile *)
+OSG_FIELDTRAITS_GETTYPE_NS(ImageFile *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -123,7 +123,7 @@ ImageFileBase::TypeObject ImageFileBase::_type(
     ImageFileBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ImageFileBase::createEmptyLocal),
     ImageFile::initMethod,
     ImageFile::exitMethod,

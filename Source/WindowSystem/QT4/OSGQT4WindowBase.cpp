@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "WindowPtr");
+DataType FieldTraits<QT4Window *, nsOSG>::_type("QT4WindowPtr", "WindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(QT4Window *)
+OSG_FIELDTRAITS_GETTYPE_NS(QT4Window *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            QT4Window *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            QT4Window *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -135,7 +135,7 @@ QT4WindowBase::TypeObject QT4WindowBase::_type(
     QT4WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&QT4WindowBase::createEmptyLocal),
     QT4Window::initMethod,
     QT4Window::exitMethod,

@@ -78,6 +78,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMViewport;
 
 //! \brief CSMViewport Base Class.

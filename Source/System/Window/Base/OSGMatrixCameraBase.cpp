@@ -103,18 +103,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCamera *>::_type("MatrixCameraPtr", "CameraPtr");
+DataType FieldTraits<MatrixCamera *, nsOSG>::_type("MatrixCameraPtr", "CameraPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MatrixCamera *)
+OSG_FIELDTRAITS_GETTYPE_NS(MatrixCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MatrixCamera *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MatrixCamera *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -167,7 +167,7 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     MatrixCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraBase::createEmptyLocal),
     MatrixCamera::initMethod,
     MatrixCamera::exitMethod,

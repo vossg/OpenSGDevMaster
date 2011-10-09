@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CPUSkinningAlgorithm;
 
 //! \brief CPUSkinningAlgorithm Base Class.

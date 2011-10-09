@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ClipPlaneChunk;
 
 OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<ClipPlaneChunk *> :
-    public FieldTraitsFCPtrBase<ClipPlaneChunk *>
+struct FieldTraits<ClipPlaneChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<ClipPlaneChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ClipPlaneChunk *> :
 
   public:
 
-    typedef FieldTraits<ClipPlaneChunk *>  Self;
+    typedef FieldTraits<ClipPlaneChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ClipPlaneChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFClipPlaneChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFClipPlaneChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdClipPlaneChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
-                      RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
-                      WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
-                      NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedClipPlaneChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
-                      RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
-                      WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakClipPlaneChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
-                      NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedClipPlaneChunkPtr;
 
 
 

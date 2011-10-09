@@ -87,10 +87,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SepiaComposer *>::_type("SepiaComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<SepiaComposer *, nsOSG>::_type("SepiaComposerPtr", "ImageComposerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SepiaComposer *)
+OSG_FIELDTRAITS_GETTYPE_NS(SepiaComposer *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -105,7 +105,7 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     SepiaComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SepiaComposerBase::createEmptyLocal),
     SepiaComposer::initMethod,
     SepiaComposer::exitMethod,

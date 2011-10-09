@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimMatrixBlender *>::_type("AnimMatrixBlenderPtr", "AnimBlenderPtr");
+DataType FieldTraits<AnimMatrixBlender *, nsOSG>::_type("AnimMatrixBlenderPtr", "AnimBlenderPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimMatrixBlender *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimMatrixBlender *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimMatrixBlender *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimMatrixBlender *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ AnimMatrixBlenderBase::TypeObject AnimMatrixBlenderBase::_type(
     AnimMatrixBlenderBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixBlenderBase::createEmptyLocal),
     AnimMatrixBlender::initMethod,
     AnimMatrixBlender::exitMethod,

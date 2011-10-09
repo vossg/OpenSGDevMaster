@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CalibrationPatternFilter;
 
 //! \brief CalibrationPatternFilter Base Class.

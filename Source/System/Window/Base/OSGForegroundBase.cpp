@@ -100,18 +100,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Foreground *>::_type("ForegroundPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Foreground *, nsOSG>::_type("ForegroundPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Foreground *)
+OSG_FIELDTRAITS_GETTYPE_NS(Foreground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Foreground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Foreground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -140,7 +140,7 @@ ForegroundBase::TypeObject ForegroundBase::_type(
     ForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Foreground::initMethod,
     Foreground::exitMethod,

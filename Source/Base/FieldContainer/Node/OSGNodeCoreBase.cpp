@@ -94,52 +94,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<NodeCore *>::_type("NodeCorePtr", "AttachmentContainerPtr");
+DataType FieldTraits<NodeCore *, nsOSG>::_type("NodeCorePtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(NodeCore *)
+OSG_FIELDTRAITS_GETTYPE_NS(NodeCore *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            NodeCore *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            NodeCore *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< NodeCore *, 1 >::getType(void)
+DataType &FieldTraits< NodeCore *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<NodeCore *, 0>::getType();
+    return FieldTraits<NodeCore *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       NodeCore *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       NodeCore *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<NodeCore *, 2 >::getType(void)
+DataType &FieldTraits<NodeCore *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<NodeCore *, 0>::getType();
+    return FieldTraits<NodeCore *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     NodeCore *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          NodeCore *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -181,7 +181,7 @@ NodeCoreBase::TypeObject NodeCoreBase::_type(
     NodeCoreBase::getClassname(),
     Inherited::getClassname(),
     "NodeCore",
-    0,
+    nsOSG, //Namespace
     NULL,
     NodeCore::initMethod,
     NodeCore::exitMethod,

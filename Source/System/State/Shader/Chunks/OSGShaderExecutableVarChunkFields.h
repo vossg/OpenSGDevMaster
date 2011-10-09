@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderExecutableVarChunk;
 
 OSG_GEN_CONTAINERPTR(ShaderExecutableVarChunk);
-
 /*! \ingroup GrpSystemShaderFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ShaderExecutableVarChunk *> :
-    public FieldTraitsFCPtrBase<ShaderExecutableVarChunk *>
+struct FieldTraits<ShaderExecutableVarChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<ShaderExecutableVarChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ShaderExecutableVarChunk *> :
 
   public:
 
-    typedef FieldTraits<ShaderExecutableVarChunk *>  Self;
+    typedef FieldTraits<ShaderExecutableVarChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ShaderExecutableVarChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFShaderExecutableVarChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFShaderExecutableVarChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderExecutableVarChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderExecutableVarChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderExecutableVarChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ShaderExecutableVarChunk *, 0>::getMName<NoRefCountPoli
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderExecutableVarChunk *,
-                      RecordedRefCountPolicy  > SFRecShaderExecutableVarChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderExecutableVarChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecShaderExecutableVarChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderExecutableVarChunk *,
-                      WeakRefCountPolicy      > SFWeakShaderExecutableVarChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderExecutableVarChunk *,
-                      NoRefCountPolicy        > SFUncountedShaderExecutableVarChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedShaderExecutableVarChunkPtr;
 
 
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderExecutableVarChunk *,
-                      RecordedRefCountPolicy  > MFRecShaderExecutableVarChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderExecutableVarChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecShaderExecutableVarChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderExecutableVarChunk *,
-                      WeakRefCountPolicy      > MFWeakShaderExecutableVarChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakShaderExecutableVarChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderExecutableVarChunk *,
-                      NoRefCountPolicy        > MFUncountedShaderExecutableVarChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedShaderExecutableVarChunkPtr;
 
 
 

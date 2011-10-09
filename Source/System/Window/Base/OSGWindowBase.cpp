@@ -160,18 +160,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Window *>::_type("WindowPtr", "HardwareContextPtr");
+DataType FieldTraits<Window *, nsOSG>::_type("WindowPtr", "HardwareContextPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Window *)
+OSG_FIELDTRAITS_GETTYPE_NS(Window *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Window *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Window *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -370,7 +370,7 @@ WindowBase::TypeObject WindowBase::_type(
     WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Window::initMethod,
     Window::exitMethod,

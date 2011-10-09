@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComplexSceneManager;
 
 OSG_GEN_CONTAINERPTR(ComplexSceneManager);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<ComplexSceneManager *> :
-    public FieldTraitsFCPtrBase<ComplexSceneManager *>
+struct FieldTraits<ComplexSceneManager *, nsOSG> :
+    public FieldTraitsFCPtrBase<ComplexSceneManager *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ComplexSceneManager *> :
 
   public:
 
-    typedef FieldTraits<ComplexSceneManager *>  Self;
+    typedef FieldTraits<ComplexSceneManager *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

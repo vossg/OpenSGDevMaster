@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DepthClearBackground;
 
 OSG_GEN_CONTAINERPTR(DepthClearBackground);
-
 /*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<DepthClearBackground *> :
-    public FieldTraitsFCPtrBase<DepthClearBackground *>
+struct FieldTraits<DepthClearBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<DepthClearBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DepthClearBackground *> :
 
   public:
 
-    typedef FieldTraits<DepthClearBackground *>  Self;
+    typedef FieldTraits<DepthClearBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<DepthClearBackground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDepthClearBackgroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDepthClearBackgroundPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
-                      RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDepthClearBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
-                      UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDepthClearBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
-                      WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDepthClearBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<DepthClearBackground *,
-                      NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDepthClearBackgroundPtr;
 
 
 

@@ -91,10 +91,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScaleManipulator *>::_type("ScaleManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<ScaleManipulator *, nsOSG>::_type("ScaleManipulatorPtr", "ManipulatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ScaleManipulator *)
+OSG_FIELDTRAITS_GETTYPE_NS(ScaleManipulator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -123,7 +123,7 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     ScaleManipulatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ScaleManipulatorBase::createEmptyLocal),
     ScaleManipulator::initMethod,
     ScaleManipulator::exitMethod,

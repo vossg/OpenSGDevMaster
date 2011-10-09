@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComputeElement;
 
 OSG_GEN_CONTAINERPTR(ComputeElement);
-
 /*! \ingroup GrpContribComputeBaseFieldTraits
     \ingroup GrpLibOSGContribComputeBase
  */
 template <>
-struct FieldTraits<ComputeElement *> :
-    public FieldTraitsFCPtrBase<ComputeElement *>
+struct FieldTraits<ComputeElement *, nsOSG> :
+    public FieldTraitsFCPtrBase<ComputeElement *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ComputeElement *> :
 
   public:
 
-    typedef FieldTraits<ComputeElement *>  Self;
+    typedef FieldTraits<ComputeElement *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ComputeElement *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFComputeElementPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFComputeElementPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakComputeElementPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComputeElement *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComputeElement *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdComputeElementPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ComputeElement *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribComputeBaseFieldSFields */
 typedef PointerSField<ComputeElement *,
-                      RecordedRefCountPolicy  > SFRecComputeElementPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldSFields */
 typedef PointerSField<ComputeElement *,
-                      UnrecordedRefCountPolicy> SFUnrecComputeElementPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldSFields */
 typedef PointerSField<ComputeElement *,
-                      WeakRefCountPolicy      > SFWeakComputeElementPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldSFields */
 typedef PointerSField<ComputeElement *,
-                      NoRefCountPolicy        > SFUncountedComputeElementPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedComputeElementPtr;
 
 
 /*! \ingroup GrpContribComputeBaseFieldMFields */
 typedef PointerMField<ComputeElement *,
-                      RecordedRefCountPolicy  > MFRecComputeElementPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldMFields */
 typedef PointerMField<ComputeElement *,
-                      UnrecordedRefCountPolicy> MFUnrecComputeElementPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldMFields */
 typedef PointerMField<ComputeElement *,
-                      WeakRefCountPolicy      > MFWeakComputeElementPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakComputeElementPtr;
 /*! \ingroup GrpContribComputeBaseFieldMFields */
 typedef PointerMField<ComputeElement *,
-                      NoRefCountPolicy        > MFUncountedComputeElementPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedComputeElementPtr;
 
 
 

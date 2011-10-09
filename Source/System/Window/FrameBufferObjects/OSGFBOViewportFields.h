@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FBOViewport;
 
 OSG_GEN_CONTAINERPTR(FBOViewport);
-
 /*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<FBOViewport *> :
-    public FieldTraitsFCPtrBase<FBOViewport *>
+struct FieldTraits<FBOViewport *, nsOSG> :
+    public FieldTraitsFCPtrBase<FBOViewport *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FBOViewport *> :
 
   public:
 
-    typedef FieldTraits<FBOViewport *>  Self;
+    typedef FieldTraits<FBOViewport *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FBOViewport *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFBOViewportPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFBOViewportPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewport *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFBOViewportPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FBOViewport *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
-                      RecordedRefCountPolicy  > SFRecFBOViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
-                      UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
-                      WeakRefCountPolicy      > SFWeakFBOViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FBOViewport *,
-                      NoRefCountPolicy        > SFUncountedFBOViewportPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFBOViewportPtr;
 
 
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
-                      RecordedRefCountPolicy  > MFRecFBOViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
-                      UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
-                      WeakRefCountPolicy      > MFWeakFBOViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFBOViewportPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FBOViewport *,
-                      NoRefCountPolicy        > MFUncountedFBOViewportPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFBOViewportPtr;
 
 
 

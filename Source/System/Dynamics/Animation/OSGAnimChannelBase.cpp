@@ -100,35 +100,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimChannel *>::_type("AnimChannelPtr", "NodeCorePtr");
+DataType FieldTraits<AnimChannel *, nsOSG>::_type("AnimChannelPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimChannel *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimChannel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimChannel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimChannel *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< AnimChannel *, 1 >::getType(void)
+DataType &FieldTraits< AnimChannel *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<AnimChannel *, 0>::getType();
+    return FieldTraits<AnimChannel *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       AnimChannel *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       AnimChannel *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -182,7 +182,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     AnimChannelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     AnimChannel::initMethod,
     AnimChannel::exitMethod,

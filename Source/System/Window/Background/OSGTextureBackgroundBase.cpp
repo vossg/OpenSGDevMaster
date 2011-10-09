@@ -117,14 +117,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBackground *>::_type("TextureBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<TextureBackground *, nsOSG>::_type("TextureBackgroundPtr", "BackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextureBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextureBackground *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -226,7 +226,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     TextureBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureBackgroundBase::createEmptyLocal),
     TextureBackground::initMethod,
     TextureBackground::exitMethod,

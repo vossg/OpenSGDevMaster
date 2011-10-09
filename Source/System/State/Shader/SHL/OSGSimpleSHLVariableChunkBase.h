@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleSHLVariableChunk;
 
 //! \brief SimpleSHLVariableChunk Base Class.

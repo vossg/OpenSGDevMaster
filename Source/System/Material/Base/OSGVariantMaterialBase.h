@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VariantMaterial;
 
 //! \brief VariantMaterial Base Class.

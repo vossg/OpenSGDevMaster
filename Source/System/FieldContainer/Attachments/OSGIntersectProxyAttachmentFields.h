@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class IntersectProxyAttachment;
 
 OSG_GEN_CONTAINERPTR(IntersectProxyAttachment);
-
 /*! \ingroup GrpSystemFieldContainerFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<IntersectProxyAttachment *> :
-    public FieldTraitsFCPtrBase<IntersectProxyAttachment *>
+struct FieldTraits<IntersectProxyAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<IntersectProxyAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<IntersectProxyAttachment *> :
 
   public:
 
-    typedef FieldTraits<IntersectProxyAttachment *>  Self;
+    typedef FieldTraits<IntersectProxyAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<IntersectProxyAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFIntersectProxyAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<IntersectProxyAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<IntersectProxyAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<IntersectProxyAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<IntersectProxyAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<IntersectProxyAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<IntersectProxyAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<IntersectProxyAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<IntersectProxyAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdIntersectProxyAttachmentPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<IntersectProxyAttachment *, 0>::getSName<NoRefCountPoli
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<IntersectProxyAttachment *,
-                      RecordedRefCountPolicy  > SFRecIntersectProxyAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecIntersectProxyAttachmentPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<IntersectProxyAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecIntersectProxyAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecIntersectProxyAttachmentPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<IntersectProxyAttachment *,
-                      WeakRefCountPolicy      > SFWeakIntersectProxyAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakIntersectProxyAttachmentPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<IntersectProxyAttachment *,
-                      NoRefCountPolicy        > SFUncountedIntersectProxyAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedIntersectProxyAttachmentPtr;
 
 
 

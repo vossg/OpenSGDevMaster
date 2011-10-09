@@ -111,10 +111,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FishEyeProjectorData *>::_type("FishEyeProjectorDataPtr", "StageDataPtr");
+DataType FieldTraits<FishEyeProjectorData *, nsOSG>::_type("FishEyeProjectorDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FishEyeProjectorData *)
+OSG_FIELDTRAITS_GETTYPE_NS(FishEyeProjectorData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -191,7 +191,7 @@ FishEyeProjectorDataBase::TypeObject FishEyeProjectorDataBase::_type(
     FishEyeProjectorDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FishEyeProjectorDataBase::createEmptyLocal),
     FishEyeProjectorData::initMethod,
     FishEyeProjectorData::exitMethod,

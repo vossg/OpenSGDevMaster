@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OffCenterPerspectiveCamera *>::_type("OffCenterPerspectiveCameraPtr", "PerspectiveCameraPtr");
+DataType FieldTraits<OffCenterPerspectiveCamera *, nsOSG>::_type("OffCenterPerspectiveCameraPtr", "PerspectiveCameraPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCamera *)
+OSG_FIELDTRAITS_GETTYPE_NS(OffCenterPerspectiveCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            OffCenterPerspectiveCamera *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            OffCenterPerspectiveCamera *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     OffCenterPerspectiveCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&OffCenterPerspectiveCameraBase::createEmptyLocal),
     OffCenterPerspectiveCamera::initMethod,
     OffCenterPerspectiveCamera::exitMethod,

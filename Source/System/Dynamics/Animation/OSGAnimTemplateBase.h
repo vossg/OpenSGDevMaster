@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTemplate;
 
 //! \brief AnimTemplate Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class KeySensor;
 
 OSG_GEN_CONTAINERPTR(KeySensor);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<KeySensor *> :
-    public FieldTraitsFCPtrBase<KeySensor *>
+struct FieldTraits<KeySensor *, nsOSG> :
+    public FieldTraitsFCPtrBase<KeySensor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<KeySensor *> :
 
   public:
 
-    typedef FieldTraits<KeySensor *>  Self;
+    typedef FieldTraits<KeySensor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

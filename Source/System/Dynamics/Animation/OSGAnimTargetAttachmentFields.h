@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimTargetAttachment;
 
 OSG_GEN_CONTAINERPTR(AnimTargetAttachment);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimTargetAttachment *> :
-    public FieldTraitsFCPtrBase<AnimTargetAttachment *>
+struct FieldTraits<AnimTargetAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimTargetAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimTargetAttachment *> :
 
   public:
 
-    typedef FieldTraits<AnimTargetAttachment *>  Self;
+    typedef FieldTraits<AnimTargetAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimTargetAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimTargetAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimTargetAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimTargetAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimTargetAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimTargetAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimTargetAttachment *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTargetAttachment *,
-                      RecordedRefCountPolicy  > SFRecAnimTargetAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTargetAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimTargetAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTargetAttachment *,
-                      WeakRefCountPolicy      > SFWeakAnimTargetAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimTargetAttachment *,
-                      NoRefCountPolicy        > SFUncountedAnimTargetAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimTargetAttachmentPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTargetAttachment *,
-                      RecordedRefCountPolicy  > MFRecAnimTargetAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTargetAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimTargetAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTargetAttachment *,
-                      WeakRefCountPolicy      > MFWeakAnimTargetAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimTargetAttachmentPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimTargetAttachment *,
-                      NoRefCountPolicy        > MFUncountedAnimTargetAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimTargetAttachmentPtr;
 
 
 

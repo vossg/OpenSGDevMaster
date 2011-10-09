@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SwitchMaterial;
 
 OSG_GEN_CONTAINERPTR(SwitchMaterial);
-
 /*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<SwitchMaterial *> :
-    public FieldTraitsFCPtrBase<SwitchMaterial *>
+struct FieldTraits<SwitchMaterial *, nsOSG> :
+    public FieldTraitsFCPtrBase<SwitchMaterial *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SwitchMaterial *> :
 
   public:
 
-    typedef FieldTraits<SwitchMaterial *>  Self;
+    typedef FieldTraits<SwitchMaterial *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<SwitchMaterial *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSwitchMaterialPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSwitchMaterialPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSwitchMaterialPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<SwitchMaterial *,
-                      RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<SwitchMaterial *,
-                      UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<SwitchMaterial *,
-                      WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<SwitchMaterial *,
-                      NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSwitchMaterialPtr;
 
 
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<SwitchMaterial *,
-                      RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<SwitchMaterial *,
-                      UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<SwitchMaterial *,
-                      WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSwitchMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<SwitchMaterial *,
-                      NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSwitchMaterialPtr;
 
 
 

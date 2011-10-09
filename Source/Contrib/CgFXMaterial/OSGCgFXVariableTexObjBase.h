@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXVariableTexObj;
 
 //! \brief CgFXVariableTexObj Base Class.

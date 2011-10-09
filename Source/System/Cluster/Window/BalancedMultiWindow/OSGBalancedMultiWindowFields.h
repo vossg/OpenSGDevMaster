@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class BalancedMultiWindow;
 
 OSG_GEN_CONTAINERPTR(BalancedMultiWindow);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<BalancedMultiWindow *> :
-    public FieldTraitsFCPtrBase<BalancedMultiWindow *>
+struct FieldTraits<BalancedMultiWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<BalancedMultiWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<BalancedMultiWindow *> :
 
   public:
 
-    typedef FieldTraits<BalancedMultiWindow *>  Self;
+    typedef FieldTraits<BalancedMultiWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

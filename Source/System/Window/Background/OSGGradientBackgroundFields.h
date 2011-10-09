@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GradientBackground;
 
 OSG_GEN_CONTAINERPTR(GradientBackground);
-
 /*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<GradientBackground *> :
-    public FieldTraitsFCPtrBase<GradientBackground *>
+struct FieldTraits<GradientBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<GradientBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<GradientBackground *> :
 
   public:
 
-    typedef FieldTraits<GradientBackground *>  Self;
+    typedef FieldTraits<GradientBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,30 +90,29 @@ struct FieldTraits<GradientBackground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGradientBackgroundPtr"; }
 };
 
 
 template<> inline
-const Char8 *FieldTraits<GradientBackground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGradientBackgroundPtr"; 
 }
@@ -123,16 +122,16 @@ const Char8 *FieldTraits<GradientBackground *, 0>::getMName<NoRefCountPolicy>(vo
 
 /*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
-                      RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGradientBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
-                      UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGradientBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
-                      WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGradientBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldMFields */
 typedef PointerMField<GradientBackground *,
-                      NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGradientBackgroundPtr;
 
 
 

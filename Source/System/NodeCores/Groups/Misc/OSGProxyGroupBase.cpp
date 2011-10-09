@@ -141,10 +141,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProxyGroup *>::_type("ProxyGroupPtr", "GroupPtr");
+DataType FieldTraits<ProxyGroup *, nsOSG>::_type("ProxyGroupPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ProxyGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(ProxyGroup *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -305,7 +305,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     ProxyGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ProxyGroupBase::createEmptyLocal),
     ProxyGroup::initMethod,
     ProxyGroup::exitMethod,

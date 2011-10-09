@@ -106,10 +106,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SpotLight *>::_type("SpotLightPtr", "PointLightPtr");
+DataType FieldTraits<SpotLight *, nsOSG>::_type("SpotLightPtr", "PointLightPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SpotLight *)
+OSG_FIELDTRAITS_GETTYPE_NS(SpotLight *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -162,7 +162,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     SpotLightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SpotLightBase::createEmptyLocal),
     SpotLight::initMethod,
     SpotLight::exitMethod,

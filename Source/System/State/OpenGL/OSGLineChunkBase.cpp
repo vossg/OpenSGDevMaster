@@ -112,18 +112,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LineChunk *>::_type("LineChunkPtr", "StateChunkPtr");
+DataType FieldTraits<LineChunk *, nsOSG>::_type("LineChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LineChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(LineChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LineChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            LineChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -189,7 +189,7 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     LineChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LineChunkBase::createEmptyLocal),
     LineChunk::initMethod,
     LineChunk::exitMethod,

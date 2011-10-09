@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimKeyFrameTemplate *>::_type("AnimKeyFrameTemplatePtr", "AnimTemplatePtr");
+DataType FieldTraits<AnimKeyFrameTemplate *, nsOSG>::_type("AnimKeyFrameTemplatePtr", "AnimTemplatePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimKeyFrameTemplate *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimKeyFrameTemplate *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimKeyFrameTemplate *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimKeyFrameTemplate *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ AnimKeyFrameTemplateBase::TypeObject AnimKeyFrameTemplateBase::_type(
     AnimKeyFrameTemplateBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimKeyFrameTemplateBase::createEmptyLocal),
     AnimKeyFrameTemplate::initMethod,
     AnimKeyFrameTemplate::exitMethod,

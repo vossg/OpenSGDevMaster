@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderProgramVariableChunk;
 
 //! \brief ShaderProgramVariableChunk Base Class.

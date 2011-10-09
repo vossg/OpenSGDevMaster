@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SepiaComposer;
 
 //! \brief SepiaComposer Base Class.

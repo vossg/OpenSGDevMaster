@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShadowMapEngine;
 
 //! \brief ShadowMapEngine Base Class.

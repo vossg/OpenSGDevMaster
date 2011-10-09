@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimVec3fDataSource;
 
 OSG_GEN_CONTAINERPTR(AnimVec3fDataSource);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimVec3fDataSource *> :
-    public FieldTraitsFCPtrBase<AnimVec3fDataSource *>
+struct FieldTraits<AnimVec3fDataSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimVec3fDataSource *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimVec3fDataSource *> :
 
   public:
 
-    typedef FieldTraits<AnimVec3fDataSource *>  Self;
+    typedef FieldTraits<AnimVec3fDataSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimVec3fDataSource *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimVec3fDataSourcePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimVec3fDataSourcePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimVec3fDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimVec3fDataSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimVec3fDataSourcePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimVec3fDataSource *, 0>::getMName<NoRefCountPolicy>(v
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimVec3fDataSource *,
-                      RecordedRefCountPolicy  > SFRecAnimVec3fDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimVec3fDataSource *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimVec3fDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimVec3fDataSource *,
-                      WeakRefCountPolicy      > SFWeakAnimVec3fDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimVec3fDataSource *,
-                      NoRefCountPolicy        > SFUncountedAnimVec3fDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimVec3fDataSourcePtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimVec3fDataSource *,
-                      RecordedRefCountPolicy  > MFRecAnimVec3fDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimVec3fDataSource *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimVec3fDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimVec3fDataSource *,
-                      WeakRefCountPolicy      > MFWeakAnimVec3fDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimVec3fDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimVec3fDataSource *,
-                      NoRefCountPolicy        > MFUncountedAnimVec3fDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimVec3fDataSourcePtr;
 
 
 

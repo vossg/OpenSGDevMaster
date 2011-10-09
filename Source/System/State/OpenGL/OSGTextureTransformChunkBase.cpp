@@ -94,18 +94,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureTransformChunk *>::_type("TextureTransformChunkPtr", "TransformChunkPtr");
+DataType FieldTraits<TextureTransformChunk *, nsOSG>::_type("TextureTransformChunkPtr", "TransformChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureTransformChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextureTransformChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextureTransformChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TextureTransformChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -134,7 +134,7 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     TextureTransformChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureTransformChunkBase::createEmptyLocal),
     TextureTransformChunk::initMethod,
     TextureTransformChunk::exitMethod,

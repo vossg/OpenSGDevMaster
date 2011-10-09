@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FatBorderChunk;
 
 OSG_GEN_CONTAINERPTR(FatBorderChunk);
-
 /*! \ingroup GrpDrawablesNurbsFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<FatBorderChunk *> :
-    public FieldTraitsFCPtrBase<FatBorderChunk *>
+struct FieldTraits<FatBorderChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<FatBorderChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FatBorderChunk *> :
 
   public:
 
-    typedef FieldTraits<FatBorderChunk *>  Self;
+    typedef FieldTraits<FatBorderChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FatBorderChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFatBorderChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFatBorderChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFatBorderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FatBorderChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFatBorderChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
-                      RecordedRefCountPolicy  > SFRecFatBorderChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecFatBorderChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
-                      WeakRefCountPolicy      > SFWeakFatBorderChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<FatBorderChunk *,
-                      NoRefCountPolicy        > SFUncountedFatBorderChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFatBorderChunkPtr;
 
 
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
-                      RecordedRefCountPolicy  > MFRecFatBorderChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecFatBorderChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
-                      WeakRefCountPolicy      > MFWeakFatBorderChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFatBorderChunkPtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<FatBorderChunk *,
-                      NoRefCountPolicy        > MFUncountedFatBorderChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFatBorderChunkPtr;
 
 
 

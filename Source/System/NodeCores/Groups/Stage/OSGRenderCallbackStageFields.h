@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RenderCallbackStage;
 
 OSG_GEN_CONTAINERPTR(RenderCallbackStage);
-
 /*! \ingroup GrpGroupStageFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<RenderCallbackStage *> :
-    public FieldTraitsFCPtrBase<RenderCallbackStage *>
+struct FieldTraits<RenderCallbackStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<RenderCallbackStage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RenderCallbackStage *> :
 
   public:
 
-    typedef FieldTraits<RenderCallbackStage *>  Self;
+    typedef FieldTraits<RenderCallbackStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

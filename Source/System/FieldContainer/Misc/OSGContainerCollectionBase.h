@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ContainerCollection;
 
 //! \brief ContainerCollection Base Class.

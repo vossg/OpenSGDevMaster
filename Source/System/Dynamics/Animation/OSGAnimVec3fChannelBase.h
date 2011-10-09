@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimVec3fChannel;
 
 //! \brief AnimVec3fChannel Base Class.

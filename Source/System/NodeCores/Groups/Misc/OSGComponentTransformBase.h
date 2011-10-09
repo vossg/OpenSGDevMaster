@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComponentTransform;
 
 //! \brief ComponentTransform Base Class.

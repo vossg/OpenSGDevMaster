@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureGrabBackground;
 
 OSG_GEN_CONTAINERPTR(TextureGrabBackground);
-
 /*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<TextureGrabBackground *> :
-    public FieldTraitsFCPtrBase<TextureGrabBackground *>
+struct FieldTraits<TextureGrabBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<TextureGrabBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TextureGrabBackground *> :
 
   public:
 
-    typedef FieldTraits<TextureGrabBackground *>  Self;
+    typedef FieldTraits<TextureGrabBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

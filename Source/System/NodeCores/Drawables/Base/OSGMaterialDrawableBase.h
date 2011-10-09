@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MaterialDrawable;
 
 //! \brief MaterialDrawable Base Class.

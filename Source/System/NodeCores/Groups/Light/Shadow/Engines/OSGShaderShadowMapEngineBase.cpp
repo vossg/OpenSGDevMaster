@@ -114,18 +114,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderShadowMapEngine *>::_type("ShaderShadowMapEnginePtr", "ShadowMapEnginePtr");
+DataType FieldTraits<ShaderShadowMapEngine *, nsOSG>::_type("ShaderShadowMapEnginePtr", "ShadowMapEnginePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderShadowMapEngine *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderShadowMapEngine *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -208,7 +208,7 @@ ShaderShadowMapEngineBase::TypeObject ShaderShadowMapEngineBase::_type(
     ShaderShadowMapEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderShadowMapEngineBase::createEmptyLocal),
     ShaderShadowMapEngine::initMethod,
     ShaderShadowMapEngine::exitMethod,

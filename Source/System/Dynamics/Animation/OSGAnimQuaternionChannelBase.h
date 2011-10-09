@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimQuaternionChannel;
 
 //! \brief AnimQuaternionChannel Base Class.

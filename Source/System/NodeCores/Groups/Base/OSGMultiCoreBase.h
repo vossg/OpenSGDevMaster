@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiCore;
 
 //! \brief MultiCore Base Class.

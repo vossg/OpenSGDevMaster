@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CompositeMaterial;
 
 //! \brief CompositeMaterial Base Class.

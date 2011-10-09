@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Attachment;
 
 OSG_GEN_CONTAINERPTR(Attachment);
-
 /*! \ingroup GrpBaseFieldContainerBaseFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<Attachment *> :
-    public FieldTraitsFCPtrBase<Attachment *>
+struct FieldTraits<Attachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<Attachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Attachment *> :
 
   public:
 
-    typedef FieldTraits<Attachment *>  Self;
+    typedef FieldTraits<Attachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Attachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAttachmentPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<Attachment *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseFieldContainerBaseFieldTraits
  */
 template <>
-struct FieldTraits<Attachment *, 1> :
-    public FieldTraitsFCPtrBase<Attachment *, 1>
+struct FieldTraits<Attachment *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<Attachment *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<Attachment *, 1>  Self;
+    typedef FieldTraits<Attachment *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<Attachment *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Attachment *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildAttachmentPtr"; 
 }
@@ -220,8 +218,8 @@ const Char8 *FieldTraits<Attachment *, 1>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpBaseFieldContainerBaseFieldTraits
  */
 template <>
-struct FieldTraits<Attachment *, 2> : 
-    public FieldTraitsFCPtrBase<Attachment *, 2>
+struct FieldTraits<Attachment *, nsOSG + 2> : 
+    public FieldTraitsFCPtrBase<Attachment *, nsOSG + 2>
 {
   private:
 
@@ -231,7 +229,7 @@ struct FieldTraits<Attachment *, 2> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<Attachment *, 2>        Self;
+    typedef FieldTraits<Attachment *, nsOSG + 2> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -253,30 +251,30 @@ struct FieldTraits<Attachment *, 2> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields */
 typedef PointerSField<Attachment *,
-                      RecordedRefCountPolicy  > SFRecAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields */
 typedef PointerSField<Attachment *,
-                      UnrecordedRefCountPolicy> SFUnrecAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields */
 typedef PointerSField<Attachment *,
-                      WeakRefCountPolicy      > SFWeakAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields */
 typedef PointerSField<Attachment *,
-                      NoRefCountPolicy        > SFUncountedAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef PointerMField<Attachment *,
-                      RecordedRefCountPolicy  > MFRecAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef PointerMField<Attachment *,
-                      UnrecordedRefCountPolicy> MFUnrecAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef PointerMField<Attachment *,
-                      WeakRefCountPolicy      > MFWeakAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef PointerMField<Attachment *,
-                      NoRefCountPolicy        > MFUncountedAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAttachmentPtr;
 
 
 
@@ -284,27 +282,27 @@ typedef PointerMField<Attachment *,
 typedef ChildPointerSField<
           Attachment *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildAttachmentPtr;
+          nsOSG + 1             > SFUnrecChildAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef ChildPointerMField<
           Attachment *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildAttachmentPtr;
+          nsOSG + 1             > MFUnrecChildAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields */
 typedef ParentPointerSField<
           Attachment *, 
           NoRefCountPolicy,
-          2    > SFParentAttachmentPtr;
+          nsOSG + 2    > SFParentAttachmentPtr;
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields */
 typedef ParentPointerMField<
           Attachment *, 
           NoRefCountPolicy,
-          2    > MFParentAttachmentPtr;
+          nsOSG + 2    > MFParentAttachmentPtr;
 
 
 
@@ -352,7 +350,7 @@ struct SFUnrecChildAttachmentPtr :
     public ChildPointerSField<
         Attachment *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields \ingroup GrpLibOSGBase */
@@ -360,7 +358,7 @@ struct MFUnrecChildAttachmentPtr :
     public ChildPointerMField<
         Attachment *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldSFields \ingroup GrpLibOSGBase */
@@ -368,14 +366,14 @@ struct SFParentAttachmentPtr :
     public ParentPointerSField<
         Attachment *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 /*! \ingroup GrpBaseFieldContainerBaseFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentAttachmentPtr :
     public  ParentPointerMField<
         Attachment *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 
 #endif // these are the doxygen hacks

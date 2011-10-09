@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PolygonForeground;
 
 OSG_GEN_CONTAINERPTR(PolygonForeground);
-
 /*! \ingroup GrpWindowForegroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<PolygonForeground *> :
-    public FieldTraitsFCPtrBase<PolygonForeground *>
+struct FieldTraits<PolygonForeground *, nsOSG> :
+    public FieldTraitsFCPtrBase<PolygonForeground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PolygonForeground *> :
 
   public:
 
-    typedef FieldTraits<PolygonForeground *>  Self;
+    typedef FieldTraits<PolygonForeground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<PolygonForeground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFPolygonForegroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFPolygonForegroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonForeground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPolygonForegroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<PolygonForeground *,
-                      RecordedRefCountPolicy  > SFRecPolygonForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<PolygonForeground *,
-                      UnrecordedRefCountPolicy> SFUnrecPolygonForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<PolygonForeground *,
-                      WeakRefCountPolicy      > SFWeakPolygonForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldSFields */
 typedef PointerSField<PolygonForeground *,
-                      NoRefCountPolicy        > SFUncountedPolygonForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedPolygonForegroundPtr;
 
 
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<PolygonForeground *,
-                      RecordedRefCountPolicy  > MFRecPolygonForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<PolygonForeground *,
-                      UnrecordedRefCountPolicy> MFUnrecPolygonForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<PolygonForeground *,
-                      WeakRefCountPolicy      > MFWeakPolygonForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakPolygonForegroundPtr;
 /*! \ingroup GrpWindowForegroundFieldMFields */
 typedef PointerMField<PolygonForeground *,
-                      NoRefCountPolicy        > MFUncountedPolygonForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedPolygonForegroundPtr;
 
 
 

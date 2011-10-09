@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PassiveWindow;
 
 //! \brief PassiveWindow Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMGLUTWindow;
 
 OSG_GEN_CONTAINERPTR(CSMGLUTWindow);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMGLUTWindow *> :
-    public FieldTraitsFCPtrBase<CSMGLUTWindow *>
+struct FieldTraits<CSMGLUTWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMGLUTWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMGLUTWindow *> :
 
   public:
 
-    typedef FieldTraits<CSMGLUTWindow *>  Self;
+    typedef FieldTraits<CSMGLUTWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMGLUTWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMGLUTWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMGLUTWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMGLUTWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMGLUTWindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
-                      RecordedRefCountPolicy  > SFRecCSMGLUTWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMGLUTWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
-                      WeakRefCountPolicy      > SFWeakCSMGLUTWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
-                      NoRefCountPolicy        > SFUncountedCSMGLUTWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMGLUTWindowPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
-                      RecordedRefCountPolicy  > MFRecCSMGLUTWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMGLUTWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
-                      WeakRefCountPolicy      > MFWeakCSMGLUTWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMGLUTWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
-                      NoRefCountPolicy        > MFUncountedCSMGLUTWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMGLUTWindowPtr;
 
 
 

@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialChunkOverrideGroup *>::_type("MaterialChunkOverrideGroupPtr", "ChunkOverrideGroupPtr");
+DataType FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::_type("MaterialChunkOverrideGroupPtr", "ChunkOverrideGroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialChunkOverrideGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(MaterialChunkOverrideGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MaterialChunkOverrideGroup *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MaterialChunkOverrideGroup *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -135,7 +135,7 @@ MaterialChunkOverrideGroupBase::TypeObject MaterialChunkOverrideGroupBase::_type
     MaterialChunkOverrideGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MaterialChunkOverrideGroupBase::createEmptyLocal),
     MaterialChunkOverrideGroup::initMethod,
     MaterialChunkOverrideGroup::exitMethod,

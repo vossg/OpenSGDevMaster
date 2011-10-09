@@ -107,18 +107,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClipPlaneChunk *>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ClipPlaneChunk *, nsOSG>::_type("ClipPlaneChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(ClipPlaneChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ClipPlaneChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ClipPlaneChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -173,7 +173,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     ClipPlaneChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ClipPlaneChunkBase::createEmptyLocal),
     ClipPlaneChunk::initMethod,
     ClipPlaneChunk::exitMethod,

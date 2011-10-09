@@ -96,26 +96,26 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InterfaceOptions *>::_type("InterfaceOptionsPtr", "FieldContainerPtr");
+DataType FieldTraits<InterfaceOptions *, nsOSG>::_type("InterfaceOptionsPtr", "FieldContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(InterfaceOptions *)
+OSG_FIELDTRAITS_GETTYPE_NS(InterfaceOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            InterfaceOptions *,
-                           0);
+                           nsOSG);
 
 
-DataType &FieldTraits< InterfaceOptions *, 1 >::getType(void)
+DataType &FieldTraits< InterfaceOptions *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<InterfaceOptions *, 0>::getType();
+    return FieldTraits<InterfaceOptions *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       InterfaceOptions *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -157,7 +157,7 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     InterfaceOptionsBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&InterfaceOptionsBase::createEmptyLocal),
     InterfaceOptions::initMethod,
     InterfaceOptions::exitMethod,

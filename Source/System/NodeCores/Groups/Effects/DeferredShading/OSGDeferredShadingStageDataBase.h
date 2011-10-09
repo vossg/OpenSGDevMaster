@@ -76,6 +76,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DeferredShadingStageData;
 
 //! \brief DeferredShadingStageData Base Class.

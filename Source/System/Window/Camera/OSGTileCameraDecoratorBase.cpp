@@ -117,18 +117,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TileCameraDecorator *>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<TileCameraDecorator *, nsOSG>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TileCameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(TileCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TileCameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TileCameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -217,7 +217,7 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     TileCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TileCameraDecoratorBase::createEmptyLocal),
     TileCameraDecorator::initMethod,
     TileCameraDecorator::exitMethod,

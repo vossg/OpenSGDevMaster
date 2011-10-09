@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class KDTreeIntersectProxyAttachment;
 
 OSG_GEN_CONTAINERPTR(KDTreeIntersectProxyAttachment);
-
 /*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<KDTreeIntersectProxyAttachment *> :
-    public FieldTraitsFCPtrBase<KDTreeIntersectProxyAttachment *>
+struct FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<KDTreeIntersectProxyAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<KDTreeIntersectProxyAttachment *> :
 
   public:
 
-    typedef FieldTraits<KDTreeIntersectProxyAttachment *>  Self;
+    typedef FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<KDTreeIntersectProxyAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFKDTreeIntersectProxyAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFKDTreeIntersectProxyAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakKDTreeIntersectProxyAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdKDTreeIntersectProxyAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<KDTreeIntersectProxyAttachment *, 0>::getMName<NoRefCou
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<KDTreeIntersectProxyAttachment *,
-                      RecordedRefCountPolicy  > SFRecKDTreeIntersectProxyAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<KDTreeIntersectProxyAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecKDTreeIntersectProxyAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<KDTreeIntersectProxyAttachment *,
-                      WeakRefCountPolicy      > SFWeakKDTreeIntersectProxyAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<KDTreeIntersectProxyAttachment *,
-                      NoRefCountPolicy        > SFUncountedKDTreeIntersectProxyAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedKDTreeIntersectProxyAttachmentPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<KDTreeIntersectProxyAttachment *,
-                      RecordedRefCountPolicy  > MFRecKDTreeIntersectProxyAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<KDTreeIntersectProxyAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecKDTreeIntersectProxyAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<KDTreeIntersectProxyAttachment *,
-                      WeakRefCountPolicy      > MFWeakKDTreeIntersectProxyAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakKDTreeIntersectProxyAttachmentPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<KDTreeIntersectProxyAttachment *,
-                      NoRefCountPolicy        > MFUncountedKDTreeIntersectProxyAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedKDTreeIntersectProxyAttachmentPtr;
 
 
 

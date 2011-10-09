@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComputeCallbackAlgorithm;
 
 //! \brief ComputeCallbackAlgorithm Base Class.

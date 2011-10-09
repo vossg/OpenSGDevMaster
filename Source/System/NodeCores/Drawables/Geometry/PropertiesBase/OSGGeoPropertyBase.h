@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoProperty;
 
 //! \brief GeoProperty Base Class.

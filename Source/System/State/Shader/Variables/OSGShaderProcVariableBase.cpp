@@ -91,29 +91,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProcVariable *>::_type("ShaderProcVariablePtr", "ShaderVariablePtr");
+DataType FieldTraits<ShaderProcVariable *, nsOSG>::_type("ShaderProcVariablePtr", "ShaderVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderProcVariable *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderProcVariable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderProcVariable *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderProcVariable *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< ShaderProcVariable *, 1 >::getType(void)
+DataType &FieldTraits< ShaderProcVariable *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<ShaderProcVariable *, 0>::getType();
+    return FieldTraits<ShaderProcVariable *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       ShaderProcVariable *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -143,7 +143,7 @@ ShaderProcVariableBase::TypeObject ShaderProcVariableBase::_type(
     ShaderProcVariableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ShaderProcVariable::initMethod,
     ShaderProcVariable::exitMethod,

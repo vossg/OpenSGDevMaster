@@ -87,10 +87,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RotateManipulator *>::_type("RotateManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<RotateManipulator *, nsOSG>::_type("RotateManipulatorPtr", "ManipulatorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RotateManipulator *)
+OSG_FIELDTRAITS_GETTYPE_NS(RotateManipulator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -105,7 +105,7 @@ RotateManipulatorBase::TypeObject RotateManipulatorBase::_type(
     RotateManipulatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RotateManipulatorBase::createEmptyLocal),
     RotateManipulator::initMethod,
     RotateManipulator::exitMethod,

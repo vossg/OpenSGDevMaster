@@ -88,18 +88,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TrapezoidalShadowMapEngine *>::_type("TrapezoidalShadowMapEnginePtr", "ShaderShadowMapEnginePtr");
+DataType FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::_type("TrapezoidalShadowMapEnginePtr", "ShaderShadowMapEnginePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TrapezoidalShadowMapEngine *)
+OSG_FIELDTRAITS_GETTYPE_NS(TrapezoidalShadowMapEngine *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TrapezoidalShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TrapezoidalShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -114,7 +114,7 @@ TrapezoidalShadowMapEngineBase::TypeObject TrapezoidalShadowMapEngineBase::_type
     TrapezoidalShadowMapEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TrapezoidalShadowMapEngineBase::createEmptyLocal),
     TrapezoidalShadowMapEngine::initMethod,
     TrapezoidalShadowMapEngine::exitMethod,

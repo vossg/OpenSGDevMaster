@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiDisplayWindow;
 
 OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<MultiDisplayWindow *> :
-    public FieldTraitsFCPtrBase<MultiDisplayWindow *>
+struct FieldTraits<MultiDisplayWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<MultiDisplayWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<MultiDisplayWindow *> :
 
   public:
 
-    typedef FieldTraits<MultiDisplayWindow *>  Self;
+    typedef FieldTraits<MultiDisplayWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScaleManipulator;
 
 //! \brief ScaleManipulator Base Class.

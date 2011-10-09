@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class OrthographicCamera;
 
 //! \brief OrthographicCamera Base Class.

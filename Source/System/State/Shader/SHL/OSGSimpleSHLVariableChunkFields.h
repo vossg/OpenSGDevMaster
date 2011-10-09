@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleSHLVariableChunk;
 
 OSG_GEN_CONTAINERPTR(SimpleSHLVariableChunk);
-
 /*! \ingroup GrpSystemShaderFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<SimpleSHLVariableChunk *> :
-    public FieldTraitsFCPtrBase<SimpleSHLVariableChunk *>
+struct FieldTraits<SimpleSHLVariableChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleSHLVariableChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleSHLVariableChunk *> :
 
   public:
 
-    typedef FieldTraits<SimpleSHLVariableChunk *>  Self;
+    typedef FieldTraits<SimpleSHLVariableChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<SimpleSHLVariableChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSimpleSHLVariableChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSimpleSHLVariableChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSimpleSHLVariableChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleSHLVariableChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSimpleSHLVariableChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<NoRefCountPolicy
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
-                      RecordedRefCountPolicy  > SFRecSimpleSHLVariableChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecSimpleSHLVariableChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
-                      WeakRefCountPolicy      > SFWeakSimpleSHLVariableChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
-                      NoRefCountPolicy        > SFUncountedSimpleSHLVariableChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSimpleSHLVariableChunkPtr;
 
 
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
-                      RecordedRefCountPolicy  > MFRecSimpleSHLVariableChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecSimpleSHLVariableChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
-                      WeakRefCountPolicy      > MFWeakSimpleSHLVariableChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSimpleSHLVariableChunkPtr;
 /*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
-                      NoRefCountPolicy        > MFUncountedSimpleSHLVariableChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSimpleSHLVariableChunkPtr;
 
 
 

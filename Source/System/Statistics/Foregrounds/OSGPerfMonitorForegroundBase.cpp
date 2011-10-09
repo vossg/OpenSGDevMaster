@@ -123,18 +123,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PerfMonitorForeground *>::_type("PerfMonitorForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<PerfMonitorForeground *, nsOSG>::_type("PerfMonitorForegroundPtr", "ForegroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PerfMonitorForeground *)
+OSG_FIELDTRAITS_GETTYPE_NS(PerfMonitorForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PerfMonitorForeground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PerfMonitorForeground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -247,7 +247,7 @@ PerfMonitorForegroundBase::TypeObject PerfMonitorForegroundBase::_type(
     PerfMonitorForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PerfMonitorForegroundBase::createEmptyLocal),
     PerfMonitorForeground::initMethod,
     PerfMonitorForeground::exitMethod,

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimMatrixDataSource;
 
 //! \brief AnimMatrixDataSource Base Class.

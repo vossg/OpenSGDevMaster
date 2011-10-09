@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Particles;
 
 //! \brief Particles Base Class.

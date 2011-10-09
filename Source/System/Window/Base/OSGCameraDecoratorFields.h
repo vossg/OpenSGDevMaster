@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CameraDecorator;
 
 OSG_GEN_CONTAINERPTR(CameraDecorator);
-
 /*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<CameraDecorator *> :
-    public FieldTraitsFCPtrBase<CameraDecorator *>
+struct FieldTraits<CameraDecorator *, nsOSG> :
+    public FieldTraitsFCPtrBase<CameraDecorator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CameraDecorator *> :
 
   public:
 
-    typedef FieldTraits<CameraDecorator *>  Self;
+    typedef FieldTraits<CameraDecorator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CameraDecorator *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCameraDecoratorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCameraDecoratorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CameraDecorator *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCameraDecoratorPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
-                      RecordedRefCountPolicy  > SFRecCameraDecoratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
-                      UnrecordedRefCountPolicy> SFUnrecCameraDecoratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
-                      WeakRefCountPolicy      > SFWeakCameraDecoratorPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<CameraDecorator *,
-                      NoRefCountPolicy        > SFUncountedCameraDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCameraDecoratorPtr;
 
 
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
-                      RecordedRefCountPolicy  > MFRecCameraDecoratorPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
-                      UnrecordedRefCountPolicy> MFUnrecCameraDecoratorPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
-                      WeakRefCountPolicy      > MFWeakCameraDecoratorPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCameraDecoratorPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<CameraDecorator *,
-                      NoRefCountPolicy        > MFUncountedCameraDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCameraDecoratorPtr;
 
 
 

@@ -115,18 +115,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilterGroup *>::_type("DisplayFilterGroupPtr", "AttachmentContainerPtr");
+DataType FieldTraits<DisplayFilterGroup *, nsOSG>::_type("DisplayFilterGroupPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DisplayFilterGroup *)
+OSG_FIELDTRAITS_GETTYPE_NS(DisplayFilterGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DisplayFilterGroup *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DisplayFilterGroup *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -215,7 +215,7 @@ DisplayFilterGroupBase::TypeObject DisplayFilterGroupBase::_type(
     DisplayFilterGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterGroupBase::createEmptyLocal),
     DisplayFilterGroup::initMethod,
     DisplayFilterGroup::exitMethod,

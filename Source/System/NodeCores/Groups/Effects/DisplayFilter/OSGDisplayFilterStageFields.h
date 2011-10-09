@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DisplayFilterStage;
 
 OSG_GEN_CONTAINERPTR(DisplayFilterStage);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DisplayFilterStage *> :
-    public FieldTraitsFCPtrBase<DisplayFilterStage *>
+struct FieldTraits<DisplayFilterStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<DisplayFilterStage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DisplayFilterStage *> :
 
   public:
 
-    typedef FieldTraits<DisplayFilterStage *>  Self;
+    typedef FieldTraits<DisplayFilterStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DisplayFilterStage *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDisplayFilterStagePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDisplayFilterStagePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDisplayFilterStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DisplayFilterStage *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DisplayFilterStage *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDisplayFilterStagePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DisplayFilterStage *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterStage *,
-                      RecordedRefCountPolicy  > SFRecDisplayFilterStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterStage *,
-                      UnrecordedRefCountPolicy> SFUnrecDisplayFilterStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterStage *,
-                      WeakRefCountPolicy      > SFWeakDisplayFilterStagePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<DisplayFilterStage *,
-                      NoRefCountPolicy        > SFUncountedDisplayFilterStagePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDisplayFilterStagePtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterStage *,
-                      RecordedRefCountPolicy  > MFRecDisplayFilterStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterStage *,
-                      UnrecordedRefCountPolicy> MFUnrecDisplayFilterStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterStage *,
-                      WeakRefCountPolicy      > MFWeakDisplayFilterStagePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDisplayFilterStagePtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<DisplayFilterStage *,
-                      NoRefCountPolicy        > MFUncountedDisplayFilterStagePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDisplayFilterStagePtr;
 
 
 

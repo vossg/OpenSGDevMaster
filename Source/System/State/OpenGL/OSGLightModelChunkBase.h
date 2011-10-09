@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightModelChunk;
 
 //! \brief LightModelChunk Base Class.

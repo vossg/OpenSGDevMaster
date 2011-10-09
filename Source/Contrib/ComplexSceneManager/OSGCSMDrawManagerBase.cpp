@@ -104,18 +104,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMDrawManager *>::_type("CSMDrawManagerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMDrawManager *, nsOSG>::_type("CSMDrawManagerPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMDrawManager *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMDrawManager *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMDrawManager *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMDrawManager *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -180,7 +180,7 @@ CSMDrawManagerBase::TypeObject CSMDrawManagerBase::_type(
     CSMDrawManagerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMDrawManagerBase::createEmptyLocal),
     CSMDrawManager::initMethod,
     CSMDrawManager::exitMethod,

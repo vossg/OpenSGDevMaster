@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ClipPlaneChunk;
 
 //! \brief ClipPlaneChunk Base Class.

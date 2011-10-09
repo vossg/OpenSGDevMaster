@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMGLUTWindow *>::_type("CSMGLUTWindowPtr", "CSMWindowPtr");
+DataType FieldTraits<CSMGLUTWindow *, nsOSG>::_type("CSMGLUTWindowPtr", "CSMWindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMGLUTWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMGLUTWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMGLUTWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMGLUTWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ CSMGLUTWindowBase::TypeObject CSMGLUTWindowBase::_type(
     CSMGLUTWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMGLUTWindowBase::createEmptyLocal),
     CSMGLUTWindow::initMethod,
     CSMGLUTWindow::exitMethod,

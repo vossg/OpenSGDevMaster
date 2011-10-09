@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ImageComposer;
 
 //! \brief ImageComposer Base Class.

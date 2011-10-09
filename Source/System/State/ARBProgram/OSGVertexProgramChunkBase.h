@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VertexProgramChunk;
 
 //! \brief VertexProgramChunk Base Class.

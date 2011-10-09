@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SortLastWindow;
 
 OSG_GEN_CONTAINERPTR(SortLastWindow);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<SortLastWindow *> :
-    public FieldTraitsFCPtrBase<SortLastWindow *>
+struct FieldTraits<SortLastWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<SortLastWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SortLastWindow *> :
 
   public:
 
-    typedef FieldTraits<SortLastWindow *>  Self;
+    typedef FieldTraits<SortLastWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

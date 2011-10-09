@@ -107,18 +107,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Material *>::_type("MaterialPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Material *, nsOSG>::_type("MaterialPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Material *)
+OSG_FIELDTRAITS_GETTYPE_NS(Material *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Material *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Material *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -160,7 +160,7 @@ MaterialBase::TypeObject MaterialBase::_type(
     MaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Material::initMethod,
     Material::exitMethod,

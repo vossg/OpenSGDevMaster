@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightChunk;
 
 OSG_GEN_CONTAINERPTR(LightChunk);
-
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<LightChunk *> :
-    public FieldTraitsFCPtrBase<LightChunk *>
+struct FieldTraits<LightChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<LightChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LightChunk *> :
 
   public:
 
-    typedef FieldTraits<LightChunk *>  Self;
+    typedef FieldTraits<LightChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<LightChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFLightChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFLightChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLightChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<LightChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<LightChunk *,
-                      RecordedRefCountPolicy  > SFRecLightChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<LightChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecLightChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<LightChunk *,
-                      WeakRefCountPolicy      > SFWeakLightChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<LightChunk *,
-                      NoRefCountPolicy        > SFUncountedLightChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedLightChunkPtr;
 
 
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<LightChunk *,
-                      RecordedRefCountPolicy  > MFRecLightChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<LightChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecLightChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<LightChunk *,
-                      WeakRefCountPolicy      > MFWeakLightChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakLightChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<LightChunk *,
-                      NoRefCountPolicy        > MFUncountedLightChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedLightChunkPtr;
 
 
 

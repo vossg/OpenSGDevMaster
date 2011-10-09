@@ -115,10 +115,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilterStageData *>::_type("DisplayFilterStageDataPtr", "StageDataPtr");
+DataType FieldTraits<DisplayFilterStageData *, nsOSG>::_type("DisplayFilterStageDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DisplayFilterStageData *)
+OSG_FIELDTRAITS_GETTYPE_NS(DisplayFilterStageData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -207,7 +207,7 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     DisplayFilterStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterStageDataBase::createEmptyLocal),
     DisplayFilterStageData::initMethod,
     DisplayFilterStageData::exitMethod,

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMClusterWinOptions;
 
 //! \brief CSMClusterWinOptions Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiPassMaterial;
 
 OSG_GEN_CONTAINERPTR(MultiPassMaterial);
-
 /*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<MultiPassMaterial *> :
-    public FieldTraitsFCPtrBase<MultiPassMaterial *>
+struct FieldTraits<MultiPassMaterial *, nsOSG> :
+    public FieldTraitsFCPtrBase<MultiPassMaterial *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<MultiPassMaterial *> :
 
   public:
 
-    typedef FieldTraits<MultiPassMaterial *>  Self;
+    typedef FieldTraits<MultiPassMaterial *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<MultiPassMaterial *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFMultiPassMaterialPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFMultiPassMaterialPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiPassMaterial *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMultiPassMaterialPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
-                      RecordedRefCountPolicy  > SFRecMultiPassMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
-                      UnrecordedRefCountPolicy> SFUnrecMultiPassMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
-                      WeakRefCountPolicy      > SFWeakMultiPassMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
-                      NoRefCountPolicy        > SFUncountedMultiPassMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedMultiPassMaterialPtr;
 
 
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
-                      RecordedRefCountPolicy  > MFRecMultiPassMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
-                      UnrecordedRefCountPolicy> MFUnrecMultiPassMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
-                      WeakRefCountPolicy      > MFWeakMultiPassMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakMultiPassMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
-                      NoRefCountPolicy        > MFUncountedMultiPassMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedMultiPassMaterialPtr;
 
 
 

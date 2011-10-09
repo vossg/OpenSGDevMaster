@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DrawableStatsAttachment;
 
 OSG_GEN_CONTAINERPTR(DrawableStatsAttachment);
-
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<DrawableStatsAttachment *> :
-    public FieldTraitsFCPtrBase<DrawableStatsAttachment *>
+struct FieldTraits<DrawableStatsAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<DrawableStatsAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DrawableStatsAttachment *> :
 
   public:
 
-    typedef FieldTraits<DrawableStatsAttachment *>  Self;
+    typedef FieldTraits<DrawableStatsAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DrawableStatsAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDrawableStatsAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDrawableStatsAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DrawableStatsAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDrawableStatsAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<NoRefCountPolic
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
-                      RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
-                      WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
-                      NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDrawableStatsAttachmentPtr;
 
 
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
-                      RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
-                      WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDrawableStatsAttachmentPtr;
 /*! \ingroup GrpSystemNodeCoreDrawablesFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
-                      NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDrawableStatsAttachmentPtr;
 
 
 

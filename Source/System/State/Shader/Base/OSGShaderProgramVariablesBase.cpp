@@ -101,29 +101,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramVariables *>::_type("ShaderProgramVariablesPtr", "AttachmentPtr");
+DataType FieldTraits<ShaderProgramVariables *, nsOSG>::_type("ShaderProgramVariablesPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramVariables *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderProgramVariables *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderProgramVariables *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderProgramVariables *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< ShaderProgramVariables *, 1 >::getType(void)
+DataType &FieldTraits< ShaderProgramVariables *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<ShaderProgramVariables *, 0>::getType();
+    return FieldTraits<ShaderProgramVariables *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       ShaderProgramVariables *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -177,7 +177,7 @@ ShaderProgramVariablesBase::TypeObject ShaderProgramVariablesBase::_type(
     ShaderProgramVariablesBase::getClassname(),
     Inherited::getClassname(),
     "ShaderProgramVariables",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramVariablesBase::createEmptyLocal),
     ShaderProgramVariables::initMethod,
     ShaderProgramVariables::exitMethod,

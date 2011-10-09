@@ -159,18 +159,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TexGenChunk *>::_type("TexGenChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TexGenChunk *, nsOSG>::_type("TexGenChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TexGenChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(TexGenChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TexGenChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TexGenChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -355,7 +355,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     TexGenChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TexGenChunkBase::createEmptyLocal),
     TexGenChunk::initMethod,
     TexGenChunk::exitMethod,

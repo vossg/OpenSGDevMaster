@@ -105,18 +105,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoProperty *>::_type("GeoPropertyPtr", "StateChunkPtr");
+DataType FieldTraits<GeoProperty *, nsOSG>::_type("GeoPropertyPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoProperty *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -182,7 +182,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     GeoPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     GeoProperty::initMethod,
     GeoProperty::exitMethod,

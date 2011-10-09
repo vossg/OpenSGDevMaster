@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DistanceLOD;
 
 OSG_GEN_CONTAINERPTR(DistanceLOD);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<DistanceLOD *> :
-    public FieldTraitsFCPtrBase<DistanceLOD *>
+struct FieldTraits<DistanceLOD *, nsOSG> :
+    public FieldTraitsFCPtrBase<DistanceLOD *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DistanceLOD *> :
 
   public:
 
-    typedef FieldTraits<DistanceLOD *>  Self;
+    typedef FieldTraits<DistanceLOD *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

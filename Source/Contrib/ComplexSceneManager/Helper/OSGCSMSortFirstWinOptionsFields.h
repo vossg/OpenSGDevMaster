@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMSortFirstWinOptions;
 
 OSG_GEN_CONTAINERPTR(CSMSortFirstWinOptions);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMSortFirstWinOptions *> :
-    public FieldTraitsFCPtrBase<CSMSortFirstWinOptions *>
+struct FieldTraits<CSMSortFirstWinOptions *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMSortFirstWinOptions *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMSortFirstWinOptions *> :
 
   public:
 
-    typedef FieldTraits<CSMSortFirstWinOptions *>  Self;
+    typedef FieldTraits<CSMSortFirstWinOptions *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

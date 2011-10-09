@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PerfMonitorForeground;
 
 OSG_GEN_CONTAINERPTR(PerfMonitorForeground);
-
 /*! \ingroup GrpUtilStatisticsFieldTraits
     \ingroup GrpLibOSGUtil
  */
 template <>
-struct FieldTraits<PerfMonitorForeground *> :
-    public FieldTraitsFCPtrBase<PerfMonitorForeground *>
+struct FieldTraits<PerfMonitorForeground *, nsOSG> :
+    public FieldTraitsFCPtrBase<PerfMonitorForeground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PerfMonitorForeground *> :
 
   public:
 
-    typedef FieldTraits<PerfMonitorForeground *>  Self;
+    typedef FieldTraits<PerfMonitorForeground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<PerfMonitorForeground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFPerfMonitorForegroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFPerfMonitorForegroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPerfMonitorForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PerfMonitorForeground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPerfMonitorForegroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
-                      RecordedRefCountPolicy  > SFRecPerfMonitorForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
-                      UnrecordedRefCountPolicy> SFUnrecPerfMonitorForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
-                      WeakRefCountPolicy      > SFWeakPerfMonitorForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
-                      NoRefCountPolicy        > SFUncountedPerfMonitorForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedPerfMonitorForegroundPtr;
 
 
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
-                      RecordedRefCountPolicy  > MFRecPerfMonitorForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
-                      UnrecordedRefCountPolicy> MFUnrecPerfMonitorForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
-                      WeakRefCountPolicy      > MFWeakPerfMonitorForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakPerfMonitorForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
-                      NoRefCountPolicy        > MFUncountedPerfMonitorForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedPerfMonitorForegroundPtr;
 
 
 

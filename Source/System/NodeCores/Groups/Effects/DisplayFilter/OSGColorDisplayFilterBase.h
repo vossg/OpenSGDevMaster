@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ColorDisplayFilter;
 
 //! \brief ColorDisplayFilter Base Class.

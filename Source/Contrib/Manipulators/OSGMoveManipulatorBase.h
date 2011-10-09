@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MoveManipulator;
 
 //! \brief MoveManipulator Base Class.

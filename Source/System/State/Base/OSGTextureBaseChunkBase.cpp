@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBaseChunk *>::_type("TextureBaseChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TextureBaseChunk *, nsOSG>::_type("TextureBaseChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBaseChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextureBaseChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextureBaseChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TextureBaseChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -138,7 +138,7 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     TextureBaseChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TextureBaseChunk::initMethod,
     TextureBaseChunk::exitMethod,

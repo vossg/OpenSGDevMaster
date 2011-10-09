@@ -109,10 +109,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BalancedMultiWindow *>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
+DataType FieldTraits<BalancedMultiWindow *, nsOSG>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BalancedMultiWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(BalancedMultiWindow *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -191,7 +191,7 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     BalancedMultiWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&BalancedMultiWindowBase::createEmptyLocal),
     BalancedMultiWindow::initMethod,
     BalancedMultiWindow::exitMethod,

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMTrackball;
 
 //! \brief CSMTrackball Base Class.

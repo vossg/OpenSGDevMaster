@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LineChunk;
 
 OSG_GEN_CONTAINERPTR(LineChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<LineChunk *> :
-    public FieldTraitsFCPtrBase<LineChunk *>
+struct FieldTraits<LineChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<LineChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LineChunk *> :
 
   public:
 
-    typedef FieldTraits<LineChunk *>  Self;
+    typedef FieldTraits<LineChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<LineChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFLineChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFLineChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LineChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLineChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<LineChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LineChunk *,
-                      RecordedRefCountPolicy  > SFRecLineChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LineChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecLineChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LineChunk *,
-                      WeakRefCountPolicy      > SFWeakLineChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LineChunk *,
-                      NoRefCountPolicy        > SFUncountedLineChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedLineChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LineChunk *,
-                      RecordedRefCountPolicy  > MFRecLineChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LineChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecLineChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LineChunk *,
-                      WeakRefCountPolicy      > MFWeakLineChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakLineChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LineChunk *,
-                      NoRefCountPolicy        > MFUncountedLineChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedLineChunkPtr;
 
 
 

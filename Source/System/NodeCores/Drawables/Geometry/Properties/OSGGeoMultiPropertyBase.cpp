@@ -117,18 +117,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoMultiProperty *>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
+DataType FieldTraits<GeoMultiProperty *, nsOSG>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoMultiProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoMultiProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoMultiProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoMultiProperty *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -230,7 +230,7 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     GeoMultiPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyBase::createEmptyLocal),
     GeoMultiProperty::initMethod,
     GeoMultiProperty::exitMethod,

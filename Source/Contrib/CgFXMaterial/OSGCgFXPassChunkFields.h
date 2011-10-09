@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXPassChunk;
 
 OSG_GEN_CONTAINERPTR(CgFXPassChunk);
-
 /*! \ingroup GrpContribCgFXFieldTraits
     \ingroup GrpLibOSGContribCgFX
  */
 template <>
-struct FieldTraits<CgFXPassChunk *> :
-    public FieldTraitsFCPtrBase<CgFXPassChunk *>
+struct FieldTraits<CgFXPassChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<CgFXPassChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CgFXPassChunk *> :
 
   public:
 
-    typedef FieldTraits<CgFXPassChunk *>  Self;
+    typedef FieldTraits<CgFXPassChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CgFXPassChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCgFXPassChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCgFXPassChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCgFXPassChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CgFXPassChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CgFXPassChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCgFXPassChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CgFXPassChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXPassChunk *,
-                      RecordedRefCountPolicy  > SFRecCgFXPassChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXPassChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecCgFXPassChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXPassChunk *,
-                      WeakRefCountPolicy      > SFWeakCgFXPassChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldSFields */
 typedef PointerSField<CgFXPassChunk *,
-                      NoRefCountPolicy        > SFUncountedCgFXPassChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCgFXPassChunkPtr;
 
 
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXPassChunk *,
-                      RecordedRefCountPolicy  > MFRecCgFXPassChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXPassChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecCgFXPassChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXPassChunk *,
-                      WeakRefCountPolicy      > MFWeakCgFXPassChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCgFXPassChunkPtr;
 /*! \ingroup GrpContribCgFXFieldMFields */
 typedef PointerMField<CgFXPassChunk *,
-                      NoRefCountPolicy        > MFUncountedCgFXPassChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCgFXPassChunkPtr;
 
 
 

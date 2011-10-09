@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMDrawer;
 
 //! \brief CSMDrawer Base Class.

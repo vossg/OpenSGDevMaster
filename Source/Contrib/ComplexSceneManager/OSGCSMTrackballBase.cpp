@@ -127,18 +127,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMTrackball *>::_type("CSMTrackballPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMTrackball *, nsOSG>::_type("CSMTrackballPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMTrackball *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMTrackball *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMTrackball *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMTrackball *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -275,7 +275,7 @@ CSMTrackballBase::TypeObject CSMTrackballBase::_type(
     CSMTrackballBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMTrackballBase::createEmptyLocal),
     CSMTrackball::initMethod,
     CSMTrackball::exitMethod,

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StereoCameraDecorator;
 
 //! \brief StereoCameraDecorator Base Class.

@@ -122,10 +122,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "RenderCallbackStagePtr");
+DataType FieldTraits<SimpleStage *, nsOSG>::_type("SimpleStagePtr", "RenderCallbackStagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleStage *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -222,7 +222,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     SimpleStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleStageBase::createEmptyLocal),
     SimpleStage::initMethod,
     SimpleStage::exitMethod,

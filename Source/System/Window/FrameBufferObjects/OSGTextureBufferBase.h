@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureBuffer;
 
 //! \brief TextureBuffer Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScreenLOD;
 
 OSG_GEN_CONTAINERPTR(ScreenLOD);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<ScreenLOD *> :
-    public FieldTraitsFCPtrBase<ScreenLOD *>
+struct FieldTraits<ScreenLOD *, nsOSG> :
+    public FieldTraitsFCPtrBase<ScreenLOD *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ScreenLOD *> :
 
   public:
 
-    typedef FieldTraits<ScreenLOD *>  Self;
+    typedef FieldTraits<ScreenLOD *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StateChunk *>::_type("StateChunkPtr", "AttachmentPtr");
+DataType FieldTraits<StateChunk *, nsOSG>::_type("StateChunkPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StateChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(StateChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StateChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            StateChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     StateChunkBase::getClassname(),
     Inherited::getClassname(),
     "StateChunk",
-    0,
+    nsOSG, //Namespace
     NULL,
     StateChunk::initMethod,
     StateChunk::exitMethod,

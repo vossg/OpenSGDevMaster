@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureBackground;
 
 OSG_GEN_CONTAINERPTR(TextureBackground);
-
 /*! \ingroup GrpWindowBackgroundFieldTraits
     \ingroup GrpLibOSGWindow
  */
 template <>
-struct FieldTraits<TextureBackground *> :
-    public FieldTraitsFCPtrBase<TextureBackground *>
+struct FieldTraits<TextureBackground *, nsOSG> :
+    public FieldTraitsFCPtrBase<TextureBackground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TextureBackground *> :
 
   public:
 
-    typedef FieldTraits<TextureBackground *>  Self;
+    typedef FieldTraits<TextureBackground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<TextureBackground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTextureBackgroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureBackgroundPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<TextureBackground *, 0>::getSName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
-                      RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTextureBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
-                      UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTextureBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
-                      WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTextureBackgroundPtr;
 /*! \ingroup GrpWindowBackgroundFieldSFields */
 typedef PointerSField<TextureBackground *,
-                      NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTextureBackgroundPtr;
 
 
 

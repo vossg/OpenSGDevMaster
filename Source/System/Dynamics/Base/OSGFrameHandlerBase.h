@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FrameHandler;
 
 //! \brief FrameHandler Base Class.

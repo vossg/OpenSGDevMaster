@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DeviceInterfaceSensor;
 
 OSG_GEN_CONTAINERPTR(DeviceInterfaceSensor);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<DeviceInterfaceSensor *> :
-    public FieldTraitsFCPtrBase<DeviceInterfaceSensor *>
+struct FieldTraits<DeviceInterfaceSensor *, nsOSG> :
+    public FieldTraitsFCPtrBase<DeviceInterfaceSensor *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DeviceInterfaceSensor *> :
 
   public:
 
-    typedef FieldTraits<DeviceInterfaceSensor *>  Self;
+    typedef FieldTraits<DeviceInterfaceSensor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -95,8 +95,8 @@ struct FieldTraits<DeviceInterfaceSensor *> :
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
-struct FieldTraits<DeviceInterfaceSensor *, 1> : 
-    public FieldTraitsFCPtrBase<DeviceInterfaceSensor *, 1>
+struct FieldTraits<DeviceInterfaceSensor *, nsOSG + 1> : 
+    public FieldTraitsFCPtrBase<DeviceInterfaceSensor *, nsOSG + 1>
 {
   private:
 
@@ -106,7 +106,7 @@ struct FieldTraits<DeviceInterfaceSensor *, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<DeviceInterfaceSensor *, 1>        Self;
+    typedef FieldTraits<DeviceInterfaceSensor *, nsOSG + 1> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -132,7 +132,7 @@ struct FieldTraits<DeviceInterfaceSensor *, 1> :
 typedef ParentPointerSField<
           DeviceInterfaceSensor *, 
           NoRefCountPolicy,
-          1    > SFParentDeviceInterfaceSensorPtr;
+          nsOSG + 1    > SFParentDeviceInterfaceSensorPtr;
 
 
 #else // these are the doxygen hacks
@@ -144,7 +144,7 @@ struct SFParentDeviceInterfaceSensorPtr :
     public ParentPointerSField<
         DeviceInterfaceSensor *, 
         NoRefCountPolicy,
-        1    > {};
+        nsOSG + 1    > {};
 
 #endif // these are the doxygen hacks
 

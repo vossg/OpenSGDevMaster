@@ -98,14 +98,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SolidBackground *>::_type("SolidBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<SolidBackground *, nsOSG>::_type("SolidBackgroundPtr", "BackgroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SolidBackground *)
+OSG_FIELDTRAITS_GETTYPE_NS(SolidBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SolidBackground *,
-                           0);
+                           nsOSG);
 
 
 /***************************************************************************\
@@ -147,7 +147,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     SolidBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SolidBackgroundBase::createEmptyLocal),
     SolidBackground::initMethod,
     SolidBackground::exitMethod,

@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightEngine *>::_type("LightEnginePtr", "AttachmentContainerPtr");
+DataType FieldTraits<LightEngine *, nsOSG>::_type("LightEnginePtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LightEngine *)
+OSG_FIELDTRAITS_GETTYPE_NS(LightEngine *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LightEngine *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            LightEngine *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ LightEngineBase::TypeObject LightEngineBase::_type(
     LightEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     LightEngine::initMethod,
     LightEngine::exitMethod,

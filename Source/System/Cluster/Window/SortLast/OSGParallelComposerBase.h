@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ParallelComposer;
 
 //! \brief ParallelComposer Base Class.

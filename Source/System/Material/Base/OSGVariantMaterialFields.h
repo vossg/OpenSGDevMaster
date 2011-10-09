@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VariantMaterial;
 
 OSG_GEN_CONTAINERPTR(VariantMaterial);
-
 /*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<VariantMaterial *> :
-    public FieldTraitsFCPtrBase<VariantMaterial *>
+struct FieldTraits<VariantMaterial *, nsOSG> :
+    public FieldTraitsFCPtrBase<VariantMaterial *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VariantMaterial *> :
 
   public:
 
-    typedef FieldTraits<VariantMaterial *>  Self;
+    typedef FieldTraits<VariantMaterial *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<VariantMaterial *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFVariantMaterialPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFVariantMaterialPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVariantMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VariantMaterial *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VariantMaterial *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVariantMaterialPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<VariantMaterial *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<VariantMaterial *,
-                      RecordedRefCountPolicy  > SFRecVariantMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<VariantMaterial *,
-                      UnrecordedRefCountPolicy> SFUnrecVariantMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<VariantMaterial *,
-                      WeakRefCountPolicy      > SFWeakVariantMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldSFields */
 typedef PointerSField<VariantMaterial *,
-                      NoRefCountPolicy        > SFUncountedVariantMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedVariantMaterialPtr;
 
 
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<VariantMaterial *,
-                      RecordedRefCountPolicy  > MFRecVariantMaterialPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<VariantMaterial *,
-                      UnrecordedRefCountPolicy> MFUnrecVariantMaterialPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<VariantMaterial *,
-                      WeakRefCountPolicy      > MFWeakVariantMaterialPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakVariantMaterialPtr;
 /*! \ingroup GrpSystemMaterialFieldMFields */
 typedef PointerMField<VariantMaterial *,
-                      NoRefCountPolicy        > MFUncountedVariantMaterialPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedVariantMaterialPtr;
 
 
 

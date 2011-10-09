@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimQuaternionDataSource;
 
 OSG_GEN_CONTAINERPTR(AnimQuaternionDataSource);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimQuaternionDataSource *> :
-    public FieldTraitsFCPtrBase<AnimQuaternionDataSource *>
+struct FieldTraits<AnimQuaternionDataSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimQuaternionDataSource *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimQuaternionDataSource *> :
 
   public:
 
-    typedef FieldTraits<AnimQuaternionDataSource *>  Self;
+    typedef FieldTraits<AnimQuaternionDataSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimQuaternionDataSource *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimQuaternionDataSourcePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimQuaternionDataSourcePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimQuaternionDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimQuaternionDataSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimQuaternionDataSourcePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimQuaternionDataSource *, 0>::getMName<NoRefCountPoli
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionDataSource *,
-                      RecordedRefCountPolicy  > SFRecAnimQuaternionDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionDataSource *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimQuaternionDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionDataSource *,
-                      WeakRefCountPolicy      > SFWeakAnimQuaternionDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimQuaternionDataSource *,
-                      NoRefCountPolicy        > SFUncountedAnimQuaternionDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimQuaternionDataSourcePtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionDataSource *,
-                      RecordedRefCountPolicy  > MFRecAnimQuaternionDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionDataSource *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimQuaternionDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionDataSource *,
-                      WeakRefCountPolicy      > MFWeakAnimQuaternionDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimQuaternionDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimQuaternionDataSource *,
-                      NoRefCountPolicy        > MFUncountedAnimQuaternionDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimQuaternionDataSourcePtr;
 
 
 

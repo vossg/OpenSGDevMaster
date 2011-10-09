@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GPUSkinningDataAttachment *>::_type("GPUSkinningDataAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<GPUSkinningDataAttachment *, nsOSG>::_type("GPUSkinningDataAttachmentPtr", "AttachmentPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GPUSkinningDataAttachment *)
+OSG_FIELDTRAITS_GETTYPE_NS(GPUSkinningDataAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GPUSkinningDataAttachment *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GPUSkinningDataAttachment *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ GPUSkinningDataAttachmentBase::TypeObject GPUSkinningDataAttachmentBase::_type(
     GPUSkinningDataAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "GPUSkinningDataAttachment",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GPUSkinningDataAttachmentBase::createEmptyLocal),
     GPUSkinningDataAttachment::initMethod,
     GPUSkinningDataAttachment::exitMethod,

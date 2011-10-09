@@ -111,35 +111,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorBufferProperty *>::_type("GeoVectorBufferPropertyPtr", "GeoVectorPropertyPtr");
+DataType FieldTraits<GeoVectorBufferProperty *, nsOSG>::_type("GeoVectorBufferPropertyPtr", "GeoVectorPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoVectorBufferProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoVectorBufferProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoVectorBufferProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoVectorBufferProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoVectorBufferProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoVectorBufferProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoVectorBufferProperty *, 0>::getType();
+    return FieldTraits<GeoVectorBufferProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoVectorBufferProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoVectorBufferProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -229,7 +229,7 @@ GeoVectorBufferPropertyBase::TypeObject GeoVectorBufferPropertyBase::_type(
     GeoVectorBufferPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeoVectorBufferPropertyBase::createEmptyLocal),
     GeoVectorBufferProperty::initMethod,
     GeoVectorBufferProperty::exitMethod,

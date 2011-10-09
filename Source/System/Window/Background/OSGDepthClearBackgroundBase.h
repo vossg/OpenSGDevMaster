@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DepthClearBackground;
 
 //! \brief DepthClearBackground Base Class.

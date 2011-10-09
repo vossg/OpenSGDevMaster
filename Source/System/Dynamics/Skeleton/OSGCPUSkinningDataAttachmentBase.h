@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CPUSkinningDataAttachment;
 
 //! \brief CPUSkinningDataAttachment Base Class.

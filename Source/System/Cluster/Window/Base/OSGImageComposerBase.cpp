@@ -95,18 +95,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageComposer *>::_type("ImageComposerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ImageComposer *, nsOSG>::_type("ImageComposerPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImageComposer *)
+OSG_FIELDTRAITS_GETTYPE_NS(ImageComposer *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ImageComposer *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ImageComposer *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -147,7 +147,7 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(
     ImageComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ImageComposer::initMethod,
     ImageComposer::exitMethod,

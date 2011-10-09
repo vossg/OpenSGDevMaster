@@ -109,18 +109,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FogChunk *>::_type("FogChunkPtr", "StateChunkPtr");
+DataType FieldTraits<FogChunk *, nsOSG>::_type("FogChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FogChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(FogChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FogChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FogChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -197,7 +197,7 @@ FogChunkBase::TypeObject FogChunkBase::_type(
     FogChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FogChunkBase::createEmptyLocal),
     FogChunk::initMethod,
     FogChunk::exitMethod,

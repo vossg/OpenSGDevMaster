@@ -128,18 +128,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProjectionCameraDecorator *>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
+DataType FieldTraits<ProjectionCameraDecorator *, nsOSG>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecorator *)
+OSG_FIELDTRAITS_GETTYPE_NS(ProjectionCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ProjectionCameraDecorator *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ProjectionCameraDecorator *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -242,7 +242,7 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     ProjectionCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ProjectionCameraDecoratorBase::createEmptyLocal),
     ProjectionCameraDecorator::initMethod,
     ProjectionCameraDecorator::exitMethod,

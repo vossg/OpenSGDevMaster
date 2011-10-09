@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StringAttributeMap;
 
 //! \brief StringAttributeMap Base Class.

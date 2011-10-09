@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GLUTWindow;
 
 //! \brief GLUTWindow Base Class.

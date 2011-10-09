@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DepthChunk;
 
 //! \brief DepthChunk Base Class.

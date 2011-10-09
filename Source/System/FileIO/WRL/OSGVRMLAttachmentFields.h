@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLAttachment;
 
 OSG_GEN_CONTAINERPTR(VRMLAttachment);
-
 /*! \ingroup GrpFileIOWRLFieldTraits
     \ingroup GrpLibOSGFileIO
  */
 template <>
-struct FieldTraits<VRMLAttachment *> :
-    public FieldTraitsFCPtrBase<VRMLAttachment *>
+struct FieldTraits<VRMLAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<VRMLAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VRMLAttachment *> :
 
   public:
 
-    typedef FieldTraits<VRMLAttachment *>  Self;
+    typedef FieldTraits<VRMLAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<VRMLAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFVRMLAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFVRMLAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVRMLAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VRMLAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVRMLAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
-                      RecordedRefCountPolicy  > SFRecVRMLAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecVRMLAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
-                      WeakRefCountPolicy      > SFWeakVRMLAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldSFields */
 typedef PointerSField<VRMLAttachment *,
-                      NoRefCountPolicy        > SFUncountedVRMLAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedVRMLAttachmentPtr;
 
 
 /*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
-                      RecordedRefCountPolicy  > MFRecVRMLAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecVRMLAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
-                      WeakRefCountPolicy      > MFWeakVRMLAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakVRMLAttachmentPtr;
 /*! \ingroup GrpFileIOWRLFieldMFields */
 typedef PointerMField<VRMLAttachment *,
-                      NoRefCountPolicy        > MFUncountedVRMLAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedVRMLAttachmentPtr;
 
 
 

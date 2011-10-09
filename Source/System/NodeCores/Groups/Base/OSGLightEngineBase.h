@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightEngine;
 
 //! \brief LightEngine Base Class.

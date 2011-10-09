@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightModelChunk;
 
 OSG_GEN_CONTAINERPTR(LightModelChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<LightModelChunk *> :
-    public FieldTraitsFCPtrBase<LightModelChunk *>
+struct FieldTraits<LightModelChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<LightModelChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LightModelChunk *> :
 
   public:
 
-    typedef FieldTraits<LightModelChunk *>  Self;
+    typedef FieldTraits<LightModelChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<LightModelChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFLightModelChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFLightModelChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLightModelChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightModelChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLightModelChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LightModelChunk *,
-                      RecordedRefCountPolicy  > SFRecLightModelChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LightModelChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecLightModelChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LightModelChunk *,
-                      WeakRefCountPolicy      > SFWeakLightModelChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<LightModelChunk *,
-                      NoRefCountPolicy        > SFUncountedLightModelChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedLightModelChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LightModelChunk *,
-                      RecordedRefCountPolicy  > MFRecLightModelChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LightModelChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecLightModelChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LightModelChunk *,
-                      WeakRefCountPolicy      > MFWeakLightModelChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakLightModelChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<LightModelChunk *,
-                      NoRefCountPolicy        > MFUncountedLightModelChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedLightModelChunkPtr;
 
 
 

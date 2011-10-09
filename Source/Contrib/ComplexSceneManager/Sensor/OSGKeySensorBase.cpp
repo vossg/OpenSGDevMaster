@@ -107,10 +107,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "AttachmentContainerPtr");
+DataType FieldTraits<KeySensor *, nsOSG>::_type("KeySensorPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(KeySensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(KeySensor *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -187,7 +187,7 @@ KeySensorBase::TypeObject KeySensorBase::_type(
     KeySensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&KeySensorBase::createEmptyLocal),
     KeySensor::initMethod,
     KeySensor::exitMethod,

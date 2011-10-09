@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StereoBufferViewport;
 
 //! \brief StereoBufferViewport Base Class.

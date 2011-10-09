@@ -100,10 +100,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SortLastWindow *>::_type("SortLastWindowPtr", "ClusterWindowPtr");
+DataType FieldTraits<SortLastWindow *, nsOSG>::_type("SortLastWindowPtr", "ClusterWindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SortLastWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(SortLastWindow *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -156,7 +156,7 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     SortLastWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SortLastWindowBase::createEmptyLocal),
     SortLastWindow::initMethod,
     SortLastWindow::exitMethod,

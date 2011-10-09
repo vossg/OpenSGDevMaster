@@ -107,10 +107,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformationInterfaceSensor *>::_type("TransformationInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
+DataType FieldTraits<TransformationInterfaceSensor *, nsOSG>::_type("TransformationInterfaceSensorPtr", "DeviceInterfaceSensorPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TransformationInterfaceSensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(TransformationInterfaceSensor *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -187,7 +187,7 @@ TransformationInterfaceSensorBase::TypeObject TransformationInterfaceSensorBase:
     TransformationInterfaceSensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TransformationInterfaceSensorBase::createEmptyLocal),
     TransformationInterfaceSensor::initMethod,
     TransformationInterfaceSensor::exitMethod,

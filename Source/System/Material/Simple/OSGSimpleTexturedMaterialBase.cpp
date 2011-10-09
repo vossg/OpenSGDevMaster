@@ -126,18 +126,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleTexturedMaterial *>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr");
+DataType FieldTraits<SimpleTexturedMaterial *, nsOSG>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterial *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleTexturedMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleTexturedMaterial *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleTexturedMaterial *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -217,7 +217,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     SimpleTexturedMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleTexturedMaterialBase::createEmptyLocal),
     SimpleTexturedMaterial::initMethod,
     SimpleTexturedMaterial::exitMethod,

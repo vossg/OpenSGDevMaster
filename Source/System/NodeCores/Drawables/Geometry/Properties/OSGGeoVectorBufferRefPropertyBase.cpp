@@ -87,35 +87,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorBufferRefProperty *>::_type("GeoVectorBufferRefPropertyPtr", "GeoVectorBufferPropertyPtr");
+DataType FieldTraits<GeoVectorBufferRefProperty *, nsOSG>::_type("GeoVectorBufferRefPropertyPtr", "GeoVectorBufferPropertyPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoVectorBufferRefProperty *)
+OSG_FIELDTRAITS_GETTYPE_NS(GeoVectorBufferRefProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoVectorBufferRefProperty *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoVectorBufferRefProperty *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< GeoVectorBufferRefProperty *, 1 >::getType(void)
+DataType &FieldTraits< GeoVectorBufferRefProperty *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<GeoVectorBufferRefProperty *, 0>::getType();
+    return FieldTraits<GeoVectorBufferRefProperty *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -131,7 +131,7 @@ GeoVectorBufferRefPropertyBase::TypeObject GeoVectorBufferRefPropertyBase::_type
     GeoVectorBufferRefPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GeoVectorBufferRefPropertyBase::createEmptyLocal),
     GeoVectorBufferRefProperty::initMethod,
     GeoVectorBufferRefProperty::exitMethod,
@@ -143,7 +143,7 @@ GeoVectorBufferRefPropertyBase::TypeObject GeoVectorBufferRefPropertyBase::_type
     "<FieldContainer\n"
     "   name=\"GeoVectorBufferRefProperty\"\n"
     "   parent=\"GeoVectorBufferProperty\"\n"
-    "   library=\"System\"\n"
+    "   library=\"Drawable\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"

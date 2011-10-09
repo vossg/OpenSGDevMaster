@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RegisterCombinersChunk;
 
 OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
-
 /*! \ingroup GrpStateNVidiaFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<RegisterCombinersChunk *> :
-    public FieldTraitsFCPtrBase<RegisterCombinersChunk *>
+struct FieldTraits<RegisterCombinersChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<RegisterCombinersChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RegisterCombinersChunk *> :
 
   public:
 
-    typedef FieldTraits<RegisterCombinersChunk *>  Self;
+    typedef FieldTraits<RegisterCombinersChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<RegisterCombinersChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFRegisterCombinersChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFRegisterCombinersChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRegisterCombinersChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<NoRefCountPolicy
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
-                      RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
-                      WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
-                      NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedRegisterCombinersChunkPtr;
 
 
 /*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
-                      RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
-                      WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakRegisterCombinersChunkPtr;
 /*! \ingroup GrpStateNVidiaFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
-                      NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedRegisterCombinersChunkPtr;
 
 
 

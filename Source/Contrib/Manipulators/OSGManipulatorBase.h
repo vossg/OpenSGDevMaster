@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Manipulator;
 
 //! \brief Manipulator Base Class.

@@ -87,10 +87,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TwoSidedLightingChunk *>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TwoSidedLightingChunk *, nsOSG>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TwoSidedLightingChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(TwoSidedLightingChunk *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -105,7 +105,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     TwoSidedLightingChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TwoSidedLightingChunkBase::createEmptyLocal),
     TwoSidedLightingChunk::initMethod,
     TwoSidedLightingChunk::exitMethod,

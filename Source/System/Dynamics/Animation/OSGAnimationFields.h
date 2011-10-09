@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Animation;
 
 OSG_GEN_CONTAINERPTR(Animation);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<Animation *> :
-    public FieldTraitsFCPtrBase<Animation *>
+struct FieldTraits<Animation *, nsOSG> :
+    public FieldTraitsFCPtrBase<Animation *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Animation *> :
 
   public:
 
-    typedef FieldTraits<Animation *>  Self;
+    typedef FieldTraits<Animation *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Animation *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimationPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimationPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Animation *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Animation *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimationPtr"; 
 }
@@ -149,8 +147,8 @@ const Char8 *FieldTraits<Animation *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpDynamicsFieldTraits
  */
 template <>
-struct FieldTraits<Animation *, 1> : 
-    public FieldTraitsFCPtrBase<Animation *, 1>
+struct FieldTraits<Animation *, nsOSG + 1> : 
+    public FieldTraitsFCPtrBase<Animation *, nsOSG + 1>
 {
   private:
 
@@ -160,7 +158,7 @@ struct FieldTraits<Animation *, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<Animation *, 1>        Self;
+    typedef FieldTraits<Animation *, nsOSG + 1> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -182,30 +180,30 @@ struct FieldTraits<Animation *, 1> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<Animation *,
-                      RecordedRefCountPolicy  > SFRecAnimationPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimationPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<Animation *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimationPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimationPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<Animation *,
-                      WeakRefCountPolicy      > SFWeakAnimationPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimationPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<Animation *,
-                      NoRefCountPolicy        > SFUncountedAnimationPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimationPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<Animation *,
-                      RecordedRefCountPolicy  > MFRecAnimationPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimationPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<Animation *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimationPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimationPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<Animation *,
-                      WeakRefCountPolicy      > MFWeakAnimationPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimationPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<Animation *,
-                      NoRefCountPolicy        > MFUncountedAnimationPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimationPtr;
 
 
 
@@ -213,13 +211,13 @@ typedef PointerMField<Animation *,
 typedef ParentPointerSField<
           Animation *, 
           NoRefCountPolicy,
-          1    > SFParentAnimationPtr;
+          nsOSG + 1    > SFParentAnimationPtr;
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef ParentPointerMField<
           Animation *, 
           NoRefCountPolicy,
-          1    > MFParentAnimationPtr;
+          nsOSG + 1    > MFParentAnimationPtr;
 
 
 
@@ -267,14 +265,14 @@ struct SFParentAnimationPtr :
     public ParentPointerSField<
         Animation *, 
         NoRefCountPolicy,
-        1    > {};
+        nsOSG + 1    > {};
 
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFParentAnimationPtr :
     public  ParentPointerMField<
         Animation *, 
         NoRefCountPolicy,
-        1    > {};
+        nsOSG + 1    > {};
 
 
 #endif // these are the doxygen hacks

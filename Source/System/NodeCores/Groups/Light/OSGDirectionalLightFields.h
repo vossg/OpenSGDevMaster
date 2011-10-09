@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DirectionalLight;
 
 OSG_GEN_CONTAINERPTR(DirectionalLight);
-
 /*! \ingroup GrpGroupLightFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<DirectionalLight *> :
-    public FieldTraitsFCPtrBase<DirectionalLight *>
+struct FieldTraits<DirectionalLight *, nsOSG> :
+    public FieldTraitsFCPtrBase<DirectionalLight *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DirectionalLight *> :
 
   public:
 
-    typedef FieldTraits<DirectionalLight *>  Self;
+    typedef FieldTraits<DirectionalLight *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

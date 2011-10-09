@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ContainerCollection;
 
 OSG_GEN_CONTAINERPTR(ContainerCollection);
-
 /*! \ingroup GrpSystemFieldContainerFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ContainerCollection *> :
-    public FieldTraitsFCPtrBase<ContainerCollection *>
+struct FieldTraits<ContainerCollection *, nsOSG> :
+    public FieldTraitsFCPtrBase<ContainerCollection *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ContainerCollection *> :
 
   public:
 
-    typedef FieldTraits<ContainerCollection *>  Self;
+    typedef FieldTraits<ContainerCollection *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ContainerCollection *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFContainerCollectionPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFContainerCollectionPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollection *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdContainerCollectionPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<NoRefCountPolicy>(v
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
-                      RecordedRefCountPolicy  > SFRecContainerCollectionPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
-                      UnrecordedRefCountPolicy> SFUnrecContainerCollectionPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
-                      WeakRefCountPolicy      > SFWeakContainerCollectionPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldSFields */
 typedef PointerSField<ContainerCollection *,
-                      NoRefCountPolicy        > SFUncountedContainerCollectionPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedContainerCollectionPtr;
 
 
 /*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
-                      RecordedRefCountPolicy  > MFRecContainerCollectionPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
-                      UnrecordedRefCountPolicy> MFUnrecContainerCollectionPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
-                      WeakRefCountPolicy      > MFWeakContainerCollectionPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakContainerCollectionPtr;
 /*! \ingroup GrpSystemFieldContainerFieldMFields */
 typedef PointerMField<ContainerCollection *,
-                      NoRefCountPolicy        > MFUncountedContainerCollectionPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedContainerCollectionPtr;
 
 
 

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LinuxEventOptions;
 
 OSG_GEN_CONTAINERPTR(LinuxEventOptions);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<LinuxEventOptions *> :
-    public FieldTraitsFCPtrBase<LinuxEventOptions *>
+struct FieldTraits<LinuxEventOptions *, nsOSG> :
+    public FieldTraitsFCPtrBase<LinuxEventOptions *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LinuxEventOptions *> :
 
   public:
 
-    typedef FieldTraits<LinuxEventOptions *>  Self;
+    typedef FieldTraits<LinuxEventOptions *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<LinuxEventOptions *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFLinuxEventOptionsPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLinuxEventOptionsPtr"; 
 }
@@ -122,13 +121,13 @@ const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<NoRefCountPolicy>(voi
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
-struct FieldTraits<LinuxEventOptions *, 1> :
-    public FieldTraitsFCPtrBase<LinuxEventOptions *, 1>
+struct FieldTraits<LinuxEventOptions *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<LinuxEventOptions *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<LinuxEventOptions *, 1>  Self;
+    typedef FieldTraits<LinuxEventOptions *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -139,25 +138,25 @@ struct FieldTraits<LinuxEventOptions *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildLinuxEventOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LinuxEventOptions *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildLinuxEventOptionsPtr"; 
 }
@@ -167,16 +166,16 @@ const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
-                      RecordedRefCountPolicy  > SFRecLinuxEventOptionsPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecLinuxEventOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
-                      UnrecordedRefCountPolicy> SFUnrecLinuxEventOptionsPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecLinuxEventOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
-                      WeakRefCountPolicy      > SFWeakLinuxEventOptionsPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakLinuxEventOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
-                      NoRefCountPolicy        > SFUncountedLinuxEventOptionsPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedLinuxEventOptionsPtr;
 
 
 
@@ -184,7 +183,7 @@ typedef PointerSField<LinuxEventOptions *,
 typedef ChildPointerSField<
           LinuxEventOptions *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildLinuxEventOptionsPtr;
+          nsOSG + 1             > SFUnrecChildLinuxEventOptionsPtr;
 
 
 
@@ -214,7 +213,7 @@ struct SFUnrecChildLinuxEventOptionsPtr :
     public ChildPointerSField<
         LinuxEventOptions *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

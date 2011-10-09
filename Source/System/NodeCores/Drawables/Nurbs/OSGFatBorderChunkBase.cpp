@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FatBorderChunk *>::_type("FatBorderChunkPtr", "VertexProgramChunkPtr");
+DataType FieldTraits<FatBorderChunk *, nsOSG>::_type("FatBorderChunkPtr", "VertexProgramChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FatBorderChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(FatBorderChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FatBorderChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FatBorderChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ FatBorderChunkBase::TypeObject FatBorderChunkBase::_type(
     FatBorderChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FatBorderChunkBase::createEmptyLocal),
     FatBorderChunk::initMethod,
     FatBorderChunk::exitMethod,

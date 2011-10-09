@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TiledQuadTreeTerrain;
 
 //! \brief TiledQuadTreeTerrain Base Class.

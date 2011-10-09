@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderProgramFile;
 
 OSG_GEN_CONTAINERPTR(ShaderProgramFile);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<ShaderProgramFile *> :
-    public FieldTraitsFCPtrBase<ShaderProgramFile *>
+struct FieldTraits<ShaderProgramFile *, nsOSG> :
+    public FieldTraitsFCPtrBase<ShaderProgramFile *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ShaderProgramFile *> :
 
   public:
 
-    typedef FieldTraits<ShaderProgramFile *>  Self;
+    typedef FieldTraits<ShaderProgramFile *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

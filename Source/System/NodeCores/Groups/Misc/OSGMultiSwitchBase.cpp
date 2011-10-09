@@ -98,18 +98,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiSwitch *>::_type("MultiSwitchPtr", "GroupPtr");
+DataType FieldTraits<MultiSwitch *, nsOSG>::_type("MultiSwitchPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MultiSwitch *)
+OSG_FIELDTRAITS_GETTYPE_NS(MultiSwitch *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MultiSwitch *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MultiSwitch *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -151,7 +151,7 @@ MultiSwitchBase::TypeObject MultiSwitchBase::_type(
     MultiSwitchBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MultiSwitchBase::createEmptyLocal),
     MultiSwitch::initMethod,
     MultiSwitch::exitMethod,

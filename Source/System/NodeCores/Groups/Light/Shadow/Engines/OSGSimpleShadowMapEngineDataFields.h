@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleShadowMapEngineData;
 
 OSG_GEN_CONTAINERPTR(SimpleShadowMapEngineData);
-
 /*! \ingroup GrpGroupLightShadowEnginesFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<SimpleShadowMapEngineData *> :
-    public FieldTraitsFCPtrBase<SimpleShadowMapEngineData *>
+struct FieldTraits<SimpleShadowMapEngineData *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleShadowMapEngineData *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleShadowMapEngineData *> :
 
   public:
 
-    typedef FieldTraits<SimpleShadowMapEngineData *>  Self;
+    typedef FieldTraits<SimpleShadowMapEngineData *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Inline;
 
 OSG_GEN_CONTAINERPTR(Inline);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<Inline *> :
-    public FieldTraitsFCPtrBase<Inline *>
+struct FieldTraits<Inline *, nsOSG> :
+    public FieldTraitsFCPtrBase<Inline *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Inline *> :
 
   public:
 
-    typedef FieldTraits<Inline *>  Self;
+    typedef FieldTraits<Inline *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Inline *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFInlinePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFInlinePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Inline *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInlinePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Inline *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
-                      RecordedRefCountPolicy  > SFRecInlinePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecInlinePtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
-                      UnrecordedRefCountPolicy> SFUnrecInlinePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecInlinePtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
-                      WeakRefCountPolicy      > SFWeakInlinePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakInlinePtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<Inline *,
-                      NoRefCountPolicy        > SFUncountedInlinePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedInlinePtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
-                      RecordedRefCountPolicy  > MFRecInlinePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecInlinePtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
-                      UnrecordedRefCountPolicy> MFUnrecInlinePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecInlinePtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
-                      WeakRefCountPolicy      > MFWeakInlinePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakInlinePtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<Inline *,
-                      NoRefCountPolicy        > MFUncountedInlinePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedInlinePtr;
 
 
 

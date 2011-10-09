@@ -122,10 +122,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DeferredShadingStageData *>::_type("DeferredShadingStageDataPtr", "StageDataPtr");
+DataType FieldTraits<DeferredShadingStageData *, nsOSG>::_type("DeferredShadingStageDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DeferredShadingStageData *)
+OSG_FIELDTRAITS_GETTYPE_NS(DeferredShadingStageData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -227,7 +227,7 @@ DeferredShadingStageDataBase::TypeObject DeferredShadingStageDataBase::_type(
     DeferredShadingStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DeferredShadingStageDataBase::createEmptyLocal),
     DeferredShadingStageData::initMethod,
     DeferredShadingStageData::exitMethod,

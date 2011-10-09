@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShadeModelChunk;
 
 OSG_GEN_CONTAINERPTR(ShadeModelChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<ShadeModelChunk *> :
-    public FieldTraitsFCPtrBase<ShadeModelChunk *>
+struct FieldTraits<ShadeModelChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<ShadeModelChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ShadeModelChunk *> :
 
   public:
 
-    typedef FieldTraits<ShadeModelChunk *>  Self;
+    typedef FieldTraits<ShadeModelChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

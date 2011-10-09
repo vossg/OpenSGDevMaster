@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SepiaComposer;
 
 OSG_GEN_CONTAINERPTR(SepiaComposer);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<SepiaComposer *> :
-    public FieldTraitsFCPtrBase<SepiaComposer *>
+struct FieldTraits<SepiaComposer *, nsOSG> :
+    public FieldTraitsFCPtrBase<SepiaComposer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SepiaComposer *> :
 
   public:
 
-    typedef FieldTraits<SepiaComposer *>  Self;
+    typedef FieldTraits<SepiaComposer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

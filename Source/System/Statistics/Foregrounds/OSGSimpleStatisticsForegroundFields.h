@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleStatisticsForeground;
 
 OSG_GEN_CONTAINERPTR(SimpleStatisticsForeground);
-
 /*! \ingroup GrpUtilStatisticsFieldTraits
     \ingroup GrpLibOSGUtil
  */
 template <>
-struct FieldTraits<SimpleStatisticsForeground *> :
-    public FieldTraitsFCPtrBase<SimpleStatisticsForeground *>
+struct FieldTraits<SimpleStatisticsForeground *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleStatisticsForeground *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleStatisticsForeground *> :
 
   public:
 
-    typedef FieldTraits<SimpleStatisticsForeground *>  Self;
+    typedef FieldTraits<SimpleStatisticsForeground *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<SimpleStatisticsForeground *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSimpleStatisticsForegroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSimpleStatisticsForegroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSimpleStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SimpleStatisticsForeground *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSimpleStatisticsForegroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<NoRefCountPo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
-                      RecordedRefCountPolicy  > SFRecSimpleStatisticsForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
-                      UnrecordedRefCountPolicy> SFUnrecSimpleStatisticsForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
-                      WeakRefCountPolicy      > SFWeakSimpleStatisticsForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
-                      NoRefCountPolicy        > SFUncountedSimpleStatisticsForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSimpleStatisticsForegroundPtr;
 
 
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
-                      RecordedRefCountPolicy  > MFRecSimpleStatisticsForegroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
-                      UnrecordedRefCountPolicy> MFUnrecSimpleStatisticsForegroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
-                      WeakRefCountPolicy      > MFWeakSimpleStatisticsForegroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSimpleStatisticsForegroundPtr;
 /*! \ingroup GrpUtilStatisticsFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
-                      NoRefCountPolicy        > MFUncountedSimpleStatisticsForegroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSimpleStatisticsForegroundPtr;
 
 
 

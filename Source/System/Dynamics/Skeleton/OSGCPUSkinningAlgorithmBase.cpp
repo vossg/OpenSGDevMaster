@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CPUSkinningAlgorithm *>::_type("CPUSkinningAlgorithmPtr", "SkinningAlgorithmPtr");
+DataType FieldTraits<CPUSkinningAlgorithm *, nsOSG>::_type("CPUSkinningAlgorithmPtr", "SkinningAlgorithmPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CPUSkinningAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(CPUSkinningAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CPUSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CPUSkinningAlgorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ CPUSkinningAlgorithmBase::TypeObject CPUSkinningAlgorithmBase::_type(
     CPUSkinningAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CPUSkinningAlgorithmBase::createEmptyLocal),
     CPUSkinningAlgorithm::initMethod,
     CPUSkinningAlgorithm::exitMethod,

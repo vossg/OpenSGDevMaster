@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class BinarySwapComposer;
 
 OSG_GEN_CONTAINERPTR(BinarySwapComposer);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<BinarySwapComposer *> :
-    public FieldTraitsFCPtrBase<BinarySwapComposer *>
+struct FieldTraits<BinarySwapComposer *, nsOSG> :
+    public FieldTraitsFCPtrBase<BinarySwapComposer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<BinarySwapComposer *> :
 
   public:
 
-    typedef FieldTraits<BinarySwapComposer *>  Self;
+    typedef FieldTraits<BinarySwapComposer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

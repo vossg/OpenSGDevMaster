@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VariantMaterial *>::_type("VariantMaterialPtr", "CompositeMaterialPtr");
+DataType FieldTraits<VariantMaterial *, nsOSG>::_type("VariantMaterialPtr", "CompositeMaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VariantMaterial *)
+OSG_FIELDTRAITS_GETTYPE_NS(VariantMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            VariantMaterial *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            VariantMaterial *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ VariantMaterialBase::TypeObject VariantMaterialBase::_type(
     VariantMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VariantMaterialBase::createEmptyLocal),
     VariantMaterial::initMethod,
     VariantMaterial::exitMethod,

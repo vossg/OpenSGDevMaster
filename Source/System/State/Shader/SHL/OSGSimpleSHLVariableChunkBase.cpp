@@ -96,18 +96,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLVariableChunk *>::_type("SimpleSHLVariableChunkPtr", "StateChunkPtr");
+DataType FieldTraits<SimpleSHLVariableChunk *, nsOSG>::_type("SimpleSHLVariableChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleSHLVariableChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleSHLVariableChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleSHLVariableChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleSHLVariableChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -148,7 +148,7 @@ SimpleSHLVariableChunkBase::TypeObject SimpleSHLVariableChunkBase::_type(
     SimpleSHLVariableChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLVariableChunkBase::createEmptyLocal),
     SimpleSHLVariableChunk::initMethod,
     SimpleSHLVariableChunk::exitMethod,

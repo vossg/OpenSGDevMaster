@@ -96,26 +96,26 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DeviceInterfaceSensor *>::_type("DeviceInterfaceSensorPtr", "NodeCorePtr");
+DataType FieldTraits<DeviceInterfaceSensor *, nsOSG>::_type("DeviceInterfaceSensorPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DeviceInterfaceSensor *)
+OSG_FIELDTRAITS_GETTYPE_NS(DeviceInterfaceSensor *, nsOSG)
 
-DataType &FieldTraits<DeviceInterfaceSensor *, 1 >::getType(void)
+DataType &FieldTraits<DeviceInterfaceSensor *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<DeviceInterfaceSensor *, 0>::getType();
+    return FieldTraits<DeviceInterfaceSensor *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     DeviceInterfaceSensor *,
                     NoRefCountPolicy,
-                    1);
+                    nsOSG + 1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          DeviceInterfaceSensor *,
                          NoRefCountPolicy,
-                         1);
+                         nsOSG + 1);
 
 
 /***************************************************************************\
@@ -159,7 +159,7 @@ DeviceInterfaceSensorBase::TypeObject DeviceInterfaceSensorBase::_type(
     DeviceInterfaceSensorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     DeviceInterfaceSensor::initMethod,
     DeviceInterfaceSensor::exitMethod,

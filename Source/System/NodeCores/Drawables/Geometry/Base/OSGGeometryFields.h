@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Geometry;
 
 OSG_GEN_CONTAINERPTR(Geometry);
-
 /*! \ingroup GrpDrawablesGeometryFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<Geometry *> :
-    public FieldTraitsFCPtrBase<Geometry *>
+struct FieldTraits<Geometry *, nsOSG> :
+    public FieldTraitsFCPtrBase<Geometry *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Geometry *> :
 
   public:
 
-    typedef FieldTraits<Geometry *>  Self;
+    typedef FieldTraits<Geometry *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Geometry *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGeometryPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFGeometryPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Geometry *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Geometry *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeometryPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Geometry *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<Geometry *,
-                      RecordedRefCountPolicy  > SFRecGeometryPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<Geometry *,
-                      UnrecordedRefCountPolicy> SFUnrecGeometryPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<Geometry *,
-                      WeakRefCountPolicy      > SFWeakGeometryPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldSFields */
 typedef PointerSField<Geometry *,
-                      NoRefCountPolicy        > SFUncountedGeometryPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedGeometryPtr;
 
 
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<Geometry *,
-                      RecordedRefCountPolicy  > MFRecGeometryPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<Geometry *,
-                      UnrecordedRefCountPolicy> MFUnrecGeometryPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<Geometry *,
-                      WeakRefCountPolicy      > MFWeakGeometryPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakGeometryPtr;
 /*! \ingroup GrpDrawablesGeometryFieldMFields */
 typedef PointerMField<Geometry *,
-                      NoRefCountPolicy        > MFUncountedGeometryPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedGeometryPtr;
 
 
 

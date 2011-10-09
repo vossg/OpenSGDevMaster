@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class BinarySwapComposer;
 
 //! \brief BinarySwapComposer Base Class.

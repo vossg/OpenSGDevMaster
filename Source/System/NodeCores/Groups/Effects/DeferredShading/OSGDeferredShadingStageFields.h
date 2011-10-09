@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DeferredShadingStage;
 
 OSG_GEN_CONTAINERPTR(DeferredShadingStage);
-
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<DeferredShadingStage *> :
-    public FieldTraitsFCPtrBase<DeferredShadingStage *>
+struct FieldTraits<DeferredShadingStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<DeferredShadingStage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<DeferredShadingStage *> :
 
   public:
 
-    typedef FieldTraits<DeferredShadingStage *>  Self;
+    typedef FieldTraits<DeferredShadingStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<DeferredShadingStage *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDeferredShadingStagePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDeferredShadingStagePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDeferredShadingStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DeferredShadingStage *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDeferredShadingStagePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<DeferredShadingStage *, 0>::getMName<NoRefCountPolicy>(
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
-                      RecordedRefCountPolicy  > SFRecDeferredShadingStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
-                      UnrecordedRefCountPolicy> SFUnrecDeferredShadingStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
-                      WeakRefCountPolicy      > SFWeakDeferredShadingStagePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldSFields */
 typedef PointerSField<DeferredShadingStage *,
-                      NoRefCountPolicy        > SFUncountedDeferredShadingStagePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedDeferredShadingStagePtr;
 
 
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
-                      RecordedRefCountPolicy  > MFRecDeferredShadingStagePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
-                      UnrecordedRefCountPolicy> MFUnrecDeferredShadingStagePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
-                      WeakRefCountPolicy      > MFWeakDeferredShadingStagePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakDeferredShadingStagePtr;
 /*! \ingroup GrpEffectsGroupsDeferredShadingFieldMFields */
 typedef PointerMField<DeferredShadingStage *,
-                      NoRefCountPolicy        > MFUncountedDeferredShadingStagePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedDeferredShadingStagePtr;
 
 
 

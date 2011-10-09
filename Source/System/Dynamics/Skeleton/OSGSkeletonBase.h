@@ -77,6 +77,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Skeleton;
 
 //! \brief Skeleton Base Class.

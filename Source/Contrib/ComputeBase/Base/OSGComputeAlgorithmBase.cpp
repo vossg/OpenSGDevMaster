@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComputeAlgorithm *>::_type("ComputeAlgorithmPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ComputeAlgorithm *, nsOSG>::_type("ComputeAlgorithmPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComputeAlgorithm *)
+OSG_FIELDTRAITS_GETTYPE_NS(ComputeAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ComputeAlgorithm *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComputeAlgorithm *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ ComputeAlgorithmBase::TypeObject ComputeAlgorithmBase::_type(
     ComputeAlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ComputeAlgorithm::initMethod,
     ComputeAlgorithm::exitMethod,

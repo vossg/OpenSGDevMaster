@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComponentTransform;
 
 OSG_GEN_CONTAINERPTR(ComponentTransform);
-
 /*! \ingroup GrpGroupMiscFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<ComponentTransform *> :
-    public FieldTraitsFCPtrBase<ComponentTransform *>
+struct FieldTraits<ComponentTransform *, nsOSG> :
+    public FieldTraitsFCPtrBase<ComponentTransform *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ComponentTransform *> :
 
   public:
 
-    typedef FieldTraits<ComponentTransform *>  Self;
+    typedef FieldTraits<ComponentTransform *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ComponentTransform *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFComponentTransformPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFComponentTransformPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentTransform *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdComponentTransformPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<NoRefCountPolicy>(vo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ComponentTransform *,
-                      RecordedRefCountPolicy  > SFRecComponentTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ComponentTransform *,
-                      UnrecordedRefCountPolicy> SFUnrecComponentTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ComponentTransform *,
-                      WeakRefCountPolicy      > SFWeakComponentTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldSFields */
 typedef PointerSField<ComponentTransform *,
-                      NoRefCountPolicy        > SFUncountedComponentTransformPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedComponentTransformPtr;
 
 
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ComponentTransform *,
-                      RecordedRefCountPolicy  > MFRecComponentTransformPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ComponentTransform *,
-                      UnrecordedRefCountPolicy> MFUnrecComponentTransformPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ComponentTransform *,
-                      WeakRefCountPolicy      > MFWeakComponentTransformPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakComponentTransformPtr;
 /*! \ingroup GrpGroupMiscFieldMFields */
 typedef PointerMField<ComponentTransform *,
-                      NoRefCountPolicy        > MFUncountedComponentTransformPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedComponentTransformPtr;
 
 
 

@@ -103,10 +103,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PipelineComposer *>::_type("PipelineComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<PipelineComposer *, nsOSG>::_type("PipelineComposerPtr", "ImageComposerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PipelineComposer *)
+OSG_FIELDTRAITS_GETTYPE_NS(PipelineComposer *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -171,7 +171,7 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     PipelineComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PipelineComposerBase::createEmptyLocal),
     PipelineComposer::initMethod,
     PipelineComposer::exitMethod,

@@ -145,18 +145,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TiledQuadTreeTerrain *>::_type("TiledQuadTreeTerrainPtr", "MaterialGroupPtr");
+DataType FieldTraits<TiledQuadTreeTerrain *, nsOSG>::_type("TiledQuadTreeTerrainPtr", "MaterialGroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrain *)
+OSG_FIELDTRAITS_GETTYPE_NS(TiledQuadTreeTerrain *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TiledQuadTreeTerrain *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TiledQuadTreeTerrain *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -341,7 +341,7 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(
     TiledQuadTreeTerrainBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TiledQuadTreeTerrainBase::createEmptyLocal),
     TiledQuadTreeTerrain::initMethod,
     TiledQuadTreeTerrain::exitMethod,

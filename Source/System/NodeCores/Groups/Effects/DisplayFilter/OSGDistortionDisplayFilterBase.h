@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class DistortionDisplayFilter;
 
 //! \brief DistortionDisplayFilter Base Class.

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ColorMaskChunk;
 
 OSG_GEN_CONTAINERPTR(ColorMaskChunk);
-
 /*! \ingroup GrpSystemStateFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<ColorMaskChunk *> :
-    public FieldTraitsFCPtrBase<ColorMaskChunk *>
+struct FieldTraits<ColorMaskChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<ColorMaskChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ColorMaskChunk *> :
 
   public:
 
-    typedef FieldTraits<ColorMaskChunk *>  Self;
+    typedef FieldTraits<ColorMaskChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ColorMaskChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFColorMaskChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFColorMaskChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorMaskChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
-                      RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
-                      WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
-                      NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedColorMaskChunkPtr;
 
 
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
-                      RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
-                      WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakColorMaskChunkPtr;
 /*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
-                      NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedColorMaskChunkPtr;
 
 
 

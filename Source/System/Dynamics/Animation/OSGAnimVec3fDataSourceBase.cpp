@@ -115,18 +115,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimVec3fDataSource *>::_type("AnimVec3fDataSourcePtr", "AnimKeyFrameDataSourcePtr");
+DataType FieldTraits<AnimVec3fDataSource *, nsOSG>::_type("AnimVec3fDataSourcePtr", "AnimKeyFrameDataSourcePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimVec3fDataSource *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimVec3fDataSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimVec3fDataSource *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimVec3fDataSource *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -227,7 +227,7 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     AnimVec3fDataSourceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fDataSourceBase::createEmptyLocal),
     AnimVec3fDataSource::initMethod,
     AnimVec3fDataSource::exitMethod,

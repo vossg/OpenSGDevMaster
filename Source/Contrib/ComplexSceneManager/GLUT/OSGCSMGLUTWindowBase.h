@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMGLUTWindow;
 
 //! \brief CSMGLUTWindow Base Class.

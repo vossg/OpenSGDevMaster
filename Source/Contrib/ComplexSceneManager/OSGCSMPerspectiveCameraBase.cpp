@@ -100,18 +100,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMPerspectiveCamera *>::_type("CSMPerspectiveCameraPtr", "PerspectiveCameraPtr");
+DataType FieldTraits<CSMPerspectiveCamera *, nsOSG>::_type("CSMPerspectiveCameraPtr", "PerspectiveCameraPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMPerspectiveCamera *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMPerspectiveCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMPerspectiveCamera *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMPerspectiveCamera *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -164,7 +164,7 @@ CSMPerspectiveCameraBase::TypeObject CSMPerspectiveCameraBase::_type(
     CSMPerspectiveCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMPerspectiveCameraBase::createEmptyLocal),
     CSMPerspectiveCamera::initMethod,
     CSMPerspectiveCamera::exitMethod,

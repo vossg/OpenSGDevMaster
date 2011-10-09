@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderVariablePnt2f;
 
 //! \brief ShaderVariablePnt2f Base Class.

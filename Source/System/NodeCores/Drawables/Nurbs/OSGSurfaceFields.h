@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Surface;
 
 OSG_GEN_CONTAINERPTR(Surface);
-
 /*! \ingroup GrpDrawablesNurbsFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<Surface *> :
-    public FieldTraitsFCPtrBase<Surface *>
+struct FieldTraits<Surface *, nsOSG> :
+    public FieldTraitsFCPtrBase<Surface *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Surface *> :
 
   public:
 
-    typedef FieldTraits<Surface *>  Self;
+    typedef FieldTraits<Surface *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Surface *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSurfacePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSurfacePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSurfacePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Surface *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Surface *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSurfacePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Surface *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
-                      RecordedRefCountPolicy  > SFRecSurfacePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
-                      UnrecordedRefCountPolicy> SFUnrecSurfacePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
-                      WeakRefCountPolicy      > SFWeakSurfacePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldSFields */
 typedef PointerSField<Surface *,
-                      NoRefCountPolicy        > SFUncountedSurfacePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSurfacePtr;
 
 
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
-                      RecordedRefCountPolicy  > MFRecSurfacePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
-                      UnrecordedRefCountPolicy> MFUnrecSurfacePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
-                      WeakRefCountPolicy      > MFWeakSurfacePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSurfacePtr;
 /*! \ingroup GrpDrawablesNurbsFieldMFields */
 typedef PointerMField<Surface *,
-                      NoRefCountPolicy        > MFUncountedSurfacePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSurfacePtr;
 
 
 

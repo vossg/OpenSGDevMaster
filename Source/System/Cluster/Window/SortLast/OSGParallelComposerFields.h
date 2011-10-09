@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ParallelComposer;
 
 OSG_GEN_CONTAINERPTR(ParallelComposer);
-
 /*! \ingroup GrpClusterWindowFieldTraits
     \ingroup GrpLibOSGCluster
  */
 template <>
-struct FieldTraits<ParallelComposer *> :
-    public FieldTraitsFCPtrBase<ParallelComposer *>
+struct FieldTraits<ParallelComposer *, nsOSG> :
+    public FieldTraitsFCPtrBase<ParallelComposer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ParallelComposer *> :
 
   public:
 
-    typedef FieldTraits<ParallelComposer *>  Self;
+    typedef FieldTraits<ParallelComposer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -92,10 +92,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DirectionalLight *>::_type("DirectionalLightPtr", "LightPtr");
+DataType FieldTraits<DirectionalLight *, nsOSG>::_type("DirectionalLightPtr", "LightPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DirectionalLight *)
+OSG_FIELDTRAITS_GETTYPE_NS(DirectionalLight *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -124,7 +124,7 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     DirectionalLightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DirectionalLightBase::createEmptyLocal),
     DirectionalLight::initMethod,
     DirectionalLight::exitMethod,

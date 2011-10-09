@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class StateChunk;
 
 //! \brief StateChunk Base Class.

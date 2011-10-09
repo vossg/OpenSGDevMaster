@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class State;
 
 //! \brief State Base Class.

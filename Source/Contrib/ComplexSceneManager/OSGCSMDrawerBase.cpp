@@ -100,31 +100,31 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMDrawer *>::_type("CSMDrawerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMDrawer *, nsOSG>::_type("CSMDrawerPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMDrawer *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMDrawer *, nsOSG)
 
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMDrawer *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits<CSMDrawer *, 1 >::getType(void)
+DataType &FieldTraits<CSMDrawer *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<CSMDrawer *, 0>::getType();
+    return FieldTraits<CSMDrawer *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     CSMDrawer *,
                     NoRefCountPolicy,
-                    1);
+                    nsOSG + 1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          CSMDrawer *,
                          NoRefCountPolicy,
-                         1);
+                         nsOSG + 1);
 
 
 /***************************************************************************\
@@ -178,7 +178,7 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     CSMDrawerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMDrawerBase::createEmptyLocal),
     CSMDrawer::initMethod,
     CSMDrawer::exitMethod,

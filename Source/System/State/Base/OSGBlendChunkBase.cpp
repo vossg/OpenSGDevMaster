@@ -137,18 +137,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BlendChunk *>::_type("BlendChunkPtr", "StateChunkPtr");
+DataType FieldTraits<BlendChunk *, nsOSG>::_type("BlendChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BlendChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(BlendChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            BlendChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            BlendChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -266,7 +266,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     BlendChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&BlendChunkBase::createEmptyLocal),
     BlendChunk::initMethod,
     BlendChunk::exitMethod,

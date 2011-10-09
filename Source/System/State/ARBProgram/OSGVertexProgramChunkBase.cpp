@@ -89,18 +89,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VertexProgramChunk *>::_type("VertexProgramChunkPtr", "ProgramChunkPtr");
+DataType FieldTraits<VertexProgramChunk *, nsOSG>::_type("VertexProgramChunkPtr", "ProgramChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VertexProgramChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(VertexProgramChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            VertexProgramChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            VertexProgramChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -115,7 +115,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     VertexProgramChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VertexProgramChunkBase::createEmptyLocal),
     VertexProgramChunk::initMethod,
     VertexProgramChunk::exitMethod,

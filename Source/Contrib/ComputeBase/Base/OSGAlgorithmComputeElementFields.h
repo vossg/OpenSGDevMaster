@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AlgorithmComputeElement;
 
 OSG_GEN_CONTAINERPTR(AlgorithmComputeElement);
-
 /*! \ingroup GrpContribComputeBaseFieldTraits
     \ingroup GrpLibOSGContribComputeBase
  */
 template <>
-struct FieldTraits<AlgorithmComputeElement *> :
-    public FieldTraitsFCPtrBase<AlgorithmComputeElement *>
+struct FieldTraits<AlgorithmComputeElement *, nsOSG> :
+    public FieldTraitsFCPtrBase<AlgorithmComputeElement *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AlgorithmComputeElement *> :
 
   public:
 
-    typedef FieldTraits<AlgorithmComputeElement *>  Self;
+    typedef FieldTraits<AlgorithmComputeElement *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

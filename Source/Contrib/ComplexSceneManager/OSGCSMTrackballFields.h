@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMTrackball;
 
 OSG_GEN_CONTAINERPTR(CSMTrackball);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMTrackball *> :
-    public FieldTraitsFCPtrBase<CSMTrackball *>
+struct FieldTraits<CSMTrackball *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMTrackball *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMTrackball *> :
 
   public:
 
-    typedef FieldTraits<CSMTrackball *>  Self;
+    typedef FieldTraits<CSMTrackball *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMTrackball *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMTrackballPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMTrackballPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMTrackballPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMTrackball *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMTrackballPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
-                      RecordedRefCountPolicy  > SFRecCSMTrackballPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMTrackballPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
-                      WeakRefCountPolicy      > SFWeakCSMTrackballPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
-                      NoRefCountPolicy        > SFUncountedCSMTrackballPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMTrackballPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
-                      RecordedRefCountPolicy  > MFRecCSMTrackballPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMTrackballPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
-                      WeakRefCountPolicy      > MFWeakCSMTrackballPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMTrackballPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
-                      NoRefCountPolicy        > MFUncountedCSMTrackballPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMTrackballPtr;
 
 
 

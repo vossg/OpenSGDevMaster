@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CgFXPassChunk;
 
 //! \brief CgFXPassChunk Base Class.

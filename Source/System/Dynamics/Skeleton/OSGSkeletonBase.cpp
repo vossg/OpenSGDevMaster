@@ -153,52 +153,52 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Skeleton *, nsOSG>::_type("SkeletonPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Skeleton *)
+OSG_FIELDTRAITS_GETTYPE_NS(Skeleton *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Skeleton *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Skeleton *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< Skeleton *, 1 >::getType(void)
+DataType &FieldTraits< Skeleton *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<Skeleton *, 0>::getType();
+    return FieldTraits<Skeleton *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Skeleton *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Skeleton *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
-DataType &FieldTraits<Skeleton *, 2 >::getType(void)
+DataType &FieldTraits<Skeleton *, nsOSG + 2 >::getType(void)
 {
-    return FieldTraits<Skeleton *, 0>::getType();
+    return FieldTraits<Skeleton *, nsOSG>::getType();
 }
 
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     Skeleton *,
                     NoRefCountPolicy,
-                    2);
+                    nsOSG + 2);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Skeleton *,
                          NoRefCountPolicy,
-                         2);
+                         nsOSG + 2);
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -352,7 +352,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     SkeletonBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkeletonBase::createEmptyLocal),
     Skeleton::initMethod,
     Skeleton::exitMethod,

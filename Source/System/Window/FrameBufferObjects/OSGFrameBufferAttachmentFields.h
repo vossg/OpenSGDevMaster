@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FrameBufferAttachment;
 
 OSG_GEN_CONTAINERPTR(FrameBufferAttachment);
-
 /*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<FrameBufferAttachment *> :
-    public FieldTraitsFCPtrBase<FrameBufferAttachment *>
+struct FieldTraits<FrameBufferAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<FrameBufferAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FrameBufferAttachment *> :
 
   public:
 
-    typedef FieldTraits<FrameBufferAttachment *>  Self;
+    typedef FieldTraits<FrameBufferAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FrameBufferAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFrameBufferAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFrameBufferAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFrameBufferAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<NoRefCountPolicy>
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
-                      RecordedRefCountPolicy  > SFRecFrameBufferAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecFrameBufferAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
-                      WeakRefCountPolicy      > SFWeakFrameBufferAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
-                      NoRefCountPolicy        > SFUncountedFrameBufferAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFrameBufferAttachmentPtr;
 
 
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
-                      RecordedRefCountPolicy  > MFRecFrameBufferAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecFrameBufferAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
-                      WeakRefCountPolicy      > MFWeakFrameBufferAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFrameBufferAttachmentPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
-                      NoRefCountPolicy        > MFUncountedFrameBufferAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFrameBufferAttachmentPtr;
 
 
 

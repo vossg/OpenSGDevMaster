@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CalibrationPatternFilter;
 
 OSG_GEN_CONTAINERPTR(CalibrationPatternFilter);
-
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<CalibrationPatternFilter *> :
-    public FieldTraitsFCPtrBase<CalibrationPatternFilter *>
+struct FieldTraits<CalibrationPatternFilter *, nsOSG> :
+    public FieldTraitsFCPtrBase<CalibrationPatternFilter *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CalibrationPatternFilter *> :
 
   public:
 
-    typedef FieldTraits<CalibrationPatternFilter *>  Self;
+    typedef FieldTraits<CalibrationPatternFilter *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CalibrationPatternFilter *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCalibrationPatternFilterPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCalibrationPatternFilterPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCalibrationPatternFilterPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CalibrationPatternFilter *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCalibrationPatternFilterPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CalibrationPatternFilter *, 0>::getMName<NoRefCountPoli
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CalibrationPatternFilter *,
-                      RecordedRefCountPolicy  > SFRecCalibrationPatternFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CalibrationPatternFilter *,
-                      UnrecordedRefCountPolicy> SFUnrecCalibrationPatternFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CalibrationPatternFilter *,
-                      WeakRefCountPolicy      > SFWeakCalibrationPatternFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldSFields */
 typedef PointerSField<CalibrationPatternFilter *,
-                      NoRefCountPolicy        > SFUncountedCalibrationPatternFilterPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCalibrationPatternFilterPtr;
 
 
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CalibrationPatternFilter *,
-                      RecordedRefCountPolicy  > MFRecCalibrationPatternFilterPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CalibrationPatternFilter *,
-                      UnrecordedRefCountPolicy> MFUnrecCalibrationPatternFilterPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CalibrationPatternFilter *,
-                      WeakRefCountPolicy      > MFWeakCalibrationPatternFilterPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCalibrationPatternFilterPtr;
 /*! \ingroup GrpEffectsGroupsDisplayFilterFieldMFields */
 typedef PointerMField<CalibrationPatternFilter *,
-                      NoRefCountPolicy        > MFUncountedCalibrationPatternFilterPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCalibrationPatternFilterPtr;
 
 
 

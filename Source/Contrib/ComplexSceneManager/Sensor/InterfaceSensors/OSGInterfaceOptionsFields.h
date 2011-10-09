@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InterfaceOptions;
 
 OSG_GEN_CONTAINERPTR(InterfaceOptions);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<InterfaceOptions *> :
-    public FieldTraitsFCPtrBase<InterfaceOptions *>
+struct FieldTraits<InterfaceOptions *, nsOSG> :
+    public FieldTraitsFCPtrBase<InterfaceOptions *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<InterfaceOptions *> :
 
   public:
 
-    typedef FieldTraits<InterfaceOptions *>  Self;
+    typedef FieldTraits<InterfaceOptions *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<InterfaceOptions *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFInterfaceOptionsPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInterfaceOptionsPtr"; 
 }
@@ -122,13 +121,13 @@ const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<NoRefCountPolicy>(void
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
-struct FieldTraits<InterfaceOptions *, 1> :
-    public FieldTraitsFCPtrBase<InterfaceOptions *, 1>
+struct FieldTraits<InterfaceOptions *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<InterfaceOptions *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<InterfaceOptions *, 1>  Self;
+    typedef FieldTraits<InterfaceOptions *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -139,25 +138,25 @@ struct FieldTraits<InterfaceOptions *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildInterfaceOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InterfaceOptions *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildInterfaceOptionsPtr"; 
 }
@@ -167,16 +166,16 @@ const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<NoRefCountPolicy>(void
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
-                      RecordedRefCountPolicy  > SFRecInterfaceOptionsPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecInterfaceOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
-                      UnrecordedRefCountPolicy> SFUnrecInterfaceOptionsPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecInterfaceOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
-                      WeakRefCountPolicy      > SFWeakInterfaceOptionsPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakInterfaceOptionsPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
-                      NoRefCountPolicy        > SFUncountedInterfaceOptionsPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedInterfaceOptionsPtr;
 
 
 
@@ -184,7 +183,7 @@ typedef PointerSField<InterfaceOptions *,
 typedef ChildPointerSField<
           InterfaceOptions *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildInterfaceOptionsPtr;
+          nsOSG + 1             > SFUnrecChildInterfaceOptionsPtr;
 
 
 
@@ -214,7 +213,7 @@ struct SFUnrecChildInterfaceOptionsPtr :
     public ChildPointerSField<
         InterfaceOptions *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

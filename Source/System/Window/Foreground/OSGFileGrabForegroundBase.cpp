@@ -106,18 +106,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FileGrabForeground *>::_type("FileGrabForegroundPtr", "GrabForegroundPtr");
+DataType FieldTraits<FileGrabForeground *, nsOSG>::_type("FileGrabForegroundPtr", "GrabForegroundPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FileGrabForeground *)
+OSG_FIELDTRAITS_GETTYPE_NS(FileGrabForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FileGrabForeground *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FileGrabForeground *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -170,7 +170,7 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     FileGrabForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FileGrabForegroundBase::createEmptyLocal),
     FileGrabForeground::initMethod,
     FileGrabForeground::exitMethod,

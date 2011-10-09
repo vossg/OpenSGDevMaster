@@ -102,18 +102,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightModelChunk *>::_type("LightModelChunkPtr", "StateChunkPtr");
+DataType FieldTraits<LightModelChunk *, nsOSG>::_type("LightModelChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LightModelChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(LightModelChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LightModelChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            LightModelChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -167,7 +167,7 @@ LightModelChunkBase::TypeObject LightModelChunkBase::_type(
     LightModelChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LightModelChunkBase::createEmptyLocal),
     LightModelChunk::initMethod,
     LightModelChunk::exitMethod,

@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Window;
 
 //! \brief Window Base Class.

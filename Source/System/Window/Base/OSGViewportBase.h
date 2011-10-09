@@ -77,6 +77,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Viewport;
 
 //! \brief Viewport Base Class.

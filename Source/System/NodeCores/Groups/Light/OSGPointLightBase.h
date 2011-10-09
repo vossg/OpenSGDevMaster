@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PointLight;
 
 //! \brief PointLight Base Class.

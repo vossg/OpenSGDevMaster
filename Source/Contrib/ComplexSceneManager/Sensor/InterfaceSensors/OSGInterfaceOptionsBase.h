@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InterfaceOptions;
 
 //! \brief InterfaceOptions Base Class.

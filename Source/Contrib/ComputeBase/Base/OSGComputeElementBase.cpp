@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComputeElement *>::_type("ComputeElementPtr", "GroupPtr");
+DataType FieldTraits<ComputeElement *, nsOSG>::_type("ComputeElementPtr", "GroupPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComputeElement *)
+OSG_FIELDTRAITS_GETTYPE_NS(ComputeElement *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ComputeElement *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComputeElement *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -115,7 +115,7 @@ ComputeElementBase::TypeObject ComputeElementBase::_type(
     ComputeElementBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComputeElementBase::createEmptyLocal),
     ComputeElement::initMethod,
     ComputeElement::exitMethod,

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLPositionInterpolator;
 
 OSG_GEN_CONTAINERPTR(VRMLPositionInterpolator);
-
 /*! \ingroup GrpDynamicsVRMLAnimationFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<VRMLPositionInterpolator *> :
-    public FieldTraitsFCPtrBase<VRMLPositionInterpolator *>
+struct FieldTraits<VRMLPositionInterpolator *, nsOSG> :
+    public FieldTraitsFCPtrBase<VRMLPositionInterpolator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<VRMLPositionInterpolator *> :
 
   public:
 
-    typedef FieldTraits<VRMLPositionInterpolator *>  Self;
+    typedef FieldTraits<VRMLPositionInterpolator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

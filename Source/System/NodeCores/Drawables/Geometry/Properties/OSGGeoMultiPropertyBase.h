@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class GeoMultiProperty;
 
 //! \brief GeoMultiProperty Base Class.

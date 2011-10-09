@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMDrawer;
 
 OSG_GEN_CONTAINERPTR(CSMDrawer);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMDrawer *> :
-    public FieldTraitsFCPtrBase<CSMDrawer *>
+struct FieldTraits<CSMDrawer *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMDrawer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMDrawer *> :
 
   public:
 
-    typedef FieldTraits<CSMDrawer *>  Self;
+    typedef FieldTraits<CSMDrawer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,30 +90,29 @@ struct FieldTraits<CSMDrawer *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMDrawerPtr"; }
 };
 
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMDrawerPtr"; 
 }
@@ -122,8 +121,8 @@ const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
-struct FieldTraits<CSMDrawer *, 1> : 
-    public FieldTraitsFCPtrBase<CSMDrawer *, 1>
+struct FieldTraits<CSMDrawer *, nsOSG + 1> : 
+    public FieldTraitsFCPtrBase<CSMDrawer *, nsOSG + 1>
 {
   private:
 
@@ -133,7 +132,7 @@ struct FieldTraits<CSMDrawer *, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<CSMDrawer *, 1>        Self;
+    typedef FieldTraits<CSMDrawer *, nsOSG + 1> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -156,16 +155,16 @@ struct FieldTraits<CSMDrawer *, 1> :
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
-                      RecordedRefCountPolicy  > MFRecCSMDrawerPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMDrawerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMDrawerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMDrawerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
-                      WeakRefCountPolicy      > MFWeakCSMDrawerPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMDrawerPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
-                      NoRefCountPolicy        > MFUncountedCSMDrawerPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMDrawerPtr;
 
 
 
@@ -173,7 +172,7 @@ typedef PointerMField<CSMDrawer *,
 typedef ParentPointerSField<
           CSMDrawer *, 
           NoRefCountPolicy,
-          1    > SFParentCSMDrawerPtr;
+          nsOSG + 1    > SFParentCSMDrawerPtr;
 
 
 #else // these are the doxygen hacks
@@ -203,7 +202,7 @@ struct SFParentCSMDrawerPtr :
     public ParentPointerSField<
         CSMDrawer *, 
         NoRefCountPolicy,
-        1    > {};
+        nsOSG + 1    > {};
 
 #endif // these are the doxygen hacks
 

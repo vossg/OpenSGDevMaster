@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ChunkBlock;
 
 //! \brief ChunkBlock Base Class.

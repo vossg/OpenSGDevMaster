@@ -70,6 +70,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMNativeWindow;
 
 //! \brief CSMNativeWindow Base Class.

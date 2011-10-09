@@ -92,18 +92,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXTechnique *>::_type("CgFXTechniquePtr", "PrimeMaterialPtr");
+DataType FieldTraits<CgFXTechnique *, nsOSG>::_type("CgFXTechniquePtr", "PrimeMaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CgFXTechnique *)
+OSG_FIELDTRAITS_GETTYPE_NS(CgFXTechnique *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CgFXTechnique *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CgFXTechnique *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +132,7 @@ CgFXTechniqueBase::TypeObject CgFXTechniqueBase::_type(
     CgFXTechniqueBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CgFXTechniqueBase::createEmptyLocal),
     CgFXTechnique::initMethod,
     CgFXTechnique::exitMethod,

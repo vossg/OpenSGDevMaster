@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MaterialGroup;
 
 //! \brief MaterialGroup Base Class.

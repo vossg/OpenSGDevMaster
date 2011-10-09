@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class XWindow;
 
 //! \brief XWindow Base Class.

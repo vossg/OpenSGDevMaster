@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class HDRStage;
 
 OSG_GEN_CONTAINERPTR(HDRStage);
-
 /*! \ingroup GrpEffectsGroupsHDRFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<HDRStage *> :
-    public FieldTraitsFCPtrBase<HDRStage *>
+struct FieldTraits<HDRStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<HDRStage *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<HDRStage *> :
 
   public:
 
-    typedef FieldTraits<HDRStage *>  Self;
+    typedef FieldTraits<HDRStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

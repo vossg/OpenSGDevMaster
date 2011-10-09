@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimMatrixDataSource *>::_type("AnimMatrixDataSourcePtr", "AnimKeyFrameDataSourcePtr");
+DataType FieldTraits<AnimMatrixDataSource *, nsOSG>::_type("AnimMatrixDataSourcePtr", "AnimKeyFrameDataSourcePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AnimMatrixDataSource *)
+OSG_FIELDTRAITS_GETTYPE_NS(AnimMatrixDataSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimMatrixDataSource *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimMatrixDataSource *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ AnimMatrixDataSourceBase::TypeObject AnimMatrixDataSourceBase::_type(
     AnimMatrixDataSourceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixDataSourceBase::createEmptyLocal),
     AnimMatrixDataSource::initMethod,
     AnimMatrixDataSource::exitMethod,

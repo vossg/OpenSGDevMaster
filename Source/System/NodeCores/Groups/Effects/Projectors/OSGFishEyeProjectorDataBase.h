@@ -75,6 +75,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FishEyeProjectorData;
 
 //! \brief FishEyeProjectorData Base Class.

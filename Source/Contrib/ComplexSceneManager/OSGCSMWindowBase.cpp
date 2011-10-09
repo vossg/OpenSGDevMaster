@@ -162,35 +162,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMWindow *>::_type("CSMWindowPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMWindow *, nsOSG>::_type("CSMWindowPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CSMWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMWindow *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
+DataType &FieldTraits< CSMWindow *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<CSMWindow *, 0>::getType();
+    return FieldTraits<CSMWindow *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       CSMWindow *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       CSMWindow *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -424,7 +424,7 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     CSMWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     CSMWindow::initMethod,
     CSMWindow::exitMethod,

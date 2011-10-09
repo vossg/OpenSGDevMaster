@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMViewport;
 
 OSG_GEN_CONTAINERPTR(CSMViewport);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMViewport *> :
-    public FieldTraitsFCPtrBase<CSMViewport *>
+struct FieldTraits<CSMViewport *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMViewport *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMViewport *> :
 
   public:
 
-    typedef FieldTraits<CSMViewport *>  Self;
+    typedef FieldTraits<CSMViewport *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMViewport *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMViewportPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMViewportPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMViewport *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMViewport *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMViewportPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CSMViewport *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
-                      RecordedRefCountPolicy  > SFRecCSMViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
-                      WeakRefCountPolicy      > SFWeakCSMViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
-                      NoRefCountPolicy        > SFUncountedCSMViewportPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMViewportPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
-                      RecordedRefCountPolicy  > MFRecCSMViewportPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMViewportPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
-                      WeakRefCountPolicy      > MFWeakCSMViewportPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMViewportPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
-                      NoRefCountPolicy        > MFUncountedCSMViewportPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMViewportPtr;
 
 
 

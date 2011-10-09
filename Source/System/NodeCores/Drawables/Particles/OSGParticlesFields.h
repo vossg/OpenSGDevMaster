@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Particles;
 
 OSG_GEN_CONTAINERPTR(Particles);
-
 /*! \ingroup GrpDrawablesParticlesFieldTraits
     \ingroup GrpLibOSGDrawable
  */
 template <>
-struct FieldTraits<Particles *> :
-    public FieldTraitsFCPtrBase<Particles *>
+struct FieldTraits<Particles *, nsOSG> :
+    public FieldTraitsFCPtrBase<Particles *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Particles *> :
 
   public:
 
-    typedef FieldTraits<Particles *>  Self;
+    typedef FieldTraits<Particles *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Particles *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFParticlesPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFParticlesPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakParticlesPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Particles *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Particles *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdParticlesPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Particles *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
-                      RecordedRefCountPolicy  > SFRecParticlesPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
-                      UnrecordedRefCountPolicy> SFUnrecParticlesPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
-                      WeakRefCountPolicy      > SFWeakParticlesPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldSFields */
 typedef PointerSField<Particles *,
-                      NoRefCountPolicy        > SFUncountedParticlesPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedParticlesPtr;
 
 
 /*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
-                      RecordedRefCountPolicy  > MFRecParticlesPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
-                      UnrecordedRefCountPolicy> MFUnrecParticlesPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
-                      WeakRefCountPolicy      > MFWeakParticlesPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakParticlesPtr;
 /*! \ingroup GrpDrawablesParticlesFieldMFields */
 typedef PointerMField<Particles *,
-                      NoRefCountPolicy        > MFUncountedParticlesPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedParticlesPtr;
 
 
 

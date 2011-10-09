@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShearedStereoCameraDecorator;
 
 //! \brief ShearedStereoCameraDecorator Base Class.

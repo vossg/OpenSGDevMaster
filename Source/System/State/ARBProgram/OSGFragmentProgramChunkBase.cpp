@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FragmentProgramChunk *>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
+DataType FieldTraits<FragmentProgramChunk *, nsOSG>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(FragmentProgramChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FragmentProgramChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FragmentProgramChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     FragmentProgramChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FragmentProgramChunkBase::createEmptyLocal),
     FragmentProgramChunk::initMethod,
     FragmentProgramChunk::exitMethod,

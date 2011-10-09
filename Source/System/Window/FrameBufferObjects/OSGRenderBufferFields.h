@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class RenderBuffer;
 
 OSG_GEN_CONTAINERPTR(RenderBuffer);
-
 /*! \ingroup GrpSystemWindowFBOFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<RenderBuffer *> :
-    public FieldTraitsFCPtrBase<RenderBuffer *>
+struct FieldTraits<RenderBuffer *, nsOSG> :
+    public FieldTraitsFCPtrBase<RenderBuffer *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<RenderBuffer *> :
 
   public:
 
-    typedef FieldTraits<RenderBuffer *>  Self;
+    typedef FieldTraits<RenderBuffer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<RenderBuffer *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFRenderBufferPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFRenderBufferPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RenderBuffer *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRenderBufferPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
-                      RecordedRefCountPolicy  > SFRecRenderBufferPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
-                      UnrecordedRefCountPolicy> SFUnrecRenderBufferPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
-                      WeakRefCountPolicy      > SFWeakRenderBufferPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldSFields */
 typedef PointerSField<RenderBuffer *,
-                      NoRefCountPolicy        > SFUncountedRenderBufferPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedRenderBufferPtr;
 
 
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
-                      RecordedRefCountPolicy  > MFRecRenderBufferPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
-                      UnrecordedRefCountPolicy> MFUnrecRenderBufferPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
-                      WeakRefCountPolicy      > MFWeakRenderBufferPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakRenderBufferPtr;
 /*! \ingroup GrpSystemWindowFBOFieldMFields */
 typedef PointerMField<RenderBuffer *,
-                      NoRefCountPolicy        > MFUncountedRenderBufferPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedRenderBufferPtr;
 
 
 

@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SolidBackground;
 
 //! \brief SolidBackground Base Class.

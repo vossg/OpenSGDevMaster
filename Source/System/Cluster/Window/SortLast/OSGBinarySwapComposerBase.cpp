@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BinarySwapComposer *>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<BinarySwapComposer *, nsOSG>::_type("BinarySwapComposerPtr", "ImageComposerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BinarySwapComposer *)
+OSG_FIELDTRAITS_GETTYPE_NS(BinarySwapComposer *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     BinarySwapComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&BinarySwapComposerBase::createEmptyLocal),
     BinarySwapComposer::initMethod,
     BinarySwapComposer::exitMethod,

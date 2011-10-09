@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FrameHandler;
 
 OSG_GEN_CONTAINERPTR(FrameHandler);
-
 /*! \ingroup GrpDynamicsBaseFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<FrameHandler *> :
-    public FieldTraitsFCPtrBase<FrameHandler *>
+struct FieldTraits<FrameHandler *, nsOSG> :
+    public FieldTraitsFCPtrBase<FrameHandler *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FrameHandler *> :
 
   public:
 
-    typedef FieldTraits<FrameHandler *>  Self;
+    typedef FieldTraits<FrameHandler *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,29 +90,28 @@ struct FieldTraits<FrameHandler *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFrameHandlerPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FrameHandler *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameHandler *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFrameHandlerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameHandler *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameHandler *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFrameHandlerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameHandler *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameHandler *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFrameHandlerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameHandler *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameHandler *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFrameHandlerPtr"; 
 }
@@ -122,16 +121,16 @@ const Char8 *FieldTraits<FrameHandler *, 0>::getSName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
-                      RecordedRefCountPolicy  > SFRecFrameHandlerPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFrameHandlerPtr;
 /*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
-                      UnrecordedRefCountPolicy> SFUnrecFrameHandlerPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFrameHandlerPtr;
 /*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
-                      WeakRefCountPolicy      > SFWeakFrameHandlerPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFrameHandlerPtr;
 /*! \ingroup GrpDynamicsBaseFieldSFields */
 typedef PointerSField<FrameHandler *,
-                      NoRefCountPolicy        > SFUncountedFrameHandlerPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFrameHandlerPtr;
 
 
 

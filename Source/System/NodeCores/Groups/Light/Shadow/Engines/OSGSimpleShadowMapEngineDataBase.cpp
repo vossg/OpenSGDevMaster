@@ -127,10 +127,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleShadowMapEngineData *>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr");
+DataType FieldTraits<SimpleShadowMapEngineData *, nsOSG>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEngineData *)
+OSG_FIELDTRAITS_GETTYPE_NS(SimpleShadowMapEngineData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -243,7 +243,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     SimpleShadowMapEngineDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleShadowMapEngineDataBase::createEmptyLocal),
     SimpleShadowMapEngineData::initMethod,
     SimpleShadowMapEngineData::exitMethod,

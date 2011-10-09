@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TexGenChunk;
 
 OSG_GEN_CONTAINERPTR(TexGenChunk);
-
 /*! \ingroup GrpStateOpenGLFieldTraits
     \ingroup GrpLibOSGState
  */
 template <>
-struct FieldTraits<TexGenChunk *> :
-    public FieldTraitsFCPtrBase<TexGenChunk *>
+struct FieldTraits<TexGenChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<TexGenChunk *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TexGenChunk *> :
 
   public:
 
-    typedef FieldTraits<TexGenChunk *>  Self;
+    typedef FieldTraits<TexGenChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<TexGenChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTexGenChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTexGenChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TexGenChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTexGenChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TexGenChunk *,
-                      RecordedRefCountPolicy  > SFRecTexGenChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TexGenChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecTexGenChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TexGenChunk *,
-                      WeakRefCountPolicy      > SFWeakTexGenChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldSFields */
 typedef PointerSField<TexGenChunk *,
-                      NoRefCountPolicy        > SFUncountedTexGenChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTexGenChunkPtr;
 
 
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TexGenChunk *,
-                      RecordedRefCountPolicy  > MFRecTexGenChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TexGenChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecTexGenChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TexGenChunk *,
-                      WeakRefCountPolicy      > MFWeakTexGenChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakTexGenChunkPtr;
 /*! \ingroup GrpStateOpenGLFieldMFields */
 typedef PointerMField<TexGenChunk *,
-                      NoRefCountPolicy        > MFUncountedTexGenChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTexGenChunkPtr;
 
 
 

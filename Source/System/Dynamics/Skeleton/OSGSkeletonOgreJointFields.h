@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SkeletonOgreJoint;
 
 OSG_GEN_CONTAINERPTR(SkeletonOgreJoint);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<SkeletonOgreJoint *> :
-    public FieldTraitsFCPtrBase<SkeletonOgreJoint *>
+struct FieldTraits<SkeletonOgreJoint *, nsOSG> :
+    public FieldTraitsFCPtrBase<SkeletonOgreJoint *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SkeletonOgreJoint *> :
 
   public:
 
-    typedef FieldTraits<SkeletonOgreJoint *>  Self;
+    typedef FieldTraits<SkeletonOgreJoint *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<SkeletonOgreJoint *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSkeletonOgreJointPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSkeletonOgreJointPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSkeletonOgreJointPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<SkeletonOgreJoint *, 0>::getMName<NoRefCountPolicy>(voi
 /*! \ingroup GrpDynamicsFieldTraits
  */
 template <>
-struct FieldTraits<SkeletonOgreJoint *, 1> :
-    public FieldTraitsFCPtrBase<SkeletonOgreJoint *, 1>
+struct FieldTraits<SkeletonOgreJoint *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<SkeletonOgreJoint *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<SkeletonOgreJoint *, 1>  Self;
+    typedef FieldTraits<SkeletonOgreJoint *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<SkeletonOgreJoint *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildSkeletonOgreJointPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonOgreJoint *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildSkeletonOgreJointPtr"; 
 }
@@ -220,8 +218,8 @@ const Char8 *FieldTraits<SkeletonOgreJoint *, 1>::getMName<NoRefCountPolicy>(voi
 /*! \ingroup GrpDynamicsFieldTraits
  */
 template <>
-struct FieldTraits<SkeletonOgreJoint *, 2> : 
-    public FieldTraitsFCPtrBase<SkeletonOgreJoint *, 2>
+struct FieldTraits<SkeletonOgreJoint *, nsOSG + 2> : 
+    public FieldTraitsFCPtrBase<SkeletonOgreJoint *, nsOSG + 2>
 {
   private:
 
@@ -231,7 +229,7 @@ struct FieldTraits<SkeletonOgreJoint *, 2> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<SkeletonOgreJoint *, 2>        Self;
+    typedef FieldTraits<SkeletonOgreJoint *, nsOSG + 2> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -253,30 +251,30 @@ struct FieldTraits<SkeletonOgreJoint *, 2> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonOgreJoint *,
-                      RecordedRefCountPolicy  > SFRecSkeletonOgreJointPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonOgreJoint *,
-                      UnrecordedRefCountPolicy> SFUnrecSkeletonOgreJointPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonOgreJoint *,
-                      WeakRefCountPolicy      > SFWeakSkeletonOgreJointPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonOgreJoint *,
-                      NoRefCountPolicy        > SFUncountedSkeletonOgreJointPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSkeletonOgreJointPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonOgreJoint *,
-                      RecordedRefCountPolicy  > MFRecSkeletonOgreJointPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonOgreJoint *,
-                      UnrecordedRefCountPolicy> MFUnrecSkeletonOgreJointPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonOgreJoint *,
-                      WeakRefCountPolicy      > MFWeakSkeletonOgreJointPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakSkeletonOgreJointPtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonOgreJoint *,
-                      NoRefCountPolicy        > MFUncountedSkeletonOgreJointPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSkeletonOgreJointPtr;
 
 
 
@@ -284,27 +282,27 @@ typedef PointerMField<SkeletonOgreJoint *,
 typedef ChildPointerSField<
           SkeletonOgreJoint *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildSkeletonOgreJointPtr;
+          nsOSG + 1             > SFUnrecChildSkeletonOgreJointPtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef ChildPointerMField<
           SkeletonOgreJoint *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildSkeletonOgreJointPtr;
+          nsOSG + 1             > MFUnrecChildSkeletonOgreJointPtr;
 
 
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef ParentPointerSField<
           SkeletonOgreJoint *, 
           NoRefCountPolicy,
-          2    > SFParentSkeletonOgreJointPtr;
+          nsOSG + 2    > SFParentSkeletonOgreJointPtr;
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef ParentPointerMField<
           SkeletonOgreJoint *, 
           NoRefCountPolicy,
-          2    > MFParentSkeletonOgreJointPtr;
+          nsOSG + 2    > MFParentSkeletonOgreJointPtr;
 
 
 
@@ -352,7 +350,7 @@ struct SFUnrecChildSkeletonOgreJointPtr :
     public ChildPointerSField<
         SkeletonOgreJoint *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
@@ -360,7 +358,7 @@ struct MFUnrecChildSkeletonOgreJointPtr :
     public ChildPointerMField<
         SkeletonOgreJoint *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
@@ -368,14 +366,14 @@ struct SFParentSkeletonOgreJointPtr :
     public ParentPointerSField<
         SkeletonOgreJoint *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 /*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFParentSkeletonOgreJointPtr :
     public  ParentPointerMField<
         SkeletonOgreJoint *, 
         NoRefCountPolicy,
-        2    > {};
+        nsOSG + 2    > {};
 
 
 #endif // these are the doxygen hacks

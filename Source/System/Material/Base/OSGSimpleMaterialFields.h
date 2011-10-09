@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SimpleMaterial;
 
 OSG_GEN_CONTAINERPTR(SimpleMaterial);
-
 /*! \ingroup GrpSystemMaterialFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<SimpleMaterial *> :
-    public FieldTraitsFCPtrBase<SimpleMaterial *>
+struct FieldTraits<SimpleMaterial *, nsOSG> :
+    public FieldTraitsFCPtrBase<SimpleMaterial *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<SimpleMaterial *> :
 
   public:
 
-    typedef FieldTraits<SimpleMaterial *>  Self;
+    typedef FieldTraits<SimpleMaterial *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

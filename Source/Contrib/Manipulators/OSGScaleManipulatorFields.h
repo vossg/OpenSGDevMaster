@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScaleManipulator;
 
 OSG_GEN_CONTAINERPTR(ScaleManipulator);
-
 /*! \ingroup GrpContribGUIFieldTraits
     \ingroup GrpLibOSGContribGUI
  */
 template <>
-struct FieldTraits<ScaleManipulator *> :
-    public FieldTraitsFCPtrBase<ScaleManipulator *>
+struct FieldTraits<ScaleManipulator *, nsOSG> :
+    public FieldTraitsFCPtrBase<ScaleManipulator *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ScaleManipulator *> :
 
   public:
 
-    typedef FieldTraits<ScaleManipulator *>  Self;
+    typedef FieldTraits<ScaleManipulator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

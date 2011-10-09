@@ -125,18 +125,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FrameBufferObject *>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
+DataType FieldTraits<FrameBufferObject *, nsOSG>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FrameBufferObject *)
+OSG_FIELDTRAITS_GETTYPE_NS(FrameBufferObject *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FrameBufferObject *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FrameBufferObject *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -253,7 +253,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     FrameBufferObjectBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FrameBufferObjectBase::createEmptyLocal),
     FrameBufferObject::initMethod,
     FrameBufferObject::exitMethod,

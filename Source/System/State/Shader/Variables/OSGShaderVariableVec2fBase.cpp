@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableVec2f *>::_type("ShaderVariableVec2fPtr", "ShaderValueVariablePtr");
+DataType FieldTraits<ShaderVariableVec2f *, nsOSG>::_type("ShaderVariableVec2fPtr", "ShaderValueVariablePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableVec2f *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariableVec2f *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderVariableVec2f *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderVariableVec2f *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ ShaderVariableVec2fBase::TypeObject ShaderVariableVec2fBase::_type(
     ShaderVariableVec2fBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableVec2fBase::createEmptyLocal),
     ShaderVariableVec2f::initMethod,
     ShaderVariableVec2f::exitMethod,

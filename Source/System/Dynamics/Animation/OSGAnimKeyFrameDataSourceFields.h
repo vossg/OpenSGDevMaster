@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimKeyFrameDataSource;
 
 OSG_GEN_CONTAINERPTR(AnimKeyFrameDataSource);
-
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<AnimKeyFrameDataSource *> :
-    public FieldTraitsFCPtrBase<AnimKeyFrameDataSource *>
+struct FieldTraits<AnimKeyFrameDataSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<AnimKeyFrameDataSource *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<AnimKeyFrameDataSource *> :
 
   public:
 
-    typedef FieldTraits<AnimKeyFrameDataSource *>  Self;
+    typedef FieldTraits<AnimKeyFrameDataSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<AnimKeyFrameDataSource *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimKeyFrameDataSourcePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimKeyFrameDataSourcePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAnimKeyFrameDataSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<AnimKeyFrameDataSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAnimKeyFrameDataSourcePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<AnimKeyFrameDataSource *, 0>::getMName<NoRefCountPolicy
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimKeyFrameDataSource *,
-                      RecordedRefCountPolicy  > SFRecAnimKeyFrameDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimKeyFrameDataSource *,
-                      UnrecordedRefCountPolicy> SFUnrecAnimKeyFrameDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimKeyFrameDataSource *,
-                      WeakRefCountPolicy      > SFWeakAnimKeyFrameDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimKeyFrameDataSource *,
-                      NoRefCountPolicy        > SFUncountedAnimKeyFrameDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedAnimKeyFrameDataSourcePtr;
 
 
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimKeyFrameDataSource *,
-                      RecordedRefCountPolicy  > MFRecAnimKeyFrameDataSourcePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimKeyFrameDataSource *,
-                      UnrecordedRefCountPolicy> MFUnrecAnimKeyFrameDataSourcePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimKeyFrameDataSource *,
-                      WeakRefCountPolicy      > MFWeakAnimKeyFrameDataSourcePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakAnimKeyFrameDataSourcePtr;
 /*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<AnimKeyFrameDataSource *,
-                      NoRefCountPolicy        > MFUncountedAnimKeyFrameDataSourcePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedAnimKeyFrameDataSourcePtr;
 
 
 

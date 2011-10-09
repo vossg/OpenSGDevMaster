@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TrapezoidalShadowMapEngine;
 
 OSG_GEN_CONTAINERPTR(TrapezoidalShadowMapEngine);
-
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldTraits
     \ingroup GrpLibOSGContribTrapezoidalShadowMaps
  */
 template <>
-struct FieldTraits<TrapezoidalShadowMapEngine *> :
-    public FieldTraitsFCPtrBase<TrapezoidalShadowMapEngine *>
+struct FieldTraits<TrapezoidalShadowMapEngine *, nsOSG> :
+    public FieldTraitsFCPtrBase<TrapezoidalShadowMapEngine *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<TrapezoidalShadowMapEngine *> :
 
   public:
 
-    typedef FieldTraits<TrapezoidalShadowMapEngine *>  Self;
+    typedef FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<TrapezoidalShadowMapEngine *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTrapezoidalShadowMapEnginePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTrapezoidalShadowMapEnginePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTrapezoidalShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTrapezoidalShadowMapEnginePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<TrapezoidalShadowMapEngine *, 0>::getMName<NoRefCountPo
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldSFields */
 typedef PointerSField<TrapezoidalShadowMapEngine *,
-                      RecordedRefCountPolicy  > SFRecTrapezoidalShadowMapEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldSFields */
 typedef PointerSField<TrapezoidalShadowMapEngine *,
-                      UnrecordedRefCountPolicy> SFUnrecTrapezoidalShadowMapEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldSFields */
 typedef PointerSField<TrapezoidalShadowMapEngine *,
-                      WeakRefCountPolicy      > SFWeakTrapezoidalShadowMapEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldSFields */
 typedef PointerSField<TrapezoidalShadowMapEngine *,
-                      NoRefCountPolicy        > SFUncountedTrapezoidalShadowMapEnginePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTrapezoidalShadowMapEnginePtr;
 
 
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldMFields */
 typedef PointerMField<TrapezoidalShadowMapEngine *,
-                      RecordedRefCountPolicy  > MFRecTrapezoidalShadowMapEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldMFields */
 typedef PointerMField<TrapezoidalShadowMapEngine *,
-                      UnrecordedRefCountPolicy> MFUnrecTrapezoidalShadowMapEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldMFields */
 typedef PointerMField<TrapezoidalShadowMapEngine *,
-                      WeakRefCountPolicy      > MFWeakTrapezoidalShadowMapEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakTrapezoidalShadowMapEnginePtr;
 /*! \ingroup GrpContribTrapezoidalShadowMapsFieldMFields */
 typedef PointerMField<TrapezoidalShadowMapEngine *,
-                      NoRefCountPolicy        > MFUncountedTrapezoidalShadowMapEnginePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTrapezoidalShadowMapEnginePtr;
 
 
 

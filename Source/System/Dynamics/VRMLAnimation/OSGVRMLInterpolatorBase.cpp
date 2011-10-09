@@ -99,10 +99,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLInterpolator *>::_type("VRMLInterpolatorPtr", "NodeCorePtr");
+DataType FieldTraits<VRMLInterpolator *, nsOSG>::_type("VRMLInterpolatorPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VRMLInterpolator *)
+OSG_FIELDTRAITS_GETTYPE_NS(VRMLInterpolator *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -155,7 +155,7 @@ VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
     VRMLInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLInterpolatorBase::createEmptyLocal),
     VRMLInterpolator::initMethod,
     VRMLInterpolator::exitMethod,

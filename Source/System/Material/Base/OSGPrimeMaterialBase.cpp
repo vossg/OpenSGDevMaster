@@ -87,18 +87,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PrimeMaterial *>::_type("PrimeMaterialPtr", "MaterialPtr");
+DataType FieldTraits<PrimeMaterial *, nsOSG>::_type("PrimeMaterialPtr", "MaterialPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PrimeMaterial *)
+OSG_FIELDTRAITS_GETTYPE_NS(PrimeMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PrimeMaterial *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PrimeMaterial *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -113,7 +113,7 @@ PrimeMaterialBase::TypeObject PrimeMaterialBase::_type(
     PrimeMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     PrimeMaterial::initMethod,
     PrimeMaterial::exitMethod,

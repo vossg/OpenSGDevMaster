@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class AnimMatrixChannel;
 
 //! \brief AnimMatrixChannel Base Class.

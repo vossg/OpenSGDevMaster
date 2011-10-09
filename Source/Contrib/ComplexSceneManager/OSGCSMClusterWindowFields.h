@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CSMClusterWindow;
 
 OSG_GEN_CONTAINERPTR(CSMClusterWindow);
-
 /*! \ingroup GrpContribCSMFieldTraits
     \ingroup GrpLibOSGContribCSM
  */
 template <>
-struct FieldTraits<CSMClusterWindow *> :
-    public FieldTraitsFCPtrBase<CSMClusterWindow *>
+struct FieldTraits<CSMClusterWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<CSMClusterWindow *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CSMClusterWindow *> :
 
   public:
 
-    typedef FieldTraits<CSMClusterWindow *>  Self;
+    typedef FieldTraits<CSMClusterWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CSMClusterWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMClusterWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCSMClusterWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCSMClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMClusterWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCSMClusterWindowPtr"; 
 }
@@ -149,8 +147,8 @@ const Char8 *FieldTraits<CSMClusterWindow *, 0>::getMName<NoRefCountPolicy>(void
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
-struct FieldTraits<CSMClusterWindow *, 1> : 
-    public FieldTraitsFCPtrBase<CSMClusterWindow *, 1>
+struct FieldTraits<CSMClusterWindow *, nsOSG + 1> : 
+    public FieldTraitsFCPtrBase<CSMClusterWindow *, nsOSG + 1>
 {
   private:
 
@@ -160,7 +158,7 @@ struct FieldTraits<CSMClusterWindow *, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<CSMClusterWindow *, 1>        Self;
+    typedef FieldTraits<CSMClusterWindow *, nsOSG + 1> Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -182,30 +180,30 @@ struct FieldTraits<CSMClusterWindow *, 1> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWindow *,
-                      RecordedRefCountPolicy  > SFRecCSMClusterWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMClusterWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWindow *,
-                      WeakRefCountPolicy      > SFWeakCSMClusterWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWindow *,
-                      NoRefCountPolicy        > SFUncountedCSMClusterWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMClusterWindowPtr;
 
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMClusterWindow *,
-                      RecordedRefCountPolicy  > MFRecCSMClusterWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMClusterWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMClusterWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMClusterWindow *,
-                      WeakRefCountPolicy      > MFWeakCSMClusterWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCSMClusterWindowPtr;
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMClusterWindow *,
-                      NoRefCountPolicy        > MFUncountedCSMClusterWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCSMClusterWindowPtr;
 
 
 
@@ -213,7 +211,7 @@ typedef PointerMField<CSMClusterWindow *,
 typedef ParentPointerSField<
           CSMClusterWindow *, 
           NoRefCountPolicy,
-          1    > SFParentCSMClusterWindowPtr;
+          nsOSG + 1    > SFParentCSMClusterWindowPtr;
 
 
 #else // these are the doxygen hacks
@@ -260,7 +258,7 @@ struct SFParentCSMClusterWindowPtr :
     public ParentPointerSField<
         CSMClusterWindow *, 
         NoRefCountPolicy,
-        1    > {};
+        nsOSG + 1    > {};
 
 #endif // these are the doxygen hacks
 

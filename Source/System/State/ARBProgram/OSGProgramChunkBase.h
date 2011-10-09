@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ProgramChunk;
 
 //! \brief ProgramChunk Base Class.

@@ -113,18 +113,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Background *>::_type("BackgroundPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Background *, nsOSG>::_type("BackgroundPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Background *)
+OSG_FIELDTRAITS_GETTYPE_NS(Background *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Background *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Background *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -190,7 +190,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     BackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     Background::initMethod,
     Background::exitMethod,

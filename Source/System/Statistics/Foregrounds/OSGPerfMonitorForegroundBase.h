@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PerfMonitorForeground;
 
 //! \brief PerfMonitorForeground Base Class.

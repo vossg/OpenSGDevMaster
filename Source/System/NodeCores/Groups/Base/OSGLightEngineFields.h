@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightEngine;
 
 OSG_GEN_CONTAINERPTR(LightEngine);
-
 /*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<LightEngine *> :
-    public FieldTraitsFCPtrBase<LightEngine *>
+struct FieldTraits<LightEngine *, nsOSG> :
+    public FieldTraitsFCPtrBase<LightEngine *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LightEngine *> :
 
   public:
 
-    typedef FieldTraits<LightEngine *>  Self;
+    typedef FieldTraits<LightEngine *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<LightEngine *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFLightEnginePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFLightEnginePtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEngine *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<LightEngine *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLightEnginePtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<LightEngine *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
-                      RecordedRefCountPolicy  > SFRecLightEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
-                      UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
-                      WeakRefCountPolicy      > SFWeakLightEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldSFields */
 typedef PointerSField<LightEngine *,
-                      NoRefCountPolicy        > SFUncountedLightEnginePtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedLightEnginePtr;
 
 
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
-                      RecordedRefCountPolicy  > MFRecLightEnginePtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
-                      UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
-                      WeakRefCountPolicy      > MFWeakLightEnginePtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakLightEnginePtr;
 /*! \ingroup GrpSystemNodeCoreGroupsFieldMFields */
 typedef PointerMField<LightEngine *,
-                      NoRefCountPolicy        > MFUncountedLightEnginePtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedLightEnginePtr;
 
 
 

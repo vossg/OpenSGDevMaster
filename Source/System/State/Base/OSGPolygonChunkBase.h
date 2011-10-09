@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PolygonChunk;
 
 //! \brief PolygonChunk Base Class.

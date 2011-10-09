@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MaterialChunk;
 
 //! \brief MaterialChunk Base Class.

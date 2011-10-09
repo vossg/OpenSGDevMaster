@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ConnectorAttachment;
 
 OSG_GEN_CONTAINERPTR(ConnectorAttachment);
-
 /*! \ingroup GrpBaseFieldContainerFieldTraits
     \ingroup GrpLibOSGBase
  */
 template <>
-struct FieldTraits<ConnectorAttachment *> :
-    public FieldTraitsFCPtrBase<ConnectorAttachment *>
+struct FieldTraits<ConnectorAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<ConnectorAttachment *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<ConnectorAttachment *> :
 
   public:
 
-    typedef FieldTraits<ConnectorAttachment *>  Self;
+    typedef FieldTraits<ConnectorAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<ConnectorAttachment *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFConnectorAttachmentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFConnectorAttachmentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakConnectorAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ConnectorAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdConnectorAttachmentPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<NoRefCountPolicy>(v
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
-                      RecordedRefCountPolicy  > SFRecConnectorAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
-                      UnrecordedRefCountPolicy> SFUnrecConnectorAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
-                      WeakRefCountPolicy      > SFWeakConnectorAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
-                      NoRefCountPolicy        > SFUncountedConnectorAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedConnectorAttachmentPtr;
 
 
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
-                      RecordedRefCountPolicy  > MFRecConnectorAttachmentPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
-                      UnrecordedRefCountPolicy> MFUnrecConnectorAttachmentPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
-                      WeakRefCountPolicy      > MFWeakConnectorAttachmentPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakConnectorAttachmentPtr;
 /*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
-                      NoRefCountPolicy        > MFUncountedConnectorAttachmentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedConnectorAttachmentPtr;
 
 
 

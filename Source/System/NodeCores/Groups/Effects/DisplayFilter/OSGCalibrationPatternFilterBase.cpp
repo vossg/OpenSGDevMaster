@@ -91,18 +91,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CalibrationPatternFilter *>::_type("CalibrationPatternFilterPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CalibrationPatternFilter *, nsOSG>::_type("CalibrationPatternFilterPtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CalibrationPatternFilter *)
+OSG_FIELDTRAITS_GETTYPE_NS(CalibrationPatternFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CalibrationPatternFilter *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CalibrationPatternFilter *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -131,7 +131,7 @@ CalibrationPatternFilterBase::TypeObject CalibrationPatternFilterBase::_type(
     CalibrationPatternFilterBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     CalibrationPatternFilter::initMethod,
     CalibrationPatternFilter::exitMethod,

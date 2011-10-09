@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Geometry;
 
 //! \brief Geometry Base Class.

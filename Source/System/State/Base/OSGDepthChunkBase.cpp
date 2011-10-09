@@ -113,18 +113,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthChunk *>::_type("DepthChunkPtr", "StateChunkPtr");
+DataType FieldTraits<DepthChunk *, nsOSG>::_type("DepthChunkPtr", "StateChunkPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DepthChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(DepthChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DepthChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DepthChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -201,7 +201,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     DepthChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DepthChunkBase::createEmptyLocal),
     DepthChunk::initMethod,
     DepthChunk::exitMethod,

@@ -87,10 +87,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightEnv *>::_type("LightEnvPtr", "NodeCorePtr");
+DataType FieldTraits<LightEnv *, nsOSG>::_type("LightEnvPtr", "NodeCorePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LightEnv *)
+OSG_FIELDTRAITS_GETTYPE_NS(LightEnv *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -105,7 +105,7 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     LightEnvBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LightEnvBase::createEmptyLocal),
     LightEnv::initMethod,
     LightEnv::exitMethod,

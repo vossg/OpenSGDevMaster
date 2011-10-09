@@ -88,10 +88,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GroupingStage *>::_type("GroupingStagePtr", "RenderCallbackStagePtr");
+DataType FieldTraits<GroupingStage *, nsOSG>::_type("GroupingStagePtr", "RenderCallbackStagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GroupingStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(GroupingStage *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -106,7 +106,7 @@ GroupingStageBase::TypeObject GroupingStageBase::_type(
     GroupingStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GroupingStageBase::createEmptyLocal),
     GroupingStage::initMethod,
     GroupingStage::exitMethod,

@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class KeySensor;
 
 //! \brief KeySensor Base Class.

@@ -96,10 +96,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderCallbackStage *>::_type("RenderCallbackStagePtr", "StagePtr");
+DataType FieldTraits<RenderCallbackStage *, nsOSG>::_type("RenderCallbackStagePtr", "StagePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RenderCallbackStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(RenderCallbackStage *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -140,7 +140,7 @@ RenderCallbackStageBase::TypeObject RenderCallbackStageBase::_type(
     RenderCallbackStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&RenderCallbackStageBase::createEmptyLocal),
     RenderCallbackStage::initMethod,
     RenderCallbackStage::exitMethod,

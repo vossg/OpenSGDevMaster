@@ -113,18 +113,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowMapEngine *>::_type("ShadowMapEnginePtr", "LightEnginePtr");
+DataType FieldTraits<ShadowMapEngine *, nsOSG>::_type("ShadowMapEnginePtr", "LightEnginePtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShadowMapEngine *)
+OSG_FIELDTRAITS_GETTYPE_NS(ShadowMapEngine *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShadowMapEngine *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -216,7 +216,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     ShadowMapEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ShadowMapEngine::initMethod,
     ShadowMapEngine::exitMethod,

@@ -196,29 +196,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Image *>::_type("ImagePtr", "AttachmentContainerPtr");
+DataType FieldTraits<Image *, nsOSG>::_type("ImagePtr", "AttachmentContainerPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Image *)
+OSG_FIELDTRAITS_GETTYPE_NS(Image *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Image *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Image *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< Image *, 1 >::getType(void)
+DataType &FieldTraits< Image *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<Image *, 0>::getType();
+    return FieldTraits<Image *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Image *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -542,7 +542,7 @@ ImageBase::TypeObject ImageBase::_type(
     ImageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ImageBase::createEmptyLocal),
     Image::initMethod,
     Image::exitMethod,

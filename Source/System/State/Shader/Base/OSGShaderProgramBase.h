@@ -77,6 +77,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ShaderProgram;
 
 //! \brief ShaderProgram Base Class.

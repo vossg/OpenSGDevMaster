@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class IntersectProxyAttachment;
 
 //! \brief IntersectProxyAttachment Base Class.

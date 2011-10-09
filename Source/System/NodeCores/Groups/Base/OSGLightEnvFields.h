@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class LightEnv;
 
 OSG_GEN_CONTAINERPTR(LightEnv);
-
 /*! \ingroup GrpSystemNodeCoreGroupsFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<LightEnv *> :
-    public FieldTraitsFCPtrBase<LightEnv *>
+struct FieldTraits<LightEnv *, nsOSG> :
+    public FieldTraitsFCPtrBase<LightEnv *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<LightEnv *> :
 
   public:
 
-    typedef FieldTraits<LightEnv *>  Self;
+    typedef FieldTraits<LightEnv *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

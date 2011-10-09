@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class QT4Window;
 
 //! \brief QT4Window Base Class.

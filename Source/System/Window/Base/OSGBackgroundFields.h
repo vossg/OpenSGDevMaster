@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Background;
 
 OSG_GEN_CONTAINERPTR(Background);
-
 /*! \ingroup GrpSystemWindowFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<Background *> :
-    public FieldTraitsFCPtrBase<Background *>
+struct FieldTraits<Background *, nsOSG> :
+    public FieldTraitsFCPtrBase<Background *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<Background *> :
 
   public:
 
-    typedef FieldTraits<Background *>  Self;
+    typedef FieldTraits<Background *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<Background *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFBackgroundPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFBackgroundPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Background *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Background *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBackgroundPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<Background *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Background *,
-                      RecordedRefCountPolicy  > SFRecBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Background *,
-                      UnrecordedRefCountPolicy> SFUnrecBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Background *,
-                      WeakRefCountPolicy      > SFWeakBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldSFields */
 typedef PointerSField<Background *,
-                      NoRefCountPolicy        > SFUncountedBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedBackgroundPtr;
 
 
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Background *,
-                      RecordedRefCountPolicy  > MFRecBackgroundPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Background *,
-                      UnrecordedRefCountPolicy> MFUnrecBackgroundPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Background *,
-                      WeakRefCountPolicy      > MFWeakBackgroundPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakBackgroundPtr;
 /*! \ingroup GrpSystemWindowFieldMFields */
 typedef PointerMField<Background *,
-                      NoRefCountPolicy        > MFUncountedBackgroundPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedBackgroundPtr;
 
 
 

@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FishEyeProjector;
 
 OSG_GEN_CONTAINERPTR(FishEyeProjector);
-
 /*! \ingroup GrpEffectsGroupsProjectorsFieldTraits
     \ingroup GrpLibOSGEffectGroups
  */
 template <>
-struct FieldTraits<FishEyeProjector *> :
-    public FieldTraitsFCPtrBase<FishEyeProjector *>
+struct FieldTraits<FishEyeProjector *, nsOSG> :
+    public FieldTraitsFCPtrBase<FishEyeProjector *, nsOSG>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<FishEyeProjector *> :
 
   public:
 
-    typedef FieldTraits<FishEyeProjector *>  Self;
+    typedef FieldTraits<FishEyeProjector *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VRMLAttachment;
 
 //! \brief VRMLAttachment Base Class.

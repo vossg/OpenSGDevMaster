@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiDisplayWindow;
 
 //! \brief MultiDisplayWindow Base Class.

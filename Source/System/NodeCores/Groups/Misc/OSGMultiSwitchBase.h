@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class MultiSwitch;
 
 //! \brief MultiSwitch Base Class.

@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComplexSceneManager;
 
 //! \brief ComplexSceneManager Base Class.

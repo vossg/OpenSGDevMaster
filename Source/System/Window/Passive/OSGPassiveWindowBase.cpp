@@ -88,18 +88,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveWindow *>::_type("PassiveWindowPtr", "WindowPtr");
+DataType FieldTraits<PassiveWindow *, nsOSG>::_type("PassiveWindowPtr", "WindowPtr", nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PassiveWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(PassiveWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PassiveWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PassiveWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -114,7 +114,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     PassiveWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PassiveWindowBase::createEmptyLocal),
     PassiveWindow::initMethod,
     PassiveWindow::exitMethod,

@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PerspectiveCamera;
 
 //! \brief PerspectiveCamera Base Class.

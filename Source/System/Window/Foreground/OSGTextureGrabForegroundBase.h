@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextureGrabForeground;
 
 //! \brief TextureGrabForeground Base Class.
