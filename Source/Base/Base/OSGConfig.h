@@ -872,6 +872,12 @@
 
 # define OSG_USING_NAMESPACE namespace OSG {} using namespace OSG;
 
+/** \brief Import the osg namespace throughout the following code.
+ *  \ingroup GrpBaseDefines
+ */
+
+# define OSG_IMPORT_NAMESPACE using namespace OSG
+
 /*@}*/
 
 

@@ -87,8 +87,9 @@
 #include "@!MixinHeader!@"
 @@endif
 
-OSG_BEGIN_NAMESPACE
+@!LIBNAMESPACE!@_BEGIN_NAMESPACE
 
+@!IMPORTNAMESPACE!@
 class @!Classname!@;
 
 //! \brief @!Classname!@ Base Class.
@@ -626,6 +627,6 @@ typedef CoredNodeRefPtr  <@!Classname!@> @!Classname!@NodeRefPtr;
 typedef CoredNodeMTRefPtr<@!Classname!@> @!Classname!@NodeMTRefPtr;
 @@endif
 
-OSG_END_NAMESPACE
+@!LIBNAMESPACE!@_END_NAMESPACE
 
 #endif /* _OSG@!CLASSNAME!@BASE_H_ */

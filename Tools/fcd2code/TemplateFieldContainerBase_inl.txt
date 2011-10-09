@@ -52,8 +52,9 @@
  *****************************************************************************
 \*****************************************************************************/
 
-OSG_BEGIN_NAMESPACE
+@!LIBNAMESPACE!@_BEGIN_NAMESPACE
 
+@!IMPORTNAMESPACE!@
 
 //! access the type of the class
 inline
@@ -222,5 +223,5 @@ const Char8 *@!Classname!@Base::getClassname(void)
 }
 OSG_GEN_CONTAINERPTR(@!Classname!@);
 
-OSG_END_NAMESPACE
+@!LIBNAMESPACE!@_END_NAMESPACE
 

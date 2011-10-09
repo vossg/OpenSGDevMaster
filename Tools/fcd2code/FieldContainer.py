@@ -33,7 +33,7 @@ class FieldContainer(FCDElement):
         self.setFCD("isBundle",                   "false",  True);
         self.setFCD("description",                "",       True);
         self.setFCD("group",                      "",       True);
-        self.setFCD("namespace",                  "",       True);
+#        self.setFCD("namespace",                  "",       True);
         self.setFCD("decorateeFieldFlags",        "",       True);
         self.setFCD("additionalIncludes",         "",       True);
         self.setFCD("additionalPriorityIncludes", "",       True);
@@ -344,15 +344,26 @@ class FieldContainer(FCDElement):
             else:
                 self["Group"] = "NULL";
 
-        if self.getFCD("namespace") != "":
-            self["Namespace"] = self.getFCD("namespace");
-        else:
-            self["Namespace"] = "0";
+#        if self.getFCD("namespace") != "":
+#            self["Namespace"] = self.getFCD("namespace");
+#        else:
+#            self["Namespace"] = "0";
+
+        self["inExternalNamespace"] = False;
+        self["LibNamespace"]        = "OSG";
+        self["LIBNAMESPACE"]        = "OSG";
+        self["IMPORTNAMESPACE"]     = "";
+        self["nsConst"]             = "nsOSG";
 
         if self.getFCD("libnamespace") != "":
-            self["LibNamespace"] = self.getFCD("libnamespace");
-        else:
-            self["LibNamespace"] = "OSG";
+
+          self["LibNamespace"]    = self.getFCD("libnamespace");
+          self["LIBNAMESPACE"]    = self.getFCD("libnamespace").upper();
+
+          if self["LIBNAMESPACE"] != "OSG":
+            self["IMPORTNAMESPACE"]     = "OSG_IMPORT_NAMESPACE;\n";
+            self["inExternalNamespace"] = True;
+            self["nsConst"]             = "ns" + self.getFCD("libnamespace");
 
         self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");
         self["TypeDescAddable"] = self.getFCD("typeDescAddable");

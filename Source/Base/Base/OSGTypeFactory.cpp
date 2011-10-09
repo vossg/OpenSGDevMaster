@@ -227,6 +227,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
             SWARNING << "ERROR: Can't add a second "
                      << "type with the name " << pType->getCName() 
                      << "(" << pType << ")"
+                     << " in namespace " << pType->getNameSpace()
                      << endLog;
         }
         else

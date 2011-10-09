@@ -599,6 +599,12 @@ typedef std::string    tstring;
 #endif
 
 
+/** \brief Namespace constant used by as the numeric namespace id
+ *  \ingroup GrpBaseBaseConstants
+ */
+
+static const UInt32 nsOSG   = 0;
+
 /*! \ingroup GrpBaseBaseConstants
  */
 

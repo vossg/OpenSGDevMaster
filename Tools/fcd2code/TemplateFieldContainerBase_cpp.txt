@@ -87,6 +87,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+@@if inExternalNamespace
+@!LIBNAMESPACE!@_IMPORT_NAMESPACE;
+
+@@endif
 /***************************************************************************\
  *                            Description                                  *
 \***************************************************************************/
@@ -117,31 +121,31 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr");
+DataType FieldTraits<@!Classname!@ *, @!nsConst!@>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr", @!nsConst!@);
 #endif
 
 @@if PointerField
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
+OSG_FIELDTRAITS_GETTYPE_NS(@!Classname!@ *, @!nsConst!@)
 
     @@if SFPointerField
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            @!Classname!@ *,
-                           0);
+                           @!nsConst!@);
     @@endif // SFPointerField
 
     @@if MFPointerField
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            @!Classname!@ *,
-                           0);
+                           @!nsConst!@);
     @@endif // MFPointerField
 @@else
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
+OSG_FIELDTRAITS_GETTYPE_NS(@!Classname!@ *, @!nsConst!@)
 @@endif // PointerField
 @@if ChildField
 
-DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
+DataType &FieldTraits< @!Classname!@ *, @!nsConst!@ + @!ChildNS!@ >::getType(void)
 {
-    return FieldTraits<@!Classname!@ *, 0>::getType();
+    return FieldTraits<@!Classname!@ *, @!nsConst!@>::getType();
 }
 
 @@endif
@@ -150,7 +154,7 @@ DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       @!Classname!@ *,
                       UnrecordedRefCountPolicy,
-                      @!ChildNS!@);
+                      @!nsConst!@ + @!ChildNS!@);
 
 @@endif
 @@if ChildMFields
@@ -158,14 +162,14 @@ OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       @!Classname!@ *,
                       UnrecordedRefCountPolicy,
-                      @!ChildNS!@);
+                      @!nsConst!@ + @!ChildNS!@);
 
 @@endif
 @@if ParentField
 
-DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
+DataType &FieldTraits<@!Classname!@ *, @!nsConst!@ + @!ParentNS!@ >::getType(void)
 {
-    return FieldTraits<@!Classname!@ *, 0>::getType();
+    return FieldTraits<@!Classname!@ *, @!nsConst!@>::getType();
 }
 
 @@endif
@@ -174,12 +178,12 @@ DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
 OSG_SFIELDTYPE_INST(ParentPointerSField,
                     @!Classname!@ *,
                     NoRefCountPolicy,
-                    @!ParentNS!@);
+                    @!nsConst!@ + @!ParentNS!@);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          @!Classname!@ *,
                          NoRefCountPolicy,
-                         @!ParentNS!@);
+                         @!nsConst!@ + @!ParentNS!@);
 
 @@endif
 @@if ParentMFields
@@ -195,10 +199,20 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          @!ParentNS!@);
 
 @@endif
+@@if inExternalNamespace
+
+OSG_END_NAMESPACE
+@@endif
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
+@@if inExternalNamespace
+
+@!LIBNAMESPACE!@_BEGIN_NAMESPACE
+
+OSG_IMPORT_NAMESPACE;
+@@endif
 
 void @!Classname!@Base::classDescInserter(TypeObject &oType)
 {
@@ -250,7 +264,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @!Classname!@Base::getClassname(),
     Inherited::getClassname(),
     "@!Group!@",
-    @!Namespace!@,
+    @!nsConst!@, //Namespace
 @@if isAbstract
     NULL,
 @@else // isAbstract
@@ -1464,4 +1478,4 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
     @@endif // !isDecorator
 @@endif // isDecoratable
 
-OSG_END_NAMESPACE
+@!LIBNAMESPACE!@_END_NAMESPACE
