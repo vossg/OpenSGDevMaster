@@ -517,6 +517,9 @@ bool PointMCastConnection::recvQueue(void)
                 ignoreT = getSystemTime();
             do
             {
+                if(_recvQueueThreadStop)
+                    return true;
+
                 while(!recvNextDgram(dgram))
                 {
                     if(_recvQueueThreadStop)

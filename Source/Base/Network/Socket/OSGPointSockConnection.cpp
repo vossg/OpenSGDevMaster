@@ -286,7 +286,7 @@ void PointSockConnection::signal(void) throw (WriteError)
     }
     catch(SocketError &e)
     {
-        throw ReadError(e.what());
+        throw WriteError(e.what());
     }
 }
 
