@@ -69,18 +69,27 @@ class FieldContainer(FCDElement):
         return len(self["authors"]) != 0;
     
     def setupFieldContainer(self):
-        self["Classname"]   = self.getFCD("name");
-        self["CLASSNAME"]   = self.getFCD("name").upper();
-        self["Parent"]      = self.getFCD("parent");
-        self["isDecorator"] = False;
-    
+        self["Classname"]    = self.getFCD("name");
+        self["CLASSNAME"]    = self.getFCD("name").upper();
+        self["Parent"]       = self.getFCD("parent");
+        self["isDecorator"]  = False;
+        self["nsFilePrefix"] = "";
+
+        if (self.getFCD("libnamespace") != "" and \
+            self.getFCD("libnamespace") != "OSG"):
+          self["nsFilePrefix"] = self.getFCD("libnamespace");
+
     def setupDecorator(self):
-        self["Classname"]   = self.getFCD("name") + "Decorator";
-        self["CLASSNAME"]   = self.getFCD("name").upper() + "DECORATOR";
-        self["Parent"]      = self.getFCD("name");
-        self["RealParent"]  = self.getFCD("name");
-        self["isDecorator"] = True;
-    
+        self["Classname"]    = self.getFCD("name") + "Decorator";
+        self["CLASSNAME"]    = self.getFCD("name").upper() + "DECORATOR";
+        self["Parent"]       = self.getFCD("name");
+        self["RealParent"]   = self.getFCD("name");
+        self["isDecorator"]  = True;
+
+        if (self.getFCD("libnamespace") != "" and \
+            self.getFCD("libnamespace") != "OSG"):
+          self["nsFilePrefix"] = self.getFCD("libnamespace");
+
     def finalize(self):
         if len(self.m_fields) > 0:
             self["hasFields"] = True;
@@ -354,6 +363,7 @@ class FieldContainer(FCDElement):
         self["LIBNAMESPACE"]        = "OSG";
         self["IMPORTNAMESPACE"]     = "";
         self["nsConst"]             = "nsOSG";
+        self["nsFilePrefix"] = "";
 
         if self.getFCD("libnamespace") != "":
 
@@ -364,6 +374,7 @@ class FieldContainer(FCDElement):
             self["IMPORTNAMESPACE"]     = "OSG_IMPORT_NAMESPACE;\n";
             self["inExternalNamespace"] = True;
             self["nsConst"]             = "ns" + self.getFCD("libnamespace");
+            self["nsFilePrefix"]        = self.getFCD("libnamespace");
 
         self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");
         self["TypeDescAddable"] = self.getFCD("typeDescAddable");

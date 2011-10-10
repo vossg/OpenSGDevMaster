@@ -81,7 +81,7 @@
 #include "OSG@!Parent!@Fields.h" // Decoratee type
 @@endif // !isDecorator
 
-#include "OSG@!Classname!@Fields.h"
+#include "OSG@!nsFilePrefix!@@!Classname!@Fields.h"
 @@if hasMixinParent
 
 #include "@!MixinHeader!@"

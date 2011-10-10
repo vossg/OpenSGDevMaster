@@ -201,6 +201,8 @@ class Field(FCDElement):
         self.setFCD("customBinCopy",                  "false",    True);
         self.setFCD("customSync",                     "false",    True);
 
+        self.setFCD("fromNamespace",                  "OSG",      True);
+
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
     
@@ -268,6 +270,16 @@ class Field(FCDElement):
         TypeNS            = self.getFCD("typeNamespace");
         TypeCaps          = self._upcaseFirst(Type);
         
+        self.nsFilePrefix = ""
+        
+        if TypeNS != ""                                           and \
+           TypeNS == self.m_fieldContainer.getFCD("libnamespace") and \
+           TypeNS != "OSG"                                        and \
+           TypeNS != "std"                                        :
+
+           self.nsFilePrefix = TypeNS
+           TypeNS = ""
+
         if TypeNS != "" and not TypeNS.endswith("::"):
             TypeNS = TypeNS + "::"
 
@@ -400,6 +412,8 @@ class Field(FCDElement):
             self["customSync"] = False
         else:
             self["customSync"] = True
+
+            
 
         # -----------------------------------------------------------------
         # Name and Cardinality
@@ -778,9 +792,9 @@ class Field(FCDElement):
             (self.getFCD("fieldHeader") == "(AUTO)")   ):
             
             if self.getFieldContainer().isSystemComponent():
-                fieldInclude = "OSG"
+                fieldInclude = "OSG" + self.nsFilePrefix
             else:
-                fieldInclude = "OpenSG/OSG"
+                fieldInclude = "OpenSG/OSG" + self.nsFilePrefix
 
             if includeTable.has_key(TypeRawCaps):
                 fieldInclude = "\"" + fieldInclude + includeTable[TypeRawCaps] + "Fields.h" + "\""
@@ -805,9 +819,9 @@ class Field(FCDElement):
                 (self.getFCD("typeHeader") == "(AUTO)")  ):
 
                 if self.getFieldContainer().isSystemComponent():
-                    typeInclude = "OSG";
+                    typeInclude = "OSG" + self.nsFilePrefix; 
                 else:
-                    typeInclude = "OpenSG/OSG";
+                    typeInclude = "OpenSG/OSG" + self.nsFilePrefix;
             
                 typeInclude = typeInclude + TypeRawCaps;
                      

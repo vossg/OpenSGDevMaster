@@ -76,8 +76,8 @@
     @@endif // field.needTypeInclude
 @@EndFieldLoop@@
 
-#include "OSG@!Classname!@Base.h"
-#include "OSG@!Classname!@.h"
+#include "OSG@!nsFilePrefix!@@!Classname!@Base.h"
+#include "OSG@!nsFilePrefix!@@!Classname!@.h"
 
 #include <boost/bind.hpp>
 

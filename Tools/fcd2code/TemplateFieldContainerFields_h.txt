@@ -298,6 +298,14 @@ struct FieldTraits<@!Classname!@ *, @!nsConst!@ + @!ParentNS!@> :
 };
 @@endif
 
+@@if inExternalNamespace
+OSG_END_NAMESPACE
+
+@!LIBNAMESPACE!@_BEGIN_NAMESPACE
+
+OSG_IMPORT_NAMESPACE;
+
+@@endif
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 @@if SFPointerField
     @@if isInLibrary
