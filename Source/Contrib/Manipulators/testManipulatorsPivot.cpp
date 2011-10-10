@@ -521,17 +521,20 @@ namespace
 
             switch(manipulatorMgr->getCurrentType())
             {
-            case OSG::ManipulatorManager::TRANSLATE:
-                t = object->xformTranslationN;
-                break;
+                case OSG::ManipulatorManager::TRANSLATE:
+                    t = object->xformTranslationN;
+                    break;
 
-            case OSG::ManipulatorManager::ROTATE:
-                t = object->xformRotationN;
-                break;
+                case OSG::ManipulatorManager::ROTATE:
+                    t = object->xformRotationN;
+                    break;
 
-            case OSG::ManipulatorManager::SCALE:
-                t = object->xformScaleN;
-                break;
+                case OSG::ManipulatorManager::SCALE:
+                    t = object->xformScaleN;
+                    break;
+                    
+                default:
+                    break;
             }
 
             assert(0 != t);
