@@ -46,6 +46,7 @@
 #include "OSGLog.h"
 #include "OSGContainerForwards.h"
 #include "OSGFieldType.h"
+#include "OSGPointerType.h"
 
 #include <iosfwd>
 

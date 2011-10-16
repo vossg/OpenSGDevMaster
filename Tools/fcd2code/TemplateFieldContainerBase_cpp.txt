@@ -123,7 +123,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<@!Classname!@ *, @!nsConst!@>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr", @!nsConst!@);
+PointerType FieldTraits<@!Classname!@ *, @!nsConst!@>::_type(
+    "@!Classname!@Ptr", 
+    "@!RealParent!@Ptr", 
+    @!Classname!@::getClassType(),
+    @!nsConst!@);
 #endif
 
 @@if PointerField

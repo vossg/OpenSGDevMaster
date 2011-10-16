@@ -153,7 +153,7 @@ struct FieldTraits<FieldContainer *> :
 {
   private:
 
-    static  DataType                       _type;
+    static  PointerType                    _type;
     static  DataType                       _mapType;
 
   public:
@@ -251,7 +251,7 @@ struct FieldTraits<FieldContainer *, 1> :
 {
   private:
 
-    static  DataType                                _type;
+//    static  DataType                                _type;
 
   public:
 

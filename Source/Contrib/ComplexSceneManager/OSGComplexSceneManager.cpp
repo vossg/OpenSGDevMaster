@@ -237,11 +237,6 @@ FieldContainer *ComplexSceneManager::resolveStatic(
 
     if(pDestContainer != NULL && iDestFieldId >= 0)
     {
-        fprintf(stderr, "%s not found (static), storing for: %p %d\n",
-                szName,
-                pDestContainer,
-                iDestFieldId);
-
         DeferredFCUse tmpBlock;
 
         tmpBlock._szName       = szName;
@@ -501,11 +496,6 @@ FieldContainer *ComplexSceneManager::resolve(
 
     if(returnValue == NULL && pDestContainer != NULL && iDestFieldId >= 0)
     {
-        fprintf(stderr, "%s not found (static), storing for: %p %d\n",
-                szName,
-                pDestContainer,
-                iDestFieldId);
-
         DeferredFCUse tmpBlock;
 
         tmpBlock._szName       = szName;
@@ -644,18 +634,11 @@ Node *ComplexSceneManager::findNode(const std::string &filename) const
 
 void ComplexSceneManager::processUnresolved(void)
 {
-    fprintf(stderr, "Trying to resolve:\n");
-
     std::vector<DeferredFCUse>::const_iterator uIt  = _vUnresolvedFCs.begin();
     std::vector<DeferredFCUse>::const_iterator uEnd = _vUnresolvedFCs.end  ();
 
     for(; uIt != uEnd; ++uIt)
     {
-        fprintf(stderr, "  %s for %p %d\n",
-                uIt->_szName.c_str(),
-                uIt->_pDstCnt.get(),
-                uIt->_uiDstFieldId);
-
         if(uIt->_pDstCnt == NULL)
             continue;
 
@@ -663,11 +646,8 @@ void ComplexSceneManager::processUnresolved(void)
 
         if(pTmpFC == NULL)
         {
-            fprintf(stderr, "  not found\n");
             continue;
         }
-
-        fprintf(stderr, "  got %p\n", pTmpFC);
 
         EditFieldHandlePtr pDstField = 
             uIt->_pDstCnt->editField(uIt->_uiDstFieldId);

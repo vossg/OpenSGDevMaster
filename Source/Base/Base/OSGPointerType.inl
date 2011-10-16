@@ -36,106 +36,12 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMEMORYOBJECTFIELDTRAITS_H_
-#define _OSGMEMORYOBJECTFIELDTRAITS_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGFieldTraits.h"
-#include "OSGMemoryObject.h"
-
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseMemoryObjectsFieldTraits
-    \ingroup GrpLibOSGBase
- */
-
-template <>
-struct FieldTraits<MemoryObject *> : 
-    public FieldTraitsPODTemplateBase<MemoryObject *>
+inline
+const DataType &PointerType::getContentType(void) const
 {
-  private:
-
-    static  DataType                    _type;
-    
-  public:
-
-    typedef FieldTraits<MemoryObject *>  Self;
-    typedef MemoryObject *               ArgumentType;
-    typedef MemoryObject *               FieldTypeT;
-
-    enum             { Convertible = Self::NotConvertible              };
-
-    static OSG_BASE_DLLMAPPING
-                 DataType     &getType   (void);
-
-    template<typename RefCountPolicy> inline
-    static const Char8        *getSName  (void);
-
-    template<typename RefCountPolicy> inline
-    static const Char8        *getMName  (void);
-
-
-    static       MemoryObject *getDefault(void) { return NULL; }
-    
-    // Binary
-    
-    // TODO Is it correct to just ignore these for binary ??
-    
-    static UInt32 getBinSize(MemoryObject * const &)
-    {
-        return 0;
-    }
-
-    static UInt32 getBinSize(MemoryObject* const*,
-                             UInt32              )
-    {
-        return 0;
-    }
-
-    static void copyToBin(BinaryDataHandler &,
-                          MemoryObject      * const & )
-    {
-    }
-
-    static void copyToBin(BinaryDataHandler &,
-                          MemoryObject      * const *,
-                          UInt32                      )
-    {
-    }
-
-    static void copyFromBin(BinaryDataHandler &,
-                            MemoryObject      * const & )
-    {
-    }
-
-    static void copyFromBin(BinaryDataHandler &,
-                            MemoryObject      * const *,
-                            UInt32                      )
-    {
-    }
-};
-
-
-
-template<> inline
-const Char8 *FieldTraits<MemoryObject *, 
-                         0             >::getMName<MemObjRefCountPolicy>(
-                             void)
-{
-    return "MFMemoryObjectPtr"; 
+    return _contentType;
 }
-
-template<> inline
-const Char8 *FieldTraits<MemoryObject *, 
-                         0             >::getSName<MemObjRefCountPolicy>(
-                             void)
-{
-    return "SFMemoryObjectPtr"; 
-}
-
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGMEMORYOBJECTFIELDTRAITS_H_ */

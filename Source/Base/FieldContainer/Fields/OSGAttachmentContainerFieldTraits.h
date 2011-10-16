@@ -57,7 +57,7 @@ template <>
 struct FieldTraits<AttachmentContainer *>
     : public FieldTraitsFCPtrBase<AttachmentContainer *>
 {
-    static  DataType                           _type;
+    static  PointerType                        _type;
     typedef FieldTraits<AttachmentContainer *>  Self;
 
 

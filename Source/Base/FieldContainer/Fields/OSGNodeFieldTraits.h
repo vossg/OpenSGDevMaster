@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGFieldContainerFieldTraits.h"
-#include "OSGDataType.h"
+#include "OSGPointerType.h"
 
 #include "OSGContainerForwards.h"
 
@@ -58,7 +58,7 @@ struct FieldTraits<Node *> : public FieldTraitsFCPtrBase<Node *>
 {
   private:
 
-    static  DataType                _type;
+    static  PointerType             _type;
 
   public:
 

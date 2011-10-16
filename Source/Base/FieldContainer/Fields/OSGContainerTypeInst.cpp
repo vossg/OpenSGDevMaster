@@ -66,33 +66,43 @@
 
 OSG_BEGIN_NAMESPACE
 
-DataType FieldTraits<FieldContainer          *>::_type(
+PointerType FieldTraits<FieldContainer          *>::_type(
     "FieldContainerPtr",
-    NULL);
+    NULL,
+    FieldContainer::getClassType(),
+    nsOSG);
 
-DataType FieldTraits<FieldContainer          *>::_mapType(
+DataType FieldTraits<FieldContainer             *>::_mapType(
     "FieldContainerPtrMap",
-    NULL);
+    NULL,
+    nsOSG);
 
-DataType FieldTraits<AttachmentContainer     *>::_type(
+PointerType FieldTraits<AttachmentContainer     *>::_type(
     "AttachmentContainerPtr",
-    "FieldContainerPtr");
+    "FieldContainerPtr", 
+    AttachmentContainer::getClassType(),
+    nsOSG);
 
-DataType FieldTraits<Node                   *>::_type(
+PointerType FieldTraits<Node                   *>::_type(
     "NodePtr",
-    "AttachmentContainerPtr");
+    "AttachmentContainerPtr",
+    Node::getClassType(),
+    nsOSG);
 
-DataType FieldTraits<ChangedFunctorCallback  >::_type(
+DataType FieldTraits<ChangedFunctorCallback     >::_type(
     "ChangedFunctorCallback",
-    NULL);
+    NULL,
+    nsOSG);
  
-DataType FieldTraits<MemoryObject           *>::_type(
+DataType FieldTraits<MemoryObject              *>::_type(
     "MemoryObjectPtr",
-    NULL);
+    NULL,
+    nsOSG);
 
-DataType FieldTraits<HardwareContextData    *>::_type(
+DataType FieldTraits<HardwareContextData       *>::_type(
     "HardwareContextDataPtr",
-    "MemoryObjectPtr");
+    "MemoryObjectPtr",
+    nsOSG);
 
 OSG_FIELDTRAITS_GETTYPE(FieldContainer         *)
 OSG_FIELDTRAITS_GETTYPE(AttachmentContainer    *)
