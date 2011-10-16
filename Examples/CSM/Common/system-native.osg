@@ -133,6 +133,10 @@ ComplexSceneManager
 
                  foregrounds
                  [
+                   USE ForeGnd1
+                   USE ForeGnd2
+                   USE ForeGnd3
+                   USE ForeGnd4
                  ]
                }
              ]

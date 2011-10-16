@@ -155,15 +155,24 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
 
     typedef SceneFileType::Resolver             Resolver;
 
+    struct DeferredFCUse
+    {
+        std::string           _szName;
+        FieldContainerWeakPtr _pDstCnt;
+        UInt32                _uiDstFieldId;
+    };
+
     // Variables should all be in ComplexSceneManagerBase.
 
     static Time                                 SystemTime;
     static ComplexSceneManagerUnrecPtr         _the;
     static PathHandler                         _oPathHandler;
     static std::vector<FieldContainerUnrecPtr> _vStaticGlobals;
+    static std::vector<DeferredFCUse         > _vStaticUnresolvedFCs;
 
            MainLoopFuncF                       _fMainloop;
            CSMKeySensorHelper                  _oKeyHelper;
+           std::vector<DeferredFCUse         > _vUnresolvedFCs;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -184,7 +193,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    FieldContainer *resolve(const Char8 *szName);
+    FieldContainer *resolve(const Char8          *szName,
+                                  FieldContainer *pDestContainer,
+                                  Int32           iDestFieldId  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -198,10 +209,11 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void  addGlobals(const std::string &filename);
-    void  addData   (const std::string &filename);
+    void  addGlobals       (const std::string &filename);
+    void  addData          (const std::string &filename);
 
-    Node *findNode  (const std::string &filename) const;
+    Node *findNode         (const std::string &filename) const;
+    void  processUnresolved(      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -224,7 +236,15 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    static FieldContainer           *resolveStatic(const Char8       *szName  );
+    static FieldContainer *resolveStatic(const Char8          *szName,
+                                               FieldContainer *pDestContainer,
+                                               Int32           iDestFieldId  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static FieldContainerTransitPtr  readOSGFile  (const std::string &filename,
                                                          Resolver     resolver);
 

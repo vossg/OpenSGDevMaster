@@ -374,9 +374,11 @@ class @!Classname!@Base : public @!Parent!@
     @@if isDecorator
     SFUnrec@!Parent!@Ptr _sfDecoratee;
     @@else // isDecorator
-        @@BeginFieldLoop@@
+      @@BeginFieldLoop@@
+        @@if !field.isStoreless
     @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ _@!field.VarName!@;
-        @@EndFieldLoop@@
+       @@endif
+      @@EndFieldLoop@@
     @@endif // isDecorator
 
     /*! \}                                                                 */

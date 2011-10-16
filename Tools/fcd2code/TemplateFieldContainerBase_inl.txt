@@ -77,12 +77,13 @@ OSG::UInt16 @!Classname!@Base::getClassGroupId(void)
 }
 
 @@if !isDecorator
-    @@if !isDecoratable
+  @@if !isDecoratable
 /*------------------------------ get -----------------------------------*/
 
-        @@BeginSFFieldLoop@@
-            @@if !field.noAccess
-            @@if field.isPtrField
+    @@BeginSFFieldLoop@@
+      @@if !field.noAccess
+        @@if !field.isStoreless
+          @@if field.isPtrField
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
@@ -91,22 +92,22 @@ inline
     return _@!field.VarName!@.getValue();
 }
 
-              @@if !field.ptrFieldCustomAccess
+            @@if !field.ptrFieldCustomAccess
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-            @@if field.PassFieldMask
+              @@if field.PassFieldMask
 void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value,
                              const UInt16                      uiStoredInFieldId)
-            @@else // field.PassFieldMask
+              @@else // field.PassFieldMask
 void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
-            @@endif // field.PassFieldMask
+              @@endif // field.PassFieldMask
 {
     editSField(@!field.Name!@FieldMask);
 
     _@!field.VarName!@.setValue(value);
 }
-@@endif
-        @@else // field.isPtrField
+            @@endif //!field.ptrFieldCustomAccess
+          @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
 inline
@@ -132,23 +133,25 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRe
 
     _@!field.VarName!@.setValue(value);
 }
-        @@endif // field.isPtrField
-        @@endif //!field.noAccess
-        @@EndSFFieldLoop@@
+          @@endif // field.isPtrField
+        @@endif // !field.isStoreless
+      @@endif // !field.noAccess
+    @@EndSFFieldLoop@@
 
-        @@BeginMFFieldLoop@@
-        @@if !field.noAccess
+    @@BeginMFFieldLoop@@
+      @@if !field.noAccess
+        @@if !field.isStoreless
 //! Get the value of the \a index element the @!Classname!@::_@!field.VarName!@ field.
 inline
-            @@if field.isPtrField
+          @@if field.isPtrField
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-            @@else // field.isPtrField
+          @@else // field.isPtrField
 @!field.RetConst!@ @!field.FullType!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-            @@endif // field.isPtrField
+          @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
 }
-            @@if !field.isPtrField
+          @@if !field.isPtrField
 
 inline
 @!field.FullType!@ &@!Classname!@Base::edit@!field.Name!@(const UInt32 index)
@@ -158,11 +161,12 @@ inline
     return _@!field.VarName!@[index];
 }
 
-            @@endif // !field.isPtrField
+          @@endif // !field.isPtrField
 
-        @@endif //!field.noAccess
-        @@EndMFFieldLoop@@
-    @@endif // !isDecoratable
+        @@endif // !field.isStoreless
+      @@endif // !field.noAccess
+    @@EndMFFieldLoop@@
+  @@endif // !isDecoratable
 @@else // !isDecorator
 
 inline
@@ -198,6 +202,7 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
 @@else // isDecorator
   @@BeginFieldLoop@@
     @@if !field.customSync
+    @@if !field.isStoreless
 
       @@if field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
@@ -209,6 +214,7 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
       @@endif // field.isSField
+    @@endif
     @@endif // field.customSync
   @@EndFieldLoop@@
 @@endif // isDecorator

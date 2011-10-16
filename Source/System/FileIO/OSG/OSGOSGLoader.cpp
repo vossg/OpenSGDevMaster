@@ -990,7 +990,10 @@ FieldContainer *OSGLoader::getReference(const Char8 *szName)
     {
         if(_fResolver)
         {
-            return _fResolver(szName);
+            return _fResolver(szName, 
+                              _pCurrentFC,
+                              (_pCurrentFieldDesc != NULL) ? 
+                                _pCurrentFieldDesc->getFieldId() : -1);
 
         }
         return NULL;

@@ -141,6 +141,8 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     typedef GetMFieldHandle<FieldContainerPtrMFieldBase>   GetMFHandle;
     typedef boost::shared_ptr<GetMFHandle>                 GetMFHandlePtr;
     
+    bool    _bStoreless;
+
     /*==========================  PUBLIC  =================================*/
 
   public:
@@ -160,6 +162,20 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     EditMFieldHandle(      FieldContainerPtrMFieldBase *pField, 
                      const FieldDescriptionBase        *pDescription,
                            FieldContainer              *pContainer  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Field Type Query                                             */
+    /*! \{                                                                 */
+
+    virtual bool isValid(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Field Type Query                                             */
+    /*! \{                                                                 */
+
+    void setStoreless(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -367,7 +383,9 @@ class EditFCPtrMFieldHandle :
 
     /*! \}                                                                 */
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
@@ -452,6 +470,7 @@ class EditFCPtrMFieldHandle :
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
           HandledField *dcast      (void) const;
     const HandledField *dcast_const(void) const;

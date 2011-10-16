@@ -289,6 +289,42 @@ void CSMNativeWindow::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+Vec2f CSMNativeWindow::translateScreenCoordinatesRel(Real32 rX,
+                                                     Real32 rY)
+{
+    Vec2f returnValue(0, 0);
+
+    X11Window qRoot   = 0;
+
+    Int32     qX      = 0;
+    Int32     qY      = 0;
+
+    UInt32    qW      = 0;
+    UInt32    qH      = 0;
+
+    UInt32    qBorder = 0;
+    UInt32    qDepth  = 0;
+
+    XGetGeometry( _pDisplay, 
+                  _pRootWindow, 
+                 
+                 & qRoot,
+                 
+                 & qX,
+                 & qY,
+                 
+                 & qW,
+                 & qH, 
+                      
+                 & qBorder, 
+                 & qDepth );
+
+    returnValue[0] = rX * qW + 0.5f;
+    returnValue[1] = rY * qH + 0.5f;
+
+    return returnValue;
+}
+
 Vec2i CSMNativeWindow::translateGlobalCoordinatesRel(Real32 rX,
                                                      Real32 rY)
 {
@@ -319,8 +355,8 @@ Vec2i CSMNativeWindow::translateGlobalCoordinatesRel(Real32 rX,
                  & qBorder, 
                  & qDepth );
 
-    qX = Int32(floor(rX * qW));
-    qY = Int32(floor(rY * qH));
+    qX = Int32(floor(rX * qW + 0.5f));
+    qY = Int32(floor(rY * qH + 0.5f));
 
     X11Window qChild = 0;
 

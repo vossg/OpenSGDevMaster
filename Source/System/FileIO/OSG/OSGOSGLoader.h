@@ -108,7 +108,9 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
                                      FieldContainer *>       NamedFCMap;
     typedef OSGLoader                                        Self;
 
-    typedef boost::function<FieldContainer *(const Char8 *)> Resolver; 
+    typedef boost::function<FieldContainer *(const Char8 *,
+                                                   FieldContainer *,
+                                                   Int32           )> Resolver; 
 
   public :
 

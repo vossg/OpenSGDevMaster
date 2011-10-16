@@ -191,6 +191,14 @@ void CSMWindow::dump(      UInt32    ,
     SLOG << "Dump CSMWindow NI" << std::endl;
 }
 
+Vec2f CSMWindow::translateScreenCoordinatesRel(Real32 rX,
+                                               Real32 rY)
+{
+    Vec2f returnValue(0.f, 0.f);
+
+    return returnValue;
+}
+
 Vec2i CSMWindow::translateGlobalCoordinatesRel(Real32 rX,
                                                Real32 rY)
 {

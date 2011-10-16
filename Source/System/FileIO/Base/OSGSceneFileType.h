@@ -73,7 +73,9 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     typedef IOFileTypeBase Inherited;
     typedef SceneFileType  Self;
     
-    typedef boost::function<FieldContainer *(const Char8 *)> Resolver; 
+    typedef boost::function<FieldContainer *(const Char8 *,
+                                                   FieldContainer *,
+                                                   Int32           )> Resolver; 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

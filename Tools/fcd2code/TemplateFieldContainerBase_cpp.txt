@@ -108,12 +108,14 @@ OSG_BEGIN_NAMESPACE
     The object being decorated
 */
     @@else // isDecorator
-        @@BeginFieldLoop@@
+      @@BeginFieldLoop@@
+        @@if !field.isStoreless
 /*! \var @!field.FullType:15!@ @!Classname!@Base::_@!field.VarName!@
     @!field.Description!@
 */
 
-        @@EndFieldLoop@@
+        @@endif
+      @@EndFieldLoop@@
     @@endif // isDecorator
 
 /***************************************************************************\
@@ -248,7 +250,11 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         @!field.Flags!@,
     @@if !field.noAccess
         static_cast<FieldEditMethodSig>(&@!Classname!@::editHandle@!field.Name!@),
+      @@if !field.isStoreless
         static_cast<FieldGetMethodSig >(&@!Classname!@::getHandle@!field.Name!@));
+      @@else
+        static_cast     <FieldGetMethodSig >(&@!Classname!@::invalidGetField));
+      @@endif
     @@else  //!field.noAccess
         static_cast     <FieldEditMethodSig>(&@!Classname!@::invalidEditField),
         static_cast     <FieldGetMethodSig >(&@!Classname!@::invalidGetField));
@@ -324,9 +330,9 @@ const SFUnrec@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
     return &_sfDecoratee;
 }
 
-    @@BeginFieldLoop@@
-        @@if !field.noAccess
-        @@if field.isPtrField
+  @@BeginFieldLoop@@
+    @@if !field.noAccess
+      @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
@@ -351,7 +357,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         return NULL;
     }
 }
-        @@else // field.isPtrField
+      @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
     if(_sfDecoratee.getValue() != NULL)
@@ -375,22 +381,23 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         return NULL;
     }
 }
-        @@endif // field.isPtrField
-        @@endif //!field.noAccess
+      @@endif // field.isPtrField
+    @@endif //!field.noAccess
 
-    @@EndFieldLoop@@
+  @@EndFieldLoop@@
 @@endif // isDecorator
 
 @@if !isDecorator
-    @@BeginFieldLoop@@
-        @@if !field.noAccess
+  @@BeginFieldLoop@@
+    @@if !field.noAccess
+      @@if !field.isStoreless
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     return &_@!field.VarName!@;
 }
-            @@if field.ptrFieldStandardAccess
+          @@if field.ptrFieldStandardAccess
 
 @!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
 {
@@ -402,30 +409,30 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 
     return &_@!field.VarName!@;
 }
-            @@endif
-            @@if field.isSField
-                @@if field.ptrFieldNullCheckAccess
+          @@endif // field.ptrFieldStandardAccess
+          @@if field.isSField
+            @@if field.ptrFieldNullCheckAccess
 
 @!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
 {
-            @@if field.isSField
+              @@if field.isSField
     editSField(@!field.Name!@FieldMask);
-            @@else
+              @@else
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-            @@endif
+              @@endif
 
     return &_@!field.VarName!@;
 }
-                @@endif
-            @@endif
+            @@endif // field.ptrFieldNullCheckAccess
+          @@endif // field.isSField
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
-            @@if field.isMField
+          @@if field.isMField
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-            @@else // field.isMField
+          @@else // field.isMField
     editSField(@!field.Name!@FieldMask);
-            @@endif // field.isMField
+          @@endif // field.isMField
 
     return &_@!field.VarName!@;
 }
@@ -436,9 +443,10 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 }
 
         @@endif // field.isPtrField
-        @@endif //!field.noAccess
+      @@endif // !field.isStoreless
+    @@endif //!field.noAccess
 
-    @@EndFieldLoop@@
+  @@EndFieldLoop@@
 @@endif // !isDecorator
 
 
@@ -611,11 +619,13 @@ UInt32 @!Classname!@Base::getBinSize(ConstFieldMaskArg whichField)
 @@else // isDecorator
   @@BeginFieldLoop@@
     @@if !field.customBinCopy
+    @@if !field.isStoreless
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
         returnValue += _@!field.VarName!@.getBinSize();
     }
-    @@endif
+    @@endif // !field.isStoreless
+    @@endif // !field.customBinCopy
   @@EndFieldLoop@@
 @@endif // isDecorator
 
@@ -635,11 +645,13 @@ void @!Classname!@Base::copyToBin(BinaryDataHandler &pMem,
 @@else // isDecorator
   @@BeginFieldLoop@@
     @@if !field.customBinCopy
+    @@if !field.isStoreless
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
         _@!field.VarName!@.copyToBin(pMem);
     }
-    @@endif
+    @@endif // !field.isStoreless
+    @@endif // !field.customBinCopy
   @@EndFieldLoop@@
 @@endif // isDecorator
 }
@@ -658,16 +670,18 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 @@else // isDecorator
   @@BeginFieldLoop@@
     @@if !field.customBinCopy
+    @@if !field.isStoreless
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
-    @@if field.isSField
+      @@if field.isSField
         editSField(@!field.Name!@FieldMask);
-    @@else
+      @@else
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-    @@endif
+      @@endif
         _@!field.VarName!@.copyFromBin(pMem);
     }
-    @@endif
+    @@endif // !field.isStoreless
+    @@endif // !field.customBinCopy
   @@EndFieldLoop@@
 @@endif // isDecorator
 }
@@ -814,19 +828,21 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
     Inherited()
 @@else // !hasFields
     Inherited(),
-    @@if isDecorator
+  @@if isDecorator
     _sfDecoratee()
-    @@else // isDecorator
-        @@BeginFieldLoop@@
-            @@if field.isChildField
+  @@else // isDecorator
+    @@BeginFieldLoop@@
+      @@if !field.isStoreless
+        @@if field.isChildField
     _@!field.VarName:25!@(this,
                           @!field.Name!@FieldId,
                           @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
-            @@else
+        @@else // field.isChildField
     _@!field.VarName:25!@(@!field.TypedDefault!@)@!field.Separator!@
-            @@endif
-        @@EndFieldLoop@@
-    @@endif // isDecorator
+        @@endif // field.isChildField
+      @@endif // !field.isStoreless
+    @@EndFieldLoop@@
+  @@endif // isDecorator
 @@endif // !hasFields
 {
 }
@@ -836,27 +852,29 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
     Inherited(source)
 @@else // !hasFields
     Inherited(source),
-    @@if isDecorator
+  @@if isDecorator
     _sfDecoratee(source._sfDecoratee)
-    @@else // isDecorator
-        @@BeginFieldLoop@@
-            @@if field.isPtrField
-                @@if field.isChildField
+  @@else // isDecorator
+    @@BeginFieldLoop@@
+      @@if !field.isStoreless
+        @@if field.isPtrField
+          @@if field.isChildField
     _@!field.VarName:25!@(this,
                           @!field.Name!@FieldId,
                           @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
-                @@else
-                    @@if field.isSField
+          @@else
+            @@if field.isSField
     _@!field.VarName:25!@(NULL)@!field.Separator!@
-                    @@else
+            @@else
     _@!field.VarName:25!@()@!field.Separator!@
-                    @@endif // isSField
-                @@endif // ChildField
-            @@else // field.isPtrField
+            @@endif // isSField
+          @@endif // ChildField
+        @@else // field.isPtrField
     _@!field.VarName:25!@(source._@!field.VarName:25!@)@!field.Separator!@
-            @@endif // field.isPtrField
-        @@EndFieldLoop@@
-    @@endif // isDecorator
+        @@endif // field.isPtrField
+      @@endif // !field.isStoreless
+    @@EndFieldLoop@@
+  @@endif // isDecorator
 @@endif // !hasFields
 {
 }
@@ -1048,10 +1066,11 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
     if(source != NULL)
     {
         @!Classname!@ *pThis = static_cast<@!Classname!@ *>(this);
-    @@BeginFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-            @@if field.isMField
+  @@BeginFieldLoop@@
+    @@if field.isPtrField
+      @@if !field.noAccess
+      @@if !field.isStoreless
+        @@if field.isMField
 
         MF@!field.FieldTypeCaps!@::const_iterator @!field.Name!@It  =
             source->_mf@!field.Name!@.begin();
@@ -1067,10 +1086,11 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
             @@else // field.isMField
 
         pThis->set@!field.Name!@(source->get@!field.Name!@());
-            @@endif // field.isMField
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndFieldLoop@@
+        @@endif // field.isMField
+      @@endif // !field.isStoreless
+      @@endif // !field.noAccess
+    @@endif // field.isPtrField
+  @@EndFieldLoop@@
     }
 }
 @@endif // hasPtrFields
@@ -1105,82 +1125,96 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
 
 @@endif // isDecorator
 @@BeginFieldLoop@@
+  @@if !field.isStoreless
 GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 {
-@@if !field.noAccess
+    @@if !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::GetHandle(
              &_@!field.VarName!@,
              this->getType().getFieldDesc(@!field.Name!@FieldId),
              const_cast<@!Classname!@Base *>(this)));
-@@else // !field.noAccess
+    @@else // !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue;
-@@endif
+    @@endif
 
     return returnValue;
 }
+  @@endif // !field.isStoreless
 
 EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 {
-@@if !field.noAccess
+  @@if !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::EditHandle(
+    @@if !field.isStoreless
              &_@!field.VarName!@,
+    @@else
+             NULL,
+    @@endif
              this->getType().getFieldDesc(@!field.Name!@FieldId),
              this));
 
+    @@if field.isStoreless
+    returnValue->setStoreless();
+
+    @@endif
     @@if field.isMField
-        @@if field.isPtrField
-            @@if field.hasPushToField
+      @@if field.isPtrField
+        @@if field.hasPushToField
     returnValue->setAddMethod(
         boost::bind(&@!Classname!@::@!field.PushToField!@,
                     static_cast<@!Classname!@ *>(this), _1));
-            @@endif
-            @@if field.hasInsertIntoMField
+        @@endif
+        @@if field.hasInsertIntoMField
     returnValue->setInsertMethod(
         boost::bind(&@!Classname!@::@!field.InsertIntoMField!@,
                     static_cast<@!Classname!@ *>(this), _1, _2));
-            @@endif
-            @@if field.hasReplaceInMFieldIndex
+        @@endif
+        @@if field.hasReplaceInMFieldIndex
     returnValue->setReplaceMethod(
         boost::bind(&@!Classname!@::@!field.ReplaceInMFieldIndex!@,
                     static_cast<@!Classname!@ *>(this), _1, _2));
-            @@endif
-            @@if field.hasReplaceInMFieldObject
+        @@endif
+        @@if field.hasReplaceInMFieldObject
     returnValue->setReplaceObjMethod(
         boost::bind(&@!Classname!@::@!field.ReplaceInMFieldObject!@,
                     static_cast<@!Classname!@ *>(this), _1, _2));
-            @@endif
-            @@if field.hasRemoveFromMFieldIndex
+        @@endif
+        @@if field.hasRemoveFromMFieldIndex
     returnValue->setRemoveMethod(
         boost::bind(&@!Classname!@::@!field.RemoveFromMFieldIndex!@,
                     static_cast<@!Classname!@ *>(this), _1));
-            @@endif
-            @@if field.hasRemoveFromMFieldObject
+        @@endif
+        @@if field.hasRemoveFromMFieldObject
     returnValue->setRemoveObjMethod(
         boost::bind(&@!Classname!@::@!field.RemoveFromMFieldObject!@,
                     static_cast<@!Classname!@ *>(this), _1));
-            @@endif
-            @@if field.hasClearField
+        @@endif
+        @@if field.hasClearField
     returnValue->setClearMethod(
         boost::bind(&@!Classname!@::@!field.ClearField!@,
                     static_cast<@!Classname!@ *>(this)));
-            @@endif
         @@endif
+      @@endif
 
+      @@if !field.isStoreless
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+      @@endif
     @@else // field.isMField
-        @@if field.isPtrField
+      @@if field.isPtrField
     returnValue->setSetMethod(
         boost::bind(&@!Classname!@::set@!field.Name!@,
                     static_cast<@!Classname!@ *>(this), _1));
-        @@endif
+      @@endif
 
+      @@if !field.isStoreless
     editSField(@!field.Name!@FieldMask);
+      @@endif
     @@endif // field.isMField
-@@else // !field.noAccess
+  @@else // !field.noAccess
     EditFieldHandlePtr returnValue;
-@@endif
+  @@endif
 
     return returnValue;
 }

@@ -148,7 +148,8 @@ inline
 EditMFieldHandle<FieldContainerPtrMFieldBase>::EditMFieldHandle(
     const EditMFieldHandle &source) :
     
-     Inherited(source)
+     Inherited (source            ),
+    _bStoreless(source._bStoreless)
 {
 }
 
@@ -158,10 +159,28 @@ EditMFieldHandle<FieldContainerPtrMFieldBase>::EditMFieldHandle(
     const FieldDescriptionBase        *pDescription,
           FieldContainer              *pContainer  ) :
 
-     Inherited(pField, 
-               pDescription,
-               pContainer  )
+     Inherited (pField, 
+                pDescription,
+                pContainer  ),
+    _bStoreless(false       )
 {
+}
+
+inline
+bool EditMFieldHandle<FieldContainerPtrMFieldBase>::isValid(void) const
+{
+    BitVector accessFlags = _pDescription->getFlags() & Field::FAccessMask;
+
+    return 
+        ( (_pField     != NULL)                                      || 
+         ((_bStoreless == true) && (0x0000 != (accessFlags & 
+                                               Field::FCustomAccess))));
+}
+
+inline
+void EditMFieldHandle<FieldContainerPtrMFieldBase>::setStoreless(void)
+{
+    _bStoreless = true;
 }
 
 /*---------------------------------------------------------------------------*/

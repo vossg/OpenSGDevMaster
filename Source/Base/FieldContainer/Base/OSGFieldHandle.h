@@ -227,7 +227,7 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    bool isValid(void) const;
+    virtual bool isValid(void) const;
 
     /*---------------------------------------------------------------------*/
 

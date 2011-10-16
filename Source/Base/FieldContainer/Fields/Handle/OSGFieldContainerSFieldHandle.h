@@ -138,7 +138,10 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
     typedef GetSFieldHandle<FieldContainerPtrSFieldBase>   GetSFHandle;
     typedef boost::shared_ptr<GetSFHandle>                 GetSFHandlePtr;
 
+    bool    _bStoreless;
+
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -156,6 +159,20 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
     EditSFieldHandle(      FieldContainerPtrSFieldBase *pField, 
                      const FieldDescriptionBase        *pDescription,
                            FieldContainer              *pContainer  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Field Type Query                                             */
+    /*! \{                                                                 */
+
+    virtual bool isValid(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Field Type Query                                             */
+    /*! \{                                                                 */
+
+    void setStoreless(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

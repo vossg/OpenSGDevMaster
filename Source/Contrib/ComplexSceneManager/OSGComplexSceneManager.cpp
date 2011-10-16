@@ -151,11 +151,13 @@ struct ElementFinder
  *                           Class variables                               *
 \***************************************************************************/
 
-Time                                ComplexSceneManager::SystemTime = 0.0;
+Time                                 ComplexSceneManager::SystemTime = 0.0;
 
-ComplexSceneManagerUnrecPtr         ComplexSceneManager::_the = NULL;
-PathHandler                         ComplexSceneManager::_oPathHandler;
-std::vector<FieldContainerUnrecPtr> ComplexSceneManager::_vStaticGlobals;
+ComplexSceneManagerUnrecPtr          ComplexSceneManager::_the = NULL;
+PathHandler                          ComplexSceneManager::_oPathHandler;
+std::vector<FieldContainerUnrecPtr > ComplexSceneManager::_vStaticGlobals;
+std::vector<
+ ComplexSceneManager::DeferredFCUse> ComplexSceneManager::_vStaticUnresolvedFCs;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -176,7 +178,10 @@ ComplexSceneManager *ComplexSceneManager::the(void)
     return _the;
 }
 
-FieldContainer *ComplexSceneManager::resolveStatic(const Char8 *szName)
+FieldContainer *ComplexSceneManager::resolveStatic(
+    const Char8          *szName,
+          FieldContainer *pDestContainer,
+          Int32           iDestFieldId)
 {
     std::vector<FieldContainerUnrecPtr>::const_iterator gIt  = 
         _vStaticGlobals.begin();
@@ -230,6 +235,22 @@ FieldContainer *ComplexSceneManager::resolveStatic(const Char8 *szName)
         ++gIt;
     }
 
+    if(pDestContainer != NULL && iDestFieldId >= 0)
+    {
+        fprintf(stderr, "%s not found (static), storing for: %p %d\n",
+                szName,
+                pDestContainer,
+                iDestFieldId);
+
+        DeferredFCUse tmpBlock;
+
+        tmpBlock._szName       = szName;
+        tmpBlock._pDstCnt      = pDestContainer;
+        tmpBlock._uiDstFieldId = UInt32(iDestFieldId);
+
+        _vStaticUnresolvedFCs.push_back(tmpBlock);
+    }
+
     return NULL;
 }
 
@@ -247,7 +268,8 @@ void ComplexSceneManager::addStaticGlobals(const Char8 *szFilename)
 
     FieldContainerUnrecPtr pRes = 
         readOSGFile(szFilenameResolved,
-                    boost::bind(&ComplexSceneManager::resolveStatic, _1));
+                    boost::bind(&ComplexSceneManager::resolveStatic, 
+                                _1, _2, _3));
     
     if(pRes == NULL)
         return;
@@ -420,7 +442,8 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
     }
 
     readOSGFile(szSystemFileResolved,
-                boost::bind(&ComplexSceneManager::resolveStatic, _1));
+                boost::bind(&ComplexSceneManager::resolveStatic, 
+                            _1, _2, _3));
 
     _vStaticGlobals.clear();
 
@@ -431,7 +454,7 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
     }
 
     OSG::SceneFileHandler::the()->setGlobalResolver(
-        boost::bind(&ComplexSceneManager::resolve, _the.get(), _1));
+        boost::bind(&ComplexSceneManager::resolve, _the.get(), _1, _2, _3));
 
     OSG::ComplexSceneManager::the()->init(vParams);
     
@@ -449,16 +472,18 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 /*----------------------- constructors & destructors ----------------------*/
 
 ComplexSceneManager::ComplexSceneManager(void) :
-     Inherited (),
-    _fMainloop (),
-    _oKeyHelper()
+     Inherited     (),
+    _fMainloop     (),
+    _oKeyHelper    (),
+    _vUnresolvedFCs()
 {
 }
 
 ComplexSceneManager::ComplexSceneManager(const ComplexSceneManager &source) :
-     Inherited (source),
-    _fMainloop (      ),
-    _oKeyHelper(      )
+     Inherited     (source),
+    _fMainloop     (      ),
+    _oKeyHelper    (      ),
+    _vUnresolvedFCs(      )
     
 {
 }
@@ -467,9 +492,30 @@ ComplexSceneManager::~ComplexSceneManager(void)
 {
 }
 
-FieldContainer *ComplexSceneManager::resolve(const Char8 *szName)
+FieldContainer *ComplexSceneManager::resolve(
+    const Char8          *szName,
+          FieldContainer *pDestContainer,
+          Int32           iDestFieldId)
 {
-    return this->findNamedComponent(szName);
+    FieldContainer *returnValue = this->findNamedComponent(szName);
+
+    if(returnValue == NULL && pDestContainer != NULL && iDestFieldId >= 0)
+    {
+        fprintf(stderr, "%s not found (static), storing for: %p %d\n",
+                szName,
+                pDestContainer,
+                iDestFieldId);
+
+        DeferredFCUse tmpBlock;
+
+        tmpBlock._szName       = szName;
+        tmpBlock._pDstCnt      = pDestContainer;
+        tmpBlock._uiDstFieldId = UInt32(iDestFieldId);
+
+        _vUnresolvedFCs.push_back(tmpBlock);
+    }
+
+    return returnValue;
 }
 
 void ComplexSceneManager::addGlobals(const std::string &filename)
@@ -488,7 +534,8 @@ void ComplexSceneManager::addGlobals(const std::string &filename)
 
     FieldContainerUnrecPtr pRes = 
         readOSGFile(szFilenameResolved,
-                    boost::bind(&ComplexSceneManager::resolve, this, _1));
+                    boost::bind(&ComplexSceneManager::resolve, this, 
+                                _1, _2, _3));
 
     if(pRes == NULL)
         return;
@@ -542,7 +589,7 @@ void ComplexSceneManager::addData(const std::string &filename)
         OSG::SceneFileHandler::the()->read(
             szFilenameResolved.c_str(), 
             NULL,
-            boost::bind(&ComplexSceneManager::resolve, this, _1),
+            boost::bind(&ComplexSceneManager::resolve, this, _1, _2, _3),
             true);
 
     _oPathHandler.popState();
@@ -593,6 +640,67 @@ Node *ComplexSceneManager::findNode(const std::string &filename) const
     }
 
     return returnValue;
+}
+
+void ComplexSceneManager::processUnresolved(void)
+{
+    fprintf(stderr, "Trying to resolve:\n");
+
+    std::vector<DeferredFCUse>::const_iterator uIt  = _vUnresolvedFCs.begin();
+    std::vector<DeferredFCUse>::const_iterator uEnd = _vUnresolvedFCs.end  ();
+
+    for(; uIt != uEnd; ++uIt)
+    {
+        fprintf(stderr, "  %s for %p %d\n",
+                uIt->_szName.c_str(),
+                uIt->_pDstCnt.get(),
+                uIt->_uiDstFieldId);
+
+        if(uIt->_pDstCnt == NULL)
+            continue;
+
+        FieldContainer *pTmpFC = this->findNamedComponent(uIt->_szName.c_str());
+
+        if(pTmpFC == NULL)
+        {
+            fprintf(stderr, "  not found\n");
+            continue;
+        }
+
+        fprintf(stderr, "  got %p\n", pTmpFC);
+
+        EditFieldHandlePtr pDstField = 
+            uIt->_pDstCnt->editField(uIt->_uiDstFieldId);
+
+        FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::EditHandle>(
+                    pDstField);
+
+        FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::EditHandle>(
+                    pDstField);
+
+        EditMapFieldHandlePtr pMapHandle = 
+            boost::dynamic_pointer_cast<
+                EditMapFieldHandle>(pDstField);
+
+        if(pSFHandle != NULL && pSFHandle->isValid())
+        {
+            pSFHandle->set(pTmpFC);
+        }
+        else if(pMFHandle != NULL && pMFHandle->isValid())
+        {
+            pMFHandle->add(pTmpFC);
+        }
+        else if(pMapHandle != NULL && pMapHandle->isValid())
+        {
+            pMapHandle->add(pTmpFC, "0");
+        }
+
+    }
+        
 }
 
 FieldContainerTransitPtr ComplexSceneManager::readOSGFile(
@@ -769,6 +877,12 @@ bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
 
     bool bDoData = false;
 
+    _vUnresolvedFCs.insert(_vUnresolvedFCs.begin(),
+                           _vStaticUnresolvedFCs.begin(),
+                           _vStaticUnresolvedFCs.end  ());
+
+    _vStaticUnresolvedFCs.clear();
+
     for(UInt32 i = 1; i < vParams.size(); ++i)
     {
         if(vParams[i][0] == '-' && vParams[i][1] == '-')
@@ -803,6 +917,8 @@ bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
             }
         }
     }
+
+    this->processUnresolved();
 
     if(_sfDrawManager.getValue() == NULL)
     {

@@ -166,6 +166,7 @@ class Field(FCDElement):
         self.setFCD("removeTo",                       "",         True);
         self.setFCD("removeToSet",                    "false",    True);
         self.setFCD("pod",                            "(AUTO)",   True);
+        self.setFCD("storeless",                      "False",    True);
 
         self.setFCD("publicRead",                     "false",   True);
 
@@ -258,6 +259,8 @@ class Field(FCDElement):
         if typeStart != -1:
             self.setFCD("typeNamespace", self.getFCD("type")[:typeStart]);
             self.setFCD("type", self.getFCD("type")[typeStart+2:]);
+
+        self["isStoreless"] = self.getFCD("storeless") == "True";
 
         # -----------------------------------------------------------------
         # Type and Namespace
