@@ -77,7 +77,7 @@ struct FieldTraits<GPUVolRTV0 *, nsOSG> :
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 

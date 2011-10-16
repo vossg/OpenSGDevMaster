@@ -97,7 +97,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Stage *, nsOSG>::_type("StagePtr", "GroupPtr", nsOSG);
+PointerType FieldTraits<Stage *, nsOSG>::_type(
+    "StagePtr", 
+    "GroupPtr", 
+    Stage::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Stage *, nsOSG)

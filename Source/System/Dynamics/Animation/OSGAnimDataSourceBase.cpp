@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimDataSource *, nsOSG>::_type("AnimDataSourcePtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<AnimDataSource *, nsOSG>::_type(
+    "AnimDataSourcePtr", 
+    "AttachmentContainerPtr", 
+    AnimDataSource::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimDataSource *, nsOSG)

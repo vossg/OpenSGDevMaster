@@ -101,7 +101,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderExecutableVarChunk *, nsOSG>::_type("ShaderExecutableVarChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<ShaderExecutableVarChunk *, nsOSG>::_type(
+    "ShaderExecutableVarChunkPtr", 
+    "StateChunkPtr", 
+    ShaderExecutableVarChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ShaderExecutableVarChunk *, nsOSG)

@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PrimeMaterial *, nsOSG>::_type("PrimeMaterialPtr", "MaterialPtr", nsOSG);
+PointerType FieldTraits<PrimeMaterial *, nsOSG>::_type(
+    "PrimeMaterialPtr", 
+    "MaterialPtr", 
+    PrimeMaterial::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PrimeMaterial *, nsOSG)

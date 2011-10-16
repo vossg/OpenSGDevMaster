@@ -174,7 +174,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Viewport *, nsOSG>::_type("ViewportPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<Viewport *, nsOSG>::_type(
+    "ViewportPtr", 
+    "AttachmentContainerPtr", 
+    Viewport::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Viewport *, nsOSG)

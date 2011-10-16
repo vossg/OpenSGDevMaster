@@ -159,7 +159,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TexGenChunk *, nsOSG>::_type("TexGenChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<TexGenChunk *, nsOSG>::_type(
+    "TexGenChunkPtr", 
+    "StateChunkPtr", 
+    TexGenChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(TexGenChunk *, nsOSG)

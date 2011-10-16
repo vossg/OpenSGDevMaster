@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimTargetAttachment *, nsOSG>::_type("AnimTargetAttachmentPtr", "AttachmentPtr", nsOSG);
+PointerType FieldTraits<AnimTargetAttachment *, nsOSG>::_type(
+    "AnimTargetAttachmentPtr", 
+    "AttachmentPtr", 
+    AnimTargetAttachment::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimTargetAttachment *, nsOSG)

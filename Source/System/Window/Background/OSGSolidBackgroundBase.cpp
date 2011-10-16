@@ -98,7 +98,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SolidBackground *, nsOSG>::_type("SolidBackgroundPtr", "BackgroundPtr", nsOSG);
+PointerType FieldTraits<SolidBackground *, nsOSG>::_type(
+    "SolidBackgroundPtr", 
+    "BackgroundPtr", 
+    SolidBackground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SolidBackground *, nsOSG)

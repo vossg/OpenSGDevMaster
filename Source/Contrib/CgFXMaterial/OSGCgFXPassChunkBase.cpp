@@ -92,7 +92,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXPassChunk *, nsOSG>::_type("CgFXPassChunkPtr", "FullStateChunkPtr", nsOSG);
+PointerType FieldTraits<CgFXPassChunk *, nsOSG>::_type(
+    "CgFXPassChunkPtr", 
+    "FullStateChunkPtr", 
+    CgFXPassChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CgFXPassChunk *, nsOSG)

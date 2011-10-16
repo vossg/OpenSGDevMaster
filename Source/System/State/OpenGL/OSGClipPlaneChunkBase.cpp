@@ -107,7 +107,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClipPlaneChunk *, nsOSG>::_type("ClipPlaneChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<ClipPlaneChunk *, nsOSG>::_type(
+    "ClipPlaneChunkPtr", 
+    "StateChunkPtr", 
+    ClipPlaneChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ClipPlaneChunk *, nsOSG)

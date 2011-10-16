@@ -153,7 +153,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Skeleton *, nsOSG>::_type("SkeletonPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<Skeleton *, nsOSG>::_type(
+    "SkeletonPtr", 
+    "AttachmentContainerPtr", 
+    Skeleton::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Skeleton *, nsOSG)

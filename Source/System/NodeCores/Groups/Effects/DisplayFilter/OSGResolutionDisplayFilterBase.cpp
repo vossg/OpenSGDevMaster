@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ResolutionDisplayFilter *, nsOSG>::_type("ResolutionDisplayFilterPtr", "DisplayFilterPtr", nsOSG);
+PointerType FieldTraits<ResolutionDisplayFilter *, nsOSG>::_type(
+    "ResolutionDisplayFilterPtr", 
+    "DisplayFilterPtr", 
+    ResolutionDisplayFilter::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ResolutionDisplayFilter *, nsOSG)

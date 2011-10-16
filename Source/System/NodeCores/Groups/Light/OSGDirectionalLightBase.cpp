@@ -92,7 +92,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DirectionalLight *, nsOSG>::_type("DirectionalLightPtr", "LightPtr", nsOSG);
+PointerType FieldTraits<DirectionalLight *, nsOSG>::_type(
+    "DirectionalLightPtr", 
+    "LightPtr", 
+    DirectionalLight::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(DirectionalLight *, nsOSG)

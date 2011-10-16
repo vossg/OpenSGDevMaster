@@ -93,7 +93,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Switch *, nsOSG>::_type("SwitchPtr", "GroupPtr", nsOSG);
+PointerType FieldTraits<Switch *, nsOSG>::_type(
+    "SwitchPtr", 
+    "GroupPtr", 
+    Switch::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Switch *, nsOSG)

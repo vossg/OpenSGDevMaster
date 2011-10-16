@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CalibrationPatternFilter *, nsOSG>::_type("CalibrationPatternFilterPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<CalibrationPatternFilter *, nsOSG>::_type(
+    "CalibrationPatternFilterPtr", 
+    "AttachmentContainerPtr", 
+    CalibrationPatternFilter::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CalibrationPatternFilter *, nsOSG)

@@ -104,7 +104,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CPUSkinningDataAttachment *, nsOSG>::_type("CPUSkinningDataAttachmentPtr", "AttachmentPtr", nsOSG);
+PointerType FieldTraits<CPUSkinningDataAttachment *, nsOSG>::_type(
+    "CPUSkinningDataAttachmentPtr", 
+    "AttachmentPtr", 
+    CPUSkinningDataAttachment::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CPUSkinningDataAttachment *, nsOSG)

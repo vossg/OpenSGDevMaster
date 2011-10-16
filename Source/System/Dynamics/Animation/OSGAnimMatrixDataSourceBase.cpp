@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimMatrixDataSource *, nsOSG>::_type("AnimMatrixDataSourcePtr", "AnimKeyFrameDataSourcePtr", nsOSG);
+PointerType FieldTraits<AnimMatrixDataSource *, nsOSG>::_type(
+    "AnimMatrixDataSourcePtr", 
+    "AnimKeyFrameDataSourcePtr", 
+    AnimMatrixDataSource::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimMatrixDataSource *, nsOSG)

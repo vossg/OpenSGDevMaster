@@ -88,7 +88,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GroupingStage *, nsOSG>::_type("GroupingStagePtr", "RenderCallbackStagePtr", nsOSG);
+PointerType FieldTraits<GroupingStage *, nsOSG>::_type(
+    "GroupingStagePtr", 
+    "RenderCallbackStagePtr", 
+    GroupingStage::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GroupingStage *, nsOSG)

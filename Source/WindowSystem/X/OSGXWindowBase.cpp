@@ -103,7 +103,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<XWindow *, nsOSG>::_type("XWindowPtr", "WindowPtr", nsOSG);
+PointerType FieldTraits<XWindow *, nsOSG>::_type(
+    "XWindowPtr", 
+    "WindowPtr", 
+    XWindow::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(XWindow *, nsOSG)

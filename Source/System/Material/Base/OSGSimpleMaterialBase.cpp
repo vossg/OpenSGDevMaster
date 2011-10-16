@@ -129,7 +129,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleMaterial *, nsOSG>::_type("SimpleMaterialPtr", "ChunkMaterialPtr", nsOSG);
+PointerType FieldTraits<SimpleMaterial *, nsOSG>::_type(
+    "SimpleMaterialPtr", 
+    "ChunkMaterialPtr", 
+    SimpleMaterial::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SimpleMaterial *, nsOSG)

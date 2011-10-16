@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMVec2f *, nsOSG>::_type("ShaderVariableMVec2fPtr", "ShaderValueVariablePtr", nsOSG);
+PointerType FieldTraits<ShaderVariableMVec2f *, nsOSG>::_type(
+    "ShaderVariableMVec2fPtr", 
+    "ShaderValueVariablePtr", 
+    ShaderVariableMVec2f::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ShaderVariableMVec2f *, nsOSG)

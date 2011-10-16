@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HardwareContext *, nsOSG>::_type("HardwareContextPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<HardwareContext *, nsOSG>::_type(
+    "HardwareContextPtr", 
+    "AttachmentContainerPtr", 
+    HardwareContext::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(HardwareContext *, nsOSG)

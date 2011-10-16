@@ -100,7 +100,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Inline *, nsOSG>::_type("InlinePtr", "RootGroupPtr", nsOSG);
+PointerType FieldTraits<Inline *, nsOSG>::_type(
+    "InlinePtr", 
+    "RootGroupPtr", 
+    Inline::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Inline *, nsOSG)

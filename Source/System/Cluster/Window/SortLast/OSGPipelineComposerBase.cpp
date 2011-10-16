@@ -103,7 +103,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PipelineComposer *, nsOSG>::_type("PipelineComposerPtr", "ImageComposerPtr", nsOSG);
+PointerType FieldTraits<PipelineComposer *, nsOSG>::_type(
+    "PipelineComposerPtr", 
+    "ImageComposerPtr", 
+    PipelineComposer::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PipelineComposer *, nsOSG)

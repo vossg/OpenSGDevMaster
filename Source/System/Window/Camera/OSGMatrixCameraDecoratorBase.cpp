@@ -123,7 +123,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCameraDecorator *, nsOSG>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr", nsOSG);
+PointerType FieldTraits<MatrixCameraDecorator *, nsOSG>::_type(
+    "MatrixCameraDecoratorPtr", 
+    "CameraDecoratorPtr", 
+    MatrixCameraDecorator::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(MatrixCameraDecorator *, nsOSG)

@@ -88,7 +88,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthClearBackground *, nsOSG>::_type("DepthClearBackgroundPtr", "BackgroundPtr", nsOSG);
+PointerType FieldTraits<DepthClearBackground *, nsOSG>::_type(
+    "DepthClearBackgroundPtr", 
+    "BackgroundPtr", 
+    DepthClearBackground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(DepthClearBackground *, nsOSG)

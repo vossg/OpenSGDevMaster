@@ -94,7 +94,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FBOViewport *, nsOSG>::_type("FBOViewportPtr", "ViewportPtr", nsOSG);
+PointerType FieldTraits<FBOViewport *, nsOSG>::_type(
+    "FBOViewportPtr", 
+    "ViewportPtr", 
+    FBOViewport::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(FBOViewport *, nsOSG)

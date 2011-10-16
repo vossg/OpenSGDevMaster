@@ -97,7 +97,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorStageData *, nsOSG>::_type("CubeMapGeneratorStageDataPtr", "DynamicStateGeneratorStageDataPtr", nsOSG);
+PointerType FieldTraits<CubeMapGeneratorStageData *, nsOSG>::_type(
+    "CubeMapGeneratorStageDataPtr", 
+    "DynamicStateGeneratorStageDataPtr", 
+    CubeMapGeneratorStageData::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CubeMapGeneratorStageData *, nsOSG)

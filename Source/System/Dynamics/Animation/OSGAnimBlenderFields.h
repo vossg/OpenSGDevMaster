@@ -77,7 +77,7 @@ struct FieldTraits<AnimBlender *, nsOSG> :
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 

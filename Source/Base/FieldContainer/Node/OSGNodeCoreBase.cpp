@@ -94,7 +94,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<NodeCore *, nsOSG>::_type("NodeCorePtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<NodeCore *, nsOSG>::_type(
+    "NodeCorePtr", 
+    "AttachmentContainerPtr", 
+    NodeCore::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(NodeCore *, nsOSG)

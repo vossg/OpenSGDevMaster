@@ -154,7 +154,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStatisticsForeground *, nsOSG>::_type("SimpleStatisticsForegroundPtr", "StatisticsForegroundPtr", nsOSG);
+PointerType FieldTraits<SimpleStatisticsForeground *, nsOSG>::_type(
+    "SimpleStatisticsForegroundPtr", 
+    "StatisticsForegroundPtr", 
+    SimpleStatisticsForeground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SimpleStatisticsForeground *, nsOSG)

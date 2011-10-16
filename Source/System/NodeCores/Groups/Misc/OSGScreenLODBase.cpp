@@ -98,7 +98,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScreenLOD *, nsOSG>::_type("ScreenLODPtr", "GroupPtr", nsOSG);
+PointerType FieldTraits<ScreenLOD *, nsOSG>::_type(
+    "ScreenLODPtr", 
+    "GroupPtr", 
+    ScreenLOD::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ScreenLOD *, nsOSG)

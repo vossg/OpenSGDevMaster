@@ -115,7 +115,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimVec3fDataSource *, nsOSG>::_type("AnimVec3fDataSourcePtr", "AnimKeyFrameDataSourcePtr", nsOSG);
+PointerType FieldTraits<AnimVec3fDataSource *, nsOSG>::_type(
+    "AnimVec3fDataSourcePtr", 
+    "AnimKeyFrameDataSourcePtr", 
+    AnimVec3fDataSource::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimVec3fDataSource *, nsOSG)

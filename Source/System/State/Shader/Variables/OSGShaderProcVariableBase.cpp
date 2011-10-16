@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProcVariable *, nsOSG>::_type("ShaderProcVariablePtr", "ShaderVariablePtr", nsOSG);
+PointerType FieldTraits<ShaderProcVariable *, nsOSG>::_type(
+    "ShaderProcVariablePtr", 
+    "ShaderVariablePtr", 
+    ShaderProcVariable::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ShaderProcVariable *, nsOSG)

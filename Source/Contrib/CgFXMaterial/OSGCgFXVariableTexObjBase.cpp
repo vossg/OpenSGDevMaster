@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXVariableTexObj *, nsOSG>::_type("CgFXVariableTexObjPtr", "ShaderValueVariablePtr", nsOSG);
+PointerType FieldTraits<CgFXVariableTexObj *, nsOSG>::_type(
+    "CgFXVariableTexObjPtr", 
+    "ShaderValueVariablePtr", 
+    CgFXVariableTexObj::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CgFXVariableTexObj *, nsOSG)

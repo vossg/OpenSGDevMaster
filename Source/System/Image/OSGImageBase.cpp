@@ -196,7 +196,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Image *, nsOSG>::_type("ImagePtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<Image *, nsOSG>::_type(
+    "ImagePtr", 
+    "AttachmentContainerPtr", 
+    Image::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Image *, nsOSG)

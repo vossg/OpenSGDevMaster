@@ -187,7 +187,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QuadTreeTerrain *, nsOSG>::_type("QuadTreeTerrainPtr", "GeometryPtr", nsOSG);
+PointerType FieldTraits<QuadTreeTerrain *, nsOSG>::_type(
+    "QuadTreeTerrainPtr", 
+    "GeometryPtr", 
+    QuadTreeTerrain::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(QuadTreeTerrain *, nsOSG)

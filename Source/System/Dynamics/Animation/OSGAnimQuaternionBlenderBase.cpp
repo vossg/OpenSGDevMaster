@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimQuaternionBlender *, nsOSG>::_type("AnimQuaternionBlenderPtr", "AnimBlenderPtr", nsOSG);
+PointerType FieldTraits<AnimQuaternionBlender *, nsOSG>::_type(
+    "AnimQuaternionBlenderPtr", 
+    "AnimBlenderPtr", 
+    AnimQuaternionBlender::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionBlender *, nsOSG)

@@ -101,7 +101,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OrthographicCamera *, nsOSG>::_type("OrthographicCameraPtr", "CameraPtr", nsOSG);
+PointerType FieldTraits<OrthographicCamera *, nsOSG>::_type(
+    "OrthographicCameraPtr", 
+    "CameraPtr", 
+    OrthographicCamera::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(OrthographicCamera *, nsOSG)

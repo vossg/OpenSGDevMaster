@@ -88,7 +88,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::_type("TrapezoidalShadowMapEnginePtr", "ShaderShadowMapEnginePtr", nsOSG);
+PointerType FieldTraits<TrapezoidalShadowMapEngine *, nsOSG>::_type(
+    "TrapezoidalShadowMapEnginePtr", 
+    "ShaderShadowMapEnginePtr", 
+    TrapezoidalShadowMapEngine::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(TrapezoidalShadowMapEngine *, nsOSG)

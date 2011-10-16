@@ -94,7 +94,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureTransformChunk *, nsOSG>::_type("TextureTransformChunkPtr", "TransformChunkPtr", nsOSG);
+PointerType FieldTraits<TextureTransformChunk *, nsOSG>::_type(
+    "TextureTransformChunkPtr", 
+    "TransformChunkPtr", 
+    TextureTransformChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(TextureTransformChunk *, nsOSG)

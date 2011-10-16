@@ -137,7 +137,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StencilChunk *, nsOSG>::_type("StencilChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<StencilChunk *, nsOSG>::_type(
+    "StencilChunkPtr", 
+    "StateChunkPtr", 
+    StencilChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(StencilChunk *, nsOSG)

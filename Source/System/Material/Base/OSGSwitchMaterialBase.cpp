@@ -97,7 +97,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SwitchMaterial *, nsOSG>::_type("SwitchMaterialPtr", "CompositeMaterialPtr", nsOSG);
+PointerType FieldTraits<SwitchMaterial *, nsOSG>::_type(
+    "SwitchMaterialPtr", 
+    "CompositeMaterialPtr", 
+    SwitchMaterial::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SwitchMaterial *, nsOSG)

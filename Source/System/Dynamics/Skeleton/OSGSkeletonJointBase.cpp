@@ -99,7 +99,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkeletonJoint *, nsOSG>::_type("SkeletonJointPtr", "BaseSkeletonJointPtr", nsOSG);
+PointerType FieldTraits<SkeletonJoint *, nsOSG>::_type(
+    "SkeletonJointPtr", 
+    "BaseSkeletonJointPtr", 
+    SkeletonJoint::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SkeletonJoint *, nsOSG)

@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StateChunk *, nsOSG>::_type("StateChunkPtr", "AttachmentPtr", nsOSG);
+PointerType FieldTraits<StateChunk *, nsOSG>::_type(
+    "StateChunkPtr", 
+    "AttachmentPtr", 
+    StateChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(StateChunk *, nsOSG)

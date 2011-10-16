@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimVec3fChannel *, nsOSG>::_type("AnimVec3fChannelPtr", "AnimChannelPtr", nsOSG);
+PointerType FieldTraits<AnimVec3fChannel *, nsOSG>::_type(
+    "AnimVec3fChannelPtr", 
+    "AnimChannelPtr", 
+    AnimVec3fChannel::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimVec3fChannel *, nsOSG)

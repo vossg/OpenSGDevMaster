@@ -99,7 +99,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistortionDisplayFilter *, nsOSG>::_type("DistortionDisplayFilterPtr", "DisplayFilterPtr", nsOSG);
+PointerType FieldTraits<DistortionDisplayFilter *, nsOSG>::_type(
+    "DistortionDisplayFilterPtr", 
+    "DisplayFilterPtr", 
+    DistortionDisplayFilter::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(DistortionDisplayFilter *, nsOSG)

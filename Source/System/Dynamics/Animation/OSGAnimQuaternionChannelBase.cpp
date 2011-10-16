@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimQuaternionChannel *, nsOSG>::_type("AnimQuaternionChannelPtr", "AnimChannelPtr", nsOSG);
+PointerType FieldTraits<AnimQuaternionChannel *, nsOSG>::_type(
+    "AnimQuaternionChannelPtr", 
+    "AnimChannelPtr", 
+    AnimQuaternionChannel::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionChannel *, nsOSG)

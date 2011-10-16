@@ -97,7 +97,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GrabForeground *, nsOSG>::_type("GrabForegroundPtr", "ForegroundPtr", nsOSG);
+PointerType FieldTraits<GrabForeground *, nsOSG>::_type(
+    "GrabForegroundPtr", 
+    "ForegroundPtr", 
+    GrabForeground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GrabForeground *, nsOSG)

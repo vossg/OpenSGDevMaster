@@ -162,7 +162,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMWindow *, nsOSG>::_type("CSMWindowPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<CSMWindow *, nsOSG>::_type(
+    "CSMWindowPtr", 
+    "AttachmentContainerPtr", 
+    CSMWindow::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CSMWindow *, nsOSG)

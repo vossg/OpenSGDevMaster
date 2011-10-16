@@ -95,7 +95,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QT4Window *, nsOSG>::_type("QT4WindowPtr", "WindowPtr", nsOSG);
+PointerType FieldTraits<QT4Window *, nsOSG>::_type(
+    "QT4WindowPtr", 
+    "WindowPtr", 
+    QT4Window::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(QT4Window *, nsOSG)

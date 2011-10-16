@@ -109,7 +109,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureGrabBackground *, nsOSG>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr", nsOSG);
+PointerType FieldTraits<TextureGrabBackground *, nsOSG>::_type(
+    "TextureGrabBackgroundPtr", 
+    "SolidBackgroundPtr", 
+    TextureGrabBackground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(TextureGrabBackground *, nsOSG)

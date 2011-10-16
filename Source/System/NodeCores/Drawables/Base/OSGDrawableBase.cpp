@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Drawable *, nsOSG>::_type("DrawablePtr", "NodeCorePtr", nsOSG);
+PointerType FieldTraits<Drawable *, nsOSG>::_type(
+    "DrawablePtr", 
+    "NodeCorePtr", 
+    Drawable::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Drawable *, nsOSG)

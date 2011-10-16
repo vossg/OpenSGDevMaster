@@ -99,7 +99,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BinarySwapComposer *, nsOSG>::_type("BinarySwapComposerPtr", "ImageComposerPtr", nsOSG);
+PointerType FieldTraits<BinarySwapComposer *, nsOSG>::_type(
+    "BinarySwapComposerPtr", 
+    "ImageComposerPtr", 
+    BinarySwapComposer::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(BinarySwapComposer *, nsOSG)

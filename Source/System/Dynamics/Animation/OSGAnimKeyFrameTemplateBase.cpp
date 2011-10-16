@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimKeyFrameTemplate *, nsOSG>::_type("AnimKeyFrameTemplatePtr", "AnimTemplatePtr", nsOSG);
+PointerType FieldTraits<AnimKeyFrameTemplate *, nsOSG>::_type(
+    "AnimKeyFrameTemplatePtr", 
+    "AnimTemplatePtr", 
+    AnimKeyFrameTemplate::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimKeyFrameTemplate *, nsOSG)

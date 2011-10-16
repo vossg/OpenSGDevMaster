@@ -111,7 +111,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FishEyeProjectorData *, nsOSG>::_type("FishEyeProjectorDataPtr", "StageDataPtr", nsOSG);
+PointerType FieldTraits<FishEyeProjectorData *, nsOSG>::_type(
+    "FishEyeProjectorDataPtr", 
+    "StageDataPtr", 
+    FishEyeProjectorData::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(FishEyeProjectorData *, nsOSG)

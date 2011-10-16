@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLVariableChunk *, nsOSG>::_type("SimpleSHLVariableChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<SimpleSHLVariableChunk *, nsOSG>::_type(
+    "SimpleSHLVariableChunkPtr", 
+    "StateChunkPtr", 
+    SimpleSHLVariableChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SimpleSHLVariableChunk *, nsOSG)

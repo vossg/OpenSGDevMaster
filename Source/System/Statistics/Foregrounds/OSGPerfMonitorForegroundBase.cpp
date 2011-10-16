@@ -123,7 +123,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PerfMonitorForeground *, nsOSG>::_type("PerfMonitorForegroundPtr", "ForegroundPtr", nsOSG);
+PointerType FieldTraits<PerfMonitorForeground *, nsOSG>::_type(
+    "PerfMonitorForegroundPtr", 
+    "ForegroundPtr", 
+    PerfMonitorForeground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PerfMonitorForeground *, nsOSG)

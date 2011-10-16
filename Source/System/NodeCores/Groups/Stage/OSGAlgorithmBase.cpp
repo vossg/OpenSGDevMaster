@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Algorithm *, nsOSG>::_type("AlgorithmPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<Algorithm *, nsOSG>::_type(
+    "AlgorithmPtr", 
+    "AttachmentContainerPtr", 
+    Algorithm::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Algorithm *, nsOSG)

@@ -95,7 +95,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LogicOpChunk *, nsOSG>::_type("LogicOpChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<LogicOpChunk *, nsOSG>::_type(
+    "LogicOpChunkPtr", 
+    "StateChunkPtr", 
+    LogicOpChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(LogicOpChunk *, nsOSG)

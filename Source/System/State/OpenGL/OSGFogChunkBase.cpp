@@ -109,7 +109,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FogChunk *, nsOSG>::_type("FogChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<FogChunk *, nsOSG>::_type(
+    "FogChunkPtr", 
+    "StateChunkPtr", 
+    FogChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(FogChunk *, nsOSG)

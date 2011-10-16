@@ -128,7 +128,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProjectionCameraDecorator *, nsOSG>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr", nsOSG);
+PointerType FieldTraits<ProjectionCameraDecorator *, nsOSG>::_type(
+    "ProjectionCameraDecoratorPtr", 
+    "StereoCameraDecoratorPtr", 
+    ProjectionCameraDecorator::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ProjectionCameraDecorator *, nsOSG)

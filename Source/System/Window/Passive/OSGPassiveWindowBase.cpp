@@ -88,7 +88,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveWindow *, nsOSG>::_type("PassiveWindowPtr", "WindowPtr", nsOSG);
+PointerType FieldTraits<PassiveWindow *, nsOSG>::_type(
+    "PassiveWindowPtr", 
+    "WindowPtr", 
+    PassiveWindow::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PassiveWindow *, nsOSG)

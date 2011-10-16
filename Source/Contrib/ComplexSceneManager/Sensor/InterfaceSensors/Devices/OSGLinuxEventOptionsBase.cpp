@@ -103,7 +103,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LinuxEventOptions *, nsOSG>::_type("LinuxEventOptionsPtr", "InterfaceOptionsPtr", nsOSG);
+PointerType FieldTraits<LinuxEventOptions *, nsOSG>::_type(
+    "LinuxEventOptionsPtr", 
+    "InterfaceOptionsPtr", 
+    LinuxEventOptions::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(LinuxEventOptions *, nsOSG)

@@ -127,7 +127,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleShadowMapEngineData *, nsOSG>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr", nsOSG);
+PointerType FieldTraits<SimpleShadowMapEngineData *, nsOSG>::_type(
+    "SimpleShadowMapEngineDataPtr", 
+    "StageDataPtr", 
+    SimpleShadowMapEngineData::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SimpleShadowMapEngineData *, nsOSG)

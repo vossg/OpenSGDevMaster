@@ -103,7 +103,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCamera *, nsOSG>::_type("MatrixCameraPtr", "CameraPtr", nsOSG);
+PointerType FieldTraits<MatrixCamera *, nsOSG>::_type(
+    "MatrixCameraPtr", 
+    "CameraPtr", 
+    MatrixCamera::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(MatrixCamera *, nsOSG)

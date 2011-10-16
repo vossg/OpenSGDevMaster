@@ -95,7 +95,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GPUVolRTV2 *, nsOSG>::_type("GPUVolRTV2Ptr", "AlgorithmPtr", nsOSG);
+PointerType FieldTraits<GPUVolRTV2 *, nsOSG>::_type(
+    "GPUVolRTV2Ptr", 
+    "AlgorithmPtr", 
+    GPUVolRTV2::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GPUVolRTV2 *, nsOSG)

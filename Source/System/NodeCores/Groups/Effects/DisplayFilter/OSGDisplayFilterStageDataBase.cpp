@@ -115,7 +115,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilterStageData *, nsOSG>::_type("DisplayFilterStageDataPtr", "StageDataPtr", nsOSG);
+PointerType FieldTraits<DisplayFilterStageData *, nsOSG>::_type(
+    "DisplayFilterStageDataPtr", 
+    "StageDataPtr", 
+    DisplayFilterStageData::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(DisplayFilterStageData *, nsOSG)

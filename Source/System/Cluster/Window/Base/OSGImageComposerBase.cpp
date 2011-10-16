@@ -95,7 +95,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageComposer *, nsOSG>::_type("ImageComposerPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<ImageComposer *, nsOSG>::_type(
+    "ImageComposerPtr", 
+    "AttachmentContainerPtr", 
+    ImageComposer::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ImageComposer *, nsOSG)

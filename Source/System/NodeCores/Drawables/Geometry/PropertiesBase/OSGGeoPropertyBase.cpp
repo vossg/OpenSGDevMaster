@@ -105,7 +105,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoProperty *, nsOSG>::_type("GeoPropertyPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<GeoProperty *, nsOSG>::_type(
+    "GeoPropertyPtr", 
+    "StateChunkPtr", 
+    GeoProperty::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GeoProperty *, nsOSG)

@@ -112,7 +112,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiDisplayWindow *, nsOSG>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr", nsOSG);
+PointerType FieldTraits<MultiDisplayWindow *, nsOSG>::_type(
+    "MultiDisplayWindowPtr", 
+    "ClusterWindowPtr", 
+    MultiDisplayWindow::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(MultiDisplayWindow *, nsOSG)

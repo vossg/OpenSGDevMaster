@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveBackground *, nsOSG>::_type("PassiveBackgroundPtr", "BackgroundPtr", nsOSG);
+PointerType FieldTraits<PassiveBackground *, nsOSG>::_type(
+    "PassiveBackgroundPtr", 
+    "BackgroundPtr", 
+    PassiveBackground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PassiveBackground *, nsOSG)

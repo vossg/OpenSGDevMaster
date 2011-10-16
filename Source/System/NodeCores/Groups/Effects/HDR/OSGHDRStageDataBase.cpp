@@ -126,7 +126,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HDRStageData *, nsOSG>::_type("HDRStageDataPtr", "StageDataPtr", nsOSG);
+PointerType FieldTraits<HDRStageData *, nsOSG>::_type(
+    "HDRStageDataPtr", 
+    "StageDataPtr", 
+    HDRStageData::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(HDRStageData *, nsOSG)

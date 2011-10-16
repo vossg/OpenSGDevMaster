@@ -103,7 +103,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorMaskChunk *, nsOSG>::_type("ColorMaskChunkPtr", "StateChunkPtr", nsOSG);
+PointerType FieldTraits<ColorMaskChunk *, nsOSG>::_type(
+    "ColorMaskChunkPtr", 
+    "StateChunkPtr", 
+    ColorMaskChunk::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ColorMaskChunk *, nsOSG)

@@ -107,7 +107,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorBufferViewport *, nsOSG>::_type("ColorBufferViewportPtr", "ViewportPtr", nsOSG);
+PointerType FieldTraits<ColorBufferViewport *, nsOSG>::_type(
+    "ColorBufferViewportPtr", 
+    "ViewportPtr", 
+    ColorBufferViewport::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(ColorBufferViewport *, nsOSG)

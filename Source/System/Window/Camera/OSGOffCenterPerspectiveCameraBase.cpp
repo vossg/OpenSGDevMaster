@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OffCenterPerspectiveCamera *, nsOSG>::_type("OffCenterPerspectiveCameraPtr", "PerspectiveCameraPtr", nsOSG);
+PointerType FieldTraits<OffCenterPerspectiveCamera *, nsOSG>::_type(
+    "OffCenterPerspectiveCameraPtr", 
+    "PerspectiveCameraPtr", 
+    OffCenterPerspectiveCamera::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(OffCenterPerspectiveCamera *, nsOSG)

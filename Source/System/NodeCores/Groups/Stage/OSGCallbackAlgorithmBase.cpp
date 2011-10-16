@@ -99,7 +99,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CallbackAlgorithm *, nsOSG>::_type("CallbackAlgorithmPtr", "AlgorithmPtr", nsOSG);
+PointerType FieldTraits<CallbackAlgorithm *, nsOSG>::_type(
+    "CallbackAlgorithmPtr", 
+    "AlgorithmPtr", 
+    CallbackAlgorithm::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CallbackAlgorithm *, nsOSG)

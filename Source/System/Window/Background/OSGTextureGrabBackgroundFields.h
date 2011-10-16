@@ -77,7 +77,7 @@ struct FieldTraits<TextureGrabBackground *, nsOSG> :
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 

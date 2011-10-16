@@ -92,7 +92,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Transform *, nsOSG>::_type("TransformPtr", "GroupPtr", nsOSG);
+PointerType FieldTraits<Transform *, nsOSG>::_type(
+    "TransformPtr", 
+    "GroupPtr", 
+    Transform::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(Transform *, nsOSG)

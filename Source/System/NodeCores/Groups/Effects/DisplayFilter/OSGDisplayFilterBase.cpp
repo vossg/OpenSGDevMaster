@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilter *, nsOSG>::_type("DisplayFilterPtr", "AttachmentContainerPtr", nsOSG);
+PointerType FieldTraits<DisplayFilter *, nsOSG>::_type(
+    "DisplayFilterPtr", 
+    "AttachmentContainerPtr", 
+    DisplayFilter::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(DisplayFilter *, nsOSG)

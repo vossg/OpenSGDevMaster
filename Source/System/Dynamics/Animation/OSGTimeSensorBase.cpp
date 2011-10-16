@@ -123,7 +123,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TimeSensor *, nsOSG>::_type("TimeSensorPtr", "NodeCorePtr", nsOSG);
+PointerType FieldTraits<TimeSensor *, nsOSG>::_type(
+    "TimeSensorPtr", 
+    "NodeCorePtr", 
+    TimeSensor::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(TimeSensor *, nsOSG)

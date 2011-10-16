@@ -96,7 +96,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimMatrixBlender *, nsOSG>::_type("AnimMatrixBlenderPtr", "AnimBlenderPtr", nsOSG);
+PointerType FieldTraits<AnimMatrixBlender *, nsOSG>::_type(
+    "AnimMatrixBlenderPtr", 
+    "AnimBlenderPtr", 
+    AnimMatrixBlender::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(AnimMatrixBlender *, nsOSG)

@@ -88,7 +88,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralProperty *, nsOSG>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr", nsOSG);
+PointerType FieldTraits<GeoIntegralProperty *, nsOSG>::_type(
+    "GeoIntegralPropertyPtr", 
+    "GeoPropertyPtr", 
+    GeoIntegralProperty::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GeoIntegralProperty *, nsOSG)

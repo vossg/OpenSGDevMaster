@@ -131,7 +131,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonForeground *, nsOSG>::_type("PolygonForegroundPtr", "ForegroundPtr", nsOSG);
+PointerType FieldTraits<PolygonForeground *, nsOSG>::_type(
+    "PolygonForegroundPtr", 
+    "ForegroundPtr", 
+    PolygonForeground::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(PolygonForeground *, nsOSG)

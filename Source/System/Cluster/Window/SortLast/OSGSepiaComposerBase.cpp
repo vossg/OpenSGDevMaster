@@ -87,7 +87,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SepiaComposer *, nsOSG>::_type("SepiaComposerPtr", "ImageComposerPtr", nsOSG);
+PointerType FieldTraits<SepiaComposer *, nsOSG>::_type(
+    "SepiaComposerPtr", 
+    "ImageComposerPtr", 
+    SepiaComposer::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(SepiaComposer *, nsOSG)

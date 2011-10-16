@@ -89,7 +89,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorProperty *, nsOSG>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr", nsOSG);
+PointerType FieldTraits<GeoVectorProperty *, nsOSG>::_type(
+    "GeoVectorPropertyPtr", 
+    "GeoPropertyPtr", 
+    GeoVectorProperty::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GeoVectorProperty *, nsOSG)

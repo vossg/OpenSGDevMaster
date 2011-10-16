@@ -130,7 +130,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CgFXMaterial *, nsOSG>::_type("CgFXMaterialPtr", "VariantMaterialPtr", nsOSG);
+PointerType FieldTraits<CgFXMaterial *, nsOSG>::_type(
+    "CgFXMaterialPtr", 
+    "VariantMaterialPtr", 
+    CgFXMaterial::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(CgFXMaterial *, nsOSG)

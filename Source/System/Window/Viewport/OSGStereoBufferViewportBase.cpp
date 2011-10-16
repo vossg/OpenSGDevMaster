@@ -99,7 +99,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StereoBufferViewport *, nsOSG>::_type("StereoBufferViewportPtr", "ViewportPtr", nsOSG);
+PointerType FieldTraits<StereoBufferViewport *, nsOSG>::_type(
+    "StereoBufferViewportPtr", 
+    "ViewportPtr", 
+    StereoBufferViewport::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(StereoBufferViewport *, nsOSG)

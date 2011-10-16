@@ -91,7 +91,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GLUTWindow *, nsOSG>::_type("GLUTWindowPtr", "WindowPtr", nsOSG);
+PointerType FieldTraits<GLUTWindow *, nsOSG>::_type(
+    "GLUTWindowPtr", 
+    "WindowPtr", 
+    GLUTWindow::getClassType(),
+    nsOSG);
 #endif
 
 OSG_FIELDTRAITS_GETTYPE_NS(GLUTWindow *, nsOSG)
