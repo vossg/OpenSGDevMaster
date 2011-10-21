@@ -85,7 +85,7 @@ typename NamedSplitFinitePool<ValueT,
 {
     StoredType returnValue = _oDefaultElement;
 
-    if(szName == NULL || szName[0] = '\0')
+    if(szName == NULL || szName[0] == '\0')
     {
         return returnValue;
 

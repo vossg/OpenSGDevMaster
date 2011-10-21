@@ -311,7 +311,7 @@ void CPUSkinningAlgorithm::adjustVolume(Volume &volume)
 
     if(skinGeo != NULL)
     {
-        skinGeo->Inherited::adjustVolume(volume);
+        skinGeo->SkinnedGeometry::Inherited::adjustVolume(volume);
     }
 }
 

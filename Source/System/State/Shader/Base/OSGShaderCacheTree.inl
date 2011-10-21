@@ -2009,7 +2009,7 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
     {
         UInt32 uiLastValidLE = 0;
         
-        for(UInt32 i = uiStartLevel; i >= 0; --i)
+        for(Int32 i = uiStartLevel; i >= 0; --i)
         {
             if(_vLevelEntries[i] != NULL)
             {
@@ -2107,7 +2107,7 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
                     {
                         UInt32 uiLastValidLE = 0;
 
-                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        for(Int32 i = uiTargetLevel; i >= 0; --i)
                         {
                             if(_vLevelEntries[i] != NULL)
                             {
@@ -2186,7 +2186,7 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
 
                     UInt32 uiLastValidLE = 0;
 
-                    for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                    for(Int32 i = uiTargetLevel; i >= 0; --i)
                     {
                         if(_vLevelEntries[i] != NULL)
                         {
@@ -2220,7 +2220,7 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
                     {
                         UInt32 uiLastValidLE = 0;
 
-                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        for(Int32 i = uiTargetLevel; i >= 0; --i)
                         {
                             if(_vLevelEntries[i] != NULL)
                             {

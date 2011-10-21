@@ -105,7 +105,7 @@ UnskinnedSkinningAlgorithm::adjustVolume(Volume &volume)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    skinGeo->Inherited::adjustVolume(volume);
+    skinGeo->SkinnedGeometry::Inherited::adjustVolume(volume);
 }
 
 ActionBase::ResultE

@@ -76,6 +76,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
 
     static const UInt32 ProgActive     = 0x0001;
 
+    struct ProgramIdPoolTag;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -354,8 +356,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static const Char8  *NextBufferToken;
 
     /*---------------------------------------------------------------------*/
-
-    struct ProgramIdPoolTag;
 
     typedef SimpleReusePool<Int32, 
                             ProgramIdPoolTag, 

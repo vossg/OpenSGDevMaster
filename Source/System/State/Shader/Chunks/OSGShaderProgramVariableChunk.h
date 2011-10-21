@@ -68,6 +68,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariableChunk :
     typedef ShaderProgramVariableChunkBase Inherited;
     typedef ShaderProgramVariableChunk     Self;
 
+    struct VariableIdPoolTag;
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
     /*! \{                                                                 */
@@ -168,8 +170,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariableChunk :
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    struct VariableIdPoolTag;
 
     typedef SimpleReusePool<Int32, 
                             VariableIdPoolTag, 

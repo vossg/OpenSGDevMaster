@@ -4176,6 +4176,8 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLSwitchHelper::_regHelper(
 //  Generic Helper with 1:1 mapping
 //---------------------------------------------------------------------------
 
+OSG_INST_GENERICVRMLHELPER(TimeSensor);
+
 template<>
 bool VRMLGenericHelper<TimeSensor>::initStatic(void)
 {
@@ -4189,8 +4191,7 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         "TimeSensor",
         &VRMLGenericHelper<TimeSensor>::initStatic);
 
-OSG_INST_GENERICVRMLHELPER(TimeSensor);
-
+OSG_INST_GENERICVRMLHELPER(VRMLOrientationInterpolator);
 
 template<>
 bool VRMLGenericHelper<VRMLOrientationInterpolator>::initStatic(void)
@@ -4208,8 +4209,8 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         "OrientationInterpolator",
         &VRMLGenericHelper<VRMLOrientationInterpolator>::initStatic);
 
-OSG_INST_GENERICVRMLHELPER(VRMLOrientationInterpolator);
 
+OSG_INST_GENERICVRMLHELPER(VRMLPositionInterpolator);
 
 template<>
 bool VRMLGenericHelper<VRMLPositionInterpolator>::initStatic(void)
@@ -4227,8 +4228,7 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         "PositionInterpolator",
         &VRMLGenericHelper<VRMLPositionInterpolator>::initStatic);
 
-OSG_INST_GENERICVRMLHELPER(VRMLPositionInterpolator);
-
+OSG_INST_GENERICVRMLHELPER(VRMLCoordinateInterpolator);
 
 template<>
 bool VRMLGenericHelper<VRMLCoordinateInterpolator>::initStatic(void)
@@ -4246,8 +4246,7 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         "CoordinateInterpolator",
         &VRMLGenericHelper<VRMLCoordinateInterpolator>::initStatic);
 
-OSG_INST_GENERICVRMLHELPER(VRMLCoordinateInterpolator);
-
+OSG_INST_GENERICVRMLHELPER(VRMLScalarInterpolator);
 
 template<>
 bool VRMLGenericHelper<VRMLScalarInterpolator>::initStatic(void)
@@ -4264,7 +4263,5 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         &VRMLGenericHelper<VRMLScalarInterpolator>::create,
         "ScalarInterpolator",
         &VRMLGenericHelper<VRMLScalarInterpolator>::initStatic);
-
-OSG_INST_GENERICVRMLHELPER(VRMLScalarInterpolator);
 
 OSG_END_NAMESPACE
