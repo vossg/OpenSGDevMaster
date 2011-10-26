@@ -215,6 +215,90 @@ void InterpolationHelper<MFReal32,
 }
 
 
+// Normal
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFVec3f, 
+                         MFVec3f>::copyFirstValue(
+                             const MFReal32 &mfKeys,
+                             const MFVec3f  &mfKeyValues,
+                                   MFVec3f  &fValue     )
+{
+    UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+    MFVec3f::const_iterator startIt = mfKeyValues.begin();
+    MFVec3f::const_iterator stopIt  = startIt + uiNumPoints;
+    
+    fValue.clear();
+    fValue.insert(fValue.begin(), startIt, stopIt);
+}
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFVec3f, 
+                         MFVec3f>::copyLastValue (
+                             const MFReal32 &mfKeys,
+                             const MFVec3f  &mfKeyValues,
+                                   MFVec3f  &fValue     )
+{
+    UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+    MFVec3f::const_iterator stopIt  = mfKeyValues.end();
+    MFVec3f::const_iterator startIt = stopIt - uiNumPoints;
+    
+    fValue.clear();
+    fValue.insert(fValue.begin(), startIt, stopIt);
+}
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFVec3f, 
+                         MFVec3f>::lerp( 
+                             const UInt32    uiStopIndex,
+                             const UInt32    uiStartIndex,
+                             const Real32    rFraction,
+                             const MFReal32 &mfKeys,
+                             const MFVec3f  &mfKeyValues,
+                                   MFVec3f  &fValue  )
+{
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) <
+       TypeTraits<Real32>::getDefaultEps()                  )
+    {
+        return;
+    }
+    else
+    {
+        Vec3f vResult;
+
+        UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+        Real32 t =
+            (rFraction           - mfKeys[uiStartIndex]) /
+            (mfKeys[uiStopIndex] - mfKeys[uiStartIndex]);
+
+        UInt32 uiIndex1    = uiStartIndex * uiNumPoints;
+        UInt32 uiIndex2    = uiStopIndex  * uiNumPoints;
+        
+        fValue.clear();
+
+        for(UInt32 i = 0; i < uiNumPoints; i++)
+        {
+            vResult  = mfKeyValues[uiIndex2];
+            vResult -= mfKeyValues[uiIndex1].subZero();
+            vResult *= t;
+            
+            vResult += mfKeyValues[uiIndex1].subZero();
+                
+            fValue.push_back(vResult);
+            
+            ++uiIndex1;
+            ++uiIndex2;
+        }
+    }
+}
+
+
 // Scalar
 
 template<> inline

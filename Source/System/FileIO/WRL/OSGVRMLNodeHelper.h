@@ -1137,6 +1137,121 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \brief VRML PointSet Geometry Help
+    \ingroup GrpFileIOWRLObj
+    \nohierarchy
+ */
+
+class OSG_FILEIO_DLLMAPPING VRMLPointSetGeometryHelper : 
+    public VRMLNodeHelper
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLPointSetGeometryHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    virtual void init(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8             * szFieldType,
+                                   const UInt32              uiFieldTypeId,
+                                   const Char8             * szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Node                                    */
+    /*! \{                                                                 */
+
+    virtual void endNode(FieldContainer *pFC);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Field Value                                 */
+    /*! \{                                                                 */
+
+    virtual 
+    void setContainerFieldValue(      FieldContainer       *pFC,
+                                const FieldDescriptionBase *pFieldDesc,
+                                      FieldContainer       *pFieldFC  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(const Char8 *szNodeName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelper *create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    VRMLPointSetGeometryHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    UInt16 _uiPropertyIndex;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperPS;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    typedef VRMLNodeHelper Inherited;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    VRMLPointSetGeometryHelper(const VRMLPointSetGeometryHelper &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const VRMLPointSetGeometryHelper &source);
+};
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
 /*! \brief VRML Gemetry Part Helper
     \ingroup GrpFileIOWRLObj
     \nohierarchy

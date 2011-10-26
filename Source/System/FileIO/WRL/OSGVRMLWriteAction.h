@@ -303,53 +303,59 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     static Action::ResultE writeTransformLeave(NodeCore * const pGroup,
                                                Action *pAction);
 
-    static void writePoints   (      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
-    static void writeNormals  (      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
-    static void writeColors   (      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
-    static void writeTexCoords(      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
+    static void writePoints         (      Geometry        *pGeo, 
+                                           FILE            *pFile,
+                                           VRMLWriteAction *pWriter);
+    static void writePointSetPoints(      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
+    static void writeNormals       (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
+    static void writeColors        (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
+    static void writePointSetColors(      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
+    static void writeTexCoords     (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
 
-    static void writeIndex    (      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
+    static void writeIndex         (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
 
-    static void writeLineIndex(      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
+    static void writeLineIndex     (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
 
-    static void writeMaterial (      Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
+    static void writeMaterial      (      Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
 
-    static bool writeGeoCommon(      Node            *pNode,
-                                     Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter,
-                               const Char8           *setTypename);
+    static bool writeGeoCommon     (      Node            *pNode,
+                                          Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter,
+                                    const Char8           *setTypename);
 
-    static void writePointSet (      Node            *pNode,
-                                     Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
+    static void writePointSet      (      Node            *pNode,
+                                          Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter);
 
-    static void writeLineSet  (      Node            *pNode,
-                                     Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter,
-                                     bool             bSinglePrimitiveGeo);
+    static void writeLineSet       (      Node            *pNode,
+                                          Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter,
+                                          bool             bSinglePrimitiveGeo);
 
-    static void writeFaceSet  (      Node            *pNode,
-                                     Geometry        *pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter,
-                                     bool             bSinglePrimitiveGeo);
+    static void writeFaceSet       (      Node            *pNode,
+                                          Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter,
+                                          bool             bSinglePrimitiveGeo);
 
     static Action::ResultE writeGeoEnter(NodeCore * const pGroup, Action *pAction);
     static Action::ResultE writeGeoLeave(NodeCore * const pGroup, Action *pAction);

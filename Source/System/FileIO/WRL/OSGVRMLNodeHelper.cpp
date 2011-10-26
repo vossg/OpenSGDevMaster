@@ -72,7 +72,10 @@
 #include "OSGVRMLOrientationInterpolator.h"
 #include "OSGVRMLPositionInterpolator.h"
 #include "OSGVRMLCoordinateInterpolator.h"
+#include "OSGVRMLNormalInterpolator.h"
 #include "OSGVRMLScalarInterpolator.h"
+
+#include "OSGTypedGeoIntegralProperty.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -2467,6 +2470,394 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 
 
 
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+VRMLNodeHelper *VRMLPointSetGeometryHelper::create(void)
+{
+    return new VRMLPointSetGeometryHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLPointSetGeometryHelper::VRMLPointSetGeometryHelper(void) :
+     Inherited      (                        ),
+    _uiPropertyIndex(Geometry::PositionsIndex)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLPointSetGeometryHelper::~VRMLPointSetGeometryHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLPointSetGeometryHelper::init(const Char8 *szName)
+{
+    Inherited::init(szName);
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "GeoDesc::init : " << szName << std::endl;
+#endif
+
+    _pNodeProto     = Node      ::create();
+    _pNodeCoreProto = Geometry  ::create();
+
+    _pGenAttProto   = VRMLGenericAtt::createLocal(FCLocal::Cluster);
+    _pGenAttProto->setInternal(true);
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Get                                      */
+
+bool VRMLPointSetGeometryHelper::prototypeAddField(const Char8  *szFieldType,
+                                                   const UInt32  uiFieldTypeId,
+                                                   const Char8  *szFieldname)
+{
+    bool bFound = false;
+
+    if(szFieldname == NULL)
+        return false;
+
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+
+    if(bFound == true)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "GeoDesc::prototypeAddField : internal "
+              << szFieldname << std::endl;
+#endif
+
+        return true;
+    }
+    else
+    {
+        return Inherited::prototypeAddField(szFieldType,
+                                            uiFieldTypeId,
+                                            szFieldname);
+    }
+}
+
+
+void VRMLPointSetGeometryHelper::getFieldAndDesc(
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "GeoDesc::getFieldAndDesc : request "
+          << szFieldname
+          << std::endl;
+#endif
+
+    if(szFieldname == NULL)
+        return;
+
+    if(pFC == NULL)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
+        return;
+    }
+
+    Node *pNode = dynamic_cast<Node *>(pFC);
+
+    if(pNode == NULL)
+    {
+        PWARNING << "GeoDesc::getFieldAndDesc : No Node" << std::endl;
+        return;
+    }
+
+    NodeCore *pNodeCore = pNode->getCore();
+
+    Geometry *pGeo      = dynamic_cast<Geometry *>(pNodeCore);
+
+    if(pGeo == NULL)
+    {
+        PWARNING << "GeoDesc::getFieldAndDesc : No Geo" << std::endl;
+        return;
+    }
+
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "GeoDesc::getFieldAndDesc : internal "
+              << szFieldname << std::endl;
+#endif
+
+        pFieldFC = pGeo;
+        pField.reset();
+        pDesc    = &_sfFCPtrDesc;
+
+        _uiPropertyIndex = Geometry::PositionsIndex;
+    }
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "GeoDesc::getFieldAndDesc : internal "
+              << szFieldname << std::endl;
+#endif
+
+        pFieldFC = pGeo;
+        pField.reset();
+        pDesc    = &_sfFCPtrDesc;
+
+        _uiPropertyIndex = Geometry::ColorsIndex;
+    }
+    else
+    {
+        Inherited::getFieldAndDesc(pGeo,
+                                   szFieldname,
+                                   pFieldFC,
+                                   pField,
+                                   pDesc);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+
+
+void VRMLPointSetGeometryHelper::endNode(FieldContainer *pFC)
+{
+    Node     *pNode = NULL;
+    Geometry *pGeo  = NULL;
+
+    if(pFC == NULL)
+    {
+        return;
+    }
+
+    pNode = dynamic_cast<Node *>(pFC);
+
+    if(pNode == NULL)
+    {
+        return;
+    }
+
+    pGeo = dynamic_cast<Geometry *>(pNode->getCore());
+
+    if(pGeo == NULL)
+    {
+        return;
+    }
+
+    GeoVectorProperty *pPnts = pGeo->getProperty(Geometry::PositionsIndex);
+
+    if(pPnts == NULL)
+        return;
+
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
+
+    types->push_back(GL_POINTS    );
+    lens ->push_back(pPnts->size());
+
+    pGeo->setTypes  (types);
+    pGeo->setLengths(lens );
+
+#if 0
+          EditFieldHandlePtr    pField;
+    const FieldDescriptionBase *pDesc    = NULL;
+          FieldContainer       *pDummyFC = NULL;
+
+
+
+    if(_bIsFaceSet == true)
+    {
+        if(pCoordIndex         != NULL &&
+           pCoordIndex->size() >     2 &&
+           pNormalIndex        != NULL &&
+           pColorIndex         != NULL &&
+           pTexCoordIndex      != NULL &&
+           pConvex             != NULL &&
+           pCcw                != NULL &&
+           pNormalPerVertex    != NULL &&
+           pColorPerVertex     != NULL &&
+           pCreaseAngle        != NULL)
+        {
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "Geo create faceset " << &(*pNode) << std::endl;
+#endif
+
+            setIndexFromIndexedX3DData(pGeo,
+                                       pCoordIndex     ->getValues(),
+                                       pNormalIndex    ->getValues(),
+                                       pColorIndex     ->getValues(),
+                                       pTexCoordIndex  ->getValues(),
+                                       GL_POLYGON,
+                                       pConvex         ->getValue() ,
+                                       pCcw            ->getValue() ,
+                                       pNormalPerVertex->getValue() ,
+                                       pColorPerVertex ->getValue() ,
+                                       false); // create normal; not yet :)
+
+            //if (pConvex->getValue() == false)
+            //   createConvexPrimitives( pGeo );
+
+            // TODO: Need some option _uiOptions param
+            //createSharedIndex( pGeo);
+
+            //if((0 != (_uiOptions & VRMLFile::CreateNormals) )    &&
+            //   (pGeo->getNormals() == NULL))
+
+            if(pGeo->getNormals() == NULL)
+            {
+#ifdef OSG_DEBUG_VRML
+                indentLog(getIndent(), PINFO);
+                PINFO << "Geo create normals " << &(*pNode) << std::endl;
+#endif
+
+                OSG::calcVertexNormals(pGeo, pCreaseAngle->getValue());
+            }
+        }
+        else
+        {
+#if 0  // What's the point of doing that?
+            PWARNING << "Invalid geometry replaced by a group" << std::endl;
+
+            GroupPtr pGr = Group::create();
+
+            MFNodePtr           pGeoParents = pGeo->getParents ();
+            MFNodePtr::iterator parentsIt   = pGeoParents.begin();
+            MFNodePtr::iterator endParents  = pGeoParents.end  ();
+
+            // this makes pGeo invalid!
+            while(parentsIt != endParents)
+            {
+                (*parentsIt)->setCore(pGr);
+
+                ++parentsIt;
+            }
+            pGeo = NULL;
+#endif
+        }
+    }
+    else
+    {
+        std::vector<Int32> dummyVec;
+        bool               dummybool = false;
+
+        if(pCoordIndex         != NULL &&
+           pCoordIndex->size() >     1 &&
+           pColorIndex         != NULL &&
+           pColorPerVertex     != NULL)
+        {
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "Geo create lineset " << &(*pNode) << std::endl;
+#endif
+
+            setIndexFromIndexedX3DData(pGeo,
+                                       pCoordIndex    ->getValues(),
+                                       dummyVec ,
+                                       pColorIndex    ->getValues(),
+                                       dummyVec ,
+                                       GL_LINE_STRIP,
+                                       dummybool,
+                                       dummybool,
+                                       dummybool,
+                                       pColorPerVertex->getValue() ,
+                                       false);  // create normal; not yet :)
+        }
+        else
+        {
+#if 0  // What's the point of doing that?
+            PWARNING << "Invalid geometry replaced by a group" << std::endl;
+
+            GroupPtr pGr = Group::create();
+
+            MFNodePtr           pGeoParents = pGeo->getParents ();
+            MFNodePtr::iterator parentsIt   = pGeoParents.begin();
+            MFNodePtr::iterator endParents  = pGeoParents.end  ();
+
+            // this makes pGeo invalid!
+            while(parentsIt != endParents)
+            {
+                (*parentsIt)->setCore(pGr);
+
+                ++parentsIt;
+            }
+            pGeo = NULL;
+#endif
+        }
+    }
+#endif
+
+#ifdef OSG_DEBUG_VRML
+//    decIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "End Geo " << &(*pNode) << std::endl;
+#endif
+}
+
+
+void VRMLPointSetGeometryHelper::setContainerFieldValue(      
+          FieldContainer       *pFC,
+    const FieldDescriptionBase *pFieldDesc,
+          FieldContainer       *pFieldFC  )
+{
+    Geometry          *pGeo     = 
+        dynamic_cast<Geometry          *>(pFieldFC);
+
+    GeoVectorProperty *pVecProp = 
+        dynamic_cast<GeoVectorProperty *>(pFC);
+
+    if(pGeo != NULL && pVecProp != NULL)
+    {
+        pGeo->setProperty(pVecProp, _uiPropertyIndex);
+    }
+    else
+    {
+        PWARNING << "GeoDesc::getFieldAndDesc : No Geo" << std::endl;
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLPointSetGeometryHelper::dump(const Char8 *)
+{
+}
+
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLPointSetGeometryHelper::_regHelperPS(
+        &VRMLPointSetGeometryHelper::create,
+        "PointSet",
+        NULL);
+
+
+
+
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -4245,6 +4636,24 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         &VRMLGenericHelper<VRMLCoordinateInterpolator>::create,
         "CoordinateInterpolator",
         &VRMLGenericHelper<VRMLCoordinateInterpolator>::initStatic);
+
+OSG_INST_GENERICVRMLHELPER(VRMLNormalInterpolator);
+
+template<>
+bool VRMLGenericHelper<VRMLNormalInterpolator>::initStatic(void)
+{
+    _mFieldNameMap[std::string("fraction")] = std::string("inValue" ); 
+    _mFieldNameMap[std::string("value"   )] = std::string("outValue");
+
+    return true;
+}
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<VRMLNormalInterpolator>::_regHelper(
+        &VRMLGenericHelper<VRMLNormalInterpolator>::create,
+        "NormalInterpolator",
+        &VRMLGenericHelper<VRMLNormalInterpolator>::initStatic);
 
 OSG_INST_GENERICVRMLHELPER(VRMLScalarInterpolator);
 

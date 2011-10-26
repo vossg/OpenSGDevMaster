@@ -112,7 +112,7 @@ BaseThread *MPThreadType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGThread_%u", uiNewId);
     }
     else
@@ -164,7 +164,7 @@ CondVar *MPCondVarType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGCondVar_%u", uiNewId);
     }
     else
@@ -217,7 +217,7 @@ Barrier *MPBarrierType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGBarrier_%u", uiNewId);
     }
     else
@@ -271,7 +271,7 @@ Lock *MPLockType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGLock_%u", uiNewId);
     }
     else
@@ -327,7 +327,7 @@ LockPool *MPLockPoolType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGThread_%u", uiNewId);
     }
     else
@@ -380,7 +380,7 @@ Semaphore *MPSemaphoreType::create(const Char8 *szName, bool bGlobal)
 
     if(szName == NULL)
     {
-        szTmp = new Char8[16];
+        szTmp = new Char8[32];
         sprintf(szTmp, "OSGSemaphore_%u", uiNewId);
     }
     else

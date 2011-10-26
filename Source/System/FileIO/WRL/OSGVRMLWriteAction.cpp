@@ -52,6 +52,7 @@
 #include "OSGGroup.h"
 #include "OSGGeometry.h"
 #include "OSGTriangleIterator.h"
+#include "OSGPointIterator.h"
 #include "OSGComponentTransform.h"
 //#include "OSGGeoPropPtrs.h"
 #include "OSGSimpleMaterial.h"
@@ -762,6 +763,61 @@ void VRMLWriteAction::writePoints(Geometry        *pGeo,
 
 }
 
+void VRMLWriteAction::writePointSetPoints(Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter)
+{
+    if(pGeo == NULL)
+        return;
+
+    GeoVectorProperty *pPos = pGeo->getPositions();
+
+    if(pPos == NULL)
+        return;
+
+    pWriter->printIndent();
+    fprintf(pFile, "coord Coordinate\n");
+
+    pWriter->printIndent();
+    fprintf(pFile, "{\n");
+    pWriter->incIndent(4);
+
+    pWriter->printIndent();
+    fprintf(pFile, "point [\n");
+    pWriter->incIndent(4);
+
+    PointIterator it;
+    UInt32        i;
+
+    for(i = 0, it = pGeo->beginPoints(); it != pGeo->endPoints(); ++it, ++i)
+    {
+        pWriter->printIndent();
+
+        Pnt3f p = it.getPosition(0);
+
+        fprintf(pFile, "%f %f %f", p[0], p[1], p[2]);
+
+        if(i == pPos->getSize() - 1)
+        {
+            fprintf(pFile, "\n");
+        }
+        else
+        {
+            fprintf(pFile, ", \n");
+        }
+    }
+
+    pWriter->decIndent(4);
+    pWriter->printIndent();
+    fprintf(pFile, "]\n");
+
+    pWriter->decIndent(4);
+    pWriter->printIndent();
+    fprintf(pFile, "}\n");
+
+}
+
+
 void VRMLWriteAction::writeNormals(Geometry        *pGeo, 
                                    FILE            *pFile,
                                    VRMLWriteAction *pWriter)
@@ -867,6 +923,60 @@ void VRMLWriteAction::writeColors(Geometry        *pGeo,
     fprintf(pFile, "}\n");
 }
 
+void VRMLWriteAction::writePointSetColors(Geometry        *pGeo, 
+                                          FILE            *pFile,
+                                          VRMLWriteAction *pWriter)
+{
+    if(pGeo == NULL)
+        return;
+
+    GeoVectorProperty *pCol = pGeo->getColors();
+
+    if(pCol == NULL)
+        return;
+
+    pWriter->printIndent();
+    fprintf(pFile, "color Color\n");
+
+    pWriter->printIndent();
+    fprintf(pFile, "{\n");
+    pWriter->incIndent(4);
+
+    pWriter->printIndent();
+    fprintf(pFile, "color [\n");
+    pWriter->incIndent(4);
+
+    PointIterator it;
+    UInt32        i;
+
+    for(i = 0, it = pGeo->beginPoints(); it != pGeo->endPoints(); ++it, ++i)
+    {
+        pWriter->printIndent();
+
+        Color3f c = it.getColor(0);
+        
+        fprintf(pFile, "%f %f %f", c[0], c[1], c[2]);
+
+        if(i == pCol->getSize() - 1)
+        {
+            fprintf(pFile, "\n");
+        }
+        else
+        {
+            fprintf(pFile, ", \n");
+        }
+    }
+
+    pWriter->decIndent(4);
+    pWriter->printIndent();
+    fprintf(pFile, "]\n");
+
+    pWriter->decIndent(4);
+    pWriter->printIndent();
+    fprintf(pFile, "}\n");
+}
+
+
 void VRMLWriteAction::writeTexCoords(Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter)
@@ -925,19 +1035,16 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
     if(pGeo == NULL)
         return;
 
-    GeoIntegralProperty *pIndex  = pGeo->getIndices();
     GeoIntegralProperty *pTypes  = pGeo->getTypes  ();
     GeoIntegralProperty *pLength = pGeo->getLengths();
 
-    if((pIndex  == NULL) ||
-       (pTypes  == NULL) ||
+    if((pTypes  == NULL) ||
        (pLength == NULL))
     {
         return;
     }
 
-    if(pIndex->size() == 0 ||
-       pTypes->size() == 0 ||
+    if(pTypes ->size() == 0 ||
        pLength->size() == 0)
     {
         return;
@@ -1523,13 +1630,13 @@ void VRMLWriteAction::writePointSet(Node            *pNode,
                                     FILE            *pFile,
                                     VRMLWriteAction *pWriter)
 {
-    FWARNING(("point set not supported\n"));
-
     if(writeGeoCommon(pNode, pGeo, pFile, pWriter, "PointSet") == true)
     {
-        
         if(pWriter->isCurrentUse() == false)
         {
+            writePointSetPoints(pGeo, pFile, pWriter);
+            writePointSetColors(pGeo, pFile, pWriter);
+
             pWriter->decIndent(4);
             
             pWriter->printIndent();

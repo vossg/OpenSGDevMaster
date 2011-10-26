@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="VRMLNormalInterpolator"
+    parent="VRMLInterpolator"
+    library="Dynamics"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="true"
+    isBundle="false"
+    parentFields="none"
+    docGroupBase="GrpDynamicsVRMLAnimation"
+    >
+    <Field
+        name="keyValue"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
+    <Field
+        name="outValue"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="internal"
+        access="public"
+        defaultValue=""
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+        This is VRML's value field.
+    </Field>
+</FieldContainer>
