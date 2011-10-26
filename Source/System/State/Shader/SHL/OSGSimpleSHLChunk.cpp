@@ -346,6 +346,12 @@ void SimpleSHLChunk::onCreate(const SimpleSHLChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
+    SLOG << "SimpleSHLChunk::onCreate: "
+         << " ptr "      << this
+         << " class id " << getClass()->getId()
+         << " name "     << getClass()->getName()
+         << std::endl;
+
     setGLId(               
         Window::registerGLObject(
             boost::bind(&SimpleSHLChunk::handleGL, 
@@ -620,76 +626,86 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
 {
     SimpleSHLChunk *pOld = dynamic_cast<SimpleSHLChunk *>(pOther);
 
-    Window   *pWin     = pEnv->getWindow();
-    GLuint    uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
-
-    UInt32 uiDep = ShaderProcVariable::SHDObject;
-
-    if(uiProgId != pEnv->getActiveShader())
+    // pOther can be a ShaderExecutableChunk, since we share the StateClass id
+    // with it
+    if(pOld != NULL)
     {
-        FragmentShaderIt fIt  = _mfFragmentShader.begin();
-        FragmentShaderIt fEnd = _mfFragmentShader.end  ();
+        Window   *pWin     = pEnv->getWindow();
+        GLuint    uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
 
-        for(; fIt != fEnd; ++fIt)
+        UInt32 uiDep = ShaderProcVariable::SHDObject;
+
+        if(uiProgId != pEnv->getActiveShader())
         {
-            (*fIt)->validate(pEnv);
-        }
+            FragmentShaderIt fIt  = _mfFragmentShader.begin();
+            FragmentShaderIt fEnd = _mfFragmentShader.end  ();
 
-        GeometryShaderIt gIt  = _mfGeometryShader.begin();
-        GeometryShaderIt gEnd = _mfGeometryShader.end  ();
-        
-        for(; gIt != gEnd; ++gIt)
-        {
-            (*gIt)->validate(pEnv);
-        }
-        
-        VertexShaderIt vIt  = _mfVertexShader.begin();
-        VertexShaderIt vEnd = _mfVertexShader.end  ();
-        
-        for(; vIt != vEnd; ++vIt)
-        {
-            (*vIt)->validate(pEnv);
-        }
-
-        UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
-                                                 pEnv, 
-                                                 KeepProgActive);
-
-
-        if(uiProgId == 0)
-            return;
-
-        pEnv->setActiveShader(uiProgId);
-
-        if(0x0000 == (uiValRes & ProgActive))
-        {
-            OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
-                                    osgGlUseProgram,
-                                    ShaderProgram::getFuncIdUseProgram(),
-                                    pWin);
-
-            osgGlUseProgram(uiProgId);
-        }
-
-        if(_sfPointSize.getValue() == true)
-        {
-            if(pOld->getPointSize() == false)
+            for(; fIt != fEnd; ++fIt)
             {
-                glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                (*fIt)->validate(pEnv);
             }
-        }
-        else
-        {
-            if(pOld->getPointSize() == true)
+
+            GeometryShaderIt gIt  = _mfGeometryShader.begin();
+            GeometryShaderIt gEnd = _mfGeometryShader.end  ();
+        
+            for(; gIt != gEnd; ++gIt)
             {
-                glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                (*gIt)->validate(pEnv);
             }
+        
+            VertexShaderIt vIt  = _mfVertexShader.begin();
+            VertexShaderIt vEnd = _mfVertexShader.end  ();
+        
+            for(; vIt != vEnd; ++vIt)
+            {
+                (*vIt)->validate(pEnv);
+            }
+
+            UInt32 uiValRes = pWin->validateGLObject(getGLId(),
+                                                     pEnv,
+                                                     KeepProgActive);
+
+
+            if(uiProgId == 0)
+                return;
+
+            pEnv->setActiveShader(uiProgId);
+
+            if(0x0000 == (uiValRes & ProgActive))
+            {
+                OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
+                                        osgGlUseProgram,
+                                        ShaderProgram::getFuncIdUseProgram(),
+                                        pWin);
+
+                osgGlUseProgram(uiProgId);
+            }
+
+            if(_sfPointSize.getValue() == true)
+            {
+                if(pOld->getPointSize() == false)
+                {
+                    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                }
+            }
+            else
+            {
+                if(pOld->getPointSize() == true)
+                {
+                    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                }
+            }
+
+            uiDep = ShaderProcVariable::SHDAll;
         }
 
-        uiDep = ShaderProcVariable::SHDAll;
+        updateProceduralVariables(pEnv, uiDep);
     }
-
-    updateProceduralVariables(pEnv, uiDep);
+    else
+    {
+        pOther->deactivate(pEnv, uiIdx);
+        activate          (pEnv, uiIdx);
+    }
 }
 
 void SimpleSHLChunk::deactivate(DrawEnv    *pEnv,              

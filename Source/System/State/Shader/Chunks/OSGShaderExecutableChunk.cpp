@@ -563,11 +563,10 @@ void ShaderExecutableChunk::dump(      UInt32    ,
 void ShaderExecutableChunk::activate(DrawEnv    *pEnv,              
                                      UInt32      uiIdx)
 {
-    Window *pWin    = pEnv->getWindow();
-
-    UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
-                                             pEnv, 
-                                             KeepProgActive);    
+    Window *pWin     = pEnv->getWindow();
+    UInt32  uiValRes = pWin->validateGLObject(getGLId(),
+                                              pEnv,
+                                              KeepProgActive);
 
     GLuint uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
 
@@ -604,56 +603,65 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 {
     ShaderExecutableChunk *pOld = dynamic_cast<ShaderExecutableChunk *>(pOther);
 
-    Window   *pWin     = pEnv->getWindow();
-    GLuint    uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
-
-    UInt32 uiDep = ShaderProcVariable::SHDObject;
-
-    if(uiProgId != pEnv->getActiveShader())
+    // pOther can be a SimpleSHLChunk, since we share our StateClass id with it
+    if(pOld != NULL)
     {
-        UInt32 uiValRes = pWin->validateGLObject(getGLId(), 
-                                                 pEnv, 
-                                                 KeepProgActive);
+        Window   *pWin     = pEnv->getWindow();
+        GLuint    uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
 
+        UInt32 uiDep = ShaderProcVariable::SHDObject;
 
-        if(uiProgId == 0)
-            return;
-
-        if(0x0000 == (uiValRes & ProgActive))
+        if(uiProgId != pEnv->getActiveShader())
         {
-            OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
-                                    osgGlUseProgram,
-                                    ShaderProgram::getFuncIdUseProgram(),
-                                    pWin);
+            UInt32 uiValRes = pWin->validateGLObject(getGLId(),
+                                                     pEnv,
+                                                     KeepProgActive);
 
-            pEnv->setActiveShader(uiProgId);
-            osgGlUseProgram      (uiProgId);
 
-            if(_mfAttributes.size() == 0)
+            if(uiProgId == 0)
+                return;
+
+            if(0x0000 == (uiValRes & ProgActive))
             {
-                pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+                OSGGETGLFUNCBYID_GL3_ES(glUseProgram,
+                                        osgGlUseProgram,
+                                        ShaderProgram::getFuncIdUseProgram(),
+                                        pWin);
+
+                pEnv->setActiveShader(uiProgId);
+                osgGlUseProgram      (uiProgId);
+
+                if(_mfAttributes.size() == 0)
+                {
+                    pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+                }
             }
+
+            if(_sfPointSize.getValue() == true)
+            {
+                if(pOld->getPointSize() == false)
+                {
+                    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                }
+            }
+            else
+            {
+                if(pOld->getPointSize() == true)
+                {
+                    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+                }
+            }
+
+            uiDep = ShaderProcVariable::SHDAll;
         }
 
-        if(_sfPointSize.getValue() == true)
-        {
-            if(pOld->getPointSize() == false)
-            {
-                glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
-            }
-        }
-        else
-        {
-            if(pOld->getPointSize() == true)
-            {
-                glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
-            }
-        }
-
-        uiDep = ShaderProcVariable::SHDAll;
+        updateProceduralVariables(pEnv, uiDep);
     }
-
-    updateProceduralVariables(pEnv, uiDep);
+    else
+    {
+        pOther->deactivate(pEnv, uiIdx);
+        activate          (pEnv, uiIdx);
+    }
 }
 
 void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,              
