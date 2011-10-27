@@ -71,6 +71,11 @@ This class is a singleton.  It should be accessed using the typedef
 for OSG::FieldContainerFactory.
 */
 
+const FieldContainerFactoryBase::ContainerStore &
+    FieldContainerFactoryBase::getFieldContainerStore(void) const
+{
+    return _vContainerStore;
+}
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */

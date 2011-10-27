@@ -165,15 +165,17 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    UInt32            getNumLiveContainers (void                ) const;
-    UInt32            getNumTotalContainers(void                ) const;
+    UInt32                getNumLiveContainers  (void                ) const;
+    UInt32                getNumTotalContainers (void                ) const;
 
-    ContainerPtr      getContainer         (UInt32 uiContainerId) const;
-    ContainerHandlerP getContainerHandler  (UInt32 uiContainerId) const;
+    ContainerPtr          getContainer          (UInt32 uiContainerId) const;
+    ContainerHandlerP     getContainerHandler   (UInt32 uiContainerId) const;
 
-    ContainerPtr      getMappedContainer   (UInt32 uiContainerId) const;
+    ContainerPtr          getMappedContainer    (UInt32 uiContainerId) const;
 
-    Int32             findContainer        (ContainerPtr ptr    ) const;
+    Int32                 findContainer         (ContainerPtr ptr    ) const;
+
+    ContainerStore const &getFieldContainerStore(void                ) const;   
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
