@@ -67,6 +67,17 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
 
     typedef void (FieldContainer::*Callback)(void);
 
+    template <class T>
+        struct PostLoadingDispatcher
+    {
+        PostLoadingDispatcher(void) { }
+
+        void dispatch(FieldContainer *pTarget)
+        {
+            static_cast<T *>(pTarget)->postOSGLoading();
+        }
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                Class Get                                     */
     /*! \{                                                                 */

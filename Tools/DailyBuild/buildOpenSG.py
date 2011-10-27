@@ -182,12 +182,15 @@ class OSGBaseBuilder:
 
     return None
 
-  def initDir(self, dirname):
+  def initDir(self, dirname, createDir = True):
+
+    print "init dir ", dirname
 
     if os.path.isdir(dirname):
       shutil.rmtree(dirname)
 
-    os.mkdir(dirname)
+    if createDir == True:
+      os.mkdir(dirname)
 
   def progress(self, count, blocksize, size):
 
@@ -278,11 +281,38 @@ class OSGBaseBuilder:
             z.extractall(path=dir)
             z.close()
           except:
-            print "################"
-            print "#### failed ####"
-            print "################"
-            failed_support_libs.append(url)
-            continue
+
+            if os.path.exists(dir):
+              shutil.rmtree(dir)
+
+            unzipCmd  = self.which("unzip")
+
+            if unzipCmd != None:
+              uzCmd = [unzipCmd, "-q", arcfile, "-d", dir]
+              print "uz : ", uzCmd
+
+              try:
+                retcode = subprocess.call(uzCmd)
+
+                if retcode != 0:
+                  print "################"
+                  print "#### failed ####"
+                  print "################"
+                  failed_support_libs.append(url)
+                  continue
+                 
+              except:
+                print "################"
+                print "#### failed ####"
+                print "################"
+                failed_support_libs.append(url)
+                continue
+            else:
+              print "################"
+              print "#### failed ####"
+              print "################"
+              failed_support_libs.append(url)
+              continue
         
       else:
         print "Unknown file type for '%s', aborting!" % file
@@ -364,7 +394,7 @@ class OSGBaseBuilder:
   def cloneGit(self):
 
     if self.nogitclone == False:
-      self.initDir("OpenSG")
+      self.initDir("OpenSG", False)
       if self.localgitclone == False:
         gitCloneCmd = [self.gitCmd, "clone", "git://opensg.git.sourceforge.net/gitroot/opensg/opensg", "OpenSG"]
       else:

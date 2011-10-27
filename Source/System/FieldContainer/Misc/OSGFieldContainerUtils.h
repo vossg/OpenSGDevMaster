@@ -184,12 +184,14 @@ void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
 /*! \ingroup GrpSystemFieldContainerUtils
  */
 
+OSG_SYSTEM_DLLMAPPING
 FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
                                  FieldContainer              *pRoot     );
 
 /*! \ingroup GrpSystemFieldContainerUtils
  */
 
+OSG_SYSTEM_DLLMAPPING
 FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
                                        ContainerResolver  oResolver );
 
