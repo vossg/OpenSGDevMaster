@@ -346,12 +346,6 @@ void SimpleSHLChunk::onCreate(const SimpleSHLChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-    SLOG << "SimpleSHLChunk::onCreate: "
-         << " ptr "      << this
-         << " class id " << getClass()->getId()
-         << " name "     << getClass()->getName()
-         << std::endl;
-
     setGLId(               
         Window::registerGLObject(
             boost::bind(&SimpleSHLChunk::handleGL, 
