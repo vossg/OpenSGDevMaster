@@ -89,17 +89,25 @@ void CSMNativeWindow::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 CSMNativeWindow::CSMNativeWindow(void) :
-     Inherited   (    ),
-    _pWin32Window(NULL),
-    _pHWND       (NULL)
+     Inherited    (    ),
+    _pWin32Window (NULL),
+    _pHWND        (NULL),
+    _iScreenWidth (-1  ),
+    _iScreenHeight(-1  )
 {
+	_iScreenWidth  = GetSystemMetrics(SM_CXSCREEN);
+	_iScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 }
 
 CSMNativeWindow::CSMNativeWindow(const CSMNativeWindow &source) :
-     Inherited   (source),
-    _pWin32Window(NULL  ),
-    _pHWND       (NULL  )
+     Inherited    (source),
+    _pWin32Window (NULL  ),
+    _pHWND        (NULL  ),
+    _iScreenWidth (-1    ),
+    _iScreenHeight(-1    )
 {
+	_iScreenWidth  = GetSystemMetrics(SM_CXSCREEN);
+	_iScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 }
 
 CSMNativeWindow::~CSMNativeWindow(void)
@@ -113,6 +121,59 @@ void CSMNativeWindow::changed(ConstFieldMaskArg whichField,
                               BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+}
+
+Vec2f CSMNativeWindow::translateScreenCoordinatesRel(Real32 rX,
+                                                     Real32 rY)
+{
+    Vec2f returnValue(0.f, 0.f);
+
+    returnValue[0] = rX * _iScreenWidth  + 0.5f;
+    returnValue[1] = rY * _iScreenHeight + 0.5f;
+
+    return returnValue;
+}
+
+Vec2i CSMNativeWindow::translateGlobalCoordinatesRel(Real32 rX,
+                                                     Real32 rY)
+{
+    Vec2i returnValue(0, 0);
+
+/*
+    float px = mData[i]._vPosition.x()*m_iScreenWidth+0.5f;
+    float py = mData[i]._vPosition.y()*m_iScreenHeight+0.5f;
+    POINT screenpt = { (int)floor(px), (int)floor(py) };
+ */
+   
+    POINT screenpt =
+    {
+        Int32(floor(rX * _iScreenWidth  + 0.5f)),
+        Int32(floor(rY * _iScreenHeight + 0.5f))
+    };
+
+    ::ScreenToClient(_pHWND, &screenpt);
+
+    returnValue[0] = screenpt.x;
+    returnValue[1] = screenpt.y;
+
+
+    return returnValue;
+}
+
+ 
+Vec2i CSMNativeWindow::translateGlobalCoordinatesAbs(Int32  iX,
+                                                     Int32  iY)
+{
+    Vec2i returnValue   (0,   0);
+
+    POINT screenpt    = {iX, iY};
+        
+    ::ScreenToClient(_pHWND, &screenpt);
+
+    returnValue[0] = screenpt.x;
+    returnValue[1] = screenpt.y;
+
+    return returnValue;
 }
 
 void CSMNativeWindow::dump(      UInt32    ,

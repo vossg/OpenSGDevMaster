@@ -46,4 +46,10 @@ HWND CSMNativeWindow::getHWND(void)
     return _pHWND;
 }
 
+inline
+void CSMNativeWindow::setHWND(HWND pHandle)
+{
+    _pHWND = pHandle;
+}
+
 OSG_END_NAMESPACE

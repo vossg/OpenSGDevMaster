@@ -21,36 +21,37 @@ build
 
   a) dll + static lib + dll runtime + opt + dbg + 32 bit + vc9
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
 
   b) dll + static lib + dll runtime + opt + dbg + 32 bit + vc9 + no ms secure c****
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
 
   c) dll + static lib + dll runtime + opt + dbg + 32 bit + vc10
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
 
   d) dll + static lib + dll runtime + opt + dbg + 32 bit + vc10 + no ms secure c****
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+
 
 
   e) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 stage
 
   f) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9 + no ms secure c****
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
 
   g) dll + static lib + dll runtime + opt + dbg + 64 bit + vc10
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 stage
 
   h) dll + static lib + dll runtime + opt + dbg + 64 bit + vc10 + no ms secure c****
 
-..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+..\bjam.exe -d+2 --stagedir=./stage --without-mpi toolset=msvc-10.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
 
 
 Please note that you need different source/build directories for the 32 bit, 64 bit,

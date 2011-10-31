@@ -83,7 +83,22 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    HWND getHWND(void);
+    HWND getHWND(void        );
+    void setHWND(HWND pHandle);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual Vec2f translateScreenCoordinatesRel(Real32 rX,
+                                                Real32 rY);
+
+    virtual Vec2i translateGlobalCoordinatesRel(Real32 rX,
+                                                Real32 rY);
+
+    virtual Vec2i translateGlobalCoordinatesAbs(Int32  iX,
+                                                Int32  iY);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -111,6 +126,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
 
     WIN32Window *_pWin32Window;
     HWND         _pHWND;
+	Int32        _iScreenWidth;
+    Int32        _iScreenHeight;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
