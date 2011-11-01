@@ -749,7 +749,7 @@ void TextMacVectorFace::layout(const wstring &text, const TextLayoutParam &param
         layoutResult.textBounds[0] = osgAbs(currPos.x());
     else
         layoutResult.textBounds[1] = osgAbs(currPos.y());
-    assert(layoutResult.lineBounds.empty() == false);
+    OSG_ASSERT(layoutResult.lineBounds.empty() == false);
     layoutResult.lineBounds.front() = layoutResult.textBounds;
 }
 
@@ -1192,7 +1192,7 @@ void TextMacPixmapFace::layout(const wstring &text, const TextLayoutParam &param
         layoutResult.textBounds[0] = osgAbs(currPos.x());
     else
         layoutResult.textBounds[1] = osgAbs(currPos.y());
-    assert(layoutResult.lineBounds.empty() == false);
+    OSG_ASSERT(layoutResult.lineBounds.empty() == false);
     layoutResult.lineBounds.front() = layoutResult.textBounds;
 }
 
@@ -1296,7 +1296,7 @@ const TextPixmapGlyph &TextMacPixmapFace::getPixmapGlyph(const ATSLayoutRecord &
     GlyphMap::const_iterator it = _glyphMap.find(glyphID);
     if (it != _glyphMap.end())
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         return *(it->second);
     }
 
@@ -1493,7 +1493,7 @@ void TextMacTXFFace::createGlyphs(ATSUStyle horiFontStyle, ATSUStyle vertFontSty
     }
 
     // Create all glyphs
-    assert(numRecords == param.getCharacters().length() + 1);
+    OSG_ASSERT(numRecords == param.getCharacters().length() + 1);
     ItemCount j;
     for (j = 0; j < numRecords - 1; ++j)
     {
@@ -1504,8 +1504,8 @@ void TextMacTXFFace::createGlyphs(ATSUStyle horiFontStyle, ATSUStyle vertFontSty
 
     // Calculate the positions of the glyphs on the texture
     prepareTexture(param);
-    assert(_texture != NULL);
-    assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
+    OSG_ASSERT(_texture != NULL);
+    OSG_ASSERT(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture
     for (j = 0; j < numRecords - 1; ++j)

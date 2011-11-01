@@ -44,11 +44,6 @@
 #include "OSGTextPixmapGlyph.h"
 #include "OSGTextLayoutResult.h"
 #include "OSGTextFaceFactory.h"
-#ifdef __sgi
-# include <cassert>
-#else
-# include <cassert>
-#endif
 
 using namespace std;
 OSG_BEGIN_NAMESPACE
@@ -70,7 +65,7 @@ TextPixmapFace::~TextPixmapFace(void)
     GlyphMap::iterator it;
     for (it = _glyphMap.begin(); it != _glyphMap.end(); ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         delete it->second;
     }
 }
@@ -99,7 +94,7 @@ const TextPixmapGlyph &TextPixmapFace::getPixmapGlyph(TextGlyph::Index glyphInde
     GlyphMap::const_iterator it = _glyphMap.find(glyphIndex);
     if (it != _glyphMap.end())
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         return *(it->second);
     }
 

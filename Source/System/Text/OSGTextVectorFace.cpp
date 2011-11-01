@@ -46,12 +46,6 @@
 #include "OSGTextFaceFactory.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
-#ifdef __sgi
-# include <cassert>
-#else
-# include <cassert>
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 //----------------------------------------------------------------------
@@ -71,7 +65,7 @@ TextVectorFace::~TextVectorFace(void)
     GlyphMap::iterator it;
     for (it = _glyphMap.begin(); it != _glyphMap.end(); ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         delete it->second;
     }
 }
@@ -100,7 +94,7 @@ const TextVectorGlyph &TextVectorFace::getVectorGlyph(TextGlyph::Index glyphInde
     GlyphMap::const_iterator it = _glyphMap.find(glyphIndex);
     if (it != _glyphMap.end())
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         return *(it->second);
     }
 
@@ -276,19 +270,19 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
         {
             typesPtr->push_back(tIt->first);
             indexEnd = tIt->second;
-            assert(indexEnd >= indexBegin);
+            OSG_ASSERT(indexEnd >= indexBegin);
             lensPtr->push_back(indexEnd - indexBegin);
             UInt32 i;
             for (i = indexBegin; i < indexEnd; ++i)
             {
                 // the interleaved multi-index blocks have the layout
                 // Position | Normal | TexCoord
-                assert(i < outline.indices.size());
+                OSG_ASSERT(i < outline.indices.size());
                 UInt32 index = outline.indices[i];
-                assert(coordOffset + index < posPtr->size());
+                OSG_ASSERT(coordOffset + index < posPtr->size());
                 posIndicesPtr->push_back(coordOffset + index);
                 normalIndicesPtr->push_back(0);
-                assert(texCoordOffset + index < texPtr->size());
+                OSG_ASSERT(texCoordOffset + index < texPtr->size());
                 texCoordIndicesPtr->push_back(texCoordOffset + index);
             }
             indexBegin = indexEnd;
@@ -326,7 +320,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
             {
                 typesPtr->push_back(tIt->first);
                 indexEnd = tIt->second;
-                assert(indexEnd >= indexBegin);
+                OSG_ASSERT(indexEnd >= indexBegin);
                 UInt32 len = indexEnd - indexBegin;
                 UInt32 i = indexEnd;
                 if (tIt->first == GL_TRIANGLE_FAN)
@@ -336,7 +330,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                 }
                 if ((tIt->first == GL_TRIANGLE_STRIP) && ((len & 1) == 0))
                 {
-                    assert((indexEnd >= 2) && (indexEnd - 2 >= indexBegin));
+                    OSG_ASSERT((indexEnd >= 2) && (indexEnd - 2 >= indexBegin));
                     i = indexEnd - 2;
                     ++len;
                 }
@@ -344,12 +338,12 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                 {
                     // the interleaved multi-index blocks have the layout
                     // Position | Normal | TexCoord
-                    assert(i < outline.indices.size());
+                    OSG_ASSERT(i < outline.indices.size());
                     UInt32 index = outline.indices[i];
-                    assert(backCoordOffset + index < posPtr->size());
+                    OSG_ASSERT(backCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(backCoordOffset + index);
                     normalIndicesPtr->push_back(1);
-                    assert(texCoordOffset + index < texPtr->size());
+                    OSG_ASSERT(texCoordOffset + index < texPtr->size());
                     texCoordIndicesPtr->push_back(texCoordOffset + index);
                     i = indexEnd;
                 }
@@ -362,12 +356,12 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
 
                     // the interleaved multi-index blocks have the layout
                     // Position | Normal | TexCoord
-                    assert(i < outline.indices.size());
+                    OSG_ASSERT(i < outline.indices.size());
                     UInt32 index = outline.indices[i];
-                    assert(backCoordOffset + index < posPtr->size());
+                    OSG_ASSERT(backCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(backCoordOffset + index);
                     normalIndicesPtr->push_back(1);
-                    assert(texCoordOffset + index < texPtr->size());
+                    OSG_ASSERT(texCoordOffset + index < texPtr->size());
                     texCoordIndicesPtr->push_back(texCoordOffset + index);
                 }
                 indexBegin = indexEnd;
@@ -382,7 +376,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
             vector<TextVectorGlyph::Orientation>::const_iterator oriIt = glyph.getContourOrientations().begin();
             for (iIt = outline.contours.begin(); iIt != outline.contours.end(); ++iIt, ++oriIt)
             {
-                assert(oriIt != glyph.getContourOrientations().end());
+                OSG_ASSERT(oriIt != glyph.getContourOrientations().end());
                 UInt32 contourCoordOffset, contourBackCoordOffset;
                 if (*oriIt == TextVectorGlyph::CCW)
                 {
@@ -406,7 +400,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                 for (index = start; index < end; ++index)
                 {
                     normalOffset = normalsPtr->size() - 1;
-                    assert(index < normals.size());
+                    OSG_ASSERT(index < normals.size());
                     if (normals[index].edgeAngle > creaseAngle)
                     {
                         // We have an edge with two normals, so we need to
@@ -417,7 +411,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                             if ((mode == GL_QUAD_STRIP) && (len > 2))
                             {
                                 typesPtr->push_back(GL_QUAD_STRIP);
-                                assert(((len + 2) & 1) == 0);
+                                OSG_ASSERT(((len + 2) & 1) == 0);
                                 lensPtr->push_back(len + 2);
                                 len = 0;
                                 coordIndex = contourCoordOffset + index;
@@ -432,18 +426,18 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                             }
 
                             // back
-                            assert(backCoordIndex < posPtr->size());
+                            OSG_ASSERT(backCoordIndex < posPtr->size());
                             posIndicesPtr->push_back(backCoordIndex);
-                            assert(normalOffset < normalsPtr->size());
+                            OSG_ASSERT(normalOffset < normalsPtr->size());
                             normalIndicesPtr->push_back(normalOffset);
-                            assert(texCoordOffset + index < texPtr->size());
+                            OSG_ASSERT(texCoordOffset + index < texPtr->size());
                             texCoordIndicesPtr->push_back(texCoordOffset + index);
                             // front
-                            assert(coordIndex < posPtr->size());
+                            OSG_ASSERT(coordIndex < posPtr->size());
                             posIndicesPtr->push_back(coordIndex);
-                            assert(normalOffset < normalsPtr->size());
+                            OSG_ASSERT(normalOffset < normalsPtr->size());
                             normalIndicesPtr->push_back(normalOffset);
-                            assert(texCoordOffset + index < texPtr->size());
+                            OSG_ASSERT(texCoordOffset + index < texPtr->size());
                             texCoordIndicesPtr->push_back(texCoordOffset + index);
                         }
 
@@ -456,8 +450,8 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                         {
                             typesPtr->push_back(GL_QUADS);
                             mode = GL_QUAD_STRIP;
-                            assert(len >= 6);
-                            assert(((len - 2) & 3) == 0);
+                            OSG_ASSERT(len >= 6);
+                            OSG_ASSERT(((len - 2) & 3) == 0);
                             lensPtr->push_back(len - 2);
                             len = 2;
                         }
@@ -468,18 +462,18 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                     ++normalOffset;
 
                     // back
-                    assert(contourBackCoordOffset + index < posPtr->size());
+                    OSG_ASSERT(contourBackCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(contourBackCoordOffset + index);
-                    assert(normalOffset < normalsPtr->size());
+                    OSG_ASSERT(normalOffset < normalsPtr->size());
                     normalIndicesPtr->push_back(normalOffset);
-                    assert(texCoordOffset + index < texPtr->size());
+                    OSG_ASSERT(texCoordOffset + index < texPtr->size());
                     texCoordIndicesPtr->push_back(texCoordOffset + index);
                     // front
-                    assert(contourCoordOffset + index < posPtr->size());
+                    OSG_ASSERT(contourCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(contourCoordOffset + index);
-                    assert(normalOffset < normalsPtr->size());
+                    OSG_ASSERT(normalOffset < normalsPtr->size());
                     normalIndicesPtr->push_back(normalOffset);
-                    assert(texCoordOffset + index < texPtr->size());
+                    OSG_ASSERT(texCoordOffset + index < texPtr->size());
                     texCoordIndicesPtr->push_back(texCoordOffset + index);
 
                     len += 2;
@@ -500,26 +494,26 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                 }
 
                 // back
-                assert(backCoordIndex < posPtr->size());
+                OSG_ASSERT(backCoordIndex < posPtr->size());
                 posIndicesPtr->push_back(backCoordIndex);
-                assert(normalOffset < normalsPtr->size());
+                OSG_ASSERT(normalOffset < normalsPtr->size());
                 normalIndicesPtr->push_back(normalOffset);
-                assert(texCoordOffset + start < texPtr->size());
+                OSG_ASSERT(texCoordOffset + start < texPtr->size());
                 texCoordIndicesPtr->push_back(texCoordOffset + start);
                 // front
-                assert(coordIndex < posPtr->size());
+                OSG_ASSERT(coordIndex < posPtr->size());
                 posIndicesPtr->push_back(coordIndex);
-                assert(normalOffset < normalsPtr->size());
+                OSG_ASSERT(normalOffset < normalsPtr->size());
                 normalIndicesPtr->push_back(normalOffset);
-                assert(texCoordOffset + start < texPtr->size());
+                OSG_ASSERT(texCoordOffset + start < texPtr->size());
                 texCoordIndicesPtr->push_back(texCoordOffset + start);
 
                 len += 2;
 
                 // store the number of multi index blocks
                 typesPtr->push_back(mode);
-                assert((mode != GL_QUADS) || ((len & 3) == 0));
-                assert((mode != GL_QUAD_STRIP) || ((len & 1) == 0));
+                OSG_ASSERT((mode != GL_QUADS) || ((len & 3) == 0));
+                OSG_ASSERT((mode != GL_QUAD_STRIP) || ((len & 1) == 0));
                 lensPtr->push_back(len);
 
                 start = end;

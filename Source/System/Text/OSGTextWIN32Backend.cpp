@@ -240,8 +240,12 @@ TextWIN32Backend::TextWIN32Backend()
     // Create device context
     _hDC = CreateDC("DISPLAY", 0, 0, 0);
     if (_hDC == 0)
-        // There is not much we can do here...
+    {
+        SWARNING << "TextWIN32Backend: Failed to create device context."
+                 << std::endl;
         return;
+    }
+
     SetGraphicsMode(_hDC, GM_ADVANCED);
 }
 
@@ -652,7 +656,7 @@ void TextWIN32VectorFace::layout(const wstring &text, const TextLayoutParam &par
             layoutResult.textBounds[0] = osgAbs(currPos.x());
         else
             layoutResult.textBounds[1] = osgAbs(currPos.y());
-        assert(layoutResult.lineBounds.empty() == false);
+        OSG_ASSERT(layoutResult.lineBounds.empty() == false);
         layoutResult.lineBounds.front() = layoutResult.textBounds;
     }
     delete [] results.lpDx;
@@ -1028,7 +1032,7 @@ void TextWIN32PixmapFace::layout(const wstring &text, const TextLayoutParam &par
             layoutResult.textBounds[0] = osgAbs(currPos.x());
         else
             layoutResult.textBounds[1] = osgAbs(currPos.y());
-        assert(layoutResult.lineBounds.empty() == false);
+        OSG_ASSERT(layoutResult.lineBounds.empty() == false);
         layoutResult.lineBounds.front() = layoutResult.textBounds;
     }
     delete [] results.lpDx;
@@ -1200,7 +1204,7 @@ TextWIN32TXFFace::TextWIN32TXFFace(const TextWIN32Backend *backend, HFONT hHoriF
     }
 
     // Create all glyphs
-    assert(results.nGlyphs == param.getCharacters().length());
+    OSG_ASSERT(results.nGlyphs == param.getCharacters().length());
     UINT j;
     for (j = 0; j < results.nGlyphs; ++j)
     {
@@ -1231,8 +1235,8 @@ TextWIN32TXFFace::TextWIN32TXFFace(const TextWIN32Backend *backend, HFONT hHoriF
 
     // Calculate the positions of the glyphs on the texture
     prepareTexture(param);
-    assert(_texture != NULL);
-    assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
+    OSG_ASSERT(_texture != NULL);
+    OSG_ASSERT(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture
     SelectObject(backend->_hDC, hHoriFont);
@@ -1257,7 +1261,7 @@ TextWIN32TXFFace::TextWIN32TXFFace(const TextWIN32Backend *backend, HFONT hHoriF
         GlyphMap::iterator gIt = _glyphMap.find(param.getCharacters()[j]);
         if (gIt == _glyphMap.end())
             continue;
-        assert(gIt->second != 0);
+        OSG_ASSERT(gIt->second != 0);
         TextTXFGlyph *glyph = gIt->second;
 
         // Put the glyph pixmap into the texture

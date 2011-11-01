@@ -250,15 +250,26 @@ TextFT2Backend::TextFT2Backend()
     // Initialize Freetype library
     FT_Error error = FT_Init_FreeType(&_library);
     if (error)
+    {
         // There is not much we can do here when we cannot initialize
         // the library - we simply will not be able to create any font
+        SWARNING << "TextFT2Backend: Failed to initialize freetype library."
+                 << std::endl;
+
         _library = 0;
+    }
 
 #ifdef OSG_WITH_FONTCONFIG
 
     // Initialize FontConfig library
-    FcInit();
-    // Again, we do not check for errors - see comment above
+    FcBool fcSuccess = FcInit();
+
+    if(fcSuccess != FcTrue)
+    {
+        // Same as above, not much we can do
+        SWARNING << "TextFT2Backend: Failed to initialize fontconfig library."
+                 << std::endl;
+    }
 
 #endif // OSG_WITH_FONTCONFIG
 
@@ -1389,8 +1400,8 @@ TextFT2TXFFace::TextFT2TXFFace(FT_Face face, const TextTXFParam &param)
 
     // Calculate the positions of the glyphs on the texture
     prepareTexture(param);
-    assert(_texture != NULL);
-    assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
+    OSG_ASSERT(_texture != NULL);
+    OSG_ASSERT(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture
     for (it = param.getCharacters().begin(); it != param.getCharacters().end(); ++it)
@@ -1398,7 +1409,7 @@ TextFT2TXFFace::TextFT2TXFFace(FT_Face face, const TextTXFParam &param)
         GlyphMap::iterator gIt = _glyphMap.find(*it);
         if (gIt == _glyphMap.end())
             continue;
-        assert(gIt->second != 0);
+        OSG_ASSERT(gIt->second != 0);
         TextTXFGlyph *glyph = gIt->second;
         FT_UInt glyphIndex = FT_Get_Char_Index(face, *it);
         if (glyphIndex == 0)

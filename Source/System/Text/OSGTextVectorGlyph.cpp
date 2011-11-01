@@ -44,13 +44,7 @@
 
 #include "OSGGLU.h"
 
-#ifdef __sgi
-# include <cassert>
-# include <cmath>
-#else
-# include <cassert>
-# include <cmath>
-#endif
+#include <cmath>
 
 
 using namespace std;
@@ -215,29 +209,29 @@ static void evalBezierCurve(const TextVectorGlyph::Contour &contour, UInt32 &ind
                             const UInt32 level,
                             vector<Vec2f> &coords)
 {
-    assert(index + 1 < contour.size());
+    OSG_ASSERT(index + 1 < contour.size());
     switch (contour[index + 1].type)
     {
         // linear segment - copy first point only
         case TextVectorGlyph::Point::PT_ON:
-            assert(index < contour.size());
+            OSG_ASSERT(index < contour.size());
             coords.push_back(contour[index].pos);
             ++index;
             break;
             // quadratic segment - last point point omitted by evaluation function
         case TextVectorGlyph::Point::PT_QUAD:
-            assert(index + 2 < contour.size());
+            OSG_ASSERT(index + 2 < contour.size());
             evalQuadraticBezierCurve(contour[index].pos, contour[index + 1].pos, contour[index + 2].pos, level, coords);
             index += 2;
             break;
             // cubic segment - last point point omitted by evaluation function
         case TextVectorGlyph::Point::PT_CUBIC:
-            assert(index + 3 < contour.size());
+            OSG_ASSERT(index + 3 < contour.size());
             evalCubicBezierCurve(contour[index].pos, contour[index + 1].pos, contour[index + 2].pos, contour[index + 3].pos, level, coords);
             index += 3;
             break;
         default:
-            assert(false);
+            OSG_ASSERT(false);
             break;
     }
 }
@@ -250,7 +244,7 @@ static void evalBezierCurve(const TextVectorGlyph::Contour &contour, UInt32 &ind
 static void OSG_APIENTRY gluTessBeginDataCB(GLenum type, void *polygonData)
 {
     TextVectorGlyph::PolygonOutline *outline = reinterpret_cast<TextVectorGlyph::PolygonOutline*>(polygonData);
-    assert(outline != 0);
+    OSG_ASSERT(outline != 0);
     outline->types.push_back(TextVectorGlyph::PolygonOutline::TypeIndex(type, 0));
 }
 
@@ -262,8 +256,8 @@ static void OSG_APIENTRY gluTessBeginDataCB(GLenum type, void *polygonData)
 static void OSG_APIENTRY gluTessEndDataCB(void *polygonData)
 {
     TextVectorGlyph::PolygonOutline *outline = reinterpret_cast<TextVectorGlyph::PolygonOutline*>(polygonData);
-    assert(outline != 0);
-    assert(outline->types.empty() == false);
+    OSG_ASSERT(outline != 0);
+    OSG_ASSERT(outline->types.empty() == false);
     outline->types.back().second = outline->indices.size();
 }
 
@@ -281,7 +275,7 @@ static void OSG_APIENTRY gluTessVertexDataCB(void *vertexData, void *polygonData
     UInt64 coordIndexHelp = UInt64(vertexData);
     UInt32 coordIndex = static_cast<UInt32>(coordIndexHelp);
 
-    assert(outline != 0);
+    OSG_ASSERT(outline != 0);
     outline->indices.push_back(coordIndex);
 }
 
@@ -297,9 +291,9 @@ static void OSG_APIENTRY gluTessCombineDataCB(GLdouble coords[3], void *vertexDa
                                  void *polygonData)
 {
     TextVectorGlyph::PolygonOutline *outline = reinterpret_cast<TextVectorGlyph::PolygonOutline*>(polygonData);
-    assert(outDatab != 0);
+    OSG_ASSERT(outDatab != 0);
     *outDatab = reinterpret_cast<void*>(outline->coords.size());
-    assert(outline != 0);
+    OSG_ASSERT(outline != 0);
     outline->coords.push_back(Vec2f(coords[0], coords[1]));
 }
 
@@ -375,7 +369,7 @@ const TextVectorGlyph::PolygonOutline &TextVectorGlyph::getLines(UInt32 level) c
         while (coordIndex < *cIt)
         {
             GLdouble coords[3];
-            assert(coordIndex < newOutline.coords.size());
+            OSG_ASSERT(coordIndex < newOutline.coords.size());
             coords[0] = newOutline.coords[coordIndex].x();
             coords[1] = newOutline.coords[coordIndex].y();
             coords[2] = 0.f;
@@ -444,9 +438,9 @@ const TextVectorGlyph::Normals &TextVectorGlyph::getNormals(UInt32 level) const
     {
         end = *iIt;
 
-        assert(end - 1 < outline.coords.size());
-        assert(start < outline.coords.size());
-        assert(oriIt != _contourOrientations.end());
+        OSG_ASSERT(end - 1 < outline.coords.size());
+        OSG_ASSERT(start < outline.coords.size());
+        OSG_ASSERT(oriIt != _contourOrientations.end());
         Vec2f prevEdgeNormal = computeEdgeNormal(outline.coords[end - 1],
                                                  outline.coords[start],
                                                  (*oriIt) == CW);
@@ -456,8 +450,8 @@ const TextVectorGlyph::Normals &TextVectorGlyph::getNormals(UInt32 level) const
             if (nextIndex >= end)
                 nextIndex = start;
 
-            assert(index < outline.coords.size());
-            assert(nextIndex < outline.coords.size());
+            OSG_ASSERT(index < outline.coords.size());
+            OSG_ASSERT(nextIndex < outline.coords.size());
             Vec2f nextEdgeNormal = computeEdgeNormal(outline.coords[index], outline.coords[nextIndex], (*oriIt) == CW);
             Vec2f meanEdgeNormal = prevEdgeNormal + nextEdgeNormal;
             meanEdgeNormal.normalize();
@@ -514,12 +508,12 @@ static bool isLeft(const Vec2f &a, const Vec2f &b, const Vec2f &point)
 static Int32 calcWindingNumber(const vector<Vec2f> &coords, UInt32 start, UInt32 end, const Vec2f &point)
 {
     Int32 windingNumber = 0;
-    assert(end - 1 < coords.size());
+    OSG_ASSERT(end - 1 < coords.size());
     const Vec2f *prevPoint = &(coords[end - 1]);
     UInt32 i;
     for (i = start; i < end; ++i)
     {
-        assert(i < coords.size());
+        OSG_ASSERT(i < coords.size());
         const Vec2f *curPoint = &(coords[i]);
         if (prevPoint->y() <= point.y())
         {
@@ -593,7 +587,7 @@ void TextVectorGlyph::computeContourOrientations() const
         if (end - start < 3)
             _contourOrientations.push_back(CCW);
 
-        assert(start + 2 < outline.coords.size());
+        OSG_ASSERT(start + 2 < outline.coords.size());
         Vec2f en1 = computeEdgeNormal(outline.coords[start], outline.coords[start + 1], false);
         Vec2f en2 = computeEdgeNormal(outline.coords[start + 1], outline.coords[start + 2], false);
         // compute the mean of the edge normals at vertex 0.

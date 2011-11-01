@@ -43,13 +43,7 @@
 #include "OSGTextFace.h"
 #include "OSGTextLayoutParam.h"
 #include "OSGTextLayoutResult.h"
-#ifdef __sgi
-# include <cassert>
-# include <cfloat>
-#else
-# include <cassert>
-# include <cfloat>
-#endif
+#include <cfloat>
 
 using namespace std;
 OSG_BEGIN_NAMESPACE
@@ -224,7 +218,7 @@ void TextFace::layout(const vector<wstring> &lines,
             result.indices.push_back(lineResult.indices[i]);
             result.positions.push_back(lineResult.positions[i] + offset);
         }
-        assert(lineResult.lineBounds.empty() == false);
+        OSG_ASSERT(lineResult.lineBounds.empty() == false);
         result.lineBounds.push_back(lineResult.lineBounds.front());
         Real32 extend = lineResult.lineBounds.front()[param.horizontal == true ? 0 : 1];
         if (extend > maxExtend)

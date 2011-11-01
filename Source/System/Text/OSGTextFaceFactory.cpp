@@ -51,12 +51,6 @@
 
 #include "OSGSingletonHolder.ins"
 
-#ifdef __sgi
-# include <cassert>
-#else
-# include <cassert>
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -88,6 +82,9 @@ TextFaceFactoryBase::TextFaceFactoryBase(void)
     _backend = new TextFT2Backend();
 #else
     _backend = 0;
+
+    SWARNING << "TextFaceFactory: No text backend available."
+             << std::endl;
 #endif
 }
 
@@ -115,7 +112,7 @@ TextVectorFaceTransitPtr TextFaceFactoryBase::createVectorFace(
     VectorFaceMap::iterator it;
     for (it = range.first; it != range.second; ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         if (it->second->getStyle() == style)
             return TextVectorFaceTransitPtr(it->second);
     }
@@ -145,13 +142,13 @@ TextPixmapFaceTransitPtr TextFaceFactoryBase::createPixmapFace(
     PixmapFaceMap::iterator it;
     for (it = range.first; it != range.second; ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         if ((it->second->getStyle() == style) && (it->second->getSize() == size))
             return TextPixmapFaceTransitPtr(it->second);
     }
 
     // We did not find the face in the cache, so let the backend create it
-    if(_backend == 0)
+    if (_backend == 0)
         return TextPixmapFaceTransitPtr();
     
     TextPixmapFaceRefPtr face = _backend->createPixmapFace(family, style, size);
@@ -175,7 +172,7 @@ TextTXFFaceTransitPtr TextFaceFactoryBase::createTXFFace(
     TXFFaceMap::iterator it;
     for (it = range.first; it != range.second; ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         if ((it->second->getStyle() == style) && (it->second->getParam() == param))
             return TextTXFFaceTransitPtr(it->second);
     }

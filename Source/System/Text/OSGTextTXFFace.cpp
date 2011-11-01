@@ -48,11 +48,6 @@
 #include "OSGTypedGeoIntegralProperty.h"
 
 #include <fstream>
-#ifdef __sgi
-# include <cassert>
-#else
-# include <cassert>
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -73,7 +68,7 @@ TextTXFFace::~TextTXFFace()
     GlyphMap::iterator it;
     for (it = _glyphMap.begin(); it != _glyphMap.end(); ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         delete it->second;
     }
 
@@ -102,7 +97,7 @@ const TextTXFGlyph &TextTXFFace::getTXFGlyph(TextGlyph::Index glyphIndex)
     GlyphMap::const_iterator it = _glyphMap.find(glyphIndex);
     if (it != _glyphMap.end())
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         return *(it->second);
     }
 
@@ -120,7 +115,7 @@ const TextTXFGlyph &TextTXFFace::getTXFGlyph(TextGlyph::Index glyphIndex)
     it = _glyphMap.find(glyphIndex);
     if (it != _glyphMap.end())
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         return *(it->second);
     }
 
@@ -552,7 +547,7 @@ TextTXFFaceTransitPtr TextTXFFace::createFromStream(
         case 0: // TXF_FORMAT_BYTE
             {
                 UInt32 size = textureWidth * textureHeight;
-                assert(face->_texture->getSize() == size);
+                OSG_ASSERT(face->_texture->getSize() == size);
                 is.read(
                     reinterpret_cast<
                         istream::char_type *>(face->_texture->editData()), 
@@ -576,7 +571,7 @@ TextTXFFaceTransitPtr TextTXFFace::createFromStream(
 
                     return TextTXFFaceTransitPtr();
                 }
-                assert(face->_texture->getSize() == textureWidth * textureHeight);
+                OSG_ASSERT(face->_texture->getSize() == textureWidth * textureHeight);
                 UInt8 *dst = face->_texture->editData();
                 UInt32 x, y;
                 for (y = 0; y < textureHeight; ++y)
@@ -659,7 +654,7 @@ bool TextTXFFace::writeToStream(ostream &os) const
     os.write(magicBytes, 4);
 
     // Write the header
-    assert(_texture != NULL);
+    OSG_ASSERT(_texture != NULL);
     writeLong(os, 0x12345678); // endianness
     writeLong(os, 0); // format
     writeLong(os, _texture->getWidth());
@@ -674,7 +669,7 @@ bool TextTXFFace::writeToStream(ostream &os) const
     GlyphMap::const_iterator it;
     for (it = _glyphMap.begin(); it != _glyphMap.end(); ++it)
     {
-        assert(it->second != 0);
+        OSG_ASSERT(it->second != 0);
         writeShort(os, static_cast<UInt16>(it->second->getGlyphIndex()));
         os.put(it->second->getPixmapWidth());
         os.put(it->second->getPixmapHeight());
@@ -689,7 +684,7 @@ bool TextTXFFace::writeToStream(ostream &os) const
     }
 
     // Write texture
-    assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
+    OSG_ASSERT(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
     os.write(reinterpret_cast<const ostream::char_type*>(_texture->getData()), 
              _texture->getWidth() * _texture->getHeight());
 
