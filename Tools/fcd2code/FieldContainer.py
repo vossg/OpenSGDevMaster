@@ -40,6 +40,7 @@ class FieldContainer(FCDElement):
         self.setFCD("fcdFileLines",               [],       True);
         self.setFCD("fieldsUnmarkedOnCreate",     "0",      True);
         self.setFCD("libnamespace",               "OSG",    True);
+        self.setFCD("parentnamespace",            "",       True);
         self.setFCD("childFields",                "none",   True);
         self.setFCD("parentFields",               "none",   True);
         self.setFCD("docGroupBase",               "",       True);
@@ -78,6 +79,18 @@ class FieldContainer(FCDElement):
         if (self.getFCD("libnamespace") != "" and \
             self.getFCD("libnamespace") != "OSG"):
           self["nsFilePrefix"] = self.getFCD("libnamespace");
+
+        self["nsParentFilePrefix"] = ""        
+
+        if self.getFCD("parentnamespace") == "" and \
+           self.getFCD("libnamespace")    != "OSG" :
+
+          self["nsParentFilePrefix"] = self.getFCD("libnamespace")
+        else:
+          if self.getFCD("parentnamespace") != "OSG":
+            self["nsParentFilePrefix"] = self.getFCD("parentnamespace")
+
+        print "foo ", self["nsParentFilePrefix"]
 
     def setupDecorator(self):
         self["Classname"]    = self.getFCD("name") + "Decorator";
@@ -140,23 +153,14 @@ class FieldContainer(FCDElement):
             self.m_log.error("finalize: \"parent\" has no valid value.");
             self["Parent"] = "<UNDEF>";
 
+        print "xx ", self["Parent"]
+
         if self.getFCD("realparent") != "":
             self["RealParent"] = self.getFCD("realparent");
         else:
             self["RealParent"] = self["Parent"];
 
-        if self.getFCD("mixinparent") != "":
-            self["MixinParent"] = self.getFCD("mixinparent");            
-            self["hasMixinParent"] = True
-
-            if self.getFCD("mixinheader") != "":
-                self["MixinHeader"] = self.getFCD("mixinheader");
-            else:
-                self["MixinHeader"] = "OSG" + self["MixinParent"] + ".h"
-        else:
-            self["MixinParent"] = ""
-            self["hasMixinParent"] = False
-        
+     
         
         if self.getFCD("decoratable") == "true":
             self["isDecoratable"] = True;
@@ -384,6 +388,18 @@ class FieldContainer(FCDElement):
             self["isDynFCDerived"] = True;
         else:
             self["isDynFCDerived"] = False;
+
+        if self.getFCD("mixinparent") != "":
+            self["MixinParent"] = self.getFCD("mixinparent");            
+            self["hasMixinParent"] = True
+
+            if self.getFCD("mixinheader") != "":
+                self["MixinHeader"] = self.getFCD("mixinheader");
+            else:
+                self["MixinHeader"] = "OSG" + self["nsFilePrefix"] + self["MixinParent"] + ".h"
+        else:
+            self["MixinParent"] = ""
+            self["hasMixinParent"] = False
 
         decorateeFieldFlags = self.getFCD("decorateeFieldFlags");
         if decorateeFieldFlags == "":

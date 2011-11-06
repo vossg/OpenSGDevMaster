@@ -31,34 +31,7 @@ def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, e
 
   #fc_infos["GeoProperty"] = CoreInfo("GeoProperty", "StateChunk", ["getData"])
 
-  # Build up list of template methods that we need to instantiate so we can get all of them exposed.
-  gvp_tmpl_instances = \
-    ["template %s OSG::GeoVectorProperty::getValue<%s>(const OSG::UInt32) const" % \
-       (t, t) for t in settings.geo_vec_get_value_ret_types]
-  gvp_tmpl_instances.extend(
-    ["template void OSG::GeoVectorProperty::setValue<%s>(const %s&, const OSG::UInt32)" % \
-       (t, t) for t in settings.geo_vec_get_value_ret_types]
-  )
-  gvp_tmpl_instances.extend(
-    ["template void OSG::GeoVectorProperty::addValue<%s>(const %s&)" % \
-       (t, t) for t in settings.geo_vec_get_value_ret_types]
-  )
-  gvp_tmpl_instances.extend(
-    ["template void OSG::GeoVectorProperty::push_back<%s>(const %s&)" % \
-       (t, t) for t in settings.geo_vec_get_value_ret_types]
-  )
                           
-  # Expose the GeoVectorProperty class
-  # - The getValue stuff will trigger code that renames the overloaded template methods to use names
-  #   sach as getValue_Color3f.
-  # - The tmpl_instances are used to make sure that the compiler sees all the versions of these
-  #   overloaded methods that we need.
-  # TODO: Determine if the return value from OSG::GeoVectorProperty::mapBuffer() could be mapped
-  # into something like a bytearray.
-  gvp = osggen.FCInfo("GeoVectorProperty", "GeoProperty", templateMethods = ["getValue"],
-                      templateInstances = gvp_tmpl_instances,
-                      excludeList = ["mapBuffer"])
-  fc_infos[gvp.name] = gvp
 
   # Build up list of template methods that we need to instantiate so we can get all of them exposed.
   gip_tmpl_instances = \
@@ -104,17 +77,6 @@ def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, e
                         excludeList = ["mapBuffer"])
   fc_infos[gvbrp.name] = gvbrp
 
-  def modGeoVectorProperty(cls):
-    pass
-    # Exclude get values that return by ref
-    #cls.member_functions("getValue", arg_types = [None, None]).exclude()
-   
-    # Exclude default setValue
-    #cls.member_functions(
-    #   calldef_matcher("setValue") & virtuality_type_matcher(VIRTUALITY_TYPES.PURE_VIRTUAL)
-    #).exclude()
-
-  core_mods[gvp.name] = [ [modGeoVectorProperty,],[]]
 
   # Map of core id to callables to call on (class, base) decl
   core_mods["Slices"] = [ [lambda c: c["Edge"].exclude(), 

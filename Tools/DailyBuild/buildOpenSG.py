@@ -536,6 +536,24 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     if optNoMSSecure == True:
       buildSubDir = "NoMSSec"
 
+##32    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
+#                          "C:/Program Files/Git/bin"]
+
+##32    cmdirs = glob.glob("C:/Program Files/CMake *")
+
+    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
+                          "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC",
+                          "C:/Program Files/Git/bin",
+                          "C:/Program Files (x86)/Git/bin"]
+
+    cmdirs = glob.glob("C:/Program Files*/CMake *")
+
+    for path in cmdirs:
+      self.fallbackPaths.append(os.path.join(path, "bin").replace('\\', '/'))
+
+    print "cmd : ", cmdirs
+
+
     OSGBaseBuilder.__init__(self, 
                             startup_path,
                             optNoDownload,
@@ -574,9 +592,6 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                             "define=_SCL_SECURE_NO_WARNINGS",
                             "define=_SCL_SECURE_NO_DEPRECATE",
                             "define=_HAS_ITERATOR_DEBUGGING=0" ]
-
-    print "foo ", self
-    print "bar ", self.fallbackPaths
 
     self.cmakeCmd  = self.which("cmake.exe")
     self.vcvars    = self.which("vcvarsall.bat")
@@ -800,18 +815,6 @@ class OSGWin32Builder(OSGWinBaseBuilder):
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
-    
-
-    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
-                          "C:/Program Files/Git/bin"]
-
-    cmdirs = glob.glob("C:/Program Files/CMake *")
-
-    for path in cmdirs:
-      self.fallbackPaths.append(os.path.join(path, "bin").replace('\\', '/'))
-
-    print "cmd : ", cmdirs
-
     self.vcvarsarch = "x86"
 
     OSGWinBaseBuilder.__init__(self, 
@@ -830,6 +833,8 @@ class OSGWin32Builder(OSGWinBaseBuilder):
     self.cmakeGen = "Visual Studio 10"
 
     self.boostAddrOpt = ["address-model=32"]
+
+    print "Build for Win32"
 
     return
 
@@ -851,17 +856,7 @@ class OSGWin64Builder(OSGWinBaseBuilder):
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
-    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
-                          "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC",
-                          "C:/Program Files/Git/bin",
-                          "C:/Program Files (x86)/Git/bin"]
 
-    cmdirs = glob.glob("C:/Program Files*/CMake *")
-
-    for path in cmdirs:
-      self.fallbackPaths.append(os.path.join(path, "bin").replace('\\', '/'))
-
-    print "cmd : ", cmdirs
 
     self.vcvarsarch = "amd64"
 
@@ -880,6 +875,8 @@ class OSGWin64Builder(OSGWinBaseBuilder):
     self.boostAddrOpt = ["address-model=64"]
 
     self.cmakeGen = "Visual Studio 10 Win64"
+
+    print "Build for Win64"
 
     return
 
@@ -1029,6 +1026,9 @@ class OSGLinuxBuilder(OSGUnixBaseBuilder):
                                 optNoOSGBuild,
                                 optNoMSSecure)
 
+
+    print "Build for Linux"
+
     return
 
 ##############################################
@@ -1060,6 +1060,8 @@ class OSGOSXBuilder(OSGUnixBaseBuilder):
                                 optNoBoostBuild,
                                 optNoOSGBuild,
                                 optNoMSSecure)
+
+    print "Build for OSX"
 
     return
 
@@ -1138,6 +1140,13 @@ m_parser.add_option("--no-mssecure",
                     help="disable ms secure/debug settings",
                     metavar="OpenSG");
 
+m_parser.add_option("--force-win32",
+                    action="store_true",
+                    default=False,
+                    dest="forceWin32",
+                    help="force win32 build on win64 machines",
+                    metavar="OpenSG");
+
 args = sys.argv[1:];
         
 (m_options, m_args) = m_parser.parse_args(args);
@@ -1152,7 +1161,7 @@ print "uname : ", platform.uname()
 # ----- defines -----
 if(platform.system() == "Microsoft" or platform.system() == "Windows"):
   system = "windows"
-  if platform.machine() == "AMD64":
+  if platform.machine() == "AMD64" and not m_options.forceWin32 :
     builder = OSGWin64Builder(startup_path,
                               m_options.nodownload,
                               m_options.sgdownload,

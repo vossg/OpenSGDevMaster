@@ -98,4 +98,27 @@ def postGenClassesSetup(osg, mb):
 
 def postFCDInfoSetup(osg, mb, adddition_exp):
 
+  # Graph ops   
+  for n in ["GraphOp", "MakeTransparentGraphOp", "MaterialMergeGraphOp",
+            "PruneGraphOp", "SharePtrGraphOp", "VerifyGeoGraphOp",
+            "GeoTypeGraphOp", "StripeGraphOp", "SplitGraphOp",
+            "VerifyGraphOp", "MergeGraphOp"]:
+     c = osg[n]
+     c["usage"].exclude()
+
+  c = osg["GraphOp"]
+
+  c.add_wrapper_code("""
+    virtual std::string usage() 
+    {
+        bp::override func_usage = this->get_override( "usage" );
+        return func_usage().as<std::string>();
+    }
+""")
+
+  c.add_registration_code("""
+    def("usage",
+        bp::pure_virtual( &::OSG::GraphOp::usage ) );
+""")
+
   return

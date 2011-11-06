@@ -69,7 +69,7 @@
 
 //#include "@!HeaderPrefix!@OSGBaseTypes.h"
 
-#include "@!ParentHeaderPrefix!@OSG@!Parent!@.h" // Parent
+#include "@!ParentHeaderPrefix!@OSG@!nsParentFilePrefix!@@!Parent!@.h" // Parent
 
 @@if !isDecorator
     @@BeginFieldLoop@@
