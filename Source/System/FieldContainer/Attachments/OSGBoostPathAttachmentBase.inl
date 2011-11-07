@@ -4,7 +4,7 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: Johannes Brunen                                                  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class MaterialChunkOverrideGroup!
+ **     class BoostPathAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -54,47 +54,56 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &MaterialChunkOverrideGroupBase::getClassType(void)
+OSG::FieldContainerType &BoostPathAttachmentBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MaterialChunkOverrideGroupBase::getClassTypeId(void)
+OSG::UInt32 BoostPathAttachmentBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 MaterialChunkOverrideGroupBase::getClassGroupId(void)
+OSG::UInt16 BoostPathAttachmentBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the BoostPathAttachment::_sfPath field.
 
-//! Get the value of the MaterialChunkOverrideGroup::_sfMaterial field.
 inline
-Material * MaterialChunkOverrideGroupBase::getMaterial(void) const
+BoostPath &BoostPathAttachmentBase::editPath(void)
 {
-    return _sfMaterial.getValue();
+    editSField(PathFieldMask);
+
+    return _sfPath.getValue();
 }
 
-//! Set the value of the MaterialChunkOverrideGroup::_sfMaterial field.
+//! Get the value of the BoostPathAttachment::_sfPath field.
 inline
-void MaterialChunkOverrideGroupBase::setMaterial(Material * const value)
+const BoostPath &BoostPathAttachmentBase::getPath(void) const
 {
-    editSField(MaterialFieldMask);
+    return _sfPath.getValue();
+}
 
-    _sfMaterial.setValue(value);
+//! Set the value of the BoostPathAttachment::_sfPath field.
+inline
+void BoostPathAttachmentBase::setPath(const BoostPath &value)
+{
+    editSField(PathFieldMask);
+
+    _sfPath.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void MaterialChunkOverrideGroupBase::execSync (      MaterialChunkOverrideGroupBase *pFrom,
+void BoostPathAttachmentBase::execSync (      BoostPathAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -102,18 +111,18 @@ void MaterialChunkOverrideGroupBase::execSync (      MaterialChunkOverrideGroupB
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
-        _sfMaterial.syncWith(pFrom->_sfMaterial);
+    if(FieldBits::NoField != (PathFieldMask & whichField))
+        _sfPath.syncWith(pFrom->_sfPath);
 }
 #endif
 
 
 inline
-const Char8 *MaterialChunkOverrideGroupBase::getClassname(void)
+const Char8 *BoostPathAttachmentBase::getClassname(void)
 {
-    return "MaterialChunkOverrideGroup";
+    return "BoostPathAttachment";
 }
-OSG_GEN_CONTAINERPTR(MaterialChunkOverrideGroup);
+OSG_GEN_CONTAINERPTR(BoostPathAttachment);
 
 OSG_END_NAMESPACE
 

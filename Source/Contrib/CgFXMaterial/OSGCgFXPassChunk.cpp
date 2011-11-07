@@ -530,7 +530,7 @@ void CgFXPassChunk::updateStateUniforms(DrawEnv  *pEnv)
                     tSysTime - 
                     (floor(tSysTime / tBase10Shift) * tBase10Shift));
                 
-                cgSetParameter1f(pTime, static_cast<Real32>(TruncValue));
+                cgSetParameter1f(pTime, static_cast<Real32>(tTruncValue));
             }
             break;
 

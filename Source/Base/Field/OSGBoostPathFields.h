@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *                     contact: danielg@iastate.edu                          *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,32 +36,31 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_RADIXSORT_H_
-#define _OSG_RADIXSORT_H_
+#ifndef _OSG_BOOSTPATHFIELD_H_
+#define _OSG_BOOSTPATHFIELD_H_
 
-#include "OSGConfig.h"
-#include "OSGUtilDef.h"
-
-#include "OSGBaseTypes.h"
-#include "OSGSysFields.h"
+#include "OSGSField.h"
+#include "OSGMField.h"
+#include "OSGBoostPathFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
-/**
- *   Sorts a vector of floating point values.  After the sort is finished, the 
- *   sorted order of indices will be in the indices vector.
- *
- *   @param size     Number of elements to sort
- *   @param floats   Vector of 32-bit floating point numbers to sort
- *   @param indices  Vector which will contain the sorted indices, such that 
- *                   indices[0] will be the index of the smallest value in
- *                   floats 
- *
- */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-OSG_UTIL_DLLMAPPING 
-void RadixSort(UInt32 size, const MFReal32 &floats, MFUInt32 &indices);
+// Here the actual Field types are declared
+// You don't always have to have both, either is fine
+
+typedef SField<BoostPath> SFBoostPath;
+typedef MField<BoostPath> MFBoostPath;
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFBoostPath : public SField<BoostPath> {};
+struct MFBoostPath : public MField<BoostPath> {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif //_OSG_RADIXSORT_H_
+#endif // _OSG_BOOSTPATHFIELD_H_

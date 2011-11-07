@@ -625,6 +625,7 @@ void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
     }
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
     {
+        editMField(ForegroundsFieldMask, _mfForegrounds);
         _mfForegrounds.copyFromBin(pMem);
     }
 }
@@ -701,6 +702,7 @@ SimpleStage *SimpleStageBase::createEmpty(void)
     return returnValue;
 }
 
+
 FieldContainerTransitPtr SimpleStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -743,6 +745,7 @@ FieldContainerTransitPtr SimpleStageBase::shallowCopy(void) const
 
     return returnValue;
 }
+
 
 
 
@@ -997,7 +1000,6 @@ EditFieldHandlePtr SimpleStageBase::editHandleForegrounds    (void)
 
     return returnValue;
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

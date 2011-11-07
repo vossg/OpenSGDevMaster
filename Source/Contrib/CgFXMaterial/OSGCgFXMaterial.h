@@ -168,8 +168,14 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     /*! \name                 Parameter Access                             */
     /*! \{                                                                 */
 
-    bool                     setActiveTechnique    (std::string techniqueName);
-    std::vector<std::string> getAvailableTechniques(void                     );
+    bool setActiveTechnique(const std::string &techniqueName);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Parameter Access                             */
+    /*! \{                                                                 */
+
+    std::vector<std::string> getAvailableTechniques(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -36,12 +36,8 @@
 *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-#ifndef _OSGTravMaskGraphOp_H_
-#define _OSGTravMaskGraphOp_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGTRAVMASKGRAPHOP_H_
+#define _OSGTRAVMASKGRAPHOP_H_
 
 #include "OSGGraphOp.h"
 #include "OSGUtilDef.h"
@@ -56,7 +52,9 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     enum BitComparisionOps
     {
         BIT_EQUAL     = 0,
@@ -72,7 +70,7 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
     /*! \{                                                                 */
 
     typedef GraphOp                                 Inherited;
-    typedef TravMaskGraphOp                            Self;
+    typedef TravMaskGraphOp                         Self;
 
     OSG_GEN_INTERNAL_MEMOBJPTR(TravMaskGraphOp);
 
@@ -87,9 +85,9 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    static  ObjTransitPtr     create();
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr clone (void );
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -103,111 +101,126 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
 
-	/*! Sets the string to search for in a node's name. 
-	*	Only the end of the node's name is checked.
-	*	@param MatchName String to look for in a node's name. 
-	*
-	*/
-    void setMatchRegex(const std::string& MatchRegex);
-    void setMatchRegex(const boost::xpressive::cregex& MatchRegex);
-    void setMatchWholeName(bool value);
+    /*! Sets the string to search for in a node's name. 
+    *   Only the end of the node's name is checked.
+    *   @param MatchName String to look for in a node's name. 
+    *
+    */
 
-	/*! Sets the type of node core to search for (based on a node core's type ID)
-	*	@param ClassTypeID ID of the node core type to check for.
-	*/
-    void setNodeCoreType(const std::string& TypeName);
-    void setMatchDerivedCoreTypes(bool value);
+    void setMatchRegex    (const std::string              &MatchRegex);
+    void setMatchRegex    (const boost::xpressive::cregex &MatchRegex);
+    void setMatchWholeName(      bool                      value);
 
-	/*!	Sets the value which the traversal mask of nodes will be set to IF it
-	*	meets the right criteria.
-	*	@param NewTraversalMask The value which traversal masks will be set to.
-	*/
-    void setNewTravMask(UInt32 NewTraversalMask);
-    void setNewTravMaskOperation(UInt8 ApplyNewMaskOperation);
+    /*! Sets the type of node core to search for (based on a node core's
+    *   type ID) 
+    *   @param ClassTypeID ID of the node core type to check for.
+    */
 
-	/*! Sets the value of the traversal mask to check for.
-	*	@param CurrentTraversalMask Value of the traversal mask to check for.
-	*/
-	void setCurrentTravMaskValue(UInt32 CurrentTraversalMask);
-	void setMatchMaskCondition(UInt8 MatchMaskCondition);
+    void setNodeCoreType         (const std::string &TypeName);
+    void setMatchDerivedCoreTypes(      bool         value   );
 
-	/*! Sets whether or not to check a node's name for the search string.
-	*	If true, and a node's name ends in the search string, the new trav mask
-	*	will be set.
-	*	@param MatchName If true, the name will be checked for the search string.
-	*/
-	void setMatchName(bool MatchName = true);
+    /*! Sets the value which the traversal mask of nodes will be set to IF it
+    *   meets the right criteria.
+    *   @param NewTraversalMask The value which traversal masks will be set to.
+    */
 
-	/*! Sets whether or not to check a node core's type.
-	*	If true, and a node's core type matches the type set in setNodeCoreType, 
-	*	the new trav mask will be set.
-	*	@param MatchCore If true, the node core type will be checked. 
-	*/
-	void setMatchNodeCoreType(bool MatchCore = true);
+    void setNewTravMask         (UInt32 NewTraversalMask     );
+    void setNewTravMaskOperation(UInt8  ApplyNewMaskOperation);
 
-	/*! Sets whether or not to check a node current traversal mask.
-	*	If true, and a node's traversal mask matches the one set by setCurrentTravMask, 
-	*	the new trav mask will be set.
-	*	@param MatchCore If true, the node's traversal mask will be checked. 
-	*/
-	void setMatchCurrentTravMask(bool MatchCurMask = true);
+    /*! Sets the value of the traversal mask to check for.
+    *   @param CurrentTraversalMask Value of the traversal mask to check for.
+    */
 
-	/*! Sets whether or not to apply the travaersal mask to all of the decendents
-    *   of a node that satisfies the selection criteria.  The trversal mask
-    *   of decendents will be set even if they do not match the selection criteria.
-	*	@param MatchCore If true, decendent nodes of nodes that match the selection
-    *          criteria will have their traversal mask set.
-	*/
-	void setApplyMaskToAllDecendents(bool ApplyMaskToAllDecendents);
-	void setApplyToNonMatching(bool ApplyToNonMatching);
+    void setCurrentTravMaskValue(UInt32 CurrentTraversalMask);
+    void setMatchMaskCondition  (UInt8  MatchMaskCondition  );
 
-	/*! Returns the number of nodes whose traversal masks was changed. 
-	 *
-	 *	@return Only accurate after the graph op has been completed.
-	 */
-	UInt32 getNumChanged( void );
+    /*! Sets whether or not to check a node's name for the search string.
+    *   If true, and a node's name ends in the search string, the new trav mask
+    *   will be set.
+    *   @param MatchName If true, the name will be checked for the search
+    *                    string. 
+    */
 
-	virtual std::string usage(void);
-	virtual void setParams(const std::string params);
+    void setMatchName(bool MatchName = true);
+
+    /*! Sets whether or not to check a node core's type.
+    *   If true, and a node's core type matches the type set in
+    *   setNodeCoreType, the new trav mask will be set.
+    *   @param MatchCore If true, the node core type will be checked. 
+    */
+
+    void setMatchNodeCoreType(bool MatchCore = true);
+
+    /*! Sets whether or not to check a node current traversal mask.
+    *   If true, and a node's traversal mask matches the one set by
+    *   setCurrentTravMask, the new trav mask will be set.
+    *   @param MatchCore If true, the node's traversal mask will be checked. 
+    */
+
+    void setMatchCurrentTravMask(bool MatchCurMask = true);
+
+    /*! Sets whether or not to apply the travaersal mask to all of the
+    *   decendents of a node that satisfies the selection criteria.  The
+    *   trversal mask of decendents will be set even if they do not match the
+    *   selection criteria. 
+    *   @param MatchCore If true, decendent nodes of nodes that match the
+    *                    selection criteria will have their traversal mask set.
+    */
+
+    void setApplyMaskToAllDecendents(bool ApplyMaskToAllDecendents);
+    void setApplyToNonMatching      (bool ApplyToNonMatching      );
+
+    /*! Returns the number of nodes whose traversal masks was changed. 
+     *
+     *  @return Only accurate after the graph op has been completed.
+     */
+
+            UInt32      getNumChanged(      void              );
+
+    virtual std::string usage        (      void              );
+    virtual void        setParams    (const std::string params);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:
+
+  protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-             TravMaskGraphOp();
+             TravMaskGraphOp(void);
 
-    virtual ~TravMaskGraphOp(void                                );
+    virtual ~TravMaskGraphOp(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+
+  private:
+
     //Name matching criteria
-	bool mMatchName;
-    boost::xpressive::cregex mMatchRegex;
-    bool mMatchWholeName;
+    bool                      mMatchName;
+    boost::xpressive::cregex  mMatchRegex;
+    bool                      mMatchWholeName;
 
     //Type matching criteria
-	bool mMatchNodeCoreType;
-    const FieldContainerType* mNodeCoreType;
-    bool mMatchDerivedCoreTypes;
+    bool                      mMatchNodeCoreType;
+    FieldContainerType const *mNodeCoreType;
+    bool                      mMatchDerivedCoreTypes;
 
     //Mask matching criteria
-	bool mMatchCurTravMask;
-	UInt32 mMatchCurTravMaskValue;
-    UInt8  mMatchMaskCondition;
+    bool                      mMatchCurTravMask;
+    UInt32                    mMatchCurTravMaskValue;
+    UInt8                     mMatchMaskCondition;
 
     //Parameters for applying new mask
-    bool mApplyMaskToAllDecendents;
-    bool mApplyToNonMatching;
-	UInt32 mNewTravMask;
-    UInt8  mApplyNewMaskOperation;
+    bool                      mApplyMaskToAllDecendents;
+    bool                      mApplyToNonMatching;
+    UInt32                    mNewTravMask;
+    UInt8                     mApplyNewMaskOperation;
 
-	UInt32 mNumChanged;
-	
+    UInt32                    mNumChanged;
+    
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
@@ -216,7 +229,6 @@ typedef TravMaskGraphOp *TravMaskGraphOpP;
 
 OSG_GEN_MEMOBJPTR(TravMaskGraphOp);
 
-
 OSG_END_NAMESPACE
 
-#endif /* _OSGTravMaskGraphOp_H_ */
+#endif /* _OSGTRAVMASKGRAPHOP_H_ */

@@ -48,7 +48,6 @@
  *****************************************************************************
 \*****************************************************************************/
 
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -100,31 +99,6 @@ void CgFXMaterialBase::setTreatTechniquesAsVariants(const bool value)
 
     _sfTreatTechniquesAsVariants.setValue(value);
 }
-//! Get the value of the CgFXMaterial::_sfParameterValueSource field.
-
-inline
-UInt8 &CgFXMaterialBase::editParameterValueSource(void)
-{
-    editSField(ParameterValueSourceFieldMask);
-
-    return _sfParameterValueSource.getValue();
-}
-
-//! Get the value of the CgFXMaterial::_sfParameterValueSource field.
-inline
-      UInt8  CgFXMaterialBase::getParameterValueSource(void) const
-{
-    return _sfParameterValueSource.getValue();
-}
-
-//! Set the value of the CgFXMaterial::_sfParameterValueSource field.
-inline
-void CgFXMaterialBase::setParameterValueSource(const UInt8 value)
-{
-    editSField(ParameterValueSourceFieldMask);
-
-    _sfParameterValueSource.setValue(value);
-}
 //! Get the value of the CgFXMaterial::_sfEffectFile field.
 
 inline
@@ -149,6 +123,31 @@ void CgFXMaterialBase::setEffectFile(const std::string &value)
     editSField(EffectFileFieldMask);
 
     _sfEffectFile.setValue(value);
+}
+//! Get the value of the CgFXMaterial::_sfParameterValueSource field.
+
+inline
+UInt8 &CgFXMaterialBase::editParameterValueSource(void)
+{
+    editSField(ParameterValueSourceFieldMask);
+
+    return _sfParameterValueSource.getValue();
+}
+
+//! Get the value of the CgFXMaterial::_sfParameterValueSource field.
+inline
+      UInt8  CgFXMaterialBase::getParameterValueSource(void) const
+{
+    return _sfParameterValueSource.getValue();
+}
+
+//! Set the value of the CgFXMaterial::_sfParameterValueSource field.
+inline
+void CgFXMaterialBase::setParameterValueSource(const UInt8 value)
+{
+    editSField(ParameterValueSourceFieldMask);
+
+    _sfParameterValueSource.setValue(value);
 }
 //! Get the value of the CgFXMaterial::_sfEffectString field.
 
@@ -311,11 +310,11 @@ void CgFXMaterialBase::execSync (      CgFXMaterialBase *pFrom,
     if(FieldBits::NoField != (TreatTechniquesAsVariantsFieldMask & whichField))
         _sfTreatTechniquesAsVariants.syncWith(pFrom->_sfTreatTechniquesAsVariants);
 
-    if(FieldBits::NoField != (ParameterValueSourceFieldMask & whichField))
-        _sfParameterValueSource.syncWith(pFrom->_sfParameterValueSource);
-
     if(FieldBits::NoField != (EffectFileFieldMask & whichField))
         _sfEffectFile.syncWith(pFrom->_sfEffectFile);
+
+    if(FieldBits::NoField != (ParameterValueSourceFieldMask & whichField))
+        _sfParameterValueSource.syncWith(pFrom->_sfParameterValueSource);
 
     if(FieldBits::NoField != (EffectStringFieldMask & whichField))
         _sfEffectString.syncWith(pFrom->_sfEffectString);

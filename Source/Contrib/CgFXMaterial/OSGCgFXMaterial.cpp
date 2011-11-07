@@ -688,6 +688,10 @@ bool CgFXMaterial::setActiveTechnique(const std::string &techniqueName)
                 return true;
             }
         }
+
+        _bForceUseFallback = false;
+
+        return false;
     }
     else if(techniqueName.compare(FALBACK_MATERIAL_TECHNIQUE_NAME) == 0)
     {
@@ -1191,6 +1195,7 @@ void CgFXMaterial::extractParameters(void)
                                     this->addUniformVariable(
                                         szParamName.c_str(), 
                                         val )               ;
+                                }
                             }
                             else // use default value from .cgfx file
                             {

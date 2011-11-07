@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: Johannes Brunen                                                  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,14 +48,14 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGMATERIALCHUNKOVERRIDEGROUPFIELDS_H_
-#define _OSGMATERIALCHUNKOVERRIDEGROUPFIELDS_H_
+#ifndef _OSGBOOSTPATHATTACHMENTFIELDS_H_
+#define _OSGBOOSTPATHATTACHMENTFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -65,15 +65,15 @@
 OSG_BEGIN_NAMESPACE
 
 
-class MaterialChunkOverrideGroup;
+class BoostPathAttachment;
 
-OSG_GEN_CONTAINERPTR(MaterialChunkOverrideGroup);
-/*! \ingroup GrpGroupMiscFieldTraits
-    \ingroup GrpLibOSGGroup
+OSG_GEN_CONTAINERPTR(BoostPathAttachment);
+/*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<MaterialChunkOverrideGroup *, nsOSG> :
-    public FieldTraitsFCPtrBase<MaterialChunkOverrideGroup *, nsOSG>
+struct FieldTraits<BoostPathAttachment *, nsOSG> :
+    public FieldTraitsFCPtrBase<BoostPathAttachment *, nsOSG>
 {
   private:
 
@@ -81,11 +81,11 @@ struct FieldTraits<MaterialChunkOverrideGroup *, nsOSG> :
 
   public:
 
-    typedef FieldTraits<MaterialChunkOverrideGroup *, nsOSG>  Self;
+    typedef FieldTraits<BoostPathAttachment *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -96,120 +96,120 @@ struct FieldTraits<MaterialChunkOverrideGroup *, nsOSG> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecMaterialChunkOverrideGroupPtr"; 
+    return "SFRecBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecMaterialChunkOverrideGroupPtr"; 
+    return "SFUnrecBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakMaterialChunkOverrideGroupPtr"; 
+    return "SFWeakBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdMaterialChunkOverrideGroupPtr"; 
+    return "SFUnrefdBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecMaterialChunkOverrideGroupPtr"; 
+    return "MFRecBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecMaterialChunkOverrideGroupPtr"; 
+    return "MFUnrecBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakMaterialChunkOverrideGroupPtr"; 
+    return "MFWeakBoostPathAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BoostPathAttachment *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdMaterialChunkOverrideGroupPtr"; 
+    return "MFUnrefdBoostPathAttachmentPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpGroupMiscFieldSFields */
-typedef PointerSField<MaterialChunkOverrideGroup *,
-                      RecordedRefCountPolicy, nsOSG  > SFRecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldSFields */
-typedef PointerSField<MaterialChunkOverrideGroup *,
-                      UnrecordedRefCountPolicy, nsOSG> SFUnrecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldSFields */
-typedef PointerSField<MaterialChunkOverrideGroup *,
-                      WeakRefCountPolicy, nsOSG      > SFWeakMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldSFields */
-typedef PointerSField<MaterialChunkOverrideGroup *,
-                      NoRefCountPolicy, nsOSG        > SFUncountedMaterialChunkOverrideGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<BoostPathAttachment *,
+                      RecordedRefCountPolicy, nsOSG  > SFRecBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<BoostPathAttachment *,
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<BoostPathAttachment *,
+                      WeakRefCountPolicy, nsOSG      > SFWeakBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<BoostPathAttachment *,
+                      NoRefCountPolicy, nsOSG        > SFUncountedBoostPathAttachmentPtr;
 
 
-/*! \ingroup GrpGroupMiscFieldMFields */
-typedef PointerMField<MaterialChunkOverrideGroup *,
-                      RecordedRefCountPolicy, nsOSG  > MFRecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldMFields */
-typedef PointerMField<MaterialChunkOverrideGroup *,
-                      UnrecordedRefCountPolicy, nsOSG> MFUnrecMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldMFields */
-typedef PointerMField<MaterialChunkOverrideGroup *,
-                      WeakRefCountPolicy, nsOSG      > MFWeakMaterialChunkOverrideGroupPtr;
-/*! \ingroup GrpGroupMiscFieldMFields */
-typedef PointerMField<MaterialChunkOverrideGroup *,
-                      NoRefCountPolicy, nsOSG        > MFUncountedMaterialChunkOverrideGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<BoostPathAttachment *,
+                      RecordedRefCountPolicy, nsOSG  > MFRecBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<BoostPathAttachment *,
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<BoostPathAttachment *,
+                      WeakRefCountPolicy, nsOSG      > MFWeakBoostPathAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<BoostPathAttachment *,
+                      NoRefCountPolicy, nsOSG        > MFUncountedBoostPathAttachmentPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
-struct SFRecMaterialChunkOverrideGroupPtr : 
-    public PointerSField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecBoostPathAttachmentPtr : 
+    public PointerSField<BoostPathAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
-struct SFUnrecMaterialChunkOverrideGroupPtr : 
-    public PointerSField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecBoostPathAttachmentPtr : 
+    public PointerSField<BoostPathAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
-struct SFWeakMaterialChunkOverrideGroupPtr :
-    public PointerSField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakBoostPathAttachmentPtr :
+    public PointerSField<BoostPathAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpGroupMiscFieldSFields \ingroup GrpLibOSGGroup */
-struct SFUncountedMaterialChunkOverrideGroupPtr :
-    public PointerSField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedBoostPathAttachmentPtr :
+    public PointerSField<BoostPathAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
-struct MFRecMaterialChunkOverrideGroupPtr :
-    public PointerMField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecBoostPathAttachmentPtr :
+    public PointerMField<BoostPathAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
-struct MFUnrecMaterialChunkOverrideGroupPtr :
-    public PointerMField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecBoostPathAttachmentPtr :
+    public PointerMField<BoostPathAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
-struct MFWeakMaterialChunkOverrideGroupPtr :
-    public PointerMField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakBoostPathAttachmentPtr :
+    public PointerMField<BoostPathAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpGroupMiscFieldMFields \ingroup GrpLibOSGGroup */
-struct MFUncountedMaterialChunkOverrideGroupPtr :
-    public PointerMField<MaterialChunkOverrideGroup *,
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedBoostPathAttachmentPtr :
+    public PointerMField<BoostPathAttachment *,
                          NoRefCountPolicy        > {};
 
 
@@ -218,4 +218,4 @@ struct MFUncountedMaterialChunkOverrideGroupPtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGMATERIALCHUNKOVERRIDEGROUPFIELDS_H_ */
+#endif /* _OSGBOOSTPATHATTACHMENTFIELDS_H_ */

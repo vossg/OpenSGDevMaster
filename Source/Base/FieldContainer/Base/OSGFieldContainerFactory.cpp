@@ -74,7 +74,7 @@ for OSG::FieldContainerFactory.
 const FieldContainerFactoryBase::ContainerStore &
     FieldContainerFactoryBase::getFieldContainerStore(void) const
 {
-    return _vContainerStore;
+    return _containerStore;
 }
 
 /*-------------------------------------------------------------------------*/

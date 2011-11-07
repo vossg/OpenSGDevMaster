@@ -961,6 +961,137 @@ EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
     return returnValue;
 }
 
+<<<<<<< HEAD
+=======
+GetFieldHandlePtr ViewportBase::getHandleTravMask        (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTravMask,
+             this->getType().getFieldDesc(TravMaskFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleTravMask       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTravMask,
+             this->getType().getFieldDesc(TravMaskFieldId),
+             this));
+
+
+    editSField(TravMaskFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ViewportBase::getHandleEnabled         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
+
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ViewportBase::getHandleDrawTime        (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfDrawTime,
+             this->getType().getFieldDesc(DrawTimeFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleDrawTime       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfDrawTime,
+             this->getType().getFieldDesc(DrawTimeFieldId),
+             this));
+
+
+    editSField(DrawTimeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ViewportBase::getHandleDrawableId      (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfDrawableId,
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleDrawableId     (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfDrawableId,
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             this));
+
+
+    editSField(DrawableIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ViewportBase::getHandleRenderOptions   (void) const
+{
+    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::GetHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             const_cast<ViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleRenderOptions  (void)
+{
+    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::EditHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&Viewport::setRenderOptions,
+                    static_cast<Viewport *>(this), _1));
+
+    editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+>>>>>>> changed: basic cleanup, merge compile errors
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,

@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: Johannes Brunen                                                  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class MaterialChunkOverrideGroup!
+ **     class BoostPathAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -57,10 +57,9 @@
 
 
 
-#include "OSGMaterial.h"                // Material Class
 
-#include "OSGMaterialChunkOverrideGroupBase.h"
-#include "OSGMaterialChunkOverrideGroup.h"
+#include "OSGBoostPathAttachmentBase.h"
+#include "OSGBoostPathAttachment.h"
 
 #include <boost/bind.hpp>
 
@@ -74,18 +73,15 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::MaterialChunkOverrideGroup
-    MaterialChunkOverrideGroup is a ChunkOverrideGroup  node that takes a
-    material  instead of individual chunks. If the material can't be finalized
-    to a ChunkMaterial the class behaves exactly as the MaterialGroup class,
-    i.e. overwriting the complete material instead of individual chunks.
+/*! \class OSG::BoostPathAttachment
+    
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Material *      MaterialChunkOverrideGroupBase::_sfMaterial
+/*! \var BoostPath       BoostPathAttachmentBase::_sfPath
     
 */
 
@@ -95,124 +91,117 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<MaterialChunkOverrideGroup *, nsOSG>::_type(
-    "MaterialChunkOverrideGroupPtr", 
-    "ChunkOverrideGroupPtr", 
-    MaterialChunkOverrideGroup::getClassType(),
+PointerType FieldTraits<BoostPathAttachment *, nsOSG>::_type(
+    "BoostPathAttachmentPtr", 
+    "AttachmentPtr", 
+    BoostPathAttachment::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(MaterialChunkOverrideGroup *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(BoostPathAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MaterialChunkOverrideGroup *,
+                           BoostPathAttachment *,
                            nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MaterialChunkOverrideGroup *,
+                           BoostPathAttachment *,
                            nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void MaterialChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
+void BoostPathAttachmentBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecMaterialPtr::Description(
-        SFUnrecMaterialPtr::getClassType(),
-        "material",
+    pDesc = new SFBoostPath::Description(
+        SFBoostPath::getClassType(),
+        "path",
         "",
-        MaterialFieldId, MaterialFieldMask,
-        false,
+        PathFieldId, PathFieldMask,
+        true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&MaterialChunkOverrideGroup::editHandleMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialChunkOverrideGroup::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&BoostPathAttachment::editHandlePath),
+        static_cast<FieldGetMethodSig >(&BoostPathAttachment::getHandlePath));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-MaterialChunkOverrideGroupBase::TypeObject MaterialChunkOverrideGroupBase::_type(
-    MaterialChunkOverrideGroupBase::getClassname(),
+BoostPathAttachmentBase::TypeObject BoostPathAttachmentBase::_type(
+    BoostPathAttachmentBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "BoostPathAttachment",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&MaterialChunkOverrideGroupBase::createEmptyLocal),
-    MaterialChunkOverrideGroup::initMethod,
-    MaterialChunkOverrideGroup::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialChunkOverrideGroup::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&BoostPathAttachmentBase::createEmptyLocal),
+    BoostPathAttachment::initMethod,
+    BoostPathAttachment::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&BoostPathAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"MaterialChunkOverrideGroup\"\n"
-    "   parent=\"ChunkOverrideGroup\"\n"
-    "   library=\"Group\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   structure=\"concrete\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   isNodeCore=\"true\"\n"
-    "   authors=\"Johannes Brunen\"\n"
-    "   docGroupBase=\"GrpGroupMisc\"\n"
-    "   >\n"
-    "  MaterialChunkOverrideGroup is a ChunkOverrideGroup  node that takes a\n"
-    "  material  instead of individual chunks. If the material can't be finalized\n"
-    "  to a ChunkMaterial the class behaves exactly as the MaterialGroup class,\n"
-    "  i.e. overwriting the complete material instead of individual chunks.\n"
-    "\n"
+    "    name=\"BoostPathAttachment\"\n"
+    "    parent=\"Attachment\"\n"
+    "    library=\"System\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"concrete\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    isNodeCore=\"false\"\n"
+    "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    >\n"
     "  <Field\n"
-    "\t name=\"material\"\n"
-    "\t type=\"Material\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
-    "     category=\"pointer\"\n"
-    "\t >\n"
+    "      name=\"path\"\n"
+    "      type=\"BoostPath\"\n"
+    "      category=\"data\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      defaultValue=\"\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
-    "MaterialChunkOverrideGroup is a ChunkOverrideGroup  node that takes a\n"
-    "material  instead of individual chunks. If the material can't be finalized\n"
-    "to a ChunkMaterial the class behaves exactly as the MaterialGroup class,\n"
-    "i.e. overwriting the complete material instead of individual chunks.\n"
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MaterialChunkOverrideGroupBase::getType(void)
+FieldContainerType &BoostPathAttachmentBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &MaterialChunkOverrideGroupBase::getType(void) const
+const FieldContainerType &BoostPathAttachmentBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 MaterialChunkOverrideGroupBase::getContainerSize(void) const
+UInt32 BoostPathAttachmentBase::getContainerSize(void) const
 {
-    return sizeof(MaterialChunkOverrideGroup);
+    return sizeof(BoostPathAttachment);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the MaterialChunkOverrideGroup::_sfMaterial field.
-const SFUnrecMaterialPtr *MaterialChunkOverrideGroupBase::getSFMaterial(void) const
+SFBoostPath *BoostPathAttachmentBase::editSFPath(void)
 {
-    return &_sfMaterial;
+    editSField(PathFieldMask);
+
+    return &_sfPath;
 }
 
-SFUnrecMaterialPtr  *MaterialChunkOverrideGroupBase::editSFMaterial       (void)
+const SFBoostPath *BoostPathAttachmentBase::getSFPath(void) const
 {
-    editSField(MaterialFieldMask);
-
-    return &_sfMaterial;
+    return &_sfPath;
 }
+
 
 
 
@@ -220,94 +209,94 @@ SFUnrecMaterialPtr  *MaterialChunkOverrideGroupBase::editSFMaterial       (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MaterialChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 BoostPathAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
+    if(FieldBits::NoField != (PathFieldMask & whichField))
     {
-        returnValue += _sfMaterial.getBinSize();
+        returnValue += _sfPath.getBinSize();
     }
 
     return returnValue;
 }
 
-void MaterialChunkOverrideGroupBase::copyToBin(BinaryDataHandler &pMem,
+void BoostPathAttachmentBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
+    if(FieldBits::NoField != (PathFieldMask & whichField))
     {
-        _sfMaterial.copyToBin(pMem);
+        _sfPath.copyToBin(pMem);
     }
 }
 
-void MaterialChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
+void BoostPathAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
+    if(FieldBits::NoField != (PathFieldMask & whichField))
     {
-        editSField(MaterialFieldMask);
-        _sfMaterial.copyFromBin(pMem);
+        editSField(PathFieldMask);
+        _sfPath.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-MaterialChunkOverrideGroupTransitPtr MaterialChunkOverrideGroupBase::createLocal(BitVector bFlags)
+BoostPathAttachmentTransitPtr BoostPathAttachmentBase::createLocal(BitVector bFlags)
 {
-    MaterialChunkOverrideGroupTransitPtr fc;
+    BoostPathAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<MaterialChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<BoostPathAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-MaterialChunkOverrideGroupTransitPtr MaterialChunkOverrideGroupBase::createDependent(BitVector bFlags)
+BoostPathAttachmentTransitPtr BoostPathAttachmentBase::createDependent(BitVector bFlags)
 {
-    MaterialChunkOverrideGroupTransitPtr fc;
+    BoostPathAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<MaterialChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<BoostPathAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-MaterialChunkOverrideGroupTransitPtr MaterialChunkOverrideGroupBase::create(void)
+BoostPathAttachmentTransitPtr BoostPathAttachmentBase::create(void)
 {
-    MaterialChunkOverrideGroupTransitPtr fc;
+    BoostPathAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<MaterialChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<BoostPathAttachment>(tmpPtr);
     }
 
     return fc;
 }
 
-MaterialChunkOverrideGroup *MaterialChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
+BoostPathAttachment *BoostPathAttachmentBase::createEmptyLocal(BitVector bFlags)
 {
-    MaterialChunkOverrideGroup *returnValue;
+    BoostPathAttachment *returnValue;
 
-    newPtr<MaterialChunkOverrideGroup>(returnValue, bFlags);
+    newPtr<BoostPathAttachment>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -315,11 +304,11 @@ MaterialChunkOverrideGroup *MaterialChunkOverrideGroupBase::createEmptyLocal(Bit
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MaterialChunkOverrideGroup *MaterialChunkOverrideGroupBase::createEmpty(void)
+BoostPathAttachment *BoostPathAttachmentBase::createEmpty(void)
 {
-    MaterialChunkOverrideGroup *returnValue;
+    BoostPathAttachment *returnValue;
 
-    newPtr<MaterialChunkOverrideGroup>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<BoostPathAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -328,12 +317,12 @@ MaterialChunkOverrideGroup *MaterialChunkOverrideGroupBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopyLocal(
+FieldContainerTransitPtr BoostPathAttachmentBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MaterialChunkOverrideGroup *tmpPtr;
+    BoostPathAttachment *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const MaterialChunkOverrideGroup *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const BoostPathAttachment *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -342,12 +331,12 @@ FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopyDependent(
+FieldContainerTransitPtr BoostPathAttachmentBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    MaterialChunkOverrideGroup *tmpPtr;
+    BoostPathAttachment *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const MaterialChunkOverrideGroup *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const BoostPathAttachment *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -356,12 +345,12 @@ FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopy(void) const
+FieldContainerTransitPtr BoostPathAttachmentBase::shallowCopy(void) const
 {
-    MaterialChunkOverrideGroup *tmpPtr;
+    BoostPathAttachment *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const MaterialChunkOverrideGroup *>(this),
+           dynamic_cast<const BoostPathAttachment *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -376,76 +365,62 @@ FieldContainerTransitPtr MaterialChunkOverrideGroupBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-MaterialChunkOverrideGroupBase::MaterialChunkOverrideGroupBase(void) :
+BoostPathAttachmentBase::BoostPathAttachmentBase(void) :
     Inherited(),
-    _sfMaterial               (NULL)
+    _sfPath                   ()
 {
 }
 
-MaterialChunkOverrideGroupBase::MaterialChunkOverrideGroupBase(const MaterialChunkOverrideGroupBase &source) :
+BoostPathAttachmentBase::BoostPathAttachmentBase(const BoostPathAttachmentBase &source) :
     Inherited(source),
-    _sfMaterial               (NULL)
+    _sfPath                   (source._sfPath                   )
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-MaterialChunkOverrideGroupBase::~MaterialChunkOverrideGroupBase(void)
+BoostPathAttachmentBase::~BoostPathAttachmentBase(void)
 {
 }
 
-void MaterialChunkOverrideGroupBase::onCreate(const MaterialChunkOverrideGroup *source)
+
+GetFieldHandlePtr BoostPathAttachmentBase::getHandlePath            (void) const
 {
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        MaterialChunkOverrideGroup *pThis = static_cast<MaterialChunkOverrideGroup *>(this);
-
-        pThis->setMaterial(source->getMaterial());
-    }
-}
-
-GetFieldHandlePtr MaterialChunkOverrideGroupBase::getHandleMaterial        (void) const
-{
-    SFUnrecMaterialPtr::GetHandlePtr returnValue(
-        new  SFUnrecMaterialPtr::GetHandle(
-             &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId),
-             const_cast<MaterialChunkOverrideGroupBase *>(this)));
+    SFBoostPath::GetHandlePtr returnValue(
+        new  SFBoostPath::GetHandle(
+             &_sfPath,
+             this->getType().getFieldDesc(PathFieldId),
+             const_cast<BoostPathAttachmentBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr MaterialChunkOverrideGroupBase::editHandleMaterial       (void)
+EditFieldHandlePtr BoostPathAttachmentBase::editHandlePath           (void)
 {
-    SFUnrecMaterialPtr::EditHandlePtr returnValue(
-        new  SFUnrecMaterialPtr::EditHandle(
-             &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId),
+    SFBoostPath::EditHandlePtr returnValue(
+        new  SFBoostPath::EditHandle(
+             &_sfPath,
+             this->getType().getFieldDesc(PathFieldId),
              this));
 
-    returnValue->setSetMethod(
-        boost::bind(&MaterialChunkOverrideGroup::setMaterial,
-                    static_cast<MaterialChunkOverrideGroup *>(this), _1));
 
-    editSField(MaterialFieldMask);
+    editSField(PathFieldMask);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void MaterialChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
+void BoostPathAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    MaterialChunkOverrideGroup *pThis = static_cast<MaterialChunkOverrideGroup *>(this);
+    BoostPathAttachment *pThis = static_cast<BoostPathAttachment *>(this);
 
-    pThis->execSync(static_cast<MaterialChunkOverrideGroup *>(&oFrom),
+    pThis->execSync(static_cast<BoostPathAttachment *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -455,24 +430,22 @@ void MaterialChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MaterialChunkOverrideGroupBase::createAspectCopy(
+FieldContainer *BoostPathAttachmentBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    MaterialChunkOverrideGroup *returnValue;
+    BoostPathAttachment *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const MaterialChunkOverrideGroup *>(pRefAspect),
-                  dynamic_cast<const MaterialChunkOverrideGroup *>(this));
+                  dynamic_cast<const BoostPathAttachment *>(pRefAspect),
+                  dynamic_cast<const BoostPathAttachment *>(this));
 
     return returnValue;
 }
 #endif
 
-void MaterialChunkOverrideGroupBase::resolveLinks(void)
+void BoostPathAttachmentBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<MaterialChunkOverrideGroup *>(this)->setMaterial(NULL);
 
 
 }

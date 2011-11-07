@@ -91,8 +91,6 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(CgFXMaterial);
-    
-    
 
     /*==========================  PUBLIC  =================================*/
 
@@ -101,9 +99,9 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     enum
     {
         TreatTechniquesAsVariantsFieldId = Inherited::NextFieldId,
-        ParameterValueSourceFieldId = TreatTechniquesAsVariantsFieldId + 1,
-        EffectFileFieldId = ParameterValueSourceFieldId + 1,
-        EffectStringFieldId = EffectFileFieldId + 1,
+        EffectFileFieldId = TreatTechniquesAsVariantsFieldId + 1,
+        ParameterValueSourceFieldId = EffectFileFieldId + 1,
+        EffectStringFieldId = ParameterValueSourceFieldId + 1,
         CompilerOptionsFieldId = EffectStringFieldId + 1,
         VariablesFieldId = CompilerOptionsFieldId + 1,
         SelectedTechniqueFieldId = VariablesFieldId + 1,
@@ -116,10 +114,10 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
 
     static const OSG::BitVector TreatTechniquesAsVariantsFieldMask =
         (TypeTraits<BitVector>::One << TreatTechniquesAsVariantsFieldId);
-    static const OSG::BitVector ParameterValueSourceFieldMask =
-        (TypeTraits<BitVector>::One << ParameterValueSourceFieldId);
     static const OSG::BitVector EffectFileFieldMask =
         (TypeTraits<BitVector>::One << EffectFileFieldId);
+    static const OSG::BitVector ParameterValueSourceFieldMask =
+        (TypeTraits<BitVector>::One << ParameterValueSourceFieldId);
     static const OSG::BitVector EffectStringFieldMask =
         (TypeTraits<BitVector>::One << EffectStringFieldId);
     static const OSG::BitVector CompilerOptionsFieldMask =
@@ -140,8 +138,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFBool            SFTreatTechniquesAsVariantsType;
-    typedef SFUInt8           SFParameterValueSourceType;
     typedef SFString          SFEffectFileType;
+    typedef SFUInt8           SFParameterValueSourceType;
     typedef SFString          SFEffectStringType;
     typedef MFString          MFCompilerOptionsType;
     typedef SFUnrecChildShaderProgramVariablesPtr SFVariablesType;
@@ -178,11 +176,11 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
                   SFBool              *editSFTreatTechniquesAsVariants(void);
             const SFBool              *getSFTreatTechniquesAsVariants (void) const;
 
-                  SFUInt8             *editSFParameterValueSource(void);
-            const SFUInt8             *getSFParameterValueSource (void) const;
-
                   SFString            *editSFEffectFile     (void);
             const SFString            *getSFEffectFile      (void) const;
+
+                  SFUInt8             *editSFParameterValueSource(void);
+            const SFUInt8             *getSFParameterValueSource (void) const;
 
                   SFString            *editSFEffectString   (void);
             const SFString            *getSFEffectString    (void) const;
@@ -197,11 +195,11 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
                   bool                &editTreatTechniquesAsVariants(void);
                   bool                 getTreatTechniquesAsVariants (void) const;
 
-                  UInt8               &editParameterValueSource(void);
-                  UInt8                getParameterValueSource (void) const;
-
                   std::string         &editEffectFile     (void);
             const std::string         &getEffectFile      (void) const;
+
+                  UInt8               &editParameterValueSource(void);
+                  UInt8                getParameterValueSource (void) const;
 
                   std::string         &editEffectString   (void);
             const std::string         &getEffectString    (void) const;
@@ -218,8 +216,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     /*! \{                                                                 */
 
             void setTreatTechniquesAsVariants(const bool value);
-            void setParameterValueSource(const UInt8 value);
             void setEffectFile     (const std::string &value);
+            void setParameterValueSource(const UInt8 value);
             void setEffectString   (const std::string &value);
             void setGLId           (const GLenum &value);
 
@@ -287,8 +285,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     /*! \{                                                                 */
 
     SFBool            _sfTreatTechniquesAsVariants;
-    SFUInt8           _sfParameterValueSource;
     SFString          _sfEffectFile;
+    SFUInt8           _sfParameterValueSource;
     SFString          _sfEffectString;
     MFString          _mfCompilerOptions;
     SFUnrecChildShaderProgramVariablesPtr _sfVariables;
@@ -335,10 +333,10 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
 
     GetFieldHandlePtr  getHandleTreatTechniquesAsVariants (void) const;
     EditFieldHandlePtr editHandleTreatTechniquesAsVariants(void);
-    GetFieldHandlePtr  getHandleParameterValueSource (void) const;
-    EditFieldHandlePtr editHandleParameterValueSource(void);
     GetFieldHandlePtr  getHandleEffectFile      (void) const;
     EditFieldHandlePtr editHandleEffectFile     (void);
+    GetFieldHandlePtr  getHandleParameterValueSource (void) const;
+    EditFieldHandlePtr editHandleParameterValueSource(void);
     GetFieldHandlePtr  getHandleEffectString    (void) const;
     EditFieldHandlePtr editHandleEffectString   (void);
     GetFieldHandlePtr  getHandleCompilerOptions (void) const;

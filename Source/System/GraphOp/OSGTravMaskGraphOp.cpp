@@ -86,29 +86,32 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-TravMaskGraphOp::TravMaskGraphOp() :
-	mMatchName(true),
-    mMatchWholeName(true),
-	mMatchNodeCoreType(false),
-	mNodeCoreType(NULL),
-	mMatchDerivedCoreTypes(true),
-	mMatchCurTravMask(false),
-	mMatchMaskCondition(BIT_EQUAL),
-	mMatchCurTravMaskValue(1),
-    mApplyMaskToAllDecendents(false),
-    mApplyToNonMatching(false),
-	mNewTravMask(1),
-    mApplyNewMaskOperation(BIT_EQUAL),
-	mNumChanged(0)
+TravMaskGraphOp::TravMaskGraphOp(void) :
+    Inherited                (         ),
+	mMatchName               (true     ),
+    mMatchWholeName          (true     ),
+	mMatchNodeCoreType       (false    ),
+	mNodeCoreType            (NULL     ),
+	mMatchDerivedCoreTypes   (true     ),
+	mMatchCurTravMask        (false    ),
+	mMatchCurTravMaskValue   (1        ),
+	mMatchMaskCondition      (BIT_EQUAL),
+    mApplyMaskToAllDecendents(false    ),
+    mApplyToNonMatching      (false    ),
+	mNewTravMask             (1        ),
+    mApplyNewMaskOperation   (BIT_EQUAL),
+	mNumChanged              (0        )
 {
-	mMatchRegex = boost::xpressive::cregex::compile(".*", boost::xpressive::regex_constants::icase);
+	mMatchRegex = boost::xpressive::cregex::compile(
+        ".*", 
+        boost::xpressive::regex_constants::icase);
 }
 
 TravMaskGraphOp::~TravMaskGraphOp(void)
 {
 }
 
-TravMaskGraphOpTransitPtr TravMaskGraphOp::create()
+TravMaskGraphOpTransitPtr TravMaskGraphOp::create(void)
 {
     return TravMaskGraphOpTransitPtr(new TravMaskGraphOp());
 }
@@ -156,25 +159,25 @@ void TravMaskGraphOp::setApplyToNonMatching(bool ApplyToNonMatching)
 
 void TravMaskGraphOp::setMatchRegex(const std::string& MatchName)
 {
-	mMatchRegex = boost::xpressive::cregex::compile(MatchName, boost::xpressive::regex_constants::icase);
+	mMatchRegex = boost::xpressive::cregex::compile(
+        MatchName, 
+        boost::xpressive::regex_constants::icase);
 }
 
-void TravMaskGraphOp::setMatchRegex(const boost::xpressive::cregex& MatchRegex)
+void TravMaskGraphOp::setMatchRegex(const boost::xpressive::cregex &MatchRegex)
 {
 	mMatchRegex = MatchRegex;
 }
 
-void TravMaskGraphOp::setNodeCoreType(const std::string& TypeName)
+void TravMaskGraphOp::setNodeCoreType(const std::string &TypeName)
 {
 	mNodeCoreType = FieldContainerFactory::the()->findType(TypeName.c_str());
 }
-
 
 void TravMaskGraphOp::setNewTravMask(UInt32 NewTraversalMask)
 {
 	mNewTravMask = NewTraversalMask;
 }
-
 
 void TravMaskGraphOp::setCurrentTravMaskValue(UInt32 CurrentTraversalMask)
 {
@@ -200,32 +203,42 @@ void TravMaskGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);   
     
-    ps("NewTraversalMask", mNewTravMask);
+    ps("NewTraversalMask",         mNewTravMask             );
     ps("ApplyMaskToAllDecendents", mApplyMaskToAllDecendents);
-    ps("ApplyToNonMatching", mApplyToNonMatching);
+    ps("ApplyToNonMatching",       mApplyToNonMatching      );
     //ps("ApplyNewMaskOperation", mApplyNewMaskOperation);
 
 
     //Name Matching
     ps("MatchName", mMatchName);
+
     std::string MatchRegex;
-	ps("MatchRegex", MatchRegex);
+
+	ps("MatchRegex",     MatchRegex     );
     ps("MatchWholeName", mMatchWholeName);
-	mMatchRegex = boost::xpressive::cregex::compile(MatchRegex, boost::xpressive::regex_constants::icase);
+
+	mMatchRegex = boost::xpressive::cregex::compile(
+        MatchRegex, 
+        boost::xpressive::regex_constants::icase);
 
     //Type Matching
-    ps("MatchNodeCoreType", mMatchNodeCoreType);
+    ps("MatchNodeCoreType",     mMatchNodeCoreType    );
     ps("MatchDerivedCoreTypes", mMatchDerivedCoreTypes);
+
     std::string NodeCoreTypeName;
-    ps("NodeCoreTypeName",NodeCoreTypeName);
-	mNodeCoreType = FieldContainerFactory::the()->findType(NodeCoreTypeName.c_str());
+
+    ps("NodeCoreTypeName", NodeCoreTypeName);
+
+	mNodeCoreType = 
+        FieldContainerFactory::the()->findType(NodeCoreTypeName.c_str());
 
     //Mask Matching
-	ps("MatchCurTravMask",mMatchCurTravMask);
-	ps("MatchCurTravMaskValue",mMatchCurTravMaskValue);
+	ps("MatchCurTravMask",      mMatchCurTravMask     );
+	ps("MatchCurTravMaskValue", mMatchCurTravMaskValue);
 	//ps("MatchMaskCondition",mMatchMaskCondition);
     
     std::string out = ps.getUnusedParams();
+
     if(out.length())
     {
         FWARNING(("TravMaskGraphOp doesn't have parameters '%s'.\n",
@@ -252,7 +265,7 @@ std::string TravMaskGraphOp::usage(void)
 
 }
 
-UInt32 TravMaskGraphOp::getNumChanged( void )
+UInt32 TravMaskGraphOp::getNumChanged(void)
 {
 	return mNumChanged;
 }
@@ -274,25 +287,26 @@ Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
     //Name Matching
 	if(mMatchName)
 	{
-        const Char8 * namePtr = OSG::getName(node);
+        const Char8 *namePtr = OSG::getName(node);
+
         if(namePtr == NULL)
         {
             namePtr = "";
         }
+
         if(mMatchWholeName)
         {
-            setMask = boost::xpressive::regex_match( namePtr, mMatchRegex );
+            setMask = boost::xpressive::regex_match (namePtr, mMatchRegex);
 		}
         else
         {
-            setMask = boost::xpressive::regex_search( namePtr, mMatchRegex );
+            setMask = boost::xpressive::regex_search(namePtr, mMatchRegex);
         }
 	}
 
 
     //Type Matching
-	if(mMatchNodeCoreType && 
-       mNodeCoreType != NULL)
+	if(mMatchNodeCoreType && mNodeCoreType != NULL)
     {
         if(mMatchDerivedCoreTypes)
         {
@@ -314,27 +328,31 @@ Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
 	if(mMatchCurTravMask)
     {
         bool BitTest(false);
+
         switch(mMatchMaskCondition)
         {
-        case BIT_AND:
-            BitTest = static_cast<bool>(node->getTravMask() & mMatchCurTravMaskValue);
+            case BIT_AND:
+                BitTest = static_cast<bool>(node->getTravMask()   & 
+                                            mMatchCurTravMaskValue);
             break;
-        case BIT_OR:
-            BitTest = static_cast<bool>(node->getTravMask() | mMatchCurTravMaskValue);
+            case BIT_OR:
+                BitTest = static_cast<bool>(node->getTravMask()   | 
+                                            mMatchCurTravMaskValue);
             break;
-        case BIT_XOR:
-            BitTest = static_cast<bool>(node->getTravMask() ^ mMatchCurTravMaskValue);
-            break;
-        case BIT_NOT:
-        case BIT_NOT_EQUAL:
-            BitTest = (node->getTravMask() != mNewTravMask);
-            break;
-        case BIT_EQUAL:
-        default:
-            BitTest = (node->getTravMask() == mNewTravMask);
-            break;
+            case BIT_XOR:
+                BitTest = static_cast<bool>(node->getTravMask()   ^ 
+                                            mMatchCurTravMaskValue);
+                break;
+            case BIT_NOT:
+            case BIT_NOT_EQUAL:
+                BitTest = (node->getTravMask() != mNewTravMask);
+                break;
+            case BIT_EQUAL:
+            default:
+                BitTest = (node->getTravMask() == mNewTravMask);
+                break;
         }
-
+        
         if(BitTest)
         {
             setMask = true;
@@ -353,37 +371,43 @@ Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
         if(mApplyMaskToAllDecendents)
         {
             TravMaskGraphOpRefPtr colMeshGrOp = TravMaskGraphOp::create();
+
             colMeshGrOp->setMatchRegex(boost::xpressive::cregex::compile(".*"));
-            colMeshGrOp->setNewTravMask (mNewTravMask);
-            colMeshGrOp->setNewTravMaskOperation (mApplyNewMaskOperation);
-            colMeshGrOp->traverse(node);
+
+            colMeshGrOp->setNewTravMask         (mNewTravMask          );
+            colMeshGrOp->setNewTravMaskOperation(mApplyNewMaskOperation);
+            colMeshGrOp->traverse               (node                  );
+
             mNumChanged += colMeshGrOp->getNumChanged();
+
             return Action::Skip;
         }
         else
         {
             //Apply the new traversal mask
             UInt32 NewMask;
+
             switch(mApplyNewMaskOperation)
             {
-            case BIT_AND:
-                NewMask = node->getTravMask() & mNewTravMask;
-                break;
-            case BIT_OR:
-                NewMask = node->getTravMask() | mNewTravMask;
-                break;
-            case BIT_XOR:
-                NewMask = node->getTravMask() ^ mNewTravMask;
-                break;
-            case BIT_NOT:
-                NewMask = ~node->getTravMask();
-                break;
-            case BIT_EQUAL:
-            default:
-                NewMask = mNewTravMask;
-                break;
+                case BIT_AND:
+                    NewMask = node->getTravMask() & mNewTravMask;
+                    break;
+                case BIT_OR:
+                    NewMask = node->getTravMask() | mNewTravMask;
+                    break;
+                case BIT_XOR:
+                    NewMask = node->getTravMask() ^ mNewTravMask;
+                    break;
+                case BIT_NOT:
+                    NewMask = ~node->getTravMask();
+                    break;
+                case BIT_EQUAL:
+                default:
+                    NewMask = mNewTravMask;
+                    break;
             }
 		    node->setTravMask(NewMask);
+
 		    ++mNumChanged;
         }
 	}
@@ -391,7 +415,8 @@ Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
     return Action::Continue;    
 }
 
-Action::ResultE TravMaskGraphOp::traverseLeave(Node * const node, Action::ResultE res)
+Action::ResultE TravMaskGraphOp::traverseLeave(Node            * const node, 
+                                               Action::ResultE         res )
 {
 	return res;
 }

@@ -195,30 +195,30 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     "  by the \\c constantAttenuation, \\c linearAttenuation and \\c\n"
     "  quadraticAttenuation attributes.\n"
     "  <Field\n"
-    "\t name=\"direction\"\n"
-    "\t type=\"Vec3f\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
+    "     name=\"direction\"\n"
+    "     type=\"Vec3f\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
     "     defaultValue=\"0.f,0.f,1.f\"\n"
-    "\t >\n"
+    "     >\n"
     "  </Field>\n"
     "  <Field\n"
-    "\t name=\"spotExponent\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
+    "     name=\"spotExponent\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
     "     defaultValue=\"0.1f\"\n"
-    "\t >\n"
-    "\tThe drop-off exponent of the spotlight.\n"
+    "     >\n"
+    "    The drop-off exponent of the spotlight.\n"
     "  </Field>\n"
     "  <Field\n"
-    "\t name=\"spotCutOff\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"external\"\n"
+    "     name=\"spotCutOff\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
     "     defaultValue=\"1.0472f\"\n"
-    "\t >\n"
-    "\tThe cut-off angle of the spotlight (in radians, not degrees!).\n"
+    "     >\n"
+    "    The cut-off angle of the spotlight (in radians, not degrees!).\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     "SpotLight is a located lightsource. The position of the light source\n"
@@ -429,6 +429,7 @@ SpotLight *SpotLightBase::createEmpty(void)
     return returnValue;
 }
 
+
 FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -471,6 +472,7 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 
     return returnValue;
 }
+
 
 
 
@@ -574,7 +576,6 @@ EditFieldHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
 
     return returnValue;
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
