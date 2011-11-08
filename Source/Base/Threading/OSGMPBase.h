@@ -47,6 +47,7 @@
 #include "OSGBaseRefCountPolicies.h"
 #include "OSGRefCountPtr.h"
 #include "OSGTransitPtr.h"
+#include "OSGStringUtils.h"
 
 OSG_BEGIN_NAMESPACE
 

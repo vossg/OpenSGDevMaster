@@ -27,8 +27,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_BOOSTPATHFIELDTRAITS_H_
-#define _OSG_BOOSTPATHFIELDTRAITS_H_
+#ifndef _OSGBOOSTPATHFIELDTRAITS_H_
+#define _OSGBOOSTPATHFIELDTRAITS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -39,11 +39,7 @@
 
 #include "OSGBaseFieldTraits.h"
 
-#include <boost/filesystem/path.hpp>
-
 OSG_BEGIN_NAMESPACE
-
-typedef boost::filesystem::path BoostPath;
 
 // The FieldDataTraits class contains the methods needed to implement
 // the features a Field data element needs to have

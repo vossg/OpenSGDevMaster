@@ -79,13 +79,13 @@ class OSG_BASE_DLLMAPPING AspectStore
     /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    FieldContainer *getPtr            (      void                      )const;
-    FieldContainer *getPtr            (const UInt32          uiAspect  )const;
+    FieldContainer *getPtr            (      void                      ) const;
+    FieldContainer *getPtr            (const UInt32          uiAspect  ) const;
     void            setPtrForAspect   (      FieldContainer *pContainer, 
                                        const UInt32          uiAspect  );
     void            removePtrForAspect(const UInt32          uiAspect  );
 
-    UInt32          getNumAspects     (      void                      )const;
+    UInt32          getNumAspects     (      void                      ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

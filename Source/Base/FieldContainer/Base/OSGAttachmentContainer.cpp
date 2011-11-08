@@ -50,6 +50,7 @@
 #include "OSGTypeBasePredicates.h"
 #include "OSGReflexiveContainerTypePredicates.h"
 #include "OSGNameAttachment.h"
+#include "OSGStringUtils.h"
 
 #include "boost/bind.hpp"
 

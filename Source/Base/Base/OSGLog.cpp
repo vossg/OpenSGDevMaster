@@ -51,7 +51,7 @@
 #include <cstdarg>
 
 #include "OSGLog.h"
-#include "OSGBaseFunctions.h"
+#include "OSGStringUtils.h"
 #include "OSGBaseInitFunctions.h"
 #include "OSGThread.h"
 

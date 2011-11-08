@@ -55,7 +55,6 @@
 
 #include "OSGImageFunctions.h"
 
-
 OSG_BEGIN_NAMESPACE
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -1633,6 +1632,192 @@ bool convertCrossToCubeMap(Image const *pIn,
     }
 
     return true;
+}
+
+ImageTransitPtr createPerlinImage(const Vec2s              &vSize, 
+                                  const Vec2f              &vRange, 
+                                        Real32              fAmplitude, 
+                                        Real32              fFrequency, 
+                                  const Vec2f              &vPhase, 
+                                        Real32              fPersistance, 
+                                        UInt32              uiOctaves, 
+                                        UInt32              uiInterpolMode, 
+                                        bool                bSmoothing, 
+                                        Image::PixelFormat  pixelformat, 
+                                        Image::Type         type)
+{
+	ImageUnrecPtr PerlinImage = Image::create();
+
+	std::vector<Real32> ImageData(vSize.x() * vSize.y());
+
+	bool shouldTranslate = false;
+	
+	switch(type)
+	{
+        case Image::OSG_UINT8_IMAGEDATA:
+        case Image::OSG_UINT16_IMAGEDATA:
+        case Image::OSG_UINT32_IMAGEDATA:
+            shouldTranslate = true;
+            break;
+        default:
+            shouldTranslate = false;
+            break;
+	}
+
+	for(Int32 i = 0; i < vSize.x(); ++i)
+	{
+		for(Int32 j = 0; j < vSize.y(); ++j)
+		{
+			ImageData[i * vSize.x() + j] = 
+                osgClamp(-0.5f, 
+                         Perlin::calcPerlinNoise(
+                             Pnt2f(vRange.x() * Real32(i) / Real32(vSize.x()), 
+                                   vRange.y() * Real32(j) / Real32(vSize.y())),
+                             fAmplitude,
+                             fFrequency,
+                             vPhase,
+                             fPersistance,
+                             uiOctaves,
+                             uiInterpolMode,
+                             bSmoothing),
+                         0.5f);
+
+			if(shouldTranslate == true)
+			{
+				ImageData[i * vSize.x() + j] += 0.5f;
+            }
+		}
+	}
+
+	if(PerlinImage->set(Image::OSG_I_PF, 
+                        vSize.x(), 
+                        vSize.y(),
+                        1,
+                        1,
+                        1,
+                        0.0f,
+                        reinterpret_cast<UInt8 *>(&ImageData[0]),
+                        Image::OSG_FLOAT32_IMAGEDATA            ) == true)
+	{
+		if(type != Image::OSG_FLOAT32_IMAGEDATA)
+		{
+			if(PerlinImage->convertDataTypeTo(type) == false)
+			{
+				return ImageTransitPtr(NULL);
+			}
+		}
+
+		if(pixelformat != Image::OSG_I_PF)
+		{
+			if(PerlinImage->reformat(pixelformat) == false)
+			{
+				return ImageTransitPtr(NULL);
+			}
+		}
+
+		return ImageTransitPtr(PerlinImage);
+	}
+	else
+	{
+		return ImageTransitPtr(NULL);
+	}
+}
+
+ImageTransitPtr createPerlinImage(const Vec3s             &vSize, 
+                                  const Vec3f             &vRange, 
+                                        Real32             fAmplitude, 
+                                        Real32             fFrequency, 
+                                  const Vec3f             &vPhase, 
+                                        Real32             fPersistance, 
+                                        UInt32             uiOctaves, 
+                                        UInt32             uiInterpolMode, 
+                                        bool               bSmoothing, 
+                                        Image::PixelFormat pixelformat, 
+                                        Image::Type        type          )
+{
+	ImageUnrecPtr PerlinImage = Image::create();
+
+	std::vector<Real32> ImageData(vSize.x() * vSize.y() * vSize.z());
+
+	bool shouldTranslate = false;
+	
+	switch(type)
+	{
+        case Image::OSG_UINT8_IMAGEDATA:
+        case Image::OSG_UINT16_IMAGEDATA:
+        case Image::OSG_UINT32_IMAGEDATA:
+            shouldTranslate = true;
+            break;
+        default:
+            shouldTranslate = false;
+            break;
+	}
+
+	for(Int32 i = 0; i < vSize.x() ; ++i)
+	{
+		for(Int32 j = 0; j < vSize.y(); ++j)
+		{
+			for(Int32 k = 0; k < vSize.z(); ++k)
+			{
+				ImageData[i * vSize.x() * vSize.y() + j * vSize.y() + k] = 
+                    osgClamp(
+                        -0.5f, 
+                        Perlin::calcPerlinNoise(
+                            Pnt3f(vRange.x() * Real32(i) / Real32(vSize.x()), 
+                                  vRange.y() * Real32(j) / Real32(vSize.y()), 
+                                  vRange.z() * Real32(k) / Real32(vSize.z())),
+                            fAmplitude,
+                            fFrequency,
+                            vPhase,
+                            fPersistance,
+                            uiOctaves,
+                            uiInterpolMode,
+                            bSmoothing),
+                        0.5f);
+
+				if(shouldTranslate)
+				{
+					ImageData[i * vSize.x() * vSize.y() + 
+                              j *             vSize.y() +
+                              k                         ] += 0.5f;
+
+				}
+			}
+		}
+	}
+
+	if(PerlinImage->set(Image::OSG_I_PF, 
+                        vSize.x(), 
+                        vSize.y(),
+                        vSize.z(),
+                        1,
+                        1,
+                        0.0f,
+                        reinterpret_cast<UInt8 *>(&ImageData[0]),
+                        Image::OSG_FLOAT32_IMAGEDATA))
+	{
+		if(type != Image::OSG_FLOAT32_IMAGEDATA)
+		{
+			if(PerlinImage->convertDataTypeTo(type) == false)
+			{
+				return ImageTransitPtr(NULL);
+			}
+		}
+
+		if(pixelformat != Image::OSG_I_PF)
+		{
+			if(PerlinImage->reformat(pixelformat) == false)
+			{
+				return ImageTransitPtr(NULL);
+			}
+		}
+
+		return ImageTransitPtr(PerlinImage);
+	}
+	else
+	{
+		return ImageTransitPtr(NULL);
+	}
 }
 
 OSG_END_NAMESPACE

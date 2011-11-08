@@ -48,6 +48,7 @@
 
 #include "OSGLog.h"
 #include "OSGBaseInitFunctions.h"
+#include "OSGStringUtils.h"
 
 OSG_USING_NAMESPACE
 

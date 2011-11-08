@@ -36,12 +36,12 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGBOOSTPATHFIELD_H_
-#define _OSGBOOSTPATHFIELD_H_
+#ifndef _OSGSTRINGTOUINT32MAPFIELDS_H_
+#define _OSGSTRINGTOUINT32MAPFIELDS_H_
 
 #include "OSGSField.h"
 #include "OSGMField.h"
-#include "OSGBoostPathFieldTraits.h"
+#include "OSGStringToUInt32MapFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -50,17 +50,17 @@ OSG_BEGIN_NAMESPACE
 // Here the actual Field types are declared
 // You don't always have to have both, either is fine
 
-typedef SField<BoostPath> SFBoostPath;
-typedef MField<BoostPath> MFBoostPath;
+typedef SField<StringToUInt32Map> SFStringToUInt32Map;
+typedef MField<StringToUInt32Map> MFStringToUInt32Map;
 
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
-struct SFBoostPath : public SField<BoostPath> {};
-struct MFBoostPath : public MField<BoostPath> {};
+struct SFStringToUInt32Map : public SField<StringToUInt32Map> {};
+struct MFStringToUInt32Map : public MField<StringToUInt32Map> {};
 
 #endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif // _OSG_BOOSTPATHFIELD_H_
+#endif // _OSGSTRINGTOUINT32MAPFIELDS_H_

@@ -195,6 +195,51 @@ OSG_SYSTEM_DLLMAPPING
 FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
                                        ContainerResolver  oResolver );
 
+
+/*---------------------------------------------------------------------*/
+/* Container Utils, from OpenSGToolbox,  Author: David Kabala          */
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainer *getFieldContainer(const std::string                &szTypeName, 
+                                  const std::string                &szName);
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainer *getFieldContainer(const FieldContainerType         *pType, 
+                                  const std::string                &szName);
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainer *getFieldContainer(const std::string                &szName);
+
+
+OSG_SYSTEM_DLLMAPPING
+bool            isFieldContentDerivedFrom(const FieldType          &oFieldType, 
+                                          const FieldContainerType *pFCType);
+
+OSG_SYSTEM_DLLMAPPING
+const FieldContainerType *getFieldContainerTypeFromPtrType(
+    const DataType &oType);
+
+OSG_SYSTEM_DLLMAPPING
+const FieldContainerType *getClosestAncestor(
+    const FieldContainerType                       *pType,
+          MFUnrecFieldContainerPtr::const_iterator  begin,
+          MFUnrecFieldContainerPtr::const_iterator  end);
+
+OSG_SYSTEM_DLLMAPPING
+std::vector<FieldContainer *>  getAllContainersByDerivedType(
+    const FieldContainerType *pType);
+
+
+#if 0
+OSG_SYSTEM_DLLMAPPING
+std::vector<FieldContainer *> getAllFieldContainers (
+    const std::string &szName);
+
+OSG_SYSTEM_DLLMAPPING
+std::vector<FieldContainer *> getAllContainersByType(
+    const FieldContainerType *pType);
+#endif
+
 OSG_END_NAMESPACE
 
 #endif // _OSGFIELDCONTAINERUTILS_H_

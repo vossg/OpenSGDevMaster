@@ -1,12 +1,8 @@
 /*---------------------------------------------------------------------------*\
- *                                OpenSG                                     *
+ *                             OpenSG Toolbox                                *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
- *                                                                           *
- *                            www.opensg.org                                 *
- *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                          Authors: David Kabala                            *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -26,22 +22,13 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*\
- *                                Changes                                    *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
- *                                                                           *
-\*---------------------------------------------------------------------------*/
 
-#ifndef _OSGBOOSTPATHFIELD_H_
-#define _OSGBOOSTPATHFIELD_H_
+#ifndef _OSGFIELDCONTAINERMAPFIELDS_H_
+#define _OSGFIELDCONTAINERMAPFIELDS_H_
 
 #include "OSGSField.h"
 #include "OSGMField.h"
-#include "OSGBoostPathFieldTraits.h"
+#include "OSGFieldContainerMapFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -50,17 +37,17 @@ OSG_BEGIN_NAMESPACE
 // Here the actual Field types are declared
 // You don't always have to have both, either is fine
 
-typedef SField<BoostPath> SFBoostPath;
-typedef MField<BoostPath> MFBoostPath;
+typedef SField<FieldContainerMap> SFFieldContainerMap;
+typedef MField<FieldContainerMap> MFFieldContainerMap;
 
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
-struct SFBoostPath : public SField<BoostPath> {};
-struct MFBoostPath : public MField<BoostPath> {};
+struct SFFieldContainerMap : public SField<FieldContainerMap> {};
+struct MFFieldContainerMap : public MField<FieldContainerMap> {};
 
 #endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif // _OSG_BOOSTPATHFIELD_H_
+#endif // _OSGFIELDCONTAINERMAPFIELDS_H_

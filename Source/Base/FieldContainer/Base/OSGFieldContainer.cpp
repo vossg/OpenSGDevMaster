@@ -47,6 +47,7 @@
 
 #include "OSGFieldContainer.h"
 #include "OSGContainerPtrFuncs.h"
+#include "OSGStringUtils.h"
 
 #include <algorithm>
 #include <cctype>

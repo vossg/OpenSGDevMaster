@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGBaseFunctions.h"
+#include "OSGStringUtils.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>

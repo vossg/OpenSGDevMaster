@@ -45,6 +45,7 @@
 #include "OSGVector.h"
 #include "OSGColor.h"
 #include "OSGImage.h"
+#include "OSGPerlinNoise.h"
 
 #include <vector>
 #include <string>
@@ -217,6 +218,37 @@ ValueT clampMin(ValueT val);
 
 template<class ValueT> inline
 ValueT doNothing(ValueT val);
+
+/*---------------------------------------------------------------------*/
+/* Image functions, from OpenSGToolbox,  Author: David Kabala          */
+
+OSG_SYSTEM_DLLMAPPING
+ImageTransitPtr createPerlinImage(
+    const Vec2s              &vSize, 
+    const Vec2f              &vRange, 
+          Real32              fAmplitude, 
+          Real32              fFrequency, 
+    const Vec2f              &vPhase, 
+          Real32              fPersistance, 
+          UInt32              uiOctaves, 
+          UInt32              uiInterpolMode = Perlin::InterpolateCosine, 
+          bool                bSmoothing     = true, 
+          Image::PixelFormat  pixelformat    = Image::OSG_I_PF, 
+          Image::Type         type           = Image::OSG_FLOAT32_IMAGEDATA);
+
+OSG_SYSTEM_DLLMAPPING
+ImageTransitPtr createPerlinImage(
+    const Vec3s              &vSize, 
+    const Vec3f              &vRange, 
+          Real32              fAmplitude, 
+          Real32              fFrequency, 
+    const Vec3f              &vPhase, 
+          Real32              fPersistance, 
+          UInt32              uiOctaves, 
+          UInt32              uiInterpolMode = Perlin::InterpolateCosine, 
+          bool                bSmoothing     = true, 
+          Image::PixelFormat  pixelformat    = Image::OSG_I_PF, 
+          Image::Type         type           = Image::OSG_FLOAT32_IMAGEDATA);
 
 OSG_END_NAMESPACE
 
