@@ -40,12 +40,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-TextTXFFace *StatisticsDefaultFontBase::getFace() const
+TextTXFFace *DefaultFontBase::getFace() const
 {
     return _face;
 }
 
-TextureObjChunk *StatisticsDefaultFontBase::getTexture() const
+TextureObjChunk *DefaultFontBase::getTexture() const
 {
     return _texObjChunk;
 }

@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -69,7 +69,7 @@ class SolidBackground;
 
 OSG_GEN_CONTAINERPTR(SolidBackground);
 /*! \ingroup GrpWindowBackgroundFieldTraits
-    \ingroup GrpLibOSGWindow
+    \ingroup GrpLibOSGSystem
  */
 template <>
 struct FieldTraits<SolidBackground *, nsOSG> :
@@ -85,7 +85,7 @@ struct FieldTraits<SolidBackground *, nsOSG> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -137,19 +137,19 @@ typedef PointerSField<SolidBackground *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGSystem */
 struct SFRecSolidBackgroundPtr : 
     public PointerSField<SolidBackground *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUnrecSolidBackgroundPtr : 
     public PointerSField<SolidBackground *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGSystem */
 struct SFWeakSolidBackgroundPtr :
     public PointerSField<SolidBackground *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGWindow */
+/*! \ingroup GrpWindowBackgroundFieldSFields \ingroup GrpLibOSGSystem */
 struct SFUncountedSolidBackgroundPtr :
     public PointerSField<SolidBackground *,
                          NoRefCountPolicy> {};

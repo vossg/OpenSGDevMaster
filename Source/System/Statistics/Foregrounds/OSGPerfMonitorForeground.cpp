@@ -53,7 +53,7 @@
 #include "OSGPerfMonitorForeground.h"
 #include "OSGPerfMonitor.h"
 
-#include "OSGStatisticsDefaultFont.h"
+#include "OSGDefaultFont.h"
 #include "OSGTextTXFFace.h"
 #include "OSGTextLayoutParam.h"
 #include "OSGTextLayoutResult.h"
@@ -177,8 +177,8 @@ void PerfMonitorForeground::initText(const std::string &family, Real32 size)
     // We failed to create the font - fallback to the default font
     if (_face == 0)
     {
-        _face = StatisticsDefaultFont::the()->getFace();
-        _texchunk = StatisticsDefaultFont::the()->getTexture();
+        _face     = DefaultFont::the()->getFace();
+        _texchunk = DefaultFont::the()->getTexture();
     }
 
     // Increment reference counters

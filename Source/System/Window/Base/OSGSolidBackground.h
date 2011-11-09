@@ -56,7 +56,7 @@ class DrawEnv;
     \includebasedoc
 */
 
-class OSG_WINDOW_DLLMAPPING SolidBackground : public SolidBackgroundBase
+class OSG_SYSTEM_DLLMAPPING SolidBackground : public SolidBackgroundBase
 {
     /*==========================  PUBLIC  =================================*/
 

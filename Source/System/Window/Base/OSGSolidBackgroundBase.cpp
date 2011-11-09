@@ -163,7 +163,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     "<FieldContainer\n"
     "   name=\"SolidBackground\"\n"
     "   parent=\"Background\"\n"
-    "   library=\"Window\"\n"
+    "   library=\"System\"\n"
     "   structure=\"concrete\"\n"
     "   pointerfieldtypes=\"single\"\n"
     "   systemcomponent=\"true\"\n"

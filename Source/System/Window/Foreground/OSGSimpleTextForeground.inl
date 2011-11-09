@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -34,69 +34,58 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-#ifndef _OSGSTATISTICSDEFAULTFONT_H_
-#define _OSGSTATISTICSDEFAULTFONT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGBaseTypes.h"
-#include "OSGUtilDef.h"
-#include "OSGTextureObjChunk.h"
-#include "OSGSingletonHolder.h"
-#include "OSGTextTXFFace.h"
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
+inline
+void SimpleTextForeground::addLine(const std::string &szText)
 {
-    /*==========================  PUBLIC  =================================*/
-  public:
+    editMFLines()->push_back(szText);
+}
 
-    /** Returns the default face. */
-    inline TextTXFFace *getFace() const;
+inline
+void SimpleTextForeground::clear(void)
+{
+    editMFLines()->clear();
+}
 
-    /**
-     * Returns the texture object chunk that keeps the texture for the
-	 * default font.
-     */
-    inline TextureObjChunk *getTexture() const;
+inline
+bool SimpleTextForeground::TextColoredRange::isBounded(UInt32 uiPosition) const
+{
+    return (uiPosition >= _uiStart &&
+            uiPosition <= _uiEnd);
+}
 
-    /*==========================  PRIVATE  ================================*/
-  private:
+inline
+SimpleTextForeground::TextColoredRange::TextColoredRange(      UInt32  uiStart,
+                                                               UInt32  uiEnd,
+                                                         const Color4f &cColor):
+    _uiStart(uiStart),
+    _uiEnd  (uiEnd  ),
+    _cColor (cColor )
+{
+}
 
-    template <class SingletonT>
-    friend class SingletonHolder;
+inline
+const Color4f &SimpleTextForeground::TextColoredRange::getColor(void) const
+{
+    return _cColor;
+}
 
-    /** Default Constructor */
-    StatisticsDefaultFontBase();
+inline
+UInt32 SimpleTextForeground::TextColoredRange::getStart(void) const
+{
+    return _uiStart;
+}
 
-    /** Copy constructor (not implemented!) */
-    StatisticsDefaultFontBase(const StatisticsDefaultFontBase &);
+inline
+UInt32 SimpleTextForeground::TextColoredRange::getEnd(void) const
+{
+    return _uiEnd;
+}
 
-    /** Destroys the StatisticsDefaultFontBase object. */
-    ~StatisticsDefaultFontBase();
-
-    /** Copy operator (not implemented!) */
-    const StatisticsDefaultFontBase &operator=(const StatisticsDefaultFontBase &);
-
-    /** The default face used for statistics */
-    TextTXFFaceRefPtr       _face;
-
-    /** Texture object chunk that keeps the texture for the default font */
-    TextureObjChunkMTRecPtr _texObjChunk;
-};
-
-#if defined(WIN32)
-OSG_UTIL_EXPIMP_TMPL 
-template class OSG_UTIL_DLLMAPPING SingletonHolder<StatisticsDefaultFontBase>;
-#endif
-
-typedef SingletonHolder<StatisticsDefaultFontBase> StatisticsDefaultFont;
 
 OSG_END_NAMESPACE
-
-#include "OSGStatisticsDefaultFont.inl"
-
-#endif /* _OSGSTATISTICSDEFAULTFONT_H_ */

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGSystemDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class SolidBackground;
 
 //! \brief SolidBackground Base Class.
 
-class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
+class OSG_SYSTEM_DLLMAPPING SolidBackgroundBase : public Background
 {
   public:
 

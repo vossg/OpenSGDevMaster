@@ -42,7 +42,7 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include "OSGStatisticsDefaultFont.h"
+#include "OSGDefaultFont.h"
 #include "OSGSingletonHolder.ins"
 #include <iostream>
 #ifdef OSG_HAS_SSTREAM
@@ -590,15 +590,15 @@ static char statisticsDefaultFontData[9364] = {
 };
 
 
-OSG_SINGLETON_INST(StatisticsDefaultFontBase, addPreFactoryExitFunction)
+OSG_SINGLETON_INST(DefaultFontBase, addPreFactoryExitFunction)
 
-template class SingletonHolder<StatisticsDefaultFontBase>;
+template class SingletonHolder<DefaultFontBase>;
 
 
 //----------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------
-StatisticsDefaultFontBase::StatisticsDefaultFontBase():
+DefaultFontBase::DefaultFontBase():
     _face(0),
     _texObjChunk(NULL)
 {
@@ -623,7 +623,8 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
 //----------------------------------------------------------------------
 // Destructor
 //----------------------------------------------------------------------
-StatisticsDefaultFontBase::~StatisticsDefaultFontBase()
+
+DefaultFontBase::~DefaultFontBase()
 {
     _face        = NULL;
     _texObjChunk = NULL;

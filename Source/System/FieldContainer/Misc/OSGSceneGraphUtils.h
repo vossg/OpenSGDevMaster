@@ -36,14 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERUTILS_H_
-#define _OSGFIELDCONTAINERUTILS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGSCENEGRAPHUTILS_H_
+#define _OSGSCENEGRAPHUTILS_H_
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
 #include "OSGFieldContainer.h"
 #include "OSGAction.h"
 
@@ -51,47 +47,6 @@
 #include <map>
 
 OSG_BEGIN_NAMESPACE
-
-/*! \ingroup GrpSystemFieldContainerUtils
- */
-
-OSG_SYSTEM_DLLMAPPING
-bool compareContainerEqual(const FieldContainer *lhs,
-                           const FieldContainer *rhs,
-                                 bool            ignoreAttachments = true,
-                                 bool            compareIdentity   = false);
-
-//---------------------------------------------------------------------------
-//  MemoryConsumption
-//---------------------------------------------------------------------------
-
-/*! \ingroup GrpSystemFieldContainerUtils
-    \ingroup GrpLibOSGSystem
-    \nohierarchy
- */
-
-class OSG_SYSTEM_DLLMAPPING MemoryConsumption
-{
-  public:
-
-    typedef std::pair<UInt32, UInt32      >       MemCountPair;
-    typedef std::map <UInt32, MemCountPair>       TypeMemMap;
-    typedef TypeMemMap::iterator                  TypeMemMapIt;
-    typedef TypeMemMap::const_iterator            TypeMemMapConstIt;
-    
-    void scan (void                                     );
-    void print(std::ostream &os, bool ignoreProto = true) const;
-    
-    TypeMemMapConstIt beginMap     (void) const;
-    TypeMemMapConstIt endMap       (void) const;
-
-    TypeMemMapConstIt beginAccumMap(void) const;
-    TypeMemMapConstIt endAccumMap  (void) const;
-    
-  private:
-
-    TypeMemMap _memMap;
-};
 
 //---------------------------------------------------------------------------
 //  SceneGraphPrinter
@@ -166,80 +121,6 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
     Action::ResultE traverseLeave(Node *node, Action::ResultE res);
 };
 
-struct FieldPathEntry;
-
-/*! \ingroup GrpSystemFieldContainerUtils
- */
-
-typedef boost::function<
-          FieldContainer * (const Char8 *szName)> ContainerResolver;
-
-/*! \ingroup GrpSystemFieldContainerUtils
- */
-
-OSG_SYSTEM_DLLMAPPING
-void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
-                    const Char8                       *szFieldPath);
-
-/*! \ingroup GrpSystemFieldContainerUtils
- */
-
-OSG_SYSTEM_DLLMAPPING
-FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
-                                 FieldContainer              *pRoot     );
-
-/*! \ingroup GrpSystemFieldContainerUtils
- */
-
-OSG_SYSTEM_DLLMAPPING
-FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
-                                       ContainerResolver  oResolver );
-
-
-/*---------------------------------------------------------------------*/
-/* Container Utils, from OpenSGToolbox,  Author: David Kabala          */
-
-OSG_SYSTEM_DLLMAPPING
-FieldContainer *getFieldContainer(const std::string                &szTypeName, 
-                                  const std::string                &szName);
-
-OSG_SYSTEM_DLLMAPPING
-FieldContainer *getFieldContainer(const FieldContainerType         *pType, 
-                                  const std::string                &szName);
-
-OSG_SYSTEM_DLLMAPPING
-FieldContainer *getFieldContainer(const std::string                &szName);
-
-
-OSG_SYSTEM_DLLMAPPING
-bool            isFieldContentDerivedFrom(const FieldType          &oFieldType, 
-                                          const FieldContainerType *pFCType);
-
-OSG_SYSTEM_DLLMAPPING
-const FieldContainerType *getFieldContainerTypeFromPtrType(
-    const DataType &oType);
-
-OSG_SYSTEM_DLLMAPPING
-const FieldContainerType *getClosestAncestor(
-    const FieldContainerType                       *pType,
-          MFUnrecFieldContainerPtr::const_iterator  begin,
-          MFUnrecFieldContainerPtr::const_iterator  end);
-
-OSG_SYSTEM_DLLMAPPING
-std::vector<FieldContainer *>  getAllContainersByDerivedType(
-    const FieldContainerType *pType);
-
-
-#if 0
-OSG_SYSTEM_DLLMAPPING
-std::vector<FieldContainer *> getAllFieldContainers (
-    const std::string &szName);
-
-OSG_SYSTEM_DLLMAPPING
-std::vector<FieldContainer *> getAllContainersByType(
-    const FieldContainerType *pType);
-#endif
-
 OSG_END_NAMESPACE
 
-#endif // _OSGFIELDCONTAINERUTILS_H_
+#endif // _OSGSCENEGRAPHUTILS_H_

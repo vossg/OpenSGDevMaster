@@ -3,7 +3,7 @@
 <FieldContainer
    name="SolidBackground"
    parent="Background"
-   library="Window"
+   library="System"
    structure="concrete"
    pointerfieldtypes="single"
    systemcomponent="true"

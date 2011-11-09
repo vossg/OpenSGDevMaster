@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="SimpleTextForeground"
+    parent="Foreground"
+    library="Window"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    docGroupBase="GrpUtil"
+    authors="David Kabala (djkabala@gmail.com)"
+    >
+    OSG::SimpleTextForeground displays a simple list of text
+    lines. They are displayed using a compiled-in font that can use an arbitrary
+    color and that can be arbitrarily resized, with the size per line given in
+    pixel.
+
+    The size and color used for all lines in _sfSize and _sfColor.
+
+    The color of the text can be overriden by using a special tag in the text 
+    of the lines.  \{\color=FF0000FF SomeText} will draw the SomeText with a
+    red color. 
+    <Field
+        name="Lines"
+        type="std::string"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+        The lines of text.
+    </Field>
+    <Field
+        name="Size"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="16"
+        access="public"
+        >
+        Height of a single line, in  pixel.
+    </Field>
+    <Field
+        name="Color"
+        type="Color4f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="1,1,1,1"
+        access="public"
+        >
+        Color of the text.
+    </Field>
+    <Field
+        name="ShadowColor"
+        type="Color4f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0,0,0,1"
+        access="public"
+        >
+        Color of the shadow.
+    </Field>
+    <Field
+        name="BgColor"
+        type="Color4f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0,0,0,0"
+        access="public"
+        >
+        Color of the background.
+    </Field>
+    <Field
+        name="Family"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        >
+        The font family to be used, e.g. "SANS", default if unset.
+    </Field>
+    <Field
+        name="ShadowOffset"
+        type="Vec2f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="1,-1"
+        access="public"
+        >
+        Offset of the shadow, in pixels.
+    </Field>
+    <Field
+        name="HorizontalAlign"
+        type="UInt8"
+        cardinality="single"
+        visibility="external"
+        defaultValue="SimpleTextForeground::Left"
+        access="public"
+        >
+        Simple form of layout management, defaults to SimpleTextForeground::Left.
+    </Field>
+    <Field
+        name="VerticalAlign"
+        type="UInt8"
+        cardinality="single"
+        visibility="external"
+        defaultValue="SimpleTextForeground::Top"
+        access="public"
+        >
+        Simple form of layout management, defaults to SimpleTextForeground::Top.
+    </Field>
+    <Field
+        name="BorderColor"
+        type="Color4f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0,0,0,0"
+        access="public"
+        >
+        Color of the border.
+    </Field>
+    <Field
+        name="BorderOffset"
+        type="Vec2f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="4,4"
+        access="public"
+        >
+        Offset of the border in pixels.
+    </Field>
+    <Field
+        name="TextMargin"
+        type="Vec2f"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0,0"
+        access="public"
+        >
+        Text margin in pixels.
+    </Field>
+    <Field
+        name="Tile"
+        type="bool"
+        category="data"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+        >
+        Should this foreground be tilable
+    </Field>
+</FieldContainer>
