@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="PostShaderStage"
+   parent="Stage"
+   library="EffectGroups"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   docGroupBase="GrpEffectsGroupsMisc"
+   authors="David Kabala (djkabala@gmail.com)"
+   >
+   A stage that uses a shader in a post-process.
+   <Field
+       name="ColorBufferFormat"
+       type="GLenum"
+       category="data"
+       cardinality="single"
+       visibility="external"
+       defaultValue="GL_RGB"
+       defaultHeader="&quot;OSGGLEXT.h&quot;"
+       access="public"
+       >
+   </Field>
+   <Field
+       name="UseColorTextureBuffer"
+       type="bool"
+       category="data"
+       cardinality="single"
+       visibility="external"
+       defaultValue="true"
+       access="public"
+       >
+       Use a texture buffer with the frame buffer object so that the 
+       color buffer is available as a texture in the shader.
+   </Field>
+   <Field
+       name="UseDepthTextureBuffer"
+       type="bool"
+       category="data"
+       cardinality="single"
+       visibility="external"
+       defaultValue="false"
+       access="public"
+       >
+       Use a texture buffer with the frame buffer object so that the 
+       depth buffer is available as a texture in the shader.
+   </Field>
+   <Field
+       name="VertexShaders"
+       type="std::string"
+       category="data"
+       cardinality="multi"
+       visibility="external"
+       access="protected"
+       >
+       The shader code to use for the vertex program of the post-processess.
+   </Field>
+   <Field
+       name="FragmentShaders"
+       type="std::string"
+       category="data"
+       cardinality="multi"
+       visibility="external"
+       access="protected"
+       >
+       The shader code to use for the post-processess.
+   </Field>
+   <Field
+       name="PassSizes"
+       type="Vec2f"
+       category="data"
+       cardinality="multi"
+       visibility="external"
+       access="protected"
+       >
+       The size of the texture buffers used for the post-processess.
+   </Field>
+</FieldContainer>

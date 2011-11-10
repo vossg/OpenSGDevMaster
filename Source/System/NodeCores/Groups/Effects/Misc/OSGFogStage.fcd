@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="FogStage"
+   parent="Stage"
+   library="EffectGroups"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   docGroupBase="GrpEffectsGroupsFog"
+   authors="David Kabala (djkabala@gmail.com)"
+   >
+   A stage that preforms a fog effect as a post-process.  The fog is
+   calculated the similarly to how OpenGL calculates fog in
+   fixed-functionality mode. 
+   <Field
+       name="BufferFormat"
+       type="GLenum"
+       category="data"
+       cardinality="single"
+       visibility="external"
+       defaultValue="GL_RGB"
+       defaultHeader="&quot;OSGGLEXT.h&quot;"
+       access="public"
+       >
+   </Field>
+  <Field
+      name="FogColor"
+      type="Color4f"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0.0f,0.0f,0.0f,0.0f"
+      access="public"
+      >
+      The color of the fog.
+  </Field>
+  <Field
+      name="FogMode"
+      type="UInt16"
+      cardinality="single"
+      visibility="external"
+      defaultValue="FogStage::FOG_MODE_LINEAR"
+      access="public"
+      >
+      The mode to use for calculating the fog.
+  </Field>
+  <Field
+      name="FogStart"
+      type="Real32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0.0f"
+      access="public"
+      >
+      The distance that the fog will start at when the FogMode is
+      FOG_MODE_LINEAR. 
+  </Field>
+  <Field
+      name="FogEnd"
+      type="Real32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0.0f"
+      access="public"
+      >
+      The distance that the fog will end at when the FogMode is FOG_MODE_LINEAR.
+  </Field>
+  <Field
+      name="FogDensity"
+      type="Real32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0.0f"
+      access="public"
+      >
+      The of the fog when the FogMode is FOG_MODE_EXP or FOG_MODE_EXP2.
+  </Field>
+</FieldContainer>

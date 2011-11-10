@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="PostShaderStageData"
+    parent="StageData"
+    library="EffectGroups"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    docGroupBase="GrpEffectsGroupsMisc"
+    authors="David Kabala (djkabala@gmail.com)"
+    >
+    Data used for rendering by the Fog effect stage
+    <Field
+        name="ShaderMaterials"
+        type="ChunkMaterial"
+        category="pointer"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="Width"
+        type="Int32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="Height"
+        type="Int32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="RenderTargets"
+        type="FrameBufferObject"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+        category="pointer"
+        >
+    </Field>
+    <Field
+        name="Camera"
+        type="Camera"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        defaultValue="NULL"
+        access="public"
+        >
+    </Field>
+</FieldContainer>

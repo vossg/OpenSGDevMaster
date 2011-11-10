@@ -48,6 +48,7 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/DisplayFilter")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/DisplayFilter/Calibration")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Projectors")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/ShadowStage")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Misc")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/HDR")
 
 ##############################################################################
