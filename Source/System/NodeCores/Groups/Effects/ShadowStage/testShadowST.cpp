@@ -35,12 +35,13 @@ OSG::ShadowStageUnrecPtr svp;
 
 
 OSG::NodeUnrecPtr rootNode;
-//DirectionalLightPtr _dir1_core;
-OSG::PointLightUnrecPtr _dir1_core;
+// OSG::DirectionalLightUnrecPtr _light1_core;
+OSG::PointLightUnrecPtr _light1_core;
+OSG::TransformUnrecPtr  _light1_trans;
 
-//SpotLightPtr _dir2_core;
-OSG::PointLightUnrecPtr _dir2_core;
-OSG::TransformUnrecPtr dir2_trans;
+OSG::SpotLightUnrecPtr  _light2_core;
+// OSG::PointLightUnrecPtr _light2_core;
+OSG::TransformUnrecPtr  _light2_trans;
 
 OSG::TransformUnrecPtr _obj1_trans;
 OSG::TransformUnrecPtr _dino1_trans, _dino2_trans, _dino3_trans, _dino4_trans;
@@ -90,11 +91,10 @@ int setupGLUT(int *argc, char *argv[]);
 // Initialize GLUT & OpenSG and set up the scene
 int doMain(int argc, char **argv)
 {
-    printf(
-        "Press key '8' or '9' to switch between light sources. Press key '0' to use both lights\n");
-    printf("Set the shadow mode with key '1' ... '7'\n");
+    printf("Press key '9' or '0' to toggle light sources.\n");
+    printf("Set the shadow mode with key '1' ... '8'\n");
     printf("Change MapSize with keys 'y' = 512, 'x' = 1024, 'c' = 2048\n");
-    printf("NOTE: Real point lights only supported for ShadowMode 1...5!\n");
+    printf("NOTE: Real point lights only supported for ShadowMode 1...6!\n");
     // OSG init
     OSG::osgInit(argc, argv);
 
@@ -107,70 +107,65 @@ int doMain(int argc, char **argv)
     rootNode = OSG::makeCoredNode<OSG::Group>();
     OSG::NodeUnrecPtr                 scene = OSG::makeCoredNode<OSG::Group>();
 
+    /*
     // create lights
-    /*//Directional Light 1
-       TransformPtr dir1_trans;
-       NodePtr dir1 = makeCoredNode<DirectionalLight>(&_dir1_core);
-       NodePtr dir1_beacon = makeCoredNode<Transform>(&dir1_trans);
-       dir1_trans->editMatrix().setTranslate(0.0, 0.0, 0.0);
+    //Directional Light 1
+    OSG::NodeUnrecPtr light1        = OSG::makeCoredNode<OSG::DirectionalLight>(&_light1_core);
+    OSG::NodeUnrecPtr light1_beacon = OSG::makeCoredNode<OSG::Transform>(&_light1_trans);
+    _light1_trans->editMatrix().setTranslate(0.0, 0.0, 0.0);
+    _light1_core->setDirection(0.8,0.8,0.5);
+    _light1_core->setAmbient(0.15,0.15,0.15,1);
+    _light1_core->setDiffuse(0.5,0.5,0.5,1);
+    _light1_core->setSpecular(0.0,0.0,0.0,1);
+    _light1_core->setBeacon(light1_beacon);
+    _light1_core->setShadowIntensity(0.7);
+    _light1_core->setOn(true);
+    */
+
+    // Point Light 1
+    OSG::NodeUnrecPtr light1        = OSG::makeCoredNode<OSG::PointLight>(&_light1_core);
+    OSG::NodeUnrecPtr light1_beacon = OSG::makeCoredNode<OSG::Transform >(&_light1_trans);
+    _light1_trans->editMatrix().setTranslate(50.0, 50.0, 10.0);
+
+    _light1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+    _light1_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
+    _light1_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
+    _light1_core->setBeacon(light1_beacon);
+    _light1_core->setOn(true);
+    _light1_core->setShadowIntensity(0.8f);
+
+    // Spot Light 2
+    OSG::NodeUnrecPtr light2        = OSG::makeCoredNode<OSG::SpotLight>(&_light2_core);
+    OSG::NodeUnrecPtr light2_beacon = OSG::makeCoredNode<OSG::Transform>(&_light2_trans);
+    //_light2_trans->editMatrix().setTranslate(75.0, 0.0, 25.0);
+    _light2_trans->editMatrix().setTranslate(250.0, -250.0, 300.0);
        
-       _dir1_core->setDirection(0.5,0.5,0.8);
-       _dir1_core->setAmbient(0.15,0.15,0.15,1);
-       _dir1_core->setDiffuse(0.5,0.5,0.5,1);
-       _dir1_core->setSpecular(0.0,0.0,0.0,1);
-       _dir1_core->setBeacon(dir1_beacon);
-       _dir1_core->setShadowIntensity(0.7);
-       _dir1_core->setOn(true);
-       */
+    _light2_core->setAmbient(0.15,0.15,0.15,1);
+    _light2_core->setDiffuse(0.5,0.5,0.5,1);
+    _light2_core->setSpecular(0.0,0.0,0.0,1);
+    _light2_core->setSpotCutOffDeg(40.0);
+    _light2_core->setSpotDirection(-0.85,0.85,-1.0);
+    _light2_core->setBeacon(light2_beacon);
+    _light2_core->setShadowIntensity(0.7);
+    _light2_core->setOn(true);
 
-    //Point Light 1
-    OSG::TransformUnrecPtr            dir1_trans;
-    OSG::NodeUnrecPtr                 dir1 = OSG::makeCoredNode<OSG::PointLight>(&_dir1_core);
-    OSG::NodeUnrecPtr                 dir1_beacon = OSG::makeCoredNode<OSG::Transform>
-        (&dir1_trans);
-    dir1_trans->editMatrix().setTranslate(350.0, 300.0, 300.0);
+    /*
+    // Point Light 2
+    OSG::NodeUnrecPtr light2        = OSG::makeCoredNode<OSG::PointLight>(&_light2_core);
+    OSG::NodeUnrecPtr light2_beacon = OSG::makeCoredNode<OSG::Transform> (&_light2_trans);
+    _light2_trans->editMatrix().setTranslate(40.0, 0.0, 40.0);
 
-    _dir1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-    _dir1_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
-    _dir1_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-    _dir1_core->setBeacon(dir1_beacon);
-    _dir1_core->setOn(true);
-    _dir1_core->setShadowIntensity(0.8f);
+    _light2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+    _light2_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
+    _light2_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
+    _light2_core->setBeacon(light2_beacon);
+    _light2_core->setOn(false);
+    _light2_core->setShadowIntensity(0.7f);
+    */
 
-    /*//Spot Light 2
-       //TransformPtr dir2_trans;
-       NodePtr dir2 = makeCoredNode<SpotLight>(&_dir2_core);
-       NodePtr dir2_beacon = makeCoredNode<Transform>(&dir2_trans);
-       //dir2_trans->editMatrix().setTranslate(75.0, 0.0, 25.0);
-       dir2_trans->editMatrix().setTranslate(250.0, -250.0, 300.0);
-       
-       _dir2_core->setAmbient(0.15,0.15,0.15,1);
-       _dir2_core->setDiffuse(0.5,0.5,0.5,1);
-       _dir2_core->setSpecular(0.0,0.0,0.0,1);
-       _dir2_core->setSpotCutOffDeg(40.0);
-       _dir2_core->setSpotDirection(-0.85,0.85,-1.0);
-       _dir2_core->setBeacon(dir2_beacon);
-       _dir2_core->setOn(true);
-       */
+    light1->addChild(light2);
 
-    //Point Light 2
-    //TransformPtr dir2_trans;
-    OSG::NodeUnrecPtr                 dir2 = OSG::makeCoredNode<OSG::PointLight>(&_dir2_core);
-    OSG::NodeUnrecPtr                 dir2_beacon = OSG::makeCoredNode<OSG::Transform>
-        (&dir2_trans);
-    dir2_trans->editMatrix().setTranslate(40.0, 0.0, 40.0);
-
-    _dir2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-    _dir2_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
-    _dir2_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-    _dir2_core->setBeacon(dir2_beacon);
-    _dir2_core->setOn(true);
-    _dir2_core->setShadowIntensity(0.7f);
-
-
-    dir1->addChild(dir2);
-
-    dir2->addChild(scene);
+    light2->addChild(scene);
 
     //Eigene Kamera erstellen
     Pcamera = OSG::PerspectiveCamera::create();
@@ -181,7 +176,6 @@ int doMain(int argc, char **argv)
     Pcamera->setFov(OSG::osgDegree2Rad(60));
     Pcamera->setNear(1.0);
     Pcamera->setFar(1000);
-
 
     // create scene
 
@@ -506,11 +500,10 @@ int doMain(int argc, char **argv)
 
     rootNode->setCore(svp);
 
-    rootNode->addChild(dir1);
-    rootNode->addChild(dir1_beacon);
-    rootNode->addChild(dir2_beacon);
+    rootNode->addChild(light1);
+    rootNode->addChild(light1_beacon);
+    rootNode->addChild(light2_beacon);
     rootNode->addChild(cam_beacon);
-
 
     // Shadow viewport
 #ifdef SHADOW_CHECK
@@ -527,19 +520,19 @@ int doMain(int argc, char **argv)
     //ShadowSmoothness also used to define the light size for PCSS_SHADOW_MAP
     svp->setShadowSmoothness(0.5);
     // add light sources here
-    svp->editMFLightNodes  ()->push_back(dir1);
-    svp->editMFLightNodes  ()->push_back(dir2);
+    svp->editMFLightNodes  ()->push_back(light1);
+    svp->editMFLightNodes  ()->push_back(light2);
     svp->editMFExcludeNodes()->push_back(obj1_trans_node);
     //svp->setAutoSearchForLights(true);
 
     //one active light at startup
-    _dir2_core->setOn(true);
-    _dir2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
-    _dir2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+    _light2_core->setOn(true);
+    _light2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+    _light2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
-    _dir1_core->setOn(false);
-    //_dir1_core->setAmbient(0.3,0.3,0.3,1);
-    //_dir1_core->setDiffuse(0.8,0.8,0.8,1);
+    _light1_core->setOn(false);
+    _light1_core->setAmbient(0.3, 0.3, 0.3, 1);
+    _light1_core->setDiffuse(0.8, 0.8, 0.8, 1);
 
     gwin->setGlutId(winid);
 #ifdef SHADOW_CHECK
@@ -588,6 +581,9 @@ int doMain(int argc, char **argv)
 
     mgr->showAll();
 
+    mgr->getCamera()->setNear(      1.0f);
+    mgr->getCamera()->setFar (1000000.f );
+
     _navigator.setViewport(gwin->getPort(0));
 
     return 0;
@@ -634,7 +630,7 @@ void Animate()
         if(rotd > 360.0)
             rotd -= 360.0;
         
-        //    dir2_trans->editMatrix().setTranslate(-100.0*sin(rota),-100.0*cos(rota), 250.0);
+        //    _light2_trans->editMatrix().setTranslate(-100.0*sin(rota),-100.0*cos(rota), 250.0);
         
         //animate Trees
         OSG::Quaternion      q;
@@ -705,11 +701,11 @@ void Animate()
         }
         
         
-        {
-            dir2_trans->editMatrix().setTranslate(-40.0 * sin(rotb), -40.0 *
-                                                  cos(rotb),
-                                                  50.0 + 25.0 * sin(rotd));
-        }
+        // {
+        //     _light2_trans->editMatrix().setTranslate(-40.0 * sin(rotb), -40.0 *
+        //                                              cos(rotb),
+        //                                              50.0 + 25.0 * sin(rotd));
+        // }
         
         //animate Dinos
         
@@ -876,12 +872,12 @@ void keyboard(unsigned char k, int x, int y)
                 gwin         = NULL;
                 svp          = NULL;
 
+                rootNode      = NULL;
+                _light1_core  = NULL;
+                _light1_trans = NULL;
 
-                rootNode     = NULL;
-                _dir1_core   = NULL;
-
-                _dir2_core   = NULL;
-                dir2_trans   = NULL;
+                _light2_core  = NULL;
+                _light2_trans = NULL;
 
                 _obj1_trans  = NULL;
                 _dino1_trans = NULL;
@@ -911,36 +907,52 @@ void keyboard(unsigned char k, int x, int y)
             break;
 
         case '9':
-            {
-                _dir1_core->setOn(true);
-                _dir1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
-                _dir1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+           {
+               _light1_core->setOn(!_light1_core->getOn());
 
-                _dir2_core->setOn(false);
-                break;
+               if(_light1_core->getOn() && _light2_core->getOn())
+               {
+                   _light1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                   _light1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+
+                   _light2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                   _light2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+               }
+               else if(_light1_core->getOn())
+               {
+                   _light1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                   _light1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+               }
+
+               SLOG << "Light 1 " << (_light1_core->getOn() ? "on" : "off")
+                    << ", type '" << _light1_core->getType().getName()
+                    << "'" << std::endl;
             }
-
-        case '8':
-            {
-                _dir1_core->setOn(false);
-
-                _dir2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
-                _dir2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
-                _dir2_core->setOn(true);
-                break;
-            }
+           break;
 
         case '0':
             {
-                _dir1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-                _dir1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-                _dir1_core->setOn(true);
+                _light2_core->setOn(!_light2_core->getOn());
 
-                _dir2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-                _dir2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-                _dir2_core->setOn(true);
-                break;
+               if(_light1_core->getOn() && _light2_core->getOn())
+               {
+                   _light1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                   _light1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+
+                   _light2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                   _light2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+               }
+               else if(_light2_core->getOn())
+               {
+                   _light2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                   _light2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+               }
+
+               SLOG << "Light 2 " << (_light2_core->getOn() ? "on" : "off")
+                    << ", type '" << _light2_core->getType().getName()
+                    << "'" << std::endl;
             }
+            break;
 
         case 'w':
             {
@@ -1025,7 +1037,15 @@ void keyboard(unsigned char k, int x, int y)
                 break;
             }
 
-        case '6':
+       case '6':
+            {
+                svp->setShadowMode(OSG::ShadowStage::PCF2_SHADOW_MAP);
+                svp->setShadowSmoothness(0.5);
+                SLOG << "ShadowMode is: PCF2_SHADOW_MAP" << OSG::endLog;
+                break;
+            }
+
+        case '7':
             {
                 svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
                 svp->setShadowSmoothness(1.0);
@@ -1033,7 +1053,7 @@ void keyboard(unsigned char k, int x, int y)
                 break;
             }
 
-        case '7':
+        case '8':
             {
                 svp->setShadowMode(OSG::ShadowStage::VARIANCE_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
@@ -1044,20 +1064,21 @@ void keyboard(unsigned char k, int x, int y)
         case 'y':
             {
                 svp->setMapSize(512);
+                SLOG << "ShadowMapSize is: 512" << OSG::endLog;
                 break;
             }
 
         case 'x':
             {
                 svp->setMapSize(1024);
-                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
+                SLOG << "ShadowMapSize is: 1024" << OSG::endLog;
                 break;
             }
 
         case 'c':
             {
                 svp->setMapSize(2048);
-                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
+                SLOG << "ShadowMapSize is: 2048" << OSG::endLog;
                 break;
             }
 
@@ -1066,7 +1087,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  t = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(t + 0.1);
-                //SLOG << "ShadowSmoothness is: " << t << endLog;
+                SLOG << "ShadowSmoothness is: " << (t + 0.1) << OSG::endLog;
                 break;
             }
 
@@ -1075,7 +1096,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  t = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(t - 0.1);
-                //SLOG << "ShadowSmoothness is: " << t << endLog;
+                SLOG << "ShadowSmoothness is: " << (t - 0.1) << OSG::endLog;
                 break;
             }
         case 'a':
@@ -1084,6 +1105,11 @@ void keyboard(unsigned char k, int x, int y)
         }
         break;
     }
+
+    SLOG << "cam near " << mgr->getCamera()->getNear()
+         << " cam far " << mgr->getCamera()->getFar()
+         << std::endl;
+
     glutPostRedisplay();
 }
 

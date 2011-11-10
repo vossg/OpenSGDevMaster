@@ -130,10 +130,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     ShadowStageData           *_pStageData;
 
     TextureObjChunkUnrecPtr    _colorMapO;
+    TextureObjChunkUnrecPtr    _depthMapO;
+
     TextureObjChunkUnrecPtr    _shadowFactorMapO;
     TextureObjChunkUnrecPtr    _shadowFactorMap2O;
 
     ImageUnrecPtr              _colorMapImage;
+    ImageUnrecPtr              _depthMapImage;
     ImageUnrecPtr              _shadowFactorMapImage;
     ImageUnrecPtr              _shadowFactorMapImage2;
 

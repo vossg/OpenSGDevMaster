@@ -97,10 +97,12 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _pStageData           (pData                 ),
 
     _colorMapO            (NULL                  ),
+    _depthMapO            (NULL                  ),
     _shadowFactorMapO     (NULL                  ),
     _shadowFactorMap2O    (NULL                  ),
 
     _colorMapImage        (NULL                  ),
+    _depthMapImage        (NULL                  ),
     _shadowFactorMapImage (NULL                  ),
     _shadowFactorMapImage2(NULL                  ),
 
@@ -173,6 +175,18 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _colorMapO->setWrapT         (GL_REPEAT);
     _colorMapO->setTarget        (GL_TEXTURE_2D);
 
+    _depthMapO     = TextureObjChunk::createLocal();
+    _depthMapImage = Image          ::createLocal();
+
+    _depthMapO->setImage         (_depthMapImage);
+    _depthMapO->setInternalFormat(GL_DEPTH_COMPONENT);
+    _depthMapO->setExternalFormat(GL_DEPTH_COMPONENT);
+    _depthMapO->setMinFilter     (GL_NEAREST);
+    _depthMapO->setMagFilter     (GL_NEAREST);
+    _depthMapO->setWrapS         (GL_REPEAT);
+    _depthMapO->setWrapT         (GL_REPEAT);
+    _depthMapO->setTarget        (GL_TEXTURE_2D);
+
     //Prepare Shadow Factor Map grabbing
     _shadowFactorMapO     = TextureObjChunk::createLocal();
     _shadowFactorMapImage = Image          ::createLocal();
@@ -205,14 +219,16 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
 
 ShadowTreeHandler::~ShadowTreeHandler(void)
 {
-    _pStage               = NULL;
-    _pStageData           = NULL;
+    _pStage                = NULL;
+    _pStageData            = NULL;
  
-    _colorMapO            = NULL;
-    _shadowFactorMapO     = NULL;
-    _shadowFactorMap2O    = NULL;
+    _colorMapO             = NULL;
+    _depthMapO             = NULL;
+    _shadowFactorMapO      = NULL;
+    _shadowFactorMap2O     = NULL;
  
     _colorMapImage         = NULL;
+    _depthMapImage         = NULL;
     _shadowFactorMapImage  = NULL;
     _shadowFactorMapImage2 = NULL;
 
@@ -226,12 +242,6 @@ ShadowTreeHandler::~ShadowTreeHandler(void)
     _combineDepth          = NULL;
     _combineCmat           = NULL;
 }
-
-
-
-
-
-
 
 
 bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
@@ -252,6 +262,12 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
                                 1, 1, 0.f,
                                 NULL,
                                 Image::OSG_UINT8_IMAGEDATA,
+                                false);
+    _depthMapImage->set        (GL_DEPTH_COMPONENT,
+                                _width, _height, 1,
+                                1, 1, 0.f,
+                                NULL,
+                                Image::OSG_UINT32_IMAGEDATA,
                                 false);
         
     _shadowFactorMapImage->set (GL_RGB, 
@@ -276,20 +292,16 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
     _pSceneFBO->setSize(_width, _height);
         
 
-    RenderBufferUnrecPtr pDepthRB = RenderBuffer::createLocal();
-        
-    pDepthRB->setInternalFormat(GL_DEPTH_COMPONENT24);
-
+    TextureBufferUnrecPtr pDepthTB = TextureBuffer::createLocal();
+    pDepthTB->setTexture(_depthMapO);
 
     TextureBufferUnrecPtr pTexBuffer = TextureBuffer::createLocal();
-
     pTexBuffer->setTexture(_colorMapO);
 
     _pSceneFBO->setColorAttachment(pTexBuffer, 0);
 
 
     pTexBuffer = TextureBuffer::createLocal();
-
     pTexBuffer->setTexture(_shadowFactorMapO);
 
     _pSceneFBO->setColorAttachment(pTexBuffer, 1);
@@ -298,14 +310,12 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
     if(bHaveTwoFactorMaps == true)
     {
         pTexBuffer = TextureBuffer::createLocal();
-
         pTexBuffer->setTexture(_shadowFactorMap2O);
 
         _pSceneFBO->setColorAttachment(pTexBuffer, 2);
     }
 
-    _pSceneFBO->setDepthAttachment(pDepthRB);
-
+    _pSceneFBO->setDepthAttachment(pDepthTB);
 
     commitChanges();
 
@@ -324,6 +334,13 @@ void ShadowTreeHandler::updateSceneFBOSize(DrawEnv *pEnv,
                                 1, 1, 0.f,
                                 NULL,
                                 Image::OSG_UINT8_IMAGEDATA,
+                                false);
+
+    _depthMapImage->set        (GL_DEPTH_COMPONENT,
+                                _width, _height, 1,
+                                1, 1, 0.f,
+                                NULL,
+                                Image::OSG_UINT32_IMAGEDATA,
                                 false);
         
     _shadowFactorMapImage->set (GL_RGB, 

@@ -63,6 +63,7 @@
 #define OSG_HAS_PERSPMAP
 #define OSG_HAS_DITHERMAP
 #define OSG_HAS_PCFMAP
+#define OSG_HAS_PCF2MAP
 #define OSG_HAS_PCSSMAP
 #define OSG_HAS_VARMAP
 
@@ -77,6 +78,9 @@
 #endif
 #ifdef OSG_HAS_PCFMAP
 #include "OSGPCFShadowMapHandler.h"
+#endif
+#ifdef OSG_HAS_PCF2MAP
+#include "OSGPCF2ShadowMapHandler.h"
 #endif
 #ifdef OSG_HAS_PCSSMAP
 #include "OSGPCSSShadowMapHandler.h"
@@ -351,7 +355,16 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 #endif
             }
             break;
-            
+
+            case PCF2_SHADOW_MAP:
+            {
+                FNOTICE(("using PCF2 Shadow Mapping...\n"));
+#ifdef OSG_HAS_PCF2MAP
+                pTreeHandler = new PCF2ShadowMapHandler(this, pData);
+#endif
+            }
+            break;
+
             case PCSS_SHADOW_MAP:
             {
                 FNOTICE(("using PCSS Shadow Mapping...\n"));
@@ -859,10 +872,11 @@ void ShadowStage::updateLights(RenderActionBase *action,
                     m.mult(lightpos, lightpos);
                 }
 
-                if((getShadowMode() == STD_SHADOW_MAP ||
+                if((getShadowMode() == STD_SHADOW_MAP         ||
                     getShadowMode() == PERSPECTIVE_SHADOW_MAP ||
-                    getShadowMode() == DITHER_SHADOW_MAP ||
-                    getShadowMode() == PCF_SHADOW_MAP))
+                    getShadowMode() == DITHER_SHADOW_MAP      ||
+                    getShadowMode() == PCF_SHADOW_MAP         ||
+                    getShadowMode() == PCF2_SHADOW_MAP          ))
                 {
                     //Lightpos inside Scene BB?
                     Pnt3f   sceneMin = 
@@ -1086,12 +1100,9 @@ void ShadowStage::updateLights(RenderActionBase *action,
             {
                 Matrix  proMatrix, modMatrix;
 
-                proMatrix.setIdentity();
-                modMatrix.setIdentity();
-
-                MatrixOrthogonal(proMatrix, -sceneWidth,
-                                 sceneWidth, -sceneHeight,
-                                 sceneHeight, -sceneWidth, sceneWidth);
+                MatrixOrthogonal(proMatrix, -sceneWidth,  sceneWidth,
+                                            -sceneHeight, sceneHeight,
+                                            -sceneWidth,  sceneWidth  );
 
                 // Grabbing ModelView-Matrix from Light-Transformation
                 modMatrix = vLCamTrans[i]->getMatrix();
@@ -1101,13 +1112,13 @@ void ShadowStage::updateLights(RenderActionBase *action,
                 dynamic_cast<MatrixCamera *>(
                     vLCams[i].get())->setModelviewMatrix(modMatrix);
             }
-            else
-                // If none of above the Lightsource must be a PointLight
+            else // If none of above the Lightsource must be a PointLight
             {
-                if((getShadowMode() == STD_SHADOW_MAP ||
+                if((getShadowMode() == STD_SHADOW_MAP         ||
                     getShadowMode() == PERSPECTIVE_SHADOW_MAP ||
-                    getShadowMode() == DITHER_SHADOW_MAP ||
-                    getShadowMode() == PCF_SHADOW_MAP) && vRealPLight[i] )
+                    getShadowMode() == DITHER_SHADOW_MAP      ||
+                    getShadowMode() == PCF_SHADOW_MAP         ||
+                    getShadowMode() == PCF2_SHADOW_MAP    ) && vRealPLight[i])
                 {
                     Vec3f   dist, diff;
                     Pnt3f   center;
@@ -1318,10 +1329,11 @@ void ShadowStage::initializeLights(RenderActionBase *action,
             _shadowImages.push_back(Image::create());
 
             // creates a image without allocating main memory.
-            if((getShadowMode() == STD_SHADOW_MAP ||
+            if((getShadowMode() == STD_SHADOW_MAP         ||
                 getShadowMode() == PERSPECTIVE_SHADOW_MAP ||
-                getShadowMode() == DITHER_SHADOW_MAP ||
-                getShadowMode() == PCF_SHADOW_MAP))
+                getShadowMode() == DITHER_SHADOW_MAP      ||
+                getShadowMode() == PCF_SHADOW_MAP         ||
+                getShadowMode() == PCF2_SHADOW_MAP          ))
             {
                 _shadowImages[i]->set(Image::OSG_L_PF, getMapSize(),
                                       getMapSize(),

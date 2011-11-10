@@ -40,29 +40,21 @@ OSG::GLUTWindowUnrecPtr gwin;
 OSG::ShadowStageUnrecPtr svp;
 
 OSG::NodeUnrecPtr rootNode;
-OSG::NodeUnrecPtr point1;
-OSG::NodeUnrecPtr point2;
-OSG::NodeUnrecPtr point3;
-OSG::NodeUnrecPtr point4;
-OSG::NodeUnrecPtr point5;
-OSG::NodeUnrecPtr point6;
-OSG::NodeUnrecPtr point7;
-OSG::SpotLightUnrecPtr spot1_core;
-OSG::SpotLightUnrecPtr spot2_core;
-OSG::SpotLightUnrecPtr spot3_core;
-OSG::SpotLightUnrecPtr spot4_core;
-OSG::SpotLightUnrecPtr spot5_core;
-OSG::SpotLightUnrecPtr spot6_core;
-OSG::SpotLightUnrecPtr spot7_core;
-OSG::DirectionalLightUnrecPtr raumlicht_core;
-//PointLightPtr _point1_core;
-OSG::DirectionalLightUnrecPtr _point1_core;
-OSG::PointLightUnrecPtr _point2_core;
-OSG::PointLightUnrecPtr _point3_core;
-OSG::PointLightUnrecPtr _point4_core;
-OSG::PointLightUnrecPtr _point5_core;
-OSG::PointLightUnrecPtr _point6_core;
-OSG::PointLightUnrecPtr _point7_core;
+OSG::NodeUnrecPtr light1N;
+OSG::NodeUnrecPtr light2N;
+OSG::NodeUnrecPtr light3N;
+OSG::NodeUnrecPtr light4N;
+OSG::NodeUnrecPtr light5N;
+OSG::NodeUnrecPtr light6N;
+OSG::NodeUnrecPtr light7N;
+
+OSG::DirectionalLightUnrecPtr light1;
+OSG::PointLightUnrecPtr       light2;
+OSG::PointLightUnrecPtr       light3;
+OSG::PointLightUnrecPtr       light4;
+OSG::PointLightUnrecPtr       light5;
+OSG::PointLightUnrecPtr       light6;
+OSG::PointLightUnrecPtr       light7;
 OSG::TransformUnrecPtr _box_trans;
 OSG::TransformUnrecPtr _cylinder1_trans;
 OSG::TransformUnrecPtr _cylinder2_trans;
@@ -96,6 +88,8 @@ void showFpsCounter()
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
 
+void printLightStatus(void);
+
 // Initialize GLUT & OpenSG and set up the scene
 int doMain(int argc, char **argv)
 {
@@ -128,110 +122,110 @@ int doMain(int argc, char **argv)
 
         // create lights
         OSG::TransformUnrecPtr        point1_trans;
-        point1 = OSG::makeCoredNode<OSG::DirectionalLight>(&_point1_core);
+        light1N = OSG::makeCoredNode<OSG::DirectionalLight>(&light1);
         OSG::NodeUnrecPtr             point1_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point1_trans);
         point1_trans->editMatrix().setTranslate(0.0, 0.0, 100.0);
 
-        _point1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point1_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point1_core->setBeacon(point1_beacon);
-        _point1_core->setOn(true);
-        _point1_core->setShadowIntensity(0.7f);
-        _point1_core->setDirection(0.4f, 0.2f, 0.8f);
+        light1->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light1->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light1->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light1->setBeacon(point1_beacon);
+        light1->setOn(true);
+        light1->setShadowIntensity(0.7f);
+        light1->setDirection(0.4f, 0.2f, 0.8f);
 
         OSG::TransformUnrecPtr        point2_trans;
-        point2 = OSG::makeCoredNode<OSG::PointLight>(&_point2_core);
+        light2N = OSG::makeCoredNode<OSG::PointLight>(&light2);
         OSG::NodeUnrecPtr             point2_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point2_trans);
         point2_trans->editMatrix().setTranslate(20.0, -30.0, 100.0);
 
-        _point2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point2_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point2_core->setBeacon(point2_beacon);
-        _point2_core->setOn(true);
-        _point2_core->setShadowIntensity(0.7f);
+        light2->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light2->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light2->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light2->setBeacon(point2_beacon);
+        light2->setOn(true);
+        light2->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point3_trans;
-        point3 = OSG::makeCoredNode<OSG::PointLight>(&_point3_core);
+        light3N = OSG::makeCoredNode<OSG::PointLight>(&light3);
         OSG::NodeUnrecPtr             point3_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point3_trans);
         point3_trans->editMatrix().setTranslate(10.0, -15.0, 100.0);
 
-        _point3_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point3_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point3_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point3_core->setBeacon(point3_beacon);
-        _point3_core->setOn(true);
-        _point3_core->setShadowIntensity(0.7f);
+        light3->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light3->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light3->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light3->setBeacon(point3_beacon);
+        light3->setOn(true);
+        light3->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point4_trans;
-        point4 = OSG::makeCoredNode<OSG::PointLight>(&_point4_core);
+        light4N = OSG::makeCoredNode<OSG::PointLight>(&light4);
         OSG::NodeUnrecPtr             point4_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point4_trans);
         point4_trans->editMatrix().setTranslate(35.0, -45.0, 100.0);
 
-        _point4_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point4_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point4_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point4_core->setBeacon(point4_beacon);
-        _point4_core->setOn(true);
-        _point4_core->setShadowIntensity(0.7f);
+        light4->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light4->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light4->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light4->setBeacon(point4_beacon);
+        light4->setOn(true);
+        light4->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point5_trans;
-        point5 = OSG::makeCoredNode<OSG::PointLight>(&_point5_core);
+        light5N = OSG::makeCoredNode<OSG::PointLight>(&light5);
         OSG::NodeUnrecPtr             point5_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point5_trans);
         point5_trans->editMatrix().setTranslate(40.0, -60.0, 100.0);
 
-        _point5_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point5_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point5_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point5_core->setBeacon(point5_beacon);
-        _point5_core->setOn(true);
-        _point5_core->setShadowIntensity(0.7f);
+        light5->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light5->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light5->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light5->setBeacon(point5_beacon);
+        light5->setOn(true);
+        light5->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point6_trans;
-        point6 = OSG::makeCoredNode<OSG::PointLight>(&_point6_core);
+        light6N = OSG::makeCoredNode<OSG::PointLight>(&light6);
         OSG::NodeUnrecPtr             point6_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point6_trans);
         point6_trans->editMatrix().setTranslate(17.0, -55.0, 100.0);
 
-        _point6_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point6_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point6_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point6_core->setBeacon(point6_beacon);
-        _point6_core->setOn(true);
-        _point6_core->setShadowIntensity(0.7f);
+        light6->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light6->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light6->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light6->setBeacon(point6_beacon);
+        light6->setOn(true);
+        light6->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point7_trans;
-        point7 = OSG::makeCoredNode<OSG::PointLight>(&_point7_core);
+        light7N = OSG::makeCoredNode<OSG::PointLight>(&light7);
         OSG::NodeUnrecPtr             point7_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point7_trans);
         point7_trans->editMatrix().setTranslate(5.0, -42.0, 100.0);
 
-        _point7_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-        _point7_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-        _point7_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
-        _point7_core->setBeacon(point7_beacon);
-        _point7_core->setOn(true);
-        _point7_core->setShadowIntensity(0.7f);
+        light7->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        light7->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        light7->setSpecular(0.0f, 0.0f, 0.0f, 1);
+        light7->setBeacon(point7_beacon);
+        light7->setOn(true);
+        light7->setShadowIntensity(0.7f);
 
-        point1->addChild(point2);
+        light1N->addChild(light2N);
 
-        point2->addChild(point3);
+        light2N->addChild(light3N);
 
-        point3->addChild(point4);
+        light3N->addChild(light4N);
 
-        point4->addChild(point5);
+        light4N->addChild(light5N);
 
-        point5->addChild(point6);
+        light5N->addChild(light6N);
 
-        point6->addChild(point7);
+        light6N->addChild(light7N);
 
-        point7->addChild(scene);
+        light7N->addChild(scene);
 
         // create scene
 
@@ -328,21 +322,21 @@ int doMain(int argc, char **argv)
         rootNode->addChild(point5_beacon);
         rootNode->addChild(point6_beacon);
         rootNode->addChild(point7_beacon);
-        rootNode->addChild(point1);
+        rootNode->addChild(light1N);
 
         //one active light at startup
 #if 0
-        _point2_core->setOn(false);
-        _point3_core->setOn(false);
-        _point4_core->setOn(false);
-        _point5_core->setOn(false);
-        _point6_core->setOn(false);
-        _point7_core->setOn(false);
+        light2->setOn(false);
+        light3->setOn(false);
+        light4->setOn(false);
+        light5->setOn(false);
+        light6->setOn(false);
+        light7->setOn(false);
  #endif
 
-        _point1_core->setOn(true);
-        _point1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
-        _point1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+        light1->setOn(true);
+        light1->setAmbient(0.3f, 0.3f, 0.3f, 1);
+        light1->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
     }
     else
@@ -388,13 +382,13 @@ int doMain(int argc, char **argv)
     if(argv[1] == NULL)
     {
         svp->setAutoSearchForLights(false);
-        svp->editMFLightNodes()->push_back(point1);
-        svp->editMFLightNodes()->push_back(point2);
-        svp->editMFLightNodes()->push_back(point3);
-        svp->editMFLightNodes()->push_back(point4);
-        svp->editMFLightNodes()->push_back(point5);
-        svp->editMFLightNodes()->push_back(point6);
-        svp->editMFLightNodes()->push_back(point7);
+        svp->editMFLightNodes()->push_back(light1N);
+        svp->editMFLightNodes()->push_back(light2N);
+        svp->editMFLightNodes()->push_back(light3N);
+        svp->editMFLightNodes()->push_back(light4N);
+        svp->editMFLightNodes()->push_back(light5N);
+        svp->editMFLightNodes()->push_back(light6N);
+        svp->editMFLightNodes()->push_back(light7N);
         svp->setOffFactor(4.0);
         svp->setOffBias(8.0);
     }
@@ -443,6 +437,25 @@ int main(int argc, char **argv)
     glutMainLoop();
 
     return 0;
+}
+
+void printLightStatus(void)
+{
+    SLOG << "light 1 '" << light1->getType().getName()
+         << "' " << (light1->getOn() ? "on\n" : "off\n")
+         << "light 2 '" << light2->getType().getName()
+         << "' " << (light2->getOn() ? "on\n" : "off\n")
+         << "light 3 '" << light3->getType().getName()
+         << "' " << (light3->getOn() ? "on\n" : "off\n")
+         << "light 4 '" << light4->getType().getName()
+         << "' " << (light4->getOn() ? "on\n" : "off\n")
+         << "light 5 '" << light5->getType().getName()
+         << "' " << (light5->getOn() ? "on\n" : "off\n")
+         << "light 6 '" << light6->getType().getName()
+         << "' " << (light6->getOn() ? "on\n" : "off\n")
+         << "light 7 '" << light7->getType().getName()
+         << "' " << (light7->getOn() ? "on\n" : "off\n")
+         << std::endl;
 }
 
 //
@@ -535,29 +548,21 @@ void keyboard(unsigned char k, int x, int y)
                 svp              = NULL;
 
                 rootNode         = NULL;
-                point1           = NULL;
-                point2           = NULL;
-                point3           = NULL;
-                point4           = NULL;
-                point5           = NULL;
-                point6           = NULL;
-                point7           = NULL;
-                spot1_core       = NULL;
-                spot2_core       = NULL;
-                spot3_core       = NULL;
-                spot4_core       = NULL;
-                spot5_core       = NULL;
-                spot6_core       = NULL;
-                spot7_core       = NULL;
-                raumlicht_core   = NULL;
+                light1N           = NULL;
+                light2N           = NULL;
+                light3N           = NULL;
+                light4N           = NULL;
+                light5N           = NULL;
+                light6N           = NULL;
+                light7N           = NULL;
+                light1       = NULL;
+                light2       = NULL;
+                light3       = NULL;
+                light4       = NULL;
+                light5       = NULL;
+                light6       = NULL;
+                light7       = NULL;
 
-                _point1_core     = NULL;
-                _point2_core     = NULL;
-                _point3_core     = NULL;
-                _point4_core     = NULL;
-                _point5_core     = NULL;
-                _point6_core     = NULL;
-                _point7_core     = NULL;
                 _box_trans       = NULL;
                 _cylinder1_trans = NULL;
                 _cylinder2_trans = NULL;
@@ -573,21 +578,23 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setOn(true);
-                    _point1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
-                    _point1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
+                    light1->setOn(true);
+                    light1->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                    light1->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
-                    _point2_core->setOn(false);
+                    light2->setOn(false);
 
-                    _point3_core->setOn(false);
+                    light3->setOn(false);
 
-                    _point4_core->setOn(false);
+                    light4->setOn(false);
 
-                    _point5_core->setOn(false);
+                    light5->setOn(false);
 
-                    _point6_core->setOn(false);
+                    light6->setOn(false);
 
-                    _point7_core->setOn(false);
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -596,23 +603,25 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-                    _point1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-                    _point1_core->setOn(true);
+                    light1->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                    light1->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
-                    _point2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
-                    _point2_core->setOn(true);
+                    light2->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                    light2->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+                    light2->setOn(true);
 
-                    _point3_core->setOn(false);
+                    light3->setOn(false);
 
-                    _point4_core->setOn(false);
+                    light4->setOn(false);
 
-                    _point5_core->setOn(false);
+                    light5->setOn(false);
 
-                    _point6_core->setOn(false);
+                    light6->setOn(false);
 
-                    _point7_core->setOn(false);
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -621,31 +630,33 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
+                    light1->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
+                    light1->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
-                    _point1_core->setOn(true);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
+                    light2->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
+                    light2->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
-                    _point2_core->setOn(true);
+                    light2->setOn(true);
 
-                    _point3_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
+                    light3->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
+                    light3->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
-                    _point3_core->setOn(true);
+                    light3->setOn(true);
 
-                    _point4_core->setOn(false);
+                    light4->setOn(false);
 
-                    _point5_core->setOn(false);
+                    light5->setOn(false);
 
-                    _point6_core->setOn(false);
+                    light6->setOn(false);
 
-                    _point7_core->setOn(false);
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -654,35 +665,37 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
+                    light1->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
+                    light1->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
-                    _point1_core->setOn(true);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
+                    light2->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
+                    light2->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
-                    _point2_core->setOn(true);
+                    light2->setOn(true);
 
-                    _point3_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
+                    light3->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
+                    light3->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
-                    _point3_core->setOn(true);
+                    light3->setOn(true);
 
-                    _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
+                    light4->setOn(true);
+                    light4->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
+                    light4->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
 
-                    _point5_core->setOn(false);
+                    light5->setOn(false);
 
-                    _point6_core->setOn(false);
+                    light6->setOn(false);
 
-                    _point7_core->setOn(false);
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -691,39 +704,41 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
+                    light1->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
+                    light1->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
-                    _point1_core->setOn(true);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
+                    light2->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
+                    light2->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
-                    _point2_core->setOn(true);
+                    light2->setOn(true);
 
-                    _point3_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
+                    light3->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
+                    light3->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
-                    _point3_core->setOn(true);
+                    light3->setOn(true);
 
-                    _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
+                    light4->setOn(true);
+                    light4->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
-                                             1);
-
-                    _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
-                                             1);
-                    _point5_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
+                    light4->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
 
-                    _point6_core->setOn(false);
+                    light5->setOn(true);
+                    light5->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
+                                             1);
+                    light5->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
+                                             1);
 
-                    _point7_core->setOn(false);
+                    light6->setOn(false);
+
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -732,43 +747,45 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                    light1->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                    light1->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
-                    _point1_core->setOn(true);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                    light2->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                    light2->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
-                    _point2_core->setOn(true);
+                    light2->setOn(true);
 
-                    _point3_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                    light3->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                    light3->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
-                    _point3_core->setOn(true);
+                    light3->setOn(true);
 
-                    _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                    light4->setOn(true);
+                    light4->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
-                                             1);
-
-                    _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
-                                             1);
-                    _point5_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                    light4->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
 
-                    _point6_core->setOn(true);
-                    _point6_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                    light5->setOn(true);
+                    light5->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point6_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                    light5->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
 
-                    _point7_core->setOn(false);
+                    light6->setOn(true);
+                    light6->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
+                                             1);
+                    light6->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
+                                             1);
+
+                    light7->setOn(false);
+
+                    printLightStatus();
                 }
                 break;
             }
@@ -777,47 +794,49 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light1->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light1->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
-                    _point1_core->setOn(true);
+                    light1->setOn(true);
 
-                    _point2_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light2->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light2->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
-                    _point2_core->setOn(true);
+                    light2->setOn(true);
 
-                    _point3_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light3->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light3->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
-                    _point3_core->setOn(true);
+                    light3->setOn(true);
 
-                    _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light4->setOn(true);
+                    light4->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
-                                             1);
-
-                    _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
-                                             1);
-                    _point5_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light4->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
 
-                    _point6_core->setOn(true);
-                    _point6_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light5->setOn(true);
+                    light5->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point6_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light5->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
 
-                    _point7_core->setOn(true);
-                    _point7_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                    light6->setOn(true);
+                    light6->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point7_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                    light6->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
+
+                    light7->setOn(true);
+                    light7->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
+                                             1);
+                    light7->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
+                                             1);
+
+                    printLightStatus();
                 }
                 break;
             }

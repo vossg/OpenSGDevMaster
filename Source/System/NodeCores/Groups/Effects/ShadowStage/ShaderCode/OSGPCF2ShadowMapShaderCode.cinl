@@ -1,0 +1,670 @@
+
+namespace
+{
+     std::string funcDepth2EyeCoords =
+        "vec4 depth2EyeCoords(float depthRaw, vec4 viewRayEC)\n"
+        "{\n"
+        "    // convert raw depth to NDC depth ([0,1] - > [-1,1])\n"
+        "    float d = 2.0 * depthRaw - 1.0;\n"
+        "    // convert to eye coord depth ([-1, 1] -> [-n, -f])\n"
+        "    d = - (2.0 * zNear * zFar) / (d * (zFar - zNear) - zFar - zNear);\n"
+        "    // recover position in eye coords\n"
+        "    return vec4(d * viewRayEC.xyz, 1.0);\n"
+        "}\n";
+
+    std::string funcEyeCoords2LightNDC =
+        "vec4 eyeCoords2LightNDC(vec4 pEC, mat4 lightPVM, float texFactor)\n"
+        "{\n"
+        "    vec4 pLNDC = lightPVM * pEC;\n"
+        "    pLNDC.x *= texFactor;\n"
+        "    return vec4(0.5 + 0.5 * pLNDC.xy / pLNDC.w,\n"
+        "                0.5 + 0.5 * pLNDC.z  / pLNDC.w, 1.0);\n"
+        "}\n";
+
+    std::string funcCalcShadow2 =
+        "float calcShadow(sampler2DShadow shadowMap, vec3  basePos,\n"
+        "                 float           texelSize, float intensity )\n"
+        "{\n"
+        "    float shadowed = 0.0;\n"
+        "\n"
+        "    shadowed =  shadow2D(shadowMap, vec3(basePos.xy + vec2( 0.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(-0.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( 0.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(-0.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "\n"
+        "    return (1.0 - 0.25 * shadowed) * intensity;\n"
+        "}\n";
+
+    std::string funcCalcShadow3 =
+        "float calcShadow(sampler2DShadow shadowMap, vec3  basePos,\n"
+        "                 float           texelSize, float intensity )\n"
+        "{\n"
+        "    float shadowed = 0.0;\n"
+        "\n"
+        "    shadowed =  shadow2D(shadowMap, vec3(basePos.xy + vec2(-texelSize,  texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( 0.0,        texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( texelSize,  texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(-texelSize,  0.0      ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( 0.0,        0.0      ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( texelSize,  0.0      ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(-texelSize, -texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( 0.0,       -texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2( texelSize, -texelSize), basePos.z)).x;\n"
+        "\n"
+        "    return (1.0 - shadowed / 9.0) * intensity;\n"
+        "}\n";
+
+    std::string funcCalcShadow4 =
+        "float calcShadow(sampler2DShadow shadowMap, vec3  basePos,\n"
+        "                 float           texelSize, float intensity )\n"
+        "{\n"
+        "    float shadowed = 0.0;\n"
+        "\n"
+        "    shadowed =  shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "\n"
+        "    return (1.0 - shadowed / 16.0) * intensity;\n"
+        "}\n";
+
+    std::string funcCalcShadow5 =
+        "float calcShadow(sampler2DShadow shadowMap, vec3  basePos,\n"
+        "                 float           texelSize, float intensity )\n"
+        "{\n"
+        "    float shadowed = 0.0;\n"
+        "\n"
+        "    shadowed =  shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.0 * texelSize,  2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.0 * texelSize,  2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.0,              2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.0 * texelSize,  2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.0 * texelSize,  2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.0 * texelSize,  1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.0 * texelSize,  1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.0,              1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.0 * texelSize,  1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.0 * texelSize,  1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.0 * texelSize,  0.0            ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.0 * texelSize,  0.0            ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.0,              0.0            ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.0 * texelSize,  0.0            ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.0 * texelSize,  0.0            ), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.0 * texelSize, -1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.0 * texelSize, -1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.0,             -1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.0 * texelSize, -1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.0 * texelSize, -1.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.0 * texelSize, -2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.0 * texelSize, -2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.0,             -2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.0 * texelSize, -2.0 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.0 * texelSize, -2.0 * texelSize), basePos.z)).x;\n"
+        "\n"
+        "    return (1.0 - shadowed / 25.0) * intensity;\n"
+        "}\n";
+
+    std::string funcCalcShadow6 =
+        "float calcShadow(sampler2DShadow shadowMap, vec3  basePos,\n"
+        "                 float           texelSize, float intensity )\n"
+        "{\n"
+        "    float shadowed = 0.0;\n"
+        "\n"
+        "    shadowed =  shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize,  2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize,  2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,              2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize,  2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize,  2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize,  2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,              1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize,  1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,              0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize,  0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,             -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize, -0.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,             -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize, -1.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 2.5 * texelSize, -2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 1.5 * texelSize, -2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(- 0.5,             -2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  0.5 * texelSize, -2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  1.5 * texelSize, -2.5 * texelSize), basePos.z)).x;\n"
+        "    shadowed += shadow2D(shadowMap, vec3(basePos.xy + vec2(  2.5 * texelSize, -2.5 * texelSize), basePos.z)).x;\n"
+        "\n"
+        "    return (1.0 - shadowed / 36.0) * intensity;\n"
+        "}\n";
+
+
+    std::string getPCFCubeLightVS(void)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform mat4 ProjectionMatrixInv;\n"
+            "\n"
+            "void main(void)\n"
+            "{\n"
+            "    // xform frustum corners to eye coords\n"
+            "    viewRayEC = ProjectionMatrixInv * gl_Vertex;\n"
+            "\n"
+            "    texCoord    = gl_MultiTexCoord0.xy;\n"
+            "    gl_Position = vec4(2.0 * gl_MultiTexCoord0.xy - 1.0, 0.0, 1.0);\n"
+            "}\n"
+            "");
+
+        return retVal;
+    }
+
+    std::string getPCFLightsVS(void)
+    {
+        // expected vertex attribs
+        // gl_Vertex          frustum corners (on far plane) in NDC (+/-1, +/-1, 1)
+        // gl_MultiTexCoord0  matching FSAQ tex coords (0,0 - 1,0 - 1,1 - 0,1)
+
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform mat4 ProjectionMatrixInv;\n"
+            "\n"
+            "void main(void)\n"
+            "{\n"
+            "    // xform frustum corners to eye coords\n"
+            "    viewRayEC   = ProjectionMatrixInv * gl_Vertex;\n"
+            "\n"
+            "    texCoord    = gl_MultiTexCoord0.xy;\n"
+            "    gl_Position = vec4(2.0 * gl_MultiTexCoord0.xy - 1.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+    std::string getPCFCubeLightFS(UInt32 kernelSize)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform sampler2DShadow  shadowMap;\n"
+            "uniform sampler2D        oldFactorMap;\n"
+            "uniform sampler2D        depthMap;\n"
+            "\n"
+            "uniform mat4 matEC2LEC;\n"
+            "\n"
+            "uniform mat4 lightPMA;\n"
+            "uniform mat4 lightPMB;\n"
+            "uniform mat4 lightPMC;\n"
+            "uniform mat4 lightPMD;\n"
+            "uniform mat4 lightPME;\n"
+            "uniform mat4 lightPMF;\n"
+            "uniform int   firstRun;\n"
+            "uniform float intensity;\n"
+            "uniform float mapSize;\n"
+            "uniform float texFactor;\n"
+            "\n"
+            "uniform float zNear;\n"
+            "uniform float zFar;\n"
+            "\n");
+
+        retVal.append(funcDepth2EyeCoords   );
+        retVal.append(funcEyeCoords2LightNDC);
+
+        switch(kernelSize)
+        {
+        case 2:
+            retVal.append(funcCalcShadow2);
+            break;
+        case 3:
+            retVal.append(funcCalcShadow3);
+            break;
+        case 4:
+            retVal.append(funcCalcShadow4);
+            break;
+        case 5:
+            retVal.append(funcCalcShadow5);
+            break;
+        case 6:
+            retVal.append(funcCalcShadow6);
+            break;
+        default:
+            SWARNING << "getPCFCubeLightFS: Unsuported kernelSize, using default (4).";
+            retVal.append(funcCalcShadow4);
+            break;
+        }
+
+        retVal.append(
+            "void main(void)\n"
+            "{\n"
+            "    float baseOffset = 1.0 / 3.0;\n"
+            "    vec2  imgOffset;\n"
+            "    float shadowed = 0.0;\n"
+            "    float depthRaw = texture2D(depthMap, texCoord).x;\n"
+            "\n"
+            "    if(firstRun == 0)\n"
+            "        shadowed += texture2D(oldFactorMap, texCoord).x;\n"
+            "\n"
+            "    if(depthRaw < 1.0)\n"
+            "    {\n"
+            "        // convert depth value to eye coords and then to light eye coords\n"
+            "        vec4 pEC  = depth2EyeCoords(depthRaw, viewRayEC);\n"
+            "        vec4 pLEC = matEC2LEC * pEC;\n"
+            "        vec4 pLNDC;\n"
+            "\n"
+            "        if(abs(pLEC.x) > abs(pLEC.y) && abs(pLEC.x) > abs(pLEC.z))\n"
+            "        {\n"
+            "            if(pLEC.x >= 0.0)\n"
+            "            {\n"
+            "                pLNDC     = lightPME * pEC;\n"
+            "                imgOffset = vec2(baseOffset, baseOffset);\n"
+            "            }\n"
+            "            else\n"
+            "            {\n"
+            "                pLNDC     = lightPMF * pEC;\n"
+            "                imgOffset = vec2(2.0 * baseOffset, baseOffset);\n"
+            "            }\n"
+            "        }\n"
+            "        else if(abs(pLEC.y) > abs(pLEC.x) && abs(pLEC.y) > abs(pLEC.z))\n"
+            "        {\n"
+            "            if(pLEC.y >= 0.0)\n"
+            "            {\n"
+            "                pLNDC     = lightPMC * pEC;\n"
+            "                imgOffset = vec2(2.0 * baseOffset, 0.0);\n"
+            "            }\n"
+            "            else\n"
+            "            {\n"
+            "                pLNDC     = lightPMD * pEC;\n"
+            "                imgOffset = vec2(0.0, baseOffset);\n"
+            "            }\n"
+            "        }\n"
+            "        else\n"
+            "        {\n"
+            "            if(pLEC.z >= 0.0)\n"
+            "            {\n"
+            "                pLNDC     = lightPMA * pEC;\n"
+            "                imgOffset = vec2(0.0, 0.0);\n"
+            "            }\n"
+            "            else\n"
+            "            {\n"
+            "                pLNDC     = lightPMB * pEC;\n"
+            "                imgOffset = vec2(baseOffset, 0.0);\n"
+            "            }\n"
+            "        }\n"
+            "\n"
+            "        pLNDC.x *= texFactor;\n"
+            "        pLNDC    = vec4(0.5            + 0.5            * pLNDC.xy / pLNDC.w,\n"
+            "                        (0.999999/2.0) + (0.999999/2.0) * pLNDC.z  / pLNDC.w, 1.0);\n"
+            "        pLNDC    = vec4(imgOffset + pLNDC.xy  / 3.0, pLNDC.z, 1.0);"
+            "\n"
+            "        shadowed = calcShadow(shadowMap, pLNDC.xyz, 1.0 / (3.0 * mapSize), intensity);\n"
+            "    }\n"
+            "\n"
+            "    gl_FragColor = vec4(shadowed, 0.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+    std::string getPCF1LightFS(UInt32 kernelSize)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform sampler2DShadow  shadowMap;\n"
+            "uniform sampler2D        oldFactorMap;\n"
+            "uniform sampler2D        depthMap;\n"
+            "\n"
+            "uniform mat4  lightPM;\n"
+            "uniform float intensity;\n"
+            "uniform int   firstRun;\n"
+            "uniform float mapSize;\n"
+            "uniform float mapFactor;\n"
+            "uniform float texFactor;\n"
+            "\n"
+            "uniform float zNear;\n"
+            "uniform float zFar;\n"
+            "\n");
+
+        retVal.append(funcDepth2EyeCoords   );
+        retVal.append(funcEyeCoords2LightNDC);
+
+        switch(kernelSize)
+        {
+        case 2:
+            retVal.append(funcCalcShadow2);
+            break;
+        case 3:
+            retVal.append(funcCalcShadow3);
+            break;
+        case 4:
+            retVal.append(funcCalcShadow4);
+            break;
+        case 5:
+            retVal.append(funcCalcShadow5);
+            break;
+        case 6:
+            retVal.append(funcCalcShadow6);
+            break;
+        default:
+            SWARNING << "getPCF1LightFS: Unsuported kernelSize, using default (4).";
+            retVal.append(funcCalcShadow4);
+            break;
+        }
+
+        retVal.append(
+            "void main(void)\n"
+            "{\n"
+            "    float shadowed = 0.0;\n"
+            "\n"
+            "    if(firstRun == 0)\n"
+            "        shadowed += texture2D(oldFactorMap, texCoord).x;\n"
+            "\n"
+            "    float depthRaw = texture2D(depthMap, texCoord).x;\n"
+            "    if(depthRaw < 1.0)\n"
+            "    {\n"
+            "        vec4 pEC   = depth2EyeCoords   (depthRaw, viewRayEC);\n"
+            "        vec4 pLNDC = eyeCoords2LightNDC(pEC, lightPM, texFactor);\n"
+            "\n"
+            "        shadowed += calcShadow(shadowMap, pLNDC.xyz, mapFactor/ mapSize, intensity);\n"
+            "    }\n"
+            "\n"
+            "    gl_FragColor = vec4(shadowed, 0.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+    std::string getPCF2LightFS(UInt32 kernelSize)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform sampler2DShadow  shadowMap1;\n"
+            "uniform sampler2DShadow  shadowMap2;\n"
+            "uniform sampler2D        oldFactorMap;\n"
+            "uniform sampler2D        depthMap;\n"
+            "\n"
+            "uniform mat4  lightPM1;\n"
+            "uniform mat4  lightPM2;\n"
+            "uniform float intensity1;\n"
+            "uniform float intensity2;\n"
+            "uniform float mapFactor1;\n"
+            "uniform float mapFactor2;\n"
+            "uniform float texFactor1;\n"
+            "uniform float texFactor2;\n"
+            "uniform int   firstRun;\n"
+            "uniform float mapSize;\n"
+            "\n"
+            "uniform float zNear;\n"
+            "uniform float zFar;\n"
+            "\n");
+
+        retVal.append(funcDepth2EyeCoords   );
+        retVal.append(funcEyeCoords2LightNDC);
+
+        switch(kernelSize)
+        {
+        case 2:
+            retVal.append(funcCalcShadow2);
+            break;
+        case 3:
+            retVal.append(funcCalcShadow3);
+            break;
+        case 4:
+            retVal.append(funcCalcShadow4);
+            break;
+        case 5:
+            retVal.append(funcCalcShadow5);
+            break;
+        case 6:
+            retVal.append(funcCalcShadow6);
+            break;
+        default:
+            SWARNING << "getPCF1LightFS: Unsuported kernelSize, using default (4).";
+            retVal.append(funcCalcShadow4);
+            break;
+        }
+
+        retVal.append(
+            "void main(void)\n"
+            "{\n"
+            "    float shadowed = 0.0;\n"
+            "\n"
+            "    if(firstRun == 0)\n"
+            "        shadowed += texture2D(oldFactorMap, texCoord).x;\n"
+            "\n"
+            "    float depthRaw = texture2D(depthMap, texCoord).x;\n"
+            "    if(depthRaw < 1.0)\n"
+            "    {\n"
+            "        vec4 pEC     = depth2EyeCoords(depthRaw, viewRayEC);\n"
+            "\n"
+            "        vec4 pLNDC1  = eyeCoords2LightNDC(pEC, lightPM1, texFactor1);\n"
+            "        shadowed    += calcShadow(shadowMap1, pLNDC1.xyz, mapFactor1 / mapSize, intensity1);\n"
+            "\n"
+            "        vec4 pLNDC2 =  eyeCoords2LightNDC(pEC, lightPM2, texFactor2);\n"
+            "        shadowed    += calcShadow(shadowMap2, pLNDC2.xyz, mapFactor2 / mapSize, intensity2);\n"
+            "    }\n"
+            "\n"
+            "    gl_FragColor = vec4(shadowed, 0.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+    std::string getPCF3LightFS(UInt32 kernelSize)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform sampler2DShadow  shadowMap1;\n"
+            "uniform sampler2DShadow  shadowMap2;\n"
+            "uniform sampler2DShadow  shadowMap3;\n"
+            "uniform sampler2D        oldFactorMap;\n"
+            "uniform sampler2D        depthMap;\n"
+            "\n"
+            "uniform mat4  lightPM1;\n"
+            "uniform mat4  lightPM2;\n"
+            "uniform mat4  lightPM3;\n"
+            "uniform float intensity1;\n"
+            "uniform float intensity2;\n"
+            "uniform float intensity3;\n"
+            "uniform float mapFactor1;\n"
+            "uniform float mapFactor2;\n"
+            "uniform float mapFactor3;\n"
+            "uniform float texFactor1;\n"
+            "uniform float texFactor2;\n"
+            "uniform float texFactor3;\n"
+            "uniform int   firstRun;\n"
+            "uniform float mapSize;\n"
+            "\n"
+            "uniform float zNear;\n"
+            "uniform float zFar;\n"
+            "\n");
+
+        retVal.append(funcDepth2EyeCoords   );
+        retVal.append(funcEyeCoords2LightNDC);
+
+        switch(kernelSize)
+        {
+        case 2:
+            retVal.append(funcCalcShadow2);
+            break;
+        case 3:
+            retVal.append(funcCalcShadow3);
+            break;
+        case 4:
+            retVal.append(funcCalcShadow4);
+            break;
+        case 5:
+            retVal.append(funcCalcShadow5);
+            break;
+        case 6:
+            retVal.append(funcCalcShadow6);
+            break;
+        default:
+            SWARNING << "getPCF3LightFS: Unsuported kernelSize, using default (4).";
+            retVal.append(funcCalcShadow4);
+            break;
+        }
+
+        retVal.append(
+            "void main(void)\n"
+            "{\n"
+            "    float shadowed = 0.0;\n"
+            "\n"
+            "    if(firstRun == 0)\n"
+            "        shadowed += texture2D(oldFactorMap, texCoord).x;\n"
+            "\n"
+            "    float depthRaw = texture2D(depthMap, texCoord).x;\n"
+            "    if(depthRaw < 1.0)\n"
+            "    {\n"
+            "        vec4 pEC     = depth2EyeCoords(depthRaw, viewRayEC);\n"
+            "\n"
+            "        vec4 pLNDC1  = eyeCoords2LightNDC(pEC, lightPM1, texFactor1);\n"
+            "        shadowed    += calcShadow(shadowMap1, pLNDC1.xyz, mapFactor1 / mapSize, intensity1);\n"
+            "\n"
+            "        vec4 pLNDC2 =  eyeCoords2LightNDC(pEC, lightPM2, texFactor2);\n"
+            "        shadowed    += calcShadow(shadowMap2, pLNDC2.xyz, mapFactor2 / mapSize, intensity2);\n"
+            "\n"
+            "        vec4 pLNDC3 =  eyeCoords2LightNDC(pEC, lightPM3, texFactor3);\n"
+            "        shadowed    += calcShadow(shadowMap3, pLNDC3.xyz, mapFactor3 / mapSize, intensity3);\n"
+            "    }\n"
+            "\n"
+            "    gl_FragColor = vec4(shadowed, 0.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+    std::string getPCF4LightFS(UInt32 kernelSize)
+    {
+        std::string retVal;
+        retVal.append(
+            "varying vec4 viewRayEC;\n"
+            "varying vec2 texCoord;\n"
+            "\n"
+            "uniform sampler2DShadow  shadowMap1;\n"
+            "uniform sampler2DShadow  shadowMap2;\n"
+            "uniform sampler2DShadow  shadowMap3;\n"
+            "uniform sampler2DShadow  shadowMap4;\n"
+            "uniform sampler2D        oldFactorMap;\n"
+            "uniform sampler2D        depthMap;\n"
+            "\n"
+            "uniform mat4  lightPM1;\n"
+            "uniform mat4  lightPM2;\n"
+            "uniform mat4  lightPM3;\n"
+            "uniform mat4  lightPM4;\n"
+            "uniform float intensity1;\n"
+            "uniform float intensity2;\n"
+            "uniform float intensity3;\n"
+            "uniform float intensity4;\n"
+            "uniform float mapFactor1;\n"
+            "uniform float mapFactor2;\n"
+            "uniform float mapFactor3;\n"
+            "uniform float mapFactor4;\n"
+            "uniform float texFactor1;\n"
+            "uniform float texFactor2;\n"
+            "uniform float texFactor3;\n"
+            "uniform float texFactor4;\n"
+            "uniform int   firstRun;\n"
+            "uniform float mapSize;\n"
+            "\n"
+            "uniform float zNear;\n"
+            "uniform float zFar;\n"
+            "\n");
+
+        retVal.append(funcDepth2EyeCoords   );
+        retVal.append(funcEyeCoords2LightNDC);
+
+        switch(kernelSize)
+        {
+        case 2:
+            retVal.append(funcCalcShadow2);
+            break;
+        case 3:
+            retVal.append(funcCalcShadow3);
+            break;
+        case 4:
+            retVal.append(funcCalcShadow4);
+            break;
+        case 5:
+            retVal.append(funcCalcShadow5);
+            break;
+        case 6:
+            retVal.append(funcCalcShadow6);
+            break;
+        default:
+            SWARNING << "getPCF3LightFS: Unsuported kernelSize, using default (4).";
+            retVal.append(funcCalcShadow4);
+            break;
+        }
+
+        retVal.append(
+            "void main(void)\n"
+            "{\n"
+            "    float shadowed = 0.0;\n"
+            "\n"
+            "    if(firstRun == 0)\n"
+            "        shadowed += texture2D(oldFactorMap, texCoord).x;\n"
+            "\n"
+            "    float depthRaw = texture2D(depthMap, texCoord).x;\n"
+            "    if(depthRaw < 1.0)\n"
+            "    {\n"
+            "        vec4 pEC     = depth2EyeCoords(depthRaw, viewRayEC);\n"
+            "\n"
+            "        vec4 pLNDC1  = eyeCoords2LightNDC(pEC, lightPM1, texFactor1);\n"
+            "        shadowed    += calcShadow(shadowMap1, pLNDC1.xyz, mapFactor1 / mapSize, intensity1);\n"
+            "\n"
+            "        vec4 pLNDC2 =  eyeCoords2LightNDC(pEC, lightPM2, texFactor2);\n"
+            "        shadowed    += calcShadow(shadowMap2, pLNDC2.xyz, mapFactor2 / mapSize, intensity2);\n"
+            "\n"
+            "        vec4 pLNDC3 =  eyeCoords2LightNDC(pEC, lightPM3, texFactor3);\n"
+            "        shadowed    += calcShadow(shadowMap3, pLNDC3.xyz, mapFactor3 / mapSize, intensity3);\n"
+            "\n"
+            "        vec4 pLNDC4 =  eyeCoords2LightNDC(pEC, lightPM4, texFactor4);\n"
+            "        shadowed    += calcShadow(shadowMap4, pLNDC4.xyz, mapFactor4 / mapSize, intensity4);\n"
+            "    }\n"
+            "\n"
+            "    gl_FragColor = vec4(shadowed, 0.0, 0.0, 1.0);\n"
+            "}\n");
+
+        return retVal;
+    }
+
+} // namespace

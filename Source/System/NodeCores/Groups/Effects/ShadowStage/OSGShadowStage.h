@@ -72,6 +72,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
         PERSPECTIVE_SHADOW_MAP,
         DITHER_SHADOW_MAP,
         PCF_SHADOW_MAP,
+        PCF2_SHADOW_MAP,
         PCSS_SHADOW_MAP,
         VARIANCE_SHADOW_MAP
     };
@@ -198,6 +199,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
     friend class PerspectiveShadowMapHandler;
     friend class DitherShadowMapHandler;
     friend class PCFShadowMapHandler;
+    friend class PCF2ShadowMapHandler;
     friend class VarianceShadowMapHandler;
     friend class PCSSShadowMapHandler;
 
