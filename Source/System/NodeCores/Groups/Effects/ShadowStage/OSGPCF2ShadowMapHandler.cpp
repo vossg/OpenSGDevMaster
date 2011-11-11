@@ -517,12 +517,11 @@ void PCF2ShadowMapHandler::createColorMapFBO(RenderAction *a,
                                              DrawEnv      *pEnv)
 {
     _pStage->pushPartition(a,
-                           (RenderPartition::CopyWindow      |
-                            RenderPartition::CopyViewing     |
-                            RenderPartition::CopyProjection  |
-                            RenderPartition::CopyFrustum     |
-                            RenderPartition::CopyNearFar     |
-                            RenderPartition::CopyViewportSize),
+                           (RenderPartition::CopyWindow     |
+                            RenderPartition::CopyViewing    |
+                            RenderPartition::CopyProjection |
+                            RenderPartition::CopyFrustum    |
+                            RenderPartition::CopyNearFar    ),
                            RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
@@ -532,6 +531,10 @@ void PCF2ShadowMapHandler::createColorMapFBO(RenderAction *a,
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT0_EXT);
+
+        pPart->setViewportDimension(0, 0,
+                                    pEnv->getPixelWidth (),
+                                    pEnv->getPixelHeight(), true);
 
         Node *parent = a->getActNode()->getParent();
 
@@ -747,8 +750,7 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                     dBuffers = GL_COLOR_ATTACHMENT2_EXT;
 
                 _pStage->pushPartition(a,
-                                       (RenderPartition::CopyWindow      |
-                                        RenderPartition::CopyViewportSize),
+                                       RenderPartition::CopyWindow,
                                        RenderPartition::SimpleCallback);
                 {
                     RenderPartition *pPart = a->getActivePartition();
@@ -762,6 +764,10 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 
                     pPart->setRenderTarget(_pSceneFBO);
                     pPart->setDrawBuffer  ( dBuffers );
+
+                    pPart->setViewportDimension(0, 0,
+                                                pEnv->getPixelWidth (),
+                                                pEnv->getPixelHeight(), true);
 
                     if(_activeFactorMap == 0 && bCA1Cleared == false)
                     {
@@ -1169,8 +1175,7 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
             }
 
             _pStage->pushPartition(a,
-                                   (RenderPartition::CopyWindow      |
-                                    RenderPartition::CopyViewportSize),
+                                   RenderPartition::CopyWindow,
                                    RenderPartition::SimpleCallback);
             {
                 RenderPartition *pPart = a->getActivePartition();
@@ -1184,6 +1189,10 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 
                 pPart->setRenderTarget(_pSceneFBO);
                 pPart->setDrawBuffer  ( dBuffers);
+
+                pPart->setViewportDimension(0, 0,
+                                            pEnv->getPixelWidth (),
+                                            pEnv->getPixelHeight(), true);
 
                 if(_activeFactorMap == 0 && bCA1Cleared == false)
                 {
