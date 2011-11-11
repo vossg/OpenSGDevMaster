@@ -188,14 +188,14 @@ void QuadTreeTerrain::getVertex(UInt32 i, Pnt3f &point) const
     GeoPnt3fProperty *pos = 
         dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
-   point.setValue(pos->getField()[i]);
+    point.setValue(pos->getField()[i]);
 }
 const Pnt3f &QuadTreeTerrain::getVertex(UInt32 i) const
 {
-   GeoPnt3fProperty *pos = 
-       dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
+    GeoPnt3fProperty *pos = 
+        dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
-   return pos->getField()[i];
+    return pos->getField()[i];
 }
 UInt32 QuadTreeTerrain::getNumVertices(void) const
 {
@@ -1649,8 +1649,8 @@ Real32 QuadTreeTerrain::getHeightAboveGround (const Pnt3f& eye)
     Real32 ulx = getVertex(0)[0];                    // upper left x coord.
     Real32 ulz = getVertex(0)[2];                    // upper left z coord.
     
-    Real32 lrx = getVertex(getNumVertices())[0];      // lower right...
-    Real32 lrz = getVertex(getNumVertices())[2];      // ...
+    Real32 lrx = getVertex(getNumVertices() - 1)[0];      // lower right...
+    Real32 lrz = getVertex(getNumVertices() - 1)[2];      // ...
     
     //--- determine height above ground -------------------------------------
     if      (ex < ulx) {  ex = ulx;  }
