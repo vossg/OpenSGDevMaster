@@ -354,6 +354,50 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                 {
                     FFATAL(("Couldn't link vertex and fragment program!\n%s\n",
                             szInfoBuffer));
+
+#ifdef OSG_DEBUG
+                    if(!getMFVertexShader()->empty())
+                    {
+                        SINFO << "Vertex Shader Code:\n";
+
+                        MFVertexShaderType::const_iterator vIt  = getMFVertexShader()->begin();
+                        MFVertexShaderType::const_iterator vEnd = getMFVertexShader()->end  ();
+
+                        for(; vIt != vEnd; ++vIt)
+                        {
+                            PINFO << (*vIt)->getProgram()
+                                  << "\n";
+                        }
+                    }
+
+                    if(!getMFGeometryShader()->empty())
+                    {
+                        SINFO << "Geometry Shader Code:\n";
+
+                        MFGeometryShaderType::const_iterator gIt  = getMFGeometryShader()->begin();
+                        MFGeometryShaderType::const_iterator gEnd = getMFGeometryShader()->end  ();
+
+                        for(; gIt != gEnd; ++gIt)
+                        {
+                            PINFO << (*gIt)->getProgram()
+                                  << "\n";
+                        }
+                    }
+
+                    if(!getMFFragmentShader()->empty())
+                    {
+                        SINFO << "Fragment Shader Code:\n";
+
+                        MFFragmentShaderType::const_iterator fIt  = getMFFragmentShader()->begin();
+                        MFFragmentShaderType::const_iterator fEnd = getMFFragmentShader()->end  ();
+
+                        for(; fIt != fEnd; ++fIt)
+                        {
+                            PINFO << (*fIt)->getProgram()
+                                  << "\n";
+                        }
+                    }
+#endif // OSG_DEBUG
                 }
                 else
                 {
