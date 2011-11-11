@@ -85,9 +85,9 @@ bool m_bFullscreen, m_bCalibrate = false;
 void LoadGLTextures(void) 
 {
     OSG::ImageRefPtr image = OSG::Image::create();
-    if(!image->read("./Data/worldground.jpg"))
+    if(!image->read("./worldground.jpg"))
     {
-        printf("Could not read ./Data/worldground.jpg!!\n");
+        printf("Could not read worldground.jpg!!\n");
         exit(1);
     }
 
