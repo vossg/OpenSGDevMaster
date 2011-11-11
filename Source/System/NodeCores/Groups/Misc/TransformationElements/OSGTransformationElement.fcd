@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+    name="TransformationElement"
+    parent="AttachmentContainer"
+    library="Group"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    authors="David Kabala (djkabala@gmail.com)                             "
+    childFields="multi"
+    >
+  <Field
+      name="ParentStack"
+      type="FieldContainer"
+      cardinality="single"
+      visibility="external"
+      access="none"
+      doRefCount="false"
+      passFieldMask="true"
+      category="parentpointer"
+      >
+    The StackedTransform this TransformationElement is contained in.
+  </Field>
+</FieldContainer>

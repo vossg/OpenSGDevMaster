@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+    name="SkewTransformationElement"
+    parent="TransformationElement"
+    library="Group"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    authors="David Kabala (djkabala@gmail.com)                             "
+    >
+  <Field
+      name="RotationAxis"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="0.0f,1.0f,0.0f"
+      >
+  </Field>
+  <Field
+      name="TranslationAxis"
+      type="Vec3f"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1.0f,0.0f,0.0f"
+      >
+  </Field>
+  <Field
+      name="Angle"
+      type="Real32"
+      category="data"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="0.0f"
+      >
+  </Field>
+</FieldContainer>

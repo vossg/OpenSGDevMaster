@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+    name="StackedTransform"
+    parent="Group"
+    library="Group"
+    structure="concrete"
+    pointerfieldtypes="both"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    isNodeCore="true"
+    >
+  <Field
+      name="TransformElements"
+      type="TransformationElement"
+      category="childpointer"
+      cardinality="multi"
+      childParentType="FieldContainer"
+      visibility="external"
+      access="public"
+      ptrFieldAccess = "nullCheck"
+      linkParentField="ParentStack"
+      >
+  </Field>
+</FieldContainer>
