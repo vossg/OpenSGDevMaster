@@ -94,6 +94,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     InlineBase::_sfGrapOp
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -161,6 +165,18 @@ void InlineBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Inline::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "grapOp",
+        "",
+        GrapOpFieldId, GrapOpFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Inline::editHandleGrapOp),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleGrapOp));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -212,6 +228,15 @@ InlineBase::TypeObject InlineBase::_type(
     "\t visibility=\"internal\"\n"
     "\t defaultValue=\"NULL\"\n"
     "\t access=\"protected\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"grapOp\"\n"
+    "\t type=\"std::string\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue='\"default\"'\n"
+    "\t access=\"public\"\n"
     "\t >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
@@ -277,6 +302,19 @@ SFUnrecNodePtr      *InlineBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+SFString *InlineBase::editSFGrapOp(void)
+{
+    editSField(GrapOpFieldMask);
+
+    return &_sfGrapOp;
+}
+
+const SFString *InlineBase::getSFGrapOp(void) const
+{
+    return &_sfGrapOp;
+}
+
+
 
 
 
@@ -299,6 +337,10 @@ UInt32 InlineBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRoot.getBinSize();
     }
+    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    {
+        returnValue += _sfGrapOp.getBinSize();
+    }
 
     return returnValue;
 }
@@ -319,6 +361,10 @@ void InlineBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
         _sfRoot.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    {
+        _sfGrapOp.copyToBin(pMem);
     }
 }
 
@@ -341,6 +387,11 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    {
+        editSField(GrapOpFieldMask);
+        _sfGrapOp.copyFromBin(pMem);
     }
 }
 
@@ -469,7 +520,8 @@ InlineBase::InlineBase(void) :
     Inherited(),
     _mfUrl                    (),
     _sfLoaded                 (bool(true)),
-    _sfRoot                   (NULL)
+    _sfRoot                   (NULL),
+    _sfGrapOp                 (std::string("default"))
 {
 }
 
@@ -477,7 +529,8 @@ InlineBase::InlineBase(const InlineBase &source) :
     Inherited(source),
     _mfUrl                    (source._mfUrl                    ),
     _sfLoaded                 (source._sfLoaded                 ),
-    _sfRoot                   (NULL)
+    _sfRoot                   (NULL),
+    _sfGrapOp                 (source._sfGrapOp                 )
 {
 }
 
@@ -574,6 +627,31 @@ EditFieldHandlePtr InlineBase::editHandleRoot           (void)
                     static_cast<Inline *>(this), _1));
 
     editSField(RootFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr InlineBase::getHandleGrapOp          (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfGrapOp,
+             this->getType().getFieldDesc(GrapOpFieldId),
+             const_cast<InlineBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr InlineBase::editHandleGrapOp         (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfGrapOp,
+             this->getType().getFieldDesc(GrapOpFieldId),
+             this));
+
+
+    editSField(GrapOpFieldMask);
 
     return returnValue;
 }

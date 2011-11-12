@@ -99,7 +99,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         UrlFieldId = Inherited::NextFieldId,
         LoadedFieldId = UrlFieldId + 1,
         RootFieldId = LoadedFieldId + 1,
-        NextFieldId = RootFieldId + 1
+        GrapOpFieldId = RootFieldId + 1,
+        NextFieldId = GrapOpFieldId + 1
     };
 
     static const OSG::BitVector UrlFieldMask =
@@ -108,12 +109,15 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         (TypeTraits<BitVector>::One << LoadedFieldId);
     static const OSG::BitVector RootFieldMask =
         (TypeTraits<BitVector>::One << RootFieldId);
+    static const OSG::BitVector GrapOpFieldMask =
+        (TypeTraits<BitVector>::One << GrapOpFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFString          MFUrlType;
     typedef SFBool            SFLoadedType;
     typedef SFUnrecNodePtr    SFRootType;
+    typedef SFString          SFGrapOpType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -145,6 +149,9 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   SFBool              *editSFLoaded         (void);
             const SFBool              *getSFLoaded          (void) const;
 
+                  SFString            *editSFGrapOp         (void);
+            const SFString            *getSFGrapOp          (void) const;
+
 
                   std::string         &editUrl            (const UInt32 index);
             const std::string         &getUrl             (const UInt32 index) const;
@@ -152,12 +159,16 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   bool                &editLoaded         (void);
                   bool                 getLoaded          (void) const;
 
+                  std::string         &editGrapOp         (void);
+            const std::string         &getGrapOp          (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
             void setLoaded         (const bool value);
+            void setGrapOp         (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,6 +236,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     MFString          _mfUrl;
     SFBool            _sfLoaded;
     SFUnrecNodePtr    _sfRoot;
+    SFString          _sfGrapOp;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -259,6 +271,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     EditFieldHandlePtr editHandleLoaded         (void);
     GetFieldHandlePtr  getHandleRoot            (void) const;
     EditFieldHandlePtr editHandleRoot           (void);
+    GetFieldHandlePtr  getHandleGrapOp          (void) const;
+    EditFieldHandlePtr editHandleGrapOp         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

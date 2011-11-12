@@ -37,4 +37,13 @@
 	 access="protected"
 	 >
   </Field>
+  <Field
+	 name="grapOp"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue='"default"'
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

@@ -47,6 +47,7 @@
 #include "OSGSceneFileHandler.h"
 #include "OSGOSGSceneFileType.h"
 #include "OSGRenderAction.h"
+#include "OSGGraphOpSeq.h"
 
 OSG_USING_NAMESPACE
 
@@ -141,9 +142,24 @@ void Inline::postOSGLoading(void)
             SceneFileHandler::the()->getPathHandler()->extractFilename(
                 _mfUrl[i].c_str());
 
+        GraphOpSeqRefPtr pGraphOp = NULL;
+        
+        if(_sfGrapOp.getValue().compare("none") == 0)
+        {
+            // leave it NULL
+        }
+        else if(_sfGrapOp.getValue().compare("default") == 0)
+        {
+            pGraphOp = SceneFileHandler::the()->getDefaultGraphOp();
+        }
+        else
+        {
+            pGraphOp = GraphOpSeq::create(_sfGrapOp.getValue());
+        }
+
         NodeUnrecPtr pFile = SceneFileHandler::the()->read(
             szFName.c_str(),
-            SceneFileHandler::the()->getDefaultGraphOp(),
+            pGraphOp,
             NULL,
             false);
 
@@ -151,7 +167,7 @@ void Inline::postOSGLoading(void)
         {
             pFile = SceneFileHandler::the()->read(
                 szFilenameResolved.c_str(),
-                SceneFileHandler::the()->getDefaultGraphOp(),
+                pGraphOp,
                 NULL,
                 false);
 
@@ -159,7 +175,7 @@ void Inline::postOSGLoading(void)
             {
                 pFile = SceneFileHandler::the()->read(
                     _mfUrl[i].c_str(),
-                    SceneFileHandler::the()->getDefaultGraphOp(),
+                    pGraphOp,
                     NULL,
                     false);
             }

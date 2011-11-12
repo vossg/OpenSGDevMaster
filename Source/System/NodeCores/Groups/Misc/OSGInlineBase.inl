@@ -115,6 +115,31 @@ void InlineBase::setRoot(Node * const value)
 
     _sfRoot.setValue(value);
 }
+//! Get the value of the Inline::_sfGrapOp field.
+
+inline
+std::string &InlineBase::editGrapOp(void)
+{
+    editSField(GrapOpFieldMask);
+
+    return _sfGrapOp.getValue();
+}
+
+//! Get the value of the Inline::_sfGrapOp field.
+inline
+const std::string &InlineBase::getGrapOp(void) const
+{
+    return _sfGrapOp.getValue();
+}
+
+//! Set the value of the Inline::_sfGrapOp field.
+inline
+void InlineBase::setGrapOp(const std::string &value)
+{
+    editSField(GrapOpFieldMask);
+
+    _sfGrapOp.setValue(value);
+}
 
 //! Get the value of the \a index element the Inline::_mfUrl field.
 inline
@@ -154,6 +179,9 @@ void InlineBase::execSync (      InlineBase *pFrom,
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
         _sfRoot.syncWith(pFrom->_sfRoot);
+
+    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+        _sfGrapOp.syncWith(pFrom->_sfGrapOp);
 }
 #endif
 
