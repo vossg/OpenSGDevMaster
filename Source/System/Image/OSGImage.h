@@ -355,7 +355,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 
     const UInt8 *getDataFast   (UInt32 mipmapNum = 0,
                                 UInt32 frameNum  = 0,
-                                UInt32 sidecount = 0) const;
+                                UInt32 sidecount = 0);
           UInt8 *editDataFast  (UInt32 mipmapNum = 0,
                                 UInt32 frameNum  = 0,
                                 UInt32 sidecount = 0);

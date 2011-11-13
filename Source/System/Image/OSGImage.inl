@@ -117,13 +117,16 @@ UInt8 *Image::editData(UInt32 mipmapNum,
 inline 
 const UInt8 *Image::getDataFast(UInt32 mipmapNum, 
                                 UInt32 frameNum,
-                                UInt32 sideNum ) const
+                                UInt32 sideNum ) 
 {
     const UInt8 *data = 
         (&(_mfPixel[0])           ) + 
         (sideNum  * getSideSize ()) +
         (frameNum * getFrameSize());
     
+    if(_mipmapOffset.size() <= mipmapNum)
+        calcMipmapOffsets();
+
     data += _mipmapOffset[mipmapNum];
    
     return data;
@@ -141,6 +144,9 @@ UInt8 *Image::editDataFast(UInt32 mipmapNum,
         (sideNum  * getSideSize ()) +
         (frameNum * getFrameSize());
     
+    if(_mipmapOffset.size() <= mipmapNum)
+        calcMipmapOffsets();
+
     data += _mipmapOffset[mipmapNum];
   
     return data;

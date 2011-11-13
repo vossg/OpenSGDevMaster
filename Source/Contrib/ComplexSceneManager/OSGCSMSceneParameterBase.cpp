@@ -102,6 +102,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Real32          CSMSceneParameterBase::_sfSceneNear
+    
+*/
+
+/*! \var Real32          CSMSceneParameterBase::_sfSceneFar
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -193,6 +201,30 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneCenter));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "sceneNear",
+        "",
+        SceneNearFieldId, SceneNearFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleSceneNear),
+        static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneNear));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "sceneFar",
+        "",
+        SceneFarFieldId, SceneFarFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleSceneFar),
+        static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneFar));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -262,6 +294,22 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sceneNear\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"0.1f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sceneFar\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"20000.f\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\n"
@@ -354,6 +402,32 @@ const SFPnt3f *CSMSceneParameterBase::getSFSceneCenter(void) const
 }
 
 
+SFReal32 *CSMSceneParameterBase::editSFSceneNear(void)
+{
+    editSField(SceneNearFieldMask);
+
+    return &_sfSceneNear;
+}
+
+const SFReal32 *CSMSceneParameterBase::getSFSceneNear(void) const
+{
+    return &_sfSceneNear;
+}
+
+
+SFReal32 *CSMSceneParameterBase::editSFSceneFar(void)
+{
+    editSField(SceneFarFieldMask);
+
+    return &_sfSceneFar;
+}
+
+const SFReal32 *CSMSceneParameterBase::getSFSceneFar(void) const
+{
+    return &_sfSceneFar;
+}
+
+
 
 
 
@@ -384,6 +458,14 @@ UInt32 CSMSceneParameterBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfSceneCenter.getBinSize();
     }
+    if(FieldBits::NoField != (SceneNearFieldMask & whichField))
+    {
+        returnValue += _sfSceneNear.getBinSize();
+    }
+    if(FieldBits::NoField != (SceneFarFieldMask & whichField))
+    {
+        returnValue += _sfSceneFar.getBinSize();
+    }
 
     return returnValue;
 }
@@ -412,6 +494,14 @@ void CSMSceneParameterBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (SceneCenterFieldMask & whichField))
     {
         _sfSceneCenter.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (SceneNearFieldMask & whichField))
+    {
+        _sfSceneNear.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (SceneFarFieldMask & whichField))
+    {
+        _sfSceneFar.copyToBin(pMem);
     }
 }
 
@@ -444,6 +534,16 @@ void CSMSceneParameterBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(SceneCenterFieldMask);
         _sfSceneCenter.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SceneNearFieldMask & whichField))
+    {
+        editSField(SceneNearFieldMask);
+        _sfSceneNear.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SceneFarFieldMask & whichField))
+    {
+        editSField(SceneFarFieldMask);
+        _sfSceneFar.copyFromBin(pMem);
     }
 }
 
@@ -547,7 +647,9 @@ CSMSceneParameterBase::CSMSceneParameterBase(void) :
     _sfDistScale              (Real32(1.f)),
     _sfSceneDiag              (Vec3f(1.f)),
     _sfInitViewPos            (Pnt3f(1.f)),
-    _sfSceneCenter            (Pnt3f(1.f))
+    _sfSceneCenter            (Pnt3f(1.f)),
+    _sfSceneNear              (Real32(0.1f)),
+    _sfSceneFar               (Real32(20000.f))
 {
 }
 
@@ -557,7 +659,9 @@ CSMSceneParameterBase::CSMSceneParameterBase(const CSMSceneParameterBase &source
     _sfDistScale              (source._sfDistScale              ),
     _sfSceneDiag              (source._sfSceneDiag              ),
     _sfInitViewPos            (source._sfInitViewPos            ),
-    _sfSceneCenter            (source._sfSceneCenter            )
+    _sfSceneCenter            (source._sfSceneCenter            ),
+    _sfSceneNear              (source._sfSceneNear              ),
+    _sfSceneFar               (source._sfSceneFar               )
 {
 }
 
@@ -704,6 +808,56 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneCenter    (void)
 
 
     editSField(SceneCenterFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneNear       (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfSceneNear,
+             this->getType().getFieldDesc(SceneNearFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneNear      (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfSceneNear,
+             this->getType().getFieldDesc(SceneNearFieldId),
+             this));
+
+
+    editSField(SceneNearFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneFar        (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfSceneFar,
+             this->getType().getFieldDesc(SceneFarFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneFar       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfSceneFar,
+             this->getType().getFieldDesc(SceneFarFieldId),
+             this));
+
+
+    editSField(SceneFarFieldMask);
 
     return returnValue;
 }

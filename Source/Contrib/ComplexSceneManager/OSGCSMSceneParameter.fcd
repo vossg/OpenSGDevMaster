@@ -55,5 +55,21 @@
         defaultValue="1.f"
 	>
 	</Field>
+	<Field
+		name="sceneNear"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+        defaultValue="0.1f"
+	>
+	</Field>
+	<Field
+		name="sceneFar"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+        defaultValue="20000.f"
+	>
+	</Field>
 
 </FieldContainer>

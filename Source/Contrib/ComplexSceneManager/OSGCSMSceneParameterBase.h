@@ -101,7 +101,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
         SceneDiagFieldId = DistScaleFieldId + 1,
         InitViewPosFieldId = SceneDiagFieldId + 1,
         SceneCenterFieldId = InitViewPosFieldId + 1,
-        NextFieldId = SceneCenterFieldId + 1
+        SceneNearFieldId = SceneCenterFieldId + 1,
+        SceneFarFieldId = SceneNearFieldId + 1,
+        NextFieldId = SceneFarFieldId + 1
     };
 
     static const OSG::BitVector SceneRefFieldMask =
@@ -114,6 +116,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
         (TypeTraits<BitVector>::One << InitViewPosFieldId);
     static const OSG::BitVector SceneCenterFieldMask =
         (TypeTraits<BitVector>::One << SceneCenterFieldId);
+    static const OSG::BitVector SceneNearFieldMask =
+        (TypeTraits<BitVector>::One << SceneNearFieldId);
+    static const OSG::BitVector SceneFarFieldMask =
+        (TypeTraits<BitVector>::One << SceneFarFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -122,6 +128,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     typedef SFVec3f           SFSceneDiagType;
     typedef SFPnt3f           SFInitViewPosType;
     typedef SFPnt3f           SFSceneCenterType;
+    typedef SFReal32          SFSceneNearType;
+    typedef SFReal32          SFSceneFarType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -161,6 +169,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
                   SFPnt3f             *editSFSceneCenter    (void);
             const SFPnt3f             *getSFSceneCenter     (void) const;
 
+                  SFReal32            *editSFSceneNear      (void);
+            const SFReal32            *getSFSceneNear       (void) const;
+
+                  SFReal32            *editSFSceneFar       (void);
+            const SFReal32            *getSFSceneFar        (void) const;
+
 
                   Node * getSceneRef       (void) const;
 
@@ -176,6 +190,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
                   Pnt3f               &editSceneCenter    (void);
             const Pnt3f               &getSceneCenter     (void) const;
 
+                  Real32              &editSceneNear      (void);
+                  Real32               getSceneNear       (void) const;
+
+                  Real32              &editSceneFar       (void);
+                  Real32               getSceneFar        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -186,6 +206,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
             void setSceneDiag      (const Vec3f &value);
             void setInitViewPos    (const Pnt3f &value);
             void setSceneCenter    (const Pnt3f &value);
+            void setSceneNear      (const Real32 value);
+            void setSceneFar       (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -255,6 +277,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     SFVec3f           _sfSceneDiag;
     SFPnt3f           _sfInitViewPos;
     SFPnt3f           _sfSceneCenter;
+    SFReal32          _sfSceneNear;
+    SFReal32          _sfSceneFar;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,6 +317,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     EditFieldHandlePtr editHandleInitViewPos    (void);
     GetFieldHandlePtr  getHandleSceneCenter     (void) const;
     EditFieldHandlePtr editHandleSceneCenter    (void);
+    GetFieldHandlePtr  getHandleSceneNear       (void) const;
+    EditFieldHandlePtr editHandleSceneNear      (void);
+    GetFieldHandlePtr  getHandleSceneFar        (void) const;
+    EditFieldHandlePtr editHandleSceneFar       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

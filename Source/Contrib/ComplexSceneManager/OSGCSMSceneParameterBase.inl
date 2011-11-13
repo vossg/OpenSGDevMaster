@@ -190,6 +190,56 @@ void CSMSceneParameterBase::setSceneCenter(const Pnt3f &value)
 
     _sfSceneCenter.setValue(value);
 }
+//! Get the value of the CSMSceneParameter::_sfSceneNear field.
+
+inline
+Real32 &CSMSceneParameterBase::editSceneNear(void)
+{
+    editSField(SceneNearFieldMask);
+
+    return _sfSceneNear.getValue();
+}
+
+//! Get the value of the CSMSceneParameter::_sfSceneNear field.
+inline
+      Real32  CSMSceneParameterBase::getSceneNear(void) const
+{
+    return _sfSceneNear.getValue();
+}
+
+//! Set the value of the CSMSceneParameter::_sfSceneNear field.
+inline
+void CSMSceneParameterBase::setSceneNear(const Real32 value)
+{
+    editSField(SceneNearFieldMask);
+
+    _sfSceneNear.setValue(value);
+}
+//! Get the value of the CSMSceneParameter::_sfSceneFar field.
+
+inline
+Real32 &CSMSceneParameterBase::editSceneFar(void)
+{
+    editSField(SceneFarFieldMask);
+
+    return _sfSceneFar.getValue();
+}
+
+//! Get the value of the CSMSceneParameter::_sfSceneFar field.
+inline
+      Real32  CSMSceneParameterBase::getSceneFar(void) const
+{
+    return _sfSceneFar.getValue();
+}
+
+//! Set the value of the CSMSceneParameter::_sfSceneFar field.
+inline
+void CSMSceneParameterBase::setSceneFar(const Real32 value)
+{
+    editSField(SceneFarFieldMask);
+
+    _sfSceneFar.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -216,6 +266,12 @@ void CSMSceneParameterBase::execSync (      CSMSceneParameterBase *pFrom,
 
     if(FieldBits::NoField != (SceneCenterFieldMask & whichField))
         _sfSceneCenter.syncWith(pFrom->_sfSceneCenter);
+
+    if(FieldBits::NoField != (SceneNearFieldMask & whichField))
+        _sfSceneNear.syncWith(pFrom->_sfSceneNear);
+
+    if(FieldBits::NoField != (SceneFarFieldMask & whichField))
+        _sfSceneFar.syncWith(pFrom->_sfSceneFar);
 }
 #endif
 
