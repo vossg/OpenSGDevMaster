@@ -652,8 +652,8 @@ void calcVertexTangentsProp(Geometry *geo,
 
             v[k]        = indexDic.entry(indexVec);
 
-            if(v[k] > Int32(propSize))
-                propSize = v[k];
+            if(v[k] >= Int32(propSize))
+                propSize = v[k] + 1;
         }
 
         // resize properties if inital guess was too small
