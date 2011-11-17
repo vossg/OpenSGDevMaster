@@ -686,7 +686,8 @@ bool Geometry::isSingleIndex(void) const
 
     for(UInt32 i = PositionsIndex; i < _mfPropIndices.size(); ++i)
     {
-        if(_mfPropIndices[i] != _mfPropIndices[PositionsIndex])
+        if(_mfPropIndices[i] != NULL                           &&
+           _mfPropIndices[i] != _mfPropIndices[PositionsIndex]   )
         {
             returnValue = false;
             break;
