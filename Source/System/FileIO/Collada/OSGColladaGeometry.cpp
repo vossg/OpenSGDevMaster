@@ -944,11 +944,6 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
         }
     }
 
-    // TODO: Clean up the texcood property indices by ensuring that if we have
-    //       at least one texture coordinate property, that it is assigned to
-    //       the first texture coordinate slot. This should be a safe assumption
-    //       since we are in the common profile.
-
 #ifdef OSG_DEBUG
     // check for holes in idxStore - which is not supported
     IndexStoreConstIt idxIt  = idxStore.begin();
@@ -1102,6 +1097,34 @@ ColladaGeometry::handleBindMaterial(
             geo->setProperty( psIt->_prop, i);
             geo->setIndex   (*isIt,        i);
         }
+    }
+
+    // Clean up the texcood property indices by ensuring that if we have at
+    // least one texture coordinate property, that it is assigned to the first
+    // texture coordinate slot. This should be a safe assumption since we are
+    // in the common profile.
+    GeoVectorProperty* tex_coord0(geo->getProperty(Geometry::TexCoordsIndex));
+    if (NULL == tex_coord0)
+    {
+
+       for (UInt16 idx = Geometry::TexCoords1Index; idx <= Geometry::TexCoords7Index; ++idx)
+       {
+          GeoVectorProperty* tex_coord(geo->getProperty(idx));
+          if (NULL != tex_coord)
+          {
+             OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
+                              "Manual switch texture coords from [%d] to [%s].\n",
+                              idx, Geometry::TexCoords1Index));
+
+             geo->setProperty(tex_coord, Geometry::TexCoordsIndex);
+             geo->setProperty(NULL, idx);
+
+             GeoIntegralProperty* index(geo->getIndex(idx));
+             geo->setIndex(index, Geometry::TexCoordsIndex);
+             geo->setIndex(NULL, idx);
+             break;
+          }
+       }
     }
 
     if(material != NULL)
