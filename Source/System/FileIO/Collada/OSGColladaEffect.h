@@ -166,6 +166,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     virtual void      readProfileCommon(domProfile_COMMON *prof);
     virtual void      readProfileGLSL  (domProfile_GLSL   *prof);
     virtual void      readProfileCG    (domProfile_CG     *prof);
+    virtual void      readNewParams    (const domCommon_newparam_type_Array& newParams);
 
     virtual MaterialTransitPtr createInstanceProfileCommon(
         domProfile_COMMON  *prof,       domEffect *effect,

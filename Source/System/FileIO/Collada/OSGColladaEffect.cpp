@@ -276,9 +276,16 @@ ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
     }
 
     readImageArray(prof->getImage_array());
+    readNewParams(prof->getNewparam_array());
 
-    const domCommon_newparam_type_Array &newParams = prof->getNewparam_array();
+    domProfile_COMMON::domTechniqueRef tech = prof->getTechnique();
+    readNewParams(tech->getNewparam_array());
+    readImageArray(tech->getImage_array());
+}
 
+void
+ColladaEffect::readNewParams(const domCommon_newparam_type_Array& newParams)
+{
     for(UInt32 i = 0; i < newParams.getCount(); ++i)
     {
         // must read surface params before sampler params, because their <source>
@@ -326,9 +333,6 @@ ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
                  << std::endl;
     }
 
-    domProfile_COMMON::domTechniqueRef tech = prof->getTechnique();
-
-    readImageArray(tech->getImage_array());
 }
 
 void
