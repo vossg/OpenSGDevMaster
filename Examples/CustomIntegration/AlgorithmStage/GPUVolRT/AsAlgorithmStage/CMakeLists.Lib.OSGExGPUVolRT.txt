@@ -17,6 +17,9 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGWindow OSGDrawable OSGUtil
                                      OSGWindowGLUT)
 
 # dependencies - External
+IF(WIN32)
+  SET(${PROJECT_NAME}_DEP_LIB GLEW_LIBRARIES)
+ENDIF()
 # SET(${PROJECT_NAME}_DEP_LIB)
 # SET(${PROJECT_NAME}_DEP_LIBDIR)
 # SET(${PROJECT_NAME}_DEP_INCDIR)
