@@ -1069,6 +1069,11 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
                       idxStore[offset]                         );
     }
 
+    // TODO: Clean up the texcood property indices by ensuring that if we have
+    //       at least one texture coordinate property, that it is assigned to
+    //       the first texture coordinate slot. This should be a safe assumption
+    //       since we are in the common profile.
+
 #ifdef OSG_DEBUG
     // check for holes in idxStore - which is not supported
     IndexStoreConstIt idxIt  = idxStore.begin();

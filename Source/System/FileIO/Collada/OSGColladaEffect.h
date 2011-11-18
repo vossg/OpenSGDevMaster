@@ -199,6 +199,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     typedef ParamSurfaceMap::iterator             ParamSurfaceMapIt;
     typedef ParamSurfaceMap::const_iterator       ParamSurfaceMapConstIt;
 
+    typedef domCommon_newparam_type_Array         CommonParamArray;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
@@ -212,9 +214,10 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Profile Handlers                                             */
     /*! \{                                                                 */
 
-    virtual void      readProfileCommon(domProfile_COMMON *prof);
-    virtual void      readProfileGLSL  (domProfile_GLSL   *prof);
-    virtual void      readProfileCG    (domProfile_CG     *prof);
+    virtual void readProfileCommon(      domProfile_COMMON *prof     );
+    virtual void readProfileGLSL  (      domProfile_GLSL   *prof     );
+    virtual void readProfileCG    (      domProfile_CG     *prof     );
+    virtual void readNewParams    (const CommonParamArray  &newParams);
 
     virtual MaterialTransitPtr createInstanceProfileCommon(
         domProfile_COMMON  *prof,       domEffect *effect,
