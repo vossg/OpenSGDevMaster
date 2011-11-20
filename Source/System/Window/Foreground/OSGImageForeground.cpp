@@ -175,9 +175,19 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
         else
             glRasterPos2f(p[0], p[1]); // relative position
 
-        glDrawPixels(img->getWidth(), img->getHeight(),
-                     img->getPixelFormat(), GL_UNSIGNED_BYTE,
+        if(i < this->getMFScales()->size())
+        {
+            glPixelZoom(this->getScales(i)[0],
+                        this->getScales(i)[1]);
+        }
+
+        glDrawPixels(img->getWidth(), 
+                     img->getHeight(),
+                     img->getPixelFormat(), 
+                     GL_UNSIGNED_BYTE,
                      img->getData());
+
+        glPixelZoom(1.f, 1.f);
     }
     glDisable(GL_BLEND);
         

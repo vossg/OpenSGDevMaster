@@ -94,6 +94,10 @@ OSG_BEGIN_NAMESPACE
     The positions of the images.
 */
 
+/*! \var Pnt2f           ImageForegroundBase::_mfScales
+    The positions of the images.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -149,6 +153,18 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ImageForeground::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFPnt2f::Description(
+        MFPnt2f::getClassType(),
+        "scales",
+        "The positions of the images.\n",
+        ScalesFieldId, ScalesFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ImageForeground::editHandleScales),
+        static_cast<FieldGetMethodSig >(&ImageForeground::getHandleScales));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -191,6 +207,15 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"positions\"\n"
+    "\t type=\"Pnt2f\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tThe positions of the images.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"scales\"\n"
     "\t type=\"Pnt2f\"\n"
     "\t cardinality=\"multi\"\n"
     "\t visibility=\"external\"\n"
@@ -249,6 +274,19 @@ MFPnt2f *ImageForegroundBase::editMFPositions(void)
 const MFPnt2f *ImageForegroundBase::getMFPositions(void) const
 {
     return &_mfPositions;
+}
+
+
+MFPnt2f *ImageForegroundBase::editMFScales(void)
+{
+    editMField(ScalesFieldMask, _mfScales);
+
+    return &_mfScales;
+}
+
+const MFPnt2f *ImageForegroundBase::getMFScales(void) const
+{
+    return &_mfScales;
 }
 
 
@@ -323,6 +361,10 @@ UInt32 ImageForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfPositions.getBinSize();
     }
+    if(FieldBits::NoField != (ScalesFieldMask & whichField))
+    {
+        returnValue += _mfScales.getBinSize();
+    }
 
     return returnValue;
 }
@@ -340,6 +382,10 @@ void ImageForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfPositions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ScalesFieldMask & whichField))
+    {
+        _mfScales.copyToBin(pMem);
+    }
 }
 
 void ImageForegroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -356,6 +402,11 @@ void ImageForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(PositionsFieldMask, _mfPositions);
         _mfPositions.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ScalesFieldMask & whichField))
+    {
+        editMField(ScalesFieldMask, _mfScales);
+        _mfScales.copyFromBin(pMem);
     }
 }
 
@@ -483,14 +534,16 @@ FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 ImageForegroundBase::ImageForegroundBase(void) :
     Inherited(),
     _mfImages                 (),
-    _mfPositions              ()
+    _mfPositions              (),
+    _mfScales                 ()
 {
 }
 
 ImageForegroundBase::ImageForegroundBase(const ImageForegroundBase &source) :
     Inherited(source),
     _mfImages                 (),
-    _mfPositions              (source._mfPositions              )
+    _mfPositions              (source._mfPositions              ),
+    _mfScales                 (source._mfScales                 )
 {
 }
 
@@ -585,6 +638,31 @@ EditFieldHandlePtr ImageForegroundBase::editHandlePositions      (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ImageForegroundBase::getHandleScales          (void) const
+{
+    MFPnt2f::GetHandlePtr returnValue(
+        new  MFPnt2f::GetHandle(
+             &_mfScales,
+             this->getType().getFieldDesc(ScalesFieldId),
+             const_cast<ImageForegroundBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ImageForegroundBase::editHandleScales         (void)
+{
+    MFPnt2f::EditHandlePtr returnValue(
+        new  MFPnt2f::EditHandle(
+             &_mfScales,
+             this->getType().getFieldDesc(ScalesFieldId),
+             this));
+
+
+    editMField(ScalesFieldMask, _mfScales);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,
@@ -632,6 +710,10 @@ void ImageForegroundBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfPositions.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfScales.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

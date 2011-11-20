@@ -451,6 +451,8 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
             pProg->setShaderType(GL_VERTEX_SHADER);
 
             addVertexShader(pProg);
+
+            pProg->setVariables(this->getVariables());
         }
         else if(_mfVertexShader.size() > 1)
         {
@@ -944,6 +946,11 @@ bool SimpleSHLChunk::addOSGVariable(const Char8 *name)
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pVar);
+        
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     return _sfVariables.getValue()->addOSGVariable(
@@ -962,6 +969,11 @@ bool SimpleSHLChunk::addProceduralVariable(const Char8          *name,
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     return _sfVariables.getValue()->addProceduralVariable(
@@ -983,6 +995,11 @@ bool SimpleSHLChunk::updateNodeProceduralVariable(
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     return _sfVariables.getValue()->updateNodeProceduralVariable(name, 
@@ -1002,6 +1019,11 @@ bool SimpleSHLChunk::addNodeProceduralVariable(
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     return _sfVariables.getValue()->addNodeProceduralVariable(
@@ -1022,6 +1044,11 @@ bool SimpleSHLChunk::updateProceduralVariable(const Char8         *name,
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     return _sfVariables.getValue()->updateProceduralVariable(name, 
@@ -1039,6 +1066,11 @@ void SimpleSHLChunk::addParameterCallback(const Char8 *name, ParamFunctor fp)
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     _sfVariables.getValue()->addProceduralVariable(
@@ -1056,6 +1088,11 @@ void SimpleSHLChunk::addParameterCallback(const Char8 *name, OSGParamFunctor fp)
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
+
+        if(_mfVertexShader.size() > 0)
+        {
+            _mfVertexShader[0]->setVariables(this->getVariables());
+        }
     }
 
     _sfVariables.getValue()->addProceduralVariable(

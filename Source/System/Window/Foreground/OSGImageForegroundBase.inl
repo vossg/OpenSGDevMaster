@@ -98,6 +98,22 @@ Pnt2f &ImageForegroundBase::editPositions(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the ImageForeground::_mfScales field.
+inline
+const Pnt2f &ImageForegroundBase::getScales(const UInt32 index) const
+{
+    return _mfScales[index];
+}
+
+inline
+Pnt2f &ImageForegroundBase::editScales(const UInt32 index)
+{
+    editMField(ScalesFieldMask, _mfScales);
+
+    return _mfScales[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -117,6 +133,12 @@ void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
         _mfPositions.syncWith(pFrom->_mfPositions,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ScalesFieldMask & whichField))
+        _mfScales.syncWith(pFrom->_mfScales,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

@@ -663,15 +663,15 @@ void rhino2osb::doTess(OSG::Node *node)
         // so that all the dirty flags are up-to-date
         OSG::commitChanges();
 
-        //printf("tess start\n");
+//        printf("tess start\n");
         surf->forceTessellate();
 
-        //printf("tess end\n");
+//        printf("tess end\n");
         unsigned int numtris = surf->getIndices()->size();
 
         OSG::osgSinkUnusedWarning(numtris);
 
-        //printf("number of tris: %d\n", numtris);
+//        printf("number of tris: %d\n", numtris);
     }
 }
 
@@ -899,6 +899,8 @@ void rhino2osb::process_material(const ONX_Model &model, int index)
         }
 
         m_actMaterial->setShininess(128.0 * (mat.Shine() / ON_Material::MaxShine()));
+
+        m_actMaterial->setTransparency(mat.Transparency());
     }
 
     ON_String mat_name = mat.m_material_name;

@@ -33,4 +33,13 @@
 	 >
 	The positions of the images.
   </Field>
+  <Field
+	 name="scales"
+	 type="Pnt2f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+	The positions of the images.
+  </Field>
 </FieldContainer>

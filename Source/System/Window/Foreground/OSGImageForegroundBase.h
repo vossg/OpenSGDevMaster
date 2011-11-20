@@ -97,18 +97,22 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     {
         ImagesFieldId = Inherited::NextFieldId,
         PositionsFieldId = ImagesFieldId + 1,
-        NextFieldId = PositionsFieldId + 1
+        ScalesFieldId = PositionsFieldId + 1,
+        NextFieldId = ScalesFieldId + 1
     };
 
     static const OSG::BitVector ImagesFieldMask =
         (TypeTraits<BitVector>::One << ImagesFieldId);
     static const OSG::BitVector PositionsFieldMask =
         (TypeTraits<BitVector>::One << PositionsFieldId);
+    static const OSG::BitVector ScalesFieldMask =
+        (TypeTraits<BitVector>::One << ScalesFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUnrecImagePtr   MFImagesType;
     typedef MFPnt2f           MFPositionsType;
+    typedef MFPnt2f           MFScalesType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -139,11 +143,17 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
                   MFPnt2f             *editMFPositions      (void);
             const MFPnt2f             *getMFPositions       (void) const;
 
+                  MFPnt2f             *editMFScales         (void);
+            const MFPnt2f             *getMFScales          (void) const;
+
 
                   Image * getImages         (const UInt32 index) const;
 
                   Pnt2f               &editPositions      (const UInt32 index);
             const Pnt2f               &getPositions       (const UInt32 index) const;
+
+                  Pnt2f               &editScales         (const UInt32 index);
+            const Pnt2f               &getScales          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,6 +232,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
     MFUnrecImagePtr   _mfImages;
     MFPnt2f           _mfPositions;
+    MFPnt2f           _mfScales;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -254,6 +265,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     EditFieldHandlePtr editHandleImages         (void);
     GetFieldHandlePtr  getHandlePositions       (void) const;
     EditFieldHandlePtr editHandlePositions      (void);
+    GetFieldHandlePtr  getHandleScales          (void) const;
+    EditFieldHandlePtr editHandleScales         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
