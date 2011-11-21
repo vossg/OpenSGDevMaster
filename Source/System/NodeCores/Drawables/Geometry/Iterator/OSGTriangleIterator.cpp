@@ -181,52 +181,88 @@ void TriangleIterator::operator++()
 
     switch(getType())
     {
-    case GL_TRIANGLES:      _triPntIndex[0] = _actPrimIndex++;
-                            _triPntIndex[1] = _actPrimIndex++;
-                            _triPntIndex[2] = _actPrimIndex++;
-                            break;
+    case GL_TRIANGLES:
+        _triPntIndex[0] = _actPrimIndex++;
+        _triPntIndex[1] = _actPrimIndex++;
+        _triPntIndex[2] = _actPrimIndex++;
+        break;
+    case GL_TRIANGLES_ADJACENCY_EXT:
+        // Triangle vertices are 6i+0, 6i+2, and 6i+4
+        // adjacent vertices are 6i+1, 6i+3, and 6i+5
+        _triPntIndex[0] = _actPrimIndex;
+        _triPntIndex[1] = _actPrimIndex + 2;
+        _triPntIndex[2] = _actPrimIndex + 4;
+        _actPrimIndex += 6;
+        break;
     case GL_QUAD_STRIP:
-    case GL_TRIANGLE_STRIP: if(_actPrimIndex & 1)
-                            {
-                                _triPntIndex[0] = _triPntIndex[2];
-                            }
-                            else
-                            {
-                                _triPntIndex[1] = _triPntIndex[2];
-                            }                           
-                            _triPntIndex[2] = _actPrimIndex++;
-                            
-                            if(getPositionIndex(0) == getPositionIndex(1) ||
-                               getPositionIndex(0) == getPositionIndex(2) ||
-                               getPositionIndex(1) == getPositionIndex(2))
-                            {
-                                --_triIndex;
-                                ++(*this);
-                            }
-                               
-                            break;
+    case GL_TRIANGLE_STRIP:
+        if(_actPrimIndex & 1)
+        {
+            _triPntIndex[0] = _triPntIndex[2];
+        }
+        else
+        {
+            _triPntIndex[1] = _triPntIndex[2];
+        }
+        _triPntIndex[2] = _actPrimIndex++;
+
+        if(getPositionIndex(0) == getPositionIndex(1) ||
+           getPositionIndex(0) == getPositionIndex(2) ||
+           getPositionIndex(1) == getPositionIndex(2))
+        {
+            --_triIndex;
+            ++(*this);
+        }
+        break;
+    case GL_TRIANGLE_STRIP_ADJACENCY_EXT:
+        //                        | Primitive  Vertices |  Adjacent Vertices
+        // Primitive              |  1st    2nd    3rd  |  1/2    2/3    3/1
+        // -----------------------+---------------------+-------------------
+        // only (i = 0, n = 1)    |   0      2      4   |   1      5      3
+        // first (i = 0)          |   0      2      4   |   1      6      3
+        // middle (i odd)         | 2i+2   2i+0   2i+4  | 2i-2   2i+3   2i+6
+        // middle (i even)        | 2i+0   2i+2   2i+4  | 2i-2   2i+6   2i+3
+        // last (i = n-1, i odd)  | 2i+2   2i+0   2i+4  | 2i-2   2i+3   2i+5
+        // last (i = n-1, i even) | 2i+0   2i+2   2i+4  | 2i-2   2i+5   2i+3
+
+        if(_actPrimIndex & 2)
+        {
+            _triPntIndex[0] = _actPrimIndex - 2;
+            _triPntIndex[1] = _actPrimIndex - 4;
+            _triPntIndex[2] = _actPrimIndex;
+        }
+        else
+        {
+            _triPntIndex[0] = _actPrimIndex - 4;
+            _triPntIndex[1] = _actPrimIndex - 2;
+            _triPntIndex[2] = _actPrimIndex;
+        }
+        _actPrimIndex += 2;
+        break;
     case GL_POLYGON:
-    case GL_TRIANGLE_FAN:   _triPntIndex[1] = _triPntIndex[2];
-                            _triPntIndex[2] = _actPrimIndex++;
-                            break;
-    case GL_QUADS:          if(_actPrimIndex & 1)
-                            {
-                                _triPntIndex[1] = _triPntIndex[2];
-                                _triPntIndex[2] = _actPrimIndex++;
-                            }
-                            else
-                            {
-                                _triPntIndex[0] = _actPrimIndex++;
-                                _triPntIndex[1] = _actPrimIndex++;
-                                _triPntIndex[2] = _actPrimIndex++;
-                            }                           
-                            break;
-    default:                SWARNING << "TriangleIterator::++: encountered " 
-                                      << "unknown primitive type " 
-                                      << getType()
-                                      << ", ignoring!" << std::endl;
-                            startPrim();
-                            break;
+    case GL_TRIANGLE_FAN:
+        _triPntIndex[1] = _triPntIndex[2];
+        _triPntIndex[2] = _actPrimIndex++;
+        break;
+    case GL_QUADS:
+        if(_actPrimIndex & 1)
+        {
+            _triPntIndex[1] = _triPntIndex[2];
+            _triPntIndex[2] = _actPrimIndex++;
+        }
+        else
+        {
+            _triPntIndex[0] = _actPrimIndex++;
+            _triPntIndex[1] = _actPrimIndex++;
+            _triPntIndex[2] = _actPrimIndex++;
+        }
+        break;
+    default:
+        SWARNING << "TriangleIterator::++: encountered "
+                 << "unknown primitive type " << getType()
+                 << ", ignoring!" << std::endl;
+        startPrim();
+        break;
     }           
 }
 
@@ -241,11 +277,6 @@ void TriangleIterator::startPrim(void)
     if(isAtEnd())
         return;
         
-    _triPntIndex[0] = 0;
-    _triPntIndex[1] = 1;
-    _triPntIndex[2] = 2;
-    _actPrimIndex = 3;
-    
     // loop until you find a useful primitive or run out
     while(! isAtEnd())
     {
@@ -253,7 +284,9 @@ void TriangleIterator::startPrim(void)
         {
         case GL_POINTS:         // non-polygon types: ignored
         case GL_LINES:
+        case GL_LINES_ADJACENCY_EXT:
         case GL_LINE_STRIP: 
+        case GL_LINE_STRIP_ADJACENCY_EXT:
         case GL_LINE_LOOP:  
                                 break;
         case GL_TRIANGLES:      // polygon types
@@ -261,9 +294,40 @@ void TriangleIterator::startPrim(void)
         case GL_TRIANGLE_FAN:
         case GL_QUADS:
         case GL_QUAD_STRIP:
-        case GL_POLYGON:        if(getLength() >= 3)
+        case GL_POLYGON:
+            _triPntIndex[0] = 0;
+            _triPntIndex[1] = 1;
+            _triPntIndex[2] = 2;
+
+            _actPrimIndex = 3;
+
+            if(getLength() >= 3)
+                return;
+            break;
+
+        case GL_TRIANGLES_ADJACENCY_EXT:
+            _triPntIndex[0] = 0;
+            _triPntIndex[1] = 2;
+            _triPntIndex[2] = 4;
+
+            _actPrimIndex = 6;
+
+            if(getLength() >= 6)
                                     return;
+
                                 break;
+        case GL_TRIANGLE_STRIP_ADJACENCY_EXT:
+            _triPntIndex[0] = 0;
+            _triPntIndex[1] = 2;
+            _triPntIndex[2] = 4;
+
+            _actPrimIndex = 6;
+
+            if(getLength() >= 6)
+                return;
+
+            break;
+
         default:                SWARNING << "TriangleIterator::startPrim: "
                                           << "encountered " 
                                           << "unknown primitive type " 

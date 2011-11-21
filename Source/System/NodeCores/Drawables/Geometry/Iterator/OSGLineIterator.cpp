@@ -175,32 +175,51 @@ void LineIterator::operator++()
         return;
     }
 
-
     switch(getType())
     {
-    case GL_LINES:          _linePntIndex[0] = _actPrimIndex++;
-                            _linePntIndex[1] = _actPrimIndex++;
-                            break;                           
-    case GL_LINE_STRIP:     _linePntIndex[0] = _linePntIndex[1];
-                            _linePntIndex[1] = _actPrimIndex++;
-                            break;
-    case GL_LINE_LOOP:      _linePntIndex[0] = _linePntIndex[1];
-                            if(_actPrimIndex < getLength())
-                            {
-                                _linePntIndex[1] = _actPrimIndex++;
-                            }
-                            else
-                            {
-                                _linePntIndex[1] = 0;
-                                _actPrimIndex++;    
-                            }
-                            break;
-    default:                SWARNING << "LineIterator::++: encountered " 
-                                      << "unknown primitive type " 
-                                      << getType()
-                                      << ", ignoring!" << std::endl;
-                            startPrim();
-                            break;
+    case GL_LINES:
+        _linePntIndex[0] = _actPrimIndex++;
+        _linePntIndex[1] = _actPrimIndex++;
+        break;
+    case GL_LINE_STRIP:
+        _linePntIndex[0] = _linePntIndex[1];
+        _linePntIndex[1] = _actPrimIndex++;
+        break;
+    case GL_LINE_LOOP:
+        _linePntIndex[0] = _linePntIndex[1];
+        if(_actPrimIndex < getLength())
+        {
+            _linePntIndex[1] = _actPrimIndex++;
+        }
+        else
+        {
+            _linePntIndex[1] = 0;
+            _actPrimIndex++;
+        }
+        break;
+    case GL_LINES_ADJACENCY_EXT:
+        // line vertices are 4i+1, 4i+2
+        // adjacent vertices are 4i+0, 4i+3
+        _linePntIndex[0] = _actPrimIndex+1;
+        _linePntIndex[1] = _actPrimIndex+2;
+        _actPrimIndex += 4;
+        break;
+    case GL_LINE_STRIP_ADJACENCY_EXT:
+        // Line segments are drawn from vertices i+1 to i+2 for i = 0,1,..,n-1
+        // (n+3 vertices are passed).
+        // For line segment i, the vertices i+0 and i+3 are considered adjacent
+        // to vertices i+1 and i+2, respectively.
+        _linePntIndex[0] = _linePntIndex[1];
+        _linePntIndex[1] = _actPrimIndex-1;
+        _actPrimIndex++;
+        break;
+    default:
+        SWARNING << "LineIterator::++: encountered "
+                 << "unknown primitive type "
+                 << getType()
+                 << ", ignoring!" << std::endl;
+        startPrim();
+        break;
     }           
 }
 
@@ -215,10 +234,6 @@ void LineIterator::startPrim(void)
     if(isAtEnd())
         return;
         
-    _linePntIndex[0] = 0;
-    _linePntIndex[1] = 1;
-    _actPrimIndex = 2;
-    
     // loop until you find a useful primitive or run out
     while(! isAtEnd())
     {
@@ -234,7 +249,23 @@ void LineIterator::startPrim(void)
                                 break;
         case GL_LINES:          // line types
         case GL_LINE_STRIP: 
-        case GL_LINE_LOOP:      if(getLength() >= 2)
+        case GL_LINE_LOOP:
+                                _linePntIndex[0] = 0;
+                                _linePntIndex[1] = 1;
+
+                                _actPrimIndex = 2;
+
+                                if(getLength() >= 2)
+                                    return;
+                                break;
+        case GL_LINES_ADJACENCY_EXT:
+        case GL_LINE_STRIP_ADJACENCY_EXT:
+                                _linePntIndex[0] = 1;
+                                _linePntIndex[1] = 2;
+
+                                _actPrimIndex = 4;
+
+                                if(getLength() >= 4)
                                     return;
                                 break;
         default:                SWARNING << "LineIterator::startPrim: "
