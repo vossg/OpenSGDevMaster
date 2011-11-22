@@ -787,24 +787,21 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
     bool           bOverrodeState = false;
     StateOverride *pStateOverride = NULL;
 
-    DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
-
-    if(st == NULL)
-    {
-        DrawableStatsAttachment::addTo(actCore);
-
-        st = DrawableStatsAttachment::get(actCore);
-    }
-
-    st->validate();
-
     if(_oDrawEnv.getStatCollector() != NULL)
     {
-        _oDrawEnv.getStatCollector()->getElem(
-            RenderAction::statNTriangles)->add(st->getTriangles());
-    }
+        DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
 
-    _uiNumTriangles += st->getTriangles();
+        if(st == NULL)
+        {
+            DrawableStatsAttachment::addTo(actCore);
+
+            st = DrawableStatsAttachment::get(actCore);
+        }
+
+        st->validate();
+
+        _uiNumTriangles += st->getTriangles();
+    }
 
     #ifdef OSG_NEW_SHADER
     bOverrodeState = pushShaderState(pState);
