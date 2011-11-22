@@ -517,20 +517,21 @@ void OcclusionCullingTreeBuilder::testNode(OCRenderTreeNode   *pNode,
                     st->validate();
                     UInt32 triangles = st->getTriangles();
 
-                    if(cbb * _vpWidth * _vpHeight < _minFeatureSize) //small feature culling
+                    if(cbb * _vpWidth * _vpHeight < _minFeatureSize) // small feature culling
                     {
-                        StatCollector *sc = _ract->getStatCollector();
-                        if(sc != NULL)
-                            sc->getElem(statNOccTriangles)->
-                                add(triangles);
+                        pNode->setIsRendered(true);
+
                         if(_ract->getOcclusionCullingDebug() && pNode->getNode())
                         {
                             pNode->getNode()->setTravMask(
                                 pNode->getNode()->getTravMask() |
-                                _ract->getOcclusionCulledDebugMask()
-                                );
+                                _ract->getOcclusionCulledDebugMask());
                         }
-                        pNode->setIsRendered(true);
+
+                        StatCollector *sc = _ract->getStatCollector();
+
+                        if(sc != NULL)
+                            sc->getElem(statNOccTriangles)->add(triangles);
                     }
                     else if( triangles <= _minTriangleCount )
                     {
@@ -769,24 +770,23 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
             else
             {
                 StatCollector *sc = _ract->getStatCollector();
+
                 if(sc != NULL)
+                {
                     sc->getElem(statNOccInvisible)->inc();
 
-                DrawableStatsAttachment *st =
-                    DrawableStatsAttachment::get(pNode->getNode()->getCore());
+                    DrawableStatsAttachment *st =
+                        DrawableStatsAttachment::get(pNode->getNode()->getCore());
+                    st->validate();
 
-                st->validate();
-
-                if(sc != NULL)
-                    sc->getElem(statNOccTriangles)->
-                        add(st->getTriangles());
+                    sc->getElem(statNOccTriangles)->add(st->getTriangles());
+                }
 
                 if(_ract->getOcclusionCullingDebug() && pNode->getNode())
                 {
                     pNode->getNode()->setTravMask(
                         pNode->getNode()->getTravMask() |
-                        _ract->getOcclusionCulledDebugMask()
-                        );
+                        _ract->getOcclusionCulledDebugMask());
                 }
             }
         }

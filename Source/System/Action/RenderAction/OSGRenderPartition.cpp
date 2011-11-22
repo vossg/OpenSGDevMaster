@@ -787,7 +787,8 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
     bool           bOverrodeState = false;
     StateOverride *pStateOverride = NULL;
 
-    if(_oDrawEnv.getStatCollector() != NULL)
+    if(_oDrawEnv.getStatCollector() != NULL             ||
+       _eMode                       == OcclusionCulling   )
     {
         DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
 
