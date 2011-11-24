@@ -488,7 +488,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
         GeoIntegralProperty *index       = pumpData.attribIndex[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-        UInt32               indexSize   = index->getSize();
+//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
                                                       index->getDimension();
@@ -722,7 +722,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
         GeoIntegralProperty *index       = pumpData.attribIndex[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-        UInt32               indexSize   = index->getSize();
+//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
                                                       index->getDimension();
