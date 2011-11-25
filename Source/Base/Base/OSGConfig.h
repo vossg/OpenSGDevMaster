@@ -858,7 +858,11 @@
  *  \ingroup GrpBaseDefines
  */
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSG_BEGIN_NAMESPACE namespace OSG2 {
+#else
 # define OSG_BEGIN_NAMESPACE namespace OSG {
+#endif
 
 /** \brief End the osg namespace
  *  \ingroup GrpBaseDefines
@@ -870,16 +874,33 @@
  *  \ingroup GrpBaseDefines
  */
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSG_USING_NAMESPACE namespace OSG2 {} using namespace OSG2;
+#else
 # define OSG_USING_NAMESPACE namespace OSG {} using namespace OSG;
+#endif
 
 /** \brief Import the osg namespace throughout the following code.
  *  \ingroup GrpBaseDefines
  */
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSG_IMPORT_NAMESPACE using namespace OSG2
+#else
 # define OSG_IMPORT_NAMESPACE using namespace OSG
+#endif
+
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSG_NAMESPACE_PREFIX "OSG2"
+#else
+# define OSG_NAMESPACE_PREFIX "OSG"
+#endif
 
 /*@}*/
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSG OSG2
+#endif
 
 #if defined(OSG_DLSYM_NEEDS_UNDERSCORE)
 #define OSG_DLSYM_UNDERSCORE "_"

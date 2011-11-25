@@ -71,6 +71,10 @@
 
 OSG_USING_NAMESPACE
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+#define OSGScanParseSkel_lex OSG2ScanParseSkel_lex
+#endif
+
 int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 
 #define SKEL (static_cast<ScanParseSkel *>(pSkel))

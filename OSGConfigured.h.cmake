@@ -1,6 +1,8 @@
 #ifndef _OSGCONFIGURED_H_
 #define _OSGCONFIGURED_H_
 
+#cmakedefine OSG_USE_OSG2_NAMESPACE 1
+
 /* Disable interface that will go away in the future */
 #cmakedefine OSG_DISABLE_DEPRECATED 1
 
@@ -89,10 +91,17 @@
 #cmakedefine OSG_SHC_MODE_9  1
 #cmakedefine OSG_SHC_MODE_10 1
 
-OSG_BEGIN_NAMESPACE
-static const unsigned int RenderPropertyBits = @OSG_RENDERPROPERTY_BITS@;
-static const unsigned int RenderPropertyUniqueBits = @OSG_RENDERPROPERTY_UNIQUE_BITS@;
-OSG_END_NAMESPACE
+
+#ifdef OSG_USE_OSG2_NAMESPACE
+namespace OSG2 
+{
+#else
+namespace OSG 
+{
+#endif
+  static const unsigned int RenderPropertyBits = @OSG_RENDERPROPERTY_BITS@;
+  static const unsigned int RenderPropertyUniqueBits = @OSG_RENDERPROPERTY_UNIQUE_BITS@;
+}
 
 #define OSG_WITH_GIF 1
 
@@ -118,3 +127,4 @@ OSG_END_NAMESPACE
 #cmakedefine OSG_DISABLE_MICROSOFT_SECURE_CXXX 1
 
 #cmakedefine OSG_DISABLE_MS_ITERATOR_DEBUGGING 1
+

@@ -70,7 +70,11 @@ OSG_ADD_DIRECTORY("Source/System/FileIO/OSG")
 OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel")
 
 IF(NOT OSG_ENABLE_SCANPARSE_REGEN)
+  IF(OSG_USE_OSG2_NAMESPACE)
+    OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel/prebuildOSG2")
+  ELSE()
     OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel/prebuild")
+  ENDIF()
 ENDIF(NOT OSG_ENABLE_SCANPARSE_REGEN)
 
 OSG_ADD_DIRECTORY("Source/System/GraphOp/Base")

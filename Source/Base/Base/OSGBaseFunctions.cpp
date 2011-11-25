@@ -138,9 +138,9 @@ OSG_BASE_DLLMAPPING GLErrorFunctor GLErrorCallback;
 void osgGetHostname(char *szBuffer, UInt32 uiSize)
 {
     // get local host name
-    if(getenv("OSG_HOSTNAME") != NULL)
+    if(getenv(OSG_NAMESPACE_PREFIX"_HOSTNAME") != NULL)
     {
-        strncpy(szBuffer, getenv("OSG_HOSTNAME"), uiSize);
+        strncpy(szBuffer, getenv(OSG_NAMESPACE_PREFIX"_HOSTNAME"), uiSize);
     }
     else
     {

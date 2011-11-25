@@ -46,7 +46,15 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#define OSGCUDA_BEGIN_NAMESPACE namespace OSGCUDA {
-#define OSGCUDA_END_NAMESPACE }
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSGCUDA_BEGIN_NAMESPACE namespace OSG2CUDA {
+#else
+# define OSGCUDA_BEGIN_NAMESPACE namespace OSGCUDA {
+#endif
+# define OSGCUDA_END_NAMESPACE }
+
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSGCUDA OSG2CUDA
+#endif
 
 #endif /* _OSGCUDADEF_H_ */

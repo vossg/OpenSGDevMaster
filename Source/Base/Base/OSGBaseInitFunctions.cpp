@@ -659,7 +659,7 @@ bool osgDoInit(OSG::Int32,
     std::string pathSep(":");
 #endif
 
-    char *szEnvLibs = getenv("OSG_LOAD_LIBS");
+    char *szEnvLibs = getenv(OSG_NAMESPACE_PREFIX"_LOAD_LIBS");
 
     if(szEnvLibs != NULL)
     {
@@ -677,8 +677,11 @@ bool osgDoInit(OSG::Int32,
         }
     }
 
-    const char *szEnvPlugins       = getenv("OSG_PLUGIN_PATH");
-    const char *szEnvPluginPattern = getenv("OSG_PLUGIN_PATTERN");
+    const char *szEnvPlugins       = 
+        getenv(OSG_NAMESPACE_PREFIX"_PLUGIN_PATH");
+
+    const char *szEnvPluginPattern = 
+        getenv(OSG_NAMESPACE_PREFIX"_PLUGIN_PATTERN");
 
     //SharedObjectHandler::the()->dump();
 

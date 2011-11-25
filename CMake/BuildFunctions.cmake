@@ -922,11 +922,19 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
             STRING(REPLACE "Scanner" "_" LLOpt ${LLBase})
 
+            IF(OSG_USE_OSG2_NAMESPACE)
+              STRING(REPLACE "OSG" "OSG2"
+                     LLOpt_VERSIONED
+                     ${LLOpt})
+            ELSE()
+              SET(LLOpt_VERSIONED ${LLOpt})
+            ENDIF()
+
             SET(LLSrc ${CMAKE_CURRENT_BINARY_DIR}/${LLBase}.cpp)
 
             ADD_CUSTOM_COMMAND(
                 OUTPUT ${LLSrc}
-                COMMAND ${FLEX_EXE} -+ -P${LLOpt} -t ${LLFile} >  ${LLSrc}
+                COMMAND ${FLEX_EXE} -+ -P${LLOpt_VERSIONED} -t ${LLFile} >  ${LLSrc}
                 MAIN_DEPENDENCY ${LLFile})
 
             SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${LLSrc})
@@ -970,10 +978,11 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
       ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
     ENDIF(NOT OSG_DISABLE_SOURCE_GROUPS)
 
-    ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC}
-                                ${${PROJECT_NAME}_HDR}
-                                ${${PROJECT_NAME}_INL}
-                                ${${PROJECT_NAME}_INS})
+    ADD_LIBRARY(${PROJECT_NAME} 
+                ${${PROJECT_NAME}_SRC}
+                ${${PROJECT_NAME}_HDR}
+                ${${PROJECT_NAME}_INL}
+                ${${PROJECT_NAME}_INS})
 
     ADD_DEPENDENCIES(OSGAllLibs ${PROJECT_NAME})
     ADD_DEPENDENCIES(${OSG_MAIN_LIB_TARGET} ${PROJECT_NAME})
@@ -986,13 +995,22 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         SET(_OSG_DEBUG_POSTFIX DEBUG_POSTFIX "D")
     ENDIF(WIN32)
 
+    IF(OSG_USE_OSG2_NAMESPACE)
+      STRING(REGEX REPLACE "^OSG" "OSG2"
+             PROJECT_NAME_VERSIONED
+             ${PROJECT_NAME})
+    ELSE()
+      SET(PROJECT_NAME_VERSIONED ${PROJECT_NAME})
+    ENDIF()
+
     SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
         DEFINE_SYMBOL ${PROJ_DEFINE}
         VERSION ${OSG_VERSION}
         SOVERSION ${OSG_VERSION}
         ${_OSG_DEBUG_POSTFIX}
         DEBUGOPT_POSTFIX "DO"
-        RELEASENOOPT_POSTFIX "RN")
+        RELEASENOOPT_POSTFIX "RN"
+        OUTPUT_NAME ${PROJECT_NAME_VERSIONED})
 
     IF(${PROJECT_NAME}_SUFFIX)
       SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES

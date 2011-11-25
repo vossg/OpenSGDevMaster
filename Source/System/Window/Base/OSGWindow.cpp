@@ -1306,7 +1306,7 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
     {
         ignoreEnvDone = true;
 
-        Char8 *p = getenv("OSG_IGNORE_EXTENSIONS");
+        Char8 *p = getenv(OSG_NAMESPACE_PREFIX"_IGNORE_EXTENSIONS");
         
         if(p)
             ignoreExtensions(p);
@@ -1634,7 +1634,7 @@ void OSG::Window::doFrameExit(void)
     if(!inited)
     {
         inited = true;
-        char *p = getenv("OSG_DEBUG");
+        char *p = getenv(OSG_NAMESPACE_PREFIX"_DEBUG");
         if(p)
             testGLErrors = true;
     }

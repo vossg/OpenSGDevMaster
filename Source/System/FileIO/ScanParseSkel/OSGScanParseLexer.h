@@ -53,8 +53,14 @@
 #include "OSGScanParseSkelParser.hpp"
 #endif
 
+
+
 #ifndef yyFlexLexer
-#define yyFlexLexer OSGScanParseSkel_FlexLexer
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define yyFlexLexer OSG2ScanParseSkel_FlexLexer
+#else
+# define yyFlexLexer OSGScanParseSkel_FlexLexer
+#endif
 #ifdef OSG_PREBUILD_SCANPARSE
 #include "OSGScanParseSkelScanner_FlexLexer.h"
 #else
@@ -74,6 +80,11 @@
 //---------------------------------------------------------------------------
 //   Types
 //---------------------------------------------------------------------------
+
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSGScanParseLexer          OSG2ScanParseLexer
+# define OSGScanParseSkel_FlexLexer OSG2ScanParseSkel_FlexLexer
+#endif
 
 //---------------------------------------------------------------------------
 //  Class

@@ -437,7 +437,9 @@ void Log::setHeaderElem(UInt32 elemMask, bool force)
 {
     Char8 *env;
 
-    if(!force && (this == osgLogP) && (env = getenv( "OSG_LOG_HEADER" )))
+    if((force == false                                    ) && 
+       (this  == osgLogP                                  ) && 
+       (env   =  getenv(OSG_NAMESPACE_PREFIX"_LOG_HEADER"))  )
     {
         osgLog() << "Log::setHeaderElem: overriden by envvar OSG_LOG_HEADER '"
                  << env << "'." << endLog;
@@ -610,7 +612,9 @@ void Log::setLogType(LogType logType, bool force)
     Int32  lt;
     Int32  i;
 
-    if(!force && (this == osgLogP) && (et = getenv("OSG_LOG_TYPE")))
+    if((force == false                                  ) && 
+       (this  == osgLogP                                ) && 
+       (et    =  getenv(OSG_NAMESPACE_PREFIX"_LOG_TYPE"))  )
     {
         osgLog() << "Log::setLogType: overriden by envvar OSG_LOG_TYPE '"
                  << et << "'." << std::endl;
@@ -709,14 +713,14 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
         // startup allows different log level
         if(GlobalSystemState == Startup)
         {
-            if((el = getenv("OSG_LOG_LEVEL_STARTUP")) != 0)
+            if((el = getenv(OSG_NAMESPACE_PREFIX"_LOG_LEVEL_STARTUP")) != 0)
             {
                 // OSG_LOG_LEVEL_STARTUP has highest precedence
                 osgLog() << "OSGLog::setLogLevel: overridden by envvar "
                          << "OSG_LOG_LEVEL_STARTUP '" << el << "'."
                          << std::endl;
             }
-            else if((el = getenv("OSG_LOG_LEVEL")) != 0)
+            else if((el = getenv(OSG_NAMESPACE_PREFIX"_LOG_LEVEL")) != 0)
             {
                 // fallback to OSG_LOG_LEVEL
                 osgLog() << "OSGLog::setLogLevel: overridden by envvar "
@@ -726,7 +730,7 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
         }
         else
         {
-            if((el = getenv("OSG_LOG_LEVEL")) != 0)
+            if((el = getenv(OSG_NAMESPACE_PREFIX"_LOG_LEVEL")) != 0)
             {
                 osgLog() << "OSGLog::setLogLevel: overridden by envvar "
                          << "OSG_LOG_LEVEL '" << el << "'."
@@ -798,7 +802,9 @@ void Log::setLogFile(const Char8 *fileName, bool force)
         _fileStream.close();
     }
 
-    if(!force && (this == osgLogP) && (name = getenv("OSG_LOG_FILE")))
+    if((force == false                                  ) && 
+       (this  == osgLogP                                ) && 
+       (name  =  getenv(OSG_NAMESPACE_PREFIX"_LOG_FILE")))
     {
         osgLog() << "Log::setLogFile: overriden by envvar OSG_LOG_FILE '"
                  << name << "'." << std::endl;

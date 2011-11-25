@@ -59,6 +59,11 @@
 #include <iosfwd>
 #endif
 
+#ifdef OSG_USE_OSG2_NAMESPACE
+# define OSGScanParseLexer      OSG2ScanParseLexer
+# define OSGScanParseSkel_parse OSG2ScanParseSkel_parse
+#endif
+
 class OSGScanParseLexer;
 int OSGScanParseSkel_parse(void*);
 
