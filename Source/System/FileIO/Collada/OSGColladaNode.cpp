@@ -794,30 +794,10 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
 	m[1][2] = a2.y() * b.z() * alpha;
 	m[2][2] = a2.z() * b.z() * alpha + 1.0f;
 
-	domNodeRef        node   = getDOMElementAs<domNode>();
+    if(skew->getSid() != NULL)
+        xformSID.assign(skew->getSid());
 
-    TransformUnrecPtr xform = Transform::create();
-	NodeUnrecPtr      xformN = makeNodeFor(xform);
-
-	xform->setMatrix(m);
-
-	 if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
-       node->getName()                                       != NULL   )
-    {
-        std::string nodeName = node->getName();
-
-        if(skew->getSid() != NULL && 
-			getGlobal()->getOptions()->getFlattenNodeXForms() == false)
-        {
-            nodeName.append("."                );
-            nodeName.append(skew->getSid());
-        }
-
-        setName(xformN, nodeName);
-    }
-
-    appendXForm(xformN);
-
+    appendXForm(m, xformSID, instData);
 }
 
 void
