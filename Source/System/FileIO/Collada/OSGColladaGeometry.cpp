@@ -859,14 +859,14 @@ ColladaGeometry::mapSemantic(
                      << std::endl;
         }
     }
-	else if(semantic == "TANGENT")
-	{
-		propIdx = Geometry::TexCoords6Index;
-	}
-	else if(semantic == "BINORMAL")
-	{
-		propIdx = Geometry::TexCoords7Index;
-	}
+    else if(semantic == "TANGENT")
+    {
+        propIdx = Geometry::TexCoords6Index;
+    }
+    else if(semantic == "BINORMAL")
+    {
+        propIdx = Geometry::TexCoords7Index;
+    }
     else
     {
         OSG_COLLADA_LOG(("ColladaGeometry::mapSemantic: Unknown semantic [%s] "
