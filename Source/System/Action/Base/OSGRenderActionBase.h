@@ -57,7 +57,7 @@
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
-class Viewport;
+class Viewarea;
 class Camera;
 class Background;
 class Window;
@@ -131,20 +131,23 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name               Rendering Environment                          */
     /*! \{                                                                 */
 
-          Viewport      *getViewport      (void                      ) const;
-          void           setViewport      (Viewport      *pViewport  );
-    
-          Camera        *getCamera        (void                      ) const;
-          void           setCamera        (Camera        *pCamera    );
+    Viewarea   *getViewarea      (void                      ) const;
+    void        setViewarea      (Viewarea      *pViewarea  );
 
-          Background    *getBackground    (void                      ) const;
-          void           setBackground    (Background    *pBackground);
+    Node       *getTraversalRoot (void                      ) const;
+    void        setTraversalRoot (Node          *pTravRoot  );
     
-          Window        *getWindow        (void                      ) const;
-          void           setWindow        (Window        *pWindow    );
+    Camera     *getCamera        (void                      ) const;
+    void        setCamera        (Camera        *pCamera    );
+
+    Background *getBackground    (void                      ) const;
+    void        setBackground    (Background    *pBackground);
     
-          Material      *getGlobalOverride(void                      ) const;
-          void           setGlobalOverride(Material      *pMat       );
+    Window     *getWindow        (void                      ) const;
+    void        setWindow        (Window        *pWindow    );
+    
+    Material   *getGlobalOverride(void                      ) const;
+    void        setGlobalOverride(Material      *pMat       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -283,7 +286,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     Camera             *_pCamera;
     Background         *_pBackground;
     Window             *_pWindow;
-    Viewport           *_pViewport;
+    Viewarea           *_pViewarea;
+    Node               *_pTraversalRoot;
     Material           *_pGlobalOverride;
 
     StatCollector      *_pStatistics;

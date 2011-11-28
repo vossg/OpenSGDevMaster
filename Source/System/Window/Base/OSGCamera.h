@@ -88,59 +88,72 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                   Setup Rendering                            */
     /*! \{                                                                 */
 
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void setup          (DrawActionBase *action, const Viewport &port);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Access Parameters                           */
+    /*! \{                                                                 */
 
-    virtual void setupProjection(DrawActionBase *action, const Viewport &port);
-#endif
+    virtual void    getProjection              (Matrix        &result,
+                                                UInt32         width,
+                                                UInt32         height);
+
+    virtual void    getProjectionTranslation   (Matrix        &result,
+                                                UInt32         width,
+                                                UInt32         height);
+
+    virtual void    getViewing                 (Matrix        &result,
+                                                UInt32         width,
+                                                UInt32         height);
+
+	virtual void    getFrustum                 (FrustumVolume &result,
+                                                UInt32         width, 
+                                                UInt32         height);
+
+	virtual void    getDecoration              (Matrix        &result, 
+                                                UInt32         width, 
+                                                UInt32         height);
+
+    // Getters
+    virtual Matrix  getProjectionVal           (UInt32         width,
+                                                UInt32         height);
+
+    virtual Matrix  getProjectionTranslationVal(UInt32         width,
+                                                UInt32         height);
+
+    virtual Matrix  getViewingVal              (UInt32         width,
+                                                UInt32         height);
+
+	virtual Matrix  getDecorationVal           (UInt32         width,
+                                                UInt32         height);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Access Parameters                           */
     /*! \{                                                                 */
 
-    virtual void getProjection           (      Matrix        &result,
-                                                UInt32         width,
-                                                UInt32         height);
-
-    virtual void getProjectionTranslation(      Matrix        &result,
-                                                UInt32         width,
-                                                UInt32         height);
-
-    virtual void getViewing              (      Matrix        &result,
-                                                UInt32         width,
-                                                UInt32         height);
-
-    virtual void getFrustum              (      FrustumVolume &result,
+    void          computeFrustum         (      FrustumVolume &result,
                                           const Viewport      &port  );
 
-	virtual void getFrustum              (      FrustumVolume &result,
-                                                UInt32         width, 
-                                                UInt32         height);
-
-    virtual void getWorldToScreen        (      Matrix        &result,
+    void          computeWorldToScreen   (      Matrix        &result,
                                           const Viewport      &port  );
 
-	virtual void getDecoration           (      Matrix        &result, 
-                                                UInt32         width, 
-                                                UInt32         height);
 
-    // Getters
-    virtual Matrix  getProjectionVal           (      UInt32         width,
-                                                      UInt32         height);
+    FrustumVolume computeFrustumVal      (const Viewport      &port  );
 
-    virtual Matrix  getProjectionTranslationVal(      UInt32         width,
-                                                      UInt32         height);
+    Matrix        computeWorldToScreenVal(const Viewport      &port  );
 
-    virtual Matrix  getViewingVal              (      UInt32         width,
-                                                      UInt32         height);
-    virtual Matrix  getWorldToScreenVal        (const Viewport      &port  );
+#ifdef OSG_1_COMPAT
+    void          getFrustum             (      FrustumVolume &result,
+                                          const Viewport      &port  );
 
-	virtual Matrix  getDecorationVal           (      UInt32         width,
-                                                      UInt32         height);
+    void          getWorldToScreen       (      Matrix        &result,
+                                          const Viewport      &port  );
 
-    virtual FrustumVolume getFrustumVal        (const Viewport      &port  );
 
+    FrustumVolume getFrustumVal          (const Viewport      &port  );
+
+    Matrix        getWorldToScreenVal    (const Viewport      &port  );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

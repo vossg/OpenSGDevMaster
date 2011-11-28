@@ -302,6 +302,15 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
                                Int32  iPixelTop,
                                bool   bFull        );
 
+    void calcViewportDimension(Real32 rLeft,
+                               Real32 rBottom,
+                               Real32 rRight,
+                               Real32 rTop,
+                               
+                               UInt16 iTargetWidth,
+                               UInt16 iTargetHeight);
+
+
     Int32 getPixelLeft        (void                ) const;
     Int32 getPixelRight       (void                ) const;
     Int32 getPixelBottom      (void                ) const;

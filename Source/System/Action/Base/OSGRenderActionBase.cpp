@@ -81,7 +81,8 @@ RenderActionBase::RenderActionBase(void) :
     _pCamera                  (NULL  ),
     _pBackground              (NULL  ),
     _pWindow                  (NULL  ),
-    _pViewport                (NULL  ),
+    _pViewarea                (NULL  ),
+    _pTraversalRoot           (NULL  ),
     _pGlobalOverride          (NULL  ),
     _pStatistics              (NULL  ),
     _pTravValidator           (NULL  ),
@@ -110,7 +111,8 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pCamera                 (source._pCamera                 ),
     _pBackground             (source._pBackground             ),
     _pWindow                 (source._pWindow                 ),
-    _pViewport               (source._pViewport               ),
+    _pViewarea               (source._pViewarea               ),
+    _pTraversalRoot          (source._pTraversalRoot          ),
     _pGlobalOverride         (source._pGlobalOverride         ),
     _pStatistics             (NULL                            ),
     _pTravValidator          (NULL                            ),
@@ -145,14 +147,26 @@ RenderActionBase::~RenderActionBase(void)
     delete _pTravValidator;
 }
 
+
+
 ActionBase::ResultE RenderActionBase::start(void)
 {
     if(_bFrustumCulling   == true &&
        _bAutoFrustum      == true &&
-        getCamera      () != NULL &&
-        getViewport    () != NULL)
+       _pCamera           != NULL &&
+       _pViewarea         != NULL &&
+       _pWindow           != NULL  )
     {
-        getCamera()->getFrustum(_oFrustum, *getViewport());
+        UInt32 uiPixelWidth;
+        UInt32 uiPixelHeight;
+
+        _pViewarea->computePixelSizes(_pWindow,
+                                       uiPixelWidth,
+                                       uiPixelHeight);
+        
+        getCamera()->getFrustum(_oFrustum,
+                                 uiPixelWidth,
+                                 uiPixelHeight);
     }
 
     if(_pStatistics != NULL)
@@ -166,7 +180,7 @@ ActionBase::ResultE RenderActionBase::start(void)
     _pTravValidator->incEventCounter();
 
 //    _iDrawerId   = (_pWindow   != NULL) ? _pWindow  ->getDrawerId  () : 0;
-//    _iDrawableId = (_pViewport != NULL) ? _pViewport->getDrawableId() : 0;
+//    _iDrawableId = (_pViewarea != NULL) ? _pViewarea->getDrawableId() : 0;
 
     return Action::Continue;
 }
@@ -188,9 +202,14 @@ void RenderActionBase::frameInit(void)
     _uiFrameTravCount = 0;
 }
 
-void RenderActionBase::setViewport(Viewport *pViewport)
+void RenderActionBase::setViewarea(Viewarea *pViewarea)
 {
-    _pViewport = pViewport;
+    _pViewarea = pViewarea;
+}
+
+void RenderActionBase::setTraversalRoot(Node *pTravRoot)
+{
+    _pTraversalRoot = pTravRoot;
 }
 
 void RenderActionBase::setCamera(Camera *pCamera)

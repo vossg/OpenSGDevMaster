@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGFBOViewport.fcd) and
 // regenerate the base file.
 
-Int32 FBOViewport::getPixelLeft(void) const
+Int32 FBOViewport::computePixelLeft(void) const
 {
     if(getLeft() > 1)
         return Int32(getLeft());
@@ -73,7 +73,7 @@ Int32 FBOViewport::getPixelLeft(void) const
     return Int32(getFrameBufferObject()->getWidth() * getLeft());
 }
 
-Int32 FBOViewport::getPixelRight(void) const
+Int32 FBOViewport::computePixelRight(void) const
 {
     // >1: pixel
     if(getRight() > 1)
@@ -86,7 +86,7 @@ Int32 FBOViewport::getPixelRight(void) const
     return Int32(getFrameBufferObject()->getWidth() * getRight() - 1);
 }
 
-Int32 FBOViewport::getPixelBottom(void) const
+Int32 FBOViewport::computePixelBottom(void) const
 {
     if(getBottom() > 1)
         return Int32(getBottom());
@@ -97,7 +97,7 @@ Int32 FBOViewport::getPixelBottom(void) const
     return Int32(getFrameBufferObject()->getHeight() * getBottom());
 }
 
-Int32 FBOViewport::getPixelTop(void) const
+Int32 FBOViewport::computePixelTop(void) const
 {
     // >1: pixel
     if(getTop() > 1)
@@ -110,16 +110,16 @@ Int32 FBOViewport::getPixelTop(void) const
     return Int32(getFrameBufferObject()->getHeight() * getTop() - 1);
 }
 
-bool FBOViewport::isFullWindow(void) const
+bool FBOViewport::computeIsFullWindow(void) const
 {
     if(getFrameBufferObject() == NULL)
         return true;
 
     return  
-        getPixelBottom() == 0 &&
-        getPixelLeft()   == 0 &&
-        getPixelTop()    == getFrameBufferObject()->getHeight() - 1 &&
-        getPixelRight()  == getFrameBufferObject()->getWidth () - 1;
+        computePixelBottom() == 0 &&
+        computePixelLeft()   == 0 &&
+        computePixelTop()    == getFrameBufferObject()->getHeight() - 1 &&
+        computePixelRight()  == getFrameBufferObject()->getWidth () - 1;
 }
 
 /*----------------------- constructors & destructors ----------------------*/

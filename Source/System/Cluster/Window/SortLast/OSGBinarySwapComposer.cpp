@@ -157,12 +157,12 @@ void BinarySwapComposer::composeViewport(Viewport *port)
 {
     // setup viewport
     GLint 
-        pl=port->getPixelLeft(), 
-        pr=port->getPixelRight(),
-        pb=port->getPixelBottom(), 
-        pt=port->getPixelTop();
+        pl=port->computePixelLeft(), 
+        pr=port->computePixelRight(),
+        pb=port->computePixelBottom(), 
+        pt=port->computePixelTop();
     GLint pw=pr-pl+1,ph=pt-pb+1;
-    bool full = port->isFullWindow();
+    bool full = port->computeIsFullWindow();
     glViewport(pl, pb, pw, ph);
     glScissor(pl, pb, pw, ph);
     if(! full)
@@ -177,8 +177,8 @@ void BinarySwapComposer::composeViewport(Viewport *port)
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(0, port->getPixelWidth(),
-            0, port->getPixelHeight(),-1,1);
+    glOrtho(0, port->computePixelWidth(),
+            0, port->computePixelHeight(),-1,1);
 
 //    printf("max %x,%x\n",_intDepthMax,_shortDepthMax);
 
@@ -187,8 +187,8 @@ void BinarySwapComposer::composeViewport(Viewport *port)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
-    _tilesX = port->getPixelWidth()  / getTileSize() + 1;
-    _tilesY = port->getPixelHeight() / getTileSize() + 1;
+    _tilesX = port->computePixelWidth()  / getTileSize() + 1;
+    _tilesY = port->computePixelHeight() / getTileSize() + 1;
 
     _tileBufferSize = getTileSize()*getTileSize()*8+sizeof(TileBuffer);
     _readTile.resize(_tileBufferSize);

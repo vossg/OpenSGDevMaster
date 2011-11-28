@@ -62,7 +62,6 @@
 #include "OSGNode.h"                    // Root Class
 #include "OSGBackground.h"              // Background Class
 #include "OSGForeground.h"              // Foregrounds Class
-#include "OSGRenderOptions.h"           // RenderOptions Class
 
 #include "OSGViewportBase.h"
 #include "OSGViewport.h"
@@ -108,30 +107,6 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real32          ViewportBase::_sfLeft
-    The left edge of the viewport. Values between 0 and 1 are relative to the 
-    size of the Window, values >1 are absolute pixel coordinates.
-    All other values are illegal.
-*/
-
-/*! \var Real32          ViewportBase::_sfRight
-    The right edge of the viewport. Values between 0 and 1 are relative to the 
-    size of	the Window, values >1 are absolute pixel coordinates.
-    All other values are illegal.
-*/
-
-/*! \var Real32          ViewportBase::_sfBottom
-    The bottom edge of the viewport. Values between 0 and 1 are relative to 
-    the size of the Window, values >1 are absolute pixel coordinates.
-    All other values are illegal.
-*/
-
-/*! \var Real32          ViewportBase::_sfTop
-    The top edge of the viewport. Values between 0 and 1 are relative to the 
-    size of the Window, values >1 are absolute pixel coordinates.
-    All other values are illegal.
-*/
-
 /*! \var FieldContainer * ViewportBase::_sfParent
     The Window this viewport is contained in.
 */
@@ -152,26 +127,6 @@ OSG_BEGIN_NAMESPACE
     The foreground additions to the rendered image.
 */
 
-/*! \var UInt32          ViewportBase::_sfTravMask
-    The foreground additions to the rendered image.
-*/
-
-/*! \var bool            ViewportBase::_sfEnabled
-    Enabled is used to turn drawing on and off of a viewport.
-*/
-
-/*! \var Real32          ViewportBase::_sfDrawTime
-    Drawtime of the last frame using this viewport.
-*/
-
-/*! \var Int32           ViewportBase::_sfDrawableId
-    DrawableId to select viewport dependent elements (e.g. Distortion filter).
-*/
-
-/*! \var RenderOptions * ViewportBase::_sfRenderOptions
-    
-*/
-
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -180,7 +135,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<Viewport *, nsOSG>::_type(
     "ViewportPtr", 
-    "AttachmentContainerPtr", 
+    "ViewareaPtr", 
     Viewport::getClassType(),
     nsOSG);
 #endif
@@ -215,62 +170,6 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "left",
-        "The left edge of the viewport. Values between 0 and 1 are relative to the \n"
-        "size of the Window, values >1 are absolute pixel coordinates.\n"
-        "All other values are illegal.\n",
-        LeftFieldId, LeftFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleLeft),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleLeft));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "right",
-        "The right edge of the viewport. Values between 0 and 1 are relative to the \n"
-        "size of\tthe Window, values >1 are absolute pixel coordinates.\n"
-        "All other values are illegal.\n",
-        RightFieldId, RightFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleRight),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleRight));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "bottom",
-        "The bottom edge of the viewport. Values between 0 and 1 are relative to \n"
-        "the size of the Window, values >1 are absolute pixel coordinates.\n"
-        "All other values are illegal.\n",
-        BottomFieldId, BottomFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleBottom),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleBottom));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "top",
-        "The top edge of the viewport. Values between 0 and 1 are relative to the \n"
-        "size of the Window, values >1 are absolute pixel coordinates.\n"
-        "All other values are illegal.\n",
-        TopFieldId, TopFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleTop),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleTop));
-
-    oType.addInitialDesc(pDesc);
 
     pDesc = new SFParentFieldContainerPtr::Description(
         SFParentFieldContainerPtr::getClassType(),
@@ -331,66 +230,6 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Viewport::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
-        "travMask",
-        "The foreground additions to the rendered image.\n",
-        TravMaskFieldId, TravMaskFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleTravMask),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleTravMask));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFBool::Description(
-        SFBool::getClassType(),
-        "enabled",
-        "Enabled is used to turn drawing on and off of a viewport.\n",
-        EnabledFieldId, EnabledFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleEnabled),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleEnabled));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "drawTime",
-        "Drawtime of the last frame using this viewport.\n",
-        DrawTimeFieldId, DrawTimeFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawTime),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawTime));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "drawableId",
-        "DrawableId to select viewport dependent elements (e.g. Distortion filter).\n",
-        DrawableIdFieldId, DrawableIdFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawableId),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawableId));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUnrecRenderOptionsPtr::Description(
-        SFUnrecRenderOptionsPtr::getClassType(),
-        "renderOptions",
-        "",
-        RenderOptionsFieldId, RenderOptionsFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Viewport::editHandleRenderOptions),
-        static_cast<FieldGetMethodSig >(&Viewport::getHandleRenderOptions));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -409,7 +248,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Viewport\"\n"
-    "   parent=\"AttachmentContainer\"\n"
+    "   parent=\"Viewarea\"\n"
     "   library=\"System\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
@@ -419,172 +258,76 @@ ViewportBase::TypeObject ViewportBase::_type(
     "   docGroupBase=\"GrpSystemWindow\"\n"
     "   >\n"
     "\n"
-    "A Viewport is a part of the Window it is attached to used for rendering. See\n"
-    "\\ref PageSystemWindowViewports for a description.\n"
+    "  A Viewport is a part of the Window it is attached to used for rendering. See\n"
+    "  \\ref PageSystemWindowViewports for a description.\n"
     "\n"
-    "The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and\n"
-    "_sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.\n"
-    "_sfBackground defines the background clearing method, the\n"
-    "_sfRoot and _sfCamera Fields the scene being rendered and the camera used to\n"
-    "view it. The optional _mfForegrounds define which information are added or\n"
-    "actions are executed after the Viewport has been rendered.\n"
+    "  The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and\n"
+    "  _sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.\n"
+    "  _sfBackground defines the background clearing method, the\n"
+    "  _sfRoot and _sfCamera Fields the scene being rendered and the camera used to\n"
+    "  view it. The optional _mfForegrounds define which information are added or\n"
+    "  actions are executed after the Viewport has been rendered.\n"
+    "  \n"
+    "  \\ext\n"
     "\n"
-    "\\ext\n"
+    "  To create a new Viewport the draw and render methods should be overridden. \n"
+    "  \n"
+    "  \\endext\n"
+    "  \n"
+    "  \\dev\n"
     "\n"
-    "To create a new Viewport the draw and render methods should be overridden. \n"
+    "  When adding fields to the Viewport, make sure to add the code to copy them to\n"
+    "  all the different ClusterWindows!\n"
+    "  \n"
+    "  \\enddev\n"
     "\n"
-    "\\endext\n"
-    "\n"
-    "\\dev\n"
-    "\n"
-    "When adding fields to the Viewport, make sure to add the code to copy them to\n"
-    "all the different ClusterWindows!\n"
-    "\n"
-    "\\enddev\n"
-    "    <Field\n"
-    "\t   name=\"left\"\n"
-    "\t   type=\"Real32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"0.f\"\n"
-    "\t   >\n"
-    "\t  The left edge of the viewport. Values between 0 and 1 are relative to the \n"
-    "      size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
-    "      All other values are illegal.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"right\"\n"
-    "\t   type=\"Real32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"1.f\"\n"
-    "\t   >\n"
-    "\t  The right edge of the viewport. Values between 0 and 1 are relative to the \n"
-    "      size of\tthe Window, values &gt; 1 are absolute pixel coordinates.\n"
-    "\t  All other values are illegal.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"bottom\"\n"
-    "\t   type=\"Real32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"0.f\"\n"
-    "\t   >\n"
-    "\t  The bottom edge of the viewport. Values between 0 and 1 are relative to \n"
-    "      the size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
-    "\t  All other values are illegal.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"top\"\n"
-    "\t   type=\"Real32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"1.f\"\n"
-    "\t   >\n"
-    "\t  The top edge of the viewport. Values between 0 and 1 are relative to the \n"
-    "      size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
-    "\t  All other values are illegal.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"parent\"\n"
-    "\t   type=\"FieldContainer\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"none\"\n"
-    "       category=\"parentpointer\"\n"
-    "\t   >\n"
-    "\t  The Window this viewport is contained in.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"camera\"\n"
-    "\t   type=\"CameraPtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "\t>\n"
-    "\t  The Camera used to render the viewport.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"root\"\n"
-    "\t   type=\"NodePtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "\t   >\n"
-    "\t  The root of the tree that is displayed in this viewport.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"background\"\n"
-    "\t   type=\"BackgroundPtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "\t   >\n"
-    "\t  The background used to clear this viewport.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"foregrounds\"\n"
-    "\t   type=\"ForegroundPtr\"\n"
-    "\t   cardinality=\"multi\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       pushToFieldAs=\"addForeground\"\n"
-    "\t   >\n"
-    "\t  The foreground additions to the rendered image.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"travMask\"\n"
-    "\t   type=\"UInt32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
-    "\t   >\n"
-    "\t  The foreground additions to the rendered image.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"enabled\"\n"
-    "\t   type=\"bool\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"true\"\n"
-    "\t   >\n"
-    "\t  Enabled is used to turn drawing on and off of a viewport.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"drawTime\"\n"
-    "\t   type=\"Real32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"internal\"\n"
-    "       defaultValue=\"0.0f\"\n"
-    "\t   access=\"public\"\n"
-    "\t   >\n"
-    "\t  Drawtime of the last frame using this viewport.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"drawableId\"\n"
-    "\t   type=\"Int32\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"internal\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"-1\"\n"
-    "\t   >\n"
-    "      DrawableId to select viewport dependent elements (e.g. Distortion filter).\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t   name=\"renderOptions\"\n"
-    "\t   type=\"RenderOptionsPtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   access=\"public\"\n"
-    "       defaultValue=\"NULL\"\n"
-    "\t   >\n"
-    "\t</Field>\n"
+    "  <Field\n"
+    "      name=\"parent\"\n"
+    "      type=\"FieldContainer\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"none\"\n"
+    "      category=\"parentpointer\"\n"
+    "       >\n"
+    "    The Window this viewport is contained in.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"camera\"\n"
+    "      type=\"CameraPtr\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    The Camera used to render the viewport.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"root\"\n"
+    "      type=\"NodePtr\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    The root of the tree that is displayed in this viewport.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"background\"\n"
+    "      type=\"BackgroundPtr\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    The background used to clear this viewport.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"foregrounds\"\n"
+    "      type=\"ForegroundPtr\"\n"
+    "      cardinality=\"multi\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      pushToFieldAs=\"addForeground\"\n"
+    "      >\n"
+    "    The foreground additions to the rendered image.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "A Viewport is a part of the Window it is attached to used for rendering. See\n"
     "\\ref PageSystemWindowViewports for a description.\n"
@@ -628,58 +371,6 @@ UInt32 ViewportBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-SFReal32 *ViewportBase::editSFLeft(void)
-{
-    editSField(LeftFieldMask);
-
-    return &_sfLeft;
-}
-
-const SFReal32 *ViewportBase::getSFLeft(void) const
-{
-    return &_sfLeft;
-}
-
-
-SFReal32 *ViewportBase::editSFRight(void)
-{
-    editSField(RightFieldMask);
-
-    return &_sfRight;
-}
-
-const SFReal32 *ViewportBase::getSFRight(void) const
-{
-    return &_sfRight;
-}
-
-
-SFReal32 *ViewportBase::editSFBottom(void)
-{
-    editSField(BottomFieldMask);
-
-    return &_sfBottom;
-}
-
-const SFReal32 *ViewportBase::getSFBottom(void) const
-{
-    return &_sfBottom;
-}
-
-
-SFReal32 *ViewportBase::editSFTop(void)
-{
-    editSField(TopFieldMask);
-
-    return &_sfTop;
-}
-
-const SFReal32 *ViewportBase::getSFTop(void) const
-{
-    return &_sfTop;
-}
 
 
 
@@ -733,71 +424,6 @@ MFUnrecForegroundPtr *ViewportBase::editMFForegrounds    (void)
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
     return &_mfForegrounds;
-}
-
-SFUInt32 *ViewportBase::editSFTravMask(void)
-{
-    editSField(TravMaskFieldMask);
-
-    return &_sfTravMask;
-}
-
-const SFUInt32 *ViewportBase::getSFTravMask(void) const
-{
-    return &_sfTravMask;
-}
-
-
-SFBool *ViewportBase::editSFEnabled(void)
-{
-    editSField(EnabledFieldMask);
-
-    return &_sfEnabled;
-}
-
-const SFBool *ViewportBase::getSFEnabled(void) const
-{
-    return &_sfEnabled;
-}
-
-
-SFReal32 *ViewportBase::editSFDrawTime(void)
-{
-    editSField(DrawTimeFieldMask);
-
-    return &_sfDrawTime;
-}
-
-const SFReal32 *ViewportBase::getSFDrawTime(void) const
-{
-    return &_sfDrawTime;
-}
-
-
-SFInt32 *ViewportBase::editSFDrawableId(void)
-{
-    editSField(DrawableIdFieldMask);
-
-    return &_sfDrawableId;
-}
-
-const SFInt32 *ViewportBase::getSFDrawableId(void) const
-{
-    return &_sfDrawableId;
-}
-
-
-//! Get the Viewport::_sfRenderOptions field.
-const SFUnrecRenderOptionsPtr *ViewportBase::getSFRenderOptions(void) const
-{
-    return &_sfRenderOptions;
-}
-
-SFUnrecRenderOptionsPtr *ViewportBase::editSFRenderOptions  (void)
-{
-    editSField(RenderOptionsFieldMask);
-
-    return &_sfRenderOptions;
 }
 
 
@@ -863,22 +489,6 @@ UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-    {
-        returnValue += _sfLeft.getBinSize();
-    }
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-    {
-        returnValue += _sfRight.getBinSize();
-    }
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-    {
-        returnValue += _sfBottom.getBinSize();
-    }
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-    {
-        returnValue += _sfTop.getBinSize();
-    }
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
         returnValue += _sfParent.getBinSize();
@@ -899,26 +509,6 @@ UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfForegrounds.getBinSize();
     }
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-    {
-        returnValue += _sfTravMask.getBinSize();
-    }
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-    {
-        returnValue += _sfEnabled.getBinSize();
-    }
-    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
-    {
-        returnValue += _sfDrawTime.getBinSize();
-    }
-    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
-    {
-        returnValue += _sfDrawableId.getBinSize();
-    }
-    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
-    {
-        returnValue += _sfRenderOptions.getBinSize();
-    }
 
     return returnValue;
 }
@@ -928,22 +518,6 @@ void ViewportBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-    {
-        _sfLeft.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-    {
-        _sfRight.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-    {
-        _sfBottom.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-    {
-        _sfTop.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
         _sfParent.copyToBin(pMem);
@@ -964,26 +538,6 @@ void ViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfForegrounds.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-    {
-        _sfTravMask.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-    {
-        _sfEnabled.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
-    {
-        _sfDrawTime.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
-    {
-        _sfDrawableId.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
-    {
-        _sfRenderOptions.copyToBin(pMem);
-    }
 }
 
 void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -991,26 +545,6 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-    {
-        editSField(LeftFieldMask);
-        _sfLeft.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-    {
-        editSField(RightFieldMask);
-        _sfRight.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-    {
-        editSField(BottomFieldMask);
-        _sfBottom.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-    {
-        editSField(TopFieldMask);
-        _sfTop.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
         editSField(ParentFieldMask);
@@ -1035,30 +569,6 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
         _mfForegrounds.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-    {
-        editSField(TravMaskFieldMask);
-        _sfTravMask.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-    {
-        _sfEnabled.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
-    {
-        editSField(DrawTimeFieldMask);
-        _sfDrawTime.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
-    {
-        editSField(DrawableIdFieldMask);
-        _sfDrawableId.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
-    {
-        editSField(RenderOptionsFieldMask);
-        _sfRenderOptions.copyFromBin(pMem);
     }
 }
 
@@ -1134,6 +644,7 @@ Viewport *ViewportBase::createEmpty(void)
     return returnValue;
 }
 
+
 FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -1179,43 +690,26 @@ FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ViewportBase::ViewportBase(void) :
     Inherited(),
-    _sfLeft                   (Real32(0.f)),
-    _sfRight                  (Real32(1.f)),
-    _sfBottom                 (Real32(0.f)),
-    _sfTop                    (Real32(1.f)),
     _sfParent                 (NULL),
     _sfCamera                 (NULL),
     _sfRoot                   (NULL),
     _sfBackground             (NULL),
-    _mfForegrounds            (),
-    _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
-    _sfEnabled                (bool(true)),
-    _sfDrawTime               (Real32(0.0f)),
-    _sfDrawableId             (Int32(-1)),
-    _sfRenderOptions          (NULL)
+    _mfForegrounds            ()
 {
 }
 
 ViewportBase::ViewportBase(const ViewportBase &source) :
     Inherited(source),
-    _sfLeft                   (source._sfLeft                   ),
-    _sfRight                  (source._sfRight                  ),
-    _sfBottom                 (source._sfBottom                 ),
-    _sfTop                    (source._sfTop                    ),
     _sfParent                 (NULL),
     _sfCamera                 (NULL),
     _sfRoot                   (NULL),
     _sfBackground             (NULL),
-    _mfForegrounds            (),
-    _sfTravMask               (source._sfTravMask               ),
-    _sfEnabled                (source._sfEnabled                ),
-    _sfDrawTime               (source._sfDrawTime               ),
-    _sfDrawableId             (source._sfDrawableId             ),
-    _sfRenderOptions          (NULL)
+    _mfForegrounds            ()
 {
 }
 
@@ -1329,109 +823,7 @@ void ViewportBase::onCreate(const Viewport *source)
 
             ++ForegroundsIt;
         }
-
-        pThis->setRenderOptions(source->getRenderOptions());
     }
-}
-
-GetFieldHandlePtr ViewportBase::getHandleLeft            (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleLeft           (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId),
-             this));
-
-
-    editSField(LeftFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleRight           (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfRight,
-             this->getType().getFieldDesc(RightFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleRight          (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfRight,
-             this->getType().getFieldDesc(RightFieldId),
-             this));
-
-
-    editSField(RightFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleBottom          (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleBottom         (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId),
-             this));
-
-
-    editSField(BottomFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleTop             (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfTop,
-             this->getType().getFieldDesc(TopFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleTop            (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfTop,
-             this->getType().getFieldDesc(TopFieldId),
-             this));
-
-
-    editSField(TopFieldMask);
-
-    return returnValue;
 }
 
 GetFieldHandlePtr ViewportBase::getHandleParent          (void) const
@@ -1569,135 +961,6 @@ EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
     return returnValue;
 }
 
-GetFieldHandlePtr ViewportBase::getHandleTravMask        (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfTravMask,
-             this->getType().getFieldDesc(TravMaskFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleTravMask       (void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfTravMask,
-             this->getType().getFieldDesc(TravMaskFieldId),
-             this));
-
-
-    editSField(TravMaskFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleEnabled         (void) const
-{
-    SFBool::GetHandlePtr returnValue(
-        new  SFBool::GetHandle(
-             &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleEnabled        (void)
-{
-    SFBool::EditHandlePtr returnValue(
-        new  SFBool::EditHandle(
-             &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId),
-             this));
-
-
-    editSField(EnabledFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleDrawTime        (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfDrawTime,
-             this->getType().getFieldDesc(DrawTimeFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleDrawTime       (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfDrawTime,
-             this->getType().getFieldDesc(DrawTimeFieldId),
-             this));
-
-
-    editSField(DrawTimeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleDrawableId      (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleDrawableId     (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId),
-             this));
-
-
-    editSField(DrawableIdFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ViewportBase::getHandleRenderOptions   (void) const
-{
-    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
-        new  SFUnrecRenderOptionsPtr::GetHandle(
-             &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId),
-             const_cast<ViewportBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ViewportBase::editHandleRenderOptions  (void)
-{
-    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
-        new  SFUnrecRenderOptionsPtr::EditHandle(
-             &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&Viewport::setRenderOptions,
-                    static_cast<Viewport *>(this), _1));
-
-    editSField(RenderOptionsFieldMask);
-
-    return returnValue;
-}
-
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,
@@ -1742,8 +1005,6 @@ void ViewportBase::resolveLinks(void)
     static_cast<Viewport *>(this)->setBackground(NULL);
 
     static_cast<Viewport *>(this)->clearForegrounds();
-
-    static_cast<Viewport *>(this)->setRenderOptions(NULL);
 
 
 }

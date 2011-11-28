@@ -121,7 +121,7 @@ typename TraversalValidationHandlerMixin<ParentT>::ValidationStatus
     }
     else if(_sfUpdateMode.getValue() == Self::PerViewport)
     {
-        Viewport *pVP = pAction->getViewport();
+        Viewarea *pVP = pAction->getViewarea();
 
         pVal = pVP->getTravValidator();
     }

@@ -97,8 +97,6 @@ void Viewport::onCreateAspect(const Viewport *createAspect,
     // Don't add the prototype instances to the list
     if(GlobalSystemState != Running)
         return;
-
-    _pTravValidator = new TraversalValidator;
 }
 
 void Viewport::onDestroy(UInt32 uiContainerId)
@@ -109,9 +107,6 @@ void Viewport::onDestroy(UInt32 uiContainerId)
 void Viewport::onDestroyAspect(UInt32    uiContainerId,
                                UInt32    uiAspect     )
 {
-    delete _pTravValidator;
-
-    _pTravValidator  = NULL;
     _pForegroundTask = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
@@ -125,15 +120,12 @@ void Viewport::onDestroyAspect(UInt32    uiContainerId,
 
 Viewport::Viewport(void) :
      Inherited      (    ),
-    _pTravValidator (NULL),
     _pForegroundTask(NULL)
-
 {
 }
 
 Viewport::Viewport(const Viewport &source) :
      Inherited      (source),
-    _pTravValidator (NULL  ),
     _pForegroundTask(NULL  )
 
 {
@@ -156,7 +148,7 @@ void Viewport::changed(ConstFieldMaskArg whichField,
     _sfParent value.
  */
 
-Int32 Viewport::getPixelLeft(void) const
+Int32 Viewport::computePixelLeft(void) const
 {
     if(getLeft() > 1)
         return Int32(getLeft());
@@ -176,7 +168,7 @@ Int32 Viewport::getPixelLeft(void) const
     _sfParent value.
  */
 
-Int32 Viewport::getPixelRight(void) const
+Int32 Viewport::computePixelRight(void) const
 {
     // >1: pixel
     if(getRight() > 1)
@@ -198,7 +190,7 @@ Int32 Viewport::getPixelRight(void) const
     _sfParent value.
  */
 
-Int32 Viewport::getPixelBottom(void) const
+Int32 Viewport::computePixelBottom(void) const
 {
     if(getBottom() > 1)
         return Int32(getBottom());
@@ -218,7 +210,7 @@ Int32 Viewport::getPixelBottom(void) const
     _sfParent value.
  */
 
-Int32 Viewport::getPixelTop(void) const
+Int32 Viewport::computePixelTop(void) const
 {
     // >1: pixel
     if(getTop() > 1)
@@ -239,7 +231,7 @@ Int32 Viewport::getPixelTop(void) const
 /*! Checks if the viewport fills the whole window. Needs a valid
   _sfParent value.
  */
-bool Viewport::isFullWindow(void) const
+bool Viewport::computeIsFullWindow(void) const
 {
     if(getParent() == NULL)
     {
@@ -250,10 +242,10 @@ bool Viewport::isFullWindow(void) const
     }
 
     return  
-        getPixelBottom() == 0 &&
-        getPixelLeft()   == 0 &&
-        getPixelTop()    == getParent()->getHeight() - 1 &&
-        getPixelRight()  == getParent()->getWidth () - 1;
+        computePixelBottom() == 0 &&
+        computePixelLeft()   == 0 &&
+        computePixelTop()    == getParent()->getHeight() - 1 &&
+        computePixelRight()  == getParent()->getWidth () - 1;
 }
 
 Window *Viewport::getParent(void) const
@@ -270,18 +262,18 @@ Window *Viewport::getParent(void) const
 
    @note Out-of-range input values lead to out-of-range output values.
  */
-void Viewport::getNormalizedCoordinates(      Real32& normX,
-                                              Real32& normY,
-                                        const Int32   vpX  ,
-                                        const Int32   vpY  ) const
+void Viewport::computeNormalizedCoordinates(      Real32& normX,
+                                                  Real32& normY,
+                                            const Int32   vpX  ,
+                                           const Int32   vpY  ) const
 {
     normX =
-        (vpX - getPixelLeft()) /
-        static_cast<Real32>(getPixelWidth()) * 2.f - 1.f;
+        (vpX - computePixelLeft()) /
+        static_cast<Real32>(computePixelWidth()) * 2.f - 1.f;
 
     normY = 1.f - (
-        (vpY - (getParent()->getHeight() - getPixelTop())) /
-        static_cast<Real32>(getPixelHeight())) * 2.f;
+        (vpY - (getParent()->getHeight() - computePixelTop())) /
+        static_cast<Real32>(computePixelHeight())) * 2.f;
 }
 
 /*-------------------------- your_category---------------------------------*/
@@ -303,16 +295,16 @@ void Viewport::getNormalizedCoordinates(      Real32& normX,
 
 void Viewport::activateSize(void)
 {
-    GLint pl = getPixelLeft();
-    GLint pr = getPixelRight();
-    GLint pb = getPixelBottom();
-    GLint pt = getPixelTop();
+    GLint pl = computePixelLeft();
+    GLint pr = computePixelRight();
+    GLint pb = computePixelBottom();
+    GLint pt = computePixelTop();
     GLint pw = pr - pl + 1;
     GLint ph = pt - pb + 1;
 
     glViewport(pl, pb, pw, ph);
 
-    if(!isFullWindow())
+    if(computeIsFullWindow() == false)
     {
         glScissor(pl, pb, pw, ph);
         glEnable(GL_SCISSOR_TEST);
@@ -356,16 +348,13 @@ void Viewport::render(RenderActionBase *action)
         return;
     }
 
-#if 0 // Have to check GV
-    activate();
-#endif
+    action->setCamera       (getCamera    ());
+    action->setBackground   (getBackground());
+    action->setViewarea     (this           );
+    action->setTraversalRoot(this->getRoot());
+    action->setTravMask     (getTravMask()  );
 
-    action->setCamera    (getCamera    ());
-    action->setBackground(getBackground());
-    action->setViewport  (this           );
-    action->setTravMask  (getTravMask()  );
-
-    action->apply(getRoot());
+    action->apply(this->getRoot());
 
     Window  *pWin = action->getWindow();
 
@@ -376,28 +365,52 @@ void Viewport::render(RenderActionBase *action)
 
         oEnv.setWindow(action->getWindow());
 
+        oEnv.setTileFullSize(getCamera()->tileGetFullSize());
+        oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
+
+#if 0
+        oEnv.setViewportDimension(getPixelLeft  (),
+                                  getPixelBottom(),
+                                  getPixelRight (),
+                                  getPixelTop   (),
+                                  isFullWindow  ());
+#endif
+
+        oEnv.calcViewportDimension(this->getLeft  (),
+                                   this->getBottom(),
+                                   this->getRight (),
+                                   this->getTop   (),
+
+                                   pWin->getWidth (),
+                                   pWin->getHeight());
+
+
         Matrix m, t;
+#if 0
         getCamera()->getProjection           (m,
                                               getPixelWidth (),
                                               getPixelHeight());
         getCamera()->getProjectionTranslation(t,
                                               getPixelWidth (),
                                               getPixelHeight());
+#endif
+        getCamera()->getProjection           (m,
+                                              oEnv.getPixelWidth (),
+                                              oEnv.getPixelHeight());
+        getCamera()->getProjectionTranslation(t,
+                                              oEnv.getPixelWidth (),
+                                              oEnv.getPixelHeight());
         oEnv.setupProjection(m, t);
 
+#if 0
         getCamera()->getViewing(m,
                                 getPixelWidth (),
                                 getPixelHeight());
+#endif
+        getCamera()->getViewing(m,
+                                oEnv.getPixelWidth (),
+                                oEnv.getPixelHeight());
         oEnv.setupViewing(m);
-
-        oEnv.setTileFullSize(getCamera()->tileGetFullSize());
-        oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
-
-        oEnv.setViewportDimension(getPixelLeft  (),
-                                  getPixelBottom(),
-                                  getPixelRight (),
-                                  getPixelTop   (),
-                                  isFullWindow  ());
 
         oEnv.setDrawerId  (action->getDrawerId  ());
         oEnv.setDrawableId(action->getDrawableId());
@@ -428,15 +441,17 @@ void Viewport::render(RenderActionBase *action)
                 new ViewportDrawTask(this, ViewportDrawTask::Foregrounds);
         }
 
+        _pForegroundTask->setIds(action->getDrawerId  (),
+                                 action->getDrawableId());
+
+
         pWin->queueTaskFromDrawer(_pForegroundTask);
     }
-
-#if 0 // Have to check GV
-    deactivate();
-#endif
 }
 
-void Viewport::renderForegrounds(Window *pWin)
+void Viewport::renderForegrounds(Window *pWin,
+                                 Int32   iDrawerId,
+                                 Int32   iDrawableId)
 {
     DrawEnv  oEnv;
 
@@ -445,11 +460,38 @@ void Viewport::renderForegrounds(Window *pWin)
     oEnv.setTileFullSize(getCamera()->tileGetFullSize());
     oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
+#if 0
     oEnv.setViewportDimension(getPixelLeft  (),
                               getPixelBottom(),
                               getPixelRight (),
                               getPixelTop   (),
                               isFullWindow  ());
+#endif
+
+    oEnv.calcViewportDimension(this->getLeft  (),
+                               this->getBottom(),
+                               this->getRight (),
+                               this->getTop   (),
+
+                               pWin->getWidth (),
+                               pWin->getHeight());
+
+    Matrix m, t;
+    getCamera()->getProjection           (m,
+                                          oEnv.getPixelWidth (),
+                                          oEnv.getPixelHeight());
+    getCamera()->getProjectionTranslation(t,
+                                          oEnv.getPixelWidth (),
+                                          oEnv.getPixelHeight());
+    oEnv.setupProjection(m, t);
+
+    getCamera()->getViewing(m,
+                            oEnv.getPixelWidth (),
+                            oEnv.getPixelHeight());
+    oEnv.setupViewing(m);
+
+    oEnv.setDrawerId  (iDrawerId  );
+    oEnv.setDrawableId(iDrawableId);
 
     for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
     {
@@ -468,16 +510,6 @@ void Viewport::renderForegrounds(Window *pWin)
             pTarget->deactivate(&oEnv);
         }
     }
-}
-
-bool Viewport::isPassive(void)
-{
-    return false;
-}
-
-FrameBufferObject *Viewport::getTarget(void)
-{
-    return NULL;
 }
 
 /*------------------------------- dump ----------------------------------*/

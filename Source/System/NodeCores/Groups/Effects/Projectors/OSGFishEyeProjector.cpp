@@ -450,8 +450,9 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
 
     Background      *pBack      = a->getBackground();
 
+#if 0
     Viewport        *pPort      = a->getViewport();
-
+#endif
 
     FishEyeProjectorData *pData = 
         a->getData<FishEyeProjectorData *>(_iDataSlotId);
@@ -469,6 +470,7 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
 
         Matrix mGlobalCam;
 
+#if 0
         if(pPort != NULL)
         {
             Camera *pGlobalCam = pPort->getCamera();
@@ -478,7 +480,9 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
                                    pPort->getPixelWidth (),
                                    pPort->getPixelHeight());
         }
+#endif
 
+        mGlobalCam = a->getActivePartition()->getDrawEnv().getVPCameraViewing();
 
         Camera *pCam = pData->getCamera();
 

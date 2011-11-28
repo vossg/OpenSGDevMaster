@@ -308,8 +308,10 @@ void WindowDrawTask::dump(UInt32 uiIndent)
 
 
 ViewportDrawTask::ViewportDrawTask(Viewport *pPort, UInt32 uiType) :
-     Inherited(uiType),
-    _pPort    (pPort )
+     Inherited  (uiType),
+    _pPort      (pPort ),
+    _iDrawerId  (0     ),
+    _iDrawableId(0     )
 {
 }
 
@@ -333,7 +335,7 @@ void ViewportDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
             fprintf(stderr, "Swap\n");
             fflush(stderr);
 #endif
-            _pPort->renderForegrounds(pWindow);
+            _pPort->renderForegrounds(pWindow, _iDrawerId, _iDrawableId);
         }
         break;
 

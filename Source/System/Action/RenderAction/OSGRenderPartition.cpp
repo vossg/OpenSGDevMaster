@@ -327,43 +327,12 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
                                             UInt16 iTargetWidth,
                                             UInt16 iTargetHeight)
 {
-    Int32 iPixelLeft;
-    Int32 iPixelRight;
-    Int32 iPixelTop;
-    Int32 iPixelBottom;
-
-    if(rLeft > 1.f)
-        iPixelLeft = Int32(rLeft);
-    else
-        iPixelLeft = Int32(iTargetWidth * rLeft);
-
-    if(rRight > 1.f)
-        iPixelRight = Int32(rRight);
-    else
-        iPixelRight = Int32(iTargetWidth * rRight) - 1;
-
-
-    if(rBottom > 1.f)
-        iPixelBottom = Int32(rBottom);
-    else
-        iPixelBottom = Int32(iTargetHeight * rBottom);
-
-    if(rTop > 1.f)
-        iPixelTop = Int32(rTop);
-    else
-        iPixelTop = Int32(iTargetHeight * rTop) - 1;
-
-
-    bool bFull = ( (iPixelLeft   == 0                ) &&
-                   (iPixelRight  == iTargetWidth  - 1) &&
-                   (iPixelBottom == 0                ) &&
-                   (iPixelTop    == iTargetHeight - 1)  );
-
-    _oDrawEnv.setViewportDimension(iPixelLeft,
-                                   iPixelBottom,
-                                   iPixelRight,
-                                   iPixelTop,
-                                   bFull       );
+    _oDrawEnv.calcViewportDimension(rLeft,
+                                    rBottom,
+                                    rRight,
+                                    rTop,
+                                    iTargetWidth,
+                                    iTargetHeight);
 }
 
 void RenderPartition::setupExecution(bool bUpdateGlobalViewport)

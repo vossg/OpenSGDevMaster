@@ -98,11 +98,17 @@ Window *RenderActionBase::getWindow(void) const
 }
     
 inline
-Viewport *RenderActionBase::getViewport(void) const
+Viewarea *RenderActionBase::getViewarea(void) const
 {
-    return _pViewport;
+    return _pViewarea;
 }
     
+inline
+Node *RenderActionBase::getTraversalRoot(void) const
+{
+    return _pTraversalRoot;
+}
+
 inline
 bool RenderActionBase::getFrustumCulling(void) const
 {

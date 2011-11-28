@@ -191,12 +191,12 @@ void PipelineComposer::composeViewport(Viewport *port)
 {
     // setup viewport
     GLint 
-        pl=port->getPixelLeft(), 
-        pr=port->getPixelRight(),
-        pb=port->getPixelBottom(), 
-        pt=port->getPixelTop();
+        pl=port->computePixelLeft(), 
+        pr=port->computePixelRight(),
+        pb=port->computePixelBottom(), 
+        pt=port->computePixelTop();
     GLint pw=pr-pl+1,ph=pt-pb+1;
-    bool full = port->isFullWindow();
+    bool full = port->computeIsFullWindow();
     glViewport(pl, pb, pw, ph);
     glScissor(pl, pb, pw, ph);
     if(! full)
@@ -211,8 +211,8 @@ void PipelineComposer::composeViewport(Viewport *port)
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(0, port->getPixelWidth(),
-            0, port->getPixelHeight(),-1,1);
+    glOrtho(0, port->computePixelWidth(),
+            0, port->computePixelHeight(),-1,1);
     if(getAlpha())
     {
         glEnable(GL_BLEND);
@@ -223,8 +223,8 @@ void PipelineComposer::composeViewport(Viewport *port)
     if(isClient())
         _composeTilePtr = _readTilePtr;
 
-    _readTilesX = (port->getPixelWidth()  - 1) / getTileSize() + 1;
-    _readTilesY = (port->getPixelHeight() - 1) / getTileSize() + 1;
+    _readTilesX = (port->computePixelWidth()  - 1) / getTileSize() + 1;
+    _readTilesY = (port->computePixelHeight() - 1) / getTileSize() + 1;
 
     _tileBufferSize = getTileSize()*getTileSize()*8+sizeof(TileBuffer);
     _workingTile.resize(_tileBufferSize);

@@ -375,7 +375,7 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
     this->pushPartition(pAction);
 
     RenderPartition   *pPart   = pAction    ->getActivePartition();
-    Viewport          *pPort   = pAction    ->getViewport       ();
+    Viewarea          *pArea   = pAction    ->getViewarea       ();
     Background        *pBack   = pAction    ->getBackground     ();
 
     FrameBufferObject *pTarget = pEngineData->getRenderTarget();
@@ -422,17 +422,16 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
 
     pPart->setRenderTarget(pTarget);
 
-    if(pPort != NULL)
+    if(pArea != NULL)
     {
         Camera *pCam = pEngineData->getCamera();
 
-//        pPart->setViewport(pPort         );
         pPart->setWindow  (pAction->getWindow());
 
-        pPart->calcViewportDimension(pPort->getLeft  (),
-                                     pPort->getBottom(),
-                                     pPort->getRight (),
-                                     pPort->getTop   (),
+        pPart->calcViewportDimension(pArea->getLeft  (),
+                                     pArea->getBottom(),
+                                     pArea->getRight (),
+                                     pArea->getTop   (),
                                      
                                      pTarget->getWidth    (),
                                      pTarget->getHeight   ());

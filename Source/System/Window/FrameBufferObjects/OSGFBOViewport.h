@@ -68,14 +68,12 @@ class OSG_SYSTEM_DLLMAPPING FBOViewport : public FBOViewportBase
     /*! \name                      Sizes                                   */
     /*! \{                                                                 */
 
-    virtual Int32 getPixelLeft  (void) const;
-    virtual Int32 getPixelRight (void) const;
-    virtual Int32 getPixelBottom(void) const;
-    virtual Int32 getPixelTop   (void) const;
-//            Int32 getPixelWidth (void) const;
-//            Int32 getPixelHeight(void) const;
+    virtual Int32 computePixelLeft   (void) const;
+    virtual Int32 computePixelRight  (void) const;
+    virtual Int32 computePixelBottom (void) const;
+    virtual Int32 computePixelTop    (void) const;
     
-    virtual bool  isFullWindow  (void) const;
+    virtual bool  computeIsFullWindow(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

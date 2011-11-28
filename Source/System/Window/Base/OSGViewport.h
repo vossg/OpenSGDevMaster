@@ -43,19 +43,13 @@
 #pragma once
 #endif
 
-#include "OSGRenderOptions.h"
 #include "OSGViewportBase.h"
 #include "OSGWindowFields.h"
 #include "OSGBackground.h"
 #include "OSGForeground.h"
 #include "OSGCamera.h"
-#include "OSGWindowDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
-
-class RenderActionBase;
-class TraversalValidator;
-class FrameBufferObject;
 
 /*! \brief Viewport base class. See \ref 
     PageSystemWindowViewports for a description.
@@ -77,27 +71,40 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                    access                                    */
     /*! \{                                                                 */
 
-    void setSize        (Real32 left,  
-                         Real32 bottom, 
-                         Real32 right, 
-                         Real32 top   );
+    virtual Int32 computePixelLeft              (void               ) const;
+    virtual Int32 computePixelRight             (void               ) const;
+    virtual Int32 computePixelBottom            (void               ) const;
+    virtual Int32 computePixelTop               (void               ) const;
+
+            Int32 computePixelWidth             (void               ) const;
+            Int32 computePixelHeight            (void               ) const;
     
-    virtual Int32 getPixelLeft  (void) const;
-    virtual Int32 getPixelRight (void) const;
-    virtual Int32 getPixelBottom(void) const;
-    virtual Int32 getPixelTop   (void) const;
+    virtual bool  computeIsFullWindow           (void               ) const;
 
-            Int32 getPixelWidth (void) const;
-            Int32 getPixelHeight(void) const;
+            Window *getParent                   (void               ) const;
+
+            void    computeNormalizedCoordinates(      Real32& normX,
+                                                       Real32& normY,
+                                                 const Int32   vpX  ,
+                                                 const Int32   vpY  ) const;
+
+#ifdef OSG_1_COMPAT
+            Int32 getPixelLeft              (void               ) const;
+            Int32 getPixelRight             (void               ) const;
+            Int32 getPixelBottom            (void               ) const;
+            Int32 getPixelTop               (void               ) const;
+
+            Int32 getPixelWidth             (void               ) const;
+            Int32 getPixelHeight            (void               ) const;
     
-    virtual bool  isFullWindow  (void) const;
+            bool  isFullWindow              (void               ) const;
 
-    Window       *getParent(void) const;
 
-    void          getNormalizedCoordinates(      Real32& normX,
-                                                 Real32& normY,
-                                           const Int32   vpX  ,
-                                           const Int32   vpY  ) const;
+            void    getNormalizedCoordinates(      Real32& normX,
+                                                   Real32& normY,
+                                             const Int32   vpX  ,
+                                             const Int32   vpY  ) const;
+#endif
                                           
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,15 +122,10 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual bool               isPassive(void);
-    virtual FrameBufferObject *getTarget(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
-
-    TraversalValidator *getTravValidator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,8 +149,7 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
  protected:
 
-    TraversalValidator     *_pTravValidator;
-    ViewportDrawTaskRefPtr  _pForegroundTask;
+    ViewportDrawTaskRefPtr _pForegroundTask;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -176,7 +177,9 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
-    void renderForegrounds(Window *pWin);
+    void renderForegrounds(Window *pWin,
+                           Int32   iDrawerId,
+                           Int32   iDrawableId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

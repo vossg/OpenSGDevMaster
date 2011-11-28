@@ -182,6 +182,12 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
+    void  setIds       (Int32 iDrawerId,
+                        Int32 iDrawableId);
+
+    Int32 getDrawerId  (void             ) const;
+    Int32 getDrawableId(void             ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
@@ -204,6 +210,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
     /*! \{                                                                 */
 
     Viewport *_pPort;
+    Int32     _iDrawerId;
+    Int32     _iDrawableId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

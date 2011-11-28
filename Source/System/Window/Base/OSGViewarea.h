@@ -36,164 +36,160 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGHDRSTAGE_H_
-#define _OSGHDRSTAGE_H_
+#ifndef _OSGVIEWAREA_H_
+#define _OSGVIEWAREA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include <queue>
-
-#include "OSGHDRStageBase.h"
-#include "OSGAction.h"
-#include "OSGHDRStageDataFields.h"
-#include "OSGSimpleSHLChunk.h"
+#include "OSGRenderOptions.h"
+#include "OSGViewareaBase.h"
+#include "OSGWindowDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DrawEnv;
-class RenderAction;
+class RenderActionBase;
+class TraversalValidator;
+class FrameBufferObject;
 
-/*! Stage
-    \ingroup GrpEffectsGroupsHDRObj
-    \ingroup GrpLibOSGEffectsGroups
-    \includebasedoc
+/*! \brief Viewarea base class. See \ref 
+    PageSystemWindowViewareas for a description.
+
+  \ingroup GrpSystemWindowBase
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
  */
 
-class OSG_EFFECTGROUPS_DLLMAPPING HDRStage : public HDRStageBase
+class OSG_SYSTEM_DLLMAPPING Viewarea : public ViewareaBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef HDRStageBase                           Inherited;
+    typedef ViewareaBase                           Inherited;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                    access                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField,
+    void setSize          (Real32   left,  
+                           Real32   bottom, 
+                           Real32   right, 
+                           Real32   top           );
+    
+    void computePixelSizes(Window  *pWin,
+
+                           UInt32   &uiPixelWidth,
+                           UInt32   &uiPixelHeight);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    virtual void render      (RenderActionBase *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    virtual bool               isPassive(void);
+    virtual FrameBufferObject *getTarget(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    TraversalValidator *getTravValidator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   change                                     */
+    /*! \{                                                                 */
+
+    virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin,
                          BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                   dump                                       */
     /*! \{                                                                 */
 
-    void postProcess(DrawEnv *);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    void initData(RenderAction *pAction);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32    uiIndent = 0,
+    virtual void dump(      UInt32    uiIndent = 0, 
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
-  protected:
+ protected:
+
+    TraversalValidator *_pTravValidator;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    HDRStage(void);
-    HDRStage(const HDRStage &source);
+    Viewarea(void);
+    Viewarea(const Viewarea &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~HDRStage(void);
-
+    virtual ~Viewarea(void); 
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
+    /*! \name                   Destructors                                */
     /*! \{                                                                 */
-
-    static UInt32 _uiFramebufferObjectExt;
-    static UInt32 _uiFuncDrawBuffers;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
+    
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
+    /*! \name                MT Construction                               */
     /*! \{                                                                 */
-
-    HDRStageDataTransitPtr setupStageData (Int32         iPixelWidth,
-                                           Int32         iPixelHeight);
-
-    void                   resizeStageData(HDRStageData *pData,
-                                           Int32         iPixelWidth,
-                                           Int32         iPixelHeight);
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
+    /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
-    SimpleSHLChunkTransitPtr generateHDRFragmentProgram(void);
+    void onCreate       (const Viewarea *source = NULL);
 
+    void onCreateAspect (const Viewarea *createAspect,
+                         const Viewarea *source = NULL);
+    
+    void onDestroy      (      UInt32    uiContainerId);
+
+    void onDestroyAspect(      UInt32    uiContainerId,
+                               UInt32    uiAspect     );
+    
     /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
+    /*=========================  PRIVATE    ===============================*/
 
-  private:
+ private:
 
     friend class FieldContainer;
-    friend class HDRStageBase;
+    friend class ViewareaBase;
+    friend class ViewareaDrawTask;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                   thread local                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    load thread                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const HDRStage &source);
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const Viewarea &source);
 };
 
-typedef HDRStage              *HDRStageP;
+//---------------------------------------------------------------------------
+//   Exported Types
+//---------------------------------------------------------------------------
+
+typedef Viewarea *ViewareaP;
 
 OSG_END_NAMESPACE
 
-#include "OSGHDRStageBase.inl"
-#include "OSGHDRStage.inl"
+#include "OSGViewareaBase.inl"
+#include "OSGViewarea.inl"
 
-#endif /* _OSGHDRSTAGE_H_ */
+#endif /* _OSGVIEWAREA_H_ */

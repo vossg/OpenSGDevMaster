@@ -140,16 +140,14 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
 
         if(this->getProjectionMode() != AlgorithmStage::Ignore)
         {
-            Viewport *pPort = a->getViewport();
+            Viewarea *pArea = a->getViewarea();
             
-            if(pPort != NULL)
+            if(pArea != NULL)
             {
-//                pPart->setViewport(pPort         );
-               
-                pPart->calcViewportDimension(pPort->getLeft  (),
-                                             pPort->getBottom(),
-                                             pPort->getRight (),
-                                             pPort->getTop   (),
+                pPart->calcViewportDimension(pArea->getLeft  (),
+                                             pArea->getBottom(),
+                                             pArea->getRight (),
+                                             pArea->getTop   (),
                                              
                                              a->getWindow()->getWidth (),
                                              a->getWindow()->getHeight());

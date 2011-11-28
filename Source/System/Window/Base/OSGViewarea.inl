@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                     Copyright 2000-2002 by OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -38,24 +36,27 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-void ViewportDrawTask::setIds(Int32 iDrawerId,
-                              Int32 iDrawableId)
+/*---------------------------- properties ---------------------------------*/
+
+/*! Set all of the size-related fields of the viewarea.
+ */ 
+
+inline 
+void Viewarea::setSize(Real32 left, 
+                       Real32 bottom, 
+                       Real32 right, 
+                       Real32 top  )
 {
-    _iDrawerId   = iDrawerId;
-    _iDrawableId = iDrawableId;
+    setLeft  (left  );
+    setRight (right );
+    setBottom(bottom);
+    setTop   (top   );
 }
 
 inline
-Int32 ViewportDrawTask::getDrawerId(void) const
+TraversalValidator *Viewarea::getTravValidator(void)
 {
-    return _iDrawerId;
-}
-
-inline
-Int32 ViewportDrawTask::getDrawableId(void) const
-{
-    return _iDrawableId;
+    return _pTravValidator;
 }
 
 OSG_END_NAMESPACE

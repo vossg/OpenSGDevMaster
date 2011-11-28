@@ -407,14 +407,14 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
         {
             RenderPartition   *pPart    = ract ->getActivePartition();
             FrameBufferObject *pTarget  = pData->getTarget();
-            Viewport          *pPort    = ract ->getViewport();
+            Viewarea          *pArea    = ract ->getViewarea();
             Camera            *pCam     = ract ->getCamera  ();
             Background        *pBack    = ract ->getBackground();
             
 
             pPart->setRenderTarget(pTarget);
             
-            if(pPort != NULL)
+            if(pArea != NULL)
             {
                 pPart->setWindow(ract->getWindow());
                 
@@ -431,10 +431,10 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 else
                 {
                     pPart->calcViewportDimension(
-                        pPort->getLeft  (),
-                        pPort->getBottom(),
-                        pPort->getRight (),
-                        pPort->getTop   (),
+                        pArea->getLeft  (),
+                        pArea->getBottom(),
+                        pArea->getRight (),
+                        pArea->getTop   (),
                         
                         ract->getWindow()->getWidth (),
                         ract->getWindow()->getHeight());

@@ -101,12 +101,13 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
         {
             // -- Compute bounding volume screen coverage of current node -- //
             Matrix worldToScreen;
-#if 1 
+#if 0
             Camera* cam = ra->getCamera();
             Viewport* vp = ra->getViewport();
             cam->getWorldToScreen(worldToScreen, *vp);
 #else
-            worldToScreen = da->getDrawEnv()->getWorldToScreen();
+            worldToScreen = 
+                ra->getActivePartition()->getDrawEnv().getWorldToScreen();
 #endif
             
             const BoxVolume &volume = ra->getActNode()->getVolume();

@@ -299,10 +299,10 @@ void SortLastWindow::serverRender(Window           *serverWindow,
 
         if(getWidth() && getHeight())
         {
-           serverPort->setSize(clientPort->getPixelLeft  (),
-                               clientPort->getPixelBottom(),
-                               clientPort->getPixelRight (),
-                               clientPort->getPixelTop   ());
+           serverPort->setSize(clientPort->computePixelLeft  (),
+                               clientPort->computePixelBottom(),
+                               clientPort->computePixelRight (),
+                               clientPort->computePixelTop   ());
         }
         else
         {
@@ -556,18 +556,18 @@ void SortLastWindow::clientRender(RenderActionBase *action)
             {
                 Viewport *vp=getPort(p);
 
-                oEnv.setViewportDimension(vp->getPixelLeft  (),
-                                          vp->getPixelBottom(),
-                                          vp->getPixelRight (),
-                                          vp->getPixelTop   (),
-                                          vp->isFullWindow  ());
+                oEnv.setViewportDimension(vp->computePixelLeft   (),
+                                          vp->computePixelBottom (),
+                                          vp->computePixelRight  (),
+                                          vp->computePixelTop    (),
+                                          vp->computeIsFullWindow());
                 if(getComposer() != NULL)
                 {
                     getComposer()->startViewport(vp);
 
                     action->setCamera    (vp->getCamera    ());
                     action->setBackground(vp->getBackground());
-                    action->setViewport  (vp                 );
+                    action->setViewarea  (vp                 );
                     action->setTravMask  (vp->getTravMask  ());
 
                     action->apply(vp->getRoot());

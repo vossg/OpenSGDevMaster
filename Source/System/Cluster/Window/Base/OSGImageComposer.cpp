@@ -205,8 +205,8 @@ bool ImageComposer::getScreenAlignedBBox(Node     *node,
                                          UInt32   &front,
                                          UInt32   &back)
 {
-    UInt32 width     = vp->getPixelWidth();
-    UInt32 height    = vp->getPixelHeight();
+    UInt32 width     = vp->computePixelWidth();
+    UInt32 height    = vp->computePixelHeight();
     Matrix viewing;
     Matrix projection;
     Real32 rNear     = vp->getCamera()->getNear();

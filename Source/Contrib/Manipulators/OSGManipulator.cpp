@@ -401,11 +401,15 @@ Pnt2f Manipulator::calcScreenProjection(const Pnt3f    &       p,
     {
         cam = port->getCamera();
 
-        cam->getProjection(proj, port->getPixelWidth(),
-                           port->getPixelHeight());
-        cam->getProjectionTranslation(projtrans, port->getPixelWidth(),
-                                      port->getPixelHeight());
-        cam->getViewing(view, port->getPixelWidth(), port->getPixelHeight());
+        cam->getProjection(proj, 
+                           port->computePixelWidth(),
+                           port->computePixelHeight());
+        cam->getProjectionTranslation(projtrans, 
+                                      port->computePixelWidth(),
+                                      port->computePixelHeight());
+        cam->getViewing(view, 
+                        port->computePixelWidth(), 
+                        port->computePixelHeight());
 
         Matrix wctocc = proj;
         wctocc.mult(projtrans);
@@ -413,8 +417,8 @@ Pnt2f Manipulator::calcScreenProjection(const Pnt3f    &       p,
 
         wctocc.multFull(p, pnt);
 
-        Real32 rx = (pnt[0] + 1.0) /2 * port->getPixelWidth();
-        Real32 ry = (pnt[1] + 1.0) /2 * port->getPixelHeight();
+        Real32 rx = (pnt[0] + 1.0) /2 * port->computePixelWidth();
+        Real32 ry = (pnt[1] + 1.0) /2 * port->computePixelHeight();
 
         return Pnt2f(rx, ry);
     }

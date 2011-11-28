@@ -555,8 +555,8 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
                            Real32& fromX, Real32& fromY,
                            Real32& toX,   Real32& toY)
 {
-    Real32 width  = Real32(_vp->getPixelWidth());
-    Real32 height = Real32(_vp->getPixelHeight());
+    Real32 width  = Real32(_vp->computePixelWidth());
+    Real32 height = Real32(_vp->computePixelHeight());
 
     if(width <= 0 || height <= 0) return false;
 
@@ -568,11 +568,11 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
     else
         winHeight = height;
         
-    fromX = (2.0f * (_lastX - _vp->getPixelLeft())- width) /  width;
-    fromY = (2.0f * (winHeight-_lastY-_vp->getPixelBottom())-height) / height;
+    fromX = (2.0f * (_lastX - _vp->computePixelLeft())- width) /  width;
+    fromY = (2.0f * (winHeight-_lastY-_vp->computePixelBottom())-height) / height;
 
-    toX   = (2.0f * (x - _vp->getPixelLeft()) - width) / width;
-    toY   = (2.0f * (winHeight - y - _vp->getPixelBottom()) - height) / height;
+    toX   = (2.0f * (x - _vp->computePixelLeft()) - width) / width;
+    toY   = (2.0f * (winHeight - y - _vp->computePixelBottom()) - height) / height;
 
     return true;
 }

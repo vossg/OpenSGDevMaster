@@ -139,15 +139,15 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
     {
         this->pushPartition(a);
         {
-            RenderPartition   *pPart    = a->getActivePartition();
-            FrameBufferObject *pTarget  = this->getRenderTarget();
-            Viewport          *pPort    = a->getViewport();
-            Camera            *pCam     = a->getCamera  ();
-            Background        *pBack    = a->getBackground();
+            RenderPartition   *pPart    = a   ->getActivePartition();
+            FrameBufferObject *pTarget  = this->getRenderTarget   ();
+            Viewarea          *pArea    = a   ->getViewarea       ();
+            Camera            *pCam     = a   ->getCamera         ();
+            Background        *pBack    = a   ->getBackground     ();
             
             if(pTarget == NULL)
             {
-                this->initData(pPort, a);
+                this->initData(a);
 
                 pTarget  = this->getRenderTarget();
             }
@@ -159,27 +159,26 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
             pPart->setDebugString(szMessage          );
 #endif
 
-            if(pPort != NULL)
+            if(pArea != NULL)
             {
-//                pPart->setViewport(pPort         );
                 pPart->setWindow  (a->getWindow());
                 
                 if(pTarget != NULL)
                 {
-                    pPart->calcViewportDimension(pPort->getLeft  (),
-                                                 pPort->getBottom(),
-                                                 pPort->getRight (),
-                                                 pPort->getTop   (),
+                    pPart->calcViewportDimension(pArea->getLeft  (),
+                                                 pArea->getBottom(),
+                                                 pArea->getRight (),
+                                                 pArea->getTop   (),
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());
                 }
                 else
                 {
-                    pPart->calcViewportDimension(pPort->getLeft  (),
-                                                 pPort->getBottom(),
-                                                 pPort->getRight (),
-                                                 pPort->getTop   (),
+                    pPart->calcViewportDimension(pArea->getLeft  (),
+                                                 pArea->getBottom(),
+                                                 pArea->getRight (),
+                                                 pArea->getTop   (),
                                                  
                                                  a->getWindow()->getWidth (),
                                                  a->getWindow()->getHeight());
@@ -809,18 +808,26 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-void HDRStage::initData(Viewport         *pViewport,
-                        RenderActionBase *pAction  )
+void HDRStage::initData(RenderAction *pAction)
 {
     HDRStageDataUnrecPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
     if(pData == NULL)
     {
+#if 0
         pData = setupStageData(pViewport->getPixelWidth(),
                                pViewport->getPixelHeight());
         
         pData->setWidth (pViewport->getPixelWidth ());
         pData->setHeight(pViewport->getPixelHeight());
+#endif
+
+        pData = setupStageData(
+            pAction->getActivePartition()->getViewportWidth (),
+            pAction->getActivePartition()->getViewportHeight());
+        
+        pData->setWidth (pAction->getActivePartition()->getViewportWidth ());
+        pData->setHeight(pAction->getActivePartition()->getViewportHeight());
 
         this->setData(pData, _iDataSlotId, pAction);
     }

@@ -128,33 +128,32 @@ ActionBase::ResultE Stage::renderEnter(Action *action)
     this->pushPartition(a);
 
     RenderPartition   *pPart    = a->getActivePartition();
-    Viewport          *pPort    = a->getViewport();
+    Viewarea          *pArea    = a->getViewarea();
     Camera            *pCam     = a->getCamera  ();
     Background        *pBack    = a->getBackground();
     
     pPart->setRenderTarget(pTarget);
 
-    if(pPort != NULL)
+    if(pArea != NULL)
     {
-//        pPart->setViewport(pPort         );
         pPart->setWindow  (a->getWindow());
             
         if(pTarget != NULL)
         {
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
+            pPart->calcViewportDimension(pArea->getLeft  (),
+                                         pArea->getBottom(),
+                                         pArea->getRight (),
+                                         pArea->getTop   (),
                                          
                                          pTarget->getWidth    (),
                                          pTarget->getHeight   ());
         }
         else
         {
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
+            pPart->calcViewportDimension(pArea->getLeft  (),
+                                         pArea->getBottom(),
+                                         pArea->getRight (),
+                                         pArea->getTop   (),
                                          
                                          a->getWindow()->getWidth (),
                                          a->getWindow()->getHeight());

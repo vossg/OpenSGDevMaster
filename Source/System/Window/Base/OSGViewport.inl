@@ -42,41 +42,75 @@ OSG_BEGIN_NAMESPACE
  */ 
 
 inline 
-Int32 Viewport::getPixelWidth(void) const
+Int32 Viewport::computePixelWidth(void) const
 {
-    return getPixelRight() - getPixelLeft() + 1;
+    return computePixelRight() - computePixelLeft() + 1;
 }
 
 /*! Calculate the height of the viewport in Pixel.
  */ 
 
 inline 
+Int32 Viewport::computePixelHeight(void) const
+{
+    return computePixelTop() - computePixelBottom() + 1;
+}
+
+#ifdef OSG_1_COMPAT
+inline 
+Int32 Viewport::getPixelLeft(void) const
+{
+    return computePixelLeft();
+}
+
+inline 
+Int32 Viewport::getPixelRight(void) const
+{
+    return computePixelRight();
+}
+
+inline 
+Int32 Viewport::getPixelBottom(void) const
+{
+    return computePixelBottom();
+}
+
+inline 
+Int32 Viewport::getPixelTop(void) const
+{
+    return computePixelTop();
+}
+
+inline 
+Int32 Viewport::getPixelWidth(void) const
+{
+    return computePixelWidth();
+}
+
+inline 
 Int32 Viewport::getPixelHeight(void) const
 {
-    return getPixelTop() - getPixelBottom() + 1;
+    return computePixelHeight();
 }
+
+inline 
+bool Viewport::isFullWindow(void) const
+{
+    return computeIsFullWindow();
+}
+
+
+inline 
+void Viewport::getNormalizedCoordinates(      Real32 &normX,
+                                              Real32 &normY,
+                                        const Int32   vpX  ,
+                                        const Int32   vpY  ) const
+{
+    return computeNormalizedCoordinates(normX, normY, vpX, vpY);
+}
+#endif
 
 /*---------------------------- properties ---------------------------------*/
 
-/*! Set all of the size-related fields of the viewport.
- */ 
-
-inline 
-void Viewport::setSize(Real32 left, 
-                       Real32 bottom, 
-                       Real32 right, 
-                       Real32 top  )
-{
-    setLeft  (left  );
-    setRight (right );
-    setBottom(bottom);
-    setTop   (top   );
-}
-
-inline
-TraversalValidator *Viewport::getTravValidator(void)
-{
-    return _pTravValidator;
-}
 
 OSG_END_NAMESPACE

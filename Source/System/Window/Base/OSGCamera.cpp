@@ -136,22 +136,6 @@ void Camera::getViewing(Matrix &result,
     result.invert();
 }
 
-/*! Calculate the frustum of this camera's visible area.
- */
-
-void Camera::getFrustum(FrustumVolume& result, const Viewport& p)
-{
-    Matrix mv,prt,pr;
-
-    getProjection           (pr , p.getPixelWidth(), p.getPixelHeight());
-    getProjectionTranslation(prt, p.getPixelWidth(), p.getPixelHeight());
-    getViewing              (mv , p.getPixelWidth(), p.getPixelHeight());
-
-    pr.mult(prt);
-    pr.mult(mv );
-
-    result.setPlanes(pr);
-}
 
 /*! Calculate the frustum of this camera's visible area (w,h instead port). 
 */
@@ -168,22 +152,6 @@ void Camera::getFrustum(FrustumVolume& result,
     pr.mult(mv );
     
     result.setPlanes(pr);
-}
-
-/*! Calculate the matrix that transforms world coordinates into the screen
-    coordinate system for this camera.
- */
-
-void Camera::getWorldToScreen(Matrix &result, const Viewport& p)
-{
-    Matrix mv,prt,pr;
-
-    getProjection           (result, p.getPixelWidth(), p.getPixelHeight());
-    getProjectionTranslation(prt   , p.getPixelWidth(), p.getPixelHeight());
-    getViewing              (mv    , p.getPixelWidth(), p.getPixelHeight());
-
-    result.mult(prt);
-    result.mult(mv );
 }
 
 /*! Get/calculate the decoration matrix for this camera. 
@@ -220,24 +188,69 @@ Matrix Camera::getViewingVal(UInt32         width,
    return temp_mat;
 }
 
-FrustumVolume Camera::getFrustumVal        (  const Viewport      &port  )
-{
-   FrustumVolume vol;
-   this->getFrustum(vol, port);
-   return vol;
-}
-
-Matrix Camera::getWorldToScreenVal        ( const Viewport      &port  )
-{
-   Matrix temp_mat;
-   this->getWorldToScreen(temp_mat, port);
-   return temp_mat;
-}
-
 Matrix Camera::getDecorationVal(UInt32 width, UInt32 height)
 {
    Matrix temp_mat;
    this->getDecoration(temp_mat, width, height);
+   return temp_mat;
+}
+
+/*! Calculate the frustum of this camera's visible area.
+ */
+
+void Camera::computeFrustum(FrustumVolume &result, const Viewport &p)
+{
+    Matrix mv,prt,pr;
+
+    getProjection           (pr , 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+    getProjectionTranslation(prt, 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+    getViewing              (mv , 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+
+    pr.mult(prt);
+    pr.mult(mv );
+
+    result.setPlanes(pr);
+}
+
+/*! Calculate the matrix that transforms world coordinates into the screen
+    coordinate system for this camera.
+ */
+
+void Camera::computeWorldToScreen(Matrix &result, const Viewport &p)
+{
+    Matrix mv,prt,pr;
+
+    getProjection           (result, 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+    getProjectionTranslation(prt   , 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+    getViewing              (mv    , 
+                             p.computePixelWidth (), 
+                             p.computePixelHeight());
+
+    result.mult(prt);
+    result.mult(mv );
+}
+
+FrustumVolume Camera::computeFrustumVal(const Viewport &port)
+{
+   FrustumVolume vol;
+   this->computeFrustum(vol, port);
+   return vol;
+}
+
+Matrix Camera::computeWorldToScreenVal(const Viewport &port)
+{
+   Matrix temp_mat;
+   this->computeWorldToScreen(temp_mat, port);
    return temp_mat;
 }
 
@@ -262,7 +275,7 @@ bool Camera::calcViewRay(      Line    &line,
                          const Viewport &port,
                                Real32   *t   )
 {
-    if(port.getPixelWidth() <= 0 || port.getPixelHeight() <= 0)
+    if(port.computePixelWidth() <= 0 || port.computePixelHeight() <= 0)
     {
         return false;
     }
@@ -270,16 +283,16 @@ bool Camera::calcViewRay(      Line    &line,
     Matrix proj, projtrans, view;
 
     getProjection(proj,
-                  port.getPixelWidth(),
-                  port.getPixelHeight());
+                  port.computePixelWidth(),
+                  port.computePixelHeight());
 
     getProjectionTranslation(projtrans,
-                             port.getPixelWidth(),
-                             port.getPixelHeight());
+                             port.computePixelWidth(),
+                             port.computePixelHeight());
 
     getViewing(view,
-               port.getPixelWidth(),
-               port.getPixelHeight());
+               port.computePixelWidth(),
+               port.computePixelHeight());
 
     Matrix wctocc = proj;
 
@@ -291,7 +304,7 @@ bool Camera::calcViewRay(      Line    &line,
     cctowc.invertFrom(wctocc);
 
     Real32 rx(0.f), ry(0.f);
-    port.getNormalizedCoordinates(rx, ry, x, y);
+    port.computeNormalizedCoordinates(rx, ry, x, y);
 
     Pnt3f from, at;
 

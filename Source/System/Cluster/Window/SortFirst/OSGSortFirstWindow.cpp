@@ -346,10 +346,10 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
         // duplicate values
         regionStart=cv * getMFServers()->size() * 4 + id * 4;
         serverPort->setSize( 
-            Real32(getRegion(regionStart+0) + clientPort->getPixelLeft()),
-            Real32(getRegion(regionStart+1) + clientPort->getPixelBottom()),
-            Real32(getRegion(regionStart+2) + clientPort->getPixelLeft()),
-            Real32(getRegion(regionStart+3) + clientPort->getPixelBottom()));
+            Real32(getRegion(regionStart+0) + clientPort->computePixelLeft()),
+            Real32(getRegion(regionStart+1) + clientPort->computePixelBottom()),
+            Real32(getRegion(regionStart+2) + clientPort->computePixelLeft()),
+            Real32(getRegion(regionStart+3) + clientPort->computePixelBottom()));
 
         serverPort->setRoot      ( clientPort->getRoot()       );
         serverPort->setBackground( clientPort->getBackground() );
@@ -359,8 +359,8 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
         serverPort->setTravMask  ( clientPort->getTravMask()   );
 
         // calculate tile parameters
-        vpWidth =clientPort->getPixelWidth();
-        vpHeight=clientPort->getPixelHeight();
+        vpWidth =clientPort->computePixelWidth();
+        vpHeight=clientPort->computePixelHeight();
 
         deco->setFullWidth ( vpWidth );
         deco->setFullHeight( vpHeight );
@@ -422,10 +422,10 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
             _bufferHandler.send(
                 *getNetwork()->getMainPointConnection(),
                 ClusterViewBuffer::RGB,
-                vp->getPixelLeft(),
-                vp->getPixelBottom(),
-                vp->getPixelRight(),
-                vp->getPixelTop(),
+                vp->computePixelLeft(),
+                vp->computePixelBottom(),
+                vp->computePixelRight(),
+                vp->computePixelTop(),
                 0,0);
 
             // deactivate the viewport

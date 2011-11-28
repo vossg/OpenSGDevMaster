@@ -48,7 +48,6 @@
  *****************************************************************************
 \*****************************************************************************/
 
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -75,106 +74,6 @@ OSG::UInt16 ViewportBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the Viewport::_sfLeft field.
-
-inline
-Real32 &ViewportBase::editLeft(void)
-{
-    editSField(LeftFieldMask);
-
-    return _sfLeft.getValue();
-}
-
-//! Get the value of the Viewport::_sfLeft field.
-inline
-      Real32  ViewportBase::getLeft(void) const
-{
-    return _sfLeft.getValue();
-}
-
-//! Set the value of the Viewport::_sfLeft field.
-inline
-void ViewportBase::setLeft(const Real32 value)
-{
-    editSField(LeftFieldMask);
-
-    _sfLeft.setValue(value);
-}
-//! Get the value of the Viewport::_sfRight field.
-
-inline
-Real32 &ViewportBase::editRight(void)
-{
-    editSField(RightFieldMask);
-
-    return _sfRight.getValue();
-}
-
-//! Get the value of the Viewport::_sfRight field.
-inline
-      Real32  ViewportBase::getRight(void) const
-{
-    return _sfRight.getValue();
-}
-
-//! Set the value of the Viewport::_sfRight field.
-inline
-void ViewportBase::setRight(const Real32 value)
-{
-    editSField(RightFieldMask);
-
-    _sfRight.setValue(value);
-}
-//! Get the value of the Viewport::_sfBottom field.
-
-inline
-Real32 &ViewportBase::editBottom(void)
-{
-    editSField(BottomFieldMask);
-
-    return _sfBottom.getValue();
-}
-
-//! Get the value of the Viewport::_sfBottom field.
-inline
-      Real32  ViewportBase::getBottom(void) const
-{
-    return _sfBottom.getValue();
-}
-
-//! Set the value of the Viewport::_sfBottom field.
-inline
-void ViewportBase::setBottom(const Real32 value)
-{
-    editSField(BottomFieldMask);
-
-    _sfBottom.setValue(value);
-}
-//! Get the value of the Viewport::_sfTop field.
-
-inline
-Real32 &ViewportBase::editTop(void)
-{
-    editSField(TopFieldMask);
-
-    return _sfTop.getValue();
-}
-
-//! Get the value of the Viewport::_sfTop field.
-inline
-      Real32  ViewportBase::getTop(void) const
-{
-    return _sfTop.getValue();
-}
-
-//! Set the value of the Viewport::_sfTop field.
-inline
-void ViewportBase::setTop(const Real32 value)
-{
-    editSField(TopFieldMask);
-
-    _sfTop.setValue(value);
-}
 
 //! Get the value of the Viewport::_sfCamera field.
 inline
@@ -223,122 +122,6 @@ void ViewportBase::setBackground(Background * const value)
 
     _sfBackground.setValue(value);
 }
-//! Get the value of the Viewport::_sfTravMask field.
-
-inline
-UInt32 &ViewportBase::editTravMask(void)
-{
-    editSField(TravMaskFieldMask);
-
-    return _sfTravMask.getValue();
-}
-
-//! Get the value of the Viewport::_sfTravMask field.
-inline
-      UInt32  ViewportBase::getTravMask(void) const
-{
-    return _sfTravMask.getValue();
-}
-
-//! Set the value of the Viewport::_sfTravMask field.
-inline
-void ViewportBase::setTravMask(const UInt32 value)
-{
-    editSField(TravMaskFieldMask);
-
-    _sfTravMask.setValue(value);
-}
-//! Get the value of the Viewport::_sfEnabled field.
-
-inline
-bool &ViewportBase::editEnabled(void)
-{
-    editSField(EnabledFieldMask);
-
-    return _sfEnabled.getValue();
-}
-
-//! Get the value of the Viewport::_sfEnabled field.
-inline
-      bool  ViewportBase::getEnabled(void) const
-{
-    return _sfEnabled.getValue();
-}
-
-//! Set the value of the Viewport::_sfEnabled field.
-inline
-void ViewportBase::setEnabled(const bool value)
-{
-    editSField(EnabledFieldMask);
-
-    _sfEnabled.setValue(value);
-}
-//! Get the value of the Viewport::_sfDrawTime field.
-
-inline
-Real32 &ViewportBase::editDrawTime(void)
-{
-    editSField(DrawTimeFieldMask);
-
-    return _sfDrawTime.getValue();
-}
-
-//! Get the value of the Viewport::_sfDrawTime field.
-inline
-      Real32  ViewportBase::getDrawTime(void) const
-{
-    return _sfDrawTime.getValue();
-}
-
-//! Set the value of the Viewport::_sfDrawTime field.
-inline
-void ViewportBase::setDrawTime(const Real32 value)
-{
-    editSField(DrawTimeFieldMask);
-
-    _sfDrawTime.setValue(value);
-}
-//! Get the value of the Viewport::_sfDrawableId field.
-
-inline
-Int32 &ViewportBase::editDrawableId(void)
-{
-    editSField(DrawableIdFieldMask);
-
-    return _sfDrawableId.getValue();
-}
-
-//! Get the value of the Viewport::_sfDrawableId field.
-inline
-      Int32  ViewportBase::getDrawableId(void) const
-{
-    return _sfDrawableId.getValue();
-}
-
-//! Set the value of the Viewport::_sfDrawableId field.
-inline
-void ViewportBase::setDrawableId(const Int32 value)
-{
-    editSField(DrawableIdFieldMask);
-
-    _sfDrawableId.setValue(value);
-}
-
-//! Get the value of the Viewport::_sfRenderOptions field.
-inline
-RenderOptions * ViewportBase::getRenderOptions(void) const
-{
-    return _sfRenderOptions.getValue();
-}
-
-//! Set the value of the Viewport::_sfRenderOptions field.
-inline
-void ViewportBase::setRenderOptions(RenderOptions * const value)
-{
-    editSField(RenderOptionsFieldMask);
-
-    _sfRenderOptions.setValue(value);
-}
 
 //! Get the value of the \a index element the Viewport::_mfForegrounds field.
 inline
@@ -358,18 +141,6 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pFrom->_sfLeft);
-
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-        _sfRight.syncWith(pFrom->_sfRight);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pFrom->_sfBottom);
-
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-        _sfTop.syncWith(pFrom->_sfTop);
-
     if(FieldBits::NoField != (ParentFieldMask & whichField))
         _sfParent.syncWith(pFrom->_sfParent);
 
@@ -387,21 +158,6 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-        _sfTravMask.syncWith(pFrom->_sfTravMask);
-
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-        _sfEnabled.syncWith(pFrom->_sfEnabled);
-
-    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
-        _sfDrawTime.syncWith(pFrom->_sfDrawTime);
-
-    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
-        _sfDrawableId.syncWith(pFrom->_sfDrawableId);
-
-    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
-        _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 }
 #endif
 

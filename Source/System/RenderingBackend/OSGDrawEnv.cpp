@@ -146,6 +146,42 @@ DrawEnv::~DrawEnv(void)
 {
 }
 
+void DrawEnv::calcViewportDimension(Real32 rLeft,
+                                    Real32 rBottom,
+                                    Real32 rRight,
+                                    Real32 rTop,
+                                    
+                                    UInt16 iTargetWidth,
+                                    UInt16 iTargetHeight)
+{
+    if(rLeft > 1.f)
+        _iPixelLeft = Int32(rLeft);
+    else
+        _iPixelLeft = Int32(iTargetWidth * rLeft);
+
+    if(rRight > 1.f)
+        _iPixelRight = Int32(rRight);
+    else
+        _iPixelRight = Int32(iTargetWidth * rRight) - 1;
+
+
+    if(rBottom > 1.f)
+        _iPixelBottom = Int32(rBottom);
+    else
+        _iPixelBottom = Int32(iTargetHeight * rBottom);
+
+    if(rTop > 1.f)
+        _iPixelTop = Int32(rTop);
+    else
+        _iPixelTop = Int32(iTargetHeight * rTop) - 1;
+
+
+    _bFull = ( (_iPixelLeft   == 0                ) &&
+               (_iPixelRight  == iTargetWidth  - 1) &&
+               (_iPixelBottom == 0                ) &&
+               (_iPixelTop    == iTargetHeight - 1)  );
+}
+
 Matrix DrawEnv::calcTileDecorationMatrix(void) const
 {
     Vec4f vTileRegion = this->getTileRegion();

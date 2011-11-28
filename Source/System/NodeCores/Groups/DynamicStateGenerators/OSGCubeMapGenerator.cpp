@@ -172,8 +172,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
     Background      *pBack    = a->getBackground();
 
-    Viewport        *pPort    = a->getViewport();
-
     Node            *pActNode = a->getActNode();
 
     CubeMapGeneratorStageData *pData = 
@@ -291,7 +289,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                     }
                     else
                     {
-                        this->recurse(a, pPort->getRoot());
+                        this->recurse(a, a->getTraversalRoot());
                     }
 
                     pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);

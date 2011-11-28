@@ -480,9 +480,9 @@ Action::ResultE RenderAction::start(void)
     }
 #endif
 
-    if(_pViewport != NULL && _pViewport->getRenderOptions() != NULL)
+    if(_pViewarea != NULL && _pViewarea->getRenderOptions() != NULL)
     {
-        _pViewport->getRenderOptions()->activate(this);
+        _pViewarea->getRenderOptions()->activate(this);
     }
     else if(_pWindow != NULL && _pWindow->getRenderOptions() != NULL)
     {
@@ -536,29 +536,40 @@ Action::ResultE RenderAction::start(void)
 
 //    bool full = true;
 
-    if(_pViewport != NULL)
+    if(_pViewarea != NULL)
     {
 //        _pActivePartition->setViewport(_pViewport);
         _pActivePartition->setWindow  (_pWindow  );
 
+#if 0
         _pActivePartition->setViewportDimension(_pViewport->getPixelLeft  (),
                                                 _pViewport->getPixelBottom(),
                                                 _pViewport->getPixelRight (),
                                                 _pViewport->getPixelTop   (),
                                                 _pViewport->isFullWindow  ());
+#endif
 
-        if(_pViewport->isPassive() == true)
+        _pActivePartition->calcViewportDimension(_pViewarea->getLeft  (),
+                                                 _pViewarea->getBottom(),
+                                                 _pViewarea->getRight (),
+                                                 _pViewarea->getTop   (),
+
+                                                 _pWindow  ->getWidth (),
+                                                 _pWindow  ->getHeight());
+
+        if(_pViewarea->isPassive() == true)
         {
             _pActivePartition->addSetupModeBit(RenderPartition::PassiveBit);
         }
 
-        _pActivePartition->setRenderTarget(_pViewport->getTarget());
+        _pActivePartition->setRenderTarget(_pViewarea->getTarget());
 
         if(_pCamera != NULL)
         {
             Matrix m, t;
 
             // set the projection
+#if 0
             _pCamera->getProjection          ( m,
                                               _pViewport->getPixelWidth (),
                                               _pViewport->getPixelHeight());
@@ -572,6 +583,24 @@ Action::ResultE RenderAction::start(void)
             _pCamera->getViewing( m,
                                  _pViewport->getPixelWidth (),
                                  _pViewport->getPixelHeight());
+#endif
+
+            _pCamera->getProjection          ( 
+                 m,
+                _pActivePartition->getViewportWidth (),
+                _pActivePartition->getViewportHeight());
+
+            _pCamera->getProjectionTranslation(
+                 t,
+                _pActivePartition->getViewportWidth (),
+                _pActivePartition->getViewportHeight());
+
+            _pActivePartition->setupProjection(m, t);
+
+            _pCamera->getViewing( 
+                 m,
+                _pActivePartition->getViewportWidth (),
+                _pActivePartition->getViewportHeight());
 
 
             _pActivePartition->setupViewing(m);
@@ -663,9 +692,9 @@ Action::ResultE RenderAction::stop(ResultE res)
         }
     }
 
-    if(_pViewport != NULL && _pViewport->getRenderOptions() != NULL)
+    if(_pViewarea != NULL && _pViewarea->getRenderOptions() != NULL)
     {
-        _pViewport->getRenderOptions()->deactivate(this);
+        _pViewarea->getRenderOptions()->deactivate(this);
     }
     else if(_pWindow != NULL && _pWindow->getRenderOptions() != NULL)
     { 

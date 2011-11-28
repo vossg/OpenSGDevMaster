@@ -40,4 +40,33 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifdef OSG_1_COMPAT
+inline
+void Camera::getFrustum(      FrustumVolume &result,
+                        const Viewport      &port  )
+{
+    computeFrustum(result, port);
+}
+
+inline
+void Camera::getWorldToScreen(      Matrix        &result,
+                              const Viewport      &port  )
+{
+    computeWorldToScreen(result, port);
+}
+
+
+inline
+FrustumVolume Camera::getFrustumVal(const Viewport &port)
+{
+    return computeFrustumVal(port);
+}
+
+inline
+Matrix Camera::getWorldToScreenVal(const Viewport &port)
+{
+    return computeWorldToScreen(port);
+}
+#endif
+
 OSG_END_NAMESPACE
