@@ -2697,9 +2697,8 @@ OSG::Int32 putenv(Char8 *string)
 inline
 Char8 *getenv(const Char8 *string)
 {
-    return NULL;
+    return ::getenv(string);
 }
-#else
 #endif
 
 /*! Pause program execution for the given number of milliseconds.
