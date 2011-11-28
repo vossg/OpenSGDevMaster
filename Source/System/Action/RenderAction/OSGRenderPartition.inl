@@ -294,8 +294,9 @@ const Matrix &RenderPartition::getModelMatrix(void) const
     return _modelMatrix;
 }
 
-inline
-const Matrix &RenderPartition::getModelViewMatrix(void) const
+inline 
+const RenderPartition::MatrixT &
+    RenderPartition::getModelViewMatrix(void) const
 {
     return _modelViewMatrix.second;
 }

@@ -115,8 +115,10 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     */
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     typedef std::pair<UInt32, Matrix>               MatrixStore;
+    typedef Matrix                                  MatrixT;
 #else
     typedef std::pair<UInt32, Matrix4d>             MatrixStore;
+    typedef                   Matrix4d              MatrixT;
 #endif
     
     /*! DrawFunctor is the signature for the methods that are called 
@@ -287,7 +289,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     const Matrix      &topMatrix         (      void              );
 
     const Matrix      &getModelMatrix    (      void              ) const;
-    const Matrix      &getModelViewMatrix(      void              ) const;
+
+    const MatrixT     &getModelViewMatrix(      void              ) const;
 
     const MatrixStore &getMatrixStackTop (      void              ) const;
 

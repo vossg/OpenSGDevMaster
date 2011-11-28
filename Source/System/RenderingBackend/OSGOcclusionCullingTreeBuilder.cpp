@@ -817,7 +817,7 @@ OcclusionCullingTreeBuilder::createNode(RenderActionBase    *pAction,
     Pnt3d objPos(TypeTraits<Real64>::getMax(),
                  TypeTraits<Real64>::getMax(),
                  TypeTraits<Real64>::getMax() );
-    Pnt3f volVert[8];
+    Pnt3d volVert[8];
 #endif
 
     Pnt3f volMin;
