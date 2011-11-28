@@ -48,8 +48,8 @@
 #include "boost/shared_ptr.hpp"
 
 #ifdef OSG_WITH_GDAL
-#include "gdal/gdal_priv.h"
-#include "gdal/ogr_srs_api.h"
+#include "gdal_priv.h"
+#include "ogr_srs_api.h"
 #endif
 
 OSG_BEGIN_NAMESPACE
