@@ -213,12 +213,16 @@ FieldContainer::~FieldContainer(void)
        _pFieldFlags = NULL;
     }
 
+    osgSpinLock(&_uiContainerId, SpinLockBit);
+
     if(_pContainerChanges != NULL)
     {
         _pContainerChanges->release();
 
         _pContainerChanges = NULL;
     }
+
+    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 inline
@@ -382,11 +386,13 @@ void FieldContainer::editMField(ConstFieldMaskArg  whichField,
 inline
 void FieldContainer::clearUncommited(ConstFieldMaskArg whichField)
 {
+    osgSpinLock(&_uiContainerId, SpinLockBit);
     if(_pContainerChanges != NULL)
     {
           _pContainerChanges->whichField            |=  whichField;
         *(_pContainerChanges->bvUncommittedChanges) &= ~whichField;
     }
+    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 #ifdef OSG_MT_CPTR_ASPECT

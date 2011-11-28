@@ -133,7 +133,9 @@ void ReflexiveContainer::onDestroyAspect(UInt32,
 inline
 void ReflexiveContainer::execEndEdit(ConstFieldMaskArg whichField)
 {
+    osgSpinLock(&_uiContainerId, SpinLockBit);
     _pContainerChanges->whichField |= whichField;
+    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 #if 0
@@ -147,7 +149,7 @@ ContainerChangeEntry *ReflexiveContainer::getChangeEntry(void)
 inline
 void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
 {
-//    osgSpinLock(&_uiContainerId, SpinLockBit);
+    osgSpinLock(&_uiContainerId, SpinLockBit);
 
     if(_pContainerChanges == pRef)
     {
@@ -155,7 +157,7 @@ void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
         _bvChanged         = 0x0000;
     }
 
-//    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
+    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 inline
