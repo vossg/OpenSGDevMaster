@@ -160,7 +160,7 @@ static GIFStream *GIFRead   (std::istream &is);
        int        GIFTest   (char *);
        int        GIFWrite  (char *, GIFStream *, int);
 static int        GIFWriteFP(FILE *, GIFStream *, int);
-static int        GIFFree   (GIFStream *);
+static int        GIFFree   (const GIFStream *);
 
 #endif
 
@@ -192,8 +192,8 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
 
 #ifdef OSG_WITH_GIF
     Image::PixelFormat  pixelFormat = Image::OSG_INVALID_PF;
-    GIFStream           *gifStream = GIFRead(is);
-    GIFData             *gifData = 0;
+    const GIFStream     *gifStream = GIFRead(is);
+    const GIFData       *gifData = 0;
     bool                isColor;
     int                 i, j, destI, lineSize, lineEnd;
     unsigned            red, green, blue;
@@ -201,10 +201,11 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
     int                 streamWidth = 0, streamHeight = 0;
     int                 curWidth = 0, curHeight = 0, channel = 0;
     int                 xOff = 0, yOff = 0;
-    unsigned char       *srcData = 0, *destData = 0;
+    const unsigned char *srcData = 0;
+    unsigned char       *destData = 0;
     int                 colorIndex;
     unsigned            frameCount = 0, currentFrame = 0;
-    unsigned char       *colorMap = 0;
+    const unsigned char *colorMap = 0;
 
     //    int imageSize = 0;
     int                 colorMapSize;
@@ -253,7 +254,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     {
                         colorMapSize = gifData->data.image.cmapSize;
                         colorMap = 
-                            reinterpret_cast<unsigned char *>(
+                            reinterpret_cast<const unsigned char *>(
                                 gifData->data.image.cmapData);
                         
                         // cout << "INFO: Use gifData colorMap" << endl;
@@ -262,7 +263,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     {
                         colorMapSize = gifStream->cmapSize;
                         colorMap = 
-                            reinterpret_cast<unsigned char *>(
+                            reinterpret_cast<const unsigned char *>(
                                 gifStream->cmapData);
                         
                         // cout << "INFO: Use gifStream colorMap" << endl;
@@ -902,7 +903,7 @@ out:
 }
 
 /* */
-static int GIFFreeData(GIFData *gifData)
+static int GIFFreeData(const GIFData *gifData)
 {
     int retCode = 0;
 
@@ -939,7 +940,7 @@ static int GIFFreeData(GIFData *gifData)
 }
 
 /* */
-static int GIFFree(GIFStream *gifStream)
+static int GIFFree(const GIFStream *gifStream)
 {
     int     retCode = 1;
     GIFData *gifData, *gifNext;
