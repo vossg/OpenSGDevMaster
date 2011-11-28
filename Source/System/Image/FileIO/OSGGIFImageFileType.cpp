@@ -198,7 +198,8 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
     int                 i, j, destI, lineSize, lineEnd;
     unsigned            red, green, blue;
     int                 transparentIndex;
-    int                 width = 0, height = 0, channel = 0;
+    int                 streamWidth = 0, streamHeight = 0;
+    int                 curWidth = 0, curHeight = 0, channel = 0;
     int                 xOff = 0, yOff = 0;
     unsigned char       *srcData = 0, *destData = 0;
     int                 colorIndex;
@@ -224,6 +225,9 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
 
     if(gifStream)
     {
+        streamWidth  = gifStream->width;
+        streamHeight = gifStream->height;
+
         for(gifData = gifStream->data; gifData; gifData = gifData->next)
         {
             switch(gifData->type)
@@ -238,10 +242,10 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     // get the att.
                     transparentIndex = gifData->info.transparent;
                     frameDelay = float(gifData->info.delayTime) / 100.0f;
-                    width  = gifData->width;
-                    height = gifData->height;
-                    xOff   = gifData->x;
-                    yOff   = gifData->y;
+                    curWidth  = gifData->width;
+                    curHeight = gifData->height;
+                    xOff      = gifData->x;
+                    yOff      = gifData->y;
                     
                     // check if the movie is color or greyscale
                     isColor = false;
@@ -294,8 +298,8 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     {
                         // is not the first frame
                         if((channel == pImage->getBpp()) &&
-                           (width == pImage->getWidth()) &&
-                           (height == pImage->getHeight()))
+                           (streamWidth == pImage->getWidth()) &&
+                           (streamHeight == pImage->getHeight()))
                         {
                             destData = pImage->editData(0, currentFrame);
                         }
@@ -380,8 +384,8 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                                 break;
                         };
                         pImage->set(pixelFormat, 
-                                    width, 
-                                    height, 
+                                    streamWidth, 
+                                    streamHeight, 
                                     1, 1, 
                                     frameCount, frameDelay);
 
@@ -390,7 +394,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     
                     // copy the image data)
                     lineSize = pImage->getWidth() * channel;
-                    lineEnd  = width * channel + xOff * channel;
+                    lineEnd  = streamWidth * channel + xOff * channel;
                     srcData  = gifData->data.image.data;
                     destData = 
                         destData + ((pImage->getHeight() - yOff - 1)*lineSize);
@@ -399,7 +403,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     {
                         case 1: // Greyscale without Alpha
                             destI = 0;
-                            for(i = width * height; i--;)
+                            for(i = curWidth * curHeight; i--;)
                             {
                                 destData[destI++] = colorMap[*srcData++ *3];
                                 if(destI >= lineSize)
@@ -412,7 +416,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                             
                         case 2: // Greyscale with Alpha
                             destI = 0;
-                            for(i = width * height; i--;)
+                            for(i = curWidth * curHeight; i--;)
                             {
                                 colorIndex = *srcData++;
                                 if(colorIndex == transparentIndex)
@@ -436,7 +440,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                             
                         case 3: // RGB without Alpha
                             destI = 0;
-                            for(i = width * height; i--;)
+                            for(i = curWidth * curHeight; i--;)
                             {
                                 colorIndex = *srcData++;
                                 for(j = 0; j < 3; j++)
@@ -456,7 +460,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                         case 4: // RGB with Alpha
                             destI = xOff * 4;                    
 
-                            for(i = width * height; i--;)
+                            for(i = curWidth * curHeight; i--;)
                             {
                                 colorIndex = *srcData++;
                                 if(colorIndex == transparentIndex)
