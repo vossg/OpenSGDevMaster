@@ -385,7 +385,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     bool          usesShader = false;
     
-    usesShader = (pEnv->getActiveShader() != 0);
+//    usesShader = (pEnv->getActiveShader() != 0);
     
     // store glColor.
     Color4f color;
