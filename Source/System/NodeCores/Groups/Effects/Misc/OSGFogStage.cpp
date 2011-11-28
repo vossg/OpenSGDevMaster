@@ -350,18 +350,26 @@ void FogStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-void FogStage::initData(Viewport         *pViewport,
-                        RenderActionBase *pAction  )
+void FogStage::initData(RenderAction *pAction)
 {
     FogStageDataUnrecPtr pData;// = pAction->getData<FogStageData *>(_iDataSlotId);
 
     //if(pData == NULL)
     //{
+#if 0
         pData = setupStageData(pViewport->getPixelWidth(),
                                pViewport->getPixelHeight());
         
         pData->setWidth (pViewport->getPixelWidth ());
         pData->setHeight(pViewport->getPixelHeight());
+#endif
+
+        pData = setupStageData(
+            pAction->getActivePartition()->getViewportWidth (),
+            pAction->getActivePartition()->getViewportHeight());
+        
+        pData->setWidth (pAction->getActivePartition()->getViewportWidth ());
+        pData->setHeight(pAction->getActivePartition()->getViewportHeight());
 
         this->setData(pData, _iDataSlotId, pAction);
     //}
@@ -449,13 +457,13 @@ ActionBase::ResultE FogStage::renderEnter(Action *action)
         {
             RenderPartition   *pPart    = a->getActivePartition();
             FrameBufferObject *pTarget  = this->getRenderTarget();
-            Viewport          *pPort    = a->getViewport();
+            Viewarea          *pArea    = a->getViewarea();
             Camera            *pCam     = a->getCamera  ();
             Background        *pBack    = a->getBackground();
             
             if(pTarget == NULL)
             {
-                this->initData(pPort, a);
+                this->initData(a);
 
                 pTarget  = this->getRenderTarget();
             }
@@ -467,27 +475,26 @@ ActionBase::ResultE FogStage::renderEnter(Action *action)
             pPart->setDebugString(szMessage          );
 #endif
 
-            if(pPort != NULL)
+            if(pArea != NULL)
             {
-//                pPart->setViewport(pPort         );
                 pPart->setWindow  (a->getWindow());
                 
                 if(pTarget != NULL)
                 {
-                    pPart->calcViewportDimension(pPort->getLeft  (),
-                                                 pPort->getBottom(),
-                                                 pPort->getRight (),
-                                                 pPort->getTop   (),
+                    pPart->calcViewportDimension(pArea->getLeft  (),
+                                                 pArea->getBottom(),
+                                                 pArea->getRight (),
+                                                 pArea->getTop   (),
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());
                 }
                 else
                 {
-                    pPart->calcViewportDimension(pPort->getLeft  (),
-                                                 pPort->getBottom(),
-                                                 pPort->getRight (),
-                                                 pPort->getTop   (),
+                    pPart->calcViewportDimension(pArea->getLeft  (),
+                                                 pArea->getBottom(),
+                                                 pArea->getRight (),
+                                                 pArea->getTop   (),
                                                  
                                                  a->getWindow()->getWidth (),
                                                  a->getWindow()->getHeight());

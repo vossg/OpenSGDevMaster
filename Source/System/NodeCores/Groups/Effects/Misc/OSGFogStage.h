@@ -50,6 +50,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class RenderAction;
+
 /*! \brief FogStage class. See \ref
            PageEffectGroupsFogStage for a description.
 */
@@ -100,8 +102,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING FogStage : public FogStageBase
     /*! \name                        Init                                  */
     /*! \{                                                                 */
 
-    void initData(Viewport         *pViewport,
-                  RenderActionBase *pAction  );
+    void initData(RenderAction *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -161,8 +161,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStage : public PostShaderStageBase
     /*! \name                   Stage init                                 */
     /*! \{                                                                 */
 
-    void initData       (Viewport            *pViewport,
-                         RenderActionBase    *pAction     );
+    void initData       (RenderAction        *pAction     );
 
     PostShaderStageDataTransitPtr 
          setupStageData (Int32                iPixelWidth,
