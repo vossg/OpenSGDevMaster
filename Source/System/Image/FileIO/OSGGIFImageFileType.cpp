@@ -393,9 +393,9 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                         destData = pImage->editData();
                     }
                     
-                    // copy the image data)
+                    // copy the image data
                     lineSize = pImage->getWidth() * channel;
-                    lineEnd  = streamWidth * channel + xOff * channel;
+                    lineEnd  = curWidth * channel + xOff * channel;
                     srcData  = gifData->data.image.data;
                     destData = 
                         destData + ((pImage->getHeight() - yOff - 1)*lineSize);
@@ -407,7 +407,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                             for(i = curWidth * curHeight; i--;)
                             {
                                 destData[destI++] = colorMap[*srcData++ *3];
-                                if(destI >= lineSize)
+                                if(destI >= lineEnd)
                                 {
                                     destI = 0;
                                     destData -= lineSize;
@@ -431,7 +431,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                                     destData[destI++] = 255;
                                 }
                                 
-                                if(destI >= lineSize)
+                                if(destI >= lineEnd)
                                 {
                                     destI = 0;
                                     destData -= lineSize;
@@ -450,7 +450,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                                         colorMap[colorIndex * 3 + j];
                                 }
                                 
-                                if(destI >= lineSize)
+                                if(destI >= lineEnd)
                                 {
                                     destI = 0;
                                     destData -= lineSize;
