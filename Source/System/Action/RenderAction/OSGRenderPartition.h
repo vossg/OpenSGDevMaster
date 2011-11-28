@@ -283,7 +283,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     const Matrix      &topMatrix         (      void              );
 
     const Matrix      &getModelMatrix    (      void              ) const;
-    const Matrix      &getModelViewMatrix(      void              ) const;
+
+    const MatrixStore::second_type &getModelViewMatrix(   void    ) const;
 
     const MatrixStore &getMatrixStackTop (      void              ) const;
 

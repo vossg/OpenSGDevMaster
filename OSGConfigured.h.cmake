@@ -20,6 +20,8 @@
 
 #cmakedefine OSG_ENABLE_MEMORY_DEBUGGING 1
 
+#cmakedefine OSG_ENABLE_DOUBLE_MATRIX_STACK 1
+
 #cmakedefine OSG_WITH_GDAL 1
 
 /* Do not use GL subdir for glut */
