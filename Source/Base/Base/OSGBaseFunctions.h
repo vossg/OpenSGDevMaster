@@ -489,6 +489,12 @@ OSG::Real128 osgntohd(OSG::Real128 src);
 /*---------------------------------------------------------------------*/
 /* BoostPath Utils, merged from OpenSGToolbox,  Author: David Kabala   */
 
+#if BOOST_FILESYSTEM_VERSION == 3
+#define OSGBP2STR(BOOST_PATH_OBJ) ((BOOST_PATH_OBJ).string())
+#else
+#define OSGBP2STR(BOOST_PATH_OBJ) (BOOST_PATH_OBJ)
+#endif
+
 OSG_BASE_DLLMAPPING 
 BoostPath makeRelative(const BoostPath &oRoot,
                        const BoostPath &oToPath);

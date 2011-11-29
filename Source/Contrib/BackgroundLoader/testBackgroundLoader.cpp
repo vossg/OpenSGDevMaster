@@ -1,3 +1,6 @@
+
+#define BOOST_FILESYSTEM_VERSION 2
+
 // Headers
 #include "OSGGLUT.h"
 #include "OSGConfig.h"
@@ -12,8 +15,6 @@
 // the general scene file loading handler
 #include "OSGSceneFileHandler.h"
 #include "OSGFieldContainerFactory.h"
-
-#define BOOST_FILESYSTEM_VERSION 2
 
 #include <boost/bind.hpp>
 #include <boost/filesystem/operations.hpp>

@@ -199,9 +199,9 @@ BoostPath makeRelative(const BoostPath &oRoot, const BoostPath &oToPath)
     boost::filesystem::path::iterator rootIt   = oRootComplete  .begin();
     boost::filesystem::path::iterator toPathIt = oToPathComplete.begin();
 
-    while(rootIt   != oRootComplete  .end()                        &&
-          toPathIt != oToPathComplete.end()                        &&
-          0        == rootIt->string().compare(toPathIt->string())  )
+    while(rootIt   != oRootComplete  .end()                          &&
+          toPathIt != oToPathComplete.end()                          &&
+          0        == OSGBP2STR(*rootIt).compare(OSGBP2STR(*toPathIt)) )
     {
         ++rootIt;
         ++toPathIt;

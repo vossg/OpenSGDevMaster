@@ -11,6 +11,7 @@
 #include <OSGSimpleSceneManager.h>
 #include <OSGTransform.h>
 #include <OSGTypedGeoIntegralProperty.h>
+#include <OSGSceneGraphUtils.h>
 #include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
 #include <cstdlib>

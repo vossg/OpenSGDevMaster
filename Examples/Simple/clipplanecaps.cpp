@@ -54,6 +54,7 @@
 #include <OSGInverseTransform.h>
 #include <OSGPassiveBackground.h>
 #include <OSGFieldContainerUtils.h>
+#include <OSGSceneGraphUtils.h>
 #include <OSGContainerCollection.h>
 
 #else // OSG_BUILD_ACTIVE
@@ -75,6 +76,7 @@
 #include <OpenSG/OSGInverseTransform.h>
 #include <OpenSG/OSGPassiveBackground.h>
 #include <OpenSG/OSGFieldContainerUtils.h>
+#include <OpenSG/OSGSceneGraphUtils.h>
 #include <OpenSG/OSGContainerCollection.h>
 
 #endif // OSG_BUILD_ACTIVE

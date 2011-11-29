@@ -89,8 +89,8 @@ class OSG_TEXT_DLLMAPPING DefaultFontBase
 };
 
 #if defined(WIN32)
-OSG_UTIL_EXPIMP_TMPL 
-template class OSG_UTIL_DLLMAPPING SingletonHolder<DefaultFontBase>;
+OSG_TEXT_EXPIMP_TMPL 
+template class OSG_TEXT_DLLMAPPING SingletonHolder<DefaultFontBase>;
 #endif
 
 typedef SingletonHolder<DefaultFontBase> DefaultFont;

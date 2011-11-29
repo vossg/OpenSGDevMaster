@@ -351,7 +351,7 @@ std::string lexical_cast(const boost::any &oSource)
     }
     else if(oSource.type() == typeid(BoostPath))           // File Path
     {
-        return boost::any_cast<BoostPath>(oSource).filename().string();
+        return OSGBP2STR(boost::any_cast<BoostPath>(oSource).filename());
     }
     else if(oSource.type() == typeid(FieldContainerType *)) // FCType
     {

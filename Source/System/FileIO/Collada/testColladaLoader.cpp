@@ -13,6 +13,7 @@
 #include "OSGGLUTWindow.h"
 #include "OSGSimpleSceneManager.h"
 #include "OSGAction.h"
+#include "OSGSceneGraphUtils.h"
 
 // New Headers
 
