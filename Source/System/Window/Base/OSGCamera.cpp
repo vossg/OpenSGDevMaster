@@ -198,19 +198,19 @@ Matrix Camera::getDecorationVal(UInt32 width, UInt32 height)
 /*! Calculate the frustum of this camera's visible area.
  */
 
-void Camera::computeFrustum(FrustumVolume &result, const Viewport &p)
+void Camera::calcFrustum(FrustumVolume &result, const Viewport &p)
 {
     Matrix mv,prt,pr;
 
     getProjection           (pr , 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
     getProjectionTranslation(prt, 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
     getViewing              (mv , 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
 
     pr.mult(prt);
     pr.mult(mv );
@@ -222,35 +222,35 @@ void Camera::computeFrustum(FrustumVolume &result, const Viewport &p)
     coordinate system for this camera.
  */
 
-void Camera::computeWorldToScreen(Matrix &result, const Viewport &p)
+void Camera::calcWorldToScreen(Matrix &result, const Viewport &p)
 {
     Matrix mv,prt,pr;
 
     getProjection           (result, 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
     getProjectionTranslation(prt   , 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
     getViewing              (mv    , 
-                             p.computePixelWidth (), 
-                             p.computePixelHeight());
+                             p.calcPixelWidth (), 
+                             p.calcPixelHeight());
 
     result.mult(prt);
     result.mult(mv );
 }
 
-FrustumVolume Camera::computeFrustumVal(const Viewport &port)
+FrustumVolume Camera::calcFrustumVal(const Viewport &port)
 {
    FrustumVolume vol;
-   this->computeFrustum(vol, port);
+   this->calcFrustum(vol, port);
    return vol;
 }
 
-Matrix Camera::computeWorldToScreenVal(const Viewport &port)
+Matrix Camera::calcWorldToScreenVal(const Viewport &port)
 {
    Matrix temp_mat;
-   this->computeWorldToScreen(temp_mat, port);
+   this->calcWorldToScreen(temp_mat, port);
    return temp_mat;
 }
 
@@ -275,7 +275,7 @@ bool Camera::calcViewRay(      Line    &line,
                          const Viewport &port,
                                Real32   *t   )
 {
-    if(port.computePixelWidth() <= 0 || port.computePixelHeight() <= 0)
+    if(port.calcPixelWidth() <= 0 || port.calcPixelHeight() <= 0)
     {
         return false;
     }
@@ -283,16 +283,16 @@ bool Camera::calcViewRay(      Line    &line,
     Matrix proj, projtrans, view;
 
     getProjection(proj,
-                  port.computePixelWidth(),
-                  port.computePixelHeight());
+                  port.calcPixelWidth(),
+                  port.calcPixelHeight());
 
     getProjectionTranslation(projtrans,
-                             port.computePixelWidth(),
-                             port.computePixelHeight());
+                             port.calcPixelWidth(),
+                             port.calcPixelHeight());
 
     getViewing(view,
-               port.computePixelWidth(),
-               port.computePixelHeight());
+               port.calcPixelWidth(),
+               port.calcPixelHeight());
 
     Matrix wctocc = proj;
 
@@ -304,7 +304,7 @@ bool Camera::calcViewRay(      Line    &line,
     cctowc.invertFrom(wctocc);
 
     Real32 rx(0.f), ry(0.f);
-    port.computeNormalizedCoordinates(rx, ry, x, y);
+    port.calcNormalizedCoordinates(rx, ry, x, y);
 
     Pnt3f from, at;
 

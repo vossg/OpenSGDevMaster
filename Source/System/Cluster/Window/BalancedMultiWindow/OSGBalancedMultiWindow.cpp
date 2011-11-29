@@ -515,8 +515,8 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     Real32 minx=0,miny=0;
     Real32 maxx=0,maxy=0;
 
-    Int32 width = port.serverPort->computePixelWidth();
-    Int32 height = port.serverPort->computePixelHeight();
+    Int32 width = port.serverPort->calcPixelWidth();
+    Int32 height = port.serverPort->calcPixelHeight();
 #if 1
     Matrix trans = group.node->getToWorld();
     trans.multLeft(proj);
@@ -617,10 +617,10 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     bbox.rect[BOTTOM] = (Int32)osgfloor(miny + port.serverPort->getPixelBottom ());
     bbox.rect[TOP]    = (Int32)osgceil (maxy + port.serverPort->getPixelBottom ());
 */
-    bbox.rect[LEFT]   = Int32(minx + port.serverPort->computePixelLeft ());
-    bbox.rect[RIGHT]  = Int32(maxx + port.serverPort->computePixelLeft ());
-    bbox.rect[BOTTOM] = Int32(miny + port.serverPort->computePixelBottom ());
-    bbox.rect[TOP]    = Int32(maxy + port.serverPort->computePixelBottom ());
+    bbox.rect[LEFT]   = Int32(minx + port.serverPort->calcPixelLeft ());
+    bbox.rect[RIGHT]  = Int32(maxx + port.serverPort->calcPixelLeft ());
+    bbox.rect[BOTTOM] = Int32(miny + port.serverPort->calcPixelBottom ());
+    bbox.rect[TOP]    = Int32(maxy + port.serverPort->calcPixelBottom ());
 
 #if 0
     // draw bounding boxes
@@ -892,10 +892,10 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
         Real32(getHeight());
     
     clientPort = getPort(port.id);
-    cleft   = Int32(clientPort->computePixelLeft()      * scaleCWidth)   ;
-    cbottom = Int32(clientPort->computePixelBottom()    * scaleCHeight)  ;
-    cright  = Int32((clientPort->computePixelRight()+1) * scaleCWidth) -1;
-    ctop    = Int32((clientPort->computePixelTop()+1)   * scaleCHeight)-1;
+    cleft   = Int32(clientPort->calcPixelLeft()      * scaleCWidth)   ;
+    cbottom = Int32(clientPort->calcPixelBottom()    * scaleCHeight)  ;
+    cright  = Int32((clientPort->calcPixelRight()+1) * scaleCWidth) -1;
+    ctop    = Int32((clientPort->calcPixelTop()+1)   * scaleCHeight)-1;
 
     if(cright  < left   ||
        cleft   > right  ||
@@ -1011,8 +1011,8 @@ void BalancedMultiWindow::createBBoxes(Server &server)
 
         // projection matrix
         Matrix viewing,projection,projectionTrans;
-        Int32 width = vI->serverPort->computePixelWidth();
-        Int32 height = vI->serverPort->computePixelHeight();
+        Int32 width = vI->serverPort->calcPixelWidth();
+        Int32 height = vI->serverPort->calcPixelHeight();
         vI->serverPort->getCamera()->getViewing (viewing, width, height);
         vI->serverPort->getCamera()->getProjection (projection, width, height);
         vI->serverPort->getCamera()->getProjectionTranslation( projectionTrans, width, height);
@@ -1652,10 +1652,10 @@ void BalancedMultiWindow::renderViewport(Window           *serverWindow,
     // add to window
     serverWindow->addPort(_foreignPort.serverPort);
 
-    if(_foreignPort.serverPort->computePixelLeft() <= 
-       _foreignPort.serverPort->computePixelRight()   &&
-       _foreignPort.serverPort->computePixelBottom() <= 
-       _foreignPort.serverPort->computePixelTop())
+    if(_foreignPort.serverPort->calcPixelLeft() <= 
+       _foreignPort.serverPort->calcPixelRight()   &&
+       _foreignPort.serverPort->calcPixelBottom() <= 
+       _foreignPort.serverPort->calcPixelTop())
     {
         // do rendering
         action->setWindow(serverWindow);

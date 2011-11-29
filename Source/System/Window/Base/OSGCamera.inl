@@ -45,27 +45,27 @@ inline
 void Camera::getFrustum(      FrustumVolume &result,
                         const Viewport      &port  )
 {
-    computeFrustum(result, port);
+    calcFrustum(result, port);
 }
 
 inline
 void Camera::getWorldToScreen(      Matrix        &result,
                               const Viewport      &port  )
 {
-    computeWorldToScreen(result, port);
+    calcWorldToScreen(result, port);
 }
 
 
 inline
 FrustumVolume Camera::getFrustumVal(const Viewport &port)
 {
-    return computeFrustumVal(port);
+    return calcFrustumVal(port);
 }
 
 inline
 Matrix Camera::getWorldToScreenVal(const Viewport &port)
 {
-    return computeWorldToScreen(port);
+    return calcWorldToScreen(port);
 }
 #endif
 

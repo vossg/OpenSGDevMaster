@@ -630,8 +630,8 @@ void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
 
     if(isClient())
         return;
-    width  = port->computePixelWidth();
-    height = port->computePixelHeight();
+    width  = port->calcPixelWidth();
+    height = port->calcPixelHeight();
     if(!getScreenAlignedBBox(port->getRoot(),
                              port,
                              left,bottom,right,top,front,back))
@@ -639,8 +639,8 @@ void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
         left = right = width;
         top = bottom = height;
     }
-    width = port->computePixelWidth();
-    height = port->computePixelHeight();
+    width = port->calcPixelWidth();
+    height = port->calcPixelHeight();
 
     _statistics.pixelReadTime = -getSystemTime();
 #ifdef USE_NV_OCCLUSION

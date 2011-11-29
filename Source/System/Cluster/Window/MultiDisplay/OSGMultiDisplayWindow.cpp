@@ -377,10 +377,10 @@ void MultiDisplayWindow::serverRender(Window           *window,
     {
         clientPort = getPort(cv);
 
-        cleft   = Int32(clientPort->computePixelLeft()      * scaleCWidth)   ;
-        cbottom = Int32(clientPort->computePixelBottom()    * scaleCHeight)  ;
-        cright  = Int32((clientPort->computePixelRight()+1) * scaleCWidth) -1;
-        ctop    = Int32((clientPort->computePixelTop()+1)   * scaleCHeight)-1;
+        cleft   = Int32(clientPort->calcPixelLeft()      * scaleCWidth)   ;
+        cbottom = Int32(clientPort->calcPixelBottom()    * scaleCHeight)  ;
+        cright  = Int32((clientPort->calcPixelRight()+1) * scaleCWidth) -1;
+        ctop    = Int32((clientPort->calcPixelTop()+1)   * scaleCHeight)-1;
 
         if(cright  < left   ||
            cleft   > right  ||

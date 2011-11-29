@@ -131,28 +131,27 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                  Access Parameters                           */
     /*! \{                                                                 */
 
-    void          computeFrustum         (      FrustumVolume &result,
-                                          const Viewport      &port  );
+    void          calcFrustum         (      FrustumVolume &result,
+                                       const Viewport      &port  );
 
-    void          computeWorldToScreen   (      Matrix        &result,
-                                          const Viewport      &port  );
+    void          calcWorldToScreen   (      Matrix        &result,
+                                       const Viewport      &port  );
 
 
-    FrustumVolume computeFrustumVal      (const Viewport      &port  );
+    FrustumVolume calcFrustumVal      (const Viewport      &port  );
 
-    Matrix        computeWorldToScreenVal(const Viewport      &port  );
+    Matrix        calcWorldToScreenVal(const Viewport      &port  );
 
 #ifdef OSG_1_COMPAT
-    void          getFrustum             (      FrustumVolume &result,
-                                          const Viewport      &port  );
+    void          getFrustum          (      FrustumVolume &result,
+                                       const Viewport      &port  );
 
-    void          getWorldToScreen       (      Matrix        &result,
-                                          const Viewport      &port  );
+    void          getWorldToScreen    (      Matrix        &result,
+                                       const Viewport      &port  );
 
+    FrustumVolume getFrustumVal       (const Viewport      &port  );
 
-    FrustumVolume getFrustumVal          (const Viewport      &port  );
-
-    Matrix        getWorldToScreenVal    (const Viewport      &port  );
+    Matrix        getWorldToScreenVal (const Viewport      &port  );
 #endif
 
     /*! \}                                                                 */

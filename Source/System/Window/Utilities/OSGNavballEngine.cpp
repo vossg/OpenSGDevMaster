@@ -482,11 +482,11 @@ static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
 {
     Matrix proj, projtrans;
 
-    port->getCamera()->getProjection( proj, port->computePixelWidth(),
-                                            port->computePixelHeight());
+    port->getCamera()->getProjection( proj, port->calcPixelWidth(),
+                                            port->calcPixelHeight());
     port->getCamera()->getProjectionTranslation( projtrans,
-                                                 port->computePixelWidth(),
-                                                 port->computePixelHeight());
+                                                 port->calcPixelWidth(),
+                                                 port->calcPixelHeight());
 
     Matrix wctocc = proj;
     wctocc.mult( projtrans );
@@ -519,8 +519,8 @@ void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
     act->apply(vp->getRoot());
 
     Matrix cctowc,view;
-    Int16 width  = vp->computePixelWidth();
-    Int16 height = vp->computePixelHeight();
+    Int16 width  = vp->calcPixelWidth();
+    Int16 height = vp->calcPixelHeight();
 
     vp->getCamera()->getViewing(view, width, height);
 
@@ -565,7 +565,7 @@ void NavballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     myCalcCCtoWCMatrix(cctowc, view, vp);
 
     Real32 rx(0.f), ry(0.f);
-    vp->computeNormalizedCoordinates(rx, ry, toX, toY);
+    vp->calcNormalizedCoordinates(rx, ry, toX, toY);
 
     Pnt3f at;
     cctowc.multFull( Pnt3f( rx, ry, 1 ), at );

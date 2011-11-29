@@ -154,8 +154,8 @@ void TileLoadBalancer::balance(Viewport      *vp,
     Matrix                   projection,viewing;
     RegionLoadVecT           visible;
     RegionLoadVecT::iterator vi;
-    Int32                    width =vp->computePixelWidth();
-    Int32                    height=vp->computePixelHeight();
+    Int32                    width =vp->calcPixelWidth();
+    Int32                    height=vp->calcPixelHeight();
     Int32                    wmin[2]={width,height};
     Int32                    wmax[2]={0    ,0     };
     Real32                   rNear=vp->getCamera()->getNear();
@@ -241,8 +241,8 @@ void TileLoadBalancer::setRegionStatistics(Viewport *vp,
                                            ResultT  &result)
 {
     Matrix                         projection,viewing;
-    Int32                          width =vp->computePixelWidth();
-    Int32                          height=vp->computePixelHeight();
+    Int32                          width =vp->calcPixelWidth();
+    Int32                          height=vp->calcPixelHeight();
     Real32                         rNear=vp->getCamera()->getNear();
     ResultT::iterator              resultI;
     TileGeometryLoadLstT::iterator l;

@@ -346,10 +346,10 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
         // duplicate values
         regionStart=cv * getMFServers()->size() * 4 + id * 4;
         serverPort->setSize( 
-            Real32(getRegion(regionStart+0) + clientPort->computePixelLeft()),
-            Real32(getRegion(regionStart+1) + clientPort->computePixelBottom()),
-            Real32(getRegion(regionStart+2) + clientPort->computePixelLeft()),
-            Real32(getRegion(regionStart+3) + clientPort->computePixelBottom()));
+            Real32(getRegion(regionStart+0) + clientPort->calcPixelLeft()),
+            Real32(getRegion(regionStart+1) + clientPort->calcPixelBottom()),
+            Real32(getRegion(regionStart+2) + clientPort->calcPixelLeft()),
+            Real32(getRegion(regionStart+3) + clientPort->calcPixelBottom()));
 
         serverPort->setRoot      ( clientPort->getRoot()       );
         serverPort->setBackground( clientPort->getBackground() );
@@ -359,8 +359,8 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
         serverPort->setTravMask  ( clientPort->getTravMask()   );
 
         // calculate tile parameters
-        vpWidth =clientPort->computePixelWidth();
-        vpHeight=clientPort->computePixelHeight();
+        vpWidth =clientPort->calcPixelWidth();
+        vpHeight=clientPort->calcPixelHeight();
 
         deco->setFullWidth ( vpWidth );
         deco->setFullHeight( vpHeight );
@@ -422,10 +422,10 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
             _bufferHandler.send(
                 *getNetwork()->getMainPointConnection(),
                 ClusterViewBuffer::RGB,
-                vp->computePixelLeft(),
-                vp->computePixelBottom(),
-                vp->computePixelRight(),
-                vp->computePixelTop(),
+                vp->calcPixelLeft(),
+                vp->calcPixelBottom(),
+                vp->calcPixelRight(),
+                vp->calcPixelTop(),
                 0,0);
 
             // deactivate the viewport

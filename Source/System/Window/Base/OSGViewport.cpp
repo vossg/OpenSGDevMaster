@@ -148,7 +148,7 @@ void Viewport::changed(ConstFieldMaskArg whichField,
     _sfParent value.
  */
 
-Int32 Viewport::computePixelLeft(void) const
+Int32 Viewport::calcPixelLeft(void) const
 {
     if(getLeft() > 1)
         return Int32(getLeft());
@@ -168,7 +168,7 @@ Int32 Viewport::computePixelLeft(void) const
     _sfParent value.
  */
 
-Int32 Viewport::computePixelRight(void) const
+Int32 Viewport::calcPixelRight(void) const
 {
     // >1: pixel
     if(getRight() > 1)
@@ -190,7 +190,7 @@ Int32 Viewport::computePixelRight(void) const
     _sfParent value.
  */
 
-Int32 Viewport::computePixelBottom(void) const
+Int32 Viewport::calcPixelBottom(void) const
 {
     if(getBottom() > 1)
         return Int32(getBottom());
@@ -210,7 +210,7 @@ Int32 Viewport::computePixelBottom(void) const
     _sfParent value.
  */
 
-Int32 Viewport::computePixelTop(void) const
+Int32 Viewport::calcPixelTop(void) const
 {
     // >1: pixel
     if(getTop() > 1)
@@ -231,7 +231,7 @@ Int32 Viewport::computePixelTop(void) const
 /*! Checks if the viewport fills the whole window. Needs a valid
   _sfParent value.
  */
-bool Viewport::computeIsFullWindow(void) const
+bool Viewport::calcIsFullWindow(void) const
 {
     if(getParent() == NULL)
     {
@@ -242,10 +242,10 @@ bool Viewport::computeIsFullWindow(void) const
     }
 
     return  
-        computePixelBottom() == 0 &&
-        computePixelLeft()   == 0 &&
-        computePixelTop()    == getParent()->getHeight() - 1 &&
-        computePixelRight()  == getParent()->getWidth () - 1;
+        calcPixelBottom() == 0 &&
+        calcPixelLeft()   == 0 &&
+        calcPixelTop()    == getParent()->getHeight() - 1 &&
+        calcPixelRight()  == getParent()->getWidth () - 1;
 }
 
 Window *Viewport::getParent(void) const
@@ -262,18 +262,18 @@ Window *Viewport::getParent(void) const
 
    @note Out-of-range input values lead to out-of-range output values.
  */
-void Viewport::computeNormalizedCoordinates(      Real32& normX,
-                                                  Real32& normY,
-                                            const Int32   vpX  ,
-                                           const Int32   vpY  ) const
+void Viewport::calcNormalizedCoordinates(      Real32& normX,
+                                               Real32& normY,
+                                         const Int32   vpX  ,
+                                         const Int32   vpY  ) const
 {
     normX =
-        (vpX - computePixelLeft()) /
-        static_cast<Real32>(computePixelWidth()) * 2.f - 1.f;
+        (vpX - calcPixelLeft()) /
+        static_cast<Real32>(calcPixelWidth()) * 2.f - 1.f;
 
     normY = 1.f - (
-        (vpY - (getParent()->getHeight() - computePixelTop())) /
-        static_cast<Real32>(computePixelHeight())) * 2.f;
+        (vpY - (getParent()->getHeight() - calcPixelTop())) /
+        static_cast<Real32>(calcPixelHeight())) * 2.f;
 }
 
 /*-------------------------- your_category---------------------------------*/
@@ -295,16 +295,16 @@ void Viewport::computeNormalizedCoordinates(      Real32& normX,
 
 void Viewport::activateSize(void)
 {
-    GLint pl = computePixelLeft();
-    GLint pr = computePixelRight();
-    GLint pb = computePixelBottom();
-    GLint pt = computePixelTop();
+    GLint pl = calcPixelLeft();
+    GLint pr = calcPixelRight();
+    GLint pb = calcPixelBottom();
+    GLint pt = calcPixelTop();
     GLint pw = pr - pl + 1;
     GLint ph = pt - pb + 1;
 
     glViewport(pl, pb, pw, ph);
 
-    if(computeIsFullWindow() == false)
+    if(calcIsFullWindow() == false)
     {
         glScissor(pl, pb, pw, ph);
         glEnable(GL_SCISSOR_TEST);

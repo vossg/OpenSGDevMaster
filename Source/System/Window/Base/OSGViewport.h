@@ -71,39 +71,39 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                    access                                    */
     /*! \{                                                                 */
 
-    virtual Int32 computePixelLeft              (void               ) const;
-    virtual Int32 computePixelRight             (void               ) const;
-    virtual Int32 computePixelBottom            (void               ) const;
-    virtual Int32 computePixelTop               (void               ) const;
+    virtual Int32   calcPixelLeft            (      void         ) const;
+    virtual Int32   calcPixelRight           (      void         ) const;
+    virtual Int32   calcPixelBottom          (      void         ) const;
+    virtual Int32   calcPixelTop             (      void         ) const;
 
-            Int32 computePixelWidth             (void               ) const;
-            Int32 computePixelHeight            (void               ) const;
+            Int32   calcPixelWidth           (      void         ) const;
+            Int32   calcPixelHeight          (      void         ) const;
     
-    virtual bool  computeIsFullWindow           (void               ) const;
+    virtual bool    calcIsFullWindow         (      void         ) const;
 
-            Window *getParent                   (void               ) const;
+            Window *getParent                (      void         ) const;
 
-            void    computeNormalizedCoordinates(      Real32& normX,
-                                                       Real32& normY,
-                                                 const Int32   vpX  ,
-                                                 const Int32   vpY  ) const;
+            void    calcNormalizedCoordinates(      Real32& normX,
+                                                    Real32& normY,
+                                              const Int32   vpX  ,
+                                              const Int32   vpY  ) const;
 
 #ifdef OSG_1_COMPAT
-            Int32 getPixelLeft              (void               ) const;
-            Int32 getPixelRight             (void               ) const;
-            Int32 getPixelBottom            (void               ) const;
-            Int32 getPixelTop               (void               ) const;
+            Int32   getPixelLeft             (      void         ) const;
+            Int32   getPixelRight            (      void         ) const;
+            Int32   getPixelBottom           (      void         ) const;
+            Int32   getPixelTop              (      void         ) const;
 
-            Int32 getPixelWidth             (void               ) const;
-            Int32 getPixelHeight            (void               ) const;
+            Int32   getPixelWidth            (      void         ) const;
+            Int32   getPixelHeight           (      void         ) const;
     
-            bool  isFullWindow              (void               ) const;
+            bool    isFullWindow             (      void         ) const;
 
 
-            void    getNormalizedCoordinates(      Real32& normX,
-                                                   Real32& normY,
-                                             const Int32   vpX  ,
-                                             const Int32   vpY  ) const;
+            void    getNormalizedCoordinates (      Real32& normX,
+                                                    Real32& normY,
+                                              const Int32   vpX  ,
+                                              const Int32   vpY  ) const;
 #endif
                                           
     /*! \}                                                                 */

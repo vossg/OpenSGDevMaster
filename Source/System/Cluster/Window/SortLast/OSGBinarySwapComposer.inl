@@ -434,8 +434,8 @@ void BinarySwapComposer::startReader(DepthT &depthMax,
         {
             x = tx * getTileSize();
             y = ty * getTileSize();
-            w = osgMin(getTileSize(),port->computePixelWidth() - x);
-            h = osgMin(getTileSize(),port->computePixelHeight() - y);
+            w = osgMin(getTileSize(),port->calcPixelWidth() - x);
+            h = osgMin(getTileSize(),port->calcPixelHeight() - y);
             tile = getTileBuffer(tx,ty);
             tile->header.x = tx;
             tile->header.y = ty;
