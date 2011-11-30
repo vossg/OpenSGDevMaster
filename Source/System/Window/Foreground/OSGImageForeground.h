@@ -90,6 +90,8 @@ class OSG_WINDOW_DLLMAPPING ImageForeground : public ImageForegroundBase
     /*! \{                                                                 */
 
     inline void addImage(Image *image, Pnt2f position);
+           void subImage(Image *image                );
+    inline void clear   (void                        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

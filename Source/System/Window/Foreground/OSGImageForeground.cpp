@@ -202,3 +202,20 @@ void ImageForeground::draw(DrawEnv * pEnv)
     glPopAttrib();
 #endif
 }
+
+void ImageForeground::subImage(Image *image)
+{
+    MFImagesType    *pMFImg = editMFImages   ();
+    MFPositionsType *pMFPos = editMFPositions();
+
+    MFImagesType::iterator imgIt = pMFImg->find(image);
+
+    if(imgIt != pMFImg->end())
+    {
+        MFPositionsType::iterator posIt =
+            pMFPos->begin() + std::distance(pMFImg->begin(), imgIt);
+
+        pMFImg->erase(imgIt);
+        pMFPos->erase(posIt);
+    }
+}

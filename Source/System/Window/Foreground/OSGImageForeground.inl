@@ -44,8 +44,14 @@ void ImageForeground::addImage(Image *image, Pnt2f position)
 {
     pushToImages(image);
 
-    editMFPositions()->push_back( position );
+    editMFPositions()->push_back(position);
 }
 
+inline
+void ImageForeground::clear(void)
+{
+    clearImages();
+    editMFPositions()->clear();
+}
 
 OSG_END_NAMESPACE
