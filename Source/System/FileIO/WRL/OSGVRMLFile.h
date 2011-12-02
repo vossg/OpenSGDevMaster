@@ -178,7 +178,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    typedef std::map<std::string, FieldContainer *> NameContainerMap;
+    typedef std::map<std::string, FieldContainerUnrecPtr> NameContainerMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -194,7 +194,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
                EditFieldHandlePtr             _pCurrentField;
     const      FieldDescriptionBase          *_pCurrentFieldDesc;
 
-    std::stack<      FieldContainer       *>  _fcStack;
+    std::stack<      FieldContainerUnrecPtr>  _fcStack;
     std::stack<      EditFieldHandlePtr    >  _fStack;
     std::stack<const FieldDescriptionBase *>  _fdStack;
 

@@ -269,14 +269,17 @@ void VRMLFile::beginNode(const Char8     *szNodeTypename,
     {
         Node *pNode = dynamic_cast<Node *>(_pCurrentFC.get());
 
-        if(_pSceneRootNode == NULL)
+        if(pNode != NULL)
         {
-            _pSceneRootNode = Node::create();
+            if(_pSceneRootNode == NULL)
+            {
+                _pSceneRootNode = Node::create();
 
-            _pSceneRootNode->setCore(Group::create());
+                _pSceneRootNode->setCore(Group::create());
+            }
+
+            _pSceneRootNode->addChild(pNode);
         }
-
-        _pSceneRootNode->addChild(pNode);
     }
 }
 
