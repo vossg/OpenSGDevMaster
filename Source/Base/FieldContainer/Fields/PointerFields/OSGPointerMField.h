@@ -113,7 +113,7 @@ class PointerMFieldIterator :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
-    typedef          PointerMFieldIterator                 Self;
+    typedef          PointerMFieldIterator              Self;
 
     typedef          PointerMField<PtrTypeT,
                                    RefCountPolicy,

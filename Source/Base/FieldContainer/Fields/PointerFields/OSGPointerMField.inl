@@ -1082,8 +1082,7 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::find(const_value value) const
 {
-    return const_iterator(this->ptrStoreFind(value),
-                          this                     );
+    return const_iterator(this->ptrStoreFind(value));
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
