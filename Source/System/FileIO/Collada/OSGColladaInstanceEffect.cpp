@@ -75,28 +75,30 @@ ColladaInstanceEffect::read(ColladaElement *colElemParent)
         colEffect->read(this);
     }
 
+#if 0
     domInstance_effectRef instEffect = getDOMElementAs<domInstance_effect>();
 
-    //const domInstance_effect::domTechnique_hint_Array &techHints =
-    //    instEffect->getTechnique_hint_array();
+    const domInstance_effect::domTechnique_hint_Array &techHints =
+        instEffect->getTechnique_hint_array();
 	
-	// what's the point of this?
-    //if(techHints.getCount() > 0)
-    //{
-    //    SWARNING << "ColladaInstanceEffect::read: Ignoring ["
-    //             << techHints.getCount() << "] <technique_hint> elements."
-    //             << std::endl;
-    //}
+    // what's the point of this?
+    if(techHints.getCount() > 0)
+    {
+        SWARNING << "ColladaInstanceEffect::read: Ignoring ["
+                 << techHints.getCount() << "] <technique_hint> elements."
+                 << std::endl;
+    }
 
-    //const domInstance_effect::domSetparam_Array &setParams =
-    //    instEffect->getSetparam_array();
+    const domInstance_effect::domSetparam_Array &setParams =
+        instEffect->getSetparam_array();
 
-    //if(setParams.getCount() > 0)
-    //{
-    //    SWARNING << "ColladaInstanceEffect::read: Ignoring ["
-    //             << setParams.getCount() << "] <setparam> elements."
-    //             << std::endl;
-    //}
+    if(setParams.getCount() > 0)
+    {
+        SWARNING << "ColladaInstanceEffect::read: Ignoring ["
+                 << setParams.getCount() << "] <setparam> elements."
+                 << std::endl;
+    }
+#endif
 }
 
 ColladaEffect *

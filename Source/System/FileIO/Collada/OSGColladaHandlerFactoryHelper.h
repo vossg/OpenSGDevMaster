@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,93 +36,73 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
+#ifndef _OSGCOLLADAHANDLERFACTORYHELPER_H_
+#define _OSGCOLLADAHANdLERFACTORYHELPER_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGColladaImage.h"
+#include "OSGConfig.h"
 
 #if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
-#include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
-
-#include <dom/domImage.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaHandlerFactory.h"
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
+class OSG_FILEIO_DLLMAPPING ColladaExtraHandlerRegHelper
 {
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-void
-ColladaImage::read(ColladaElement *colElemParent)
+    typedef 
+      ColladaHandlerFactoryBase::ExtraHandlerCreator ExtraHandlerCreator;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructor                                                  */
+    /*! \{                                                                 */
+
+    ColladaExtraHandlerRegHelper(ExtraHandlerCreator fCreate);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
+
+class OSG_FILEIO_DLLMAPPING ColladaDomProfileHandlerRegHelper
 {
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    domImageRef image = getDOMElementAs<domImage>();
+    typedef ColladaHandlerFactoryBase::DomProfileHandlerCreator 
+        DomProfileHandlerCreator;
 
-    domImage::domInit_fromRef initFrom = image->getInit_from();
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructor                                                  */
+    /*! \{                                                                 */
 
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
+    ColladaDomProfileHandlerRegHelper(UInt32                   uiProfileId,
+                                      DomProfileHandlerCreator fCreate    );
 
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
-#endif
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
 
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
-    }
-    else
-    {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
-    }
-}
-
-Image *
-ColladaImage::getImage(void) const
-{
-    return _image;
-}
-
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
-{
-}
-
-ColladaImage::~ColladaImage(void)
-{
-}
 
 OSG_END_NAMESPACE
 
 #endif // OSG_WITH_COLLADA
- 
+
+#endif // _OSGCOLLADAHANDLERFACTORYHELPER_H_

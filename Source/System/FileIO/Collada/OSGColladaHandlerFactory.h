@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,110 +36,135 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCGFXVARIABLETEXOBJ_H_
-#define _OSGCGFXVARIABLETEXOBJ_H_
+#ifndef _OSGCOLLADAHANDLERFACTORY_H_
+#define _OSGCOLLADAHANDLERFACTORY_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCgFXVariableTexObjBase.h"
+#include "OSGConfig.h"
+
+#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+
+#include "OSGFileIODef.h"
+#include "OSGSingletonHolder.h"
+
+#include <map>
+#include <string>
+
+#include <boost/function.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-class CgFXMaterial;
-class ColladaDomProfileCgFXHandler;
+class ColladaExtraHandler;
+OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
 
-/*! \brief CgFXVariableTexObj class. See \ref 
-           PageSystemCgFXVariableTexObj for a description.
-    \ingroup GrpSystemCgFCVariables
-    \ingroup GrpLibOSGSystem
-    \includebasedoc
+class ColladaDomProfileHandler;
+OSG_GEN_MEMOBJPTR(ColladaDomProfileHandler);
+
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
  */
 
-class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObj : 
-    public CgFXVariableTexObjBase
+class OSG_FILEIO_DLLMAPPING ColladaHandlerFactoryBase
 {
-  private:
-
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    enum CgFXVType
-    {
-        CgFXTypeTexObj = ShaderVariable::SHVTypeFunctor + 1
-    };
-
-    typedef CgFXVariableTexObjBase Inherited;
-
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         details);
+    typedef boost::function<
+        ColladaExtraHandlerTransitPtr     (void)>  ExtraHandlerCreator;
+
+    typedef boost::function<
+        ColladaDomProfileHandlerTransitPtr(void)>  DomProfileHandlerCreator;
+
+
+    typedef std::map<UInt32, 
+                     DomProfileHandlerCreator>     DomProfileHandlerMap;
+    typedef DomProfileHandlerMap::iterator         DomProfileHandlerMapIt;
+    typedef DomProfileHandlerMap::const_iterator   DomProfileHandlerMapConstIt;
+
+    typedef std::vector<ExtraHandlerCreator      > ExtraHandlerCreatorStore;
+
+    typedef std::vector<ColladaExtraHandlerRefPtr> ExtraHandlerStore;
+
+    typedef ColladaDomProfileHandlerTransitPtr     ColladaDomProfileHandlerTPtr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name Registration                                                 */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
+    void registerExtraHandler(ExtraHandlerCreator  fCreator);
+    void createExtraHandlers (ExtraHandlerStore   &vStore  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Default Profile                                              */
+    /*! \{                                                                 */
+
+    void registerDomProfileHandler(UInt32                   uiProfileId,
+                                   DomProfileHandlerCreator fCreator   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Default Profile                                              */
+    /*! \{                                                                 */
+
+    ColladaDomProfileHandlerTPtr createDomProfileHandler(UInt32 uiProfileId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
-    /*! \{                                                                 */
+    DomProfileHandlerMap      _mDomProfileCreators;
+    ExtraHandlerCreatorStore  _vExtraHandlerCreators;
 
-    CgFXVariableTexObj(void);
-    CgFXVariableTexObj(const CgFXVariableTexObj &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~CgFXVariableTexObj(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
+   /*---------------------------------------------------------------------*/
+    /*! \name Helper                                                       */
+    /*! \{                                                                 */ 
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class CgFXVariableTexObjBase;
-    friend class CgFXMaterial;
-
-    friend class ColladaDomProfileCgFXHandler;
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
     
+     ColladaHandlerFactoryBase(void);
+    ~ColladaHandlerFactoryBase(void);
 
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CgFXVariableTexObj &source);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    template <class SingletonT>
+    friend class SingletonHolder;
 };
 
-typedef CgFXVariableTexObj *CgFXVariableTexObjP;
+#if defined(WIN32)
+OSG_FILEIO_EXPIMP_TMPL
+template class OSG_FILEIO_DLLMAPPING SingletonHolder<ColladaHandlerFactoryBase>;
+#endif
+
+/*! \ingroup GrpFileIOCollada
+ */
+
+typedef SingletonHolder<ColladaHandlerFactoryBase> ColladaHandlerFactory;
 
 OSG_END_NAMESPACE
 
-#include "OSGCgFXVariableTexObjBase.inl"
-#include "OSGCgFXVariableTexObj.inl"
+#endif // OSG_WITH_COLLADA
 
-#endif /* _OSGCGFXVARIABLETEXOBJ_H_ */
+#endif // _OSGCOLLADAHANDLERFACTORY_H_

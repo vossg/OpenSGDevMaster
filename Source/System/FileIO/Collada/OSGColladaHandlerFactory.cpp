@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -40,89 +40,88 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaImage.h"
+#include "OSGColladaHandlerFactory.h"
 
 #if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
+#include "OSGBaseInitFunctions.h"
 #include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
+#include "OSGColladaGlobal.h"
+#include "OSGSingletonHolder.ins"
 
-#include <dom/domImage.h>
+#include "OSGColladaExtraHandler.h"
+#include "OSGColladaDomProfileHandler.h"
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
-
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
-{
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
-}
-
-void
-ColladaImage::read(ColladaElement *colElemParent)
-{
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
-
-    domImageRef image = getDOMElementAs<domImage>();
-
-    domImage::domInit_fromRef initFrom = image->getInit_from();
-
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
-
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
+#if !defined(OSG_DO_DOC)
+OSG_SINGLETON_INST(OSG::ColladaHandlerFactoryBase, addPostFactoryExitFunction)
 #endif
 
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
+template class SingletonHolder<OSG::ColladaHandlerFactoryBase>;
+
+void ColladaHandlerFactoryBase::registerExtraHandler(
+    ExtraHandlerCreator fCreator)
+{
+    _vExtraHandlerCreators.push_back(fCreator);
+}
+
+void ColladaHandlerFactoryBase::createExtraHandlers(
+    ExtraHandlerStore &vStore)
+{
+    vStore.clear();
+
+    for(UInt32 i = 0; i < _vExtraHandlerCreators.size(); ++i)
+        vStore.push_back(_vExtraHandlerCreators[i]());
+}
+
+
+void ColladaHandlerFactoryBase::registerDomProfileHandler(
+    UInt32                   uiProfileId,
+    DomProfileHandlerCreator fCreator   )
+{
+   DomProfileHandlerMapIt hIt = _mDomProfileCreators.find(uiProfileId);
+
+    if(hIt != _mDomProfileCreators.end())
+    {
+        SWARNING << "ColladaBaseFactoryBase::registerDomProfileHandler: "
+                 << "profileId [" << uiProfileId << "] already registered."
+                 << std::endl;
     }
     else
     {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
+        _mDomProfileCreators.insert(
+            hIt, 
+            DomProfileHandlerMap::value_type(uiProfileId, 
+                                             fCreator   ));
     }
 }
 
-Image *
-ColladaImage::getImage(void) const
+ColladaHandlerFactoryBase::ColladaDomProfileHandlerTPtr 
+    ColladaHandlerFactoryBase::createDomProfileHandler(UInt32 uiProfileId)
 {
-    return _image;
+    ColladaDomProfileHandlerTPtr returnValue(NULL);
+
+    DomProfileHandlerMapIt hIt = _mDomProfileCreators.find(uiProfileId);
+
+    if(hIt != _mDomProfileCreators.end())
+    {
+        returnValue = (*hIt).second();
+    }
+
+    return returnValue;
 }
 
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
+ColladaHandlerFactoryBase::ColladaHandlerFactoryBase(void) :
+    _mDomProfileCreators  (),
+    _vExtraHandlerCreators()
 {
 }
 
-ColladaImage::~ColladaImage(void)
+ColladaHandlerFactoryBase::~ColladaHandlerFactoryBase(void)
 {
 }
 
 OSG_END_NAMESPACE
 
 #endif // OSG_WITH_COLLADA
- 

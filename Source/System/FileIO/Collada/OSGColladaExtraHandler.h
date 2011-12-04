@@ -36,93 +36,94 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
+#ifndef _OSGCOLLADAEXTRAHANDLER_H_
+#define _OSGCOLLADAEXTRAHANDLER_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGColladaImage.h"
+#include "OSGConfig.h"
 
 #if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
-#include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
+#include "OSGFileIODef.h"
+#include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 
-#include <dom/domImage.h>
+#include "OSGColladaEffect.h"
+
+#include "dom/domExtra.h"
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
+class ColladaGeometry;
 
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
+// forward declarations
+//class ColladaGlobal;
+//OSG_GEN_MEMOBJPTR(ColladaGlobal);
+
+
+class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
 {
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
-}
+    /*==========================  PUBLIC  =================================*/
 
-void
-ColladaImage::read(ColladaElement *colElemParent)
-{
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
+  public:
 
-    domImageRef image = getDOMElementAs<domImage>();
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    domImage::domInit_fromRef initFrom = image->getInit_from();
+    typedef MemoryObject        Inherited;
+    typedef ColladaExtraHandler Self;
 
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaExtraHandler);
 
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+#if 0
+    virtual void readTextureParams(      ColladaEffect::Texture *texture,
+                                   const domExtra               *extra  ) = 0;
 #endif
 
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
-    }
-    else
-    {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
-    }
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
 
-Image *
-ColladaImage::getImage(void) const
-{
-    return _image;
-}
+    virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
+                                            const domExtra        *extra ) = 0;
 
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
-{
-}
 
-ColladaImage::~ColladaImage(void)
-{
-}
+    virtual void readGeometryExtraElements (      ColladaGeometry *effect,
+                                            const domExtra        *extra ) = 0;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+    
+             ColladaExtraHandler(void);
+    virtual ~ColladaExtraHandler(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
+
+
+OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
 
 OSG_END_NAMESPACE
 
+#include "OSGColladaExtraHandler.inl"
+
 #endif // OSG_WITH_COLLADA
- 
+
+#endif // _OSGCOLLADAEXTRAHANDLER_H_

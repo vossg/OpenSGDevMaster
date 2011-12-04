@@ -196,6 +196,14 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
            ColladaElement      *getElement   (const std::string &elemId ) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name ElementStore                                                 */
+    /*! \{                                                                 */
+
+    static std::string fixFilepath     (std::string szFilepath);
+    static std::string fixImageFilepath(std::string szImgPath );
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/

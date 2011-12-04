@@ -174,6 +174,61 @@ ColladaGlobal::addElement(ColladaElement *elem)
     _elemStore.push_back(elem);
 }
 
+/* 
+ * Helper function for de-mangling filepaths.  Removes leading filepath
+ * separators and  replaces escaped url characters (i.e. "%20" with " " (a
+ * single space)) 
+ */
+
+std::string ColladaGlobal::fixFilepath(std::string filepath)
+{   
+
+    std::string escaped[] = {"%20", "%22", "%3C", "%3E", "%23", "%25", "%7B", 
+                             "%7D", "%7C", "%5E", "%7E", "%5B", "%5D", "%60"};
+
+    std::string replacements[] = {" ","\"","<",">","#","%","{",
+                                  "}","|","^","~","[","]","`"};
+
+    // removing leading file path separators
+    while(filepath[0] == '/' || filepath[0] == '\\')
+    {
+        filepath = filepath.substr(1);
+    }
+
+    // remove escaped characters and replace
+    size_t pos = 0;
+
+    for(UInt32 i = 0; i < 14; ++i)
+    {
+        for(;;)
+        {
+            pos = filepath.find(escaped[i], pos);
+
+            if(pos == std::string::npos) 
+            {
+                break;
+            }
+            else 
+            {
+                filepath = filepath.replace(pos, 3, replacements[i]);
+            }
+        }
+    }
+
+    return filepath;
+}
+
+// re-formats an image filepath so that it can be read properly
+std::string ColladaGlobal::fixImageFilepath(std::string szImgPath)
+{
+    if(szImgPath.substr(0, 5) == "file:")
+    {
+        szImgPath = szImgPath.substr(4);
+    }
+
+    return fixFilepath(szImgPath);
+}
+
 ColladaGlobal::ColladaGlobal(void)
     : Inherited   ()
     , _instQueue  ()

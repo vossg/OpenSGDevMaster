@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,110 +36,128 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCGFXVARIABLETEXOBJ_H_
-#define _OSGCGFXVARIABLETEXOBJ_H_
+#ifndef _OSGCOLLADADOMPROFILECGFXHANDLER_H_
+#define _OSGCOLLADADOMPROFILECGFXHANDLER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCgFXVariableTexObjBase.h"
+#include "OSGContribCgFXDef.h"
+#include "OSGMaterial.h"
+
+#ifdef OSG_WITH_COLLADA
+
+#include "OSGColladaDomProfileHandler.h"
+#include "OSGColladaHandlerFactoryHelper.h"
+
+#include <dom/domProfile_CG.h>
 
 OSG_BEGIN_NAMESPACE
 
-class CgFXMaterial;
-class ColladaDomProfileCgFXHandler;
-
-/*! \brief CgFXVariableTexObj class. See \ref 
-           PageSystemCgFXVariableTexObj for a description.
-    \ingroup GrpSystemCgFCVariables
-    \ingroup GrpLibOSGSystem
-    \includebasedoc
- */
-
-class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObj : 
-    public CgFXVariableTexObjBase
+class OSG_CONTRIBCGFX_DLLMAPPING ColladaDomProfileCgFXHandler : 
+    public ColladaDomProfileHandler
 {
-  private:
-
     /*==========================  PUBLIC  =================================*/
-
   public:
-
-    enum CgFXVType
-    {
-        CgFXTypeTexObj = ShaderVariable::SHVTypeFunctor + 1
-    };
-
-    typedef CgFXVariableTexObjBase Inherited;
-
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         details);
+    typedef ColladaDomProfileHandler     Inherited;
+    typedef ColladaDomProfileCgFXHandler Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaDomProfileCgFXHandler);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual void readProfile(domFx_profile_abstract *pProf);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual MaterialTransitPtr 
+        createInstProfile(domFx_profile_abstract *pProf,
+                          domEffect              *pEffect,
+                          domInstance_effect     *pInstEffect);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    static ColladaDomProfileHandlerTransitPtr create(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+    typedef domProfile_CG::domTechnique::domPass::domShader domShader;
+    typedef domProfile_CG::domTechnique::domPassRef         domPassRef;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
-
-    CgFXVariableTexObj(void);
-    CgFXVariableTexObj(const CgFXVariableTexObj &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~CgFXVariableTexObj(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    friend class FieldContainer;
-    friend class CgFXVariableTexObjBase;
-    friend class CgFXMaterial;
-
-    friend class ColladaDomProfileCgFXHandler;
     
+             ColladaDomProfileCgFXHandler(void);
+    virtual ~ColladaDomProfileCgFXHandler(void);
 
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CgFXVariableTexObj &source);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    std::string getFuncTypeString        (domGl_func_type            func     );
+    std::string getBlendEquationString   (domGl_blend_equation_type  eq       );
+    std::string getBlendFuncTypeString   (domGl_blend_type           func     );
+    std::string getFaceTypeString        (domGl_face_type            face     );
+    std::string getMaterialModeTypeString(domGl_material_type        mat      );
+    std::string getLogicOpTypeString     (domGl_logic_op_type        logicOp  );
+    std::string getStencilOpTypeString   (domGl_stencil_op_type      stopType );
+    std::string getBoolStringRep         (std::string                stateName, 
+                                          UInt32                     idx, 
+                                          bool                       state    );
+    std::string getBoolStringRep         (std::string                stateName, 
+                                          bool                       state    );
+
+    bool        isCGSampler              (domFx_basic_type_commonRef param    );
+    bool        isStateMatrix            (std::string                matName  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
+    std::string buildCgFXCode      (domProfile_CG *pProf     );
+
+    std::string extractCgBindParams(domShader     *pShader   );
+    std::string extractCgStates    (domPassRef     pPass     );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    static ColladaDomProfileHandlerRegHelper _regHelper;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 };
 
-typedef CgFXVariableTexObj *CgFXVariableTexObjP;
+OSG_GEN_MEMOBJPTR(ColladaDomProfileCgFXHandler);
 
 OSG_END_NAMESPACE
 
-#include "OSGCgFXVariableTexObjBase.inl"
-#include "OSGCgFXVariableTexObj.inl"
+#endif // OSG_WITH_COLLADA
 
-#endif /* _OSGCGFXVARIABLETEXOBJ_H_ */
+#endif // _OSGCOLLADADOMPROFILECGFXHANDLER_H_

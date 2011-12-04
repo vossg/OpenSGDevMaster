@@ -1275,9 +1275,9 @@ ColladaGeometry::handleBindMaterial(
           {
              OSG_COLLADA_LOG(
                  ("ColladaGeometry::handleBindMaterial: "
-                  "Manual switch texture coords from [%d] to [%s].\n",
+                  "Manual switch texture coords from [%d] to [%d].\n",
                   idx, 
-                  Geometry::TexCoords1Index));
+                  Geometry::TexCoordsIndex));
 
              geo->setProperty(tex_coord, Geometry::TexCoordsIndex);
              geo->setProperty(NULL, idx);

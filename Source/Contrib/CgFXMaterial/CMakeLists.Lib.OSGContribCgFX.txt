@@ -16,9 +16,10 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGSystem)
- SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable OSGUtil OSGWindow
-                                      OSGState OSGWindowGLUT)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGFileIO)
+
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable OSGUtil OSGWindow
+                                     OSGState OSGWindowGLUT)
 
 # dependencies - External
 SET(${PROJECT_NAME}_DEP_LIB CG_LIBRARIES)
@@ -31,6 +32,12 @@ SET(${PROJECT_NAME}_DEP_INCDIR CG_INCLUDE_DIR)
 
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+IF(COLLADA_FOUND)
+  LIST(APPEND ${PROJECT_NAME}_DEP_INCDIR COLLADA_DAE_INCLUDE_DIR
+                                         COLLADA_DOM_INCLUDE_DIR)
+  LIST(APPEND ${PROJECT_NAME}_DEP_LIB    OSG_COLLADA_LIBS OSG_BOOST_LIBS)
+ENDIF(COLLADA_FOUND)
 
 OSG_ADD_GLUTPACKAGE(TRUE)
 
@@ -45,6 +52,9 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("Source/Contrib/CgFXMaterial")
+IF(COLLADA_FOUND)
+  OSG_ADD_DIRECTORY("Source/Contrib/CgFXMaterial/FileIO")
+ENDIF(COLLADA_FOUND)
 
 ##############################################################################
 # setup python bindings
