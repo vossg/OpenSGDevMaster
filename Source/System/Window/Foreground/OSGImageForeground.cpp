@@ -205,17 +205,14 @@ void ImageForeground::draw(DrawEnv * pEnv)
 
 void ImageForeground::subImage(Image *image)
 {
-    MFImagesType    *pMFImg = editMFImages   ();
-    MFPositionsType *pMFPos = editMFPositions();
+    MFImagesType::const_iterator imgIt = getMFImages()->find(image);
 
-    MFImagesType::const_iterator imgIt = pMFImg->find(image);
-
-    if(imgIt != pMFImg->end())
+    if(imgIt != getMFImages()->end())
     {
         MFImagesType::difference_type iIdx = 
-            std::distance(pMFImg->begin(), imgIt);
+            std::distance(getMFImages()->begin(), imgIt);
        
-        pMFImg->erase(iIdx);
-        pMFPos->erase(iIdx);
+        editMFImages   ()->erase(iIdx);
+        editMFPositions()->erase(iIdx);
     }
 }
