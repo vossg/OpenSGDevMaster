@@ -1451,6 +1451,7 @@ namespace
 {
     // Helper types and functions for makeOptimizedProperties().
 
+    // A pair of indices. Used to record a change from oldIdx to newIdx.
     struct IndexRemap
     {
         explicit IndexRemap(UInt32 oldIdx, UInt32 newIdx);
@@ -1466,19 +1467,25 @@ namespace
     {
     }
 
+    // Comparison function object for IndexRemap, allows them to be used in
+    // associative containers (std::set, std::map).
+    // Only the old index is used for comparison.
     struct IndexRemapLess
     {
-        bool operator()(const IndexRemap &lhs, const IndexRemap &rhs);
+        bool operator()(const IndexRemap &lhs, const IndexRemap &rhs) const;
     };
 
     bool
-    IndexRemapLess::operator()(const IndexRemap &lhs, const IndexRemap &rhs)
+    IndexRemapLess::operator()(const IndexRemap &lhs,
+                               const IndexRemap &rhs ) const
     {
         return (lhs._oldIdx < rhs._oldIdx);
     }
 
     typedef std::set<IndexRemap, IndexRemapLess>  IndexRemapSet;
 
+    // Copies property values from srcOffset in srcProps to destOffset
+    // in the corresponding dstProps.
     void
     copyProperties(const PropertyStore &srcProps,
                    UInt32               srcOffset,
