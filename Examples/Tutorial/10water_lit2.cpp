@@ -1,4 +1,16 @@
 // all needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGGeometry.h>
+#include <OSGTypedGeoIntegralProperty.h>
+#include <OSGTypedGeoVectorProperty.h>
+
+#include <OSGDirectionalLight.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -9,6 +21,7 @@
 #include <OpenSG/OSGTypedGeoVectorProperty.h>
 
 #include <OpenSG/OSGDirectionalLight.h>
+#endif
 
 // this will specify the resolution of the mesh
 #define N   100

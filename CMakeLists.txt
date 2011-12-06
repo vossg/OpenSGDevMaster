@@ -49,6 +49,7 @@ OSG_OPTION(OSGBUILD_TESTS                        "Build test programs" ON)
 OSG_OPTION(OSGBUILD_UNITTESTS                    "Build/run unit test programs" OFF)
 OSG_OPTION(OSGBUILD_EXAMPLES_SIMPLE              "Build example programs during system build" OFF)
 OSG_OPTION(OSGBUILD_EXAMPLES_ADVANCED            "Build advanced example programs during system build" OFF)
+OSG_OPTION(OSGBUILD_EXAMPLES_TUTORIAL            "Build tutorial example programs during system build" OFF)
 OSG_OPTION(OSGBUILD_PYTHON_BINDINGS              "Build python bindings" OFF)
 OSG_OPTION(OSGBUILD_PYTHON_DUMP_DECLS            "Dump decls while building python" FALSE)
 
@@ -1595,6 +1596,16 @@ IF(OSGBUILD_EXAMPLES_ADVANCED)
     ADD_SUBDIRECTORY("Examples/Advanced/Character")
     ADD_DEPENDENCIES(OSGAllExamples OSGAllAdvancedExamples)
 ENDIF(OSGBUILD_EXAMPLES_ADVANCED)
+
+###################
+# Examples/Advanced
+###################
+
+IF(OSGBUILD_EXAMPLES_TUTORIAL)
+    ADD_CUSTOM_TARGET(OSGAllTutorialExamples)
+    ADD_SUBDIRECTORY("Examples/Tutorial")
+    ADD_DEPENDENCIES(OSGAllExamples OSGAllTutorialExamples)
+ENDIF(OSGBUILD_EXAMPLES_TUTORIAL)
 
 ###################
 # External Examples

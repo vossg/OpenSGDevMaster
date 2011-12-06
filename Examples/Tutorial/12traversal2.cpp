@@ -1,4 +1,19 @@
 // all needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+
+#include <OSGSceneFileHandler.h>
+#include <OSGNameAttachment.h>
+
+#include <OSGGraphOpSeq.h>
+#include <OSGSplitGraphOp.h>
+#include <OSGVerifyGeoGraphOp.h>
+#include <OSGSharePtrGraphOp.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -12,6 +27,7 @@
 #include <OpenSG/OSGSplitGraphOp.h>
 #include <OpenSG/OSGVerifyGeoGraphOp.h>
 #include <OpenSG/OSGSharePtrGraphOp.h>
+#endif
 
 OSG::SimpleSceneManager *mgr;
 OSG::NodeRecPtr          scene;

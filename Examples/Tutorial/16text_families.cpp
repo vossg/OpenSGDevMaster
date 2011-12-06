@@ -1,5 +1,9 @@
 // Includes
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGTextFaceFactory.h>
+#else
 #include <OpenSG/OSGTextFaceFactory.h>
+#endif
 #include <vector>
 #include <string>
 #include <iostream>

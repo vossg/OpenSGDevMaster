@@ -1,4 +1,15 @@
 // Some needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGConfig.h>
+#include <OSGGLUT.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGSimpleTexturedMaterial.h>
+#include <OSGSolidBackground.h>
+#include <OSGTextTXFFace.h>
+#include <OSGTextLayoutParam.h>
+#include <OSGTextLayoutResult.h>
+#else
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGGLUTWindow.h>
@@ -8,6 +19,7 @@
 #include <OpenSG/OSGTextTXFFace.h>
 #include <OpenSG/OSGTextLayoutParam.h>
 #include <OpenSG/OSGTextLayoutResult.h>
+#endif
 #include <iostream>
 
 // The SimpleSceneManager is a little usefull class which helps us to

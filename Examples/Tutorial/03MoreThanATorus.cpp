@@ -3,11 +3,19 @@
 //worry if not everythings clear right at the beginning...
 
 //Some needed inlcude files - these will become more, believe me ;)
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
+#endif
 
 //The SimpleSceneManager is a little usefull class which helps us to 
 //manage little scenes. It will be discussed in detail later on

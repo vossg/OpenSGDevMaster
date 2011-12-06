@@ -1,4 +1,18 @@
 // all needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+
+//additional headder files
+#include <OSGSceneFileHandler.h>
+#include <OSGDistanceLOD.h>
+#include <OSGSwitch.h>
+#include <OSGNameAttachment.h>
+#include <OSGComponentTransform.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -11,6 +25,7 @@
 #include <OpenSG/OSGSwitch.h>
 #include <OpenSG/OSGNameAttachment.h>
 #include <OpenSG/OSGComponentTransform.h>
+#endif
 
 OSG::SimpleSceneManager      *mgr;
 OSG::NodeRecPtr               scene;
@@ -68,7 +83,7 @@ OSG::Node *checkName(OSG::Node *n)
     }
     
     //check all children
-    for(int i = 0; i < children; i++)
+    for(OSG::UInt32 i = 0; i < children; i++)
     {
         OSG::Node *r = checkName(n->getChild(i));
         if(r != NULL)

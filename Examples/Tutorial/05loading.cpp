@@ -1,4 +1,14 @@
 // all needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+
+//additional include files
+#include <OSGSceneFileHandler.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -7,6 +17,8 @@
 
 //additional include files
 #include <OpenSG/OSGSceneFileHandler.h>
+#endif
+
 
 OSG::SimpleSceneManager *mgr;
 OSG::NodeRecPtr          scene;

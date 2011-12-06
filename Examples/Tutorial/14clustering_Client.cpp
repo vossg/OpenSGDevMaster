@@ -1,4 +1,14 @@
 // all needed include files
+#ifdef OSG_BUILD_ACTIVE
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+
+#include <OSGMultiDisplayWindow.h>
+#include <OSGSceneFileHandler.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -7,6 +17,7 @@
 
 #include <OpenSG/OSGMultiDisplayWindow.h>
 #include <OpenSG/OSGSceneFileHandler.h>
+#endif
 
 OSG::SimpleSceneManager *mgr;
 OSG::NodeRecPtr          scene;
@@ -15,10 +26,11 @@ int setupGLUT(int *argc, char *argv[]);
 
 int main(int argc, char **argv)
 {
+    OSG::ChangeList::setReadWriteDefault(true);
     OSG::osgInit(argc,argv);
 
     {
-        int winid = setupGLUT(&argc, argv);
+        setupGLUT(&argc, argv);
         
         //this time we'll have not a GLUTWindow here, but this one
         OSG::MultiDisplayWindowRecPtr multiWindow = 
@@ -31,7 +43,7 @@ int main(int argc, char **argv)
         // we want to rendering servers... 
         multiWindow->editMFServers()->push_back("Server1");
         multiWindow->editMFServers()->push_back("Server2");	
-        
+
         //any scene here
         scene = OSG::makeTorus(.5, 2, 16, 16);
         
@@ -43,7 +55,8 @@ int main(int argc, char **argv)
         mgr->showAll();
         
         multiWindow->init();
-        
+        multiWindow->resize(512, 512);
+
         OSG::commitChanges();
     }
     
