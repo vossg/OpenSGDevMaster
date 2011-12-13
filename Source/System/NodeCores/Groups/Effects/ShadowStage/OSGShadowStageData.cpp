@@ -86,36 +86,36 @@ void ShadowStageData::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShadowStageData::ShadowStageData(void) :
-     Inherited         (     ),
-    _bRunning          (false),
-    _pTreeHandler      (NULL ),
-    _vShadowMaps       (     ),
-    _vTransparents     (     ),
-    _vLights           (     ),
-    _vOldLights        (     ),
-    _vLightCameras     (     ),
-    _vLightCamTrans    (     ),
-    _vLightCamBeacons  (     ),
-    _vLightStates      (     ),
-    _vExcludeNodeActive(     ),
-    _vRealPointLight   (     )
+     Inherited           (     ),
+    _bRunning            (false),
+    _pTreeHandler        (NULL ),
+    _vShadowMaps         (     ),
+    _vTransparents       (     ),
+    _vLights             (     ),
+    _vOldLights          (     ),
+    _vLightCameras       (     ),
+    _vLightCamTrans      (     ),
+    _vLightCamBeacons    (     ),
+    _vLightStates        (     ),
+    _vExcludeNodeTravMask(     ),
+    _vRealPointLight     (     )
 {
 }
 
 ShadowStageData::ShadowStageData(const ShadowStageData &source) :
-     Inherited         (source),
-    _bRunning          (false ),
-    _pTreeHandler      (NULL  ),
-    _vShadowMaps       (      ),
-    _vTransparents     (      ),
-    _vLights           (      ),
-    _vOldLights        (      ),
-    _vLightCameras     (      ),
-    _vLightCamTrans    (      ),
-    _vLightCamBeacons  (      ),
-    _vLightStates      (      ),
-    _vExcludeNodeActive(      ),
-    _vRealPointLight   (      )
+     Inherited           (source),
+    _bRunning            (false ),
+    _pTreeHandler        (NULL  ),
+    _vShadowMaps         (      ),
+    _vTransparents       (      ),
+    _vLights             (      ),
+    _vOldLights          (      ),
+    _vLightCameras       (      ),
+    _vLightCamTrans      (      ),
+    _vLightCamBeacons    (      ),
+    _vLightStates        (      ),
+    _vExcludeNodeTravMask(      ),
+    _vRealPointLight     (      )
 {
 }
 
@@ -123,18 +123,18 @@ ShadowStageData::~ShadowStageData(void)
 {
     _pTreeHandler = NULL;
 
-    _vShadowMaps       .clear();
+    _vShadowMaps         .clear();
 
-    _vTransparents     .clear();
-    _vLights           .clear();
-    _vOldLights        .clear();
-    _vLightCameras     .clear();
-    _vLightCamTrans    .clear();
-    _vLightCamBeacons  .clear();
-    _vLightStates      .clear();
+    _vTransparents       .clear();
+    _vLights             .clear();
+    _vOldLights          .clear();
+    _vLightCameras       .clear();
+    _vLightCamTrans      .clear();
+    _vLightCamBeacons    .clear();
+    _vLightStates        .clear();
 
-    _vExcludeNodeActive.clear();
-    _vRealPointLight   .clear();
+    _vExcludeNodeTravMask.clear();
+    _vRealPointLight     .clear();
 }
 
 void ShadowStageData::clearLightData(void)

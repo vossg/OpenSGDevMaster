@@ -145,6 +145,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
     typedef std::vector<TransformUnrecPtr>                       TransStore;
     typedef std::vector<UInt32>                                  LStateStore;
     typedef std::vector<bool>                                    StatusStore;
+    typedef std::vector<UInt32>                                  TravMaskStore;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -175,20 +176,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    ShadowMapStore &getShadowMaps       (void);
+    ShadowMapStore &getShadowMaps         (void);
 
-    NodeStore      &getTransparents     (void);
-    LightStore     &getLights           (void);
-    LightStore     &getOldLights        (void);
-    CamStore       &getLightCameras     (void);
-    TransStore     &getLightCamTrans    (void);
-    NodeStore      &getLightCamBeacons  (void);
-    LStateStore    &getLightStates      (void);
+    NodeStore      &getTransparents       (void);
+    LightStore     &getLights             (void);
+    LightStore     &getOldLights          (void);
+    CamStore       &getLightCameras       (void);
+    TransStore     &getLightCamTrans      (void);
+    NodeStore      &getLightCamBeacons    (void);
+    LStateStore    &getLightStates        (void);
 
-    StatusStore    &getExcludeNodeActive(void);
-    StatusStore    &getRealPointLight   (void);
+    TravMaskStore  &getExcludeNodeTravMask(void);
+    StatusStore    &getRealPointLight     (void);
 
-    void            clearLightData      (void);
+    void            clearLightData        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,7 +226,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
     NodeStore                _vLightCamBeacons;
     LStateStore              _vLightStates;
 
-    StatusStore              _vExcludeNodeActive;
+    TravMaskStore            _vExcludeNodeTravMask;
     StatusStore              _vRealPointLight;
 #if 0
     std::vector<bool*> _renderSide;

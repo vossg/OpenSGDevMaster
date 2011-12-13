@@ -108,17 +108,14 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
     // disable all lights more speed
     std::vector<bool> vLocalLightStates;
 
-    const ShadowStageData::LightStore  &vLights      = 
+    const ShadowStageData::LightStore    &vLights      =
         _pStageData->getLights();
-
-    const ShadowStageData::LStateStore &vLightStates = 
+    const ShadowStageData::LStateStore   &vLightStates =
         _pStageData->getLightStates();
-
-    const ShadowStageData::CamStore    &vLCams       =
+    const ShadowStageData::CamStore      &vLCams       =
         _pStageData->getLightCameras();
-
-    const ShadowStageData::StatusStore &vExclActive  =
-        _pStageData->getExcludeNodeActive();
+    const ShadowStageData::TravMaskStore &vExclTravMask =
+        _pStageData->getExcludeNodeTravMask();
 
     for(UInt32 i = 0;i < vLights.size();++i)
     {
@@ -134,10 +131,7 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 
         if(exnode != NULL)
         {
-            if(vExclActive[i])
-            {
-                exnode->setTravMask(0);
-            }
+            exnode->setTravMask(0);
         }
     }
 
@@ -363,10 +357,7 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 
         if(exnode != NULL)
         {
-            if(vExclActive[i])
-            {
-                exnode->setTravMask(TypeTraits<UInt32>::BitsSet);
-            }
+            exnode->setTravMask(vExclTravMask[i]);
         }
     }
 }

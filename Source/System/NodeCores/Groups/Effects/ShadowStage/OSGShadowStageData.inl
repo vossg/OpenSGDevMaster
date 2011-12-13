@@ -113,9 +113,9 @@ ShadowStageData::LStateStore &ShadowStageData::getLightStates(void)
 }
 
 inline
-ShadowStageData::StatusStore &ShadowStageData::getExcludeNodeActive(void)
+ShadowStageData::TravMaskStore &ShadowStageData::getExcludeNodeTravMask(void)
 {
-    return _vExcludeNodeActive;
+    return _vExcludeNodeTravMask;
 }
 
 inline

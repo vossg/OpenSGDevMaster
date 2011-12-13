@@ -155,8 +155,8 @@ void DitherShadowMapHandler::createShadowMapsFBO(
     const ShadowStageData::CamStore    &vLCams       =
         _pStageData->getLightCameras();
 
-    const ShadowStageData::StatusStore &vExclActive  =
-        _pStageData->getExcludeNodeActive();
+    const ShadowStageData::TravMaskStore &vExclTravMask  =
+        _pStageData->getExcludeNodeTravMask();
 
 
     for(UInt32 i = 0;i < vLights.size();++i)
@@ -389,10 +389,7 @@ void DitherShadowMapHandler::createShadowMapsFBO(
 
         if(exnode != NULL)
         {
-            if(vExclActive[i])
-            {
-                exnode->setTravMask(TypeTraits<UInt32>::BitsSet);
-            }
+            exnode->setTravMask(vExclTravMask[i]);
         }
     }
 

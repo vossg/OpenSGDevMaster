@@ -405,23 +405,19 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
     }
 #endif
 
-    const ShadowStageData::LightStore  &vLights      = 
+    const ShadowStageData::LightStore    &vLights      =
         pData->getLights();
-
-    const ShadowStageData::LStateStore &vLightStates = 
+    const ShadowStageData::LStateStore   &vLightStates =
         pData->getLightStates();
-
-          ShadowStageData::StatusStore &vRealPLight  = 
+          ShadowStageData::StatusStore   &vRealPLight  =
         pData->getRealPointLight();
-
-          ShadowStageData::StatusStore &vExclActive  =
-        pData->getExcludeNodeActive();
-
-          ShadowStageData::NodeStore   &vTransparents = 
+          ShadowStageData::TravMaskStore &vExclTravMask =
+        pData->getExcludeNodeTravMask();
+          ShadowStageData::NodeStore     &vTransparents =
         pData->getTransparents();
 
-    vExclActive.clear();
-    vRealPLight.clear();
+    vExclTravMask.clear();
+    vRealPLight  .clear();
 
     //get excludeNode states
     for(UInt32 i = 0;i < getMFExcludeNodes()->size();i++)
@@ -430,11 +426,11 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 
         if(exnode != NULL)
         {
-            vExclActive.push_back(exnode->getTravMask() != 0);
+            vExclTravMask.push_back(exnode->getTravMask());
         }
         else
         {
-            vExclActive.push_back(false);
+            vExclTravMask.push_back(0);
         }
     }
 
@@ -485,7 +481,7 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
         {
             Node *exnode = getExcludeNodes(i);
 
-            vExclActive[i] = exnode->getTravMask() != 0;
+            vExclTravMask[i] = exnode->getTravMask();
         }
 
         //check if all sides of a pointlight are needed
