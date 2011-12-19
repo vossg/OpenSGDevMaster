@@ -844,16 +844,21 @@ void ChangeList::doApply(bool bClear)
             continue;
         }
 
+        pHandler->lock();
+
         pSrc = pHandler->getPtr(srcAspect);
         pDst = pHandler->getPtr(dstAspect);
 
         if(pSrc == NULL)
         {
+            pHandler->release();
+
 #ifndef SILENT_CPTR
             FWARNING(("CL apply: Src NULL, id %u\n",
                       (*ccIt)->uiContainerId));
 #endif
             ++ccIt;
+
             continue;
         }
 
@@ -878,6 +883,8 @@ void ChangeList::doApply(bool bClear)
 #endif
             }
         }
+
+        pHandler->release();
 
         ++ccIt;
     }
@@ -904,6 +911,8 @@ void ChangeList::doApply(bool bClear)
             ++cIt;
             continue;
         }
+
+        pHandler->lock();
 
         pSrc = pHandler->getPtr(srcAspect);
         pDst = pHandler->getPtr(dstAspect);
@@ -937,6 +946,7 @@ void ChangeList::doApply(bool bClear)
             }
             else
             {
+                pHandler->release();
                 ++cIt;
                 continue;
             }
@@ -1013,6 +1023,7 @@ void ChangeList::doApply(bool bClear)
             }
         }
 
+        pHandler->release();
         ++cIt;
     }
 

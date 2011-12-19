@@ -130,20 +130,34 @@ Int32 AspectStore::getRefCount(void)
     return osgAtomicExchangeAndAdd(&_refCount, 0);
 }
 
+inline
+void AspectStore::lock(void)
+{
+    osgSpinLock(&_uiSpinLock, ReflexiveContainer::SpinLockBit);
+}
+
+inline
+void AspectStore::release(void)
+{
+    osgSpinLockRelease(&_uiSpinLock, ReflexiveContainer::SpinLockClearMask);
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 inline
 AspectStore::AspectStore(void) :
-    _vAspects( ),
-    _refCount(0)
+    _vAspects  ( ),
+    _uiSpinLock(0),
+    _refCount  (0)
 {
 }
 
 inline
 AspectStore::AspectStore(const AspectStore &) :
-    _vAspects( ),
-    _refCount(0)
+    _vAspects  ( ),
+    _uiSpinLock(0),
+    _refCount  (0)
 {
 }
 

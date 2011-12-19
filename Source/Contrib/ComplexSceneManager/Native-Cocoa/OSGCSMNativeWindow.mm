@@ -580,6 +580,10 @@ bool CSMNativeWindow::init(void)
     return true;
 }
 
+void CSMNativeWindow::initWindowSystemThreading(void)
+{
+}
+
 void CSMNativeWindow::reshape(Int32 w, 
                               Int32 h)
 {

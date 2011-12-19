@@ -334,11 +334,7 @@ void CSMDrawer::runParallel(void)
 
         _pSyncBarrier->enter(_uiSyncCount);
 
-#if 0
-        Thread::getCurrentChangeList()->commitChangesAndClear();
-#else
         Thread::getCurrentChangeList()->commitChanges();
-#endif
     }
 
     if(_pSwapBarrier == NULL)
@@ -346,73 +342,6 @@ void CSMDrawer::runParallel(void)
         fprintf(stderr, "Running without swap lock\n");
         fflush (stderr);
 
-#if 0
-        if(_mfWindows.size() == 1)
-        {
-            fprintf(stderr, "Running with one windw\n");
-            fflush (stderr);
-
-            this->activate();
-
-            while(_bRun == true)
-            {
-                _pSyncBarrier->enter(_uiSyncCount);
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->acquire();
-# endif
-
-                _pSyncFromThread->getChangeList()->applyNoClear();
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->release();
-# endif
-
-                _pSyncBarrier->enter(_uiSyncCount);
-                
-                Thread::getCurrentChangeList()->commitChangesAndClear();
-
-                if(_bRun == false)
-                {
-                    //this->deactivate();
-                    break;
-                }
-
-                this->frameRender(            );
-                this->frameSwap  (            );
-            }
-        }
-        else
-        {
-            fprintf(stderr, "Running with n-windws\n");
-            fflush (stderr);
-
-            while(_bRun == true)
-            {
-                _pSyncBarrier->enter               (_uiSyncCount);
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->acquire();
-# endif
-
-                _pSyncFromThread->getChangeList()->applyNoClear();
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->release();
-# endif
-
-                _pSyncBarrier->enter               (_uiSyncCount);
-
-                Thread::getCurrentChangeList()->commitChangesAndClear();
-
-                if(_bRun == false)
-                    break;
-
-                this->frameRenderActivate(            );
-                this->frameSwapActivate  (            );
-            }
-        }
-#else
         fprintf(stderr, "Running with %"PRISize"-windws\n", _mfWindows.size());
         fflush (stderr);
 
@@ -432,14 +361,6 @@ void CSMDrawer::runParallel(void)
 
             _pSyncBarrier->enter               (_uiSyncCount);
 
-# if 0
-            Thread::getCurrentChangeList()->commitChangesAndClear();
-
-            if(_bRun == false)
-                break;
-
-            this->render();
-# else
             Thread::getCurrentChangeList()->commitChanges();
 
             if(_bRun == false)
@@ -452,8 +373,6 @@ void CSMDrawer::runParallel(void)
             this->render();
 
             Thread::getCurrentChangeList()->commitChangesAndClear();
-# endif
-#endif
         }
     }
     else
@@ -461,81 +380,6 @@ void CSMDrawer::runParallel(void)
         fprintf(stderr, "Running with swap lock\n");
         fflush (stderr);
 
-#if 0
-        if(_mfWindows.size() == 1)
-        {
-            fprintf(stderr, "Running with one windw\n");
-            fflush (stderr);
-
-            this->activate();
-
-            while(_bRun == true)
-            {
-                _pSyncBarrier->enter       (_uiSyncCount);
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->acquire();
-# endif
-
-                _pSyncFromThread->getChangeList()->applyNoClear();
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->release();
-# endif
-
-                _pSyncBarrier->enter       (_uiSyncCount);
-                
-                OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
-
-                if(_bRun == false)
-                {
-                    //this->deactivate();
-                    break;
-                }
-
-                this->frameRender   (            );
-                
-                _pSwapBarrier->enter(_uiSwapCount);
-                
-                this->frameSwap     (            );
-            }
-        }
-        else
-        {
-            fprintf(stderr, "Running with n-windws\n");
-            fflush (stderr);
-
-            fprintf(stderr, "Running with one windw\n");
-            fflush (stderr);
-
-            while(_bRun == true)
-            {
-                _pSyncBarrier->enter               (_uiSyncCount);
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->acquire();
-# endif
-                _pSyncFromThread->getChangeList()->applyNoClear();
-
-# ifdef OSG_GLOBAL_SYNC_LOCK
-                _pSyncLock->release();
-# endif
-
-                _pSyncBarrier->enter               (_uiSyncCount);
-
-                OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
-                
-                if(_bRun == false)
-                    break;
-
-                this->frameRenderActivate(            );
-
-                _pSwapBarrier->enter     (_uiSwapCount);
-
-                this->frameSwapActivate  (            );
-            }
-        }
-#else
         fprintf(stderr, "Running with %"PRISize"-windws\n", _mfWindows.size());
         fflush (stderr);
 
@@ -554,18 +398,6 @@ void CSMDrawer::runParallel(void)
 
             _pSyncBarrier->enter               (_uiSyncCount);
 
-#if 0
-            OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
-                
-            if(_bRun == false)
-                break;
-
-            this->frameRenderNoFinish(            );
-
-            _pSwapBarrier->enter     (_uiSwapCount);
-
-            this->frameFinish        (            );
-# else
             OSG::Thread::getCurrentChangeList()->commitChanges();
                 
             if(_bRun == false)
@@ -582,9 +414,7 @@ void CSMDrawer::runParallel(void)
             _pSwapBarrier->enter     (_uiSwapCount);
 
             this->frameFinish        (            );
-# endif
         }
-#endif
     }
 
     fprintf(stderr, "Drawer run par stop\n");
@@ -682,36 +512,6 @@ void CSMDrawer::frameExit(void)
         ++winIt;
     }
 }
-
-#if 0
-void CSMDrawer::activate(UInt32 uiWindow)
-{
-    OSG_ASSERT(uiWindow < _mfWindows.size());
-
-    _mfWindows[uiWindow]->activate();
-}
-
-void CSMDrawer::frameRender(UInt32 uiWindow)
-{
-    OSG_ASSERT(uiWindow < _mfWindows.size());
-
-    _mfWindows[uiWindow]->frameRender(_pAction);
-}
-
-void CSMDrawer::frameSwap(UInt32 uiWindow)
-{
-    OSG_ASSERT(uiWindow < _mfWindows.size());
-
-    _mfWindows[uiWindow]->frameSwap();
-}
-
-void CSMDrawer::deactivate (UInt32 uiWindow)
-{
-    OSG_ASSERT(uiWindow < _mfWindows.size());
-
-    _mfWindows[uiWindow]->deactivate();
-}
-#endif
 
 void CSMDrawer::setRunning(bool bVal)
 {

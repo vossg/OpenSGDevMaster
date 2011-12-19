@@ -47,6 +47,7 @@
 
 #include "OSGCSMDrawManager.h"
 #include "OSGNameAttachment.h"
+#include "OSGCSMNativeWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,6 +139,8 @@ bool CSMDrawManager::init(void)
 
     if(_sfParallel.getValue() == true)
     {
+        CSMNativeWindow::initWindowSystemThreading();
+
         _pThread   = dynamic_cast<OSG::Thread *>(Thread::getCurrent());
 
 #ifdef OSG_GLOBAL_SYNC_LOCK

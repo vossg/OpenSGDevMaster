@@ -80,6 +80,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    static void initWindowSystemThreading(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

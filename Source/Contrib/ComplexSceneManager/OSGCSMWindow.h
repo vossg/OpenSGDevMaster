@@ -195,17 +195,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     void frameFinish        (void                 );
     void frameExit          (void                 );
 
-#if 0
-    void frameRenderActivate(RenderAction *pAction);
-    void frameSwapActivate  (void                 );
-    void frameExit          (void                 );
-
-    void activate           (void                 );
-    void frameRender        (RenderAction *pAction);
-    void frameSwap          (void                 );
-    void deactivate         (void                 );
-#endif
-
     void postSync           (void                 );
 
     void shutdown           (void                 );

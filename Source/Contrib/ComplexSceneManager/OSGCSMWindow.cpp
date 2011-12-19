@@ -309,6 +309,7 @@ void CSMWindow::render(RenderAction *pAction)
     if(pThreadLocalWin == NULL)
         return;
 
+#if 0
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
@@ -321,35 +322,26 @@ void CSMWindow::render(RenderAction *pAction)
     }
     else
     {
-#if 0
-        if(_bSceneWireframe == true || _bSceneDoubleSided == true)
-        {
-            pThreadLocalWin->forceActivateDeprecated();
-
-            if(_bSceneWireframe == true)
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            
-            if(_bSceneDoubleSided == true)
-                glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-        }
-#endif        
-
         pThreadLocalWin->render(pAction);
+    }
+#else
+    if(_bFirstFrame == true)
+    {
+        _bFirstFrame = false;
 
-#if 0
-        if(_bSceneWireframe == true || _bSceneDoubleSided == true)
-        {
-            pThreadLocalWin->forceActivateDeprecated();
+        pAction->setFrustumCulling(false);
 
-            if(_bSceneWireframe == true)
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pThreadLocalWin->renderNoFinish(pAction);
 
-            if(_bSceneDoubleSided == true)
-                glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
-        }
-#endif
+        pAction->setFrustumCulling(true);
+    }
+    else
+    {
+        pThreadLocalWin->renderNoFinish(pAction);
     }
 
+    pThreadLocalWin->frameFinish();
+#endif
 }
 
 void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
@@ -364,28 +356,6 @@ void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
     if(pThreadLocalWin == NULL)
         return;
 
-#if 0
-    pThreadLocalWin->activate          (       );
-    pThreadLocalWin->frameInit         (       );
-
-    if(_bFirstFrame == true)
-    {
-        _bFirstFrame = false;
-
-        pAction->setFrustumCulling(false);
-
-        pThreadLocalWin->renderAllViewports(pAction);
-
-        pAction->setFrustumCulling(true);
-    }
-    else
-    {
-        pThreadLocalWin->renderAllViewports(pAction);
-    }
-
-    pThreadLocalWin->deactivate        (       );
-#endif
-
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
@@ -400,7 +370,6 @@ void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
     {
         pThreadLocalWin->renderNoFinish(pAction);
     }
-
 }
 
 void CSMWindow::frameFinish(void)
@@ -414,13 +383,6 @@ void CSMWindow::frameFinish(void)
 
     if(pThreadLocalWin == NULL)
         return;
-
-#if 0
-    pThreadLocalWin->activate  ();
-    pThreadLocalWin->swap      ();
-    pThreadLocalWin->frameExit ();
-    pThreadLocalWin->deactivate();
-#endif
 
     pThreadLocalWin->frameFinish();
 }
@@ -437,94 +399,8 @@ void CSMWindow::frameExit(void)
     if(pThreadLocalWin == NULL)
         return;
 
-#if 0
-    pThreadLocalWin->activate  ();
-    pThreadLocalWin->frameExit ();
-    pThreadLocalWin->deactivate();
-#endif
-
     pThreadLocalWin->runFrameExit();
 }
-
-#if 0
-void CSMWindow::activate(void)
-{
-#ifdef OSG_MT_CPTR_ASPECT
-    Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
-#else
-    Window *pThreadLocalWin = _pWindow;
-#endif
-
-    if(pThreadLocalWin == NULL)
-        return;
-
-    pThreadLocalWin->activate();
-}
-
-void CSMWindow::frameRender(RenderAction *pAction)
-{
-#ifdef OSG_MT_CPTR_ASPECT
-    Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
-#else
-    Window *pThreadLocalWin = _pWindow;
-#endif
-
-//    fprintf(stderr, "%p %p\n", pThreadLocalWin, _pWindow.get());
-
-    if(pThreadLocalWin == NULL)
-        return;
-
-    pThreadLocalWin->frameInit();
-
-    if(_bFirstFrame == true)
-    {
-        _bFirstFrame = false;
-
-        pAction->setFrustumCulling(false);
-
-        pThreadLocalWin->renderAllViewports(pAction);
-
-        pAction->setFrustumCulling(true);
-    }
-    else
-    {
-        pThreadLocalWin->renderAllViewports(pAction);
-    }
-}
-
-void CSMWindow::frameSwap(void)
-{
-#ifdef OSG_MT_CPTR_ASPECT
-    Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
-#else
-    Window *pThreadLocalWin = _pWindow;
-#endif
-
-    if(pThreadLocalWin == NULL)
-        return;
-
-    pThreadLocalWin->swap     ();
-    pThreadLocalWin->frameExit();
-}
-
-void CSMWindow::deactivate(void)
-{
-#ifdef OSG_MT_CPTR_ASPECT
-    Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
-#else
-    Window *pThreadLocalWin = _pWindow;
-#endif
-
-    if(pThreadLocalWin == NULL)
-        return;
-
-    pThreadLocalWin->deactivate();
-}
-#endif
 
 void CSMWindow::shutdown(void)
 {

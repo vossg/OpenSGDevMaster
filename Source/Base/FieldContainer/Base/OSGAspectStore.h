@@ -48,6 +48,7 @@
 
 #include "OSGThread.h"
 #include "OSGThreadManager.h"
+#include "OSGReflexiveContainer.h"
 
 #include <vector>
 
@@ -101,6 +102,14 @@ class OSG_BASE_DLLMAPPING AspectStore
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
+    void lock   (void);
+    void release(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
     void fillOffsetArray(AspectOffsetStore &       oStore,
                          FieldContainer    * const pRef  );
 
@@ -131,6 +140,7 @@ class OSG_BASE_DLLMAPPING AspectStore
 
   private:
 
+    UInt32        _uiSpinLock;
     RefCountStore _refCount;
 
     /*!\brief prohibit default function (move to 'public' if needed) */

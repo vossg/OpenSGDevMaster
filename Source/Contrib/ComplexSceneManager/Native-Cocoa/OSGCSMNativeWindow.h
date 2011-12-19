@@ -97,6 +97,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    static void initWindowSystemThreading(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     void reshape(Int32 w, 
                  Int32 h        );
 

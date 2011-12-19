@@ -642,4 +642,8 @@ bool CSMNativeWindow::init(void)
     return true;
 }
 
+void CSMNativeWindow::initWindowSystemThreading(void)
+{
+}
+
 OSG_END_NAMESPACE

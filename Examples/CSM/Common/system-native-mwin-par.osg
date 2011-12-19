@@ -138,6 +138,38 @@ ComplexSceneManager
            }
         ]  
       }
+
+      CSMDrawer
+      {
+        aspect 3
+
+        windows
+        [
+           DEF MainWindow1 CSMNativeWindow
+           {
+             requestSamples 4
+             enableFSAA     TRUE
+
+             size 300 300
+             position 1000, 200
+             decorEnabled TRUE
+
+             viewports
+             [
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     USE PerspCamGL
+                 background USE BGnd
+
+                 foregrounds
+                 [
+                 ]
+               }
+             ]
+           }
+        ]  
+      }
     ]
   }
 }

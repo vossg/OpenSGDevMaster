@@ -400,10 +400,14 @@ void FieldContainer::editMField(ConstFieldMaskArg  whichField,
 
     AspectOffsetStore oOffsets;
 
+    _pAspectStore->lock();
+
     _pAspectStore->fillOffsetArray(oOffsets, this);
 
     oField.beginEdit(Thread::getCurrentAspect(),
                      oOffsets);
+
+    _pAspectStore->release();
 }
 #else
 template<class FieldT> inline
