@@ -1,5 +1,5 @@
---- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/Wrappers.h	2011-01-12 10:25:49.000000000 +0800
-+++ SystemWrappers.h.proc	2011-02-10 13:41:33.955273255 +0800
+--- /home/gerrit/nethome/Projects/OpenSG/Python/pyopensg.master/src/osg_module/Wrappers.h	2011-01-12 10:25:49.000000000 +0800
++++ SystemWrappers.h.proc	2011-12-20 17:47:44.023872714 +0800
 @@ -15,32 +15,19 @@
  // You should have received a copy of the GNU Lesser General Public License
  // along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -233,9 +233,16 @@
  /** @name General Wrapper Functions */
  //@{
  // NOTE: This does not take a const reference to an OSG::Viewport object to
-@@ -321,7 +120,6 @@
-                                               const OSG::Int32 vpX,
-                                               const OSG::Int32 vpY);
+@@ -317,11 +116,10 @@
+ boost::python::tuple calcViewRay(OSG::Camera* self, OSG::Int32 x,
+                                  OSG::Int32 y, OSG::Viewport& port);
+ 
+-boost::python::tuple getNormalizedCoordinates(OSG::Viewport* self,
+-                                              const OSG::Int32 vpX,
+-                                              const OSG::Int32 vpY);
++boost::python::tuple calcNormalizedCoordinates(OSG::Viewport* self,
++                                               const OSG::Int32 vpX,
++                                               const OSG::Int32 vpY);
  //@}
 -
  }

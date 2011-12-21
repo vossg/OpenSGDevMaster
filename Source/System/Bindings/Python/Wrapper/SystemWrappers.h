@@ -116,9 +116,9 @@ OSG::ActionBase::ResultE traverseWrapper4(bp::list nodeList,
 boost::python::tuple calcViewRay(OSG::Camera* self, OSG::Int32 x,
                                  OSG::Int32 y, OSG::Viewport& port);
 
-boost::python::tuple getNormalizedCoordinates(OSG::Viewport* self,
-                                              const OSG::Int32 vpX,
-                                              const OSG::Int32 vpY);
+boost::python::tuple calcNormalizedCoordinates(OSG::Viewport* self,
+                                               const OSG::Int32 vpX,
+                                               const OSG::Int32 vpY);
 //@}
 }
 

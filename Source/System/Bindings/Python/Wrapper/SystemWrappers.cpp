@@ -143,12 +143,12 @@ boost::python::tuple calcViewRay(OSG::Camera* self, OSG::Int32 x,
    return boost::python::make_tuple(result, line, t);
 }
 
-boost::python::tuple getNormalizedCoordinates(OSG::Viewport* self,
-                                              const OSG::Int32 vpX,
-                                              const OSG::Int32 vpY)
+boost::python::tuple calcNormalizedCoordinates(OSG::Viewport* self,
+                                               const OSG::Int32 vpX,
+                                               const OSG::Int32 vpY)
 {
    OSG::Real32 norm_x, norm_y;
-   self->getNormalizedCoordinates(norm_x, norm_y, vpX, vpY);
+   self->calcNormalizedCoordinates(norm_x, norm_y, vpX, vpY);
    return boost::python::make_tuple(norm_x, norm_y);
 }
 

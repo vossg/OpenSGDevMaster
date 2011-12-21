@@ -1,0 +1,10 @@
+--- /home/gerrit/nethome/Projects/OpenSG/Python/pyopensg.master/src/osggen.py	2011-01-12 10:25:49.000000000 +0800
++++ osggen.py.proc	2011-12-21 15:27:48.456855747 +0800
+@@ -422,6 +422,7 @@
+    # For now ignore all the field based access and the edit based ref access.
+    cls.member_functions(regex_matcher("edit.*"), allow_empty = True).exclude()
+    cls.member_functions(regex_matcher("edit[MS]F.*"), allow_empty = True).exclude()
++   cls.member_functions(regex_matcher("getValueMField_.*"), allow_empty = True).exclude()
+ 
+    # Remove a set of methods and parameters that we have deemed to be "bad", (ie. difficult or
+    # impossible to wrap).

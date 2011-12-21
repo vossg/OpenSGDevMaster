@@ -698,8 +698,8 @@ bp::list getCores(OSG::MultiCore* mc)
 #   calc_view_ray = osg['Camera']['calcViewRay']
 #   calc_view_ray.add_transformation(FT.output(0), FT.output(4), alias = 'calcViewRay')
 
-  wrap_method(osg['Viewport'], 'getNormalizedCoordinates',
-              'osgwrap::getNormalizedCoordinates')
+  wrap_method(osg['Viewport'], 'calcNormalizedCoordinates',
+              'osgwrap::calcNormalizedCoordinates')
    #vp = osg["Viewport"]
 #   vp["getNormalizedCoordinates"].add_transformation(
 #      FT.modify_type(0, declarations.remove_const), FT.output(0), FT.output(1),

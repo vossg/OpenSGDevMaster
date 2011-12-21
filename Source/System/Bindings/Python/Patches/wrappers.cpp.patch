@@ -1,5 +1,5 @@
---- /home/gerrit/Projects/OpenSG/Python/pyopensg.master/src/osg_module/Wrappers.cpp	2011-01-12 10:25:49.000000000 +0800
-+++ SystemWrappers.cpp.proc	2011-02-10 13:41:38.283397996 +0800
+--- /home/gerrit/nethome/Projects/OpenSG/Python/pyopensg.master/src/osg_module/Wrappers.cpp	2011-01-12 10:25:49.000000000 +0800
++++ SystemWrappers.cpp.proc	2011-12-20 17:48:00.791764405 +0800
 @@ -15,12 +15,13 @@
  // You should have received a copy of the GNU Lesser General Public License
  // along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -39,7 +39,22 @@
  
  boost::python::tuple calcViewRay(OSG::Camera* self, OSG::Int32 x,
                                   OSG::Int32 y, OSG::Viewport& port)
-@@ -167,31 +154,3 @@
+@@ -156,42 +143,14 @@
+    return boost::python::make_tuple(result, line, t);
+ }
+ 
+-boost::python::tuple getNormalizedCoordinates(OSG::Viewport* self,
+-                                              const OSG::Int32 vpX,
+-                                              const OSG::Int32 vpY)
++boost::python::tuple calcNormalizedCoordinates(OSG::Viewport* self,
++                                               const OSG::Int32 vpX,
++                                               const OSG::Int32 vpY)
+ {
+    OSG::Real32 norm_x, norm_y;
+-   self->getNormalizedCoordinates(norm_x, norm_y, vpX, vpY);
++   self->calcNormalizedCoordinates(norm_x, norm_y, vpX, vpY);
+    return boost::python::make_tuple(norm_x, norm_y);
+ }
  
  } // namespace osgwrap
  
