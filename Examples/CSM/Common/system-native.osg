@@ -103,11 +103,11 @@ ComplexSceneManager
 #             ignoreExtensions [ "ALL" ]
 #             ignoreExtensions [ "GL_ARB_framebuffer_object",
 #                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
-             requestMajor 4
-             requestMinor 2
+#             requestMajor 4
+#             requestMinor 2
 
-             enableForwardCompatContext FALSE
-             enableDebugContext         FALSE
+#             enableForwardCompatContext FALSE
+#             enableDebugContext         FALSE
 
              partitionDrawMode 0x0002
 
