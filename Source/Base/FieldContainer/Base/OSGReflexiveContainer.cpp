@@ -69,7 +69,7 @@ const ReflexiveContainer::TypeObject &ReflexiveContainer::getType(void) const
     return _type;
 }
 
-UInt32 ReflexiveContainer::getBinSize(ConstFieldMaskArg)
+SizeT ReflexiveContainer::getBinSize(ConstFieldMaskArg)
 {
     return 0;
 }

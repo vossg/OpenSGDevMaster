@@ -51,7 +51,7 @@ const Vec3f &NormalQuantifier::getNormal(UInt32 index) const
  */
 
 inline
-UInt32 NormalQuantifier::getNormalCount (void) const
+SizeT NormalQuantifier::getNormalCount (void) const
 {
     //return ((1<<(2*_numberSubdivisions))*8);
     return _normalTable.size();

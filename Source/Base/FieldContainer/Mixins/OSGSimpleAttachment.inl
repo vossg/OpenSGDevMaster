@@ -314,10 +314,10 @@ typename SimpleAttachment<AttachmentDescT>::ObjCPtr
 #endif
 
 template <class AttachmentDescT> inline
-UInt32 SimpleAttachment<AttachmentDescT>::getBinSize(
+SizeT SimpleAttachment<AttachmentDescT>::getBinSize(
     ConstFieldMaskArg  whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
     
     if(FieldBits::NoField != (SimpleFieldMask & whichField))
     {

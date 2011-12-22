@@ -340,7 +340,7 @@ UInt32 ReflexiveContainerType::addDescription(const FieldDescriptionBase &desc)
             {
                 _vDescVec.push_back(pDesc);
 
-                returnValue = _vDescVec.size();
+                returnValue = UInt32(_vDescVec.size());
             }
             else
             {

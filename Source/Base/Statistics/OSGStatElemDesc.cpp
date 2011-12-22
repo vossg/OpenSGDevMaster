@@ -80,12 +80,12 @@ StatElemDescBase::DescStorage *StatElemDescBase::_descVec = NULL;
  */
 StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
 {
-    Int32             n    = _descVec ? _descVec->size() : 0;
+    SizeT             n    = _descVec ? _descVec->size() : 0;
     StatElemDescBase *desc = 0;
     
     if(name && *name && n)
     {
-        for(Int32 i = 0; i < n; ++i)
+        for(SizeT i = 0; i < n; ++i)
         {
             if (!osgStringCmp(name, (*_descVec)[i]->_name.c_str()))
             {
@@ -155,7 +155,7 @@ StatElemDescBase::StatElemDescBase(const Char8     *name,
     }
     else 
     {
-        _id = _descVec->size();
+        _id = Int32(_descVec->size());
         _descVec->push_back(this);
     }
 }
@@ -173,9 +173,9 @@ StatElemDescBase::~StatElemDescBase(void)
  */
 void StatElemDescBase::printAll(void)
 {
-    Int32 n = _descVec ? _descVec->size() : 0;
+    SizeT n = _descVec ? _descVec->size() : 0;
     
-    for(Int32 i = 0; i < n; i++)
+    for(SizeT i = 0; i < n; i++)
         (*_descVec)[i]->print();
 }
 

@@ -105,7 +105,7 @@ class OSG_BASE_DLLMAPPING MemObjPointerSFieldBase : public Field
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
-    UInt32 getBinSize(void                   ) const;
+    SizeT  getBinSize(void                   ) const;
     
     void   copyToBin (BinaryDataHandler &pMem) const;
 

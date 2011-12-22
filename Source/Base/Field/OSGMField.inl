@@ -157,11 +157,11 @@ void MField<ValueT,
         StringConversionError<ValueT,
                               iNamespace> >::type Converter;
 
-    for(UInt32 i = 0; i < size(); ++i)
+    for(SizeT i = 0; i < size(); ++i)
     {
         Converter::putToString(_values[i], str);
 
-        if(i < (size()-1))
+        if(i < (size() - 1))
         {
             str.append(", ");
         }
@@ -236,11 +236,11 @@ void MField<ValueT,
         StreamConversionError<ValueT,
                               iNamespace> >::type Converter;
 
-    for(UInt32 i = 0; i < size(); ++i)
+    for(SizeT i = 0; i < size(); ++i)
     {
         Converter::putToStream(_values[i], str);
 
-        if(i < (size()-1))
+        if(i < (size() - 1))
         {
             str << ", ";
         }
@@ -258,7 +258,7 @@ void MField<ValueT, iNamespace, AllocT>::pushSizeToStream(OutStream &str) const
 /*                         Binary Interface                                */
 
 template <class ValueTypeT, Int32 iNameSpace, class AllocT> inline
-UInt32 MField<ValueTypeT, iNameSpace, AllocT>::getBinSize(void) const
+SizeT MField<ValueTypeT, iNameSpace, AllocT>::getBinSize(void) const
 {
     return 
         sizeof(UInt32) + // num elements
@@ -271,7 +271,7 @@ void MField<ValueTypeT,
             iNameSpace, 
             AllocT>::copyToBin(BinaryDataHandler &pMem) const
 {
-    UInt32 n = _values.size();
+    UInt32 n = UInt32(_values.size());
 
     pMem.putValue(n);
 
@@ -288,7 +288,7 @@ void MField<ValueTypeT,
             iNameSpace, 
             AllocT    >::copyFromBin(BinaryDataHandler &pMem)
 {
-    UInt32 n;
+     UInt32 n;
 
      pMem  .getValue(n);
     _values.clear ( );
@@ -580,13 +580,24 @@ void MField<ValueT, iNamespace, AllocT>::reserve(size_type newsize)
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-UInt32 MField<ValueT, iNamespace, AllocT>::size(void) const
+typename MField<ValueT, iNamespace, AllocT>::size_type 
+    MField<ValueT, iNamespace, AllocT>::size(void) const
 {
     return _values.size();
 }
 
+#if 0
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-UInt32 MField<ValueT, iNamespace, AllocT>::capacity(void) const
+typename MField<ValueT, iNamespace, AllocT>::size_type 
+    MField<ValueT, iNamespace, AllocT>::size32(void) const
+{
+    return UInt32(_values.size());
+}
+#endif
+
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+typename MField<ValueT, iNamespace, AllocT>::size_type 
+    MField<ValueT, iNamespace, AllocT>::capacity(void) const
 {
     return _values.capacity();
 }
@@ -631,14 +642,14 @@ void MField<FieldTypeT, fieldNameSpace, AllocT>::addValue (ArgumentType value)
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, iNamespace, AllocT>::reference
-    MField<ValueT, iNamespace, AllocT>::operator [](UInt32 index)
+    MField<ValueT, iNamespace, AllocT>::operator [](size_type index)
 {
     return _values[index];
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, iNamespace, AllocT>::const_reference
-    MField<ValueT, iNamespace, AllocT>::operator [](UInt32 index) const
+    MField<ValueT, iNamespace, AllocT>::operator [](size_type index) const
 {
     return _values[index];
 }

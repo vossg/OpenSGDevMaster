@@ -165,13 +165,13 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
 
     // Binary
 
-    static UInt32 getBinSize(const ValueT &)
+    static SizeT  getBinSize(const ValueT &)
     {
         return sizeof(ValueT);
     }
 
-    static UInt32 getBinSize(const ValueT   *,
-                                   UInt32    uiNumObjects)
+    static SizeT  getBinSize(const ValueT   *,
+                                   SizeT     uiNumObjects)
     {
         return sizeof(ValueT) * uiNumObjects;
     }
@@ -184,7 +184,7 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
 
     static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         pMem.putValues(&(pObjectStore[0]), uiNumObjects);
     }
@@ -197,7 +197,7 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
         pMem.getValues(&(pObjectStore[0]), uiNumObjects);
     }
@@ -228,13 +228,13 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
         return true;
     }
 
-    static UInt32 getBinSize(const ValueT &)
+    static SizeT  getBinSize(const ValueT &)
     {
         return sizeof(SingleValueT) * _uiSize;
     }
 
-    static UInt32 getBinSize(const ValueT   *,
-                                   UInt32    uiNumObjects)
+    static SizeT  getBinSize(const ValueT   *,
+                                   SizeT     uiNumObjects)
     {
         return sizeof(SingleValueT) * _uiSize * uiNumObjects;
     }
@@ -247,7 +247,7 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
 
     static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         pMem.putValues(&(pObjectStore[0][0]), uiNumObjects * _uiSize);
     }
@@ -260,7 +260,7 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
         pMem.getValues(&(pObjectStore[0][0]), uiNumObjects * _uiSize);
     }
@@ -279,7 +279,7 @@ struct FieldTraitsPtrToStringTemplateBase :
     typedef FieldTraitsPtrToStringTemplateBase<ValueT,
                                                iNamespace>  Self;
 
-    static UInt32 getBinSize(const ValueT &oObject)
+    static SizeT  getBinSize(const ValueT &oObject)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
 
@@ -290,14 +290,14 @@ struct FieldTraitsPtrToStringTemplateBase :
         return value.length() + 1 + sizeof(UInt32);
     }
 
-    static UInt32 getBinSize(const ValueT   *pObjectStore,
-                                   UInt32    uiNumObjects)
+    static SizeT  getBinSize(const ValueT   *pObjectStore,
+                                   SizeT     uiNumObjects)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
 
-        UInt32 size = 0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += MappedTrait::getBinSize(pObjectStore[i]);
         }
@@ -319,12 +319,12 @@ struct FieldTraitsPtrToStringTemplateBase :
 
     static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
 
         // defaut: copy each element
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             MappedTrait::copyToBin(pMem, pObjectStore[i]);
         }
@@ -348,12 +348,12 @@ struct FieldTraitsPtrToStringTemplateBase :
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
 
         // defaut: copy each element
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             MappedTrait::copyFromBin(pMem, pObjectStore[i]);
         }

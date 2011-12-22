@@ -653,15 +653,14 @@ void FieldDescription<DescT,
                          uiSyncInfo );
 }
 
-#if 1
 template<class    DescT, 
          enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
          enum     FieldType::Class       eFieldClass> inline
-UInt32 FieldDescription<DescT,
-                        eFieldCard, 
-                        RefCountPolicy,
-                        eFieldClass   >::getBinSize (Field *pField) const
+SizeT FieldDescription<DescT,
+                       eFieldCard, 
+                       RefCountPolicy,
+                       eFieldClass   >::getBinSize (Field *pField) const
 {
     const HandledField *pTypedField = dcast_const(pField);
 
@@ -699,7 +698,6 @@ void FieldDescription<DescT,
 
     pTypedField->copyFromBin(pMem);
 }
-#endif
 
 OSG_END_NAMESPACE
 

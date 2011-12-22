@@ -151,19 +151,19 @@ class ReflexiveContainer
 
 
     OSG_BASE_DLLMAPPING
-    virtual UInt32             getNumFields(      void            ) const;
+    virtual UInt32             getNumFields(      void             ) const;
 
     OSG_BASE_DLLMAPPING 
-    virtual EditFieldHandlePtr editField   (      UInt32 fieldId  );
+    virtual EditFieldHandlePtr editField   (      UInt32  fieldId  );
     
     OSG_BASE_DLLMAPPING 
-    virtual EditFieldHandlePtr editField   (const Char8 *fieldName);
+    virtual EditFieldHandlePtr editField   (const Char8  *fieldName);
 
     OSG_BASE_DLLMAPPING 
-    virtual GetFieldHandlePtr  getField    (      UInt32 fieldId  ) const;
+    virtual GetFieldHandlePtr  getField    (      UInt32  fieldId  ) const;
     
     OSG_BASE_DLLMAPPING 
-    virtual GetFieldHandlePtr  getField    (const Char8 *fieldName) const;
+    virtual GetFieldHandlePtr  getField    (const Char8  *fieldName) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -204,7 +204,7 @@ class ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING 
-    virtual UInt32  getBinSize (ConstFieldMaskArg   whichField);
+    virtual SizeT   getBinSize (ConstFieldMaskArg   whichField);
 
     OSG_BASE_DLLMAPPING 
     virtual void    copyToBin  (BinaryDataHandler  &pMem, 

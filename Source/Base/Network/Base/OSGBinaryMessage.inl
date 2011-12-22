@@ -89,7 +89,8 @@ inline void BinaryMessage::putInt8  (const Int8   value)
 
 inline void BinaryMessage::putString(const std::string &value)
 {
-    putUInt32(value.size());
+    putUInt32(UInt32(value.size()));
+
     if(value.size())
     {
         const UInt8 *s = reinterpret_cast<const UInt8*>(value.c_str());

@@ -128,7 +128,7 @@ typename MemObjPointerMFieldCommon<AccessHandlerT,
                                    NamespaceI    >::value_type
     MemObjPointerMFieldCommon<AccessHandlerT,
                               NamespaceI    >::ptrStoreGet(
-                                  const UInt32 index) const
+                                  const size_type index) const
 {
     return AccessHandler::validate(_ptrStore[index]);
 }
@@ -226,7 +226,7 @@ void MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI     >::ptrStoreInsert(
-                                   const UInt32      index, 
+                                   const size_type   index, 
                                          const_value pNewObj)
 {
     this->ptrStoreInsert(_ptrStore.begin() + index, pNewObj);
@@ -266,7 +266,7 @@ void MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI    >::ptrStoreReplace(
-                                   const UInt32      index, 
+                                   const size_type   index, 
                                          const_value pNewObj)
 {
     this->ptrStoreReplace(_ptrStore.begin() + index, pNewObj);
@@ -305,7 +305,7 @@ typename MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI     >::ptrStoreErase(
-                                   const UInt32 index)
+                                   const size_type index)
 {
     this->ptrStoreErase(_ptrStore.begin() + index);
 }
@@ -313,8 +313,8 @@ void MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI    >::ptrStoreErase(
-                                   const UInt32 beginIndex, 
-                                   const UInt32 endIndex  )
+                                   const size_type beginIndex, 
+                                   const size_type endIndex  )
 {
     this->ptrStoreErase(_ptrStore.begin() + beginIndex,
                         _ptrStore.begin() + endIndex   );
@@ -339,7 +339,7 @@ void MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline
 void MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI    >::ptrStoreResize(
-                                   const UInt32      newSize, 
+                                   const size_type   newSize, 
                                          const_value pNewObj)
 {
     size_type oldSize = _ptrStore.size();

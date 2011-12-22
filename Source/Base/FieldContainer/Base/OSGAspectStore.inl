@@ -84,7 +84,7 @@ inline
 void AspectStore::setPtrForAspect(      FieldContainer *pContainer, 
                                   const UInt32          uiAspect  )
 {
-    _vAspects.resize(osgMax<UInt32>(_vAspects.size(), uiAspect + 1), NULL);
+    _vAspects.resize(osgMax<SizeT>(_vAspects.size(), uiAspect + 1), NULL);
     
     _vAspects[uiAspect] = pContainer;
 }
@@ -103,7 +103,7 @@ void AspectStore::removePtrForAspect(const UInt32 uiAspect)
 inline
 UInt32 AspectStore::getNumAspects(void) const
 {
-    return _vAspects.size();
+    return UInt32(_vAspects.size());
 }
 
 /*-------------------------------------------------------------------------*/

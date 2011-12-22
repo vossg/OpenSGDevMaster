@@ -219,21 +219,21 @@ struct FieldTraits<FieldContainerMap> :
     }
 
     // Binary conversion
-    static UInt32 getBinSize  (const FieldContainerMap  &oObject     )
+    static SizeT  getBinSize  (const FieldContainerMap  &oObject     )
     {
-        UInt32 uiNumPublicObjects = oObject.size();
+        SizeT uiNumPublicObjects = oObject.size();
 
         return sizeof(UInt32) +  // Number of elements in the map 
             uiNumPublicObjects * (sizeof(Int32) + sizeof(UInt32));
     }
 
-    static UInt32 getBinSize  (const FieldContainerMap  *pObjectStore,
-                                     UInt32              uiNumObjects)
+    static SizeT  getBinSize  (const FieldContainerMap  *pObjectStore,
+                                     SizeT               uiNumObjects)
     {
-        UInt32 uiSize = 0;
+        SizeT uiSize = 0;
 
         // defaut: individual field sizes
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             uiSize += getBinSize(pObjectStore[i]);
         }
@@ -245,7 +245,7 @@ struct FieldTraits<FieldContainerMap> :
                                const FieldContainerMap  &pObject     )
     {
         UInt32 uiId               = 0;
-        UInt32 uiNumPublicObjects = pObject.size();
+        UInt32 uiNumPublicObjects = UInt32(pObject.size());
 
         pMem.putValue(uiNumPublicObjects);  //Number of Key/Value pairs
 
@@ -263,9 +263,9 @@ struct FieldTraits<FieldContainerMap> :
 
     static void copyToBin     (      BinaryDataHandler  &pMem, 
                                const FieldContainerMap  *pObjectStore,
-                                     UInt32              uiNumObjects)
+                                     SizeT               uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -296,9 +296,9 @@ struct FieldTraits<FieldContainerMap> :
 
     static void copyFromBin   (      BinaryDataHandler  &pMem, 
                                      FieldContainerMap  *pObjectStore,
-                                     UInt32              uiNumObjects)
+                                     SizeT               uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

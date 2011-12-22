@@ -46,7 +46,7 @@ void RandomPoolManager::operator=(const RandomPoolManager& val)
 inline
 UInt32 RandomPoolManagerBase::getNumPools(void)
 {
-    return _vRandomPoolGenerators.size();
+    return UInt32(_vRandomPoolGenerators.size());
 }
 
 inline
@@ -54,7 +54,7 @@ UInt32 RandomPoolManagerBase::createNewPool(void)
 {
     _vRandomPoolGenerators.push_back(GeneratorType());
 
-    return getNumPools() - 1;
+    return UInt32(getNumPools() - 1);
 }
 
 inline

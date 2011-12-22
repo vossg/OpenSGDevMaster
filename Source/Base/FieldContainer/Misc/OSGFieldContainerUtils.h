@@ -73,7 +73,7 @@ class OSG_BASE_DLLMAPPING MemoryConsumption
 {
   public:
 
-    typedef std::pair<UInt32, UInt32      >       MemCountPair;
+    typedef std::pair<SizeT,  UInt32      >       MemCountPair;
     typedef std::map <UInt32, MemCountPair>       TypeMemMap;
     typedef TypeMemMap::iterator                  TypeMemMapIt;
     typedef TypeMemMap::const_iterator            TypeMemMapConstIt;

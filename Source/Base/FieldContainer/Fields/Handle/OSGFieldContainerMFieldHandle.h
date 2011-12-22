@@ -97,6 +97,7 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
     virtual void pushIndexedValueToStream(OutStream &str, 
                                           UInt32     index) const;
     virtual void pushSizeToStream        (OutStream &str  ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Comparison                                                   */
@@ -109,7 +110,7 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    virtual FieldContainer *get    (UInt32          index     ) const = 0;
+    virtual FieldContainer *get    (SizeT           index     ) const = 0;
     virtual Int32           find   (FieldContainer *existingFC) const = 0;
 
     const FieldContainerPtrMFieldBase *getField   (void);
@@ -200,7 +201,7 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual FieldContainer *get (UInt32          index     ) const = 0;
+    virtual FieldContainer *get (SizeT           index     ) const = 0;
     virtual Int32           find(FieldContainer *existingFC) const = 0;
     
     virtual bool add          (FieldContainer *newFC      ) const = 0;
@@ -306,8 +307,8 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual FieldContainer *get (UInt32          index     ) const;
-    virtual UInt32          size(void                      ) const;
+    virtual FieldContainer *get (SizeT           index     ) const;
+    virtual SizeT           size(void                      ) const;
     virtual Int32           find(FieldContainer *existingFC) const;
     
     const FieldT *getField   (void);
@@ -421,8 +422,8 @@ class EditFCPtrMFieldHandle :
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual FieldContainer *get (UInt32          index     ) const;
-    virtual UInt32          size(void                      ) const;
+    virtual FieldContainer *get (SizeT           index     ) const;
+    virtual SizeT           size(void                      ) const;
     virtual Int32           find(FieldContainer *existingFC) const;
     
     virtual bool add          (FieldContainer *newFC      ) const;

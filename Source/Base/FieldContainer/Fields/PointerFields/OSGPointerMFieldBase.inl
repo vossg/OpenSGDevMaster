@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 
 inline
-UInt32 PointerMFieldBase::getBinSize(void) const
+SizeT PointerMFieldBase::getBinSize(void) const
 {
     return 
         sizeof(UInt32) + // num elements
@@ -63,7 +63,7 @@ UInt32 PointerMFieldBase::getBinSize(void) const
 inline
 void PointerMFieldBase::copyToBin(BinaryDataHandler &pMem) const
 {
-    UInt32 n = _ptrStore.size();
+    UInt32 n = UInt32(_ptrStore.size());
 
     pMem.putValue(n);
 
@@ -127,6 +127,12 @@ PointerMFieldBase::size_type PointerMFieldBase::size(void) const
 }
 
 inline 
+UInt32 PointerMFieldBase::size32(void) const
+{
+    return UInt32(_ptrStore.size());
+}
+
+inline 
 PointerMFieldBase::size_type PointerMFieldBase::max_size(void) const
 {
     return _ptrStore.max_size();
@@ -162,14 +168,14 @@ void PointerMFieldBase::reserve(size_type size)
 
 inline 
 PointerMFieldBase::value_type 
-    PointerMFieldBase::operator[](UInt32 const index) const
+    PointerMFieldBase::operator[](size_type const index) const
 {
     return WeakRefCountPolicy::validate(_ptrStore[index]);
 }
 
 inline 
 PointerMFieldBase::value_type 
-    PointerMFieldBase::at(UInt32 const index) const
+    PointerMFieldBase::at(size_type const index) const
 {
     return WeakRefCountPolicy::validate(_ptrStore.at(index));
 }

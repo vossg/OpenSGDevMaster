@@ -1177,7 +1177,7 @@ typename PointerMField<PtrTypeT,
                        NamespaceI    >::reference
     PointerMField<PtrTypeT,
                   RefCountPolicy,
-                  NamespaceI    >::operator [](const UInt32 index)
+                  NamespaceI    >::operator [](const size_type index)
 {
 #ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
     BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
@@ -1193,7 +1193,7 @@ typename PointerMField<PtrTypeT,
                        NamespaceI    >::const_value
     PointerMField<PtrTypeT,
                   RefCountPolicy,
-                  NamespaceI    >::operator [](const UInt32 index) const
+                  NamespaceI    >::operator [](const size_type index) const
 {
     return static_cast<const_value>(this->ptrStoreGet(index));
 }

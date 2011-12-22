@@ -95,7 +95,7 @@ BaseThreadTransitPtr ThreadManager::getThread(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sThreadStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sThreadStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 
@@ -110,7 +110,7 @@ BarrierTransitPtr ThreadManager::getBarrier(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sBarrierStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sBarrierStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 
@@ -125,7 +125,7 @@ CondVarTransitPtr ThreadManager::getCondVar(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sCondVarStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sCondVarStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 
@@ -140,7 +140,7 @@ LockTransitPtr ThreadManager::getLock(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sLockStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sLockStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 
@@ -155,7 +155,7 @@ LockPoolTransitPtr ThreadManager::getLockPool(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sLockPoolStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sLockPoolStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 
@@ -170,7 +170,7 @@ SemaphoreTransitPtr ThreadManager::getSemaphore(const Char8 *szName,
 
     _storePLock->acquire();
 
-    returnValue = _sSemaphoreStore.getMPField(szName, szTypeName, bGlobal);
+    returnValue = _sSemaphoreStore.getMPField(szName, szTypeName, bGlobal != 0);
 
     _storePLock->release();
 

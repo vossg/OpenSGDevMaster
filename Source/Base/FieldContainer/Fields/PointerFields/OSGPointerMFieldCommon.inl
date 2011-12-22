@@ -122,7 +122,7 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 typename PointerMFieldCommon<AccessHandlerT,
                              NamespaceI    >::value_type
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI    >::ptrStoreGet(const UInt32 index) const
+                        NamespaceI   >::ptrStoreGet(const size_type index) const
 {
     return AccessHandler::validate(_ptrStore[index]);
 }
@@ -217,7 +217,7 @@ void PointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI     >::ptrStoreInsert(
-                             const UInt32      index, 
+                             const size_type   index, 
                                    const_value pNewObj)
 {
     this->ptrStoreInsert(_ptrStore.begin() + index, pNewObj);
@@ -257,7 +257,7 @@ void PointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI    >::ptrStoreReplace(
-                             const UInt32      index, 
+                             const size_type   index, 
                                    const_value pNewObj)
 {
     this->ptrStoreReplace(_ptrStore.begin() + index, pNewObj);
@@ -294,7 +294,7 @@ typename PointerMFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreErase(const UInt32 index)
+                        NamespaceI     >::ptrStoreErase(const size_type index)
 {
     this->ptrStoreErase(_ptrStore.begin() + index);
 }
@@ -302,8 +302,8 @@ void PointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI    >::ptrStoreErase(
-                             const UInt32 beginIndex, 
-                             const UInt32 endIndex  )
+                             const size_type beginIndex, 
+                             const size_type endIndex  )
 {
     this->ptrStoreErase(_ptrStore.begin() + beginIndex,
                         _ptrStore.begin() + endIndex   );
@@ -328,7 +328,7 @@ void PointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI    >::ptrStoreResize(
-                             const UInt32      newSize, 
+                             const size_type   newSize, 
                                    const_value pNewObj)
 {
     size_type oldSize = _ptrStore.size();

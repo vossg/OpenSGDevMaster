@@ -161,7 +161,7 @@ void SField<ValueT, iNamespace>::pushSizeToStream  (OutStream &str) const
 /*                         Binary Interface                                */
 
 template <class ValueTypeT, Int32 iNameSpace> inline
-UInt32 SField<ValueTypeT, iNameSpace>::getBinSize(void) const
+SizeT SField<ValueTypeT, iNameSpace>::getBinSize(void) const
 {
     return SFieldTraits::getBinSize(_fieldValue);
 }

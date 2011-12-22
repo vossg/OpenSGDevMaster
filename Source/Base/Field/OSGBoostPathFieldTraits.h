@@ -104,19 +104,19 @@ struct FieldTraits<BoostPath> : public FieldTraitsTemplateBase<BoostPath>
     // Binary conversion
     
     // Return the size of the binary version in byte   
-    static UInt32 getBinSize(const BoostPath &oObj)
+    static SizeT  getBinSize(const BoostPath &oObj)
     {
         return FieldTraits<std::string>::getBinSize(oObj.string());
     }
 
-    static UInt32 getBinSize(const BoostPath *pObjStore, 
-                                   UInt32     uiNumObjs)
+    static SizeT  getBinSize(const BoostPath *pObjStore, 
+                                   SizeT      uiNumObjs)
     {
         //Size:
         //Sum of all the objs
-        UInt32 uiSizeSum = 0;
+        SizeT uiSizeSum = 0;
 
-        for(UInt32 i = 0; i < uiNumObjs; ++i)
+        for(SizeT i = 0; i < uiNumObjs; ++i)
         {
             uiSizeSum += 
                 FieldTraits<std::string>::getBinSize(pObjStore[i].string());
@@ -134,9 +134,9 @@ struct FieldTraits<BoostPath> : public FieldTraitsTemplateBase<BoostPath>
 
     static void copyToBin   (      BinaryDataHandler &oMem,
                              const BoostPath         *pObjStore,
-                                   UInt32             uiNumObjs)
+                                   SizeT              uiNumObjs)
     {
-        for(UInt32 i = 0; i < uiNumObjs; ++i)
+        for(SizeT i = 0; i < uiNumObjs; ++i)
         {
             copyToBin(oMem, pObjStore[i]);
         }
@@ -156,7 +156,7 @@ struct FieldTraits<BoostPath> : public FieldTraitsTemplateBase<BoostPath>
 
     static void copyFromBin (      BinaryDataHandler &oMem,
                                    BoostPath         *pObjStore,
-                                   UInt32             uiNum)
+                                   SizeT              uiNum)
     {
         for(UInt32 i = 0; i < uiNum; ++i)
         {

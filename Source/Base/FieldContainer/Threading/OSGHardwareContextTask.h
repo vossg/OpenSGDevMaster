@@ -422,15 +422,15 @@ struct FieldTraits<HardwareContextTaskRefPtr> :
 
     static const char *getMName(void) { return "MFHardwareContextTask"; }
 
-    static UInt32 getBinSize(const HardwareContextTaskRefPtr *,
-                                   UInt32          )
+    static SizeT  getBinSize(const HardwareContextTaskRefPtr *,
+                                   SizeT                      )
     {
         return 0;
     }
 
     static void copyToBin(      BinaryDataHandler         &,
                           const HardwareContextTaskRefPtr *,
-                                UInt32                     )
+                                SizeT                      )
     {
         SWARNING << "FieldTraits<HardwareContextTaskRefPtr>::copyToBin: "
                  << "Not supported."
@@ -439,7 +439,7 @@ struct FieldTraits<HardwareContextTaskRefPtr> :
 
     static void copyFromBin(BinaryDataHandler         &,
                             HardwareContextTaskRefPtr *,
-                            UInt32                     )
+                            SizeT                      )
     {
         SWARNING << "FieldTraits<HardwareContextTaskRefPtr>::copyFromBin: "
                  << "Not supported."

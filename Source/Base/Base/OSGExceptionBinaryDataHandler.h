@@ -100,45 +100,45 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     /*! \name                        Put                                   */
     /*! \{                                                                 */
 
-    void put       (      void const   *src,   UInt32 size);
-    void putAndFree(      MemoryHandle  src,   UInt32 size);
+    void put       (      void const   *src,   SizeT  size);
+    void putAndFree(      MemoryHandle  src,   SizeT  size);
 
-    void putValue  (const bool         &value              );
-    void putValue  (const UInt8        &value              );
-    void putValue  (const UInt16       &value              );
-    void putValue  (const UInt32       &value              );
-    void putValue  (const UInt64       &value              );
-    void putValue  (const Int8         &value              );
-    void putValue  (const Int16        &value              );
-    void putValue  (const Int32        &value              );
-    void putValue  (const Int64        &value              );
-    void putValue  (const Real16       &value              );
-    void putValue  (const Fixed32      &value              );
-    void putValue  (const Real32       &value              );
-    void putValue  (const Real64       &value              );
-    void putValue  (const Real128      &value              );
-    void putValue  (const std::string  &value              );
+    void putValue  (const bool         &value             );
+    void putValue  (const UInt8        &value             );
+    void putValue  (const UInt16       &value             );
+    void putValue  (const UInt32       &value             );
+    void putValue  (const UInt64       &value             );
+    void putValue  (const Int8         &value             );
+    void putValue  (const Int16        &value             );
+    void putValue  (const Int32        &value             );
+    void putValue  (const Int64        &value             );
+    void putValue  (const Real16       &value             );
+    void putValue  (const Fixed32      &value             );
+    void putValue  (const Real32       &value             );
+    void putValue  (const Real64       &value             );
+    void putValue  (const Real128      &value             );
+    void putValue  (const std::string  &value             );
 #ifdef OSG_GLENUM_NEQ_UINT32
-    void putValue  (const GLenum       &value              );
+    void putValue  (const GLenum       &value             );
 #endif
 
-    void putValues (const bool         *value, UInt32 size);
-    void putValues (const UInt8        *value, UInt32 size);
-    void putValues (const UInt16       *value, UInt32 size);
-    void putValues (const UInt32       *value, UInt32 size);
-    void putValues (const UInt64       *value, UInt32 size);
-    void putValues (const Int8         *value, UInt32 size);
-    void putValues (const Int16        *value, UInt32 size);
-    void putValues (const Int32        *value, UInt32 size);
-    void putValues (const Int64        *value, UInt32 size);
-    void putValues (const Real16       *value, UInt32 size);
-    void putValues (const Fixed32      *value, UInt32 size);
-    void putValues (const Real32       *value, UInt32 size);
-    void putValues (const Real64       *value, UInt32 size);
-    void putValues (const Real128      *value, UInt32 size);
-    void putValues (const std::string  *value, UInt32 size);
+    void putValues (const bool         *value, SizeT size );
+    void putValues (const UInt8        *value, SizeT size );
+    void putValues (const UInt16       *value, SizeT size );
+    void putValues (const UInt32       *value, SizeT size );
+    void putValues (const UInt64       *value, SizeT size );
+    void putValues (const Int8         *value, SizeT size );
+    void putValues (const Int16        *value, SizeT size );
+    void putValues (const Int32        *value, SizeT size );
+    void putValues (const Int64        *value, SizeT size );
+    void putValues (const Real16       *value, SizeT size );
+    void putValues (const Fixed32      *value, SizeT size );
+    void putValues (const Real32       *value, SizeT size );
+    void putValues (const Real64       *value, SizeT size );
+    void putValues (const Real128      *value, SizeT size );
+    void putValues (const std::string  *value, SizeT size );
 #ifdef OSG_GLENUM_NEQ_UINT32
-    void putValues (const GLenum       *value, UInt32 size);
+    void putValues (const GLenum       *value, SizeT size );
 #endif
 
     /*! \}                                                                 */
@@ -146,8 +146,8 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    void get        (void         *dst,   UInt32 size) throw (ReadError);
-    void getAndAlloc(MemoryHandle &src,   UInt32 size) throw (ReadError);
+    void get        (void         *dst,   SizeT  size) throw (ReadError);
+    void getAndAlloc(MemoryHandle &src,   SizeT  size) throw (ReadError);
 
     void getValue   (bool         &value             ) throw (ReadError);
     void getValue   (UInt8        &value             ) throw (ReadError);
@@ -168,23 +168,23 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void getValue   (GLenum       &value             ) throw (ReadError);
 #endif
 
-    void getValues  (bool         *value, UInt32 size) throw (ReadError);
-    void getValues  (UInt8        *value, UInt32 size) throw (ReadError);
-    void getValues  (UInt16       *value, UInt32 size) throw (ReadError);
-    void getValues  (UInt32       *value, UInt32 size) throw (ReadError);
-    void getValues  (UInt64       *value, UInt32 size) throw (ReadError);
-    void getValues  (Int8         *value, UInt32 size) throw (ReadError);
-    void getValues  (Int16        *value, UInt32 size) throw (ReadError);
-    void getValues  (Int32        *value, UInt32 size) throw (ReadError);
-    void getValues  (Int64        *value, UInt32 size) throw (ReadError);
-    void getValues  (Real16       *value, UInt32 size) throw (ReadError);
-    void getValues  (Fixed32      *value, UInt32 size) throw (ReadError);
-    void getValues  (Real32       *value, UInt32 size) throw (ReadError);
-    void getValues  (Real64       *value, UInt32 size) throw (ReadError);
-    void getValues  (Real128      *value, UInt32 size) throw (ReadError);
-    void getValues  (std::string  *value, UInt32 size) throw (ReadError);
+    void getValues  (bool         *value, SizeT size ) throw (ReadError);
+    void getValues  (UInt8        *value, SizeT size ) throw (ReadError);
+    void getValues  (UInt16       *value, SizeT size ) throw (ReadError);
+    void getValues  (UInt32       *value, SizeT size ) throw (ReadError);
+    void getValues  (UInt64       *value, SizeT size ) throw (ReadError);
+    void getValues  (Int8         *value, SizeT size ) throw (ReadError);
+    void getValues  (Int16        *value, SizeT size ) throw (ReadError);
+    void getValues  (Int32        *value, SizeT size ) throw (ReadError);
+    void getValues  (Int64        *value, SizeT size ) throw (ReadError);
+    void getValues  (Real16       *value, SizeT size ) throw (ReadError);
+    void getValues  (Fixed32      *value, SizeT size ) throw (ReadError);
+    void getValues  (Real32       *value, SizeT size ) throw (ReadError);
+    void getValues  (Real64       *value, SizeT size ) throw (ReadError);
+    void getValues  (Real128      *value, SizeT size ) throw (ReadError);
+    void getValues  (std::string  *value, SizeT size ) throw (ReadError);
 #ifdef OSG_GLENUM_NEQ_UINT32
-    void getValues  (GLenum       *value, UInt32 size) throw (ReadError);
+    void getValues  (GLenum       *value, SizeT size ) throw (ReadError);
 #endif
 
     /*! \}                                                                 */
@@ -243,9 +243,9 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
 
     FreeMemT           _freeMem;
     BuffersT::iterator _currentReadBuffer;
-    UInt32             _currentReadBufferPos;
+    SizeT              _currentReadBufferPos;
     BuffersT::iterator _currentWriteBuffer;
-    UInt32             _currentWriteBufferPos;
+    SizeT              _currentWriteBufferPos;
     
     bool               _networkOrder;
     
@@ -257,8 +257,8 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
             BuffersT::iterator readBufBegin(void                      );
             BuffersT::iterator readBufEnd  (void                      );
             void               readBufAdd  (MemoryHandle  mem, 
-                                            UInt32        size,
-                                            UInt32        dataSize = 0);
+                                            SizeT         size,
+                                            SizeT         dataSize = 0);
             void               readBufClear(void                      );
 
     virtual void               read        (MemoryHandle   src,
@@ -274,8 +274,8 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
             BuffersT::iterator writeBufBegin(void                     );
             BuffersT::iterator writeBufEnd  (void                     );
             void               writeBufAdd  (MemoryHandle mem, 
-                                             UInt32       size,
-                                             UInt32       dataSize = 0);
+                                             SizeT        size,
+                                             SizeT        dataSize = 0);
             void               writeBufClear(void                     );
 
     virtual void               write        (MemoryHandle   src,    

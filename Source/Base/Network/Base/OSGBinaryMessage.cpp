@@ -164,7 +164,7 @@ void BinaryMessage::reset(void)
  */
 UInt32 BinaryMessage::getSize(void) 
 {
-    return _buffer.size();
+    return UInt32(_buffer.size());
 }
 
 /*! Get buffer address

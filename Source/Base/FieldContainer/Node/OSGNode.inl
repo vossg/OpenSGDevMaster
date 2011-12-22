@@ -87,7 +87,7 @@ Node *Node::getParent(void)
 inline
 UInt32 Node::getNChildren(void) const
 {
-    return _mfChildren.size();
+    return _mfChildren.size32();
 }
 
 inline

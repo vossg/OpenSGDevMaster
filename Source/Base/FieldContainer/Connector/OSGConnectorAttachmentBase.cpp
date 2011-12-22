@@ -170,9 +170,9 @@ UInt32 ConnectorAttachmentBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ConnectorAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ConnectorAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

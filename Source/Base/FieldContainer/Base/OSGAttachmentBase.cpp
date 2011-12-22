@@ -299,9 +299,9 @@ const SFBool *AttachmentBase::getSFInternal(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
     {

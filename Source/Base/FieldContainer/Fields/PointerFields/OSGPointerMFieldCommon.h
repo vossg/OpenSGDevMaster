@@ -125,7 +125,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*! \{                                                                 */
 
     // reading values
-    value_type ptrStoreGet(const UInt32             index) const;
+    value_type ptrStoreGet(const size_type           index) const;
     value_type ptrStoreGet(      PtrStoreItType      pos  ) const;
     value_type ptrStoreGet(      PtrStoreConstItType pos  ) const;
 
@@ -138,7 +138,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     void           ptrStoreAssign (      InputIteratorT first,
                                          InputIteratorT last   );
 
-    void           ptrStoreInsert (const UInt32         index,
+    void           ptrStoreInsert (const size_type      index,
                                          const_value    pNewObj);
     void           ptrStoreInsert (      PtrStoreItType pos,
                                          size_type      n,
@@ -155,7 +155,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*---------------------------------------------------------------------*/
     // changing values
 
-    void ptrStoreReplace(const UInt32         index,
+    void ptrStoreReplace(const size_type      index,
                                const_value    pNewObj);
     void ptrStoreReplace(      PtrStoreItType pos,
                                const_value    pNewObj);
@@ -163,9 +163,9 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*---------------------------------------------------------------------*/
     // removing values
 
-    void           ptrStoreErase  (const UInt32         index     );
-    void           ptrStoreErase  (const UInt32         beginIndex,
-                                   const UInt32         endIndex  );
+    void           ptrStoreErase  (const size_type      index     );
+    void           ptrStoreErase  (const size_type      beginIndex,
+                                   const size_type      endIndex  );
 
     PtrStoreItType ptrStoreErase  (      PtrStoreItType pos       );
     PtrStoreItType ptrStoreErase  (      PtrStoreItType begin,
@@ -176,7 +176,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*---------------------------------------------------------------------*/
     // resizing
 
-    void ptrStoreResize(const UInt32      newSize,
+    void ptrStoreResize(const size_type   newSize,
                               const_value pNewObj);
 
     /*---------------------------------------------------------------------*/

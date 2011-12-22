@@ -321,7 +321,7 @@ void MemoryConsumption::scan(void)
             continue;
 
         TypeMemMapIt tmIt    = _memMap.find(pFC->getType().getId());
-        UInt32       binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
+        SizeT        binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
 
         if(tmIt != _memMap.end())
         {
@@ -343,7 +343,7 @@ void MemoryConsumption::print(std::ostream &os, bool ignoreProto) const
     TypeMemMapConstIt tmIt  = _memMap.begin();
     TypeMemMapConstIt tmEnd = _memMap.end  ();
 
-    UInt32        totalMem   = 0;
+    SizeT         totalMem   = 0;
     UInt32        totalCount = 0;
     boost::format formatter("%|1$-25| [%|2$8|] Byte [%|3$8.0f|] kByte [%|4$4|]\n");
 

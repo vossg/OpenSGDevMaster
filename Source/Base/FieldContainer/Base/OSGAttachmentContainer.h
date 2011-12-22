@@ -112,7 +112,7 @@ class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg   whichField);
     virtual void   copyToBin  (BinaryDataHandler  &pMem,
                                ConstFieldMaskArg   whichField);
     virtual void   copyFromBin(BinaryDataHandler  &pMem,

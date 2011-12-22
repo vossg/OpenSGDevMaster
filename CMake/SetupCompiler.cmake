@@ -107,8 +107,21 @@ IF(MSVC)
 #    STRING(REPLACE "W3"  "W1" OSG_CXX_FLAGS       ${OSG_CXX_FLAGS})
 #    STRING(REPLACE "W3"  "W1" OSG_C_FLAGS         ${OSG_C_FLAGS})
 
-    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4244 /wd4355 /wd4661 /wd4351 /wd4996 /wd4231" OSG_CXX_FLAGS ${OSG_CXX_FLAGS})
-    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4244 /wd4351 /wd4996" OSG_C_FLAGS ${OSG_C_FLAGS})
+    # 4290 exception spec
+    # 4251 dll export
+    # 4275 derived from not exported
+    # 4661 template class mem func not defined
+    # 4351 member init array handling
+    # 4996 deprecated
+    # 4231 non standard ext
+
+    # 4244 smaller type assign
+    # 4355 this before constructed
+    #
+    # /wd4244 /wd4355
+
+    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4661 /wd4351 /wd4996 /wd4231" OSG_CXX_FLAGS ${OSG_CXX_FLAGS})
+    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4351 /wd4996" OSG_C_FLAGS ${OSG_C_FLAGS})
 
     SET(OSG_CXX_FLAGS "/bigobj ${OSG_CXX_FLAGS} /D_WIN32_WINNT=0x0500 /DWINVER=0x0500")
     SET(OSG_C_FLAGS   "/bigobj ${OSG_C_FLAGS} /D_WIN32_WINNT=0x0500 /DWINVER=0x0500")

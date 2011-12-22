@@ -489,7 +489,6 @@ void Log::delModuleHandling(LogModuleHandling handling,
 void Log::addModuleName(const Char8 *module, bool isStatic)
 {
     Module m;
-    int    len;
 
     if(module && *module)
     {
@@ -502,7 +501,7 @@ void Log::addModuleName(const Char8 *module, bool isStatic)
         }
         else
         {
-            len = strlen(module);
+            SizeT len = strlen(module);
 
             _moduleList.back().name = new Char8[len + 1];
 

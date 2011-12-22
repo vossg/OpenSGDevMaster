@@ -111,7 +111,7 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
-    UInt32 getBinSize(void                   ) const;
+    SizeT  getBinSize(void                   ) const;
     
     void   copyToBin (BinaryDataHandler &pMem) const;
 
@@ -131,6 +131,7 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
 
     bool                   empty    (void             ) const;
     size_type              size     (void             ) const;
+    UInt32                 size32   (void             ) const;
     size_type              max_size (void             ) const;
     size_type              capacity (void             ) const;
     
@@ -141,8 +142,8 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-    value_type operator[](const UInt32 index) const;
-    value_type at        (const UInt32 index) const;
+    value_type operator[](const size_type index) const;
+    value_type at        (const size_type index) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

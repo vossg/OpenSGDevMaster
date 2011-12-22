@@ -68,7 +68,7 @@ const FieldType &EditSFieldHandle<SFAttachmentPtrMap>::getType(void) const
     return SFAttachmentPtrMap::getClassType();
 }
 
-UInt32 FieldTraits<AttachmentMap>::getBinSize(const AttachmentMap &aMap)
+SizeT FieldTraits<AttachmentMap>::getBinSize(const AttachmentMap &aMap)
 {
     AttachmentMap::const_iterator mapIt  = aMap.begin();
     AttachmentMap::const_iterator mapEnd = aMap.end  ();

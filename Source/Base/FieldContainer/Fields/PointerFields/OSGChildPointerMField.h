@@ -700,7 +700,7 @@ class ChildPointerMField :
     void                   assign   (InputIteratorT first,
                                      InputIteratorT last            );
 
-    void                   replace  (UInt32         uiIdx,
+    void                   replace  (size_type      uiIdx,
                                      const_value    value           );
 
     void                   replace  (iterator       pos,
@@ -712,9 +712,9 @@ class ChildPointerMField :
     /*! \{                                                                 */
 
 #ifndef OSG_CLEAN_FCFIELDS
-    reference   operator [](const UInt32 index);
+    reference   operator [](const size_type index);
 #endif
-    const_value operator [](const UInt32 index) const;
+    const_value operator [](const size_type index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

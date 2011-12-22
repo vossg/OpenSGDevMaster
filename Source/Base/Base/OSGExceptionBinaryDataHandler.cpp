@@ -82,7 +82,7 @@ ExceptionBinaryDataHandler::~ExceptionBinaryDataHandler(void)
 /*-------------------------------------------------------------------------*/
 /*                                Put                                      */
 
-void ExceptionBinaryDataHandler::put(void const *src, UInt32 size)
+void ExceptionBinaryDataHandler::put(void const *src, SizeT size)
 {
     UInt8 const *data = static_cast<UInt8 const *>(src);
 
@@ -101,12 +101,14 @@ void ExceptionBinaryDataHandler::put(void const *src, UInt32 size)
             put(&tag, sizeof(tag));
 
             _zeroCopyBuffers.push_back(
-                MemoryBlock(const_cast<MemoryHandle>(data), size, size));
+                MemoryBlock(const_cast<MemoryHandle>(data), 
+                            size, 
+                            size));
         }
     }
     else
     {
-        UInt32 copySize;
+        SizeT copySize;
 
         while(size != 0)
         {
@@ -143,7 +145,7 @@ void ExceptionBinaryDataHandler::put(void const *src, UInt32 size)
     responsible for freeing this block.
 */
 
-void ExceptionBinaryDataHandler::putAndFree(MemoryHandle src, UInt32 size)
+void ExceptionBinaryDataHandler::putAndFree(MemoryHandle src, SizeT size)
 {
     put(src, size);
 
@@ -160,7 +162,7 @@ void ExceptionBinaryDataHandler::putAndFree(MemoryHandle src, UInt32 size)
 /*-------------------------------------------------------------------------*/
 /*                                Put                                      */
 
-void ExceptionBinaryDataHandler::get(void *dst, UInt32 size) throw (ReadError)
+void ExceptionBinaryDataHandler::get(void *dst, SizeT size) throw (ReadError)
 {
     MemoryHandle data = static_cast<MemoryHandle>(dst);
 
@@ -180,7 +182,7 @@ void ExceptionBinaryDataHandler::get(void *dst, UInt32 size) throw (ReadError)
     }
     else
     {
-        UInt32 copySize;
+        SizeT copySize;
 
         while(size != 0)
         {
@@ -228,7 +230,7 @@ void ExceptionBinaryDataHandler::get(void *dst, UInt32 size) throw (ReadError)
 
 void ExceptionBinaryDataHandler::getAndAlloc(
     MemoryHandle &src, 
-    UInt32        size) throw (ReadError)
+    SizeT         size) throw (ReadError)
 {
     src = new UInt8[size];
 
@@ -292,8 +294,8 @@ bool ExceptionBinaryDataHandler::getNetworkOrder(void)
 /*                               Read                                      */
 
 void ExceptionBinaryDataHandler::readBufAdd(MemoryHandle mem,
-                                            UInt32       size,
-                                            UInt32       dataSize)
+                                            SizeT        size,
+                                            SizeT        dataSize)
 {
     MemoryBlock memBlock(mem, size, dataSize);
 
@@ -313,8 +315,8 @@ void ExceptionBinaryDataHandler::readBufClear(void)
 /*                               Write                                     */
 
 void ExceptionBinaryDataHandler::writeBufAdd(MemoryHandle mem,
-                                             UInt32       size,
-                                             UInt32       dataSize)
+                                             SizeT        size,
+                                             SizeT        dataSize)
 {
     MemoryBlock memBlock(mem, size, dataSize);
 

@@ -84,7 +84,7 @@ FieldDescriptionBase *ReflexiveContainerType::getFieldDesc(
 inline
 UInt32 ReflexiveContainerType::getNumFieldDescs(void) const
 {
-    return _vDescVec.size();
+    return UInt32(_vDescVec.size());
 }
 
 inline

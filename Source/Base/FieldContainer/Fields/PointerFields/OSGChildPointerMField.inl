@@ -1126,7 +1126,7 @@ void ChildPointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void ChildPointerMField<PtrTypeT,
                         RefCountPolicy,
-                        NamespaceI    >::replace(UInt32      uiIdx,
+                        NamespaceI    >::replace(size_type   uiIdx,
                                                  const_value value)
 {
     this->ptrStoreReplace(uiIdx, value);
@@ -1152,7 +1152,7 @@ typename ChildPointerMField<PtrTypeT,
                             NamespaceI  >::reference
     ChildPointerMField<PtrTypeT,
                        RefCountPolicy,
-                       NamespaceI    >::operator [](const UInt32 index)
+                       NamespaceI    >::operator [](const size_type index)
 {
 #ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
     BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
@@ -1168,7 +1168,7 @@ typename ChildPointerMField<PtrTypeT,
                             NamespaceI  >::const_value
     ChildPointerMField<PtrTypeT,
                        RefCountPolicy,
-                       NamespaceI  >::operator [](const UInt32 index) const
+                       NamespaceI  >::operator [](const size_type index) const
 {
     return static_cast<const_value>(this->ptrStoreGet(index));
 }

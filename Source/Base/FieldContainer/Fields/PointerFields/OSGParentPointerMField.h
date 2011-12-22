@@ -441,7 +441,7 @@ class ParentPointerMField :
     /*! \name Binary IO                                                    */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
+    SizeT  getBinSize (void                   ) const;
 
     void   copyToBin  (BinaryDataHandler &pMem) const;
     void   copyFromBin(BinaryDataHandler &pMem);
@@ -518,15 +518,15 @@ class ParentPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    value_type operator [](const UInt32 index) const;
+    value_type operator [](const size_type index) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    value_type ptrAt           (const UInt32 index) const;
-    UInt16     parentFieldPosAt(const UInt32 index) const;
+    value_type ptrAt           (const size_type index) const;
+    UInt16     parentFieldPosAt(const size_type index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

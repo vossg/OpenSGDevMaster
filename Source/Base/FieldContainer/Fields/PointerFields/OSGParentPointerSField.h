@@ -158,7 +158,7 @@ class ParentPointerSField :
     /*! \name Binary IO                                                    */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
+    SizeT  getBinSize (void                   ) const;
     void   copyToBin  (BinaryDataHandler &pMem) const;
     void   copyFromBin(BinaryDataHandler &pMem);
     

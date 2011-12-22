@@ -176,12 +176,12 @@ struct FieldTraits<StringToUInt32Map> :
     // Binary conversion
 
     // Return the size of the binary version in byte   
-    static UInt32 getBinSize  (const StringToUInt32Map  &obj    )
+    static SizeT getBinSize  (const StringToUInt32Map  &obj    )
     {
         //Size:
         //Size of a UInt32 -> number of items in the Map
         //Sum of all the sizes of the strings
-        UInt32                            uiStringSizeSum = 0;
+        SizeT                             uiStringSizeSum = 0;
         StringToUInt32Map::const_iterator it              = obj.begin();
 
         for(; it != obj.end() ; ++it)
@@ -192,12 +192,12 @@ struct FieldTraits<StringToUInt32Map> :
         return sizeof(UInt32) + obj.size() * sizeof(UInt32) + uiStringSizeSum;
     }
 
-    static UInt32 getBinSize  (const StringToUInt32Map  *obj, 
-                                     UInt32              num    )
+    static SizeT getBinSize  (const StringToUInt32Map  *obj, 
+                                    SizeT               num    )
     {
         //Size:
         //Sum of all the objs
-        UInt32 uiSizeSum = 0;
+        SizeT uiSizeSum = 0;
 
         for(UInt32 i = 0; i < num; ++i)
         {
@@ -229,9 +229,9 @@ struct FieldTraits<StringToUInt32Map> :
 
     static void copyToBin     (      BinaryDataHandler  &bdh,
                                const StringToUInt32Map  *objs,
-                                     UInt32              num    )
+                                     SizeT               num    )
     {
-        for(UInt32 i = 0; i < num; ++i)
+        for(SizeT i = 0; i < num; ++i)
         {
             copyToBin(bdh, objs[i]);
         }
@@ -266,9 +266,9 @@ struct FieldTraits<StringToUInt32Map> :
 
     static void copyFromBin   (      BinaryDataHandler  &bdh,
                                      StringToUInt32Map  *objs,
-                                     UInt32              num    )
+                                     SizeT               num )
     {
-        for(UInt32 i = 0; i < num; ++i)
+        for(SizeT i = 0; i < num; ++i)
         {
             copyFromBin(bdh, objs[i]);
         }

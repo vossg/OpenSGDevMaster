@@ -245,7 +245,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
         return returnValue;
     }
 
-    returnValue = _vTypeStore.size();
+    returnValue = UInt32(_vTypeStore.size());
 
     _vTypeStore.push_back(pType);
 
@@ -309,7 +309,7 @@ TypeBase *TypeFactoryBase::findType(const Char8    *szName,
 
 UInt32 TypeFactoryBase::getNumTypes(void)
 {
-    return _vTypeStore.size();
+    return UInt32(_vTypeStore.size());
 }
 
 void TypeFactoryBase::writeTypeGraph(FILE *pOut)

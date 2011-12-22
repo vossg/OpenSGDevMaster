@@ -426,7 +426,7 @@ inline
 OSG::Real64 osgSwapBytesFP(OSG::UInt64 src);
 
 template <OSG::UInt8 ElemSize> inline
-void osgSwapMem(void *mem, OSG::UInt32 count);
+void osgSwapMem(void *mem, OSG::SizeT count);
 
 template <class TypeT> inline
 TypeT       osgHostToNet  (const TypeT       src);

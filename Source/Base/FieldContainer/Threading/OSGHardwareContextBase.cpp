@@ -218,9 +218,9 @@ UInt32 HardwareContextBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 HardwareContextBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT HardwareContextBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

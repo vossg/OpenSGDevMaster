@@ -118,8 +118,8 @@ StatCollector::~StatCollector(void)
  */
 void StatCollector::refitElemNum(void)
 {
-    UInt32 eN = _elemVec.size();
-    UInt32 dN = StatElemDescBase::getNumOfDescs();
+    SizeT eN = _elemVec.size();
+    SizeT dN = StatElemDescBase::getNumOfDescs();
 
     if(eN != dN)
     {

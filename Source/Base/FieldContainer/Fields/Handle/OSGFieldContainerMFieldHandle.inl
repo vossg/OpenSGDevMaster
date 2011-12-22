@@ -358,7 +358,7 @@ void GetFCPtrMFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
               this->getName().c_str()));
 //    OSG_ASSERT(false);
 
-    for(OSG::UInt32 i = 0; i < this->size(); ++i)
+    for(OSG::SizeT i = 0; i < this->size(); ++i)
     {
         str << this->get(i) << " ";
     }
@@ -376,13 +376,13 @@ void GetFCPtrMFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
 /* Access                                                                    */
 
 template <class FieldT> inline
-FieldContainer *GetFCPtrMFieldHandle<FieldT>::get(UInt32 index) const
+FieldContainer *GetFCPtrMFieldHandle<FieldT>::get(SizeT index) const
 {
     return (*dcast_const())[index];
 }
 
 template <class FieldT> inline
-UInt32 GetFCPtrMFieldHandle<FieldT>::size(void) const
+SizeT GetFCPtrMFieldHandle<FieldT>::size(void) const
 {
     return dcast_const()->size();
 }
@@ -600,7 +600,7 @@ bool EditFCPtrMFieldHandle<FieldT>::supportsClear(void) const
     is performed on \a index.
  */
 template <class FieldT> inline
-FieldContainer *EditFCPtrMFieldHandle<FieldT>::get(UInt32 index) const
+FieldContainer *EditFCPtrMFieldHandle<FieldT>::get(SizeT index) const
 {
     return (*dcast_const())[index];
 }
@@ -608,7 +608,7 @@ FieldContainer *EditFCPtrMFieldHandle<FieldT>::get(UInt32 index) const
 /*! Returns the number of elements stored in the edited field.
  */
 template <class FieldT> inline
-UInt32 EditFCPtrMFieldHandle<FieldT>::size(void) const
+SizeT EditFCPtrMFieldHandle<FieldT>::size(void) const
 {
     return dcast_const()->size();
 }
@@ -1141,7 +1141,7 @@ void EditFCPtrMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
     {
         const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->getField();
             
-        for(UInt32 i = 0; i < pSrcField->size(); ++i)
+        for(SizeT i = 0; i < pSrcField->size(); ++i)
         {
             this->add((*pSrcField)[i]);
         }
@@ -1170,7 +1170,7 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
     {
         const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->getField();
             
-        for(UInt32 i = 0; i < pSrcField->size(); ++i)
+        for(SizeT i = 0; i < pSrcField->size(); ++i)
         {
             StoredPtrType pSrc = dynamic_cast<StoredPtrType>((*pSrcField)[i]);
 

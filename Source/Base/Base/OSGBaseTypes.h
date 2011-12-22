@@ -577,6 +577,12 @@ typedef long RefCountStore;
 
 typedef size_t SizeT;
 
+/*! \var ptrdiff_t SizeT;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
+typedef ptrdiff_t PtrDiffT;
+
 /*! \var UInt8 *MemoryHandle;
  *  Handle to raw memory
  *  \ingroup GrpBaseBaseBaseTypes

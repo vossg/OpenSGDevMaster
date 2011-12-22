@@ -474,7 +474,7 @@ void addLibraryVersion(const std::string &szName,
 
 UInt32 getNumLibraries(void)
 {
-    return (osgLibraryVersions ? osgLibraryVersions->size() : 0);
+    return UInt32(osgLibraryVersions ? osgLibraryVersions->size() : 0);
 }
 
 std::string getLibraryName(UInt32 Index)
@@ -555,7 +555,7 @@ bool osgExit(void)
 
     if(osgPreFactoryExitFunctions != NULL)
     {
-        for(Int32 i = osgPreFactoryExitFunctions->size() - 1; i >= 0; i--)
+        for(PtrDiffT i = osgPreFactoryExitFunctions->size() - 1; i >= 0; i--)
         {
             returnValue &= (*osgPreFactoryExitFunctions)[i]();
 
@@ -576,7 +576,7 @@ bool osgExit(void)
 
     if(osgPostFactoryExitFunctions != NULL)
     {
-        for(Int32 i = osgPostFactoryExitFunctions->size() - 1; i >= 0; i--)
+        for(PtrDiffT i = osgPostFactoryExitFunctions->size() - 1; i >= 0; i--)
         {
             returnValue &= (*osgPostFactoryExitFunctions)[i]();
 
@@ -592,7 +592,7 @@ bool osgExit(void)
 
     if(osgPreMPExitFunctions != NULL)
     {
-        for(Int32 i = osgPreMPExitFunctions->size() - 1; i >= 0; i--)
+        for(PtrDiffT i = osgPreMPExitFunctions->size() - 1; i >= 0; i--)
         {
             returnValue &= (*osgPreMPExitFunctions)[i]();
 
@@ -613,7 +613,7 @@ bool osgExit(void)
 
     if(osgPostMPExitFunctions != NULL)
     {
-        for(Int32 i = osgPostMPExitFunctions->size() - 1; i >= 0; i--)
+        for(PtrDiffT i = osgPostMPExitFunctions->size() - 1; i >= 0; i--)
         {
             returnValue &= (*osgPostMPExitFunctions)[i]();
 

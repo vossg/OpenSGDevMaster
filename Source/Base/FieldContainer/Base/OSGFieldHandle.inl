@@ -265,7 +265,7 @@ GetMapFieldHandle::~GetMapFieldHandle(void)
 }
 
 inline
-UInt32 GetMapFieldHandle::size(void) const
+SizeT GetMapFieldHandle::size(void) const
 {
     return 1;
 }
@@ -296,7 +296,7 @@ EditMapFieldHandle::~EditMapFieldHandle(void)
 }
 
 inline
-UInt32 EditMapFieldHandle::size(void) const
+SizeT EditMapFieldHandle::size(void) const
 {
     return 1;
 }
@@ -350,7 +350,7 @@ void EditSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-UInt32 EditSFieldHandle<FieldT>::size(void) const
+SizeT EditSFieldHandle<FieldT>::size(void) const
 {
     return 1;
 }
@@ -496,7 +496,7 @@ void EditMFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
 }
 
 template<class FieldT> inline
-UInt32 EditMFieldHandle<FieldT>::size(void) const
+SizeT EditMFieldHandle<FieldT>::size(void) const
 {
     return static_cast<FieldT const *>(_pField)->size();
 }
@@ -654,7 +654,7 @@ void GetSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-UInt32 GetSFieldHandle<FieldT>::size(void) const
+SizeT GetSFieldHandle<FieldT>::size(void) const
 {
     return 1;
 }
@@ -749,7 +749,7 @@ void GetMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-UInt32 GetMFieldHandle<FieldT>::size(void) const
+SizeT GetMFieldHandle<FieldT>::size(void) const
 {
     return static_cast<FieldT const *>(_pField)->size();
 }

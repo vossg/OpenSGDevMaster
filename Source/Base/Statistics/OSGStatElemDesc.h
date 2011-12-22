@@ -72,7 +72,7 @@ class OSG_BASE_DLLMAPPING StatElemDescBase
 
     static StatElemDescBase *getDesc       (      Int32  descId);
     static StatElemDescBase *findDescByName(const Char8 *name  );
-    static Int32             getNumOfDescs (      void         );
+    static UInt32            getNumOfDescs (      void         );
 
     static void              printAll      (      void         );
 

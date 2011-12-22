@@ -187,7 +187,7 @@ class MField : public Field
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
+    SizeT  getBinSize (void                   ) const;
     
     void   copyToBin  (BinaryDataHandler &pMem) const;
     void   copyFromBin(BinaryDataHandler &pMem);
@@ -246,8 +246,11 @@ class MField : public Field
                                      StoredType   t      = StoredType());
     void                   reserve  (size_type    newsize              );
     
-    UInt32                 size     (void                              ) const;
-    UInt32                 capacity (void                              ) const;
+    size_type              size     (void                              ) const;
+#if 0
+    UInt32                 size32   (void                              ) const;
+#endif
+    size_type              capacity (void                              ) const;
     bool                   empty    (void                              ) const;
     void                   swap     (MField                      &right);
 
@@ -265,8 +268,8 @@ class MField : public Field
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-          reference operator [](UInt32 index);
-    const_reference operator [](UInt32 index) const;
+          reference operator [](size_type index);
+    const_reference operator [](size_type index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

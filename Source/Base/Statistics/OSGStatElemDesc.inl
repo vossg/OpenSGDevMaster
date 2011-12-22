@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------*\
+/*---------------------------------------------------------------------------* \
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
@@ -57,9 +57,9 @@ StatElemDescBase *StatElemDescBase::getDesc(Int32 descId)
 /*-------------------------------------------------------------------------*/
 
 inline
-Int32 StatElemDescBase::getNumOfDescs(void)
+UInt32 StatElemDescBase::getNumOfDescs(void)
 { 
-    return _descVec ? _descVec->size() : 0;
+    return _descVec ? UInt32(_descVec->size()) : 0;
 }
 
 /*-------------------------------------------------------------------------*/

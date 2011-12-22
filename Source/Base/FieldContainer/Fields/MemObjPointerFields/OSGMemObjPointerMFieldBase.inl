@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 
 inline
-UInt32 MemObjPointerMFieldBase::getBinSize(void) const
+SizeT MemObjPointerMFieldBase::getBinSize(void) const
 {
     return 
         sizeof(UInt32) + // num elements
@@ -63,7 +63,7 @@ UInt32 MemObjPointerMFieldBase::getBinSize(void) const
 inline
 void MemObjPointerMFieldBase::copyToBin(BinaryDataHandler &pMem) const
 {
-    UInt32 n = _ptrStore.size();
+    UInt32 n = UInt32(_ptrStore.size());
 
     pMem.putValue(n);
 
@@ -165,14 +165,14 @@ void MemObjPointerMFieldBase::reserve(size_type size)
 
 inline 
 MemObjPointerMFieldBase::value_type 
-    MemObjPointerMFieldBase::operator[](UInt32 const index) const
+    MemObjPointerMFieldBase::operator[](size_type const index) const
 {
     return _ptrStore[index];
 }
 
 inline 
 MemObjPointerMFieldBase::value_type 
-    MemObjPointerMFieldBase::at(UInt32 const index) const
+    MemObjPointerMFieldBase::at(size_type const index) const
 {
     return _ptrStore.at(index);
 }

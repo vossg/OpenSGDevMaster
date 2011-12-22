@@ -186,13 +186,11 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-#if 1
-    virtual UInt32 getBinSize (Field             *pField) const = 0;
+    virtual SizeT  getBinSize (Field             *pField) const = 0;
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                Field             *pField) const = 0;
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                Field             *pField)       = 0;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -586,13 +584,11 @@ class FieldDescription : public FieldDescriptionBase
                             ConstFieldMaskArg  syncMode,
                       const UInt32             uiSyncInfo) const;
 
-#if 1
-    virtual UInt32 getBinSize (Field             *pField) const;
+    virtual SizeT  getBinSize (Field             *pField) const;
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                Field             *pField) const;
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                Field             *pField);
-#endif
 };
 
 OSG_END_NAMESPACE

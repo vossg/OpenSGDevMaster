@@ -85,11 +85,11 @@ Int32 stringncmp       (const OSG::Char8  *string1,
 
 
 inline
-Int32 osgStringLen     (const OSG::Char8  *string1);
+SizeT osgStringLen     (const OSG::Char8  *string1);
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 stringlen        (const OSG::Char8  *string1);
+SizeT stringlen        (const OSG::Char8  *string1);
 #endif
 
 
@@ -133,7 +133,7 @@ OSG_BASE_DLLMAPPING
 void        getLine                        (const std::string &szText, 
                                                   UInt32       uiTextPos, 
                                                   Int32       &iLineNumber, 
-                                                  Int32       &iLineStartPos);
+                                                  SizeT       &uiLineStartPos);
 
 OSG_BASE_DLLMAPPING
 bool  isPrintableChar (UChar8 c);

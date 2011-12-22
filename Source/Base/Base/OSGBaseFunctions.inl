@@ -2997,11 +2997,11 @@ OSG::Real64 osgSwapBytesFP(OSG::UInt64 src)
     \ingroup GrpBaseBaseMiscFn
  */
 template <> inline
-void osgSwapMem<2>(void *mem, OSG::UInt32 count)
+void osgSwapMem<2>(void *mem, OSG::SizeT count)
 {
     OSG::UInt16 *p = static_cast<OSG::UInt16 *>(mem);
 
-    for(OSG::UInt32 i = 0; i < count; ++i)
+    for(OSG::SizeT i = 0; i < count; ++i)
     {
         p[i] = osgSwapBytes(p[i]);
     }
@@ -3010,11 +3010,11 @@ void osgSwapMem<2>(void *mem, OSG::UInt32 count)
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <> inline
-void osgSwapMem<4>(void *mem, OSG::UInt32 count)
+void osgSwapMem<4>(void *mem, OSG::SizeT count)
 {
     OSG::UInt32 *p = static_cast<OSG::UInt32 *>(mem);
 
-    for(OSG::UInt32 i = 0; i < count; ++i)
+    for(OSG::SizeT i = 0; i < count; ++i)
     {
         p[i] = osgSwapBytes(p[i]);
     }
@@ -3023,11 +3023,11 @@ void osgSwapMem<4>(void *mem, OSG::UInt32 count)
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <> inline
-void osgSwapMem<8>(void *mem, OSG::UInt32 count)
+void osgSwapMem<8>(void *mem, OSG::SizeT count)
 {
     OSG::UInt64 *p = static_cast<OSG::UInt64 *>(mem);
 
-    for(OSG::UInt64 i = 0; i < count; ++i)
+    for(OSG::SizeT i = 0; i < count; ++i)
     {
         p[i] = osgSwapBytes(p[i]);
     }

@@ -90,17 +90,17 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
     static       OSGAny      getDefault   (void) { return OSGAny(); }
 
 
-    static       UInt32    getBinSize (const OSGAny &oObject)
+    static       SizeT       getBinSize (const OSGAny &oObject)
     {
         return sizeof(UInt8);
     }
 
-    static       UInt32    getBinSize (const OSGAny *pObjectStore,
-                                             UInt32  uiNumObjects)
+    static       SizeT       getBinSize (const OSGAny *pObjectStore,
+                                               SizeT   uiNumObjects)
     {
-        UInt32 size = 0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += getBinSize(pObjectStore[i]);
         }
@@ -119,9 +119,9 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
 
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const OSGAny            *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
-        for(UInt32 i=0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -137,9 +137,9 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
 
     static void copyFromBin(BinaryDataHandler &pMem, 
                             OSGAny            *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

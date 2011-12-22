@@ -46,9 +46,9 @@ void FieldContainerFactoryBase::setMapper(ContainerIdMapper *pMapper)
 }
 
 inline
-UInt32 FieldContainerFactoryBase::getNumLiveContainers(void) const
+SizeT FieldContainerFactoryBase::getNumLiveContainers(void) const
 {
-    UInt32 returnValue = 0;
+    SizeT returnValue = 0;
 
     _pStoreLock->acquire();
 
@@ -60,9 +60,9 @@ UInt32 FieldContainerFactoryBase::getNumLiveContainers(void) const
 }
 
 inline
-UInt32 FieldContainerFactoryBase::getNumTotalContainers(void) const
+SizeT FieldContainerFactoryBase::getNumTotalContainers(void) const
 {
-    UInt32 returnValue = 0;
+    SizeT returnValue = 0;
 
     _pStoreLock->acquire();
 

@@ -537,10 +537,14 @@ void ChangeList::fillStatistic(StatCollector *pColl) const
     if(pColl == NULL)
         return;
 
-    pColl->getElem(statNChangedStoreSize    )->set(_changedStore     .size());
-    pColl->getElem(statNCreatedStoreSize    )->set(_createdStore     .size());
-    pColl->getElem(statNUnCommittedStoreSize)->set(_uncommitedChanges.size());
-    pColl->getElem(statNPoolSize            )->set(_entryPool.size() * 32   );
+    pColl->getElem(statNChangedStoreSize    )->set(
+        UInt32(_changedStore     .size()));
+    pColl->getElem(statNCreatedStoreSize    )->set(
+        UInt32(_createdStore     .size()));
+    pColl->getElem(statNUnCommittedStoreSize)->set(
+        UInt32(_uncommitedChanges.size()));
+    pColl->getElem(statNPoolSize            )->set(
+        UInt32(_entryPool.size() * 32   ));
 
 }
 

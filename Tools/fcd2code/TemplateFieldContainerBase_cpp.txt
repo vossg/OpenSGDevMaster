@@ -611,9 +611,9 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 @!Classname!@Base::getBinSize(ConstFieldMaskArg whichField)
+SizeT @!Classname!@Base::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 @@if isDecorator
     if(FieldBits::NoField != (DecorateeFieldMask & whichField))

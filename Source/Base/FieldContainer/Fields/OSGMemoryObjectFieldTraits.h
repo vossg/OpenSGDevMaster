@@ -83,13 +83,13 @@ struct FieldTraits<MemoryObject *> :
     
     // TODO Is it correct to just ignore these for binary ??
     
-    static UInt32 getBinSize(MemoryObject * const &)
+    static SizeT  getBinSize(MemoryObject * const &)
     {
         return 0;
     }
 
-    static UInt32 getBinSize(MemoryObject* const*,
-                             UInt32              )
+    static SizeT  getBinSize(MemoryObject* const*,
+                             SizeT               )
     {
         return 0;
     }
@@ -101,7 +101,7 @@ struct FieldTraits<MemoryObject *> :
 
     static void copyToBin(BinaryDataHandler &,
                           MemoryObject      * const *,
-                          UInt32                      )
+                          SizeT                       )
     {
     }
 
@@ -112,7 +112,7 @@ struct FieldTraits<MemoryObject *> :
 
     static void copyFromBin(BinaryDataHandler &,
                             MemoryObject      * const *,
-                            UInt32                      )
+                            SizeT                       )
     {
     }
 };

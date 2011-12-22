@@ -122,9 +122,9 @@ void ParentPointerSField<PtrTypeT,
 /* Binary IO                                                               */
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-UInt32 ParentPointerSField<PtrTypeT, 
-                           RefCountPolicy,
-                           NamespaceI    >::getBinSize(void) const
+SizeT ParentPointerSField<PtrTypeT, 
+                          RefCountPolicy,
+                          NamespaceI    >::getBinSize(void) const
 {
     return (Inherited      ::getBinSize() + 
             PosSFieldTraits::getBinSize(_uiParentFieldPos));

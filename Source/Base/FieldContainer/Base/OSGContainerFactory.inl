@@ -104,7 +104,7 @@ UInt32 ContainerFactory<DescT>::getNumGroups(void) const
     if(_pLock != NULL)
         _pLock->acquire();
 
-    returnValue = _mGroupMap.size();
+    returnValue = UInt32(_mGroupMap.size());
 
     if(_pLock != NULL)
         _pLock->release();
@@ -150,7 +150,7 @@ UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)
         if(_pLock != NULL)
             _pLock->acquire();
 
-        returnValue                          = _mGroupMap.size() + 1;
+        returnValue                          = UInt16(_mGroupMap.size() + 1);
 
         _mGroupMap[std::string(szGroupName)] = returnValue;
 
@@ -192,7 +192,7 @@ typename ContainerFactory<DescT>::ContainerType *
 template <class DescT> inline
 UInt32 ContainerFactory<DescT>::getNumTypes(void) const
 {
-    return _mTypeNameMap.size();
+    return UInt32(_mTypeNameMap.size());
 }
 
 template <class DescT> inline

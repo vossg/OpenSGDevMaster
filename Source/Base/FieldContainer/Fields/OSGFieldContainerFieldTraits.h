@@ -74,13 +74,13 @@ struct FieldTraitsFCPtrBase :
         return "FieldContainerPtrMFieldBase";   
     }
 
-    static UInt32 getBinSize(FieldContainer * const &)
+    static SizeT  getBinSize(FieldContainer * const &)
     {
         return sizeof(UInt32);
     }
 
-    static UInt32 getBinSize(FieldContainer * const *,
-                             UInt32                  uiNumObjects)
+    static SizeT  getBinSize(FieldContainer * const *,
+                             SizeT                   uiNumObjects)
     {
         return sizeof(UInt32) * uiNumObjects;
     }
@@ -105,9 +105,9 @@ struct FieldTraitsFCPtrBase :
 
     static void copyToBin(BinaryDataHandler         &pMem, 
                           FieldContainer    * const *pObjectStore,
-                          UInt32                     uiNumObjects)
+                          SizeT                      uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; i++)
+        for(SizeT i = 0; i < uiNumObjects; i++)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -133,9 +133,9 @@ struct FieldTraitsFCPtrBase :
 
     static void copyFromBin(BinaryDataHandler & pMem, 
                             FieldContainer    **pObjectStore,
-                            UInt32              uiNumObjects)
+                            SizeT               uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; i++)
+        for(SizeT i = 0; i < uiNumObjects; i++)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

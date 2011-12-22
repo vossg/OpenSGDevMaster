@@ -119,9 +119,9 @@ OSG_ABSTR_FIELD_CONTAINER_DEF(AttachmentContainer)
 /*-------------------------------------------------------------------------*/
 /* Binary access                                                           */
 
-UInt32 AttachmentContainer::getBinSize(ConstFieldMaskArg whichField)
+SizeT AttachmentContainer::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
     {

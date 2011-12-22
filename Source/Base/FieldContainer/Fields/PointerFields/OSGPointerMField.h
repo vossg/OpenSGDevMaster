@@ -746,9 +746,9 @@ class PointerMField :
     /*! \{                                                                 */
 
 #ifndef OSG_CLEAN_FCFIELDS
-          reference operator [](UInt32 const index);
+          reference operator [](size_type const index);
 #endif
-    const_value     operator [](UInt32 const index) const;
+    const_value     operator [](size_type const index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

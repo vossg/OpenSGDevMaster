@@ -88,15 +88,15 @@ struct FieldTraits<AttachmentMap> :
         return "MFAttachmentPtrMap"; 
     }
     
-    static UInt32 getBinSize(const AttachmentMap &aMap);
+    static SizeT  getBinSize(const AttachmentMap &aMap);
 
-    static UInt32 getBinSize(const AttachmentMap *aMaps,
-                                   UInt32         numObjects)
+    static SizeT  getBinSize(const AttachmentMap *aMaps,
+                                   SizeT          numObjects)
     {
-        UInt32 size = 0;
+        SizeT size = 0;
 
         // defaut: individual field sizes
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             size += getBinSize(aMaps[i]);
         }
@@ -109,9 +109,9 @@ struct FieldTraits<AttachmentMap> :
     
     static void copyToBin(      BinaryDataHandler &pMem,
                           const AttachmentMap     *aMaps,
-                                UInt32             numObjects)
+                                SizeT              numObjects)
     {
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             copyToBin(pMem, aMaps[i]);
         }
@@ -122,9 +122,9 @@ struct FieldTraits<AttachmentMap> :
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             AttachmentMap     *aMaps,
-                            UInt32             numObjects)
+                            SizeT              numObjects)
     {
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             copyFromBin(pMem, aMaps[i]);
         }

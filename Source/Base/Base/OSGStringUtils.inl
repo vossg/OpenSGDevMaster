@@ -189,7 +189,7 @@ OSG::Int32 stringncmp(const OSG::Char8  *string1,
     \ingroup GrpBaseBaseStringFn
  */
 inline
-OSG::Int32 osgStringLen(const OSG::Char8 *string1)
+OSG::SizeT osgStringLen(const OSG::Char8 *string1)
 {
     return ::strlen(string1);
 }
@@ -206,7 +206,7 @@ OSG::Int32 osgStringLen(const OSG::Char8 *string1)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-OSG::Int32 stringlen(const OSG::Char8 *string1)
+OSG::SizeT stringlen(const OSG::Char8 *string1)
 {
     return OSG::osgStringLen(string1);
 }

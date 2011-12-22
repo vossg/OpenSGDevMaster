@@ -56,7 +56,7 @@ OSG_BEGIN_NAMESPACE
 inline
 UInt32 StatCollector::getNumOfElems(void) const
 {
-    return _elemVec.size();
+    return UInt32(_elemVec.size());
 }
 
 /*-------------------------------------------------------------------------*/

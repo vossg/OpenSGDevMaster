@@ -147,13 +147,13 @@ ChangeList::ChangedStoreConstIt ChangeList::endCreated(void) const
 inline
 UInt32 ChangeList::getNumCreated(void) const
 {
-    return _createdStore.size();
+    return UInt32(_createdStore.size());
 }
 
 inline
 UInt32 ChangeList::getNumChanged(void) const
 {
-    return _changedStore.size();
+    return UInt32(_changedStore.size());
 }
 
 /*-------------------------------------------------------------------------*/

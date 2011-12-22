@@ -84,7 +84,7 @@ class OSG_BASE_DLLMAPPING NormalQuantifier
 
     const Vec3f  &getNormal     (UInt32  index                 ) const;
 
-          UInt32  getNormalCount(void                          ) const;
+          SizeT   getNormalCount(void                          ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

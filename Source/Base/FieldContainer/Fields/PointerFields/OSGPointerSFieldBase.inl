@@ -70,7 +70,7 @@ PointerSFieldBase::value_type PointerSFieldBase::getValue(void) const
 }
 
 inline
-UInt32 PointerSFieldBase::getBinSize(void) const
+SizeT PointerSFieldBase::getBinSize(void) const
 {
     return SFieldTraits::getBinSize(_fieldValue);
 }

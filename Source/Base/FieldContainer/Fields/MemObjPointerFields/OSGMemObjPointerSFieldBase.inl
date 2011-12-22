@@ -71,7 +71,7 @@ MemObjPointerSFieldBase::value_type
 }
 
 inline
-UInt32 MemObjPointerSFieldBase::getBinSize(void) const
+SizeT MemObjPointerSFieldBase::getBinSize(void) const
 {
     return SFieldTraits::getBinSize(_fieldValue);
 }

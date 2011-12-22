@@ -170,7 +170,7 @@ void ExceptionBinaryDataHandler::putValue(const Real128 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const std::string &value)
 {
-    UInt32 len = value.length() + 1;
+    UInt32 len = UInt32(value.length()) + 1;
 
     putValue(len);
 
@@ -191,26 +191,26 @@ void ExceptionBinaryDataHandler::putValue(const GLenum &value)
 #endif
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const bool *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const bool *value, SizeT size)
 {
-    for(UInt32 i = 0; i < size; ++i)
+    for(SizeT i = 0; i < size; ++i)
         putValue(value[i]);
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const UInt8 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const UInt8 *value, SizeT size)
 {
     put(value, size * sizeof(UInt8));
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const UInt16 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const UInt16 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
 
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -223,12 +223,12 @@ void ExceptionBinaryDataHandler::putValues(const UInt16 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const UInt32 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const UInt32 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -241,12 +241,12 @@ void ExceptionBinaryDataHandler::putValues(const UInt32 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const UInt64 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const UInt64 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -259,12 +259,12 @@ void ExceptionBinaryDataHandler::putValues(const UInt64 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Int8 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Int8 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -277,12 +277,12 @@ void ExceptionBinaryDataHandler::putValues(const Int8 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Int16 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Int16 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -295,12 +295,12 @@ void ExceptionBinaryDataHandler::putValues(const Int16 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Int32 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Int32 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -313,12 +313,12 @@ void ExceptionBinaryDataHandler::putValues(const Int32 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Int64 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Int64 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -331,12 +331,12 @@ void ExceptionBinaryDataHandler::putValues(const Int64 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Real16 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Real16 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -349,12 +349,12 @@ void ExceptionBinaryDataHandler::putValues(const Real16 *value, UInt32 size)
 }
 
 inline
-void ExceptionBinaryDataHandler::putValues(const Fixed32 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Fixed32 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -367,12 +367,12 @@ void ExceptionBinaryDataHandler::putValues(const Fixed32 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Real32 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Real32 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -385,12 +385,12 @@ void ExceptionBinaryDataHandler::putValues(const Real32 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Real64 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Real64 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -403,12 +403,12 @@ void ExceptionBinaryDataHandler::putValues(const Real64 *value, UInt32 size)
 }
 
 inline 
-void ExceptionBinaryDataHandler::putValues(const Real128 *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const Real128 *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -422,9 +422,9 @@ void ExceptionBinaryDataHandler::putValues(const Real128 *value, UInt32 size)
 
 inline 
 void ExceptionBinaryDataHandler::putValues(const std::string *value, 
-                                                 UInt32       size )
+                                                 SizeT        size )
 {
-    for(UInt32 i = 0; i<size; ++i)
+    for(SizeT i = 0; i<size; ++i)
     {
         putValue(value[i]);
     }
@@ -432,12 +432,12 @@ void ExceptionBinaryDataHandler::putValues(const std::string *value,
 
 #ifdef OSG_GLENUM_NEQ_UINT32
 inline 
-void ExceptionBinaryDataHandler::putValues(const GLenum *value, UInt32 size)
+void ExceptionBinaryDataHandler::putValues(const GLenum *value, SizeT size)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             putValue(value[i]);
         }
@@ -611,29 +611,29 @@ void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
 
 inline 
 void ExceptionBinaryDataHandler::getValues(bool   *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
-    for(UInt32 i = 0; i < size; ++i)
+    for(SizeT i = 0; i < size; ++i)
         getValue(value[i]);
 }
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt8  *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(UInt8));
 }
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt16 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(UInt16));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<UInt16>(value[i]);
         }
@@ -643,14 +643,14 @@ void ExceptionBinaryDataHandler::getValues(UInt16 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt32 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(UInt32));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<UInt32>(value[i]);
         }
@@ -660,14 +660,14 @@ void ExceptionBinaryDataHandler::getValues(UInt32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt64 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(UInt64));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<UInt64>(value[i]);
         }
@@ -677,21 +677,21 @@ void ExceptionBinaryDataHandler::getValues(UInt64 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int8   *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Int8));
 }
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int16  *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Int16));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<Int16>(value[i]);
         }
@@ -701,14 +701,14 @@ void ExceptionBinaryDataHandler::getValues(Int16  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int32  *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Int32));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<Int32>(value[i]);
         }
@@ -718,14 +718,14 @@ void ExceptionBinaryDataHandler::getValues(Int32  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int64  *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Int64));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost<Int64>(value[i]);
         }
@@ -735,7 +735,7 @@ void ExceptionBinaryDataHandler::getValues(Int64  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real16 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Real16));
 
@@ -744,7 +744,7 @@ void ExceptionBinaryDataHandler::getValues(Real16 *value,
     {
         UInt16 *intValue = reinterpret_cast<UInt16 *>(value);
 
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i].setBits(osgNetToHost<UInt16>(intValue[i]));
         }
@@ -754,7 +754,7 @@ void ExceptionBinaryDataHandler::getValues(Real16 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Fixed32 *value, 
-                                           UInt32   size ) throw (ReadError)
+                                           SizeT    size ) throw (ReadError)
 {
     get(value, size * sizeof(Int32));
 
@@ -763,7 +763,7 @@ void ExceptionBinaryDataHandler::getValues(Fixed32 *value,
     {
         Int32 *intValue = reinterpret_cast<Int32 *>(value);
 
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i].setValue(osgNetToHost<Int32>(intValue[i]));
         }
@@ -773,7 +773,7 @@ void ExceptionBinaryDataHandler::getValues(Fixed32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real32 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Real32));
 
@@ -787,7 +787,7 @@ void ExceptionBinaryDataHandler::getValues(Real32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real64 *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(Real64));
 
@@ -801,7 +801,7 @@ void ExceptionBinaryDataHandler::getValues(Real64 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real128 *value, 
-                                           UInt32   size ) throw (ReadError)
+                                           SizeT    size ) throw (ReadError)
 {
 #if 0
     get(value, size * sizeof(Real128));
@@ -820,9 +820,9 @@ void ExceptionBinaryDataHandler::getValues(Real128 *value,
 inline 
 void 
     ExceptionBinaryDataHandler::getValues(std::string *value, 
-                                          UInt32       size ) throw (ReadError)
+                                          SizeT        size ) throw (ReadError)
 {
-    for(UInt32 i = 0; i < size; ++i)
+    for(SizeT i = 0; i < size; ++i)
     {
         getValue(value[i]);
     }
@@ -831,14 +831,14 @@ void
 #ifdef OSG_GLENUM_NEQ_UINT32
 inline 
 void ExceptionBinaryDataHandler::getValues(GLenum *value, 
-                                           UInt32  size ) throw (ReadError)
+                                           SizeT   size ) throw (ReadError)
 {
     get(value, size * sizeof(UInt32));
 
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        for(UInt32 i = 0; i < size; ++i)
+        for(SizeT i = 0; i < size; ++i)
         {
             value[i] = osgNetToHost(value[i]);
         }

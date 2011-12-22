@@ -336,9 +336,9 @@ void Node::clearChildren(void)
     _mfChildren.clear();
 }
 
-UInt32 Node::getBinSize(ConstFieldMaskArg whichField)
+SizeT Node::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VolumeFieldMask & whichField))
     {

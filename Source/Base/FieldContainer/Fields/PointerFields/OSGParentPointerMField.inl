@@ -534,9 +534,9 @@ ParentPointerMField<PtrTypeT,
 /* Binary IO                                                               */
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-UInt32 ParentPointerMField<PtrTypeT, 
-                           RefCountPolicy, 
-                           NamespaceI    >::getBinSize(void) const
+SizeT ParentPointerMField<PtrTypeT, 
+                          RefCountPolicy, 
+                          NamespaceI    >::getBinSize(void) const
 {
     size_type returnValue = Inherited::getBinSize();
 
@@ -557,7 +557,7 @@ void ParentPointerMField<PtrTypeT,
 {
     Inherited::copyToBin(pMem);
     
-    UInt32 ptrSize = this->size();
+    SizeT ptrSize = this->size();
 
     if(ptrSize > 0)
     {
@@ -574,7 +574,7 @@ void ParentPointerMField<PtrTypeT,
 {
     Inherited::copyFromBin(pMem);
 
-    UInt32 ptrSize = this->size();
+    SizeT ptrSize = this->size();
     
     if(ptrSize > 0)
     {
@@ -950,7 +950,7 @@ typename ParentPointerMField<PtrTypeT,
                              NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
-                        NamespaceI    >::operator [](const UInt32 index) const
+                        NamespaceI   >::operator [](const size_type index) const
 {
     return static_cast<value_type>(this->ptrStoreGet(index));
 }
@@ -961,7 +961,7 @@ typename ParentPointerMField<PtrTypeT,
                              NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
-                        NamespaceI    >::ptrAt(const UInt32 index) const
+                        NamespaceI    >::ptrAt(const size_type index) const
 {
     return static_cast<value_type>(this->ptrStoreGet(index));
 }
@@ -971,7 +971,7 @@ template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 UInt16 ParentPointerMField<PtrTypeT, 
                            RefCountPolicy,
                            NamespaceI    >::parentFieldPosAt(
-                               const UInt32 index) const
+                               const size_type index) const
 {
     return _vParentPos[index];
 }

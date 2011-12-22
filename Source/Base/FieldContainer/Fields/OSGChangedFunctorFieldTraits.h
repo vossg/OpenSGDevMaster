@@ -82,13 +82,13 @@ struct FieldTraits<ChangedFunctorCallback> :
     }
 
 
-    static UInt32 getBinSize(const ChangedFunctorCallback &)
+    static SizeT  getBinSize(const ChangedFunctorCallback &)
     {
         return 0; //sizeof(ValueT);
     }
 
-    static UInt32 getBinSize(const ChangedFunctorCallback *,
-                                   UInt32                  uiNumObjects)
+    static SizeT  getBinSize(const ChangedFunctorCallback *,
+                                   SizeT                   uiNumObjects)
     {
         return 0; //sizeof(ValueT) * uiNumObjects;
     }
@@ -101,7 +101,7 @@ struct FieldTraits<ChangedFunctorCallback> :
 
     static void copyToBin(      BinaryDataHandler      &pMem,
                           const ChangedFunctorCallback *pObjectStore,
-                                UInt32                  uiNumObjects)
+                                SizeT                   uiNumObjects)
     {
 //        pMem.putValues(&(pObjectStore[0]), uiNumObjects);
     }
@@ -114,7 +114,7 @@ struct FieldTraits<ChangedFunctorCallback> :
 
     static void copyFromBin(BinaryDataHandler      &pMem,
                             ChangedFunctorCallback *pObjectStore,
-                            UInt32                  uiNumObjects)
+                            SizeT                   uiNumObjects)
     {
 //        pMem.getValues(&(pObjectStore[0]), uiNumObjects);
     }

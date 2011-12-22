@@ -104,7 +104,7 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<FieldContainerPtrSFieldBase> :
     /*! \{                                                                 */
 
     virtual bool   equal(Inherited::Ptr rhs) const;
-    virtual UInt32 size (void              ) const;
+    virtual SizeT  size (void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -215,7 +215,7 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
     /*! \{                                                                 */
 
     virtual bool   equal(Inherited::Ptr rhs) const;
-    virtual UInt32 size (void              ) const;
+    virtual SizeT  size (void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

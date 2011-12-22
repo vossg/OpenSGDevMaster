@@ -314,9 +314,9 @@ void GlobalsAttachmentBase::clearElements(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GlobalsAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GlobalsAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
     {

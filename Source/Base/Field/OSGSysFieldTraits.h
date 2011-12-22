@@ -76,7 +76,7 @@ struct FieldTraits<bool, 2> : public FieldTraitsPODTemplateBase<bool, 2>
     static       bool      getDefault   (void) { return false;               }
 
 
-    static UInt32 getBinSize (const bool &)
+    static SizeT getBinSize (const bool &)
     {
         return sizeof(UInt8);
     }
@@ -484,13 +484,13 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
     
     // TODO Is it correct to just ignore these for binary ??
     
-    static UInt32 getBinSize(void * const &)
+    static SizeT getBinSize(void * const &)
     {
         return 0;
     }
 
-    static UInt32 getBinSize(void* const*,
-                                   UInt32     )
+    static SizeT getBinSize(void * const *,
+                            SizeT         )
     {
         return 0;
     }
@@ -502,7 +502,7 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
 
     static void copyToBin(BinaryDataHandler &,
                           void              * const *,
-                          UInt32                      )
+                          SizeT                      )
     {
     }
 
@@ -513,7 +513,7 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
 
     static void copyFromBin(BinaryDataHandler &,
                             void              * const *,
-                            UInt32                      )
+                            SizeT                      )
     {
     }
 };

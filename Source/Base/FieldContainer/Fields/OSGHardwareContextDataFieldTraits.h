@@ -84,13 +84,13 @@ struct FieldTraits<HardwareContextData *> :
     
     // TODO Is it correct to just ignore these for binary ??
     
-    static UInt32 getBinSize(HardwareContextData * const &)
+    static SizeT  getBinSize(HardwareContextData * const &)
     {
         return 0;
     }
 
-    static UInt32 getBinSize(HardwareContextData* const*,
-                             UInt32                      )
+    static SizeT  getBinSize(HardwareContextData* const*,
+                             SizeT                       )
     {
         return 0;
     }
@@ -102,7 +102,7 @@ struct FieldTraits<HardwareContextData *> :
 
     static void copyToBin(BinaryDataHandler   &,
                           HardwareContextData * const *,
-                          UInt32                         )
+                          SizeT                          )
     {
     }
 
@@ -113,7 +113,7 @@ struct FieldTraits<HardwareContextData *> :
 
     static void copyFromBin(BinaryDataHandler   &,
                             HardwareContextData * const *,
-                            UInt32                       )
+                            SizeT                         )
     {
     }
 };

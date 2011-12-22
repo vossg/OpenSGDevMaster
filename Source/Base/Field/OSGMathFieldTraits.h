@@ -125,13 +125,13 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
         TypeTrait::putToStream((val.getValues())[15], outStr);
     }
 
-    static       UInt32    getBinSize (const Matrix &)
+    static       SizeT     getBinSize (const Matrix &)
     {
         return sizeof(Real32) * 16;
     }
 
-    static       UInt32    getBinSize (const Matrix  *,
-                                             UInt32   uiNumObjects)
+    static       SizeT     getBinSize (const Matrix  *,
+                                             SizeT    uiNumObjects)
     {
         return sizeof(Real32) * 16 * uiNumObjects;
     }
@@ -149,16 +149,16 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
         pMem.getValues(&oObject[0][0], 16);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem,
-                                const Matrix      *pObjectStore,
-                                UInt32             uiNumObjects)
+    static void copyToBin    (      BinaryDataHandler &pMem,
+                              const Matrix            *pObjectStore,
+                                    SizeT              uiNumObjects)
     {
         pMem.putValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }
     
-    static void copyFromBin(    BinaryDataHandler &pMem,
-                                Matrix           *pObjectStore,
-                                UInt32             uiNumObjects)
+    static void copyFromBin  (      BinaryDataHandler &pMem,
+                                    Matrix           *pObjectStore,
+                                    SizeT             uiNumObjects)
     {
         pMem.getValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }
@@ -240,13 +240,13 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
         TypeTrait::putToStream((val.getValues())[15], outStr);
     }
 
-    static       UInt32    getBinSize (const Matrix4d &)
+    static       SizeT     getBinSize (const Matrix4d &)
     {
         return sizeof(Real64) * 16;
     }
 
-    static       UInt32    getBinSize (const Matrix4d  *,
-                                             UInt32  uiNumObjects)
+    static       SizeT     getBinSize (const Matrix4d  *,
+                                             SizeT       uiNumObjects)
     {
         return sizeof(Real64) * 16 * uiNumObjects;
     }
@@ -264,16 +264,16 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
         pMem.getValues(&oObject[0][0], 16);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const Matrix4d          *pObjectStore,
-                                UInt32             uiNumObjects)
+    static void copyToBin    (      BinaryDataHandler &pMem,
+                              const Matrix4d          *pObjectStore,
+                                    SizeT              uiNumObjects)
     {
         pMem.putValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }
     
     static void copyFromBin(    BinaryDataHandler &pMem,
                                 Matrix4d          *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         pMem.getValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }
@@ -314,13 +314,13 @@ struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
         return true;
     }
 
-    static       UInt32    getBinSize (const Matrix4fx &)
+    static       SizeT     getBinSize (const Matrix4fx &)
     {
         return sizeof(Fixed32) * 16;
     }
 
-    static       UInt32    getBinSize (const Matrix4fx  *,
-                                             UInt32      uiNumObjects)
+    static       SizeT     getBinSize (const Matrix4fx  *,
+                                             SizeT       uiNumObjects)
     {
         return sizeof(Fixed32) * 16 * uiNumObjects;
     }
@@ -340,14 +340,14 @@ struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
 
     static void copyToBin(      BinaryDataHandler &pMem,
                           const Matrix4fx         *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         pMem.putValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }
     
     static void copyFromBin(    BinaryDataHandler &pMem,
                                 Matrix4fx         *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
         pMem.getValues(&pObjectStore[0][0][0], uiNumObjects * 16);
     }

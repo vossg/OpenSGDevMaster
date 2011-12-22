@@ -234,19 +234,19 @@ std::string addStringBetweenUpperCaseChange(const std::string &szSource,
 void getLine(const std::string &szText, 
                    UInt32       uiTextPos, 
                    Int32       &iLineNumber, 
-                   Int32       &iLineStartPos)
+                   SizeT       &uiLineStartPos)
 {
     std::istringstream inStream(szText);
 
     std::string szLine;
 
-    iLineNumber   = 1;
-    iLineStartPos = 0;
+    iLineNumber    = 1;
+    uiLineStartPos = 0;
 
     while(std::getline(inStream, szLine) && 
-          uiTextPos > iLineStartPos + szLine.size())
+          uiTextPos > uiLineStartPos + szLine.size())
     {
-        iLineStartPos += szLine.size() + 1;
+        uiLineStartPos += szLine.size() + 1;
 
         ++iLineNumber;
     }

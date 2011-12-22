@@ -582,7 +582,7 @@ void GroupMCastConnection::initialize()
 //    std::string group = "146.140.32.7";
 //    std::string group = "146.140.32.255";
     int           port = 15356;
-    int           pos  = _destination.find(':');
+    SizeT         pos  = _destination.find(':');
     int           clientPort;
     std::string   clientHost;
     UInt32        index;
@@ -601,7 +601,7 @@ void GroupMCastConnection::initialize()
     if(_sockets.size()<=16)
         ackNum = 1;
 
-    if(pos>=0)
+    if(pos != std::string::npos)
     {
         group = std::string(_destination,0,pos);
         port  = atoi(std::string(_destination,

@@ -76,7 +76,7 @@ GroupConnection::~GroupConnection(void)
  */
 UInt32 GroupConnection::getChannelCount(void)
 {
-    return _selection.size();
+    return UInt32(_selection.size());
 }
 
 /*! mark the given channel as selectable
@@ -155,7 +155,7 @@ Connection::Channel GroupConnection::newChannelIndex(ChannelIndex index)
     }
     else
     {
-        channel = _channelToIndex.size();
+        channel = Channel(_channelToIndex.size());
         _channelToIndex.resize(channel + 1);
     }
 

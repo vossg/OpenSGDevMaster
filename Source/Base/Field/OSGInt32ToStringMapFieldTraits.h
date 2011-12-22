@@ -187,12 +187,12 @@ struct FieldTraits<Int32ToStringMap> :
     // Binary conversion
     
     // Return the size of the binary version in byte   
-    static UInt32 getBinSize  (const Int32ToStringMap  &obj   )
+    static SizeT getBinSize  (const Int32ToStringMap  &obj   )
     {
         //Size:
         //Size of a Int32 -> number of items in the Map
         //Sum of all the sizes of the strings
-        UInt32 uiStringSizeSum = 0;
+        SizeT uiStringSizeSum = 0;
 
         Int32ToStringMap::const_iterator it = obj.begin();
 
@@ -204,14 +204,14 @@ struct FieldTraits<Int32ToStringMap> :
         return sizeof(UInt32) + obj.size() * sizeof(Int32) + uiStringSizeSum;
     }
 
-    static UInt32 getBinSize  (const Int32ToStringMap  *obj, 
-                                     UInt32             num   )
+    static SizeT  getBinSize  (const Int32ToStringMap  *obj, 
+                                     SizeT              num   )
     {
         //Size:
         //Sum of all the objs
-        UInt32 uiSizeSum = 0;
+        SizeT uiSizeSum = 0;
 
-        for(UInt32 i = 0; i < num; ++i)
+        for(SizeT i = 0; i < num; ++i)
         {
             uiSizeSum += getBinSize(obj[i]);
         }
@@ -241,7 +241,7 @@ struct FieldTraits<Int32ToStringMap> :
 
     static void copyToBin     (      BinaryDataHandler &bdh,
                                const Int32ToStringMap  *objs,
-                                     UInt32             num   )
+                                     SizeT              num   )
     {
         for(UInt32 i = 0; i < num; ++i)
         {
@@ -277,9 +277,9 @@ struct FieldTraits<Int32ToStringMap> :
 
     static void copyFromBin   (      BinaryDataHandler &bdh,
                                      Int32ToStringMap  *objs,
-                                     UInt32             num   )
+                                     SizeT              num   )
     {
-        for(UInt32 i = 0; i < num; ++i)
+        for(SizeT i = 0; i < num; ++i)
         {
             copyFromBin(bdh, objs[i]);
         }

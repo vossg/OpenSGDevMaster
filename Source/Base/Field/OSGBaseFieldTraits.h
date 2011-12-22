@@ -273,17 +273,17 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
         return true;
     }
 
-    static       UInt32    getBinSize (const std::string &oObject)
+    static       SizeT     getBinSize (const std::string &oObject)
     {
         return oObject.length() + 1 + sizeof(UInt32);
     }
 
-    static       UInt32    getBinSize (const std::string *pObjectStore,
-                                                  UInt32  uiNumObjects)
+    static       SizeT     getBinSize (const std::string *pObjectStore,
+                                                  SizeT   uiNumObjects)
     {
-        UInt32 size=0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += getBinSize(pObjectStore[i]);
         }
@@ -300,9 +300,9 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
 
     static void copyToBin(           BinaryDataHandler &pMem, 
                           const std::string            *pObjectStore,
-                                     UInt32             uiNumObjects)
+                                     SizeT              uiNumObjects)
     {
-        for(UInt32 i=0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -316,9 +316,9 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
 
     static void copyFromBin(     BinaryDataHandler &pMem, 
                             std::string            *pObjectStore,
-                                 UInt32             uiNumObjects)
+                                 SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }
@@ -390,7 +390,7 @@ struct FieldTraits<BoxVolume> :
         Real32 valStore[  6];
         Char8  str     [256];
 
-        UInt32  length = strlen(inVal);
+        SizeT   length = strlen(inVal);
         Char8  *c      = str;
     
         if(length > 256)
@@ -480,9 +480,9 @@ struct FieldTraits<BoxVolume> :
         TypeTrait::putToStream(max[2], str);
     }
 
-    static UInt32 getBinSize(const BoxVolume &oObject)
+    static SizeT getBinSize(const BoxVolume &oObject)
     {
-        UInt32  size = sizeof(UInt16);
+        SizeT  size = sizeof(UInt16);
 
         size += sizeof(Pnt3f) + sizeof(Pnt3f);
 
@@ -490,12 +490,12 @@ struct FieldTraits<BoxVolume> :
     }
 
 
-    static UInt32 getBinSize(const BoxVolume *pObjectStore,
-                                   UInt32     uiNumObjects)
+    static SizeT getBinSize(const BoxVolume *pObjectStore,
+                                  SizeT      uiNumObjects)
     {
-        UInt32 size = 0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += getBinSize(pObjectStore[i]);
         }
@@ -517,9 +517,9 @@ struct FieldTraits<BoxVolume> :
 
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const BoxVolume         *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -541,9 +541,9 @@ struct FieldTraits<BoxVolume> :
 
     static void copyFromBin(BinaryDataHandler &pMem, 
                             BoxVolume         *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }
@@ -661,13 +661,13 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
 
     static       Plane     getDefault   (void) { return Plane();        }
 
-    static       UInt32    getBinSize (const Plane &)
+    static       SizeT     getBinSize (const Plane &)
     {
         return sizeof(Real32) * 4;
     }
 
-    static       UInt32    getBinSize (const Plane     *,
-                                             UInt32     uiNumObjects)
+    static       SizeT     getBinSize (const Plane     *,
+                                             SizeT      uiNumObjects)
     {
         return sizeof(Real32) * 4 * uiNumObjects;
     }
@@ -684,9 +684,9 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
 
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const Plane             *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -706,9 +706,9 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
 
     static void copyFromBin(BinaryDataHandler &pMem, 
                             Plane             *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

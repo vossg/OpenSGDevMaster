@@ -134,7 +134,7 @@ bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
 }
 
 inline
-UInt32 GetSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
+SizeT GetSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
 {
     return 1;
 }
@@ -300,7 +300,7 @@ bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(
 }
 
 inline
-UInt32 EditSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
+SizeT EditSFieldHandle<FieldContainerPtrSFieldBase>::size(void) const
 {
     return 1;
 }

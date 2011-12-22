@@ -67,7 +67,7 @@ void MField<bool, 2>::syncWith(Self               &source,
 }
 
 template <> inline
-UInt32 MField<bool, 2>::getBinSize(void) const
+SizeT MField<bool, 2>::getBinSize(void) const
 {
     return sizeof(UInt32) + // num elements
            sizeof(UInt8) * _values.size();
@@ -76,7 +76,7 @@ UInt32 MField<bool, 2>::getBinSize(void) const
 template <> inline
 void MField<bool, 2>::copyToBin(BinaryDataHandler &pMem) const
 {
-    UInt32 n = _values.size();
+    UInt32 n = UInt32(_values.size());
 
     pMem.putValue(n);
 
@@ -91,7 +91,7 @@ void MField<bool, 2>::copyToBin(BinaryDataHandler &pMem) const
 template <> inline
 void MField<bool, 2>::copyFromBin(BinaryDataHandler &pMem)
 {
-    UInt32 n;
+     UInt32 n;
     
      pMem  .getValue(n);
     _values.clear ( );

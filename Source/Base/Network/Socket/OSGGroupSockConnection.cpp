@@ -119,7 +119,7 @@ GroupConnection::Channel GroupSockConnection::connectPoint(
     SocketAddress destination;
     if(connectSocket(socket,address,destination,timeout))
     {
-        channel = newChannelIndex(_sockets.size());
+        channel = newChannelIndex(ChannelIndex(_sockets.size()));
         _sockets        .push_back(socket);
         _remoteAddresses.push_back(destination);
         _readIndex = 0;
@@ -157,7 +157,7 @@ GroupConnection::Channel GroupSockConnection::acceptPoint(Time timeout)
                                          destination,
                                          timeout))
     {
-        Channel channel = newChannelIndex(_sockets.size());
+        Channel channel = newChannelIndex(ChannelIndex(_sockets.size()));
         _sockets        .push_back(from);
         _remoteAddresses.push_back(destination);
         _readIndex = 0;
@@ -322,7 +322,7 @@ bool GroupSockConnection::wait(Time timeout) throw (ReadError)
     UInt32 len;
     UInt32 index;
     UInt32 tag=314156;
-    UInt32 missing = _sockets.size();
+    SizeT  missing = _sockets.size();
     SocketSelection selection,result;
 
     for(index = 0 ; index < _sockets.size() ; ++index)
@@ -498,8 +498,9 @@ bool GroupSockConnection::connectSocket(StreamSocket &socket,
     Time         startTime = getSystemTime();
     bool         connected=false;
     
-    int pos = address.find(':');
-    if(pos>=0)
+    SizeT        pos = address.find(':');
+
+    if(pos != std::string::npos)
     {
         host = std::string(address,0,pos);
         port = atoi(std::string(address,pos+1,std::string::npos).c_str());
