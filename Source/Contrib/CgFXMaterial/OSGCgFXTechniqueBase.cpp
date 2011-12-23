@@ -310,9 +310,9 @@ void CgFXTechniqueBase::clearPassStates(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CgFXTechniqueBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CgFXTechniqueBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderPassStatesFieldMask & whichField))
     {

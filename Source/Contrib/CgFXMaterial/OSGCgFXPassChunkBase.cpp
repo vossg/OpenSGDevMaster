@@ -218,9 +218,9 @@ SFWeakCgFXMaterialPtr *CgFXPassChunkBase::editSFMaterial       (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CgFXPassChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CgFXPassChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {

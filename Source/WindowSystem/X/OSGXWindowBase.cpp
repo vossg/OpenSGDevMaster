@@ -328,9 +328,9 @@ const SFInt32 *XWindowBase::getSFFbConfigId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 XWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT XWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DisplayFieldMask & whichField))
     {

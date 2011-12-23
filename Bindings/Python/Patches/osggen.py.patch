@@ -1,5 +1,5 @@
 --- /home/gerrit/nethome/Projects/OpenSG/Python/pyopensg.master/src/osggen.py	2011-01-12 10:25:49.000000000 +0800
-+++ osggen.py.proc	2011-12-21 15:27:48.456855747 +0800
++++ osggen.py.proc	2011-12-24 05:04:37.004137828 +0800
 @@ -422,6 +422,7 @@
     # For now ignore all the field based access and the edit based ref access.
     cls.member_functions(regex_matcher("edit.*"), allow_empty = True).exclude()
@@ -8,3 +8,16 @@
  
     # Remove a set of methods and parameters that we have deemed to be "bad", (ie. difficult or
     # impossible to wrap).
+@@ -510,10 +511,10 @@
+    new_methodname = "%s_%s"%(cleanTemplateName(classname), methodname)   # calldef.location.line
+ 
+    if mfIsPointer:
+-      get_size  = "mf_data->size()"
++      get_size  = "mf_data->size32()"
+       get_entry = "(*mf_data)[i]"
+    else:
+-      get_size  = "mf_data.size()"
++      get_size  = "mf_data.size32()"
+       get_entry = "mf_data[i]"
+ 
+    # Determine if the type contained in the multi-field derives from OSG::FieldContainer. If it

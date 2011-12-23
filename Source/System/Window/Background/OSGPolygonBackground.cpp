@@ -113,7 +113,7 @@ void PolygonBackground::clear(DrawEnv *pEnv)
        getMFPositions()->size() != getMFTexCoords()->size())
     {
         FWARNING(("PolygonBackground::clear: positions and texcoords have "
-                  "different/ invalid sizes (%d vs. %d)!\n",
+                  "different/ invalid sizes (%"PRISize" vs. %"PRISize")!\n",
                   getMFPositions()->size(), getMFTexCoords()->size()));
         return;
     }

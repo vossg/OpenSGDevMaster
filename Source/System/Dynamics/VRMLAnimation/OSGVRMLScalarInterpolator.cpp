@@ -133,7 +133,7 @@ void VRMLScalarInterpolator::changed(ConstFieldMaskArg whichField,
         {
             fprintf(stderr, 
                     "interpol resort : sizes don't match %"PRISize" | %d\n",
-                    uiNumRes, _mfResortIndex.size());
+                    uiNumRes, _mfResortIndex.size32());
         }
     }
 

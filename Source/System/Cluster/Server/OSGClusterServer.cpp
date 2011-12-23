@@ -429,7 +429,7 @@ bool ClusterServer::windowChanged(FieldContainer * const fcp,
 
             if(_window != NULL)
             {
-                fprintf(stderr, "%p %d %td\n",
+                fprintf(stderr, "%p %"PRISize" %td\n",
                         &(*_window),
                         window->getMFServers()->size(),
                         sIt - window->getMFServers()->begin());

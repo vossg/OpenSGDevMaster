@@ -180,7 +180,8 @@ bool CSMClusterWindow::init(void)
     {
         if(this->getMFServerIds()->size() != 0)
         {
-            FWARNING(("Not enough server ids (%d/%d), field ignored\n",
+            FWARNING(("Not enough server ids (%"PRISize"/%"PRISize"), "
+                      "field ignored\n",
                       this->getMFServerIds()->size(),
                       this->getMFServers  ()->size()                  ));
         }

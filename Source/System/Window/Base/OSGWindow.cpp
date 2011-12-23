@@ -662,7 +662,7 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
         _mfGlObjectLastRefresh.resize(osgId + 1, 0);
     }
 
-    FDEBUG(("Window 0x%p (event %d,ri:%d,rf:%d): "
+    FDEBUG(("Window 0x%p (event %d,ri:%"PRISize",rf:%"PRISize"): "
             "Validating object %d: last reinit:%d, last validate:"
             "%d last refresh: %d => %s\n", 
             this, getGlObjectEventCounter(), 

@@ -34,11 +34,11 @@ import splitGenHelper
 def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, exc_types):
 
   # Add basic classes that can just be wrapped with no customization
-  for c in ["Connection", 
-            "PointConnection", 
-            "GroupConnection",
-            "ConnectionType"]:
-      gen_classes.append(osggen.ClassInfo(c))
+  #for c in ["Connection", 
+  #          "PointConnection", 
+  #          "GroupConnection",
+  #          "ConnectionType"]:
+  #    gen_classes.append(osggen.ClassInfo(c))
 
   # For OSG::ExceptionBinaryDataHandler::petValues(), we could set things up
   # so that the input is a Python list. From there, however, it becomes tricky
@@ -302,6 +302,7 @@ def postScanSetup(osg, template_alias_db):
   osggen.handleClassDefaults(fcf_base, True)
   fcf_base["beginStore"].exclude()
   fcf_base["endStore"].exclude()
+  fcf_base["getFieldContainerStore"].exclude();
   finalize(fcf_base)
 
   #for c in [c.related_class for c in fcf_base[0].recursive_bases]:
@@ -743,5 +744,93 @@ bp::list getChildren(OSG::Node* node)
 
   adddition_exp.extend(["vector<unsigned short>", "vector<float>",
                         "vector<std::string>"])
+
+
+
+  return
+
+def localUnused(osg):
+  c = osg["Connection"]
+
+#  c["bind"].exclude()
+#  c["bind"].set_virtuality(pd.VIRTUALITY_TYPES.NOT_VIRTUAL)
+
+  osggen.excludeMembers(c, ["bind"]);
+
+  c.add_wrapper_code("""
+     virtual ::std::string bind( ::std::string const & address="" ){
+         bp::override func_bind = this->get_override( "bind" );
+         return func_bind( address ).as<std::string>();
+     }
+""")
+
+  c.add_registration_code("""
+        { //::OSG::Connection::bind
+        
+            typedef ::std::string ( ::OSG::Connection::*bind_function_type )( ::std::string const & ) ;
+            
+            Connection_exposer.def( 
+                "bind"
+                , bp::pure_virtual( bind_function_type(&::OSG::Connection::bind) )
+                , ( bp::arg("address")="" ) );
+        
+        }
+""", False)
+
+
+  c = osg["GroupConnection"]
+
+  osggen.excludeMembers(c, ["bind"]);
+
+#  c["bind"].exclude()
+
+  c.add_wrapper_code("""
+     virtual ::std::string bind( ::std::string const & address="" ){
+         bp::override func_bind = this->get_override( "bind" );
+         return func_bind( address ).as<std::string>();
+     }
+""")
+
+#  c.add_registration_code("""
+#         { //::OSG::Connection::bind
+#        
+#            typedef ::std::string ( ::OSG::Connection::*bind_function_type )( ::std::string const & ) ;
+#            
+#            GroupConnection_exposer.def( 
+#                "bind"
+#                , bp::pure_virtual( bind_function_type(&::OSG::Connection::bind) )
+#                , ( bp::arg("address")="" ) );
+#        
+#        }
+#""", False)
+
+
+
+  c = osg["PointConnection"]
+
+  osggen.excludeMembers(c, ["bind"]);
+
+#  c["bind"].exclude()
+
+  c.add_wrapper_code("""
+     virtual ::std::string bind( ::std::string const & address="" ){
+         bp::override func_bind = this->get_override( "bind" );
+         return func_bind( address ).as<std::string>();
+     }
+""")
+
+ # c.add_registration_code("""
+ #        { //::OSG::Connection::bind
+ #       
+ #           typedef ::std::string ( ::OSG::Connection::*bind_function_type )( ::std::string const & ) ;
+ #           
+ #           PointConnection_exposer.def( 
+ #               "bind"
+ #               , bp::pure_virtual( bind_function_type(&::OSG::Connection::bind) )
+ #               , ( bp::arg("address")="" ) );
+ #       
+ #       }
+#""", False)
+
 
   return

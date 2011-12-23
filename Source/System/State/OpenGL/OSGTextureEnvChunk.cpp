@@ -200,7 +200,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     else if(getMFShaderOffsetMatrix()->size() != 0)
     {
         FWARNING(("TextureEnvChunk::handleTextureShader: shaderOffsetMatrix "
-                  "has to have 4 entries, not %d!\n",
+                  "has to have 4 entries, not %"PRISize"!\n",
                   getMFShaderOffsetMatrix()->size() ));
     }
 

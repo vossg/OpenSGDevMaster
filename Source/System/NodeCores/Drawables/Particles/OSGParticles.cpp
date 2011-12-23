@@ -2933,7 +2933,7 @@ void Particles::drawPrimitives(DrawEnv *pEnv)
       )
     {
         FWARNING(("Particles::draw: inconsistent attributes "
-                    "(p:%d s:%d c:%d)!\n",
+                    "(p:%"PRISize" s:%"PRISize" c:%d)!\n",
                     pos->size(), size->size(),
                   (col != NULL)? int(col->size()) : -1));
         return;

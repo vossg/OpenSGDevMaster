@@ -295,7 +295,7 @@ bool createNormalVolume (      Image       *inImage,
         calcThetaPhi = true;
         break;
       }
-      FDEBUG (( "dataIndex[%d]: %d\n", i, dataIndex[i] ));
+      FDEBUG (( "dataIndex[%"PRISize"]: %d\n", i, dataIndex[i] ));
     }        
     else {
       FFATAL (( "Invalid outputFormat element %c, valid: %s\n",

@@ -163,7 +163,7 @@ bool VerifyGeoGraphOp::travNodeEnter(Node *node)
     if(geo->getTypes()->size() != geo->getLengths()->size())
     {
         FINFO(("VerifyGeoGraphOp::travNodeEnter: Types and lengths have "
-               "different sizes [%d] vs [%d]",
+               "different sizes [%"PRISize"] vs [%"PRISize"]",
                geo->getTypes()->size(), geo->getLengths()->size()));
         ++_errorCount;
         return false;
