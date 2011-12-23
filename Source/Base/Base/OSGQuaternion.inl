@@ -860,14 +860,14 @@ void QuaternionBase<ValueTypeT>::getEulerAngleRad(VectorType &euler) const
     {
         euler[0] = 0.0;
         euler[1] = 2.0 * osgATan2(x(), w());
-        euler[2] = 1.5707963267;
+        euler[2] = 1.5707963267f;
         return;
     }
     else if(test < -0.499)// (south pole)
     {
         euler[0] = 0.0; 
         euler[1] = -2.0 * osgATan2(x(), w());
-        euler[2] = 1.5707963267;
+        euler[2] = 1.5707963267f;
         return;
     }
     else

@@ -2549,7 +2549,7 @@ bool TransformationMatrix<ValueTypeT>::log(TransformationMatrix &result) const
     const Int32      maxiter = 12;
           Int32      k       = 0;
           Int32      i       = 0;
-    const ValueTypeT eps     = 1e-12;
+    const ValueTypeT eps     = ValueTypeT(1e-12);
 
     TransformationMatrix A(*this);
     TransformationMatrix Z;
@@ -2613,7 +2613,7 @@ bool TransformationMatrix<ValueTypeT>::logOf(
     const Int32      maxiter = 12;
           Int32      k       = 0;
           Int32      i       = 0;
-    const ValueTypeT eps     = 1e-12;
+    const ValueTypeT eps     = ValueTypeT(1e-12);
 
     TransformationMatrix<ValueTypeT> A(matrix),Z;
 

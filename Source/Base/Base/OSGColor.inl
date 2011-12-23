@@ -282,7 +282,7 @@ void Color3<ValueTypeT>::setValuesHSV(const Real32 h,
 template <class ValueTypeT> inline
 void Color3<ValueTypeT>::setRandom(void)
 {
-    Real32 rf = 1.0 / Real32(RAND_MAX);
+    Real32 rf = 1.0f / Real32(RAND_MAX);
 
     this->setValuesRGB(TypeTraits<ValueTypeT>::getPortion(rf * rand()),
                        TypeTraits<ValueTypeT>::getPortion(rf * rand()),
@@ -462,7 +462,7 @@ void Color4<ValueTypeT>::setValuesHSV(const Real32 h,
 template <class ValueTypeT> inline
 void Color4<ValueTypeT>::setRandom(void)
 {
-    Real32 rf = 1.0 / Real32(RAND_MAX);
+    Real32 rf = 1.0f / Real32(RAND_MAX);
 
     setValuesRGBA(TypeTraits<ValueTypeT>::getPortion(rf * rand()),
                   TypeTraits<ValueTypeT>::getPortion(rf * rand()),
