@@ -148,10 +148,10 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::changed(
 }
 
 template <class GeoPropertyDesc> inline 
-UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getBinSize(
+SizeT TypedGeoIntegralProperty<GeoPropertyDesc>::getBinSize(
     ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = GeoIntegralProperty::getBinSize(whichField);
+    SizeT returnValue = GeoIntegralProperty::getBinSize(whichField);
 
     if(FieldBits::NoField != (GeoPropDataFieldMask & whichField))
     {
@@ -351,9 +351,17 @@ UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getDimension(void) const
 /*! \copydoc OSG::GeoIntegralProperty::size
  */
 template <class GeoPropertyDesc> inline
-UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::size(void) const
+SizeT TypedGeoIntegralProperty<GeoPropertyDesc>::size(void) const
 {
     return _field.size();
+}
+
+/*! \copydoc OSG::GeoIntegralProperty::size
+ */
+template <class GeoPropertyDesc> inline
+UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::size32(void) const
+{
+    return _field.size32();
 }
 
 /*! \copydoc OSG::GeoIntegralProperty::getData
@@ -471,7 +479,7 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::push_back(
     \param[in] newsize New size for this property.
  */
 template <class GeoPropertyDesc> inline
-void TypedGeoIntegralProperty<GeoPropertyDesc>::resize( size_t newsize )
+void TypedGeoIntegralProperty<GeoPropertyDesc>::resize(SizeT newsize)
 {
     editMField(GeoPropDataFieldMask, _field);
 

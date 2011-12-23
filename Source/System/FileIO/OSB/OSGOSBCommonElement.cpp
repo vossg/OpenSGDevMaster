@@ -1001,7 +1001,7 @@ OSBCommonElement::writeFields(
         const FieldType   &fieldType     = fieldDesc->getFieldType();
         const std::string &fieldTypeName = fieldType .getName     ();
         BitVector          fieldMask     = fieldDesc->getFieldMask();
-        UInt32             fieldSize     = fc->getBinSize(fieldMask);
+        UInt32             fieldSize     = UInt32(fc->getBinSize(fieldMask));
 
         writeFieldHeader (fieldName, fieldTypeName, fieldSize);
         writeFieldContent(fieldId                            );

@@ -78,7 +78,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual UInt32 size(void) const;
+    virtual SizeT  size  (void) const;
+    virtual UInt32 size32(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,7 +116,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferProperty :
     /*! \{                                                                 */
 
     virtual void                  clear          (      void           );
-    virtual void                  resize         (      size_t         );
+    virtual void                  resize         (      SizeT          );
     virtual void                  getGenericValue(      MaxTypeT &val, 
                                                   const UInt32    index) const;
     virtual void                  setGenericValue(const MaxTypeT &val,

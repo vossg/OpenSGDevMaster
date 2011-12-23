@@ -556,7 +556,7 @@ OgreMeshReader::readGeometryVertexElement(VertexElementStore &vertexElements,
         bufferMap.resize(vElem.bufferIdx + 1);
     }
 
-    bufferMap[vElem.bufferIdx].push_back(vertexElements.size());
+    bufferMap[vElem.bufferIdx].push_back(UInt32(vertexElements.size()));
 
     vertexElements.push_back(vElem);
 }
@@ -1005,7 +1005,7 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
         vElem.index     = 0;
         vElem.prop      = boneIdxProp;
 
-        boneIdxVE       = vertexElements.size();
+        boneIdxVE       = UInt32(vertexElements.size());
 
         vertexElements.push_back(vElem);
     }
@@ -1023,7 +1023,7 @@ OgreMeshReader::readBoneAssignment(VertexElementStore &vertexElements,
         vElem.index     = 0;
         vElem.prop      = boneWeightProp;
 
-        boneWeightVE    = vertexElements.size();
+        boneWeightVE    = UInt32(vertexElements.size());
 
         vertexElements.push_back(vElem);
     }

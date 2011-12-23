@@ -146,10 +146,10 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::changed(
 }
 
 template <class GeoPropertyDesc> inline
-UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getBinSize(
+SizeT TypedGeoVectorProperty<GeoPropertyDesc>::getBinSize(
     ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = GeoVectorProperty::getBinSize(whichField);
+    SizeT returnValue = GeoVectorProperty::getBinSize(whichField);
 
     if(FieldBits::NoField != (GeoPropDataFieldMask & whichField))
     {
@@ -355,9 +355,17 @@ UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getDimension(void) const
 /*! \copydoc OSG::GeoVectorProperty::size
  */
 template <class GeoPropertyDesc> inline
-UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::size(void) const
+SizeT TypedGeoVectorProperty<GeoPropertyDesc>::size(void) const
 {
     return _field.size();
+}
+
+/*! \copydoc OSG::GeoVectorProperty::size
+ */
+template <class GeoPropertyDesc> inline
+UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::size32(void) const
+{
+    return _field.size32();
 }
 
 /*! \copydoc OSG::GeoVectorProperty::getData
@@ -485,7 +493,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::push_back(
     \param[in] newsize New size for this property.
  */
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::resize(size_t newsize)
+void TypedGeoVectorProperty<GeoPropertyDesc>::resize(SizeT newsize)
 {
     editMField(GeoPropDataFieldMask, _field);
 

@@ -359,7 +359,8 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
                                  _uiFuncDrawBuffers,
                                   win);
 
-            osgGlDrawBuffers(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
+            osgGlDrawBuffers(GLsizei(_mfDrawBuffers.size()), 
+                             &(_mfDrawBuffers[0]) );
         }
         else
         {

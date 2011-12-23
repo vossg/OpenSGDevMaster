@@ -586,14 +586,11 @@ typename MField<ValueT, iNamespace, AllocT>::size_type
     return _values.size();
 }
 
-#if 0
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-typename MField<ValueT, iNamespace, AllocT>::size_type 
-    MField<ValueT, iNamespace, AllocT>::size32(void) const
+UInt32 MField<ValueT, iNamespace, AllocT>::size32(void) const
 {
     return UInt32(_values.size());
 }
-#endif
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, iNamespace, AllocT>::size_type 

@@ -177,7 +177,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     
     // you can access a single node by getNode
     
-    Node        *getNode    (int             index);
+    Node        *getNode    (UInt32         index);
     
     // per default all child nodes are traversed. If addNode is called, 
     // only the added nodes will be traversed.

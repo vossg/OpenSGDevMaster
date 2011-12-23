@@ -53,7 +53,7 @@ int DirectedGraph<T0, T1>::AddNode( T0 &n )
   DirectedNode<T0> nn;
   nn.nodeinfo = n;
   nodes.push_back( nn );
-  return nodes.size() - 1;
+  return Int32(nodes.size()) - 1;
 } 
 
 // add a new (possibly directed) edge 
@@ -72,7 +72,7 @@ int DirectedGraph<T0, T1>::AddEdge( T1 &t, int from, int to, bool direction)
   e.direction = direction;
   e.valid = true; //DEBUG
   edges.push_back( e );
-  eidx = edges.size() - 1;
+  eidx = Int32(edges.size()) - 1;
 
   nodes[ from ].edges.push_back( eidx );
   nodes[ to ].edges.push_back( eidx );  

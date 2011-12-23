@@ -146,7 +146,7 @@ void GeoIntegralBufferProperty::clear(void)
     OSG_ASSERT(false);
 }
 
-void GeoIntegralBufferProperty::resize(size_t)
+void GeoIntegralBufferProperty::resize(SizeT)
 {
     OSG_ASSERT(false);
 }

@@ -311,13 +311,13 @@ StriperHalfEdgeGraph::HalfEdge *StriperHalfEdgeGraph::getHalfEdge(
     UInt32 startVertexIndex,
     UInt32 endVertexIndex)
 {
-    UInt32 i, n = _edgeLinkVec.size();
+    UInt32 i, n = UInt32(_edgeLinkVec.size());
     const HalfEdgeLink *edgeLink((startVertexIndex < n) ?
         &_edgeLinkVec[startVertexIndex] : 0);
 
     HalfEdge *halfEdge = 0;
 
-    if (edgeLink && (n = edgeLink->size()))
+    if (edgeLink && (n = UInt32(edgeLink->size())))
     {
         for (i = 0; i < n; ++i)
         {
@@ -337,7 +337,7 @@ void StriperHalfEdgeGraph::addHalfEdge(HalfEdge &halfEdge,
                                        UInt32 startVertexIndex,
                                        UInt32 endVertexIndex)
 {
-    UInt32 n(_edgeLinkVec.size());
+    UInt32 n = UInt32(_edgeLinkVec.size());
     bool     validIndex(startVertexIndex < n);
     HalfEdge *twin(validIndex ?
         getHalfEdge(endVertexIndex, startVertexIndex) : 0);
@@ -423,7 +423,7 @@ UInt32 StriperHalfEdgeGraph::triangleCount(void)
 inline
 UInt32 StriperHalfEdgeGraph::primitiveCount(void)
 {
-    return (_stripBag.size() + _fanBag.size() + _triBag.size());
+    return UInt32(_stripBag.size() + _fanBag.size() + _triBag.size());
 }
 
 OSG_END_NAMESPACE

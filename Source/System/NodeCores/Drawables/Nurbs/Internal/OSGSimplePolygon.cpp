@@ -122,7 +122,7 @@ int SimplePolygon::triangulate(DCTPVec2dvector &globalverts, simplepolygonvector
         unsigned int       ui_prev;
         unsigned int       ui_mid;
         unsigned int       ui_next;
-        const unsigned int cui_vertex_cnt = vertices.size();
+        const unsigned int cui_vertex_cnt = UInt32(vertices.size());
         SimplePolygon      cl_poly;
 
         ui_mid = 0;
@@ -416,7 +416,7 @@ int SimplePolygon::findThirdPoint(DCTPVec2dvector &globalverts, int i1, int i2, 
     }
 
     unsigned int       i;
-    const unsigned int vsize = vertices.size();
+    const unsigned int vsize = UInt32(vertices.size());
 
 //  std::cerr << "searching third point for " << i1 << ", " << i2 << std::endl;
 
@@ -473,7 +473,7 @@ int SimplePolygon::findThirdPoint(DCTPVec2dvector &globalverts, int i1, int i2, 
 int SimplePolygon::isInsidePolygon(DCTPVec2dvector &globalverts, int i1, int i2, int i3) const
 {
     double    dres;
-    const int size = vertices.size();
+    const int size = UInt32(vertices.size());
     const int vi1  = vertices[i1];
     const int vi2  = vertices[i2];
     const int vi3  = vertices[i3];
@@ -728,7 +728,7 @@ int SimplePolygon::isDelaunay(DCTPVec2dvector &globalverts, int v1, int v2, int 
 {
     unsigned int       i;
     int                v4, ret;
-    const unsigned int vsize = vertices.size();
+    const unsigned int vsize = UInt32(vertices.size());
 
     for(i = 0; i < vsize; ++i)
     {
@@ -810,7 +810,7 @@ int SimplePolygon::fixAndTriangulate(DCTPVec2dvector &globalverts, simplepolygon
  */
 int SimplePolygon::removeLinearPoints(DCTPVec2dvector &globalverts, const Vec2d min, const Vec2d max)
 {
-    int         oldNum = vertices.size();
+    int         oldNum = UInt32(vertices.size());
     int         newNum = 0;
     DCTPivector newPoints(oldNum); // waste some memory to have linear time
     int         i;
@@ -887,7 +887,7 @@ int SimplePolygon::splitPolygon(DCTPVec2dvector &globalverts, simplepolygonvecto
 {
     DCTPVec2dset                            vset;
     std::pair<DCTPVec2dset::iterator, bool> siv;
-    int                                     oldNum = vertices.size();
+    int                                     oldNum = UInt32(vertices.size());
     int                                     i1;
 
 //  std::cerr << "Removing double vertices... " << oldNum << std::endl;
@@ -973,7 +973,7 @@ int SimplePolygon::splitPolygon(DCTPVec2dvector &globalverts, simplepolygonvecto
 
 int SimplePolygon::intersectPolygon(DCTPVec2dvector &globalverts, simplepolygonvector &polylist)
 {
-    int           oldNum = vertices.size();
+    int           oldNum = UInt32(vertices.size());
     int           i1, i2;
     Vec2d         min, max;
     Vec2d         p3, p4;
@@ -1070,7 +1070,7 @@ int SimplePolygon::intersectPolygon(DCTPVec2dvector &globalverts, simplepolygonv
                         }
                         else
                         {
-                            iip = globalverts.size();
+                            iip = UInt32(globalverts.size());
                             globalverts.resize(iip + 1);
                             globalverts[iip] = ip;
                         }
@@ -1175,7 +1175,7 @@ bool SimplePolygon::isReversed(DCTPVec2dvector &globalverts)
 {
     unsigned int       ui_vertex;
     unsigned int       ui_upperleft;
-    const unsigned int cui_vertex_cnt = vertices.size();
+    const unsigned int cui_vertex_cnt = UInt32(vertices.size());
     double             ad_p[2];
     double             ad_v[2];
     double             ad_n[2];
@@ -1208,7 +1208,7 @@ bool SimplePolygon::isReversed(DCTPVec2dvector &globalverts)
 bool SimplePolygon::isConvex(DCTPVec2dvector &globalverts)
 {
     unsigned int       ui_next;
-    const unsigned int cui_vertex_cnt = vertices.size();
+    const unsigned int cui_vertex_cnt = UInt32(vertices.size());
     double             ad_p[2];
     double             ad_v[2];
     double             ad_n[2];

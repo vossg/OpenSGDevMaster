@@ -301,7 +301,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                   faceI != meshI->faceList.end(); faceI++)
                 {
                     indexMask = 0;
-                    n = faceI->tieVec.size();
+                    n = UInt32(faceI->tieVec.size());
                     for (i = 0; i < n; i++)
                     {
                         for (j = 0; j < 3; j++)
@@ -400,7 +400,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                 for ( faceI = meshI->faceList.begin();
                       faceI != meshI->faceList.end(); faceI++)
                 {
-                    n = faceI->tieVec.size();
+                    n = UInt32(faceI->tieVec.size());
     
                     // add the lens entry
                     lensPtr->push_back(n);
@@ -494,7 +494,7 @@ void OBJSceneFileType::write(Node * const  node,
         // write vertices
         if(g->getPositions())
         {
-            pCount = g->getPositions()->getSize();
+            pCount = g->getPositions()->size32();
             for(i=0 ; i< pCount ; ++i)
             {
                 Pnt3f v;
@@ -506,7 +506,7 @@ void OBJSceneFileType::write(Node * const  node,
         // write normals
         if(g->getNormals())
         {
-            nCount = g->getNormals()->getSize();
+            nCount = g->getNormals()->size32();
             for(i=0 ; i< nCount ; ++i)
             {
                 Vec3f v;
@@ -518,7 +518,7 @@ void OBJSceneFileType::write(Node * const  node,
         // texture coords
         if(g->getTexCoords())
         {
-            tCount = g->getTexCoords()->getSize();
+            tCount = g->getTexCoords()->size32();
             for(i=0 ; i< tCount ; ++i)
             {
                 Vec2f v;

@@ -55,16 +55,16 @@ FieldTraits<IntersectKDTreeNode>::getMName(void)
     return "MFIntersectKDTreeNode";
 }
 
-/* static */ UInt32
-FieldTraits<IntersectKDTreeNode>::getBinSize(const IntersectKDTreeNode &)
+/* static */ 
+SizeT FieldTraits<IntersectKDTreeNode>::getBinSize(const IntersectKDTreeNode &)
 {
     return 2 * sizeof(UInt32);
 }
 
-/* static */ UInt32
-FieldTraits<IntersectKDTreeNode>::getBinSize(
+/* static */ 
+SizeT FieldTraits<IntersectKDTreeNode>::getBinSize(
     const IntersectKDTreeNode *pObjectStore,
-          UInt32               uiNumObjects)
+          SizeT                uiNumObjects)
 {
     return uiNumObjects * 2 * sizeof(UInt32);
 }
@@ -100,9 +100,9 @@ FieldTraits<IntersectKDTreeNode>::copyToBin(
 FieldTraits<IntersectKDTreeNode>::copyToBin(
           BinaryDataHandler   &pMem,
     const IntersectKDTreeNode *pObjectStore,
-          UInt32               uiNumObjects)
+          SizeT                uiNumObjects)
 {
-    for(UInt32 i = 0; i < uiNumObjects; ++i)
+    for(SizeT i = 0; i < uiNumObjects; ++i)
     {
         copyToBin(pMem, pObjectStore[i]);
     }
@@ -141,9 +141,9 @@ FieldTraits<IntersectKDTreeNode>::copyFromBin(
 FieldTraits<IntersectKDTreeNode>::copyFromBin(
     BinaryDataHandler   &pMem,
     IntersectKDTreeNode *pObjectStore,
-    UInt32               uiNumObjects )
+    SizeT                uiNumObjects )
 {
-    for(UInt32 i = 0; i < uiNumObjects; ++i)
+    for(SizeT i = 0; i < uiNumObjects; ++i)
     {
         copyFromBin(pMem, pObjectStore[i]);
     }

@@ -134,7 +134,7 @@ bool ChunkBlock::addChunk(StateChunk *chunk,
     }
 
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     const ChunkBlock *pThis = this;
 
@@ -194,7 +194,7 @@ bool ChunkBlock::subChunk(StateChunk *chunk,
         return false;
         
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     // special case: find it in the slots
     UInt8 nslots = chunk->getClass()->getNumSlots();
@@ -273,7 +273,7 @@ StateChunk *ChunkBlock::find(const StateChunkClass &type,
                                    Int32            slot)
 {
     UInt32 cindex =  type.getId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     // special case: find it in the slots
     UInt8 nslots = type.getNumSlots();

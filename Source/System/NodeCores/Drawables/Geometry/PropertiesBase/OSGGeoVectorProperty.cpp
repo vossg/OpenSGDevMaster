@@ -520,7 +520,7 @@ bool GeoVectorProperty::unmapBuffer(DrawEnv *pEnv)
         osgGlBindBuffer(GL_ARRAY_BUFFER_ARB,
                         pWin->getGLObjectId(getGLId()));
 
-        returnValue = osgGlUnmapBuffer(GL_ARRAY_BUFFER_ARB);
+        returnValue = (osgGlUnmapBuffer(GL_ARRAY_BUFFER_ARB) != 0);
 
         osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, 0);
     }

@@ -272,7 +272,7 @@ void PrimitiveIterator::operator++()
     
     ++_primIndex;
 
-    if(_primIndex >= _types->getSize())
+    if(_primIndex >= _types->size())
     {
         _ended = true;
     }
@@ -286,11 +286,11 @@ void PrimitiveIterator::operator++()
         else if (_geo->getIndex(Geometry::PositionsIndex) != NULL)
         {
             _actPrimLength = _geo->getIndex(
-                                Geometry::PositionsIndex)->getSize();
+                                Geometry::PositionsIndex)->size32();
         }
         else
         {
-            _actPrimLength = _geo->getPositions()->getSize();
+            _actPrimLength = _geo->getPositions()->size32();
         }
     }
 }
@@ -305,7 +305,7 @@ void PrimitiveIterator::setToBegin(void)
     _actPointIndex       = 0;
     _ended               = false;
                   
-    if(_types != NULL && _types->getSize() > 0)
+    if(_types != NULL && _types->size() > 0)
     {
         _types->getValue(_actPrimType, _primIndex);
         if(_lengths != NULL)
@@ -315,11 +315,11 @@ void PrimitiveIterator::setToBegin(void)
         else if (_geo->getIndex(Geometry::PositionsIndex) != NULL)
         {
             _actPrimLength = _geo->getIndex(
-                                Geometry::PositionsIndex)->getSize();
+                                Geometry::PositionsIndex)->size32();
         }
         else
         {
-            _actPrimLength = _geo->getPositions()->getSize();
+            _actPrimLength = _geo->getPositions()->size32();
         }
     }
     else
@@ -335,7 +335,7 @@ void PrimitiveIterator::setToBegin(void)
 void PrimitiveIterator::setToEnd(void)
 {
     if(_types != NULL)
-        _primIndex = _types->getSize();
+        _primIndex = _types->size32();
     else
         _primIndex = 0;
     _actPointIndex = 0;
@@ -353,9 +353,9 @@ void PrimitiveIterator::seek(Int32 index)
     _actPointIndex = 0;
     _ended = false;
 
-    if(index >= Int32(_types->getSize()))
+    if(index >= Int32(_types->size()))
     {
-        _primIndex = _types->getSize();
+        _primIndex = _types->size32();
         _ended = true;
     }
     else

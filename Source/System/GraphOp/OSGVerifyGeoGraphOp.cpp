@@ -206,8 +206,8 @@ bool VerifyGeoGraphOp::checkIndexedGeo(Geometry *geo, UInt32 sumLengths)
     const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
     const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
     
-    UInt32 numProp = mfProp->size();
-    UInt32 numInd  = mfInd ->size();
+    UInt32 numProp = mfProp->size32();
+    UInt32 numInd  = mfInd ->size32();
     
     // properties that are present must have an index
     if(numProp < numInd)
@@ -297,7 +297,7 @@ bool VerifyGeoGraphOp::checkNonindexedGeo(Geometry *geo, UInt32 sumLengths)
 {
     const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
     
-    UInt32 numProp = mfProp->size();
+    UInt32 numProp = mfProp->size32();
     
     for(UInt32 i = 0; i < numProp; ++i)
     {

@@ -293,8 +293,8 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 
                 bDoDraw = 
                     ((*gIt)->matches(this->getActiveGroup(),
-                                     oEnv. getDrawableId () == true) ||
-                     (this->getActiveGroup()                == -1  )  );
+                                     oEnv. getDrawableId ()) == true) ||
+                     (this->getActiveGroup()                == -1   )  ;
 
                 break;
             }

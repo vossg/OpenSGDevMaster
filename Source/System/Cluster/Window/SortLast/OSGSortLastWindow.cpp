@@ -100,7 +100,7 @@ void SortLastWindow::buildGroups(void)
     if(!rebuild && getMFGroupNodes()->size())
         return;
 
-    groupCount = getMFServers()->size();
+    groupCount = getMFServers()->size32();
 
     if(getComposer() != NULL)
     {
@@ -412,7 +412,7 @@ void SortLastWindow::clientInit( void )
     {
         SortLastWindow *clusterWindow(this);
         getComposer()->setup(true,
-                             getMFServers()->size(),
+                             getMFServers()->size32(),
                              getClientWindow(),
                              clusterWindow);
         getComposer()->open();
@@ -531,7 +531,7 @@ void SortLastWindow::clientRender(DrawActionBase *action)
 void SortLastWindow::clientRender(RenderActionBase *action)
 {
     UInt32          p;
-    UInt32          groupId = getMFServers()->size();
+    UInt32          groupId = getMFServers()->size32();
 
     if(getMFServers()->size())
     {
@@ -718,7 +718,7 @@ void SortLastWindow::collectDrawables(Node * const   node,
                     geo->getIndex(Geometry::PositionsIndex);
 
                 if(indicesPtr != NULL)
-                    drawableInfo.load = indicesPtr->getSize();
+                    drawableInfo.load = indicesPtr->size();
 
                 // put to list
                 drawables.push_back(drawableInfo);
@@ -790,7 +790,7 @@ void SortLastWindow::splitDrawables(DrawableListT &src,
     // only one group
     if(groups == 1)
     {
-        editMFGroupLengths()->push_back(src.size());
+        editMFGroupLengths()->push_back(UInt32(src.size()));
 
         for(dI = src.begin() ; dI != src.end() ; ++dI)
         {
@@ -846,7 +846,7 @@ void SortLastWindow::splitDrawables(DrawableListT &src,
     if(src.size())
     {
         dIFront  = 0;
-        dIBack   = src.size()-1;
+        dIBack   = UInt32(src.size()) - 1;
         do
         {
 //            printf("f %d  b %d\n",dIFront,dIBack);
@@ -882,7 +882,7 @@ void SortLastWindow::setupNodes(UInt32 groupId)
     UInt32  gI            = 0;
     UInt32  group         = 0;
     UInt32  groupCount    = 0;
-    UInt32  usableServers = getMFServers()->size();
+    UInt32  usableServers = getMFServers()->size32();
 
     if(!getGroupsChanged())
         return;

@@ -146,7 +146,7 @@ void BSplineTrimmedSurface::normalize(void)
     double       d_scale_u;
     double       d_scale_v;
     double       weight;
-    unsigned int numcurves = trimming.size();
+    unsigned int numcurves = UInt32(trimming.size());
     unsigned int i, j, k;
 
     surf.getParameterInterval_U(d_offset_u, d_scale_u);
@@ -221,7 +221,7 @@ void BSplineTrimmedSurface::flip(void)
 {
     // mirror the u-knot vector
     DCTPdvector &      rvd_knots    = surf.getKnotVector_U();
-    const unsigned int cui_knot_cnt = rvd_knots.size();
+    const unsigned int cui_knot_cnt = UInt32(rvd_knots.size());
     const double       cd_min_param = rvd_knots[0];
     const double       cd_max_param = rvd_knots[cui_knot_cnt - 1];
     UInt32             ui_swap;
@@ -241,7 +241,7 @@ void BSplineTrimmedSurface::flip(void)
 
     // swap the control points along the u-direction
     DCTPVec4dmatrix &  rvvcl_control_points = surf.getControlPointMatrix();
-    const unsigned int cui_cp_cnt           = rvvcl_control_points.size();
+    const unsigned int cui_cp_cnt           = UInt32(rvvcl_control_points.size());
     DCTPVec4dvector    vcl_swap;
 
     for(ui_swap = 0; ui_swap < (cui_cp_cnt >> 1); ++ui_swap)
@@ -252,20 +252,20 @@ void BSplineTrimmedSurface::flip(void)
     }
 
     // mirror the u-param of the trimming curves
-    const unsigned int cui_loop_cnt = trimming.size();
+    const unsigned int cui_loop_cnt = UInt32(trimming.size());
     unsigned int       ui_loop;
     unsigned int       ui_curve_cnt;
     unsigned int       ui_curve;
 
     for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
     {
-        ui_curve_cnt = trimming[ui_loop].size();
+        ui_curve_cnt = UInt32(trimming[ui_loop].size());
 
         for(ui_curve = 0; ui_curve < ui_curve_cnt; ++ui_curve)
         {
             // mirror the knot vector
             DCTPdvector &      rvd_knots     = trimming[ui_loop][ui_curve].getKnotVector();
-            const unsigned int cui_knot_cnt  = rvd_knots.size();
+            const unsigned int cui_knot_cnt  = UInt32(rvd_knots.size());
             const double       cd_min_cparam = rvd_knots[0];
             const double       cd_max_cparam = rvd_knots[cui_knot_cnt - 1];
 
@@ -303,7 +303,7 @@ void BSplineTrimmedSurface::flip(void)
 */
             // swap and mirror the control points
             DCTPVec3dvector &  rvcl_control_points = trimming[ui_loop][ui_curve].getControlPointVector();
-            const unsigned int cui_cp_cnt          = rvcl_control_points.size();
+            const unsigned int cui_cp_cnt          = UInt32(rvcl_control_points.size());
             Vec3d              cl_swap;
 
             for(ui_swap = 0; ui_swap < cui_cp_cnt; ++ui_swap)

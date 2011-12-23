@@ -138,7 +138,7 @@ bool DynamicStateGeneratorStageData::addChunk(StateChunk *chunk,
     }
 
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     const DynamicStateGeneratorStageData *pThis = this;
 
@@ -198,7 +198,7 @@ bool DynamicStateGeneratorStageData::subChunk(StateChunk *chunk,
         return false;
         
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     // special case: find it in the slots
     UInt8 nslots = chunk->getClass()->getNumSlots();

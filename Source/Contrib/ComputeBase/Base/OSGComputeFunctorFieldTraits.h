@@ -106,13 +106,13 @@ struct FieldTraits<ComputeFunctorCallback> :
         return "MFComputeFunctorCallback";   
     }
 
-    static UInt32 getBinSize(const ComputeFunctorCallback &)
+    static SizeT getBinSize(const ComputeFunctorCallback &)
     {
         return 0;
     }
 
-    static UInt32 getBinSize(const ComputeFunctorCallback *,
-                                   UInt32                 uiNumObjects)
+    static SizeT getBinSize(const ComputeFunctorCallback *,
+                                  SizeT                  uiNumObjects)
     {
         return 0 * uiNumObjects;
     }
@@ -139,7 +139,7 @@ struct FieldTraits<ComputeFunctorCallback> :
 
     static void copyToBin(      BinaryDataHandler      &pMem, 
                           const ComputeFunctorCallback *pObjectStore,
-                                UInt32                  uiNumObjects)
+                                SizeT                   uiNumObjects)
     {
 #if 0
         for(UInt32 i = 0; i < uiNumObjects; i++)
@@ -170,7 +170,7 @@ struct FieldTraits<ComputeFunctorCallback> :
 
     static void copyFromBin(BinaryDataHandler      &pMem, 
                             ComputeFunctorCallback *pObjectStore,
-                            UInt32                  uiNumObjects)
+                            SizeT                   uiNumObjects)
     {
 #if 0
         for(UInt32 i = 0; i < uiNumObjects; i++)

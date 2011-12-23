@@ -430,7 +430,7 @@ OSG::NodeTransitPtr rhino2osb::convert_surface_to_osg(
                 {
                     ON_4dPoint tmpON_Point;
                     
-                    bool success = s.GetCV(i, j, tmpON_Point);
+                    bool success = s.GetCV(i, j, tmpON_Point) != 0;
                     //printf("i%d j: %d on_point: %f %f %f %f\n", i, j,
                     //tmpON_Point.x, tmpON_Point.y, tmpON_Point.z,
                     //tmpON_Point.w); 
@@ -459,7 +459,7 @@ OSG::NodeTransitPtr rhino2osb::convert_surface_to_osg(
                 {
                     ON_4dPoint tmpON_Point;
 
-                    bool success = s.GetCV(i, j, tmpON_Point);
+                    bool success = s.GetCV(i, j, tmpON_Point) != 0;
 
                     assert(success);
                     //printf("i%d j: %d on_point: %f %f %f %f\n", i, j,
@@ -667,7 +667,7 @@ void rhino2osb::doTess(OSG::Node *node)
         surf->forceTessellate();
 
 //        printf("tess end\n");
-        unsigned int numtris = surf->getIndices()->size();
+        unsigned int numtris = surf->getIndices()->size32();
 
         OSG::osgSinkUnusedWarning(numtris);
 

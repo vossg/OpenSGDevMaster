@@ -312,7 +312,7 @@ AnimBindAction::start(void)
     if(res != Continue)
         return res;
 
-    UInt32 sourceCount = _animTmpl->getMFSources()->size();
+    UInt32 sourceCount = _animTmpl->getMFSources()->size32();
 
     for(UInt32 i = 0; i < sourceCount; ++i)
     {

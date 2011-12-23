@@ -541,7 +541,7 @@ void SimpleTextForeground::updateFormatting(void)
         //Push the plain text line to the lines vector
         _vPlainTextLines.push_back(szResult);
 
-        uiIndexOffset += szResult.size();
+        uiIndexOffset += UInt32(szResult.size());
     }
 }
 

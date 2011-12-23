@@ -193,8 +193,8 @@ OSBTextureChunkElement::postRead(void)
         }
         else
         {
-            UInt32 numIds  = ptrFieldIt->getIdStore     ().size();
-            UInt32 numBind = ptrFieldIt->getBindingStore().size();
+            UInt32 numIds  = UInt32(ptrFieldIt->getIdStore     ().size());
+            UInt32 numBind = UInt32(ptrFieldIt->getBindingStore().size());
 
             if(numBind > 0)
             {

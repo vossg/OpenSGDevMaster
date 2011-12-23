@@ -257,10 +257,10 @@ const SFUInt32 *
 /* Binary access                                                           */
 
 template <class ParentT> inline
-UInt32 TraversalValidationHandlerMixin<ParentT>::getBinSize(
+SizeT TraversalValidationHandlerMixin<ParentT>::getBinSize(
     ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
     {

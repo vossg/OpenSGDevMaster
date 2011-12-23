@@ -338,7 +338,7 @@ void MultiDisplayWindow::serverRender(Window           *window,
 
     if(!getHServers())
     {
-        setHServers(getMFServers()->size());
+        setHServers(getMFServers()->size32());
     }
     if(!getVServers())
     {

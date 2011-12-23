@@ -194,8 +194,8 @@ OSBGeometryHelper::splitMultiIndex(
     typedef typename OutIndexType::ObjUnrecPtr             OutIndexUnrecPtrType;
     typedef typename OutIndexType::StoredFieldType         OutIndexFieldType;
 
-    UInt32 indexMappingSize = indexMapping.size();
-    UInt32 inIndexSize      = inIndex->size();
+    UInt32 indexMappingSize = UInt32(indexMapping.size());
+    UInt32 inIndexSize      = inIndex->size32();
 
     std::vector<OutIndexUnrecPtrType  > outIndices;
     std::vector<OutIndexFieldType    *> outFields;

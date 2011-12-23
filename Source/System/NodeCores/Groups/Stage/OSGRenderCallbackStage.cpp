@@ -184,7 +184,7 @@ UInt32 RenderCallbackStage::addPreRenderFunctor(RenderFunctor func,
     RenderFunctorCallback oTmp;
 
     oTmp._func         = func;
-    oTmp._uiId         = _mfPreRenderCallbacks.size();
+    oTmp._uiId         = _mfPreRenderCallbacks.size32();
     oTmp._createSymbol = createSymbol;
 
     _mfPreRenderCallbacks.push_back(oTmp);
@@ -226,7 +226,7 @@ UInt32 RenderCallbackStage::addPostRenderFunctor(RenderFunctor func,
     RenderFunctorCallback oTmp;
 
     oTmp._func         = func;
-    oTmp._uiId         = _mfPostRenderCallbacks.size();
+    oTmp._uiId         = _mfPostRenderCallbacks.size32();
     oTmp._createSymbol = createSymbol;
 
     _mfPostRenderCallbacks.push_back(oTmp);

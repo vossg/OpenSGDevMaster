@@ -132,7 +132,7 @@ SimplePool<ValueTypeT,      PoolTagT,
 
         _values.push_back(retVal);
 
-        _nextFreeElement = _values.size();
+        _nextFreeElement = UInt32(_values.size());
         ++_numAllocated;
     }
 
@@ -167,7 +167,7 @@ SimplePool<ValueTypeT,      PoolTagT,
 
         _values.push_back(retVal);
 
-        _nextFreeElement = _values.size();
+        _nextFreeElement = UInt32(_values.size());
         ++_numAllocated;
     }
 

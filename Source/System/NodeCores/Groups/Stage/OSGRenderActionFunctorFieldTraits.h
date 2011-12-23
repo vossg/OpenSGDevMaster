@@ -97,13 +97,13 @@ struct FieldTraits<RenderActionFunctorCallback> :
         return "MFRenderActionFunctorCallback";   
     }
 
-    static UInt32 getBinSize(const RenderActionFunctorCallback &)
+    static SizeT  getBinSize(const RenderActionFunctorCallback &)
     {
         return 0;
     }
 
-    static UInt32 getBinSize(const RenderActionFunctorCallback *,
-                                   UInt32                       uiNumObjects)
+    static SizeT  getBinSize(const RenderActionFunctorCallback *,
+                                   SizeT                        uiNumObjects)
     {
         return 0 * uiNumObjects;
     }
@@ -130,7 +130,7 @@ struct FieldTraits<RenderActionFunctorCallback> :
 
     static void copyToBin(      BinaryDataHandler           &pMem, 
                           const RenderActionFunctorCallback *pObjectStore,
-                                UInt32                       uiNumObjects)
+                                SizeT                        uiNumObjects)
     {
 #if 0
         for(UInt32 i = 0; i < uiNumObjects; i++)
@@ -162,7 +162,7 @@ struct FieldTraits<RenderActionFunctorCallback> :
 
     static void copyFromBin(BinaryDataHandler           &pMem, 
                             RenderActionFunctorCallback *pObjectStore,
-                            UInt32                       uiNumObjects)
+                            SizeT                        uiNumObjects)
     {
 #if 0
         for(UInt32 i = 0; i < uiNumObjects; i++)

@@ -126,7 +126,7 @@ bool StateChunkClass::initialize(void)
 
     for(UInt32 i = 0; i < _initClasses->size(); ++i)
     {
-        (*_initClasses)[i]->_classId = _classes->size();
+        (*_initClasses)[i]->_classId = UInt32(_classes->size());
 
         for(UInt32 j = 0; j < (*_initClasses)[i]->_numSlots; ++j)
         {

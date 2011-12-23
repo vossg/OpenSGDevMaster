@@ -540,7 +540,7 @@ bool OFVertexPaletteRecord::read(std::istream &is)
 
         tmpPos *= _oDB.getUnitScale();
 
-        tmpInfo.uiIdx[PosIdx] = vPositions.size();
+        tmpInfo.uiIdx[PosIdx] = UInt32(vPositions.size());
 
         vPositions.push_back(Pnt3f(tmpPos));
 
@@ -550,7 +550,7 @@ bool OFVertexPaletteRecord::read(std::istream &is)
             uiSize += Inherited::readVal(is, tmpNorm[1]);
             uiSize += Inherited::readVal(is, tmpNorm[2]);
 
-            tmpInfo.uiIdx[NormIdx]  = vNormals.size();
+            tmpInfo.uiIdx[NormIdx]  = UInt32(vNormals.size());
             tmpInfo.uiType         |= HasNorm;
 
             vNormals.push_back(tmpNorm);
@@ -561,7 +561,7 @@ bool OFVertexPaletteRecord::read(std::istream &is)
             uiSize += Inherited::readVal(is, tmpTexCoord[0]);
             uiSize += Inherited::readVal(is, tmpTexCoord[1]);
 
-            tmpInfo.uiIdx[TexCoordIdx]  = vTexCoords.size();
+            tmpInfo.uiIdx[TexCoordIdx]  = UInt32(vTexCoords.size());
             tmpInfo.uiType             |= HasTexCoord;
 
             vTexCoords.push_back(tmpTexCoord);

@@ -127,8 +127,8 @@ void ImageComposer::setup(bool           isClient,
     _clusterId     = clusterId;
     _localWindow   = localWindow;
     _clusterWindow = clusterWindow;
-    _clusterSize   = clusterWindow->getMFServers()->size()+1;
-    _serverCount   = clusterWindow->getMFServers()->size();
+    _clusterSize   = clusterWindow->getMFServers()->size32() + 1;
+    _serverCount   = clusterWindow->getMFServers()->size32();
 }
 
 /*----------------------------- composition ------------------------------*/

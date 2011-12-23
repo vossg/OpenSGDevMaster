@@ -661,7 +661,7 @@ bool TextTXFFace::writeToStream(ostream &os) const
     writeLong(os, _texture->getHeight());
     writeLong(os, static_cast<UInt32>(_horiAscent / _scale));
     writeLong(os, static_cast<UInt32>(_horiDescent / _scale));
-    writeLong(os, _glyphMap.size());
+    writeLong(os, UInt32(_glyphMap.size()));
     if (os.good() == false)
         return false;
 
@@ -740,7 +740,7 @@ void TextTXFFace::layout(const wstring &text,
         // Get glyph
         const TextGlyph &glyph = getGlyph(text[i]);
         if ((justify == true) && (text[i] == ' '))
-            spaceIndices.push_back(result.indices.size());
+            spaceIndices.push_back(UInt32(result.indices.size()));
 
         // Calculate position
         Vec2f pos;

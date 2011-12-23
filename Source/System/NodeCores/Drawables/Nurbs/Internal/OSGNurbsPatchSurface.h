@@ -135,7 +135,7 @@ class OSG_DRAWABLE_DLLMAPPING CNurbsPatchSurface
     // returns the number of surfaces
     unsigned int GetSurfaceNumber() const
     {
-        return m_vtSurfaces.size();
+        return UInt32( m_vtSurfaces.size());
     }
 
     // returns if node is valid

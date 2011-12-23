@@ -291,7 +291,7 @@ bool Surface::updateError(Pnt3f viewPos, Real64 halfPixelSize)
 */
 void Surface::findClosestPoint(Vec3f& rDist, const Pnt3f viewPos) const
 {
-    const UInt32 parent_cnt = getParents().size();
+    const UInt32 parent_cnt = getParents().size32();
     UInt32       parent_idx;
     Real64       min_dist = 1e300;
     Vec3f        temp_dist;
@@ -362,7 +362,7 @@ void Surface::findClosestPointExact(Vec3f& rDist, const Pnt3f viewPos) const
 //  const GeoPositions3fPtr cpcl_points = GeoPositions3fPtr::dcast( cpcl_geo->getPositions( ) );
     const GeoPnt3fProperty *cpcl_points =
         dynamic_cast<const GeoPnt3fProperty *>(getPositions());
-    const unsigned int      cui_idx_cnt = cpcl_points->getSize();
+    const unsigned int      cui_idx_cnt = cpcl_points->size32();
     Pnt3f                   cl_pos;
     unsigned int            ui_idx;
     Vec3f                   cl_temp;
@@ -529,12 +529,12 @@ Int32 Surface::convertSurface(void)
     if(!israt)
     {
         polyControlPoints = &(pPos->getField());
-        cpsize            = polyControlPoints->size();
+        cpsize            = polyControlPoints->size32();
     }
     else
     {
         ratControlPoints = &(pRatPos->getField());
-        cpsize           = ratControlPoints->size();
+        cpsize           = ratControlPoints->size32();
     }
 //    MFPnt3f &_mfControlPoints = pPos->getField();
 
@@ -557,8 +557,8 @@ Int32 Surface::convertSurface(void)
         return -1;
     }
 
-    UInt32 knotusize = _mfKnotsU.size();
-    UInt32 knotvsize = _mfKnotsV.size();
+    UInt32 knotusize = _mfKnotsU.size32();
+    UInt32 knotvsize = _mfKnotsV.size32();
     if(knotusize == 0 || knotvsize == 0)
     {
         SLOG << "Surface::tessellate: empty knotvectors " << endLog;
@@ -672,7 +672,7 @@ Int32 Surface::convertSurface(void)
 
     // now create/convert trimming loops
     trimmingloop trimloops;
-    UInt32       cplsize = _mfCurvesPerLoop.size();
+    UInt32       cplsize = _mfCurvesPerLoop.size32();
     trimloops.resize(cplsize);
 
     for(i = 0; i < cplsize; ++i)
@@ -697,7 +697,7 @@ Int32 Surface::convertSurface(void)
 //            SLOG << "Debug: _mfKnotLengths[ actcurveno ]: " <<
 //                    _mfKnotLengths[ actcurveno ] << " actcurveno: " <<
 //                    actcurveno << endLog;
-            acttrimcpsize = actknots.size() - _mfDimensions[actcurveno] - 1;
+            acttrimcpsize = UInt32(actknots.size()) - _mfDimensions[actcurveno] - 1;
             if(acttrimcpsize < 1)
             {
                 SLOG << "Surface::tessellate: wrong trimming curve attributes "
@@ -711,7 +711,7 @@ Int32 Surface::convertSurface(void)
                 actknots[k] = _mfKnots[actknotoffset + k];
             }
 
-            actknotoffset += actknots.size();
+            actknotoffset += UInt32(actknots.size());
             actcurve.setKnotsAndDimension(actknots,
                                           _mfDimensions[actcurveno]);
 
@@ -798,7 +798,7 @@ Int32 Surface::tessellateSurface(std::vector<SimplePolygon> &triangles,
         getTextureControlPoints());
     std::vector<Pnt2f> tmptexcoords;
     UInt32             i;
-    UInt32             s = pTexPos->getField().size();
+    UInt32             s = pTexPos->getField().size32();
 
     for(i = 0; i < s; ++i)
     {
@@ -849,7 +849,7 @@ Int32 Surface::tessellateSurface(std::vector<SimplePolygon> &triangles,
         getTextureControlPoints());
     std::vector<Pnt2f> tmptexcoords;
     UInt32             i;
-    UInt32             s =  pTexPos->getField().size();
+    UInt32             s =  pTexPos->getField().size32();
 
     for(i = 0; i < s; ++i)
     {
@@ -929,15 +929,15 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
         dynamic_cast<SimpleMaterial *>(getMaterial());
 //  GeometryPtr         pcl_geo = Geometry::create( );
     SimplePolygon       *pcl_face;
-    const UInt32         cui_faces = triangles.size();
+    const UInt32         cui_faces = UInt32(triangles.size());
     UInt32               ui_face;
     BSplineTensorSurface cl_surf = _trimmedSurface->getSurface();
 //    int                  i_err;
     Vec3d                cl_norm;
-    const UInt32         cui_verts = gverts.size();
+    const UInt32         cui_verts = UInt32(gverts.size());
     UInt32               ui_vert;
     SSurface            *pt_surfdata  = _surfacePatch->getSurfaceData();
-    const UInt32         cui_loop_cnt = pt_surfdata->vvclEdgeLoops.size();
+    const UInt32         cui_loop_cnt = UInt32(pt_surfdata->vvclEdgeLoops.size());
     UInt32               ui_loop;
     UInt32               ui_vertex_cnt;
     UInt32               ui_idx;
@@ -1048,7 +1048,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
         for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
         {
             pcl_size->push_back(2 + 2 * pt_surfdata->vvclEdgeLoops[ui_loop].size() );
-            ui_idx += 2 + 2 * pt_surfdata->vvclEdgeLoops[ui_loop].size();
+            ui_idx += 2 + 2 * UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
         }
     }
 //      std::cerr << ui_idx << " indices" << std::endl;
@@ -1068,7 +1068,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
     {
         for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
         {
-            ui_vertex_cnt = pt_surfdata->vvclEdgeLoops[ui_loop].size();
+            ui_vertex_cnt = UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
 
             for(ui_vert = 0; ui_vert < ui_vertex_cnt; ++ui_vert)
             {
@@ -1099,7 +1099,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
         {
             for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
             {
-                ui_vertex_cnt = pt_surfdata->vvclEdgeLoops[ui_loop].size();
+                ui_vertex_cnt = UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
 
                 for(ui_vert = 0; ui_vert < ui_vertex_cnt; ++ui_vert)
                 {
@@ -1136,7 +1136,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
         {
             for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
             {
-                ui_vertex_cnt = pt_surfdata->vvclEdgeLoops[ui_loop].size();
+                ui_vertex_cnt = UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
 
                 for(ui_vert = 0; ui_vert < ui_vertex_cnt; ++ui_vert)
                 {
@@ -1165,7 +1165,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
 
         for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
         {
-            ui_vertex_cnt = pt_surfdata->vvclEdgeLoops[ui_loop].size();
+            ui_vertex_cnt = UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
 
             for(ui_vert = 0; ui_vert < ui_vertex_cnt; ++ui_vert)
             {
@@ -1236,7 +1236,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
     {
         for(ui_loop = 0; ui_loop < cui_loop_cnt; ++ui_loop)
         {
-            ui_vertex_cnt = pt_surfdata->vvclEdgeLoops[ui_loop].size();
+            ui_vertex_cnt = UInt32(pt_surfdata->vvclEdgeLoops[ui_loop].size());
 
             for(ui_vert = 0; ui_vert < ui_vertex_cnt; ++ui_vert)
             {
@@ -1405,7 +1405,7 @@ void Surface::addCurve(
     const std::vector<Pnt2f> & controlpoints,
     bool                       newloop)
 {
-    UInt32             cpsize = controlpoints.size();
+    UInt32             cpsize = UInt32(controlpoints.size());
     std::vector<Pnt3f> ratcontrolpoints;
 
     ratcontrolpoints.reserve(cpsize);
@@ -1448,8 +1448,8 @@ void Surface::addCurve(
     const std::vector<Pnt3f> & controlpoints,
     bool                       newloop)
 {
-    UInt32 cpsize   = controlpoints.size();
-    UInt32 knotsize = knots.size();
+    UInt32 cpsize   = UInt32(controlpoints.size());
+    UInt32 knotsize = UInt32(knots.size());
 
     if(dim + cpsize + 1 != knotsize)
     {
@@ -1473,7 +1473,7 @@ void Surface::addCurve(
     else
     {
 //        SLOG <<"addcurve NOT newloop"<<endLog;
-        UInt32 cplsize = _mfCurvesPerLoop.size();
+        UInt32 cplsize = _mfCurvesPerLoop.size32();
 //        _mfCurvesPerLoop.setValue( _mfCurvesPerLoop.getValue( cplsize - 1 ) + 1,
 //                                   cplsize - 1 );
         _mfCurvesPerLoop[cplsize - 1] = _mfCurvesPerLoop[cplsize - 1] + 1;
@@ -1609,8 +1609,8 @@ void Surface::readFromTSO(std::istream &infile, bool useTextures)
     // OK, first do surface business
     DCTPVec4dmatrix v4cps =  tensor_surface.getControlPointMatrix();
 
-    UInt32 cpusize = v4cps.size();
-    UInt32 cpvsize = v4cps[0].size();
+    UInt32 cpusize = UInt32(v4cps.size());
+    UInt32 cpvsize = UInt32(v4cps[0].size());
     UInt32 /*k,*/u,v;
     Vec4d  vec4;
 
@@ -1763,10 +1763,10 @@ UInt32 Surface::writeToOBJ(std::ostream &outfile, UInt32 offset)
     GeoVectorProperty   *pcl_norms     = getNormals();
     GeoIntegralProperty *pcl_indices   = getIndices();
     GeoVectorProperty   *pcl_texcoords = getTexCoords();
-    std::cerr << " indices size: " << pcl_indices->size() << std::endl;
-    std::cerr << " points size: " << pcl_points->size() << std::endl;
-    UInt32 ui_faces   = pcl_indices->size() / 3;
-    UInt32 uivertsize = pcl_points->size();
+    std::cerr << " indices size: " << pcl_indices->size32() << std::endl;
+    std::cerr << " points size: " << pcl_points->size32() << std::endl;
+    UInt32 ui_faces   = pcl_indices->size32() / 3;
+    UInt32 uivertsize = pcl_points->size32();
     outfile << "# vertices " << uivertsize << std::endl;
 
     //write out vertices

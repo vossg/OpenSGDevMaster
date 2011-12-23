@@ -75,12 +75,12 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     static const UInt32 FullStateMask  = 0x40000000;
 
 #ifdef OSG_NEW_SHADER
-    static const size_t SkipNumChunks  = 2;
-    static const size_t UpdateChunk    = 2;
+    static const UInt32 SkipNumChunks  = 2;
+    static const UInt32 UpdateChunk    = 2;
     static const UInt32 FullStateIndex = 2;
 #else
-    static const size_t SkipNumChunks  = 0;
-    static const size_t UpdateChunk    = 0;
+    static const UInt32 SkipNumChunks  = 0;
+    static const UInt32 UpdateChunk    = 0;
     static const UInt32 FullStateIndex = 0;
 #endif
 

@@ -213,7 +213,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::write(void)
 
     if((quanRes != Quantizer::QRES_OFF) && (prop->getFormat() == GL_FLOAT))
     {
-        UInt32                      propSize  = prop->getSize();
+        UInt32                      propSize  = prop->size32();
         UInt32                      propDim   = prop->getDimension();
         const GeoPropertyFieldType &propField = *(prop->getFieldPtr());
 
@@ -319,7 +319,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::write(void)
     }
     else
     {
-        UInt32 fieldSize = getContainer()->getBinSize(fieldMask);
+        UInt32 fieldSize = UInt32(getContainer()->getBinSize(fieldMask));
 
         writeFieldHeader (fieldName, fieldTypeName, fieldSize);
         writeFieldContent(fieldId);

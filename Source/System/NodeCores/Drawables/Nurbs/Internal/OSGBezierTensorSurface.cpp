@@ -71,8 +71,8 @@ int BezierTensorSurface::setControlPointMatrix(const DCTPVec4dmatrix& cps)
 //some REAL functionality
 Vec3d BezierTensorSurface::computewdeCasteljau(Vec2d uv, int & /*error*/)
 {
-    const unsigned int cui_u = control_points.size();
-    const unsigned int cui_v = control_points[0].size() - 1;
+    const unsigned int cui_u = UInt32(control_points.size());
+    const unsigned int cui_v = UInt32(control_points[0].size()) - 1;
 
     Vec4d             *pcl_u = new Vec4d[cui_u];
     Vec4d             *pcl_v = new Vec4d[cui_v];

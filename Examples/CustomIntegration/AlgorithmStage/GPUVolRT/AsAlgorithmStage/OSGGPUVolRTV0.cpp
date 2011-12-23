@@ -101,7 +101,7 @@ GPUVolRTV0::GPUVolRTV0(void) :
     Inherited(),
     bInitialized(false)
 {
-    stepsize = 1.0/50.0;
+    stepsize = 1.0f/50.0f;
     toggle_visuals = true;
 }
 
@@ -109,7 +109,7 @@ GPUVolRTV0::GPUVolRTV0(const GPUVolRTV0 &source) :
     Inherited(source),
     bInitialized(false)
 {
-    stepsize = 1.0/50.0;
+    stepsize = 1.0f/50.0f;
     toggle_visuals = true;
 }
 

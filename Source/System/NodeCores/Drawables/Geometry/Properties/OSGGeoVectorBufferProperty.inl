@@ -41,7 +41,13 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-UInt32 GeoVectorBufferProperty::size(void) const
+SizeT GeoVectorBufferProperty::size(void) const
+{
+    return getSize();
+}
+
+inline
+UInt32 GeoVectorBufferProperty::size32(void) const
 {
     return getSize();
 }

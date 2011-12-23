@@ -344,7 +344,7 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
         }
 
         // duplicate values
-        regionStart=cv * getMFServers()->size() * 4 + id * 4;
+        regionStart=cv * getMFServers()->size32() * 4 + id * 4;
         serverPort->setSize( 
             Real32(getRegion(regionStart+0) + clientPort->calcPixelLeft()),
             Real32(getRegion(regionStart+1) + clientPort->calcPixelBottom()),

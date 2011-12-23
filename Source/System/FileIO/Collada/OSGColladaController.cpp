@@ -278,7 +278,7 @@ ColladaController::readSkin(domSkin *skin)
     domSkin::domVertex_weightsRef    vweights = skin->getVertex_weights();
     const domInputLocalOffset_Array &inputs   = vweights->getInput_array();
 
-    UInt32              jointIdx  = inputs.getCount();
+    UInt32              jointIdx  = UInt32(inputs.getCount());
     ColladaSourceRefPtr weightSrc = NULL;
 
     for(UInt32 i = 0; i < inputs.getCount(); ++i)
@@ -381,9 +381,9 @@ ColladaController::readSkin(domSkin *skin)
             // add joint index property
             UInt16 propSlot = Inherited::findFreePropertyIndex(i);
             gsIt->_propStore.resize (
-                osgMax<UInt16>(gsIt->_propStore .size(), propSlot + 1), PropInfo());
+                osgMax<UInt16>(UInt16(gsIt->_propStore .size()), propSlot + 1), PropInfo());
             gsIt->_indexStore.resize(
-                osgMax<UInt16>(gsIt->_indexStore.size(), propSlot + 1), NULL      );
+                osgMax<UInt16>(UInt16(gsIt->_indexStore.size()), propSlot + 1), NULL      );
 
             gsIt->_propStore [propSlot]._prop     = jIndexProp;
             gsIt->_propStore [propSlot]._semantic = "JOINT_INDEX";
@@ -393,9 +393,9 @@ ColladaController::readSkin(domSkin *skin)
             // add weight property
             propSlot = Inherited::findFreePropertyIndex(i);
             gsIt->_propStore.resize (
-                osgMax<UInt16>(gsIt->_propStore .size(), propSlot + 1), PropInfo());
+                osgMax<UInt16>(UInt16(gsIt->_propStore .size()), propSlot + 1), PropInfo());
             gsIt->_indexStore.resize(
-                osgMax<UInt16>(gsIt->_indexStore.size(), propSlot + 1), NULL      );
+                osgMax<UInt16>(UInt16(gsIt->_indexStore.size()), propSlot + 1), NULL      );
 
             gsIt->_propStore [propSlot]._prop     = jWeightProp;
             gsIt->_propStore [propSlot]._semantic = "JOINT_WEIGHT";

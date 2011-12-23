@@ -742,15 +742,15 @@ void VarianceShadowMapHandler::initShadowMaps(void)
         maximumAnistropy = osgMin(maximumAnistropy, Real32(8.0));
 
 
-        UInt32 uiLSize   =  vLights.size();
-        UInt32 uiMapSize = _pStage-> getMapSize ();
+        UInt32 uiLSize   =  UInt32(vLights.size());
+        UInt32 uiMapSize = _pStage-> getMapSize();
 
         if(vShadowMaps.size() == 0) 
         {
             _uiMapSize = uiMapSize;
         }
 
-        for(UInt32 i = vShadowMaps.size(); i < uiLSize; ++i)
+        for(SizeT i = vShadowMaps.size(); i < uiLSize; ++i)
         {
             ShadowStageData::ShadowMapElem tmpElem;
 
@@ -809,7 +809,7 @@ void VarianceShadowMapHandler::updateShadowMapSize(void)
 {
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
  
-    UInt32 uiSHMSize    =  vShadowMaps.size();
+    UInt32 uiSHMSize    =  UInt32(vShadowMaps.size());
      Int32 uiNewMapSize = _pStage->getMapSize();
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)
@@ -837,7 +837,7 @@ void VarianceShadowMapHandler::configureShadowMaps(void)
 {
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
-    UInt32 uiSHMSize = vShadowMaps.size();
+    UInt32 uiSHMSize = UInt32(vShadowMaps.size());
 
     UInt32 uiMapSize = _pStage-> getMapSize ();
 

@@ -408,7 +408,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
 
     if(doSide)
     {
-        UInt32 baseindex = p->size();
+        UInt32 baseindex = p->size32();
 
         for(j = 0; j <= sides; j++)
         {
@@ -444,7 +444,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
 
     if(doTop && topradius > 0)
     {
-        UInt32 baseindex = p->size();
+        UInt32 baseindex = p->size32();
 
         // need to duplicate the points fornow, as we don't have multi-index geo yet
 
@@ -470,7 +470,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
 
     if(doBottom && botradius > 0 )
     {
-        UInt32 baseindex = p->size();
+        UInt32 baseindex = p->size32();
 
         // need to duplicate the points fornow, as we don't have multi-index geo yet
 
@@ -884,7 +884,7 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     }
 
     types->push_back(GL_TRIANGLES);
-    lens->push_back(i->size());
+    lens->push_back(i->size32());
 
     // create the geometry
     GeometryTransitPtr geo = Geometry::create();

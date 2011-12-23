@@ -92,8 +92,8 @@ class OSG_SYSTEM_DLLMAPPING GeoProperty : public GeoPropertyBase
     virtual       UInt32                 getVectorType(void) const = 0;
     virtual       UInt32                 getStride    (void) const = 0;
     virtual       UInt32                 getDimension (void) const = 0;
-    virtual       UInt32                 getSize      (void) const;
-    virtual       UInt32                 size         (void) const = 0;
+    virtual       SizeT                  size         (void) const = 0;
+    virtual       UInt32                 size32       (void) const = 0;
     virtual const UInt8                 *getData      (void) const
     { return NULL;  }
     virtual       UInt8                 *editData     (void)

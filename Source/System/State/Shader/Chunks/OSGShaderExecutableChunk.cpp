@@ -302,7 +302,7 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     pEnv->getWindow()                                  );
 
                 osgGlTransformFeedbackVaryings(uiProgram, 
-                                               vTFVaryings.size(), 
+                                               GLsizei(vTFVaryings.size()), 
                                                &(vTFVaryings.front()),
                                                GL_INTERLEAVED_ATTRIBS); 
             }

@@ -312,9 +312,9 @@ void DeferredShadingStage::updateStageData(
                  << std::endl;
     }
 
-    UInt32 lightCount  =        getMFLights      ()->size();
-    UInt32 bufferCount = osgMin(getMFPixelFormats()->size(),
-                                getMFPixelTypes  ()->size() );
+    UInt32 lightCount  =        getMFLights      ()->size32();
+    UInt32 bufferCount = osgMin(getMFPixelFormats()->size32(),
+                                getMFPixelTypes  ()->size32() );
 
     // buffers changed - remove them here, recreate below
     if((_changeCache & (PixelFormatsFieldMask |

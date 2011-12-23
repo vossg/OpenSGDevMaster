@@ -1,4 +1,3 @@
-
 /*---------------------------------------------------------------------------*\
  *                                OpenSG                                     *
  *                                                                           *
@@ -208,9 +207,9 @@ void SelectSValueEmitter<Desc>::changed(ConstFieldMaskArg whichField,
 
 /*------------------------------ access -----------------------------------*/
 template<class Desc> inline
-UInt32 SelectSValueEmitter<Desc>::getBinSize(ConstFieldMaskArg whichField)
+SizeT SelectSValueEmitter<Desc>::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
     {

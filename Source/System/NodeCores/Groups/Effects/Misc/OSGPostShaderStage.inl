@@ -91,7 +91,7 @@ UInt32 PostShaderStage::RenderPassData::getIndex(void) const
 inline
 UInt32 PostShaderStage::getNumPasses(void) const
 {
-    return getMFVertexShaders()->size();
+    return getMFVertexShaders()->size32();
 }
 
 inline

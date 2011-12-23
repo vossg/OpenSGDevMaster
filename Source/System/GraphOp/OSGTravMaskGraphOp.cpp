@@ -332,16 +332,16 @@ Action::ResultE TravMaskGraphOp::traverseEnter(Node * const node)
         switch(mMatchMaskCondition)
         {
             case BIT_AND:
-                BitTest = static_cast<bool>(node->getTravMask()   & 
-                                            mMatchCurTravMaskValue);
+                BitTest = 0x0000 != (node->getTravMask()   & 
+                                     mMatchCurTravMaskValue);
             break;
             case BIT_OR:
-                BitTest = static_cast<bool>(node->getTravMask()   | 
-                                            mMatchCurTravMaskValue);
+                BitTest = 0x0000 != (node->getTravMask()   | 
+                                     mMatchCurTravMaskValue);
             break;
             case BIT_XOR:
-                BitTest = static_cast<bool>(node->getTravMask()   ^ 
-                                            mMatchCurTravMaskValue);
+                BitTest = 0x0000 != (node->getTravMask()   ^ 
+                                     mMatchCurTravMaskValue);
                 break;
             case BIT_NOT:
             case BIT_NOT_EQUAL:

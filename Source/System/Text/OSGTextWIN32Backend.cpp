@@ -607,7 +607,7 @@ void TextWIN32VectorFace::layout(const wstring &text, const TextLayoutParam &par
     results.lpDx = new int[len];
     results.lpGlyphs = new WCHAR[len];
     results.lpGlyphs[0] = 0; // needed by GCP_LIGATE
-    results.nGlyphs = len;
+    results.nGlyphs = UInt32(len);
     DWORD dwFlags = GCP_GLYPHSHAPE | GCP_LIGATE | GCP_REORDER | GCP_USEKERNING;
     int nMaxExtent = 0;
     Real32 length = param.getLength(0);
@@ -616,7 +616,7 @@ void TextWIN32VectorFace::layout(const wstring &text, const TextLayoutParam &par
         dwFlags |= GCP_JUSTIFY | GCP_KASHIDA | GCP_MAXEXTENT;
         nMaxExtent = length / _scale;
     }
-    DWORD result = GetCharacterPlacementW(_backend->_hDC, &(utf16Text[0]), len, nMaxExtent, &results, dwFlags);
+    DWORD result = GetCharacterPlacementW(_backend->_hDC, &(utf16Text[0]), UInt32(len), nMaxExtent, &results, dwFlags);
     if (result != 0)
     {
         layoutResult.indices.reserve(results.nGlyphs);
@@ -985,7 +985,7 @@ void TextWIN32PixmapFace::layout(const wstring &text, const TextLayoutParam &par
     results.lpDx = new int[len];
     results.lpGlyphs = new WCHAR[len];
     results.lpGlyphs[0] = 0; // needed by GCP_LIGATE
-    results.nGlyphs = len;
+    results.nGlyphs = UInt32(len);
     DWORD dwFlags = GCP_GLYPHSHAPE | GCP_LIGATE | GCP_REORDER | GCP_USEKERNING;
     int nMaxExtent = 0;
     Real32 length = param.getLength(0);
@@ -994,7 +994,7 @@ void TextWIN32PixmapFace::layout(const wstring &text, const TextLayoutParam &par
         dwFlags |= GCP_JUSTIFY | GCP_KASHIDA | GCP_MAXEXTENT;
         nMaxExtent = length;
     }
-    DWORD result = GetCharacterPlacementW(_backend->_hDC, &(utf16Text[0]), len, nMaxExtent, &results, dwFlags);
+    DWORD result = GetCharacterPlacementW(_backend->_hDC, &(utf16Text[0]), UInt32(len), nMaxExtent, &results, dwFlags);
     if (result != 0)
     {
         layoutResult.indices.reserve(results.nGlyphs);
@@ -1192,8 +1192,8 @@ TextWIN32TXFFace::TextWIN32TXFFace(const TextWIN32Backend *backend, HFONT hHoriF
     ZeroMemory(&results, sizeof(results));
     results.lStructSize = sizeof(results);
     results.lpGlyphs = new WCHAR[len];
-    results.nGlyphs = len;
-    DWORD result = GetCharacterPlacementW(backend->_hDC, &(utf16Text[0]), len, 0, &results, 0);
+    results.nGlyphs = UInt32(len);
+    DWORD result = GetCharacterPlacementW(backend->_hDC, &(utf16Text[0]), UInt32(len), 0, &results, 0);
     if (result == 0)
     {
         delete [] results.lpGlyphs;

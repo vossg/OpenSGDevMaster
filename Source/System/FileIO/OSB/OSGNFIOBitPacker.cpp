@@ -159,10 +159,10 @@ BitPacker::getBuffer(void)
 /*----------------------------- constructors  -----------------------------*/
 
 BitUnpacker::BitUnpacker(const std::vector<UInt8> &buffer, UInt32 max) :
-    _numBitsToUnpack (1                ),
-    _numBitsRemaining(buffer.size() * 8),
-    _nextBit         (0                ),
-    _buffer          (buffer           )
+    _numBitsToUnpack (1                       ),
+    _numBitsRemaining(Int32(buffer.size()) * 8),
+    _nextBit         (0                       ),
+    _buffer          (buffer                  )
 {
     while(true)
     {

@@ -146,10 +146,11 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
         setValue(val, size() - 1);
     }
 
-    virtual bool   getNormalize(void          ) const = 0;
-    virtual void   clear       (void          )       = 0;
-    virtual void   resize      (size_t newsize)       = 0;
-    virtual UInt32 size        (void          ) const = 0;
+    virtual bool   getNormalize(void         ) const = 0;
+    virtual void   clear       (void         )       = 0;
+    virtual void   resize      (SizeT newsize)       = 0;
+    virtual SizeT  size        (void         ) const = 0;
+    virtual UInt32 size32      (void         ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

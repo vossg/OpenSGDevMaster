@@ -134,7 +134,7 @@ UInt32 VRMLWriteAction::setWritten(FieldContainer *fc)
 {
     _writtenFCs.push_back(fc);
     
-    return _writtenFCs.size() - 1;
+    return UInt32(_writtenFCs.size()) - 1;
 }
 
 OSG_END_NAMESPACE

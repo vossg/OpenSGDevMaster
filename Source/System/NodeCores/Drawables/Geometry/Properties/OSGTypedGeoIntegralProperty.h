@@ -122,7 +122,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     virtual       UInt32                 getStride    (void) const;
     virtual       UInt32                 getDimension (void) const;
     virtual const UInt8                 *getData      (void) const;
-    virtual       UInt32                 size         (void) const;
+    virtual       SizeT                  size         (void) const;
+    virtual       UInt32                 size32       (void) const;
 
     virtual       GeoPropertyTransitPtr  clone        (void);
     
@@ -138,7 +139,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
             void                   addValue  (const StoredType &val    );
 
     virtual void                   clear     (      void               );
-    virtual void                   resize    (      size_t      newsize);
+    virtual void                   resize    (      SizeT       newsize);
     virtual void                   push_back (const StoredType &val    );
 
     template <class ExternalType>
@@ -280,7 +281,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \name                      Binary Operations                       */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

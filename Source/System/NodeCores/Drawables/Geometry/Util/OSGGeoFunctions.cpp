@@ -94,7 +94,7 @@ Int32 IndexDic::entry(Int32Vec &indexVec)
     if(iI == _indexMap.end())
     {
         std::pair < IndexMap::iterator, bool > mapRes =
-            _indexMap.insert(IndexMap::value_type(indexVec, _indexVec.size()));
+            _indexMap.insert(IndexMap::value_type(indexVec, UInt32(_indexVec.size())));
 
         if(mapRes.second)
         {
@@ -120,7 +120,7 @@ const IndexDic::Int32Vec &IndexDic::entry(Int32 index)
 inline 
 UInt32 IndexDic::entryCount(void) const
 {
-    return _indexVec.size();
+    return UInt32(_indexVec.size());
 }
 
 /*! \ingroup GrpDrawablesGeometryUtils
@@ -351,7 +351,7 @@ void calcVertexNormals(Geometry *geo,
         geo->setIndex(normsIndex, Geometry::NormalsIndex);
     }
 
-    UInt32 nind = posIndex->size();
+    UInt32 nind = posIndex->size32();
     
     normsIndex->resize(nind);
     
@@ -393,7 +393,7 @@ void calcVertexNormals(Geometry *geo,
     std::vector < std::vector < UInt32 > > pntFaceDic;
 
     TriangleIterator ti;
-    UInt32 i, pN = positions->size();
+    UInt32 i, pN = positions->size32();
 
     pntFaceDic.resize(pN);
 
@@ -461,7 +461,7 @@ void calcVertexNormals(Geometry *geo,
                 // of the object. :(
 
                 UInt32 p = ti.getPositionIndex(i);
-                UInt32 pf, f, fN = pntFaceDic[p].size();
+                UInt32 pf, f, fN = UInt32(pntFaceDic[p].size());
                 UInt32 n, nN;
 
                 normset.clear();
@@ -475,7 +475,7 @@ void calcVertexNormals(Geometry *geo,
                     }
                 }
 
-                if((nN = normset.size()))
+                if((nN = UInt32(normset.size())))
                 {
                     // find normal
                     //std::sort ( normset.begin(), normset.end() );
@@ -489,7 +489,7 @@ void calcVertexNormals(Geometry *geo,
                             norm += faceNormals[normset[n]];
 
                         norm.normalize();
-                        normalIndex = norms->size();
+                        normalIndex = norms->size32();
                         norms->push_back(norm);
                         normDic[p][normset] = normalIndex;
                     }
@@ -514,7 +514,7 @@ void calcVertexNormals(Geometry *geo,
         {
             // keep normal for degenerated triangle
 
-            normalIndex = norms->size();
+            normalIndex = norms->size32();
             norms->push_back(norm);
             
             normsIndex->setValue(normalIndex, ti.getIndex(0));
@@ -607,7 +607,7 @@ void calcVertexTangentsProp(Geometry *geo,
         return;
     }
     
-    UInt32 posIdxCount  = posIdx->size();
+    UInt32 posIdxCount  = posIdx->size32();
 
     tangentP     = GeoVec4fProperty::create();
     binormalP    = GeoVec4fProperty::create();
@@ -855,7 +855,7 @@ void calcVertexTexCoordsProp2D(Geometry *geo,
     Pnt3f point;
     Vec2f texCoord;
 
-    Int32 len = posP->size();
+    Int32 len = posP->size32();
 
     texP->resize(len);
 
@@ -995,16 +995,16 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
     //----------------------------------------------------------------------
     // get the property pointer and element count
     posPtr = geoPtr->getPositions();
-    pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
+    pN = ((posPtr == NULL) ? 0 : posPtr->size32());
 
     normalPtr = geoPtr->getNormals();
-    nN = ((normalPtr == NULL) ? 0 : normalPtr->getSize());
+    nN = ((normalPtr == NULL) ? 0 : normalPtr->size32());
 
     colorPtr = geoPtr->getColors();
-    cN = ((colorPtr == NULL) ? 0 : colorPtr->getSize());
+    cN = ((colorPtr == NULL) ? 0 : colorPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords();
-    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords1();
 
@@ -1028,7 +1028,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
     }
     else
     {
-        piN = coordIndex.size();
+        piN = UInt32(coordIndex.size());
 
         if(piN)
         {
@@ -1068,7 +1068,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
 
     normalIT = UNKNOWN_IT;
 
-    niN = normalIndex.size();
+    niN = UInt32(normalIndex.size());
 
     if(nN)
     {               // have normal elements
@@ -1146,7 +1146,7 @@ else
 
     colorIT = UNKNOWN_IT;
 
-    ciN = colorIndex.size();
+    ciN = UInt32(colorIndex.size());
 
     if(cN)
     {               // have color elements
@@ -1215,7 +1215,7 @@ else
     // check the texture index
 
     textureIT = UNKNOWN_IT;
-    tiN = texCoordIndex.size();
+    tiN = UInt32(texCoordIndex.size());
     if(tN)
     {               // have texture elemnts
         if(tiN >= piN)
@@ -1681,38 +1681,38 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
     //----------------------------------------------------------------------
     // get the property pointer and element count
     posPtr = geoPtr->getPositions();
-    pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
+    pN = ((posPtr == NULL) ? 0 : posPtr->size32());
 
     normalPtr = geoPtr->getNormals();
-    nN = ((normalPtr == NULL) ? 0 : normalPtr->getSize());
+    nN = ((normalPtr == NULL) ? 0 : normalPtr->size32());
 
     colorPtr = geoPtr->getColors();
-    cN = ((colorPtr == NULL) ? 0 : colorPtr->getSize());
+    cN = ((colorPtr == NULL) ? 0 : colorPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords();
-    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
     texCoordN[0] = tN;
 
     texCoordsPtr = geoPtr->getTexCoords1();
-    texCoordN[1] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[1] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords2();
-    texCoordN[2] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[2] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords3();
-    texCoordN[3] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[3] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords4();
-    texCoordN[4] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[4] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords5();
-    texCoordN[5] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[5] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords6();
-    texCoordN[6] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[6] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     texCoordsPtr = geoPtr->getTexCoords7();
-    texCoordN[7] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+    texCoordN[7] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->size32());
 
     FDEBUG(("vertex attrib count P/N/C/T: %d/%d/%d/%d\n", pN, nN, cN, tN));
 
@@ -1730,7 +1730,7 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
     }
     else
     {
-        piN = coordIndex.size();
+        piN = UInt32(coordIndex.size());
 
         if(piN)
         {
@@ -1768,7 +1768,7 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
 
     normalIT = UNKNOWN_IT;
 
-    niN = normalIndex.size();
+    niN = UInt32(normalIndex.size());
 
     if(nN)
     {               // have normal elements
@@ -1844,7 +1844,7 @@ else
     //----------------------------------------------------------------------
     // check the color index
     colorIT = UNKNOWN_IT;
-    ciN = colorIndex.size();
+    ciN = UInt32(colorIndex.size());
     if(cN)
     {               // have color elements
         if(colorPerVertex)
@@ -1910,7 +1910,7 @@ else
     //----------------------------------------------------------------------
     // check the texture index
     textureIT = UNKNOWN_IT;
-    tiN = texCoordIndex.size();
+    tiN = UInt32(texCoordIndex.size());
     if(tN)
     {               // have texture elemnts
         if(tiN >= piN)
@@ -2232,7 +2232,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     Geometry::IndexBag oGeoIndexBag = geo->getUniqueIndexBag();
 
 
-    UInt32   indexMapSize = oGeoIndexBag.size();
+    UInt32   indexMapSize = UInt32(oGeoIndexBag.size());
     bool     remapIndex   = (indexMapSize > 1) ? true : false;
 
     IndexDic indexDic;
@@ -2242,7 +2242,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
 
     GeoVectorProperty *posPtr = geo->getPositions();
 
-    UInt32 pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
+    UInt32 pN = ((posPtr == NULL) ? 0 : posPtr->size32());
 
     GeoIntegralProperty *posIndexPtr = 
         geo->getIndex(Geometry::PositionsIndex);
@@ -2254,7 +2254,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     }
     else
     {
-        startCost = posIndexPtr->size();
+        startCost = posIndexPtr->size32();
     }
 
     // Leave early if we have no indices or positions.
@@ -2436,7 +2436,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
             {
                 graph.getPrimitive(primIndex[i], typeVec[t]);
 
-                const Int32 n = primIndex[i].size();
+                const Int32 n = UInt32(primIndex[i].size());
 
                 cost += n;
 
@@ -2614,7 +2614,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
         if(geoPtr->getPositions() != NULL)
         {
             // check/create indexPtr
-            iN = geoPtr->getPositions()->size();
+            iN = geoPtr->getPositions()->size32();
 
             indexBag = geoPtr->getUniqueIndexBag();
 
@@ -2701,8 +2701,8 @@ Int32 createSharedIndex(Geometry *geoPtr)
 
             indexPtr = indexBag[i].first;       // index i  
 
-            sN       = slaveDataVec. size();    // number of slave properties
-            iN       = indexPtr    ->size();    // number of indices
+            sN       = UInt32(slaveDataVec. size());    // number of slave properties
+            iN       = UInt32(indexPtr    ->size());    // number of indices
 
             memMap.clear();
 
@@ -2849,12 +2849,12 @@ Int32 createSingleIndex(Geometry *geo)
 
     IndexDic           indexDic;
 
-    Int32              indexMapSize = oGeoIndexBag.size();
+    Int32              indexMapSize = UInt32(oGeoIndexBag.size());
     Int32              vCount       = 0;
 
     indexVec.resize(indexMapSize);
 
-    Int32 indexCount = oGeoIndexBag.front().first->size();
+    Int32 indexCount = oGeoIndexBag.front().first->size32();
 
     sIndex.resize(indexCount);
 
@@ -2893,7 +2893,7 @@ Int32 createSingleIndex(Geometry *geo)
                                     pP->getDimension () +
                                     pP->getStride    ());
                   
-                UInt32 memSize   = pP->size() * valueSize;
+                UInt32 memSize   = pP->size32() * valueSize;
 
                 UInt8 *data  = new UInt8[memSize];
 
@@ -2965,12 +2965,12 @@ UInt32 calcPrimitiveCount(Geometry *geo,
 
     lensPtr = geo->getLengths();
 
-    lN = (lensPtr == NULL) ? 0 : lensPtr->getSize();
+    lN = (lensPtr == NULL) ? 0 : lensPtr->size32();
     
     
     geoTypePtr = geo->getTypes();
 
-    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->getSize();
+    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->size32();
 
     if((tN == 0) || (lN != 0 && tN != lN) || (lN == 0 && tN != 1))
     {
@@ -2995,7 +2995,7 @@ UInt32 calcPrimitiveCount(Geometry *geo,
                 return 0;
             }
             
-            len = pos->size();
+            len = pos->size32();
         }
         
         switch(type)
@@ -3094,7 +3094,7 @@ NodeTransitPtr calcVertexNormalsGeo(Geometry *geo,
 
     GeoIntegralPropertyUnrecPtr lens = GeoUInt32Property::create();
 
-    lens->push_back(pnts->getSize());
+    lens->push_back(pnts->size32());
 
     GeometryUnrecPtr g = Geometry::create();
 
@@ -3145,7 +3145,7 @@ void updateVertexNormalsGeo(      Geometry *pGeo,
 
     type->push_back(GL_LINES);
 
-    lens->push_back(pnts->getSize());
+    lens->push_back(pnts->size());
 }
 
 
@@ -3206,12 +3206,12 @@ NodeTransitPtr calcFaceNormalsGeo(Geometry *geo,
         }
     }
 
-    for(UInt32 i = 0; i < pnts->getSize(); i++)
+    for(UInt32 i = 0; i < pnts->size(); i++)
         index->push_back(i);
 
     type->push_back(GL_LINES);
 
-    lens->push_back(index->getSize());
+    lens->push_back(index->size32());
 
     g->setTypes    (type                     );
     g->setLengths  (lens                     );
@@ -3506,8 +3506,8 @@ GeoIntegralPropertyTransitPtr mergeIntegralProp(
     calcMergePropertyType(src1Prop, src2Prop, false, dstFormat);
     dstProp = GeoPropertyFactory::the()->create(dstFormat);
     
-    UInt32 szSrc1 = src1Prop->size();
-    UInt32 szSrc2 = src2Prop->size();
+    UInt32 szSrc1 = src1Prop->size32();
+    UInt32 szSrc2 = src2Prop->size32();
 
     // TODO: Optimize for matching src and dst types by not using generic
     // interface 
@@ -3878,8 +3878,8 @@ void mergeGeoTypes(
                           srcGeo2->getSFTypes()->getValue(), false, dstFormat);
     dstTypes = GeoPropertyFactory::the()->create(dstFormat);
     
-    UInt32 src1Sz = srcGeo1->getSFTypes()->getValue()->size();
-    UInt32 src2Sz = srcGeo2->getSFTypes()->getValue()->size();
+    UInt32 src1Sz = srcGeo1->getSFTypes()->getValue()->size32();
+    UInt32 src2Sz = srcGeo2->getSFTypes()->getValue()->size32();
     
     dstTypes->resize(src1Sz + src2Sz);
     
@@ -3899,8 +3899,8 @@ void mergeGeoLengths(
                           srcGeo2->getSFLengths()->getValue(), false, dstFormat);
     dstLengths = GeoPropertyFactory::the()->create(dstFormat);
     
-    UInt32 src1Sz = srcGeo1->getSFLengths()->getValue()->size();
-    UInt32 src2Sz = srcGeo2->getSFLengths()->getValue()->size();
+    UInt32 src1Sz = srcGeo1->getSFLengths()->getValue()->size32();
+    UInt32 src2Sz = srcGeo2->getSFLengths()->getValue()->size32();
     
     dstLengths->resize(src1Sz + src2Sz);
     
@@ -3940,7 +3940,7 @@ void mergeGeoNINI(
     const Geometry::MFPropertiesType  *src1PropF = srcGeo1->getMFProperties ();
     const Geometry::MFPropertiesType  *src2PropF = srcGeo2->getMFProperties ();
     
-    UInt32 szProp = osgMin(src1PropF->size(), src2PropF->size());
+    UInt32 szProp = osgMin(src1PropF->size32(), src2PropF->size32());
     
     for(UInt32 i = 0; i < szProp; ++i)
     {
@@ -4220,8 +4220,8 @@ void mergeGeoSISI(
     copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
     
     // copy each property
-    UInt32 minPropSz = osgMin(srcGeo1->getMFProperties()->size(),
-                              srcGeo2->getMFProperties()->size() );
+    UInt32 minPropSz = osgMin(srcGeo1->getMFProperties()->size32(),
+                              srcGeo2->getMFProperties()->size32() );
     
     for(UInt32 i = 0; i < minPropSz; ++i)
     {
@@ -4508,8 +4508,8 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
     
     // number of properties may differ, but additional entries must be NULL.
     // first compare common entries
-    UInt32 minSize = osgMin(prop1.size(), prop2.size());
-    UInt32 maxSize = osgMax(prop1.size(), prop2.size());
+    UInt32 minSize = osgMin(prop1.size32(), prop2.size32());
+    UInt32 maxSize = osgMax(prop1.size32(), prop2.size32());
     UInt32 i;
     
     // common entries must either be both present or both absent
@@ -4531,8 +4531,8 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
     
     // geometries have the same properties, now check indexing
     
-    UInt32 szIBag1 = geo1->getUniqueIndexBag().size();
-    UInt32 szIBag2 = geo2->getUniqueIndexBag().size();
+    UInt32 szIBag1 = UInt32(geo1->getUniqueIndexBag().size());
+    UInt32 szIBag2 = UInt32(geo2->getUniqueIndexBag().size());
     
     if(szIBag1 == 0 && szIBag2 == 0)
     {
@@ -4619,8 +4619,8 @@ GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
     
     // number of properties may differ, but additional entries must be NULL.
     // first compare common entries
-    UInt32 minSize = osgMin(prop1.size(), prop2.size());
-    UInt32 maxSize = osgMax(prop1.size(), prop2.size());
+    UInt32 minSize = osgMin(prop1.size32(), prop2.size32());
+    UInt32 maxSize = osgMax(prop1.size32(), prop2.size32());
     UInt32 i;
     
     // common entries must either be both present or both absent
@@ -4657,8 +4657,8 @@ GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
     
     // geometries have the same properties, now check indexing
     
-    UInt32 szIBag1 = geo1->getUniqueIndexBag().size();
-    UInt32 szIBag2 = geo2->getUniqueIndexBag().size();
+    UInt32 szIBag1 = UInt32(geo1->getUniqueIndexBag().size());
+    UInt32 szIBag2 = UInt32(geo2->getUniqueIndexBag().size());
     
     if(szIBag1 == 0 && szIBag2 == 0)
     {

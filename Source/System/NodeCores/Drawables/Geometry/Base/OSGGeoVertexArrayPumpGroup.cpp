@@ -152,8 +152,8 @@ namespace
     // handle vertex attrib with global value
     void globalAttrib(PumpData &info, UInt16 slot, UInt16 pumpSlot)
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             UInt16 formatIdx = info.attribPtr[slot]->getFormat() - formatBase;
             UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
@@ -181,8 +181,8 @@ namespace
     void globalExtAttrib(PumpData &info,     UInt16  slot,
                          UInt16    pumpSlot, Window *win)
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             UInt16 formatIdx = info.attribPtr[slot]->getFormat() - formatBase;
             UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
@@ -224,8 +224,8 @@ namespace
                               UInt16    pumpSlot, GLenum  attrib,
                               Window   *win                      )
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             UInt16 formatIdx = info.attribPtr[slot]->getFormat() - formatBase;
             UInt32 dimIdx    = info.attribPtr[slot]->getDimension() - 1;
@@ -362,7 +362,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
     // Setup: get all the data
 
     // check for empty geometry
-    if(types == NULL || types->getSize() == 0)
+    if(types == NULL || types->size() == 0)
         return;
 
     if(!pumpInternalSetup(types,   true))
@@ -437,7 +437,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
     // !!! This should be using the global state to reduce state changes
     // and to allow sharing data between objects
 
-    UInt16 nattrib = prop->size();
+    UInt16 nattrib = prop->size32();
 
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
@@ -455,7 +455,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
     // no lengths? use all available data for the first type
     if(lengths == NULL)
     {
-        if(types->getSize() != 1)
+        if(types->size() != 1)
         {
             SWARNING << "GeoVertexArrayPumpGroup::masterClassicGeoPump: "
                      << "No lengths, but more than one type?!"
@@ -466,16 +466,16 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
         nprims = 1;
         if(pumpData.attribIndex[Geometry::PositionsIndex] != NULL)
         {
-            curlen = pumpData.attribIndex[Geometry::PositionsIndex]->getSize();
+            curlen = pumpData.attribIndex[Geometry::PositionsIndex]->size32();
         }
         else
         {
-            curlen = pumpData.attribPtr[Geometry::PositionsIndex]->getSize();
+            curlen = pumpData.attribPtr[Geometry::PositionsIndex]->size32();
         }
     }
     else
     {
-        nprims = types->getSize();
+        nprims = types->size32();
         lengths->getValue(curlen, 0);
     }
 
@@ -502,7 +502,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
 
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            if(primindex < lengths->getSize())
+            if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
             glDrawElements(types->getValue<UInt16>(primindex),
@@ -520,7 +520,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
         // Non-indexed
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            if(primindex < lengths->getSize())
+            if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
             glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
@@ -552,7 +552,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     // Setup: get all the data
 
     // check for empty geometry
-    if(types == NULL || types->getSize() == 0)
+    if(types == NULL || types->size() == 0)
         return;
 
     if(!pumpInternalSetup(types,   true))
@@ -568,7 +568,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     pumpData.prop    = prop;
     pumpData.propIdx = propIdx;
 
-    UInt16 nattrib = prop->size();
+    UInt16 nattrib = prop->size32();
 
     for(UInt16 i = 0; i < nattrib; ++i)
     {
@@ -661,8 +661,8 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     // global attribs?
     for(Int16 i = 0; i < nattrib; ++i)
     {
-        if(pumpData.attribData[i]            != NULL &&
-           pumpData.attribPtr [i]->getSize() == 1      )
+        if(pumpData.attribData[i]         != NULL &&
+           pumpData.attribPtr [i]->size() == 1      )
         {
             attribFunc[i](i, pumpData.attribData[i]);
             pumpData.attribData[i] = NULL;
@@ -689,7 +689,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     // no lengths? use all available data for the first type
     if(lengths == NULL)
     {
-        if(types->getSize() != 1)
+        if(types->size() != 1)
         {
             SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
                      << "No lengths, but more than one type?!"
@@ -700,16 +700,16 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
         nprims = 1;
         if(pumpData.attribIndex[0] != NULL)
         {
-            curlen = pumpData.attribIndex[0]->getSize();
+            curlen = pumpData.attribIndex[0]->size32();
         }
         else
         {
-            curlen = pumpData.attribPtr[0]->getSize();
+            curlen = pumpData.attribPtr[0]->size32();
         }
     }
     else
     {
-        nprims = types->getSize();
+        nprims = types->size32();
         lengths->getValue(curlen, 0);
     }
 
@@ -736,7 +736,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
 
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            if(primindex < lengths->getSize())
+            if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
             glDrawElements(types->getValue<UInt16>(primindex),
@@ -754,7 +754,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
         // Non-indexed
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
-            if(primindex < lengths->getSize())
+            if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
             glDrawArrays(types->getValue<UInt16>(primindex), vertindex,

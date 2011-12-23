@@ -388,8 +388,8 @@ template<class ResortIndexTypeT> inline
 void InterpolationHelper<KeyFieldT,
                          KeyValueFieldT,
                          ValueFieldT>::resortKeyValues(      
-                                   UInt32            uiNumKeys,
-                                   UInt32            uiValuesPerKey,
+                                   SizeT             uiNumKeys,
+                                   SizeT             uiValuesPerKey,
                                    KeyValueFieldT   &mfKeyValues,
                              const ResortIndexTypeT &mfResortIndex)
 {
@@ -397,13 +397,13 @@ void InterpolationHelper<KeyFieldT,
 
     tmpKeyValues.resize(mfKeyValues.size());
 
-    UInt32 uiGlobalIdx = 0;
+    SizeT uiGlobalIdx = 0;
         
-    for(UInt32 i = 0; i < uiNumKeys; ++i)
+    for(SizeT i = 0; i < uiNumKeys; ++i)
     {
-        UInt32 uiGlobalBase = i * uiValuesPerKey;
+        SizeT uiGlobalBase = i * uiValuesPerKey;
                 
-        for(UInt32 j = 0; j < uiValuesPerKey; ++j, ++uiGlobalIdx)
+        for(SizeT j = 0; j < uiValuesPerKey; ++j, ++uiGlobalIdx)
         {
             tmpKeyValues[uiGlobalIdx] = 
                 mfKeyValues[uiGlobalBase + mfResortIndex[j]];

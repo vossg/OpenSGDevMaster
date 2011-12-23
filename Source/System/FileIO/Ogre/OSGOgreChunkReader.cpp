@@ -43,7 +43,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-const UInt32 OgreChunkReader::_chunkHeaderSize(sizeof(UInt16) + sizeof(UInt32));
+const Int32 OgreChunkReader::_chunkHeaderSize(sizeof(UInt16) + sizeof(UInt32));
 
 /* explicit */
 OgreChunkReader::OgreChunkReader(std::istream& is)

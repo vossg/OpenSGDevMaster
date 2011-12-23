@@ -258,7 +258,7 @@ static void OSG_APIENTRY gluTessEndDataCB(void *polygonData)
     TextVectorGlyph::PolygonOutline *outline = reinterpret_cast<TextVectorGlyph::PolygonOutline*>(polygonData);
     OSG_ASSERT(outline != 0);
     OSG_ASSERT(outline->types.empty() == false);
-    outline->types.back().second = outline->indices.size();
+    outline->types.back().second = UInt32(outline->indices.size());
 }
 
 
@@ -319,14 +319,14 @@ const TextVectorGlyph::PolygonOutline &TextVectorGlyph::getLines(UInt32 level) c
     Outline::const_iterator oIt;
     for (oIt = _outline.begin(); oIt != _outline.end(); ++oIt)
     {
-        UInt32 size = oIt->size();
+        UInt32 size = UInt32(oIt->size());
         if (size > 0)
         {
             size -= 1;
             UInt32 index = 0;
             while (index < size)
                 evalBezierCurve(*oIt, index, level, newOutline.coords);
-            newOutline.contours.push_back(newOutline.coords.size());
+            newOutline.contours.push_back(UInt32(newOutline.coords.size()));
         }
     }
 

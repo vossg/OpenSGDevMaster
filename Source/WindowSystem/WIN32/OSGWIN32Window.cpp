@@ -184,7 +184,7 @@ bool WIN32Window::doSwap(void)
     if(getHdc() == NULL)
         setHdc(GetDC(getHwnd()));
 
-    return SwapBuffers(getHdc());
+    return SwapBuffers(getHdc()) != 0;
 }
 
 bool WIN32Window::hasContext(void)

@@ -230,7 +230,7 @@ void LODSetupGraphOp::LODSet::addLODPair(Int32 LOD, Node *node)
     // simple sort to make sure LODs are in order
     if(mLODPairs.size() > 1)
     {
-        for(Int32 i = mLODPairs.size() - 1; i >= 1; --i)
+        for(Int32 i = Int32(mLODPairs.size()) - 1; i >= 1; --i)
         {
             if(mLODPairs[i] < mLODPairs[i - 1])
             {

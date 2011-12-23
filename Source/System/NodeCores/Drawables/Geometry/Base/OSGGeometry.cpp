@@ -494,7 +494,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
             {
                 if(getPositions() != NULL)
                 {
-                    is = getPositions()->getSize();
+                    is = getPositions()->size();
                 }
                 else
                 {
@@ -504,7 +504,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
             else
             {
                 is = getIndexMapping().size();
-                is = getIndices()->getSize() /(is ? is : 1);
+                is = getIndices()->size() /(is ? is : 1);
             }
             coll->getElem(Drawable::statNVertices)->add(is);
         }
@@ -781,7 +781,7 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
                              this->getProperty(i)->getDimension();
         storedAttBytes    += this->getProperty(i)->getFormatSize() *
                              this->getProperty(i)->getDimension()  *
-                             this->getProperty(i)->size();
+                             this->getProperty(i)->size32();
     }
 
 
@@ -790,8 +790,8 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
 
     UInt32 lN, tN, len, type;
 
-    lN = (lensPtr    == NULL) ? 0 : lensPtr   ->getSize();
-    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->getSize();
+    lN = (lensPtr    == NULL) ? 0 : lensPtr   ->size32();
+    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->size32();
 
     if((tN == 0) || (lN != 0 && tN != lN) || (lN == 0 && tN != 1))
     {
@@ -821,7 +821,7 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
                 return;
             }
 
-            len = pos->size();
+            len = pos->size32();
         }
 
         vertices     += len;

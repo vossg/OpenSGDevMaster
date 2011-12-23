@@ -658,7 +658,7 @@ void FishEyeProjector::warpData(Geometry *pGeo)
 
     Real64 x[3], z[3], b[3];
 
-    UInt32 uiNumTris = oPos.size() / 3;
+    UInt32 uiNumTris = oPos.size32() / 3;
 
     UInt32 uiCurrIdx = 0;
 
@@ -931,7 +931,7 @@ void FishEyeProjector::updateMesh(Geometry *pGeo)
     MFVec2d  &oUV  = *(pUVProp ->editFieldPtr());
     MFVec3d  &oPos = *(pPosProp->editFieldPtr());
 
-    UInt32 uiNumTris = oPos.size() / 3;
+    UInt32 uiNumTris = oPos.size32() / 3;
 
     for(UInt32 i = 0; i < this->getMeshRefinementLevel(); i++) 
     {
@@ -983,8 +983,8 @@ void FishEyeProjector::updateMesh(Geometry *pGeo)
     pTyp->clear();
     pLen->clear();
 
-    pTyp->push_back(GL_TRIANGLES);
-    pLen->push_back(oPos.size() );
+    pTyp->push_back(GL_TRIANGLES );
+    pLen->push_back(oPos.size32());
 
     pIdx->clear();
 

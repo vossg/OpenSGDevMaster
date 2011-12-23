@@ -153,7 +153,7 @@ void GradientBackground::clear(DrawEnv *pEnv)
 
             glBegin(GL_QUAD_STRIP);
 
-            UInt32 size  = _mfPosition.size();
+            UInt32 size  = _mfPosition.size32();
             Real32 pos   = _mfPosition[0];
             UInt32 style = getStyle();
 

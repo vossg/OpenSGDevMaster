@@ -282,7 +282,7 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
     MFJointMatricesType       *mfJointMat     = editMFJointMatrices      ();
     MFJointNormalMatricesType *mfJointNMats   = editMFJointNormalMatrices();
     UInt32                     newSize        =
-        osgMax<UInt32>(mfJoints->size(), jointId + 1);
+        osgMax<UInt32>(mfJoints->size32(), jointId + 1);
 
     mfJoints      ->resize(newSize, NULL              );
     mfParentJoints->resize(newSize, NULL              );

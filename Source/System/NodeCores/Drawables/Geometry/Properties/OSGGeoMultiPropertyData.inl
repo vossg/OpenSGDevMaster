@@ -71,9 +71,15 @@ void GeoMultiPropertyData::setSize(UInt32 size)
 }
 
 inline 
-UInt32 GeoMultiPropertyData::getSize(void) const
+SizeT GeoMultiPropertyData::size(void) const
 {
     return getMFIData()->size();
+}
+
+inline 
+UInt32 GeoMultiPropertyData::size32(void) const
+{
+    return getMFIData()->size32();
 }
 
 

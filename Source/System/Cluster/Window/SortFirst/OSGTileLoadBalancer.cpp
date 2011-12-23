@@ -219,7 +219,7 @@ void TileLoadBalancer::balance(Viewport      *vp,
     }
     if(_renderNode.size()>1)
     {
-        splitRegion(0,_renderNode.size()-1,
+        splitRegion(0, UInt32(_renderNode.size()) - 1,
                     visible,
                     wmin,
                     wmax,

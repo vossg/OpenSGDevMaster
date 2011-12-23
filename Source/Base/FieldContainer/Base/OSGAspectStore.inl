@@ -62,7 +62,8 @@ FieldContainer *AspectStore::getPtr(const UInt32 uiAspect) const
     if(uiAspect < _vAspects.size())
     {
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
-        OSG_ASSERT(_vAspects[uiAspect] != reinterpret_cast<FieldContainer *>(0xDEADBEEF));
+        OSG_ASSERT(_vAspects[uiAspect] != 
+                       reinterpret_cast<FieldContainer *>(0xDEADBEEF));
 #endif
 
         return _vAspects[uiAspect];

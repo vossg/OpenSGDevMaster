@@ -206,8 +206,8 @@ bool STLSceneFileType::isASCII(std::istream &is, const Char8* fileNameOrExtensio
 {
     std::string theAbsName = fileNameOrExtension;
     std::string theExtension;
-    int nameLength = theAbsName.length();
-    int separator  = theAbsName.rfind(".", nameLength);
+    int nameLength = int(theAbsName.length());
+    SizeT separator  = theAbsName.rfind(".", nameLength);
     theExtension = theAbsName.substr(separator+1, nameLength-separator-1);
 
     for (UInt32 i = 0; i < theExtension.length(); i++)

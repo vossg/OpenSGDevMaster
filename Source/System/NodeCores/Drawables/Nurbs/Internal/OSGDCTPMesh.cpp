@@ -180,7 +180,7 @@ DCTPEdge *DCTPMesh::AddEdge(DCTPVertex *v1, DCTPVertex *v2, int orient)
 {
 #ifdef OSG_NO_EDGE_SET
     DCTPEdge          *pcl_edge;
-    const unsigned int cui_edge_cnt = v1->edges.size();
+    const unsigned int cui_edge_cnt = UInt32(v1->edges.size());
     unsigned int       ui_edge;
     DCTPVertex        *pcl_ev1;
     DCTPVertex        *pcl_ev2;
@@ -2168,7 +2168,7 @@ DCTPEdge *DCTPMesh::findEdge(DCTPVertex *v1, DCTPVertex *v2)
 {
 #ifdef OSG_NO_EDGE_SET
     DCTPEdge          *pcl_edge;
-    const unsigned int cui_edge_cnt = v1->edges.size();
+    const unsigned int cui_edge_cnt = UInt32(v1->edges.size());
     unsigned int       ui_edge;
     DCTPVertex        *pcl_ev1;
     DCTPVertex        *pcl_ev2;
@@ -2224,11 +2224,11 @@ void DCTPMesh::removeFace(unsigned int ui_face)
     DCTPVertex  *pcl_vertex2;
 #ifdef OSG_NO_EDGE_SET
     unsigned int ui_edge;
-    unsigned int ui_edge_cnt = edges.size();
+    unsigned int ui_edge_cnt = UInt32(edges.size());
 #endif
 
     // remove edges
-    ui_loop_cnt = pcl_face->edges.size();
+    ui_loop_cnt = UInt32(pcl_face->edges.size());
 
     for(ui_loop = 0; ui_loop < ui_loop_cnt; ++ui_loop)
     {
@@ -2260,7 +2260,7 @@ void DCTPMesh::removeFace(unsigned int ui_face)
     }
 
     // remove vertices
-    ui_loop_cnt = pcl_face->vertices.size();
+    ui_loop_cnt = UInt32(pcl_face->vertices.size());
 
     for(ui_loop = 0; ui_loop < ui_loop_cnt; ++ui_loop)
     {

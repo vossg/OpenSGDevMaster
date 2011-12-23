@@ -62,7 +62,7 @@ void GraphTraverser::Initialize(DirectedGraph<Vec2d, unsigned char>& gg, bool
                                 usedelaunaytri)
 {
     g = &gg;
-    unsigned int ee = g->nodes.size();
+    unsigned int ee = UInt32(g->nodes.size());
     globalverts.resize(ee);
 
     for(unsigned int i = 0; i < ee; ++i)
@@ -180,7 +180,7 @@ int GraphTraverser::getADirectedEdge(void)
     static bool beenhere = false;
     if(!beenhere)
         beenhere = true;
-    unsigned int e     = g->edges.size();
+    unsigned int e     = UInt32(g->edges.size());
     bool         found = false;
 
     for(unsigned int i = 0; i < e; ++i)
@@ -302,7 +302,7 @@ int GraphTraverser::Traverse(void)
             }
             else
             {
-                const int ci_size2 = node_ids.size() - 2;
+                const int ci_size2 = UInt32(node_ids.size()) - 2;
                 if(ci_size2 >= 0)
                 {
                     if(node_ids[ci_size2] == act_node)
@@ -321,9 +321,9 @@ int GraphTraverser::Traverse(void)
 
 int GraphTraverser::getNextEdge(const int nodeid, const int previd /*const double& in_angle*/)
 {
-    Vec2d prev_vect = g->nodes[previd].nodeinfo;
-    Vec2d node_vect = g->nodes[nodeid].nodeinfo;
-    int   en        = g->nodes[nodeid].edges.size();   //numbah o' 3dg4z
+    Vec2d prev_vect =        g->nodes[previd].nodeinfo;
+    Vec2d node_vect =        g->nodes[nodeid].nodeinfo;
+    int   en        = UInt32(g->nodes[nodeid].edges.size());   //numbah o' 3dg4z
 
     if(en == 1)         //most common case, along trimming curves over faces
     {
@@ -381,7 +381,7 @@ int GraphTraverser::getNextEdge(const int nodeid, const int previd /*const doubl
     }
     //END DEBUG
     double       a[2], b[2], c[2], d[2];
-    unsigned int eae      = eid.size();
+    unsigned int eae      = UInt32(eid.size());
     int          leftmost = 0;
 //		std::cerr << prev_vect << " -> " << node_vect << std::endl;
     a[0] = prev_vect[0];

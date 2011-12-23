@@ -250,7 +250,7 @@ namespace
               UInt32     *trisBelow,      UInt32 *trisAbove,
               UInt32      depth,          UInt32  badRefines)
     {
-        UInt32 currNode = state._mfNodes->size();
+        UInt32 currNode = state._mfNodes->size32();
 
         state._mfNodes->push_back(IntersectKDTreeNode());
 
@@ -259,7 +259,7 @@ namespace
         if(triCount <= state._maxTri ||
            depth    == 0               )
         {
-            (*state._mfNodes)[currNode].setLeaf(triCount, state._mfTriIndices->size());
+            (*state._mfNodes)[currNode].setLeaf(triCount, state._mfTriIndices->size32());
 
             for(UInt32 i = 0; i < triCount; ++i)
                 state._mfTriIndices->push_back(triIdx[i]);
@@ -359,7 +359,7 @@ namespace
                bestAxis   == -1 ||
                badRefines >=  3   )
             {
-                (*state._mfNodes)[currNode].setLeaf(triCount, state._mfTriIndices->size());
+                (*state._mfNodes)[currNode].setLeaf(triCount, state._mfTriIndices->size32());
 
                 for(UInt32 i = 0; i < triCount; ++i)
                     state._mfTriIndices->push_back(triIdx[i]);
@@ -400,7 +400,7 @@ namespace
 
         // initialize interior node
         (*state._mfNodes)[currNode].setInterior(static_cast<IntersectKDTreeNode::FlagsE>(bestAxis),
-                                                state._mfNodes->size(), splitPos);
+                                                state._mfNodes->size32(), splitPos);
 
         // build tree for triangles above split plane
         buildTree(state, aboveBounds, aboveCount,

@@ -129,7 +129,7 @@ GeoVectorProperty *GeoBuilder::getProperty(UInt32 index)
 // attributes and adjust the index, if necessary
 UInt32 GeoBuilder::finishVertex(void)
 {
-    UInt32 possize = _geo->getProperty(Geometry::PositionsIndex)->size();
+    UInt32 possize = _geo->getProperty(Geometry::PositionsIndex)->size32();
 
     for(UInt16 i = 1; i < _geo->getMFProperties()->size(); ++i)
     {
@@ -140,7 +140,7 @@ UInt32 GeoBuilder::finishVertex(void)
             _geo->getProperty(i)->getValue(val,
                         _geo->getProperty(i)->size() - 1);
 
-            for(UInt32 propsize = _geo->getProperty(i)->size();
+            for(UInt32 propsize = _geo->getProperty(i)->size32();
                 propsize < possize;
                 ++propsize)
             {

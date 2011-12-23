@@ -495,7 +495,7 @@ void PCSSShadowMapHandler::configureShadowMaps(void)
     const ShadowStageData::LightStore  &vLights  = _pStageData->getLights();
 
 
-    UInt32 uiSHMSize = vShadowMaps.size();
+    UInt32 uiSHMSize = UInt32(vShadowMaps.size());
     UInt32 uiMapSize = _pStage-> getMapSize ();
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)

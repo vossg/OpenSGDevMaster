@@ -600,7 +600,7 @@ void PerspectiveShadowMapHandler::calcHull2(
         (*points)[i] = tmpPnt;
     }
 
-    UInt32  sumPoints = points->size();
+    UInt32  sumPoints = UInt32(points->size());
     for(UInt32 i = 0;i < sumPoints;i++)
     {
         Pnt3f   pntCut2 = (*points)[i];

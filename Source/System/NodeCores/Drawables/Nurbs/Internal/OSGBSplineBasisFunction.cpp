@@ -494,7 +494,7 @@ int BSplineBasisFunction::findSpan(double &u)
 
     while(u < knots[n])
         --n;
-    return n;
+    return int(n);
 #if 0
     if(osgAbs(u - knots[n + 1]) < DCTP_EPS)
         return n;                                            //special case: u is at the end FIXME: double ==double ???

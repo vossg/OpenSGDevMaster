@@ -302,7 +302,7 @@ bool GeoIntegralProperty::unmapBuffer(DrawEnv *pEnv)
         osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
                         pWin->getGLObjectId(getGLId()));
 
-        returnValue = osgGlUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB);
+        returnValue = osgGlUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB) != 0;
 
         osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
     }

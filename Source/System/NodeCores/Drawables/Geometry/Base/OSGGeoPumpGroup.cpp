@@ -150,8 +150,8 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
 {
     PropertyCharacteristics retVal = 0;
 
-    Int16 natt = prop   ->size();
-    Int16 nind = propIdx->size();
+    Int16 natt = prop   ->size32();
+    Int16 nind = propIdx->size32();
 
     // Check for single- and multi-indexed
     GeoIntegralProperty *ind = NULL;

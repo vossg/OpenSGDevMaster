@@ -78,8 +78,8 @@ struct InterpolationHelper
 
 
     template<class ResortIndexTypeT> 
-    static void resortKeyValues(      UInt32            uiNumKeys,
-                                      UInt32            uiValuesPerKey,
+    static void resortKeyValues(      SizeT             uiNumKeys,
+                                      SizeT             uiValuesPerKey,
                                       KeyValueFieldT   &mfKeyValues,
                                 const ResortIndexTypeT &mfResortIndex);
 };

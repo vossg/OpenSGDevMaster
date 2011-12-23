@@ -287,9 +287,9 @@ EditFieldHandlePtr DynFieldContainer<ParentT>::editDynamicFieldByName(
 
 
 template <class ParentT> inline
-UInt32 DynFieldContainer<ParentT>::getBinSize (ConstFieldMaskArg whichField)
+SizeT DynFieldContainer<ParentT>::getBinSize (ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 #if 0
     for(UInt32 i = _uiDescStartIdx; i <= getType().getNumFieldDescs(); i++)

@@ -171,7 +171,7 @@ bool ShaderProgram::hasDestroyedFunctor(FunctorT func)
 inline
 UInt32 ShaderProgram::getNumDestroyedFunctors(void) const
 {
-    return _mfDestroyedFunctors.size();
+    return _mfDestroyedFunctors.size32();
 }
 
 inline 

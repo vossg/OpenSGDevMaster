@@ -148,7 +148,7 @@ void State::rebuildSortKey(void)
     UInt32 uiKey2 = (_uiKeyGen & Key2Mask) >> 10;
     UInt32 uiKey3 = (_uiKeyGen & Key3Mask) >> 20;
 
-    UInt32 uiSizeChunks = _mfChunks.size();
+    UInt32 uiSizeChunks = _mfChunks.size32();
 
 //    fprintf(stderr, "Got Keys %d %d %d\n", uiKey1, uiKey2, uiKey3);
 
@@ -259,7 +259,7 @@ void State::activate(DrawEnv *pEnv) const
     MFChunksType::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind  = 0;
     UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size()    );
+                                                       _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
@@ -287,7 +287,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
     Int32                                ind  = 0;
     UInt32                               i;
     UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size()    );
+                                                       _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
@@ -346,7 +346,7 @@ void State::deactivate(DrawEnv *pEnv) const
     MFChunksType::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind  = 0;
     UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size()    );
+                                                       _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
@@ -395,7 +395,7 @@ bool State::addChunk(StateChunk *chunk, Int32 index)
     }
 
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     const State *pThis = this;
 
@@ -464,7 +464,7 @@ bool State::subChunk(StateChunk *chunk)
         return true;
         
     UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
+    UInt32 csize  = _mfChunks.size32();
 
     // special case: find it in the slots
     UInt8 nslots = chunk->getClass()->getNumSlots();

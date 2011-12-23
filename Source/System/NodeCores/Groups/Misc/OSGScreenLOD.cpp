@@ -92,7 +92,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
     Int32           numLevels = action->getNNodes();
     Int32           index     = 0;
     
-    Int32           numCovOverrides = getMFCoverageOverride()->size();
+    Int32           numCovOverrides = getMFCoverageOverride()->size32();
     bool            use_overrides(numCovOverrides > 0);
 
     if(numLevels > 1)

@@ -250,9 +250,9 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
         }
         else if(mfFCPtr != NULL && mfFCPtr->isValid() == true)
         {
-            UInt32 mfSize = (*mfFCPtr)->size();
+            SizeT mfSize = (*mfFCPtr)->size();
 
-            for(UInt32 i=0; i < mfSize; i++)
+            for(SizeT i = 0; i < mfSize; i++)
             {
                 visitContainer((**mfFCPtr)[i]);
             }
@@ -312,7 +312,7 @@ void OSGWriter::writeContainer(FieldContainer * const pFC,
         
         _outStream << IncIndent;
 
-        for(UInt32 field=numFields; field > 0; field--)
+        for(UInt32 field = numFields; field > 0; field--)
         {
             GetFieldHandlePtr fHandle = pFC->getField(field);
 
@@ -508,9 +508,9 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
             _outStream << IncIndent;
 
-            UInt32 mfSize = (*mfFCPtr)->size();
+            SizeT mfSize = (*mfFCPtr)->size();
 
-            for(UInt32 i=0; i < mfSize; i++)
+            for(SizeT i = 0; i < mfSize; i++)
             {
                 if((*(*mfFCPtr))[i] == NULL)
                 {

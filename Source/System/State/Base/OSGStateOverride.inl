@@ -148,9 +148,15 @@ StateOverride::ChunkStoreIt StateOverride::end(void)
 }
 
 inline
-UInt32 StateOverride::size(void)
+SizeT StateOverride::size(void)
 {
     return _vChunks.size();
+}
+
+inline
+UInt32 StateOverride::size32(void)
+{
+    return UInt32(_vChunks.size());
 }
 
 inline

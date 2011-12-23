@@ -235,7 +235,7 @@ void BalancedMultiWindow::serverRender(Window           *pServerWindow,
 
     // send bboxes of all viewports to client
     Connection *conn = getNetwork()->getMainConnection();
-    vpcount = server.viewports.size();
+    vpcount = UInt32(server.viewports.size());
     conn->putValue(id);
     conn->putValue(vpcount);
     for(vp=0 ; vp<vpcount ; ++vp)
@@ -245,7 +245,7 @@ void BalancedMultiWindow::serverRender(Window           *pServerWindow,
         conn->putValue(port.load);
         conn->putValues(port.loadCenter,2);
         conn->putValues(port.rect,4);
-        count = port.bboxes.size();
+        count = UInt32(port.bboxes.size());
         conn->putValue(count);
         if(count)
             conn->put(&port.bboxes[0],count*sizeof(BBox));
@@ -348,7 +348,7 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
         for(UInt32 id=0 ; id < getMFServers()->size()+1 ; ++id)
             _cluster.servers[id].id = id;
 
-        getNetwork()->connectAllGroupToPoint(getMFServers()->size(),
+        getNetwork()->connectAllGroupToPoint(getMFServers()->size32(),
                                              "StreamSock");
 
         // do not buffer any data
@@ -429,14 +429,14 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
     balanceServer();
     _balanceTime += getSystemTime();
     // send work packages
-    wpcount = _cluster.workpackages.size();
+    wpcount = UInt32(_cluster.workpackages.size());
     conn->putValue(wpcount);
     conn->put(&_cluster.workpackages[0],wpcount*sizeof(WorkPackage));
     conn->flush();
     // client rendering ?
 //    if(getHServers() * getVServers() == 0)
 
-    drawSendAndRecv(getClientWindow(),action,getMFServers()->size());
+    drawSendAndRecv(getClientWindow(),action,getMFServers()->size32());
 
     // do local rendering if not switched off and no parallel 
     // rendering to local window
@@ -764,14 +764,14 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
             // constant geometry setup cost
             if ((indices != NULL)) 
             {
-                load.constant = indices->getSize() / MW_INDICES_PER_SEC;
-                load.ratio    = indices->getSize() / MW_VISIBLE_INDICES_PER_SEC;
+                load.constant = indices->size() / MW_INDICES_PER_SEC;
+                load.ratio    = indices->size() / MW_VISIBLE_INDICES_PER_SEC;
             }
             else
                 if(positions != NULL) 
                 {
-                    load.constant = positions->getSize() / MW_INDICES_PER_SEC;
-                    load.ratio    = positions->getSize() / MW_VISIBLE_INDICES_PER_SEC;
+                    load.constant = positions->size() / MW_INDICES_PER_SEC;
+                    load.ratio    = positions->size() / MW_VISIBLE_INDICES_PER_SEC;
                 }
             // pixel cost for shaders
             if (mat != NULL && mat->find (SimpleSHLChunk::getClassType ()) != NULL)
@@ -1096,9 +1096,9 @@ void BalancedMultiWindow::balanceServer(void)
     UInt32 count;
 
     if(getHServers()*getVServers() == 0)
-        count = getMFServers()->size() + 1;
+        count = getMFServers()->size32() + 1;
     else
-        count = getMFServers()->size();
+        count = getMFServers()->size32();
 
     // clear work packages
     _cluster.workpackages.clear();
@@ -1119,7 +1119,7 @@ void BalancedMultiWindow::balanceServer(void)
     // median load
     medLoad = load / count;
     low = 0;
-    heigh = server.size() - 1;
+    heigh = UInt32(server.size()) - 1;
     tolerance = medLoad * 0.1;
 //    tolerance = medLoad * .8;
     while(low < heigh && server[heigh]->load - tolerance > medLoad)
@@ -1863,7 +1863,7 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
             }
         }
         // send tiles
-        sendCount = _cluster.areas.size();
+        sendCount = UInt32(_cluster.areas.size());
         groupConn = getNetwork()->getGroupConnection(id);
         while(sendCount)
         {
@@ -1877,9 +1877,9 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
                     for(tI = aI->tiles.begin() ; tI != aI->tiles.end() ; ++tI)
                     {
                         if(getShort())
-                            conn->put(&(*tI),UInt32(osgAbs(tI->header.width)) * tI->header.height * 2 + sizeof(Tile::Header));
+                            conn->put(&(*tI),UInt32(tI->header.width) * tI->header.height * 2 + sizeof(Tile::Header));
                         else
-                            conn->put(&(*tI),UInt32(osgAbs(tI->header.width)) * tI->header.height * 3 + sizeof(Tile::Header));
+                            conn->put(&(*tI),UInt32(tI->header.width) * tI->header.height * 3 + sizeof(Tile::Header));
                     }
                     conn->flush();
                     sendCount--;

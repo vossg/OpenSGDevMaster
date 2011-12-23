@@ -117,15 +117,15 @@ struct FieldTraits<MaterialMap> :
         return "MFMaterialPtrMap"; 
     }
     
-    static OSG_SYSTEM_DLLMAPPING UInt32 getBinSize(const MaterialMap &aMap);
+    static OSG_SYSTEM_DLLMAPPING SizeT getBinSize(const MaterialMap &aMap);
 
-    static UInt32 getBinSize(const MaterialMap *aMaps,
-                                   UInt32       numObjects)
+    static SizeT  getBinSize(const MaterialMap *aMaps,
+                                   SizeT        numObjects)
     {
-        UInt32 size = 0;
+        SizeT size = 0;
 
         // defaut: individual field sizes
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             size += getBinSize(aMaps[i]);
         }
@@ -138,9 +138,9 @@ struct FieldTraits<MaterialMap> :
     
     static void copyToBin(      BinaryDataHandler &pMem,
                           const MaterialMap       *aMaps,
-                                UInt32             numObjects)
+                                SizeT              numObjects)
     {
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             copyToBin(pMem, aMaps[i]);
         }
@@ -151,9 +151,9 @@ struct FieldTraits<MaterialMap> :
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             MaterialMap       *aMaps,
-                            UInt32             numObjects)
+                            SizeT              numObjects)
     {
-        for(UInt32 i = 0; i < numObjects; ++i)
+        for(SizeT i = 0; i < numObjects; ++i)
         {
             copyFromBin(pMem, aMaps[i]);
         }

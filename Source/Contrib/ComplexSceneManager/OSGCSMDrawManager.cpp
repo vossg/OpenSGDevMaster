@@ -162,22 +162,22 @@ bool CSMDrawManager::init(void)
         OSG_ASSERT(_pSyncLock    != NULL);
 #endif
        
-        _uiSyncCount = _mfDrawer.size() + 1;
+        _uiSyncCount = _mfDrawer.size32() + 1;
 
         while(dIt != dEnd)
         {
-            (*dIt)->setParallel      ( true           );
+            (*dIt)->setParallel      ( true             );
 
-            (*dIt)->setSyncBarrier   (_pSyncBarrier   );
-            (*dIt)->setSwapBarrier   (_pSwapBarrier   );
+            (*dIt)->setSyncBarrier   (_pSyncBarrier     );
+            (*dIt)->setSwapBarrier   (_pSwapBarrier     );
 #ifdef OSG_GLOBAL_SYNC_LOCK
-            (*dIt)->setSyncLock      (_pSyncLock      );
+            (*dIt)->setSyncLock      (_pSyncLock        );
 #endif
 
-            (*dIt)->setSyncCount     (_uiSyncCount    );
-            (*dIt)->setSyncFromThread(_pThread        );
+            (*dIt)->setSyncCount     (_uiSyncCount      );
+            (*dIt)->setSyncFromThread(_pThread          );
 
-            (*dIt)->setSwapCount     (_mfDrawer.size());
+            (*dIt)->setSwapCount     (_mfDrawer.size32());
             (*dIt)->init();
             
             ++dIt;

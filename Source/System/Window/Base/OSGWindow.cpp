@@ -323,7 +323,7 @@ void OSG::Window::onCreate(const Window *source)
     if(source != NULL)
     {
         // mark all GL objects as not yet initialized
-        doResetGLObjectStatus(1, _glObjects.size() - 1);
+        doResetGLObjectStatus(1, UInt32(_glObjects.size() - 1));
     }
 
     staticAcquire();
@@ -526,7 +526,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
     if(_glObjects.empty())
         _glObjects.push_back(NULL);
 
-    osgId     = _glObjects.size();
+    osgId     = UInt32(_glObjects.size());
     pGLObject = new GLObject(functor, destroy);
     
     // does the requested block fit into the capacity?
@@ -599,7 +599,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
     else
     {
         // we found no empty entries so the new id is the size of the vector.
-        osgId = _glObjects.size();
+        osgId = UInt32(_glObjects.size());
     }
 
     // expand the vector for the rest 
@@ -1037,7 +1037,7 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
     }
     else
     {
-        r = _registeredExtensions.size();
+        r = Int32(_registeredExtensions.size());
 
         _registeredExtensions.push_back(s);
 
@@ -1201,7 +1201,7 @@ UInt32 OSG::Window::registerFunction(const Char8 *s,
         return i - _registeredFunctions.begin();
     }
             
-    UInt32 r=_registeredFunctions.size();
+    UInt32 r = UInt32(_registeredFunctions.size());
 
     _registeredFunctions       .push_back(s);
     _registeredFunctionExts    .push_back(ext);
@@ -1434,7 +1434,7 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
 
         while(_registeredExtensions.size() > _availExtensions.size())
         {                          
-            UInt32 s = _availExtensions.size();
+            UInt32 s = UInt32(_availExtensions.size());
 
             /* perform a binary search over the retrieved extension strings.
                Push back the result as an availability flag for the extension

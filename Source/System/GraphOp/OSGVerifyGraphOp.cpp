@@ -225,35 +225,35 @@ Action::ResultE VerifyGraphOp::verifyGeometry(Node * const node)
 
     UInt32 start_errors = _numErrors;
 
-    Int32 positions_size = geo->getPositions()->getSize();
+    Int32 positions_size = geo->getPositions()->size32();
 
     Int32 normals_size = 0;
     if(geo->getNormals() != NULL)
-        normals_size = geo->getNormals()->getSize();
+        normals_size = geo->getNormals()->size32();
 
     Int32 colors_size = 0;
     if(geo->getColors() != NULL)
-        colors_size = geo->getColors()->getSize();
+        colors_size = geo->getColors()->size32();
 
     Int32 secondary_colors_size = 0;
     if(geo->getSecondaryColors() != NULL)
-        secondary_colors_size = geo->getSecondaryColors()->getSize();
+        secondary_colors_size = geo->getSecondaryColors()->size32();
 
     Int32 texccords_size = 0;
     if(geo->getTexCoords() != NULL)
-        texccords_size = geo->getTexCoords()->getSize();
+        texccords_size = geo->getTexCoords()->size32();
 
     Int32 texccords1_size = 0;
     if(geo->getTexCoords1() != NULL)
-        texccords1_size = geo->getTexCoords1()->getSize();
+        texccords1_size = geo->getTexCoords1()->size32();
 
     Int32 texccords2_size = 0;
     if(geo->getTexCoords2() != NULL)
-        texccords2_size = geo->getTexCoords2()->getSize();
+        texccords2_size = geo->getTexCoords2()->size32();
 
     Int32 texccords3_size = 0;
     if(geo->getTexCoords3() != NULL)
-        texccords3_size = geo->getTexCoords3()->getSize();
+        texccords3_size = geo->getTexCoords3()->size32();
 
     UInt32 pos_errors = 0;
     UInt32 norm_errors = 0;

@@ -376,15 +376,15 @@ void ShadowTreeHandler::initShadowMaps(void)
     }
     else
     {
-        UInt32 uiLSize   = vLights.size();
-        UInt32 uiMapSize = _pStage->getMapSize ();
+        UInt32 uiLSize   = UInt32(vLights.size());
+        UInt32 uiMapSize = _pStage->getMapSize();
 
         if(vShadowMaps.size() == 0) 
         {
             _uiMapSize = uiMapSize;
         }
 
-        for(UInt32 i = vShadowMaps.size(); i < uiLSize; ++i)
+        for(SizeT i = vShadowMaps.size(); i < uiLSize; ++i)
         {
             if(vLights[i].second->getType() != PointLight::getClassType())
             {
@@ -503,7 +503,7 @@ void ShadowTreeHandler::updateShadowMapSize(void)
 {
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
  
-    UInt32 uiSHMSize    =  vShadowMaps.size();
+    UInt32 uiSHMSize    =  UInt32(vShadowMaps.size());
      Int32 uiNewMapSize = _pStage->getMapSize();
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)
@@ -528,7 +528,7 @@ void ShadowTreeHandler::configureShadowMaps(void)
 
     const ShadowStageData::LightStore  &vLights  = _pStageData->getLights();
 
-    UInt32 uiSHMSize = vShadowMaps.size();
+    UInt32 uiSHMSize = UInt32(vShadowMaps.size());
 
     UInt32 uiMapSize = _pStage-> getMapSize ();
 

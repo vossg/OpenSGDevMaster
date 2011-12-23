@@ -150,7 +150,7 @@ void GeoVectorBufferProperty::clear(void)
     OSG_ASSERT(false);
 }
 
-void GeoVectorBufferProperty::resize(size_t)
+void GeoVectorBufferProperty::resize(SizeT)
 {
     OSG_ASSERT(false);
 }

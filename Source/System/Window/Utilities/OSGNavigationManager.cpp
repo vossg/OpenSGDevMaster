@@ -318,7 +318,7 @@ void NavigationManager::update(void)
     {
         SolidBackgroundUnrecPtr bg = SolidBackground::create();
 
-        bg->setColor(Color3f(0.2, 0.2, 0.2));
+        bg->setColor(Color3f(0.2f, 0.2f, 0.2f));
 
         ViewportUnrecPtr vp = Viewport::create();
 

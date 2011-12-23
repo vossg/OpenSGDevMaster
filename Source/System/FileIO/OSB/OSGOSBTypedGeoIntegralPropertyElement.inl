@@ -208,7 +208,7 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
 
     if(getPackData() == true)
     {
-        UInt32 propSize = prop->getSize();
+        UInt32 propSize = prop->size32();
 
         if(propSize > 0)
         {
@@ -224,7 +224,7 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
                 packer.pack(propField[i]);
 
             const BitPacker::BufferType &buffer   = packer.getBuffer();
-            UInt32                       byteSize = buffer.size();
+            UInt32                       byteSize = UInt32(buffer.size());
 
             // fieldSize: flags + maxValue + propSize + byteSize
             UInt32 fieldSize = sizeof(UInt8) + sizeof(IntegralType)
@@ -249,7 +249,7 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
     }
     else
     {
-        UInt32 fieldSize = getContainer()->getBinSize(fieldMask);
+        UInt32 fieldSize = UInt32(getContainer()->getBinSize(fieldMask));
 
         writeFieldHeader (fieldName, fieldTypeName, fieldSize);
         writeFieldContent(fieldId);

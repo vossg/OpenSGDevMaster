@@ -585,7 +585,7 @@ OSBGeometryElement::postReadV100(void)
     OSBRootElement  *root             = editRoot();
     Geometry        *geo              =
         dynamic_cast<Geometry*>(getContainer());
-    UInt32           indexMappingSize = _indexMapping.size();
+    UInt32           indexMappingSize = UInt32(_indexMapping.size());
 
     if(indexMappingSize <= 1)
     {

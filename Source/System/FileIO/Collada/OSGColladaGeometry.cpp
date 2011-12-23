@@ -220,7 +220,7 @@ ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
             // record the instantiation of the geometry with the
             // material for reuse
             gsIt->_instMap.insert(
-                InstanceMap::value_type(matTarget, getInstStore().size()));
+                InstanceMap::value_type(matTarget, UInt32(getInstStore().size())));
 
             editInstStore().push_back(geo);
         }
@@ -599,8 +599,8 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
             _geoStore[geoIdx]._lengths->push_back(4 * vList.getCount());
         }
 
-        verts += 4 * vList.getCount();
-        prims +=     vList.getCount();
+        verts += 4 * UInt32(vList.getCount());
+        prims +=     UInt32(vList.getCount());
     }
     else
     {
@@ -887,11 +887,11 @@ ColladaGeometry::setupProperty(
 {
     // resize
     _geoStore[geoIdx]._propStore .resize(
-        osgMax<UInt32>(_geoStore[geoIdx]._propStore .size(), propIdx + 1),
-        PropInfo()                                                       );
+        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._propStore .size()), propIdx + 1),
+        PropInfo()                                                               );
     _geoStore[geoIdx]._indexStore.resize(
-        osgMax<UInt32>(_geoStore[geoIdx]._indexStore.size(), propIdx + 1),
-        NULL                                                             );
+        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._indexStore.size()), propIdx + 1),
+        NULL                                                                     );
 
     // set index for the property
     _geoStore[geoIdx]._indexStore[propIdx] = idxProp;
@@ -932,7 +932,7 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
     UnhandledStore unhandledVertInputs;
     UnhandledStore unhandledInputs;
 
-    UInt32 geoIdx = _geoStore.size();
+    UInt32 geoIdx = UInt32(_geoStore.size());
     _geoStore.push_back(GeoInfo());
 
     if(matSymbol != NULL)
@@ -973,7 +973,7 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
 
                 // new index
                 idxStore.resize(
-                    osgMax<UInt32>(offset + 1, idxStore.size()), NULL);
+                    osgMax<UInt32>(offset + 1, UInt32(idxStore.size())), NULL);
                 idxStore[offset] = GeoUInt32Property::create();
             }
 
@@ -1010,7 +1010,7 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
                                  offset));
 
                 // new index
-                idxStore.resize(osgMax<UInt32>(offset + 1, idxStore.size()), NULL);
+                idxStore.resize(osgMax<UInt32>(offset + 1, UInt32(idxStore.size())), NULL);
                 idxStore[offset] = GeoUInt32Property::create();
             }
 
@@ -1359,8 +1359,8 @@ UInt16
 ColladaGeometry::findFreePropertyIndex(UInt32 geoIdx)
 {
     // find an unused property
-    UInt16 retVal = osgMax<UInt16>(_geoStore[geoIdx]._propStore.size(),
-                                   Geometry::TexCoordsIndex            );
+    UInt16 retVal = osgMax<UInt16>(UInt16(_geoStore[geoIdx]._propStore.size()),
+                                   Geometry::TexCoordsIndex                  );
 
     for(UInt16 i = Geometry::TexCoordsIndex;
         i < _geoStore[geoIdx]._propStore.size(); ++i)

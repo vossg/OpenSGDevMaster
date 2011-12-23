@@ -408,8 +408,10 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32   osgid,
             
             glErr("ProgramChunk::handleGL: enable postcheck");
             
-            osgGlProgramStringARB(target, GL_PROGRAM_FORMAT_ASCII_ARB,
-                                  getProgram().size(), getProgram().c_str());
+            osgGlProgramStringARB(target, 
+                                  GL_PROGRAM_FORMAT_ASCII_ARB,
+                                  GLsizei(getProgram().size()), 
+                                  getProgram().c_str());
             
             GLenum err = glGetError();
             

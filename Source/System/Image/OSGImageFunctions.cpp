@@ -207,7 +207,7 @@ bool createNormalVolume (      Image       *inImage,
   OSG::Real32 minU = OSG::Inf, maxU = -OSG::Inf;
   OSG::Real32 minV = OSG::Inf, maxV = -OSG::Inf;
   Int32 w, h, d, x, y, z, md, ld, hd, xs, ys, zs, ps, ls, ss, os;
-  Int32 i,voxelSize;
+  SizeT i,voxelSize;
   std::vector<UInt32> dataIndex;
   Real32 u, v, length;
   Vec3f normal;

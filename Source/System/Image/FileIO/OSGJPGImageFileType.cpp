@@ -142,7 +142,7 @@ static void istream_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
     }
     else
     {
-        num_bytes -= cinfo->src->bytes_in_buffer;
+        num_bytes -= long(cinfo->src->bytes_in_buffer);
         SourceManager *sourceManager = 
             reinterpret_cast<SourceManager*>(cinfo->src);
         sourceManager->is->ignore(num_bytes);

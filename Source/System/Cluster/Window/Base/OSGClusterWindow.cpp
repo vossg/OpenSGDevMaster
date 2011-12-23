@@ -187,8 +187,9 @@ void ClusterWindow::init(GLInitFunctor)
             std::ostringstream command;
 
             server    = (*getMFServers())[id];
-            int pos=server.find(":");
-            if(pos>=0)
+            SizeT pos = server.find(":");
+            
+            if(pos != std::string::npos)
                 server.erase(pos);
 
             autostart = (*getMFAutostart())[id % getMFAutostart()->size()];

@@ -236,7 +236,7 @@ void Particles::adjustVolume( Volume & volume )
     {
         Vec3f p;
 
-        for(UInt32 i = 0; i < pos->getSize(); i++)
+        for(UInt32 i = 0; i < pos->size32(); i++)
         {
             pos->getValue(p, i);
 
@@ -271,11 +271,11 @@ void Particles::fill(DrawableStatsAttachment *pStat)
 
     if(indices->size() > 0)
     {
-        verts += indices->size();
+        verts += indices->size32();
     }
     else
     {
-        verts += positions->size();
+        verts += positions->size32();
     }
 
     switch(getMode())
@@ -568,11 +568,11 @@ struct ColTraitGeneric : public ColTraitBase
                 return;
             }
 
-            if(col->getSize() == 1)
+            if(col->size() == 1)
             {
                 data.func(const_cast<GLubyte *>(col->getData()));
             }
-            else if(col->getSize() == part->getPositions()->getSize())
+            else if(col->size() == part->getPositions()->size())
             {
                 data.perParticle = true;
             }
@@ -1043,7 +1043,7 @@ struct NormalTraitGeneric : public ParticleTraits
             {
                 data.norms->getValue(data.n, 0);
             }
-            else if(data.norms->getSize() == part->getPositions()->getSize())
+            else if(data.norms->size() == part->getPositions()->size())
             {
                 data.perParticle = true;
             }
@@ -1102,7 +1102,7 @@ struct NormalTraitGeneric3f : public ParticleTraits
 
         if(norms3f != NULL)
         {
-            if(norms3f->getSize() == 1)
+            if(norms3f->size() == 1)
             {
                 data.n = &(*(data.norms))[0];
             }
@@ -1231,7 +1231,7 @@ struct drawViewDirQuads : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(colTrait::particle (colData,  i))
@@ -1436,7 +1436,7 @@ struct drawViewerQuads : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(colTrait::particle (colData,  i))
@@ -1716,7 +1716,7 @@ struct drawLines : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(colTrait::particle (colData,  i))
@@ -1824,7 +1824,7 @@ struct drawPoints : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size()))
                 continue;
 
             if(colTrait::particle(colData, i))
@@ -2078,7 +2078,7 @@ struct drawObjects : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(geoTrait::particle (geoData,  i))
@@ -2282,7 +2282,7 @@ struct drawViewerObjects : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(geoTrait::particle (geoData,  i))
@@ -2388,7 +2388,7 @@ struct drawShaderQuads : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size32()))
                 continue;
 
             if(colTrait::particle (colData,  i))
@@ -2572,7 +2572,7 @@ struct drawShaderStrips : public ParticlesDrawer
         {
             i = index[ii];
 
-            if(i < 0 || i > Int32(pos->getSize()))
+            if(i < 0 || i > Int32(pos->size()))
                 continue;
 
             if(colTrait::particle (colData,  i))
@@ -2802,7 +2802,7 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
     {
         if(getNumParticles() == -1)
         {
-            size = indices->size();
+            size = indices->size32();
         }
         else
         {
@@ -2813,7 +2813,7 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
     {
         if(getNumParticles() == -1)
         {
-            size = pos->size();
+            size = pos->size32();
         }
         else
         {
@@ -2925,17 +2925,17 @@ void Particles::drawPrimitives(DrawEnv *pEnv)
           GeoVectorProperty *norm = getNormals();
     const MFVec3f           *size = getMFSizes();
 
-    if((size   ->size() > 1 && size   ->size() != pos->getSize())  ||
-       (col  != NULL && col->getSize()  != 1 &&
-                        col->getSize()  != pos->getSize())       ||
-       (norm != NULL && norm->getSize() != 1 &&
-                        norm->getSize() != pos->getSize())
+    if((size   ->size() > 1 && size   ->size() != pos->size())  ||
+       (col  != NULL && col->size()  != 1 &&
+                        col->size()  != pos->size())       ||
+       (norm != NULL && norm->size() != 1 &&
+                        norm->size() != pos->size())
       )
     {
         FWARNING(("Particles::draw: inconsistent attributes "
                     "(p:%d s:%d c:%d)!\n",
-                    pos->getSize(), size->size(),
-                  (col != NULL)? int(col->getSize()) : -1));
+                    pos->size(), size->size(),
+                  (col != NULL)? int(col->size()) : -1));
         return;
     }
 
@@ -3002,7 +3002,7 @@ void Particles::drawPrimitives(DrawEnv *pEnv)
         index  = &(getMFIndices()->getValues()[0]);
         if(getNumParticles() == -1)
         {
-            length = getMFIndices()->size();
+            length = getMFIndices()->size32();
         }
         else
         {
@@ -3019,7 +3019,7 @@ void Particles::drawPrimitives(DrawEnv *pEnv)
     {
         if(getNumParticles() == -1)
         {
-            drawer->draw(this,pEnv,pos->getSize());
+            drawer->draw(this,pEnv,pos->size32());
         }
         else if(getNumParticles() > 0)
         {
@@ -3047,25 +3047,25 @@ ParticlesDrawer *Particles::findDrawer(void)
 
     // find the parameters' use
 
-    size =   (getMFSizes()->size()      == getPositions()->getSize()) ? part :
-             (getMFSizes()->size()      == 1                        ) ? sing :
+    size =   (getMFSizes()->size()      == getPositions()->size()) ? part :
+             (getMFSizes()->size()      == 1                     ) ? sing :
                                                                         none;
     normal = (getNormals() != NULL &&
-              getNormals()->getSize()   == getPositions()->getSize()) ? part :
+              getNormals()->size()   == getPositions()->size()) ? part :
              (getNormals() != NULL &&
-              getNormals()->getSize()   == 1                        ) ? sing :
+              getNormals()->size()   == 1                     ) ? sing :
                                                                         none;
     secpos = (getSecPositions() != NULL &&
-              getSecPositions()->getSize()== getPositions()->getSize())?part :
+              getSecPositions()->size()== getPositions()->size()) ? part :
              (getSecPositions() != NULL &&
-              getSecPositions()->getSize()== 1                        )?sing :
+              getSecPositions()->size()== 1                        ) ? sing :
                                                                         none;
     color =  (getColors() != NULL &&
-              getColors()->getSize()    == getPositions()->getSize()) ? part :
+              getColors()->size()    == getPositions()->size()) ? part :
              (getColors() != NULL &&
-              getColors()->getSize()    == 1                        ) ? sing :
+              getColors()->size()    == 1                        ) ? sing :
                                                                         none;
-    tex =    (getMFTextureZs()->size()  == getPositions()->getSize()) ? part :
+    tex =    (getMFTextureZs()->size()  == getPositions()->size()) ? part :
              (getMFTextureZs()->size()  == 1                        ) ? sing :
                                                                         none;
 

@@ -202,7 +202,7 @@ UInt32 QuadTreeTerrain::getNumVertices(void) const
    GeoPnt3fProperty *pos = 
        dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
-   return pos->getField().size();
+   return pos->getField().size32();
 }
 
 // GLSL programs
@@ -1376,7 +1376,7 @@ void QuadTreeTerrain::createFanAround (Int32 x,
     GeoUInt32Property::StoredFieldType &ind = 
         dynamic_cast<GeoUInt32Property *>(getIndices())->editField();
 
-    UInt32 prev = ind.size();
+    UInt32 prev = ind.size32();
     
     GeoPnt3fProperty::StoredFieldType &pos = 
         dynamic_cast<GeoPnt3fProperty *>(getPositions())->editField();
@@ -1497,7 +1497,7 @@ void QuadTreeTerrain::createFanAround (Int32 x,
     GeoUInt32Property *len = 
         dynamic_cast<GeoUInt32Property *>(getLengths());
 
-    len->push_back((ind.size()-prev));
+    len->push_back((ind.size32() - prev));
 
     GeoUInt8Property *typ = dynamic_cast<GeoUInt8Property *>(getTypes());
 

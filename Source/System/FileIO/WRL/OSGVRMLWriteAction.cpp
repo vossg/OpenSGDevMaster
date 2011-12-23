@@ -734,7 +734,7 @@ void VRMLWriteAction::writePoints(Geometry        *pGeo,
     fprintf(pFile, "point [\n");
     pWriter->incIndent(4);
 
-    for(UInt32 i = 0; i < pPos->getSize(); i++)
+    for(UInt32 i = 0; i < pPos->size32(); i++)
     {
         pWriter->printIndent();
 
@@ -743,7 +743,7 @@ void VRMLWriteAction::writePoints(Geometry        *pGeo,
         
         fprintf(pFile, "%f %f %f", p[0], p[1], p[2]);
 
-        if(i == pPos->getSize() - 1)
+        if(i == pPos->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -797,7 +797,7 @@ void VRMLWriteAction::writePointSetPoints(Geometry        *pGeo,
 
         fprintf(pFile, "%f %f %f", p[0], p[1], p[2]);
 
-        if(i == pPos->getSize() - 1)
+        if(i == pPos->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -844,7 +844,7 @@ void VRMLWriteAction::writeNormals(Geometry        *pGeo,
     fprintf(pFile, "vector [\n");
     pWriter->incIndent(4);
 
-    for(UInt32 i = 0; i < pNorm->getSize(); i++)
+    for(UInt32 i = 0; i < pNorm->size32(); i++)
     {
         pWriter->printIndent();
 
@@ -853,7 +853,7 @@ void VRMLWriteAction::writeNormals(Geometry        *pGeo,
         
         fprintf(pFile, "%f %f %f", n[0], n[1], n[2]);
 
-        if(i == pNorm->getSize() - 1)
+        if(i == pNorm->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -895,7 +895,7 @@ void VRMLWriteAction::writeColors(Geometry        *pGeo,
     fprintf(pFile, "color [\n");
     pWriter->incIndent(4);
 
-    for(UInt32 i = 0; i < pCol->getSize(); i++)
+    for(UInt32 i = 0; i < pCol->size32(); i++)
     {
         pWriter->printIndent();
 
@@ -904,7 +904,7 @@ void VRMLWriteAction::writeColors(Geometry        *pGeo,
         
         fprintf(pFile, "%f %f %f", c[0], c[1], c[2]);
 
-        if(i == pCol->getSize() - 1)
+        if(i == pCol->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -957,7 +957,7 @@ void VRMLWriteAction::writePointSetColors(Geometry        *pGeo,
         
         fprintf(pFile, "%f %f %f", c[0], c[1], c[2]);
 
-        if(i == pCol->getSize() - 1)
+        if(i == pCol->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -1000,7 +1000,7 @@ void VRMLWriteAction::writeTexCoords(Geometry        *pGeo,
     fprintf(pFile, "point [\n");
     pWriter->incIndent(4);
 
-    for(UInt32 i = 0; i < pTex->getSize(); i++)
+    for(UInt32 i = 0; i < pTex->size32(); i++)
     {
         pWriter->printIndent();
 
@@ -1009,7 +1009,7 @@ void VRMLWriteAction::writeTexCoords(Geometry        *pGeo,
         
         fprintf(pFile, "%f %f", t[0], t[1]);
  
-        if(i == pTex->getSize() - 1)
+        if(i == pTex->size() - 1)
         {
             fprintf(pFile, "\n");
         }
@@ -1080,7 +1080,7 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
     fprintf(pFile, "]\n");
     
     if(pGeo->getNormals()           != NULL   && 
-       pGeo->getNormals()->getSize() > 0      &&
+       pGeo->getNormals()->size()    > 0      &&
        0 == (pWriter->getOptions() & VRMLWriteAction::OSGNoNormals))
     {
         pWriter->printIndent();
@@ -1114,7 +1114,7 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
         fprintf(pFile, "]\n");
     }
     
-    if(pGeo->getColors() != NULL && pGeo->getColors()->getSize() > 0)
+    if(pGeo->getColors() != NULL && pGeo->getColors()->size() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "colorIndex [\n");
@@ -1146,7 +1146,7 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
         fprintf(pFile, "]\n");
     }
     
-    if(pGeo->getTexCoords() != NULL && pGeo->getTexCoords()->getSize() > 0)
+    if(pGeo->getTexCoords() != NULL && pGeo->getTexCoords()->size() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "texCoordIndex [\n");
@@ -1250,7 +1250,7 @@ void VRMLWriteAction::writeLineIndex(Geometry        *pGeo,
     fprintf(pFile, "]\n");
 
 
-    if(pGeo->getColors() != NULL && pGeo->getColors()->getSize() > 0)
+    if(pGeo->getColors() != NULL && pGeo->getColors()->size() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "colorIndex [\n");

@@ -209,7 +209,7 @@ NodeTransitPtr PLYSceneFileType::read(
 
         GeoUInt32PropertyUnrecPtr lengths = GeoUInt32Property::create();
 
-        lengths->addValue(indices->getSize());
+        lengths->addValue(indices->size32());
         
         geo->setTypes    (types  );
         geo->setLengths  (lengths);

@@ -41,11 +41,6 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline UInt32 GeoProperty::getSize(void) const
-{
-    return size();
-}
-
 /*! Returns the id of the StateChunkClass of this property.
  */
 inline

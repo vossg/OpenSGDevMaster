@@ -103,7 +103,7 @@ MultiPool<RefCountPolicyT, LockPolicyT>::registerType(void)
 {
     typedef typename SimplePoolTypeBuilder<ValueTypeT>::Type SimplePoolType;
 
-    UInt32       retVal = _pools.size();
+    UInt32       retVal = UInt32(_pools.size());
     TypeIdxMapIt tIt    = _typeIdxMap.find(&typeid(ValueTypeT));
 
     if(tIt != _typeIdxMap.end())

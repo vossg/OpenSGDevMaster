@@ -47,11 +47,11 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
         return Action::Continue;
 
     RenderActionT  *ra        = dynamic_cast<RenderActionT  *>(action);
-    Int32           index     = -1;
+    Int32           index     = 0;
 
     const MFReal32 *range = getMFRange();
 
-    Int32 numRanges = range->size();
+    Int32 numRanges = range->size32();
 
     if(numRanges == 0 || numLevels == 1)
     {

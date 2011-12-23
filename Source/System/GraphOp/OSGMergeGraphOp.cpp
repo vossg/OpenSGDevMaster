@@ -476,9 +476,9 @@ void MergeGraphOp::processTransformations(Node * const node)
 
                                 Matrix m=t->getMatrix();
 
-                                if (pos!=NULL) 
+                                if(pos!=NULL) 
                                 {
-                                    for (UInt32 i=0; i<pos->getSize(); i++)
+                                    for(UInt32 i = 0; i < pos->size(); ++i)
                                     {
                                         Pnt3f p=pos->getValue(i);
                                         m.multFull(p, p);
@@ -486,9 +486,9 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     }
                                 }
                                 
-                                if (norm!=NULL)
+                                if(norm!=NULL)
                                 {
-                                    for (UInt32 i=0; i<norm->getSize(); i++)
+                                    for(UInt32 i = 0; i < norm->size(); ++i)
                                     {
                                         Vec3f n=norm->getValue(i);
                                         m.mult(n, n);
@@ -497,9 +497,9 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     }
                                 }
 
-                                if (color!=NULL && _color_is_vector)
+                                if(color != NULL && _color_is_vector)
                                 {
-                                    for (UInt32 i=0; i<color->getSize(); i++)
+                                    for(UInt32 i = 0; i < color->size(); ++i)
                                     {
                                         Color3f c = color->getValue(i);
                                         Vec3f v;
@@ -511,9 +511,9 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     }
                                 }
 
-                                if (scolor!=NULL && _secondary_color_is_vector)
+                                if(scolor != NULL && _secondary_color_is_vector)
                                 {
-                                    for (UInt32 i=0; i<scolor->getSize(); i++)
+                                    for(UInt32 i = 0; i < scolor->size(); ++i)
                                     {
                                         Color3f c = scolor->getValue(i);
                                         Vec3f v;
@@ -525,44 +525,44 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     }
                                 }
 
-                                if (texcoord0!=NULL && _texcoord0_is_vector)
+                                if(texcoord0 != NULL && _texcoord0_is_vector)
                                 {
-                                    for (UInt32 i=0; i<texcoord0->getSize(); i++)
+                                    for(UInt32 i = 0; i < texcoord0->size(); ++i)
                                     {
-                                        Vec3f v=texcoord0->getValue(i);
+                                        Vec3f v = texcoord0->getValue(i);
                                         m.mult(v, v);
                                         v.normalize();
                                         texcoord0->setValue(v,i);
                                     }
                                 }
 
-                                if (texcoord1!=NULL && _texcoord1_is_vector)
+                                if(texcoord1 != NULL && _texcoord1_is_vector)
                                 {
-                                    for (UInt32 i=0; i<texcoord1->getSize(); i++)
+                                    for(UInt32 i = 0; i < texcoord1->size(); ++i)
                                     {
-                                        Vec3f v=texcoord1->getValue(i);
+                                        Vec3f v = texcoord1->getValue(i);
                                         m.mult(v, v);
                                         v.normalize();
                                         texcoord1->setValue(v,i);
                                     }
                                 }
 
-                                if (texcoord2!=NULL && _texcoord2_is_vector)
+                                if(texcoord2 != NULL && _texcoord2_is_vector)
                                 {
-                                    for (UInt32 i=0; i<texcoord2->getSize(); i++)
+                                    for(UInt32 i = 0; i < texcoord2->size(); ++i)
                                     {
-                                        Vec3f v=texcoord2->getValue(i);
+                                        Vec3f v = texcoord2->getValue(i);
                                         m.mult(v, v);
                                         v.normalize();
                                         texcoord2->setValue(v,i);
                                     }
                                 }
 
-                                if (texcoord3!=NULL && _texcoord3_is_vector)
+                                if (texcoord3 != NULL && _texcoord3_is_vector)
                                 {
-                                    for (UInt32 i=0; i<texcoord3->getSize(); i++)
+                                    for(UInt32 i = 0; i < texcoord3->size(); i++)
                                     {
-                                        Vec3f v=texcoord3->getValue(i);
+                                        Vec3f v = texcoord3->getValue(i);
                                         m.mult(v, v);
                                         v.normalize();
                                         texcoord3->setValue(v,i);

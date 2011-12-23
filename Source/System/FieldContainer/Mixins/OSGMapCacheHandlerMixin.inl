@@ -217,9 +217,9 @@ const typename MapCacheHandlerMixin<Desc>::MapCacheField *
 /* Binary access                                                           */
 
 template <class Desc> inline
-UInt32 MapCacheHandlerMixin<Desc>::getBinSize(ConstFieldMaskArg whichField)
+SizeT MapCacheHandlerMixin<Desc>::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MapCacheFieldMask & whichField))
     {

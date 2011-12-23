@@ -128,7 +128,7 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
     const Skeleton::MFJointMatricesType *jointMats    =
         skel->getMFJointMatrices();
 
-    UInt32 numJoints = joints->size();
+    UInt32 numJoints = joints->size32();
 
 #ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
     _mfDrawPositions.resize(numJoints);
@@ -232,7 +232,7 @@ SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
     glEnableClientState(GL_VERTEX_ARRAY);
     {
         glVertexPointer(3, GL_FLOAT, 0, &(_mfDrawPositions.front()));
-        glDrawElements (GL_LINES, _mfDrawIndex.size(), GL_UNSIGNED_INT,
+        glDrawElements (GL_LINES, _mfDrawIndex.size32(), GL_UNSIGNED_INT,
                         &(_mfDrawIndex.front()));
     }
     glDisableClientState(GL_VERTEX_ARRAY);

@@ -854,7 +854,7 @@ void RemoteAspect::sendChanged(Connection     &con,
     if(fieldMask)
     {
         UInt8  cmd = CHANGED;
-        UInt32 len = fcPtr->getBinSize(fieldMask);
+        UInt32 len = UInt32(fcPtr->getBinSize(fieldMask));
 
 #ifndef OSG_REMOTE_ASPECT_SILENT
         SLOG << "Send CHANGED: type name '" << fcPtr->getType().getName()

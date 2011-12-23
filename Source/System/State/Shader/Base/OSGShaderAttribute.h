@@ -180,18 +180,18 @@ struct FieldTraits<ShaderAttribute> :
     static       bool      getFromCString(      ShaderAttribute  &outVal,
                                           const Char8           *&inVal);
 
-    static       UInt32    getBinSize (const ShaderAttribute &oObject)
+    static       SizeT     getBinSize (const ShaderAttribute &oObject)
     {
         return (FieldTraits<UInt16     >::getBinSize(oObject.first ) + 
                 FieldTraits<std::string>::getBinSize(oObject.second));
     }
 
-    static       UInt32    getBinSize (const ShaderAttribute *pObjectStore,
-                                             UInt32           uiNumObjects)
+    static       SizeT     getBinSize (const ShaderAttribute *pObjectStore,
+                                             SizeT            uiNumObjects)
     {
-        UInt32 size=0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += getBinSize(pObjectStore[i]);
         }
@@ -209,9 +209,9 @@ struct FieldTraits<ShaderAttribute> :
 
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const ShaderAttribute   *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
-        for(UInt32 i=0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -226,9 +226,9 @@ struct FieldTraits<ShaderAttribute> :
 
     static void copyFromBin(BinaryDataHandler &pMem, 
                             ShaderAttribute   *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

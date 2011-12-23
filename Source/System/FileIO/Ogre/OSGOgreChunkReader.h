@@ -93,7 +93,7 @@ class OSG_FILEIO_DLLMAPPING OgreChunkReader
     Real32 readReal32(std::istream& is);
     void   readReal32(std::istream& is, Real32* values, UInt32 count);
 
-    static const UInt32 _chunkHeaderSize;
+    static const Int32 _chunkHeaderSize;
 
     ChunkHeader         _header;
     std::istream&       _is;

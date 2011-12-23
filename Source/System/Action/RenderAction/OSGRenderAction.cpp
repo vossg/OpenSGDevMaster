@@ -715,7 +715,7 @@ void RenderAction::drawBuffer(UInt32 buf)
     {
         _vRenderPartitions[buf][0]->setupExecution(true);
 
-        for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
+        for(PtrDiffT i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
         {
             _vRenderPartitions[buf][i]->execute();
 //        _vRenderPartitions[buf][i]->exit();
@@ -867,7 +867,7 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     {
         _pActivePartition    = 
             _pPartitionPools  [_currentBuffer]->create(eMode);
-        _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+        _iActivePartitionIdx = Int32(_vRenderPartitions[_currentBuffer].size());
     
         _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
     }

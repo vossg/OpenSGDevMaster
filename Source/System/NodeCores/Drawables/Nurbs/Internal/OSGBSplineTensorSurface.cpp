@@ -927,7 +927,7 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
 
     // now do the actual conversation into nxm bezier segments
     uknots = basis_function_u.getKnotVector(); // FIXME: it could be more efficient.
-    int unum_of_beziers = (uknots.size() - 2) / dimension_u - 1;
+    int unum_of_beziers = (UInt32(uknots.size()) - 2) / dimension_u - 1;
     if( (unum_of_beziers * dimension_u + 2) != int(uknots.size()) - dimension_u)
     {
         basis_function_u.setKnotVector(origuknots);
@@ -936,7 +936,7 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
         return -5;
     }
     vknots = basis_function_v.getKnotVector(); // FIXME: it could be more efficient.
-    int vnum_of_beziers = (vknots.size() - 2) / dimension_v - 1;
+    int vnum_of_beziers = (UInt32(vknots.size()) - 2) / dimension_v - 1;
     if( (vnum_of_beziers * dimension_v + 2) != int(vknots.size()) - dimension_v)
     {
         basis_function_u.setKnotVector(origuknots);
@@ -994,8 +994,8 @@ int BSplineTensorSurface::getSplitParams(DCTPdvector &upars, DCTPdvector &vpars)
 {
     DCTPdvector &uknots          = basis_function_u.getKnotVector();
     DCTPdvector &vknots          = basis_function_v.getKnotVector();
-    int          unum_of_beziers = (uknots.size() - 2) / dimension_u - 1;
-    int          vnum_of_beziers = (vknots.size() - 2) / dimension_v - 1;
+    int          unum_of_beziers = (UInt32(uknots.size()) - 2) / dimension_u - 1;
+    int          vnum_of_beziers = (UInt32(vknots.size()) - 2) / dimension_v - 1;
     int          i;
 
     upars.resize(unum_of_beziers + 1);
@@ -1047,7 +1047,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
     rvvcl_newbspline[1][1].dimension_v = dimension_v;
 
     // split in u direction
-    ui_cnt = rvvcl_newbspline[0][0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvvcl_newbspline[0][0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx <= dimension_u; ++ui_idx)
     {
@@ -1069,7 +1069,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
         rvvcl_newbspline[0][0].getKnotVector_U()[i_span + dimension_u - 1]);
     rvvcl_newbspline[1][0].getKnotVector_V() = rvvcl_newbspline[0][0].getKnotVector_V();
 
-    ui_cnt = rvvcl_newbspline[0][0].getKnotVector_U().size() - 1;
+    ui_cnt = UInt32(rvvcl_newbspline[0][0].getKnotVector_U().size()) - 1;
     ui_idx = ui_cnt - dimension_u - 1;
     while(rvvcl_newbspline[0][0].getKnotVector_U()[ui_cnt] == rvvcl_newbspline[0][0].getKnotVector_U()[ui_idx])
     {
@@ -1092,7 +1092,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
     i_span -= dimension_v - 2;
 
     // split in v direction
-    ui_cnt = rvvcl_newbspline[0][0].getControlPointMatrix()[0].size();
+    ui_cnt = UInt32(rvvcl_newbspline[0][0].getControlPointMatrix()[0].size());
 
     for(ui_idx = 0; ui_idx <= dimension_v; ++ui_idx)
     {
@@ -1104,7 +1104,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
 
     for(ui_idx = i_span - 1; ui_idx < ui_cnt; ++ui_idx)
     {
-        ui_cpy_cnt = rvvcl_newbspline[0][0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvvcl_newbspline[0][0].getControlPointMatrix().size());
         rvvcl_newbspline[0][1].getControlPointMatrix().resize(ui_cpy_cnt);
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
@@ -1113,7 +1113,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
                 rvvcl_newbspline[0][0].getControlPointMatrix()[ui_cpy][ui_idx]);
         }
 
-        ui_cpy_cnt = rvvcl_newbspline[1][0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvvcl_newbspline[1][0].getControlPointMatrix().size());
         rvvcl_newbspline[1][1].getControlPointMatrix().resize(ui_cpy_cnt);
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
@@ -1128,14 +1128,14 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
             rvvcl_newbspline[1][0].getKnotVector_V()[ui_idx + dimension_v + 1]);
     }
 
-    ui_cnt = rvvcl_newbspline[0][0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvvcl_newbspline[0][0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx < ui_cnt; ++ui_idx)
     {
         rvvcl_newbspline[0][0].getControlPointMatrix()[ui_idx].resize(i_span);
     }
 
-    ui_cnt = rvvcl_newbspline[1][0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvvcl_newbspline[1][0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx < ui_cnt; ++ui_idx)
     {
@@ -1151,12 +1151,12 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
     rvvcl_newbspline[0][1].getKnotVector_U() = rvvcl_newbspline[0][0].getKnotVector_U();
     rvvcl_newbspline[1][1].getKnotVector_U() = rvvcl_newbspline[1][0].getKnotVector_U();
 
-    ui_cnt = rvvcl_newbspline[0][0].getKnotVector_V().size() - 1;
+    ui_cnt = UInt32(rvvcl_newbspline[0][0].getKnotVector_V().size()) - 1;
     ui_idx = ui_cnt - dimension_v - 1;
     while(rvvcl_newbspline[0][0].getKnotVector_V()[ui_cnt] == rvvcl_newbspline[0][0].getKnotVector_V()[ui_idx])
     {
         rvvcl_newbspline[0][0].getKnotVector_V().pop_back();
-        ui_cpy_cnt = rvvcl_newbspline[0][0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvvcl_newbspline[0][0].getControlPointMatrix().size());
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
         {
@@ -1164,7 +1164,7 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
         }
 
         rvvcl_newbspline[1][0].getKnotVector_V().pop_back();
-        ui_cpy_cnt = rvvcl_newbspline[1][0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvvcl_newbspline[1][0].getControlPointMatrix().size());
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
         {
@@ -1208,7 +1208,7 @@ int BSplineTensorSurface::midPointSubDivisionU(std::vector<BSplineTensorSurface>
     rvcl_newbspline[1].dimension_v = dimension_v;
 
     // split in u direction
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx <= dimension_u; ++ui_idx)
     {
@@ -1230,7 +1230,7 @@ int BSplineTensorSurface::midPointSubDivisionU(std::vector<BSplineTensorSurface>
         rvcl_newbspline[0].getKnotVector_U()[i_span + dimension_u - 1]);
     rvcl_newbspline[1].getKnotVector_V() = rvcl_newbspline[0].getKnotVector_V();
 
-    ui_cnt = rvcl_newbspline[0].getKnotVector_U().size() - 1;
+    ui_cnt = UInt32(rvcl_newbspline[0].getKnotVector_U().size()) - 1;
     ui_idx = ui_cnt - dimension_u - 1;
     while(rvcl_newbspline[0].getKnotVector_U()[ui_cnt] == rvcl_newbspline[0].getKnotVector_U()[ui_idx])
     {
@@ -1273,7 +1273,7 @@ int BSplineTensorSurface::midPointSubDivisionV(std::vector<BSplineTensorSurface>
     rvcl_newbspline[1].dimension_v = dimension_v;
 
     // split in v direction
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix()[0].size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix()[0].size());
 
     for(ui_idx = 0; ui_idx <= dimension_v; ++ui_idx)
     {
@@ -1281,7 +1281,7 @@ int BSplineTensorSurface::midPointSubDivisionV(std::vector<BSplineTensorSurface>
             rvcl_newbspline[0].getKnotVector_V()[i_span]);
     }
 
-    ui_cpy_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cpy_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
     rvcl_newbspline[1].getControlPointMatrix().resize(ui_cpy_cnt);
 
     for(ui_idx = i_span - 1; ui_idx < ui_cnt; ++ui_idx)
@@ -1296,7 +1296,7 @@ int BSplineTensorSurface::midPointSubDivisionV(std::vector<BSplineTensorSurface>
             rvcl_newbspline[0].getKnotVector_V()[ui_idx + dimension_v + 1]);
     }
 
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx < ui_cnt; ++ui_idx)
     {
@@ -1308,12 +1308,12 @@ int BSplineTensorSurface::midPointSubDivisionV(std::vector<BSplineTensorSurface>
         rvcl_newbspline[0].getKnotVector_V()[i_span + dimension_v - 1]);
     rvcl_newbspline[1].getKnotVector_U() = rvcl_newbspline[0].getKnotVector_U();
 
-    ui_cnt = rvcl_newbspline[0].getKnotVector_V().size() - 1;
+    ui_cnt = UInt32(rvcl_newbspline[0].getKnotVector_V().size()) - 1;
     ui_idx = ui_cnt - dimension_v - 1;
     while(rvcl_newbspline[0].getKnotVector_V()[ui_cnt] == rvcl_newbspline[0].getKnotVector_V()[ui_idx])
     {
         rvcl_newbspline[0].getKnotVector_V().pop_back();
-        ui_cpy_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
         {
@@ -1358,7 +1358,7 @@ int BSplineTensorSurface::subDivisionU(std::vector<BSplineTensorSurface> &rvcl_n
     rvcl_newbspline[1].dimension_v = dimension_v;
 
     // split in u direction
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx <= dimension_u; ++ui_idx)
     {
@@ -1380,7 +1380,7 @@ int BSplineTensorSurface::subDivisionU(std::vector<BSplineTensorSurface> &rvcl_n
         rvcl_newbspline[0].getKnotVector_U()[i_span + dimension_u - 1]);
     rvcl_newbspline[1].getKnotVector_V() = rvcl_newbspline[0].getKnotVector_V();
 
-    ui_cnt = rvcl_newbspline[0].getKnotVector_U().size() - 1;
+    ui_cnt = UInt32(rvcl_newbspline[0].getKnotVector_U().size()) - 1;
     ui_idx = ui_cnt - dimension_u - 1;
     while(rvcl_newbspline[0].getKnotVector_U()[ui_cnt] == rvcl_newbspline[0].getKnotVector_U()[ui_idx])
     {
@@ -1424,7 +1424,7 @@ int BSplineTensorSurface::subDivisionV(std::vector<BSplineTensorSurface> &rvcl_n
     rvcl_newbspline[1].dimension_v = dimension_v;
 
     // split in v direction
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix()[0].size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix()[0].size());
 
     for(ui_idx = 0; ui_idx <= dimension_v; ++ui_idx)
     {
@@ -1432,7 +1432,7 @@ int BSplineTensorSurface::subDivisionV(std::vector<BSplineTensorSurface> &rvcl_n
             rvcl_newbspline[0].getKnotVector_V()[i_span]);
     }
 
-    ui_cpy_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cpy_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
     rvcl_newbspline[1].getControlPointMatrix().resize(ui_cpy_cnt);
 
     for(ui_idx = i_span - 1; ui_idx < ui_cnt; ++ui_idx)
@@ -1447,7 +1447,7 @@ int BSplineTensorSurface::subDivisionV(std::vector<BSplineTensorSurface> &rvcl_n
             rvcl_newbspline[0].getKnotVector_V()[ui_idx + dimension_v + 1]);
     }
 
-    ui_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+    ui_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
     for(ui_idx = 0; ui_idx < ui_cnt; ++ui_idx)
     {
@@ -1459,12 +1459,12 @@ int BSplineTensorSurface::subDivisionV(std::vector<BSplineTensorSurface> &rvcl_n
         rvcl_newbspline[0].getKnotVector_V()[i_span + dimension_v - 1]);
     rvcl_newbspline[1].getKnotVector_U() = rvcl_newbspline[0].getKnotVector_U();
 
-    ui_cnt = rvcl_newbspline[0].getKnotVector_V().size() - 1;
+    ui_cnt = UInt32(rvcl_newbspline[0].getKnotVector_V().size()) - 1;
     ui_idx = ui_cnt - dimension_v - 1;
     while(rvcl_newbspline[0].getKnotVector_V()[ui_cnt] == rvcl_newbspline[0].getKnotVector_V()[ui_idx])
     {
         rvcl_newbspline[0].getKnotVector_V().pop_back();
-        ui_cpy_cnt = rvcl_newbspline[0].getControlPointMatrix().size();
+        ui_cpy_cnt = UInt32(rvcl_newbspline[0].getControlPointMatrix().size());
 
         for(ui_cpy = 0; ui_cpy < ui_cpy_cnt; ++ui_cpy)
         {
@@ -1484,7 +1484,7 @@ void BSplineTensorSurface::compute(std::vector<Vec2d> &rvclUV,
                                    std::vector<Pnt3f> &rvclPos)
 
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     double            *pd_nu;
     double            *pd_nv;
@@ -1621,7 +1621,7 @@ void BSplineTensorSurface::computeNormal(std::vector<Vec2d> &rvclUV,
                                          std::vector<Pnt3f> &rvclPos,
                                          std::vector<Vec3f> &rvclNorm)
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     int                i_uspan = -1;
     int                i_vspan = -1;
@@ -1857,7 +1857,7 @@ void BSplineTensorSurface::computeNormalforTrimming(std::vector<Vec2d> &rvclUV,
                                                     std::vector<Vec3d> &rvclNorm,
                                                     std::vector<Vec3d> *pvclPos)
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     int                i_uspan = -1;
     int                i_vspan = -1;
@@ -2107,7 +2107,7 @@ void BSplineTensorSurface::computeNormalTex(std::vector<Vec2d> &                
                                             std::vector<Pnt2f> &                    rvclTexCoord,
                                             const std::vector<std::vector<Pnt2f> > *cpvvclTexCP)
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     int                i_uspan = -1;
     int                i_vspan = -1;
@@ -2396,7 +2396,7 @@ void BSplineTensorSurface::computeTex(std::vector<Vec2d> &                    rv
                                       std::vector<Pnt2f> &                    rvclTexCoord,
                                       const std::vector<std::vector<Vec2d> > *cpvvclTexCP)
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     double            *pd_nu;
     double            *pd_nv;
@@ -2553,7 +2553,7 @@ void BSplineTensorSurface::computeTexforTrimming(std::vector<Vec2d> &           
                                                  std::vector<Vec2d> &                    rvclTexCoord,
                                                  const std::vector<std::vector<Vec2d> > *cpvvclTexCP)
 {
-    const unsigned int cui_cnt = rvclUV.size();
+    const unsigned int cui_cnt = UInt32(rvclUV.size());
     unsigned int       ui_idx;
     double            *pd_nu;
     double            *pd_nv;

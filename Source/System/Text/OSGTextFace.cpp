@@ -330,7 +330,7 @@ void TextFace::justifyLine(const TextLayoutParam &param,
                            Vec2f &currPos, TextLayoutResult &layoutResult) const
 {
     // We need at least two glyphs for justification
-    UInt32 numGlyphs = layoutResult.positions.size();
+    UInt32 numGlyphs = UInt32(layoutResult.positions.size());
     if (numGlyphs < 2)
         return;
 
@@ -339,7 +339,7 @@ void TextFace::justifyLine(const TextLayoutParam &param,
     Real32 delta = param.getLength(0) - actualLength;
 
     // Determine the amount of space that is added between glyphs and words
-    UInt32 numSpaces = spaceIndices.size();
+    UInt32 numSpaces = UInt32(spaceIndices.size());
     numGlyphs -= 1 + numSpaces;
     // Space added between glyphs is by this factor smaller than space added between words
     Real32 factor = 0.5;

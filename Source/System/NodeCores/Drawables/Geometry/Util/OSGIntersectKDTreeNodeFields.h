@@ -55,21 +55,21 @@ struct OSG_DRAWABLE_DLLMAPPING FieldTraits<IntersectKDTreeNode> :
     static const Char8    *getSName(void);
     static const Char8    *getMName(void);
 
-    static UInt32 getBinSize(const IntersectKDTreeNode &oObject     );
-    static UInt32 getBinSize(const IntersectKDTreeNode *pObjectStore,
-                                   UInt32               uiNumObjects);
+    static SizeT  getBinSize(const IntersectKDTreeNode &oObject     );
+    static SizeT  getBinSize(const IntersectKDTreeNode *pObjectStore,
+                                   SizeT                uiNumObjects);
 
     static void copyToBin(      BinaryDataHandler   &pMem,
                           const IntersectKDTreeNode &oObject      );
     static void copyToBin(      BinaryDataHandler   &pMem,
                           const IntersectKDTreeNode *pObjectStore,
-                                UInt32               uiNumObjects );
+                                SizeT                uiNumObjects );
 
     static void copyFromBin(BinaryDataHandler   &pMem,
                             IntersectKDTreeNode &oObject      );
     static void copyFromBin(BinaryDataHandler   &pMem,
                             IntersectKDTreeNode *pObjectStore,
-                            UInt32               uiNumObjects );
+                            SizeT                uiNumObjects );
 };
 
 typedef MField<IntersectKDTreeNode> MFIntersectKDTreeNode;

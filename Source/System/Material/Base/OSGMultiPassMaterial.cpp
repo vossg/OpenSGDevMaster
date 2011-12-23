@@ -105,7 +105,7 @@ bool MultiPassMaterial::hasMaterial(Material *pMat) const
 {
     UInt32 i;
 
-    for(i = 0; i < _mfMaterials.size(); ++i)
+    for(i = 0; i < _mfMaterials.size32(); ++i)
     {
         if(_mfMaterials[i] == pMat)
             return true;
@@ -120,7 +120,7 @@ void MultiPassMaterial::rebuildState(void)
 
 State *MultiPassMaterial::getState(UInt32 index)
 {
-    if(index >= _mfMaterials.size())
+    if(index >= _mfMaterials.size32())
     {
         SWARNING << "MultiPassMaterial::getState: index out of range!" 
                  << std::endl;
@@ -138,7 +138,7 @@ State *MultiPassMaterial::getState(UInt32 index)
 
 UInt32 MultiPassMaterial::getNPasses(void)
 {
-    return _mfMaterials.size();
+    return _mfMaterials.size32();
 }
 
 /*! Check if the Material (i.e. any of its materials) is transparent..

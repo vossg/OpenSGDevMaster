@@ -2669,7 +2669,7 @@ bool Image::hasAttachment(void) const
 
 UInt32 Image::attachmentCount(void) const
 {
-    Image *img=const_cast<Image*>(this);
+    Image *img = const_cast<Image*>(this);
 
     ImageGenericAtt *att = dynamic_cast<ImageGenericAtt *>(
         img->Inherited::findAttachment(
@@ -2677,7 +2677,7 @@ UInt32 Image::attachmentCount(void) const
 
     if(att != NULL)
     {
-        return att->getType().getNumFieldDescs() -1;
+        return att->getType().getNumFieldDescs() - 1;
     }
     else
     {

@@ -249,8 +249,8 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
         // add the front face to the geometry
 
         // store positions and texture coordinates
-        UInt32 coordOffset = posPtr->size();
-        UInt32 texCoordOffset = texPtr->size();
+        UInt32 coordOffset = posPtr->size32();
+        UInt32 texCoordOffset = texPtr->size32();
         Real32 coordZ = 0.5f * depth;
         vector<Vec2f>::const_iterator cIt;
         for (cIt = outline.coords.begin(); cIt != outline.coords.end(); ++cIt)
@@ -296,7 +296,7 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
             // store positions
             // No need to store texture coordinates - we reuse the
             // texture coordinates from the front side
-            UInt32 backCoordOffset = posPtr->size();
+            UInt32 backCoordOffset = posPtr->size32();
             coordZ = -0.5f * depth;
             for (cIt = outline.coords.begin(); cIt != outline.coords.end(); ++cIt)
             {
@@ -396,10 +396,10 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
                 UInt32 len = 0;
 
                 UInt32 coordIndex, backCoordIndex;
-                UInt32 normalOffset, startNormalOffset = normalsPtr->size();
+                UInt32 normalOffset, startNormalOffset = normalsPtr->size32();
                 for (index = start; index < end; ++index)
                 {
-                    normalOffset = normalsPtr->size() - 1;
+                    normalOffset = normalsPtr->size32() - 1;
                     OSG_ASSERT(index < normals.size());
                     if (normals[index].edgeAngle > creaseAngle)
                     {

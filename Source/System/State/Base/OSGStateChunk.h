@@ -88,9 +88,9 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \name                  Class Access                                */
     /*! \{                                                                 */
 
-           static const Char8 * getName     (UInt32 index);
+           static const Char8  *getName     (UInt32 index);
            static       Int32   getNumSlots (UInt32 index);
-    inline static       UInt32  getUsedSlots(void) ;
+    inline static       UInt32  getUsedSlots(void        );
 
     typedef std::vector<StateChunkClass *>::const_iterator iterator;
 

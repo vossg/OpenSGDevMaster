@@ -354,8 +354,8 @@ namespace
     // handle vertex attrib with global value
     void globalAttrib(PumpClassicInfo &info, UInt16 slot, UInt16 pumpSlot)
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             OSG_ASSERT(info.attribPump[slot] != NULL);
 
@@ -368,8 +368,8 @@ namespace
     void globalExtAttrib(PumpClassicInfo &info,     UInt16  slot,
                          UInt16           pumpSlot, Window *win)
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             OSG_ASSERT(info.attribPump[slot] != NULL);
 
@@ -383,8 +383,8 @@ namespace
                               UInt16           pumpSlot, GLenum  attrib,
                               Window          *win                      )
     {
-        if(info.attribData[slot]            != NULL &&
-           info.attribPtr [slot]->getSize() == 1      )
+        if(info.attribData[slot]         != NULL &&
+           info.attribPtr [slot]->size() == 1      )
         {
             OSG_ASSERT(info.attribMPump[slot] != NULL);
 
@@ -517,7 +517,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
     // Setup: get all the data
 
     // check for empty geometry
-    if(types == NULL || types->getSize() == 0)
+    if(types == NULL || types->size() == 0)
         return;
 
     if(!pumpInternalSetup(types,   true))
@@ -612,7 +612,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
     // no lengths? use all available data for the first type
     if(lengths == NULL)
     {
-        if(types->getSize() != 1)
+        if(types->size() != 1)
         {
             SWARNING << "GeoImmediatePumpGroup::masterClassicGeoPump: "
                      << "No lengths, but more than one type?!"
@@ -623,16 +623,16 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
         nprims = 1;
         if(pumpInfo.attribIndex[Geometry::PositionsIndex] != NULL)
         {
-            curlen = pumpInfo.attribIndex[Geometry::PositionsIndex]->getSize();
+            curlen = pumpInfo.attribIndex[Geometry::PositionsIndex]->size32();
         }
         else
         {
-            curlen = pumpInfo.attribPtr[Geometry::PositionsIndex]->getSize();
+            curlen = pumpInfo.attribPtr[Geometry::PositionsIndex]->size32();
         }
     }
     else
     {
-        nprims = types->getSize();
+        nprims = types->size32();
         lengths->getValue(curlen, 0);
     }
 
@@ -642,7 +642,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
     {
         glBegin(types->getValue<UInt16>(primindex));
 
-        if(primindex < lengths->getSize())
+        if(primindex < lengths->size())
             curlen = lengths->getValue<UInt32>(primindex);
 
         for(; curlen > 0; --curlen, ++vertindex)
@@ -693,7 +693,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     // Setup: get all the data
 
     // check for empty geometry
-    if(types == NULL || types->getSize() == 0)
+    if(types == NULL || types->size() == 0)
         return;
 
     if(!pumpInternalSetup(types,   true))
@@ -707,7 +707,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     pumpInfo.prop    = prop;
     pumpInfo.propIdx = propIdx;
 
-    UInt16 nattrib = prop->size();
+    UInt16 nattrib = prop->size32();
 
     for(UInt16 i = 0; i < nattrib; ++i)
     {
@@ -786,8 +786,8 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     // global attribs?
     for(Int16 i = 0; i < nattrib; ++i)
     {
-        if(pumpInfo.attribData[i]            != NULL &&
-           pumpInfo.attribPtr [i]->getSize() == 1      )
+        if(pumpInfo.attribData[i]         != NULL &&
+           pumpInfo.attribPtr [i]->size() == 1      )
         {
             pumpInfo.attribPump[i](i, pumpInfo.attribData[i]);
             pumpInfo.attribData[i] = NULL;
@@ -802,7 +802,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     // no lengths? use all available data for the first type
     if(lengths == NULL)
     {
-        if(types->getSize() != 1)
+        if(types->size() != 1)
         {
             SWARNING << "GeoImmediatePumpGroup::masterAttribGeoPump: "
                      << "No lengths, but more than one type?!"
@@ -813,16 +813,16 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
         nprims = 1;
         if(pumpInfo.attribIndex[0] != NULL)
         {
-            curlen = pumpInfo.attribIndex[0]->getSize();
+            curlen = pumpInfo.attribIndex[0]->size32();
         }
         else
         {
-            curlen = pumpInfo.attribPtr[0]->getSize();
+            curlen = pumpInfo.attribPtr[0]->size32();
         }
     }
     else
     {
-        nprims = types->getSize();
+        nprims = types->size32();
         lengths->getValue(curlen, 0);
     }
 
@@ -832,7 +832,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     {
         glBegin(types->getValue<UInt16>(primindex));
 
-        if(primindex < lengths->getSize())
+        if(primindex < lengths->size())
             curlen = lengths->getValue<UInt32>(primindex);
 
         for(; curlen > 0; --curlen, ++vertindex)

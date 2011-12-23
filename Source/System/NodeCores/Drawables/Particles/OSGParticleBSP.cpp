@@ -213,7 +213,7 @@ bool ParticleBSPTree::getFromString(const Char8 *&inVal)
 }
 #endif
 
-UInt32 ParticleBSPTree::getBinSize(void) const
+SizeT ParticleBSPTree::getBinSize(void) const
 {
     return sizeof(UInt32) // num elements
         + (sizeof(UInt8)+sizeof(UInt32)) * _tree.size();
@@ -225,7 +225,7 @@ void ParticleBSPTree::copyToBin(BinaryDataHandler &pMem) const
     Int32  value;
     Real32 splitvalue;
     UInt32 i;
-    UInt32 size = _tree.size();
+    UInt32 size = UInt32(_tree.size());
     pMem.putValue(size);
 
     for(i=0;i<size;++i)
@@ -381,11 +381,11 @@ void ParticleBSPTree::build(Particles *core)
     // 1. create list for particles
  
     std::vector<Int32> order;
-    order.reserve(pos->getSize());
+    order.reserve(pos->size());
     
-    for(UInt32 i = 0; i < pos->getSize(); ++i )
+    for(UInt32 i = 0; i < pos->size32(); ++i )
     {     
-        if(indices->size() == pos->getSize())
+        if(indices->size() == pos->size())
         {        
             order.push_back((*indices)[i]);
         }

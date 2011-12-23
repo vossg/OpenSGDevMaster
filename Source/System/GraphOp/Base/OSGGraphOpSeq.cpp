@@ -234,7 +234,7 @@ void GraphOpSeq::clearGraphOps(void)
 
 UInt16 GraphOpSeq::getSize(void)
 {
-    return _graphOperators.size();
+    return UInt16(_graphOperators.size());
 }
 
 GraphOp* GraphOpSeq::getGraphOp(UInt16 index)
@@ -285,5 +285,6 @@ UInt16 GraphOpSeq::extractStr(const std::string  param,
         pos = param.length();
 
     result = param.substr(spos, pos - spos);
-    return pos+1;
+
+    return UInt16(pos + 1);
 }

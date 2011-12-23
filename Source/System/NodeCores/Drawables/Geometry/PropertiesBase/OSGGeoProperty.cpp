@@ -82,10 +82,6 @@ OSG_USING_NAMESPACE
     Returns the number of dimensions a single value of the property has.
 */
 
-/*! \fn UInt32  GeoProperty::getSize      (void)
-    Returns the number of values the property holds.
-*/
-
 /*! \fn UInt32  GeoProperty::size         (void)
     Returns the number of values the property holds.
 
@@ -238,7 +234,7 @@ void GeoProperty::dump(      UInt32    ,
          << " FormatSize: " << getFormatSize()
          << " Stride: "     << getStride()
          << " Dim: "        << getDimension() 
-         << " Size: "       << getSize() << std::endl;
+         << " Size: "       << size() << std::endl;
 }
 
 /*------------------------------ State ------------------------------------*/
@@ -295,7 +291,7 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         
         osgGlBindBuffer(getBufferType(), glid);
 
-        UInt32 uiBufferSize = getFormatSize() * getDimension() * getSize();
+        UInt32 uiBufferSize = getFormatSize() * getDimension() * size32();
 
         bool   bSizeChanged = (uiBufferSize != pWin->getGLObjectInfo(id));
                              

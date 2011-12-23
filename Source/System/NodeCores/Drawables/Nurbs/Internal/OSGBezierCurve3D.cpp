@@ -91,7 +91,7 @@ Vec4d BezierCurve3D::computewdeCasteljau4D(double t, int &error)
 {
     //FIXME: verification before goin' into computation!!
 //  Vec3dvector Q = control_points; //local array not to destroy da other points
-    const unsigned int n = control_points.size() - 1;
+    const unsigned int n = UInt32(control_points.size()) - 1;
     Vec4d              rat_res;
 
     if(n < 1)   //too few points, at least 2 needed
@@ -406,7 +406,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
     int                 i;
     std::vector<double> t;
 
-    int n = control_points.size() - 1;
+    int n = UInt32(control_points.size()) - 1;
 
     for(i = 0; i <= n; i++)
     {
@@ -419,7 +419,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
 
     for(i = 0; i <= n; ++i)
     {
-        unsigned int s  = mycps.size();
+        unsigned int s  = UInt32(mycps.size());
         bool         ok = true;
 
         mycps.push_back(mycps[s - 1]);
@@ -437,7 +437,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
             break;
     }
 
-    n = mycps.size() - 1;
+    n = UInt32(mycps.size()) - 1;
 
     eucl.resize(n + 1);
 
@@ -544,7 +544,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
 // generate a bezier curve through these points
 int BezierCurve3D::createCurve(DCTPVec4dvector &points)
 {
-    int n = points.size() - 1;
+    int n = UInt32(points.size()) - 1;
 
     if(n < 1)
     {
@@ -651,7 +651,7 @@ int BezierCurve3D::createCurve(DCTPVec4dvector &points)
  */
 bool BezierCurve3D::reduceDegree(double tol)
 {
-    UInt32 n = control_points.size() - 1;      // orig cps: 0, ..., n
+    UInt32 n = UInt32(control_points.size()) - 1;      // orig cps: 0, ..., n
     if(n < 2)
     {
         // cannot degree reduce a first degree curve

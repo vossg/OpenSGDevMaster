@@ -415,8 +415,8 @@ void DrawEnv::activate(State         *pState,
     StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
-    SizeT                     cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size32());
 
 
     OSG_SKIP_IT    (cIt, cind);
@@ -481,8 +481,8 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind = 0;
     UInt32                    i;
-    SizeT                     cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size32());
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
@@ -526,7 +526,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size32(); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -576,8 +576,8 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind = 0;
     UInt32                    i;
-    SizeT                     cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size32());
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
@@ -620,7 +620,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size32(); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -682,8 +682,8 @@ void DrawEnv::changeTo(State         *pState,
 
     Int32                     ind  = 0;
     UInt32                    i;
-    SizeT                     cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size32());
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
@@ -733,7 +733,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size32(); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
         n = NULL;
@@ -842,8 +842,8 @@ void DrawEnv::deactivate(State         *pState,
     StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
-    SizeT                     cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size32());
 
     OSG_SKIP_IT(cIt, cind);
 
@@ -891,7 +891,7 @@ void DrawEnv::update(State *pState)
 
     Int32                     ind  = 0;
     UInt32                    cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+                                            pState->getMFChunks()->size32());
 
     OSG_SKIP_IT(cIt, cind);
 
@@ -919,7 +919,7 @@ void DrawEnv::update(State         *pState,
 
     Int32                     ind  = 0;
     UInt32                    cind = osgMin(State::SkipNumChunks, 
-                                            pState->getMFChunks()->size());
+                                            pState->getMFChunks()->size32());
     StateChunk               *c    = NULL;
 
     OSG_SKIP_IT(cIt, cind);

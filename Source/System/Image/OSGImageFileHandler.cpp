@@ -105,7 +105,7 @@ ImageFileType *ImageFileHandlerBase::getFileType(const Char8 *mimeType,
     std::map<std::string, 
              ImageFileType *>::iterator  sI;
     const char                           separator = '.';
-    int                                  i, l;
+    PtrDiffT                             i, l;
 
     if(mimeType && *mimeType)
     {

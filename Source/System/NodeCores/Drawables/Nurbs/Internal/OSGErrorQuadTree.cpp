@@ -151,7 +151,7 @@ void CErrorQuadTree::BuildMesh(DCTPMesh *pclMesh,
 #endif
 
     unsigned int   ui_face;
-    unsigned int   ui_face_cnt = pclMesh->faces.size();
+    unsigned int   ui_face_cnt = UInt32(pclMesh->faces.size());
     DCTPFace      *pcl_face;
     SFaceTreeCell *pt_finfo;
     float          f_act_error;
@@ -1109,7 +1109,7 @@ const std::vector<double> *cpvdIntervalsV)
 
 void CErrorQuadTree::SubdivideNode(DCTPMesh *pclMesh, DCTPFace *pclFace)
 {
-    const unsigned int cui_face_cnt = pclMesh->faces.size();
+    const unsigned int cui_face_cnt = UInt32(pclMesh->faces.size());
     unsigned int       ui_child;
 #ifdef OSG_USE_KD_TREE
     DCTPFace *apcl_faces[2];
@@ -1261,7 +1261,7 @@ void CErrorQuadTree::SubdivideNode(DCTPMesh *pclMesh, DCTPFace *pclFace)
 
 void CErrorQuadTree::SubdivideBuild(DCTPMesh *pclMesh, DCTPFace *pclFace)
 {
-    const unsigned int cui_face_cnt = pclMesh->faces.size();
+    const unsigned int cui_face_cnt = UInt32(pclMesh->faces.size());
     unsigned int       ui_child;
 #ifdef OSG_USE_KD_TREE
     DCTPFace *apcl_faces[2];
@@ -1458,8 +1458,8 @@ void CErrorQuadTree::ComputeError(DCTPFace *pclFace)
     BezierTensorSurface *pcl_surface = ptCell->pclBezierSurface;
 #endif
     const std::vector<std::vector <Vec4d> > &crvvcl_cps = pcl_surface->getControlPointMatrix();
-    const unsigned int                       cui_m      = crvvcl_cps.size() - 1;
-    const unsigned int                       cui_n      = crvvcl_cps[0].size() - 1;
+    const unsigned int                       cui_m      = UInt32(crvvcl_cps.size()) - 1;
+    const unsigned int                       cui_n      = UInt32(crvvcl_cps[0].size()) - 1;
     Vec3d                                    ccl_b00;
     ccl_b00[0] = crvvcl_cps[0][0][0] / crvvcl_cps[0][0][3];
     ccl_b00[1] = crvvcl_cps[0][0][1] / crvvcl_cps[0][0][3];

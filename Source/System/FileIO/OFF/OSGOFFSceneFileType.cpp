@@ -331,14 +331,14 @@ NodeTransitPtr OFFSceneFileType::read(      std::istream &is,
 
         for(j = 0; j < faceCount; j++)
         {
-            fN = faceVec[j].size();
+            fN = UInt32(faceVec[j].size());
 
             if(fN >= 5)
                 fN = 5;
 
             if(fN == i)
             {
-                n += vN = faceVec[j].size();
+                n += vN = UInt32(faceVec[j].size());
                 for(k = vN - 1; k >= 0; k--)
                 {
                     index->editFieldPtr()->push_back(faceVec[j][k]);

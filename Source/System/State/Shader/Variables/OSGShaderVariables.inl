@@ -311,8 +311,8 @@ void osgUniformShaderVariableMInt(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniform1iv());
         
         osgGlUniform1iv(  loc,
-                          p->getMFValue()->size (),
-                        &(p->getMFValue()->front()));
+                          p->getMFValue()->size32(),
+                        &(p->getMFValue()->front ()));
     }
     else if(warnUnknown == true)
     {
@@ -339,8 +339,8 @@ void osgUniformShaderVariableMReal(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniform1fv());
 
         osgGlUniform1fv(  loc,
-                          p->getMFValue()->size (),
-                        &(p->getMFValue()->front()));
+                          p->getMFValue()->size32(),
+                        &(p->getMFValue()->front ()));
     }
     else if(warnUnknown == true)
     {
@@ -367,8 +367,8 @@ void osgUniformShaderVariableMVec2f(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniform2fv());
 
         osgGlUniform2fv(loc,
-                        p->getMFValue()->size (),
-                        p->getMFValue()->front().getValues());
+                        p->getMFValue()->size32(),
+                        p->getMFValue()->front ().getValues());
     }
     else if(warnUnknown == true)
     {
@@ -395,8 +395,8 @@ void osgUniformShaderVariableMVec3f(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniform3fv());
 
         osgGlUniform3fv(loc,
-                        p->getMFValue()->size (),
-                        p->getMFValue()->front().getValues());
+                        p->getMFValue()->size32(),
+                        p->getMFValue()->front ().getValues());
     }
     else if(warnUnknown == true)
     {
@@ -423,8 +423,8 @@ void osgUniformShaderVariableMVec4f(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniform4fv());
 
         osgGlUniform4fv(loc,
-                        p->getMFValue()->size (),
-                        p->getMFValue()->front().getValues());
+                        p->getMFValue()->size32(),
+                        p->getMFValue()->front ().getValues());
     }
     else if(warnUnknown == true)
     {
@@ -451,9 +451,9 @@ void osgUniformShaderVariableMMatrix(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdUniformMatrix4fv());
 
         osgGlUniformMatrix4fv(loc,
-                              p->getMFValue()->size (),
+                              p->getMFValue()->size32(),
                               GL_FALSE,
-                              p->getMFValue()->front().getValues());
+                              p->getMFValue()->front ().getValues());
     }
     else if(warnUnknown == true)
     {

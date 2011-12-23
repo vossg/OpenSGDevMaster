@@ -285,7 +285,7 @@ Window::GLObjectId Window::getGLObjectInfo(UInt32 osgId)
 inline 
 UInt32 Window::getGLObjectsSize(void)
 {
-    return _glObjects.size();
+    return UInt32(_glObjects.size());
 }
 
 /* GLObject helper class */

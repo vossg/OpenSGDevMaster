@@ -43,7 +43,7 @@ OSG_BEGIN_NAMESPACE
 inline
 UInt32 MultiCore::getNCores(void) const
 {
-    return _mfCores.size();
+    return _mfCores.size32();
 }
 
 inline

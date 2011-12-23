@@ -117,7 +117,7 @@ unsigned BackgroundLoaderBase::getNumPendingRequests()
 {
    unsigned ret_val(0);
    mLoadCondVar->acquire();
-   ret_val = mPendingRequests.size();
+   ret_val = unsigned(mPendingRequests.size());
    mLoadCondVar->release();
 
    return ret_val;
@@ -206,7 +206,7 @@ void BackgroundLoaderBase::sync(unsigned reqLimit)
    mFinishedLock->acquire();
 
    if (0 == reqLimit)
-   { reqLimit = mFinishedRequests.size(); }
+   { reqLimit = unsigned(mFinishedRequests.size()); }
 
    while((!mFinishedRequests.empty()) && (reqLimit-- != 0))
    {

@@ -247,9 +247,8 @@ class MField : public Field
     void                   reserve  (size_type    newsize              );
     
     size_type              size     (void                              ) const;
-#if 0
     UInt32                 size32   (void                              ) const;
-#endif
+
     size_type              capacity (void                              ) const;
     bool                   empty    (void                              ) const;
     void                   swap     (MField                      &right);

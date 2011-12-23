@@ -2777,12 +2777,12 @@ ObjectT *ShaderCacheTreeV3<ObjectT, LevelBits>::find(const IdStore &vIds)
     IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
 
     UInt32 uiCurrId      = 0;
-    UInt32 uiLastId      = vIds.size();
+    UInt32 uiLastId      = UInt32(vIds.size());
   
 
     if(uiStartLevel >= _vLevelEntries.size())
     {
-        uiStartLevel = _vLevelEntries.size() - 1;
+        uiStartLevel = IdType(_vLevelEntries.size() - 1);
     }
 
 
@@ -2922,7 +2922,7 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
     IdType uiStartLevel = IdType(uiStartId * LevelFactor);
 
     UInt32 uiCurrId     = 0;
-    UInt32 uiLastId     = vIds.size();
+    UInt32 uiLastId     = UInt32(vIds.size());
 
     if(_pRoot == NULL)
     {
@@ -2935,7 +2935,7 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
 
     if(uiStartLevel >= _vLevelEntries.size())
     {
-        uiStartLevel = _vLevelEntries.size() - 1;
+        uiStartLevel = IdType(_vLevelEntries.size() - 1);
     }
 
    

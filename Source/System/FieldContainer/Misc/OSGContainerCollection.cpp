@@ -127,8 +127,8 @@ void ContainerCollection::subContainer(FieldContainer *container)
 }
 
 /*! Return the number of containers. */
-UInt32 ContainerCollection::getNContainers()
+UInt32 ContainerCollection::getNContainers(void)
 {
-   return _mfContainers.size();
+   return _mfContainers.size32();
 }
 

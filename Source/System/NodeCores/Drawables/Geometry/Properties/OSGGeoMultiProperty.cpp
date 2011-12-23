@@ -124,12 +124,12 @@ UInt32 GeoMultiProperty::getDimension (void) const
     return getIDimension();
 }
 
-UInt32 GeoMultiProperty::getSize      (void) const
+SizeT GeoMultiProperty::size         (void) const
 {
-    return size();
+    return getISize();
 }
 
-UInt32 GeoMultiProperty::size         (void) const
+UInt32 GeoMultiProperty::size32       (void) const
 {
     return getISize();
 }
@@ -169,12 +169,13 @@ void GeoMultiProperty::clear(void)
     resize(0);
 }
 
-void GeoMultiProperty::resize(size_t newsize)
+void GeoMultiProperty::resize(SizeT newsize)
 {
-    UInt16 dim = getDimension();
+    UInt16 dim    = getDimension();
+
     UInt32 stride = getStride() ? getStride() : getFormatSize() * dim;    
     
-    if(stride * newsize + getOffset() >= getContainer()->getSize())
+    if(stride * newsize + getOffset() >= getContainer()->size())
     {
         getContainer()->setSize(stride * newsize +  getFormatSize() * dim + 
                           getOffset());

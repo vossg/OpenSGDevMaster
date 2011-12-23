@@ -100,7 +100,7 @@ class OSG_DRAWABLE_DLLMAPPING SimplePolygon
 
     inline int getThirdPoint(DCTPVec2dvector &globalverts, int v1, int v2, unsigned int index)
     {
-        const unsigned int vsize  = vertices.size();
+        const unsigned int vsize  = UInt32(vertices.size());
         const unsigned int hsize1 = ( (vsize - 1) >> 1);
         const unsigned int h2size = (hsize1 << 1);
 

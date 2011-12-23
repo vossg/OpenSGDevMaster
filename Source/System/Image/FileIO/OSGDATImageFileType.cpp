@@ -145,7 +145,7 @@ bool DATImageFileType::read(      Image *image,
             while (value && isspace(*value))
                 value++;
 
-            valueL = strlen(value);
+            valueL = int(strlen(value));
 
             while (isspace(value[valueL-1]))
                 value[--valueL] = 0;

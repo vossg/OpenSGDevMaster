@@ -69,7 +69,7 @@ void Action::setActParent(FieldContainer * const parent)
 }
 
 inline
-Node *Action::getNode(int index)
+Node *Action::getNode(UInt32 index)
 {
     if(_actList == NULL)
     {
@@ -102,7 +102,7 @@ UInt32 Action::getNNodes(void) const
     }
     else
     {
-        return (*_actList).size();
+        return UInt32((*_actList).size());
     }
 }
 

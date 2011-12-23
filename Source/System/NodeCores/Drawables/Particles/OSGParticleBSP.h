@@ -194,7 +194,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticleBSPTree
     /*! \name                 Input / Output                               */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
+    SizeT  getBinSize (void                   ) const;
 
     void   copyToBin  (BinaryDataHandler &pMem) const;
     void   copyFromBin(BinaryDataHandler &pMem);
@@ -284,7 +284,7 @@ struct FieldTraits<ParticleBSPTree> :
     }
  */ 
    
-    static UInt32 getBinSize(const ParticleBSPTree &oObject)
+    static SizeT getBinSize(const ParticleBSPTree &oObject)
     {
         return oObject.getBinSize();
     }

@@ -159,18 +159,18 @@ struct FieldTraits<ShaderParameter> :
         return true;
     }
 
-    static       UInt32    getBinSize (const ShaderParameter &oObject)
+    static       SizeT     getBinSize (const ShaderParameter &oObject)
     {
         return (FieldTraits<GLenum, 1>::getBinSize(oObject.first) + 
                 sizeof(UInt32));
     }
 
-    static       UInt32    getBinSize (const ShaderParameter *pObjectStore,
-                                             UInt32           uiNumObjects)
+    static       SizeT     getBinSize (const ShaderParameter *pObjectStore,
+                                             SizeT            uiNumObjects)
     {
-        UInt32 size=0;
+        SizeT size = 0;
 
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             size += getBinSize(pObjectStore[i]);
         }
@@ -189,9 +189,9 @@ struct FieldTraits<ShaderParameter> :
 
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const ShaderParameter   *pObjectStore,
-                                UInt32             uiNumObjects)
+                                SizeT              uiNumObjects)
     {
-        for(UInt32 i=0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyToBin(pMem, pObjectStore[i]);
         }
@@ -207,9 +207,9 @@ struct FieldTraits<ShaderParameter> :
 
     static void copyFromBin(BinaryDataHandler &pMem, 
                             ShaderParameter   *pObjectStore,
-                            UInt32             uiNumObjects)
+                            SizeT              uiNumObjects)
     {
-        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        for(SizeT i = 0; i < uiNumObjects; ++i)
         {
             copyFromBin(pMem, pObjectStore[i]);
         }

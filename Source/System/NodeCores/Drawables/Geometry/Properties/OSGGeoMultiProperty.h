@@ -75,8 +75,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     virtual       UInt32    getVectorType(      void             ) const;
     virtual       UInt32    getStride    (      void             ) const;
     virtual       UInt32    getDimension (      void             ) const;
-    virtual       UInt32    getSize      (      void             ) const;
-    virtual       UInt32    size         (      void             ) const;
+    virtual       SizeT     size         (      void             ) const;
+    virtual       UInt32    size32       (      void             ) const;
     virtual       bool      getNormalize (      void             ) const;
     virtual const UInt8    *getData      (      void             ) const;
     virtual       UInt8    *editData     (      void             );
@@ -85,7 +85,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
                                           const UInt32    index  ) const;
 
     virtual       void      clear        (      void             );
-    virtual       void      resize       (      size_t    newsize);
+    virtual       void      resize       (      SizeT     newsize);
 
     virtual       void      setFormat    (      UInt32    val    );
     virtual       void      setStride    (      UInt32    val    );

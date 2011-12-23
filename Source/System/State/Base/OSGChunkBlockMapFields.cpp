@@ -67,13 +67,13 @@ const FieldType &EditSFieldHandle<SFChunkBlockPtrMap>::getType(void) const
     return SFChunkBlockPtrMap::getClassType();
 }
 
-UInt32 FieldTraits<ChunkBlockMap>::getBinSize(const ChunkBlockMap &aMap)
+SizeT FieldTraits<ChunkBlockMap>::getBinSize(const ChunkBlockMap &aMap)
 {
     // number of elements in map + binding and pointer id for each element
     ChunkBlockMap::const_iterator mapIt  = aMap.begin();
     ChunkBlockMap::const_iterator mapEnd = aMap.end  ();
 
-    UInt32 uiKeySize = 0;
+    SizeT uiKeySize = 0;
 
     for(;mapIt != mapEnd; ++mapIt)
     {            
@@ -101,7 +101,7 @@ void FieldTraits<ChunkBlockMap>::copyToBin(      BinaryDataHandler &pMem,
     ChunkBlockMap::const_iterator mapIt  = aMap.begin();
     ChunkBlockMap::const_iterator mapEnd = aMap.end  ();
         
-    UInt32         numPublicObjects = aMap.size();
+    UInt32         numPublicObjects = UInt32(aMap.size());
     UInt32         fcId;
                
     pMem.putValue(numPublicObjects);
@@ -115,7 +115,7 @@ void FieldTraits<ChunkBlockMap>::copyToBin(      BinaryDataHandler &pMem,
         std::vector<std::string>::const_iterator kIt  = vKeyList.begin();
         std::vector<std::string>::const_iterator kEnd = vKeyList.end  ();
         
-        UInt32 uiNumKeys = vKeyList.size();
+        UInt32 uiNumKeys = UInt32(vKeyList.size());
 
         pMem.putValue(uiNumKeys);
        

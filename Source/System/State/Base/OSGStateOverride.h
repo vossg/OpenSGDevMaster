@@ -123,9 +123,10 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    ChunkStoreIt begin(void);
-    ChunkStoreIt end  (void);
-    UInt32       size (void);
+    ChunkStoreIt begin (void);
+    ChunkStoreIt end   (void);
+    SizeT        size  (void);
+    UInt32       size32(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

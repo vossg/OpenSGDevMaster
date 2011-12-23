@@ -309,15 +309,15 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
 
     static const char *getMName(void) { return "MFDrawTask"; }
 
-    static UInt32 getBinSize(const DrawTaskRefPtr *,
-                                   UInt32          )
+    static SizeT  getBinSize(const DrawTaskRefPtr *,
+                                   SizeT           )
     {
         return 0;
     }
 
     static void copyToBin(      BinaryDataHandler &,
                           const DrawTaskRefPtr    *,
-                                UInt32             )
+                                SizeT              )
     {
         SWARNING << "FieldTraits<DrawTaskRefPtr>::copyToBin: Not supported."
                  << std::endl;
@@ -325,7 +325,7 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
 
     static void copyFromBin(BinaryDataHandler &,
                             DrawTaskRefPtr    *,
-                            UInt32             )
+                            SizeT              )
     {
         SWARNING << "FieldTraits<DrawTaskRefPtr>::copyFromBin: Not supported."
                  << std::endl;

@@ -360,7 +360,7 @@ int BSplineCurve2D::makeBezier(bezier2dvector &beziers, DCTPdvector &pars)
 
     // now do the actual conversation into n. bezier segments
     knots = basis_function.getKnotVector(); // FIXME: it could be more efficient.
-    unsigned int num_of_beziers = (knots.size() - 2) / dimension - 1;
+    unsigned int num_of_beziers = (UInt32(knots.size()) - 2) / dimension - 1;
     if( (num_of_beziers * dimension + 2) != knots.size() - dimension)
     {
         basis_function.setKnotVector(origknots);

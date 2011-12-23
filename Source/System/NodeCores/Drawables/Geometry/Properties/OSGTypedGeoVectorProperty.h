@@ -137,7 +137,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     virtual       UInt32                 getVectorType(void) const;
     virtual       UInt32                 getStride    (void) const;
     virtual       UInt32                 getDimension (void) const;
-    virtual       UInt32                 size         (void) const;
+    virtual       SizeT                  size         (void) const;
+    virtual       UInt32                 size32       (void) const;
     virtual const UInt8                 *getData      (void) const;
     virtual       UInt8                 *editData     (void);
 
@@ -155,7 +156,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
             void                   addValue    (const StoredType &val    );
 
     virtual void                   clear       (      void               );
-    virtual void                   resize      (      size_t      newsize);
+    virtual void                   resize      (      SizeT       newsize);
     virtual bool                   getNormalize(      void               ) const;
     virtual void                   push_back   (const StoredType &val    );
 
@@ -372,7 +373,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                      Binary Operations                       */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

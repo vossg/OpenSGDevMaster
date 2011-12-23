@@ -307,7 +307,7 @@ void ParSpaceTrimmer::initializeStartState2(unsigned int uiLoop, std::vector<DCT
 {
 //	std::cerr << "initializeStartState: tc.size(): " << tc.size() << std::endl;
 
-    const unsigned int cui_size = (*pvccrd)[uiLoop].size();
+    const unsigned int cui_size = UInt32((*pvccrd)[uiLoop].size());
     Vec2d &            p        = (*pvccrd)[uiLoop][cui_size - 1];
     Vec3d &            rcl_s    = (*m_pvvclSewed)[uiLoop][cui_size - 1];
 #ifdef OSG_FORCE_NO_T_VERTICES
@@ -1356,7 +1356,7 @@ void ParSpaceTrimmer::processCurve(bezier2ddeque &tc, std::vector<DCTPVertex*> &
 
 void ParSpaceTrimmer::processCurve2(unsigned int uiLoop, std::vector<DCTPVertex*> &el)
 {
-    const unsigned int cui_size = (*pvccrd)[uiLoop].size();
+    const unsigned int cui_size = UInt32((*pvccrd)[uiLoop].size());
     Vec2d              cl_act   = (*pvccrd)[uiLoop][cui_size - 1];
     Vec3d              cl_act_s = (*m_pvvclSewed)[uiLoop][cui_size - 1];
 #ifdef OSG_FORCE_NO_T_VERTICES
@@ -1454,7 +1454,7 @@ int ParSpaceTrimmer::PerformTrimming(void)
 //		std::cerr << tcs->size( ) << " trimming loops" << std::endl;
         unsigned int       i = 0;
         int                err;
-        const unsigned int lc = tcs->size();
+        const unsigned int lc = UInt32(tcs->size());
 
 //		bezier3ddequevector::iterator bcq3d = tcs3d->begin( );
 //		bezier2ddequevector::iterator bcq = tcs->begin( );
@@ -1463,7 +1463,7 @@ int ParSpaceTrimmer::PerformTrimming(void)
             if(!(*tcs)[l].empty() )
             {
                 vcel[i].clear();
-                const unsigned int cc = (*tcs)[l].size();
+                const unsigned int cc = UInt32((*tcs)[l].size());
 
                 for(unsigned int c = 0; c < cc; ++c)
                 {
@@ -1548,7 +1548,7 @@ int ParSpaceTrimmer::PerformTrimming(void)
 
     for(i = 0; i < vcel.size(); ++i)
     {
-        ui_vert_cnt = vcel[i].size();
+        ui_vert_cnt = UInt32(vcel[i].size());
 //		std::cerr << ui_vert_cnt << " -> ";
         if(ui_vert_cnt)
         {
@@ -1752,7 +1752,7 @@ int ParSpaceTrimmer::PerformTrimming(void)
 
 int ParSpaceTrimmer::PerformTrimming2(void)
 {
-    unsigned int ui_tloops = (*pvccrd).size();
+    unsigned int ui_tloops = UInt32((*pvccrd).size());
     unsigned int ui_i;
 
     m_bDeleteVertexInfo = true; // vertexinfo holds Vec3d*
@@ -2371,7 +2371,7 @@ void ParSpaceTrimmer::checkEdgeloops()
     // create scan line edges and sort them
     for(ui_loop = 0; ui_loop < vcel.size(); ++ui_loop)
     {
-        ui_size = vcel[ui_loop].size();
+        ui_size = UInt32(vcel[ui_loop].size());
 //		ui_last = ui_size - 1;
         cl_p = vcel[ui_loop][ui_size - 1]->coords;
 
@@ -2568,7 +2568,7 @@ void ParSpaceTrimmer::checkEdgeloops()
                 if(b_valid)
                 {
                     // append edge to polyline
-                    ui_size = vpt_start.size();
+                    ui_size = UInt32(vpt_start.size());
 
                     for(ui_loop = 0; ui_loop < ui_size; ++ui_loop)
                     {
@@ -2690,7 +2690,7 @@ void ParSpaceTrimmer::checkEdgeloops()
         std::cerr << vpt_start[ 0 ]->pclFromVertex->coords << " <-> " << vpt_end[ 0 ]->pclToVertex->coords << std::endl;
 //		exit( -1 );
     }*/
-    ui_size = vpt_start.size();
+    ui_size = UInt32(vpt_start.size());
 
     for(ui_loop = 0; ui_loop < ui_size; ++ui_loop)
     {
@@ -3271,7 +3271,7 @@ void ParSpaceTrimmer::removeSLEntry(SScanLineEntry *ptEntry, ScanLineEventSet &r
     std::cerr << " other = " << pt_new_event->clOther << std::endl;*/
 //	std::cerr << " num = " << pt_new_event->ptEdge->uiOrigNum << std::endl;
 
-    unsigned int ui_old_size = rsptEvents.size();
+    unsigned int ui_old_size = UInt32(rsptEvents.size());
 //	std::cerr << "remove scan line entry ";
     rsptEvents.erase(pt_new_event);
 //	std::cerr << "ok";
@@ -3320,7 +3320,7 @@ void ParSpaceTrimmer::removeSLEntry(SScanLineEntry *ptEntry, ScanLineEventSet &r
 DCTPVertex *ParSpaceTrimmer::intersectsLoop(DCTPVertex *pclVertex1, DCTPVertex *pclVertex2, unsigned int uiLoop)
 {
     unsigned int ui_vertex;
-    unsigned int ui_size = vcel[uiLoop].size();
+    unsigned int ui_size = UInt32(vcel[uiLoop].size());
     DCTPVertex  *pcl_prev_vertex;
     DCTPVertex  *pcl_act_vertex = vcel[uiLoop][ui_size - 1];
     Vec3d        cl_old;
@@ -3587,7 +3587,7 @@ void ParSpaceTrimmer::deleteVertexInfo()
 
 bool ParSpaceTrimmer::isLoopValid(const unsigned int cuiLoop)
 {
-    const unsigned int cui_loop_cnt = (*pvccrd).size();
+    const unsigned int cui_loop_cnt = UInt32((*pvccrd).size());
     unsigned int       ui_loop;
     unsigned int       ui_edge_cnt;
     unsigned int       ui_vertex_cnt;
@@ -3596,7 +3596,7 @@ bool ParSpaceTrimmer::isLoopValid(const unsigned int cuiLoop)
     Vec2d cl_ray_start;
     Vec2d cl_ray_end;
 
-    ui_vertex_cnt = (*pvccrd)[cuiLoop].size();
+    ui_vertex_cnt = UInt32((*pvccrd)[cuiLoop].size());
 /*	cl_check.vertices.resize( ui_vertex_cnt );
     for( ui_vertex = 0; ui_vertex < ui_vertex_cnt; ++ui_vertex )
     {
@@ -3635,7 +3635,7 @@ bool ParSpaceTrimmer::isLoopValid(const unsigned int cuiLoop)
     {
         if(ui_loop != cuiLoop)
         {
-            ui_vertex_cnt = (*pvccrd)[ui_loop].size();
+            ui_vertex_cnt = UInt32((*pvccrd)[ui_loop].size());
 
             for(ui_vertex = 0; ui_vertex < ui_vertex_cnt; ++ui_vertex)
             {

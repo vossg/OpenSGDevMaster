@@ -376,7 +376,7 @@ int BezierCurve2D::intersection(DCTPdvector &res, Vec2d a, Vec2d b)
 
     DCTPVec3dvector newcp(control_points.size() ); // the control points of the explicit Bezier curve
     int             flag   = 1;
-    unsigned int    cpsize = control_points.size() - 1;
+    unsigned int    cpsize = UInt32(control_points.size()) - 1;
 
     for(i = 0; i <= cpsize; i++)
     {
@@ -533,7 +533,7 @@ int BezierCurve2D::intersection(DCTPdvector &res, double a, bool horiz)
 {
     DCTPVec3dvector    newcp(control_points.size() ); // the control points of the explicit Bezier curve
     BezierCurve2D      tempcurve;
-    const unsigned int cpsize = control_points.size() - 1;
+    const unsigned int cpsize = UInt32(control_points.size()) - 1;
 
     for(unsigned int i = 0; i < newcp.size(); ++i)
     {
@@ -869,7 +869,7 @@ int BezierCurve2D::approximate_sub(DCTPVec2dvector &vertices, double delta)
     double              aenorm;
     double              t1, t2;
     int                 i;
-    int                 n = control_points.size() - 1;
+    int                 n = UInt32(control_points.size()) - 1;
     std::vector<double> t;
     Vec2d               e0, en, ei;
 
@@ -885,7 +885,7 @@ int BezierCurve2D::approximate_sub(DCTPVec2dvector &vertices, double delta)
 
     for(i = 0; i <= n; ++i)
     {
-        unsigned int s  = mycps.size();
+        unsigned int s  = UInt32(mycps.size());
         bool         ok = true;
 
         mycps.push_back(mycps[s - 1]);
@@ -903,7 +903,7 @@ int BezierCurve2D::approximate_sub(DCTPVec2dvector &vertices, double delta)
             break;
     }
 
-    n     = mycps.size() - 1;
+    n     = UInt32(mycps.size()) - 1;
     e0[0] = mycps[0][0] / mycps[0][2];
     e0[1] = mycps[0][1] / mycps[0][2];
     en[0] = mycps[n][0] / mycps[n][2];
@@ -1073,7 +1073,7 @@ double BezierCurve2D::homogeniousDistanceSquared(Vec3d v1, Vec3d v2)
  */
 bool BezierCurve2D::reduceDegree(double tol)
 {
-    unsigned int n = control_points.size() - 1;      // orig cps: 0, ..., n
+    unsigned int n = UInt32(control_points.size()) - 1;      // orig cps: 0, ..., n
     if(n < 2)
     {
         // cannot degree reduce a first degree curve
@@ -1161,7 +1161,7 @@ unsigned int BezierCurve2D::computeNonratApproximationDegree(double eps) const
 {
     BezierCurve2D nonrat_curve;
     bool          rational = false;
-    unsigned int  n        = control_points.size();
+    unsigned int  n        = UInt32(control_points.size());
     unsigned int  i, k;
     Vec3d         nonrat_cp;
     Vec3d         d0, d1;
@@ -1198,7 +1198,7 @@ unsigned int BezierCurve2D::computeNonratApproximationDegree(double eps) const
     while(n < 15)
     {
         deriv_curve.CalculateDerivativeCurve();
-        k     = deriv_curve.control_points.size() - 1;
+        k     = UInt32(deriv_curve.control_points.size()) - 1;
         d0[0] = deriv_curve.control_points[0][0] / deriv_curve.control_points[0][2];
         d0[1] = deriv_curve.control_points[0][1] / deriv_curve.control_points[0][2];
         d1[0] = deriv_curve.control_points[k][0] / deriv_curve.control_points[k][2];
@@ -1219,7 +1219,7 @@ unsigned int BezierCurve2D::computeNonratApproximationDegree(double eps) const
     // degree might be too high by one
     nonrat_curve.reduceDegree(eps);
 
-    return nonrat_curve.control_points.size() - 1;
+    return UInt32(nonrat_curve.control_points.size()) - 1;
 }
 
 
@@ -1233,7 +1233,7 @@ void BezierCurve2D::CalculateDerivativeCurve()
     bool                rational = false;
 
     // check for single point curves
-    n = control_points.size();
+    n = UInt32(control_points.size());
     if(n == 1)
     {
         control_points[0] = Vec3d(0.0, 0.0, 1.0);
@@ -1308,7 +1308,7 @@ void BezierCurve2D::CalculateNOverIVector(std::vector<double> &NOverI, const uns
 
 void BezierCurve2D::CalculatePolyDerivCurve(BezierCurve2D &DerivativeCurve) const
 {
-    const unsigned int n = control_points.size() - 1;
+    const unsigned int n = UInt32(control_points.size()) - 1;
     unsigned int       i;
 
     DerivativeCurve.control_points.resize(n);
@@ -1324,8 +1324,8 @@ void BezierCurve2D::CrossMultiply(BezierCurve2D &OtherCurve)
 {
     std::vector<Vec3d>  p_wo;
     std::vector<Vec3d>  po_w;
-    const unsigned int  n  = control_points.size() - 1;
-    const unsigned int  m  = OtherCurve.control_points.size() - 1;
+    const unsigned int  n  = UInt32(control_points.size()) - 1;
+    const unsigned int  m  = UInt32(OtherCurve.control_points.size()) - 1;
     const unsigned int  nm = n + m;
     unsigned int        i;
     unsigned int        j;
@@ -1375,7 +1375,7 @@ void BezierCurve2D::CrossMultiply(BezierCurve2D &OtherCurve)
 
 void BezierCurve2D::SquareWeight(std::vector<double> &Squared) const
 {
-    const unsigned int  n  = control_points.size() - 1;
+    const unsigned int  n  = UInt32(control_points.size()) - 1;
     const unsigned int  nn = n * 2;
     unsigned int        i;
     unsigned int        j;
@@ -1415,7 +1415,7 @@ void BezierCurve2D::SquareWeight(std::vector<double> &Squared) const
 
 double BezierCurve2D::CalculateSupinumSquared() const
 {
-    const unsigned int n = control_points.size();
+    const unsigned int n = UInt32(control_points.size());
     unsigned int       i;
     Vec3d              curr;
     double             sup;
@@ -1506,7 +1506,7 @@ void BezierCurve2D::CalculateDifferenceCurve(const BezierCurve2D &Other, BezierC
 
 void BezierCurve2D::DegreeElevate()
 {
-    const unsigned int n = control_points.size();
+    const unsigned int n = UInt32(control_points.size());
     unsigned int       i;
 
     control_points.push_back(control_points[n - 1]);
@@ -1523,7 +1523,7 @@ void BezierCurve2D::DegreeElevate()
 
 void BezierCurve2D::AddNthHermitePoints(Vec3d d0, Vec3d d1)
 {
-    const unsigned int  n = control_points.size() / 2;
+    const unsigned int  n = UInt32(control_points.size()) / 2;
     unsigned int        i;
     std::vector<double> n_over_i;
     int                 sign = 1;
@@ -1534,7 +1534,7 @@ void BezierCurve2D::AddNthHermitePoints(Vec3d d0, Vec3d d1)
 
     fact = 1.0;
 
-    for(i = control_points.size() - 1; i >= control_points.size() - n; --i)
+    for(i = UInt32(control_points.size()) - 1; i >= UInt32(control_points.size()) - n; --i)
     {
         fact *= i;
     }

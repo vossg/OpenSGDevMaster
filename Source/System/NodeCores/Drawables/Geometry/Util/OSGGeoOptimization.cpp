@@ -351,7 +351,7 @@ makeSingleIndexed(Geometry *geo)
     IndexUI32 index;
 
     GeoIntegralProperty *lengths  = geo->getLengths();
-    UInt32               lengthsN = lengths->size();
+    UInt32               lengthsN = lengths->size32();
     UInt32               k        = 0;
 
     for(UInt32 i = 0; i < lengthsN; ++i)
@@ -371,7 +371,7 @@ makeSingleIndexed(Geometry *geo)
             else
             {
                 // new unique index tuple
-                index.push_back(itSet.size());
+                index.push_back(UInt32(itSet.size()));
                 itSet.insert(k);
             }
 
@@ -431,7 +431,7 @@ makeSingleIndexed(Geometry *geo)
     }
 
     // fill new properties
-    UInt32 propCount = prop.size();
+    UInt32 propCount = UInt32(prop.size());
 
     ITSet::const_iterator isIt  = itSet.begin();
     ITSet::const_iterator isEnd = itSet.end  ();
@@ -554,7 +554,7 @@ makeIndexedTriangles(Geometry *geo)
             oldLengths->getType().createContainer());
 
     bool   doSecondPass = false;
-    UInt32 primCount    = oldTypes->size();
+    UInt32 primCount    = oldTypes->size32();
     UInt32 srcOffset    = 0;
     UInt32 dstOffset    = 0;
 
@@ -618,7 +618,7 @@ makeIndexedTriangles(Geometry *geo)
 
         for(UInt32 i = 0; i < primCount; ++i)
         {
-            UInt32 lengthsCount = newLengths->size();
+            UInt32 lengthsCount = newLengths->size32();
             UInt32 type         = oldTypes  ->getValue(i);
             UInt32 len          = oldLengths->getValue(i);
 

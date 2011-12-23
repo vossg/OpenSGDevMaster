@@ -46,7 +46,7 @@ inline TextLayoutResult::TextLayoutResult()
 
 
 inline UInt32 TextLayoutResult::getNumGlyphs() const
-{ return positions.size() < indices.size() ? positions.size() : indices.size(); }
+{ return positions.size() < indices.size() ? UInt32(positions.size()) : UInt32(indices.size()); }
 
 
 OSG_END_NAMESPACE

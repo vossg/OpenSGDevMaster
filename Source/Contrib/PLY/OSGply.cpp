@@ -929,7 +929,7 @@ std::vector<std::string>& ply_get_comments(
   PlyFile *plyfile,
   int *num_comments)
 {
-  *num_comments = plyfile->comments.size();
+  *num_comments = int(plyfile->comments.size());
   return plyfile->comments;
 }
 
@@ -948,7 +948,7 @@ Exit:
 
 std::vector<std::string>& ply_get_obj_info(PlyFile *plyfile, int *num_obj_info)
 {
-  *num_obj_info = plyfile->obj_info.size();
+  *num_obj_info = int(plyfile->obj_info.size());
   return plyfile->obj_info;
 }
 
@@ -1074,7 +1074,7 @@ PlyOtherProp *ply_get_other_properties(
   }
 #endif
   other->size = elem->other_size;
-  other->props = reinterpret_cast<PlyProperty **>(myalloc (sizeof(PlyProperty*) * elem->props.size()));
+  other->props = reinterpret_cast<PlyProperty **>(myalloc (sizeof(PlyProperty*) * int(elem->props.size())));
   
   /* save descriptions of each "other" property */
   nprops = 0;
@@ -1320,7 +1320,7 @@ PlyProperty *find_property(
 {
   for (std::size_t i = 0; i < elem->props.size(); i++)
     if (prop_name == elem->props[i].name) {
-      *index = i;
+      *index = int(i);
       return &elem->props[i];
     }
 

@@ -116,13 +116,13 @@ bool ShaderProgramVariables::addMapSVariable(const Char8     *name,
 
                 _mVarMap.insert(
                     std::pair<std::string, IntPair>(
-                        name, 
-                        IntPair(-1,
-                                this->getMFProceduralVariables()->size() - 1)));
+                      name, 
+                      IntPair(-1,
+                              this->getMFProceduralVariables()->size32() - 1)));
 
                 _uiMapsize = 
-                    this->getMFVariables          ()->size() +
-                    this->getMFProceduralVariables()->size();
+                    this->getMFVariables          ()->size32() +
+                    this->getMFProceduralVariables()->size32();
 
                 returnValue = true;
             }
@@ -141,7 +141,7 @@ bool ShaderProgramVariables::addMapSVariable(const Char8     *name,
 
                 if(iIdx == -1)
                 {
-                    iIdx = this->getMFVariables()->size();
+                    iIdx = this->getMFVariables()->size32();
 
                     p->addParent(this,
                                  ShaderProgramVariables::VariablesFieldId,
@@ -173,8 +173,8 @@ bool ShaderProgramVariables::addMapSVariable(const Char8     *name,
                         IntPair(iIdx, -1)));
 
                 _uiMapsize = 
-                    this->getMFVariables          ()->size() +
-                    this->getMFProceduralVariables()->size();
+                    this->getMFVariables          ()->size32() +
+                    this->getMFProceduralVariables()->size32();
 
                 returnValue = true;
             }
@@ -285,13 +285,13 @@ bool ShaderProgramVariables::addMapMVariable(const char      *name,
 
                 _mVarMap.insert(
                     std::pair<std::string, IntPair>(
-                        name, 
-                        IntPair(-1,
-                                this->getMFProceduralVariables()->size() - 1)));
+                      name, 
+                      IntPair(-1,
+                              this->getMFProceduralVariables()->size32() - 1)));
 
                 _uiMapsize = 
-                    this->getMFVariables          ()->size() +
-                    this->getMFProceduralVariables()->size();
+                    this->getMFVariables          ()->size32() +
+                    this->getMFProceduralVariables()->size32();
 
                 returnValue = true;
             }
@@ -311,7 +311,7 @@ bool ShaderProgramVariables::addMapMVariable(const char      *name,
 
                 if(iIdx == -1)
                 {
-                    iIdx = this->getMFVariables()->size();
+                    iIdx = this->getMFVariables()->size32();
 
                     p->addParent(this,
                                  ShaderProgramVariables::VariablesFieldId,
@@ -343,8 +343,8 @@ bool ShaderProgramVariables::addMapMVariable(const char      *name,
                         IntPair(iIdx, -1)));
 
                 _uiMapsize = 
-                    this->getMFVariables          ()->size() +
-                    this->getMFProceduralVariables()->size();
+                    this->getMFVariables          ()->size32() +
+                    this->getMFProceduralVariables()->size32();
 
                 returnValue = true;
             }
@@ -540,13 +540,13 @@ bool ShaderProgramVariables::addMapProceduralVariable(
             
             _mVarMap.insert(
                 std::pair<std::string, IntPair>(
-                    name, 
-                    IntPair(-1,
-                            this->getMFProceduralVariables()->size() - 1)));
+                  name, 
+                  IntPair(-1,
+                          this->getMFProceduralVariables()->size32() - 1)));
             
             _uiMapsize = 
-                this->getMFVariables          ()->size() +
-                this->getMFProceduralVariables()->size();
+                this->getMFVariables          ()->size32() +
+                this->getMFProceduralVariables()->size32();
             
             returnValue = true;
         }
@@ -802,7 +802,7 @@ void ShaderProgramVariables::merge(ShaderProgramVariables *pVars,
     MFVariablesType::const_iterator vIt  = pVars->getMFVariables()->begin();
     MFVariablesType::const_iterator vEnd = pVars->getMFVariables()->end  ();
 
-    UInt32 uiPos        = _mfVariables.size();
+    UInt32 uiPos        = _mfVariables.size32();
     UInt32 uiActiveVars = 0;
 
     for(; vIt != vEnd; ++vIt)
@@ -1362,13 +1362,12 @@ bool ShaderProgramVariables::addMapVariableOSG(const Char8   *name,
                     std::pair<std::string, IntPair>(
                         name, 
                         IntPair(
-                            -1,
-                            this->getMFProceduralVariables()->size() - 1
-                               )));
+                          -1,
+                          this->getMFProceduralVariables()->size32() - 1)));
                 
                 _uiMapsize = 
-                    this->getMFVariables          ()->size() +
-                    this->getMFProceduralVariables()->size();
+                    this->getMFVariables          ()->size32() +
+                    this->getMFProceduralVariables()->size32();
                 
                 returnValue = true;
             }
@@ -1489,11 +1488,11 @@ void ShaderProgramVariables::addMapVariable(ShaderVariable *pVar)
                     pVar->getName(), 
                     IntPair(
                         -1,
-                        this->getMFProceduralVariables()->size() - 1)));
+                        this->getMFProceduralVariables()->size32() - 1)));
 
             _uiMapsize = 
-                this->getMFVariables          ()->size() +
-                this->getMFProceduralVariables()->size();
+                this->getMFVariables          ()->size32() +
+                this->getMFProceduralVariables()->size32();
         }
         else
         {
@@ -1502,7 +1501,7 @@ void ShaderProgramVariables::addMapVariable(ShaderVariable *pVar)
 
             pValVar->addParent(this,
                                ShaderProgramVariables::VariablesFieldId,
-                               this->getMFVariables()->size());
+                               UInt16(this->getMFVariables()->size()));
 
             this->editMFVariables      ()->push_back(pValVar);
             this->editMFVariableChanged()->push_back(true   );
@@ -1510,12 +1509,12 @@ void ShaderProgramVariables::addMapVariable(ShaderVariable *pVar)
             _mVarMap.insert(
                 std::pair<std::string, IntPair>(
                     name,
-                    IntPair(this->getMFVariables()->size() - 1,
+                    IntPair(this->getMFVariables()->size32() - 1,
                             -1)));
         
             _uiMapsize =
-                this->getMFVariables          ()->size() +
-                this->getMFProceduralVariables()->size();
+                this->getMFVariables          ()->size32() +
+                this->getMFProceduralVariables()->size32();
         }
     }
 
@@ -1603,7 +1602,7 @@ void ShaderProgramVariables::rebuildMap(void)
         return;
 #endif
     
-    UInt32 size = this->getMFVariables()->size();
+    UInt32 size = this->getMFVariables()->size32();
     
     _uiMapsize = 0;
 
@@ -1622,7 +1621,7 @@ void ShaderProgramVariables::rebuildMap(void)
         }
     }
 
-    size = this->getMFProceduralVariables()->size();
+    size = this->getMFProceduralVariables()->size32();
 
     for(UInt32 i = 0; i < size; ++i)
     {

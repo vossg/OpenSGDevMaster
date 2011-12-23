@@ -64,7 +64,7 @@ Int32 StateChunkClass::getNumSlots(UInt32 index)
 inline
 UInt32 StateChunkClass::getUsedSlots(void)
 {
-    return StateChunkClass::_numslots->size();
+    return UInt32(StateChunkClass::_numslots->size());
 }
 
 inline

@@ -127,7 +127,7 @@ void RenderAction::beginPartitionGroup(void)
 {
     _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
 
-    _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+    _iActivePartitionIdx = Int32(_vRenderPartitions[_currentBuffer].size());
 
     _bInPartitionGroup = true;
 }
@@ -154,7 +154,7 @@ Int32 RenderAction::getActivePartitionIdx(void)
 inline
 Int32 RenderAction::getLastPartitionIdx(void)
 {
-    return _vRenderPartitions[_currentBuffer].size() - 1;
+    return Int32(_vRenderPartitions[_currentBuffer].size() - 1);
 }
 
 inline

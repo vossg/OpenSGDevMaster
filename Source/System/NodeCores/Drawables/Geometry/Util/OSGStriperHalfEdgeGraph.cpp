@@ -262,11 +262,11 @@ bool StriperHalfEdgeGraph::verify (bool verbose)
           << triangleState[3]
           << endl;
     
-    n = _edgeLinkVec.size();
+    n = UInt32(_edgeLinkVec.size());
     halfEdgeCount = 0;
     for (i = 0; i < n; ++i)
     {
-        connectionCount = _edgeLinkVec[i].size();
+        connectionCount = UInt32(_edgeLinkVec[i].size());
 
         halfEdgeCount += connectionCount;
         if (connectionMap.find(connectionCount) == connectionMap.end())
@@ -331,7 +331,7 @@ UInt32 StriperHalfEdgeGraph::calcOptPrim(UInt32 extIteration,
 
     if(doFan)
     {
-        n = _edgeLinkVec.size();
+        n = UInt32(_edgeLinkVec.size());
         fanCost = 0;
 
         // find fans 
@@ -362,8 +362,8 @@ UInt32 StriperHalfEdgeGraph::calcOptPrim(UInt32 extIteration,
                         fList->add(*triangle);
                     }
                     _fanBag.push_back(Primitive(i,fList));
-                    fanCost += (_edgeLinkVec[i].size() + 2);
-                    triangleLeft -= _edgeLinkVec[i].size();
+                    fanCost += (UInt32(_edgeLinkVec[i].size()) + 2);
+                    triangleLeft -= UInt32(_edgeLinkVec[i].size());
                 }
             }
         }
@@ -590,7 +590,7 @@ UInt32 StriperHalfEdgeGraph::calcOptPrim(UInt32 extIteration,
             {
                 // reinit the four degree bags
                 degreeBag[mostDegree].paste(degreeBag[0]);
-                n = _stripBag.size();
+                n = UInt32(_stripBag.size());
                 for(i = 0; i < n; ++i)
                 {
                     degreeBag[mostDegree].paste(*_stripBag[i].second);
@@ -852,7 +852,7 @@ Int32 StriperHalfEdgeGraph::getPrimitive(
     indexVec.clear();
     
     // fan
-    if(!bag && (n = _fanBag.size()) &&
+    if(!bag && (n = UInt32(_fanBag.size())) &&
        ((type == GL_TRIANGLE_FAN) || !type))
     {
         i = n - 1;
@@ -863,7 +863,7 @@ Int32 StriperHalfEdgeGraph::getPrimitive(
     }
     
     // strip
-    if(!bag && (n = _stripBag.size()) &&
+    if(!bag && (n = UInt32(_stripBag.size())) &&
        ((type == GL_TRIANGLE_STRIP) || !type))
     {
         i = n - 1;
@@ -874,7 +874,7 @@ Int32 StriperHalfEdgeGraph::getPrimitive(
     }
     
     // tri
-    if(!bag && (n = _triBag.size()) &&
+    if(!bag && (n = UInt32(_triBag.size())) &&
        ((type == GL_TRIANGLES) || !type))
     {
         bag = &_triBag;
@@ -928,10 +928,10 @@ Int32 StriperHalfEdgeGraph::calcEgdeLines(
     bool isBorder;
 
     indexVec.clear();
-    nN = _edgeLinkVec.size();
+    nN = UInt32(_edgeLinkVec.size());
     for (i = 0; i < nN; ++i)
     {
-        nE = _edgeLinkVec[i].size();
+        nE = UInt32(_edgeLinkVec[i].size());
         for ( j = 0; j < nE; ++j)
         {
             halfEdge = _edgeLinkVec[i][j].second;
@@ -966,17 +966,17 @@ void StriperHalfEdgeGraph::clear(void)
     _edgeLinkVec.clear();
     _trianglePool.clear();
     
-    n = _stripBag.size();
+    n = UInt32(_stripBag.size());
     for(i = 0; i < n; ++i)
         delete _stripBag[i].second;
     _stripBag.clear();
     
-    n = _fanBag.size();
+    n = UInt32(_fanBag.size());
     for(i = 0; i < n; ++i)
         delete _fanBag[i].second;
     _fanBag.clear();
     
-    n = _triBag.size();
+    n = UInt32(_triBag.size());
     for(i = 0; i < n; ++i)
         delete _triBag[i].second;
     _triBag.clear();

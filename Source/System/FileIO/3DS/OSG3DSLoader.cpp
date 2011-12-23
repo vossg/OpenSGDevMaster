@@ -407,7 +407,7 @@ void LMesh::Clear()
 
 uint LMesh::GetVertexCount()
 {
-    return m_vertices.size();
+    return uint(m_vertices.size());
 }
 
 void LMesh::SetVertexArraySize(uint value)
@@ -421,7 +421,7 @@ void LMesh::SetVertexArraySize(uint value)
 
 uint LMesh::GetTriangleCount()
 {
-    return m_triangles.size();
+    return uint(m_triangles.size());
 }
 
 void LMesh::SetTriangleArraySize(uint value)
@@ -575,7 +575,7 @@ void LMesh::CalcNormals(bool useSmoothingGroups)
         for (i=0; i<m_vertices.size(); i++)
         {
             temp = zero3;
-            int t = array[i].size();
+            int t = int(array[i].size());
 
             for (int k=0; k<t; k++)
             {
@@ -593,11 +593,11 @@ void LMesh::CalcNormals(bool useSmoothingGroups)
         std::vector<ulong> smGroups;
         std::vector< std::vector <uint> > smList;
 
-        uint loop_size = m_vertices.size();
+        uint loop_size = uint(m_vertices.size());
 
         for (i=0; i<loop_size; i++)
         {
-            int t = array[i].size();
+            int t = uint(array[i].size());
 
             if (t == 0)
                 continue;
@@ -640,7 +640,7 @@ void LMesh::CalcNormals(bool useSmoothingGroups)
                     m_tangents.push_back(m_tangents[i]);
                     m_binormals.push_back(m_binormals[i]);
 
-                    uint t = m_vertices.size()-1;
+                    uint t = uint(m_vertices.size())-1;
                     for (uint h=0; h<smList[j].size(); h++)
                     {
                         if (m_tris[smList[j][h]].a == i)
@@ -674,7 +674,7 @@ void LMesh::CalcNormals(bool useSmoothingGroups)
         for (i=0; i<m_vertices.size(); i++)
         {
             temp = zero3;
-            int t = array[i].size();
+            int t = uint(array[i].size());
 
             for (int k=0; k<t; k++)
             {
@@ -753,13 +753,13 @@ void LMesh::CalcTextureSpace()
     for (size_t i=0; i<m_triangles.size(); i++)
     {
         uint k = m_tris[i].a;
-        array[k].push_back(i);
+        array[k].push_back(int(i));
 
         k = m_tris[i].b;
-        array[k].push_back(i);
+        array[k].push_back(int(i));
 
         k = m_tris[i].c;
-        array[k].push_back(i);
+        array[k].push_back(int(i));
     }
 
     // now average the tangents and compute the binormals as (tangent X normal)
@@ -767,7 +767,7 @@ void LMesh::CalcTextureSpace()
     {
         v1 = zero3;
         v2 = zero3;
-        int t = array[i].size();
+        int t = int(array[i].size());
 
         for (int k=0; k<t; k++)
         {
@@ -825,12 +825,12 @@ uint LMesh::GetMaterial(uint index)
 uint LMesh::AddMaterial(uint id)
 {
     m_materials.push_back(id);
-    return m_materials.size()-1;
+    return uint(m_materials.size())-1;
 }
 
 uint LMesh::GetMaterialCount()
 {
-    return m_materials.size();
+    return uint(m_materials.size());
 }
 
 //-------------------------------------------------------
@@ -1038,22 +1038,22 @@ LImporter::~LImporter()
 
 uint LImporter::GetMeshCount()
 {
-    return m_meshes.size();
+    return uint(m_meshes.size());
 }
 
 uint LImporter::GetLightCount()
 {
-    return m_lights.size();
+    return uint(m_lights.size());
 }
 
 uint LImporter::GetMaterialCount()
 {
-    return m_materials.size();
+    return uint(m_materials.size());
 }
 
 uint LImporter::GetCameraCount()
 {
-    return m_cameras.size();
+    return uint(m_cameras.size());
 }
 
 LMesh& LImporter::GetMesh(uint index)
@@ -1810,7 +1810,7 @@ void L3DS::ReadMaterial(const LChunk &parent)
         chunk = ReadChunk();
     }
     m_materials.push_back(mat);
-    m_materials[m_materials.size()-1].SetID(m_materials.size()-1);
+    m_materials[m_materials.size()-1].SetID(uint(m_materials.size())-1);
 }
 
 void L3DS::ReadMap(const LChunk &chunk, LMap& map)

@@ -706,7 +706,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                     UInt32 uiPosIdx =
                         vInfo->uiIdx[OFVertexPaletteRecord::PosIdx];
 
-                    pPI->push_back(pPos->size());
+                    pPI->push_back(pPos->size32());
 
                     pPos->push_back(pVertexPal->getPos(uiPosIdx));
 
@@ -722,7 +722,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                             UInt32 uiNormIdx =
                                 vInfo->uiIdx[OFVertexPaletteRecord::NormIdx];
 
-                            pNI->push_back(pNorm->size());
+                            pNI->push_back(pNorm->size32());
 
                             pNorm->push_back(pVertexPal->getNormal(uiNormIdx));
 
@@ -733,7 +733,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                         }
                         else
                         {
-                            pNI->push_back(pNorm->size());
+                            pNI->push_back(pNorm->size32());
                             pNorm->push_back(Vec3f(0.f, 0.f, 1.f));
 
                             bSingleIdx = false;
@@ -745,7 +745,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                         UInt32 uiTXIdx =
                             vInfo->uiIdx[OFVertexPaletteRecord::TexCoordIdx];
 
-                        pTI->push_back(pTX->size());
+                        pTI->push_back(pTX->size32());
 
                         pTX->push_back(pVertexPal->getTexCoord(uiTXIdx));
 

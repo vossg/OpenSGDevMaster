@@ -85,13 +85,13 @@ SceneFileType *SceneFileHandlerBase::getFileType(
 
     std::string fe = fileNameOrExtension;
 
-    Int32 p = fe.rfind(separator);
+    SizeT p = fe.rfind(separator);
 
     std::string ext;
 
-    if(p != -1)
+    if(p != std::string::npos)
     {
-        ext = fe.substr(p+1, fe.length() - p - 1);
+        ext = fe.substr(p + 1, fe.length() - p - 1);
     }
     else
     {
@@ -104,9 +104,9 @@ SceneFileType *SceneFileHandlerBase::getFileType(
         fe = fe.substr(0, p);
         p  = fe.rfind(separator);
 
-        if(p != -1)
+        if(p != std::string::npos)
         {
-            ext = fe.substr(p+1, fe.length() - p - 1);
+            ext = fe.substr(p + 1, fe.length() - p - 1);
         }
         else
         {

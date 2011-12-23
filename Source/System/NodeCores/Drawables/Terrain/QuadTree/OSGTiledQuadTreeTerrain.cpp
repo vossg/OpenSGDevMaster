@@ -1977,8 +1977,8 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
 
            if(core != NULL && core->getIndices() != NULL) 
            {
-               numIndis += core->getIndices()->size();
-               numFans  += core->getTypes()->size();
+               numIndis += core->getIndices()->size32();
+               numFans  += core->getTypes  ()->size32();
            }
        }
    }
