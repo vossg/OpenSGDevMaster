@@ -299,9 +299,9 @@ const SFReal32 *PerspectiveCameraBase::getSFAspect(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FovFieldMask & whichField))
     {

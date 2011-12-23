@@ -168,9 +168,9 @@ UInt32 GPUVolRTV1Base::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GPUVolRTV1Base::getBinSize(ConstFieldMaskArg whichField)
+SizeT GPUVolRTV1Base::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

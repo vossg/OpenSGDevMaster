@@ -246,9 +246,9 @@ const SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
     {

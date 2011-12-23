@@ -244,9 +244,9 @@ const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLCoordinateInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLCoordinateInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {

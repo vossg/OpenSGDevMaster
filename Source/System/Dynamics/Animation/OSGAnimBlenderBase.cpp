@@ -173,9 +173,9 @@ UInt32 AnimBlenderBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimBlenderBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimBlenderBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

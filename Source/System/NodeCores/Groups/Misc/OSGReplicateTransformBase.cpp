@@ -217,9 +217,9 @@ SFUnrecNodePtr      *ReplicateTransformBase::editSFTarget         (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ReplicateTransformBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ReplicateTransformBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {

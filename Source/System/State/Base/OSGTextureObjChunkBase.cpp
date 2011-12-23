@@ -1384,9 +1384,9 @@ const SFReal32 *TextureObjChunkBase::getSFSkipMipMapLevels(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureObjChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureObjChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {

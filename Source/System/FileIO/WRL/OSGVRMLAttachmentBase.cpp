@@ -206,9 +206,9 @@ const SFString *VRMLAttachmentBase::getSFVrmlNodeTypename(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VrmlNodeTypenameFieldMask & whichField))
     {

@@ -201,9 +201,9 @@ SFUnrecComputeAlgorithmPtr *AlgorithmComputeElementBase::editSFAlgorithm      (v
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AlgorithmComputeElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AlgorithmComputeElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
     {

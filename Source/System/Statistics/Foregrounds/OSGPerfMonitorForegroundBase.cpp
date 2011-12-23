@@ -493,9 +493,9 @@ const SFVec2f *PerfMonitorForegroundBase::getSFTextMargin(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PerfMonitorForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PerfMonitorForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {

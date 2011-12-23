@@ -211,9 +211,9 @@ const SFMatrix *TransformChunkBase::getSFMatrix(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TransformChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TransformChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {

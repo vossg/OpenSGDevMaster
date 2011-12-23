@@ -220,9 +220,9 @@ SFUnrecChunkBlockPtr *ChunkOverrideGroupBase::editSFFallbackChunkBlock(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
     {

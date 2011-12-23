@@ -653,9 +653,9 @@ const MFInt32 *PolygonChunkBase::getMFStipple(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PolygonChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PolygonChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CullFaceFieldMask & whichField))
     {

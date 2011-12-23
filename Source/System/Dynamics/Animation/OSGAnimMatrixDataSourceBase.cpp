@@ -211,9 +211,9 @@ const MFMatrix *AnimMatrixDataSourceBase::getMFValues(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimMatrixDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimMatrixDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {

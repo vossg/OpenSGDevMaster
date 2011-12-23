@@ -172,9 +172,9 @@ UInt32 ComputeElementBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ComputeElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ComputeElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

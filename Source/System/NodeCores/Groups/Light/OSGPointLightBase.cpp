@@ -211,9 +211,9 @@ const SFPnt3f *PointLightBase::getSFPosition(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PointLightBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PointLightBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PositionFieldMask & whichField))
     {

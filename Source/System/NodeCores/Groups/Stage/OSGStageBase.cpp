@@ -257,9 +257,9 @@ const SFBool *StageBase::getSFInheritedTarget(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {

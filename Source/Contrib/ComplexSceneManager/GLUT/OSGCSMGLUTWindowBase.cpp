@@ -169,9 +169,9 @@ UInt32 CSMGLUTWindowBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMGLUTWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMGLUTWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

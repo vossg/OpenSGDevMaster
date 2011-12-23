@@ -293,9 +293,9 @@ const SFInt16 *BaseSkeletonJointBase::getSFJointId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BaseSkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BaseSkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {

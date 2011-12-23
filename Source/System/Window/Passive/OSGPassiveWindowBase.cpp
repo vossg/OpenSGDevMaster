@@ -171,9 +171,9 @@ UInt32 PassiveWindowBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PassiveWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PassiveWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -202,9 +202,9 @@ const SFVec3f *DirectionalLightBase::getSFDirection(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DirectionalLightBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DirectionalLightBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DirectionFieldMask & whichField))
     {

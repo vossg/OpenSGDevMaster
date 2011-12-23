@@ -215,9 +215,9 @@ const SFInt32 *SwitchBase::getSFChoice(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SwitchBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SwitchBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
     {

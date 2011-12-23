@@ -165,9 +165,9 @@ UInt32 GroupingStageBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GroupingStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GroupingStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -209,9 +209,9 @@ const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureObjRefChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureObjRefChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {

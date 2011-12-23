@@ -184,9 +184,9 @@ UInt32 VertexProgramChunkBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VertexProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VertexProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

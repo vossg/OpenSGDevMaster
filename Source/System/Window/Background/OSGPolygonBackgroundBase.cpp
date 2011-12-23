@@ -520,9 +520,9 @@ const SFBool *PolygonBackgroundBase::getSFCleanup(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PolygonBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PolygonBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {

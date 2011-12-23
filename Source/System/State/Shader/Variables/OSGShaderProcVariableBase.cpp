@@ -222,9 +222,9 @@ const SFUInt32 *ShaderProcVariableBase::getSFDependency(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderProcVariableBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderProcVariableBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DependencyFieldMask & whichField))
     {

@@ -220,9 +220,9 @@ SFUnrecMaterialPtr  *MaterialChunkOverrideGroupBase::editSFMaterial       (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MaterialChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MaterialChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {

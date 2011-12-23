@@ -215,9 +215,9 @@ SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::editSFRenderTarget   (vo
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DynamicStateGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DynamicStateGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {

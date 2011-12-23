@@ -616,9 +616,9 @@ void CSMViewportBase::clearForegrounds(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {

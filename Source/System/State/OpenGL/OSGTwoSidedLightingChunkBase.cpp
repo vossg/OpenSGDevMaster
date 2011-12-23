@@ -160,9 +160,9 @@ UInt32 TwoSidedLightingChunkBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TwoSidedLightingChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TwoSidedLightingChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

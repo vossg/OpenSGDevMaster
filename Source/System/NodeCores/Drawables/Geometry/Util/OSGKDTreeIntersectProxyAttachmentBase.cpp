@@ -327,9 +327,9 @@ const MFUInt32 *KDTreeIntersectProxyAttachmentBase::getMFTriIndices(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 KDTreeIntersectProxyAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT KDTreeIntersectProxyAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GeometryFieldMask & whichField))
     {

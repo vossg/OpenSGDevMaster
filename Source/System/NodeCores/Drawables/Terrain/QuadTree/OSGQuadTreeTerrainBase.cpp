@@ -1107,9 +1107,9 @@ const SFBool *QuadTreeTerrainBase::getSFPerPixelLighting(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 QuadTreeTerrainBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT QuadTreeTerrainBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (HeightDataFieldMask & whichField))
     {

@@ -576,9 +576,9 @@ void ShaderProgramChunkBase::clearFragmentShaders(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VertexShaderFieldMask & whichField))
     {

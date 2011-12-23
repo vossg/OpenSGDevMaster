@@ -338,9 +338,9 @@ const SFUInt32 *LinuxEventOptionsBase::getSFBufferSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LinuxEventOptionsBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LinuxEventOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DeviceFieldMask & whichField))
     {

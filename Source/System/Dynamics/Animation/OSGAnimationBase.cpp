@@ -454,9 +454,9 @@ void AnimationBase::clearChannels(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimationBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimationBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TimeSensorFieldMask & whichField))
     {

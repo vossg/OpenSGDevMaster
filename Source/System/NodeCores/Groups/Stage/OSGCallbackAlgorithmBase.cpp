@@ -251,9 +251,9 @@ UInt32 CallbackAlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CallbackAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CallbackAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CallbackFieldMask & whichField))
     {

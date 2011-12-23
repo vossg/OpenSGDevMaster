@@ -536,9 +536,9 @@ SFUnrecChildCSMClusterWinOptionsPtr *CSMClusterWindowBase::editSFOptions        
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {

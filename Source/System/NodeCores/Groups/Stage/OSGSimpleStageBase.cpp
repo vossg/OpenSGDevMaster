@@ -517,9 +517,9 @@ void SimpleStageBase::clearForegrounds(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LeftFieldMask & whichField))
     {

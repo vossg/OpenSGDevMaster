@@ -201,9 +201,9 @@ const SFString *ShaderProgramFileBase::getSFProgramUrl(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderProgramFileBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderProgramFileBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ProgramUrlFieldMask & whichField))
     {

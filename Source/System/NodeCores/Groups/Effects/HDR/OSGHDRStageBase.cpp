@@ -394,9 +394,9 @@ const SFGLenum *HDRStageBase::getSFBufferFormat(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 HDRStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT HDRStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ExposureFieldMask & whichField))
     {

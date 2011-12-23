@@ -208,9 +208,9 @@ const SFBool *CalibrationPatternFilterBase::getSFEnabled(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CalibrationPatternFilterBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CalibrationPatternFilterBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

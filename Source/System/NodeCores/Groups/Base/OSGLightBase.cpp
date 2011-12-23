@@ -615,9 +615,9 @@ const SFUInt32 *LightBase::getSFShadowMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LightBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LightBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {

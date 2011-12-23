@@ -243,9 +243,9 @@ SFUnrecTextureTransformChunkPtr *CubeMapGeneratorStageDataBase::editSFTexTransfo
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CubeMapGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CubeMapGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {

@@ -316,9 +316,9 @@ const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AlgorithmStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AlgorithmStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
     {

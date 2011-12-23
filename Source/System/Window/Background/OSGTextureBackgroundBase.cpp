@@ -438,9 +438,9 @@ const SFUInt16 *TextureBackgroundBase::getSFVert(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {

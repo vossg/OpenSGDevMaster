@@ -335,9 +335,9 @@ const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureBufferBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureBufferBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {

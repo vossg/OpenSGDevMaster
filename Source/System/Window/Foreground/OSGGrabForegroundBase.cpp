@@ -252,9 +252,9 @@ const SFBool *GrabForegroundBase::getSFAutoResize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GrabForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GrabForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {

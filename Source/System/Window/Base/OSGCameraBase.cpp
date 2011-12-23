@@ -298,9 +298,9 @@ const SFReal32 *CameraBase::getSFFar(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {

@@ -171,9 +171,9 @@ UInt32 AnimDataSourceBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

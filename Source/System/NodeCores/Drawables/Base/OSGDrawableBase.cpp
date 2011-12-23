@@ -167,9 +167,9 @@ UInt32 DrawableBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DrawableBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DrawableBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -387,9 +387,9 @@ const SFReal32 *ShaderShadowMapEngineBase::getSFShadowFar(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShadowVertexProgramFieldMask & whichField))
     {

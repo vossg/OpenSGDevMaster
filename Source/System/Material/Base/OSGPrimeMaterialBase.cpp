@@ -168,9 +168,9 @@ UInt32 PrimeMaterialBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PrimeMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PrimeMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

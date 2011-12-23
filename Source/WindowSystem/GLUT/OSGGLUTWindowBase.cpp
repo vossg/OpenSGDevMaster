@@ -209,9 +209,9 @@ const SFInt32 *GLUTWindowBase::getSFGlutId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GLUTWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GLUTWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GlutIdFieldMask & whichField))
     {

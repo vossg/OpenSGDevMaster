@@ -723,9 +723,9 @@ const SFInt32 *ParticlesBase::getSFNumParticles(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ParticlesBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ParticlesBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {

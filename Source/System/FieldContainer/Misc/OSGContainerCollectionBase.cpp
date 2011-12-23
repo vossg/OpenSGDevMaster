@@ -298,9 +298,9 @@ void ContainerCollectionBase::clearContainers(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ContainerCollectionBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ContainerCollectionBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {

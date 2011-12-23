@@ -621,9 +621,9 @@ const SFBool *ShaderExecutableChunkBase::getSFPointSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderExecutableChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderExecutableChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VertexShaderFieldMask & whichField))
     {

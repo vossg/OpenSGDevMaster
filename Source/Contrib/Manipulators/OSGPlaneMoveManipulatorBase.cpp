@@ -315,9 +315,9 @@ const SFPnt3f *PlaneMoveManipulatorBase::getSFClickPoint(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PlaneMoveManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PlaneMoveManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AxisFieldMask & whichField))
     {

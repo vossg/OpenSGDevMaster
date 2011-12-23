@@ -209,9 +209,9 @@ const SFUInt32 *ShaderVariableOSGBase::getSFOsgVarType(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariableOSGBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariableOSGBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (OsgVarTypeFieldMask & whichField))
     {

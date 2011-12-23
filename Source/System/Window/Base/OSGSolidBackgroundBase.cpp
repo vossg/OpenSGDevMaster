@@ -252,9 +252,9 @@ const SFReal32 *SolidBackgroundBase::getSFAlpha(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SolidBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SolidBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {

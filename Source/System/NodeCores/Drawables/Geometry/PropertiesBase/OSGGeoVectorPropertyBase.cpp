@@ -193,9 +193,9 @@ UInt32 GeoVectorPropertyBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoVectorPropertyBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoVectorPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -818,9 +818,9 @@ void TiledQuadTreeTerrainBase::clearHeightTextures(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TiledQuadTreeTerrainBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TiledQuadTreeTerrainBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
     {

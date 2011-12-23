@@ -351,9 +351,9 @@ const SFUInt32 *ProgramChunkBase::getSFGLId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ProgramFieldMask & whichField))
     {

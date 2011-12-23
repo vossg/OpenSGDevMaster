@@ -419,9 +419,9 @@ const SFBool *SimpleTexturedMaterialBase::getSFEnvMap(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleTexturedMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleTexturedMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {

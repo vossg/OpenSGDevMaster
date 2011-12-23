@@ -237,9 +237,9 @@ const SFBool *ForegroundBase::getSFActive(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ActiveFieldMask & whichField))
     {

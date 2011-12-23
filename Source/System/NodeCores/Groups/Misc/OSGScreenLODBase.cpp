@@ -221,9 +221,9 @@ const MFReal32 *ScreenLODBase::getMFCoverageOverride(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ScreenLODBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ScreenLODBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
     {

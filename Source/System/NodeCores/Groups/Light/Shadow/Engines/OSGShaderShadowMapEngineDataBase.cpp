@@ -565,9 +565,9 @@ void ShaderShadowMapEngineDataBase::clearLightPassMaterials(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderShadowMapEngineDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderShadowMapEngineDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderTargetsFieldMask & whichField))
     {

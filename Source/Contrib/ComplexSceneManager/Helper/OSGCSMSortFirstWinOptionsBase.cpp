@@ -316,9 +316,9 @@ const SFBool *CSMSortFirstWinOptionsBase::getSFUseFaceDistribution(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMSortFirstWinOptionsBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMSortFirstWinOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CompressionFieldMask & whichField))
     {

@@ -398,9 +398,9 @@ const SFInt32 *MultiDisplayWindowBase::getSFMaxDepth(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MultiDisplayWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MultiDisplayWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (HServersFieldMask & whichField))
     {

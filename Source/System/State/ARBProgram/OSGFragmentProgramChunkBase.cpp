@@ -176,9 +176,9 @@ UInt32 FragmentProgramChunkBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FragmentProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FragmentProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

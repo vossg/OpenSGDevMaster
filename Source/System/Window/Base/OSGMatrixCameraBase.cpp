@@ -294,9 +294,9 @@ const SFBool *MatrixCameraBase::getSFUseBeacon(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MatrixCameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MatrixCameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {

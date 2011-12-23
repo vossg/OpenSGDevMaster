@@ -523,9 +523,9 @@ const MFVec2f *AnimQuaternionDataSourceBase::getMFOutTangentsW(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimQuaternionDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimQuaternionDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {

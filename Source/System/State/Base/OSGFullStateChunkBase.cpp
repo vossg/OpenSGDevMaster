@@ -169,9 +169,9 @@ UInt32 FullStateChunkBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FullStateChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FullStateChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

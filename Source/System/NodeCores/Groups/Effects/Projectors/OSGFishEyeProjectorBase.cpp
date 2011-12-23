@@ -715,9 +715,9 @@ void FishEyeProjectorBase::clearGeometries(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FishEyeProjectorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FishEyeProjectorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {

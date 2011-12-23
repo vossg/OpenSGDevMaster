@@ -693,9 +693,9 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FormatsFieldMask & whichField))
     {

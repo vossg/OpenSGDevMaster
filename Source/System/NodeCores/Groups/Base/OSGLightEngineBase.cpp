@@ -207,9 +207,9 @@ const SFBool *LightEngineBase::getSFEnabled(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LightEngineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LightEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

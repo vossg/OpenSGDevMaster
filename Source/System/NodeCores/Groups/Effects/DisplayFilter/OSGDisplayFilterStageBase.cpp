@@ -462,9 +462,9 @@ void DisplayFilterStageBase::clearFilterGroups(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DisplayFilterStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DisplayFilterStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
     {

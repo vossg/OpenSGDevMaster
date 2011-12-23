@@ -677,9 +677,9 @@ void CubeMapGeneratorBase::clearExclude(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CubeMapGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CubeMapGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {

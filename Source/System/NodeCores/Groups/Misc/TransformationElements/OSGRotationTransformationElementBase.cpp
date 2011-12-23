@@ -249,9 +249,9 @@ const SFReal32 *RotationTransformationElementBase::getSFAngle(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RotationTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RotationTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AxisFieldMask & whichField))
     {

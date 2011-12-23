@@ -160,9 +160,9 @@ UInt32 SepiaComposerBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SepiaComposerBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SepiaComposerBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

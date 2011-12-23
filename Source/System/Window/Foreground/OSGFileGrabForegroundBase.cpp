@@ -308,9 +308,9 @@ const SFBool *FileGrabForegroundBase::getSFIncrement(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FileGrabForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FileGrabForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {

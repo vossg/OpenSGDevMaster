@@ -304,9 +304,9 @@ void SwitchMaterialBase::clearMaterials(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SwitchMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SwitchMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
     {

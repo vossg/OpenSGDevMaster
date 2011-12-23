@@ -207,9 +207,9 @@ const SFReal32 *ResolutionDisplayFilterBase::getSFDownScale(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ResolutionDisplayFilterBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ResolutionDisplayFilterBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DownScaleFieldMask & whichField))
     {

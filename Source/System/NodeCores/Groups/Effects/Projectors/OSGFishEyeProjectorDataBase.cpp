@@ -413,9 +413,9 @@ void FishEyeProjectorDataBase::clearTextures(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FishEyeProjectorDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FishEyeProjectorDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {

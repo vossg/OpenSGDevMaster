@@ -253,9 +253,9 @@ const SFMatrix *AnimMatrixChannelBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimMatrixChannelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimMatrixChannelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DataFieldMask & whichField))
     {

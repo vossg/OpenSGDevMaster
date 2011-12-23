@@ -407,9 +407,9 @@ const SFUInt32 *ShadowMapEngineBase::getSFShadowTravMask(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {

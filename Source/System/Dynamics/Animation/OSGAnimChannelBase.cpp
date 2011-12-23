@@ -301,9 +301,9 @@ const SFReal32 *AnimChannelBase::getSFInValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimChannelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimChannelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AnimationFieldMask & whichField))
     {

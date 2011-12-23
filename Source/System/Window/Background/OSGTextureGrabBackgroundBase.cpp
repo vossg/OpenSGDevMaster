@@ -333,9 +333,9 @@ const SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureGrabBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureGrabBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TextureFieldMask & whichField))
     {

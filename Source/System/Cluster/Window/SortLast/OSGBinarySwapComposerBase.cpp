@@ -276,9 +276,9 @@ const SFUInt32 *BinarySwapComposerBase::getSFTileSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BinarySwapComposerBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BinarySwapComposerBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShortFieldMask & whichField))
     {

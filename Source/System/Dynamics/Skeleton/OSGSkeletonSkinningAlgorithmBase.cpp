@@ -248,9 +248,9 @@ const MFUInt32 *SkeletonSkinningAlgorithmBase::getMFDrawIndex(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SkeletonSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SkeletonSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DrawPositionsFieldMask & whichField))
     {

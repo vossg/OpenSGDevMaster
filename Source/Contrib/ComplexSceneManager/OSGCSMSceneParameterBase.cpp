@@ -434,9 +434,9 @@ const SFReal32 *CSMSceneParameterBase::getSFSceneFar(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMSceneParameterBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMSceneParameterBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SceneRefFieldMask & whichField))
     {

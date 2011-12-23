@@ -390,9 +390,9 @@ const SFBool *CSMMultiWinOptionsBase::getSFShowBalancing(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMMultiWinOptionsBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMMultiWinOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (XOverlapFieldMask & whichField))
     {

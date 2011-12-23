@@ -295,9 +295,9 @@ const SFUInt32 *VisitSubTreeBase::getSFTravMaskMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VisitSubTreeBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VisitSubTreeBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
     {

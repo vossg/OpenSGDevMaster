@@ -359,9 +359,9 @@ const SFReal32 *BillboardBase::getSFMaxAngle(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BillboardBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BillboardBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AxisOfRotationFieldMask & whichField))
     {

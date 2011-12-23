@@ -349,9 +349,9 @@ const SFVec3f *ComponentTransformBase::getSFTranslation(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ComponentTransformBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ComponentTransformBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CenterFieldMask & whichField))
     {

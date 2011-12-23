@@ -383,9 +383,9 @@ void CPUSkinningDataAttachmentBase::clearProperties(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CPUSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CPUSkinningDataAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PropertiesFieldMask & whichField))
     {

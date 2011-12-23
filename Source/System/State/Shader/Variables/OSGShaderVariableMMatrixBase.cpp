@@ -208,9 +208,9 @@ const MFMatrix *ShaderVariableMMatrixBase::getMFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariableMMatrixBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariableMMatrixBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {

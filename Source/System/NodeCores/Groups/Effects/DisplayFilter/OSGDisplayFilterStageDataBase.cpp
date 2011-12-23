@@ -398,9 +398,9 @@ SFUnrecTextureObjChunkPtr *DisplayFilterStageDataBase::editSFColorFilterTexture(
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DisplayFilterStageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DisplayFilterStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {

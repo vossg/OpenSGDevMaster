@@ -210,9 +210,9 @@ const SFVec3f *TranslationTransformationElementBase::getSFTranslation(void) cons
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TranslationTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TranslationTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TranslationFieldMask & whichField))
     {

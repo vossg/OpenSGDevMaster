@@ -210,9 +210,9 @@ const SFBool *StateChunkBase::getSFIgnore(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StateChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StateChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (IgnoreFieldMask & whichField))
     {

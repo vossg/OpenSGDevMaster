@@ -411,9 +411,9 @@ const SFReal32 *FogStageBase::getSFFogDensity(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FogStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FogStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
     {

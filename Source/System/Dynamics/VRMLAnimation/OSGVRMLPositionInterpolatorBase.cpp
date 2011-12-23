@@ -244,9 +244,9 @@ const SFVec3f *VRMLPositionInterpolatorBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLPositionInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLPositionInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {

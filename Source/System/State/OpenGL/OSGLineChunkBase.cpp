@@ -351,9 +351,9 @@ const SFBool *LineChunkBase::getSFSmooth(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LineChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LineChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {

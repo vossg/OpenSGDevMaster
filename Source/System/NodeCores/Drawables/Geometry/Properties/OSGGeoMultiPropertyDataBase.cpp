@@ -247,9 +247,9 @@ const SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoMultiPropertyDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoMultiPropertyDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (IDataFieldMask & whichField))
     {

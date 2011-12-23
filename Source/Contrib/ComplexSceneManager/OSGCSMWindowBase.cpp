@@ -930,9 +930,9 @@ void CSMWindowBase::clearViewports(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {

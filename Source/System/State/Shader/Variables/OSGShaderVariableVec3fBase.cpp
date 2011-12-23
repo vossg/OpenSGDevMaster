@@ -208,9 +208,9 @@ const SFVec3f *ShaderVariableVec3fBase::getSFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariableVec3fBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariableVec3fBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {

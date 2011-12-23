@@ -576,9 +576,9 @@ void GeometryBase::clearPropIndices(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeometryBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeometryBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TypesFieldMask & whichField))
     {

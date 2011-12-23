@@ -321,9 +321,9 @@ const SFString *InlineBase::getSFGrapOp(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 InlineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT InlineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
     {

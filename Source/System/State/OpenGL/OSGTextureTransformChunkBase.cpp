@@ -219,9 +219,9 @@ const SFBool *TextureTransformChunkBase::getSFUseCameraBeacon(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureTransformChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureTransformChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UseCameraBeaconFieldMask & whichField))
     {

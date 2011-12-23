@@ -515,9 +515,9 @@ const SFBool *FrameHandlerBase::getSFPaused(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FrameHandlerBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FrameHandlerBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {

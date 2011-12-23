@@ -296,9 +296,9 @@ const SFReal32 *SpotLightBase::getSFSpotCutOff(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SpotLightBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SpotLightBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DirectionFieldMask & whichField))
     {

@@ -539,9 +539,9 @@ void ComplexSceneManagerBase::clearGlobals(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GlobalsFieldMask & whichField))
     {

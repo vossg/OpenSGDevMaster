@@ -238,9 +238,9 @@ const MFUnrecStateChunkPtr *DynamicStateGeneratorStageDataBase::getMFChunks(void
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DynamicStateGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DynamicStateGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {

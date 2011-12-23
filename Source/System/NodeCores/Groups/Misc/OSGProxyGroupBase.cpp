@@ -630,9 +630,9 @@ const MFUInt8 *ProxyGroupBase::getMFInline(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ProxyGroupBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ProxyGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

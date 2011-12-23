@@ -253,9 +253,9 @@ const SFVec3f *AnimVec3fChannelBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimVec3fChannelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimVec3fChannelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DataFieldMask & whichField))
     {

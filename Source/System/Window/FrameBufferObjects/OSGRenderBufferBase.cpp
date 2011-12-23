@@ -296,9 +296,9 @@ SFUnrecImagePtr     *RenderBufferBase::editSFImage          (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RenderBufferBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RenderBufferBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {

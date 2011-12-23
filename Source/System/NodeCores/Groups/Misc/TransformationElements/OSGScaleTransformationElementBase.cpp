@@ -210,9 +210,9 @@ const SFVec3f *ScaleTransformationElementBase::getSFScale(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ScaleTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ScaleTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ScaleFieldMask & whichField))
     {

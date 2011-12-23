@@ -808,9 +808,9 @@ const SFInt32 *SurfaceBase::getSFSurfaceGLId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SurfaceBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SurfaceBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DimUFieldMask & whichField))
     {

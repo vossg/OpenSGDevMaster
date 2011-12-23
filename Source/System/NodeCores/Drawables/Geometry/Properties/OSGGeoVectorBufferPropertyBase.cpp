@@ -416,9 +416,9 @@ const SFUInt32 *GeoVectorBufferPropertyBase::getSFSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoVectorBufferPropertyBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoVectorBufferPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (StrideFieldMask & whichField))
     {

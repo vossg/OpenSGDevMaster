@@ -380,9 +380,9 @@ const SFReal32 *FogChunkBase::getSFDensity(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FogChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FogChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ModeFieldMask & whichField))
     {

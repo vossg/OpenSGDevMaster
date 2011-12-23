@@ -276,9 +276,9 @@ const SFVec3f *MoveManipulatorBase::getSFBaseTranslation(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MoveManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MoveManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AxisBaseFieldMask & whichField))
     {

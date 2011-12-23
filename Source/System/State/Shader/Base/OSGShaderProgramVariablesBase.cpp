@@ -302,9 +302,9 @@ const MFUInt8 *ShaderProgramVariablesBase::getMFVariableChanged(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderProgramVariablesBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderProgramVariablesBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {

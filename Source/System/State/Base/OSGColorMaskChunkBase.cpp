@@ -327,9 +327,9 @@ const SFBool *ColorMaskChunkBase::getSFMaskA(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ColorMaskChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ColorMaskChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaskRFieldMask & whichField))
     {

@@ -256,9 +256,9 @@ const SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StereoCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StereoCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LeftEyeFieldMask & whichField))
     {

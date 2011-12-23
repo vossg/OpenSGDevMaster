@@ -105,18 +105,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<WIN32Window *>::_type("WIN32WindowPtr", "WindowPtr");
+PointerType FieldTraits<WIN32Window *, nsOSG>::_type(
+    "WIN32WindowPtr", 
+    "WindowPtr", 
+    WIN32Window::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(WIN32Window *)
+OSG_FIELDTRAITS_GETTYPE_NS(WIN32Window *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            WIN32Window *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            WIN32Window *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -183,7 +187,7 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     WIN32WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&WIN32WindowBase::createEmptyLocal),
     WIN32Window::initMethod,
     WIN32Window::exitMethod,
@@ -332,9 +336,9 @@ const SFInt32 *WIN32WindowBase::getSFDummy0(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 WIN32WindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT WIN32WindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (HwndFieldMask & whichField))
     {

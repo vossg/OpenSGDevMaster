@@ -343,9 +343,9 @@ void AnimTemplateBase::clearSources(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimTemplateBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimTemplateBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {

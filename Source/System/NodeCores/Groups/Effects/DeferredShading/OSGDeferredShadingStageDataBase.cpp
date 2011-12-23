@@ -602,9 +602,9 @@ void DeferredShadingStageDataBase::clearLightChunks(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DeferredShadingStageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DeferredShadingStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GBufferTargetFieldMask & whichField))
     {

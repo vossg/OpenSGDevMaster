@@ -1320,9 +1320,9 @@ const SFReal32 *TextureEnvChunkBase::getSFLodBias(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureEnvChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureEnvChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {

@@ -171,9 +171,9 @@ UInt32 PassiveViewportBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PassiveViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PassiveViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -485,9 +485,9 @@ void ViewportBase::clearForegrounds(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {

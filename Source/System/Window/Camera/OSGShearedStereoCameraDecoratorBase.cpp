@@ -251,9 +251,9 @@ const SFReal32 *ShearedStereoCameraDecoratorBase::getSFOverlap(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShearedStereoCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShearedStereoCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ZeroParallaxDistanceFieldMask & whichField))
     {

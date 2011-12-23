@@ -439,9 +439,9 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjection(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MatrixCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MatrixCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PreViewingFieldMask & whichField))
     {

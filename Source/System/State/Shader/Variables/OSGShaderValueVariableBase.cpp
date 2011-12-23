@@ -196,9 +196,9 @@ UInt32 ShaderValueVariableBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderValueVariableBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderValueVariableBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VariableIdxFieldMask & whichField))
     {

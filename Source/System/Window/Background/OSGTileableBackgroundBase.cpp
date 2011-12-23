@@ -208,9 +208,9 @@ const SFBool *TileableBackgroundBase::getSFTile(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TileableBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TileableBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TileFieldMask & whichField))
     {

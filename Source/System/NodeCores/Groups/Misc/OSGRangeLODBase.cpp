@@ -276,9 +276,9 @@ const SFReal32 *RangeLODBase::getSFSwitchOut(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RangeLODBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RangeLODBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CenterFieldMask & whichField))
     {

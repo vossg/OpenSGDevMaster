@@ -621,9 +621,9 @@ SFUnrecRenderOptionsPtr *ViewareaBase::editSFRenderOptions  (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ViewareaBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ViewareaBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LeftFieldMask & whichField))
     {

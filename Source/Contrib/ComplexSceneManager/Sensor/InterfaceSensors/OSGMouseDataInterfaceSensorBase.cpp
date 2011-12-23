@@ -201,9 +201,9 @@ const SFMouseData *MouseDataInterfaceSensorBase::getSFMouseData(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MouseDataInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MouseDataInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {

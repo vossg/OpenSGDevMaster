@@ -264,9 +264,9 @@ SFUnrecChildInterfaceOptionsPtr *DeviceInterfaceSensorBase::editSFOptions       
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DeviceInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DeviceInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (InterfaceNameFieldMask & whichField))
     {

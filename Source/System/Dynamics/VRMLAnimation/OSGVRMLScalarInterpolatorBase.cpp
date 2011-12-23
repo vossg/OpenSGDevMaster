@@ -244,9 +244,9 @@ const SFReal32 *VRMLScalarInterpolatorBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLScalarInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLScalarInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {

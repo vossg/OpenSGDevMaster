@@ -473,9 +473,9 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFHeight(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ProjectionCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ProjectionCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UserFieldMask & whichField))
     {

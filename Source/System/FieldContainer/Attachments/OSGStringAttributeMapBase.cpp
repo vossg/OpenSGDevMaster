@@ -248,9 +248,9 @@ const MFString *StringAttributeMapBase::getMFValues(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StringAttributeMapBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StringAttributeMapBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeysFieldMask & whichField))
     {

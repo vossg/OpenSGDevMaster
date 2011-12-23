@@ -733,9 +733,9 @@ const MFString *ClusterWindowBase::getMFAutostart(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ServersFieldMask & whichField))
     {

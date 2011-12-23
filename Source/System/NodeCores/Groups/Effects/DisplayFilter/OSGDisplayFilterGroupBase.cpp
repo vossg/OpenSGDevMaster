@@ -406,9 +406,9 @@ const SFInt32 *DisplayFilterGroupBase::getSFDrawableId(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DisplayFilterGroupBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DisplayFilterGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CalibrationPatternFilterFieldMask & whichField))
     {

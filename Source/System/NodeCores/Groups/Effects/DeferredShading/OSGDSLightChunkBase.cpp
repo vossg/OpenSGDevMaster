@@ -207,9 +207,9 @@ const SFReal32 *DSLightChunkBase::getSFEffectiveRange(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DSLightChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DSLightChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EffectiveRangeFieldMask & whichField))
     {

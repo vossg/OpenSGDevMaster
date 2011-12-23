@@ -746,9 +746,9 @@ const SFUInt32 *TexGenChunkBase::getSFEyeModelViewMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TexGenChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TexGenChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GenFuncSFieldMask & whichField))
     {

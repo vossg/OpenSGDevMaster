@@ -304,9 +304,9 @@ void AnimVec3fBlenderBase::clearChannels(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimVec3fBlenderBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimVec3fBlenderBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChannelsFieldMask & whichField))
     {

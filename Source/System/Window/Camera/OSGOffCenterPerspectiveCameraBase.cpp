@@ -207,9 +207,9 @@ const SFVec2f *OffCenterPerspectiveCameraBase::getSFPrincipalPoint(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 OffCenterPerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT OffCenterPerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PrincipalPointFieldMask & whichField))
     {

@@ -244,9 +244,9 @@ const SFQuaternion *VRMLOrientationInterpolatorBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLOrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLOrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {

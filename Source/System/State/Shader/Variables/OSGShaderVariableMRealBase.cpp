@@ -208,9 +208,9 @@ const MFReal32 *ShaderVariableMRealBase::getMFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariableMRealBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariableMRealBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {

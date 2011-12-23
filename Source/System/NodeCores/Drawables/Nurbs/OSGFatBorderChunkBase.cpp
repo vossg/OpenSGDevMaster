@@ -167,9 +167,9 @@ UInt32 FatBorderChunkBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FatBorderChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FatBorderChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

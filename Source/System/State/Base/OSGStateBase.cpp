@@ -198,9 +198,9 @@ UInt32 StateBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StateBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StateBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {

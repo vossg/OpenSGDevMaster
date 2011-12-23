@@ -202,9 +202,9 @@ const SFString *ImageFileBase::getSFUrl(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ImageFileBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ImageFileBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
     {

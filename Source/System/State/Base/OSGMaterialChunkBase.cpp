@@ -722,9 +722,9 @@ const SFGLenum *MaterialChunkBase::getSFBackColorMaterial(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MaterialChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MaterialChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DiffuseFieldMask & whichField))
     {

@@ -167,9 +167,9 @@ UInt32 DepthClearBackgroundBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DepthClearBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DepthClearBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

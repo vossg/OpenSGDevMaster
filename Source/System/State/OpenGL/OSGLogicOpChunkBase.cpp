@@ -220,9 +220,9 @@ const SFGLenum *LogicOpChunkBase::getSFLogicOp(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LogicOpChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LogicOpChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LogicOpFieldMask & whichField))
     {

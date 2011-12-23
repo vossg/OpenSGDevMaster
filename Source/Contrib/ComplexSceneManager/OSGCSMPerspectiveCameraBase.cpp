@@ -285,9 +285,9 @@ SFWeakNodePtr       *CSMPerspectiveCameraBase::editSFHeadBeacon     (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CSMPerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMPerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
     {

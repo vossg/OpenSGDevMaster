@@ -304,9 +304,9 @@ void AnimQuaternionBlenderBase::clearChannels(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimQuaternionBlenderBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimQuaternionBlenderBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChannelsFieldMask & whichField))
     {

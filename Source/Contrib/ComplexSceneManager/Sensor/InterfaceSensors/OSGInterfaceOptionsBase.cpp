@@ -250,9 +250,9 @@ const SFUInt32 *InterfaceOptionsBase::getSFNapTime(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 InterfaceOptionsBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT InterfaceOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {

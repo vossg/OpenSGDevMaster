@@ -1355,9 +1355,9 @@ const SFUInt32 *RenderOptionsBase::getSFMultiSampleFilterMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
     {

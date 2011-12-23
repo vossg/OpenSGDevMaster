@@ -175,9 +175,9 @@ UInt32 GroupBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GroupBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

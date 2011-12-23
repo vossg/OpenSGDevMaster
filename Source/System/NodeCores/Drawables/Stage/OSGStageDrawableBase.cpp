@@ -170,9 +170,9 @@ UInt32 StageDrawableBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StageDrawableBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StageDrawableBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

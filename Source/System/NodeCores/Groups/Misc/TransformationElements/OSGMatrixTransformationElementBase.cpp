@@ -209,9 +209,9 @@ const SFMatrix *MatrixTransformationElementBase::getSFMatrix(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MatrixTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MatrixTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {

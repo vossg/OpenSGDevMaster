@@ -459,9 +459,9 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIStride(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoMultiPropertyBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoMultiPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ContainerFieldMask & whichField))
     {

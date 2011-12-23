@@ -168,9 +168,9 @@ UInt32 CPUSkinningAlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CPUSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CPUSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

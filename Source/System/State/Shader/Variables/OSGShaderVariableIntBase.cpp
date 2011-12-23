@@ -208,9 +208,9 @@ const SFInt32 *ShaderVariableIntBase::getSFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariableIntBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariableIntBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {

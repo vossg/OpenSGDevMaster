@@ -327,9 +327,9 @@ const SFBool *CheckerboardCalibFilterBase::getSFCenter(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CheckerboardCalibFilterBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CheckerboardCalibFilterBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ColorBlackFieldMask & whichField))
     {

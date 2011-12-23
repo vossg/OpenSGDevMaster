@@ -359,9 +359,9 @@ const SFReal64 *GeoReferenceAttachmentBase::getSFNoDataValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoReferenceAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoReferenceAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DatumFieldMask & whichField))
     {

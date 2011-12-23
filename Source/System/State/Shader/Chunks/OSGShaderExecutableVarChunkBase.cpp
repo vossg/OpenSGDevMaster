@@ -287,9 +287,9 @@ const MFInt32 *ShaderExecutableVarChunkBase::getMFVariableLocations(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderExecutableVarChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderExecutableVarChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ProgramVarChunksFieldMask & whichField))
     {

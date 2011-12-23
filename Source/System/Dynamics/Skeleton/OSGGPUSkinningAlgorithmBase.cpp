@@ -168,9 +168,9 @@ UInt32 GPUSkinningAlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GPUSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GPUSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

@@ -333,9 +333,9 @@ const SFUInt32 *GradientBackgroundBase::getSFStyle(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GradientBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GradientBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {

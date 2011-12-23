@@ -362,9 +362,9 @@ const SFBool *BalancedMultiWindowBase::getSFShort(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BalancedMultiWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BalancedMultiWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (BalanceFieldMask & whichField))
     {

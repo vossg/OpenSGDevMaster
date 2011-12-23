@@ -220,9 +220,9 @@ UInt32 RenderCallbackStageBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RenderCallbackStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RenderCallbackStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
     {

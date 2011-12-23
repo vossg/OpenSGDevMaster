@@ -252,9 +252,9 @@ const SFQuaternion *AnimQuaternionChannelBase::getSFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimQuaternionChannelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimQuaternionChannelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DataFieldMask & whichField))
     {

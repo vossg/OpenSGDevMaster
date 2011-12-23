@@ -244,9 +244,9 @@ const MFVec3f *VRMLNormalInterpolatorBase::getMFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLNormalInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLNormalInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {

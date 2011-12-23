@@ -288,9 +288,9 @@ const SFReal32 *OrthographicCameraBase::getSFAspect(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 OrthographicCameraBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT OrthographicCameraBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VerticalSizeFieldMask & whichField))
     {

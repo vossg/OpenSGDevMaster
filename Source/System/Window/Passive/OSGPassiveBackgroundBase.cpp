@@ -176,9 +176,9 @@ UInt32 PassiveBackgroundBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PassiveBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PassiveBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

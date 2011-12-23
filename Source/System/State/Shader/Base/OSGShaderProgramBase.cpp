@@ -584,9 +584,9 @@ const SFBool *ShaderProgramBase::getSFPointSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderProgramBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderProgramBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShaderTypeFieldMask & whichField))
     {

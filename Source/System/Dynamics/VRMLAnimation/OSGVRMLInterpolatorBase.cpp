@@ -284,9 +284,9 @@ const MFUInt32 *VRMLInterpolatorBase::getMFResortIndex(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VRMLInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (InValueFieldMask & whichField))
     {

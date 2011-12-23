@@ -465,9 +465,9 @@ void PostShaderStageDataBase::clearRenderTargets(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PostShaderStageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PostShaderStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShaderMaterialsFieldMask & whichField))
     {

@@ -421,9 +421,9 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TileCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TileCameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LeftFieldMask & whichField))
     {

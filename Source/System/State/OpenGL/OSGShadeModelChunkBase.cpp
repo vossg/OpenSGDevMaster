@@ -205,9 +205,9 @@ const SFGLenum *ShadeModelChunkBase::getSFShadeModel(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShadeModelChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShadeModelChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ShadeModelFieldMask & whichField))
     {

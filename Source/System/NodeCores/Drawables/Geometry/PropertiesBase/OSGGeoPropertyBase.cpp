@@ -331,9 +331,9 @@ const SFInt32 *GeoPropertyBase::getSFVboUsage(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoPropertyBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (UseVBOFieldMask & whichField))
     {

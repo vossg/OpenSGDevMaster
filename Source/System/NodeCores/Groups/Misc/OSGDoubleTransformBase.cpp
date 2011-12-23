@@ -210,9 +210,9 @@ const SFMatrix4d *DoubleTransformBase::getSFMatrix(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DoubleTransformBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DoubleTransformBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
     {

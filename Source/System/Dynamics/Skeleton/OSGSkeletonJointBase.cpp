@@ -337,9 +337,9 @@ const SFMatrix *SkeletonJointBase::getSFOffsetMatrix(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (InvBindMatrixFieldMask & whichField))
     {

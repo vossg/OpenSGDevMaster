@@ -523,9 +523,9 @@ const SFBool *SimpleSHLChunkBase::getSFPointSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleSHLChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleSHLChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
     {

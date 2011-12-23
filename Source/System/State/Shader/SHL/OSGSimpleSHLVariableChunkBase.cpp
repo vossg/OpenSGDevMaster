@@ -260,9 +260,9 @@ const MFInt32 *SimpleSHLVariableChunkBase::getMFVariableLocations(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleSHLVariableChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleSHLVariableChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VariablesFieldMask & whichField))
     {

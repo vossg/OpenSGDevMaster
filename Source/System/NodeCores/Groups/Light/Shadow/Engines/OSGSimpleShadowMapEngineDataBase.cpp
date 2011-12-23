@@ -478,9 +478,9 @@ SFUnrecPolygonChunkPtr *SimpleShadowMapEngineDataBase::editSFPolyChunk      (voi
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleShadowMapEngineDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleShadowMapEngineDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {

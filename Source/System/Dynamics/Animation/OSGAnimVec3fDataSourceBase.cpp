@@ -445,9 +445,9 @@ const MFVec2f *AnimVec3fDataSourceBase::getMFOutTangentsZ(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimVec3fDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimVec3fDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
     {

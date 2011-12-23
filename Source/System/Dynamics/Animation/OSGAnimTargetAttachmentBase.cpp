@@ -300,9 +300,9 @@ void AnimTargetAttachmentBase::clearBlenders(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimTargetAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimTargetAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TargetIdFieldMask & whichField))
     {

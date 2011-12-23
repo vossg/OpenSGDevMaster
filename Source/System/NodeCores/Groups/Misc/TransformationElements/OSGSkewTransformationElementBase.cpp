@@ -288,9 +288,9 @@ const SFReal32 *SkewTransformationElementBase::getSFAngle(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SkewTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SkewTransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RotationAxisFieldMask & whichField))
     {

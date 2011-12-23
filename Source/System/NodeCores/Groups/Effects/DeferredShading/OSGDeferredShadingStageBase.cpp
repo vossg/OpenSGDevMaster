@@ -524,9 +524,9 @@ void DeferredShadingStageBase::clearLights(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DeferredShadingStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DeferredShadingStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PixelFormatsFieldMask & whichField))
     {

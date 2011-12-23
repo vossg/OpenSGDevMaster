@@ -972,9 +972,9 @@ SFUnrecNodePtr      *ManipulatorBase::editSFAxisLinesN     (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ManipulatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TargetFieldMask & whichField))
     {

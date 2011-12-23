@@ -256,9 +256,9 @@ const SFInt32 *MultiSwitchBase::getSFSwitchMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MultiSwitchBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MultiSwitchBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChoicesFieldMask & whichField))
     {

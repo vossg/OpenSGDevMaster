@@ -266,9 +266,9 @@ const MFInt32 *ChunkMaterialBase::getMFSlots(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ChunkMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ChunkMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {

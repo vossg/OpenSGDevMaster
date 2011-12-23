@@ -275,9 +275,9 @@ const SFString *SimpleSHLChunkFileBase::getSFFragmentProgramUrl(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleSHLChunkFileBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleSHLChunkFileBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (VertexProgramUrlFieldMask & whichField))
     {

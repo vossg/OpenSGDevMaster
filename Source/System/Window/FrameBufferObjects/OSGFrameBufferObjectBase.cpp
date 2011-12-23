@@ -548,9 +548,9 @@ void FrameBufferObjectBase::clearColorAttachments(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FrameBufferObjectBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FrameBufferObjectBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {

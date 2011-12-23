@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class WIN32Window;
 
 //! \brief WIN32Window Base Class.
@@ -186,7 +187,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

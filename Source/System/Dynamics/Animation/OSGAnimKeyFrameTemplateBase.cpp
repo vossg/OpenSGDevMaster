@@ -170,9 +170,9 @@ UInt32 AnimKeyFrameTemplateBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimKeyFrameTemplateBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimKeyFrameTemplateBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

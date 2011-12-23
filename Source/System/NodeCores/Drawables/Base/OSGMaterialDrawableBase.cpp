@@ -208,9 +208,9 @@ SFUnrecMaterialPtr  *MaterialDrawableBase::editSFMaterial       (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MaterialDrawableBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MaterialDrawableBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialFieldMask & whichField))
     {

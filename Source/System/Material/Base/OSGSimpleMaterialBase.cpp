@@ -500,9 +500,9 @@ const SFGLenum *SimpleMaterialBase::getSFColorMaterial(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SimpleMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SimpleMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {

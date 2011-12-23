@@ -209,9 +209,9 @@ const SFBoostPath *BoostPathAttachmentBase::getSFPath(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BoostPathAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BoostPathAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PathFieldMask & whichField))
     {

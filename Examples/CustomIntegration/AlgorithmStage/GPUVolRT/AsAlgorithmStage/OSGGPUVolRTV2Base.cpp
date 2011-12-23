@@ -244,9 +244,9 @@ const SFBool *GPUVolRTV2Base::getSFToggleVisuals(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GPUVolRTV2Base::getBinSize(ConstFieldMaskArg whichField)
+SizeT GPUVolRTV2Base::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (StepsizeFieldMask & whichField))
     {

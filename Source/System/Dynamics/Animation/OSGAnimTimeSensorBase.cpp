@@ -617,9 +617,9 @@ const SFReal32 *AnimTimeSensorBase::getSFAnimTime(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AnimTimeSensorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AnimTimeSensorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

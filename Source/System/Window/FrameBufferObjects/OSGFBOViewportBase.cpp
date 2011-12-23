@@ -215,9 +215,9 @@ SFUnrecFrameBufferObjectPtr *FBOViewportBase::editSFFrameBufferObject(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FBOViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FBOViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FrameBufferObjectFieldMask & whichField))
     {

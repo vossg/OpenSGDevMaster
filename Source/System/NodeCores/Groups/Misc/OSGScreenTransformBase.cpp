@@ -402,9 +402,9 @@ const SFMatrix *ScreenTransformBase::getSFView(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ScreenTransformBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ScreenTransformBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {

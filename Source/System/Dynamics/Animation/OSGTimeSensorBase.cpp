@@ -527,9 +527,9 @@ const SFTime *TimeSensorBase::getSFCycleInterval(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TimeSensorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TimeSensorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

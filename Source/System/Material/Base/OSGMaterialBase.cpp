@@ -285,9 +285,9 @@ const SFInt32 *MaterialBase::getSFTransparencyMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SortKeyFieldMask & whichField))
     {

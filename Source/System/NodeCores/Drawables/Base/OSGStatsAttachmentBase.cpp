@@ -168,9 +168,9 @@ UInt32 StatsAttachmentBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StatsAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StatsAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

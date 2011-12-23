@@ -170,9 +170,9 @@ UInt32 TrapezoidalShadowMapEngineBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TrapezoidalShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TrapezoidalShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

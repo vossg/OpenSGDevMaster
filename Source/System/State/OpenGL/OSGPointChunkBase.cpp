@@ -595,9 +595,9 @@ const SFGLenum *PointChunkBase::getSFRMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PointChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PointChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {

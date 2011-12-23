@@ -1403,9 +1403,9 @@ const SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 RegisterCombinersChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT RegisterCombinersChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (Color0FieldMask & whichField))
     {

@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class WIN32Window;
 
 OSG_GEN_CONTAINERPTR(WIN32Window);
-
 /*! \ingroup GrpWindowWIN32FieldTraits
     \ingroup GrpLibOSGWindowWIN32
  */
 template <>
-struct FieldTraits<WIN32Window *> :
-    public FieldTraitsFCPtrBase<WIN32Window *>
+struct FieldTraits<WIN32Window *, nsOSG> :
+    public FieldTraitsFCPtrBase<WIN32Window *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<WIN32Window *>  Self;
+    typedef FieldTraits<WIN32Window *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<WIN32Window *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFWIN32WindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFWIN32WindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakWIN32WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WIN32Window *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<WIN32Window *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdWIN32WindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<WIN32Window *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
-                      RecordedRefCountPolicy  > SFRecWIN32WindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
-                      UnrecordedRefCountPolicy> SFUnrecWIN32WindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
-                      WeakRefCountPolicy      > SFWeakWIN32WindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
-                      NoRefCountPolicy        > SFUncountedWIN32WindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedWIN32WindowPtr;
 
 
 /*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
-                      RecordedRefCountPolicy  > MFRecWIN32WindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
-                      UnrecordedRefCountPolicy> MFUnrecWIN32WindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
-                      WeakRefCountPolicy      > MFWeakWIN32WindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakWIN32WindowPtr;
 /*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
-                      NoRefCountPolicy        > MFUncountedWIN32WindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedWIN32WindowPtr;
 
 
 

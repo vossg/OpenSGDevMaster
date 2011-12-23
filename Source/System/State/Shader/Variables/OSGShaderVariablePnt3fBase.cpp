@@ -208,9 +208,9 @@ const SFPnt3f *ShaderVariablePnt3fBase::getSFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ShaderVariablePnt3fBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ShaderVariablePnt3fBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {

@@ -328,9 +328,9 @@ void SortLastWindowBase::clearGroupNodes(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SortLastWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SortLastWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GroupNodesFieldMask & whichField))
     {

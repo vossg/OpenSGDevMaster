@@ -383,9 +383,9 @@ const SFBool *DepthChunkBase::getSFReadOnly(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DepthChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DepthChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnableFieldMask & whichField))
     {

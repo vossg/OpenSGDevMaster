@@ -269,9 +269,9 @@ void MultiPassMaterialBase::clearMaterials(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MultiPassMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MultiPassMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
     {

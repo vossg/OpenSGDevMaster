@@ -279,9 +279,9 @@ const SFInt32 *StageDataBase::getSFGroupMode(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StageDataBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
     {

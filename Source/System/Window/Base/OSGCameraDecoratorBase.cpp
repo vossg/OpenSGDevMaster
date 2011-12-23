@@ -299,9 +299,9 @@ const SFReal32 *CameraDecoratorBase::getSFFar(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CameraDecoratorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DecorateeFieldMask & whichField))
     {

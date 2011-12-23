@@ -296,9 +296,9 @@ const SFBool *LightModelChunkBase::getSFLocalViewer(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 LightModelChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT LightModelChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AmbientFieldMask & whichField))
     {

@@ -169,9 +169,9 @@ UInt32 InverseTransformBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 InverseTransformBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT InverseTransformBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

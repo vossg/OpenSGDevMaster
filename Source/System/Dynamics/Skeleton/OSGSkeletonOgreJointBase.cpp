@@ -564,9 +564,9 @@ const SFVec3f *SkeletonOgreJointBase::getSFOffsetScale(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SkeletonOgreJointBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SkeletonOgreJointBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TranslateFieldMask & whichField))
     {

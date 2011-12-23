@@ -196,9 +196,9 @@ UInt32 GeoIntegralPropertyBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 GeoIntegralPropertyBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT GeoIntegralPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

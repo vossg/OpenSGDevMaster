@@ -260,9 +260,9 @@ const SFBool *StereoBufferViewportBase::getSFRightBuffer(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 StereoBufferViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT StereoBufferViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (LeftBufferFieldMask & whichField))
     {

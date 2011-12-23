@@ -349,9 +349,9 @@ void ImageForegroundBase::clearImages(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ImageForegroundBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ImageForegroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ImagesFieldMask & whichField))
     {

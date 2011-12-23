@@ -363,9 +363,9 @@ const SFReal32 *TransformationInterfaceSensorBase::getSFTranslationScale(void) c
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TransformationInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TransformationInterfaceSensorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TransformationFieldMask & whichField))
     {

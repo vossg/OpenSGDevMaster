@@ -168,9 +168,9 @@ UInt32 UnskinnedSkinningAlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 UnskinnedSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT UnskinnedSkinningAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;

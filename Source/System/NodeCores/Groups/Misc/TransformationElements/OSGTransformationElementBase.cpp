@@ -214,9 +214,9 @@ UInt32 TransformationElementBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TransformationElementBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentStackFieldMask & whichField))
     {

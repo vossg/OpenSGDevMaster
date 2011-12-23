@@ -497,9 +497,9 @@ SFUnrecChildSkinningAlgorithmPtr *SkinnedGeometryBase::editSFSkinningAlgorithm(v
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 SkinnedGeometryBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT SkinnedGeometryBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {

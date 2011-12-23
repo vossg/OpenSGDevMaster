@@ -248,9 +248,9 @@ const SFBool *ImageComposerBase::getSFStatistics(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ImageComposerBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ImageComposerBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {

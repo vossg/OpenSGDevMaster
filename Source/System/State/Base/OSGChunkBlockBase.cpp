@@ -202,9 +202,9 @@ const MFUnrecStateChunkPtr *ChunkBlockBase::getMFChunks(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ChunkBlockBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ChunkBlockBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
