@@ -46,7 +46,7 @@ OSG::Action::ResultE changeGeo(OSG::Node *node)
     {
         col = OSG::GeoColor3fProperty::create();
 
-        col->resize(geo->getPositions()->getSize());
+        col->resize(geo->getPositions()->size());
         
         // Change the geometry to use the new colors
         geo->setColors(col);
@@ -59,7 +59,7 @@ OSG::Action::ResultE changeGeo(OSG::Node *node)
         }
     }
     
-    OSG::Real32 size = col->getSize();
+    OSG::Real32 size = col->size();
     for(OSG::UInt32 i = 0; i < size; ++i)
     {
         OSG::Color3f c;

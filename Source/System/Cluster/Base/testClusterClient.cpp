@@ -221,7 +221,7 @@ void prepareSceneGraph(OSG::Node * const node)
             // get num positions
             OSG::GeoVectorProperty *positionsPtr=geo->getPositions();
             if(positionsPtr != NULL)
-                sum_positions += positionsPtr->getSize();
+                sum_positions += positionsPtr->size32();
             // get num triangles
             OSG::UInt32 triangle=0;
             OSG::UInt32 line=0;
@@ -1249,7 +1249,7 @@ int doMain(int argc,char **argv)
     for(i=0 ; i<int(servers.size()) ; ++i)
         clusterWindow->editMFServers()->push_back(servers[i]);
     if(cols < 0)
-        cols = clusterWindow->getMFServers()->size() / rows;
+        cols = clusterWindow->getMFServers()->size32() / rows;
     switch(type)
     {
         case 'M': 

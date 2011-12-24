@@ -221,7 +221,7 @@ void display( void )
     // type
     OSG::GeoVectorProperty *pos = geo->getPositions();
     
-    for(OSG::UInt32 i = 0; i < pos->getSize(); i++)
+    for(OSG::UInt32 i = 0; i < pos->size(); i++)
     {
         OSG::Pnt3f p;      
         pos->getValue(p, i);
