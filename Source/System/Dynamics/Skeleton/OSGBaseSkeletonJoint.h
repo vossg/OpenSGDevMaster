@@ -68,7 +68,7 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
     typedef BaseSkeletonJointBase Inherited;
     typedef BaseSkeletonJoint     Self;
 
-    class JointTraverser
+    class OSG_DYNAMICS_DLLMAPPING JointTraverser
     {
       public:
         explicit JointTraverser(Skeleton *skel);
