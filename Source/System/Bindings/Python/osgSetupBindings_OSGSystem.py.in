@@ -1225,6 +1225,40 @@ ImageDataPtr wrapStore(OSG::Image& image, const OSG::Char8* mimeType,
    )
 
 
+  c = osg.class_("ImageFileType")
+
+  c["determineMimetypeFromStream"].exclude()
+
+  c.add_wrapper_code("""
+    virtual ::std::string determineMimetypeFromStream( ::std::istream & is ) {
+        if( bp::override func_determineMimetypeFromStream = this->get_override( "determineMimetypeFromStream" ) )
+            return func_determineMimetypeFromStream( boost::ref(is) ).as<std::string>();
+        else{
+            return this->OSG::ImageFileType::determineMimetypeFromStream( boost::ref(is) );
+        }
+    }
+    
+    ::std::string default_determineMimetypeFromStream( ::std::istream & is ) {
+        return OSG::ImageFileType::determineMimetypeFromStream( boost::ref(is) );
+    }
+""")
+
+  c.add_registration_code("""
+        { //::OSG::ImageFileType::determineMimetypeFromStream
+        
+            typedef ::std::string ( ::OSG::ImageFileType::*determineMimetypeFromStream_function_type )( ::std::istream & ) ;
+            typedef ::std::string ( ImageFileType_wrapper::*default_determineMimetypeFromStream_function_type )( ::std::istream & ) ;
+        
+            ImageFileType_exposer.def( 
+                "determineMimetypeFromStream"
+                , determineMimetypeFromStream_function_type(&::OSG::ImageFileType::determineMimetypeFromStream)
+                , default_determineMimetypeFromStream_function_type(&ImageFileType_wrapper::default_determineMimetypeFromStream)
+                , ( bp::arg("is") ) );
+        
+        }
+""", False)
+
+
   return
 
 
