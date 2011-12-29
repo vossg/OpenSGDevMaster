@@ -229,6 +229,50 @@ std::string ColladaGlobal::fixImageFilepath(std::string szImgPath)
     return fixFilepath(szImgPath);
 }
 
+std::string ColladaGlobal::uriToNativePath(const std::string      &uriRef, 
+                                                 cdom::systemType  type  ) 
+{
+    std::string scheme, authority, path, query, fragment;
+
+    cdom::parseUriRef(uriRef, scheme, authority, path, query, fragment);
+
+	// Make sure we have a file scheme URI, or that it doesn't have a scheme
+	if (!scheme.empty()  &&  scheme != "file")
+		return "";
+
+    std::string filePath;
+
+    if(authority.empty() == false && path.empty() == true)
+        path.swap(authority);
+
+	if(type == cdom::Windows) 
+    {
+		if(!authority.empty())
+			filePath += std::string("\\\\") + authority; // UNC path
+	
+		// Replace two leading slashes with one leading slash, so that
+		// ///otherComputer/file.dae becomes //otherComputer/file.dae and
+		// //folder/file.dae becomes /folder/file.dae
+		if(path.length() >= 2  &&  path[0] == '/'  &&  path[1] == '/')
+			path.erase(0, 1);
+
+		// Convert "/C:/" to "C:/"
+		if(path.length() >= 3  &&  path[0] == '/'  &&  path[2] == ':')
+			path.erase(0, 1);
+
+		// Convert forward slashes to back slashes
+		path = cdom::replace(path, "/", "\\");
+	}
+
+    
+	filePath += path;
+
+	// Replace %20 with space
+	filePath = cdom::replace(filePath, "%20", " ");
+	
+	return filePath;
+}
+
 ColladaGlobal::ColladaGlobal(void)
     : Inherited   ()
     , _instQueue  ()

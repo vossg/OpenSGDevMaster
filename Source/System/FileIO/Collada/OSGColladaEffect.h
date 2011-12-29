@@ -48,6 +48,7 @@
 #include "OSGColladaInstInfo.h"
 #include "OSGColladaSampler2D.h"
 #include "OSGColladaSurface.h"
+#include "OSGColladaTexture.h"
 #include "OSGMaterial.h"
 
 #include <dom/domImage.h>
@@ -85,7 +86,9 @@ OSG_GEN_CONTAINERPTR(DepthChunk);
 class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -98,12 +101,14 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     class ColladaEffectInstInfo : public ColladaInstInfo
     {
         /*==========================  PUBLIC  =============================*/
+
       public:
+
         /*-----------------------------------------------------------------*/
         /*! \name Types                                                    */
         /*! \{                                                             */
 
-        typedef ColladaInstInfo      Inherited;
+        typedef ColladaInstInfo        Inherited;
         typedef ColladaEffectInstInfo  Self;
 
         OSG_GEN_INTERNAL_MEMOBJPTR(ColladaEffectInstInfo);
@@ -126,15 +131,16 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 
         /*! \}                                                             */
         /*=========================  PROTECTED  ===========================*/
+
       protected:
+
         /*-----------------------------------------------------------------*/
         /*! \name Constructors/Destructor                                  */
         /*! \{                                                             */
 
-                 ColladaEffectInstInfo(
-                     ColladaMaterial       *colInstParent,
-                     ColladaInstanceEffect *colInst       );
-        virtual ~ColladaEffectInstInfo(void               );
+        ColladaEffectInstInfo         (ColladaMaterial       *colInstParent,
+                                       ColladaInstanceEffect *colInst       );
+        virtual ~ColladaEffectInstInfo(void                                 );
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
@@ -147,8 +153,25 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Create                                                       */
     /*! \{                                                                 */
 
-    static ColladaElementTransitPtr
-        create(daeElement *elem, ColladaGlobal *global);
+    enum TextureTarget
+    {
+        EmissionTexture    = 0x0000,
+        AmbientTexture     = 0x0001,
+        DiffuseTexture     = 0x0002,
+        SpecularTexture    = 0x0003,
+        TransparentTexture = 0x0004,
+        BumpTexture        = 0x0005,
+
+        LastTexture        = 0x0006
+    };
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr create(daeElement    *elem, 
+                                           ColladaGlobal *global);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -168,7 +191,9 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
- protected:
+
+  protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -176,6 +201,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     // <sampler2D> DOM and loader objects
     /*! \nohierarchy
      */
+
     struct ParamSampler2D
     {
         ColladaSampler2DRefPtr    colSampler2D;
@@ -185,10 +211,21 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     // <surface> DOM and loader objects
     /*! \nohierarchy
      */
+
     struct ParamSurface
     {
         ColladaSurfaceRefPtr    colSurface;
         domFx_surface_commonRef surface;
+    };
+
+    // <texture> DOM and loader objects
+    /*! \nohierarchy
+     */
+
+    struct ParamTexture
+    {
+        ColladaTextureRefPtr                           colTexture;
+        domCommon_color_or_texture_type::domTextureRef texture;
     };
 
     typedef std::map<std::string, ParamSampler2D> ParamSampler2DMap;
@@ -200,6 +237,10 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     typedef ParamSurfaceMap::const_iterator       ParamSurfaceMapConstIt;
 
     typedef domCommon_newparam_type_Array         CommonParamArray;
+
+    typedef std::vector<ParamTexture            > ParamTextureList;
+    typedef ParamTextureList::iterator            ParamTextureListIt;
+    typedef ParamTextureList::const_iterator      ParamTextureListConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,19 +255,30 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Profile Handlers                                             */
     /*! \{                                                                 */
 
+            void readImageArray   (const domImage_Array    &images);
+    virtual void readNewParams    (const CommonParamArray  &newParams);
+
     virtual void readProfileCommon(      domProfile_COMMON *prof     );
     virtual void readProfileGLSL  (      domProfile_GLSL   *prof     );
     virtual void readProfileCG    (      domProfile_CG     *prof     );
-    virtual void readNewParams    (const CommonParamArray  &newParams);
+
+            void readTextureParams(
+                domCommon_color_or_texture_type::domTexture    *texture,
+                TextureTarget                                   target );
 
     virtual MaterialTransitPtr createInstanceProfileCommon(
-        domProfile_COMMON  *prof,       domEffect *effect,
+        domProfile_COMMON  *prof,       
+        domEffect          *effect,
         domInstance_effect *instEffect                    );
-    virtual MaterialTransitPtr createInstanceProfileGLSL(
-        domProfile_GLSL    *prof,       domEffect *effect,
+
+    virtual MaterialTransitPtr createInstanceProfileGLSL  (
+        domProfile_GLSL    *prof, 
+        domEffect          *effect,
         domInstance_effect *instEffect                    );
-    virtual MaterialTransitPtr createInstanceProfileCG(
-        domProfile_CG      *prof,       domEffect *effect,
+
+    virtual MaterialTransitPtr createInstanceProfileCG    (
+        domProfile_CG      *prof,       
+        domEffect          *effect,
         domInstance_effect *instEffect                    );
 
     /*! \}                                                                 */
@@ -235,6 +287,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     void handleProfileCommonEmission(
         domCommon_color_or_texture_type *emission,
         MaterialChunk                   *matChunk     );
+
     void handleProfileCommonAmbient(
         domCommon_color_or_texture_type *ambient,
         ColladaInstanceEffect           *colInstEffect,
@@ -243,6 +296,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         BlendChunkUnrecPtr              &blendChunk,
         DepthChunkUnrecPtr              &depthChunk,
         UInt32                          &texCount     );
+
     void handleProfileCommonDiffuse(
         domCommon_color_or_texture_type *diffuse,
         ColladaInstanceEffect           *colInstEffect,
@@ -255,29 +309,29 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         domCommon_color_or_texture_type *specular,
         MaterialChunk                   *matChunk     );
 
-    void readImageArray(const domImage_Array &images);
     void fillColorParamTex  (
         domCommon_color_or_texture_type                *colTex,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
         domCommon_color_or_texture_type::domTextureRef &texOut     );
+
     void fillColorParamTex  (
         domCommon_transparent_type                     *colTex,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
         domCommon_color_or_texture_type::domTextureRef &texOut     );
+
     void fillFloatParam     (
         domCommon_float_or_param_type                  *floatParam,
         domCommon_float_or_param_type::domFloatRef     &floatOut,
         domCommon_float_or_param_type::domParamRef     &paramOut   );
 
-    void addTexture(const std::string     &texId,
-                    const std::string     &tcSemantic,
-                    ColladaInstanceEffect *colInstEffect,
-                    ColladaSampler2D      *colSampler2D,
-                    ChunkMaterial         *mat,
-                    GLenum                 envMode,
-                    UInt32                &texCount       );
+    void addTexture(const std::string           &tcSemantic,
+                          ColladaInstanceEffect *colInstEffect,
+                          ColladaTexture        *colTexture,
+                          ChunkMaterial         *mat,
+                          GLenum                 envMode,
+                          UInt32                &texCount       );
 
     Real32 luminance(const Color4f &col);
 
@@ -285,6 +339,7 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
 
     ParamSampler2DMap _sampler2DParams;
     ParamSurfaceMap   _surfaceParams;
+    ParamTextureList  _textures;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaEffect);

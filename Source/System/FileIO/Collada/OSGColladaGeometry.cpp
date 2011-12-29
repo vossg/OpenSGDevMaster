@@ -50,6 +50,9 @@
 #include "OSGColladaInstanceEffect.h"
 #include "OSGColladaNode.h"
 #include "OSGColladaSource.h"
+#include "OSGColladaExtraHandler.h"
+#include "OSGColladaHandlerFactory.h"
+
 #include "OSGGroup.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
@@ -130,6 +133,12 @@ ColladaGeometry::create(daeElement *elem, ColladaGlobal *global)
     return ColladaElementTransitPtr(new ColladaGeometry(elem, global));
 }
 
+void 
+ColladaGeometry::setDoubleSided(bool value)
+{
+    _doubleSided = value;
+}
+
 void
 ColladaGeometry::read(ColladaElement *colElemParent)
 {
@@ -146,6 +155,23 @@ ColladaGeometry::read(ColladaElement *colElemParent)
     }
 
     readMesh(mesh);
+
+    const domExtra_Array &extras = geometry->getExtra_array();
+
+    if(extras.getCount() != 0 && _extraHandlers.size() != 0)
+    {
+        for(UInt32 i = 0; i < extras.getCount(); ++i)
+        {
+            ExtraHandlerStoreIt      ehIt  = _extraHandlers.begin();
+            ExtraHandlerStoreConstIt ehEnd = _extraHandlers.end  ();
+    
+            for(; ehIt != ehEnd; ++ehIt)
+            {
+                (*ehIt)->readGeometryExtraElements(this, extras[i]);
+            }
+        }
+    }
+
 }
 
 Node *
@@ -240,11 +266,15 @@ ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
     : Inherited (elem, global)
     , _sourceMap()
     , _geoStore ()
+    , _doubleSided  (false)
+    , _extraHandlers()
 {
+    ColladaHandlerFactory::the()->createExtraHandlers(_extraHandlers);
 }
 
 ColladaGeometry::~ColladaGeometry(void)
 {
+    _extraHandlers.clear();
 }
 
 void
@@ -420,9 +450,10 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readLineStrips: material symbol [%s] "
-                     "vertices [%d] strips [%d]\n",
+                     "vertices [%d] strips [%"PRIUSize"]\n",
                      (lineStrips->getMaterial() != NULL ?
-                      lineStrips->getMaterial() : ""), verts,
+                      lineStrips->getMaterial() : ""), 
+                     verts,
                      _geoStore[geoIdx]._lengths->size()));
 
     // remove empty geometry
@@ -528,7 +559,7 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readPolygons: material symbol [%s] "
-                     "vertices [%d] polygons [%d]\n",
+                     "vertices [%d] polygons [%"PRIUSize"]\n",
                      (polygons->getMaterial() != NULL ?
                       polygons->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
@@ -748,9 +779,10 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readTriFans: material symbol [%s] "
-                     "vertices [%d] fans [%d]\n",
+                     "vertices [%d] fans [%"PRIUSize"]\n",
                      (triFans->getMaterial() != NULL ?
-                      triFans->getMaterial() : ""), verts,
+                      triFans->getMaterial() : ""), 
+                     verts,
                      _geoStore[geoIdx]._lengths->size()));
 
     // remove empty geometry
@@ -814,9 +846,10 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readTriStrips: material symbol [%s] "
-                     "vertices [%d] strips [%d]\n",
+                     "vertices [%d] strips [%"PRIUSize"]\n",
                      (triStrips->getMaterial() != NULL ?
-                      triStrips->getMaterial() : ""), verts,
+                      triStrips->getMaterial() : ""), 
+                     verts,
                      _geoStore[geoIdx]._lengths->size()));
 
     // remove empty geometry

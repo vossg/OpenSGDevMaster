@@ -367,10 +367,12 @@ ColladaController::readSkin(domSkin *skin)
                 vIdx += 2;
             }
         }
-
+        
         OSG_COLLADA_LOG(("ColladaController::readSkin: "
-                         "jIndexProp.size() [%d] jWeightProp.size() [%d]\n",
-                         jIndexProp->size(), jWeightProp->size()));
+                         "jIndexProp.size() [%"PRIUSize"] "
+                         "jWeightProp.size() [%"PRIUSize"]\n",
+                         jIndexProp->size(), 
+                         jWeightProp->size()));
 
         // add jIndexProp and jWeightProp to geoInfos
         GeoStore::iterator gsIt  = _geoStore.begin();

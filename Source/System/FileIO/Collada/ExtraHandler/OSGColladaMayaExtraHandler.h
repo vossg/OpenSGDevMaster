@@ -36,36 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAEXTRAHANDLER_H_
-#define _OSGCOLLADAEXTRAHANDLER_H_
+#ifndef _OSGCOLLADAMAYAEXTRAHANDLER_H_
+#define _OSGCOLLADAMAYAEXTRAHANDLER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
-
-#include "OSGColladaEffect.h"
-
-#include "dom/domExtra.h"
+#include "OSGColladaExtraHandler.h"
+#include "OSGColladaHandlerFactoryHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ColladaGeometry;
-class ColladaTexture;
-
-// forward declarations
-//class ColladaGlobal;
-//OSG_GEN_MEMOBJPTR(ColladaGlobal);
-
-
-class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaMayaExtraHandler : public ColladaExtraHandler
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -75,30 +61,41 @@ class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject        Inherited;
-    typedef ColladaExtraHandler Self;
+    typedef ColladaExtraHandler     Inherited;
+    typedef ColladaMayaExtraHandler Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaExtraHandler);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaMayaExtraHandler);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
     virtual void readTextureExtraElements(      ColladaTexture *texture,
-                                          const domExtra       *extra  ) = 0;
+                                          const domExtra       *extra  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
+                                            const domExtra        *extra   );
+
+    virtual void readGeometryExtraElements (      ColladaGeometry *geometry,
+                                            const domExtra        *extra   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
-                                            const domExtra        *extra ) = 0;
-
-
-    virtual void readGeometryExtraElements (      ColladaGeometry *effect,
-                                            const domExtra        *extra ) = 0;
+    static ColladaExtraHandlerTransitPtr create(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -109,20 +106,31 @@ class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaExtraHandler(void);
-    virtual ~ColladaExtraHandler(void);
+             ColladaMayaExtraHandler(void);
+    virtual ~ColladaMayaExtraHandler(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    static ColladaExtraHandlerRegHelper _regHelper;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 };
 
-
-OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
+OSG_GEN_MEMOBJPTR(ColladaMayaExtraHandler);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaExtraHandler.inl"
+//#include "OSGColladaElement.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAEXTRAHANDLER_H_
+#endif // _OSGCOLLADAMAYAEXTRAHANDLER_H_

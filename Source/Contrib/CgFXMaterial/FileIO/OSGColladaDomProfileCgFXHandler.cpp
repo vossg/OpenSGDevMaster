@@ -1315,6 +1315,7 @@ std::string ColladaDomProfileCgFXHandler::extractCgStates(domPassRef pPass)
                 << getFaceTypeString(stms->getFace()->getValue())
                 << "," 
                 << (unsigned int)stms->getMask()->getValue() << "); ";
+
             continue;
         }
 
@@ -1324,6 +1325,7 @@ std::string ColladaDomProfileCgFXHandler::extractCgStates(domPassRef pPass)
         if(la != NULL)
         {
             domFloat4 ambient = la->getValue();
+
             buf << " LightAmbient" 
                 << "[" << la->getIndex() << "] = float4(" << ambient[0] 
                 << "," << ambient[1] << "," << ambient[2] << "," 
@@ -1338,605 +1340,859 @@ std::string ColladaDomProfileCgFXHandler::extractCgStates(domPassRef pPass)
         if(ld != NULL)
         {
             domFloat4 diffuse = ld->getValue();
-            buf << " LightDiffuse" << "[" << ld->getIndex() << "] = float4(" << diffuse[0] 
-                << "," << diffuse[1] << "," << diffuse[2] << "," << diffuse[3] << "); ";
+
+            buf << " LightDiffuse" 
+                << "[" << ld->getIndex() << "] = float4(" << diffuse[0] 
+                << "," << diffuse[1] << "," << diffuse[2] << "," 
+                << diffuse[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domLight_specularRef ls = states[i]->getLight_specular();
+        domGl_pipeline_settings::domLight_specularRef ls = 
+            states[i]->getLight_specular();
+
         if(ld != NULL)
         {
             domFloat4 specular = ls->getValue();
-            buf << " LightSpecular" << "[" << ls->getIndex() << "] = float4(" << specular[0] 
-                << "," << specular[1] << "," << specular[2] << "," << specular[3] << "); ";
+
+            buf << " LightSpecular" << "[" << ls->getIndex() << "] = float4(" 
+                << specular[0] << "," << specular[1] << "," << specular[2] 
+                << "," << specular[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domLight_positionRef lp = states[i]->getLight_position();
+        domGl_pipeline_settings::domLight_positionRef lp = 
+            states[i]->getLight_position();
+
         if(lp != NULL)
         {
             domFloat4 position = lp->getValue();
-            buf << " LightPosition" << "[" << lp->getIndex() << "] = float4(" << position[0] 
-                << "," << position[1] << "," << position[2] << "," << position[3] << "); ";
+
+            buf << " LightPosition" << "[" << lp->getIndex() << "] = float4("
+                << position[0] << "," << position[1] << "," << position[2] 
+                << "," << position[3] << "); ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_constant_attenuationRef lca = 
             states[i]->getLight_constant_attenuation();
+
         if(lca != NULL)
         {
-            buf << " LightConstantAttenuation" << "[" << lca->getIndex() << "] = " 
-                << lca->getValue() << "; ";
+            buf << " LightConstantAttenuation" << "[" << lca->getIndex() 
+                << "] = " << lca->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_linear_attenuationRef lla = 
             states[i]->getLight_linear_attenuation();
+
         if(lla != NULL)
         {
-            buf << " LightLinearAttenuation" << "[" << lla->getIndex() << "] = " 
-                << lla->getValue() << "; ";
+            buf << " LightLinearAttenuation" << "[" << lla->getIndex() 
+                << "] = " << lla->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_quadratic_attenuationRef lqa = 
             states[i]->getLight_quadratic_attenuation();
+
         if(lqa != NULL)
         {
-            buf << " LightQuadraticAttenuation" << "[" << lqa->getIndex() << "] = " 
-                << lqa->getValue() << "; ";
+            buf << " LightQuadraticAttenuation" << "[" << lqa->getIndex()
+                << "] = " << lqa->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_spot_cutoffRef lsc = 
             states[i]->getLight_spot_cutoff();
+
         if(lsc != NULL)
         {
             buf << " LightSpotCutoff" << "[" << lsc->getIndex() << "] = " 
                 << lsc->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_spot_exponentRef lse = 
             states[i]->getLight_spot_exponent();
+
         if(lse != NULL)
         {
             buf << " LightSpotExponent" << "[" << lse->getIndex() << "] = " 
                 << lse->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_spot_directionRef lsd = 
             states[i]->getLight_spot_direction();
+
         if(lsd != NULL)
         {
             domFloat3 direction = lsd->getValue();
-            buf << " LightSpotDirection" << "[" << lsd->getIndex() << "] = float3(" << direction[0] 
-                << "," << direction[1] << "," << direction[2] << "); ";
+
+            buf << " LightSpotDirection" << "[" << lsd->getIndex() 
+                << "] = float3(" << direction[0] << "," << direction[1] 
+                << "," << direction[2] << "); ";
+
             continue;
         }
     
-        domGl_pipeline_settings::domClip_planeRef cp = states[i]->getClip_plane();
+        domGl_pipeline_settings::domClip_planeRef cp = 
+            states[i]->getClip_plane();
+
         if(cp != NULL)
         {
             domFloat4 clip = cp->getValue();
+
             buf << " ClipPlane" << cp->getIndex() << " = float4(" << clip[0]
                 << "," << clip[1] << "," << clip[2] << "," << clip[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domBlend_colorRef bc = states[i]->getBlend_color();
+        domGl_pipeline_settings::domBlend_colorRef bc = 
+            states[i]->getBlend_color();
+
         if(bc != NULL)
         {
             domFloat4 color = bc->getValue();
+
             buf << " BlendColor = float4(" << color[0] << "," << color[1] 
                 << "," << color[2] << "," << color[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domClear_colorRef cc = states[i]->getClear_color();
+        domGl_pipeline_settings::domClear_colorRef cc = 
+            states[i]->getClear_color();
+
         if(cc != NULL)
         {
             domFloat4 color = cc->getValue();
+
             buf << " ClearColor = float4(" << color[0] << "," << color[1]
                 << "," << color[2] << "," << color[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domClear_stencilRef cs = states[i]->getClear_stencil();
+        domGl_pipeline_settings::domClear_stencilRef cs = 
+            states[i]->getClear_stencil();
+
         if(cs != NULL)
         {
             buf << " ClearStencil = " << cs->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domClear_depthRef cd = states[i]->getClear_depth();
+        domGl_pipeline_settings::domClear_depthRef cd = 
+            states[i]->getClear_depth();
+
         if(cd != NULL)
         {
             buf << " ClearDepth = " << cd->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domColor_maskRef cmk = states[i]->getColor_mask();
+        domGl_pipeline_settings::domColor_maskRef cmk = 
+            states[i]->getColor_mask();
+
         if(cmk != NULL)
         {
             domBool4 mask = cmk->getValue();
-            buf << " ColorMask = bool4(" << ((mask[0])?("true"):("false")) << ","
-                << ((mask[1])?("true"):("false")) << "," << ((mask[2])?("true"):("false")) 
-                << "," << ((mask[3])?("true"):("false")) << "); ";
+
+            buf << " ColorMask = bool4(" 
+                <<        ((mask[0]) ? ("true") : ("false")) 
+                << "," << ((mask[1]) ? ("true") : ("false")) 
+                << "," << ((mask[2]) ? ("true") : ("false")) 
+                << "," << ((mask[3]) ? ("true") : ("false")) << "); ";
             continue;
         }
 
-        domGl_pipeline_settings::domDepth_boundsRef db = states[i]->getDepth_bounds();
+        domGl_pipeline_settings::domDepth_boundsRef db = 
+            states[i]->getDepth_bounds();
+
         if(db != NULL)
         {
             domFloat2 bounds = db->getValue();
-            buf << " DepthBounds = float2( " << bounds[0] << "," << bounds[1] << "); ";
+
+            buf << " DepthBounds = float2( " << bounds[0] << "," 
+                << bounds[1] << "); ";
+
             continue;
         }
 
 
-        domGl_pipeline_settings::domDepth_rangeRef dr = states[i]->getDepth_range();
+        domGl_pipeline_settings::domDepth_rangeRef dr = 
+            states[i]->getDepth_range();
+
         if(dr != NULL)
         {
             domFloat2 range = dr->getValue();
-            buf << " DepthRange = float2( " << range[0] << "," << range[1] << "); ";    
+
+            buf << " DepthRange = float2( " << range[0] << "," 
+                << range[1] << "); ";    
+
             continue;
         }
 
-        domGl_pipeline_settings::domFog_densityRef fd = states[i]->getFog_density();
+        domGl_pipeline_settings::domFog_densityRef fd = 
+            states[i]->getFog_density();
+
         if(fd != NULL)
         {
             buf << " FogDensity = " << fd->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domFog_startRef fs = states[i]->getFog_start();
+
         if(fs != NULL)
         {
             buf << " FogStart= " << fs->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domFog_endRef fe = states[i]->getFog_end();
+
         if(fe != NULL)
         {
             buf << " FogEnd= " << fe->getValue() << "; ";
+
             continue;
         }
 
         domGl_pipeline_settings::domFog_colorRef fc = states[i]->getFog_color();
+
         if(fc != NULL)
         {
             domFloat4 color = fc->getValue();
+
             buf << " FogColor = float4(" << color[0] << "," << color[1] 
                 << "," << color[2] << "," << color[3] << "); ";
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_model_ambientRef lma = 
             states[i]->getLight_model_ambient();
+
         if(lma != NULL)
         {
             domFloat4 light = lma->getValue();
-            buf << " LightModelAmbient = float4(" << light[0] << "," << light[1] 
-                << "," << light[2] << "," << light[3] << "); ";
+
+            buf << " LightModelAmbient = float4(" << light[0] << "," 
+                << light[1] << "," << light[2] << "," << light[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domLine_stippleRef lst = states[i]->getLine_stipple();
+        domGl_pipeline_settings::domLine_stippleRef lst = 
+            states[i]->getLine_stipple();
+
         if(lst != NULL)
         {
             domInt2 stipple = lst->getValue();
-            buf << " LineStipple = int2(" << stipple[0] << "," << stipple[1] << "); ";
+
+            buf << " LineStipple = int2(" << stipple[0] << "," 
+                << stipple[1] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domLine_widthRef lw = states[i]->getLine_width();
+        domGl_pipeline_settings::domLine_widthRef lw = 
+            states[i]->getLine_width();
+
         if(lw != NULL)
         {
             buf << " LineWidth = " << lw->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domMaterial_ambientRef mam = states[i]->getMaterial_ambient();
+        domGl_pipeline_settings::domMaterial_ambientRef mam = 
+            states[i]->getMaterial_ambient();
+
         if(mam != NULL)
         {
             domFloat4 ambient = mam->getValue();
-            buf << " MaterialAmbient = float4(" << ambient[0] << "," << ambient[1] 
-                << "," << ambient[2] << "," << ambient[3] << "); ";
+            buf << " MaterialAmbient = float4(" << ambient[0] << "," 
+                << ambient[1] << "," << ambient[2] << "," << ambient[3] 
+                << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domMaterial_diffuseRef mdf = states[i]->getMaterial_diffuse();
+        domGl_pipeline_settings::domMaterial_diffuseRef mdf = 
+            states[i]->getMaterial_diffuse();
+
         if(mdf != NULL)
         {
             domFloat4 diffuse = mdf->getValue();
-            buf << " MaterialDiffuse = float4(" << diffuse[0] << "," << diffuse[1] 
-                << "," << diffuse[2] << "," << diffuse[3] << "); ";
+
+            buf << " MaterialDiffuse = float4(" << diffuse[0] << "," 
+                << diffuse[1] << "," << diffuse[2] << "," << diffuse[3] 
+                << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domMaterial_emissionRef mem = states[i]->getMaterial_emission();
+        domGl_pipeline_settings::domMaterial_emissionRef mem = 
+            states[i]->getMaterial_emission();
+
         if(mem != NULL)
         {
             domFloat4 emission = mem->getValue();
-            buf << " MaterialEmission = float4(" << emission[0] << "," << emission[1] 
-                << "," << emission[2] << "," << emission[3] << "); ";
+
+            buf << " MaterialEmission = float4(" << emission[0] << "," 
+                << emission[1] << "," << emission[2] << "," << emission[3] 
+                << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domMaterial_specularRef msp = states[i]->getMaterial_specular();
+        domGl_pipeline_settings::domMaterial_specularRef msp = 
+            states[i]->getMaterial_specular();
+
         if(msp != NULL)
         {
             domFloat4 spec = msp->getValue();
+
             buf << " MaterialSpecular = float4(" << spec[0] << "," << spec[1] 
                 << "," << spec[2] << "," << spec[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domMaterial_shininessRef msh = states[i]->getMaterial_shininess();
+        domGl_pipeline_settings::domMaterial_shininessRef msh = 
+            states[i]->getMaterial_shininess();
+
         if(msh != NULL)
         {
             buf << " MaterialShininess = " << msh->getValue() << "; ";
+
             continue;
         }
         
         domGl_pipeline_settings::domPoint_distance_attenuationRef pda = 
             states[i]->getPoint_distance_attenuation();
+
         if(pda != NULL)
         {
             domFloat3 atten = pda->getValue();
+
             buf << " PointDistanceAttenuation = float3(" << atten[0] << "," 
                 << atten[1] << "," << atten[2]  << "); ";
+
             continue;
         }
         
         domGl_pipeline_settings::domPoint_fade_threshold_sizeRef pfts = 
             states[i]->getPoint_fade_threshold_size();
+
         if(pfts != NULL)
         {
             buf << " PointFadeThresholdSize = " << pfts->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domPoint_sizeRef pts = states[i]->getPoint_size();
+        domGl_pipeline_settings::domPoint_sizeRef pts = 
+            states[i]->getPoint_size();
+
         if(pts != NULL)
         {
             buf << " PointSize = " << pts->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domPoint_size_minRef ptsmn = states[i]->getPoint_size_min();
+        domGl_pipeline_settings::domPoint_size_minRef ptsmn = 
+            states[i]->getPoint_size_min();
+
         if(ptsmn != NULL)
         {
             buf << " PointSizeMin = " << ptsmn->getValue() << "; ";
             continue;
         }
 
-        domGl_pipeline_settings::domPoint_size_maxRef ptsmx = states[i]->getPoint_size_max();
+        domGl_pipeline_settings::domPoint_size_maxRef ptsmx = 
+            states[i]->getPoint_size_max();
+
         if(ptsmx != NULL)
         {
             buf << " PointSizeMax = " << ptsmx->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domPolygon_offsetRef po = states[i]->getPolygon_offset();
+        domGl_pipeline_settings::domPolygon_offsetRef po = 
+            states[i]->getPolygon_offset();
+
         if(po != NULL)
         {
             domFloat2 offset = po->getValue();
-            buf << " PolygonOffset = float2(" << offset[0] << "," << offset[1] << "); ";
+
+            buf << " PolygonOffset = float2(" << offset[0] << "," 
+                << offset[1] << "); ";
+
             continue;
         }
 
         domGl_pipeline_settings::domScissorRef sc = states[i]->getScissor();
+
         if(sc != NULL)
         {   
             domInt4 scissor = sc->getValue();
+
             buf << " Scissor = int4(" << scissor[0] << "," << scissor[1] << "," 
                 << scissor[2] << "," << scissor[3] << "); ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domModel_view_matrixRef mvm = states[i]->getModel_view_matrix();
+        domGl_pipeline_settings::domModel_view_matrixRef mvm = 
+            states[i]->getModel_view_matrix();
+
         if(mvm != NULL)
         {
             domFloat4x4 mat = mvm->getValue();
-            buf << " ModelViewMatrix = float4x4(" << mat[0] << "," << mat[1]
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
-                << mat[2] << "," << mat[2] << "); "; 
+
+            buf << " ModelViewMatrix = float4x4(" 
+                << mat[0] << "," << mat[1] << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "); "; 
+
             continue;
         }
 
-        domGl_pipeline_settings::domProjection_matrixRef pjm = states[i]->getProjection_matrix();
+        domGl_pipeline_settings::domProjection_matrixRef pjm = 
+            states[i]->getProjection_matrix();
+
         if(pjm != NULL)
         {
             domFloat4x4 mat = pjm->getValue();
-            buf << " ProjectionMatrix = float4x4(" << mat[0] << "," << mat[1]
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
-                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
+
+            buf << " ProjectionMatrix = float4x4(" 
+                << mat[0] << "," << mat[1] << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "," << mat[2] 
+                << "," << mat[2] << "," << mat[2] << "," << mat[2] << "," 
+                << mat[2] << "," << mat[2] << "," << mat[2] << "," 
                 << mat[2] << "," << mat[2] << "); "; 
             continue;
         }
 
-        domGl_pipeline_settings::domStencil_maskRef stm = states[i]->getStencil_mask();
+        domGl_pipeline_settings::domStencil_maskRef stm = 
+            states[i]->getStencil_mask();
+
         if(stm != NULL)
         {
             buf << " StencilMask = " << stm->getValue() << "; ";
+
             continue;
         }
 
-        domGl_pipeline_settings::domClip_plane_enableRef cpe = states[i]->getClip_plane_enable();
+        domGl_pipeline_settings::domClip_plane_enableRef cpe = 
+            states[i]->getClip_plane_enable();
+
         if(cpe != NULL)
         {
-            buf << getBoolStringRep("ClipPlaneEnable",cpe->getIndex(),cpe->getValue());
+            buf << getBoolStringRep("ClipPlaneEnable",
+                                    cpe->getIndex(),
+                                    cpe->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domLight_enableRef le = states[i]->getLight_enable();
+        domGl_pipeline_settings::domLight_enableRef le = 
+            states[i]->getLight_enable();
+
         if(le != NULL)
         {
-            buf << getBoolStringRep("LightEnable", le->getIndex(),le->getValue());
+            buf << getBoolStringRep("LightEnable", 
+                                    le->getIndex(),
+                                    le->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domLighting_enableRef len = states[i]->getLighting_enable();
+        domGl_pipeline_settings::domLighting_enableRef len = 
+            states[i]->getLighting_enable();
+
         if(len != NULL)
         {
             buf << getBoolStringRep("LightingEnable", len->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domDepth_test_enableRef dte = states[i]->getDepth_test_enable();
+        domGl_pipeline_settings::domDepth_test_enableRef dte = 
+            states[i]->getDepth_test_enable();
+
         if(dte != NULL)
         {
             buf << getBoolStringRep("DepthTestEnable", dte->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domAlpha_test_enableRef ate = states[i]->getAlpha_test_enable();
+        domGl_pipeline_settings::domAlpha_test_enableRef ate = 
+            states[i]->getAlpha_test_enable();
+
         if(ate != NULL)
         {
-            buf << getBoolStringRep("AlphaTestEnable",ate->getValue());
+            buf << getBoolStringRep("AlphaTestEnable", ate->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domAuto_normal_enableRef ane = 
             states[i]->getAuto_normal_enable();
+
         if(ane != NULL)
         {
             buf << getBoolStringRep("AutoNormalEnable", ane->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domColor_logic_op_enableRef cloe = 
             states[i]->getColor_logic_op_enable();
+
         if(cloe != NULL)
         {
             buf << getBoolStringRep("ColorLogicOpEnable", cloe->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domColor_material_enableRef cme = 
             states[i]->getColor_material_enable();
+
         if(cme != NULL)
         {
             buf << getBoolStringRep("ColorMaterialEnable", cme->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domBlend_enableRef be = states[i]->getBlend_enable();
+        domGl_pipeline_settings::domBlend_enableRef be = 
+            states[i]->getBlend_enable();
+
         if(be != NULL)
         {
             buf << getBoolStringRep("BlendEnable", be->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domCull_face_enableRef cfe = states[i]->getCull_face_enable();
+        domGl_pipeline_settings::domCull_face_enableRef cfe = 
+            states[i]->getCull_face_enable();
+
         if(cfe != NULL)
         {
             buf << getBoolStringRep("CullFaceEnable", cfe->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domDepth_bounds_enableRef dbe = 
             states[i]->getDepth_bounds_enable();
+
         if(dbe != NULL)
         {
             buf << getBoolStringRep("DepthBoundsEnable", dbe->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domDither_enableRef dthe = states[i]->getDither_enable();
+        domGl_pipeline_settings::domDither_enableRef dthe = 
+            states[i]->getDither_enable();
+
         if(dthe != NULL)
         {
             buf << getBoolStringRep("DitherEnable", dthe->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domFog_enableRef foge = states[i]->getFog_enable();
+        domGl_pipeline_settings::domFog_enableRef foge = 
+            states[i]->getFog_enable();
+
         if(foge != NULL)
         {
             buf << getBoolStringRep("FogEnable", foge->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_model_local_viewer_enableRef lmlve = 
             states[i]->getLight_model_local_viewer_enable();
+
         if(lmlve != NULL)
         {
-            buf << getBoolStringRep("LightModelLocalViewerEnable", lmlve->getValue());
+            buf << getBoolStringRep("LightModelLocalViewerEnable", 
+                                    lmlve->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domLight_model_two_side_enableRef lmtse = 
             states[i]->getLight_model_two_side_enable();
+
         if(lmtse != NULL)
         {
-            buf << getBoolStringRep("LightModelTwoSideEnable", lmtse->getValue());
+            buf << getBoolStringRep("LightModelTwoSideEnable", 
+                                    lmtse->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domLine_smooth_enableRef lnse = states[i]->getLine_smooth_enable();
+        domGl_pipeline_settings::domLine_smooth_enableRef lnse = 
+            states[i]->getLine_smooth_enable();
+
         if(lnse != NULL)
         {
             buf << getBoolStringRep("LineSmoothEnable", lnse->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domLine_stipple_enableRef lnste = states[i]->getLine_stipple_enable();
+        domGl_pipeline_settings::domLine_stipple_enableRef lnste = 
+            states[i]->getLine_stipple_enable();
+
         if(lnste != NULL)
         {
             buf << getBoolStringRep("LineStippleEnable", lnste->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domLogic_op_enableRef lope = states[i]->getLogic_op_enable();
+        domGl_pipeline_settings::domLogic_op_enableRef lope = 
+            states[i]->getLogic_op_enable();
+
         if(lope != NULL)
         {
             buf << getBoolStringRep("LogicOpEnable", lope->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domMultisample_enableRef mse = states[i]->getMultisample_enable();
+        domGl_pipeline_settings::domMultisample_enableRef mse = 
+            states[i]->getMultisample_enable();
+
         if(mse != NULL)
         {
             buf << getBoolStringRep("MultisampleEnable", mse->getValue());
             continue;
         }
 
-        domGl_pipeline_settings::domNormalize_enableRef nme = states[i]->getNormalize_enable();
+        domGl_pipeline_settings::domNormalize_enableRef nme = 
+            states[i]->getNormalize_enable();
+
         if(nme != NULL)
         {
             buf << getBoolStringRep("NormalizeEnable", nme->getValue());
             continue;
         }
 
-        domGl_pipeline_settings::domPoint_smooth_enableRef ptse = states[i]->getPoint_smooth_enable();
+        domGl_pipeline_settings::domPoint_smooth_enableRef ptse = 
+            states[i]->getPoint_smooth_enable();
+
         if(ptse != NULL)
         {
             buf << getBoolStringRep("PointSmoothEnable", ptse->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domPolygon_offset_fill_enableRef pofe  = states[i]->getPolygon_offset_fill_enable();
+        domGl_pipeline_settings::domPolygon_offset_fill_enableRef pofe = 
+            states[i]->getPolygon_offset_fill_enable();
+
         if(pofe != NULL)
         {
-            buf << getBoolStringRep("PolygonOffsetFillEnable", pofe->getValue());
+            buf << getBoolStringRep("PolygonOffsetFillEnable", 
+                                    pofe->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domPolygon_offset_line_enableRef pole = 
             states[i]->getPolygon_offset_line_enable();
+
         if(pole != NULL)
         {
-            buf << getBoolStringRep("PolygonOffsetLineEnable", pole->getValue());
+            buf << getBoolStringRep("PolygonOffsetLineEnable", 
+                                    pole->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domPolygon_offset_point_enableRef pope = 
             states[i]->getPolygon_offset_point_enable();
+
         if(pope != NULL)
         {
-            buf << getBoolStringRep("PolygonOffsetPointEnable", pope->getValue());
+            buf << getBoolStringRep("PolygonOffsetPointEnable", 
+                                    pope->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domPolygon_smooth_enableRef pse = 
             states[i]->getPolygon_smooth_enable();
+
         if(pse != NULL)
         {
             buf << getBoolStringRep("PolygonSmoothEnable", pse->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domPolygon_stipple_enableRef pste = states[i]->getPolygon_stipple_enable();
+        domGl_pipeline_settings::domPolygon_stipple_enableRef pste = 
+            states[i]->getPolygon_stipple_enable();
+
         if(pste != NULL)
         {
             buf << getBoolStringRep("PolygonStippleEnable", pste->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domRescale_normal_enableRef rne  = states[i]->getRescale_normal_enable();
+        domGl_pipeline_settings::domRescale_normal_enableRef rne  = 
+            states[i]->getRescale_normal_enable();
+
         if(rne != NULL)
         {
             buf << getBoolStringRep("RescaleNormalEnable", rne->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domSample_alpha_to_coverage_enableRef satce = 
             states[i]->getSample_alpha_to_coverage_enable();
+
         if(satce != NULL)
         {
-            buf << getBoolStringRep("SampleAlphaToCoverageEnable", satce->getValue());
+            buf << getBoolStringRep("SampleAlphaToCoverageEnable", 
+                                    satce->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domSample_alpha_to_one_enableRef satoe = 
             states[i]->getSample_alpha_to_one_enable();
+
         if(satoe != NULL)
         {
-            buf << getBoolStringRep("SampleAlphaToOneEnable", satoe->getValue());
+            buf << getBoolStringRep("SampleAlphaToOneEnable", 
+                                    satoe->getValue());
+
             continue;
         }
 
         domGl_pipeline_settings::domSample_coverage_enableRef sce = 
             states[i]->getSample_coverage_enable();
+
         if(sce != NULL)
         {
             buf << getBoolStringRep("SampleCoverageEnable", sce->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domScissor_test_enableRef scte = states[i]->getScissor_test_enable();
+        domGl_pipeline_settings::domScissor_test_enableRef scte = 
+            states[i]->getScissor_test_enable();
+
         if(scte != NULL)
         {
             buf << getBoolStringRep("ScissorTestEnable", scte->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domStencil_test_enableRef stte  = states[i]->getStencil_test_enable();
+        domGl_pipeline_settings::domStencil_test_enableRef stte  = 
+            states[i]->getStencil_test_enable();
+
         if(stte != NULL)
         {
             buf << getBoolStringRep("StencilTestEnable", stte->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domTexture1D_enableRef t1de  = states[i]->getTexture1D_enable();
+        domGl_pipeline_settings::domTexture1D_enableRef t1de  = 
+            states[i]->getTexture1D_enable();
+
         if(t1de != NULL)
         {
-            buf << getBoolStringRep("Texture1DEnable", t1de->getIndex() ,t1de->getValue());
+            buf << getBoolStringRep("Texture1DEnable", 
+                                    t1de->getIndex(),
+                                    t1de->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domTexture2D_enableRef t2de  = states[i]->getTexture2D_enable();
+        domGl_pipeline_settings::domTexture2D_enableRef t2de  = 
+            states[i]->getTexture2D_enable();
+
         if(t2de != NULL)
         {
-            buf << getBoolStringRep("Texture2DEnable", t2de->getIndex(),t2de->getValue());
+            buf << getBoolStringRep("Texture2DEnable", 
+                                    t2de->getIndex(),
+                                    t2de->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domTexture3D_enableRef t3de = states[i]->getTexture3D_enable();
+        domGl_pipeline_settings::domTexture3D_enableRef t3de = 
+            states[i]->getTexture3D_enable();
+
         if(t3de != NULL)
         {
-            buf << getBoolStringRep("Texture3DEnable", t3de->getIndex(), t3de->getValue());
+            buf << getBoolStringRep("Texture3DEnable", 
+                                    t3de->getIndex(), 
+                                    t3de->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domTextureRECT_enableRef trde = states[i]->getTextureRECT_enable();
+        domGl_pipeline_settings::domTextureRECT_enableRef trde = 
+            states[i]->getTextureRECT_enable();
+
         if(trde != NULL)
         {
-            buf << getBoolStringRep("TextureRectangleEnable", trde->getIndex(), trde->getValue());
+            buf << getBoolStringRep("TextureRectangleEnable", 
+                                    trde->getIndex(), 
+                                    trde->getValue());
+
             continue;
         }
 
-        domGl_pipeline_settings::domTextureCUBE_enableRef tcme  = states[i]->getTextureCUBE_enable();
+        domGl_pipeline_settings::domTextureCUBE_enableRef tcme  = 
+            states[i]->getTextureCUBE_enable();
+
         if(tcme != NULL)
         {
-            buf << getBoolStringRep("TextureCubeMapEnable", tcme->getIndex(), tcme->getValue());
+            buf << getBoolStringRep("TextureCubeMapEnable", 
+                                    tcme->getIndex(), 
+                                    tcme->getValue());
+
             continue;
         }
 

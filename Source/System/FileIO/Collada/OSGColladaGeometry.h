@@ -75,6 +75,9 @@ OSG_BEGIN_NAMESPACE
 class ColladaInstanceGeometry;
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 
+class ColladaExtraHandler;
+OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
+
 class ColladaNode;
 
 /*! \ingroup GrpFileIOCollada
@@ -171,6 +174,13 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
+    void setDoubleSided(bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
     virtual void  read          (ColladaElement  *colElemParent);
     virtual Node *createInstance(ColladaInstInfo *colInstInfo  );
 
@@ -240,6 +250,10 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef GeoStore::iterator                       GeoStoreIt;
     typedef GeoStore::const_iterator                 GeoStoreConstIt;
 
+    typedef std::vector<ColladaExtraHandlerRefPtr >  ExtraHandlerStore;
+    typedef ExtraHandlerStore::iterator              ExtraHandlerStoreIt;
+    typedef ExtraHandlerStore::const_iterator        ExtraHandlerStoreConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Helper Functions                                             */
@@ -291,8 +305,10 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 
     static ColladaElementRegistrationHelper _regHelper;
 
-    SourceMap _sourceMap;
-    GeoStore  _geoStore;
+    SourceMap         _sourceMap;
+    GeoStore          _geoStore;
+    bool              _doubleSided;
+    ExtraHandlerStore _extraHandlers;
 
 };
 

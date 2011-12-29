@@ -36,36 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAEXTRAHANDLER_H_
-#define _OSGCOLLADAEXTRAHANDLER_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOLLADATEXTURE_H_
+#define _OSGCOLLADATEXTURE_H_
 
 #include "OSGConfig.h"
 
 #if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGRefCountPtr.h"
-#include "OSGTransitPtr.h"
-
-#include "OSGColladaEffect.h"
-
-#include "dom/domExtra.h"
+#include "OSGColladaElement.h"
+#include "OSGColladaElementFactoryHelper.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGTextureTransformChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ColladaGeometry;
-class ColladaTexture;
+// forward decl
+class ColladaEffect;
+class ColladaSampler2D;
 
-// forward declarations
-//class ColladaGlobal;
-//OSG_GEN_MEMOBJPTR(ColladaGlobal);
+class ColladaExtraHandler;
+OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
 
+/*! \ingroup GrpFileIOCollada
+    \nohierarchy
+ */
 
-class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaTexture : public ColladaElement
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -75,54 +72,97 @@ class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject        Inherited;
-    typedef ColladaExtraHandler Self;
+    typedef ColladaElement Inherited;
+    typedef ColladaTexture Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaExtraHandler);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaTexture);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
+    static ColladaElementTransitPtr create(daeElement    *elem, 
+                                           ColladaGlobal *global);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void readTextureExtraElements(      ColladaTexture *texture,
-                                          const domExtra       *extra  ) = 0;
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
-                                            const domExtra        *extra ) = 0;
+    ColladaEffect   *getEffect (void                    ) const;
+    void             setEffect (ColladaEffect *colEffect);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
 
-    virtual void readGeometryExtraElements (      ColladaGeometry *effect,
-                                            const domExtra        *extra ) = 0;
+    TextureObjChunk       *getTexture      (void) const;
+    TextureEnvChunk       *getTexEnv       (void) const;
+    TextureEnvChunk       *editTexEnv      (void);
+    TextureTransformChunk *getTexTransform (void) const;
+    TextureTransformChunk *editTexTransform(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+          bool         hasAlpha      (void) const;
+          bool         hasBinaryAlpha(void) const;
+
+    const std::string &getSemantic   (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+    typedef std::vector<ColladaExtraHandlerRefPtr> ExtraHandlerStore;
+    typedef ExtraHandlerStore::iterator            ExtraHandlerStoreIt;
+    typedef ExtraHandlerStore::const_iterator      ExtraHandlerStoreConstIt;
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaExtraHandler(void);
-    virtual ~ColladaExtraHandler(void);
+             ColladaTexture(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaTexture(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    void readSampler(      ColladaSampler2D *colSampler);
+    void readImage  (const Char8            *texId     );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static ColladaElementRegistrationHelper _regHelper;
+
+    ColladaEffect                 *_colEffect;
+    TextureObjChunkUnrecPtr        _texObj;
+    TextureEnvChunkUnrecPtr        _texEnv;
+    TextureTransformChunkUnrecPtr  _texTransform;
+    ExtraHandlerStore              _extraHandlers;
+
 };
 
-
-OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
+OSG_GEN_MEMOBJPTR(ColladaTexture);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaExtraHandler.inl"
+// #include "OSGColladaTexture.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAEXTRAHANDLER_H_
+#endif // _OSGCOLLADATEXTURE_H_

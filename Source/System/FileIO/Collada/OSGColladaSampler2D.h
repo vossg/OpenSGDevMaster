@@ -51,6 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaEffect;
+class ColladaSurface;
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
@@ -59,7 +60,9 @@ class ColladaEffect;
 class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
@@ -73,8 +76,9 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
     /*! \{                                                                 */
-    static ColladaElementTransitPtr
-        create(daeElement *elem, ColladaGlobal *global);
+
+    static ColladaElementTransitPtr create(daeElement    *elem, 
+                                           ColladaGlobal *global);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -88,31 +92,36 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    ColladaEffect   *getEffect     (void                    ) const;
-    void             setEffect     (ColladaEffect *colEffect);
-
-    TextureObjChunk *getTexture    (void                    ) const;
-
-    bool             hasAlpha      (void                    ) const;
-    bool             hasBinaryAlpha(void                    ) const;
+    ColladaEffect  *getEffect (void                    ) const;
+    void            setEffect (ColladaEffect *colEffect);
+    
+    ColladaSurface *getSurface(void                    ) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    void setupTexObj(TextureObjChunk *pTex);
+    
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaSampler2D(daeElement *elem,ColladaGlobal *global);
-    virtual ~ColladaSampler2D(void                                  );
+             ColladaSampler2D(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaSampler2D(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
 
-    ColladaEffect           *_colEffect;
-    TextureObjChunkUnrecPtr  _texObj;
+    ColladaEffect *_colEffect;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaSampler2D);

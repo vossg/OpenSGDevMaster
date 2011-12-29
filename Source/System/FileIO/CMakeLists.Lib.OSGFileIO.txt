@@ -65,6 +65,7 @@ ENDIF()
 
 IF(COLLADA_FOUND)
     OSG_ADD_DIRECTORY("Source/System/FileIO/Collada")
+    OSG_ADD_DIRECTORY("Source/System/FileIO/Collada/ExtraHandler")
 ENDIF(COLLADA_FOUND)
 
 ##############################################################################

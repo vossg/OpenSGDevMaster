@@ -60,6 +60,7 @@ ColladaImage::create(daeElement *elem, ColladaGlobal *global)
     return ColladaElementTransitPtr(new ColladaImage(elem, global));
 }
 
+
 void
 ColladaImage::read(ColladaElement *colElemParent)
 {
@@ -72,8 +73,8 @@ ColladaImage::read(ColladaElement *colElemParent)
     if(initFrom != NULL)
     {
         daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
+        std::string imagePath = ColladaGlobal::uriToNativePath(imageURI.str());
+
         OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
                          imageURI.getURI(), imagePath.c_str()));
 

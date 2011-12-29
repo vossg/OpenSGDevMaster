@@ -200,8 +200,11 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \name ElementStore                                                 */
     /*! \{                                                                 */
 
-    static std::string fixFilepath     (std::string szFilepath);
-    static std::string fixImageFilepath(std::string szImgPath );
+    static std::string fixFilepath     (      std::string       szFilepath   );
+    static std::string fixImageFilepath(      std::string       szImgPath    );
+    static std::string uriToNativePath (const std::string      &uriRef, 
+                                              cdom::systemType  type = 
+                                                        cdom::getSystemType());
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
