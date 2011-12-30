@@ -152,11 +152,11 @@ class OSG_WINDOWEAGL_DLLMAPPING EAGLWindowBase : public Window
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
-    virtual void   copyToBin  (BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
-    virtual void   copyFromBin(BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
+    virtual SizeT getBinSize (ConstFieldMaskArg  whichField);
+    virtual void  copyToBin  (BinaryDataHandler &pMem,
+                              ConstFieldMaskArg  whichField);
+    virtual void  copyFromBin(BinaryDataHandler &pMem,
+                              ConstFieldMaskArg  whichField);
 
 
     /*! \}                                                                 */

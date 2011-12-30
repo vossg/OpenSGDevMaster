@@ -281,9 +281,9 @@ const SFEGLContext *EGLWindowBase::getSFContext(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 EGLWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT EGLWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (DisplayFieldMask & whichField))
     {

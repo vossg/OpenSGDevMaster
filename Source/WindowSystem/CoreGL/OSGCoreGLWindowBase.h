@@ -152,11 +152,11 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
-    virtual void   copyToBin  (BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
-    virtual void   copyFromBin(BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
+    virtual SizeT getBinSize (ConstFieldMaskArg  whichField);
+    virtual void  copyToBin  (BinaryDataHandler &pMem,
+                              ConstFieldMaskArg  whichField);
+    virtual void  copyFromBin(BinaryDataHandler &pMem,
+                              ConstFieldMaskArg  whichField);
 
 
     /*! \}                                                                 */

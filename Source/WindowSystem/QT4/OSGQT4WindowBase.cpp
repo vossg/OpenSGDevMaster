@@ -221,9 +221,9 @@ const SFOSGQGLWidgetP *QT4WindowBase::getSFGlWidget(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 QT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT QT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (GlWidgetFieldMask & whichField))
     {
