@@ -81,6 +81,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStage :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    virtual void adjustVolume(Volume &volume);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 

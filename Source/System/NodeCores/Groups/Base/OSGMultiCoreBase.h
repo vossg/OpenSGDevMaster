@@ -66,6 +66,7 @@
 #include "OSGGroup.h" // Parent
 
 #include "OSGNodeCoreFields.h"          // Cores type
+#include "OSGSysFields.h"               // ExitOnSkip type
 
 #include "OSGMultiCoreFields.h"
 
@@ -95,15 +96,19 @@ class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
     enum
     {
         CoresFieldId = Inherited::NextFieldId,
-        NextFieldId = CoresFieldId + 1
+        ExitOnSkipFieldId = CoresFieldId + 1,
+        NextFieldId = ExitOnSkipFieldId + 1
     };
 
     static const OSG::BitVector CoresFieldMask =
         (TypeTraits<BitVector>::One << CoresFieldId);
+    static const OSG::BitVector ExitOnSkipFieldMask =
+        (TypeTraits<BitVector>::One << ExitOnSkipFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUnrecChildNodeCorePtr MFCoresType;
+    typedef SFBool            SFExitOnSkipType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -122,6 +127,36 @@ class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFBool              *editSFExitOnSkip     (void);
+            const SFBool              *getSFExitOnSkip      (void) const;
+
+
+                  bool                &editExitOnSkip     (void);
+                  bool                 getExitOnSkip      (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setExitOnSkip     (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -177,6 +212,7 @@ class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
     /*! \{                                                                 */
 
     MFUnrecChildNodeCorePtr _mfCores;
+    SFBool            _sfExitOnSkip;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -215,6 +251,8 @@ class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
 
     GetFieldHandlePtr  getHandleCores           (void) const;
     EditFieldHandlePtr editHandleCores          (void);
+    GetFieldHandlePtr  getHandleExitOnSkip      (void) const;
+    EditFieldHandlePtr editHandleExitOnSkip     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

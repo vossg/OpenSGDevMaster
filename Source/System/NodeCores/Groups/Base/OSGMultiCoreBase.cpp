@@ -86,6 +86,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            MultiCoreBase::_sfExitOnSkip
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -127,6 +131,18 @@ void MultiCoreBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiCore::editHandleCores),
         static_cast<FieldGetMethodSig >(&MultiCore::getHandleCores));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "exitOnSkip",
+        "",
+        ExitOnSkipFieldId, ExitOnSkipFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiCore::editHandleExitOnSkip),
+        static_cast<FieldGetMethodSig >(&MultiCore::getHandleExitOnSkip));
 
     oType.addInitialDesc(pDesc);
 }
@@ -175,6 +191,14 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     "     clearFieldAs=\"clearCores\"\n"
     "     >\n"
     "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"exitOnSkip\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      defaultValue=\"false\">\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -211,6 +235,19 @@ MFUnrecChildNodeCorePtr *MultiCoreBase::editMFCores          (void)
 
     return &_mfCores;
 }
+
+SFBool *MultiCoreBase::editSFExitOnSkip(void)
+{
+    editSField(ExitOnSkipFieldMask);
+
+    return &_sfExitOnSkip;
+}
+
+const SFBool *MultiCoreBase::getSFExitOnSkip(void) const
+{
+    return &_sfExitOnSkip;
+}
+
 
 
 
@@ -279,6 +316,10 @@ SizeT MultiCoreBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfCores.getBinSize();
     }
+    if(FieldBits::NoField != (ExitOnSkipFieldMask & whichField))
+    {
+        returnValue += _sfExitOnSkip.getBinSize();
+    }
 
     return returnValue;
 }
@@ -292,6 +333,10 @@ void MultiCoreBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfCores.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ExitOnSkipFieldMask & whichField))
+    {
+        _sfExitOnSkip.copyToBin(pMem);
+    }
 }
 
 void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
@@ -303,6 +348,11 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(CoresFieldMask, _mfCores);
         _mfCores.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ExitOnSkipFieldMask & whichField))
+    {
+        editSField(ExitOnSkipFieldMask);
+        _sfExitOnSkip.copyFromBin(pMem);
     }
 }
 
@@ -431,7 +481,8 @@ MultiCoreBase::MultiCoreBase(void) :
     Inherited(),
     _mfCores                  (this,
                           CoresFieldId,
-                          NodeCore::ParentsFieldId)
+                          NodeCore::ParentsFieldId),
+    _sfExitOnSkip             (bool(false))
 {
 }
 
@@ -439,7 +490,8 @@ MultiCoreBase::MultiCoreBase(const MultiCoreBase &source) :
     Inherited(source),
     _mfCores                  (this,
                           CoresFieldId,
-                          NodeCore::ParentsFieldId)
+                          NodeCore::ParentsFieldId),
+    _sfExitOnSkip             (source._sfExitOnSkip             )
 {
 }
 
@@ -550,6 +602,31 @@ EditFieldHandlePtr MultiCoreBase::editHandleCores          (void)
                     static_cast<MultiCore *>(this)));
 
     editMField(CoresFieldMask, _mfCores);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MultiCoreBase::getHandleExitOnSkip      (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfExitOnSkip,
+             this->getType().getFieldDesc(ExitOnSkipFieldId),
+             const_cast<MultiCoreBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiCoreBase::editHandleExitOnSkip     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfExitOnSkip,
+             this->getType().getFieldDesc(ExitOnSkipFieldId),
+             this));
+
+
+    editSField(ExitOnSkipFieldMask);
 
     return returnValue;
 }

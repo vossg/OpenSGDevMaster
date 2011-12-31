@@ -74,6 +74,31 @@ OSG::UInt16 MultiCoreBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the MultiCore::_sfExitOnSkip field.
+
+inline
+bool &MultiCoreBase::editExitOnSkip(void)
+{
+    editSField(ExitOnSkipFieldMask);
+
+    return _sfExitOnSkip.getValue();
+}
+
+//! Get the value of the MultiCore::_sfExitOnSkip field.
+inline
+      bool  MultiCoreBase::getExitOnSkip(void) const
+{
+    return _sfExitOnSkip.getValue();
+}
+
+//! Set the value of the MultiCore::_sfExitOnSkip field.
+inline
+void MultiCoreBase::setExitOnSkip(const bool value)
+{
+    editSField(ExitOnSkipFieldMask);
+
+    _sfExitOnSkip.setValue(value);
+}
 
 //! Get the value of the \a index element the MultiCore::_mfCores field.
 inline
@@ -98,6 +123,9 @@ void MultiCoreBase::execSync (      MultiCoreBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (ExitOnSkipFieldMask & whichField))
+        _sfExitOnSkip.syncWith(pFrom->_sfExitOnSkip);
 }
 #endif
 

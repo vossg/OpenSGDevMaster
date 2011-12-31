@@ -503,6 +503,7 @@ bool intersect(const OSG::FrustumVolume           &frustum,
     }
     else if(vol.isInfinite() == true)
     {
+        inplanes = FrustumVolume::P_ALL;
         return true;
     }
     else

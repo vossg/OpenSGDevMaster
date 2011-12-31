@@ -167,18 +167,24 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
     {
         action->setActParent(this);
 
-        returnValue = action->callEnter(*coreIt);
+        Action::ResultE rc = action->callEnter(*coreIt);
 
-        if(returnValue != Action::Continue)
+        if(rc == Action::Skip)
+        {
+            returnValue = rc;
+
+            if(_sfExitOnSkip.getValue() == true)
+                break;
+        }
+        else if(rc == Action::Quit)
+        {
+            returnValue = rc;
+
             break;
+        }
 
         ++coreIt;
     }    
-
-#if 0
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
-#endif
 
     return returnValue;
 }
@@ -197,18 +203,24 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
     {
         action->setActParent(this);
 
-        returnValue = action->callLeave(*coreIt);
+        Action::ResultE rc = action->callLeave(*coreIt);
 
-        if(returnValue != Action::Continue)
+        if(rc == Action::Skip)
+        {
+            returnValue = rc;
+
+            if(_sfExitOnSkip.getValue() == true)
+                break;
+        }
+        else if(rc == Action::Quit)
+        {
+            returnValue = rc;
+
             break;
+        }
 
         ++coreIt;
     }    
-
-#if 0
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
-#endif
 
     return returnValue;
 }
@@ -232,10 +244,21 @@ ActionBase::ResultE MultiCore::actionEnterFrom(Action   *action,
         {
             action->setActParent(this);
         
-            returnValue = action->callEnter(*coreIt);
+            Action::ResultE rc = action->callEnter(*coreIt);
 
-            if(returnValue != Action::Continue)
+            if(rc == Action::Skip)
+            {
+                returnValue = rc;
+                
+                if(_sfExitOnSkip.getValue() == true)
+                    break;
+            }
+            else if(rc == Action::Quit)
+            {
+                returnValue = rc;
+                
                 break;
+            }
         }
 
         if(*coreIt == pFrom)
@@ -243,11 +266,6 @@ ActionBase::ResultE MultiCore::actionEnterFrom(Action   *action,
         
         ++coreIt;
     }    
-
-#if 0
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
-#endif
 
     return returnValue;
 }
@@ -271,10 +289,21 @@ ActionBase::ResultE MultiCore::actionLeaveFrom(Action   *action,
         {
             action->setActParent(this);
 
-            returnValue = action->callLeave(*coreIt);
+            Action::ResultE rc = action->callLeave(*coreIt);
 
-            if(returnValue != Action::Continue)
+            if(rc == Action::Skip)
+            {
+                returnValue = rc;
+                
+                if(_sfExitOnSkip.getValue() == true)
+                    break;
+            }
+            else if(rc == Action::Quit)
+            {
+                returnValue = rc;
+
                 break;
+            }
         }
 
         if(*coreIt == pFrom)
@@ -282,11 +311,6 @@ ActionBase::ResultE MultiCore::actionLeaveFrom(Action   *action,
 
         ++coreIt;
     }    
-
-#if 0
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
-#endif
 
     return returnValue;
 }

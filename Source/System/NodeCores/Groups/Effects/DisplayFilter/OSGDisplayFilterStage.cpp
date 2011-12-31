@@ -124,6 +124,11 @@ void DisplayFilterStage::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+void DisplayFilterStage::adjustVolume(Volume &volume)
+{
+    volume.setInfinite(true);
+}
+
 void DisplayFilterStage::dump(      UInt32    ,
                          const BitVector ) const
 {

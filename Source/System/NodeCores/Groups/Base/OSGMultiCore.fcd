@@ -30,4 +30,12 @@
      clearFieldAs="clearCores"
      >
   </Field>
+
+  <Field
+      name="exitOnSkip"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      defaultValue="false">
+  </Field>
 </FieldContainer>
