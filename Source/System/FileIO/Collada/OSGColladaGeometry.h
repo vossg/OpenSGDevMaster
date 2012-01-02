@@ -48,6 +48,7 @@
 #include "OSGColladaInstanceMaterial.h"
 #include "OSGColladaInstInfo.h"
 #include "OSGColladaSource.h"
+#include "OSGColladaExtraHandler.h"
 #include "OSGNode.h"
 #include "OSGGeometry.h"
 #include "OSGGeoVectorProperty.h"
@@ -74,9 +75,6 @@ OSG_BEGIN_NAMESPACE
 // forward decls
 class ColladaInstanceGeometry;
 OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
-
-class ColladaExtraHandler;
-OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
 
 class ColladaNode;
 

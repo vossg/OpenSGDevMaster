@@ -45,6 +45,7 @@
 
 #include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaExtraHandler.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGTextureTransformChunk.h"
@@ -54,9 +55,6 @@ OSG_BEGIN_NAMESPACE
 // forward decl
 class ColladaEffect;
 class ColladaSampler2D;
-
-class ColladaExtraHandler;
-OSG_GEN_MEMOBJPTR(ColladaExtraHandler);
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy

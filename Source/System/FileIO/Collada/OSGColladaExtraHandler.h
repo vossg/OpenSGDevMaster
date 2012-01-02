@@ -51,14 +51,13 @@
 #include "OSGRefCountPtr.h"
 #include "OSGTransitPtr.h"
 
-#include "OSGColladaEffect.h"
-
 #include "dom/domExtra.h"
 
 OSG_BEGIN_NAMESPACE
 
 class ColladaGeometry;
 class ColladaTexture;
+class ColladaEffect;
 
 // forward declarations
 //class ColladaGlobal;

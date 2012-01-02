@@ -43,6 +43,7 @@
 #include "OSGColladaMayaExtraHandler.h"
 #include "OSGColladaLog.h"
 #include "OSGColladaGeometry.h"
+#include "OSGColladaTexture.h"
 
 #ifdef OSG_WITH_COLLADA
 
@@ -391,7 +392,7 @@ void ColladaMayaExtraHandler::readGeometryExtraElements(
                 {
                     bool doubleSided = 
                         TypeTraits<UInt32>::getFromCString(
-                            profileElements[k]->getCharData().c_str());
+                            profileElements[k]->getCharData().c_str()) != 0;
 
                     geometry->setDoubleSided(doubleSided);
                 }

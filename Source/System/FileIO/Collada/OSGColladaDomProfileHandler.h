@@ -50,9 +50,11 @@
 #include "OSGMemoryObject.h"
 #include "OSGRefCountPtr.h"
 #include "OSGTransitPtr.h"
+#include "OSGMaterial.h"
 
 #include <dom/domEffect.h>
 #include <dom/domInstance_effect.h>
+#include <dom/domFx_profile_abstract.h>
 
 OSG_BEGIN_NAMESPACE
 
