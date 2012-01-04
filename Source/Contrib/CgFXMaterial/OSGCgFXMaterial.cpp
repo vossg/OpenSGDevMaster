@@ -607,7 +607,7 @@ void CgFXMaterial::processEffectString(void)
             fprintf(stderr, "got tech var : %d\n", *pTechVar);
 #endif
 
-            setTreatTechniquesAsVariants(*pTechVar);
+            setTreatTechniquesAsVariants((*pTechVar) != 0);
         }
     }
 

@@ -139,7 +139,7 @@ bool CgFXTechnique::isTransparent(void) const
 
 UInt32 CgFXTechnique::getNPasses(void)
 {
-    return _mfRenderPassStates.size();
+    return UInt32(_mfRenderPassStates.size());
 }
 
 State *CgFXTechnique::getState(UInt32 index)

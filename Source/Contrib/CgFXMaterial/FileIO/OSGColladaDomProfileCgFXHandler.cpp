@@ -162,7 +162,7 @@ MaterialTransitPtr ColladaDomProfileCgFXHandler::createInstProfile(
             std::string effectCode = inlineCode[0]->getValue();
 
             // build up the code to set up techniques, passes, etc.
-            UInt32 codeSize = effectCode.size();
+            SizeT codeSize = effectCode.size();
 
             effectCode.append(buildCgFXCode(pProfCG));
 
