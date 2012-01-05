@@ -1302,22 +1302,27 @@ void ColladaEffect::addTexture(const std::string           &tcSemantic,
     TextureEnvChunkUnrecPtr texEnv = TextureEnvChunk::create();
     texEnv->setEnvMode(envMode);
 
-    mat->addChunk(colTexture->getTexture(),      texCount);
-    mat->addChunk(texEnv,                        texCount);
-    mat->addChunk(colTexture->getTexTransform(), texCount);
+    Image *texImg = colTexture->getTexture()->getImage();
 
-    getGlobal()->getStatCollector()->getElem(
-        ColladaGlobal::statNTextureUsed)->inc();
+    if(texImg != NULL)
+    {
+        mat->addChunk(colTexture->getTexture(),      texCount);
+        mat->addChunk(texEnv,                        texCount);
+        mat->addChunk(colTexture->getTexTransform(), texCount);
 
-    OSG_COLLADA_LOG(("ColladaEffect::addTexture: "
-                     "texCoord symbol [%s] in slot [%d]\n",
-                     tcSemantic.c_str(),
-                     Geometry::TexCoordsIndex + texCount));
+        getGlobal()->getStatCollector()->getElem(
+            ColladaGlobal::statNTextureUsed)->inc();
 
-    colInstEffect->editTCMap()[tcSemantic] =
-        Geometry::TexCoordsIndex + texCount;
+        OSG_COLLADA_LOG(("ColladaEffect::addTexture: "
+                         "texCoord symbol [%s] in slot [%d]\n",
+                         tcSemantic.c_str(),
+                         Geometry::TexCoordsIndex + texCount));
 
-    ++texCount;
+        colInstEffect->editTCMap()[tcSemantic] =
+            Geometry::TexCoordsIndex + texCount;
+
+        ++texCount;
+    }
 }
 
 Real32 ColladaEffect::luminance(const Color4f &col)

@@ -693,13 +693,24 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
     UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
                                         triangles->getMaterial(), idxStore);
 
-    const domListOfUInts &pList   = triangles->getP()->getValue();
-    UInt32                currIdx = 0;
-    UInt32                length  = 0;
+    const domListOfUInts &pList     = triangles->getP()->getValue();
+    UInt32                currIdx   = 0;
+    UInt32                length    = 0;
+
+    std::vector<bool>     vIdxValid;
+
+    vIdxValid.resize(idxStore.size(), true);
 
     for(UInt32 i = 0; i < pList.getCount(); ++i)
     {
-        idxStore[currIdx]->push_back(pList[i]);
+        UInt32 uiIdx = pList[i];
+
+        if(uiIdx == UInt32(-1))
+        {
+            vIdxValid[currIdx] = false;
+        }
+
+        idxStore[currIdx]->push_back(uiIdx);       
 
         ++currIdx;
 
@@ -708,6 +719,12 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
             currIdx = 0;
             ++length;
         }
+    }
+
+    for(SizeT i = 0; i < vIdxValid.size(); ++i)
+    {
+        if(vIdxValid[i] == false)
+            idxStore[i]->clear();
     }
 
     _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLES);
@@ -920,11 +937,13 @@ ColladaGeometry::setupProperty(
 {
     // resize
     _geoStore[geoIdx]._propStore .resize(
-        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._propStore .size()), propIdx + 1),
-        PropInfo()                                                               );
+        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._propStore .size()), 
+                       propIdx + 1),
+        PropInfo()                                                 );
     _geoStore[geoIdx]._indexStore.resize(
-        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._indexStore.size()), propIdx + 1),
-        NULL                                                                     );
+        osgMax<UInt32>(UInt32(_geoStore[geoIdx]._indexStore.size()), 
+                       propIdx + 1),
+        NULL                                                       );
 
     // set index for the property
     _geoStore[geoIdx]._indexStore[propIdx] = idxProp;
@@ -1043,7 +1062,9 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
                                  offset));
 
                 // new index
-                idxStore.resize(osgMax<UInt32>(offset + 1, UInt32(idxStore.size())), NULL);
+                idxStore.resize(osgMax<UInt32>(offset + 1, 
+                                               UInt32(idxStore.size())), NULL);
+
                 idxStore[offset] = GeoUInt32Property::create();
             }
 
@@ -1181,7 +1202,7 @@ ColladaGeometry::handleBindMaterial(
 
     for(UInt32 i = 0; psIt != psEnd && isIt != isEnd; ++psIt, ++isIt, ++i)
     {
-        if(psIt->_prop == NULL || *isIt == NULL)
+        if(psIt->_prop == NULL || *isIt == NULL || (*isIt)->size() == 0)
             continue;
 
         bool   handledProperty  = false;
@@ -1189,10 +1210,12 @@ ColladaGeometry::handleBindMaterial(
         UInt32 bindVertexOffset = 0;
 
         const BindInfo       *bi  = findBind      (bindStore,
-                                                   psIt->_semantic, bindOffset );
+                                                   psIt->_semantic, 
+                                                   bindOffset     );
         const BindVertexInfo *bvi = findBindVertex(bindVertexStore,
-                                                   psIt->_semantic, psIt->_set,
-                                                   bindVertexOffset            );
+                                                   psIt->_semantic, 
+                                                   psIt->_set,
+                                                   bindVertexOffset);
 
         // there may be multiple consumers for a property, keep looping
         // until no more consumers are found
@@ -1270,6 +1293,62 @@ ColladaGeometry::handleBindMaterial(
                                  bindOffset                       );
             bvi = findBindVertex(bindVertexStore, psIt->_semantic,
                                  psIt->_set,      bindVertexOffset);
+        }
+
+        // Check for autodesk implicit channel mappings
+        if(handledProperty == false)
+        {
+            std::string szChannel;
+
+            switch(i)
+            {
+                case Geometry::TexCoordsIndex:
+                    szChannel = "CHANNEL0";
+                    break;
+                case Geometry::TexCoords1Index:
+                    szChannel = "CHANNEL1";
+                    break;
+                case Geometry::TexCoords2Index:
+                    szChannel = "CHANNEL2";
+                    break;
+                case Geometry::TexCoords3Index:
+                    szChannel = "CHANNEL3";
+                    break;
+                case Geometry::TexCoords4Index:
+                    szChannel = "CHANNEL4";
+                    break;
+                case Geometry::TexCoords5Index:
+                    szChannel = "CHANNEL5";
+                    break;
+                case Geometry::TexCoords6Index:
+                    szChannel = "CHANNEL6";
+                    break;
+                case Geometry::TexCoords7Index:
+                    szChannel = "CHANNEL7";
+                    break;
+
+                default:
+                    break;
+            };
+
+            if(szChannel.empty() == false)
+            {
+                UInt32 mappedProp = i;
+
+                if(colInstEffect->findTC(szChannel, mappedProp) == true)
+                {
+                    OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
+                                     "Resolved autodesk implicit semantic [%s] "
+                                     "to property [%d]\n",
+                                     szChannel.c_str(), 
+                                     mappedProp));
+
+                    geo->setProperty( psIt->_prop, mappedProp);
+                    geo->setIndex   (*isIt,        mappedProp);
+
+                    handledProperty = true;
+                }
+            }
         }
 
         // if the property is not remapped by <bind> or <bind_vertex_input>

@@ -99,8 +99,8 @@ CSMPerspectiveCamera::~CSMPerspectiveCamera(void)
 /*----------------------------- class specific ----------------------------*/
 
 void CSMPerspectiveCamera::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                                   UInt32            origin,
+                                   BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 
@@ -114,7 +114,7 @@ void CSMPerspectiveCamera::changed(ConstFieldMaskArg whichField,
 }
 
 void CSMPerspectiveCamera::dump(      UInt32    ,
-                         const BitVector ) const
+                                const BitVector ) const
 {
     SLOG << "Dump CSMPerspectiveCamera NI" << std::endl;
 }

@@ -234,7 +234,7 @@ void ColladaTexture::readImage(const Char8 *texId)
 
         for(UInt32 j = 0; j < imgArray.getCount(); ++j)
         {
-            domImageRef pImg = imgArray[i];
+            domImageRef pImg = imgArray[j];
 
             if(osgStringCmp(pImg->getId(), texId) == 0)
             {

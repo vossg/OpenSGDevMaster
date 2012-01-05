@@ -242,8 +242,18 @@ std::string ColladaGlobal::uriToNativePath(const std::string      &uriRef,
 
     std::string filePath;
 
-    if(authority.empty() == false && path.empty() == true)
-        path.swap(authority);
+#if 0
+    fprintf(stderr, "foo %s ==> | %s | %s | %s | %s | %s | \n",
+            uriRef.c_str(),
+            scheme.c_str(),
+            authority.c_str(),
+            path.c_str(),
+            query.c_str(),
+            fragment.c_str());
+#endif
+
+//    if(authority.empty() == false && path.empty() == true)
+//        path.swap(authority);
 
 	if(type == cdom::Windows) 
     {
@@ -263,7 +273,10 @@ std::string ColladaGlobal::uriToNativePath(const std::string      &uriRef,
 		// Convert forward slashes to back slashes
 		path = cdom::replace(path, "/", "\\");
 	}
-
+    else
+    {
+        filePath += authority;
+    }
     
 	filePath += path;
 
