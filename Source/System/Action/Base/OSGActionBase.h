@@ -46,7 +46,7 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include "OSGConfig.h"
+#include "OSGMemoryObject.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,7 +68,7 @@ class Action;
     \ingroup GrpLibOSGSystem
  */
 
-class ActionBase
+class ActionBase : public MemoryObject
 {
   public:
  
@@ -80,6 +80,13 @@ class ActionBase
                     // skip my brothers, go one step up
         Quit        // forget it, you're done
     };
+
+  protected:
+
+    ActionBase(      void           ) : MemoryObject(   ) {}
+    ActionBase(const ActionBase &lhs) : MemoryObject(lhs) {}
+
+    ~ActionBase(void)              {}
 };
 
 //---------------------------------------------------------------------------

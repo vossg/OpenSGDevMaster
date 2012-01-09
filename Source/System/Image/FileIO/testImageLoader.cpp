@@ -24,7 +24,7 @@
 using namespace std;
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::NodeRecPtr scene;
 
@@ -231,7 +231,7 @@ int doMain(int argc, char **argv)
     szFilename = argv[1];
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     mgr->setWindow(gwin );
@@ -302,9 +302,10 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         {
-            delete mgr;
+            mgr    = NULL;
             scene  = NULL;
             statfg = NULL;
+
             OSG::osgExit();
             exit(0);
         }

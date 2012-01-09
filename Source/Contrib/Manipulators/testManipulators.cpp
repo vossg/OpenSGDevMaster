@@ -19,8 +19,8 @@ OSG::TransformRefPtr    interTC = NULL;
 OSG::NodeRefPtr         interN  = NULL;
 OSG::NodeRefPtr         maniN   = NULL;
 
-OSG::ManipulatorManager *mama;
-OSG::SimpleSceneManager *mgr;
+OSG::ManipulatorManager       *mama;
+OSG::SimpleSceneManagerRefPtr  mgr;
 
 int setupGLUT( int *argc, char *argv[] );
 OSG::NodeTransitPtr makeCoordAxes(void);
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     gwin->setGlutId(winid);
     gwin->init();
 
-    mgr = new OSG::SimpleSceneManager;
+    mgr  = OSG::SimpleSceneManager::create();
     mama = new OSG::ManipulatorManager;
 
     OSG::GroupUnrecPtr g = OSG::Group::create();
@@ -117,7 +117,7 @@ void mouse(int button, int state, int x, int y)
 
         l = mgr->calcViewRay(x, y);
 
-        OSG::IntersectAction *act = OSG::IntersectAction::create();
+        OSG::IntersectActionRefPtr act = OSG::IntersectAction::create();
 
         act->setLine( l );
         act->apply( scene );
@@ -126,6 +126,8 @@ void mouse(int button, int state, int x, int y)
         {
             mama->mouseButtonPress(button, x, y);
         }
+
+        act = NULL;
 
         mgr->mouseButtonPress(button, x, y);
     }
@@ -155,7 +157,7 @@ void keyboard(unsigned char k, int x, int y)
     {
     case 27:    
         delete mama;
-        delete mgr;
+        mgr     = NULL;
         scene   = NULL;
         interTC = NULL;
         interN  = NULL;

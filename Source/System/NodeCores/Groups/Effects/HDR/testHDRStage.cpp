@@ -24,7 +24,7 @@
 #include "OSGHDRStage.h"
 #include "OSGVisitSubTree.h"
 
-OSG::RenderAction *rentravact = NULL;
+OSG::RenderActionRefPtr rentravact = NULL;
 
 OSG::NodeRecPtr  hdrroot = NULL;
 OSG::NodeRecPtr  root    = NULL;
@@ -220,7 +220,7 @@ void key(unsigned char key, int x, int y)
 
             fprintf(stderr, "Start Destruction\n\n");
 
-            delete rentravact;
+            rentravact = NULL;
 
             hdrroot = NULL;
             root    = NULL;

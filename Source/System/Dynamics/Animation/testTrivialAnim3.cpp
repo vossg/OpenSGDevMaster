@@ -18,8 +18,8 @@
 
 OSG_USING_NAMESPACE
 
-SimpleSceneManager *mgr    = NULL;
-ComponentTransform *gXForm = NULL;
+SimpleSceneManagerRefPtr  mgr    = NULL;
+ComponentTransform       *gXForm = NULL;
 
 
 // anim stuff
@@ -54,7 +54,7 @@ void init(int argc, char *argv[])
 
     NodeUnrecPtr scene = buildScene();
 
-    mgr = new SimpleSceneManager;
+    mgr = SimpleSceneManager::create();
     mgr->setWindow(gwin );
     mgr->setRoot  (scene);
 
@@ -67,7 +67,6 @@ void cleanup(void)
 {
     FrameHandler::the()->shutdown();
 
-    delete mgr;
     mgr = NULL;
 
     g_at0 = NULL;

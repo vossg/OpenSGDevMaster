@@ -59,7 +59,7 @@ bool changeOnlyPart = false;
 
 // The SimpleSceneManager to manage simple applications
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 
@@ -275,7 +275,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
 
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
 
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -370,7 +370,6 @@ int setupGLUT(int *argc, char *argv[])
 
 void cleanup(void)
 {
-    delete mgr;
     mgr = NULL;
 
     trans  = NULL;

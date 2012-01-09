@@ -77,10 +77,10 @@ static void theCallback(DrawEnv* env);
 //
 // global state of example
 //
-SimpleSceneManager* mgr;
-NodeRefPtr          root;
-NodeRefPtr          scene;
-GLUTWindowRefPtr    win;
+SimpleSceneManagerRefPtr mgr;
+NodeRefPtr               root;
+NodeRefPtr               scene;
+GLUTWindowRefPtr         win;
 
 
 static void onExit()
@@ -96,7 +96,6 @@ static void cleanup(void)
     mgr->setWindow(NULL);
     mgr->setRoot(NULL);
 
-    delete mgr;
     mgr   = NULL;
     root  = NULL;
     scene = NULL;
@@ -365,7 +364,7 @@ static int doMain(int argc, char *argv[])
     
     commitChanges();
     
-    mgr = new SimpleSceneManager;
+    mgr = SimpleSceneManager::create();
 
     mgr->setWindow(win);
     mgr->setRoot  (root);

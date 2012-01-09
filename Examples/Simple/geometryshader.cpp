@@ -55,9 +55,9 @@
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *_mgr;
+SimpleSceneManagerRefPtr _mgr;
 // The scene
-NodeRefPtr          _scene;
+NodeRefPtr               _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -173,7 +173,7 @@ int main(int argc, char **argv)
         _scene->addChild(torus);
     
         // create the SimpleSceneManager helper
-        _mgr = new SimpleSceneManager;
+        _mgr = SimpleSceneManager::create();
     
         // tell the manager what to manage
         _mgr->setWindow(gwin );
@@ -233,7 +233,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         case 'q':
             // clean up global variables
-            delete _mgr;
+            _mgr   = NULL;
             _scene = NULL;
             
             osgExit();

@@ -121,13 +121,6 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~RenderActionBase(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name               Rendering Environment                          */
     /*! \{                                                                 */
 
@@ -256,7 +249,12 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
 
+    virtual ~RenderActionBase(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Internal updates                           */
     /*! \{                                                                 */

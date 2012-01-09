@@ -19,8 +19,8 @@
 
 //The SimpleSceneManager is a little usefull class which helps us to 
 //manage little scenes. It will be discussed in detail later on
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRecPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRecPtr               scene;
 
 //we have a forward declarion here, just to sort the code 
 int setupGLUT( int *argc, char *argv[] );
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
         scene = createScenegraph();
         
         // Create and setup our little friend - the SSM
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

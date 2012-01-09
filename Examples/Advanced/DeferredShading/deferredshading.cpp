@@ -85,7 +85,7 @@ std::ostream &operator << (std::ostream &os, const LightInfo &li);
 
 struct GlobalValues
 {
-    SimpleSceneManager            *mgr;
+    SimpleSceneManagerRefPtr       mgr;
     GLUTWindowUnrecPtr             glutWin;
 
     NodeUnrecPtr                   rootN;
@@ -183,7 +183,7 @@ void initialize(int argc, char *argv[])
     gv->glutWin->setGlutId(glutWinId);
     gv->glutWin->init     (         );
 
-    gv->mgr = new SimpleSceneManager;
+    gv->mgr = SimpleSceneManager::create();
 
      // tell the manager what to manage
     gv->mgr->setWindow(gv->glutWin);
@@ -225,7 +225,6 @@ void initialize(int argc, char *argv[])
 
 void cleanup(void)
 {
-    delete gv->mgr;
     gv->mgr = NULL;
 
     delete gv;

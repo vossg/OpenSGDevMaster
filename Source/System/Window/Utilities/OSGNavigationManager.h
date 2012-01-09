@@ -58,11 +58,13 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpLibOSGUtil
  */
 
-class OSG_UTIL_DLLMAPPING NavigationManager
+class OSG_UTIL_DLLMAPPING NavigationManager : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(NavigationManager);
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Enums                                   */
@@ -78,21 +80,13 @@ class OSG_UTIL_DLLMAPPING NavigationManager
         NoButton    = -1
     };
 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    NavigationManager(void);
-
-    NavigationManager *create(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~NavigationManager(void);
+    static ObjTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -144,13 +138,29 @@ class OSG_UTIL_DLLMAPPING NavigationManager
 
   protected:
 
+    typedef MemoryObject Inherited;
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Updates                                  */
     /*! \{                                                                 */
 
-            // added by martin (FIXME: remove comment)
-            void  updateMouseButtonPress  (UInt16 button, Int16 x, Int16 y);
-            void  updateMouseButtonRelease(UInt16 button, Int16 x, Int16 y);
+    // added by martin (FIXME: remove comment)
+    void  updateMouseButtonPress  (UInt16 button, Int16 x, Int16 y);
+    void  updateMouseButtonRelease(UInt16 button, Int16 x, Int16 y);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    NavigationManager(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~NavigationManager(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -181,6 +191,8 @@ class OSG_UTIL_DLLMAPPING NavigationManager
 // class pointer
 
 typedef NavigationManager *NavigationManagerP;
+
+OSG_GEN_MEMOBJPTR(NavigationManager);
 
 OSG_END_NAMESPACE
 

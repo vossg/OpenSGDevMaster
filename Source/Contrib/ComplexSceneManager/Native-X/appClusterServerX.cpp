@@ -26,25 +26,23 @@
 #include "OSGGeoFunctions.h"
 
 // local glut window
-OSG::XWindowRefPtr    window      = NULL;
+OSG::XWindowRefPtr       window      = NULL;
 // render action
-OSG::RenderAction    *ract        = NULL;
+OSG::RenderActionRefPtr  ract        = NULL;
 // pointer the the cluster server instance
-OSG::ClusterServer   *server      = NULL;
-bool                  exitOnError = false;
-int                   iCache      = 0;
+OSG::ClusterServer      *server      = NULL;
+bool                     exitOnError = false;
+int                      iCache      = 0;
 
 void cleanup(void)
 {
     window = NULL;
-
-    delete ract;
+    ract   = NULL;
     
     server->stop();
     delete server;
 
     server = NULL;
-    ract   = NULL;
 
     OSG::osgExit();
 }
@@ -447,8 +445,6 @@ void display(void)
             SLOG << e.what() << OSG::endLog;
             // try to restart server
             server->stop();
-
-            delete ract;
 
             ract = OSG::RenderAction::create();
 

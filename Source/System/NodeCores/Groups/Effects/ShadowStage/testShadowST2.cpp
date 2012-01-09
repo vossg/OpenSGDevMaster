@@ -34,7 +34,7 @@
 
 #include "OSGShadowStage.h"
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::GLUTWindowUnrecPtr gwin;
 OSG::ShadowStageUnrecPtr svp;
@@ -410,7 +410,7 @@ int doMain(int argc, char **argv)
     rootNode->getVolume().getBounds(min, max);
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     mgr->setWindow(gwin);
     mgr->setRoot(rootNode);
@@ -567,7 +567,7 @@ void keyboard(unsigned char k, int x, int y)
                 _cylinder1_trans = NULL;
                 _cylinder2_trans = NULL;
                 
-                delete mgr;
+                mgr              = NULL;
 
                 OSG::osgExit();
                 exit(0);

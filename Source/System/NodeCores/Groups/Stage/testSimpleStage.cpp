@@ -40,7 +40,7 @@
 
 //#define USE_DEPTH_TEXTURE 1
 
-OSG::SimpleSceneManager      *mgr(NULL);
+OSG::SimpleSceneManagerRefPtr mgr(NULL);
 
 OSG::GroupNodeRefPtr          planeRoot;
 OSG::GroupNodeRefPtr          animRoot;
@@ -187,7 +187,7 @@ void key(unsigned char key, int x, int y)
 
             pVisit         = static_cast<OSG::Node *>(NULL);
 
-            delete mgr;
+            mgr            = NULL;
 
             OSG::osgExit();
             exit(0);
@@ -521,7 +521,7 @@ int doMain (int argc, char **argv)
     pwin->init();
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );

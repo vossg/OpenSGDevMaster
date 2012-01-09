@@ -20,7 +20,7 @@
 #include "OSGAlgorithmStage.h"
 #include "OSGGPUVolRTV2.h"
 
-OSG::RenderAction            *rentravact;
+OSG::RenderActionRefPtr       rentravact;
 
 OSG::WindowRecPtr             win;
 
@@ -154,7 +154,7 @@ void key(unsigned char key, int x, int y)
             pCOver      = NULL;
             pAlgo       = NULL;
 
-            delete rentravact;
+            rentravact  = NULL;
 
             OSG::osgExit(); 
 

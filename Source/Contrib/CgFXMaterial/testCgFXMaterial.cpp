@@ -36,9 +36,9 @@ void keyboard(unsigned char k, int x, int y);
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static OSG::SimpleSceneManager  *_mgr = NULL;
+static OSG::SimpleSceneManagerRefPtr _mgr = NULL;
 
-static OSG::GLUTWindowUnrecPtr   _gwin = NULL;
+static OSG::GLUTWindowUnrecPtr       _gwin = NULL;
 
 // The scene
 static OSG::NodeUnrecPtr         _scene   = NULL;
@@ -144,7 +144,7 @@ int doMain(int argc, char **argv)
     _scene->addChild(transn2             );
 
     // create the SimpleSceneManager
-    _mgr = new OSG::SimpleSceneManager;
+    _mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     _mgr->setWindow(_gwin);
@@ -236,7 +236,7 @@ void keyboard(unsigned char k, int x, int y)
             _scene   = NULL;
             _cgfxmat = NULL;
 
-            delete _mgr;
+            _mgr     = NULL;
             
             OSG::osgExit();
             exit(0);

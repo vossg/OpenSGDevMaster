@@ -278,8 +278,8 @@ void TrackballEngine::buttonRelease(Int16, Int16 x, Int16 y, Navigator* nav)
 {
     if (!nav->getMoved() && nav->getClickCenter())
     {
-        Viewport        *vp  = nav->getViewport();   
-        IntersectAction *act = IntersectAction::create();
+        Viewport              *vp  = nav->getViewport();   
+        IntersectActionRefPtr  act = IntersectAction::create();
         Line line;
         vp->getCamera()->calcViewRay(line, x, y, *vp);
 
@@ -294,7 +294,7 @@ void TrackballEngine::buttonRelease(Int16, Int16 x, Int16 y, Navigator* nav)
             setAt(p1);
         }
 
-        delete act;
+        act = NULL;
     }
     _currentState = Navigator::IDLE;
 }
@@ -520,7 +520,7 @@ void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
         return;
     }
 
-    IntersectAction *act = IntersectAction::create();
+    IntersectActionRefPtr act = IntersectAction::create();
     act->setLine(line);
     act->apply(vp->getRoot());
 
@@ -550,7 +550,7 @@ void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
         _ip = line.getPosition() + u * line.getDirection();
     }
 
-    delete act;
+    act = NULL;
 }
 
 /*! Calculate the real translation that has to be done, so that the

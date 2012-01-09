@@ -116,7 +116,7 @@ VecClipPlaneData      vecClipPlaneData;      // transport clip plane info
 VecClipPlaneDetailsT  vecClipPlaneDetails;   // opensg clip plane state
 VecNodesT             vecGeometries;         // box and torus
 
-OSG::SimpleSceneManager*        mgr;
+OSG::SimpleSceneManagerRefPtr   mgr;
 OSG::NodeRefPtr                 scene;
 OSG::ContainerCollectionRefPtr  container;
 
@@ -182,7 +182,6 @@ void cleanup(void)
     vecClipPlaneDetails.clear();
     vecGeometries      .clear();
 
-    delete mgr;
     mgr = NULL;
 
     scene     = NULL;
@@ -859,7 +858,7 @@ int doMain(int argc, char **argv)
     pwin->init();
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin);

@@ -17,7 +17,7 @@
 #include <OpenSG/OSGThreadManager.h>
 #endif
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 // we will store the transformation globally - this
 // is not necessary, but comfortable
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
         //instead of NULL you could provide a name
         syncBarrier = OSG::Barrier::get("syncBarrier", true);
         
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

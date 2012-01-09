@@ -64,19 +64,19 @@
 
 struct GlobalObjects
 {
-    OSG::SimpleSceneManager     *mgr;
+    OSG::SimpleSceneManagerRefPtr mgr;
 
-    OSG::GLUTWindowRefPtr        gwin;
+    OSG::GLUTWindowRefPtr         gwin;
 
-    OSG::NodeRefPtr              rootNode;
-    OSG::SpotLightRefPtr         spot1_core;
-    OSG::SpotLightRefPtr         spot2_core;
-    OSG::DirectionalLightRefPtr  dir_core;
-    OSG::PointLightRefPtr        point1_core;
-    OSG::PointLightRefPtr        point2_core;
-    OSG::TransformRefPtr         box_trans;
-    OSG::TransformRefPtr         cylinder1_trans;
-    OSG::TransformRefPtr         cylinder2_trans;
+    OSG::NodeRefPtr               rootNode;
+    OSG::SpotLightRefPtr          spot1_core;
+    OSG::SpotLightRefPtr          spot2_core;
+    OSG::DirectionalLightRefPtr   dir_core;
+    OSG::PointLightRefPtr         point1_core;
+    OSG::PointLightRefPtr         point2_core;
+    OSG::TransformRefPtr          box_trans;
+    OSG::TransformRefPtr          cylinder1_trans;
+    OSG::TransformRefPtr          cylinder2_trans;
 };
 
 GlobalObjects *globals = NULL;
@@ -252,7 +252,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        globals->mgr = new OSG::SimpleSceneManager;
+        globals->mgr = OSG::SimpleSceneManager::create();
     
         globals->mgr->setWindow(globals->gwin    );
         globals->mgr->setRoot  (globals->rootNode);
@@ -342,7 +342,8 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             // clean up global variables
-            delete globals->mgr;
+            globals->mgr = NULL;
+
             delete globals;
             
             OSG::osgExit();

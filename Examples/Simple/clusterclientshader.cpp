@@ -81,7 +81,7 @@
 #endif
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+SimpleSceneManagerRefPtr mgr;
 
 SHLChunkRefPtr _shl;
 Int32          _animation = 1;
@@ -298,7 +298,7 @@ int main(int argc, char **argv)
         commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(mwin );

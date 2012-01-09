@@ -514,7 +514,7 @@ void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
         return;
     }
 
-    IntersectAction *act = IntersectAction::create();
+    IntersectActionRefPtr act = IntersectAction::create();
     act->setLine(line);
     act->apply(vp->getRoot());
 
@@ -544,7 +544,7 @@ void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
         _ip = line.getPosition() + u * line.getDirection();
     }
 
-    delete act;
+    act = NULL;
 }
 
 /*! Calculate the real translation that has to be done, so that the

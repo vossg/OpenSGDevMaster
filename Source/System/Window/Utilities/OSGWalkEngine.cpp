@@ -46,7 +46,6 @@
 #include "OSGNode.h"
 #include "OSGCamera.h"
 #include "OSGBackground.h"
-#include "OSGIntersectAction.h"
 
 OSG_USING_NAMESPACE
 
@@ -269,5 +268,5 @@ WalkEngine::WalkEngine(void) :
 
 WalkEngine::~WalkEngine()
 {
-    delete _act;
+    _act = NULL;
 }

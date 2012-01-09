@@ -118,7 +118,7 @@ public:
 
     ~IDbuffer(void)
     {
-        delete _ID_renderAction;
+        _ID_renderAction = NULL;
     }
 
     void setRoot(OSG::Node * const value)
@@ -357,7 +357,7 @@ private:
     // Variables
     OSG::GrabForegroundRefPtr        _grabber;
     OSG::ViewportRefPtr              _ID_viewport;
-    OSG::RenderAction *              _ID_renderAction;
+    OSG::RenderActionRefPtr          _ID_renderAction;
     OSG::PassiveWindowRefPtr         _window;
     OSG::SolidBackgroundRefPtr       _solidBkg;        // Sky color is black
     OSG::NodeRefPtr                  _sky;
@@ -379,7 +379,7 @@ int setupGLUT( int *argc, char *argv[] );
 
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 // The file root node, needed for intersection
 OSG::NodeRefPtr fileroot;
 // The points used for visualising the ray and hit object
@@ -399,7 +399,8 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             // clean up global variables
-            delete mgr;
+            mgr = NULL;
+
             delete _idbuff;
             
             fileroot    = NULL;
@@ -536,7 +537,7 @@ int main(int argc, char **argv)
         scene->addChild(testgeo);
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

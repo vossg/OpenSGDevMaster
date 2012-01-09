@@ -31,9 +31,9 @@ typedef std::vector<SkeletonJoint *> JointStore;
 
 namespace {
 
-    SimpleSceneManager *mgr    = NULL;
-    NodeUnrecPtr        sceneN = NULL;
-    SkeletonUnrecPtr    skel   = NULL;
+    SimpleSceneManagerRefPtr mgr    = NULL;
+    NodeUnrecPtr             sceneN = NULL;
+    SkeletonUnrecPtr         skel   = NULL;
 
     const std::string vpCode(
         "#version 120"
@@ -112,7 +112,7 @@ void init(int argc, char *argv[])
 
     buildScene();
 
-    mgr = new SimpleSceneManager;
+    mgr = SimpleSceneManager::create();
     mgr->setWindow(gwin  );
     mgr->setRoot  (sceneN);
 
@@ -122,9 +122,7 @@ void init(int argc, char *argv[])
 
 void cleanup(void)
 {
-    delete mgr;
     mgr    = NULL;
-
     sceneN = NULL;
 }
 

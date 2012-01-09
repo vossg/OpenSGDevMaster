@@ -49,7 +49,7 @@ struct AnimInfo
 typedef std::vector<AnimInfo>              AnimStore;
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager           *mgr = NULL;
+OSG::SimpleSceneManagerRefPtr      mgr = NULL;
 OSG::NodeUnrecPtr                  sceneN;   // scene from file
 OSG::NodeUnrecPtr                  rootN;    // root
 OSG::ChunkOverrideGroupUnrecPtr    root;
@@ -205,7 +205,7 @@ void init(int argc, char *argv[])
     processAnim(sceneN);
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
     
     // tell the manager what to manage
     mgr->setWindow(gwin );
@@ -217,7 +217,6 @@ void init(int argc, char *argv[])
 
 void cleanup(void)
 {
-    delete mgr;
     mgr = NULL;
 
     sceneN    = NULL;

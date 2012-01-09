@@ -14,8 +14,8 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 #endif
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRecPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRecPtr               scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
         
         scene = createScenegraph();
         
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

@@ -19,8 +19,8 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #endif
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRecPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRecPtr               scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
         scene = OSG::makeTorus(.5, 2, 16, 16);
         
         // and the ssm as always
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         
         mgr->setWindow(multiWindow);
         mgr->setRoot  (scene);

@@ -145,7 +145,7 @@ static std::string _fp_program =
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static OSG::SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManagerRefPtr _mgr;
 // The scene
 static OSG::NodeRecPtr       _scene;
 static OSG::PointLightRecPtr _point1_core;
@@ -324,7 +324,7 @@ int doMain(int argc, char **argv)
     _scene->addChild(point1);
 
     // create the SimpleSceneManager helper
-    _mgr = new OSG::SimpleSceneManager;
+    _mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -408,7 +408,7 @@ void keyboard(unsigned char k, int x, int y)
             point2_beacon = NULL;
             point3_beacon = NULL;
 
-            delete _mgr;
+            _mgr          = NULL;
 
             exit(1);
         break;

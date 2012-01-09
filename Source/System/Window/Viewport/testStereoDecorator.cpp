@@ -12,7 +12,7 @@
 #include "OSGSceneFileHandler.h"
 #include "OSGOSGSceneFileType.h"
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::ShearedStereoCameraDecoratorUnrecPtr decoleft, decoright;
 OSG::Real32 zpp = 2, ed = 1;
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
     }
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );

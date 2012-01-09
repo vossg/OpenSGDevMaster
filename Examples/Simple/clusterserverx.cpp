@@ -42,10 +42,10 @@
 // local glut window
 OSG::XWindowRefPtr   window;
 // render action
-OSG::RenderAction   *ract        = NULL;
+OSG::RenderActionRefPtr  ract        = NULL;
 // pointer the the cluster server instance
-OSG::ClusterServer  *server      = NULL;
-bool                 exitOnError = false;
+OSG::ClusterServer      *server      = NULL;
+bool                     exitOnError = false;
 
 // forward declaration so we can have the interesting stuff upfront
 void display();
@@ -349,7 +349,8 @@ int main(int argc,char **argv)
     {
         SLOG << e.what() << OSG::endLog;
         delete server;
-        delete ract;
+
+        ract   = NULL;
         window = NULL;
         
         OSG::osgExit(); 
@@ -375,7 +376,8 @@ void display()
             try
             {
                 delete server;
-                delete ract;
+                
+                ract   = NULL;
                 window = NULL;
             }
             catch(...)

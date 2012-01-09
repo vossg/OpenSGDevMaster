@@ -36,12 +36,12 @@
 #include "OSGSceneFileHandler.h"
 
 
-OSG::SimpleSceneManager     *g_mgr   = NULL;
-OSG::NodeRefPtr              g_scene = NULL;
-std::vector<OSG::Surface *>  g_teapotSurfaces;
-std::vector<OSG::Surface *>  g_torusSurfaces;
-std::vector<OSG::Surface *>  g_cylinderSurfaces;
-std::vector<OSG::Surface *> *g_currentSurfaces;
+OSG::SimpleSceneManagerRefPtr  g_mgr   = NULL;
+OSG::NodeRefPtr                g_scene = NULL;
+std::vector<OSG::Surface *>    g_teapotSurfaces;
+std::vector<OSG::Surface *>    g_torusSurfaces;
+std::vector<OSG::Surface *>    g_cylinderSurfaces;
+std::vector<OSG::Surface *>   *g_currentSurfaces;
 
 // redraw the window
 void display(void)
@@ -107,7 +107,7 @@ void keyboard(unsigned char k, int, int)
 {
     switch(k)
     {
-    case 27:    delete g_mgr;
+    case 27:    g_mgr   = NULL;
                 g_scene = NULL;
                 exit(1);
     case 'y':
@@ -633,7 +633,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        g_mgr = new OSG::SimpleSceneManager;
+        g_mgr = OSG::SimpleSceneManager::create();
     
         // create the window and initial camera/viewport
         g_mgr->setWindow( gwin );

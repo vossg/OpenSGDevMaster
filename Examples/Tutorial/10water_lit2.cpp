@@ -36,8 +36,8 @@ OSG::Pnt3f wOrigin = OSG::Pnt3f(0,0,0);
 OSG::UInt16 width  = 100;
 OSG::UInt16 length = 100;
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRecPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRecPtr               scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
     
         scene = createScenegraph();
     
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

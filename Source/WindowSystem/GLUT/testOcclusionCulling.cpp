@@ -44,9 +44,9 @@ OSG::StatElemDesc<OSG::StatStringElem> *nvStatElems[] =
 
 #endif
 
-OSG::SimpleSceneManager    *mgr;
-OSG::RenderAction *tact = NULL;
-OSG::RenderAction *debugact = NULL;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::RenderActionRefPtr       tact = NULL;
+OSG::RenderActionRefPtr       debugact = NULL;
 
 // create the scene
 OSG::NodeRecPtr scene;
@@ -339,10 +339,10 @@ void keyboard(unsigned char k, int, int)
 #ifdef OSG_WITH_NVPERFSDK
             NVPMShutdown();
 #endif
-            delete mgr;
+            mgr      = NULL;
 
-            delete tact;
-            delete debugact;
+            tact     = NULL;
+            debugact = NULL;
             
             scene    = NULL;
             mainwin  = NULL;
@@ -713,7 +713,7 @@ int main(int argc, char **argv)
     mainwin->init();
     
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(mainwin);

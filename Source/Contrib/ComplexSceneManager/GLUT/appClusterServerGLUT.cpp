@@ -11,7 +11,7 @@
 int                 winid;
 OSG::ClusterServer      *server;
 OSG::GLUTWindowRecPtr    window;
-OSG::RenderAction       *ract;
+OSG::RenderActionRefPtr  ract;
 bool                running=false;
 bool                exitOnError=false;
 OSG::UInt32         servicePort=8437;
@@ -21,14 +21,12 @@ int                 winWidth=0,winHeight=0;
 void cleanup(void)
 {
     window = NULL;
-
-    delete ract;
+    ract   = NULL;
     
     server->stop();
     delete server;
 
     server = NULL;
-    ract   = NULL;
 
     OSG::osgExit();
 }
@@ -238,7 +236,7 @@ int main(int argc,char **argv)
         glEnable( GL_LIGHT0 );
         glEnable( GL_DEPTH_TEST );
         glEnable( GL_NORMALIZE );
-        ract=OSG::RenderAction::create();
+        ract = OSG::RenderAction::create();
 //        ract->setFrustumCulling(false);
         window     = OSG::GLUTWindow::create();
         window->setGlutId(winid);

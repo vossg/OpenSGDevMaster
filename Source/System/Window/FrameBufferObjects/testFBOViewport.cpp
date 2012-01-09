@@ -50,7 +50,7 @@
 
 #include "OSGTrackball.h"
 
-OSG::RenderAction *rentravact;
+OSG::RenderActionRefPtr rentravact;
 
 OSG::NodeRecPtr  root;
 
@@ -279,7 +279,7 @@ void key(unsigned char key, int x, int y)
             pRenBuffer  = NULL;
             pImg        = NULL;
 
-            delete rentravact;
+            rentravact  = NULL;
 
             OSG::osgExit(); 
 

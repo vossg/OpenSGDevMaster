@@ -47,7 +47,7 @@
 
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 // The file root node, needed for intersection
 OSG::NodeRefPtr fileroot;
@@ -72,7 +72,7 @@ void keyboard(unsigned char k, int x, int y)
             fileroot    = NULL;
             isectPoints = NULL;
             testgeocore = NULL;
-            delete mgr;
+            mgr         = NULL;
         
             OSG::osgExit();
             exit(0);
@@ -111,7 +111,7 @@ void keyboard(unsigned char k, int x, int y)
                 std::cerr << "From "  << l.getPosition () 
                           << ", dir " << l.getDirection() << std::endl;
     
-                OSG::IntersectAction *act = OSG::IntersectAction::create();
+                OSG::IntersectActionRefPtr act = OSG::IntersectAction::create();
                 
                 act->setLine(l);
                 act->apply(fileroot);
@@ -165,7 +165,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::commitChanges();
             
                 // free the action
-                delete act;
+                act = NULL;
                 
                 std::cerr << std::endl;
                 
@@ -280,7 +280,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

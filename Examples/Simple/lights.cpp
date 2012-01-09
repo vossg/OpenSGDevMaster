@@ -39,7 +39,7 @@ OSG::TransformRefPtr lightBeacons[8];
 OSG::LightRefPtr     lights      [8];
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -353,7 +353,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -409,7 +409,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:    
         {
             // clean up global variables
-            delete mgr;
+            mgr = NULL;
             
             OSG::osgExit();
             exit(1);

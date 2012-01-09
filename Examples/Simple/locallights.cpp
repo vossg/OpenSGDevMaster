@@ -42,8 +42,8 @@
 
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *_mgr   = NULL;
-OSG::NodeRefPtr          _scene;
+OSG::SimpleSceneManagerRefPtr _mgr   = NULL;
+OSG::NodeRefPtr               _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        _mgr = new OSG::SimpleSceneManager;
+        _mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         _mgr->setWindow(gwin );
@@ -214,7 +214,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
             
             // clean up global variables
-            delete _mgr;
+            _mgr   = NULL;
             _scene = NULL;
             
             OSG::osgExit();

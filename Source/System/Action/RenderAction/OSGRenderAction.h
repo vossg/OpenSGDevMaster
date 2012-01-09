@@ -81,6 +81,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 {
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(RenderAction);
+
     //-----------------------------------------------------------------------
     //   constants
     //-----------------------------------------------------------------------
@@ -112,13 +114,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //-----------------------------------------------------------------------
 
     static
-    RenderAction *create      (void                    );
+    ObjTransitPtr  create      (void                    );
 
     static
-    void          setPrototype(RenderAction *pPrototype);
+    void           setPrototype(RenderAction *pPrototype);
 
     static
-    RenderAction *getPrototype(void                   );
+    RenderAction  *getPrototype(void                   );
 
 
     //-----------------------------------------------------------------------
@@ -134,8 +136,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //-----------------------------------------------------------------------
     //   instance functions
     //-----------------------------------------------------------------------
-
-    virtual ~RenderAction(void);
 
     /*------------------------- your_category -------------------------------*/
 
@@ -365,6 +365,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     RenderAction(void);
     RenderAction(const RenderAction &source);
 
+    virtual ~RenderAction(void);
+
     // access default functors
 
     virtual Action::FunctorStore *getDefaultEnterFunctors(void);
@@ -433,6 +435,8 @@ Action::ResultE MaterialDrawableRenderEnter(NodeCore * const pCore,
 
 Action::ResultE MaterialDrawableRenderLeave(NodeCore * const pCore,
                                             Action   *       action);
+
+OSG_GEN_MEMOBJPTR(RenderAction);
 
 OSG_END_NAMESPACE
 

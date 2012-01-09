@@ -16,8 +16,8 @@
 #include <boost/assign/list_of.hpp>
 
 
-OSG::SimpleSceneManager *mgr(NULL);
-OSG::RenderAction       *act(NULL);
+OSG::SimpleSceneManagerRefPtr mgr(NULL);
+OSG::RenderActionRefPtr       act(NULL);
 
 OSG::PassiveWindowRecPtr         pwin;
 OSG::PerfMonitorForegroundRecPtr perfmon_fg;
@@ -144,7 +144,7 @@ int main(int argc, char **argv)
     }
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );

@@ -47,7 +47,7 @@
 
 #include "OSGTrackball.h"
 
-OSG::RenderAction *rentravact = NULL;
+OSG::RenderActionRefPtr rentravact = NULL;
 
 OSG::NodeRecPtr  root;
 OSG::NodeRecPtr  animRoot;
@@ -208,17 +208,18 @@ void key(unsigned char key, int x, int y)
     switch(key)
     {
         case 27:   
-            delete rentravact;
 
-            root     = NULL;
-            animRoot = NULL;
+            rentravact = NULL;
 
-            file     = NULL;
+            root       = NULL;
+            animRoot   = NULL;
 
-            vpScene  = NULL;
-            vpPlane  = NULL;
+            file       = NULL;
 
-            win      = NULL;
+            vpScene    = NULL;
+            vpPlane    = NULL;
+
+            win        = NULL;
 
             cam_transScene = NULL;
             scene_trans    = NULL;

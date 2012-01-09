@@ -51,8 +51,8 @@
 #include <OpenSG/OSGFileSystem.h>
 #endif
 
-OSG::PassiveWindowRefPtr  pwin;
-OSG::SimpleSceneManager  *mgr;
+OSG::PassiveWindowRefPtr      pwin;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 int     window;         // The number of our GLUT window
 GLuint  texture[3];     // Storage for 3 textures.
@@ -309,7 +309,7 @@ void keyPressed(unsigned char key, int x, int y)
     { 
         case ESCAPE:
             // clean up gobal variables
-            delete mgr;
+            mgr     = NULL;
             pwin    = NULL;
             trans   = NULL;
             vp      = NULL;
@@ -546,7 +546,7 @@ int main(int argc, char **argv)
     scene->addChild(world); // add the world as a child
     
     // create the SimpleSceneManager helper - it will be only partially used
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
     
     // tell the manager what to manage
     mgr->setWindow(pwin );

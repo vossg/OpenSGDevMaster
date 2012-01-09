@@ -26,8 +26,8 @@ namespace fs = boost::filesystem;
 #include "OSGModelRequest.h"
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
-OSG::GroupNodeRefPtr gScene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::GroupNodeRefPtr          gScene;
 
 unsigned gNextModelIdx = 0;
 
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
     gwin->init();
     
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     mgr->setWindow(gwin );
@@ -163,8 +163,9 @@ void keyboard(unsigned char k, int , int )
     {
         case 27:
         {
-            delete mgr;
+            mgr    = NULL;
             gScene = static_cast<OSG::Node *>(NULL);
+
             OSG::osgExit();
             exit(0);
         }

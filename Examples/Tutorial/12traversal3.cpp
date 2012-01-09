@@ -29,8 +29,8 @@
 #include <OpenSG/OSGSharePtrGraphOp.h>
 #endif
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRecPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRecPtr               scene;
 
 // A simple class that counts the number of entered nodes
 class counter
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
         else
             scene = createScenegraph("Data/brick_quads.wrl");
         
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
@@ -170,8 +170,8 @@ void mouse(int button, int state, int x, int y)
     {
         mgr->mouseButtonPress(button, x, y);
     
-        OSG::Line             ray  = mgr->calcViewRay(x, y);
-        OSG::IntersectAction *iAct = OSG::IntersectAction::create();
+        OSG::Line                  ray  = mgr->calcViewRay(x, y);
+        OSG::IntersectActionRefPtr iAct = OSG::IntersectAction::create();
         iAct->setLine(ray);
         iAct->apply(scene);
     
@@ -185,6 +185,8 @@ void mouse(int button, int state, int x, int y)
             
             parent->subChild(n);
         }
+
+        iAct = NULL;
     }
         
     glutPostRedisplay();
@@ -204,7 +206,7 @@ void keyboard(unsigned char k, int x, int y)
     {
         // clean up global variables
         scene = NULL;
-        delete mgr;
+        mgr   = NULL;
         
         OSG::osgExit();
         exit(1);

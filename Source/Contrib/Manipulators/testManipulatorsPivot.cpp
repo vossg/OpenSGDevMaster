@@ -415,15 +415,15 @@ namespace
 
     };
 
-    OSG::GLUTWindowUnrecPtr  window(0);
-    OSG::ManipulatorManager* manipulatorMgr(0);
-    OSG::SimpleSceneManager* sceneMgr(0);
+    OSG::GLUTWindowUnrecPtr        window(0);
+    OSG::ManipulatorManager*       manipulatorMgr(0);
+    OSG::SimpleSceneManagerRefPtr  sceneMgr(0);
 
-    OSG::NodeRefPtr          sceneRootN(0);
-    object_type*             object(0);
+    OSG::NodeRefPtr                sceneRootN(0);
+    object_type*                   object(0);
 
-    bool                     selected(false);
-    bool                     uniform_scale(true);
+    bool                           selected(false);
+    bool                           uniform_scale(true);
 
     OSG::Node*
     find_path(OSG::Node* const from, OSG::Node* const to)
@@ -575,7 +575,7 @@ namespace
         {
         case GLUT_DOWN:
         {
-            OSG::IntersectAction* ia(OSG::IntersectAction::create());
+            OSG::IntersectActionRefPtr ia(OSG::IntersectAction::create());
 
             {
                 ia->setLine(sceneMgr->calcViewRay(x, y));
@@ -631,7 +631,7 @@ namespace
                 action = "deselect";
             }
 
-            delete ia;
+            ia = NULL;
 
             {
                 std::cout << "mouse: btn:down, " << action << std::endl;
@@ -687,7 +687,7 @@ namespace
             window = 0;
 
             delete manipulatorMgr;
-            delete sceneMgr;
+            sceneMgr = NULL;
             delete object;
 
             sceneRootN = 0;
@@ -807,7 +807,7 @@ namespace
 
         object = new object_type(manipulatorMgr->createManipulator(OSG::ManipulatorManager::TRANSLATE));
 
-        sceneMgr = new OSG::SimpleSceneManager;
+        sceneMgr = OSG::SimpleSceneManager::create();
 
         { // sceneRootN -> object->rootN
             sceneRootN = OSG::Node::create();

@@ -44,6 +44,7 @@
 
 #include "OSGCSMDrawerBase.h"
 #include "OSGCSMWindow.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -139,7 +140,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
 
     // Variables should all be in CSMDrawerBase.
 
-    RenderAction        *_pAction;
+    RenderActionRefPtr   _pAction;
 
     CSMDrawThreadRefPtr  _pDrawThread;
 

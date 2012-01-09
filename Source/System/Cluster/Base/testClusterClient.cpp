@@ -51,7 +51,7 @@ OSG::NodeRecPtr                    root;
 OSG::TransformRecPtr               cam_trans;
 OSG::PerspectiveCameraRecPtr       cam;
 OSG::ClusterWindowRecPtr           clusterWindow;
-OSG::RenderAction   *ract;
+OSG::RenderActionRefPtr            ract;
 OSG::GLUTWindowRecPtr              clientWindow;
 OSG::SortFirstWindowRecPtr         sortfirst;
 OSG::SortLastWindowRecPtr          sortlast;

@@ -79,8 +79,8 @@
 #include <OpenSG/OSGRenderAction.h>
 #endif
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeRefPtr          scene;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRefPtr               scene;
 
 // Standard GLUT callback functions
 void display( void )
@@ -116,7 +116,7 @@ key(unsigned char key, int , int )
 {
     switch(key)
     {
-    case 27:    delete mgr;
+    case 27:    mgr   = NULL;
                 scene = NULL;
                 OSG::osgExit();
                 exit(1);
@@ -213,7 +213,7 @@ int main (int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         mgr->setWindow( gwin );
         mgr->setRoot( scene );

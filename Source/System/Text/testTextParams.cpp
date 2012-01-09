@@ -283,8 +283,8 @@ public:
    OSG::Vec2f                 mOffset;          /**< Offset of text when building. */
 };
 
-TextStuff               *gTextStuff = NULL;
-OSG::SimpleSceneManager *mgr        = NULL;
+TextStuff                     *gTextStuff = NULL;
+OSG::SimpleSceneManagerRefPtr  mgr        = NULL;
 
 void printFontFamilies()
 {
@@ -324,7 +324,7 @@ int main(int argc, char* argv[])
         gTextStuff->updateScene();
         scene->addChild(gTextStuff->mRootNode);
         
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         
         // Tell the manager about the window and scene
         mgr->setWindow(gwin );
@@ -382,7 +382,8 @@ void keyboard(unsigned char k, int , int )
     {
     case 27:
     {
-        delete mgr;
+        mgr = NULL;
+
         delete gTextStuff;
         
         OSG::commitChanges();

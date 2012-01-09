@@ -25,10 +25,10 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #endif
 
-OSG::SimpleSceneManager     *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
-OSG::GeometryRefPtr         _geo;
-OSG::GeoPnt3fPropertyRefPtr _pos;
+OSG::GeometryRefPtr           _geo;
+OSG::GeoPnt3fPropertyRefPtr   _pos;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -221,7 +221,7 @@ void keyboard(unsigned char k, int x, int y)
             // clean up global variables
             _geo = NULL;
             _pos = NULL;
-            delete mgr;
+            mgr  = NULL;
             
             OSG::osgExit();
             exit(0);

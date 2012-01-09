@@ -122,7 +122,7 @@ CSMDrawer::CSMDrawer(const CSMDrawer &source) :
 
 CSMDrawer::~CSMDrawer(void)
 {
-    delete _pAction;
+    _pAction = NULL;
 }
 
 void CSMDrawer::setSyncFromThread(Thread *pThread)

@@ -73,20 +73,13 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(SimpleSceneManager);
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SimpleSceneManager(void);
-
-    SimpleSceneManager *create(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~SimpleSceneManager(void);
+    static ObjTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -95,9 +88,6 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 
     virtual Node                  *getRoot            ( void );
     virtual Node                  *getHighlight       ( void );
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual DrawActionBase        *getAction          ( void );
-#endif
     virtual RenderAction          *getRenderAction    ( void );
     virtual bool                   getHeadlightState  ( void );
     virtual DirectionalLight      *getHeadlight       ( void );
@@ -108,10 +98,6 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
-
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void  setAction        (RenderAction *action    );
-#endif
 
     virtual void  setAction        (RenderAction *action    );
 
@@ -164,8 +150,25 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
+    typedef NavigationManager Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    SimpleSceneManager(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~SimpleSceneManager(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Updates                                  */
     /*! \{                                                                 */
@@ -192,13 +195,9 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 
     NodeRecPtr                 _internalRoot;
     DirectionalLightRecPtr     _headlight;
-#ifdef OSG_OLD_RENDER_ACTION
-    RenderAction *             _renderAction;   /**< The RenderAction to use if using RenderActions. */
-    RenderAction *             _ownAction;
-#endif
 
     /** The RenderAction to use if using render traversals. */
-    RenderAction *             _rtaction;
+    RenderActionRefPtr         _rtaction;
 
     TransformRecPtr            _cart;
     CameraRecPtr               _camera;
@@ -224,6 +223,8 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 // class pointer
 
 typedef SimpleSceneManager *SimpleSceneManagerP;
+
+OSG_GEN_MEMOBJPTR(SimpleSceneManager);
 
 OSG_END_NAMESPACE
 

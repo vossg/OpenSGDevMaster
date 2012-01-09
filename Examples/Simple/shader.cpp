@@ -50,9 +50,9 @@
 #endif
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *_mgr = NULL;
-NodeRefPtr          _scene;
-SHLChunkRefPtr      _shl;
+SimpleSceneManagerRefPtr _mgr = NULL;
+NodeRefPtr               _scene;
+SHLChunkRefPtr           _shl;
 
 // vertex shader program.
 static std::string _vp_program =
@@ -238,7 +238,7 @@ int main(int argc, char **argv)
         commitChanges();
     
         // create the SimpleSceneManager helper
-        _mgr = new SimpleSceneManager;
+        _mgr = SimpleSceneManager::create();
     
         // tell the manager what to manage
         _mgr->setWindow(gwin );
@@ -295,7 +295,7 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
             // clean up global variables
-            delete _mgr;
+            _mgr   = NULL;
             _scene = NULL;
             _shl   = NULL;
             

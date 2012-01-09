@@ -51,7 +51,7 @@ OSG::MultiDisplayWindowRecPtr multiWindow;
 
 OSG::NodeRecPtr camBeacon, lightBeacon, lightNode;
 
-OSG::RenderAction *renderAction;
+OSG::RenderActionRefPtr renderAction;
 
 int setupGLUT( int *argc, char *argv[] );
 
@@ -227,27 +227,27 @@ void motion(int x, int y)
     glutPostRedisplay();
 }
 
-void keyboard(unsigned char k, int x, int y){
+void keyboard(unsigned char k, int x, int y)
+{
     switch(k)
     {
-    case 27:
-    {
-        // clean up global variables
-        scene = NULL;
-        camera = NULL;
-        rightViewport = NULL;
-        leftViewport  = NULL;
-        multiWindow   = NULL;
-        camBeacon     = NULL;
-        lightBeacon   = NULL;
-        lightNode     = NULL;
-        
-        delete renderAction;
-        
-        OSG::osgExit();
-        exit(1);
-    }
-    break;
+        case 27:
+        {
+            // clean up global variables
+            scene = NULL;
+            camera = NULL;
+            rightViewport = NULL;
+            leftViewport  = NULL;
+            multiWindow   = NULL;
+            camBeacon     = NULL;
+            lightBeacon   = NULL;
+            lightNode     = NULL;
+            renderAction  = NULL;
+            
+            OSG::osgExit();
+            exit(1);
+        }
+        break;
     }
 }
 

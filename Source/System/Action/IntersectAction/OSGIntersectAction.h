@@ -79,6 +79,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 {
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(IntersectAction);
+
     static StatElemDesc<StatTimeElem>  statTravTime;
     static StatElemDesc<StatIntElem >  statNNodes;
     static StatElemDesc<StatIntElem >  statNTriangles;
@@ -88,9 +90,9 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     //-----------------------------------------------------------------------
 
     // create a new IntersectAction by cloning the prototype
-    static IntersectAction *create(      void                 );
-    static IntersectAction *create(const Line   &line, 
-                                   const Real32  maxdist = Inf);
+    static ObjTransitPtr create(      void                 );
+    static ObjTransitPtr create(const Line   &line, 
+                                const Real32  maxdist = Inf);
     
     // prototype access
     // after setting the prototype all new IntersectActions are clones of it
@@ -103,8 +105,6 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     //-----------------------------------------------------------------------
  
     IntersectAction& operator =(const IntersectAction &source);
-
-    virtual ~IntersectAction(void); 
 
     /*---------------------------------------------------------------------*/
     /*! \name Statistics                                                   */
@@ -218,6 +218,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     IntersectAction(void);
     IntersectAction(const IntersectAction &source);
 
+    virtual ~IntersectAction(void); 
+
     virtual Action::ResultE start(void               );
     virtual Action::ResultE stop (Action::ResultE res);
 
@@ -312,6 +314,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 // class pointer
 
 typedef IntersectAction *IntersectActionP;
+
+OSG_GEN_MEMOBJPTR(IntersectAction);
 
 OSG_END_NAMESPACE
 

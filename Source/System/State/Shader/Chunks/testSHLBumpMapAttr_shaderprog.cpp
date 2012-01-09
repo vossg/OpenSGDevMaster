@@ -112,7 +112,7 @@ static std::string _fp_program =
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static OSG::SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManagerRefPtr _mgr;
 // The scene
 static OSG::NodeRecPtr _scene;
 
@@ -219,7 +219,7 @@ int doMain(int argc, char **argv)
     _scene->addChild(torus);
 
     // create the SimpleSceneManager helper
-    _mgr = new OSG::SimpleSceneManager;
+    _mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -284,8 +284,7 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         case 'q':
-            delete _mgr;
-
+            _mgr   = NULL;
             _scene = NULL;
 
             OSG::osgExit();

@@ -16,8 +16,8 @@
 #include "OSGSimpleSHLChunk.h"
 
 
-OSG::SimpleSceneManager    *mgr  = NULL;
-OSG::RenderAction          *ract = NULL;
+OSG::SimpleSceneManagerRefPtr mgr  = NULL;
+OSG::RenderActionRefPtr       ract = NULL;
 
 OSG::PassiveWindowRecPtr              pwin;
 OSG::SimpleStatisticsForegroundRecPtr statfg;
@@ -119,8 +119,7 @@ void keyboard(unsigned char k, int, int)
     {
         case 27:
         {
-            delete mgr;
-
+            mgr    = NULL;
             pwin   = NULL;
             statfg = NULL;
 
@@ -264,7 +263,7 @@ int main(int argc, char **argv)
         }
 
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
 
         // create the window and initial camera/viewport
         mgr->setWindow(pwin );

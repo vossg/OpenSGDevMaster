@@ -239,7 +239,7 @@ void ManipulatorManager::mouseButtonPress(const UInt16 uiButton,
             scene = scene->getParent();
         }
 
-        OSG::IntersectAction *act = OSG::IntersectAction::create();
+        OSG::IntersectActionRefPtr act = OSG::IntersectAction::create();
         act->setLine( viewray );
         act->apply( scene );
 
@@ -269,6 +269,8 @@ void ManipulatorManager::mouseButtonPress(const UInt16 uiButton,
         }
         
         _pivotChangePending= false;
+
+        act = NULL;
     }
 }
 

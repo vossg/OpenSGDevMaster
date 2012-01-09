@@ -10,14 +10,14 @@
 
 #include <deque>
 
-OSG::SimpleSceneManager *mgr;
-OSG::NodeUnrecPtr        scene;
-std::string              fileName;
-OSG::Time                startT;
-OSG::Time                endT;
-std::deque<OSG::Time>    timeHistory;
-OSG::Time                avgT = 0.0;
-bool                     showFrameTime = false;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeUnrecPtr             scene;
+std::string                   fileName;
+OSG::Time                     startT;
+OSG::Time                     endT;
+std::deque<OSG::Time>         timeHistory;
+OSG::Time                     avgT = 0.0;
+bool                          showFrameTime = false;
 
 int setupGLUT(int *argc, char *argv[]);
 void doInit(int argc, char *argv[]);
@@ -103,7 +103,7 @@ void keyboard(unsigned char k, int , int )
     switch(k)
     {
     case 27:
-        delete mgr;
+        mgr   = NULL;
         scene = NULL;
 
         OSG::osgExit();
@@ -228,7 +228,7 @@ doInit(int argc, char *argv[])
 
     OSG::commitChanges();
 
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
     mgr->setWindow(gwin );
     mgr->setRoot  (scene);
 

@@ -95,9 +95,9 @@ static int  doMain(int argc, char *argv[]);
 //
 // global state of example
 //
-SimpleSceneManager* mgr;
-NodeRefPtr          scene;
-GLUTWindowRefPtr    win;
+SimpleSceneManagerRefPtr mgr;
+NodeRefPtr               scene;
+GLUTWindowRefPtr         win;
 const char* output_file     = "grabforeground_image.ppm";
 const char* output_file_fbo = "fbo_image.ppm";
 
@@ -110,7 +110,6 @@ float fh = 2.3f;   // multiplication factor for the window height
 
 static void cleanup(void)
 {
-    delete mgr;
     mgr   = NULL;
 
     scene = NULL;
@@ -247,7 +246,7 @@ static int doMain(int argc, char *argv[])
 
     commitChanges();
 
-    mgr = new SimpleSceneManager;
+    mgr = SimpleSceneManager::create();
 
     mgr->setWindow(win);
     mgr->setRoot  (scene);

@@ -14,11 +14,11 @@
 #include "OSGSurface.h"
 
 
-OSG::SimpleSceneManager   *mgr;
-OSG::SimpleMaterialRefPtr  gpcl_defaultmat;
-OSG::ImageRefPtr           gpcl_image;
-OSG::Real32                g_error;
-OSG::SurfaceRefPtr         gpcl_surface;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::SimpleMaterialRefPtr     gpcl_defaultmat;
+OSG::ImageRefPtr              gpcl_image;
+OSG::Real32                   g_error;
+OSG::SurfaceRefPtr            gpcl_surface;
 
 // redraw the window
 void display(void)
@@ -61,7 +61,7 @@ void keyboard(unsigned char k, int, int)
 {
     switch(k)
     {
-    case 27:    delete mgr;
+    case 27:    mgr             = NULL;
                 gpcl_defaultmat = NULL;
                 gpcl_image      = NULL;
                 gpcl_surface    = NULL;
@@ -257,7 +257,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // create the window and initial camera/viewport
         mgr->setWindow( gwin );

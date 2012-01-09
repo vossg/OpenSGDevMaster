@@ -30,7 +30,7 @@
 #endif
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager               *_mgr         = NULL;
+SimpleSceneManagerRefPtr          _mgr         = NULL;
 
 bool                              phong_active = false;
 std::vector<ChunkMaterialRefPtr>  materials;
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
         gwin->init     (     );
         
         // create the SimpleSceneManager helper
-        _mgr = new SimpleSceneManager;
+        _mgr = SimpleSceneManager::create();
         
         // tell the manager what to manage
         _mgr->setWindow      (gwin );
@@ -305,7 +305,8 @@ void keyboard(unsigned char k, int x, int y)
         }
         case 27:
                     // clean up global variables
-                    delete _mgr;
+                    _mgr = NULL;
+
                     materials.clear();
                     phong_chunk = NULL;
                     scene       = NULL;

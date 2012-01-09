@@ -66,7 +66,7 @@
 
 // Activate the OpenSG namespace
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::NodeRecPtr scene;
 OSG::TiledQuadTreeTerrainRecPtr terrain;
@@ -132,7 +132,6 @@ key(unsigned char key, int x, int y)
     switch(key)
     {
         case 27:    
-            delete mgr;
             mgr     = NULL;
             scene   = NULL;
             terrain = NULL;
@@ -290,7 +289,7 @@ void doMain(int argc, char *argv[])
 
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     mgr->setWindow( gwin );
     mgr->setRoot( scene );

@@ -89,6 +89,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 {
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Action);
+
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
@@ -114,7 +116,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
 
     // create a new action by cloning the prototype
-    static Action *create(void);
+    static ObjTransitPtr create(void);
     
     // prototype access
     // after setting the prototype all new actions are clones of it
@@ -125,8 +127,6 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
-
-    virtual ~Action(void);
 
     /*------------------------- your_category -------------------------------*/
     
@@ -220,6 +220,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //   types                                                               
     //-----------------------------------------------------------------------
 
+    typedef ActionBase Inherited;
+
     //-----------------------------------------------------------------------
     //   class variables                                                     
     //-----------------------------------------------------------------------
@@ -239,6 +241,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     // protected to allow derived access
     Action(void);
     Action(const Action &source);
+
+    virtual ~Action(void);
 
     // call the single node. used for cascading actions
     
@@ -362,6 +366,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 // class pointer
 
 typedef Action *ActionP;
+
+OSG_GEN_MEMOBJPTR(Action);
 
 /*---------------------------------------------------------------------*/
 /*! \name                    Traversal Functions                       */

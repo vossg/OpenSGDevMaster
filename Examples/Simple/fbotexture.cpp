@@ -86,12 +86,12 @@ const OSG::UInt32 fboWidth     = static_cast<OSG::UInt32>(flagWidth  * 32);
 const OSG::UInt32 fboHeight    = static_cast<OSG::UInt32>(flagHeight * 32);
 
 // global variables
-OSG::SimpleSceneManager   *mgr;
-OSG::NodeRefPtr            stageCamBeaconN;
-OSG::TransformRefPtr       stageCamBeacon;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::NodeRefPtr               stageCamBeaconN;
+OSG::TransformRefPtr          stageCamBeacon;
 
-OSG::NodeRefPtr            modelTransN;
-OSG::TransformRefPtr       modelTrans;
+OSG::NodeRefPtr               modelTransN;
+OSG::TransformRefPtr          modelTrans;
 
 // forward declaration so we can have the interesting stuff upfront
 int                 setupGLUT    (int *argc, char *argv[]);
@@ -213,7 +213,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -291,7 +291,7 @@ void keyboard(unsigned char k, int , int )
         case 27:
         {
             // clean up global variables
-            delete mgr;
+            mgr             = NULL;
             stageCamBeaconN = NULL;
             stageCamBeacon  = NULL;
             

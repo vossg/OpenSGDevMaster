@@ -46,10 +46,9 @@
 #include "OSGQuaternion.h"
 #include "OSGViewport.h"
 #include "OSGFlyEngine.h"
+#include "OSGIntersectAction.h"
 
 OSG_BEGIN_NAMESPACE
-
-class IntersectAction;
 
 /*! \brief Base class for all navigator engines.
     \ingroup GrpUtilNavigation
@@ -146,7 +145,7 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
     Real32  _width;
     Real32  _fatness;
     
-    IntersectAction *_act;
+    IntersectActionRefPtr _act;
 
     /*! \}                                                                 */
 

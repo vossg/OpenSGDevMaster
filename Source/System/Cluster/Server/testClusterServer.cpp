@@ -11,7 +11,7 @@
 int                 winid;
 OSG::ClusterServer      *server;
 OSG::GLUTWindowRecPtr    window;
-OSG::RenderAction       *ract;
+OSG::RenderActionRefPtr  ract;
 bool                running=false;
 bool                exitOnError=false;
 OSG::UInt32         servicePort=8437;
@@ -22,8 +22,6 @@ void cleanup(void)
 {
     window = NULL;
 
-    delete ract;
-    
     server->stop();
     delete server;
 

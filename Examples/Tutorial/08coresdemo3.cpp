@@ -27,7 +27,7 @@
 #include <OpenSG/OSGComponentTransform.h>
 #endif
 
-OSG::SimpleSceneManager      *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 OSG::NodeRecPtr               scene;
 OSG::ComponentTransformRecPtr ct;
 OSG::UInt32 frame = 0;
@@ -231,7 +231,7 @@ int main(int argc, char **argv)
         if(scene == NULL)
             return 1;
     
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

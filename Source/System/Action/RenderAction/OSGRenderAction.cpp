@@ -356,9 +356,9 @@ RenderAction::RenderAction(const RenderAction &source) :
     setNumBuffers(source._numBuffers);
 }
 
-RenderAction *RenderAction::create(void)
+RenderAction::ObjTransitPtr RenderAction::create(void)
 {
-    RenderAction *returnValue;
+    ObjTransitPtr returnValue(NULL);
 
     if(_pPrototype)
     {

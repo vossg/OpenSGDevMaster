@@ -23,7 +23,7 @@
 using namespace std;
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::ImageRecPtr imPtr;
 OSG::SimpleTexturedMaterialRecPtr matPtr;
@@ -633,7 +633,7 @@ int main(int argc, char **argv)
         updateScene();
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -721,8 +721,8 @@ void keyboard(unsigned char k, int x, int y)
     switch(k)
     {
         case 27:
-            delete mgr;
 
+            mgr    = NULL;
             face   = NULL;
             imPtr  = NULL;
             matPtr = NULL;

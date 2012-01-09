@@ -13,15 +13,15 @@
 #include "OSGFatBorderChunk.h"
 
 
-OSG::SimpleSceneManager   *mgr;
-OSG::SimpleMaterialRefPtr  gpcl_defaultmat;
-OSG::Real32                g_error1;
-OSG::Real32                g_error2;
-bool                       gb_nofatborders = false;
-bool                       gb_differenterrors = false;
-OSG::SurfaceRefPtr         gpcl_surface1;
-OSG::SurfaceRefPtr         gpcl_surface2;
-OSG::FatBorderChunkRefPtr  gpcl_fb_chunk;
+OSG::SimpleSceneManagerRefPtr mgr;
+OSG::SimpleMaterialRefPtr     gpcl_defaultmat;
+OSG::Real32                   g_error1;
+OSG::Real32                   g_error2;
+bool                          gb_nofatborders = false;
+bool                          gb_differenterrors = false;
+OSG::SurfaceRefPtr            gpcl_surface1;
+OSG::SurfaceRefPtr            gpcl_surface2;
+OSG::FatBorderChunkRefPtr     gpcl_fb_chunk;
 
 // redraw the window
 void display(void)
@@ -62,7 +62,7 @@ void keyboard(unsigned char k, int, int)
 {
     switch(k)
     {
-    case 27:    delete mgr;
+    case 27:    mgr             = NULL;
                 gpcl_defaultmat = NULL;
                 gpcl_surface1   = NULL;
                 gpcl_surface2   = NULL;
@@ -449,7 +449,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // create the window and initial camera/viewport
         mgr->setWindow( gwin );

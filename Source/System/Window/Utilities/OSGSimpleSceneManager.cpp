@@ -146,36 +146,33 @@ OSG_USING_NAMESPACE
  */
 
 SimpleSceneManager::SimpleSceneManager(void) :
-    NavigationManager(),
-    _root           (NULL  ),
-    _foreground     (NULL  ),
-    _statforeground (NULL  ),
-    _statstate      (false),
+     Inherited        (     ),
+    _root             (NULL ),
+    _foreground       (NULL ),
+    _statforeground   (NULL ),
+    _statstate        (false),
 
-    _highlight      (NULL  ),
-    _highlightNode  (NULL  ),
-    _highlightPoints(NULL  ),
+    _highlight        (NULL ),
+    _highlightNode    (NULL ),
+    _highlightPoints  (NULL ),
 
-    _internalRoot   (NULL  ),
-    _headlight      (NULL  ),
-#ifdef OSG_OLD_RENDER_ACTION
-    _renderAction   (NULL  ),
-    _ownAction      (NULL  ),
-#endif
-    _rtaction       (NULL  ),
-    _cart           (NULL  ),
-    _camera         (NULL  ),
-    _traversalAction(true  ),
-    _highlightMaterial(NULL)
+    _internalRoot     (NULL ),
+    _headlight        (NULL ),
+    _rtaction         (NULL ),
+    _cart             (NULL ),
+    _camera           (NULL ),
+    _traversalAction  (true ),
+    _highlightMaterial(NULL )
 {
 }
 
 
 /*! pseudo constructor. Standard interface for OpenSG object creation.
  */
-SimpleSceneManager* SimpleSceneManager::create(void)
+
+SimpleSceneManager::ObjTransitPtr SimpleSceneManager::create(void)
 {
-    return new SimpleSceneManager;
+    return ObjTransitPtr(new SimpleSceneManager);
 }
 
 /*! Destructor
@@ -183,18 +180,9 @@ SimpleSceneManager* SimpleSceneManager::create(void)
 
 SimpleSceneManager::~SimpleSceneManager(void)
 {
-#ifdef OSG_OLD_RENDER_ACTION
-    delete _ownAction;
-
-    if(_renderAction && _renderAction != _ownAction)
-        delete _renderAction;
-#endif
-
-    if(_rtaction)
-        delete _rtaction;
-
     setRoot(NULL); // sub root
 
+    _rtaction          = NULL;
     _internalRoot      = NULL;
 
     _camera            = NULL;
@@ -276,7 +264,7 @@ void SimpleSceneManager::setAction(RenderAction *action)
         if(statstate)
             setStatistics(false);
 
-        delete _rtaction;
+        _rtaction = NULL;
     }
 
     _rtaction = action;
@@ -514,12 +502,6 @@ void SimpleSceneManager::initialize(void)
                   "ignoring!\n"));
         return;
     }
-
-    // the rendering action
-#ifdef OSG_OLD_RENDER_ACTION
-    _ownAction    = RenderAction::create();
-    _renderAction = _ownAction;
-#endif
 
     _rtaction = RenderAction::create();
 
@@ -832,12 +814,7 @@ void SimpleSceneManager::redraw(void)
 {
     update();
 
-#ifdef OSG_OLD_RENDER_ACTION
-    if(!_traversalAction)
-    {  _win->render(_renderAction); }
-    else
-#endif
-    {  _win->render(_rtaction); }
+    _win->render(_rtaction); 
 }
 
 /*! Adjust the highlight to a changed object. Also initializes the highlight

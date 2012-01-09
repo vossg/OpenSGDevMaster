@@ -12,9 +12,9 @@
 #include <OpenSG/OSGRenderAction.h>
 #endif
 
-OSG::GLUTWindowRecPtr   window;
-OSG::RenderAction      *ract;
-OSG::ClusterServer     *server;
+OSG::GLUTWindowRecPtr    window;
+OSG::RenderActionRefPtr  ract;
+OSG::ClusterServer      *server;
 
 void display(void);
 void reshape(int width, int height);

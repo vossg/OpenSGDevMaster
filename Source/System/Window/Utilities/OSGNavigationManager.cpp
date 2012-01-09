@@ -121,11 +121,12 @@ OSG_USING_NAMESPACE
  */
 
 NavigationManager::NavigationManager(void) :
-    _win            (NULL),
-    _navigator      (      ),
-    _lastx          (TypeTraits<Int16>::getMax()),
-    _lasty          (TypeTraits<Int16>::getMax()),
-    _mousebuttons   (0                          )
+     Inherited   (                           ),
+    _win         (NULL                       ),
+    _navigator   (                           ),
+    _lastx       (TypeTraits<Int16>::getMax()),
+    _lasty       (TypeTraits<Int16>::getMax()),
+    _mousebuttons(0                          )
 {
     _navigator.setMode(Navigator::TRACKBALL);
 }
@@ -133,9 +134,10 @@ NavigationManager::NavigationManager(void) :
 
 /*! pseudo constructor. Standard interface for OpenSG object creation.
  */
-NavigationManager* NavigationManager::create(void)
+
+NavigationManager::ObjTransitPtr NavigationManager::create(void)
 {
-    return new NavigationManager;
+    return ObjTransitPtr(new NavigationManager);
 }
 
 /*! Destructor

@@ -267,15 +267,19 @@ IntersectAction::IntersectAction(const IntersectAction& source) :
 /** \brief create a new action
  */
 
-IntersectAction *IntersectAction::create(void)
+IntersectAction::ObjTransitPtr IntersectAction::create(void)
 {
-    IntersectAction * act;
+    ObjTransitPtr act(NULL);
     
     if(_prototype)
+    {
         act = new IntersectAction(*_prototype);
+    }
     else
+    {
         act = new IntersectAction();
-    
+    }
+
     return act;
 }
 
@@ -283,15 +287,19 @@ IntersectAction *IntersectAction::create(void)
 /** \brief create a new action
  */
 
-IntersectAction *IntersectAction::create(const Line   &line, 
-                                         const Real32  maxdist)
+IntersectAction::ObjTransitPtr IntersectAction::create(const Line   &line, 
+                                                       const Real32  maxdist)
 {
-    IntersectAction *act;
+    ObjTransitPtr act(NULL);
     
     if(_prototype)
+    {
         act = new IntersectAction(*_prototype);
+    }
     else
+    {
         act = new IntersectAction();
+    }
     
     act->setLine(line, maxdist);
 

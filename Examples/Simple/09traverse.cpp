@@ -51,7 +51,7 @@ OSG::TransformRefPtr cyltrans, tortrans;
 
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -339,7 +339,7 @@ int main(int argc, char **argv)
         traverse(scene, quitGeo, leave);
     
         // create the SimpleSceneManager helper
-        mgr = new OSG::SimpleSceneManager;
+        mgr = OSG::SimpleSceneManager::create();
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -394,7 +394,7 @@ void keyboard(unsigned char k, int x, int y)
             // clean up global variables
             cyltrans = NULL;
             tortrans = NULL;
-            delete mgr;
+            mgr      = NULL;
             
             OSG::osgExit();
             exit(0);

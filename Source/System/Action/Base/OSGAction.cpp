@@ -145,6 +145,7 @@ Action *Action::getPrototype(void)
  */
 
 Action::Action(void) :
+     Inherited    (                            ),
     _enterFunctors(                            ),
     _leaveFunctors(                            ),
     _actNode      (NULL                        ),
@@ -166,7 +167,8 @@ Action::Action(void) :
 /** \brief Copy-Constructor
  */
 
-Action::Action(const Action & source) :
+Action::Action(const Action &source) :
+     Inherited    (source                      ),
     _enterFunctors(source._enterFunctors       ),
     _leaveFunctors(source._leaveFunctors       ),
     _actNode      (NULL                        ),
@@ -184,9 +186,9 @@ Action::Action(const Action & source) :
 /** \brief create a new action
  */
 
-Action *Action::create(void)
+Action::ObjTransitPtr Action::create(void)
 {
-    Action *act;
+    ObjTransitPtr act(NULL);
 
     if(_prototype)
     {

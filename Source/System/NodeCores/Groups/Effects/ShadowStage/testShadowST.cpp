@@ -28,7 +28,7 @@
 #include "OSGShadowStage.h"
 #include "OSGMatrixCamera.h"
 
-OSG::SimpleSceneManager *mgr;
+OSG::SimpleSceneManagerRefPtr mgr;
 
 OSG::GLUTWindowUnrecPtr gwin;
 OSG::ShadowStageUnrecPtr svp;
@@ -546,7 +546,7 @@ int doMain(int argc, char **argv)
     rootNode->getVolume().getBounds(min, max);
 
     // create the SimpleSceneManager helper
-    mgr = new OSG::SimpleSceneManager;
+    mgr = OSG::SimpleSceneManager::create();
 
     mgr->setWindow(gwin);
     mgr->setCamera(Pcamera);
@@ -899,7 +899,7 @@ void keyboard(unsigned char k, int x, int y)
                 cam_beacon   = NULL;
                 cam_trans    = NULL;
 
-                delete mgr;
+                mgr          = NULL;
 
                 OSG::osgExit();
                 exit(0);

@@ -36,11 +36,11 @@
 #endif
 
 // local glut window
-OSG::GLUTWindowRefPtr  window;
+OSG::GLUTWindowRefPtr    window;
 // render action
-OSG::RenderAction     *ract;
+OSG::RenderActionRefPtr  ract;
 // pointer the the cluster server instance
-OSG::ClusterServer    *server;
+OSG::ClusterServer      *server;
 
 // forward declaration so we can have the interesting stuff upfront
 void display(void);
@@ -136,7 +136,8 @@ int main(int argc, char **argv)
         
         // clean up global variables
         delete server;
-        delete ract;
+
+        ract   = NULL;
         window = NULL;
         
         OSG::osgExit(); 

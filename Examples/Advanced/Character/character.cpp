@@ -84,22 +84,22 @@ enum CharacterStateE
 
 struct GlobalVars
 {
-    OSG::SimpleSceneManager *mgr;
-    OSG::GLUTWindowRefPtr    win;
+    OSG::SimpleSceneManagerRefPtr mgr;
+    OSG::GLUTWindowRefPtr         win;
 
-    OSG::NodeRefPtr          rootN;
-    OSG::TransformRefPtr     xform;
-    OSG::Real32              angle;
-    OSG::Real32              angleVel;
+    OSG::NodeRefPtr               rootN;
+    OSG::TransformRefPtr          xform;
+    OSG::Real32                   angle;
+    OSG::Real32                   angleVel;
 
-    CharacterStateE          charState;
-    CharacterStateE          prevCharState;
-    AnimStateE               animState[AnimIdMAX];
-    OSG::AnimationRefPtr     anims    [AnimIdMAX];
+    CharacterStateE               charState;
+    CharacterStateE               prevCharState;
+    AnimStateE                    animState[AnimIdMAX];
+    OSG::AnimationRefPtr          anims    [AnimIdMAX];
 
-    SkinnedGeoStore          skinGeos;
-    MaterialStore            materials;
-    TextureMap               texMap;
+    SkinnedGeoStore               skinGeos;
+    MaterialStore                 materials;
+    TextureMap                    texMap;
 
     OSG::SkinnedGeometry::RenderModeE renderMode;
     OSG::ShaderProgramChunkRefPtr     skinShader;
@@ -167,7 +167,7 @@ void init(int argc, char *argv[])
     g->win->setGlutId(glutWinId);
     g->win->init();
 
-    g->mgr = new OSG::SimpleSceneManager;
+    g->mgr = OSG::SimpleSceneManager::create();
     g->mgr->setWindow(g->win);
 
     g->rootN = OSG::makeCoredNode<OSG::Group>();
@@ -201,7 +201,6 @@ void cleanup(void)
     if(g == NULL)
         return;
 
-    delete g->mgr;
     g->mgr = NULL;
 
     delete g;

@@ -22,7 +22,7 @@
 
 OSG_USING_NAMESPACE
 
-SimpleSceneManager *mgr;
+SimpleSceneManagerRefPtr mgr;
 
 // redraw the window
 void display(void)
@@ -65,7 +65,7 @@ void keyboard(unsigned char k, int, int)
     {
         case 27:    
         {
-            delete mgr;
+            mgr = NULL;
 
             osgExit();
             exit(0);
@@ -165,7 +165,7 @@ int doMain(int argc, char **argv)
     }
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = SimpleSceneManager::create();
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );
