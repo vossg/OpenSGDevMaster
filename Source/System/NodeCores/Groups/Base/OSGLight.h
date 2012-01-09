@@ -153,8 +153,9 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
     /*! \name                     Actions                                  */
     /*! \{                                                                 */
    
-    Action::ResultE renderEnter(LightEngine::LightTypeE  eType,
-                                RenderAction            *action);
+    Action::ResultE renderEnter(LightEngine::LightTypeE    eType,
+                                StatElemDesc<StatIntElem> &oStatElem,
+                                RenderAction              *action);
                                 
     Action::ResultE renderLeave(LightEngine::LightTypeE  eType,
                                 Action                  *action);

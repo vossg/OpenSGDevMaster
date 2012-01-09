@@ -173,15 +173,20 @@ std::string getLibraryRevision (const std::string &szName    );
 #else
 # define OSG_INIT_DEBUG false
 #endif
-#ifdef _DLL  
-# define OSG_INIT_DLL   true
+# ifdef WIN32
+# ifdef _DLL  
+#  define OSG_INIT_DLL   true
+# else
+#  define OSG_INIT_DLL   false
+# endif
+# ifdef _MT  
+#  define OSG_INIT_MT     true
+# else
+#  define OSG_INIT_MT     false
+# endif
 #else
-# define OSG_INIT_DLL   false
-#endif
-#ifdef _MT  
-#define OSG_INIT_MT     true
-#else
-#define OSG_INIT_MT     false
+#  define OSG_INIT_DLL   true
+#  define OSG_INIT_MT     true
 #endif
 
 // osgInit needs to be inline (at least on windows),

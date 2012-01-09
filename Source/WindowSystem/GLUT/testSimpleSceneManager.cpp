@@ -70,13 +70,14 @@ int main(int argc, char **argv)
         // create the SimpleSceneManager helper
         mgr = new OSG::SimpleSceneManager;
         mgr->setUseTraversalAction(true);
-    
+
         // tell the manager what to manage
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
     
         // show the whole scene
         mgr->showAll();  
+        mgr->useOpenSGLogo();
     }
 
     // GLUT main loop
@@ -146,6 +147,9 @@ void keyboard(unsigned char k, int , int )
         break;
         case 'w':
             mgr->setStatistics(false);
+        break;
+        case 'h':
+            mgr->setHeadlight(!mgr->getHeadlightState());
         break;
         case 'r':
         {

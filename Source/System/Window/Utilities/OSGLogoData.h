@@ -52,6 +52,7 @@
 OSG_BEGIN_NAMESPACE
 
 extern OSG_UTIL_DLLMAPPING UChar8 LogoData[];
+extern OSG_UTIL_DLLMAPPING SizeT  getLogoDataSize(void);
 
 OSG_END_NAMESPACE
 

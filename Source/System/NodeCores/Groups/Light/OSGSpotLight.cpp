@@ -140,43 +140,13 @@ SpotLight::~SpotLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-Action::ResultE SpotLight::renderEnter(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    DrawActionBase *da    = dynamic_cast<DrawActionBase *>(action);
-
-    if(da->getStatCollector() != NULL)
-    {
-        da->getStatCollector()->getElem(SpotLight::statNSpotLights)->inc();
-    }
-
-    return PointLight::renderEnter(action);
-}
-
-Action::ResultE SpotLight::renderLeave(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    return PointLightBase::renderLeave(action);
-}
-#endif
-
 Action::ResultE SpotLight::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    if(a->getActivePartition()->getStatCollector() != NULL)
-    {
-        a->getActivePartition()->getStatCollector()->getElem(
-            SpotLight::statNSpotLights)->inc();
-    }
-
     return Light::renderEnter(LightEngine::Spot,
-                                  a);
+                              SpotLight::statNSpotLights,
+                              a);
 }
 
 Action::ResultE SpotLight::renderLeave(Action *action)

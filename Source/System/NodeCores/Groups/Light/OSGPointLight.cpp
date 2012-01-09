@@ -162,41 +162,12 @@ PointLight::~PointLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-Action::ResultE PointLight::renderEnter(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
-
-    if(da->getStatCollector() != NULL)
-    {
-        da->getStatCollector()->getElem(PointLight::statNPointLights)->inc();
-    }
-
-    return Light::renderEnter(action);
-}
-
-Action::ResultE PointLight::renderLeave(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    return Light::renderLeave(action);
-}
-#endif
 Action::ResultE PointLight::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    if(a->getActivePartition()->getStatCollector() != NULL)
-    {
-        a->getActivePartition()->getStatCollector()->getElem(
-            PointLight::statNPointLights)->inc();
-    }
-
     return Inherited::renderEnter(LightEngine::Point,
+                                  PointLight::statNPointLights,
                                   a);
 }
 

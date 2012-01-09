@@ -155,13 +155,20 @@ Light::~Light(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
-                                   RenderAction   *action)
+Action::ResultE Light::renderEnter(LightEngine::LightTypeE    eType,
+                                   StatElemDesc<StatIntElem> &oStatElem,
+                                   RenderAction              *action   )
 {
-    Action::ResultE        r = Action::Continue;
+    Action::ResultE r = Action::Continue;
 
     if(this->getOn() == false)
         return Action::Continue;
+
+    if(action->getActivePartition()->getStatCollector() != NULL)
+    {
+        action->getActivePartition()->getStatCollector()->getElem(
+            oStatElem)->inc();
+    }
 
     LightEngine *pLightEngine = this->getLightEngine();
 

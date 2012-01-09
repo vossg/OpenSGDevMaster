@@ -267,32 +267,6 @@ RenderAction *SimpleSceneManager::getRenderAction(void)
     return _rtaction;
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-/*! set the action used to render the scene. Use NULL to set to
-    internally created action.
- */
-
-void SimpleSceneManager::setAction(RenderAction *action)
-{
-    bool statstate = _statstate;
-
-    if(_renderAction != NULL && statstate)
-        setStatistics(false);
-
-    if(action == NULL)
-    {
-        _renderAction = _ownAction;
-    }
-    else
-    {
-        _renderAction = action;
-    }
-
-    if(statstate)
-        setStatistics(true);
-}
-#endif
-
 void SimpleSceneManager::setAction(RenderAction *action)
 {
     bool statstate = _statstate;
@@ -301,6 +275,7 @@ void SimpleSceneManager::setAction(RenderAction *action)
     {
         if(statstate)
             setStatistics(false);
+
         delete _rtaction;
     }
 
@@ -449,19 +424,13 @@ void SimpleSceneManager::setStatistics(bool on)
         {
             vp->addForeground(_statforeground);
 
-#ifdef OSG_OLD_RENDER_ACTION
-            _renderAction->setStatCollector(_statforeground->getCollector());
-#endif
-            _rtaction    ->setStatCollector(_statforeground->getCollector());
+            _rtaction->setStatCollector(_statforeground->getCollector());
         }
         else
         {
             vp->removeObjFromForegrounds(_statforeground);
 
-#ifdef OSG_OLD_RENDER_ACTION
-            _renderAction->setStatCollector(NULL);
-#endif
-            _rtaction    ->setStatCollector(NULL);
+            _rtaction->setStatCollector(NULL);
         }
 
         _statstate = on;
@@ -477,7 +446,8 @@ bool SimpleSceneManager::getStatistics(void)
 /*! add a user defined foreground to the viewport */
 void  SimpleSceneManager::addForeground(Foreground * const fg)
 {
-    if (fg == NULL) {
+    if (fg == NULL) 
+    {
         FWARNING(("SimpleSceneManager::addForeground: "
                   "foreground not specified, ignoring!\n"));
         return;
@@ -490,18 +460,22 @@ void  SimpleSceneManager::addForeground(Foreground * const fg)
 
     Viewport *vp = _win->getPort(0);
 
-    if (vp == NULL) {
+    if (vp == NULL) 
+    {
         FWARNING(("SimpleSceneManager::addForeground: viewport not set, "
                   "ignoring!\n"));
     }
     else
+    {
         vp->addForeground(fg);
+    }
 }
 
 /*! remove a user defined foreground from the viewport */
 void  SimpleSceneManager::removeForeground(Foreground * const fg)
 {
-    if (fg == NULL) {
+    if (fg == NULL) 
+    {
         FWARNING(("SimpleSceneManager::removeForeground: "
                   "foreground not specified, ignoring!\n"));
         return;
@@ -514,12 +488,15 @@ void  SimpleSceneManager::removeForeground(Foreground * const fg)
 
     Viewport *vp = _win->getPort(0);
 
-    if (vp == NULL) {
+    if (vp == NULL) 
+    {
         FWARNING(("SimpleSceneManager::removeForeground: viewport not set, "
                   "ignoring!\n"));
     }
     else
+    {
         vp->removeObjFromForegrounds(fg);
+    }
 }
 
 
@@ -587,7 +564,8 @@ void SimpleSceneManager::initialize(void)
 
         bg->setColor(Color3f(0.2f, 0.2f, 0.2f));
 
-        _foreground = ImageForeground::create();
+        if(_foreground == NULL)
+            _foreground = ImageForeground::create();
 
         SimpleStatisticsForegroundUnrecPtr sf = 
             SimpleStatisticsForeground::create();
@@ -809,13 +787,20 @@ void SimpleSceneManager::showAll(void)
 
 /*! add the "Powered by OpenSG" logo to the lower left corner
  */
+
+
 void SimpleSceneManager::useOpenSGLogo(void)
 {
     ImageUnrecPtr lo = Image::create();
 
-    ImageFileType::restore( lo, static_cast<UChar8 *>(LogoData), -1 );
+    ImageFileType::restore(lo, 
+                           static_cast<UChar8 *>(LogoData), 
+                           getLogoDataSize()              );
 
-    _foreground->addImage( lo, Pnt2f( 0,0 ) );
+    if(_foreground == NULL)
+        _foreground = ImageForeground::create();
+
+    _foreground->addImage(lo, Pnt2f(0, 0));
 }
 
 

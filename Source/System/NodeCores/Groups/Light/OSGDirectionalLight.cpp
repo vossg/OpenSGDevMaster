@@ -147,43 +147,13 @@ DirectionalLight::~DirectionalLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-Action::ResultE DirectionalLight::renderEnter(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
-
-    if(da->getStatCollector() != NULL)
-    {
-        da->getStatCollector()->getElem(
-            DirectionalLight::statNDirectionalLights)->inc();
-    }
-
-    return Light::renderEnter(action);
-}
-
-Action::ResultE DirectionalLight::renderLeave(Action *action)
-{
-    if(getOn() == false)
-        return Action::Continue;
-
-    return Light::renderLeave(action);
-}
-#endif
-
 Action::ResultE DirectionalLight::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    if(a->getActivePartition()->getStatCollector() != NULL)
-    {
-        a->getActivePartition()->getStatCollector()->getElem(
-            DirectionalLight::statNDirectionalLights)->inc();
-    }
-
-    return Inherited::renderEnter(LightEngine::Directional, a);
+    return Inherited::renderEnter(LightEngine::Directional, 
+                                  DirectionalLight::statNDirectionalLights,
+                                  a);
 }
 
 Action::ResultE DirectionalLight::renderLeave(Action *action)

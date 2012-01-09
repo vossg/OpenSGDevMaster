@@ -4307,4 +4307,10 @@ UChar8 LogoData[] = {
 #endif
 
 };
+
+SizeT getLogoDataSize(void)
+{
+    return sizeof(LogoData);
+}
+
 OSG_END_NAMESPACE
