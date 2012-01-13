@@ -47,8 +47,10 @@ them both to 0; an emulation function will be used. */
 /* Define to 1 if you have the <dlfcn.h> header file. */
 /* #undef HAVE_DLFCN_H */
 
+#if _MSC_VER > 1500
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
+# define HAVE_INTTYPES_H 1
+#endif
 
 /* Define to 1 if you have the <limits.h> header file. */
 #define HAVE_LIMITS_H 1
@@ -68,8 +70,10 @@ them both to 0; an emulation function will be used. */
 /* Define to 1 if you have the <readline/readline.h> header file. */
 /* #undef HAVE_READLINE_READLINE_H */
 
+#if _MSC_VER > 1500
 /* Define to 1 if you have the <stdint.h> header file. */
-#define HAVE_STDINT_H 1
+# define HAVE_STDINT_H 1
+#endif
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -180,13 +184,13 @@ them both to 0; an emulation function will be used. */
 #define PACKAGE_NAME "PCRE"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "PCRE 7.6"
+#define PACKAGE_STRING "PCRE 8.12"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "pcre"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "7.6"
+#define PACKAGE_VERSION "8.12"
 
 
 /* If you are compiling for a system other than a Unix-like system or
@@ -234,7 +238,7 @@ them both to 0; an emulation function will be used. */
 /* #undef SUPPORT_UTF8 */
 
 /* Version number of package */
-#define VERSION "7.6"
+#define VERSION "8.12"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */
