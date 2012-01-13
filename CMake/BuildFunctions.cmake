@@ -1918,46 +1918,54 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Release
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_REL}
-              COMPONENT release_runtimes)
+              COMPONENT release_runtimes
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Release
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-              COMPONENT release_libraries)
+              COMPONENT release_libraries
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Debug
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
-              COMPONENT debug_runtimes)
+              COMPONENT debug_runtimes
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Debug
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-              COMPONENT debug_libraries)
+              COMPONENT debug_libraries
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS ReleaseNoOpt
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
-              COMPONENT release_no_opt_runtimes)
+              COMPONENT release_no_opt_runtimes
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS ReleaseNoOpt
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-              COMPONENT release_no_opt_libraries)
+              COMPONENT release_no_opt_libraries
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS DebugOpt
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
-              COMPONENT debug_opt_runtimes)
+              COMPONENT debug_opt_runtimes
+              OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS DebugOpt
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-              COMPONENT debug_opt_libraries)
+              COMPONENT debug_opt_libraries
+              OPTIONAL)
 
 
       IF(OSG_INSTALL_PDB_FILES)
@@ -1969,7 +1977,8 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS Release
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_REL}
-                COMPONENT release_program_db)
+                COMPONENT release_program_db
+                OPTIONAL)
 
 
         GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py Debug_LOCATION)
@@ -1979,7 +1988,8 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS Debug
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
-                COMPONENT debug_program_db)
+                COMPONENT debug_program_db
+                OPTIONAL)
 
 
         GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py ReleaseNoOpt_LOCATION)
@@ -1989,7 +1999,8 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS ReleaseNoOpt
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
-                COMPONENT release_no_opt_program_db)
+                COMPONENT release_no_opt_program_db
+                OPTIONAL)
 
 
         GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME}Py DebugOpt_LOCATION)
@@ -1999,7 +2010,8 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS DebugOpt
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
-                COMPONENT debug_opt_program_db)
+                COMPONENT debug_opt_program_db
+                OPTIONAL)
 
       ENDIF(OSG_INSTALL_PDB_FILES)
 
@@ -2007,25 +2019,29 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
       INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION    ${_OSG_TARGET_PYLIBDIR_REL}
-              CONFIGURATIONS Release)
+              CONFIGURATIONS Release
+              OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
   
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
-              CONFIGURATIONS Debug)
+              CONFIGURATIONS Debug
+              OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
   
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
-              CONFIGURATIONS DebugOpt)
+              CONFIGURATIONS DebugOpt
+              OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
   
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
-              CONFIGURATIONS ReleaseNoOpt)
+              CONFIGURATIONS ReleaseNoOpt
+              OPTIONAL)
 
 
     ELSE(WIN32)   
@@ -2042,7 +2058,8 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
               OPTIONAL)
 
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-              DESTINATION ${_OSG_PY_INST_BASE})
+              DESTINATION ${_OSG_PY_INST_BASE}
+              OPTIONAL)
 
 
       GET_PROPERTY(_OSG_CURR_SO_PATH TARGET ${PROJECT_NAME}Py PROPERTY LOCATION)
