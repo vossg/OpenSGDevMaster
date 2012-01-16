@@ -214,6 +214,7 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_NO_DOC)
 
     SET(${PROJECT_NAME}_NO_PYTHON)
+    SET(${PROJECT_NAME}_NO_DBG_INSTALL FALSE)
     SET(${PROJECT_NAME}_ENABLE_WRITE_PYTHON_TO_SOURCE)
 
 ENDMACRO(OSG_SELECT_PROJECT)
@@ -1133,16 +1134,18 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
                 COMPONENT release_libraries)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS Debug
-                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
-                COMPONENT debug_runtimes)
+        IF(NOT ${PROJECT_NAME}_NO_DBG_INSTALL)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
+                  COMPONENT debug_runtimes)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS Debug
-                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-                COMPONENT debug_libraries)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS Debug
+                  LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+                  COMPONENT debug_libraries)
+        ENDIF()
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS ReleaseNoOpt
@@ -1155,16 +1158,18 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
                 COMPONENT release_no_opt_libraries)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS DebugOpt
-                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
-                COMPONENT debug_opt_runtimes)
+        IF(NOT ${PROJECT_NAME}_NO_DBG_INSTALL)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS DebugOpt
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
+                  COMPONENT debug_opt_runtimes)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS DebugOpt
-                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-                COMPONENT debug_opt_libraries)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS DebugOpt
+                  LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+                  COMPONENT debug_opt_libraries)
+        ENDIF()
 
 
         IF(OSG_INSTALL_PDB_FILES)
