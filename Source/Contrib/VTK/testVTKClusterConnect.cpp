@@ -52,7 +52,7 @@
 #include <vector>
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager          *_mgr = NULL;
+OSG::SimpleSceneManagerRefPtr     _mgr;
 OSG::GLUTWindowRecPtr             _client_win = NULL;
 OSG::MultiDisplayWindowRecPtr     _cluster_win = NULL;
 OSG::NodeRecPtr                   _root = NULL;
@@ -617,7 +617,7 @@ int doMain(int argc, char **argv)
     _root->addChild(scene);
 
     // create the SimpleSceneManager helper
-    _mgr = new OSG::SimpleSceneManager;
+    _mgr = OSG::SimpleSceneManager::create();
 
     // tell the manager what to manage
     _mgr->setWindow(_client_win );
@@ -761,7 +761,7 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:    
         {
-            delete _mgr;
+            _mgr = NULL;
             _client_win = NULL;
             _cluster_win = NULL;
             _root = NULL;

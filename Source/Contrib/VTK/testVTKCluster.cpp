@@ -62,15 +62,16 @@
 #include "vtkTubeFilter.h"
 #include "vtkPolyDataNormals.h"
 
-OSG::Trackball                tball;
-int                      mouseb = 0;
-int                      lastx=0, lasty=0;
-int                      winwidth=300, winheight=300;
-OSG::NodeRecPtr		             root;
+OSG::Trackball                   tball;
+int                              mouseb = 0;
+int                              lastx=0, lasty=0;
+int                              winwidth  = 300;
+int                              winheight = 300;
+OSG::NodeRecPtr		         root;
 OSG::TransformRecPtr             cam_trans;
 OSG::PerspectiveCameraRecPtr     cam;
 OSG::ClusterWindowRecPtr         clusterWindow;
-OSG::RenderAction            *ract;
+OSG::RenderActionRefPtr          ract;
 OSG::GLUTWindowRecPtr            clientWindow;
 
 #ifdef HAVE_SORT
@@ -114,8 +115,7 @@ OSG::UInt32                   subtilesize=32;
 
 void cleanup(void)
 {
-    delete ract;
-
+    ract = NULL;
     root = NULL;
     cam_trans = NULL;
     cam = NULL;
@@ -241,7 +241,7 @@ void prepareSceneGraph(OSG::Node * const node)
             // get num positions
             OSG::GeoVectorProperty *positionsPtr=geo->getPositions();
             if(positionsPtr != NULL)
-                sum_positions += positionsPtr->getSize();
+                sum_positions += positionsPtr->size();
             // get num triangles
             for(f=geo->beginTriangles() ; f!=geo->endTriangles() ; ++f)
                 ++sum_triangles;

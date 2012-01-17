@@ -89,7 +89,7 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 MyOSGQGLWidget  *glWidget;
 QApplication    *a;
 
-OSG::RenderAction      *ract;
+OSG::RenderActionRefPtr ract;
 OSG::NodeRecPtr         root;
 OSG::NodeRecPtr         file;
 OSG::ViewportRecPtr     vp;

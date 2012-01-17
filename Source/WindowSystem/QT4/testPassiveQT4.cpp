@@ -42,15 +42,15 @@ protected:
     void mouseReleaseEvent( QMouseEvent *ev );
     void wheelEvent( QWheelEvent *ev );
 
-    OSG::SimpleSceneManager *mgr;
-    OSG::PassiveWindowRecPtr    pwin;
+    OSG::SimpleSceneManagerRefPtr mgr;
+    OSG::PassiveWindowRecPtr      pwin;
 };
 
 OpenSGWidget::OpenSGWidget(const QGLFormat &f, QWidget *parent)
      : QGLWidget(f, parent)
 {
     setAutoBufferSwap(false);
-    mgr = new OSG::SimpleSceneManager;
+    mgr  = OSG::SimpleSceneManager::create();
     pwin = OSG::PassiveWindow::create();
     mgr->setWindow(pwin);
 }

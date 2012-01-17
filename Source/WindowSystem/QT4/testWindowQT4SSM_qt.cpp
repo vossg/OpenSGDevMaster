@@ -39,7 +39,7 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 
         virtual ~MyOSGQGLWidget(void);
 
-        OSG::SimpleSceneManager *m_manager;
+        OSG::SimpleSceneManagerRefPtr m_manager;
 
     protected:
         virtual void initializeGL (void);
@@ -57,7 +57,7 @@ QApplication      *a;
 MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
     OSGQGLWidget( parent, name )
 {
-    m_manager = new OSG::SimpleSceneManager;
+    m_manager = OSG::SimpleSceneManager::create();
     m_manager->setUseTraversalAction(true);
 }
 
@@ -67,13 +67,12 @@ MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
     Qt::WindowFlags f) :
 OSGQGLWidget(context, parent, shareWidget, f)
 {
-    m_manager = new OSG::SimpleSceneManager;
+    m_manager = OSG::SimpleSceneManager::create();
     m_manager->setUseTraversalAction(true);
 }
 
 MyOSGQGLWidget::~MyOSGQGLWidget(void)
 {
-    delete m_manager;
     m_manager = NULL;
 }
 

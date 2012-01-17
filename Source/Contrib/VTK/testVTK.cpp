@@ -59,7 +59,7 @@
 #include "vtkPolyDataNormals.h"
 
 
-OSG::RenderAction *renact;
+OSG::RenderActionRefPtr renact;
 
 OSG::NodeUnrecPtr  root;
 
