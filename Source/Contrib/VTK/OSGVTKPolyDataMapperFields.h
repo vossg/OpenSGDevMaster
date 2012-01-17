@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class VTKPolyDataMapper;
 
 OSG_GEN_CONTAINERPTR(VTKPolyDataMapper);
-
 /*! \ingroup GrpContribVTKFieldTraits
     \ingroup GrpLibOSGContribVTK
  */
 template <>
-struct FieldTraits<VTKPolyDataMapper *> :
-    public FieldTraitsFCPtrBase<VTKPolyDataMapper *>
+struct FieldTraits<VTKPolyDataMapper *, nsOSG> :
+    public FieldTraitsFCPtrBase<VTKPolyDataMapper *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<VTKPolyDataMapper *>  Self;
+    typedef FieldTraits<VTKPolyDataMapper *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<VTKPolyDataMapper *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFVTKPolyDataMapperPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFVTKPolyDataMapperPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVTKPolyDataMapperPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<NoRefCountPolicy>(voi
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
-                      RecordedRefCountPolicy  > SFRecVTKPolyDataMapperPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
-                      UnrecordedRefCountPolicy> SFUnrecVTKPolyDataMapperPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
-                      WeakRefCountPolicy      > SFWeakVTKPolyDataMapperPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
-                      NoRefCountPolicy        > SFUncountedVTKPolyDataMapperPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedVTKPolyDataMapperPtr;
 
 
 /*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
-                      RecordedRefCountPolicy  > MFRecVTKPolyDataMapperPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
-                      UnrecordedRefCountPolicy> MFUnrecVTKPolyDataMapperPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
-                      WeakRefCountPolicy      > MFWeakVTKPolyDataMapperPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakVTKPolyDataMapperPtr;
 /*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
-                      NoRefCountPolicy        > MFUncountedVTKPolyDataMapperPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedVTKPolyDataMapperPtr;
 
 
 

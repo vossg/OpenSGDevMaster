@@ -136,18 +136,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VTKPolyDataMapper *>::_type("VTKPolyDataMapperPtr", "GroupPtr");
+PointerType FieldTraits<VTKPolyDataMapper *, nsOSG>::_type(
+    "VTKPolyDataMapperPtr", 
+    "GroupPtr", 
+    VTKPolyDataMapper::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VTKPolyDataMapper *)
+OSG_FIELDTRAITS_GETTYPE_NS(VTKPolyDataMapper *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            VTKPolyDataMapper *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            VTKPolyDataMapper *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -284,7 +288,7 @@ VTKPolyDataMapperBase::TypeObject VTKPolyDataMapperBase::_type(
     VTKPolyDataMapperBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VTKPolyDataMapperBase::createEmptyLocal),
     VTKPolyDataMapper::initMethod,
     VTKPolyDataMapper::exitMethod,
@@ -1029,9 +1033,9 @@ void VTKPolyDataMapperBase::clearNormals(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VTKPolyDataMapperBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT VTKPolyDataMapperBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (RootFieldMask & whichField))
     {
