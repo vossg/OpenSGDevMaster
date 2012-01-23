@@ -48,9 +48,9 @@
 #include "OSGGeoReferenceAttachment.h"
 
 #ifdef OSG_WITH_GDAL
-#include "gdal/gdal_priv.h"
-#include "gdal/ogr_srs_api.h"
-#include "gdal/cpl_multiproc.h"
+#include "gdal_priv.h"
+#include "ogr_srs_api.h"
+#include "cpl_multiproc.h"
 #endif
 
 

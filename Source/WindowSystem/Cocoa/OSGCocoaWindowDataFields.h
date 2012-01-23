@@ -82,19 +82,19 @@ struct FieldTraits<NSOpenGLContextP> :
                                                  Self::FromStringConvertible)};
 
     OSG_WINDOWCOCOA_DLLMAPPING
-    static DataType &getType (void);
+    static DataType   &getType (void);
 
-    static char     *getSName(void) { return "SFNSOpenGLContextP"; }
-    static char     *getMName(void) { return "MFNSOpenGLContextP"; }
+    static const char *getSName(void) { return "SFNSOpenGLContextP"; }
+    static const char *getMName(void) { return "MFNSOpenGLContextP"; }
 
-    static bool      getFromCString(      NSOpenGLContextP    &,
-                                    const Char8               *)
+    static bool        getFromCString(      NSOpenGLContextP    &,
+                                      const Char8               *)
     {
         return true;
     }
 
-    static void      putToString  (const      NSOpenGLContextP &,
-                                         std::string           &outStr)
+    static void        putToString  (const      NSOpenGLContextP &,
+                                           std::string           &outStr)
     {
         outStr.assign("NSOpenGLContextP");
     }

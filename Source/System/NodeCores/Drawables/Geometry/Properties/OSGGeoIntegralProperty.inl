@@ -45,7 +45,7 @@ inline UInt32 GeoIntegralProperty::getVectorType(void) const
     return GeoProperty::VectorTypeScalar;
 }
 
-inline UInt32 GeoIntegralProperty::getValue(const UInt32 index) const
+inline UInt32 GeoIntegralProperty::getValue(const SizeT index) const
 {
     return getValue<UInt32>(index);
 }

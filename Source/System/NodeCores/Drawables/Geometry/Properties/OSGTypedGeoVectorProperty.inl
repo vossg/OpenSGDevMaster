@@ -274,7 +274,7 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
  */
 template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::const_reference
-    TypedGeoVectorProperty<GeoPropertyDesc>::operator [](UInt32 index) const
+    TypedGeoVectorProperty<GeoPropertyDesc>::operator [](SizeT index) const
 {
     return _field[index];
 }
@@ -287,7 +287,7 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::const_reference
  */
 template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::reference
-    TypedGeoVectorProperty<GeoPropertyDesc>::operator [](UInt32 index)
+    TypedGeoVectorProperty<GeoPropertyDesc>::operator [](SizeT index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
@@ -410,7 +410,7 @@ TypedGeoVectorProperty<GeoPropertyDesc>::operator->(void) const
  */
 template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredType
-    TypedGeoVectorProperty<GeoPropertyDesc>::getValue(const UInt32 index) const
+    TypedGeoVectorProperty<GeoPropertyDesc>::getValue(const SizeT index) const
 {
     return _field[index];
 }
@@ -424,7 +424,7 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredType
 template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::getValue(
           StoredType &val,
-    const UInt32             index) const
+    const SizeT       index) const
 {
     val = _field[index];
 }
@@ -440,7 +440,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::getValue(
  */
 template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::setValue(const StoredType &value,
-                                                       const UInt32      index)
+                                                       const SizeT       index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
@@ -520,7 +520,7 @@ bool TypedGeoVectorProperty<GeoPropertyDesc>::getNormalize(void) const
 template <class GeoPropertyDesc>
 void
 TypedGeoVectorProperty<GeoPropertyDesc>::getGenericValue(
-          MaxTypeT &val, const UInt32 index) const
+          MaxTypeT &val, const SizeT index) const
 {
     Converter::convertOut(val,
                           _field[index],
@@ -537,7 +537,7 @@ TypedGeoVectorProperty<GeoPropertyDesc>::getGenericValue(
 template <class GeoPropertyDesc>
 void
 TypedGeoVectorProperty<GeoPropertyDesc>::setGenericValue(
-    const MaxTypeT &val, const UInt32 index)
+    const MaxTypeT &val, const SizeT index)
 {
     editMField(GeoPropDataFieldMask, _field);
 

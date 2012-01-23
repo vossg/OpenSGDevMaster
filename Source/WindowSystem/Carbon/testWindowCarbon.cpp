@@ -4,6 +4,10 @@
 
 #include <AGL/agl.h>
 
+#ifdef check
+# undef check
+#endif
+
 #include "OSGFieldContainerFactory.h"
 #include "OSGVector.h"
 #include "OSGQuaternion.h"
@@ -31,7 +35,7 @@
 
 OSG::CarbonWindowUnrecPtr    win;
 
-OSG::RenderAction        *ract;
+OSG::RenderActionRefPtr   ract;
 OSG::NodeRecPtr           root;
 OSG::NodeRecPtr           file;
 OSG::ViewportRecPtr   vp;
@@ -502,8 +506,7 @@ int doMain (int argc, char **argv)
     DisposeWindow(window);
     DisposeEventHandlerUPP(eventHandlerUPP);
 
-    delete ract;
-
+    ract      = NULL;
     win       = NULL;
     root      = NULL;
     file      = NULL;

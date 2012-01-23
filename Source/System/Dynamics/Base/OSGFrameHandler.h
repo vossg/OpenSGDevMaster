@@ -171,11 +171,11 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     /*! \{                                                                 */
 
     void pushToFrameTasks                    (FrameTaskInterface * const value);
-    void removeObjFromFrameTasks             (FrameTaskInterface * const value);
+    bool removeObjFromFrameTasks             (FrameTaskInterface * const value);
     void clearFrameTasks                     (void                            );
 
     void pushToUninitializedFrameTasks       (FrameTaskInterface * const value);
-    void removeObjFromUninitializedFrameTasks(FrameTaskInterface * const value);
+    bool removeObjFromUninitializedFrameTasks(FrameTaskInterface * const value);
     void clearUninitializedFrameTasks        (void                            );
 
     /*! \}                                                                 */

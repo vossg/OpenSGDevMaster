@@ -76,7 +76,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     // the code has to be here...
 
     template <class ExternalType>
-    ExternalType getValue(const UInt32 index) const
+    ExternalType getValue(const SizeT index) const
     {
         MaxTypeT ival;
         getGenericValue(ival, index);
@@ -84,7 +84,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     }
     
     template <class ExternalType>
-    void getValue(ExternalType &eval, const UInt32 index) const
+    void getValue(ExternalType &eval, const SizeT index) const
     {
         MaxTypeT val;
         getGenericValue(val, index);
@@ -92,7 +92,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     }
     
     template <class ExternalType>
-    void setValue(const ExternalType &val, const UInt32 index)
+    void setValue(const ExternalType &val, const SizeT index)
     {
         setGenericValue(val, index);
     }
@@ -120,7 +120,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*---------------------------------------------------------------------*/
 
     // A little fallback to simplify porting of old code
-    inline UInt32 getValue(const UInt32 index) const;  
+    inline UInt32 getValue(const SizeT index) const;  
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,9 +206,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     
     // This is the fallback, it has to be implemented by the concrete Props!
     virtual void getGenericValue(      MaxTypeT &val,
-                                 const UInt32 index  ) const = 0;
+                                 const SizeT     index  ) const = 0;
     virtual void setGenericValue(const MaxTypeT &val,
-                                 const UInt32 index  )       = 0;
+                                 const SizeT     index  )       = 0;
 
     /*! \}                                                                 */
 

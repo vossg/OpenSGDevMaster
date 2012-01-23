@@ -4,6 +4,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifdef check
+# undef check
+#endif
+
 #include "OSGFieldContainerFactory.h"
 #include "OSGVector.h"
 #include "OSGQuaternion.h"
@@ -39,7 +43,7 @@ using namespace OSG;
 
 CocoaWindowUnrecPtr    win;
 
-RenderAction    *ract;
+RenderActionRefPtr   ract;
 NodeRecPtr           root;
 NodeRecPtr           file;
 ViewportRecPtr   vp;
@@ -551,8 +555,7 @@ int doMain(int argc, char *argv[])
 
     fprintf(stderr, "exit\n");
 
-    delete ract;
-
+    ract      = NULL;
     win       = NULL;
     root      = NULL;
     file      = NULL;

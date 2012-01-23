@@ -47,6 +47,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifdef check
+# undef check
+#endif
+
 #include "OSGCSMNativeWindow.h"
 #include "OSGCSMDrawer.h"
 #include "OSGComplexSceneManager.h"

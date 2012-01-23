@@ -78,7 +78,7 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
     // the code has to be here...
 
     template <class ExternalType>
-    ExternalType getValue(const UInt32 index) const
+    ExternalType getValue(const SizeT index) const
     {
         ExternalType eval;
         MaxTypeT     ival;
@@ -98,7 +98,7 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
     }
 
     template <class ExternalType>
-    void getValue(ExternalType &eval, const UInt32 index) const
+    void getValue(ExternalType &eval, const SizeT index) const
     {
         MaxTypeT ival;
         getGenericValue(ival, index);
@@ -116,7 +116,7 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
     }
 
     template <class ExternalType>
-    void setValue(const ExternalType &val, const UInt32 index)
+    void setValue(const ExternalType &val, const SizeT index)
     {
         MaxTypeT ival;
         if(getNormalize() &&
@@ -235,9 +235,9 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
 
     // This is the fallback, it has to be implemented by the concrete Props!
     virtual void getGenericValue(      MaxTypeT &val,
-                                 const UInt32 index  ) const = 0;
+                                 const SizeT     index  ) const = 0;
     virtual void setGenericValue(const MaxTypeT &val,
-                                 const UInt32 index  )       = 0;
+                                 const SizeT     index  )       = 0;
 
     /*! \}                                                                 */
 

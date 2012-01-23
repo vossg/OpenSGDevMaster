@@ -164,10 +164,13 @@ void FrameHandler::removeTask(FrameTaskInterface *pTask)
 {
     if(pTask != NULL)
     {
-        pTask->shutdown();
-        
-        this->removeObjFromFrameTasks             (pTask);
-        this->removeObjFromUninitializedFrameTasks(pTask);
+        bool rc  = this->removeObjFromFrameTasks             (pTask);
+        bool rcU = this->removeObjFromUninitializedFrameTasks(pTask);
+
+        if(rc == true and rcU == false)
+        {
+            pTask->shutdown();
+        }
     }
 }
 
@@ -304,27 +307,39 @@ void FrameHandler::pushToUninitializedFrameTasks(
 }
 
 
-void FrameHandler::removeObjFromFrameTasks(FrameTaskInterface * const value)
+bool FrameHandler::removeObjFromFrameTasks(FrameTaskInterface * const value)
 {
+    bool returnValue = false;
+
     InterfaceStoreIt it = std::find(_mfFrameTasks.begin(), 
                                     _mfFrameTasks.end  (), value);
 
     if(it != _mfFrameTasks.end())
     {
         _mfFrameTasks.erase(it);
+
+        returnValue = true;
     }
+
+    return returnValue;
 }
 
-void FrameHandler::removeObjFromUninitializedFrameTasks(
+bool FrameHandler::removeObjFromUninitializedFrameTasks(
     FrameTaskInterface * const value)
 {
+    bool returnValue = false;
+
     InterfaceStoreIt it = std::find(_mfUninitializedFrameTasks.begin(), 
                                     _mfUninitializedFrameTasks.end  (), value);
 
     if(it != _mfUninitializedFrameTasks.end())
     {
         _mfUninitializedFrameTasks.erase(it);
+
+        returnValue = true;
     }
+
+    return returnValue;
 }
 
 void FrameHandler::clearFrameTasks(void)

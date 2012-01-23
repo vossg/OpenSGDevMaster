@@ -162,6 +162,9 @@ bool SharePtrGraphOp::traverse(Node *root)
 
     SINFO << std::flush;
 
+    _typeMap   .clear();
+    _shareCount.clear();
+
     return true;
 }
 

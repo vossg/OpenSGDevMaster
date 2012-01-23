@@ -87,7 +87,9 @@ void FrameTaskMixin<ParentT>::onCreateAspect(
         return;
 
     if(this == createAspect)
+    {
         FrameHandler::the()->addTask(this);
+    }
 }
 
 template <class ParentT> inline

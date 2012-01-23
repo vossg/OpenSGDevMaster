@@ -50,6 +50,10 @@
 
 #include <AGL/agl.h>
 
+#ifdef check
+# undef check
+#endif
+
 #include "OSGCarbonWindow.h"
 
 OSG_BEGIN_NAMESPACE

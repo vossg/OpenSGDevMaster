@@ -51,6 +51,10 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/NSOpenGL.h>
 
+#ifdef check
+# undef check
+#endif
+
 #include "OSGCocoaWindow.h"
 #include "OSGCocoaWindowWrapper.h"
 

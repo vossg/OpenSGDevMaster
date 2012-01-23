@@ -30,9 +30,13 @@
 #include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
+#ifdef check
+# undef check
+#endif
+
 OSG::CoreGLWindowUnrecPtr    win;
 
-OSG::RenderAction    *ract;
+OSG::RenderActionRefPtr   ract;
 OSG::NodeRecPtr           root;
 OSG::NodeRecPtr           file;
 OSG::ViewportRecPtr   vp;
@@ -412,8 +416,7 @@ int doMain (int argc, char **argv)
     CGReleaseAllDisplays();
     DisposeEventHandlerUPP(eventHandlerUPP);
 
-    delete ract;
-
+    ract      = NULL;
     win       = NULL;
     root      = NULL;
     file      = NULL;

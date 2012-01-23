@@ -232,6 +232,11 @@ Background *SimpleSceneManager::getBackground(void)
     return _win->getPort(0)->getBackground();
 }
 
+Node *SimpleSceneManager::getInternalRoot(void)
+{
+    return _internalRoot;
+}
+
 /*! get the highlight object
  */
 Node *SimpleSceneManager::getHighlight(void)

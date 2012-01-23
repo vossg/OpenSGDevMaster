@@ -279,7 +279,7 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
  */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::const_reference
-    TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](UInt32 index) const
+    TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](SizeT index) const
 {
     return _field[index];
 }
@@ -292,7 +292,7 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::const_reference
  */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::reference 
-    TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](UInt32 index)
+    TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](SizeT index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
@@ -396,7 +396,7 @@ TypedGeoIntegralProperty<GeoPropertyDesc>::operator->(void) const
  */
 template <class GeoPropertyDesc> inline
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredType
-    TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(const UInt32 index) const
+    TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(const SizeT index) const
 {
     return _field[index];
 }
@@ -410,7 +410,7 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredType
 template <class GeoPropertyDesc> inline 
 void TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(
           StoredType &val,
-    const UInt32      index) const
+    const SizeT       index) const
 {
     val = _field[index];
 }
@@ -425,8 +425,9 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(
     \param[in] index Index of the element to set.
  */
 template <class GeoPropertyDesc> inline 
-void TypedGeoIntegralProperty<GeoPropertyDesc>::setValue(const StoredType &value,
-                                                         const UInt32      index)
+void TypedGeoIntegralProperty<GeoPropertyDesc>::setValue(
+    const StoredType &value,
+    const SizeT       index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
@@ -441,7 +442,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::setValue(const StoredType &value
     \param[in] value Value to append to this property.
  */
 template <class GeoPropertyDesc> inline 
-void TypedGeoIntegralProperty<GeoPropertyDesc>::addValue(const StoredType &value)
+void TypedGeoIntegralProperty<GeoPropertyDesc>::addValue(
+    const StoredType &value)
 {
     editMField(GeoPropDataFieldMask, _field);
 
@@ -496,7 +498,7 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::resize(SizeT newsize)
 template <class GeoPropertyDesc>
 void
 TypedGeoIntegralProperty<GeoPropertyDesc>::getGenericValue(
-          MaxTypeT &val, const UInt32 index) const
+          MaxTypeT &val, const SizeT index) const
 {
     val = static_cast<MaxTypeT>(_field[index]);
 }
@@ -510,7 +512,7 @@ TypedGeoIntegralProperty<GeoPropertyDesc>::getGenericValue(
 template <class GeoPropertyDesc>
 void
 TypedGeoIntegralProperty<GeoPropertyDesc>::setGenericValue(
-    const MaxTypeT &val, const UInt32 index)
+    const MaxTypeT &val, const SizeT index)
 {
     editMField(GeoPropDataFieldMask, _field);
 

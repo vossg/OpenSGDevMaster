@@ -76,7 +76,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData :
 
     inline SizeT  size   (void       ) const;
     inline UInt32 size32 (void       ) const;
-    inline void   setSize(UInt32 size);
+    inline void   resize (SizeT  size);
 
     /*! \}                                                                 */
 

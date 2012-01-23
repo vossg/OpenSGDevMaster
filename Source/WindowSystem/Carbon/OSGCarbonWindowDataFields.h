@@ -77,17 +77,17 @@ struct FieldTraits<AGLContext> :
     OSG_WINDOWCARBON_DLLMAPPING
     static DataType &getType (void);
 
-    static char     *getSName(void) { return "SFAGLContext"; }
-    static char     *getMName(void) { return "MFAGLContext"; }
+    static const char *getSName(void) { return "SFAGLContext"; }
+    static const char *getMName(void) { return "MFAGLContext"; }
 
-    static bool      getFromCString(      AGLContext    &,
-                                    const Char8         *)
+    static bool        getFromCString(      AGLContext    &,
+                                      const Char8         *)
     {
         return true;
     }
 
-    static void      putToString  (const      AGLContext &,
-                                         std::string     &outStr)
+    static void      putToString     (const      AGLContext &,
+                                            std::string     &outStr)
     {
         outStr.assign("AGLContext");
     }

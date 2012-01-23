@@ -243,3 +243,14 @@ void Inline::rootChanged(FieldContainer    *pFC,
         this->invalidateVolume();
     }
 }
+
+void Inline::resolveLinks(void)
+{
+    if(_sfRoot.getValue() != NULL)
+    {
+        _sfRoot.getValue()->subChangedFunctor(
+            boost::bind(&Inline::rootChanged, this, _1, _2, _3));
+    }
+
+    Inherited::resolveLinks();
+}

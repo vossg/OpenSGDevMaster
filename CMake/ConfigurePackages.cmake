@@ -120,7 +120,7 @@ MACRO(OSG_CONFIGURE_GDAL)
     IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
 
         IF(EXISTS ${OSG_SUPPORT_ROOT}/include/gdal/gdal_priv.h)
-            SET(GDAL_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include CACHE PATH "" FORCE)
+            SET(GDAL_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include/gdal CACHE PATH "" FORCE)
         ENDIF()
 
         IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osggdal.lib)

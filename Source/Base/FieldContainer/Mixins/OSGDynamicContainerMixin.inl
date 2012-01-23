@@ -674,6 +674,9 @@ void DynFieldContainer<ParentT>::execSync (
         }
     }
 
+    if(this->_dynFieldsV.size() == 0)
+        return;
+
     BitVector bvMask = 0x1 << _uiDescStartIdx;
 
     for(UInt32 i = _uiDescStartIdx; i <= getType().getNumFieldDescs(); ++i)

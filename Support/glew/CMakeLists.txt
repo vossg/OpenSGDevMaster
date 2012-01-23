@@ -22,8 +22,10 @@ IF(OSGGLEWSrcDir)
 
     ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}SharedTarget})
 
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES
-                          DEBUG_POSTFIX "D")
+    IF(WIN32)
+      SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES
+                            DEBUG_POSTFIX "D")
+    ENDIF(WIN32)
 
     SET(OSGGLEWLIB_DEF_SHARED ${OSGGLEWLIB_DEF};GLEW_BUILD;_WINDLL)
                           

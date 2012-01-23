@@ -129,12 +129,12 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     
             const StoredFieldType &operator->(      void               ) const;
 
-                  StoredType       getValue  (const UInt32      index  ) const;
+                  StoredType       getValue  (const SizeT       index  ) const;
             void                   getValue  (      StoredType &val,
-                                              const UInt32      index  ) const;
+                                              const SizeT       index  ) const;
 
             void                   setValue  (const StoredType &val,
-                                              const UInt32      index  );
+                                              const SizeT       index  );
 
             void                   addValue  (const StoredType &val    );
 
@@ -143,13 +143,13 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     virtual void                   push_back (const StoredType &val    );
 
     template <class ExternalType>
-    ExternalType getValue(const UInt32 index)
+    ExternalType getValue(const SizeT index)
     {
         return static_cast<ExternalType>(_field[index]);
     }
 
     template <class ExternalType>
-    void setValue(ExternalType val, const UInt32 index)
+    void setValue(ExternalType val, const SizeT index)
     {
         editMField(GeoPropDataFieldMask, _field);
 
@@ -176,8 +176,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-    inline reference       operator [](UInt32 index);
-    inline const_reference operator [](UInt32 index) const;
+    inline reference       operator [](SizeT index);
+    inline const_reference operator [](SizeT index) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,8 +214,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual void getGenericValue(      MaxTypeT &val, const UInt32 index) const;
-    virtual void setGenericValue(const MaxTypeT &val, const UInt32 index);
+    virtual void getGenericValue(      MaxTypeT &val, const SizeT index) const;
+    virtual void setGenericValue(const MaxTypeT &val, const SizeT index);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

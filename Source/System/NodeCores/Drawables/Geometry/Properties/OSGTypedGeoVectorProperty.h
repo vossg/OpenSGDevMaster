@@ -124,8 +124,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-    inline reference       operator [](UInt32 index);
-    inline const_reference operator [](UInt32 index) const;
+    inline reference       operator [](SizeT index);
+    inline const_reference operator [](SizeT index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -144,26 +144,26 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     virtual       GeoPropertyTransitPtr  clone        (void);
     
-            const StoredFieldType &operator->  (       void              ) const;
+            const StoredFieldType &operator->  (       void             ) const;
 
-            StoredType             getValue    (const UInt32      index  ) const;
+            StoredType             getValue    (const SizeT       index ) const;
             void                   getValue    (      StoredType &val,
-                                                const UInt32      index  ) const;
+                                                const SizeT       index ) const;
 
             void                   setValue    (const StoredType &val,
-                                                const UInt32      index  );
+                                                const SizeT       index );
 
-            void                   addValue    (const StoredType &val    );
+            void                   addValue    (const StoredType &val   );
 
-    virtual void                   clear       (      void               );
-    virtual void                   resize      (      SizeT       newsize);
-    virtual bool                   getNormalize(      void               ) const;
-    virtual void                   push_back   (const StoredType &val    );
+    virtual void                   clear       (      void              );
+    virtual void                   resize      (      SizeT      newsize);
+    virtual bool                   getNormalize(      void              ) const;
+    virtual void                   push_back   (const StoredType &val   );
 
     template <class ExternalType>
-    ExternalType getValue(const UInt32 index) const
+    ExternalType getValue(const SizeT index) const
     {
-        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(%d)\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(%"PRIUSize")\n", index));
 
         ExternalType val;
 
@@ -191,9 +191,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     }
 
     template <class ExternalType>
-    void getValue(ExternalType &eval, const UInt32 index) const
+    void getValue(ExternalType &eval, const SizeT index) const
     {
-        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(eval, %d)\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(eval, %"PRIUSize")\n", index));
 
         if(GeoPropertyDesc::normalize)
         {
@@ -223,9 +223,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     }
 
     template <class ExternalType>
-    void setValue (ExternalType val, const UInt32 index)
+    void setValue (ExternalType val, const SizeT index)
     {
-        FDEBUG(("TypedGeoVectorProperty<>::setValue<>(val, %d)\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::setValue<>(val, %"PRIUSize")\n", index));
 
         StoredType ival;
 
@@ -304,8 +304,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                 Generic Access                               */
     /*! \{                                                                 */
 
-    virtual void getGenericValue(      MaxTypeT &val, const UInt32 index) const;
-    virtual void setGenericValue(const MaxTypeT &val, const UInt32 index);
+    virtual void getGenericValue(      MaxTypeT &val, const SizeT index) const;
+    virtual void setGenericValue(const MaxTypeT &val, const SizeT index);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

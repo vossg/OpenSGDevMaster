@@ -127,6 +127,13 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
     /*! \name                     Init                                     */
     /*! \{                                                                 */
 
+    virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Init                                     */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
     
     /*! \}                                                                 */

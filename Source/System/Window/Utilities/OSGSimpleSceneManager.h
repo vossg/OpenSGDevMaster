@@ -86,13 +86,14 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual Node                  *getRoot            ( void );
-    virtual Node                  *getHighlight       ( void );
-    virtual RenderAction          *getRenderAction    ( void );
-    virtual bool                   getHeadlightState  ( void );
-    virtual DirectionalLight      *getHeadlight       ( void );
-    virtual Camera                *getCamera          ( void );
-    virtual Background            *getBackground      ( void );
+    virtual Node             *getRoot          (void);
+    virtual Node             *getHighlight     (void);
+    virtual RenderAction     *getRenderAction  (void);
+    virtual bool              getHeadlightState(void);
+    virtual DirectionalLight *getHeadlight     (void);
+    virtual Camera           *getCamera        (void);
+    virtual Background       *getBackground    (void);
+    virtual Node             *getInternalRoot  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

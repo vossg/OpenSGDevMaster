@@ -281,6 +281,10 @@ IF(OSGOpenNurbsSrcDir)
                                                            Rpcrt4)
     ENDIF(WIN32)
 
+    IF(APPLE)
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} ${OPENGL_gl_LIBRARY})
+    ENDIF(APPLE)
+
     IF(WIN32)
       SET(OSGOPENNURBS_DEF_SHARED ${OSGOPENNURBS_DEF};ON_DLL_EXPORTS;ON_COMPILING_OPENNURBS)
     ELSE(WIN32)

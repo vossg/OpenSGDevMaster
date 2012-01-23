@@ -150,7 +150,7 @@ UInt8 *GeoMultiProperty::editData(void)
 }
 
 GeoMultiProperty::MaxTypeT
-GeoMultiProperty::getValue(const UInt32 index) const
+GeoMultiProperty::getValue(const SizeT index) const
 {
     MaxTypeT val;
     getGenericValue(val, index);
@@ -159,7 +159,7 @@ GeoMultiProperty::getValue(const UInt32 index) const
 }
 
 void
-GeoMultiProperty::getValue(MaxTypeT &val, const UInt32 index) const
+GeoMultiProperty::getValue(MaxTypeT &val, const SizeT index) const
 {
     getGenericValue(val, index);
 }
@@ -177,11 +177,11 @@ void GeoMultiProperty::resize(SizeT newsize)
     
     if(stride * newsize + getOffset() >= getContainer()->size())
     {
-        getContainer()->setSize(stride * newsize +  getFormatSize() * dim + 
-                          getOffset());
+        getContainer()->resize(stride * newsize +  getFormatSize() * dim + 
+                               getOffset());
     }
 
-    setISize(newsize);
+    setISize(UInt32(newsize));
 }
 
 void GeoMultiProperty::setFormat(UInt32 val)
@@ -430,7 +430,7 @@ void GeoMultiProperty::dump(      UInt32    ,
 /*----------------------------- Generic Access ----------------------------*/
 
 void
-GeoMultiProperty::getGenericValue(MaxTypeT &eval, const UInt32 index ) const
+GeoMultiProperty::getGenericValue(MaxTypeT &eval, const SizeT index ) const
 {
           UInt16  dim    = getDimension();
           bool    norm   = getNormalize();
@@ -492,7 +492,7 @@ GeoConvert::convertOut(eval, ival);                          \
 }
 
 void
-GeoMultiProperty::setGenericValue(const MaxTypeT &eval, const UInt32 index )
+GeoMultiProperty::setGenericValue(const MaxTypeT &eval, const SizeT index )
 {
     UInt16 dim = getDimension();
     bool norm = getNormalize();

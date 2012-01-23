@@ -80,9 +80,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     virtual       bool      getNormalize (      void             ) const;
     virtual const UInt8    *getData      (      void             ) const;
     virtual       UInt8    *editData     (      void             );
-                  MaxTypeT  getValue     (const UInt32    index  ) const;
+                  MaxTypeT  getValue     (const SizeT     index  ) const;
                   void      getValue     (      MaxTypeT &val,
-                                          const UInt32    index  ) const;
+                                          const SizeT     index  ) const;
 
     virtual       void      clear        (      void             );
     virtual       void      resize       (      SizeT     newsize);
@@ -182,9 +182,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \}                                                                 */
 
     virtual void getGenericValue(      MaxTypeT &val,
-                                 const UInt32    index) const;
+                                 const SizeT     index) const;
     virtual void setGenericValue(const MaxTypeT &val,
-                                 const UInt32    index);
+                                 const SizeT     index);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
