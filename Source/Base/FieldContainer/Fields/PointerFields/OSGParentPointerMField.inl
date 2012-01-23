@@ -1017,7 +1017,7 @@ void ParentPointerMField<PtrTypeT,
         n = 0;
         for(; sIt != sEnd; ++sIt, ++sIdIt)
         {
-            FieldContainer *pNewObj = convertToCurrentAspect(*sIt);
+            FieldContainer *pNewObj = Aspect::convertToCurrent(*sIt);
 
             if(pNewObj != NULL                                ||
                0x0000  != (syncMode & Field::MFNullCheckSync)   )

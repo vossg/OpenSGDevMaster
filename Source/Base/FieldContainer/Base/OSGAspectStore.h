@@ -85,9 +85,10 @@ class OSG_BASE_DLLMAPPING AspectStore
     void            setPtrForAspect   (      FieldContainer *pContainer, 
                                        const UInt32          uiAspect  );
     void            removePtrForAspect(const UInt32          uiAspect  );
+    UInt32          getAspect         (      FieldContainer *pContainer) const;
 
     UInt32          getNumAspects     (      void                      ) const;
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */

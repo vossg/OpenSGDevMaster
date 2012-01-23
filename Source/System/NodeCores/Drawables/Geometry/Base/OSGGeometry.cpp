@@ -229,7 +229,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
     Window                  *pWin = pEnv->getWindow();
 
 #ifdef OSG_DEBUG
-    Geometry *pAspectGeo = convertToCurrentAspect<Geometry *>(this);
+    Geometry *pAspectGeo = Aspect::convertToCurrent<Geometry *>(this);
     OSG_ASSERT(pAspectGeo == this);
 #endif
 

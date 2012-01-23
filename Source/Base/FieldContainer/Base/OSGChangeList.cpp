@@ -880,7 +880,12 @@ void ChangeList::doApply(bool bClear)
 #endif
 
                 if(pDst != NULL)
+                {
                     pDst->setupAspectStore(pHandler);
+
+                    pDstCL->addCreated((*ccIt)->uiContainerId,
+                                       TypeTraits<BitVector>::BitsClear);
+                }
 
 #ifndef SILENT_CPTR
                 pHandler->dump();

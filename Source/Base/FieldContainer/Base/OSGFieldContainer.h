@@ -72,6 +72,7 @@ class SFieldConnector;
 template <class SrcFieldT, class DstFieldT>
 class MFieldConnector;
 
+
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpLibOSGBase
  */
@@ -487,7 +488,10 @@ class FieldContainer : public ReflexiveContainer
     friend class RemoteAspect;
 
     template<class ContainerPtr>
-    friend ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
+    friend ContainerPtr Aspect::convertToCurrent(ContainerPtr pFC);
+
+    friend 
+    FieldContainer *Aspect::initializeContainerFrom(FieldContainer *pSrc);
 
     friend struct RecordedRefCountPolicy;
     friend struct UnrecordedRefCountPolicy;
@@ -581,16 +585,6 @@ FieldContainerTransitPtr deepClone(
 
     const std::vector<OSG::UInt16>                         &ignoreGroupIds    =
               std::vector<OSG::UInt16>()                                      );
-
-
-
-#ifdef OSG_MT_CPTR_ASPECT
-/*! \ingroup GrpBaseFieldContainerFuncs
-    \relatesalso OSG::FieldContainer
- */
-template<class ContainerPtr> inline
-ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
-#endif
 
 
 OSG_END_NAMESPACE

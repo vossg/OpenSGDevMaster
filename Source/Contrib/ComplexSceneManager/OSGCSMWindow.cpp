@@ -301,7 +301,7 @@ void CSMWindow::render(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window* pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
+        Aspect::convertToCurrent<Window *>(_pWindow.get());
 #else
     OSG::Window *pThreadLocalWin = _pWindow;
 #endif
@@ -348,7 +348,7 @@ void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
+        Aspect::convertToCurrent<Window *>(_pWindow.get());
 #else
     Window *pThreadLocalWin = _pWindow;
 #endif
@@ -376,7 +376,7 @@ void CSMWindow::frameFinish(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
+        Aspect::convertToCurrent<Window *>(_pWindow.get());
 #else
     Window *pThreadLocalWin = _pWindow;
 #endif
@@ -391,7 +391,7 @@ void CSMWindow::frameExit(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
+        Aspect::convertToCurrent<Window *>(_pWindow.get());
 #else
     Window *pThreadLocalWin = _pWindow;
 #endif
@@ -406,7 +406,7 @@ void CSMWindow::shutdown(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow.get());
+        Aspect::convertToCurrent<Window *>(_pWindow.get());
 #else
     Window *pThreadLocalWin = _pWindow;
 #endif

@@ -102,6 +102,26 @@ void AspectStore::removePtrForAspect(const UInt32 uiAspect)
 }
 
 inline
+UInt32 AspectStore::getAspect(FieldContainer *pContainer) const
+{
+    if(pContainer == NULL)
+        return -1;
+
+    UInt32 returnValue = -1;
+
+    for(UInt32 i = 0; i < _vAspects.size(); ++i)
+    {
+        if(_vAspects[i] == pContainer)
+        {
+            returnValue = i;
+            break;
+        }
+    }
+
+    return returnValue;
+}
+
+inline
 UInt32 AspectStore::getNumAspects(void) const
 {
     return UInt32(_vAspects.size());

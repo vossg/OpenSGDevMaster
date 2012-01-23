@@ -446,7 +446,7 @@ void AttachmentContainer::execSync(
         
         while(fcI != fcE)
         {
-            Attachment *pAtt = convertToCurrentAspect((*fcI).second);
+            Attachment *pAtt = Aspect::convertToCurrent((*fcI).second);
 
             if(pAtt != NULL)
             {

@@ -345,7 +345,7 @@ void MapCacheHandlerMixin<Desc>::execSync(
         
         while(fcI != fcE)
         {
-            MapCacheElement pMat = convertToCurrentAspect((*fcI).second);
+            MapCacheElement pMat = Aspect::convertToCurrent((*fcI).second);
 
             if(pMat != NULL)
             {

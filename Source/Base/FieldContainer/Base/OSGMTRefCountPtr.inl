@@ -71,7 +71,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::MTRefCountPtr(Object * const otherObj)
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -100,7 +100,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::MTRefCountPtr(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -130,7 +130,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::MTRefCountPtr(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -176,7 +176,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::MTRefCountPtr(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -235,7 +235,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::operator =(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -271,7 +271,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::operator =(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check cross aspect assignment
         if(pOtherObjAspect == pOtherObj)
@@ -337,7 +337,7 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::operator =(
 
     if(pOtherObj != NULL)
     {
-        ObjectT *pOtherObjAspect = convertToCurrentAspect(pOtherObj);
+        ObjectT *pOtherObjAspect = Aspect::convertToCurrent(pOtherObj);
 
         // check for cross aspect assignment
         if(pOtherObjAspect == pOtherObj)

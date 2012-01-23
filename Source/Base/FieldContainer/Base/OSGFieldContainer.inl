@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------*\
+ /*---------------------------------------------------------------------------*\
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
@@ -527,24 +527,6 @@ const Char8 *FieldContainer::getClassname(void)
     return "FieldContainer";
 }
 
-#ifdef OSG_MT_CPTR_ASPECT
-template<class ContainerPtr> inline
-ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
-{
-    if(pFC == NULL)
-    {
-        return NULL;
-    }
-    
-    ContainerPtr result = 
-        static_cast<ContainerPtr>(
-            pFC->getAspectPtr(Thread::getCurrentAspect()));
-
-    return result;
-}
-#endif
-
-
 template <class ObjectT> inline
 void FieldContainer::newPtr(      typename ObjectT::ObjCPtr &result, 
                             const          ObjectT          *pPrototype,
@@ -591,7 +573,7 @@ void FieldContainer::newAspectCopy(typename ObjectT::ObjCPtr &result,
                                    const    ObjectT          *pPrototype)
 {
     result = new ObjectT(*pPrototype);
-
+    
     result->onCreateAspect(pRefAspect, pPrototype);
 }
 #endif

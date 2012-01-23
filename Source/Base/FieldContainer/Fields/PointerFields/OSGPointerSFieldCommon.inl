@@ -170,7 +170,7 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 void PointerSFieldCommon<AccessHandlerT,
                          NamespaceI     >::syncWith(Self &source)
 {
-    FieldContainer *pNewObj = convertToCurrentAspect(source.ptrStoreGet());
+    FieldContainer *pNewObj = Aspect::convertToCurrent(source.ptrStoreGet());
     
     AccessHandler::onSyncReplace( this, 
                                  _fieldValue, 

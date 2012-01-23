@@ -44,7 +44,7 @@
 
 #include "OSGContainerForwards.h"
 #include "OSGReflexiveContainerType.h"
-//#include "OSGAspectStore.h"
+#include "OSGAspect.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -272,6 +272,8 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     friend class DynFieldContainer;
 
     friend class ChangeList;
+
+    friend FieldContainer *Aspect::initializeContainerFrom(FieldContainer *src);
 
     typedef ReflexiveContainerType Inherited;
 
