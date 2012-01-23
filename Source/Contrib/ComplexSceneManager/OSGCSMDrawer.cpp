@@ -321,6 +321,7 @@ void CSMDrawer::runParallel(void)
     for(UInt32 i = 0; i < 10; ++i)
     {
         _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
         _pSyncLock->acquire();
@@ -347,6 +348,7 @@ void CSMDrawer::runParallel(void)
 
         while(_bRun == true)
         {
+            _pSyncBarrier->enter               (_uiSyncCount);
             _pSyncBarrier->enter               (_uiSyncCount);
                 
 # ifdef OSG_GLOBAL_SYNC_LOCK
@@ -385,6 +387,7 @@ void CSMDrawer::runParallel(void)
 
         while(_bRun == true)
         {
+            _pSyncBarrier->enter               (_uiSyncCount);
             _pSyncBarrier->enter               (_uiSyncCount);
 
 # ifdef OSG_GLOBAL_SYNC_LOCK
@@ -427,6 +430,7 @@ void CSMDrawer::runParallel(void)
     _pSyncLock->acquire();
 #endif
 
+//    _pSyncFromThread->getChangeList()->dump();
     _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
@@ -447,6 +451,7 @@ void CSMDrawer::runParallel(void)
     _pSyncLock->acquire();
 #endif
 
+//    _pSyncFromThread->getChangeList()->dump();
     _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
@@ -463,6 +468,7 @@ void CSMDrawer::runParallel(void)
     _pSyncLock->acquire();
 #endif
 
+//    _pSyncFromThread->getChangeList()->dump();
     _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK

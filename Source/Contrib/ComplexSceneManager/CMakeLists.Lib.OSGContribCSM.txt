@@ -133,6 +133,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Interfaces")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Helper")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors")

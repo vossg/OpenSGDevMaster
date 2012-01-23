@@ -680,7 +680,8 @@ void ComplexSceneManager::processUnresolved(void)
         }
 
     }
-        
+     
+    _vUnresolvedFCs.clear();
 }
 
 FieldContainerTransitPtr ComplexSceneManager::readOSGFile(
@@ -778,6 +779,23 @@ FieldContainer *ComplexSceneManager::findNamedComponent(
     return NULL;
 }
 
+void ComplexSceneManager::addFrameProducer(
+    FrameProducerInterface *pProducer)
+{
+    if(_sfDrawManager.getValue() != NULL)
+    {
+        _sfDrawManager.getValue()->addProducer(pProducer);
+    }
+}
+
+void ComplexSceneManager::removeFrameProducer(
+    FrameProducerInterface *pProducer)
+{
+    if(_sfDrawManager.getValue() != NULL)
+    {
+        _sfDrawManager.getValue()->removeProducer(pProducer);
+    }
+}
 
 /*----------------------------- class specific ----------------------------*/
 

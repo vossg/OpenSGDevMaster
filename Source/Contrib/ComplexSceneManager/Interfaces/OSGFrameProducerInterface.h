@@ -36,24 +36,27 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCSMDRAWMANAGER_H_
-#define _OSGCSMDRAWMANAGER_H_
+#ifndef _OSGFRAMEPRODUCERINTERFACE_H_
+#define _OSGFRAMEPRODUCERINTERFACE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCSMDrawManagerBase.h"
-#include "OSGCSMDrawer.h"
-#include "OSGFrameProducerHandlerMixin.h"
+#include "OSGContribCSMDef.h"
+#include "OSGBaseTypes.h"
+#include "OSGTime.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CSMDrawManager class. See \ref
-           PageContribCSMDrawManager for a description.
-*/
+class Barrier;
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager : 
-    public FrameProducerHandlerMixin<CSMDrawManagerBase>
+/*! \brief FrameProducer class. See \ref
+           PageDynamicsFrameTask for a description.
+    \ingroup GrpDynamicsBaseObj
+    \ingroup GrpLibOSGDynamics
+ */
+
+class OSG_CONTRIBCSM_DLLMAPPING FrameProducerInterface
 {
   protected:
 
@@ -61,73 +64,45 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager :
 
   public:
 
-    typedef FrameProducerHandlerMixin<CSMDrawManagerBase> Inherited;
-    typedef CSMDrawManager                                Self;
+    typedef FrameProducerInterface Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         details    );
+    virtual void setSyncBarrier(Barrier *pBarrier) = 0;
+    virtual void syncProducer  (void             ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool init    (void);
-    void shutdown(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
-
-    void frame(Time oTime, UInt32 uiFrame);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in DrawManagerBase.
-
-    ThreadRefPtr  _pThread;
-    BarrierRefPtr _pSyncBarrier;
-    BarrierRefPtr _pSwapBarrier;
-
-    UInt32        _uiSyncCount;
+    // Variables should all be in FrameProducerBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CSMDrawManager(void);
-    CSMDrawManager(const CSMDrawManager &source);
+    FrameProducerInterface(void);
+    FrameProducerInterface(const FrameProducerInterface &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMDrawManager(void);
+    virtual ~FrameProducerInterface(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,26 +113,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager :
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class CSMDrawManagerBase;
-
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMDrawManager &source);
+    void operator =(const FrameProducerInterface &source);
 };
 
-typedef CSMDrawManager *CSMDrawManagerP;
+typedef FrameProducerInterface *FrameProducerInterfaceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCSMDrawManagerBase.inl"
-#include "OSGCSMDrawManager.inl"
-
-#endif /* _OSGCSMDRAWMANAGER_H_ */
+#endif /* _OSGFRAMEPRODUCERINTERFACE_H_ */

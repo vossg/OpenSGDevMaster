@@ -212,6 +212,7 @@ void CSMDrawManager::shutdown(void)
         commitChanges();
 
         _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
 
         while(dIt != dEnd)
         {
@@ -356,6 +357,12 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
 
     if(_sfParallel.getValue() == true)
     {
+//        _pThread->getChangeList()->dump();
+        
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        this->syncProducers();
+
         _pSyncBarrier->enter(_uiSyncCount);
         _pSyncBarrier->enter(_uiSyncCount);
 
@@ -371,6 +378,8 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
     }
     else
     {
+        this->syncProducers();
+
         MFUnrecCSMDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
         MFUnrecCSMDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
 

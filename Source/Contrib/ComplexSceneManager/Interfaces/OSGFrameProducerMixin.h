@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,265 +36,155 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOMPLEXSCENEMANAGER_H_
-#define _OSGCOMPLEXSCENEMANAGER_H_
+#ifndef _OSGFRAMEPRODUCERMIXIN_H_
+#define _OSGFRAMEPRODUCERMIXIN_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include <boost/function.hpp>
-
-#include "OSGComplexSceneManagerBase.h"
-#include "OSGCSMDrawManager.h"
-#include "OSGPathHandler.h"
-#include "OSGSceneFileType.h"
-//#include "OSGSensorTask.h"
-#include "OSGCSMKeySensorHelper.h"
+#include "OSGComplexSceneManager.h"
 
 OSG_BEGIN_NAMESPACE
 
-class FrameProducerInterface;
-
-/*! \brief ComplexSceneManager class. See \ref
-           PageContribCSMComplexSceneManager for a description.
-*/
-
-class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager : 
-    public ComplexSceneManagerBase
+/*! \ingroup GrpDynamicsBaseObj
+    \ingroup GrpLibOSGDynamics
+ */
+template <class ParentT>
+class FrameProducerMixin  : public ParentT, 
+                            public FrameProducerInterface
 {
-  protected:
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    typedef ParentT                Inherited;
+    typedef FrameProducerInterface Interface;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ComplexSceneManagerBase Inherited;
-    typedef ComplexSceneManager     Self;
+    typedef          FrameProducerMixin<ParentT>   Self;
 
-    typedef boost::function<void (void)> MainLoopFuncF;
+    typedef typename ParentT::Desc                 Desc;
+    typedef typename Desc::TypeObject              TypeObject;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                      dcast                                   */
     /*! \{                                                                 */
-
-    static ComplexSceneManager *the(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
-
-    static void startFrom(const std::string &szParamFilename);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-
-    bool init     (int argc, char **argv);
-    void terminate(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Helper                                    */
     /*! \{                                                                 */
-
-    void setMainloop(MainLoopFuncF fMainloop);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                      Get                                     */
     /*! \{                                                                 */
-
-    void run  (void);
-    void frame(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                      Set                                     */
     /*! \{                                                                 */
-
-    void resetScene(void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                   Binary Access                              */
     /*! \{                                                                 */
-
-    void key(Int32 x,
-             Int32 y,
-             Int32 iState,
-             Char8 cKey  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                   your_operators                             */
     /*! \{                                                                 */
-
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Comparison                                */
     /*! \{                                                                 */
-
-    void addFrameProducer   (FrameProducerInterface *pProducer);
-    void removeFrameProducer(FrameProducerInterface *pProducer);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    typedef SceneFileType::Resolver             Resolver;
-
-    struct DeferredFCUse
-    {
-        std::string           _szName;
-        FieldContainerWeakPtr _pDstCnt;
-        UInt32                _uiDstFieldId;
-    };
-
-    // Variables should all be in ComplexSceneManagerBase.
-
-    static Time                                 SystemTime;
-    static ComplexSceneManagerUnrecPtr         _the;
-    static PathHandler                         _oPathHandler;
-    static std::vector<FieldContainerUnrecPtr> _vStaticGlobals;
-    static std::vector<DeferredFCUse         > _vStaticUnresolvedFCs;
-
-           MainLoopFuncF                       _fMainloop;
-           CSMKeySensorHelper                  _oKeyHelper;
-           std::vector<DeferredFCUse         > _vUnresolvedFCs;
-
+       
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
+    /*! \name                  Type information                            */
     /*! \{                                                                 */
-
-    ComplexSceneManager(void);
-    ComplexSceneManager(const ComplexSceneManager &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                      Fields                                  */
     /*! \{                                                                 */
-
-    virtual ~ComplexSceneManager(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    FieldContainer *resolve(const Char8          *szName,
-                                  FieldContainer *pDestContainer,
-                                  Int32           iDestFieldId  );
+    FrameProducerMixin(void);
+    FrameProducerMixin(const FrameProducerMixin &source);
+
+    virtual ~FrameProducerMixin(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                      Changed                                 */
     /*! \{                                                                 */
-
-    void onCreate(const ComplexSceneManager *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    void  addGlobals       (const std::string &filename);
-    void  addData          (const std::string &filename);
-
-    Node *findNode         (const std::string &filename) const;
-    void  processUnresolved(      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-    bool init    (const std::vector<std::string> &vParams);
-    void shutdown(      void                             );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void updateKeySensor(KeySensor *pSensor);
-    void removeKeySensor(KeySensor *pSensor);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static FieldContainer *resolveStatic(const Char8          *szName,
-                                               FieldContainer *pDestContainer,
-                                               Int32           iDestFieldId  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static FieldContainerTransitPtr  readOSGFile  (const std::string &filename,
-                                                         Resolver     resolver);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static void addStaticGlobals(const Char8                    *szFilename);
-
-    static void scanParamFile   (const Char8                    *szFilename,
-                                       std::vector<std::string> &vParams   );
-
-    static void scanPreSystem(         std::vector<std::string> &vParams   );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
+            void onCreateAspect (const FieldContainer *createAspect,
+                                 const Self           *source       = NULL);
+    virtual void onDestroyAspect(      UInt32          uiContainerId,
+                                       UInt32          uiAspect           );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class ComplexSceneManagerBase;
-    friend class KeySensor;
-
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComplexSceneManager &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const FrameProducerMixin &source);
 };
-
-typedef ComplexSceneManager *ComplexSceneManagerP;
 
 OSG_END_NAMESPACE
 
-#include "OSGComplexSceneManagerBase.inl"
-#include "OSGComplexSceneManager.inl"
+#include "OSGFrameProducerMixin.inl"
 
-#endif /* _OSGCOMPLEXSCENEMANAGER_H_ */
+#endif /* _OSGFRAMEPRODUCERMIXIN_H_ */
