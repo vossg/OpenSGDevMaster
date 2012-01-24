@@ -65,6 +65,7 @@ namespace Aspect
     /*! \ingroup GrpBaseFieldContainerFuncs
         \relatesalso OSG::FieldContainer
      */
+    OSG_BASE_DLLMAPPING
     FieldContainer *initializeContainerFrom(FieldContainer *src);
 #endif
 }
