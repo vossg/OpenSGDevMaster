@@ -167,7 +167,7 @@ void FrameHandler::removeTask(FrameTaskInterface *pTask)
         bool rc  = this->removeObjFromFrameTasks             (pTask);
         bool rcU = this->removeObjFromUninitializedFrameTasks(pTask);
 
-        if(rc == true and rcU == false)
+        if(rc == true && rcU == false)
         {
             pTask->shutdown();
         }

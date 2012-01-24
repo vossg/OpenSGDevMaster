@@ -124,7 +124,7 @@ void FrameProducerHandlerMixin<ParentT>::removeProducer(
 template <class ParentT> inline
 void FrameProducerHandlerMixin<ParentT>::updateSyncCount(void)
 {
-    _pProducerSyncBarrier->setNumWaitFor(_mfFrameProducers.size() + 1);
+    _pProducerSyncBarrier->setNumWaitFor(UInt32(_mfFrameProducers.size()) + 1);
 }
 
 template <class ParentT> inline
