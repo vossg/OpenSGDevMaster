@@ -142,6 +142,8 @@ void FrameBufferObject::setColorAttachment(
         uiSlot -= GL_COLOR_ATTACHMENT0_EXT;
     }
 
+    editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
+
     if(uiSlot <= _mfColorAttachments.size())
     {
         _mfColorAttachments.resize(uiSlot + 1, NULL);
