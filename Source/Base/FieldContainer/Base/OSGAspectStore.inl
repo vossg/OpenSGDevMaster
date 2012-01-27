@@ -154,13 +154,17 @@ Int32 AspectStore::getRefCount(void)
 inline
 void AspectStore::lock(void)
 {
+#ifndef OSG_GLOBAL_SYNC_LOCK
     osgSpinLock(&_uiSpinLock, ReflexiveContainer::SpinLockBit);
+#endif
 }
 
 inline
 void AspectStore::release(void)
 {
+#ifndef OSG_GLOBAL_SYNC_LOCK
     osgSpinLockRelease(&_uiSpinLock, ReflexiveContainer::SpinLockClearMask);
+#endif
 }
 
 /*-------------------------------------------------------------------------*/

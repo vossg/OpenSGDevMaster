@@ -113,6 +113,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager :
     BarrierRefPtr _pSyncBarrier;
     BarrierRefPtr _pSwapBarrier;
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    LockRefPtr    _pSyncLock;
+#endif
+
     UInt32        _uiSyncCount;
 
     /*---------------------------------------------------------------------*/
