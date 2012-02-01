@@ -52,6 +52,7 @@ IF(COLLADA_ROOT_DIR)
 
     SET(__COLLADA_INCLUDE_SEARCH_DIRS "${COLLADA_ROOT_DIR}/include"
                                       "${COLLADA_ROOT_DIR}/include/colladadom"
+                                      "${COLLADA_ROOT_DIR}/include/collada-dom"
                                       "${__COLLADA_INCLUDE_SEARCH_DIRS}")
     SET(__COLLADA_LIBRARY_SEARCH_DIRS "${COLLADA_ROOT_DIR}/lib"
                                       "${COLLADA_ROOT_DIR}/lib64"
