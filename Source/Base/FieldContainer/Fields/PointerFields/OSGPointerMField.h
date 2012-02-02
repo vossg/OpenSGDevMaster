@@ -83,30 +83,6 @@ class PointerMFieldIterator :
 {
     /*==========================  PUBLIC  =================================*/
 
-    template <class AccessHandlerT, Int32 NI>
-    friend class PointerMFieldCommon;
-
-    template <class PT, typename RC, Int32 NI>
-    friend class PointerMFieldConstIterator;
-
-    template <class PT, typename RC, Int32 NI>
-    friend class PointerMField;
-
-    template <class PT, typename RC, Int32 NI>
-    friend typename PointerMFieldIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldIterator     <PT, RC, NI> const &lhs,
-                  PointerMFieldIterator     <PT, RC, NI> const &rhs );
-
-    template <class PT, class RC, Int32 NI>
-    friend typename PointerMFieldConstIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldIterator     <PT, RC, NI> const &lhs,
-                  PointerMFieldConstIterator<PT, RC, NI> const &rhs );
-
-    template <class PT, class RC, Int32 NI>
-    friend typename PointerMFieldConstIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldConstIterator<PT, RC, NI> const &lhs,
-                  PointerMFieldIterator     <PT, RC, NI> const &rhs );
-
   public:
 
     /*---------------------------------------------------------------------*/
@@ -209,22 +185,31 @@ class PointerMFieldIterator :
     bool operator != (const const_iterator  &rhs   ) const;
 
     /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
     /*---------------------------------------------------------------------*/
     /*! \name Base                                                         */
     /*! \{                                                                 */
 
-     const PtrStoreItType &base(void) const;
+    const PtrStoreItType &base(void) const;
 
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     MFieldType  *_pField;
+
+    template <class AccessHandlerT, Int32 NI>
+    friend class PointerMFieldCommon;
+
+    template <class PT, typename RC, Int32 NI>
+    friend class PointerMFieldConstIterator;
+
+    template <class PT, typename RC, Int32 NI>
+    friend class PointerMField;
 };
 
 template <class PtrTypeT, class RefCountPolicyT, Int32 NamespaceI>
@@ -271,30 +256,6 @@ class PointerMFieldConstIterator :
                             RefCountPolicy,
                             NamespaceI    >::PtrStoreConstItType
 {
-    template <class AccessHandlerT, Int32 NI>
-    friend class PointerMFieldCommon;
-
-    template <class PT, typename RC, Int32 NI>
-    friend class PointerMFieldIterator;
-
-    template <class PT, typename RC, Int32 NI>
-    friend class PointerMField;
-
-    template <class PT, class RC, Int32 NI>
-    friend typename PointerMFieldConstIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldConstIterator<PT, RC, NI> const &lhs,
-                  PointerMFieldConstIterator<PT, RC, NI> const &rhs );
-
-    template <class PT, class RC, Int32 NI>
-    friend typename PointerMFieldConstIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldIterator     <PT, RC, NI> const &lhs,
-                  PointerMFieldConstIterator<PT, RC, NI> const &rhs );
-
-    template <class PT, class RC, Int32 NI>
-    friend typename PointerMFieldConstIterator<PT, RC, NI>::difference_type
-        operator-(PointerMFieldConstIterator<PT, RC, NI> const &lhs,
-                  PointerMFieldIterator     <PT, RC, NI> const &rhs );
-
     /*==========================  PUBLIC  =================================*/
 
   public:
@@ -379,10 +340,6 @@ class PointerMFieldConstIterator :
     bool operator != (const iterator        &rhs   ) const;
 
     /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
     /*---------------------------------------------------------------------*/
     /*! \name Base                                                         */
     /*! \{                                                                 */
@@ -390,10 +347,22 @@ class PointerMFieldConstIterator :
     const PtrStoreConstItType &base(void) const;
 
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
+    template <class AccessHandlerT, Int32 NI>
+    friend class PointerMFieldCommon;
+
+    template <class PT, typename RC, Int32 NI>
+    friend class PointerMFieldIterator;
+
+    template <class PT, typename RC, Int32 NI>
+    friend class PointerMField;
 };
 
 template <class PtrTypeT, class RefCountPolicyT, Int32 iNamespace>
