@@ -41,6 +41,23 @@
 	>
 	</Field>
 	<Field
+		name="MTouchData"
+		type="MTouchData"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="mouseAsMTouch"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
+	<Field
 		name="size"
 		type="Vec2f"
 		cardinality="single"

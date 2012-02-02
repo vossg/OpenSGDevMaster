@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class StatisticsForeground;
+
 /*! \brief CSMWindow class. See \ref
            PageContribCSMCSMWindow for a description.
 */
@@ -101,14 +103,22 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual Vec2f translateScreenCoordinatesRel(Real32 rX,
-                                                Real32 rY);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
-    virtual Vec2i translateGlobalCoordinatesRel(Real32 rX,
-                                                Real32 rY);
+    virtual Vec2f translateScreenCoordinatesRel  (Real32 rX,
+                                                  Real32 rY);
 
-    virtual Vec2i translateGlobalCoordinatesAbs(Int32  iX,
-                                                Int32  iY);
+    virtual Vec2i translateGlobalCoordinatesRel  (Real32 rX,
+                                                  Real32 rY);
+
+    virtual Vec2i translateGlobalCoordinatesAbs  (Int32  iX,
+                                                  Int32  iY);
+
+    virtual Vec2f translateToScreenCoordinatesAbs(Real32 rX,
+                                                  Real32 rY);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,8 +153,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     // Variables should all be in CSMWindowBase.
 
-    WindowRecPtr _pWindow;
-    bool         _bFirstFrame;
+    WindowRecPtr            _pWindow;
+    StatisticsForeground   *_pStatFG;
+    bool                    _bFirstFrame;
+
+    MTouchData::MTouchBlob  _oTouchBlob;
+    UInt32                  _uiTouchMode;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -182,7 +196,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
                  Int32 y        );
 
     void motion (Int32 x, 
-                 Int32 y        );
+                 Int32 y,
+                 Int32 iModifier);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,6 +243,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     friend class FieldContainer;
     friend class CSMWindowBase;
     friend class CSMDrawer;
+    friend class CSMViewport;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CSMWindow &source);

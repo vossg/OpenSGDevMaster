@@ -74,6 +74,29 @@ ComplexSceneManager
                 }
               ]
             }
+
+            DEF OffSceneRoot Node
+            {
+              core MultiCore
+              {
+                cores
+                [
+                  Group {}
+                  USE OffSceneEffect1
+                  USE OffSceneEffect2
+                  USE OffSceneEffect3
+                  USE OffSceneEffect4
+                  USE OffSceneEffect5
+                  USE OffSceneEffect6
+                  USE OffSceneEffect7
+                ]
+              }
+
+              children
+              [
+                USE OffSceneModelRoot
+              ]           
+            }
           ]
         }
       ] 
@@ -139,6 +162,7 @@ ComplexSceneManager
                    USE ForeGnd4
 
                    USE LogoFGnd
+                   USE StatFGnd
                  ]
                }
              ]

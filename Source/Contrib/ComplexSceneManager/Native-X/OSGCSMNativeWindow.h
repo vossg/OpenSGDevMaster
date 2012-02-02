@@ -76,14 +76,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual Vec2f translateScreenCoordinatesRel(Real32 rX,
-                                                Real32 rY);
+    virtual Vec2f translateScreenCoordinatesRel  (Real32 rX,
+                                                  Real32 rY);
 
-    virtual Vec2i translateGlobalCoordinatesRel(Real32 rX,
-                                                Real32 rY);
+    virtual Vec2i translateGlobalCoordinatesRel  (Real32 rX,
+                                                  Real32 rY);
 
-    virtual Vec2i translateGlobalCoordinatesAbs(Int32  iX,
-                                                Int32  iY);
+    virtual Vec2i translateGlobalCoordinatesAbs  (Int32  iX,
+                                                  Int32  iY);
+
+    virtual Vec2f translateToScreenCoordinatesAbs(Real32 rX,
+                                                  Real32 rY);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

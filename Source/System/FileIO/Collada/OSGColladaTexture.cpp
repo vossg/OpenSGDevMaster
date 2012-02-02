@@ -98,11 +98,6 @@ void ColladaTexture::read(ColladaElement *colElemParent)
 
     const domExtraRef &extra = texture->getExtra();
 
-#if 0
-    fprintf(stderr, "texutre got %p extra entries\n", 
-            &*extra);
-#endif
-    
     if(extra == NULL || _extraHandlers.size() == 0)
         return;
 

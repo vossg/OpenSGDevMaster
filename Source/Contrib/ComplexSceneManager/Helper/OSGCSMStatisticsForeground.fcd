@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMStatisticsForeground"
+    parent="Foreground"
+    library="ContribCSM"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+    parentFields="none"
+    >
+    <Field
+       name="size"
+       type="UInt32"
+       cardinality="single"
+       visibility="external"
+       access="public"
+       defaultValue="25"
+    >
+    </Field>
+    <Field
+       name="color"
+       type="Color4f"
+       cardinality="single"
+       visibility="external"
+       access="public"
+       defaultValue="0.0, 1.0, 0.0, 0.7"
+    >
+    </Field>
+    <Field
+       name="elements"
+       type="std::string"
+       cardinality="multi"
+       visibility="external"
+       access="public"
+    >
+    </Field>
+</FieldContainer>

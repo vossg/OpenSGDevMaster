@@ -120,14 +120,21 @@ http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.6.4.tar.gz
 
 Build
 
- a) dll + opt + debug + 32Bit + vc9
+ a) dll + opt + debug + vc9
 
-configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs
+configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs -debug-and-release -mmx -sse -sse2 -plugin-sql-sqlite -no-dbus -no-phonon -no-phonon-backend -no-webkit -no-scripttools
 
- b) dll + opt + debug + 32Bit + vc9 + no ms secure c****
+ b) dll + opt + debug + vc9 + no ms secure c****
 
-configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs -D _CRT_SECURE_NO_DEPRECATE -D _CRT_SECURE_NO_WARNINGS -D _CRT_NONSTDC_NO_DEPRECATE -D _SECURE_SCL=0 -D _SCL_SECURE_NO_WARNINGS -D _SCL_SECURE_NO_DEPRECATE -D _HAS_ITERATOR_DEBUGGING=0
+configure -opensource -platform win32-msvc2008 -nomake examples -nomake demos -nomake docs -debug-and-release -mmx -sse -sse2 -plugin-sql-sqlite -no-dbus -no-phonon -no-phonon-backend -no-webkit -no-scripttools -D _CRT_SECURE_NO_DEPRECATE -D _CRT_SECURE_NO_WARNINGS -D _CRT_NONSTDC_NO_DEPRECATE -D _SECURE_SCL=0 -D _SCL_SECURE_NO_WARNINGS -D _SCL_SECURE_NO_DEPRECATE -D _HAS_ITERATOR_DEBUGGING=0
 
+ c)  dll + opt + debug + vc10
+
+configure -opensource -platform win32-msvc2010 -nomake examples -nomake demos -nomake docs -debug-and-release -mmx -sse -sse2 -plugin-sql-sqlite -no-dbus -no-phonon -no-phonon-backend -no-webkit -no-scripttools
+
+ d) dll + opt + debug + vc10 + no ms secure c****
+
+configure -opensource -platform win32-msvc2010 -nomake examples -nomake demos -nomake docs -debug-and-release -mmx -sse -sse2 -plugin-sql-sqlite -no-dbus -no-phonon -no-phonon-backend -no-webkit -no-scripttools -D _CRT_SECURE_NO_DEPRECATE -D _CRT_SECURE_NO_WARNINGS -D _CRT_NONSTDC_NO_DEPRECATE -D _SECURE_SCL=0 -D _SCL_SECURE_NO_WARNINGS -D _SCL_SECURE_NO_DEPRECATE -D _HAS_ITERATOR_DEBUGGING=0
 
  1c) VTK
 

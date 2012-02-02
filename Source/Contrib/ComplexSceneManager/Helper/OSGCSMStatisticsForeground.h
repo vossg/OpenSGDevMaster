@@ -36,28 +36,26 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCSMVIEWPORT_H_
-#define _OSGCSMVIEWPORT_H_
+#ifndef _OSGCSMSTATISTICSFOREGROUND_H_
+#define _OSGCSMSTATISTICSFOREGROUND_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCSMViewportBase.h"
-#include "OSGNode.h"
-#include "OSGCamera.h"
-#include "OSGBackground.h"
-#include "OSGForeground.h"
-#include "OSGViewport.h"
+#include "OSGCSMStatisticsForegroundBase.h"
+#include "OSGStatisticsForeground.h"
 
 OSG_BEGIN_NAMESPACE
 
 class CSMWindow;
+class SimpleStatisticsForeground;
 
-/*! \brief CSMViewport class. See \ref
-           PageContribCSMCSMViewport for a description.
+/*! \brief CSMStatisticsForeground class. See \ref
+           PageContribCSMStatisticsForeground for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForeground :
+    public CSMStatisticsForegroundBase
 {
   protected:
 
@@ -65,12 +63,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
 
   public:
 
-    typedef CSMViewportBase               Inherited;
-    typedef CSMViewport                   Self;
-
-    typedef std::vector<ViewportUnrecPtr> ViewportStore;
-    typedef ViewportStore::iterator       ViewportStoreIt;
-    typedef ViewportStore::const_iterator ViewportStoreConstIt;
+    typedef CSMStatisticsForegroundBase Inherited;
+    typedef CSMStatisticsForeground     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -91,16 +85,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
-
-    ViewportStoreConstIt beginViewports(void) const;
-    ViewportStoreConstIt endViewports  (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    bool needsStereoVisual(void);
+    
+    StatisticsForeground *getOSGForeground(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,21 +101,40 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
 
   protected:
 
-    ViewportStore _vViewports;
+    // Variables should all be in CSMStatisticsForegroundBase.
+
+    StatisticsForegroundUnrecPtr _pStatFG;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CSMViewport(void);
-    CSMViewport(const CSMViewport &source);
+    CSMStatisticsForeground(void);
+    CSMStatisticsForeground(const CSMStatisticsForeground &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMViewport(void);
+    virtual ~CSMStatisticsForeground(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void addElement(      SimpleStatisticsForeground *pStatFG,
+                    const std::string                &szStatObj,
+                    const std::string                &szStatElem,
+                    const std::string                &szFormat  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    virtual void draw(DrawEnv *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -151,17 +156,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
   private:
 
     friend class FieldContainer;
-    friend class CSMViewportBase;
+    friend class CSMStatisticsForegroundBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMViewport &source);
+    void operator =(const CSMStatisticsForeground &source);
 };
 
-typedef CSMViewport *CSMViewportP;
+typedef CSMStatisticsForeground *CSMStatisticsForegroundP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCSMViewportBase.inl"
-#include "OSGCSMViewport.inl"
+#include "OSGCSMStatisticsForegroundBase.inl"
+#include "OSGCSMStatisticsForeground.inl"
 
-#endif /* _OSGCSMVIEWPORT_H_ */
+#endif /* _OSGCSMSTATISTICSFOREGROUND_H_ */

@@ -68,8 +68,9 @@
 #include "OSGFieldContainerFields.h"    // Parent type
 #include "OSGCSMViewportFields.h"       // Viewports type
 #include "OSGMouseDataFields.h"         // MouseData type
+#include "OSGMTouchDataFields.h"        // MTouchData type
+#include "OSGSysFields.h"               // MouseAsMTouch type
 #include "OSGVecFields.h"               // Size type
-#include "OSGSysFields.h"               // DecorEnabled type
 #include "OSGBaseFields.h"              // IgnoreExtensions type
 #include "OSGRenderOptionsFields.h"     // RenderOptions type
 
@@ -103,7 +104,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         ParentFieldId = Inherited::NextFieldId,
         ViewportsFieldId = ParentFieldId + 1,
         MouseDataFieldId = ViewportsFieldId + 1,
-        SizeFieldId = MouseDataFieldId + 1,
+        MTouchDataFieldId = MouseDataFieldId + 1,
+        MouseAsMTouchFieldId = MTouchDataFieldId + 1,
+        SizeFieldId = MouseAsMTouchFieldId + 1,
         PositionFieldId = SizeFieldId + 1,
         DecorEnabledFieldId = PositionFieldId + 1,
         RequestMajorFieldId = DecorEnabledFieldId + 1,
@@ -127,6 +130,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ViewportsFieldId);
     static const OSG::BitVector MouseDataFieldMask =
         (TypeTraits<BitVector>::One << MouseDataFieldId);
+    static const OSG::BitVector MTouchDataFieldMask =
+        (TypeTraits<BitVector>::One << MTouchDataFieldId);
+    static const OSG::BitVector MouseAsMTouchFieldMask =
+        (TypeTraits<BitVector>::One << MouseAsMTouchFieldId);
     static const OSG::BitVector SizeFieldMask =
         (TypeTraits<BitVector>::One << SizeFieldId);
     static const OSG::BitVector PositionFieldMask =
@@ -163,6 +170,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFParentFieldContainerPtr SFParentType;
     typedef MFUnrecCSMViewportPtr MFViewportsType;
     typedef SFMouseData       SFMouseDataType;
+    typedef SFMTouchData      SFMTouchDataType;
+    typedef SFBool            SFMouseAsMTouchType;
     typedef SFVec2f           SFSizeType;
     typedef SFVec2f           SFPositionType;
     typedef SFBool            SFDecorEnabledType;
@@ -207,6 +216,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
                   SFMouseData         *editSFMouseData      (void);
             const SFMouseData         *getSFMouseData       (void) const;
+
+                  SFMTouchData        *editSFMTouchData     (void);
+            const SFMTouchData        *getSFMTouchData      (void) const;
+
+                  SFBool              *editSFMouseAsMTouch  (void);
+            const SFBool              *getSFMouseAsMTouch   (void) const;
 
                   SFVec2f             *editSFSize           (void);
             const SFVec2f             *getSFSize            (void) const;
@@ -258,6 +273,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   MouseData           &editMouseData      (void);
             const MouseData           &getMouseData       (void) const;
 
+                  MTouchData          &editMTouchData     (void);
+            const MTouchData          &getMTouchData      (void) const;
+
+                  bool                &editMouseAsMTouch  (void);
+                  bool                 getMouseAsMTouch   (void) const;
+
                   Vec2f               &editSize           (void);
             const Vec2f               &getSize            (void) const;
 
@@ -308,6 +329,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setMouseData      (const MouseData &value);
+            void setMTouchData     (const MTouchData &value);
+            void setMouseAsMTouch  (const bool value);
             void setSize           (const Vec2f &value);
             void setPosition       (const Vec2f &value);
             void setDecorEnabled   (const bool value);
@@ -368,6 +391,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFParentFieldContainerPtr _sfParent;
     MFUnrecCSMViewportPtr _mfViewports;
     SFMouseData       _sfMouseData;
+    SFMTouchData      _sfMTouchData;
+    SFBool            _sfMouseAsMTouch;
     SFVec2f           _sfSize;
     SFVec2f           _sfPosition;
     SFBool            _sfDecorEnabled;
@@ -428,6 +453,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleViewports      (void);
     GetFieldHandlePtr  getHandleMouseData       (void) const;
     EditFieldHandlePtr editHandleMouseData      (void);
+    GetFieldHandlePtr  getHandleMTouchData      (void) const;
+    EditFieldHandlePtr editHandleMTouchData     (void);
+    GetFieldHandlePtr  getHandleMouseAsMTouch   (void) const;
+    EditFieldHandlePtr editHandleMouseAsMTouch  (void);
     GetFieldHandlePtr  getHandleSize            (void) const;
     EditFieldHandlePtr editHandleSize           (void);
     GetFieldHandlePtr  getHandlePosition        (void) const;

@@ -96,6 +96,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var MTouchData      CSMWindowBase::_sfMTouchData
+    
+*/
+
+/*! \var bool            CSMWindowBase::_sfMouseAsMTouch
+    
+*/
+
 /*! \var Vec2f           CSMWindowBase::_sfSize
     
 */
@@ -239,6 +247,30 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMouseData),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMouseData));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFMTouchData::Description(
+        SFMTouchData::getClassType(),
+        "MTouchData",
+        "",
+        MTouchDataFieldId, MTouchDataFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMTouchData),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMTouchData));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "mouseAsMTouch",
+        "",
+        MouseAsMTouchFieldId, MouseAsMTouchFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMouseAsMTouch),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMouseAsMTouch));
 
     oType.addInitialDesc(pDesc);
 
@@ -478,6 +510,23 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"MTouchData\"\n"
+    "\t\ttype=\"MTouchData\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"mouseAsMTouch\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"size\"\n"
     "\t\ttype=\"Vec2f\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -673,6 +722,32 @@ SFMouseData *CSMWindowBase::editSFMouseData(void)
 const SFMouseData *CSMWindowBase::getSFMouseData(void) const
 {
     return &_sfMouseData;
+}
+
+
+SFMTouchData *CSMWindowBase::editSFMTouchData(void)
+{
+    editSField(MTouchDataFieldMask);
+
+    return &_sfMTouchData;
+}
+
+const SFMTouchData *CSMWindowBase::getSFMTouchData(void) const
+{
+    return &_sfMTouchData;
+}
+
+
+SFBool *CSMWindowBase::editSFMouseAsMTouch(void)
+{
+    editSField(MouseAsMTouchFieldMask);
+
+    return &_sfMouseAsMTouch;
+}
+
+const SFBool *CSMWindowBase::getSFMouseAsMTouch(void) const
+{
+    return &_sfMouseAsMTouch;
 }
 
 
@@ -946,6 +1021,14 @@ SizeT CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfMouseData.getBinSize();
     }
+    if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
+    {
+        returnValue += _sfMTouchData.getBinSize();
+    }
+    if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
+    {
+        returnValue += _sfMouseAsMTouch.getBinSize();
+    }
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
         returnValue += _sfSize.getBinSize();
@@ -1026,6 +1109,14 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
         _sfMouseData.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
+    {
+        _sfMTouchData.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
+    {
+        _sfMouseAsMTouch.copyToBin(pMem);
     }
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
@@ -1108,6 +1199,16 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(MouseDataFieldMask);
         _sfMouseData.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
+    {
+        editSField(MTouchDataFieldMask);
+        _sfMTouchData.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
+    {
+        editSField(MouseAsMTouchFieldMask);
+        _sfMouseAsMTouch.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SizeFieldMask & whichField))
     {
@@ -1196,6 +1297,8 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfParent                 (NULL),
     _mfViewports              (),
     _sfMouseData              (),
+    _sfMTouchData             (),
+    _sfMouseAsMTouch          (bool(false)),
     _sfSize                   (Vec2f(300, 300)),
     _sfPosition               (Vec2f(100, 100)),
     _sfDecorEnabled           (bool(true)),
@@ -1219,6 +1322,8 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfParent                 (NULL),
     _mfViewports              (),
     _sfMouseData              (source._sfMouseData              ),
+    _sfMTouchData             (source._sfMTouchData             ),
+    _sfMouseAsMTouch          (source._sfMouseAsMTouch          ),
     _sfSize                   (source._sfSize                   ),
     _sfPosition               (source._sfPosition               ),
     _sfDecorEnabled           (source._sfDecorEnabled           ),
@@ -1418,6 +1523,56 @@ EditFieldHandlePtr CSMWindowBase::editHandleMouseData      (void)
 
 
     editSField(MouseDataFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleMTouchData      (void) const
+{
+    SFMTouchData::GetHandlePtr returnValue(
+        new  SFMTouchData::GetHandle(
+             &_sfMTouchData,
+             this->getType().getFieldDesc(MTouchDataFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleMTouchData     (void)
+{
+    SFMTouchData::EditHandlePtr returnValue(
+        new  SFMTouchData::EditHandle(
+             &_sfMTouchData,
+             this->getType().getFieldDesc(MTouchDataFieldId),
+             this));
+
+
+    editSField(MTouchDataFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleMouseAsMTouch   (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfMouseAsMTouch,
+             this->getType().getFieldDesc(MouseAsMTouchFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleMouseAsMTouch  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfMouseAsMTouch,
+             this->getType().getFieldDesc(MouseAsMTouchFieldId),
+             this));
+
+
+    editSField(MouseAsMTouchFieldMask);
 
     return returnValue;
 }

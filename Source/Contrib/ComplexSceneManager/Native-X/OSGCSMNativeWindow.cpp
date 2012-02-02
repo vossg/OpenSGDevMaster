@@ -204,7 +204,7 @@ void CSMNativeWindow::xMainLoop(void)
                         
                         (*winIt)->mouse(event.xbutton.button - 1,
                                         MouseData::ButtonDown,
-                                        mapModifier(event.xbutton.state) >> 1,
+                                        mapModifier(event.xbutton.state),
                                         event.xbutton.x,
                                         event.xbutton.y);
 
@@ -214,7 +214,7 @@ void CSMNativeWindow::xMainLoop(void)
 
                         (*winIt)->mouse(event.xbutton.button - 1,
                                         MouseData::ButtonUp,
-                                        mapModifier(event.xbutton.state) >> 1,
+                                        mapModifier(event.xbutton.state),
                                         event.xbutton.x,
                                         event.xbutton.y);
 
@@ -222,7 +222,9 @@ void CSMNativeWindow::xMainLoop(void)
 
                     case MotionNotify:
 
-                    (*winIt)->motion(event.xbutton.x, event.xbutton.y);
+                        (*winIt)->motion(event.xbutton.x, 
+                                         event.xbutton.y,
+                                         mapModifier(event.xbutton.state));
 
                     break;
 
@@ -393,6 +395,33 @@ Vec2i CSMNativeWindow::translateGlobalCoordinatesAbs(Int32  iX,
                           & (returnValue[1]), 
                           
                           & qChild);
+
+    return returnValue;
+}
+
+Vec2f CSMNativeWindow::translateToScreenCoordinatesAbs(Real32 rX,
+                                                       Real32 rY)
+{
+    Vec2f returnValue(0, 0);
+
+    X11Window qChild = 0;
+
+    Int32    qW     = 0;
+    Int32    qH     = 0;
+
+    XTranslateCoordinates( _pDisplay, 
+                           _pXWindow->getWindow(), 
+                           _pRootWindow, 
+                          
+                            Int32(rX), 
+                            Int32(rY), 
+                          
+                          & qW, 
+                          & qH, 
+                          
+                          & qChild);
+
+    returnValue.setValues(qW, qH);
 
     return returnValue;
 }

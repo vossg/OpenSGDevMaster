@@ -148,6 +148,50 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                         case MouseData::RightButton :     
                             _oTrackball.setAutoPositionNeg(true);
                             break;
+
+                        case MouseData::WheelDownButton:
+                        {
+                            _oTrackball.setAutoPositionNeg(true);
+
+                            Real32 a,b,c,d;
+
+                            a = 0.f;
+                            b = 0.f;
+                            
+                            c = 0.f;
+                            d = 0.1f;
+
+                            _oTrackball.updatePositionNeg(a, b, c, d);
+
+                            editSFMatrixResult()->setValue(
+                                _oTrackball.getFullTrackballMatrix());
+                    
+                            editSFRotationMatrixResult()->setValue(
+                                _oTrackball.getRotationMatrix());
+                        }
+                        break;
+
+                        case MouseData::WheelUpButton:
+                        {
+                            _oTrackball.setAutoPositionNeg(true);
+
+                            Real32 a,b,c,d;
+
+                            a = 0.f;
+                            b = 0.f;
+                            
+                            c = 0.f;
+                            d = -0.1f;
+
+                            _oTrackball.updatePositionNeg(a, b, c, d);
+
+                            editSFMatrixResult()->setValue(
+                                _oTrackball.getFullTrackballMatrix());
+
+                            editSFRotationMatrixResult()->setValue(
+                                _oTrackball.getRotationMatrix());
+                        }
+                        break;
                     }
 
                     _iMouseButtons |= 1 << mData.getButton();
@@ -166,6 +210,8 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                             break;
                             
                         case MouseData::RightButton :     
+                        case MouseData::WheelDownButton:
+                        case MouseData::WheelUpButton:
                             _oTrackball.setAutoPositionNeg(false);
                             break;
                     }       

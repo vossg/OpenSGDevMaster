@@ -358,7 +358,7 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
     if(_sfParallel.getValue() == true)
     {
 //        _pThread->getChangeList()->dump();
-        
+
         _pSyncBarrier->enter(_uiSyncCount);
 
         this->syncProducers();

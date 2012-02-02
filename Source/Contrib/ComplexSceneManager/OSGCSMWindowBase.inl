@@ -99,6 +99,56 @@ void CSMWindowBase::setMouseData(const MouseData &value)
 
     _sfMouseData.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfMTouchData field.
+
+inline
+MTouchData &CSMWindowBase::editMTouchData(void)
+{
+    editSField(MTouchDataFieldMask);
+
+    return _sfMTouchData.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfMTouchData field.
+inline
+const MTouchData &CSMWindowBase::getMTouchData(void) const
+{
+    return _sfMTouchData.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfMTouchData field.
+inline
+void CSMWindowBase::setMTouchData(const MTouchData &value)
+{
+    editSField(MTouchDataFieldMask);
+
+    _sfMTouchData.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfMouseAsMTouch field.
+
+inline
+bool &CSMWindowBase::editMouseAsMTouch(void)
+{
+    editSField(MouseAsMTouchFieldMask);
+
+    return _sfMouseAsMTouch.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfMouseAsMTouch field.
+inline
+      bool  CSMWindowBase::getMouseAsMTouch(void) const
+{
+    return _sfMouseAsMTouch.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfMouseAsMTouch field.
+inline
+void CSMWindowBase::setMouseAsMTouch(const bool value)
+{
+    editSField(MouseAsMTouchFieldMask);
+
+    _sfMouseAsMTouch.setValue(value);
+}
 //! Get the value of the CSMWindow::_sfSize field.
 
 inline
@@ -486,6 +536,12 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
         _sfMouseData.syncWith(pFrom->_sfMouseData);
+
+    if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
+        _sfMTouchData.syncWith(pFrom->_sfMTouchData);
+
+    if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
+        _sfMouseAsMTouch.syncWith(pFrom->_sfMouseAsMTouch);
 
     if(FieldBits::NoField != (SizeFieldMask & whichField))
         _sfSize.syncWith(pFrom->_sfSize);

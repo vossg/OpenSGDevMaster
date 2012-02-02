@@ -52,6 +52,8 @@
 #include "OSGCSMPerspectiveCamera.h"
 #include "OSGColorBufferViewport.h"
 #include "OSGPassiveViewport.h"
+#include "OSGCSMStatisticsForeground.h"
+#include "OSGCSMWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -132,7 +134,7 @@ void CSMViewport::dump(      UInt32    ,
     SLOG << "Dump CSMViewport NI" << std::endl;
 }
 
-bool CSMViewport::init(void)
+bool CSMViewport::init(CSMWindow *pCSMWin)
 {
     bool returnValue = true;
 
@@ -465,8 +467,28 @@ bool CSMViewport::init(void)
 
         while(fIt != fEnd)
         {
-            (*vIt)->addForeground(*fIt);
-            
+            CSMStatisticsForeground *pCSMStatFG = 
+                dynamic_cast<CSMStatisticsForeground *>(*fIt);
+
+            if(pCSMStatFG != NULL)
+            {
+                pCSMStatFG->init(pCSMWin);
+
+                StatisticsForeground *pOSGStatFG = 
+                    pCSMStatFG->getOSGForeground();
+
+                if(pOSGStatFG != NULL)
+                {
+                    pCSMWin->_pStatFG = pOSGStatFG;
+
+                    (*vIt)->addForeground(pOSGStatFG);
+                }
+            }
+            else
+            {
+                (*vIt)->addForeground(*fIt);
+            }
+
             ++fIt;
         }
     }

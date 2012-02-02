@@ -52,6 +52,7 @@
 #include "OSGOSGSceneFileType.h"
 #include "OSGNameAttachment.h"
 #include "OSGComplexSceneManager.h"
+#include "OSGStatisticsForeground.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -91,14 +92,20 @@ void CSMWindow::initMethod(InitPhase ePhase)
 CSMWindow::CSMWindow(void) :
     Inherited   (    ),
     _pWindow    (NULL),
-    _bFirstFrame(true)
+    _pStatFG    (NULL),
+    _bFirstFrame(true),
+    _oTouchBlob (    ),
+    _uiTouchMode(   0)
 {
 }
 
 CSMWindow::CSMWindow(const CSMWindow &source) :
     Inherited   (source),
     _pWindow    (NULL  ),
-    _bFirstFrame(true  )
+    _pStatFG    (NULL  ),
+    _bFirstFrame(true  ),
+    _oTouchBlob (      ),
+    _uiTouchMode(     0)
 {
 }
 
@@ -111,6 +118,7 @@ void CSMWindow::resolveLinks(void)
     Inherited::resolveLinks();
 
     _pWindow = NULL;
+    _pStatFG = NULL;
 }
 
 void CSMWindow::reshape(Int32 w, 
@@ -130,20 +138,99 @@ void CSMWindow::mouse(Int32 iButton,
                       Int32 x,       
                       Int32 y)
 {
-    editMouseData().setData( iButton, 
-                             iState,  
-                             0x0001 << iModifier,
-                             x, 
-                             y,
-                            _pWindow);
+    if(_sfMouseAsMTouch.getValue() == true)
+    {
+        if(UInt32(iState) == MouseData::ButtonDown)
+        {
+            editMTouchData().addCursor(0, x, y, MTouchData::WindowAbs);
+        }
+        else
+        {
+            editMTouchData().removeCursor(0);
 
-    commitChanges();
+            if(_uiTouchMode == 1)
+            {
+                editMTouchData().removeCursor(1);
+            }
+        }
+
+        commitChanges();
+
+        _sfMTouchData.getValue().clear();
+
+        _uiTouchMode = 0;
+    }
+    else
+    {
+        editMouseData().setData( iButton, 
+                                 iState,  
+                                 iModifier,
+                                 x, 
+                                 y,
+                                _pWindow);
+
+        commitChanges();
+    }
 }
 
 void CSMWindow::motion(Int32 x, 
-                       Int32 y)
+                       Int32 y,
+                       Int32 iModifier)
 {
-    editMouseData().setData(x, y, _pWindow);
+    if(_sfMouseAsMTouch.getValue() == true)
+    {
+        if(_uiTouchMode == 0)
+        {
+            if(0x0000 != (iModifier & MouseData::CtrlActive))
+            {
+                _uiTouchMode = 1;
+
+                editMTouchData().updateCursor(0, 
+                                              _oTouchBlob._vPosition[0], 
+                                              _oTouchBlob._vPosition[1], 
+                                              _oTouchBlob._uiCoordSys  );
+
+                editMTouchData().updateCursor(1, x, y, MTouchData::WindowAbs);
+            }
+            else
+            {
+                editMTouchData().updateCursor(0, x, y, MTouchData::WindowAbs);
+
+                _oTouchBlob._vPosition.setValues(x, y, 0);
+                _oTouchBlob._uiCoordSys = MTouchData::WindowAbs;
+            }
+        }
+        else
+        {
+            if(0x0000 != (iModifier & MouseData::CtrlActive))
+            {
+                editMTouchData().updateCursor(0, 
+                                              _oTouchBlob._vPosition[0], 
+                                              _oTouchBlob._vPosition[1], 
+                                              _oTouchBlob._uiCoordSys  );
+
+                editMTouchData().updateCursor(1, x, y, MTouchData::WindowAbs);
+            }
+            else
+            {
+                _uiTouchMode = 0;
+
+                editMTouchData().updateCursor(0, x, y, MTouchData::WindowAbs);
+                editMTouchData().removeCursor(1);
+                                            
+                _oTouchBlob._vPosition.setValues(x, y, 0);
+                _oTouchBlob._uiCoordSys = MTouchData::WindowAbs;
+            }
+        }
+
+        commitChanges();
+
+        _sfMTouchData.getValue().clear();
+    }
+    else
+    {
+        editMouseData().setData(x, y, _pWindow);
+    }
 }
 
 
@@ -215,6 +302,14 @@ Vec2i CSMWindow::translateGlobalCoordinatesAbs(Int32  iX,
     return returnValue;
 }
 
+Vec2f CSMWindow::translateToScreenCoordinatesAbs(Real32 rX,
+                                                 Real32 rY)
+{
+    Vec2f returnValue(0.f, 0.f);
+
+    return returnValue;
+}
+
 bool CSMWindow::init(void)
 {
     bool returnValue = true;
@@ -224,7 +319,7 @@ bool CSMWindow::init(void)
 
     while(vIt != vEnd)
     {
-        returnValue = (*vIt)->init();
+        returnValue = (*vIt)->init(this);
 
         if(returnValue == false)
         {
@@ -300,14 +395,33 @@ bool CSMWindow::init(void)
 void CSMWindow::render(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
-    Window* pThreadLocalWin = 
-        Aspect::convertToCurrent<Window *>(_pWindow.get());
+    Window               *pThreadLocalWin    = 
+        Aspect::convertToCurrent<Window               *>(_pWindow.get());
+    StatisticsForeground *pThreadLocalStatFG = 
+        Aspect::convertToCurrent<StatisticsForeground *>(_pStatFG      );
 #else
-    OSG::Window *pThreadLocalWin = _pWindow;
+    Window               *pThreadLocalWin    = _pWindow;
+    StatisticsForeground *pThreadLocalStatFG = _pStatFG;
 #endif
 
     if(pThreadLocalWin == NULL)
         return;
+
+    if(pThreadLocalStatFG != NULL)
+    {
+        if(pThreadLocalStatFG->getActive() == true)
+        {
+            pAction->setStatCollector(pThreadLocalStatFG->getCollector());
+            pAction->setUseGLFinish  (true);
+        }
+        else
+        {
+            pAction->setStatCollector(NULL );
+            pAction->setUseGLFinish  (false);
+        }
+    }
+
+//    fprintf(stderr, "csmwin::render %p\n", pThreadLocalStatFG);
 
 #if 0
     if(_bFirstFrame == true)
@@ -347,14 +461,29 @@ void CSMWindow::render(RenderAction *pAction)
 void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
-    Window *pThreadLocalWin = 
-        Aspect::convertToCurrent<Window *>(_pWindow.get());
+    Window               *pThreadLocalWin    = 
+        Aspect::convertToCurrent<Window               *>(_pWindow.get());
+    StatisticsForeground *pThreadLocalStatFG = 
+        Aspect::convertToCurrent<StatisticsForeground *>(_pStatFG      );
 #else
-    Window *pThreadLocalWin = _pWindow;
+    Window               *pThreadLocalWin    = _pWindow;
+    StatisticsForeground *pThreadLocalStatFG = _pStatFG;
 #endif
 
     if(pThreadLocalWin == NULL)
         return;
+
+    if(pThreadLocalStatFG != NULL)
+    {
+        if(pThreadLocalStatFG->getActive() == true)
+        {
+            pAction->setStatCollector(pThreadLocalStatFG->getCollector());
+        }
+        else
+        {
+            pAction->setStatCollector(NULL);
+        }
+    }
 
     if(_bFirstFrame == true)
     {

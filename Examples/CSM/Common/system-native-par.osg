@@ -128,6 +128,8 @@ ComplexSceneManager
 
                  foregrounds
                  [
+                   USE LogoFG
+#                   USE StatFGnd
                  ]
                }
              ]

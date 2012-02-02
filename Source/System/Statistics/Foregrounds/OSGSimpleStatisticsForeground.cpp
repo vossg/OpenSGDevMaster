@@ -200,7 +200,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv)
         initText(getFamily(), getSize());
 
     if ((getCollector() == NULL) || 
-        (!getCollector()->getNumOfElems() && !getMFElementIDs()->size()))
+        (!getCollector()->getNumOfElems() && 
+         !getMFElementIDs()->size()))
         return; // nothing to do
 
     Real32  pw = Real32(pEnv->getPixelWidth ());

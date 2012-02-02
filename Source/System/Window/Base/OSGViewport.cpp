@@ -493,6 +493,25 @@ void Viewport::renderForegrounds(Window *pWin,
     oEnv.setDrawerId  (iDrawerId  );
     oEnv.setDrawableId(iDrawableId);
 
+    glViewport(oEnv.getPixelLeft  (),
+               oEnv.getPixelBottom(),
+               oEnv.getPixelWidth (),
+               oEnv.getPixelHeight());
+
+    if(oEnv.getFull() == false)
+    {
+        glScissor(oEnv.getPixelLeft  (),
+                  oEnv.getPixelBottom(),
+                  oEnv.getPixelWidth (),
+                  oEnv.getPixelHeight());
+        
+        glEnable(GL_SCISSOR_TEST);
+    }
+    else
+    {
+        glDisable(GL_SCISSOR_TEST);
+    }
+    
     for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
     {
         Foreground        *pForeground = getForegrounds(i);

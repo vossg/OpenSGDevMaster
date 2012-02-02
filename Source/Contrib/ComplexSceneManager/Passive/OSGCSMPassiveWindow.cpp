@@ -160,7 +160,7 @@ void CSMPassiveWindow::csmGlutMouseHandler(Int32 iButton,
 void CSMPassiveWindow::csmGlutMouseMotionHandler(Int32 x, 
                                                  Int32 y)
 {
-    _pPassiveWindow->motion(x, y);
+    _pPassiveWindow->motion(x, y, MouseData::NoModifier);
 }
 
 

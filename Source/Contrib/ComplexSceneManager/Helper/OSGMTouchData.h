@@ -36,18 +36,19 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMOUSEDATA_H_
-#define _OSGMOUSEDATA_H_
+#ifndef _OSGMTOUCHDATA_H_
+#define _OSGMTOUCHDATA_H_
 
 #include "OSGContribCSMDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGFieldTraits.h"
+#include "OSGVector.h"
 
 OSG_BEGIN_NAMESPACE
 
 class Window;
 
-class OSG_CONTRIBCSM_DLLMAPPING MouseData
+class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 {
   private:
 
@@ -61,26 +62,50 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   types                                                               
     //-----------------------------------------------------------------------
 
+    struct MTouchBlob
+    {
+        UInt32  _uiEvent;
+
+        Int32   _iCursorId;
+        Vec3f   _vPosition;
+
+        UInt32  _uiCoordSys;
+
+        MTouchBlob(){};
+
+        MTouchBlob(UInt32 uiEvent,
+                   Int32  iCursorId,
+                   Real32 rX,
+                   Real32 rY,
+                   UInt32 uiCoordSys = MTouchData::GlobalRel);
+
+        //~MTouchBlob(void);
+
+        bool operator ==(const MTouchBlob &rhs) const;
+        bool operator !=(const MTouchBlob &rhs) const;
+        bool operator < (const MTouchBlob &rhs) const;
+    };
+
+    typedef std::vector<MTouchBlob>                 MTouchBlobStore;
+    typedef std::vector<MTouchBlob>::iterator       MTouchBlobStoreIt;
+    typedef std::vector<MTouchBlob>::const_iterator MTouchBlobStoreConstIt;
+
+    typedef std::vector<UInt32>                 ActiveBlobsStore;
+    typedef std::vector<UInt32>::iterator       ActiveBlobsStoreIt;
+    typedef std::vector<UInt32>::const_iterator ActiveBlobsStoreConstIt;
+
     //-----------------------------------------------------------------------
     //   constants                                                           
     //-----------------------------------------------------------------------
 
-    static const UInt32 ButtonDown      = 0x0000;
-    static const UInt32 ButtonUp        = 0x0001;
+    static const UInt32 AddCursor    = 0x0001;
+    static const UInt32 RemoveCursor = 0x0002;
+    static const UInt32 UpdateCursor = 0x0003;
 
-    static const UInt32 LeftButton      = 0x0000;
-    static const UInt32 MiddleButton    = 0x0001;
-    static const UInt32 RightButton     = 0x0002;
-    static const UInt32 WheelUpButton   = 0x0003;
-    static const UInt32 WheelDownButton = 0x0004;
-
-    static const UInt32 NoModifier      = 0x0001;
-    static const UInt32 ShiftActive     = 0x0002;
-    static const UInt32 CtrlActive      = 0x0004;
-    static const UInt32 AltActive       = 0x0008;
-
-    static const UInt32 AbsValues       = 0x0001;
-    static const UInt32 RelValues       = 0x0002;
+    static const UInt32 GlobalRel    = 0x0001;
+    static const UInt32 GlobalAbs    = 0x0002;
+    static const UInt32 WindowRel    = 0x0010;
+    static const UInt32 WindowAbs    = 0x0020;
 
     //-----------------------------------------------------------------------
     //   enums                                                               
@@ -144,13 +169,10 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    Int32      _iButton;
-    Int32      _iState;
-    Int32      _iModifier;
-    Real32     _rX;
-    Real32     _rY;
-    Window    *_pWindow;
-    UInt32     _uiMode;
+    MTouchBlobStore  _vBlobs;
+    ActiveBlobsStore _vActiveBlobs;
+
+//    Window    *_pWindow;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -166,47 +188,44 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    MouseData(void);
-    MouseData(const MouseData &source);
+    MTouchData(void);
+    MTouchData(const MTouchData &source);
 
-    virtual ~MouseData(void); 
+    virtual ~MTouchData(void); 
 
     /*------------------------- your_category -------------------------------*/
 
-    void setData(Int32      iButton, 
-                 Int32      iState,
-                 Int32      iModifier,
-                 Real32     x,       
-                 Real32     y,
-                 Window    *pWindow,
-                 UInt32     uiMode = AbsValues);
-
-    void setData(Real32  x,       
-                 Real32  y,
-                 Window *pWindow,
-                 UInt32  uiMode = AbsValues);
+    void addCursor   (UInt32 uiId, 
+                      Real32 rX, 
+                      Real32 rY,
+                      UInt32 uiCoordSys = GlobalRel);
+    void updateCursor(UInt32 uiId, 
+                      Real32 rX, 
+                      Real32 rY,
+                      UInt32 uiCoordSys = GlobalRel);
+    void removeCursor(UInt32 uiId                  );
 
     /*------------------------- your_operators ------------------------------*/
 
-    Int32      getButton  (void) const;
-    Int32      getState   (void) const;
-    Int32      getModifier(void) const;
-    Real32     getX       (void) const;
-    Real32     getY       (void) const;
-    Window    *getWindow  (void) const;
-    UInt32     getMode    (void) const;
+    void prepSubmission(void);
+    void clear         (void);
+    void dump          (void) const;
+
+    /*------------------------- your_operators ------------------------------*/
+
+    MTouchBlobStore &getBlobStore(void);
 
     /*------------------------- assignment ----------------------------------*/
 
-    void operator = (const MouseData &rhs);
-    bool operator ==(const MouseData &rhs) const;
+    void operator = (const MTouchData &rhs);
+    bool operator ==(const MTouchData &rhs) const;
 
     /*------------------------- comparison ----------------------------------*/
 };
 
 
 template <>
-struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
+struct FieldTraits<MTouchData> : public FieldTraitsTemplateBase<MTouchData>
 {
   private:
 
@@ -214,44 +233,26 @@ struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
 
   public:
 
-    typedef FieldTraits<MouseData>  Self;
+    typedef FieldTraits<MTouchData>  Self;
 
     enum             { Convertible = Self::NotConvertible  };
 
     static OSG_CONTRIBCSM_DLLMAPPING
                  DataType   &getType      (void);
 
-    static const Char8      *getSName     (void) { return "SFMouseData";    }
+    static const Char8      *getSName     (void) { return "SFMTouchData";    }
 
-    static const Char8      *getMName     (void) { return "MFMouseData";    }
+    static const Char8      *getMName     (void) { return "MFMTouchData";    }
 
-    static       MouseData   getDefault   (void) { return MouseData(); }
+    static       MTouchData  getDefault   (void) { return MTouchData(); }
 
-#if 0
-    static void putToStream(const std::string &val,
-                                  OutStream   &outStr)
-    {
-        outStr << "\"";
-        outStr << val;
-        outStr << "\"";
-    }
-
-    static bool      getFromCString(      std::string  &outVal,
-                                    const Char8       *&inVal)
-    {
-        outVal.assign(inVal);
-
-        return true;
-    }
-#endif
-
-    static       UInt32    getBinSize (const MouseData &oObject)
+    static       UInt32      getBinSize(const MTouchData &oObject)
     {
         return 0; //oObject.length() + 1 + sizeof(UInt32);
     }
 
-    static       UInt32    getBinSize (const MouseData *pObjectStore,
-                                             UInt32     uiNumObjects)
+    static       UInt32    getBinSize (const MTouchData *pObjectStore,
+                                             UInt32      uiNumObjects)
     {
         UInt32 size=0;
 
@@ -264,14 +265,14 @@ struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
     }
 
 
-    static void copyToBin(      BinaryDataHandler   &pMem, 
-                          const MouseData           &oObject)
+    static void copyToBin(      BinaryDataHandler  &pMem, 
+                          const MTouchData         &oObject)
     {
     	//pMem.putValue(oObject);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 
-                          const MouseData         *pObjectStore,
+                          const MTouchData        *pObjectStore,
                                 UInt32             uiNumObjects)
     {
         for(UInt32 i=0; i < uiNumObjects; ++i)
@@ -281,13 +282,13 @@ struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
     }
 
     static void copyFromBin(BinaryDataHandler &pMem, 
-                            MouseData         &oObject)
+                            MTouchData        &oObject)
     {
         //pMem.getValue(oObject);
     }
 
     static void copyFromBin(BinaryDataHandler &pMem, 
-                            MouseData         *pObjectStore,
+                            MTouchData        *pObjectStore,
                             UInt32             uiNumObjects)
     {
         for(UInt32 i = 0; i < uiNumObjects; ++i)
@@ -299,6 +300,6 @@ struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
 
 OSG_END_NAMESPACE
 
-#include "OSGMouseData.inl"
+#include "OSGMTouchData.inl"
 
 #endif
