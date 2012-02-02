@@ -159,6 +159,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     MTouchData::MTouchBlob  _oTouchBlob;
     UInt32                  _uiTouchMode;
+    bool                    _bMouseActive;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

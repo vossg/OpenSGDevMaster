@@ -90,22 +90,24 @@ void CSMWindow::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 CSMWindow::CSMWindow(void) :
-    Inherited   (    ),
-    _pWindow    (NULL),
-    _pStatFG    (NULL),
-    _bFirstFrame(true),
-    _oTouchBlob (    ),
-    _uiTouchMode(   0)
+    Inherited    (     ),
+    _pWindow     ( NULL),
+    _pStatFG     ( NULL),
+    _bFirstFrame ( true),
+    _oTouchBlob  (     ),
+    _uiTouchMode (    0),
+    _bMouseActive(false)
 {
 }
 
 CSMWindow::CSMWindow(const CSMWindow &source) :
-    Inherited   (source),
-    _pWindow    (NULL  ),
-    _pStatFG    (NULL  ),
-    _bFirstFrame(true  ),
-    _oTouchBlob (      ),
-    _uiTouchMode(     0)
+    Inherited    (source),
+    _pWindow     (NULL  ),
+    _pStatFG     (NULL  ),
+    _bFirstFrame (true  ),
+    _oTouchBlob  (      ),
+    _uiTouchMode (     0),
+    _bMouseActive(false )
 {
 }
 
@@ -138,6 +140,15 @@ void CSMWindow::mouse(Int32 iButton,
                       Int32 x,       
                       Int32 y)
 {
+    if(UInt32(iState) == MouseData::ButtonDown)
+    {
+        _bMouseActive = true;
+    }
+    else
+    {
+        _bMouseActive = false;
+    }
+
     if(_sfMouseAsMTouch.getValue() == true)
     {
         if(UInt32(iState) == MouseData::ButtonDown)
@@ -177,6 +188,9 @@ void CSMWindow::motion(Int32 x,
                        Int32 y,
                        Int32 iModifier)
 {
+    if(_bMouseActive == false)
+        return;
+
     if(_sfMouseAsMTouch.getValue() == true)
     {
         if(_uiTouchMode == 0)

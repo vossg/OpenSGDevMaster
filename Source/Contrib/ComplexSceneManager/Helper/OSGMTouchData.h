@@ -62,7 +62,7 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    struct MTouchBlob
+    struct OSG_CONTRIBCSM_DLLMAPPING MTouchBlob
     {
         UInt32  _uiEvent;
 

@@ -211,6 +211,26 @@ CSMNativeWindow *CSMNativeWindow::findWindowBy(HWND hwnd)
     return returnValue;
 }
 
+static UInt32 mapModifier(WPARAM iState)
+{
+    if(0x0000 != (iState & MK_SHIFT))
+    {
+        return MouseData::ShiftActive;
+    }
+    else if(0x0000 != (iState & MK_CONTROL))
+    {
+        return MouseData::CtrlActive;
+    }
+/*
+    else if(0x0000 != (iState & Mod1Mask))
+    {
+        return MouseData::AltActive;
+    }
+*/
+
+    return 0x0001;
+}
+
 
 LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd, 
                                            UINT   uMsg,
@@ -227,7 +247,7 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::LeftButton,
                              MouseData::ButtonDown,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
             }
@@ -239,7 +259,7 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::MiddleButton,
                              MouseData::ButtonDown,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
             }
@@ -251,7 +271,7 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::RightButton,
                              MouseData::ButtonDown,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
             }
@@ -263,7 +283,7 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::LeftButton,
                              MouseData::ButtonUp,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
             }
@@ -275,7 +295,7 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::MiddleButton,
                              MouseData::ButtonUp,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
             }
@@ -287,9 +307,36 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             {
                 pNWin->mouse(MouseData::RightButton,
                              MouseData::ButtonUp,
-                             0,
+                             mapModifier(wParam),
                              LOWORD(lParam),
                              HIWORD(lParam));
+            }
+            break;
+
+        case WM_MOUSEWHEEL:
+
+            if(pNWin != NULL)
+            {
+                Int32 iWheelDist = GET_WHEEL_DELTA_WPARAM(wParam);
+                Int32 iKeyState  = GET_KEYSTATE_WPARAM   (wParam);
+
+
+                if(iWheelDist < 0)
+                {
+                    pNWin->mouse(MouseData::WheelUpButton,
+                                 MouseData::ButtonDown,
+                                 mapModifier(iKeyState),
+                                 LOWORD(lParam),
+                                 HIWORD(lParam));
+                }
+                else
+                {
+                    pNWin->mouse(MouseData::WheelDownButton,
+                                 MouseData::ButtonDown,
+                                 mapModifier(iKeyState),
+                                 LOWORD(lParam),
+                                 HIWORD(lParam));
+                }
             }
             break;
 
@@ -298,7 +345,8 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             if(pNWin != NULL)
             {
                 pNWin->motion(LOWORD(lParam),
-                              HIWORD(lParam));
+                              HIWORD(lParam),
+                              mapModifier(wParam));
             }
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
             break;
@@ -621,7 +669,7 @@ bool CSMNativeWindow::init(void)
         winStyle  &= ~(WS_BORDER | WS_CAPTION);
 
         ::SetWindowLong(_pHWND, GWL_STYLE, winStyle);
-     }
+    }
 
     ShowWindow(_pHWND, SW_SHOWNORMAL);
     SetActiveWindow(_pHWND);
