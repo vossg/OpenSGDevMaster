@@ -210,7 +210,7 @@
         case NSRightMouseDragged:
         case NSOtherMouseDragged:
         {
-            _pWin->motion(location.x, uiHeight - location.y);
+            _pWin->motion(location.x, uiHeight - location.y, 0);
 
             break;
         }
@@ -604,9 +604,10 @@ void CSMNativeWindow::mouse(Int32 iButton,
 }
 
 void CSMNativeWindow::motion (Int32 x, 
-                              Int32 y)
+                              Int32 y,
+                              Int32 iModifier)
 {
-    Inherited::motion(x, y);
+    Inherited::motion(x, y, iModifier);
 }
 
 OSG_END_NAMESPACE

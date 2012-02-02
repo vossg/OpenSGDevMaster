@@ -114,7 +114,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
                  Int32 y        );
 
     void motion (Int32 x, 
-                 Int32 y        );
+                 Int32 y,
+                 Int32 iModifier);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -215,7 +215,7 @@ OSStatus CSMNativeWindow::handleMouseEvent(EventHandlerCallRef  nextHandler,
             // mouse moved while a button is pressed
         case kEventMouseDragged:
 
-            this->motion(location.h, location.v);
+            this->motion(location.h, location.v, 0);
             
             // Redraw the whole window
             InvalWindowRect(window, &portRect);
