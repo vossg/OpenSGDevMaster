@@ -94,7 +94,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var std::string     InlineBase::_sfGrapOp
+/*! \var std::string     InlineBase::_sfGraphOp
     
 */
 
@@ -168,13 +168,13 @@ void InlineBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
-        "grapOp",
+        "graphOp",
         "",
-        GrapOpFieldId, GrapOpFieldMask,
+        GraphOpFieldId, GraphOpFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Inline::editHandleGrapOp),
-        static_cast<FieldGetMethodSig >(&Inline::getHandleGrapOp));
+        static_cast<FieldEditMethodSig>(&Inline::editHandleGraphOp),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleGraphOp));
 
     oType.addInitialDesc(pDesc);
 }
@@ -231,7 +231,7 @@ InlineBase::TypeObject InlineBase::_type(
     "\t >\n"
     "  </Field>\n"
     "  <Field\n"
-    "\t name=\"grapOp\"\n"
+    "\t name=\"graphOp\"\n"
     "\t type=\"std::string\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
@@ -302,16 +302,16 @@ SFUnrecNodePtr      *InlineBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
-SFString *InlineBase::editSFGrapOp(void)
+SFString *InlineBase::editSFGraphOp(void)
 {
-    editSField(GrapOpFieldMask);
+    editSField(GraphOpFieldMask);
 
-    return &_sfGrapOp;
+    return &_sfGraphOp;
 }
 
-const SFString *InlineBase::getSFGrapOp(void) const
+const SFString *InlineBase::getSFGraphOp(void) const
 {
-    return &_sfGrapOp;
+    return &_sfGraphOp;
 }
 
 
@@ -337,9 +337,9 @@ SizeT InlineBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRoot.getBinSize();
     }
-    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    if(FieldBits::NoField != (GraphOpFieldMask & whichField))
     {
-        returnValue += _sfGrapOp.getBinSize();
+        returnValue += _sfGraphOp.getBinSize();
     }
 
     return returnValue;
@@ -362,9 +362,9 @@ void InlineBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRoot.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    if(FieldBits::NoField != (GraphOpFieldMask & whichField))
     {
-        _sfGrapOp.copyToBin(pMem);
+        _sfGraphOp.copyToBin(pMem);
     }
 }
 
@@ -388,10 +388,10 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(RootFieldMask);
         _sfRoot.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
+    if(FieldBits::NoField != (GraphOpFieldMask & whichField))
     {
-        editSField(GrapOpFieldMask);
-        _sfGrapOp.copyFromBin(pMem);
+        editSField(GraphOpFieldMask);
+        _sfGraphOp.copyFromBin(pMem);
     }
 }
 
@@ -521,7 +521,7 @@ InlineBase::InlineBase(void) :
     _mfUrl                    (),
     _sfLoaded                 (bool(true)),
     _sfRoot                   (NULL),
-    _sfGrapOp                 (std::string("default"))
+    _sfGraphOp                (std::string("default"))
 {
 }
 
@@ -530,7 +530,7 @@ InlineBase::InlineBase(const InlineBase &source) :
     _mfUrl                    (source._mfUrl                    ),
     _sfLoaded                 (source._sfLoaded                 ),
     _sfRoot                   (NULL),
-    _sfGrapOp                 (source._sfGrapOp                 )
+    _sfGraphOp                (source._sfGraphOp                )
 {
 }
 
@@ -631,27 +631,27 @@ EditFieldHandlePtr InlineBase::editHandleRoot           (void)
     return returnValue;
 }
 
-GetFieldHandlePtr InlineBase::getHandleGrapOp          (void) const
+GetFieldHandlePtr InlineBase::getHandleGraphOp         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfGrapOp,
-             this->getType().getFieldDesc(GrapOpFieldId),
+             &_sfGraphOp,
+             this->getType().getFieldDesc(GraphOpFieldId),
              const_cast<InlineBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr InlineBase::editHandleGrapOp         (void)
+EditFieldHandlePtr InlineBase::editHandleGraphOp        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfGrapOp,
-             this->getType().getFieldDesc(GrapOpFieldId),
+             &_sfGraphOp,
+             this->getType().getFieldDesc(GraphOpFieldId),
              this));
 
 
-    editSField(GrapOpFieldMask);
+    editSField(GraphOpFieldMask);
 
     return returnValue;
 }

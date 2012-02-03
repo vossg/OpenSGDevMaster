@@ -144,17 +144,17 @@ void Inline::postOSGLoading(void)
 
         GraphOpSeqRefPtr pGraphOp = NULL;
         
-        if(_sfGrapOp.getValue().compare("none") == 0)
+        if(_sfGraphOp.getValue().compare("none") == 0)
         {
             // leave it NULL
         }
-        else if(_sfGrapOp.getValue().compare("default") == 0)
+        else if(_sfGraphOp.getValue().compare("default") == 0)
         {
             pGraphOp = SceneFileHandler::the()->getDefaultGraphOp();
         }
         else
         {
-            pGraphOp = GraphOpSeq::create(_sfGrapOp.getValue());
+            pGraphOp = GraphOpSeq::create(_sfGraphOp.getValue());
         }
 
         NodeUnrecPtr pFile = SceneFileHandler::the()->read(

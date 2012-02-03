@@ -38,7 +38,7 @@
 	 >
   </Field>
   <Field
-	 name="grapOp"
+	 name="graphOp"
 	 type="std::string"
 	 cardinality="single"
 	 visibility="external"

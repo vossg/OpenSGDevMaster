@@ -115,30 +115,30 @@ void InlineBase::setRoot(Node * const value)
 
     _sfRoot.setValue(value);
 }
-//! Get the value of the Inline::_sfGrapOp field.
+//! Get the value of the Inline::_sfGraphOp field.
 
 inline
-std::string &InlineBase::editGrapOp(void)
+std::string &InlineBase::editGraphOp(void)
 {
-    editSField(GrapOpFieldMask);
+    editSField(GraphOpFieldMask);
 
-    return _sfGrapOp.getValue();
+    return _sfGraphOp.getValue();
 }
 
-//! Get the value of the Inline::_sfGrapOp field.
+//! Get the value of the Inline::_sfGraphOp field.
 inline
-const std::string &InlineBase::getGrapOp(void) const
+const std::string &InlineBase::getGraphOp(void) const
 {
-    return _sfGrapOp.getValue();
+    return _sfGraphOp.getValue();
 }
 
-//! Set the value of the Inline::_sfGrapOp field.
+//! Set the value of the Inline::_sfGraphOp field.
 inline
-void InlineBase::setGrapOp(const std::string &value)
+void InlineBase::setGraphOp(const std::string &value)
 {
-    editSField(GrapOpFieldMask);
+    editSField(GraphOpFieldMask);
 
-    _sfGrapOp.setValue(value);
+    _sfGraphOp.setValue(value);
 }
 
 //! Get the value of the \a index element the Inline::_mfUrl field.
@@ -180,8 +180,8 @@ void InlineBase::execSync (      InlineBase *pFrom,
     if(FieldBits::NoField != (RootFieldMask & whichField))
         _sfRoot.syncWith(pFrom->_sfRoot);
 
-    if(FieldBits::NoField != (GrapOpFieldMask & whichField))
-        _sfGrapOp.syncWith(pFrom->_sfGrapOp);
+    if(FieldBits::NoField != (GraphOpFieldMask & whichField))
+        _sfGraphOp.syncWith(pFrom->_sfGraphOp);
 }
 #endif
 

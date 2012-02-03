@@ -587,6 +587,14 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
     const domInputLocalOffset_Array &inputs     =
         polyList           ->getInput_array();
 
+    if(polyList->getVcount() == NULL)
+    {
+        SWARNING << "ColladaGeometry::readPolyList: Empty <vcount> "
+                 << std::endl;
+
+        return;
+    }
+
     IndexStore idxStore;
     UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
                                         polyList->getMaterial(), idxStore);

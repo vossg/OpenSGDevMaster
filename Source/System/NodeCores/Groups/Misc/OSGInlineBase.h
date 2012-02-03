@@ -99,8 +99,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         UrlFieldId = Inherited::NextFieldId,
         LoadedFieldId = UrlFieldId + 1,
         RootFieldId = LoadedFieldId + 1,
-        GrapOpFieldId = RootFieldId + 1,
-        NextFieldId = GrapOpFieldId + 1
+        GraphOpFieldId = RootFieldId + 1,
+        NextFieldId = GraphOpFieldId + 1
     };
 
     static const OSG::BitVector UrlFieldMask =
@@ -109,15 +109,15 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         (TypeTraits<BitVector>::One << LoadedFieldId);
     static const OSG::BitVector RootFieldMask =
         (TypeTraits<BitVector>::One << RootFieldId);
-    static const OSG::BitVector GrapOpFieldMask =
-        (TypeTraits<BitVector>::One << GrapOpFieldId);
+    static const OSG::BitVector GraphOpFieldMask =
+        (TypeTraits<BitVector>::One << GraphOpFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFString          MFUrlType;
     typedef SFBool            SFLoadedType;
     typedef SFUnrecNodePtr    SFRootType;
-    typedef SFString          SFGrapOpType;
+    typedef SFString          SFGraphOpType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -149,8 +149,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   SFBool              *editSFLoaded         (void);
             const SFBool              *getSFLoaded          (void) const;
 
-                  SFString            *editSFGrapOp         (void);
-            const SFString            *getSFGrapOp          (void) const;
+                  SFString            *editSFGraphOp        (void);
+            const SFString            *getSFGraphOp         (void) const;
 
 
                   std::string         &editUrl            (const UInt32 index);
@@ -159,8 +159,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   bool                &editLoaded         (void);
                   bool                 getLoaded          (void) const;
 
-                  std::string         &editGrapOp         (void);
-            const std::string         &getGrapOp          (void) const;
+                  std::string         &editGraphOp        (void);
+            const std::string         &getGraphOp         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -168,7 +168,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     /*! \{                                                                 */
 
             void setLoaded         (const bool value);
-            void setGrapOp         (const std::string &value);
+            void setGraphOp        (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -236,7 +236,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     MFString          _mfUrl;
     SFBool            _sfLoaded;
     SFUnrecNodePtr    _sfRoot;
-    SFString          _sfGrapOp;
+    SFString          _sfGraphOp;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -271,8 +271,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     EditFieldHandlePtr editHandleLoaded         (void);
     GetFieldHandlePtr  getHandleRoot            (void) const;
     EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleGrapOp          (void) const;
-    EditFieldHandlePtr editHandleGrapOp         (void);
+    GetFieldHandlePtr  getHandleGraphOp         (void) const;
+    EditFieldHandlePtr editHandleGraphOp        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
