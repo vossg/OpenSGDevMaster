@@ -247,6 +247,39 @@ void CSMWindow::motion(Int32 x,
     }
 }
 
+void CSMWindow::addMTouchCursor(Int32  iCursorId,
+                                Int32  x,
+                                Int32  y,
+                                UInt32 uiCoordSys)
+{
+    editMTouchData().addCursor(iCursorId, 
+                               x, 
+                               y, 
+                               uiCoordSys);
+}
+
+void CSMWindow::updateMTouchCursor(Int32  iCursorId,
+                                   Int32  x,
+                                   Int32  y,
+                                   UInt32 uiCoordSys)
+{
+    editMTouchData().updateCursor(iCursorId, 
+                                  x, 
+                                  y, 
+                                  uiCoordSys);
+}
+
+void CSMWindow::removeMTouchCursor(Int32 iCursorId)
+{
+    editMTouchData().removeCursor(iCursorId);
+}
+
+void CSMWindow::commitMTouchCursors(void)
+{
+    commitChanges();
+
+    _sfMTouchData.getValue().clear();
+}
 
 CSMDrawer *CSMWindow::getParent(void) const
 {

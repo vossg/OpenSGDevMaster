@@ -130,3 +130,4 @@ namespace OSG
 
 #cmakedefine OSG_DISABLE_MS_ITERATOR_DEBUGGING 1
 
+#cmakedefine OSG_ENABLE_CSM_WIN7_FEATURES 1

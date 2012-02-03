@@ -187,18 +187,31 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void reshape(Int32 w, 
-                 Int32 h        );
+    void reshape            (Int32 w, 
+                             Int32 h          );
 
-    void mouse  (Int32 iButton, 
-                 Int32 iState,
-                 Int32 iModifier,
-                 Int32 x,       
-                 Int32 y        );
+    void mouse              (Int32 iButton, 
+                             Int32 iState,
+                             Int32 iModifier,
+                             Int32 x,       
+                             Int32 y          );
 
-    void motion (Int32 x, 
-                 Int32 y,
-                 Int32 iModifier);
+    void motion             (Int32 x, 
+                             Int32 y,
+                             Int32 iModifier  );
+
+    void addMTouchCursor    (Int32  iCursorId,
+                             Int32  x,
+                             Int32  y,
+                             UInt32 uiCoordSys);
+
+    void updateMTouchCursor (Int32  iCursorId,
+                             Int32  x,
+                             Int32  y,
+                             UInt32 uiCoordSys);
+
+    void removeMTouchCursor (Int32  iCursorId );
+    void commitMTouchCursors(void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

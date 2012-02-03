@@ -40,6 +40,15 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#include "OSGConfigured.h"
+
+#ifdef OSG_ENABLE_CSM_WIN7_FEATURES
+# ifdef WINVER
+#  undef WINVER
+#  define WINVER 0x601
+# endif
+#endif
+
 #include <cstdlib>
 #include <cstdio>
 
@@ -453,6 +462,78 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
         }
         break;
 
+#if WINVER >= 0x601
+        case WM_TOUCH: 
+        { 
+            unsigned int numInputs = (unsigned int) wParam; 
+            TOUCHINPUT *ti = new TOUCHINPUT[numInputs];
+
+            if(GetTouchInputInfo((HTOUCHINPUT)lParam, 
+                                 numInputs, 
+                                 ti, 
+                                 sizeof(TOUCHINPUT))) 
+            { // For each contact, dispatch the message to the appropriate
+              // message handler. 
+                for(unsigned int i=0; i< numInputs; ++i) 
+                { 
+                    if(ti[i].dwFlags & TOUCHEVENTF_DOWN) 
+                    { 
+#if 0
+                        fprintf(stderr, "Touch down %d | %d | %d %d\n",
+                                i,
+                                ti[i].dwID,
+                                ti[i].x / 100,
+                                ti[i].y / 100  );
+#endif
+
+                        pNWin->addMTouchCursor(ti[i].dwID,
+                                               ti[i].x / 100,
+                                               ti[i].y / 100,
+                                               MTouchData::GlobalAbs);
+
+//                        OnTouchDownHandler(hWnd, ti[i]); 
+                    } 
+                    else if(ti[i].dwFlags & TOUCHEVENTF_MOVE) 
+                    { 
+#if 0
+                        fprintf(stderr, "Touch move %d | %d | %d %d\n",
+                                i,
+                                ti[i].dwID,
+                                ti[i].x / 100,
+                                ti[i].y / 100  );
+#endif
+
+                        pNWin->updateMTouchCursor(ti[i].dwID,
+                                                  ti[i].x / 100,
+                                                  ti[i].y / 100,
+                                                  MTouchData::GlobalAbs);
+
+//                        OnTouchMoveHandler(hWnd, ti[i]); 
+                    } 
+                    else if(ti[i].dwFlags & TOUCHEVENTF_UP) 
+                    { 
+                        pNWin->removeMTouchCursor(ti[i].dwID);
+
+#if 0
+                        fprintf(stderr, "Touch up %d | %d | %d %d\n",
+                                i,
+                                ti[i].dwID,
+                                ti[i].x / 100,
+                                ti[i].y / 100  );
+#endif
+//                        OnTouchUpHandler(hWnd, ti[i]); 
+                    } 
+                }
+
+                pNWin->commitMTouchCursors();
+            }
+
+            CloseTouchInputHandle((HTOUCHINPUT)lParam); 
+            delete [] ti; 
+        } 
+        break;
+#endif
+
         case WM_CLOSE:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
             break;
@@ -670,6 +751,10 @@ bool CSMNativeWindow::init(void)
 
         ::SetWindowLong(_pHWND, GWL_STYLE, winStyle);
     }
+
+#if WINVER >= 0x601
+    RegisterTouchWindow(_pHWND, 0);    
+#endif
 
     ShowWindow(_pHWND, SW_SHOWNORMAL);
     SetActiveWindow(_pHWND);
