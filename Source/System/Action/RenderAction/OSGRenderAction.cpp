@@ -153,6 +153,36 @@ bool RenderAction::terminateLeave(void)
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
+RenderAction::ObjTransitPtr RenderAction::create(void)
+{
+    ObjTransitPtr returnValue(NULL);
+
+    if(_pPrototype)
+    {
+        returnValue = new RenderAction(*_pPrototype);
+    }
+    else
+    {
+        returnValue = new RenderAction();
+    }
+
+    return returnValue;
+}
+
+/*! \brief  prototype access
+ *  after setting the prototype all new DrawActions are clones of it
+ */
+
+void RenderAction::setPrototype(RenderAction *pPrototype)
+{
+    _pPrototype = pPrototype;
+}
+
+RenderAction *RenderAction::getPrototype(void)
+{
+    return _pPrototype;
+}
+
 /*! \brief Default registration. static, so it can be called during static init
  */
 
@@ -199,20 +229,6 @@ void RenderAction::registerLeaveDefault(
 }
 
 
-/*! \brief  prototype access
- *  after setting the prototype all new DrawActions are clones of it
- */
-
-void RenderAction::setPrototype(
-    RenderAction *pPrototype)
-{
-    _pPrototype = pPrototype;
-}
-
-RenderAction *RenderAction::getPrototype(void)
-{
-    return _pPrototype;
-}
 
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
@@ -233,241 +249,7 @@ RenderAction *RenderAction::getPrototype(void)
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
-/*------------- constructors & destructors --------------------------------*/
-
-RenderAction::RenderAction(void) :
-     Inherited               (          ),
-    _doCullOnly              (     false),
-    _numBuffers              (         0),
-    _currentBuffer           (         0),
-
-    _uiKeyGen                (         0),
-
-    _pPartitionPools         (          ),
-    _pNodePools              (          ),
-    _pStatePools             (          ),
-    _pTreeBuilderPools       (          ),
-
-    _vRenderPartitions       (          ),
-
-    _iActivePartitionIdx     (-1        ),
-    _bInPartitionGroup       (false     ),
-    _bDefaultPartHandled     (false     ),
-    _pActivePartition        (NULL      ),
-
-    _sRenderPartitionStack   (          ),
-    _sRenderPartitionIdxStack(          ),
-    _sRenderPartitionGrpStack(          ),
-
-    _bvPassMask              (          ),
-
-    _occlusionCulling        (false     ),
-    _occlusionCullingDebug   (false     ),
-    _occDMTested             (0xffffffff), 
-    _occDMCulled             (0xffffffff), 
-    _occDMVisible            (0xffffffff),
-    _occMinFeatureSize       (         0),
-    _occVisibilityThreshold  (         0),
-    _occCoveredThreshold     (      0.7f),
-    _occQueryBufferSize      (      1000),
-    _occMinimumTriangleCount (       500),
-
-    _scrlodCoverageThreshold (     0.01f),
-    _scrlodNumLODsToUse      (         0),
-    _scrlodDegradationFactor (      1.0f),
-
-    _pGLFinishTask           (NULL      )
-{
-    if(_vDefaultEnterFunctors != NULL)
-        _enterFunctors = *_vDefaultEnterFunctors;
-
-    if(_vDefaultLeaveFunctors != NULL)
-        _leaveFunctors = *_vDefaultLeaveFunctors;
-
-    setNumBuffers(1);
-
-    UInt32 uiTId = TextureBaseChunk         ::getStaticClassId() & 0x000003FF;
-    UInt32 uiMId = MaterialChunk            ::getStaticClassId() & 0x000003FF;
-
-#ifdef OSG_NEW_SHADER
-    UInt32 uiShId = ShaderExecutableChunk   ::getStaticClassId() & 0x000003FF;
-           uiMId  = ShaderExecutableVarChunk::getStaticClassId() & 0x000003FF;
-#else
-    UInt32 uiShId = SimpleSHLChunk          ::getStaticClassId() & 0x000003FF;
-#endif
-
-    _uiKeyGen = ( (uiShId) | (uiTId << 10) | (uiMId      << 20) );
-
-/*
-    fprintf(stderr, "CreateKeyGen (RT) (%p) from %d %d %d -> %08x\n",
-            this,
-            SHLChunk     ::getStaticClassId(),
-            TextureChunk ::getStaticClassId(),
-            MaterialChunk::getStaticClassId(),
-            _uiKeyGen);
- */
-
-}
-
-RenderAction::RenderAction(const RenderAction &source) :
-
-     Inherited               (source                         ),
-    _doCullOnly              (false                          ),
-    _numBuffers              (0                              ),
-    _currentBuffer           (0                              ),
-
-    _uiKeyGen                (source._uiKeyGen               ),
-
-    _pPartitionPools         (                               ),
-    _pNodePools              (                               ),
-    _pStatePools             (                               ),
-    _pTreeBuilderPools       (                               ),
-
-    _vRenderPartitions       (                               ),
-
-    _iActivePartitionIdx     (-1                             ),
-    _bInPartitionGroup       (false                          ),
-    _bDefaultPartHandled     (false                          ),
-    _pActivePartition        (NULL                           ),
-
-    _sRenderPartitionStack   (                               ),
-    _sRenderPartitionIdxStack(                               ),
-    _sRenderPartitionGrpStack(                               ),
-
-    _bvPassMask              (source._bvPassMask             ),
-
-    _occlusionCulling        (source._occlusionCulling       ),
-    _occlusionCullingDebug   (source._occlusionCullingDebug  ),
-    _occDMTested             (source._occDMTested            ), 
-    _occDMCulled             (source._occDMCulled            ), 
-    _occDMVisible            (source._occDMVisible           ),
-    _occMinFeatureSize       (source._occMinFeatureSize      ),
-    _occVisibilityThreshold  (source._occVisibilityThreshold ),
-    _occCoveredThreshold     (source._occCoveredThreshold    ),
-    _occQueryBufferSize      (source._occQueryBufferSize     ),
-    _occMinimumTriangleCount (source._occMinimumTriangleCount),
-
-    _scrlodCoverageThreshold (source._scrlodCoverageThreshold),
-    _scrlodNumLODsToUse      (source._scrlodNumLODsToUse     ),
-    _scrlodDegradationFactor (source._scrlodDegradationFactor),
-
-    _pGLFinishTask           (NULL                           )
-{
-    setNumBuffers(source._numBuffers);
-}
-
-RenderAction::ObjTransitPtr RenderAction::create(void)
-{
-    ObjTransitPtr returnValue(NULL);
-
-    if(_pPrototype)
-    {
-        returnValue = new RenderAction(*_pPrototype);
-    }
-    else
-    {
-        returnValue = new RenderAction();
-    }
-
-    return returnValue;
-}
-
-
-RenderAction::~RenderAction(void)
-{
-    for(UInt16 i = 0; i < _numBuffers; ++i)
-    {
-        delete _pPartitionPools[i];
-        delete _pNodePools[i];
-        delete _pStatePools[i];
-        delete _pTreeBuilderPools[i];
-    }
-
-    _pGLFinishTask  = NULL;
-}
-
-/*------------------------------ access -----------------------------------*/
-
-/*------------------------ multi-buffer stuff -----------------------------*/
-
-void RenderAction::setDoCullOnly(bool val)
-{
-    _doCullOnly = val;
-}
-
-bool RenderAction::getDoCullOnly(void)
-{
-    return _doCullOnly;
-}
-
-void RenderAction::setNumBuffers(UInt32 n)
-{
-    if(n < 1)
-    {
-        FWARNING(("RenderAction::setNumBuffers: need at least one "
-                  "buffer!\n"));
-        n = 1;
-    }
-
-    if(n > _numBuffers)
-    {
-        for(UInt16 i = _numBuffers; i < n; ++i)
-        {
-            _pPartitionPools  .push_back(new RenderPartitionPool);
-            _pNodePools       .push_back(new RenderTreeNodePool);
-            _pStatePools      .push_back(new StateOverridePool);
-            _pTreeBuilderPools.push_back(new TreeBuilderPool);
-        }
-
-    }
-    else if(n < _numBuffers)
-    {
-        for(UInt16 i = _numBuffers - 1; i >= n; --i)
-        {
-            delete _pPartitionPools[i];
-            delete _pNodePools[i];
-            delete _pStatePools[i];
-            delete _pTreeBuilderPools[i];
-        }
-        _pPartitionPools  .resize(n);
-        _pNodePools       .resize(n);
-        _pStatePools      .resize(n);
-        _pTreeBuilderPools.resize(n);
-    }
-    _numBuffers = n;
-    _vRenderPartitions.resize(n);
-}
-
-UInt32 RenderAction::getNumBuffers(void)
-{
-    return _numBuffers;
-}
-
-void  RenderAction::setCurrentBuffer(UInt32 b)
-{
-    _currentBuffer = b;
-}
-
-UInt32 RenderAction::getCurrentBuffer(void)
-{
-    return _currentBuffer;
-}
-
-
 /*-------------------------- your_category---------------------------------*/
-
-void RenderAction::frameInit(void)
-{
-    Inherited::frameInit();
-
-    if(_bDrawPartPar == true)
-    {
-        _pPartitionPools  [_currentBuffer]->freeAll();
-        _pNodePools       [_currentBuffer]->freeAll();
-        _pStatePools      [_currentBuffer]->freeAll();
-        _pTreeBuilderPools[_currentBuffer]->freeAll();
-    }
-}
 
 Action::ResultE RenderAction::start(void)
 {
@@ -704,6 +486,164 @@ Action::ResultE RenderAction::stop(ResultE res)
     return Action::Continue;
 }
 
+void RenderAction::frameInit(void)
+{
+    Inherited::frameInit();
+
+    if(_bDrawPartPar == true)
+    {
+        _pPartitionPools  [_currentBuffer]->freeAll();
+        _pNodePools       [_currentBuffer]->freeAll();
+        _pStatePools      [_currentBuffer]->freeAll();
+        _pTreeBuilderPools[_currentBuffer]->freeAll();
+    }
+}
+
+/*------------------------------ access -----------------------------------*/
+
+void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
+                               Material             *pMat,
+                               bool                  bIgnoreOverrides)
+{
+    if(pMat == NULL)
+        return;
+
+    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp, _pWindow);
+
+    if(pPrimeMat == NULL)
+        return;
+
+    UInt32 uiNPasses = pPrimeMat->getNPasses();
+    
+    for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
+    {
+        State *st = pPrimeMat->getState(uiPass);
+        
+        if(st != NULL)
+        {
+            this->dropFunctor(func, 
+                              st, 
+                              pPrimeMat->getSortKey() + uiPass,
+                              bIgnoreOverrides                );
+        }
+        else
+        {
+#ifndef WIN32
+            FINFO(("%s: hit material with NULL state!\n", __func__));
+#else
+            FINFO(("Hit material with NULL state!\n"));
+#endif
+        }
+    }
+}
+
+// select all visible nodes
+UInt32 RenderAction::selectVisibles(void)
+{
+    if(getFrustumCulling() == false)
+        return getNNodes();
+
+    useNodeList();
+
+    Color3f col;
+
+    UInt32 count = 0;
+
+    for(UInt32 i = 0; i < getNNodes(); i++)
+    {
+        if(isVisible(getNode(i)))
+        {
+            col.setValuesRGB(0,1,0);
+
+            addNode(getNode(i));
+
+            ++count;
+        }
+        else
+        {
+            col.setValuesRGB(1,0,0);
+        }
+
+        if(getVolumeDrawing())
+        {
+            dropVolume(this, getNode(i), col);
+        }
+    }
+
+    return count;
+}
+
+
+bool RenderAction::pushVisibility(void)
+{
+    if(_pActivePartition->pushVisibility(getActNode()) == false)
+    {
+        useNodeList(); // ignore all children
+        return false;
+    }
+
+    return true;
+}
+
+void RenderAction::readdPartitionByIndex(UInt32 uiPartIdx)
+{
+    OSG_ASSERT(uiPartIdx < _vRenderPartitions[_currentBuffer].size());
+
+    _vRenderPartitions[_currentBuffer].push_back(
+        _vRenderPartitions[_currentBuffer][uiPartIdx]);
+}
+
+void RenderAction::dumpPartitionList(void)
+{
+    fprintf(stderr, "Dump PartitionList \n");
+
+    for(UInt32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
+    {
+        fprintf(stderr, "    %p\n", _vRenderPartitions[_currentBuffer][i]);
+    }
+}
+
+/*------------------------ multi-buffer stuff -----------------------------*/
+
+void RenderAction::setNumBuffers(UInt32 n)
+{
+    if(n < 1)
+    {
+        FWARNING(("RenderAction::setNumBuffers: need at least one "
+                  "buffer!\n"));
+        n = 1;
+    }
+
+    if(n > _numBuffers)
+    {
+        for(UInt16 i = _numBuffers; i < n; ++i)
+        {
+            _pPartitionPools  .push_back(new RenderPartitionPool);
+            _pNodePools       .push_back(new RenderTreeNodePool);
+            _pStatePools      .push_back(new StateOverridePool);
+            _pTreeBuilderPools.push_back(new TreeBuilderPool);
+        }
+
+    }
+    else if(n < _numBuffers)
+    {
+        for(UInt16 i = _numBuffers - 1; i >= n; --i)
+        {
+            delete _pPartitionPools[i];
+            delete _pNodePools[i];
+            delete _pStatePools[i];
+            delete _pTreeBuilderPools[i];
+        }
+        _pPartitionPools  .resize(n);
+        _pNodePools       .resize(n);
+        _pStatePools      .resize(n);
+        _pTreeBuilderPools.resize(n);
+    }
+    _numBuffers = n;
+    _vRenderPartitions.resize(n);
+}
+
+
 void RenderAction::drawBuffer(UInt32 buf)
 {
     if(_pStatistics != NULL)
@@ -761,97 +701,168 @@ void RenderAction::drawBuffer(UInt32 buf)
     }
 }
 
-void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
-                               State                *pState,
-                               UInt32                uiSortKey,
-                               bool                  bIgnoreOverrides)
+/*------------------------ Occlusion Culling -----------------------------*/
+
+
+/*-------------------------- assignment -----------------------------------*/
+
+/** \brief assignment
+ */
+
+/*-------------------------- comparison -----------------------------------*/
+
+
+/*-------------------------------------------------------------------------*\
+ -  protected                                                              -
+\*-------------------------------------------------------------------------*/
+
+/*------------- constructors & destructors --------------------------------*/
+
+RenderAction::RenderAction(void) :
+     Inherited               (          ),
+    _doCullOnly              (     false),
+    _numBuffers              (         0),
+    _currentBuffer           (         0),
+
+    _uiKeyGen                (         0),
+
+    _pPartitionPools         (          ),
+    _pNodePools              (          ),
+    _pStatePools             (          ),
+    _pTreeBuilderPools       (          ),
+
+    _vRenderPartitions       (          ),
+
+    _iActivePartitionIdx     (-1        ),
+    _bInPartitionGroup       (false     ),
+    _bDefaultPartHandled     (false     ),
+    _pActivePartition        (NULL      ),
+
+    _sRenderPartitionStack   (          ),
+    _sRenderPartitionIdxStack(          ),
+    _sRenderPartitionGrpStack(          ),
+
+    _bvPassMask              (          ),
+
+    _occlusionCulling        (false     ),
+    _occlusionCullingDebug   (false     ),
+    _occDMTested             (0xffffffff), 
+    _occDMCulled             (0xffffffff), 
+    _occDMVisible            (0xffffffff),
+    _occMinFeatureSize       (         0),
+    _occVisibilityThreshold  (         0),
+    _occCoveredThreshold     (      0.7f),
+    _occQueryBufferSize      (      1000),
+    _occMinimumTriangleCount (       500),
+
+    _scrlodCoverageThreshold (     0.01f),
+    _scrlodNumLODsToUse      (         0),
+    _scrlodDegradationFactor (      1.0f),
+
+    _pGLFinishTask           (NULL      )
 {
-    _pActivePartition->dropFunctor(func, 
-                                   pState, 
-                                   uiSortKey,
-                                   bIgnoreOverrides);
-}
+    if(_vDefaultEnterFunctors != NULL)
+        _enterFunctors = *_vDefaultEnterFunctors;
 
-void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
-                               Material             *pMat,
-                               bool                  bIgnoreOverrides)
-{
-    if(pMat == NULL)
-        return;
+    if(_vDefaultLeaveFunctors != NULL)
+        _leaveFunctors = *_vDefaultLeaveFunctors;
 
-    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp, _pWindow);
+    setNumBuffers(1);
 
-    if(pPrimeMat == NULL)
-        return;
+    UInt32 uiTId = TextureBaseChunk         ::getStaticClassId() & 0x000003FF;
+    UInt32 uiMId = MaterialChunk            ::getStaticClassId() & 0x000003FF;
 
-    UInt32 uiNPasses = pPrimeMat->getNPasses();
-    
-    for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
-    {
-        State *st = pPrimeMat->getState(uiPass);
-        
-        if(st != NULL)
-        {
-            this->dropFunctor(func, 
-                              st, 
-                              pPrimeMat->getSortKey() + uiPass,
-                              bIgnoreOverrides                );
-        }
-        else
-        {
-#ifndef WIN32
-            FINFO(("%s: hit material with NULL state!\n", __func__));
+#ifdef OSG_NEW_SHADER
+    UInt32 uiShId = ShaderExecutableChunk   ::getStaticClassId() & 0x000003FF;
+           uiMId  = ShaderExecutableVarChunk::getStaticClassId() & 0x000003FF;
 #else
-            FINFO(("Hit material with NULL state!\n"));
+    UInt32 uiShId = SimpleSHLChunk          ::getStaticClassId() & 0x000003FF;
 #endif
-        }
+
+    _uiKeyGen = ( (uiShId) | (uiTId << 10) | (uiMId      << 20) );
+
+/*
+    fprintf(stderr, "CreateKeyGen (RT) (%p) from %d %d %d -> %08x\n",
+            this,
+            SHLChunk     ::getStaticClassId(),
+            TextureChunk ::getStaticClassId(),
+            MaterialChunk::getStaticClassId(),
+            _uiKeyGen);
+ */
+
+}
+
+RenderAction::RenderAction(const RenderAction &source) :
+
+     Inherited               (source                         ),
+    _doCullOnly              (false                          ),
+    _numBuffers              (0                              ),
+    _currentBuffer           (0                              ),
+
+    _uiKeyGen                (source._uiKeyGen               ),
+
+    _pPartitionPools         (                               ),
+    _pNodePools              (                               ),
+    _pStatePools             (                               ),
+    _pTreeBuilderPools       (                               ),
+
+    _vRenderPartitions       (                               ),
+
+    _iActivePartitionIdx     (-1                             ),
+    _bInPartitionGroup       (false                          ),
+    _bDefaultPartHandled     (false                          ),
+    _pActivePartition        (NULL                           ),
+
+    _sRenderPartitionStack   (                               ),
+    _sRenderPartitionIdxStack(                               ),
+    _sRenderPartitionGrpStack(                               ),
+
+    _bvPassMask              (source._bvPassMask             ),
+
+    _occlusionCulling        (source._occlusionCulling       ),
+    _occlusionCullingDebug   (source._occlusionCullingDebug  ),
+    _occDMTested             (source._occDMTested            ), 
+    _occDMCulled             (source._occDMCulled            ), 
+    _occDMVisible            (source._occDMVisible           ),
+    _occMinFeatureSize       (source._occMinFeatureSize      ),
+    _occVisibilityThreshold  (source._occVisibilityThreshold ),
+    _occCoveredThreshold     (source._occCoveredThreshold    ),
+    _occQueryBufferSize      (source._occQueryBufferSize     ),
+    _occMinimumTriangleCount (source._occMinimumTriangleCount),
+
+    _scrlodCoverageThreshold (source._scrlodCoverageThreshold),
+    _scrlodNumLODsToUse      (source._scrlodNumLODsToUse     ),
+    _scrlodDegradationFactor (source._scrlodDegradationFactor),
+
+    _pGLFinishTask           (NULL                           )
+{
+    setNumBuffers(source._numBuffers);
+}
+
+
+
+RenderAction::~RenderAction(void)
+{
+    for(UInt16 i = 0; i < _numBuffers; ++i)
+    {
+        delete _pPartitionPools[i];
+        delete _pNodePools[i];
+        delete _pStatePools[i];
+        delete _pTreeBuilderPools[i];
     }
+
+    _pGLFinishTask  = NULL;
 }
 
-void RenderAction::pushState(void)
+
+Action::FunctorStore *RenderAction::getDefaultEnterFunctors(void)
 {
-    _pActivePartition->pushState();
+    return _vDefaultEnterFunctors;
 }
 
-void RenderAction::popState(void)
+Action::FunctorStore *RenderAction::getDefaultLeaveFunctors(void)
 {
-    _pActivePartition->popState();
-}
-
-void RenderAction::addOverride(UInt32 uiSlot, StateChunk *pChunk)
-{
-    _pActivePartition->addOverride(uiSlot, pChunk);
-}
-
-Int32 RenderAction::allocateLightIndex(void)
-{
-    return _pActivePartition->allocateLightIndex();
-}
-
-void  RenderAction::releaseLightIndex(void)
-{
-    _pActivePartition->releaseLightIndex();
-}
-
-void RenderAction::popMatrix(void)
-{
-    _pActivePartition->popMatrix();
-}
-
-const Matrix &RenderAction::topMatrix(void)
-{
-    return _pActivePartition->topMatrix();
-}
-
-void RenderAction::overrideMaterial(Material *       pMaterial,
-                                    Node     * const pNode    )
-{
-    _pActivePartition->overrideMaterial(pMaterial, pNode);
-}
-
-Material *RenderAction::getMaterial(void)
-{
-    return _pActivePartition->getMaterial();
+    return _vDefaultLeaveFunctors;
 }
 
 void RenderAction::pushPartition(UInt32                uiCopyOnPush,
@@ -960,236 +971,6 @@ void RenderAction::popPartition(void)
         fflush(stderr);
 #endif
     }
-}
-
-void RenderAction::readdPartitionByIndex(UInt32 uiPartIdx)
-{
-    OSG_ASSERT(uiPartIdx < _vRenderPartitions[_currentBuffer].size());
-
-    _vRenderPartitions[_currentBuffer].push_back(
-        _vRenderPartitions[_currentBuffer][uiPartIdx]);
-}
-
-void RenderAction::dumpPartitionList(void)
-{
-    fprintf(stderr, "Dump PartitionList \n");
-
-    for(UInt32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
-    {
-        fprintf(stderr, "    %p\n", _vRenderPartitions[_currentBuffer][i]);
-    }
-}
-
-RenderPartition *RenderAction::getActivePartition(void)
-{
-    return _pActivePartition;
-}
-
-bool RenderAction::isVisible(Node *node)
-{
-    return _pActivePartition->isVisible(node);
-}
-
-// select all visible nodes
-UInt32 RenderAction::selectVisibles(void)
-{
-    if(getFrustumCulling() == false)
-        return getNNodes();
-
-    useNodeList();
-
-    Color3f col;
-
-    UInt32 count = 0;
-
-    for(UInt32 i = 0; i < getNNodes(); i++)
-    {
-        if(isVisible(getNode(i)))
-        {
-            col.setValuesRGB(0,1,0);
-
-            addNode(getNode(i));
-
-            ++count;
-        }
-        else
-        {
-            col.setValuesRGB(1,0,0);
-        }
-
-        if(getVolumeDrawing())
-        {
-            dropVolume(this, getNode(i), col);
-        }
-    }
-
-    return count;
-}
-
-
-bool RenderAction::pushVisibility(void)
-{
-    if(_pActivePartition->pushVisibility(getActNode()) == false)
-    {
-        useNodeList(); // ignore all children
-        return false;
-    }
-
-    return true;
-}
-
-void RenderAction::popVisibility(void)
-{
-    _pActivePartition->popVisibility();
-}
-
-/*------------------------ Occlusion Culling -----------------------------*/
-
-void RenderAction::setOcclusionCulling(const bool val)
-{
-    _occlusionCulling = val;
-}
-
-bool RenderAction::getOcclusionCulling(void)
-{
-    return _occlusionCulling;
-}
-
-void RenderAction::setOcclusionCullingDebug(const bool val)
-{
-    _occlusionCullingDebug = val;
-}
-
-bool RenderAction::getOcclusionCullingDebug(void)
-{
-    return _occlusionCullingDebug;
-}
-
-void RenderAction::setOcclusionDebugMasks(const UInt32 tested, 
-                                          const UInt32 culled, 
-                                          const UInt32 visible)
-{
-    _occDMTested  = tested;
-    _occDMCulled  = culled;
-    _occDMVisible = visible;
-}
-
-UInt32 RenderAction::getOcclusionTestedDebugMask(void)
-{
-    return _occDMTested;
-}
-
-UInt32 RenderAction::getOcclusionCulledDebugMask(void)
-{
-    return _occDMCulled;
-}
-
-UInt32 RenderAction::getOcclusionVisibleDebugMask(void)
-{
-    return _occDMVisible;
-}
-
-void RenderAction::setOcclusionCullingMinimumFeatureSize(const UInt32 pixels)
-{
-    _occMinFeatureSize = pixels;
-}
-
-UInt32 RenderAction::getOcclusionCullingMinimumFeatureSize(void)
-{
-    return _occMinFeatureSize;
-}
-
-void RenderAction::setOcclusionCullingVisibilityThreshold(const UInt32 pixels)
-{
-    _occVisibilityThreshold = pixels;
-}
-
-UInt32 RenderAction::getOcclusionCullingVisibilityThreshold(void)
-{
-    return _occVisibilityThreshold;
-}
-
-void RenderAction::setOcclusionCullingCoveredThreshold(const Real32 percent)
-{
-    _occCoveredThreshold = percent;
-}
-
-Real32 RenderAction::getOcclusionCullingCoveredThreshold(void)
-{
-    return _occCoveredThreshold;
-}
-
-void RenderAction::setOcclusionCullingQueryBufferSize(const UInt32 size)
-{
-    _occQueryBufferSize = size;
-}
-
-UInt32 RenderAction::getOcclusionCullingQueryBufferSize(void)
-{
-    return _occQueryBufferSize;
-}
-
-void RenderAction::setOcclusionCullingMinimumTriangleCount(const UInt32 count)
-{
-    _occMinimumTriangleCount = count;
-}
-
-UInt32 RenderAction::getOcclusionCullingMinimumTriangleCount(void)
-{
-    return _occMinimumTriangleCount;
-}
-
-void RenderAction::setScreenLODCoverageThreshold(const Real32 percent)
-{
-    _scrlodCoverageThreshold = percent;
-}
-
-Real32 RenderAction::getScreenLODCoverageThreshold(void)
-{
-    return _scrlodCoverageThreshold;
-}
-
-void RenderAction::setScreenLODNumLevels(const UInt32 levels)
-{
-    _scrlodNumLODsToUse = levels;
-}
-
-UInt32 RenderAction::getScreenLODNumLevels(void)
-{
-    return _scrlodNumLODsToUse;
-}
-
-void RenderAction::setScreenLODDegradationFactor(const Real32 percent)
-{
-    _scrlodDegradationFactor = percent;
-}
-
-Real32 RenderAction::getScreenLODDegradationFactor(void)
-{
-    return _scrlodDegradationFactor;
-}
-
-/*-------------------------- assignment -----------------------------------*/
-
-/** \brief assignment
- */
-
-/*-------------------------- comparison -----------------------------------*/
-
-
-/*-------------------------------------------------------------------------*\
- -  protected                                                              -
-\*-------------------------------------------------------------------------*/
-
-
-Action::FunctorStore *RenderAction::getDefaultEnterFunctors(void)
-{
-    return _vDefaultEnterFunctors;
-}
-
-Action::FunctorStore *RenderAction::getDefaultLeaveFunctors(void)
-{
-    return _vDefaultLeaveFunctors;
 }
 
 /*-------------------------------------------------------------------------*\

@@ -59,6 +59,7 @@
 #include "OSGForegroundFields.h"
 #include "OSGMaterial.h"
 #include "OSGNamedPool.h"
+#include "OSGStateOverride.h"
 
 #include <stack>
 
@@ -169,7 +170,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- your_category -------------------------------*/
 
-    void setAction         (RenderAction *pAction         );
+    void setAction         (RenderAction          *pAction         );
 
     void setNodePool       (RenderTreeNodePool    *pNodePool       );
     void setStatePool      (StateOverridePool     *pStatePool      );
@@ -305,12 +306,14 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    void pushState  (void              );
-    void popState   (void              );
+          void           pushState          (void              );
+          void           popState           (void              );
 
-    void addOverride(UInt32      uiSlot, 
-                     StateChunk *pChunk);
-   
+          void           addOverride        (UInt32      uiSlot, 
+                                             StateChunk *pChunk);
+
+    const StateOverride *getCurrentOverrides(void              ) const;
+
     /*-------------------------- comparison ---------------------------------*/
 
     Int32  allocateLightIndex(void);
@@ -499,21 +502,20 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
-    void reset(Mode eMode = StateSorting);
+    void  reset            (Mode  eMode = StateSorting);
 
-    void updateModelMatrix(void) const;
+    void  updateModelMatrix(void                      ) const;
 
-    void  setNode(Node *pNode);
-    Node *getNode(void       );
+    void  setNode          (Node *pNode               );
+    Node *getNode          (void                      );
 
     /*-------------------------- comparison ---------------------------------*/
 
-    bool pushShaderState(State *pState);
+    bool pushShaderState(State *pState                       );
 
     // Roots
-
-    void setupExecution(bool bUpdateGlobalViewport = false);
-    void doExecution   (bool bRestoreViewport      = false);
+    void setupExecution (bool   bUpdateGlobalViewport = false);
+    void doExecution    (bool   bRestoreViewport      = false);
 
     /*-------------------------- comparison ---------------------------------*/
 

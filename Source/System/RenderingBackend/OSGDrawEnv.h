@@ -55,6 +55,7 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
+class RenderAction;
 class RenderPartition;
 class Window;
 class State;
@@ -165,9 +166,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                     Types                                    */
     /*! \{                                                                 */
 
-    typedef RenderFunctor    DrawFunctor;
-
-    typedef RenderActionBase RAction;
+    typedef RenderFunctor DrawFunctor;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -383,7 +382,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    RAction       *_pRenderAction;
+    RenderAction  *_pRenderAction;
 
     Matrix         _cameraProjection;
     Matrix         _cameraProjectionTrans;
@@ -476,8 +475,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    void     setAction(RAction *pAction);
-    RAction *getAction(void            ) const;
+    void          setAction(RenderAction *pAction);
+    RenderAction *getAction(void                 ) const;
 
     template<class Action, class Result> 
     static Result doGetData(Action *pA, UInt32 iSlotId);

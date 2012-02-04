@@ -144,7 +144,7 @@ bool OpenGLState::isTransformFeedbackPaused(void)
 
 
 inline
-void DrawEnv::setAction(RAction *pAction)
+void DrawEnv::setAction(RenderAction *pAction)
 {
     _pRenderAction = pAction;
 }
@@ -303,7 +303,7 @@ Real32 DrawEnv::getCameraFar(void) const
 }
 
 inline
-DrawEnv::RAction *DrawEnv::getAction(void) const
+RenderAction *DrawEnv::getAction(void) const
 {
     return _pRenderAction;
 }

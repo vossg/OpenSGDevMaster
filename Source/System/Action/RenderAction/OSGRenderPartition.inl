@@ -80,65 +80,9 @@ OSG_BEGIN_NAMESPACE
 \*-------------------------------------------------------------------------*/
 
 inline
-DrawEnv &RenderPartition::getDrawEnv(void)
+void RenderPartition::setAction(RenderAction *pAction)
 {
-    return _oDrawEnv;
-}
-
-inline UInt32
-RenderPartition::getKeyGen(void) const
-{
-    return _uiKeyGen;
-}
-
-/*------------- constructors & destructors --------------------------------*/
-
-/*------------------------------ access -----------------------------------*/
-
-/*---------------------------- properties ---------------------------------*/
-
-inline
-void RenderPartition::setViewportDimension(Int32 iPixelLeft,
-                                           Int32 iPixelBottom,
-                                           Int32 iPixelRight,
-                                           Int32 iPixelTop,
-                                           bool  bFull       )
-{
-    _oDrawEnv.setViewportDimension(iPixelLeft,
-                                   iPixelBottom,
-                                   iPixelRight,
-                                   iPixelTop,
-                                   bFull);
-}
-
-inline
-Int32 RenderPartition::getViewportWidth(void)
-{
-    return _oDrawEnv.getPixelWidth();
-}
-
-inline
-Int32 RenderPartition::getViewportHeight(void)
-{
-    return _oDrawEnv.getPixelHeight();
-}
-
-inline
-void RenderPartition::setSetupMode(UInt32 uiSetupMode)
-{
-    _uiSetupMode = uiSetupMode;
-}
-
-inline
-void RenderPartition::addSetupModeBit(UInt32 uiSetupModeBit)
-{
-    _uiSetupMode |= uiSetupModeBit;
-}
-
-inline
-void RenderPartition::subSetupMode(UInt32 uiSetupModeBit)
-{
-    _uiSetupMode &= ~uiSetupModeBit;
+    _oDrawEnv.setAction(pAction);
 }
 
 inline
@@ -275,38 +219,6 @@ void RenderPartition::setupViewing(const Matrix4f &matrix)
     _modelMatrixValid = true;
 }
 
-template<class MatrixType> inline
-void RenderPartition::pushMatrix(const MatrixType &matrix)
-{
-    _modelViewMatrixStack.push_back(_modelViewMatrix);
-    
-    _modelViewMatrix.first = ++_uiMatrixId;
-    _modelViewMatrix.second.mult(matrix);
-   
-    _modelMatrixValid = false;
-}
-
-inline
-const Matrix &RenderPartition::getModelMatrix(void) const
-{
-    updateModelMatrix();
-
-    return _modelMatrix;
-}
-
-inline 
-const RenderPartition::MatrixT &
-    RenderPartition::getModelViewMatrix(void) const
-{
-    return _modelViewMatrix.second;
-}
-
-inline const RenderPartition::MatrixStore &
-RenderPartition::getMatrixStackTop(void) const
-{
-    return _modelViewMatrix;
-}
-
 inline 
 const Matrix4f &RenderPartition::getViewing(void)
 {
@@ -337,6 +249,18 @@ void RenderPartition::addPartition(RenderPartition *pPart)
     _vGroupStore.push_back(pPart);
 }
 
+inline
+DrawEnv &RenderPartition::getDrawEnv(void)
+{
+    return _oDrawEnv;
+}
+
+inline UInt32
+RenderPartition::getKeyGen(void) const
+{
+    return _uiKeyGen;
+}
+
 inline 
 void RenderPartition::setNear(Real32 camNear)
 {
@@ -361,6 +285,126 @@ Real32 RenderPartition::getFar(void)
     return _oDrawEnv.getCameraFar();
 }
 
+/*------------- constructors & destructors --------------------------------*/
+
+/*------------------------------ access -----------------------------------*/
+
+/*---------------------------- properties ---------------------------------*/
+
+inline
+void RenderPartition::setViewportDimension(Int32 iPixelLeft,
+                                           Int32 iPixelBottom,
+                                           Int32 iPixelRight,
+                                           Int32 iPixelTop,
+                                           bool  bFull       )
+{
+    _oDrawEnv.setViewportDimension(iPixelLeft,
+                                   iPixelBottom,
+                                   iPixelRight,
+                                   iPixelTop,
+                                   bFull);
+}
+
+inline
+Int32 RenderPartition::getViewportWidth(void)
+{
+    return _oDrawEnv.getPixelWidth();
+}
+
+inline
+Int32 RenderPartition::getViewportHeight(void)
+{
+    return _oDrawEnv.getPixelHeight();
+}
+
+inline
+void RenderPartition::setSetupMode(UInt32 uiSetupMode)
+{
+    _uiSetupMode = uiSetupMode;
+}
+
+inline
+void RenderPartition::addSetupModeBit(UInt32 uiSetupModeBit)
+{
+    _uiSetupMode |= uiSetupModeBit;
+}
+
+inline
+void RenderPartition::subSetupMode(UInt32 uiSetupModeBit)
+{
+    _uiSetupMode &= ~uiSetupModeBit;
+}
+
+inline
+void RenderPartition::disable(void)
+{
+    _bDone = true;
+}
+
+template<class MatrixType> inline
+void RenderPartition::pushMatrix(const MatrixType &matrix)
+{
+    _modelViewMatrixStack.push_back(_modelViewMatrix);
+    
+    _modelViewMatrix.first = ++_uiMatrixId;
+    _modelViewMatrix.second.mult(matrix);
+   
+    _modelMatrixValid = false;
+}
+
+inline
+const Matrix &RenderPartition::getModelMatrix(void) const
+{
+    updateModelMatrix();
+
+    return _modelMatrix;
+}
+
+inline
+const Matrix &RenderPartition::topMatrix(void)
+{
+    return getModelMatrix();
+}
+
+inline 
+const RenderPartition::MatrixT &
+    RenderPartition::getModelViewMatrix(void) const
+{
+    return _modelViewMatrix.second;
+}
+
+inline const RenderPartition::MatrixStore &
+RenderPartition::getMatrixStackTop(void) const
+{
+    return _modelViewMatrix;
+}
+
+inline
+void RenderPartition::dropFunctor(SimpleDrawCallback &oSimpleCallback)
+{
+    _oSimpleDrawCallback = oSimpleCallback;
+}
+
+inline
+void RenderPartition::popState(void)
+{
+    _sStateOverrides.pop();
+
+//    fprintf(stderr, "pop so size %d\n", _sStateOverrides.size());
+}
+
+inline
+void RenderPartition::addOverride(UInt32 uiSlot, StateChunk *pChunk)
+{
+    _sStateOverrides.top()->addOverride(uiSlot, pChunk);
+}
+
+inline
+const StateOverride *RenderPartition::getCurrentOverrides(void) const
+{
+    return _sStateOverrides.top();
+}
+
 inline
 UInt32 RenderPartition::getLightState(void) const
 {
@@ -372,7 +416,6 @@ void RenderPartition::setKeyGen(UInt32 uiKeyGen)
 {
     _uiKeyGen = uiKeyGen;
 }
-
 
 inline
 Material *RenderPartition::getMaterial(void)
@@ -434,17 +477,6 @@ void RenderPartition::setFrustum(FrustumVolume &frust)
     _oFrustum = frust;
 }
 
-inline
-void RenderPartition::disable(void)
-{
-    _bDone = true;
-}
-
-inline
-void RenderPartition::dropFunctor(SimpleDrawCallback &oSimpleCallback)
-{
-    _oSimpleDrawCallback = oSimpleCallback;
-}
 
 inline
 UInt32 RenderPartition::getNumMatrixChanges(void)

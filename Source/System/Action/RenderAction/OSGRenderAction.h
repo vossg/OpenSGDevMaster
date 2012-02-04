@@ -113,15 +113,10 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //   class functions
     //-----------------------------------------------------------------------
 
-    static
-    ObjTransitPtr  create      (void                    );
+    static ObjTransitPtr  create      (void                    );
 
-    static
-    void           setPrototype(RenderAction *pPrototype);
-
-    static
-    RenderAction  *getPrototype(void                   );
-
+    static void           setPrototype(RenderAction *pPrototype);
+    static RenderAction  *getPrototype(void                    );
 
     //-----------------------------------------------------------------------
     //   class functions
@@ -159,10 +154,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*---------------------------- state ------------------------------------*/
 
-    void pushState  (void                             );
-    void popState   (void                             );
+          void           pushState          (void              );
+          void           popState           (void              );
 
-    void addOverride(UInt32 uiSlot, StateChunk *pChunk);
+          void           addOverride        (UInt32      uiSlot, 
+                                             StateChunk *pChunk);
+
+    const StateOverride *getCurrentOverrides(void              ) const;
 
     /*---------------------------- state ------------------------------------*/
 
