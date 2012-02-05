@@ -321,8 +321,9 @@ void CgFXMaterial::dump(      UInt32    ,
     SLOG << "Dump CgFXMaterial NI" << std::endl;
 }
 
-PrimeMaterial *CgFXMaterial::finalize(MaterialMapKey  oKey,
-                                      Window         *pWin)
+PrimeMaterial *CgFXMaterial::finalize(      MaterialMapKey  oKey,
+                                      const StateOverride  *pOverrides,
+                                            Window         *pWin      )
 {
     PrimeMaterial *returnValue = NULL;
 
@@ -340,7 +341,7 @@ PrimeMaterial *CgFXMaterial::finalize(MaterialMapKey  oKey,
 
     if(getTreatTechniquesAsVariants() == true)
     {
-        returnValue = Inherited::finalize(oKey,pWin);
+        returnValue = Inherited::finalize(oKey, pOverrides, pWin);
 
         if((dynamic_cast<CgFXTechnique *>(returnValue) == NULL) ||
            (dynamic_cast<CgFXTechnique *>(returnValue)->validate(this, &oEnv)))

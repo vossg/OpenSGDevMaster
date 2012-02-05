@@ -81,9 +81,12 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-    virtual PrimeMaterial *finalize     (MaterialMapKey  oKey,
-                                         Window         *pWin);
-    virtual bool           isTransparent(void                ) const;
+    virtual 
+    PrimeMaterial *finalize     (      MaterialMapKey  oKey,
+                                 const StateOverride  *pOverrides,
+                                       Window         *pWin      );
+    virtual 
+    bool           isTransparent(      void                      ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

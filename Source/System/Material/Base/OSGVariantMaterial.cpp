@@ -137,8 +137,9 @@ void VariantMaterial::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 /*-------------------------------------------------------------------------*/
 /* Binary access                                                           */
 
-PrimeMaterial *VariantMaterial::finalize(MapCacheKey  oKey,
-                                         Window      *    )
+PrimeMaterial *VariantMaterial::finalize(      MapCacheKey    oKey,
+                                         const StateOverride *pOverrides,
+                                               Window        *          )
 {
     return Inherited::finalize(oKey);
 }

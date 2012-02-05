@@ -508,7 +508,9 @@ void RenderAction::dropFunctor(DrawEnv::DrawFunctor &func,
     if(pMat == NULL)
         return;
 
-    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp, _pWindow);
+    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp, 
+                                               this->getCurrentOverrides(),
+                                              _pWindow);
 
     if(pPrimeMat == NULL)
         return;

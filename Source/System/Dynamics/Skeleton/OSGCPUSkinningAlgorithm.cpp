@@ -784,13 +784,17 @@ void CPUSkinningAlgorithm::renderGeometry(
         if(skinGeo->getMaterial() != NULL)
         {
             pPrimeMat = skinGeo->getMaterial()->finalize(
-                ract->getRenderProperties(), ract->getWindow());
+                ract->getRenderProperties(), 
+                ract->getCurrentOverrides(),
+                ract->getWindow());
         }
     }
     else
     {
         pPrimeMat = pMat->finalize(
-            ract->getRenderProperties(), ract->getWindow());
+            ract->getRenderProperties(), 
+            ract->getCurrentOverrides(),
+            ract->getWindow());
     }
 
     if(pPrimeMat == NULL)

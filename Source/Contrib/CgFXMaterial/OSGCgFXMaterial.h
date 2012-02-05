@@ -144,10 +144,13 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterial : public CgFXMaterialBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual PrimeMaterial *finalize     (MaterialMapKey  oKey,
-                                         Window         *pWin);
+    virtual 
+    PrimeMaterial *finalize     (      MaterialMapKey  oKey,
+                                 const StateOverride  *pOverrides,
+                                       Window         *pWin      );
 
-    virtual bool           isTransparent(void                ) const;
+    virtual 
+    bool           isTransparent(      void                      ) const;
   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

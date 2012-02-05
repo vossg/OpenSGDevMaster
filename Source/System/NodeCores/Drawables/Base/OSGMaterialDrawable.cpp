@@ -94,12 +94,14 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         {
             pPrimeMat = 
                 this->getMaterial()->finalize(a->getRenderProperties(),
+                                              a->getCurrentOverrides(),
                                               a->getWindow()          );
         }
     }
     else
     {
         pPrimeMat = m->finalize(a->getRenderProperties(),
+                                a->getCurrentOverrides(),
                                 a->getWindow          ());
     }
 

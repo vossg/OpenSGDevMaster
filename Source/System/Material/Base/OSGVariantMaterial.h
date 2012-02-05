@@ -115,8 +115,9 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual PrimeMaterial *finalize(MapCacheKey  oKey,
-                                    Window      *pWin);
+    virtual PrimeMaterial *finalize(      MapCacheKey    oKey,
+                                    const StateOverride *pOverrides,
+                                          Window        *pWin      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
