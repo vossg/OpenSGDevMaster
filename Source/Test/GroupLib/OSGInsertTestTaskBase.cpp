@@ -100,10 +100,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InsertTestTask *>::_type("InsertTestTaskPtr", "AttachmentContainerPtr");
+PointerType FieldTraits<InsertTestTask *, nsOSG>::_type(
+    "InsertTestTaskPtr", 
+    "AttachmentContainerPtr", 
+    InsertTestTask::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(InsertTestTask *)
+OSG_FIELDTRAITS_GETTYPE_NS(InsertTestTask *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -156,7 +160,7 @@ InsertTestTaskBase::TypeObject InsertTestTaskBase::_type(
     InsertTestTaskBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&InsertTestTaskBase::createEmptyLocal),
     InsertTestTask::initMethod,
     InsertTestTask::exitMethod,
@@ -274,9 +278,9 @@ const SFOSGAny *InsertTestTaskBase::getSFTrigger(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 InsertTestTaskBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT InsertTestTaskBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
     {

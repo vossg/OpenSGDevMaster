@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TestMultiPartitionStage;
 
 OSG_GEN_CONTAINERPTR(TestMultiPartitionStage);
-
 /*! \ingroup GrpGroupFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<TestMultiPartitionStage *> :
-    public FieldTraitsFCPtrBase<TestMultiPartitionStage *>
+struct FieldTraits<TestMultiPartitionStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<TestMultiPartitionStage *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TestMultiPartitionStage *>  Self;
+    typedef FieldTraits<TestMultiPartitionStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

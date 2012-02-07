@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TestStage;
 
 OSG_GEN_CONTAINERPTR(TestStage);
-
 /*! \ingroup GrpGroupFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<TestStage *> :
-    public FieldTraitsFCPtrBase<TestStage *>
+struct FieldTraits<TestStage *, nsOSG> :
+    public FieldTraitsFCPtrBase<TestStage *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TestStage *>  Self;
+    typedef FieldTraits<TestStage *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

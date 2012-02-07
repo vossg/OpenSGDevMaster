@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FCDSParTestFC;
 
 OSG_GEN_CONTAINERPTR(FCDSParTestFC);
-
 /*! \ingroup GrpSystemFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<FCDSParTestFC *> :
-    public FieldTraitsFCPtrBase<FCDSParTestFC *>
+struct FieldTraits<FCDSParTestFC *, nsOSG> :
+    public FieldTraitsFCPtrBase<FCDSParTestFC *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<FCDSParTestFC *>  Self;
+    typedef FieldTraits<FCDSParTestFC *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FCDSParTestFC *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFCDSParTestFCPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFCDSParTestFCPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFCDSParTestFCPtr"; 
 }
@@ -149,13 +147,13 @@ const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<NoRefCountPolicy>(void)
 /*! \ingroup GrpSystemFieldTraits
  */
 template <>
-struct FieldTraits<FCDSParTestFC *, 1> :
-    public FieldTraitsFCPtrBase<FCDSParTestFC *, 1>
+struct FieldTraits<FCDSParTestFC *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<FCDSParTestFC *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<FCDSParTestFC *, 1>  Self;
+    typedef FieldTraits<FCDSParTestFC *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,49 +167,49 @@ struct FieldTraits<FCDSParTestFC *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDSParTestFC *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildFCDSParTestFCPtr"; 
 }
@@ -220,30 +218,30 @@ const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
-                      RecordedRefCountPolicy  > SFRecFCDSParTestFCPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
-                      UnrecordedRefCountPolicy> SFUnrecFCDSParTestFCPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
-                      WeakRefCountPolicy      > SFWeakFCDSParTestFCPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
-                      NoRefCountPolicy        > SFUncountedFCDSParTestFCPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFCDSParTestFCPtr;
 
 
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
-                      RecordedRefCountPolicy  > MFRecFCDSParTestFCPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
-                      UnrecordedRefCountPolicy> MFUnrecFCDSParTestFCPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
-                      WeakRefCountPolicy      > MFWeakFCDSParTestFCPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFCDSParTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
-                      NoRefCountPolicy        > MFUncountedFCDSParTestFCPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFCDSParTestFCPtr;
 
 
 
@@ -251,14 +249,14 @@ typedef PointerMField<FCDSParTestFC *,
 typedef ChildPointerSField<
           FCDSParTestFC *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildFCDSParTestFCPtr;
+          nsOSG + 1             > SFUnrecChildFCDSParTestFCPtr;
 
 
 /*! \ingroup GrpSystemFieldMFields */
 typedef ChildPointerMField<
           FCDSParTestFC *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildFCDSParTestFCPtr;
+          nsOSG + 1             > MFUnrecChildFCDSParTestFCPtr;
 
 
 
@@ -306,7 +304,7 @@ struct SFUnrecChildFCDSParTestFCPtr :
     public ChildPointerSField<
         FCDSParTestFC *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 /*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
@@ -314,7 +312,7 @@ struct MFUnrecChildFCDSParTestFCPtr :
     public ChildPointerMField<
         FCDSParTestFC *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

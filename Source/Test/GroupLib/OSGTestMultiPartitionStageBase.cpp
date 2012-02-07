@@ -103,10 +103,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TestMultiPartitionStage *>::_type("TestMultiPartitionStagePtr", "StagePtr");
+PointerType FieldTraits<TestMultiPartitionStage *, nsOSG>::_type(
+    "TestMultiPartitionStagePtr", 
+    "StagePtr", 
+    TestMultiPartitionStage::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TestMultiPartitionStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(TestMultiPartitionStage *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -171,7 +175,7 @@ TestMultiPartitionStageBase::TypeObject TestMultiPartitionStageBase::_type(
     TestMultiPartitionStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TestMultiPartitionStageBase::createEmptyLocal),
     TestMultiPartitionStage::initMethod,
     TestMultiPartitionStage::exitMethod,
@@ -308,9 +312,9 @@ const SFBool *TestMultiPartitionStageBase::getSFUseGroup(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TestMultiPartitionStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TestMultiPartitionStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
     {

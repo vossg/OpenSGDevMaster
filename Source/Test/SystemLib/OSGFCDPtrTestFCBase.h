@@ -72,6 +72,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FCDPtrTestFC;
 
 //! \brief FCDPtrTestFC Base Class.
@@ -303,7 +304,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

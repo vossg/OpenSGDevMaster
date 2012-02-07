@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InsertTestTask;
 
 OSG_GEN_CONTAINERPTR(InsertTestTask);
-
 /*! \ingroup GrpGroupFieldTraits
     \ingroup GrpLibOSGGroup
  */
 template <>
-struct FieldTraits<InsertTestTask *> :
-    public FieldTraitsFCPtrBase<InsertTestTask *>
+struct FieldTraits<InsertTestTask *, nsOSG> :
+    public FieldTraitsFCPtrBase<InsertTestTask *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<InsertTestTask *>  Self;
+    typedef FieldTraits<InsertTestTask *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 

@@ -92,35 +92,39 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDSParTestFC *>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
+PointerType FieldTraits<FCDSParTestFC *, nsOSG>::_type(
+    "FCDSParTestFCPtr", 
+    "AttachmentContainerPtr", 
+    FCDSParTestFC::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDSParTestFC *)
+OSG_FIELDTRAITS_GETTYPE_NS(FCDSParTestFC *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FCDSParTestFC *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FCDSParTestFC *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< FCDSParTestFC *, 1 >::getType(void)
+DataType &FieldTraits< FCDSParTestFC *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<FCDSParTestFC *, 0>::getType();
+    return FieldTraits<FCDSParTestFC *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       FCDSParTestFC *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       FCDSParTestFC *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -150,7 +154,7 @@ FCDSParTestFCBase::TypeObject FCDSParTestFCBase::_type(
     FCDSParTestFCBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FCDSParTestFCBase::createEmptyLocal),
     FCDSParTestFC::initMethod,
     FCDSParTestFC::exitMethod,
@@ -210,9 +214,9 @@ UInt32 FCDSParTestFCBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FCDSParTestFCBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FCDSParTestFCBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentFieldMask & whichField))
     {

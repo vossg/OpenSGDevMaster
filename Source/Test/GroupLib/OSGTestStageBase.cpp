@@ -91,10 +91,14 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TestStage *>::_type("TestStagePtr", "StagePtr");
+PointerType FieldTraits<TestStage *, nsOSG>::_type(
+    "TestStagePtr", 
+    "StagePtr", 
+    TestStage::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TestStage *)
+OSG_FIELDTRAITS_GETTYPE_NS(TestStage *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -123,7 +127,7 @@ TestStageBase::TypeObject TestStageBase::_type(
     TestStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TestStageBase::createEmptyLocal),
     TestStage::initMethod,
     TestStage::exitMethod,
@@ -196,9 +200,9 @@ const SFString *TestStageBase::getSFMessage(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TestStageBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TestStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
     {

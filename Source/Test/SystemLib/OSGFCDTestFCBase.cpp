@@ -111,35 +111,39 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDTestFC *>::_type("FCDTestFCPtr", "NodeCorePtr");
+PointerType FieldTraits<FCDTestFC *, nsOSG>::_type(
+    "FCDTestFCPtr", 
+    "NodeCorePtr", 
+    FCDTestFC::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDTestFC *)
+OSG_FIELDTRAITS_GETTYPE_NS(FCDTestFC *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FCDTestFC *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FCDTestFC *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< FCDTestFC *, 1 >::getType(void)
+DataType &FieldTraits< FCDTestFC *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<FCDTestFC *, 0>::getType();
+    return FieldTraits<FCDTestFC *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       FCDTestFC *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       FCDTestFC *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -229,7 +233,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     FCDTestFCBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FCDTestFCBase::createEmptyLocal),
     FCDTestFC::initMethod,
     FCDTestFC::exitMethod,
@@ -395,9 +399,9 @@ const MFUInt32 *FCDTestFCBase::getMFFieldMFPro(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FCDTestFCBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FCDTestFCBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FieldSFPubFieldMask & whichField))
     {

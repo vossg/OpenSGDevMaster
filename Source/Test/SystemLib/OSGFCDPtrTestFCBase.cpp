@@ -185,18 +185,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFC *>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
+PointerType FieldTraits<FCDPtrTestFC *, nsOSG>::_type(
+    "FCDPtrTestFCPtr", 
+    "NodeCorePtr", 
+    FCDPtrTestFC::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFC *)
+OSG_FIELDTRAITS_GETTYPE_NS(FCDPtrTestFC *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FCDPtrTestFC *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FCDPtrTestFC *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -501,7 +505,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     FCDPtrTestFCBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCBase::createEmptyLocal),
     FCDPtrTestFC::initMethod,
     FCDPtrTestFC::exitMethod,
@@ -1507,9 +1511,9 @@ void FCDPtrTestFCBase::clearFieldMFPro_spchildptr(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FCDPtrTestFCBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FCDPtrTestFCBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FieldSFPub_ptrFieldMask & whichField))
     {

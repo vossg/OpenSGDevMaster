@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TestStage;
 
 //! \brief TestStage Base Class.
@@ -152,7 +153,7 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

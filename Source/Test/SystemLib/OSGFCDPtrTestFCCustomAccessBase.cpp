@@ -185,18 +185,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFCCustomAccess *>::_type("FCDPtrTestFCCustomAccessPtr", "NodeCorePtr");
+PointerType FieldTraits<FCDPtrTestFCCustomAccess *, nsOSG>::_type(
+    "FCDPtrTestFCCustomAccessPtr", 
+    "NodeCorePtr", 
+    FCDPtrTestFCCustomAccess::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCCustomAccess *)
+OSG_FIELDTRAITS_GETTYPE_NS(FCDPtrTestFCCustomAccess *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FCDPtrTestFCCustomAccess *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FCDPtrTestFCCustomAccess *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -501,7 +505,7 @@ FCDPtrTestFCCustomAccessBase::TypeObject FCDPtrTestFCCustomAccessBase::_type(
     FCDPtrTestFCCustomAccessBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCCustomAccessBase::createEmptyLocal),
     FCDPtrTestFCCustomAccess::initMethod,
     FCDPtrTestFCCustomAccess::exitMethod,
@@ -1004,9 +1008,9 @@ const MFUnrecChildFCDSParTestFCPtr *FCDPtrTestFCCustomAccessBase::getMFFieldMFPr
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FCDPtrTestFCCustomAccessBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FCDPtrTestFCCustomAccessBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FieldSFPub_ptrFieldMask & whichField))
     {

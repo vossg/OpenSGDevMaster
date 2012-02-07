@@ -1745,9 +1745,9 @@ const SFUInt32 *TextureChunkBase::getSFNPOTMatrixScale(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {

@@ -185,18 +185,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFCNullCheckAccess *>::_type("FCDPtrTestFCNullCheckAccessPtr", "NodeCorePtr");
+PointerType FieldTraits<FCDPtrTestFCNullCheckAccess *, nsOSG>::_type(
+    "FCDPtrTestFCNullCheckAccessPtr", 
+    "NodeCorePtr", 
+    FCDPtrTestFCNullCheckAccess::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCNullCheckAccess *)
+OSG_FIELDTRAITS_GETTYPE_NS(FCDPtrTestFCNullCheckAccess *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FCDPtrTestFCNullCheckAccess *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            FCDPtrTestFCNullCheckAccess *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -501,7 +505,7 @@ FCDPtrTestFCNullCheckAccessBase::TypeObject FCDPtrTestFCNullCheckAccessBase::_ty
     FCDPtrTestFCNullCheckAccessBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCNullCheckAccessBase::createEmptyLocal),
     FCDPtrTestFCNullCheckAccess::initMethod,
     FCDPtrTestFCNullCheckAccess::exitMethod,
@@ -1860,9 +1864,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_spchildptr(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 FCDPtrTestFCNullCheckAccessBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT FCDPtrTestFCNullCheckAccessBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FieldSFPub_ptrFieldMask & whichField))
     {

@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class FCDPtrTestFC;
 
 OSG_GEN_CONTAINERPTR(FCDPtrTestFC);
-
 /*! \ingroup GrpSystemFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<FCDPtrTestFC *> :
-    public FieldTraitsFCPtrBase<FCDPtrTestFC *>
+struct FieldTraits<FCDPtrTestFC *, nsOSG> :
+    public FieldTraitsFCPtrBase<FCDPtrTestFC *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<FCDPtrTestFC *>  Self;
+    typedef FieldTraits<FCDPtrTestFC *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<FCDPtrTestFC *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFCDPtrTestFCPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFCDPtrTestFCPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFCDPtrTestFCPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFC *,
-                      RecordedRefCountPolicy  > SFRecFCDPtrTestFCPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFC *,
-                      UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFC *,
-                      WeakRefCountPolicy      > SFWeakFCDPtrTestFCPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFC *,
-                      NoRefCountPolicy        > SFUncountedFCDPtrTestFCPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedFCDPtrTestFCPtr;
 
 
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFC *,
-                      RecordedRefCountPolicy  > MFRecFCDPtrTestFCPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFC *,
-                      UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFC *,
-                      WeakRefCountPolicy      > MFWeakFCDPtrTestFCPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakFCDPtrTestFCPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFC *,
-                      NoRefCountPolicy        > MFUncountedFCDPtrTestFCPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedFCDPtrTestFCPtr;
 
 
 

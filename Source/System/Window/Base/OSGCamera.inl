@@ -65,7 +65,7 @@ FrustumVolume Camera::getFrustumVal(const Viewport &port)
 inline
 Matrix Camera::getWorldToScreenVal(const Viewport &port)
 {
-    return calcWorldToScreen(port);
+    return calcWorldToScreenVal(port);
 }
 #endif
 
