@@ -56,7 +56,10 @@ class FieldContainer(FCDElement):
         field.setFieldContainer(self);
         self.m_fields.append(field);
         return idx;
-    
+
+    def subField(self, field):
+        self.m_fields.remove(field)
+
     #
     # Common tests
     

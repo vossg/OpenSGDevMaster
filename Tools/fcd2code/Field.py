@@ -204,6 +204,8 @@ class Field(FCDElement):
 
         self.setFCD("fromNamespace",                  "OSG",      True);
 
+        self.setFCD("osg2Ignore",                     "false",    True);
+
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
     
