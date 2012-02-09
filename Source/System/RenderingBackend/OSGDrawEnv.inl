@@ -372,7 +372,7 @@ void DrawEnv::setVPCameraMatrices(const Matrix &mFullprojection,
                                   const Matrix &mToWorld,
                                   const Matrix &mWorldToScreen  )
 {
-    _openGLState.setProjection(mFullprojection);
+    _vpCameraFullProjection  = mFullprojection;
 
     _vpCameraProjection      = mProjection;
     _vpCameraProjectionTrans = mProjectionTrans;
