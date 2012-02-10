@@ -765,7 +765,12 @@ bool CSMNativeWindow::init(void)
             &CSMNativeWindow::win32MainLoop);
     }
 
-    this->reshape(iWidth, iHeight);
+	RECT clientSize;
+
+	GetClientRect(_pHWND, &clientSize);
+
+	this->reshape(clientSize.right,
+				  clientSize.bottom);
     _pWin32Window->init();
 
     _bRun = true;
