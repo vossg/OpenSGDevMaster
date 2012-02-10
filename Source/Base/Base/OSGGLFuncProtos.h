@@ -311,14 +311,14 @@ typedef void       (OSG_APIENTRY *osgGlBindBufferProc              )(
 
 typedef void       (OSG_APIENTRY *osgGlBufferDataProc              )(      
           GLenum         target, 
-          GLintptrARB    size, 
+          GLsizeiptr     size, 
     const void          *data,
           GLenum         usage);
 
 typedef void       (OSG_APIENTRY *osgGlBufferSubDataProc           )(      
           GLenum         target,
-          GLintptrARB    offset,
-          GLsizeiptrARB  size,
+          GLintptr       offset,
+          GLsizeiptr     size,
     const void          *data);
 
 typedef void       (OSG_APIENTRY *osgGlGenBuffersProc              )(      
@@ -379,6 +379,18 @@ typedef void       (OSG_APIENTRY *osgGlGetBufferPointervProc       )(
 
 typedef GLboolean  (OSG_APIENTRY *osgGlIsBufferProc                )(
           GLuint);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name VertexArrayObjects                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlBindVertexArrayProc   )(      GLuint  array  );
+typedef void (OSG_APIENTRY *osgGlDeleteVertexArraysProc)(      GLsizei n, 
+                                                         const GLuint *arrays );
+typedef void (OSG_APIENTRY *osgGlGenVertexArraysProc   )(      GLsizei  n, 
+                                                               GLuint  *arrays);
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/

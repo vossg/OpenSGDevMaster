@@ -132,6 +132,7 @@ void SimpleTextForeground::initText(const std::string &szFamily, Real32 fSize)
 
 void SimpleTextForeground::draw(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(!getActive())
     {
         return;
@@ -277,6 +278,7 @@ void SimpleTextForeground::draw(DrawEnv *pEnv)
 
     //reset the matrices
     endOrthoRender(pEnv);
+#endif
 }
 
 /*-------------------------------------------------------------------------*\
@@ -300,6 +302,7 @@ void SimpleTextForeground::beginOrthoRender(DrawEnv *pEnv,
                                             UInt32  &fullWidth,
                                             UInt32  &fullHeight)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -341,17 +344,20 @@ void SimpleTextForeground::beginOrthoRender(DrawEnv *pEnv,
             1.0f);
 
     glMatrixMode(GL_MODELVIEW);
+#endif
 }
 
 /*! Clean up changes to the OpenGL matrix stacks done by beginOrthoRender
  */
 void SimpleTextForeground::endOrthoRender(DrawEnv *pEnv)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
 
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+#endif
 }
 
 void SimpleTextForeground::resolveLinks(void)
@@ -551,6 +557,7 @@ void SimpleTextForeground::drawCharacters(
     const TextLayoutResult &       oLayoutResult,
           bool                     bWithColoring)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     Color4f cCurrentColor = getColor();
     Color4f cNewColor;
 
@@ -624,6 +631,7 @@ void SimpleTextForeground::drawCharacters(
     }
 
     glEnd();
+#endif
 }
 
 /*----------------------- constructors & destructors ----------------------*/

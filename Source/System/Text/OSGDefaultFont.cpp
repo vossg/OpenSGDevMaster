@@ -613,8 +613,8 @@ DefaultFontBase::DefaultFontBase():
     _texObjChunk = TextureObjChunk::create();
     ImageUnrecPtr texture = _face->getTexture();
     _texObjChunk->setImage(texture);
-    _texObjChunk->setWrapS(GL_CLAMP);
-    _texObjChunk->setWrapT(GL_CLAMP);
+    _texObjChunk->setWrapS(GL_CLAMP_TO_EDGE);
+    _texObjChunk->setWrapT(GL_CLAMP_TO_EDGE);
     _texObjChunk->setMinFilter(GL_NEAREST);
     _texObjChunk->setMagFilter(GL_NEAREST);
 }

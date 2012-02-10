@@ -116,6 +116,7 @@ void CSMStatisticsForeground::addElement(
     const std::string                &szStatElem,
     const std::string                &szFormat  )
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(szStatObj.compare("Text") == 0)
     {
         if(szStatElem.compare("freetext") == 0)
@@ -307,10 +308,12 @@ void CSMStatisticsForeground::addElement(
         fprintf(stderr, "Unknown stat object %s\n",
                 szStatObj.c_str());
     }
+#endif
 }
 
 bool CSMStatisticsForeground::init(CSMWindow *pCSMWin)
 {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     SimpleStatisticsForegroundUnrecPtr pStatFG =  
         OSG::SimpleStatisticsForeground::create();
 
@@ -361,6 +364,7 @@ bool CSMStatisticsForeground::init(CSMWindow *pCSMWin)
 
 //    pStatFG->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
 //    pStatFG->addElement(RenderAction::statDrawTime, "DrawTime: %.3f s");
+#endif
 
     return true;
 }

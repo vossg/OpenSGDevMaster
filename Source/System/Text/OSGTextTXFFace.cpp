@@ -335,6 +335,7 @@ NodeTransitPtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real3
 // Render the text using the layout
 void TextTXFFace::drawCharacters(const TextLayoutResult &layoutResult)
 {
+#if !defined(OSG_OGL_COREONLY)
     glBegin(GL_QUADS);
 
     UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
@@ -376,6 +377,7 @@ void TextTXFFace::drawCharacters(const TextLayoutResult &layoutResult)
     }
 
     glEnd();
+#endif
 }
 
 
