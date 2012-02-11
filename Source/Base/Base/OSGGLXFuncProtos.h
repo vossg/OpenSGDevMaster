@@ -43,7 +43,11 @@
 
 #ifdef OSG_USE_GLX
 
-#include <GL/glx.h>
+#if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+# include <GL3/glx3.h>
+#else
+# include <GL/glx.h>
+#endif
 
 OSG_BEGIN_NAMESPACE
 

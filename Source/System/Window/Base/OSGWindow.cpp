@@ -50,7 +50,11 @@
 #include "OSGGLFuncProtos.h"
 
 #if !defined(WIN32) && !defined(__APPLE__) && !defined(OSG_EMBEDDED)
-#include <GL/glx.h>
+# if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+#  include <GL3/glx3.h>
+# else
+#  include <GL/glx.h>
+# endif
 #endif
 
 #if defined(OSG_EMBEDDED) && defined(WIN32)

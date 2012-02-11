@@ -59,7 +59,11 @@
 # elif defined(__APPLE__)
 #  include <OpenGL/gl.h>
 # else
-#  include <GL/gl.h>
+#  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+#    include <GL3/gl3.h>
+#  else
+#    include <GL/gl.h>
+#  endif
 # endif
 
 #endif

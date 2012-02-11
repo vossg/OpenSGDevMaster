@@ -65,7 +65,11 @@ const GLubyte *gluErrorString(GLenum eError)
 # elif defined(__APPLE__)
 #  include <OpenGL/glu.h>
 # else
-#  include <GL/glu.h>
+#  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+#    include <GL3/glu3.h>
+#  else
+#    include <GL/glu.h>
+#  endif
 # endif
 
 #endif

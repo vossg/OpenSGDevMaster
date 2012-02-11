@@ -1,0 +1,174 @@
+#OSG V1.0 
+
+ComplexSceneManager
+{
+#  dumpFrameStart True
+
+  globals
+  [
+    DEF RootNode Node
+    { 
+      core Group {}
+
+      children
+      [ 
+        DEF CameraRoot Node
+        {
+          core Transform {}
+
+          children 
+          [ 
+          ]
+        },
+
+        DEF GlobalEffectRoot Node
+        {
+          core MultiCore
+          {
+            cores
+            [
+              Group {}
+              USE GlobalEffect1
+              USE GlobalEffect2
+            ]
+          }
+
+          children
+          [
+            DEF SceneRoot Node 
+            {
+              core MultiCore
+              {
+                cores
+                [
+                  Group {}
+                  USE SceneEffect1
+                  USE SceneEffect2
+                  USE SceneEffect3
+                  USE SceneEffect4
+                  USE SceneEffect5
+                  USE SceneEffect6
+                  USE SceneEffect7
+                ]
+              }
+
+              children
+              [
+                DEF ZLight Node
+                {
+                  core DirectionalLight
+                  {
+                    ambient    0.24 0.24 0.24 1.0
+                    diffuse    0.80 0.80 0.80 1.0
+                    direction  0.0 0.0 1.0
+                    on         TRUE
+                    beacon     USE CameraRoot
+                  }
+                  children
+                  [
+                    DEF ModelRoot Node
+                    {
+                      core Group {}
+                    }
+                  ]
+                }
+              ]
+            }
+
+            DEF OffSceneRoot Node
+            {
+              core MultiCore
+              {
+                cores
+                [
+                  Group {}
+                  USE OffSceneEffect1
+                  USE OffSceneEffect2
+                  USE OffSceneEffect3
+                  USE OffSceneEffect4
+                  USE OffSceneEffect5
+                  USE OffSceneEffect6
+                  USE OffSceneEffect7
+                ]
+              }
+
+              children
+              [
+                USE OffSceneModelRoot
+              ]           
+            }
+          ]
+        }
+      ] 
+    }
+
+    DEF PerspCamGL CSMPerspectiveCamera
+    {
+      near   0.1
+      far    20000.0
+      fov    60.0
+
+      beacon USE CameraRoot
+    }
+
+  ]
+
+  drawManager DEF DrawManager CSMDrawManager
+  {
+    drawer
+    [
+      CSMDrawer
+      {
+        windows
+        [
+           DEF MainWindow CSMNativeWindow
+           {
+#             ignoreExtensions [ "ALL" ]
+#             ignoreExtensions [ "GL_ARB_framebuffer_object",
+#                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
+             requestMajor 3
+             requestMinor 0
+
+#             enableForwardCompatContext TRUE
+#             enableDebugContext         FALSE
+
+             partitionDrawMode 0x0002
+
+             requestSamples 4
+             enableFSAA     TRUE
+
+             size 512 512
+             position 200, 200
+             decorEnabled TRUE
+
+             renderOptions DEF WinRenderOpts RenderOptions
+             {
+               useGLFinish FALSE
+             }
+
+             viewports
+             [
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     USE PerspCamGL
+                 background USE BGnd
+
+                 foregrounds
+                 [
+                   USE ForeGnd1
+                   USE ForeGnd2
+                   USE ForeGnd3
+                   USE ForeGnd4
+
+                   USE LogoFGnd
+                   USE StatFGnd
+                 ]
+               }
+             ]
+           }
+        ]  
+      }
+    ]
+  }
+}
