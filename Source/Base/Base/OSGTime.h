@@ -44,6 +44,10 @@
 
 #ifndef WIN32
 #include <sys/time.h>
+#else
+# ifdef WIN32_LEAN_AND_MEAN
+#  include <MMSystem.h>
+# endif
 #endif
 
 #include "OSGBaseTypes.h"
