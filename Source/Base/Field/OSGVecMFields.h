@@ -68,6 +68,14 @@ typedef MField<Vec1s> MFVec1s;
 
 
 /*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec1u> MFVec1u;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec1i> MFVec1i;
+
+
+/*! \ingroup GrpBaseFieldMulti */
 typedef MField<Vec1f> MFVec1f;
 
 
@@ -101,6 +109,14 @@ typedef MField<Vec2us> MFVec2us;
 
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<Vec2s> MFVec2s;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec2u> MFVec2u;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec2i> MFVec2i;
 
 
 /*! \ingroup GrpBaseFieldMulti */
@@ -140,6 +156,14 @@ typedef MField<Vec3s> MFVec3s;
 
 
 /*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec3u> MFVec3u;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec3i> MFVec3i;
+
+
+/*! \ingroup GrpBaseFieldMulti */
 typedef MField<Vec3f> MFVec3f;
 
 
@@ -174,6 +198,14 @@ typedef MField<Vec4us> MFVec4us;
 
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<Vec4s> MFVec4s;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec4u> MFVec4u;
+
+
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<Vec4i> MFVec4i;
 
 
 /*! \ingroup GrpBaseFieldMulti */
@@ -351,6 +383,10 @@ struct MFVec1us : public MField<Vec1us> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1s : public MField<Vec1s> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec1u : public MField<Vec1u> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec1i : public MField<Vec1i> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1f : public MField<Vec1f> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1fx : public MField<Vec1fx> {};
@@ -369,6 +405,10 @@ struct MFVec2b : public MField<Vec2b> {};
 struct MFVec2us : public MField<Vec2us> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2s : public MField<Vec2s> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec2u : public MField<Vec2u> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec2i : public MField<Vec2i> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2f : public MField<Vec2f> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
@@ -389,6 +429,10 @@ struct MFVec3us : public MField<Vec3us> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3s : public MField<Vec3s> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec3u : public MField<Vec3u> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec3i : public MField<Vec3i> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3f : public MField<Vec3f> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3fx : public MField<Vec3fx> {};
@@ -407,6 +451,10 @@ struct MFVec4b : public MField<Vec4b> {};
 struct MFVec4us : public MField<Vec4us> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4s : public MField<Vec4s> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec4u : public MField<Vec4u> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFVec4i : public MField<Vec4i> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4f : public MField<Vec4f> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */

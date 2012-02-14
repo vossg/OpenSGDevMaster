@@ -94,12 +94,23 @@ struct FieldTraits<base##dim##type> :                                       \
 defineTrait(Vec, dim, type)             \
 defineTrait(Pnt, dim, type)
 
+#undef  defineBTraitV
+#define defineBTraitV(dim, type)         \
+defineTrait(Vec, dim, type)
+
 #undef  defineDTrait
 #define defineDTrait(type)              \
 defineBTrait(1, type)                   \
 defineBTrait(2, type)                   \
 defineBTrait(3, type)                   \
 defineBTrait(4, type)
+
+#undef  defineDTraitV
+#define defineDTraitV(type)              \
+defineBTraitV(1, type)                   \
+defineBTraitV(2, type)                   \
+defineBTraitV(3, type)                   \
+defineBTraitV(4, type)
 
 
 // Actual Instantiations
@@ -110,6 +121,8 @@ defineDTrait( b)
 #endif
 defineDTrait(us)
 defineDTrait( s)
+defineDTraitV( u)
+defineDTraitV( i)
 defineDTrait( f)
 defineDTrait( d)
 defineDTrait(ld)

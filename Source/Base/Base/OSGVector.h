@@ -813,6 +813,34 @@ typedef OSG::Vector< OSG::Int16, 1 > Vec1s;
 
 typedef OSG::Vec1s *Vec1sP;
 
+/*! \var typedef OSG::Vector< OSG::UInt32, 1 > Vec1u;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::UInt32, 1 > Vec1u;
+
+/*! \var typedef OSG::Vec1u *Vec1uP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec1u *Vec1uP;
+
+/*! \var typedef OSG::Vector< OSG::Int32, 1 > Vec1i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int32, 1 > Vec1i;
+
+/*! \var typedef OSG::Vec1i *Vec1iP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec1i *Vec1iP;
+
 /*! \var typedef OSG::Vector< OSG::Real32, 1 > Vec1f;
     \ingroup GrpBaseBaseMathObj
     \relatesalso OSG::Vector
@@ -1072,6 +1100,34 @@ typedef OSG::Vector< OSG::Int16, 3 > Vec3s;
 
 typedef OSG::Vec3s *Vec3sP;
 
+/*! \var typedef OSG::Vector< OSG::UInt32, 3 > Vec3u;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::UInt32, 3 > Vec3u;
+
+/*! \var typedef OSG::Vec3u *Vec3uP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec3u *Vec3uP;
+
+/*! \var typedef OSG::Vector< OSG::Int32, 3 > Vec3i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int32, 3 > Vec3i;
+
+/*! \var typedef OSG::Vec3i *Vec3iP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec3i *Vec3iP;
+
 /*! \var typedef OSG::Vector< OSG::Real32, 3 > Vec3f;
     \ingroup GrpBaseBaseMathObj
     \relatesalso OSG::Vector
@@ -1186,6 +1242,34 @@ typedef OSG::Vector< OSG::Int16, 4 > Vec4s;
  */
 
 typedef OSG::Vec4s *Vec4sP;
+
+/*! \var typedef OSG::Vector< OSG::UInt32, 4 > Vec4u;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::UInt32, 4 > Vec4u;
+
+/*! \var typedef OSG::Vec4u *Vec4uP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4u *Vec4uP;
+
+/*! \var typedef OSG::Vector< OSG::Int32, 4 > Vec4i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int32, 4 > Vec4i;
+
+/*! \var typedef OSG::Vec4i *Vec4iP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4i *Vec4iP;
 
 /*! \var typedef OSG::Vector< OSG::Real32, 4 > Vec4f;
     \ingroup GrpBaseBaseMathObj

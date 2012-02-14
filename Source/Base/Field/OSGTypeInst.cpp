@@ -108,6 +108,8 @@ DataType FieldTraits<Vec1b        >::_type("Vec1b" ,       "BaseType"    );
 #endif
 DataType FieldTraits<Vec1us       >::_type("Vec1us",       "BaseType"    );
 DataType FieldTraits<Vec1s        >::_type("Vec1s" ,       "BaseType"    );
+DataType FieldTraits<Vec1u        >::_type("Vec1u",        "BaseType"    );
+DataType FieldTraits<Vec1i        >::_type("Vec1i" ,       "BaseType"    );
 DataType FieldTraits<Vec1f        >::_type("Vec1f" ,       "BaseType"    );
 DataType FieldTraits<Vec1fx       >::_type("Vec1fx",       "BaseType"    );
 DataType FieldTraits<Vec1d        >::_type("Vec1d" ,       "BaseType"    );
@@ -120,6 +122,8 @@ DataType FieldTraits<Vec2b        >::_type("Vec2b" ,       "BaseType"    );
 #endif
 DataType FieldTraits<Vec2us       >::_type("Vec2us",       "BaseType"    );
 DataType FieldTraits<Vec2s        >::_type("Vec2s" ,       "BaseType"    );
+DataType FieldTraits<Vec2u        >::_type("Vec2u",        "BaseType"    );
+DataType FieldTraits<Vec2i        >::_type("Vec2i" ,       "BaseType"    );
 DataType FieldTraits<Vec2f        >::_type("Vec2f" ,       "BaseType"    );
 DataType FieldTraits<Vec2fx       >::_type("Vec2fx",       "BaseType"    );
 DataType FieldTraits<Vec2d        >::_type("Vec2d" ,       "BaseType"    );
@@ -131,6 +135,8 @@ DataType FieldTraits<Vec3b        >::_type("Vec3b" ,       "BaseType"    );
 #endif
 DataType FieldTraits<Vec3us       >::_type("Vec3us",       "BaseType"    );
 DataType FieldTraits<Vec3s        >::_type("Vec3s" ,       "BaseType"    );
+DataType FieldTraits<Vec3u        >::_type("Vec3u",        "BaseType"    );
+DataType FieldTraits<Vec3i        >::_type("Vec3i" ,       "BaseType"    );
 DataType FieldTraits<Vec3f        >::_type("Vec3f" ,       "BaseType"    );
 DataType FieldTraits<Vec3fx       >::_type("Vec3fx",       "BaseType"    );
 DataType FieldTraits<Vec3d        >::_type("Vec3d" ,       "BaseType"    );
@@ -142,6 +148,8 @@ DataType FieldTraits<Vec4b        >::_type("Vec4b" ,       "BaseType"    );
 #endif
 DataType FieldTraits<Vec4us       >::_type("Vec4us",       "BaseType"    );
 DataType FieldTraits<Vec4s        >::_type("Vec4s" ,       "BaseType"    );
+DataType FieldTraits<Vec4u        >::_type("Vec4u",        "BaseType"    );
+DataType FieldTraits<Vec4i        >::_type("Vec4i" ,       "BaseType"    );
 DataType FieldTraits<Vec4f        >::_type("Vec4f" ,       "BaseType"    );
 DataType FieldTraits<Vec4fx       >::_type("Vec4fx",       "BaseType"    );
 DataType FieldTraits<Vec4d        >::_type("Vec4d" ,       "BaseType"    );

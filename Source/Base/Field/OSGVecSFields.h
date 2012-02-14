@@ -68,6 +68,14 @@ typedef SField<Vec2s> SFVec2s;
 
 
 /*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec2u> SFVec2u;
+
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec2i> SFVec2i;
+
+
+/*! \ingroup GrpBaseFieldSingle */
 typedef SField<Vec2f> SFVec2f;
 
 
@@ -105,6 +113,14 @@ typedef SField<Vec3s> SFVec3s;
 
 
 /*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec3u> SFVec3u;
+
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec3i> SFVec3i;
+
+
+/*! \ingroup GrpBaseFieldSingle */
 typedef SField<Vec3f> SFVec3f;
 
 
@@ -139,6 +155,14 @@ typedef SField<Vec4us> SFVec4us;
 
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<Vec4s> SFVec4s;
+
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec4u> SFVec4u;
+
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SField<Vec4i> SFVec4i;
 
 
 /*! \ingroup GrpBaseFieldSingle */
@@ -279,6 +303,10 @@ struct SFVec2us : public SField<Vec2us> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2s : public SField<Vec2s> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec2u : public SField<Vec2u> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec2i : public SField<Vec2i> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2f : public SField<Vec2f> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2fx : public SField<Vec2fx> {};
@@ -298,6 +326,10 @@ struct SFVec3us : public SField<Vec3us> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3s : public SField<Vec3s> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec3u : public SField<Vec3u> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec3i : public SField<Vec3i> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3f : public SField<Vec3f> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3fx : public SField<Vec3fx> {};
@@ -316,6 +348,10 @@ struct SFVec4b : public SField<Vec4b> {};
 struct SFVec4us : public SField<Vec4us> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4s : public SField<Vec4s> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec4u : public SField<Vec4u> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFVec4i : public SField<Vec4i> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4f : public SField<Vec4f> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
