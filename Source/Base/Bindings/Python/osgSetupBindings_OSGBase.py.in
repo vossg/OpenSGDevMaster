@@ -715,7 +715,7 @@ def postGenClassesSetup(osg, mb):
 def postFCDInfoSetup(osg, mb, adddition_exp):
 
   splitGenHelper.handleFindNamedComponent(osg, "FieldContainer")
-  splitGenHelper.handleFindNamedComponent(osg, "AttachmentContainer")
+#  splitGenHelper.handleFindNamedComponent(osg, "AttachmentContainer")
 
   c = osg.class_("Node")
   c.add_declaration_code("""

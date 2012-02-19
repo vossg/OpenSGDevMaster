@@ -35,10 +35,10 @@ def preScanSetup(gen_classes, fc_infos, core_mods, free_funcs, free_func_mods, e
 
   # Build up list of template methods that we need to instantiate so we can get all of them exposed.
   gip_tmpl_instances = \
-    ["template OSG::%s OSG::GeoIntegralProperty::getValue<OSG::%s>(const OSG::UInt32) const" % \
+    ["template OSG::%s OSG::GeoIntegralProperty::getValue<OSG::%s>(const OSG::SizeT) const" % \
        (t, t) for t in settings.geo_integral_types]
   gip_tmpl_instances.extend(
-    ["template void OSG::GeoIntegralProperty::setValue<OSG::%s>(const OSG::%s&, const OSG::UInt32)" % \
+    ["template void OSG::GeoIntegralProperty::setValue<OSG::%s>(const OSG::%s&, const OSG::SizeT)" % \
       (t, t) for t in settings.geo_integral_param_types]
   )
   gip_tmpl_instances.extend(

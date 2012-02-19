@@ -5,6 +5,8 @@ import osggen
 import pygccxml.declarations 
 import pygccxml.declarations as pd
 
+from goodies import *
+
 def exposeTemplateType(templateType):
 
   temp_decl = templateType.decl
@@ -50,24 +52,29 @@ void defaultInit(OSG::%(class_name)s* self)
 
 def handleFindNamedComponent(osg, class_name):
   c = osg.class_(class_name)
-  c["findNamedComponent"].exclude()
-  c.add_declaration_code("""
-namespace
-{
+  c["findNamedComponent"].call_policies = \
+      return_value_policy(reference_existing_object)
 
-OSG::FieldContainerRecPtr
-wrapFindNamedComponent(OSG::%s* self,
-                       const OSG::Char8* szName)
-{
-   return OSG::FieldContainerTransitPtr(self->findNamedComponent(szName));
-}
+#  c["findNamedComponent"].exclude()
 
-}
-""" % class_name)
 
-  c.add_registration_code(
-     'def("findNamedComponent", wrapFindNamedComponent, (bp::arg("szName")))'
-  )
+#  c.add_declaration_code("""
+#namespace
+#{
+#
+#OSG::FieldContainerRecPtr
+#wrapFindNamedComponent(OSG::%s* self,
+#                       const OSG::Char8* szName)
+#{
+#   return OSG::FieldContainerTransitPtr(self->findNamedComponent(szName));
+#}
+#
+#}
+#""" % class_name)
+#
+#  c.add_registration_code(
+#     'def("findNamedComponent", wrapFindNamedComponent, (bp::arg("szName")))'
+#  )
 
 
 def handlAutoSlotReplace(osg, cname):

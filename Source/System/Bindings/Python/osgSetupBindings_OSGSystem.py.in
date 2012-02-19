@@ -262,10 +262,10 @@ OSG::ActionBase::ResultE wrapApply(OSG::%(class_name)s* self, bp::list nodes)
 
   # Build up list of template methods that we need to instantiate so we can get all of them exposed.
   gvp_tmpl_instances = \
-    ["template %s OSG::GeoVectorProperty::getValue<%s>(const OSG::UInt32) const" % \
+    ["template %s OSG::GeoVectorProperty::getValue<%s>(const OSG::SizeT) const" % \
        (t, t) for t in settings.geo_vec_get_value_ret_types]
   gvp_tmpl_instances.extend(
-    ["template void OSG::GeoVectorProperty::setValue<%s>(const %s&, const OSG::UInt32)" % \
+    ["template void OSG::GeoVectorProperty::setValue<%s>(const %s&, const OSG::SizeT)" % \
        (t, t) for t in settings.geo_vec_get_value_ret_types]
   )
   gvp_tmpl_instances.extend(
@@ -663,6 +663,14 @@ bp::list getCores(OSG::MultiCore* mc)
 }
 """)
   c.add_registration_code('add_property("cores", getCores)')
+
+
+  c = osg.class_("RenderPartition")
+  c["getCurrentOverrides"].call_policies = \
+      return_value_policy(reference_existing_object)
+  c = osg.class_("RenderAction")
+  c["getCurrentOverrides"].call_policies = \
+      return_value_policy(reference_existing_object)
 
 
   # There are two forms of OSG::ChunkMaterial::find(). One returns an OSG::Int32, and the other
