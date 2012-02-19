@@ -88,13 +88,6 @@ void FrameProducerHandlerMixin<ParentT>::addProducer(
 
     _mfFrameProducers.push_back(pProducer);
 
-#if 0
-    fprintf( stderr, "add producer (hnd) %p %p %"PRIUSize"\n",
-             this,
-             pProducer,
-            _mfFrameTasks.size());
-#endif
-
     updateSyncCount();
 }
 
@@ -112,13 +105,6 @@ void FrameProducerHandlerMixin<ParentT>::removeProducer(
     }
 
     updateSyncCount();
-
-#if 0
-    fprintf( stderr, "sub producer (hnd) %p %p %"PRIUSize"\n",
-             this,
-             pProducer,
-            _mfFrameTasks.size());
-#endif
 }
 
 template <class ParentT> inline
@@ -128,24 +114,14 @@ void FrameProducerHandlerMixin<ParentT>::updateSyncCount(void)
 }
 
 template <class ParentT> inline
-void FrameProducerHandlerMixin<ParentT>::syncProducers(void)
+void FrameProducerHandlerMixin<ParentT>::syncProducers(UInt32 uiFrame)
 {
-#if 0
-    static UInt32 uiFCount = 0;
-
-    if(uiFCount < 20)
-    {
-        fprintf(stderr, "syncProducers %"PRIUSize"\n", _mfFrameTasks.size());
-        ++uiFCount;
-    }
-#endif
-
     ProducerStoreIt      tIt  = _mfFrameProducers.begin();
     ProducerStoreConstIt tEnd = _mfFrameProducers.end  ();
 
     for(; tIt != tEnd; ++tIt)
     {
-        (*tIt)->syncProducer();
+        (*tIt)->syncProducer(uiFrame);
     }
 }
 

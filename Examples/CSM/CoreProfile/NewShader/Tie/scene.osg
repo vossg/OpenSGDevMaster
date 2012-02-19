@@ -110,6 +110,7 @@ Node
     {
       core Inline
       {
+        graphOp "none"
         url "../../../Models/tie_strip_shared.osg"
 #        url "/tmp/foo.osb"
       }

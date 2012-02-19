@@ -71,7 +71,7 @@ class OSG_CONTRIBCSM_DLLMAPPING FrameProducerInterface
     /*! \{                                                                 */
 
     virtual void setSyncBarrier(Barrier *pBarrier) = 0;
-    virtual void syncProducer  (void             ) = 0;
+    virtual void syncProducer  (UInt32   uiFrame ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

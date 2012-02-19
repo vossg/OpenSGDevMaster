@@ -406,20 +406,6 @@ void AttachmentContainer::dump(      UInt32    uiIndent,
     PLOG << "}" << std::endl;
 }
 
-FieldContainer *AttachmentContainer::findNamedComponent(const Char8 *szName) 
-{
-    const Char8 *szTmpName = NULL;
-
-    szTmpName = OSG::getName(this);
-        
-    if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
-    {
-        return this;
-    }
-    
-    return NULL;
-}
-
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 

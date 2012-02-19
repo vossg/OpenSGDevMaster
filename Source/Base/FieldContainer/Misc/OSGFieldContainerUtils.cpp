@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 namespace
 {
-    // anonymous namespace for implementation details of the compareContainer
+    // anonymous namespace for implementation details of the container
     // function.
 
 typedef std::set<const FieldContainer *> FCSet;
@@ -277,114 +277,6 @@ bool comparePointerFields(
     return returnValue;
 }
 
-} // namespace
-
-/*! Compares two FieldContainer \a lhs and \a rhs for equivalence. The meaning
-    of this comparison can be tweaked with the additional arguments.
-    If \a ignoreAttachments is \c true, Attachments are excluded from the
-    comparison.
-    If \a compareIdentity is \c true, pointers are compared by
-    address otherwise the pointed-to objects are compared for equivalence.
- */
-bool compareContainerEqual(
-    const FieldContainer *lhs,
-    const FieldContainer *rhs,
-          bool            ignoreAttachments,
-          bool            compareIdentity   )
-{
-    FCSet lhsVisitedSet;
-    FCSet rhsVisitedSet;
-
-    return compareContainerEqualImpl(
-        lhs, rhs, lhsVisitedSet, rhsVisitedSet,
-        ignoreAttachments, compareIdentity     );
-}
-
-//---------------------------------------------------------------------------
-//  MemoryConsumption
-//---------------------------------------------------------------------------
-
-void MemoryConsumption::scan(void)
-{
-    FieldContainerFactory::the()->lockStore();
-
-    FieldContainerFactoryBase::ContainerStoreConstIt sIt  =
-        FieldContainerFactory::the()->beginStore();
-    FieldContainerFactoryBase::ContainerStoreConstIt sEnd =
-        FieldContainerFactory::the()->endStore();
-
-    for(; sIt != sEnd; ++sIt)
-    {
-        FieldContainer *pFC = (*sIt).second->getPtr();
-
-        if(pFC == NULL)
-            continue;
-
-        TypeMemMapIt tmIt    = _memMap.find(pFC->getType().getId());
-        SizeT        binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
-
-        if(tmIt != _memMap.end())
-        {
-            tmIt->second.first  += binSize;
-            tmIt->second.second += 1;
-        }
-        else
-        {
-            _memMap[pFC->getType().getId()] = MemCountPair(binSize, 1);
-        }
-    }
-
-    FieldContainerFactory::the()->unlockStore();
-}
-
-
-void MemoryConsumption::print(std::ostream &os, bool ignoreProto) const
-{
-    TypeMemMapConstIt tmIt  = _memMap.begin();
-    TypeMemMapConstIt tmEnd = _memMap.end  ();
-
-    SizeT         totalMem   = 0;
-    UInt32        totalCount = 0;
-    boost::format formatter("%|1$-25| [%|2$8|] Byte [%|3$8.0f|] kByte [%|4$4|]\n");
-
-    for(; tmIt != tmEnd; ++tmIt)
-    {
-        FieldContainerType *fcType =
-            FieldContainerFactory::the()->findType(tmIt->first);
-
-        if(fcType == NULL)
-            continue;
-
-        if(ignoreProto && tmIt->second.second == 1)
-            continue;
-
-        os << formatter % fcType->getCName()
-                        % tmIt->second.first
-                        % (tmIt->second.first / 1024.f)
-                        % tmIt->second.second;
-
-        totalMem   += tmIt->second.first;
-        totalCount += tmIt->second.second;
-    }
-
-    os << "--------------------------------------------\n";
-    os << formatter % "Total"
-                    % totalMem
-                    % (totalMem / 1024.f)
-                    % totalCount;
-}
-
-MemoryConsumption::TypeMemMapConstIt MemoryConsumption::beginMap(void) const
-{
-    return _memMap.begin();
-}
-
-MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
-{
-    return _memMap.end();
-}
-
-
 /*! \nohierarchy
  */
 
@@ -519,8 +411,8 @@ FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath,
     return returnValue;
 }
 
-FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
-                                       ContainerResolver  oResolver )
+FieldContainer *resolveFieldPathImpl(const Char8             *szNodeName, 
+                                           ContainerResolver  oResolver )
 {
     std::vector<FieldPathEntry> vSplitPath;
 
@@ -536,6 +428,242 @@ FieldContainer *resolveFieldPath(const Char8             *szNodeName,
     return returnValue;
 }
 
+
+
+struct ContainerVisitRecord
+{
+    typedef std::vector<UInt32>::iterator VisitedIt;
+
+    std::vector<UInt32> vVisitedIds;
+
+    bool visit(UInt32 uiContainerId);
+};
+
+bool ContainerVisitRecord::visit(UInt32 uiContainerId)
+{
+    VisitedIt vIt = std::lower_bound(vVisitedIds.begin(),
+                                     vVisitedIds.end  (),
+                                     uiContainerId      );
+
+    if(vIt != vVisitedIds.end())
+    {
+        if(*vIt == uiContainerId)
+            return false;
+     
+        vVisitedIds.insert(vIt, uiContainerId);
+    }
+    else
+    {
+        vVisitedIds.push_back(uiContainerId);
+    }
+
+    return true;
+}
+
+FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
+                                             FieldContainer       *pCnt,
+                                       const Char8                *szName  )
+{
+    if(pCnt == NULL)
+        return NULL;
+
+    const Char8 *szTmpName = NULL;
+
+    const AttachmentContainer *pAC = 
+        dynamic_cast<const AttachmentContainer *>(pCnt);
+
+    szTmpName = OSG::getName(pAC);
+        
+    if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
+    {
+        return pCnt;
+    }
+    
+    if(oVisited.visit(pCnt->getId()) == false)
+    {
+        return NULL;
+    }
+
+    const FieldContainerType &fcType = pCnt->getType();
+          UInt32              fCount = fcType.getNumFieldDescs();
+
+    for(UInt32 i = 1; i <= fCount; ++i)
+    {
+        const FieldDescriptionBase *fDesc = fcType.getFieldDesc(i);
+
+        if(fDesc->getFieldType().getClass() == FieldType::ParentPtrField)
+            continue;
+
+        GetFieldHandlePtr srcField = pCnt->getField(i);
+
+        FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
+            boost::dynamic_pointer_cast<
+                      FieldContainerPtrSFieldBase::GetHandle>(srcField);
+
+        FieldContainerPtrMFieldBase::GetHandlePtr mfFCPtr = 
+            boost::dynamic_pointer_cast<
+                      FieldContainerPtrMFieldBase::GetHandle>(srcField);
+
+        if(  sfFCPtr              != NULL && 
+             sfFCPtr->isValid()   == true && 
+           (*sfFCPtr)->getValue() != NULL   )
+        {
+            FieldContainer *rc = findNamedComponentImpl(oVisited, 
+                                                        (*sfFCPtr)->getValue(),
+                                                        szName                );
+            if(rc != NULL)
+                return rc;
+        }
+        else if(mfFCPtr != NULL && mfFCPtr->isValid() == true)
+        {
+            SizeT mfSize = (*mfFCPtr)->size();
+            
+            for(SizeT i = 0; i < mfSize; i++)
+            {
+                if((**mfFCPtr)[i] != NULL)
+                {
+                    FieldContainer *rc = findNamedComponentImpl(oVisited,
+                                                                (**mfFCPtr)[i],
+                                                                szName);
+
+                    if(rc != NULL)
+                        return rc;
+                }
+            }
+        }
+    }
+
+    return NULL;
+}
+
+FieldContainer *findNamedComponentImpl(      FieldContainer *pCnt,
+                                       const Char8          *szName)
+{
+    ContainerVisitRecord oVisited;
+
+    return findNamedComponentImpl(oVisited, pCnt, szName);
+}
+
+} // namespace
+
+/*! Compares two FieldContainer \a lhs and \a rhs for equivalence. The meaning
+    of this comparison can be tweaked with the additional arguments.
+    If \a ignoreAttachments is \c true, Attachments are excluded from the
+    comparison.
+    If \a compareIdentity is \c true, pointers are compared by
+    address otherwise the pointed-to objects are compared for equivalence.
+ */
+bool compareContainerEqual(
+    const FieldContainer *lhs,
+    const FieldContainer *rhs,
+          bool            ignoreAttachments,
+          bool            compareIdentity   )
+{
+    FCSet lhsVisitedSet;
+    FCSet rhsVisitedSet;
+
+    return compareContainerEqualImpl(
+        lhs, rhs, lhsVisitedSet, rhsVisitedSet,
+        ignoreAttachments, compareIdentity     );
+}
+
+//---------------------------------------------------------------------------
+//  MemoryConsumption
+//---------------------------------------------------------------------------
+
+void MemoryConsumption::scan(void)
+{
+    FieldContainerFactory::the()->lockStore();
+
+    FieldContainerFactoryBase::ContainerStoreConstIt sIt  =
+        FieldContainerFactory::the()->beginStore();
+    FieldContainerFactoryBase::ContainerStoreConstIt sEnd =
+        FieldContainerFactory::the()->endStore();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        FieldContainer *pFC = (*sIt).second->getPtr();
+
+        if(pFC == NULL)
+            continue;
+
+        TypeMemMapIt tmIt    = _memMap.find(pFC->getType().getId());
+        SizeT        binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
+
+        if(tmIt != _memMap.end())
+        {
+            tmIt->second.first  += binSize;
+            tmIt->second.second += 1;
+        }
+        else
+        {
+            _memMap[pFC->getType().getId()] = MemCountPair(binSize, 1);
+        }
+    }
+
+    FieldContainerFactory::the()->unlockStore();
+}
+
+
+void MemoryConsumption::print(std::ostream &os, bool ignoreProto) const
+{
+    TypeMemMapConstIt tmIt  = _memMap.begin();
+    TypeMemMapConstIt tmEnd = _memMap.end  ();
+
+    SizeT         totalMem   = 0;
+    UInt32        totalCount = 0;
+    boost::format formatter("%|1$-25| [%|2$8|] Byte [%|3$8.0f|] kByte [%|4$4|]\n");
+
+    for(; tmIt != tmEnd; ++tmIt)
+    {
+        FieldContainerType *fcType =
+            FieldContainerFactory::the()->findType(tmIt->first);
+
+        if(fcType == NULL)
+            continue;
+
+        if(ignoreProto && tmIt->second.second == 1)
+            continue;
+
+        os << formatter % fcType->getCName()
+                        % tmIt->second.first
+                        % (tmIt->second.first / 1024.f)
+                        % tmIt->second.second;
+
+        totalMem   += tmIt->second.first;
+        totalCount += tmIt->second.second;
+    }
+
+    os << "--------------------------------------------\n";
+    os << formatter % "Total"
+                    % totalMem
+                    % (totalMem / 1024.f)
+                    % totalCount;
+}
+
+MemoryConsumption::TypeMemMapConstIt MemoryConsumption::beginMap(void) const
+{
+    return _memMap.begin();
+}
+
+MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
+{
+    return _memMap.end();
+}
+
+
+
+FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
+                                       ContainerResolver  oResolver )
+{
+    return resolveFieldPathImpl(szNodeName, oResolver);
+}
+
+FieldContainer *findNamedComponent(      FieldContainer *pCnt,
+                                   const Char8          *szName)
+{
+    return findNamedComponentImpl(pCnt, szName);
+}
 
 
 

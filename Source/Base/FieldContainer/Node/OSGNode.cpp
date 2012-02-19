@@ -867,7 +867,7 @@ FieldContainer *Node::createAspectCopy(const FieldContainer *pRefAspect) const
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-void Node::execSyncV(      FieldContainer     &oFrom,
+void Node::execSyncV(       FieldContainer    &oFrom,
                             ConstFieldMaskArg  whichField,
                             AspectOffsetStore &oOffsets,
                             ConstFieldMaskArg  syncMode  ,

@@ -66,7 +66,11 @@ namespace Aspect
         \relatesalso OSG::FieldContainer
      */
     OSG_BASE_DLLMAPPING
-    FieldContainer *initializeContainerFrom(FieldContainer *src);
+    FieldContainer *initializeContainersFrom(FieldContainer *src);
+
+    OSG_BASE_DLLMAPPING
+    void syncContainersFrom(FieldContainer *pSrc);
+
 #endif
 }
 

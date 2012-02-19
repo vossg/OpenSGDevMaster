@@ -49,6 +49,7 @@
 #include "OSGContainerPtrFuncs.h"
 #include "OSGStringUtils.h"
 #include "OSGNameAttachment.h"
+#include "OSGFieldContainerUtils.h"
 
 #include <algorithm>
 #include <cctype>
@@ -329,7 +330,8 @@ bool FieldContainer::deregister(UInt32 uiContainerId)
 
     if(GlobalSystemState < PostShutdown)
     {
-        retVal = FieldContainerFactory::the()->deregisterContainer(uiContainerId);
+        retVal = 
+            FieldContainerFactory::the()->deregisterContainer(uiContainerId);
     }
     else
     {
@@ -347,9 +349,9 @@ void FieldContainer::resolveLinks(void)
     callChangedFunctors(0, ChangedOrigin::External);
 }
 
-FieldContainer *FieldContainer::findNamedComponent(const Char8 *)
+FieldContainer *FieldContainer::findNamedComponent(const Char8 *szName) 
 {
-    return NULL;
+    return OSG::findNamedComponent(this, szName);
 }
 
 void FieldContainer::subReferenceRecorded(void)

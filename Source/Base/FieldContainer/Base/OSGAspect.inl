@@ -66,7 +66,7 @@ namespace Aspect
         
         ContainerPtr result = 
             static_cast<ContainerPtr>(
-                initializeContainerFrom(pFC));
+                initializeContainersFrom(pFC));
         
         return result;
     }

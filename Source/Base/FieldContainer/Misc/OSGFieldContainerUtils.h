@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGFieldContainer.h"
+#include "OSGBaseTypes.h"
 #include "OSGFieldContainerMFields.h"
 
 #include <iosfwd>
@@ -93,7 +93,9 @@ class OSG_BASE_DLLMAPPING MemoryConsumption
 };
 
 
+#if 0
 struct FieldPathEntry;
+#endif
 
 /*! \ingroup GrpSystemFieldContainerUtils
  */
@@ -101,6 +103,7 @@ struct FieldPathEntry;
 typedef boost::function<
           FieldContainer * (const Char8 *szName)> ContainerResolver;
 
+#if 0
 /*! \ingroup GrpSystemFieldContainerUtils
  */
 
@@ -114,6 +117,7 @@ void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
 OSG_BASE_DLLMAPPING
 FieldContainer *resolveFieldPath(std::vector<FieldPathEntry> &vSplitPath, 
                                  FieldContainer              *pRoot     );
+#endif
 
 /*! \ingroup GrpSystemFieldContainerUtils
  */
@@ -122,6 +126,12 @@ OSG_BASE_DLLMAPPING
 FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
                                        ContainerResolver  oResolver );
 
+/*! \ingroup GrpSystemFieldContainerUtils
+ */
+
+OSG_BASE_DLLMAPPING
+FieldContainer *findNamedComponent(      FieldContainer *pCnt,
+                                   const Char8          *szName);
 
 /*---------------------------------------------------------------------*/
 /* Container Utils, from OpenSGToolbox,  Author: David Kabala          */

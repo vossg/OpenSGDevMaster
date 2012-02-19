@@ -151,7 +151,7 @@ class FrameProducerHandlerMixin  : public ParentT
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    void syncProducers(void);
+    void syncProducers(UInt32 uiFrame);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

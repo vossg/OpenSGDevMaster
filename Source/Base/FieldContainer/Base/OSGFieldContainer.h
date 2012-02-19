@@ -491,7 +491,10 @@ class FieldContainer : public ReflexiveContainer
     friend ContainerPtr Aspect::convertToCurrent(ContainerPtr pFC);
 
     friend 
-    FieldContainer *Aspect::initializeContainerFrom(FieldContainer *pSrc);
+    FieldContainer *Aspect::initializeContainersFrom(FieldContainer *pSrc);
+
+    friend 
+    void            Aspect::syncContainersFrom      (FieldContainer *pSrc);
 
     friend struct RecordedRefCountPolicy;
     friend struct UnrecordedRefCountPolicy;

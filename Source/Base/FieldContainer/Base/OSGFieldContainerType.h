@@ -273,7 +273,8 @@ class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType
 
     friend class ChangeList;
 
-    friend FieldContainer *Aspect::initializeContainerFrom(FieldContainer *src);
+    friend 
+    FieldContainer *Aspect::initializeContainersFrom(FieldContainer *src);
 
     typedef ReflexiveContainerType Inherited;
 

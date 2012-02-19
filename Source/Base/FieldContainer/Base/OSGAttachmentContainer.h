@@ -105,8 +105,6 @@ class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainer *findNamedComponent(const Char8 *szName);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
