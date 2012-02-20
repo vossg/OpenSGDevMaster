@@ -56,7 +56,7 @@
 #  include <GL/glx.h>
 # endif
 #endif
-#ifdef __APPLE__
+#if defined(__APPLE__) && !OSG_APPLE_IOS
 #include "OSGCocoaWindowWrapper.h"
 #endif
 
@@ -132,8 +132,9 @@ void PassiveWindow::init(GLInitFunctor oFunc)
 #if defined(WIN32)
     Inherited::setHdc  (wglGetCurrentDC     ());
     Inherited::setHglrc(wglGetCurrentContext());
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) && !OSG_APPLE_IOS
     Inherited::setContext(cocoaWrapperCurrentContext());
+#elif defined(__APPLE__) && OSG_APPLE_IOS
 #else
     Inherited::setDisplay(glXGetCurrentDisplay ());
     Inherited::setContext(glXGetCurrentContext ());

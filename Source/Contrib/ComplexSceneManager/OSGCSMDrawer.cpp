@@ -270,7 +270,7 @@ void CSMDrawer::frame(Time oTime, UInt32 uiFrame)
     }
 }
 
-FieldContainer *CSMDrawer::findNamedComponent(const Char8 *szName) const
+FieldContainer *CSMDrawer::findNamedComponent(const Char8 *szName)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = _mfWindows.begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = _mfWindows.end  ();

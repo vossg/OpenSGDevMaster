@@ -51,6 +51,9 @@
 #include <cassert>
 #endif
 
+#ifdef __APPLE__
+   #include "TargetConditionals.h"
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                                Versioning                               */
@@ -667,6 +670,10 @@
 # define OSG_USE_STDMATH
 
 # define OSG_FOUND_OS
+
+#if TARGET_OS_IPHONE || TARGET_OS_IPHONE_SIMULATOR
+# define OSG_APPLE_IOS 1
+#endif
 
 # endif // if defined(__APPLE__)
 

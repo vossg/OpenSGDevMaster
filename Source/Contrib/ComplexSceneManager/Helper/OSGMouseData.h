@@ -169,7 +169,7 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     MouseData(void);
     MouseData(const MouseData &source);
 
-    virtual ~MouseData(void); 
+    ~MouseData(void); 
 
     /*------------------------- your_category -------------------------------*/
 

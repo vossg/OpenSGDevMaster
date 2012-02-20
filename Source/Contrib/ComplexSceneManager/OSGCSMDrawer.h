@@ -123,7 +123,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
+    virtual FieldContainer *findNamedComponent(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

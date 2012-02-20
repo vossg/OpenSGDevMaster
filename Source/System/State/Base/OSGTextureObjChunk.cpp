@@ -243,7 +243,7 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
             imageContentChanged();
         }
     } // Only priority changed? Refresh is fine.
-    else if((whichField & ~PriorityFieldMask || FrameFieldMask) == 0)
+    else if((whichField & ~(PriorityFieldMask | FrameFieldMask)) == 0)
     {
         imageContentChanged();
     } // Only dirty rectangle changed? Refresh is fine.

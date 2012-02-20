@@ -174,8 +174,9 @@ class SimpleAttachment : public Attachment
 
   public:
 
+    using Inherited::getField;
 
-   OSG_GEN_INTERNALPTR(Self);
+    OSG_GEN_INTERNALPTR(Self);
 
     enum 
     { 

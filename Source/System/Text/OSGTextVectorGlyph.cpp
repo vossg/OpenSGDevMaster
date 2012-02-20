@@ -286,6 +286,7 @@ static void OSG_APIENTRY gluTessVertexDataCB(void *vertexData, void *polygonData
 //                       structures.
 // Author: afischle, pdaehne
 //----------------------------------------------------------------------
+#if !defined(OSG_OGL_ES2) || defined(OSG_CHECK_COREONLY)
 static void OSG_APIENTRY gluTessCombineDataCB(GLdouble coords[3], void *vertexData[4],
                                  GLfloat weight[4], void **outDatab,
                                  void *polygonData)
@@ -296,6 +297,7 @@ static void OSG_APIENTRY gluTessCombineDataCB(GLdouble coords[3], void *vertexDa
     OSG_ASSERT(outline != 0);
     outline->coords.push_back(Vec2f(coords[0], coords[1]));
 }
+#endif
 
 
 //----------------------------------------------------------------------
@@ -315,6 +317,7 @@ const TextVectorGlyph::PolygonOutline &TextVectorGlyph::getLines(UInt32 level) c
     // We did not find that level, so we have to create it
     PolygonOutline &newOutline = _polygonOutlineMap.insert(PolygonOutlineMap::value_type(level, PolygonOutline())).first->second;
 
+#if !defined(OSG_OGL_ES2) || defined(OSG_CHECK_COREONLY)
     // Calculate the bezier curves for this level
     Outline::const_iterator oIt;
     for (oIt = _outline.begin(); oIt != _outline.end(); ++oIt)
@@ -385,6 +388,7 @@ const TextVectorGlyph::PolygonOutline &TextVectorGlyph::getLines(UInt32 level) c
 
     // clean up
     gluDeleteTess(tess);
+#endif
 
     return newOutline;
 }
@@ -544,6 +548,7 @@ static Int32 calcWindingNumber(const vector<Vec2f> &coords, UInt32 start, UInt32
 // Checks if a point lies inside the glyph
 // Author: afischle
 //----------------------------------------------------------------------
+#if !defined(OSG_OGL_ES2) || defined(OSG_CHECK_COREONLY)
 static bool isInteriorPoint(const Vec2f &point, const TextVectorGlyph::PolygonOutline &outline, GLenum windingRule)
 {
     Int32 totalWindingNumber = 0;
@@ -566,6 +571,7 @@ static bool isInteriorPoint(const Vec2f &point, const TextVectorGlyph::PolygonOu
             return false;
     }
 }
+#endif
 
 
 //----------------------------------------------------------------------
@@ -574,6 +580,7 @@ static bool isInteriorPoint(const Vec2f &point, const TextVectorGlyph::PolygonOu
 //----------------------------------------------------------------------
 void TextVectorGlyph::computeContourOrientations() const
 {
+#if !defined(OSG_OGL_ES2) || defined(OSG_CHECK_COREONLY)
     // get the simplest outline available as it should suffice for the
     // orientation check
     const PolygonOutline &outline = getLines(0);
@@ -604,6 +611,7 @@ void TextVectorGlyph::computeContourOrientations() const
 
         start = end;
     }
+#endif
 }
 
 

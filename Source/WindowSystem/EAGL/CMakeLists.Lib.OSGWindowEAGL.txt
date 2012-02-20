@@ -1,0 +1,56 @@
+
+OSG_ADD_PROJECT("OSGWindowEAGL")
+
+IF(NOT APPLE AND NOT IOS)
+    SET(OSGBUILD_${PROJECT_NAME} OFF)
+ENDIF(NOT APPLE AND NOT IOS)
+
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
+                                OSGSystem)
+
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
+                                     OSGState
+                                     OSGSystem
+                                     OSGUtil
+                                     OSGDrawable
+                                     OSGWindow
+                                     OSGWindowCocoa)
+
+# dependencies - External
+# SET(${PROJECT_NAME}_DEP_LIB OSG_COCOA_FRAMEWORK)
+# SET(${PROJECT_NAME}_DEP_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_INCDIR)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+# dependencies - Additional
+# SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/WindowSystem/EAGL")
+
+##############################################################################
+# setup python bindings
+##############################################################################
+
+SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+
+##############################################################################
+# setup build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILEWINDOWEAGLLIB")

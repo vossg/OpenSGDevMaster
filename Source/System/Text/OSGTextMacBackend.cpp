@@ -44,8 +44,7 @@
 #include "OSGTextMacBackend.h"
 #include "OSGBaseTypes.h"
 
-
-#if (defined(__APPLE__) && !defined(__LP64__)) || defined(OSG_DO_DOC)
+#if (defined(__APPLE__) && !defined(__LP64__) && !OSG_APPLE_IOS) || defined(OSG_DO_DOC)
 
 
 #include "OSGTextPixmapFace.h"

@@ -1778,7 +1778,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -1800,7 +1800,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -1822,7 +1822,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -1844,7 +1844,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -2130,7 +2130,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -2151,7 +2151,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 
@@ -2172,7 +2172,7 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                                                                                getHeight(), 
                                                                                iCompressionFlags);
 
-                            OSG_ASSERT(iStorage == destSize);
+                            OSG_ASSERT(iStorage == Int32(destSize));
 #endif
 
                             osgsquish::CompressImage(sourceData, 

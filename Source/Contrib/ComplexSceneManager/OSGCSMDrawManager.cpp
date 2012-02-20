@@ -388,7 +388,7 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
     }
 }
 
-FieldContainer *CSMDrawManager::findNamedComponent(const Char8 *szName) const
+FieldContainer *CSMDrawManager::findNamedComponent(const Char8 *szName)
 {
     MFUnrecCSMDrawerPtr::const_iterator drawerIt  = _mfDrawer.begin();
     MFUnrecCSMDrawerPtr::const_iterator drawerEnd = _mfDrawer.end  ();

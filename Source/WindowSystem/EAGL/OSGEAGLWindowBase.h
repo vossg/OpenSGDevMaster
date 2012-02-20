@@ -71,6 +71,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class EAGLWindow;
 
 //! \brief EAGLWindow Base Class.
@@ -152,11 +153,11 @@ class OSG_WINDOWEAGL_DLLMAPPING EAGLWindowBase : public Window
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual SizeT getBinSize (ConstFieldMaskArg  whichField);
-    virtual void  copyToBin  (BinaryDataHandler &pMem,
-                              ConstFieldMaskArg  whichField);
-    virtual void  copyFromBin(BinaryDataHandler &pMem,
-                              ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
 
 
     /*! \}                                                                 */

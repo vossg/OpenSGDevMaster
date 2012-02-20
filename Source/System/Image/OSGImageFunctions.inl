@@ -168,7 +168,7 @@ bool createComposedImage (const SrcImageStore &imageVec,
             if (flipY == true)
             {
                 srcData += dataSize;
-                for (UInt32 y = 0; y < h; ++y)
+                for(Int32 y = 0; y < h; ++y)
                 {
                     srcData -= bpl;
                     memcpy ( destData, srcData, bpl );

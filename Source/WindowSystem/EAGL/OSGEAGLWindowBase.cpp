@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -92,18 +91,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<EAGLWindow *>::_type("EAGLWindowPtr", "WindowPtr");
+PointerType FieldTraits<EAGLWindow *, nsOSG>::_type(
+    "EAGLWindowPtr", 
+    "WindowPtr", 
+    EAGLWindow::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(EAGLWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(EAGLWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            EAGLWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            EAGLWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -132,7 +135,7 @@ EAGLWindowBase::TypeObject EAGLWindowBase::_type(
     EAGLWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&EAGLWindowBase::createEmptyLocal),
     EAGLWindow::initMethod,
     EAGLWindow::exitMethod,

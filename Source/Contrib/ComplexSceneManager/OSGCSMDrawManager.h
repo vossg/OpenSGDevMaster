@@ -92,7 +92,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
+    virtual FieldContainer *findNamedComponent(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

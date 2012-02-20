@@ -117,7 +117,7 @@ inline
 void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 {
 #if __GNUC__ >= 4 && __GNUC_MINOR__ >=2
-    __sync_fetch_and_and(pLock, uiInvMask);
+    __sync_and_and_fetch(pLock, uiInvMask);
 #endif
 }
 

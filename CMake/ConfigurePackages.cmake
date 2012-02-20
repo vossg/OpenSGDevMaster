@@ -595,18 +595,33 @@ ENDMACRO(OSG_CONFIGURE_OPENNURBS)
 ##############################################################################
 
 MACRO(OSG_CONFIGURE_BOOST)
+
+    IF(APPLE AND IOS)
+      set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM FIRST)
+      set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY FIRST)
+      set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE FIRST)
+    ENDIF(APPLE AND IOS)
+
     SET(Boost_USE_MULTITHREADED ON )
 
     IF(NOT Boost_USE_STATIC_LIBS)
         SET(Boost_USE_STATIC_LIBS OFF CACHE INTERNAL "")
     ENDIF(NOT Boost_USE_STATIC_LIBS)
 
-    FIND_PACKAGE(Boost COMPONENTS filesystem)
+    IF(APPLE AND IOS)
+      FIND_PACKAGE(BoostIOS COMPONENTS filesystem)
+    ELSE()
+      FIND_PACKAGE(Boost COMPONENTS filesystem)
+    ENDIF()
 
     IF(Boost_FOUND)
 
         IF(${Boost_MINOR_VERSION} GREATER 34)
-          FIND_PACKAGE(Boost COMPONENTS system)
+          IF(APPLE AND IOS)
+            FIND_PACKAGE(BoostIOS COMPONENTS system)
+          ELSE()
+            FIND_PACKAGE(Boost COMPONENTS system)
+          ENDIF()
         ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
         LIST(APPEND OSG_GLOBAL_DEP_INCDIR OSG_BOOST_INCDIRS)
@@ -647,9 +662,13 @@ MACRO(OSG_CONFIGURE_BOOST)
             OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_FILESYSTEM_LIBRARY)
 
             IF(${Boost_MINOR_VERSION} GREATER 34)
+              IF(APPLE AND IOS)
+                FIND_PACKAGE(BoostIOS COMPONENTS system)
+              ELSE()
                 FIND_PACKAGE(Boost COMPONENTS system)
+              ENDIF()
 
-                OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_SYSTEM_LIBRARY)
+              OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_SYSTEM_LIBRARY)
             ENDIF()
 
             SET(OSG_BOOST_LIBS ${OSG_BOOST_TARGETS})
@@ -657,7 +676,11 @@ MACRO(OSG_CONFIGURE_BOOST)
         ENDIF(WIN32)
 
         IF(APPLE)
-            FIND_PACKAGE(Boost COMPONENTS system)
+            IF(IOS)
+              FIND_PACKAGE(BoostIOS COMPONENTS system)
+            ELSE()
+              FIND_PACKAGE(Boost COMPONENTS system)
+            ENDIF()
 
             IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
                CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
@@ -681,6 +704,13 @@ MACRO(OSG_CONFIGURE_BOOST)
         ENDIF(NOT BOOST_ROOT)
 
     ENDIF(Boost_FOUND)
+
+    IF(APPLE AND IOS)
+      set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ONLY)
+      set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+      set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+    ENDIF(APPLE AND IOS)
+
 ENDMACRO(OSG_CONFIGURE_BOOST)
 
 ##############################################################################

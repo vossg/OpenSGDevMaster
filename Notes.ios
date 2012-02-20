@@ -1,0 +1,16 @@
+
+# run cmake to build the simulator libs 
+
+cmake -DCMAKE_TOOLCHAIN_FILE=../OpenSG/CMake/IOS/iOS.cmake -DIOS_PLATFORM=SIMULATOR -GXcode ../OpenSG
+
+# run cmake to build the device libs 
+
+cmake -DCMAKE_TOOLCHAIN_FILE=../OpenSG/CMake/IOS/iOS.cmake -DIOS_PLATFORM=OS -GXcode ../OpenSG
+
+# build debug libs
+
+xcodebuild -target ALL_BUILD  -configuration Debug
+
+# build release libs
+
+xcodebuild -target ALL_BUILD  -configuration Release

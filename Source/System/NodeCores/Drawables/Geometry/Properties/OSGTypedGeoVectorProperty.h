@@ -104,6 +104,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     OSG_FIELD_CONTAINER_TMPL_DECL;
 
+    using Inherited::getField;
+    using Inherited::editField;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Access                                  */
     /*! \{                                                                 */

@@ -140,7 +140,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
+    virtual FieldContainer *findNamedComponent(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

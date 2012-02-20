@@ -125,7 +125,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
+    virtual FieldContainer *findNamedComponent(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

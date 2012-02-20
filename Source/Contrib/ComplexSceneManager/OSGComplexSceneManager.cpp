@@ -711,7 +711,7 @@ FieldContainerTransitPtr ComplexSceneManager::readOSGFile(
 }
 
 FieldContainer *ComplexSceneManager::findNamedComponent(
-    const Char8 *szName) const
+    const Char8 *szName)
 {
     MFGlobalsType::const_iterator gIt  = _mfGlobals.begin();
     MFGlobalsType::const_iterator gEnd = _mfGlobals.end  ();

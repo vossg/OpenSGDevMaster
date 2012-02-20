@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class EAGLWindow;
 
 OSG_GEN_CONTAINERPTR(EAGLWindow);
-
 /*! \ingroup GrpWindowCocaoFieldTraits
     \ingroup GrpLibOSGWindowEAGL
  */
 template <>
-struct FieldTraits<EAGLWindow *> :
-    public FieldTraitsFCPtrBase<EAGLWindow *>
+struct FieldTraits<EAGLWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<EAGLWindow *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<EAGLWindow *>  Self;
+    typedef FieldTraits<EAGLWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<EAGLWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFEAGLWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFEAGLWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakEAGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<EAGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<EAGLWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdEAGLWindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<EAGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<EAGLWindow *,
-                      RecordedRefCountPolicy  > SFRecEAGLWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<EAGLWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecEAGLWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<EAGLWindow *,
-                      WeakRefCountPolicy      > SFWeakEAGLWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldSFields */
 typedef PointerSField<EAGLWindow *,
-                      NoRefCountPolicy        > SFUncountedEAGLWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedEAGLWindowPtr;
 
 
 /*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<EAGLWindow *,
-                      RecordedRefCountPolicy  > MFRecEAGLWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<EAGLWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecEAGLWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<EAGLWindow *,
-                      WeakRefCountPolicy      > MFWeakEAGLWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakEAGLWindowPtr;
 /*! \ingroup GrpWindowCocaoFieldMFields */
 typedef PointerMField<EAGLWindow *,
-                      NoRefCountPolicy        > MFUncountedEAGLWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedEAGLWindowPtr;
 
 
 

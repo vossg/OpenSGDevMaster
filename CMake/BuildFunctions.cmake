@@ -979,11 +979,19 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
       ENDFOREACH(PROJECT_SOURCE_GROUP_NAME)
     ENDIF(NOT OSG_DISABLE_SOURCE_GROUPS)
 
-    ADD_LIBRARY(${PROJECT_NAME} 
-                ${${PROJECT_NAME}_SRC}
-                ${${PROJECT_NAME}_HDR}
-                ${${PROJECT_NAME}_INL}
-                ${${PROJECT_NAME}_INS})
+    IF(APPLE AND IOS)
+      ADD_LIBRARY(${PROJECT_NAME} STATIC
+                  ${${PROJECT_NAME}_SRC}
+                  ${${PROJECT_NAME}_HDR}
+                  ${${PROJECT_NAME}_INL}
+                  ${${PROJECT_NAME}_INS})
+    ELSE()
+      ADD_LIBRARY(${PROJECT_NAME} 
+                  ${${PROJECT_NAME}_SRC}
+                  ${${PROJECT_NAME}_HDR}
+                  ${${PROJECT_NAME}_INL}
+                  ${${PROJECT_NAME}_INS})
+    ENDIF()
 
     ADD_DEPENDENCIES(OSGAllLibs ${PROJECT_NAME})
     ADD_DEPENDENCIES(${OSG_MAIN_LIB_TARGET} ${PROJECT_NAME})
@@ -1046,7 +1054,9 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
           ADD_DEPENDENCIES     (${PROJECT_NAME} ${OSGDEP})
         ENDIF(NOT _OSGDEP_IMPORTED)
 
-        TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OSGDEP})
+        IF(NOT APPLE OR NOT IOS)
+          TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OSGDEP})
+        ENDIF()
     ENDFOREACH(OSGDEP)
 
     # dependencies - global
@@ -1074,7 +1084,9 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     FOREACH(LIB ${${PROJECT_NAME}_DEP_LIB})
         OSG_MSG("  (external) - library ${LIB} = ${${LIB}}")
-        TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
+        IF(NOT APPLE OR NOT IOS)
+          TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
+        ENDIF()
     ENDFOREACH(LIB)
 
     IF(${PROJECT_NAME}_DEP_DEFS)
@@ -1236,6 +1248,19 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS RelWithDebInfo
                 RUNTIME DESTINATION lib/relwithdbg
                 COMPONENT release_with_debinfo_libraries)
+    ELSEIF(APPLE AND IOS)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Release-iphoneos
+                DESTINATION lib/Release-iphoneos)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Debug-iphoneos
+                DESTINATION lib/Debug-iphoneos)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Release-iphonesimulator
+                DESTINATION lib/Release-iphonesimulator)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Debug-iphonesimulator
+                DESTINATION lib/Debug-iphonesimulator)
     ELSEIF(XCODE_VERSION)
 #        INSTALL(TARGETS ${PROJECT_NAME}
 #                CONFIGURATIONS Release

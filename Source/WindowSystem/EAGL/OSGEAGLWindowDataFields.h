@@ -62,7 +62,7 @@ struct EAGLContext;
 /*! \ingroup GrpWindowEAGLFieldTraits 
  */
 
-typedef EAGLContext *EAGLContextP;
+typedef EAGLContext * __strong EAGLContextP;
 
 /*! The field types for the local types needed by the EAGLWindow class */
 
@@ -82,19 +82,19 @@ struct FieldTraits<EAGLContextP> :
                                                  Self::FromStringConvertible)};
 
     OSG_WINDOWEAGL_DLLMAPPING
-    static DataType &getType (void);
+    static DataType    &getType (void);
 
-    static char     *getSName(void) { return "SFEAGLContextP"; }
-    static char     *getMName(void) { return "MFEAGLContextP"; }
+    static const Char8 *getSName(void) { return "SFEAGLContextP"; }
+    static const Char8 *getMName(void) { return "MFEAGLContextP"; }
 
-    static bool      getFromCString(      EAGLContextP    &,
-                                    const Char8           *)
+    static       bool   getFromCString(      EAGLContextP    &,
+                                       const Char8           *)
     {
         return true;
     }
 
-    static void      putToString  (const      EAGLContextP &,
-                                         std::string       &outStr)
+    static       void   putToString   (const      EAGLContextP &,
+                                             std::string       &outStr)
     {
         outStr.assign("EAGLContextP");
     }

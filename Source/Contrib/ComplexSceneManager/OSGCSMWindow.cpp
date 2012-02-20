@@ -294,7 +294,7 @@ void CSMWindow::queueTask(DrawTask *pTask)
     }
 }
 
-FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName) const
+FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName)
 {
     if(_sfRenderOptions.getValue() != NULL)
     {
