@@ -24,13 +24,17 @@ SET(__COLLADA_INCLUDE_SEARCH_DIRS
     /Library/Frameworks
     /usr/local/include
     /usr/local/include/colladadom
+    /usr/local/include/collada-dom
     /usr/include
     /usr/include/colladadom
+    /usr/include/collada-dom
     /sw/include
     /opt/local/include
     /opt/local/include/colladadom
+    /opt/local/include/collada-dom
     /opt/include
-    /opt/include/colladadom)
+    /opt/include/colladadom
+    /opt/include/collada-dom)
 
 # default library search paths
 SET(__COLLADA_LIBRARY_SEARCH_DIRS
@@ -45,6 +49,12 @@ SET(__COLLADA_LIBRARY_SEARCH_DIRS
     /opt/local/lib64
     /opt/lib
     /opt/lib64)
+
+SET(COLLADA_ROOT_DIR_ENV "$ENV{COLLADA_ROOT_DIR}")
+
+IF(NOT COLLADA_ROOT_DIR AND COLLADA_ROOT_DIR_ENV)
+    SET(COLLADA_ROOT_DIR "${COLLADA_ROOT_DIR_ENV}")
+ENDIF(NOT COLLADA_ROOT_DIR AND COLLADA_ROOT_DIR_ENV)
 
 # handle COLLADA_ROOT_DIR input variable
 IF(COLLADA_ROOT_DIR)
