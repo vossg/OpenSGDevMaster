@@ -102,8 +102,10 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 
     OSG_FIELD_CONTAINER_TMPL_DECL;
 
+#ifndef WIN32
     using Inherited::getField;
     using Inherited::editField;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Access                                  */
