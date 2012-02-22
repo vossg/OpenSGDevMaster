@@ -767,10 +767,21 @@ bool CSMNativeWindow::init(void)
 
 	RECT clientSize;
 
-	GetClientRect(_pHWND, &clientSize);
+    if(this->getDecorEnabled() == true)
+    {
+        GetClientRect(_pHWND, &clientSize);
+        
+        this->reshape(clientSize.right,
+                      clientSize.bottom);
+    }
+    else
+    {
+        GetWindowRect(_pHWND, &clientSize);
+        
+        this->reshape(clientSize.right,
+                      clientSize.bottom);
+    }
 
-	this->reshape(clientSize.right,
-				  clientSize.bottom);
     _pWin32Window->init();
 
     _bRun = true;
