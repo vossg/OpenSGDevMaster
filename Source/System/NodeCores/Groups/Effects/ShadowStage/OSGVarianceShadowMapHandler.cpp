@@ -39,6 +39,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "OSGGLEXT.h"
+
 #include "OSGVarianceShadowMapHandler.h"
 #include "OSGRenderAction.h"
 #include "OSGShadowStage.h"
@@ -53,9 +55,11 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGVarianceShadowMapShaderCode.cinl"
 
 VarianceShadowMapHandler::VarianceShadowMapHandler(ShadowStage     *pSource,
-                                                   ShadowStageData *pData  ) :
+                                                   ShadowStageData *pData,
+                                                   Window          *pWindow) :
      Inherited     (pSource, 
-                    pData  ),
+                    pData,
+                    pWindow),
     _pClearSMapBack(NULL   ),
     _shadowSHL     (NULL   ),
     _depthSHL      (NULL   ),
@@ -722,7 +726,7 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
     }
 }
 
-void VarianceShadowMapHandler::initShadowMaps(void)
+void VarianceShadowMapHandler::initShadowMaps(Window *pWin)
 {
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -735,9 +739,10 @@ void VarianceShadowMapHandler::initShadowMaps(void)
     }
     else
     {
-        Real32 maximumAnistropy;
+        Real32 maximumAnistropy = 
+            pWin->getConstantValue(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
-        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maximumAnistropy);
+//        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maximumAnistropy);
 
         maximumAnistropy = osgMin(maximumAnistropy, Real32(8.0));
 
@@ -833,7 +838,7 @@ void VarianceShadowMapHandler::updateShadowMapSize(void)
     _uiMapSize = uiNewMapSize;
 }
 
-void VarianceShadowMapHandler::configureShadowMaps(void)
+void VarianceShadowMapHandler::configureShadowMaps(Window *pWin)
 {
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -841,9 +846,10 @@ void VarianceShadowMapHandler::configureShadowMaps(void)
 
     UInt32 uiMapSize = _pStage-> getMapSize ();
 
-    Real32 maximumAnistropy;
+    Real32 maximumAnistropy = 
+        pWin->getConstantValue(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
-    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maximumAnistropy);
+//    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maximumAnistropy);
 
     maximumAnistropy = osgMin(maximumAnistropy, Real32(8.0));
 
@@ -908,12 +914,12 @@ void VarianceShadowMapHandler::render(RenderAction *a,
 
     if(_pStageData->getShadowMaps().size() != vLights.size())
     {
-        initShadowMaps();
+        initShadowMaps(a->getWindow());
     }
 
     if(_bShadowMapsConfigured == false)
     {
-        configureShadowMaps();
+        configureShadowMaps(a->getWindow());
     }
 
     if(_uiMapSize != _pStage->getMapSize())

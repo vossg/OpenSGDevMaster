@@ -51,9 +51,11 @@ OSG_BEGIN_NAMESPACE
 
 
 DitherShadowMapHandler::DitherShadowMapHandler(ShadowStage     *pSource,
-                                               ShadowStageData *pData  ) :
+                                               ShadowStageData *pData,
+                                               Window          *pWindow) :
      Inherited    (pSource, 
-                   pData  ),
+                   pData,
+                   pWindow),
     _blender      (NULL   ),
     _matrixDeco   (NULL   ),
     _shadowSHL    (NULL   ),

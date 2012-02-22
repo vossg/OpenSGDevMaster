@@ -50,9 +50,11 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGPCFShadowMapShaderCode.cinl"
 
 PCFShadowMapHandler::PCFShadowMapHandler(ShadowStage     *pSource,
-                                         ShadowStageData *pData  ) :
+                                         ShadowStageData *pData,
+                                         Window          *pWindow) :
      Inherited    (pSource, 
-                   pData  ),
+                   pData,
+                   pWindow),
     _pPoly        (NULL   ),
     _matrixDeco   (NULL   ),
 
@@ -1266,7 +1268,7 @@ void PCFShadowMapHandler::render(RenderAction *a,
 
 #ifdef SHADOWCHECK 
     GLfloat globalAmbient[4];
-    glGetFloatv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+    glGetFloatv(GL_LIGHT_MODEL_AMBIENT, globalAmbient); // not active
     GLfloat newGlobalAmbient[] =
     {
         0.0, 0.0, 0.0, 1.0

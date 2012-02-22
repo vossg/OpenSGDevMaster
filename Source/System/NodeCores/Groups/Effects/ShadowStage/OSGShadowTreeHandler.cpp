@@ -78,7 +78,8 @@ std::string ShadowTreeHandler::_shadow_combine_fp =
 
 
 ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
-                                     ShadowStageData *pData) :
+                                     ShadowStageData *pData,
+                                     Window          *pWindow) :
      Inherited            (                      ),
 
     _uiMode               (ShadowStage::NO_SHADOW),
@@ -118,9 +119,9 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
 
     _aCubeTrans           (                      )
 {
-    GLint   max_tex_size = 0;
+    GLint   max_tex_size = pWindow->getConstantValue(GL_MAX_TEXTURE_SIZE);
 
-    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex_size);
+//    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex_size);
 
     _maxTexSize   = max_tex_size;
     _maxPLMapSize = _maxTexSize / 4;
@@ -437,7 +438,8 @@ void ShadowTreeHandler::initShadowMaps(void)
 
                 GLint   max_texture_size;
 
-                glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_texture_size);
+                glGetIntegerv( GL_MAX_TEXTURE_SIZE, //not active
+                              &max_texture_size);
                 
 #endif
                 ShadowStageData::ShadowMapElem tmpElem;

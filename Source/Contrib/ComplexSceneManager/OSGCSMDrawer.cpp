@@ -412,13 +412,15 @@ void CSMDrawer::runParallel(void)
 
             this->frameRenderNoFinish(            );
 
-            OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
-
             _pSwapBarrier->enter     (_uiSwapCount);
 
             this->frameFinish        (            );
+
+            OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
         }
     }
+
+    _pSyncBarrier->enter               (_uiSyncCount);
 
     fprintf(stderr, "Drawer run par stop\n");
 

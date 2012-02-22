@@ -66,7 +66,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING PCSSShadowMapHandler :
     typedef ShadowTreeHandler Inherited;
 
     PCSSShadowMapHandler (ShadowStage     *pSource,
-                          ShadowStageData *pData  );
+                          ShadowStageData *pData,
+                          Window          *pWindow);
 
     ~PCSSShadowMapHandler(void);
 

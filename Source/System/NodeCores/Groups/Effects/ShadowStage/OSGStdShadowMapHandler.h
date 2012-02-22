@@ -66,7 +66,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING StdShadowMapHandler : public ShadowTreeHandler
     typedef ShadowTreeHandler Inherited;
 
     StdShadowMapHandler(ShadowStage     *pSource,
-                        ShadowStageData *pData  );
+                        ShadowStageData *pData,
+                        Window          *pWindow);
     ~StdShadowMapHandler(void);
 
     virtual void render(RenderAction *a,

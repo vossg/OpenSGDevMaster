@@ -63,9 +63,11 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGPCF2ShadowMapShaderCode.cinl"
 
 PCF2ShadowMapHandler::PCF2ShadowMapHandler(ShadowStage     *pSource,
-                                         ShadowStageData *pData  ) :
+                                           ShadowStageData *pData,
+                                           Window          *pWindow) :
      Inherited    (pSource,
-                   pData  ),
+                   pData,
+                   pWindow),
     _pPoly        (NULL   ),
     _matrixDeco   (NULL   ),
 
@@ -1240,7 +1242,6 @@ void PCF2ShadowMapHandler::doCreateShadowFactorMapFBO(DrawEnv *pEnv,
     pEnv->activateState(pState, NULL);
 
     glDepthMask(GL_FALSE);
-    glGetString(GL_RENDERER);
 
     glBegin(GL_QUADS);
     {
@@ -1307,7 +1308,7 @@ void PCF2ShadowMapHandler::render(RenderAction *a,
 
 #ifdef SHADOWCHECK
     GLfloat globalAmbient[4];
-    glGetFloatv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+    glGetFloatv(GL_LIGHT_MODEL_AMBIENT, globalAmbient); // not active
     GLfloat newGlobalAmbient[] =
     {
         0.0, 0.0, 0.0, 1.0

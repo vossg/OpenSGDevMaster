@@ -51,9 +51,11 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGPCSSShadowMapShaderCode.cinl"
 
 PCSSShadowMapHandler::PCSSShadowMapHandler(ShadowStage     *pSource,
-                                           ShadowStageData *pData  ) :
+                                           ShadowStageData *pData,
+                                           Window          *pWindow) :
      Inherited     (pSource, 
-                    pData  ),
+                    pData,
+                    pWindow),
     _pClearSMapBack(NULL   ),
     _pPoly         (NULL   ),
     _shadowSHL     (NULL   ),

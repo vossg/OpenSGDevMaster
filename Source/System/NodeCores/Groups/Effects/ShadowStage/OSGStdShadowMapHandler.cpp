@@ -50,9 +50,11 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGStdShadowMapShaderCode.cinl"
 
 StdShadowMapHandler::StdShadowMapHandler(ShadowStage     *pSource,
-                                         ShadowStageData *pData  ) :
+                                         ShadowStageData *pData,
+                                         Window          *pWindow) :
      Inherited    (pSource, 
-                   pData  ),
+                   pData,
+                   pWindow),
     _tiledeco     (NULL   ),
     _matrixDeco   (NULL   ),
     _blender      (NULL   ),

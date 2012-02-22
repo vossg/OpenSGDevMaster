@@ -53,10 +53,12 @@ OSG_BEGIN_NAMESPACE
 
 PerspectiveShadowMapHandler::PerspectiveShadowMapHandler(
     ShadowStage     *pSource,
-    ShadowStageData *pData  ) :
+    ShadowStageData *pData,
+    Window          *pWindow) :
 
      Inherited     (pSource, 
-                    pData  ),
+                    pData,
+                    pWindow),
     _perspectiveLPM(       ),
     _perspectiveLVM(       ),
     _tiledeco      (NULL   ),

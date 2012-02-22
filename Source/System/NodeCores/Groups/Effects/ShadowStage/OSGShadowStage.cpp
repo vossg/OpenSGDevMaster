@@ -147,6 +147,9 @@ void ShadowStage::initMethod(InitPhase ePhase)
             Window::registerExtension("GL_ARB_draw_buffers");
 
 
+        Window::registerConstant(GL_MAX_TEXTURE_SIZE              );
+        Window::registerConstant(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+
         FuncIdGenMipmaps =
             Window::registerFunction(OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
                                      _extFramebufferObject);
@@ -279,7 +282,6 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
     {
         return returnValue;
     }
-
        
 
     ShadowStageData *pData = ract->getData<ShadowStageData *>(_iDataSlotId);
@@ -324,7 +326,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using standard Shadow Mapping...\n"));
 #ifdef OSG_HAS_STDMAP
-                pTreeHandler = new StdShadowMapHandler(this, pData);
+                pTreeHandler = new StdShadowMapHandler(this, 
+                                                       pData,
+                                                       ract->getWindow());
 #endif
             }
             break;
@@ -333,7 +337,10 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using Lisp Perspective Shadow Mapping...\n"));
 #ifdef OSG_HAS_PERSPMAP
-                pTreeHandler = new PerspectiveShadowMapHandler(this, pData);
+                pTreeHandler = 
+                    new PerspectiveShadowMapHandler(this, 
+                                                    pData,
+                                                    ract->getWindow());
 #endif
             }
             break;
@@ -342,7 +349,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using Dither Shadow Mapping...\n"));
 #ifdef OSG_HAS_DITHERMAP
-                pTreeHandler = new DitherShadowMapHandler(this, pData);
+                pTreeHandler = new DitherShadowMapHandler(this, 
+                                                          pData,
+                                                          ract->getWindow());
 #endif
             }
             break;
@@ -351,7 +360,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using PCF Shadow Mapping...\n"));
 #ifdef OSG_HAS_PCFMAP
-                pTreeHandler = new PCFShadowMapHandler(this, pData);
+                pTreeHandler = new PCFShadowMapHandler(this, 
+                                                       pData,
+                                                       ract->getWindow());
 #endif
             }
             break;
@@ -360,7 +371,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using PCF2 Shadow Mapping...\n"));
 #ifdef OSG_HAS_PCF2MAP
-                pTreeHandler = new PCF2ShadowMapHandler(this, pData);
+                pTreeHandler = new PCF2ShadowMapHandler(this, 
+                                                        pData,
+                                                        ract->getWindow());
 #endif
             }
             break;
@@ -369,7 +382,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using PCSS Shadow Mapping...\n"));
 #ifdef OSG_HAS_PCSSMAP
-                pTreeHandler = new PCSSShadowMapHandler(this, pData);
+                pTreeHandler = new PCSSShadowMapHandler(this, 
+                                                        pData,
+                                                        ract->getWindow());
 #endif
             }
             break;
@@ -378,7 +393,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
             {
                 FNOTICE(("using Variance Shadow Mapping...\n"));
 #ifdef OSG_HAS_VARMAP
-                pTreeHandler = new VarianceShadowMapHandler(this, pData);
+                pTreeHandler = new VarianceShadowMapHandler(this, 
+                                                            pData,
+                                                            ract->getWindow());
 #endif
             }
             break;
@@ -1320,7 +1337,7 @@ void ShadowStage::initializeLights(RenderActionBase *action,
         {
             //TODO: Texturgr�se anpassen, je nach Bedarf
             GLint   max_texture_size;
-            glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_texture_size);
+            glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_texture_size); //not active
 
             _shadowImages.push_back(Image::create());
 
@@ -1441,7 +1458,7 @@ void ShadowStage::checkLightsOcclusion(RenderActionBase *action)
                 glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
     
                 GLuint pixels = 0;
-                glGetQueryObjectuivARB(this->_occlusionQuery, 
+                glGetQueryObjectuivARB(this->_occlusionQuery, //not active
                                        GL_QUERY_RESULT_ARB, &pixels);
     
                 occluded = (pixels == 0);

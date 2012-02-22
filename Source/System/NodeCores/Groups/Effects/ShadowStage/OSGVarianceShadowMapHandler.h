@@ -66,7 +66,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING VarianceShadowMapHandler :
     typedef ShadowTreeHandler Inherited;
 
     VarianceShadowMapHandler (ShadowStage     *pSource,
-                              ShadowStageData *pData  );
+                              ShadowStageData *pData,
+                              Window          *pWindow);
 
     ~VarianceShadowMapHandler(void);
 
@@ -84,12 +85,12 @@ class OSG_EFFECTGROUPS_DLLMAPPING VarianceShadowMapHandler :
     void createShadowMapsFBO     (RenderAction *a,
                                   DrawEnv      *pEnv              );
 
-    void genMipMapCB             (DrawEnv *pEnv,
-                                  UInt32   uiLightIdx             );
+    void genMipMapCB             (DrawEnv      *pEnv,
+                                  UInt32        uiLightIdx        );
 
-    void initShadowMaps          (void                            );
+    void initShadowMaps          (Window       *pWin              );
     void updateShadowMapSize     (void                            );
-    void configureShadowMaps     (void                            );
+    void configureShadowMaps     (Window       *pWin              );
 
 
     SolidBackgroundUnrecPtr               _pClearSMapBack;

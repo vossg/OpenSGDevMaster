@@ -222,6 +222,7 @@ void CSMDrawManager::shutdown(void)
         }
 
         _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
 
         _pThread->getChangeList()->clear();
 

@@ -67,7 +67,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING PCFShadowMapHandler : public ShadowTreeHandler
     typedef ShadowTreeHandler Inherited;
 
     PCFShadowMapHandler (ShadowStage     *pSource,
-                         ShadowStageData *pData  );
+                         ShadowStageData *pData,
+                         Window          *pWindow);
     ~PCFShadowMapHandler(void);
 
     virtual void render(RenderAction *a,

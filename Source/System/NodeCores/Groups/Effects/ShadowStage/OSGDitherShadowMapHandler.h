@@ -65,7 +65,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DitherShadowMapHandler :
     typedef ShadowTreeHandler Inherited;
 
     DitherShadowMapHandler (ShadowStage     *pSource,
-                            ShadowStageData *pData  );
+                            ShadowStageData *pData,
+                            Window          *pWindow);
     ~DitherShadowMapHandler(void);
 
     virtual void render(RenderAction *a,

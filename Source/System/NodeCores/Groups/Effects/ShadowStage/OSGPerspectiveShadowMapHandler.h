@@ -66,7 +66,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING PerspectiveShadowMapHandler :
     typedef ShadowTreeHandler Inherited;
 
     PerspectiveShadowMapHandler (ShadowStage     *pSource,
-                                 ShadowStageData *pData  );
+                                 ShadowStageData *pData,
+                                 Window          *pWindow);
     ~PerspectiveShadowMapHandler(void);
 
     virtual void render(RenderAction *a,

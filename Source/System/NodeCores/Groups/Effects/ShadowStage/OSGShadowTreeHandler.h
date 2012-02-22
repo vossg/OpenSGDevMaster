@@ -81,7 +81,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     /*! \{                                                                 */
 
     ShadowTreeHandler(ShadowStage     *pSource,
-                      ShadowStageData *pData  );
+                      ShadowStageData *pData,
+                      Window          *pWindow);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

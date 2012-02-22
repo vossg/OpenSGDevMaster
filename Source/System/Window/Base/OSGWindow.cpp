@@ -2011,6 +2011,11 @@ void OSG::Window::render(RenderActionBase *action)
 
         OSG_ASSERT(_pContextThread != NULL);
 
+        if(_pWaitTask == NULL)
+        {
+            setupTasks();
+        }
+
         if(_pContextThread->isRunning() == false)
         {
             WindowDrawThread *pDrawThread = 
@@ -2031,12 +2036,12 @@ void OSG::Window::render(RenderActionBase *action)
             pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
+
+            _pContextThread->queueTask(_pWaitTask);
+
+            _pWaitTask->waitForBarrier();
         }
 
-        if(_pWaitTask == NULL)
-        {
-            setupTasks();
-        }
 
 #ifdef OSG_WIN_QUEUE_ALL
         _pContextThread->queueTask(_pWaitTask);
@@ -2150,6 +2155,11 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
     {
         OSG_ASSERT(_pContextThread != NULL);
 
+        if(_pWaitTask == NULL)
+        {
+            setupTasks();
+        }
+
         if(_pContextThread->isRunning() == false)
         {
             WindowDrawThread *pDrawThread = 
@@ -2170,14 +2180,11 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
             pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
-        }
 
-        if(_pWaitTask == NULL)
-        {
-            setupTasks();
-        }
+            _pContextThread->queueTask(_pWaitTask);
 
-        _pContextThread->queueTask(_pFrameInitTask);
+            _pWaitTask->waitForBarrier();
+        }
 
         if(_mfDrawTasks.empty() == false)
         {
@@ -2471,7 +2478,8 @@ void OSG::Window::init(GLInitFunctor oFunc)
     }
     else
     {
-        fprintf(stderr, "Unknown partition draw mode\n");
+        fprintf(stderr, "Unknown partition draw mode 0x%04x\n",
+                _sfDrawMode.getValue());
     }
 }
 
