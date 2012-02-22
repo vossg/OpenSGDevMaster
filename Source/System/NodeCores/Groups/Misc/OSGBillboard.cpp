@@ -280,6 +280,12 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
         s    = vDir.cross(wUp);
         tDir = wUp .cross(s  );
 
+	n = getAxisOfRotation();
+	n[0] += n[1];
+	n[1] += n[2];
+	n[2] += n[0];
+	n -= n.dot(getAxisOfRotation())*getAxisOfRotation();
+
         q1.setValue(n, tDir);
 
         // clamp angle to [min; max]
