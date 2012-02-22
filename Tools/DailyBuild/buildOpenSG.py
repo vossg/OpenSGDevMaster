@@ -3,6 +3,7 @@ import sys,os,subprocess,shutil,platform,time
 import urllib, tarfile, zipfile, sys, os, shutil, glob
 import commands
 import optparse
+import fnmatch
 
 common_deps_src = [\
     ("OSGColladaSrcDir", "http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download", "Collada DOM 2.2.zip", "collada-dom"),\
@@ -23,7 +24,8 @@ win_deps_src = [("OSGZLibSrcDir", "http://sourceforge.net/projects/libpng/files/
                 ("OSGExpatSrcDir", "http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download", None, None),\
                 ("OSGLibXml2SrcDir", "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz", None, None), \
                 ("BOOST_ROOT", "http://sourceforge.net/projects/boost/files/boost/1.44.0/boost_1_44_0.zip/download", None, None), \
-                ("BOOST_JAM", "http://sourceforge.net/projects/boost/files/boost-jam/3.1.18/boost-jam-3.1.18-1-ntx86.zip/download", None, None)\
+                ("BOOST_JAM", "http://sourceforge.net/projects/boost/files/boost-jam/3.1.18/boost-jam-3.1.18-1-ntx86.zip/download", None, None),\
+                ("QT_ROOT", "ftp://ftp.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.7.4.zip", None, None) \
            ]
 
 common_deps_fhg = [\
@@ -45,7 +47,8 @@ win_deps_fhg = [("OSGZLibSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenS
                 ("OSGExpatSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/expat-2.0.1.tar.gz", None, None),\
                 ("OSGLibXml2SrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/libxml2-2.7.8.tar.gz", None, None), \
                 ("BOOST_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost_1_44_0.zip", None, None), \
-                ("BOOST_JAM", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost-jam-3.1.18-1-ntx86.zip", None, None)\
+                ("BOOST_JAM", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost-jam-3.1.18-1-ntx86.zip", None, None),\
+                ("QT_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support//qt-everywhere-opensource-src-4.7.4.zip", None, None), \
            ]
 
 failed_support_libs = []
@@ -65,6 +68,7 @@ class OSGBaseBuilder:
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False,
                subDir            = None ):
@@ -80,6 +84,7 @@ class OSGBaseBuilder:
     self.startup_path     = startup_path
     self.download_path    = os.path.join(self.startup_path, "Downloads")
     self.unpack_path      = os.path.join(self.startup_path, "Unpack")
+    self.build_path       = os.path.join(self.startup_path, subDir)
     self.suppBuild_path   = os.path.join(self.startup_path, subDir, "OpenSG.Support.build")
     self.suppInst_path    = os.path.join(self.startup_path, subDir, "OpenSG.Support.install").replace('\\', '/')
 
@@ -98,6 +103,9 @@ class OSGBaseBuilder:
     self.boostjam_path    = None
     self.boostjam         = None
 
+    self.qtroot_path      = None
+    self.qtsrc_path       = None
+
     self.cmSuppArchFile   = os.path.join(self.unpack_path, "CMakeSupportArchs.txt")
     self.cmSupportFile    = os.path.join(self.osg_path,    "CMakeSupport.txt")
     self.cmOSGFile        = os.path.join(self.osg_path,    "CMakeOSG.txt")
@@ -110,6 +118,7 @@ class OSGBaseBuilder:
 
     self.nosupportbuild = optNoSupportBuild
     self.noboostbuild   = optNoBoostBuild
+    self.noqtbuild      = optNoQtBuild
     self.noosgbuild     = optNoOSGBuild
     self.nomssecure     = optNoMSSecure
 
@@ -150,6 +159,7 @@ class OSGBaseBuilder:
 
     print "build subdir  : ", self.buildSubDir
 
+    print "build         : ", self.build_path
     print "supp.build    : ", self.suppBuild_path
     print "supp.inst     : ", self.suppInst_path
     
@@ -407,6 +417,11 @@ class OSGBaseBuilder:
     print "Building boost ...."
     return
 
+  def buildQt(self):
+
+    print "Building qt ...."
+    return
+
   def buildOSGSupport(self):
 
     self.initDir(self.suppBuild_path)
@@ -414,6 +429,9 @@ class OSGBaseBuilder:
 
     if system == "windows":
       self.buildBoost()
+
+    if system == "windows":
+      self.buildQt()
 
     os.chdir(self.suppBuild_path)
 
@@ -437,8 +455,8 @@ class OSGBaseBuilder:
     if self.noosgbuild == False:
       self.initDir(self.osgInst_path)
 
-    if system == "windows":
-      self.checkBoostPath()
+#    if system == "windows":
+#      self.checkBoostPath()
 
     cmOSGOut = file(self.cmOSGFile, "w")
     cmOSGOut.write("# OSG libs defines\n\n")
@@ -446,7 +464,8 @@ class OSGBaseBuilder:
     cmOSGOut.write('SET(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "" FORCE)\n')
 
     cmOSGOut.write('SET(BOOST_ROOT "%s" CACHE PATH "" FORCE)\n' % self.suppInst_path)
-
+    cmOSGOut.write('SET(QT_QMAKE_EXECUTABLE "%s/qt/bin/qmake.exe" CACHE FILEPATH "" FORCE)\n' % self.suppInst_path)
+    
     cmOSGOut.write('SET(OSG_USE_OSGSUPPORT_LIBS     ON  CACHE BOOL "")\n')
     cmOSGOut.write('SET(OSG_SUPPORT_ROOT "%s" CACHE PATH "")\n' % self.suppInst_path)
     cmOSGOut.write('SET(OSG_USE_STATIC_SUPPORT_LIBS OFF CACHE BOOL "")\n')
@@ -528,6 +547,7 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -563,13 +583,14 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                             optLocalGitClone,
                             optNoSupportBuild,
                             optNoBoostBuild,
+                            optNoQtBuild,
                             optNoOSGBuild,
                             optNoMSSecure,
                             buildSubDir)
 
     #"-d+2",
     #"-q",
-    self.boostCommonOpts = ["-d0",
+    self.boostCommonOpts = ["-d+1",
                             "--without-mpi",
                             "--stagedir=./stage." + self.buildSubDir,
                             "--build-dir=./bin.v2." + self.buildSubDir,
@@ -579,9 +600,9 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                             "link=shared,static",
                             "runtime-link=shared"]
 
-    if self.vcvarsarch != None and self.vcvarsarch == "amd64":
-      # boost.python fails to link on win64 (1.44), have to try a later release
-      self.boostCommonOpts.append("--without-python")
+#    if self.vcvarsarch != None and self.vcvarsarch == "amd64":
+#      # boost.python fails to link on win64 (1.44), have to try a later release, was a python problem
+#      self.boostCommonOpts.append("--without-python")
 
     self.boostAddrOpt    = None
 
@@ -592,6 +613,9 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                             "define=_SCL_SECURE_NO_WARNINGS",
                             "define=_SCL_SECURE_NO_DEPRECATE",
                             "define=_HAS_ITERATOR_DEBUGGING=0" ]
+
+    self.qtPlatform      = None
+
 
     self.cmakeCmd  = self.which("cmake.exe")
     self.vcvars    = self.which("vcvarsall.bat")
@@ -679,10 +703,151 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     retcode = subprocess.call(boostInstallCmd)
 
+    binPath = os.path.join(self.suppInst_path, "bin")
+    libPath = os.path.join(self.suppInst_path, "lib")
+
+    os.mkdir(binPath);
+
+    for file in os.listdir(libPath):
+      if fnmatch.fnmatch(file, '*.dll'):
+        srcFile = os.path.join(libPath, file)
+        dstFile = os.path.join(binPath, file)
+        shutil.move(srcFile, dstFile)
 
     os.chdir(startup_path)
 
     return
+                   
+  def checkQtPath(self):
+
+    if self.qtsrc_path == None:
+      files = glob.glob(os.path.join(self.unpack_path, "qt-*"))
+      print "br : ", files
+      if len(files) == 1:
+        self.qtsrc_path = files[0].replace('\\', '/')
+
+    self.qtroot_path = os.path.join(self.build_path, "qt.build").replace('\\', '/')
+      
+    print "  qt src  path   ", self.qtsrc_path
+    print "  qt root path   ", self.qtroot_path
+
+  def buildQt(self):
+    print "win build qt"
+
+    self.checkQtPath()
+
+    self.initDir(self.qtroot_path, False)
+
+    if not os.path.exists(self.qtroot_path):
+      print "copy qt"
+      shutil.copytree(self.qtsrc_path, self.qtroot_path);
+
+    os.chdir(self.qtroot_path)
+
+    qtBaseCmd = [self.vcvars, self.vcvarsarch, "&"]
+
+    qtConfigureCmd = []
+    qtConfigureCmd.extend(qtBaseCmd)
+
+    qtConfigureCmd.extend(["configure",
+                           "-opensource",
+                           "-platform", self.qtPlatform,
+                           "-nomake", "examples",
+                           "-nomake", "demos",
+                           "-nomake", "docs",
+                           "-debug-and-release",
+                           "-mmx",
+                           "-sse",
+                           "-sse2",
+                           "-plugin-sql-sqlite",
+                           "-no-dbus",
+                           "-no-phonon",
+                           "-no-phonon-backend",
+                           "-no-webkit",
+                           "-no-scripttools"])
+    
+    if self.nomssecure == True:
+      qtConfigureCmd.extend(["-D", "_CRT_SECURE_NO_DEPRECATE",
+                             "-D", "_CRT_SECURE_NO_WARNINGS",
+                             "-D", "_CRT_NONSTDC_NO_DEPRECATE",
+                             "-D", "_SECURE_SCL=0",
+                             "-D", "_SCL_SECURE_NO_WARNINGS",
+                             "-D", "_SCL_SECURE_NO_DEPRECATE",
+                             "-D", "_HAS_ITERATOR_DEBUGGING=0"])
+              
+                   
+    qtConfigureCmd.extend(["<",
+                           "yanswer"])
+
+    print "qt configure : ", qtConfigureCmd
+
+    qtCfgAnswer = file("yanswer", "w")
+    qtCfgAnswer.write("y")
+    qtCfgAnswer.close()
+
+    retcode = subprocess.call(qtConfigureCmd)
+
+    qtBuildCmd = []
+    qtBuildCmd.extend(qtBaseCmd)
+    qtBuildCmd.extend(["nmake"])
+
+    print "qt build : ", qtBuildCmd
+
+    retcode = subprocess.call(qtBuildCmd)
+
+    qtInstallBat = file("qtinstall.bat", "w")
+
+    (unpackDrive, unpackTail) = os.path.splitdrive(self.unpack_path);
+    (qtDrive,     qtTail    ) = os.path.splitdrive(self.qtroot_path);
+
+    qtSetInstRoot = "set INSTALL_ROOT=";
+    qtSetInstRoot += unpackTail;
+    qtSetInstRoot += "\\qt.tmpinstall\n";
+
+    print "foo ", qtSetInstRoot;
+
+    qtInstallBat.write(qtSetInstRoot)
+    qtInstallBat.write("\n")
+    qtInstallBat.write("nmake install\n\n")
+    qtInstallBat.close()
+
+    qtInstallCmd = []
+    qtInstallCmd.extend(qtBaseCmd)
+    qtInstallCmd.extend(["qtinstall.bat"])
+
+    print "qt install tmp : ", qtInstallCmd
+
+    retcode = subprocess.call(qtInstallCmd)
+
+    qtTmpInstallPath    = self.unpack_path + "\\qt.tmpinstall";
+    qtTmpInstallPath   += qtTail
+    qtFinalInstallPath  = self.suppInst_path + "/qt"
+
+    print "foo ", qtTmpInstallPath.replace('\\', '/')
+    print "bar ", qtFinalInstallPath
+
+    shutil.move(qtTmpInstallPath.replace('\\', '/'), qtFinalInstallPath)
+
+    qtLocalConfigFile = qtFinalInstallPath + "/bin/qt.conf"
+
+    qtLocalConf = file(qtLocalConfigFile, "w")
+
+    qtLocalConf.write("[Paths]\n");
+    qtLocalConf.write("Prefix=\n");
+    qtLocalConf.write("Documentation=../doc\n");
+    qtLocalConf.write("Headers=../include\n");
+    qtLocalConf.write("Libraries=../lib\n");
+    qtLocalConf.write("Binaries=\n");
+    qtLocalConf.write("Plugins=../plugins\n");
+    qtLocalConf.write("Data=..\n");
+    qtLocalConf.write("Translations=../translations\n");
+    qtLocalConf.write("Settings=../etc\n");
+    qtLocalConf.write("Examples=../examples\n");
+    qtLocalConf.write("Demos=../demos\n");
+
+    qtLocalConf.close();
+
+    os.chdir(startup_path)
 
   def buildOSGSupport(self):
 
@@ -812,6 +977,7 @@ class OSGWin32Builder(OSGWinBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -826,6 +992,7 @@ class OSGWin32Builder(OSGWinBaseBuilder):
                                optLocalGitClone,
                                optNoSupportBuild,
                                optNoBoostBuild,
+                               optNoQtBuild,
                                optNoOSGBuild,
                                optNoMSSecure    )
 
@@ -833,6 +1000,8 @@ class OSGWin32Builder(OSGWinBaseBuilder):
     self.cmakeGen = "Visual Studio 10"
 
     self.boostAddrOpt = ["address-model=32"]
+
+    self.qtPlatform   = "win32-msvc2010"
 
     print "Build for Win32"
 
@@ -853,6 +1022,7 @@ class OSGWin64Builder(OSGWinBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -869,10 +1039,13 @@ class OSGWin64Builder(OSGWinBaseBuilder):
                                optLocalGitClone,
                                optNoSupportBuild,
                                optNoBoostBuild,
+                               optNoQtBuild,
                                optNoOSGBuild,
                                optNoMSSecure)
 
     self.boostAddrOpt = ["address-model=64"]
+
+    self.qtPlatform   = "win32-msvc2010"
 
     self.cmakeGen = "Visual Studio 10 Win64"
 
@@ -896,6 +1069,7 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -908,6 +1082,7 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
                             optLocalGitClone,
                             optNoSupportBuild,
                             optNoBoostBuild,
+                            optNoQtBuild,
                             optNoOSGBuild,
                             optNoMSSecure)
 
@@ -1011,6 +1186,7 @@ class OSGLinuxBuilder(OSGUnixBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -1023,6 +1199,7 @@ class OSGLinuxBuilder(OSGUnixBaseBuilder):
                                 optLocalGitClone,
                                 optNoSupportBuild,
                                 optNoBoostBuild,
+                                optNoQtBuild,
                                 optNoOSGBuild,
                                 optNoMSSecure)
 
@@ -1046,6 +1223,7 @@ class OSGOSXBuilder(OSGUnixBaseBuilder):
                optLocalGitClone  = False,
                optNoSupportBuild = False,
                optNoBoostBuild   = False,
+               optNoQtBuild      = False,
                optNoOSGBuild     = False,
                optNoMSSecure     = False):
 
@@ -1058,6 +1236,7 @@ class OSGOSXBuilder(OSGUnixBaseBuilder):
                                 optLocalGitClone,
                                 optNoSupportBuild,
                                 optNoBoostBuild,
+                                optNoQtBuild,
                                 optNoOSGBuild,
                                 optNoMSSecure)
 
@@ -1125,6 +1304,13 @@ m_parser.add_option("-b",
                     dest="noboostbuild",
                     help="no boost build (just install existing)",
                     metavar="OpenSG");
+m_parser.add_option("-q", 
+                    "--no-qtbuild",
+                    action="store_true",
+                    default=False,
+                    dest="noqtbuild",
+                    help="no qt build (just install existing)",
+                    metavar="OpenSG");
 m_parser.add_option("-o", 
                     "--no-osbbuild",
                     action="store_true",
@@ -1170,6 +1356,7 @@ if(platform.system() == "Microsoft" or platform.system() == "Windows"):
                               m_options.localgitclone,
                               m_options.nosupportbuild,
                               m_options.noboostbuild,
+                              m_options.noqtbuild,
                               m_options.noosgbuild,
                               m_options.nomssecure)
   else:
@@ -1181,6 +1368,7 @@ if(platform.system() == "Microsoft" or platform.system() == "Windows"):
                               m_options.localgitclone,
                               m_options.nosupportbuild,
                               m_options.noboostbuild,
+                              m_options.noqtbuild,
                               m_options.noosgbuild,
                               m_options.nomssecure)
 elif(platform.system() == "Linux"):
@@ -1193,6 +1381,7 @@ elif(platform.system() == "Linux"):
                             m_options.localgitclone,
                             m_options.nosupportbuild,
                             m_options.noboostbuild,
+                            m_options.noqtbuild,
                             m_options.noosgbuild,
                             m_options.nomssecure)
 if(platform.system() == "Darwin"):
@@ -1205,6 +1394,7 @@ if(platform.system() == "Darwin"):
                           m_options.localgitclone,
                           m_options.nosupportbuild,
                           m_options.noboostbuild,
+                          m_options.noqtbuild,
                           m_options.noosgbuild,
                           m_options.nomssecure)
 
