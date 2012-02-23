@@ -650,6 +650,9 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
 
     commitChanges();
 
+    glClearColor(0.2f, 0.2, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
@@ -731,6 +734,9 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     _combineSHL->addUniformVariable("hasFactorMap",    hasFactorMap());
 
     commitChanges();
+
+    glClearColor(0.2f, 0.2, 0.2f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
