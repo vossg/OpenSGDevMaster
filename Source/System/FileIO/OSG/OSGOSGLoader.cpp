@@ -770,11 +770,34 @@ void OSGLoader::nullNode(void)
 
 void OSGLoader::use(const Char8 *szName)
 {
-    FieldContainer *pUseNode;
+    if(szName == NULL)
+        return;
+
+    FieldContainer *pUseNode = NULL;
+    NodeUnrecPtr    pClone   = NULL;
 
     // try to find a container with the given name attachment
 
-    pUseNode = getReference(szName);
+    if(szName[0] == '@')
+    {
+        pUseNode = getReference(&(szName[1]));
+
+        Node *pNode = dynamic_cast<Node *>(pUseNode);
+
+        if(pNode != NULL)
+        {
+            if(pNode->getParent() != NULL)
+            {
+                pClone = OSG::cloneTree(pNode, "", "");
+
+                pUseNode = pClone;
+            }
+        }
+    }
+    else
+    {
+        pUseNode = getReference(szName);
+    }
 
     if(pUseNode == NULL)
     {
@@ -785,6 +808,8 @@ void OSGLoader::use(const Char8 *szName)
         // assign nodepointer to current sf|mf field
         setFieldContainerValue(pUseNode);
     }
+
+    pClone = NULL;
 }
 
 void OSGLoader::addFieldValue(const Char8 *szFieldVal)

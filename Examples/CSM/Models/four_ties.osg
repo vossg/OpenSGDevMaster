@@ -1,0 +1,68 @@
+#OSG V1.0 
+
+Node
+{
+  core Group {}
+  
+  children
+  [
+    Node
+    {
+      core ComponentTransform
+      {
+        translation 0 -8 0
+      }
+
+      children
+      [
+        DEF TieNode Node
+        {
+          core Inline
+          {
+            url "tie.wrl"
+          }
+        }
+      ]
+    }
+
+    Node
+    {
+      core ComponentTransform
+      {
+        translation 0 8 0
+      }
+
+      children
+      [
+        USE @TieNode
+      ]
+    }
+
+    Node
+    {
+      core ComponentTransform
+      {
+        translation -8 0 0
+      }
+
+      children
+      [
+        USE @TieNode
+      ]
+    }
+
+
+    Node
+    {
+      core ComponentTransform
+      {
+        translation 8 0 0
+      }
+
+      children
+      [
+        USE @TieNode
+      ]
+    }
+  ]
+}
