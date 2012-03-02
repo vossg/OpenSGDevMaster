@@ -5,6 +5,8 @@
 # of those you want to use. To do so, pass a list of their names after
 # the COMPONENTS argument to FIND_PACKAGE. A typical call looks like this:
 # FIND_PACKAGE(OpenSG REQUIRED COMPONENTS OSGBase OSGSystem OSGDrawable)
+# OSG_OPTIONAL_COMPONENTS can be used to exclude optional components from
+# the computation of OpenSG_FOUND
 #
 # This module specifies the following variables:
 #  OpenSG_INCLUDE_DIRS
@@ -326,16 +328,21 @@ ELSE(__OpenSG_IN_CACHE)
         SET(__OpenSG_CHECKED_COMPONENT FALSE)
         SET(__OpenSG_MISSING_COMPONENTS)
 
-        FOREACH(COMPONENT ${OpenSG_FIND_COMPONENTS})
-            STRING(TOUPPER ${COMPONENT} COMPONENT)
+        FOREACH(_COMPONENT ${OpenSG_FIND_COMPONENTS})
+            STRING(TOUPPER ${_COMPONENT} COMPONENT)
             SET(__OpenSG_CHECKED_COMPONENT TRUE)
 
             IF(NOT OpenSG_${COMPONENT}_FOUND)
                 STRING(TOLOWER ${COMPONENT} COMPONENT)
                 LIST(APPEND __OpenSG_MISSING_COMPONENTS ${COMPONENT})
-                SET(OpenSG_FOUND FALSE)
+
+                LIST(FIND OSG_OPTIONAL_COMPONENTS ${_COMPONENT} _CMP_OPTIONAL)
+
+                IF(_CMP_OPTIONAL EQUAL -1)
+                  SET(OpenSG_FOUND FALSE)
+                ENDIF()
             ENDIF(NOT OpenSG_${COMPONENT}_FOUND)
-        ENDFOREACH(COMPONENT)
+        ENDFOREACH(_COMPONENT)
 
         IF(__OpenSG_MISSING_COMPONENTS)
             # We were unable to find some libraries, so generate a sensible
