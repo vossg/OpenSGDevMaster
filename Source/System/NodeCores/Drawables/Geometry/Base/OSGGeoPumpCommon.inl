@@ -84,7 +84,6 @@ namespace
         "GL_FIXED"        // Not used
     };
 
-
     // little helper class for function init
 
     class glextFuncInit
@@ -201,6 +200,7 @@ namespace
                       GL_DOUBLE,
                       4)
     };
+
 #endif
 
 

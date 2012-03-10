@@ -62,6 +62,16 @@
 #include "OSGGeoImmediatePumpGroup.h"
 #include "OSGGeoVertexArrayPumpGroup.h"
 
+#if 1
+# ifdef OSG_NEW_GEOHANDLER
+#  undef OSG_NEW_GEOHANDLER
+# endif
+#endif
+
+#ifdef OSG_NEW_GEOHANDLER
+#include "OSGGeoSplitVertexArrayPumpGroup.h"
+#endif
+
 OSG_USING_NAMESPACE
 
 
@@ -97,6 +107,9 @@ bool GeoPumpGroup::initActiveGroups(void)
     _activeGroups = new std::vector<GeoPumpGroup*>;
 
     _activeGroups->push_back(new GeoVertexArrayPumpGroup);
+#ifdef OSG_NEW_GEOHANDLER
+    _activeGroups->push_back(new GeoSplitVertexArrayPumpGroup);
+#endif
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     _activeGroups->push_back(new GeoImmediatePumpGroup);
 #endif
@@ -131,6 +144,9 @@ std::string GeoPumpGroup::describePropertyCharacteristics(
     if(ac & GeoPumpGroup::MultiIndexed)  result += "MultiIndexed,";
     if(ac & GeoPumpGroup::NonTraditionalProperties)
         result += "NonTraditionalProperties,";
+
+    if(result.empty() == true)
+        result += "unknown,";
 
     result.resize(result.length()-1);
 
@@ -169,8 +185,11 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
             {
                 if((*propIdx)[i] == NULL)
                 {
-                    single = false;
-                    multi = false;
+                    if((*prop)[i]->size() != 1)
+                    {
+                        single = false;
+                        multi  = false;
+                    }
                 }
                 else
                 {
@@ -179,21 +198,24 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
                     if(ind == NULL)
                         ind = (*propIdx)[i];
 
-                    if((*propIdx)[i] != ind)
+                    if((*propIdx)[i] != ind && (*prop)[i]->size() != 1)
                         single = false;
                 }
             }
             else
             {
                 single = false;
-                multi = false;
+                multi  = false;
             }
         }
     }
 
-         if(nonind)  retVal |= GeoPumpGroup::NonIndexed;
-    else if(single)  retVal |= GeoPumpGroup::SingleIndexed;
-    else if(multi)   retVal |= GeoPumpGroup::MultiIndexed;
+    if(nonind)  
+        retVal |= GeoPumpGroup::NonIndexed;
+    else if(single)  
+        retVal |= GeoPumpGroup::SingleIndexed;
+    else if(multi)   
+        retVal |= GeoPumpGroup::MultiIndexed;
 
     // Check for non-traditional properties.
     // Right now just check existence of attribs 6&7
@@ -230,6 +252,40 @@ GeoPumpGroup::GeoPump GeoPumpGroup::findGeoPump(DrawEnv                 *pEnv,
                   "Window %p and characteristics %s!\n", win,
                   describePropertyCharacteristics(acset).c_str() ));
     }
+
+    return pump;
+}
+
+GeoPumpGroup::SplitGeoPump GeoPumpGroup::findSplitGeoPump(
+    DrawEnv                 *pEnv,
+    PropertyCharacteristics  acset)
+{
+    SplitGeoPump  pump = { NULL, NULL };
+    Window       *win  = pEnv->getWindow();
+
+    std::vector<GeoPumpGroup*>::const_iterator pIt  = _activeGroups->begin();
+    std::vector<GeoPumpGroup*>::const_iterator pEnd = _activeGroups->end  ();
+
+    for(; pIt != pEnd && pump.setupPump == NULL; ++pIt)
+    {
+        pump = (*pIt)->getSplitGeoPump(pEnv, acset);
+    }
+
+    if(pump.setupPump == NULL)
+    {
+        FWARNING(("GeoPumpGroup::findSplitGeoPump: Couldn't find pump for"
+                  "Window %p and characteristics %s!\n", win,
+                  describePropertyCharacteristics(acset).c_str() ));
+    }
+
+    return pump;
+}
+
+GeoPumpGroup::SplitGeoPump GeoPumpGroup::getSplitGeoPump(
+    DrawEnv                 *,
+    PropertyCharacteristics  )
+{
+    SplitGeoPump  pump = { NULL, NULL };
 
     return pump;
 }

@@ -78,7 +78,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup :
 
     virtual GeoPump getGeoPump(DrawEnv                 *pEnv,
                                PropertyCharacteristics  acset);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -128,6 +127,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup :
         const Geometry::MFPropIndicesType *propIdx );
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 };
 
 OSG_END_NAMESPACE

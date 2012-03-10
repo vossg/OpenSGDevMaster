@@ -108,12 +108,24 @@ OSG_BEGIN_NAMESPACE
     Flag to activate caching the geometry inside a display list.
 */
 
+/*! \var bool            GeometryBase::_sfUseVAO
+    Flag to activate caching the geometry inside a VAO.
+*/
+
+/*! \var bool            GeometryBase::_sfUseAttribCalls
+    Flag to activate caching the geometry inside a VAO.
+*/
+
 /*! \var Int32           GeometryBase::_sfClassicGLId
     The dlist id for the classic rendering mode, if used.
 */
 
 /*! \var Int32           GeometryBase::_sfAttGLId
     The dlist id for the attribute-based rendering mode, if used.
+*/
+
+/*! \var Int32           GeometryBase::_sfVaoGLId
+    The vao gl id for the attribute-based rendering mode, if used.
 */
 
 
@@ -213,6 +225,30 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useVAO",
+        "Flag to activate caching the geometry inside a VAO.\n",
+        UseVAOFieldId, UseVAOFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleUseVAO),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleUseVAO));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useAttribCalls",
+        "Flag to activate caching the geometry inside a VAO.\n",
+        UseAttribCallsFieldId, UseAttribCallsFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleUseAttribCalls),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleUseAttribCalls));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "classicGLId",
@@ -234,6 +270,18 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&Geometry::editHandleAttGLId),
         static_cast<FieldGetMethodSig >(&Geometry::getHandleAttGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "vaoGLId",
+        "The vao gl id for the attribute-based rendering mode, if used.\n",
+        VaoGLIdFieldId, VaoGLIdFieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleVaoGLId),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleVaoGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -328,6 +376,26 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\tFlag to activate caching the geometry inside a display list.\n"
     "    </Field>\n"
     "    <Field\n"
+    "        name=\"useVAO\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "\tFlag to activate caching the geometry inside a VAO.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"useAttribCalls\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"false\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "\tFlag to activate caching the geometry inside a VAO.\n"
+    "    </Field>\n"
+    "    <Field\n"
     "        name=\"classicGLId\"\n"
     "        type=\"Int32\"\n"
     "        cardinality=\"single\"\n"
@@ -348,6 +416,17 @@ GeometryBase::TypeObject GeometryBase::_type(
     "        fieldFlags=\"FClusterLocal\"\n"
     "        >\n"
     "\tThe dlist id for the attribute-based rendering mode, if used.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"vaoGLId\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "\tThe vao gl id for the attribute-based rendering mode, if used.\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -438,6 +517,32 @@ const SFBool *GeometryBase::getSFDlistCache(void) const
 }
 
 
+SFBool *GeometryBase::editSFUseVAO(void)
+{
+    editSField(UseVAOFieldMask);
+
+    return &_sfUseVAO;
+}
+
+const SFBool *GeometryBase::getSFUseVAO(void) const
+{
+    return &_sfUseVAO;
+}
+
+
+SFBool *GeometryBase::editSFUseAttribCalls(void)
+{
+    editSField(UseAttribCallsFieldMask);
+
+    return &_sfUseAttribCalls;
+}
+
+const SFBool *GeometryBase::getSFUseAttribCalls(void) const
+{
+    return &_sfUseAttribCalls;
+}
+
+
 SFInt32 *GeometryBase::editSFClassicGLId(void)
 {
     editSField(ClassicGLIdFieldMask);
@@ -461,6 +566,19 @@ SFInt32 *GeometryBase::editSFAttGLId(void)
 const SFInt32 *GeometryBase::getSFAttGLId(void) const
 {
     return &_sfAttGLId;
+}
+
+
+SFInt32 *GeometryBase::editSFVaoGLId(void)
+{
+    editSField(VaoGLIdFieldMask);
+
+    return &_sfVaoGLId;
+}
+
+const SFInt32 *GeometryBase::getSFVaoGLId(void) const
+{
+    return &_sfVaoGLId;
 }
 
 
@@ -600,6 +718,14 @@ SizeT GeometryBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDlistCache.getBinSize();
     }
+    if(FieldBits::NoField != (UseVAOFieldMask & whichField))
+    {
+        returnValue += _sfUseVAO.getBinSize();
+    }
+    if(FieldBits::NoField != (UseAttribCallsFieldMask & whichField))
+    {
+        returnValue += _sfUseAttribCalls.getBinSize();
+    }
     if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
     {
         returnValue += _sfClassicGLId.getBinSize();
@@ -607,6 +733,10 @@ SizeT GeometryBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
     {
         returnValue += _sfAttGLId.getBinSize();
+    }
+    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    {
+        returnValue += _sfVaoGLId.getBinSize();
     }
 
     return returnValue;
@@ -637,6 +767,14 @@ void GeometryBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDlistCache.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UseVAOFieldMask & whichField))
+    {
+        _sfUseVAO.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (UseAttribCallsFieldMask & whichField))
+    {
+        _sfUseAttribCalls.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
     {
         _sfClassicGLId.copyToBin(pMem);
@@ -644,6 +782,10 @@ void GeometryBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
     {
         _sfAttGLId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    {
+        _sfVaoGLId.copyToBin(pMem);
     }
 }
 
@@ -677,6 +819,16 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(DlistCacheFieldMask);
         _sfDlistCache.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (UseVAOFieldMask & whichField))
+    {
+        editSField(UseVAOFieldMask);
+        _sfUseVAO.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseAttribCallsFieldMask & whichField))
+    {
+        editSField(UseAttribCallsFieldMask);
+        _sfUseAttribCalls.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
     {
         editSField(ClassicGLIdFieldMask);
@@ -686,6 +838,11 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(AttGLIdFieldMask);
         _sfAttGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    {
+        editSField(VaoGLIdFieldMask);
+        _sfVaoGLId.copyFromBin(pMem);
     }
 }
 
@@ -825,8 +982,11 @@ GeometryBase::GeometryBase(void) :
                           PropIndicesFieldId,
                           GeoIntegralProperty::ParentsFieldId),
     _sfDlistCache             (bool(true)),
+    _sfUseVAO                 (bool(true)),
+    _sfUseAttribCalls         (bool(false)),
     _sfClassicGLId            (Int32(0)),
-    _sfAttGLId                (Int32(0))
+    _sfAttGLId                (Int32(0)),
+    _sfVaoGLId                (Int32(0))
 {
 }
 
@@ -845,8 +1005,11 @@ GeometryBase::GeometryBase(const GeometryBase &source) :
                           PropIndicesFieldId,
                           GeoIntegralProperty::ParentsFieldId),
     _sfDlistCache             (source._sfDlistCache             ),
+    _sfUseVAO                 (source._sfUseVAO                 ),
+    _sfUseAttribCalls         (source._sfUseAttribCalls         ),
     _sfClassicGLId            (source._sfClassicGLId            ),
-    _sfAttGLId                (source._sfAttGLId                )
+    _sfAttGLId                (source._sfAttGLId                ),
+    _sfVaoGLId                (source._sfVaoGLId                )
 {
 }
 
@@ -1193,6 +1356,56 @@ EditFieldHandlePtr GeometryBase::editHandleDlistCache     (void)
     return returnValue;
 }
 
+GetFieldHandlePtr GeometryBase::getHandleUseVAO          (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseVAO,
+             this->getType().getFieldDesc(UseVAOFieldId),
+             const_cast<GeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeometryBase::editHandleUseVAO         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseVAO,
+             this->getType().getFieldDesc(UseVAOFieldId),
+             this));
+
+
+    editSField(UseVAOFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GeometryBase::getHandleUseAttribCalls  (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseAttribCalls,
+             this->getType().getFieldDesc(UseAttribCallsFieldId),
+             const_cast<GeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeometryBase::editHandleUseAttribCalls (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseAttribCalls,
+             this->getType().getFieldDesc(UseAttribCallsFieldId),
+             this));
+
+
+    editSField(UseAttribCallsFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr GeometryBase::getHandleClassicGLId     (void) const
 {
     SFInt32::GetHandlePtr returnValue(
@@ -1239,6 +1452,31 @@ EditFieldHandlePtr GeometryBase::editHandleAttGLId        (void)
 
 
     editSField(AttGLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GeometryBase::getHandleVaoGLId         (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfVaoGLId,
+             this->getType().getFieldDesc(VaoGLIdFieldId),
+             const_cast<GeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeometryBase::editHandleVaoGLId        (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfVaoGLId,
+             this->getType().getFieldDesc(VaoGLIdFieldId),
+             this));
+
+
+    editSField(VaoGLIdFieldMask);
 
     return returnValue;
 }

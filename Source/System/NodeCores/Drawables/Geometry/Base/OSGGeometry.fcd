@@ -76,6 +76,26 @@
 	Flag to activate caching the geometry inside a display list.
     </Field>
     <Field
+        name="useVAO"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="public"
+        >
+	Flag to activate caching the geometry inside a VAO.
+    </Field>
+    <Field
+        name="useAttribCalls"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+        >
+	Flag to activate caching the geometry inside a VAO.
+    </Field>
+    <Field
         name="classicGLId"
         type="Int32"
         cardinality="single"
@@ -96,5 +116,16 @@
         fieldFlags="FClusterLocal"
         >
 	The dlist id for the attribute-based rendering mode, if used.
+    </Field>
+    <Field
+        name="vaoGLId"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="0"
+        access="protected"
+        fieldFlags="FClusterLocal"
+        >
+	The vao gl id for the attribute-based rendering mode, if used.
     </Field>
 </FieldContainer>

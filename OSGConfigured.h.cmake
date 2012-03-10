@@ -37,6 +37,8 @@
 
 #cmakedefine OSG_OGL_VERTEXATTRIB_FUNCS 1
 
+#cmakedefine OSG_NEW_GEOHANDLER 1
+
 #cmakedefine OSG_OGL_COREONLY 1
 
 #cmakedefine OSG_OGL_ES2 1

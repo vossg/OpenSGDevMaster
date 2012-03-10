@@ -131,6 +131,56 @@ void GeometryBase::setDlistCache(const bool value)
 
     _sfDlistCache.setValue(value);
 }
+//! Get the value of the Geometry::_sfUseVAO field.
+
+inline
+bool &GeometryBase::editUseVAO(void)
+{
+    editSField(UseVAOFieldMask);
+
+    return _sfUseVAO.getValue();
+}
+
+//! Get the value of the Geometry::_sfUseVAO field.
+inline
+      bool  GeometryBase::getUseVAO(void) const
+{
+    return _sfUseVAO.getValue();
+}
+
+//! Set the value of the Geometry::_sfUseVAO field.
+inline
+void GeometryBase::setUseVAO(const bool value)
+{
+    editSField(UseVAOFieldMask);
+
+    _sfUseVAO.setValue(value);
+}
+//! Get the value of the Geometry::_sfUseAttribCalls field.
+
+inline
+bool &GeometryBase::editUseAttribCalls(void)
+{
+    editSField(UseAttribCallsFieldMask);
+
+    return _sfUseAttribCalls.getValue();
+}
+
+//! Get the value of the Geometry::_sfUseAttribCalls field.
+inline
+      bool  GeometryBase::getUseAttribCalls(void) const
+{
+    return _sfUseAttribCalls.getValue();
+}
+
+//! Set the value of the Geometry::_sfUseAttribCalls field.
+inline
+void GeometryBase::setUseAttribCalls(const bool value)
+{
+    editSField(UseAttribCallsFieldMask);
+
+    _sfUseAttribCalls.setValue(value);
+}
 //! Get the value of the Geometry::_sfClassicGLId field.
 
 inline
@@ -181,6 +231,31 @@ void GeometryBase::setAttGLId(const Int32 value)
 
     _sfAttGLId.setValue(value);
 }
+//! Get the value of the Geometry::_sfVaoGLId field.
+
+inline
+Int32 &GeometryBase::editVaoGLId(void)
+{
+    editSField(VaoGLIdFieldMask);
+
+    return _sfVaoGLId.getValue();
+}
+
+//! Get the value of the Geometry::_sfVaoGLId field.
+inline
+      Int32  GeometryBase::getVaoGLId(void) const
+{
+    return _sfVaoGLId.getValue();
+}
+
+//! Set the value of the Geometry::_sfVaoGLId field.
+inline
+void GeometryBase::setVaoGLId(const Int32 value)
+{
+    editSField(VaoGLIdFieldMask);
+
+    _sfVaoGLId.setValue(value);
+}
 
 //! Get the value of the \a index element the Geometry::_mfProperties field.
 inline
@@ -228,11 +303,20 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
         _sfDlistCache.syncWith(pFrom->_sfDlistCache);
 
+    if(FieldBits::NoField != (UseVAOFieldMask & whichField))
+        _sfUseVAO.syncWith(pFrom->_sfUseVAO);
+
+    if(FieldBits::NoField != (UseAttribCallsFieldMask & whichField))
+        _sfUseAttribCalls.syncWith(pFrom->_sfUseAttribCalls);
+
     if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
         _sfClassicGLId.syncWith(pFrom->_sfClassicGLId);
 
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
         _sfAttGLId.syncWith(pFrom->_sfAttGLId);
+
+    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+        _sfVaoGLId.syncWith(pFrom->_sfVaoGLId);
 }
 #endif
 

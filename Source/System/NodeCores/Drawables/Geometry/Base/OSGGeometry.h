@@ -314,11 +314,18 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     // Variables should all be in GeometryBase.
 
-    BoxVolume   _volumeCache;
+           BoxVolume _volumeCache;
+
+    static UInt32    _arbVertexArrayObject;
+
+    static UInt32     FuncIdBindVertexArray;
+    static UInt32     FuncIdDeleteVertexArrays;
+    static UInt32     FuncIdGenVertexArrays;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -353,6 +360,14 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
                                          Window::GLObjectStatusE  mode,
                                          UInt32                   uiOption);
     static void   handleAttDestroyGL    (DrawEnv                 *pEnv, 
+                                         UInt32                   id, 
+                                         Window::GLObjectStatusE  mode    );
+
+           UInt32 handleVAOGL           (DrawEnv                 *pEnv, 
+                                         UInt32                   id, 
+                                         Window::GLObjectStatusE  mode,
+                                         UInt32                   uiOption);
+    static void   handleVAODestroyGL    (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode    );
 

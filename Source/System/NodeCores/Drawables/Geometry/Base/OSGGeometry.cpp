@@ -46,6 +46,8 @@
 
 #include "OSGConfig.h"
 
+#include "OSGGLFuncProtos.h"
+
 #include "OSGGeometry.h"
 #include "OSGGeoPumpGroup.h"
 
@@ -64,6 +66,12 @@
 #include "OSGPointIterator.h"
 #include "OSGDrawableStatsAttachment.h"
 
+#if 1
+# ifdef OSG_NEW_GEOHANDLER
+#  undef OSG_NEW_GEOHANDLER
+# endif
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -76,6 +84,12 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 Geometry::PumpGroupStorage Geometry::_pumps;
+
+ UInt32 Geometry::_arbVertexArrayObject    = Window::invalidExtensionID;
+
+ UInt32 Geometry::FuncIdBindVertexArray    = Window::invalidFunctionID;
+ UInt32 Geometry::FuncIdDeleteVertexArrays = Window::invalidFunctionID;
+ UInt32 Geometry::FuncIdGenVertexArrays    = Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -98,6 +112,25 @@ void Geometry::initMethod(InitPhase ePhase)
             getClassType(),
             reinterpret_cast<Action::Callback>(
                 &MaterialDrawable::renderActionLeaveHandler));
+
+
+        _arbVertexArrayObject = 
+            Window::registerExtension("GL_ARB_vertex_array_object");
+
+        FuncIdBindVertexArray    = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glBindVertexArray",
+             _arbVertexArrayObject);
+
+        FuncIdDeleteVertexArrays = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glDeleteVertexArrays",
+             _arbVertexArrayObject);
+
+        FuncIdGenVertexArrays    = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glGenVertexArrays",
+             _arbVertexArrayObject);
     }
 }
 
@@ -149,18 +182,23 @@ Geometry::~Geometry(void)
 {
 }
 
-void Geometry::onCreate(const Geometry *)
+#ifndef OSG_NEW_GEOHANDLER
+void Geometry::onCreate(const Geometry *source)
 {
+    Inherited::onCreate(source);
+
     // if we're in startup this is the prototype, which shouldn't have an id
     if(GlobalSystemState == Startup)
         return;
 
+#if !defined(OSG_OGL_COREONLY)
     setClassicGLId(               
         Window::registerGLObject(
             boost::bind(&Geometry::handleClassicGL,
                         GeometryMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &Geometry::handleClassicDestroyGL));
+#endif
 
     setAttGLId(               
         Window::registerGLObject(
@@ -172,14 +210,21 @@ void Geometry::onCreate(const Geometry *)
 
 void Geometry::onDestroy(UInt32 uiContainerId)
 {
+#if !defined(OSG_OGL_COREONLY)
     if(getClassicGLId() > 0)
         Window::destroyGLObject(getClassicGLId(), 1);
+#endif
 
     if(getAttGLId() > 0)
         Window::destroyGLObject(getAttGLId(), 1);
 
     Inherited::onDestroy(uiContainerId);
 }
+#endif
+
+#ifdef OSG_NEW_GEOHANDLER
+#include "OSGGeometryGLHandler.inl"
+#endif
 
 /*------------------------------ access -----------------------------------*/
 
@@ -215,10 +260,10 @@ void Geometry::adjustVolume(Volume & volume)
     volume.extendBy(_volumeCache);
 }
 
-
 /*! OpenGL object handler. Used for DisplayList caching.
 */
 
+#ifndef OSG_NEW_GEOHANDLER
 UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv, 
                                  UInt32                   id, 
                                  Window::GLObjectStatusE  mode,
@@ -394,11 +439,7 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 void Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     bool          usesShader = false;
-    
-//#ifndef __APPLE__
-//    usesShader = (pEnv->getActiveShader() != 0);
-//#endif
-
+   
 #ifdef OSG_OGL_VERTEXATTRIB_FUNCS
     // Quick solution must be cleaned up.
     if(pEnv->getActiveShader() != 0)
@@ -451,10 +492,9 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         if(usesShader)
             prop |= GeoPumpGroup::UsesShader;
 
-        GeoPumpGroup::GeoPump pump;
-        pump = GeoPumpGroup::findGeoPump(pEnv, prop);
+        GeoPumpGroup::GeoPump pump = GeoPumpGroup::findGeoPump(pEnv, prop);
 
-        if (pump)
+        if(pump != NULL)
         {
             pump(pEnv,
                  getLengths(),      getTypes(),
@@ -511,6 +551,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     }
 */
 }
+#endif
 
 /*! The IntersectAction callback for Geometry. It computes if the ray used in
     the IntersectAction \a action hits this object and if that is the case,
@@ -586,10 +627,12 @@ Action::ResultE Geometry::intersect(Action * action)
 
 /*----------------------------- class specific ----------------------------*/
 
+#ifndef OSG_NEW_GEOHANDLER
 void Geometry::changed(ConstFieldMaskArg whichField, 
                        UInt32            origin,
                        BitVector         details)
 {
+#if !defined(OSG_OGL_COREONLY)
     // Handle change to the display list cache field.
     if(whichField & DlistCacheFieldMask)
     {
@@ -632,6 +675,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             }
         }
     }
+#endif
 
     // If something changed inside the geometry fields and we are using
     // display lists, refresh them.
@@ -640,7 +684,9 @@ void Geometry::changed(ConstFieldMaskArg whichField,
     {
         if(getDlistCache())
         {
+#if !defined(OSG_OGL_COREONLY)
             Window::refreshGLObject(getClassicGLId());
+#endif
             Window::refreshGLObject(getAttGLId    ());
         }
     }
@@ -658,6 +704,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
 
     Inherited::changed(whichField, origin, details);
 }
+#endif
 
 void Geometry::dump(      UInt32    ,
                          const BitVector ) const

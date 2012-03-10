@@ -101,9 +101,12 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         PropertiesFieldId = LengthsFieldId + 1,
         PropIndicesFieldId = PropertiesFieldId + 1,
         DlistCacheFieldId = PropIndicesFieldId + 1,
-        ClassicGLIdFieldId = DlistCacheFieldId + 1,
+        UseVAOFieldId = DlistCacheFieldId + 1,
+        UseAttribCallsFieldId = UseVAOFieldId + 1,
+        ClassicGLIdFieldId = UseAttribCallsFieldId + 1,
         AttGLIdFieldId = ClassicGLIdFieldId + 1,
-        NextFieldId = AttGLIdFieldId + 1
+        VaoGLIdFieldId = AttGLIdFieldId + 1,
+        NextFieldId = VaoGLIdFieldId + 1
     };
 
     static const OSG::BitVector TypesFieldMask =
@@ -116,10 +119,16 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         (TypeTraits<BitVector>::One << PropIndicesFieldId);
     static const OSG::BitVector DlistCacheFieldMask =
         (TypeTraits<BitVector>::One << DlistCacheFieldId);
+    static const OSG::BitVector UseVAOFieldMask =
+        (TypeTraits<BitVector>::One << UseVAOFieldId);
+    static const OSG::BitVector UseAttribCallsFieldMask =
+        (TypeTraits<BitVector>::One << UseAttribCallsFieldId);
     static const OSG::BitVector ClassicGLIdFieldMask =
         (TypeTraits<BitVector>::One << ClassicGLIdFieldId);
     static const OSG::BitVector AttGLIdFieldMask =
         (TypeTraits<BitVector>::One << AttGLIdFieldId);
+    static const OSG::BitVector VaoGLIdFieldMask =
+        (TypeTraits<BitVector>::One << VaoGLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -128,8 +137,11 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     typedef MFUnrecChildGeoVectorPropertyPtr MFPropertiesType;
     typedef MFUnrecChildGeoIntegralPropertyPtr MFPropIndicesType;
     typedef SFBool            SFDlistCacheType;
+    typedef SFBool            SFUseVAOType;
+    typedef SFBool            SFUseAttribCallsType;
     typedef SFInt32           SFClassicGLIdType;
     typedef SFInt32           SFAttGLIdType;
+    typedef SFInt32           SFVaoGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -166,6 +178,12 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   SFBool              *editSFDlistCache     (void);
             const SFBool              *getSFDlistCache      (void) const;
 
+                  SFBool              *editSFUseVAO         (void);
+            const SFBool              *getSFUseVAO          (void) const;
+
+                  SFBool              *editSFUseAttribCalls (void);
+            const SFBool              *getSFUseAttribCalls  (void) const;
+
 
                   GeoIntegralProperty * getTypes          (void) const;
 
@@ -178,6 +196,12 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   bool                &editDlistCache     (void);
                   bool                 getDlistCache      (void) const;
 
+                  bool                &editUseVAO         (void);
+                  bool                 getUseVAO          (void) const;
+
+                  bool                &editUseAttribCalls (void);
+                  bool                 getUseAttribCalls  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -186,6 +210,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
             void setTypes          (GeoIntegralProperty * const value);
             void setLengths        (GeoIntegralProperty * const value);
             void setDlistCache     (const bool value);
+            void setUseVAO         (const bool value);
+            void setUseAttribCalls (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,8 +293,11 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     MFUnrecChildGeoVectorPropertyPtr _mfProperties;
     MFUnrecChildGeoIntegralPropertyPtr _mfPropIndices;
     SFBool            _sfDlistCache;
+    SFBool            _sfUseVAO;
+    SFBool            _sfUseAttribCalls;
     SFInt32           _sfClassicGLId;
     SFInt32           _sfAttGLId;
+    SFInt32           _sfVaoGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -315,10 +344,16 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     EditFieldHandlePtr editHandlePropIndices    (void);
     GetFieldHandlePtr  getHandleDlistCache      (void) const;
     EditFieldHandlePtr editHandleDlistCache     (void);
+    GetFieldHandlePtr  getHandleUseVAO          (void) const;
+    EditFieldHandlePtr editHandleUseVAO         (void);
+    GetFieldHandlePtr  getHandleUseAttribCalls  (void) const;
+    EditFieldHandlePtr editHandleUseAttribCalls (void);
     GetFieldHandlePtr  getHandleClassicGLId     (void) const;
     EditFieldHandlePtr editHandleClassicGLId    (void);
     GetFieldHandlePtr  getHandleAttGLId         (void) const;
     EditFieldHandlePtr editHandleAttGLId        (void);
+    GetFieldHandlePtr  getHandleVaoGLId         (void) const;
+    EditFieldHandlePtr editHandleVaoGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -332,12 +367,18 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   SFInt32             *editSFAttGLId        (void);
             const SFInt32             *getSFAttGLId         (void) const;
 
+                  SFInt32             *editSFVaoGLId        (void);
+            const SFInt32             *getSFVaoGLId         (void) const;
+
 
                   Int32               &editClassicGLId    (void);
                   Int32                getClassicGLId     (void) const;
 
                   Int32               &editAttGLId        (void);
                   Int32                getAttGLId         (void) const;
+
+                  Int32               &editVaoGLId        (void);
+                  Int32                getVaoGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -346,6 +387,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
             void setClassicGLId    (const Int32 value);
             void setAttGLId        (const Int32 value);
+            void setVaoGLId        (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

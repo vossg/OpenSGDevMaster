@@ -36,132 +36,114 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGEOPUMPGROUP_H_
-#define _OSGGEOPUMPGROUP_H_
+#ifndef _OSGGEOSPLITVERTEXARRAYPUMPGROUP_H_
+#define _OSGGEOSPLITVERTEXARRAYPUMPGROUP_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "utility"
+#include <utility>
 
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
 #include "OSGGeometry.h"
+#include "OSGGeoPumpGroup.h"
 
 OSG_BEGIN_NAMESPACE
 
 class Window;
 
-/*! \brief A group of geometry pumps.
+/*! \brief Pump group using vertex arrays. Only works for non- and
+     single-indexed geometry
     \ingroup GrpDrawablesGeometryHelpers
  */
 
-class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
+class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup : 
+    public GeoPumpGroup
 {
     /*==========================  PUBLIC  =================================*/
   public:
 
     /*---------------------------------------------------------------------*/
-    /*! \name         Property Characteristics Handling                    */
+    /*! \name                 Con-/Destructors                             */
     /*! \{                                                                 */
 
-    typedef UInt32 PropertyCharacteristics;
-    
-    enum
-    {
-        NonIndexed               = 0x00000001L,    
-        SingleIndexed            = 0x00000002L,    
-        MultiIndexed             = 0x00000004L,
-        Indexing                 = 0x00000007L,
-        NonTraditionalProperties = 0x00000008L,
-        // this is actually set at render time dynamically
-        UsesShader               = 0x00000010L 
-    };
-    
-    static std::string describePropertyCharacteristics(
-                                        PropertyCharacteristics ac);
+    GeoSplitVertexArrayPumpGroup(void);
 
-    static PropertyCharacteristics characterizeGeometry(Geometry *geo);
+    virtual ~GeoSplitVertexArrayPumpGroup();
     
-    static PropertyCharacteristics
-        characterizeGeometry(const Geometry::MFPropertiesType  *prop,
-                             const Geometry::MFPropIndicesType *propIdx);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Pump Types                                */
-    /*! \{                                                                 */
-    
-    typedef void (*GeoPump)     (      DrawEnv                     *pEnv,
-                                 const GeoIntegralProperty         *lengths,
-                                 const GeoIntegralProperty         *types,
-                                 const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx );
-
-    typedef bool (*SetupGeoPump)(      DrawEnv                     *pEnv,
-                                 const GeoIntegralProperty         *lengths,
-                                 const GeoIntegralProperty         *types,
-                                 const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx );
-
-    struct SplitGeoPump
-    {
-        SetupGeoPump setupPump;
-        GeoPump      drawPump;
-    };
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Global Get                                */
+    /*! \name                       Get                                    */
     /*! \{                                                                 */
 
-    static GeoPump      findGeoPump     (DrawEnv                 *pEnv,
+    virtual SplitGeoPump getSplitGeoPump(DrawEnv                 *pEnv,
                                          PropertyCharacteristics  acset);
-
-    static SplitGeoPump findSplitGeoPump(DrawEnv                 *pEnv,
-                                         PropertyCharacteristics  acset);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name               Pump Group Handling                            */
-    /*! \{                                                                 */
-    
-    static inline std::vector<GeoPumpGroup*> &getActiveGroups(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name               Single Group Get                               */
-    /*! \{                                                                 */
-
-    virtual GeoPump      getGeoPump     (DrawEnv                 *pEnv,
-                                         PropertyCharacteristics  acset) = 0;
-
-    virtual SplitGeoPump getSplitGeoPump(DrawEnv                 *pEnv,
-                                         PropertyCharacteristics  acset);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    
-    virtual ~GeoPumpGroup(void);
+    virtual GeoPump getGeoPump(DrawEnv                 *pEnv,
+                               PropertyCharacteristics  acset);
 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    
-    static std::vector<GeoPumpGroup *> *_activeGroups;
-    
-    static InitFuncWrapper actInit;
+    /*---------------------------------------------------------------------*/
+    /*! \name               OpenGL Extension handling                      */
+    /*! \{                                                                 */
 
-    static bool initActiveGroups     (void);
-    static bool terminateActiveGroups(void);
+    static bool             glextInitFunction(void);
+    static InitFuncWrapper _glextInitFuncWrapper;
+  
+    /*! Extensions IDs */
+    
+    static UInt32 _arbVertexProgram;
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    static UInt32 _extSecondaryColor;
+    static UInt32 _extMultitexture;
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Pump functions                            */
+    /*! \{                                                                 */
+
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    static bool masterClassicGeoSetupPump(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static void masterClassicGeoDrawPump (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+#endif
+
+    static bool masterAttribGeoSetupPump(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static void masterAttribGeoDrawPump (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    /*! \}                                                                 */
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGGeoPumpGroup.inl"
-
-#endif /* _OSGGEOPUMPGROUP_H_ */
+#endif /* _OSGGEOSPLITVERTEXARRAYPUMPGROUP_H_ */
