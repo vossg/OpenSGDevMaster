@@ -64,7 +64,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass LightChunk::_class("Light", 8);
+StateChunkClass LightChunk::_class("Light", 8, 90);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -203,6 +203,12 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
     glPopMatrix();
 
     glErr("light:activate:postcheck");
+#else
+    OSG_ASSERT(false);
+#endif
+
+#ifdef OSG_CHUNKLIMIT_TESTING
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -289,6 +295,12 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
     glPopMatrix();
 
     glErr("light:changed:postcheck");
+#else
+    OSG_ASSERT(false);
+#endif
+
+#ifdef OSG_CHUNKLIMIT_TESTING
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -296,6 +308,12 @@ void LightChunk::deactivate(DrawEnv *, UInt32 index)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glDisable(GL_LIGHT0 + index);
+#else
+    OSG_ASSERT(false);
+#endif
+
+#ifdef OSG_CHUNKLIMIT_TESTING
+    OSG_ASSERT(false);
 #endif
 }
 

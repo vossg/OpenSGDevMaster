@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass FragmentProgramChunk::_class("FragmentProgram");
+StateChunkClass FragmentProgramChunk::_class("FragmentProgram", 1, 200);
 
 UInt32 FragmentProgramChunk::_arbFragmentProgram = Window::invalidExtensionID;
 

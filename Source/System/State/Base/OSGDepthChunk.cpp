@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass DepthChunk::_class("Depth");
+StateChunkClass DepthChunk::_class("Depth", 1, 50);
 
 /***************************************************************************\
  *                           Class methods                                 *

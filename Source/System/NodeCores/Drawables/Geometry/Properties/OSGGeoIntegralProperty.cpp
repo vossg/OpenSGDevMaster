@@ -103,7 +103,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass GeoIntegralProperty::_class("GeoIntegralProperty", 1);
+StateChunkClass GeoIntegralProperty::_class("GeoIntegralProperty", 1, 155);
 
 /***************************************************************************\
  *                           Class methods                                 *

@@ -66,7 +66,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass GeoMultiPropertyData::_class("GeoMultiPropertyData", 1);
+StateChunkClass GeoMultiPropertyData::_class("GeoMultiPropertyData", 1, 160);
 
 UInt32 GeoMultiPropertyData::_extVertexBufferObject;
 UInt32 GeoMultiPropertyData::_funcBindBuffer;

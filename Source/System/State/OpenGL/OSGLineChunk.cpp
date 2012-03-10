@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass LineChunk::_class("Line");
+StateChunkClass LineChunk::_class("Line", 1, 50);
 
 /***************************************************************************\
  *                           Class methods                                 *

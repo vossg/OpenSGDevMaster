@@ -60,7 +60,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TransformChunk::_class("Transform", 1, 200);
+StateChunkClass TransformChunk::_class("Transform", 1, 210);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -125,6 +125,8 @@ void TransformChunk::activate(DrawEnv *,  UInt32)
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glPushMatrix();
     glMultMatrixf( getMatrix().getValues() );
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -141,6 +143,8 @@ void TransformChunk::changeFrom(DrawEnv *,  StateChunk *old, UInt32)
     glPopMatrix();
     glPushMatrix();
     glMultMatrixf( getMatrix().getValues() );
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -148,6 +152,8 @@ void TransformChunk::deactivate(DrawEnv *,  UInt32)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glPopMatrix();
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

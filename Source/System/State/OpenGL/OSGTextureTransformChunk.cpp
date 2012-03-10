@@ -66,7 +66,8 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 StateChunkClass TextureTransformChunk::_class("TextureTransform",
-                                              osgMaxTexCoords);
+                                              osgMaxTexCoords, 
+                                              130);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -169,6 +170,8 @@ void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
         glLoadMatrixf(getMatrix().getValues());
     }
     glMatrixMode(GL_MODELVIEW);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -222,6 +225,8 @@ void TextureTransformChunk::changeFrom(DrawEnv    *pEnv,
         glLoadMatrixf(getMatrix().getValues());
     }
     glMatrixMode(GL_MODELVIEW);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -256,6 +261,8 @@ void TextureTransformChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     glMatrixMode(GL_TEXTURE);
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

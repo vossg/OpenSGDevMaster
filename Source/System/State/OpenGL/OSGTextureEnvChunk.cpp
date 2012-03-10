@@ -70,7 +70,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TextureEnvChunk::_class("TextureEnv", osgMaxTexImages, 20);
+StateChunkClass TextureEnvChunk::_class("TextureEnv", osgMaxTexImages, 120);
 
 UInt32 TextureEnvChunk::_extPointSprite          = Window::invalidExtensionID;
 UInt32 TextureEnvChunk::_extTextureShader        = Window::invalidExtensionID;
@@ -682,6 +682,8 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
             glEnable(GL_TEXTURE_SHADER_NV);
         }
     }
+#else
+    OSG_ASSERT(false);
 #endif
 
     glErr("TextureEnvChunk::activate");
@@ -871,6 +873,8 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
             }
         }
     }
+#else
+    OSG_ASSERT(false);
 #endif
 
     glErr("TextureEnvChunk::changeFrom");
@@ -973,6 +977,8 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         if(idx == 0)
             glDisable(GL_TEXTURE_SHADER_NV);
     }
+#else
+    OSG_ASSERT(false);
 #endif
 
     glErr("TextureEnvChunk::deactivate");

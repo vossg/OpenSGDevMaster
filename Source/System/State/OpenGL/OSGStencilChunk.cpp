@@ -61,7 +61,7 @@ OSG_USING_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
-StateChunkClass StencilChunk::_class("Stencil", 1, 10);
+StateChunkClass StencilChunk::_class("Stencil", 1, 50);
 
 /***************************************************************************\
  *                           Class methods                                 *

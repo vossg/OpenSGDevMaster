@@ -61,7 +61,7 @@ ShadeModelChunk controls the shading model used for rendering lines and filled p
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ShadeModelChunk::_class("ShadeModel");
+StateChunkClass ShadeModelChunk::_class("ShadeModel", 1, 100);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -128,6 +128,8 @@ void ShadeModelChunk::activate(DrawEnv *, UInt32)
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getShadeModel() != GL_SMOOTH)
         glShadeModel(getShadeModel());
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -151,6 +153,8 @@ void ShadeModelChunk::changeFrom(DrawEnv    *act,
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(old->getShadeModel() != getShadeModel())
         glShadeModel(getShadeModel());
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -159,6 +163,8 @@ void ShadeModelChunk::deactivate(DrawEnv *, UInt32)
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getShadeModel() != GL_SMOOTH)
         glShadeModel(GL_SMOOTH);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

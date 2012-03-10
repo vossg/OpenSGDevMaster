@@ -67,7 +67,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass RegisterCombinersChunk::_class("RegisterCombiners");
+StateChunkClass RegisterCombinersChunk::_class("RegisterCombiners", 1, 210);
 
 UInt32 RegisterCombinersChunk::_nvRegisterCombiners  
                                             = Window::invalidExtensionID;;

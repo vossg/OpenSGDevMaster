@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass DSLightChunk::_class("DSLight", 1);
+StateChunkClass DSLightChunk::_class("DSLight", 1, 170);
 
 /***************************************************************************\
  *                           Class methods                                 *

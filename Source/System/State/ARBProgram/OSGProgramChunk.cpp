@@ -70,7 +70,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ProgramChunk::_class("Program");
+StateChunkClass ProgramChunk::_class("Program", 1, 200);
 
 UInt32 ProgramChunk::_funcGenPrograms              = Window::invalidFunctionID;
 UInt32 ProgramChunk::_funcProgramString            = Window::invalidFunctionID;

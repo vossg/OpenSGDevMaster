@@ -65,7 +65,11 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass PointChunk::_class("Point");
+#ifndef OSG_OGL_ES2
+StateChunkClass PointChunk::_class("Point", 1, 50);
+#else
+StateChunkClass PointChunk::_class("Point", 1, 110);
+#endif
 
 UInt32 PointChunk::_extPointParameters     = Window::invalidExtensionID;
 UInt32 PointChunk::_extPointSpriteARB      = Window::invalidExtensionID;

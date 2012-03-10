@@ -97,7 +97,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass GeoProperty::_class("GeoProperty", 16);
+StateChunkClass GeoProperty::_class("GeoProperty", 16, 150);
 
 UInt32 GeoProperty::_extVertexBufferObject;
 UInt32 GeoProperty::_extMultitexture;

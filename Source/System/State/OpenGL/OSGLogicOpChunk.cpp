@@ -58,7 +58,11 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass LogicOpChunk::_class("LogicOp");
+#ifndef OSG_OGL_ES2
+StateChunkClass LogicOpChunk::_class("LogicOp", 1, 50);
+#else
+StateChunkClass LogicOpChunk::_class("LogicOp", 1, 110);
+#endif
 
 /***************************************************************************\
  *                           Class methods                                 *

@@ -58,7 +58,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass FogChunk::_class("Fog");
+StateChunkClass FogChunk::_class("Fog", 1, 100);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -111,6 +111,8 @@ void FogChunk::activate(DrawEnv *pEnv, UInt32 /* index */)
     glFogfv(GL_FOG_COLOR,   getColor  ().getValuesRGBA());
 
     glEnable(GL_FOG);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -126,6 +128,8 @@ void FogChunk::deactivate(DrawEnv * /* pEnv */, UInt32 /* index */)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glDisable(GL_FOG);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

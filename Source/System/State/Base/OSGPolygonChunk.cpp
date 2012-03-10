@@ -60,7 +60,11 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass PolygonChunk::_class("Polygon");
+#ifndef OSG_OGL_ES2
+StateChunkClass PolygonChunk::_class("Polygon", 1, 50);
+#else
+StateChunkClass PolygonChunk::_class("Polygon", 1, 110);
+#endif
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -193,7 +197,9 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
     PolygonChunk const *old = dynamic_cast<PolygonChunk const*>(old_chunk);
 
     // change from me to me?
-    // this assumes I haven't changed in the meantime. is that a valid assumption?
+    // this assumes I haven't changed in the meantime. is that a valid
+    // assumption? 
+
     if(old == this)
         return;
 

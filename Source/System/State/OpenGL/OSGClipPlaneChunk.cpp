@@ -63,7 +63,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
    
-StateChunkClass ClipPlaneChunk::_class("ClipPlane", 6);
+StateChunkClass ClipPlaneChunk::_class("ClipPlane", 6, 140);
 
 void ClipPlaneChunk::initMethod(InitPhase ePhase)
 {
@@ -159,6 +159,8 @@ void ClipPlaneChunk::activate(DrawEnv *pEnv, UInt32 idx)
         
         glPopMatrix();
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -223,6 +225,8 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
             glDisable(GL_CLIP_PLANE0 + idx);
         }
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -234,6 +238,8 @@ void ClipPlaneChunk::deactivate(DrawEnv *, UInt32 idx)
     {
         glDisable( GL_CLIP_PLANE0 + idx);
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TwoSidedLightingChunk::_class("TwoSidedLighting");
+StateChunkClass TwoSidedLightingChunk::_class("TwoSidedLighting", 1, 100);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -125,6 +125,8 @@ void TwoSidedLightingChunk::activate (DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -148,6 +150,8 @@ void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv,
         return;
 
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -155,6 +159,8 @@ void TwoSidedLightingChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+#else
+    OSG_ASSERT(false);
 #endif
 }
 

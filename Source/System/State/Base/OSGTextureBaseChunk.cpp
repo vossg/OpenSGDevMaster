@@ -69,7 +69,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TextureBaseChunk::_class("Texture", osgMaxTexImages, 15);
+StateChunkClass TextureBaseChunk::_class("Texture", osgMaxTexImages, 20);
 
 volatile UInt16 TextureBaseChunk::_uiChunkCounter = 1;
 

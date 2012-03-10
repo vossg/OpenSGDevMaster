@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass BlendChunk::_class("Blend");
+StateChunkClass BlendChunk::_class("Blend", 1, 50);
 
 UInt32 BlendChunk::_extBlend             = Window::invalidExtensionID;
 UInt32 BlendChunk::_extImaging           = Window::invalidExtensionID;

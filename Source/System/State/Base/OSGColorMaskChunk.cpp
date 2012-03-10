@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ColorMaskChunk::_class("Color");
+StateChunkClass ColorMaskChunk::_class("Color", 1, 50);
 
 /***************************************************************************\
  *                           Class methods                                 *

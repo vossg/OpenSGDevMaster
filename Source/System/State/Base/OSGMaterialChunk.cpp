@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass MaterialChunk::_class("Material");
+StateChunkClass MaterialChunk::_class("Material", 1, 100);
 
 volatile UInt16 MaterialChunk::_uiChunkCounter = 1;
 
@@ -317,6 +317,8 @@ void MaterialChunk::activate(DrawEnv *, UInt32)
 #else
     glVertexAttrib4fv( ShaderConstants::Attribute3Index,
                       _sfDiffuse.getValue().getValuesRGBA());
+
+//    OSG_ASSERT(false);
 #endif
 
 	glErr("material:activate:postcheck");
@@ -442,6 +444,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
 #else
     glVertexAttrib4fv( ShaderConstants::Attribute3Index,
                       _sfDiffuse.getValue().getValuesRGBA());
+//    OSG_ASSERT(false);
 #endif
 
 	glErr("material:changed:postcheck");
@@ -455,6 +458,8 @@ void MaterialChunk::deactivate(DrawEnv *, UInt32)
 
     if(getColorMaterial() != GL_NONE)
         glDisable(GL_COLOR_MATERIAL);
+#else
+//    OSG_ASSERT(false);
 #endif
 }
 

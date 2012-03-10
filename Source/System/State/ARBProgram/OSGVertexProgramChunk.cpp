@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass VertexProgramChunk::_class("VertexProgram");
+StateChunkClass VertexProgramChunk::_class("VertexProgram", 1, 200);
 
 UInt32 VertexProgramChunk::_arbVertexProgram = Window::invalidExtensionID;
 

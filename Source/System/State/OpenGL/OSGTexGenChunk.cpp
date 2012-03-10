@@ -67,7 +67,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TexGenChunk::_class("TexGen", osgMaxTexCoords, 20);
+StateChunkClass TexGenChunk::_class("TexGen", osgMaxTexCoords, 110);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -260,6 +260,8 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
     setGenFunc(GL_Q, GL_TEXTURE_GEN_Q, getGenFuncQ(), getGenFuncQPlane(),
                 getQBeacon(), cameraMat, _sfEyeModelViewMode.getValue(),
                _sfEyeModelViewMatrix.getValue());
+#else
+    OSG_ASSERT(false);
 #endif
 	glErr("TexGenChunk::activateQ");
 }
@@ -436,6 +438,8 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
                   getGenFuncQ(), getGenFuncQPlane(), getQBeacon(), cameraMat, 
                   _sfEyeModelViewMode.getValue(),
                   _sfEyeModelViewMatrix.getValue());
+#else
+    OSG_ASSERT(false);
 #endif
 
     glErr("TexGenChunk::changeFrom");
@@ -482,6 +486,8 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     if(getGenFuncQ() != GL_NONE || getQBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_Q);
+#else
+    OSG_ASSERT(false);
 #endif
 
     glErr("TexGenChunk::deactivate");

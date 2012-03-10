@@ -59,7 +59,7 @@ OSG_USING_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
-StateChunkClass LightModelChunk::_class("LightModel");
+StateChunkClass LightModelChunk::_class("LightModel", 1, 100);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -156,6 +156,8 @@ void LightModelChunk::activate(DrawEnv *pEnv, UInt32)
     {
         glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -199,6 +201,8 @@ void LightModelChunk::changeFrom(DrawEnv    *pEnv,
             glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
         }
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
@@ -217,6 +221,8 @@ void LightModelChunk::deactivate(DrawEnv *pEnv, UInt32 )
     {
        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
     }
+#else
+    OSG_ASSERT(false);
 #endif
 }
 
