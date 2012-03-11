@@ -627,8 +627,7 @@ DefaultFontBase::DefaultFontBase():
 DefaultFontBase::~DefaultFontBase()
 {
     _face        = NULL;
-    _texObjChunk = NULL;
+    _texObjChunk.shutdownSetNull();
 }
-
 
 OSG_END_NAMESPACE

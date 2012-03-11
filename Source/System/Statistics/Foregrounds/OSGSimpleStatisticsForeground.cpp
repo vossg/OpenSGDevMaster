@@ -157,7 +157,8 @@ void SimpleStatisticsForeground::clearElems(void)
 /*! Initialize the text used. It is compiled into the library as
     StatisticsDefaultFontData and used as a TXF font.
 */
-void SimpleStatisticsForeground::initText(const std::string &family, Real32 size)
+void SimpleStatisticsForeground::initText(const std::string &family, 
+                                                Real32       size  )
 {
     // Cleanup
     _face     = NULL;

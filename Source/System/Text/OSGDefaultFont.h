@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
 class OSG_TEXT_DLLMAPPING DefaultFontBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /** Returns the default face. */
@@ -64,6 +65,7 @@ class OSG_TEXT_DLLMAPPING DefaultFontBase
     inline TextureObjChunk *getTexture() const;
 
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     template <class SingletonT>

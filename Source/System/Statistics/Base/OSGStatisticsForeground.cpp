@@ -81,6 +81,8 @@ void StatisticsForeground::onCreateAspect(
     const StatisticsForeground *createAspect,
     const StatisticsForeground *source)
 {
+    Inherited::onCreateAspect(createAspect, source);
+
     // Avoid prototype
     if(GlobalSystemState == Running)
     {
@@ -98,6 +100,8 @@ void StatisticsForeground::onDestroyAspect(UInt32 uiContainerId,
     subRef(_sfCollector.getValue());
 
     _sfCollector.setValue(NULL);
+
+    Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
 
 void StatisticsForeground::changed(ConstFieldMaskArg whichField, 
