@@ -294,21 +294,6 @@ void CSMWindow::queueTask(DrawTask *pTask)
     }
 }
 
-FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName)
-{
-    if(_sfRenderOptions.getValue() != NULL)
-    {
-        const Char8 *szTmpName = OSG::getName(_sfRenderOptions.getValue());
-
-        if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
-        {
-            return _sfRenderOptions.getValue();
-        }
-    }
-
-    return NULL;
-}
-
 
 /*----------------------------- class specific ----------------------------*/
 
