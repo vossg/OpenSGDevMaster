@@ -155,7 +155,7 @@ void VisitSubTree::adjustVolume(Volume &volume)
 /*-------------------------------------------------------------------------*/
 /*                                Draw                                     */
 
-ActionBase::ResultE VisitSubTree::renderEnter(Action *action)
+Action::ResultE VisitSubTree::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -186,7 +186,7 @@ ActionBase::ResultE VisitSubTree::renderEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE VisitSubTree::renderLeave(Action *action)
+Action::ResultE VisitSubTree::renderLeave(Action *action)
 {
     action->popTravMask();
 
@@ -196,7 +196,7 @@ ActionBase::ResultE VisitSubTree::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                             Intersect                                   */
 
-ActionBase::ResultE VisitSubTree::intersect(Action *action)
+Action::ResultE VisitSubTree::intersectEnter(Action *action)
 {
           IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     const BoxVolume       &bv = ia->getActNode()->getVolume();
@@ -208,7 +208,7 @@ ActionBase::ResultE VisitSubTree::intersect(Action *action)
 
     ia->addNode(this->getSubTreeRoot());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 
@@ -234,7 +234,7 @@ void VisitSubTree::initMethod(InitPhase ePhase)
 
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&VisitSubTree::intersect));
+            reinterpret_cast<Action::Callback>(&VisitSubTree::intersectEnter));
     }
 }
 

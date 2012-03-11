@@ -125,7 +125,7 @@ void TestStage::dump(      UInt32    ,
 }
 
 
-ActionBase::ResultE TestStage::renderEnter(Action *action)
+Action::ResultE TestStage::renderEnter(Action *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Enter TestStage %p\n", &(*pCore)));
@@ -166,10 +166,10 @@ ActionBase::ResultE TestStage::renderEnter(Action *action)
     }
 #endif
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE TestStage::renderLeave(Action *action)
+Action::ResultE TestStage::renderLeave(Action *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Leave TestStage %p\n", &(*pCore)));
@@ -202,7 +202,7 @@ ActionBase::ResultE TestStage::renderLeave(Action *action)
     a->dumpPartitionList();
 #endif
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*------------------------------------------------------------------------*/

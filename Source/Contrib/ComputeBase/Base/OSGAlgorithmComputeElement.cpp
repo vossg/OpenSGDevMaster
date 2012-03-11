@@ -109,17 +109,13 @@ AlgorithmComputeElement::~AlgorithmComputeElement(void)
 /*-------------------------------------------------------------------------*/
 /*                               loading                                   */
 
-ActionBase::ResultE AlgorithmComputeElement::renderEnter(Action *action)
+Action::ResultE AlgorithmComputeElement::renderEnter(Action *action)
 {
     RenderAction     *a     = dynamic_cast<RenderAction *>(action);
     ComputeAlgorithm *pAlgo = this->getAlgorithm();
 
     if(pAlgo != NULL)
     {
-#if 0
-        pAlgo->renderEnter(a);
-#endif
-
         ComputeAlgorithmDrawTask *pTask = 
             new ComputeAlgorithmDrawTask(pAlgo,
                                          ComputeAlgorithmDrawTask::Algorithm);
@@ -130,17 +126,8 @@ ActionBase::ResultE AlgorithmComputeElement::renderEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE AlgorithmComputeElement::renderLeave(Action *a)
+Action::ResultE AlgorithmComputeElement::renderLeave(Action *a)
 {
-#if 0
-    ComputeAlgorithm *pAlgo = this->getAlgorithm();
-    
-    if(pAlgorithm != NULL)
-    {
-        pAlgorithm->renderLeave(a);
-    }
-#endif
-    
     return Action::Continue;
 }
 

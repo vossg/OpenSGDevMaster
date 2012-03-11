@@ -39,24 +39,4 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-template<class RenderActionT> inline
-Action::ResultE LightEnv::renderEnter(Action *action)
-{
-    RenderActionT *pAction = dynamic_cast<RenderActionT *>(action);
-
-    pAction->dropLightEnv(this);
-
-    return Action::Continue;
-}
-
-template<class RenderActionT> inline
-Action::ResultE LightEnv::renderLeave(Action *action)
-{
-    RenderActionT *pAction = dynamic_cast<RenderActionT *>(action);
-
-    pAction->undropLightEnv(this);
-
-    return Action::Continue;
-}
-
 OSG_END_NAMESPACE

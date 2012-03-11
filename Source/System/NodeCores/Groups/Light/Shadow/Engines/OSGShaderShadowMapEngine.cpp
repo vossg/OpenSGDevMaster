@@ -241,7 +241,7 @@ ShaderShadowMapEngine::~ShaderShadowMapEngine(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-ActionBase::ResultE ShaderShadowMapEngine::runOnEnter(
+Action::ResultE ShaderShadowMapEngine::runOnEnter(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
     BitVector      bvMask = ract->getPassMask             (            );
@@ -277,7 +277,7 @@ ActionBase::ResultE ShaderShadowMapEngine::runOnEnter(
     return Action::Continue;
 }
 
-ActionBase::ResultE ShaderShadowMapEngine::runOnLeave(
+Action::ResultE ShaderShadowMapEngine::runOnLeave(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
     return Action::Continue;

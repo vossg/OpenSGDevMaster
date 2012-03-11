@@ -93,11 +93,13 @@ void PlaneMoveManipulator::initMethod(InitPhase ePhase)
 
         RenderAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&PlaneMoveManipulator::renderEnter));
+            reinterpret_cast<Action::Callback>(
+                &PlaneMoveManipulator::renderEnter));
 
         RenderAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&PlaneMoveManipulator::renderLeave));
+            reinterpret_cast<Action::Callback>(
+                &PlaneMoveManipulator::renderLeave));
     }
 }
 

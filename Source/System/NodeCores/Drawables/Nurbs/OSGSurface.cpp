@@ -154,15 +154,15 @@ void Surface::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Geometry::renderActionEnterHandler));
+            reinterpret_cast<Action::Callback>(&Geometry::renderEnter));
 
         RenderAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Geometry::renderActionLeaveHandler));
+            reinterpret_cast<Action::Callback>(&Geometry::renderLeave));
 
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Geometry::intersect));
+            reinterpret_cast<Action::Callback>(&Geometry::intersectEnter));
 
         // init robust predicates
         ::exactinit();

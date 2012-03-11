@@ -128,7 +128,7 @@ void MaterialChunkOverrideGroup::dump(      UInt32    ,
 /*-------------------------------------------------------------------------*/
 /*                               Render                                    */
 
-ActionBase::ResultE MaterialChunkOverrideGroup::renderEnter(Action *action)
+Action::ResultE MaterialChunkOverrideGroup::renderEnter(Action *action)
 {
     RenderAction *pAction   = dynamic_cast<RenderAction *>(action);
     Material     *pMaterial = this->getMaterial();
@@ -185,7 +185,7 @@ ActionBase::ResultE MaterialChunkOverrideGroup::renderEnter(Action *action)
     return Group::renderEnter(action);
 }
 
-ActionBase::ResultE MaterialChunkOverrideGroup::renderLeave(Action *action)
+Action::ResultE MaterialChunkOverrideGroup::renderLeave(Action *action)
 {
     RenderAction *pAction   = dynamic_cast<RenderAction *>(action);
     Material     *pMaterial = this->getMaterial();

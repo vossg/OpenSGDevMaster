@@ -70,13 +70,9 @@ void ScreenLOD::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        typedef ActionBase::ResultE (ScreenLOD::*Callback)(Action *);
-
-        Callback enter = &ScreenLOD::renderEnter;
-
         RenderAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(enter));
+            reinterpret_cast<Action::Callback>(&ScreenLOD::renderEnter));
     }
 }
 
@@ -85,7 +81,7 @@ void ScreenLOD::initMethod(InitPhase ePhase)
  *                           Instance methods                              *
 \***************************************************************************/
 
-ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
+Action::ResultE ScreenLOD::renderEnter(Action *action)
 {
     RenderAction  *ra        = dynamic_cast<RenderAction*>(action);
 
@@ -251,7 +247,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
         ra->addNode(action->getNode(index));
     }
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*\

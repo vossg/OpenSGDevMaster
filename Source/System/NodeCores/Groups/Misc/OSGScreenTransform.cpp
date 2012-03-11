@@ -273,7 +273,7 @@ void ScreenTransform::adjustVolume(Volume &volume)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE ScreenTransform::renderEnter(Action *action)
+Action::ResultE ScreenTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -288,7 +288,7 @@ ActionBase::ResultE ScreenTransform::renderEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE ScreenTransform::renderLeave(Action *action)
+Action::ResultE ScreenTransform::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -297,13 +297,13 @@ ActionBase::ResultE ScreenTransform::renderLeave(Action *action)
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE ScreenTransform::intersectEnter(Action *action)
+Action::ResultE ScreenTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = _mTransform;
@@ -322,7 +322,7 @@ ActionBase::ResultE ScreenTransform::intersectEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE ScreenTransform::intersectLeave(Action *action)
+Action::ResultE ScreenTransform::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = _mTransform;

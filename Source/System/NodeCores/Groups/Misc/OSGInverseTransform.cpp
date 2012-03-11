@@ -206,29 +206,6 @@ Action::ResultE InverseTransform::intersectLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-Action::ResultE InverseTransform::renderEnter(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-    Matrix        mMat;    // will be set to World^-1
-
-    calcMatrix(pAction, pAction->top_matrix(), mMat);
-
-    pAction->push_matrix(mMat);
-
-    return Action::Continue;
-}
-
-Action::ResultE InverseTransform::renderLeave(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-
-    pAction->pop_matrix();
-
-    return Action::Continue;
-}
-#endif
-
 Action::ResultE InverseTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = 

@@ -110,12 +110,12 @@ Stage::~Stage(void)
   thid group.
  */
 
-ActionBase::ResultE Stage::renderEnter(Action *action)
+Action::ResultE Stage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     RenderPartition   *pParentPart = a->getActivePartition();
     FrameBufferObject *pTarget     = this->getRenderTarget();
@@ -190,19 +190,19 @@ ActionBase::ResultE Stage::renderEnter(Action *action)
 
     pPart->setBackground(pBack);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Stage::renderLeave(Action *action)
+Action::ResultE Stage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     this->popPartition(a);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/

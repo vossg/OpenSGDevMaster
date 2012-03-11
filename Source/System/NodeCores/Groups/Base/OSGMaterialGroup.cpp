@@ -93,7 +93,7 @@ MaterialGroup::~MaterialGroup(void)
 /*-------------------------------------------------------------------------*/
 /*                               Render                                    */
 
-ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
+Action::ResultE MaterialGroup::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -115,7 +115,7 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
     return r;
 }
 
-ActionBase::ResultE MaterialGroup::renderLeave(Action *action)
+Action::ResultE MaterialGroup::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);

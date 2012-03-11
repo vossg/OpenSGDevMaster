@@ -44,20 +44,7 @@
 
 #include "OSGConfig.h"
 
-#if 0
-#include "OSGAction.h"
-#include "OSGCamera.h"
-#include "OSGRenderAction.h"
-#include "OSGSceneFileHandler.h"
-#include "OSGVolumeDraw.h"
-#endif
-
 #include "OSGComputeElement.h"
-
-#if 0
-#include "OSGFrameBufferObject.h"
-#include "OSGFrameBufferAttachment.h"
-#endif
 
 OSG_USING_NAMESPACE
 
@@ -114,104 +101,14 @@ ComputeElement::~ComputeElement(void)
   thid group.
  */
 
-ActionBase::ResultE ComputeElement::renderEnter(Action *action)
+Action::ResultE ComputeElement::renderEnter(Action *action)
 {
-#if 0
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
-    if(a == NULL)
-        return ActionBase::Continue;
-
-    RenderPartition   *pParentPart = a->getActivePartition();
-    FrameBufferObject *pTarget     = this->getRenderTarget();
-
-    if(pTarget == NULL && this->getInheritedTarget() == true)
-    {
-        pTarget = pParentPart->getRenderTarget();
-    }
-
-    a->pushPartition();
-
-    RenderPartition   *pPart    = a->getActivePartition();
-    Viewport          *pPort    = a->getViewport();
-    Camera            *pCam     = a->getCamera  ();
-    Background        *pBack    = a->getBackground();
-    
-    pPart->setRenderTarget(pTarget);
-
-    if(pPort != NULL)
-    {
-//        pPart->setViewport(pPort         );
-        pPart->setWindow  (a->getWindow());
-            
-        if(pTarget != NULL)
-        {
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
-                                         
-                                         pTarget->getWidth    (),
-                                         pTarget->getHeight   ());
-        }
-        else
-        {
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
-                                         
-                                         a->getWindow()->getWidth (),
-                                         a->getWindow()->getHeight());
-        }
-        
-        if(pCam != NULL)
-        {
-            Matrix m, t;
-            
-            // set the projection
-            pCam->getProjection          (m, 
-                                          pPart->getViewportWidth (), 
-                                          pPart->getViewportHeight());
-            
-            pCam->getProjectionTranslation(t, 
-                                           pPart->getViewportWidth (), 
-                                           pPart->getViewportHeight());
-                
-            pPart->setupProjection(m, t);
-            
-            pCam->getViewing(m, 
-                             pPart->getViewportWidth (),
-                             pPart->getViewportHeight());
-            
-            
-            pPart->setupViewing(m);
-            
-            pPart->setNear     (pCam->getNear());
-            pPart->setFar      (pCam->getFar ());
-            
-            pPart->calcFrustum();
-        }
-    }
-
-    pPart->setBackground(pBack);
-#endif
-
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE ComputeElement::renderLeave(Action *action)
+Action::ResultE ComputeElement::renderLeave(Action *action)
 {
-#if 0
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
-    if(a == NULL)
-        return ActionBase::Continue;
-
-    a->popPartition();
-#endif
-
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -226,14 +123,5 @@ void ComputeElement::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#if 0
-        RenderAction::registerEnterDefault(
-            Stage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&Stage::renderEnter));
-        
-        RenderAction::registerLeaveDefault( 
-            Stage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&Stage::renderLeave));
-#endif
     }
 }

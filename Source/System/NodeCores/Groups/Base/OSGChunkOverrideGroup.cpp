@@ -204,7 +204,7 @@ void ChunkOverrideGroup::dump(      UInt32    ,
     SLOG << "Dump ChunkOverrideGroup NI" << std::endl;
 }
 
-ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
+Action::ResultE ChunkOverrideGroup::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -234,7 +234,7 @@ ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
     return Inherited::renderEnter(action);
 }
 
-ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
+Action::ResultE ChunkOverrideGroup::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);

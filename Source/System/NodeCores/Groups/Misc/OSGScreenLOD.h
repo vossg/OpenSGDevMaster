@@ -110,7 +110,7 @@ class OSG_GROUP_DLLMAPPING ScreenLOD : public ScreenLODBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
     
-    ActionBase::ResultE renderEnter( Action* action );
+    Action::ResultE renderEnter(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

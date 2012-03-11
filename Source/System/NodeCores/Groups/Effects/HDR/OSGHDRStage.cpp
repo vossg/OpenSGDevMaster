@@ -129,7 +129,7 @@ HDRStage::~HDRStage(void)
   thid group.
  */
 
-ActionBase::ResultE HDRStage::renderEnter(Action *action)
+Action::ResultE HDRStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -256,7 +256,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE HDRStage::renderLeave(Action *action)
+Action::ResultE HDRStage::renderLeave(Action *action)
 {
     return Action::Skip;
 }

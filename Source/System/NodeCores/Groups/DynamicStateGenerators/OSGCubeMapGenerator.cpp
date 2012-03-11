@@ -131,7 +131,7 @@ void CubeMapGenerator::dump(      UInt32    ,
     SLOG << "Dump CubeMapGenerator NI" << std::endl;
 }
 
-ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
+Action::ResultE CubeMapGenerator::renderEnter(Action *action)
 {
     static Matrix transforms[] = 
     { 
@@ -316,7 +316,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE CubeMapGenerator::renderLeave(Action *action)
+Action::ResultE CubeMapGenerator::renderLeave(Action *action)
 {
     Action::ResultE returnValue = Action::Continue;
 

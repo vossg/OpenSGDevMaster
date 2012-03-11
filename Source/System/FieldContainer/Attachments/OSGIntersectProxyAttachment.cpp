@@ -87,7 +87,9 @@ IntersectProxyAttachment::IntersectProxyAttachment(void) :
 {
 }
 
-IntersectProxyAttachment::IntersectProxyAttachment(const IntersectProxyAttachment &source) :
+IntersectProxyAttachment::IntersectProxyAttachment(
+    const IntersectProxyAttachment &source) :
+    
     Inherited(source)
 {
 }
@@ -110,14 +112,14 @@ Action::ResultE IntersectProxyAttachment::intersectEnter(Node   *node,
 }
 
 void IntersectProxyAttachment::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                                       UInt32            origin,
+                                       BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
 void IntersectProxyAttachment::dump(      UInt32    ,
-                         const BitVector ) const
+                                    const BitVector ) const
 {
     SLOG << "Dump IntersectProxyAttachment NI" << std::endl;
 }

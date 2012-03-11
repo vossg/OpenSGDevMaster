@@ -81,10 +81,13 @@ void DeferredShadingStage::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             DeferredShadingStage::getClassType(),
-            reinterpret_cast<Action::Callback>(&DeferredShadingStage::renderEnter));
+            reinterpret_cast<Action::Callback>(
+                &DeferredShadingStage::renderEnter));
+
         RenderAction::registerLeaveDefault(
             DeferredShadingStage::getClassType(),
-            reinterpret_cast<Action::Callback>(&DeferredShadingStage::renderLeave));
+            reinterpret_cast<Action::Callback>(
+                &DeferredShadingStage::renderLeave));
     }
 }
 
@@ -145,7 +148,7 @@ void DeferredShadingStage::dump(      UInt32    ,
     SLOG << "Dump DeferredShadingStage NI" << std::endl;
 }
 
-ActionBase::ResultE DeferredShadingStage::renderEnter(Action *action)
+Action::ResultE DeferredShadingStage::renderEnter(Action *action)
 {
     RenderAction *ract = dynamic_cast<RenderAction *>(action);
 
@@ -187,7 +190,7 @@ ActionBase::ResultE DeferredShadingStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE DeferredShadingStage::renderLeave(Action *action)
+Action::ResultE DeferredShadingStage::renderLeave(Action *action)
 {
     return Action::Continue;
 }

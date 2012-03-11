@@ -116,11 +116,11 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE renderEnter(NodeCore * const  pCore,
-                                            Action           *pAction);
+    virtual Action::ResultE renderEnter(NodeCore * const  pCore,
+                                        Action           *pAction);
 
-    virtual ActionBase::ResultE renderLeave(NodeCore * const  pCore,
-                                            Action           *pAction);
+    virtual Action::ResultE renderLeave(NodeCore * const  pCore,
+                                        Action           *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

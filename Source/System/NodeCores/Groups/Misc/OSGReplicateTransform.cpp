@@ -129,7 +129,7 @@ void ReplicateTransform::adjustVolume(Volume &volume)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE ReplicateTransform::renderEnter(Action *action)
+Action::ResultE ReplicateTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -143,7 +143,7 @@ ActionBase::ResultE ReplicateTransform::renderEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE ReplicateTransform::renderLeave(Action *action)
+Action::ResultE ReplicateTransform::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -152,13 +152,13 @@ ActionBase::ResultE ReplicateTransform::renderLeave(Action *action)
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE ReplicateTransform::intersectEnter(Action *action)
+Action::ResultE ReplicateTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = _invWorld;
@@ -177,7 +177,7 @@ ActionBase::ResultE ReplicateTransform::intersectEnter(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE ReplicateTransform::intersectLeave(Action *action)
+Action::ResultE ReplicateTransform::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = _invWorld;

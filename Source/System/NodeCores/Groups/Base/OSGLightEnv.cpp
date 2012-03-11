@@ -109,18 +109,34 @@ void LightEnv::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
 #ifdef OSG_OLD_RENDER_ACTION
-        typedef ActionBase::ResultE (LightEnv::*Callback)(Action *);
-
-        Callback enter = &LightEnv::renderEnter<RenderAction>;
-        Callback leave = &LightEnv::renderLeave<RenderAction>;
-
         RenderAction::registerEnterDefault(
             getClassType(), 
-            reinterpret_cast<Action::Callback>(enter));
+            reinterpret_cast<Action::Callback>(&LightEnv::renderEnter));
         
         RenderAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(leave));
+            reinterpret_cast<Action::Callback>(&LightEnv::renderLeave));
 #endif
     }
 }
+
+
+#ifdef OSG_OLD_RENDER_ACTION
+Action::ResultE LightEnv::renderEnter(Action *action)
+{
+    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
+
+    pAction->dropLightEnv(this);
+
+    return Action::Continue;
+}
+
+Action::ResultE LightEnv::renderLeave(Action *action)
+{
+    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
+
+    pAction->undropLightEnv(this);
+
+    return Action::Continue;
+}
+#endif

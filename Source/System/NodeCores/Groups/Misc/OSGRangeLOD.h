@@ -77,6 +77,7 @@ class OSG_GROUP_DLLMAPPING RangeLOD : public RangeLODBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef RangeLODBase Inherited;
@@ -100,8 +101,7 @@ class OSG_GROUP_DLLMAPPING RangeLOD : public RangeLODBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    template<class RenderActionT>
-    ActionBase::ResultE render( Action* action );
+    Action::ResultE renderEnter(Action *action);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

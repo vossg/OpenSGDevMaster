@@ -428,11 +428,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 //   Exported Types
 //---------------------------------------------------------------------------
 
+#if 0
 Action::ResultE MaterialDrawableRenderEnter(NodeCore * const pCore,
                                             Action   *       action);
 
 Action::ResultE MaterialDrawableRenderLeave(NodeCore * const pCore,
                                             Action   *       action);
+#endif
 
 OSG_GEN_MEMOBJPTR(RenderAction);
 

@@ -152,7 +152,7 @@ void Action::popTravMask(void)
 // default list.
 
 inline
-ActionBase::ResultE Action::callEnter(NodeCore * const core)
+Action::ResultE Action::callEnter(NodeCore * const core)
 {
     ResultE result;
 
@@ -171,7 +171,7 @@ ActionBase::ResultE Action::callEnter(NodeCore * const core)
 }
 
 inline
-ActionBase::ResultE Action::callLeave(NodeCore * const core)
+Action::ResultE Action::callLeave(NodeCore * const core)
 {
     ResultE result;
 

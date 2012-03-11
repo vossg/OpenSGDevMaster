@@ -51,7 +51,8 @@ OSG_BEGIN_NAMESPACE
            PageSystemIntersectProxyAttachment for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING IntersectProxyAttachment : public IntersectProxyAttachmentBase
+class OSG_SYSTEM_DLLMAPPING IntersectProxyAttachment : 
+    public IntersectProxyAttachmentBase
 {
   protected:
 

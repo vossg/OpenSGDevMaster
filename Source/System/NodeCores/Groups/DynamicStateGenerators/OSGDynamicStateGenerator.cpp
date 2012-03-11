@@ -114,13 +114,13 @@ void DynamicStateGenerator::dump(      UInt32    ,
     SLOG << "Dump DynamicStateGenerator NI" << std::endl;
 }
 
-ActionBase::ResultE DynamicStateGenerator::renderEnter(Action *action)
+Action::ResultE DynamicStateGenerator::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
 
     // pop the state and make sure we have the last word.
-    ActionBase::ResultE returnValue = Inherited::renderEnter(action);
+    Action::ResultE returnValue = Inherited::renderEnter(action);
 
     if(pAction != NULL)
     {
@@ -147,7 +147,7 @@ ActionBase::ResultE DynamicStateGenerator::renderEnter(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE DynamicStateGenerator::renderLeave(Action *action)
+Action::ResultE DynamicStateGenerator::renderLeave(Action *action)
 {
     return Inherited::renderLeave(action);
 }

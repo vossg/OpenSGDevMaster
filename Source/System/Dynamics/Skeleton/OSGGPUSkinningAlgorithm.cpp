@@ -204,7 +204,7 @@ GPUSkinningAlgorithm::adjustVolume(Volume &volume)
         _sfSkeleton.getValue()->adjustVolume(volume);
 }
 
-ActionBase::ResultE
+Action::ResultE
 GPUSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
@@ -261,14 +261,14 @@ GPUSkinningAlgorithm::renderEnter(Action *action)
         ract->addOverride(ShaderProgramChunk::getStaticClassId(),
                           shCode                                 );
 
-        res = skinGeo->renderActionEnterHandler(ract);
+        res = skinGeo->renderEnter(ract);
     }
     ract->popState ();
 
     return res;
 }
 
-ActionBase::ResultE
+Action::ResultE
 GPUSkinningAlgorithm::renderLeave(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
@@ -277,17 +277,17 @@ GPUSkinningAlgorithm::renderLeave(Action *action)
 
     skel->renderLeave(action, skinGeo);
 
-    res = skinGeo->renderActionLeaveHandler(action);
+    res = skinGeo->renderLeave(action);
 
     return res;
 }
 
-ActionBase::ResultE
+Action::ResultE
 GPUSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersect(action);
+    return skinGeo->intersectEnter(action);
 }
 
 GPUSkinningAlgorithm::RenderModeE

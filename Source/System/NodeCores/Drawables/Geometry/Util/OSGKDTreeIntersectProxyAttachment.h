@@ -53,7 +53,8 @@ OSG_BEGIN_NAMESPACE
            PageDrawablesKDTreeIntersectProxyAttachment for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachment : public KDTreeIntersectProxyAttachmentBase
+class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachment : 
+    public KDTreeIntersectProxyAttachmentBase
 {
   protected:
 

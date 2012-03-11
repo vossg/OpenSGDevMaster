@@ -110,7 +110,7 @@ SkeletonSkinningAlgorithm::adjustVolume(Volume &volume)
         _sfSkeleton.getValue()->adjustVolume(volume);
 }
 
-ActionBase::ResultE
+Action::ResultE
 SkeletonSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res  = Action::Continue;
@@ -200,7 +200,7 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
     return res;
 }
 
-ActionBase::ResultE
+Action::ResultE
 SkeletonSkinningAlgorithm::renderLeave(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
@@ -211,12 +211,12 @@ SkeletonSkinningAlgorithm::renderLeave(Action *action)
     return Action::Continue;
 }
 
-ActionBase::ResultE
+Action::ResultE
 SkeletonSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersect(action);
+    return skinGeo->intersectEnter(action);
 }
 
 SkeletonSkinningAlgorithm::RenderModeE
@@ -225,7 +225,7 @@ SkeletonSkinningAlgorithm::getRenderMode(void) const
     return SkinnedGeometry::RMSkeleton;
 }
 
-ActionBase::ResultE
+Action::ResultE
 SkeletonSkinningAlgorithm::drawFunc(DrawEnv *drawEnv)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)

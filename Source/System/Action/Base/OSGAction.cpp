@@ -241,8 +241,8 @@ void Action::registerLeaveFunction(const FieldContainerType &type,
 
 // application entry points
 
-ActionBase::ResultE Action::apply(std::vector<Node *>::iterator begin,
-                                  std::vector<Node *>::iterator end)
+Action::ResultE Action::apply(std::vector<Node *>::iterator begin,
+                              std::vector<Node *>::iterator end)
 {
     Action::ResultE res = Continue;
 
@@ -275,7 +275,7 @@ ActionBase::ResultE Action::apply(std::vector<Node *>::iterator begin,
     return res;
 }
 
-ActionBase::ResultE Action::apply(Node * const node)
+Action::ResultE Action::apply(Node * const node)
 {
     if(node == NULL)
     {
@@ -295,7 +295,7 @@ ActionBase::ResultE Action::apply(Node * const node)
 
 // recursion calling
 
-ActionBase::ResultE Action::recurse(Node * const node)
+Action::ResultE Action::recurse(Node * const node)
 {
     if(node == NULL)
         return Continue;
@@ -395,7 +395,7 @@ ActionBase::ResultE Action::recurse(Node * const node)
     return result;
 }
 
-ActionBase::ResultE Action::recurseNoCallback(Node * const node)
+Action::ResultE Action::recurseNoCallback(Node * const node)
 {
     if(node == NULL)
         return Continue;
@@ -522,7 +522,7 @@ Action::ResultE Action::recurseMultiCoreFrom(Node      * const node,
 
 
 // call the _newList objects
-ActionBase::ResultE Action::callNewList(void)
+Action::ResultE Action::callNewList(void)
 {
     ResultE result = Continue;
 
@@ -553,7 +553,7 @@ ActionBase::ResultE Action::callNewList(void)
 
 // call the start function and its results
 
-ActionBase::ResultE Action::callStart(void)
+Action::ResultE Action::callStart(void)
 {
     ResultE       res          = Continue;
     FunctorStore *defaultEnter = getDefaultEnterFunctors();
@@ -608,7 +608,7 @@ ActionBase::ResultE Action::callStart(void)
 
 // call the stop function and its results
 
-ActionBase::ResultE Action::callStop(ResultE res)
+Action::ResultE Action::callStop(ResultE res)
 {
     // call the start and see if it returns some nodes
 
@@ -625,7 +625,7 @@ ActionBase::ResultE Action::callStop(ResultE res)
 
 // default start/stop, does nothing
 
-ActionBase::ResultE Action::start(void)
+Action::ResultE Action::start(void)
 {
     while(_sTravMask.empty() == false)
         _sTravMask.pop();
@@ -633,7 +633,7 @@ ActionBase::ResultE Action::start(void)
     return Continue;
 }
 
-ActionBase::ResultE Action::stop(ResultE res)
+Action::ResultE Action::stop(ResultE res)
 {
     return res;
 }
@@ -699,14 +699,14 @@ Action::FunctorStore *Action::getDefaultLeaveFunctors(void)
 
 // default Action function: just call all kids
 
-ActionBase::ResultE Action::_defaultEnterFunction(NodeCore * const,
-                                                  Action   *      )
+Action::ResultE Action::_defaultEnterFunction(NodeCore * const,
+                                              Action   *      )
 {
     return Continue;
 }
 
-ActionBase::ResultE Action::_defaultLeaveFunction(NodeCore * const,
-                                                  Action   *      )
+Action::ResultE Action::_defaultLeaveFunction(NodeCore * const,
+                                              Action   *      )
 {
     return Continue;
 }
@@ -715,30 +715,13 @@ ActionBase::ResultE Action::_defaultLeaveFunction(NodeCore * const,
 
 OSG_BEGIN_NAMESPACE
 
-/*
-inline
-ActionBase::ResultE doCallEnter(NodePtrConstArg       node,
-                                TraverseEnterFunctor &func)
-{
-    return func.call(node);
-}
-
-inline
-ActionBase::ResultE doCallLeave(NodePtrConstArg       node,
-                                ActionBase::ResultE   res,
-                                TraverseLeaveFunctor &func)
-{
-    return func.call(node, res);
-}
-*/
-
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList,
-                                   TraverseEnterFunctor  func    )
+Action::ResultE traverse(const std::vector<Node *>  &nodeList,
+                               TraverseEnterFunctor  func    )
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     std::vector<Node *>::const_iterator it = nodeList.begin();
     std::vector<Node *>::const_iterator en = nodeList.end  ();
@@ -754,10 +737,10 @@ ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList,
     return res;
 }
 
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
-                                   TraverseEnterFunctor  func    )
+Action::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
+                               TraverseEnterFunctor  func    )
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     MFUnrecChildNodePtr::const_iterator it = nodeList.begin();
     MFUnrecChildNodePtr::const_iterator en = nodeList.end  ();
@@ -776,10 +759,10 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(Node                 * const node,
-                             TraverseEnterFunctor         func )
+Action::ResultE traverse(Node                 * const node,
+                         TraverseEnterFunctor         func )
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     res = func(node);
 
@@ -790,10 +773,10 @@ ActionBase::ResultE traverse(Node                 * const node,
 
     switch(res)
     {
-        case ActionBase::Skip:
+        case Action::Skip:
             return Action::Continue;
 
-        case ActionBase::Continue:
+        case Action::Continue:
         {
             if(pRGroup != NULL && pRGroup->getRoot() != NULL)
             {
@@ -818,11 +801,11 @@ ActionBase::ResultE traverse(Node                 * const node,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(const std::vector<Node *> &nodeList,
-                                   TraverseEnterFunctor  enter,
-                                   TraverseLeaveFunctor  leave )
+Action::ResultE traverse(const std::vector<Node *> &nodeList,
+                               TraverseEnterFunctor  enter,
+                               TraverseLeaveFunctor  leave )
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     std::vector<Node *>::const_iterator it = nodeList.begin();
     std::vector<Node *>::const_iterator en = nodeList.end  ();
@@ -838,11 +821,11 @@ ActionBase::ResultE traverse(const std::vector<Node *> &nodeList,
     return res;
 }
 
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
-                                   TraverseEnterFunctor  enter,
-                                   TraverseLeaveFunctor  leave )
+Action::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
+                               TraverseEnterFunctor  enter,
+                               TraverseLeaveFunctor  leave )
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     MFUnrecChildNodePtr::const_iterator it = nodeList.begin();
     MFUnrecChildNodePtr::const_iterator en = nodeList.end  ();
@@ -863,11 +846,11 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(Node                 * const node,
-                             TraverseEnterFunctor         enter,
-                             TraverseLeaveFunctor         leave)
+Action::ResultE traverse(Node                 * const node,
+                         TraverseEnterFunctor         enter,
+                         TraverseLeaveFunctor         leave)
 {
-    ActionBase::ResultE res = ActionBase::Continue;
+    Action::ResultE res = Action::Continue;
 
     res = enter(node);
 
@@ -875,11 +858,11 @@ ActionBase::ResultE traverse(Node                 * const node,
 
     switch(res)
     {
-        case ActionBase::Skip:
+        case Action::Skip:
             res = Action::Continue;
             break;
 
-        case ActionBase::Continue:
+        case Action::Continue:
         {
             if(pRGroup != NULL && pRGroup->getRoot() != NULL)
             {

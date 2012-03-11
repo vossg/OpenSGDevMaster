@@ -124,7 +124,7 @@ void TestMultiPartitionStage::dump(      UInt32    ,
 }
 
 
-ActionBase::ResultE TestMultiPartitionStage::renderEnter(Action *action)
+Action::ResultE TestMultiPartitionStage::renderEnter(Action *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Enter TestMultiPartStage %p\n", &(*pCore)));
@@ -198,10 +198,10 @@ ActionBase::ResultE TestMultiPartitionStage::renderEnter(Action *action)
     }
 #endif
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE TestMultiPartitionStage::renderLeave(Action *action)
+Action::ResultE TestMultiPartitionStage::renderLeave(Action *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Leave TestMultiPartStage %p\n", &(*pCore)));
@@ -224,7 +224,7 @@ ActionBase::ResultE TestMultiPartitionStage::renderLeave(Action *action)
     a->dumpPartitionList();
 #endif
     
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*------------------------------------------------------------------------*/

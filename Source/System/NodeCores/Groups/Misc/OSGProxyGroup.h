@@ -113,7 +113,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE render(Action *action);
+    Action::ResultE renderEnter(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

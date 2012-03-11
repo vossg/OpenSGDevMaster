@@ -125,14 +125,14 @@ void Material::dump(      UInt32    ,
 //   Inherited::dump(uiIndent, bvFlags);
 }
 
-ActionBase::ResultE Material::renderEnter(NodeCore * const pCore,
-                                          Action   *       pAction)
+Action::ResultE Material::renderEnter(NodeCore * const pCore,
+                                      Action   *       pAction)
 {
     return Action::Continue;
 }
 
-ActionBase::ResultE Material::renderLeave(NodeCore * const pCore,
-                                          Action   *       pAction)
+Action::ResultE Material::renderLeave(NodeCore * const pCore,
+                                      Action   *       pAction)
 {
     return Action::Continue;
 }

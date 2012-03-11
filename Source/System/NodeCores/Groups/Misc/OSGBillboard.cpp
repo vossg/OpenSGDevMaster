@@ -332,7 +332,7 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE Billboard::intersectEnter(Action *action)
+Action::ResultE Billboard::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m(_camTransform);
@@ -348,10 +348,10 @@ ActionBase::ResultE Billboard::intersectEnter(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Billboard::intersectLeave(Action *action)
+Action::ResultE Billboard::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m(_camTransform);
@@ -365,41 +365,13 @@ ActionBase::ResultE Billboard::intersectLeave(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE Billboard::renderEnter(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-
-    Matrix mMat;
-    Matrix cam_to_world = pAction->getCameraToWorld();
-
-    calcMatrix(cam_to_world, pAction->top_matrix(), mMat);
-
-    pAction->push_matrix(mMat);
-
-// !!! can't use visibles, as ToWorld gives garbage leading to wrong culling
-//    pAction->selectVisibles();
-
-    return ActionBase::Continue;
-}
-
-ActionBase::ResultE Billboard::renderLeave(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-
-    pAction->pop_matrix();
-
-    return ActionBase::Continue;
-}
-#endif
-
-ActionBase::ResultE Billboard::renderEnter(Action *action)
+Action::ResultE Billboard::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -415,16 +387,16 @@ ActionBase::ResultE Billboard::renderEnter(Action *action)
 // !!! can't use visibles, as ToWorld gives garbage leading to wrong culling
 //    pAction->selectVisibles();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Billboard::renderLeave(Action *action)
+Action::ResultE Billboard::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 

@@ -149,12 +149,12 @@ void RenderCallbackStage::addCallbacks(RenderPartition *pPartition)
   thid group.
  */
 
-ActionBase::ResultE RenderCallbackStage::renderEnter(Action *action)
+Action::ResultE RenderCallbackStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     Inherited::renderEnter(action);
 
@@ -162,16 +162,16 @@ ActionBase::ResultE RenderCallbackStage::renderEnter(Action *action)
 
     this->addCallbacks(pPart);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE RenderCallbackStage::renderLeave(Action *action)
+Action::ResultE RenderCallbackStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     this->popPartition(a);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/

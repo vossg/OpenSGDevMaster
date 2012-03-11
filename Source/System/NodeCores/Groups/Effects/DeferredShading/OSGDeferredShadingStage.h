@@ -124,8 +124,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStage : public DeferredShadingS
     /*! \name                     Render                                   */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     DSStageDataTransitPtr   createStageData(void           );
     TextureBufferTransitPtr createGBuffer  (UInt32 index,

@@ -394,7 +394,7 @@ TrapezoidalShadowMapEngine::~TrapezoidalShadowMapEngine(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-ActionBase::ResultE TrapezoidalShadowMapEngine::runOnEnter(
+Action::ResultE TrapezoidalShadowMapEngine::runOnEnter(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
     BitVector      passMask = ract->getPassMask             (            );
@@ -428,7 +428,7 @@ ActionBase::ResultE TrapezoidalShadowMapEngine::runOnEnter(
     return Action::Continue;
 }
 
-ActionBase::ResultE TrapezoidalShadowMapEngine::runOnLeave(
+Action::ResultE TrapezoidalShadowMapEngine::runOnLeave(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
     return Action::Continue;

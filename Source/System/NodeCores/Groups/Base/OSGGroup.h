@@ -109,10 +109,10 @@ class OSG_SYSTEM_DLLMAPPING Group : public GroupBase
     /*! \name                       Action Callbacks                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter   (Action *action);
+    Action::ResultE renderLeave   (Action *action);
 
-    ActionBase::ResultE intersect  (Action *action);
+    Action::ResultE intersectEnter(Action *action);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -302,8 +302,8 @@ VRMLWriteAction *VRMLWriteAction::getPrototype( void )
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-ActionBase::ResultE VRMLWriteAction::writeGroupEnter(NodeCore * const , 
-                                                     Action   *pAction)
+Action::ResultE VRMLWriteAction::writeGroupEnter(NodeCore * const , 
+                                                 Action   *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 

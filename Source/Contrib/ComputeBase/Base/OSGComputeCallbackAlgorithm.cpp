@@ -127,7 +127,7 @@ void ComputeCallbackAlgorithm::execute(HardwareContext *pContext,
     }
 }
 
-ActionBase::ResultE ComputeCallbackAlgorithm::renderEnter(Action  *pAction)
+Action::ResultE ComputeCallbackAlgorithm::renderEnter(Action  *pAction)
 {
 #if 0
     if(_sfRenderEnter.getValue()._func)
@@ -136,10 +136,10 @@ ActionBase::ResultE ComputeCallbackAlgorithm::renderEnter(Action  *pAction)
     }
 #endif
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE ComputeCallbackAlgorithm::renderLeave(Action  *pAction)
+Action::ResultE ComputeCallbackAlgorithm::renderLeave(Action  *pAction)
 {
 #if 0
     if(_sfRenderLeave.getValue()._func)
@@ -148,7 +148,7 @@ ActionBase::ResultE ComputeCallbackAlgorithm::renderLeave(Action  *pAction)
     }
 #endif
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 void ComputeCallbackAlgorithm::dump(      UInt32    ,

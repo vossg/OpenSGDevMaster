@@ -108,28 +108,28 @@ UnskinnedSkinningAlgorithm::adjustVolume(Volume &volume)
     skinGeo->SkinnedGeometry::Inherited::adjustVolume(volume);
 }
 
-ActionBase::ResultE
+Action::ResultE
 UnskinnedSkinningAlgorithm::renderEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->renderActionEnterHandler(action);
+    return skinGeo->renderEnter(action);
 }
 
-ActionBase::ResultE
+Action::ResultE
 UnskinnedSkinningAlgorithm::renderLeave(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->renderActionLeaveHandler(action);
+    return skinGeo->renderLeave(action);
 }
 
-ActionBase::ResultE
+Action::ResultE
 UnskinnedSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersect(action);
+    return skinGeo->intersectEnter(action);
 }
 
 UnskinnedSkinningAlgorithm::RenderModeE

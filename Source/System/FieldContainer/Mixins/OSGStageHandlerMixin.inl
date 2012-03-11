@@ -369,12 +369,12 @@ Action::ResultE StageHandlerMixin<ParentT>::recurseFrom(Action   *action,
 
 template <class ParentT> inline
 Action::ResultE StageHandlerMixin<ParentT>::recurse(Action *action,
-                                                    Node   *node  )
+                                                        Node   *node  )
 {
-    Node           *pActNode   = action->getActNode  ();
-    FieldContainer *pActParent = action->getActParent();
+    Node            *pActNode    = action->getActNode  ();
+    FieldContainer  *pActParent  = action->getActParent();
 
-    Action::ResultE returnValue = action->recurse(node);    
+    Action::ResultE  returnValue = action->recurse(node);    
 
     action->setActNode  (pActNode  );
     action->setActParent(pActParent);

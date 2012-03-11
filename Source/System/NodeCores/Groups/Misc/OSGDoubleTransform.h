@@ -132,23 +132,13 @@ class OSG_GROUP_DLLMAPPING DoubleTransform : public DoubleTransformBase
     /*! \name              Intersect & Render                              */
     /*! \{                                                                 */
 
-    ActionBase::ResultE     intersectEnter(Action    *action);
-    ActionBase::ResultE     intersectLeave(Action    *action);
+    Action::ResultE     intersectEnter(Action    *action);
+    Action::ResultE     intersectLeave(Action    *action);
 
-    ActionBase::ResultE     renderEnter   (Action    *action);
-    ActionBase::ResultE     renderLeave   (Action    *action);
-
-#ifdef OSG_HAVE_ACTION //CHECK
-    NewActionTypes::ResultE 
-        intersectActorEnter(ActorBase::FunctorArgumentType &funcArg);
-
-    NewActionTypes::ResultE 
-        intersectActorLeave(ActorBase::FunctorArgumentType &funcArg);
-#endif
+    Action::ResultE     renderEnter   (Action    *action);
+    Action::ResultE     renderLeave   (Action    *action);
 
     /*! \}                                                                 */
-
-    /*==========================  PRIVATE  ================================*/
     /*==========================  PRIVATE  ================================*/
 
   private:

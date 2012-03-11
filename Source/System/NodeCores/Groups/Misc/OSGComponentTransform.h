@@ -98,6 +98,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransform : public ComponentTransformBase
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     friend class FieldContainer;

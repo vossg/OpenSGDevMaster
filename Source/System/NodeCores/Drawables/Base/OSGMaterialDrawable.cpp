@@ -81,7 +81,7 @@ MaterialDrawable::~MaterialDrawable(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
+Action::ResultE MaterialDrawable::renderEnter(Action *action)
 {
     RenderAction  *a = dynamic_cast<RenderAction *>(action);
 
@@ -143,7 +143,7 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
     return Action::Continue;
 }
 
-Action::ResultE MaterialDrawable::renderActionLeaveHandler(Action *action)
+Action::ResultE MaterialDrawable::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
     

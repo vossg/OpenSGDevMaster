@@ -109,9 +109,9 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE render      (Action *action);
+    Action::ResultE renderEnter (Action *action);
 
-    void                adjustVolume(Volume &volume);
+    void            adjustVolume(Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

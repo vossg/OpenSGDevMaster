@@ -368,7 +368,7 @@ void PostShaderStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-ActionBase::ResultE PostShaderStage::renderEnter(Action *action)
+Action::ResultE PostShaderStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -504,7 +504,7 @@ ActionBase::ResultE PostShaderStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE PostShaderStage::renderLeave(Action *action)
+Action::ResultE PostShaderStage::renderLeave(Action *action)
 {
     return Action::Skip;
 }

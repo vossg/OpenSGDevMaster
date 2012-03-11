@@ -130,8 +130,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

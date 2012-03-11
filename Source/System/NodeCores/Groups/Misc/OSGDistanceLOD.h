@@ -77,6 +77,7 @@ class OSG_GROUP_DLLMAPPING DistanceLOD : public DistanceLODBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef DistanceLODBase Inherited;
@@ -100,8 +101,7 @@ class OSG_GROUP_DLLMAPPING DistanceLOD : public DistanceLODBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    template<class RenderActionT>
-    ActionBase::ResultE render( Action* action );
+    Action::ResultE renderEnter(Action *action);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

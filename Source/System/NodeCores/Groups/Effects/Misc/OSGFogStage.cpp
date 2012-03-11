@@ -445,7 +445,7 @@ SimpleSHLChunkTransitPtr FogStage::generateFogFragmentProgram(void)
   thid group.
  */
 
-ActionBase::ResultE FogStage::renderEnter(Action *action)
+Action::ResultE FogStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -575,7 +575,7 @@ ActionBase::ResultE FogStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE FogStage::renderLeave(Action *action)
+Action::ResultE FogStage::renderLeave(Action *action)
 {
     return Action::Skip;
 }

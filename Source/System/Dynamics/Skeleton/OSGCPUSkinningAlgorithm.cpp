@@ -315,7 +315,7 @@ void CPUSkinningAlgorithm::adjustVolume(Volume &volume)
     }
 }
 
-ActionBase::ResultE
+Action::ResultE
 CPUSkinningAlgorithm::renderEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;
@@ -349,13 +349,13 @@ CPUSkinningAlgorithm::renderEnter(Action *action)
     return res;
 }
 
-ActionBase::ResultE
+Action::ResultE
 CPUSkinningAlgorithm::renderLeave(Action *action)
 {
     return Action::Continue;
 }
 
-ActionBase::ResultE
+Action::ResultE
 CPUSkinningAlgorithm::intersectEnter(Action *action)
 {
     Action::ResultE  res     = Action::Continue;

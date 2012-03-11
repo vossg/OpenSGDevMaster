@@ -45,7 +45,7 @@
 #include <queue>
 
 #include "OSGComputeAlgorithmBase.h"
-#include "OSGActionBase.h"
+#include "OSGAction.h"
 #include "OSGDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
@@ -75,10 +75,10 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeAlgorithm :
     /*! \name                      Execute                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE renderEnter(Action          *pAction ) = 0;
-    virtual ActionBase::ResultE renderLeave(Action          *pAction ) = 0;
-    virtual void                execute    (HardwareContext *pContext, 
-                                            DrawEnv         *pEnv    ) = 0;
+    virtual Action::ResultE renderEnter(Action          *pAction ) = 0;
+    virtual Action::ResultE renderLeave(Action          *pAction ) = 0;
+    virtual void            execute    (HardwareContext *pContext, 
+                                        DrawEnv         *pEnv    ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

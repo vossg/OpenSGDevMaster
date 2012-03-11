@@ -227,8 +227,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup :
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

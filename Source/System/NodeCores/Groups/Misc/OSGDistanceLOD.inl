@@ -36,66 +36,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class RenderActionT> inline
-ActionBase::ResultE DistanceLOD::render(Action *action)
-{
-    action->useNodeList();
-
-    Int32 numLevels = action->getNNodes();
-
-    if(numLevels == 0)
-        return Action::Continue;
-
-    RenderActionT  *ra        = dynamic_cast<RenderActionT  *>(action);
-    Int32           index     = 0;
-
-    const MFReal32 *range = getMFRange();
-
-    Int32 numRanges = range->size32();
-
-    if(numRanges == 0 || numLevels == 1)
-    {
-        index = 0;
-    }
-    else
-    {
-        Pnt3f eyepos;
-
-        ra->getActivePartition()->getCameraToWorld().mult(eyepos, eyepos);
-
-        Pnt3f objpos;
-
-        ra->topMatrix().mult(getCenter(), objpos);
-
-        Real32 dist = eyepos.dist(objpos);
-
-        if(numRanges >= numLevels && numLevels > 1)
-            numRanges = numLevels - 1;
-
-        if(dist >= (*range)[numRanges - 1])
-        {
-            index = numRanges;
-        }
-        else
-        {
-            for(index = 0; index < numRanges; ++index)
-            {
-                if(dist < (*range)[index])
-                    break;
-            }
-        }
-    }
-
-    Node *nodePtr = action->getNode(index);
-
-    if(ra->isVisible(nodePtr))
-    {
-        ra->addNode(nodePtr);
-    }
-
-    return ActionBase::Continue;
-}
-
 OSG_END_NAMESPACE
 
 

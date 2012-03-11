@@ -149,7 +149,7 @@ RenderActionBase::~RenderActionBase(void)
 
 
 
-ActionBase::ResultE RenderActionBase::start(void)
+Action::ResultE RenderActionBase::start(void)
 {
     if(_bFrustumCulling   == true &&
        _bAutoFrustum      == true &&
@@ -185,7 +185,7 @@ ActionBase::ResultE RenderActionBase::start(void)
     return Action::Continue;
 }
 
-ActionBase::ResultE RenderActionBase::stop(ActionBase::ResultE res)
+Action::ResultE RenderActionBase::stop(Action::ResultE res)
 {
     if(_pStatistics != NULL)
     {

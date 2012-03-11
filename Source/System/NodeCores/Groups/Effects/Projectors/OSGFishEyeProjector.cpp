@@ -391,7 +391,7 @@ FishEyeProjector::~FishEyeProjector(void)
   thid group.
  */
 
-ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
+Action::ResultE FishEyeProjector::renderEnter(Action *action)
 {
     static Matrix transforms[] = 
         { 
@@ -588,7 +588,7 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE FishEyeProjector::renderLeave(Action *action)
+Action::ResultE FishEyeProjector::renderLeave(Action *action)
 {
     return Action::Skip;
 }

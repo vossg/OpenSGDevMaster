@@ -125,14 +125,14 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter   (Action            *action  );
+    Action::ResultE renderLeave   (Action            *action  );
 
-    void                setupPartition(RenderPartition   *pPart,
-                                       Window            *pWin,
-                                       FrameBufferObject *pTarget,
-                                       Camera            *pCam,
-                                       Background        *pBack   );
+    void            setupPartition(RenderPartition   *pPart,
+                                   Window            *pWin,
+                                   FrameBufferObject *pTarget,
+                                   Camera            *pCam,
+                                   Background        *pBack   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

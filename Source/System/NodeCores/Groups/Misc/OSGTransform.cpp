@@ -118,7 +118,7 @@ Transform::~Transform(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE Transform::renderEnter(Action *action)
+Action::ResultE Transform::renderEnter(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -127,10 +127,10 @@ ActionBase::ResultE Transform::renderEnter(Action *action)
 
     pAction->pushMatrix(this->getMatrix());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Transform::renderLeave(Action *action)
+Action::ResultE Transform::renderLeave(Action *action)
 {
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
@@ -139,16 +139,16 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE Transform::intersectEnter(Action *action)
+Action::ResultE Transform::intersectEnter(Action *action)
 {
     // Use parent class for trivial reject
-    if(Inherited::intersect(action) == Action::Skip)
+    if(Inherited::intersectEnter(action) == Action::Skip)
         return Action::Skip;
     
     // Need to check children
@@ -171,10 +171,10 @@ ActionBase::ResultE Transform::intersectEnter(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale  (length                          );
     
-    return ActionBase::Continue; 
+    return Action::Continue; 
 }
 
-ActionBase::ResultE Transform::intersectLeave(Action *action)
+Action::ResultE Transform::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = this->getMatrix();
@@ -188,7 +188,7 @@ ActionBase::ResultE Transform::intersectLeave(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 /*-------------------------------------------------------------------------*/
 /*                                Init                                     */

@@ -209,7 +209,7 @@ void StackedTransform::removeFromNamedTransformElements(
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE StackedTransform::renderEnter(Action *action)
+Action::ResultE StackedTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -217,10 +217,10 @@ ActionBase::ResultE StackedTransform::renderEnter(Action *action)
 
     pAction->pushMatrix(this->_mTransformation);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE StackedTransform::renderLeave(Action *action)
+Action::ResultE StackedTransform::renderLeave(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -228,16 +228,16 @@ ActionBase::ResultE StackedTransform::renderLeave(Action *action)
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE StackedTransform::intersectEnter(Action *action)
+Action::ResultE StackedTransform::intersectEnter(Action *action)
 {
     // Use parent class for trivial reject
-    if(Inherited::intersect(action) == Action::Skip)
+    if(Inherited::intersectEnter(action) == Action::Skip)
         return Action::Skip;
     
     // Need to check children
@@ -261,10 +261,10 @@ ActionBase::ResultE StackedTransform::intersectEnter(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale  (length                          );
     
-    return ActionBase::Continue; 
+    return Action::Continue; 
 }
 
-ActionBase::ResultE StackedTransform::intersectLeave(Action *action)
+Action::ResultE StackedTransform::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = this->_mTransformation;
@@ -278,7 +278,7 @@ ActionBase::ResultE StackedTransform::intersectLeave(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*\

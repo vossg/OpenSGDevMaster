@@ -148,14 +148,14 @@ bool GPUVolRTV0::getToggleVisuals(void)
 }
 
 
-ActionBase::ResultE GPUVolRTV0::renderEnter(Action *pAction)
+Action::ResultE GPUVolRTV0::renderEnter(Action *pAction)
 {
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE GPUVolRTV0::renderLeave(Action *pAction)
+Action::ResultE GPUVolRTV0::renderLeave(Action *pAction)
 {
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 void GPUVolRTV0::execute(DrawEnv *pEnv)

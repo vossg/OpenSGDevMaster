@@ -95,40 +95,7 @@ Switch::~Switch(void)
 /*-------------------------------------------------------------------------*/
 /*                               Draw                                      */
 
-#ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE Switch::render(Action *action)
-{
-    ActionBase::ResultE  returnValue = ActionBase::Continue;
-
-    DrawActionBase  *da          = dynamic_cast<DrawActionBase *>(action);
-
-    if((getChoice() >= 0                          ) && 
-       (UInt32(getChoice()) < action->getNNodes()))
-    {
-        da->useNodeList();
-
-        if(da->isVisible(action->getNode(getChoice())))
-        {
-            da->addNode(action->getNode(getChoice()));
-        }
-    }
-    else if(getChoice() == ALL)
-    {
-        if(da->selectVisibles() == 0)
-        {
-            returnValue = ActionBase::Skip;
-        }
-    }
-    else
-    {
-        returnValue = ActionBase::Skip;
-    }
-
-    return returnValue;
-}
-#endif
-
-ActionBase::ResultE Switch::renderEnter(Action *action)
+Action::ResultE Switch::renderEnter(Action *action)
 {
     Action::ResultE  returnValue = Action::Continue;
     RenderAction    *ra          = dynamic_cast<RenderAction*>(action);
@@ -168,19 +135,19 @@ ActionBase::ResultE Switch::renderEnter(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE Switch::renderLeave(Action *action)
+Action::ResultE Switch::renderLeave(Action *action)
 {
     RenderAction *ra = dynamic_cast<RenderAction *>(action);
 
     ra->popVisibility();
     
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Switch::intersect(Action *action)
+Action::ResultE Switch::intersectEnter(Action *action)
 {
-    ActionBase::ResultE  returnValue = ActionBase::Continue;
-    IntersectAction     *ia          = dynamic_cast<IntersectAction *>(action);
+    Action::ResultE  returnValue = Action::Continue;
+    IntersectAction *ia          = dynamic_cast<IntersectAction *>(action);
 
     if((getChoice()         >= 0              ) && 
        (UInt32(getChoice()) <  ia->getNNodes())   )
@@ -190,11 +157,11 @@ ActionBase::ResultE Switch::intersect(Action *action)
     }
     else if(getChoice() == ALL)
     {
-        returnValue = ActionBase::Continue;
+        returnValue = Action::Continue;
     }
     else
     {
-        returnValue = ActionBase::Skip;
+        returnValue = Action::Skip;
     }
 
     return returnValue;
@@ -219,7 +186,7 @@ void Switch::initMethod(InitPhase ePhase)
         
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Switch::intersect));
+            reinterpret_cast<Action::Callback>(&Switch::intersectEnter));
     }
 }
 

@@ -111,17 +111,12 @@ GroupingStage::~GroupingStage(void)
   thid group.
  */
 
-ActionBase::ResultE GroupingStage::renderEnter(Action *action)
+Action::ResultE GroupingStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
-
-#if 0
-    RenderPartition   *pParentPart = a   ->getActivePartition();
-    FrameBufferObject *pTarget     = pParentPart->getRenderTarget();
-#endif
+        return Action::Continue;
 
     this->pushPartition(a, RenderPartition::CopyAll);
 
@@ -129,126 +124,19 @@ ActionBase::ResultE GroupingStage::renderEnter(Action *action)
 
     Inherited::addCallbacks(pPart);
 
-#if 0
-    RenderPartition   *pParentPart = a   ->getActivePartition();
-    FrameBufferObject *pTarget     = this->getRenderTarget();
-
-    Background        *pBack   = this->getBackground();
-    Viewport          *pPort   = a->getViewport();
-    Window            *pWin    = a->getWindow  ();
-
-
-    if(pTarget == NULL && this->getInheritedTarget() == true)
-    {
-        pTarget = pParentPart->getRenderTarget();
-    }
-
-    
-    RenderPartition   *pPart   = a->getActivePartition();
-    Camera            *pCam    = this->getCamera();
-    
-    pPart->setRenderTarget(pTarget);
-    
-//    pPart->setViewport(pPort);
-    pPart->setWindow  (pWin );
-    
-    if(pTarget != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pTarget->getWidth    (),
-                                     pTarget->getHeight   ());
-    }
-    else if(pWin != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pWin->getWidth   (),
-                                     pWin->getHeight  ());
-    }
-    
-    if(pCam != NULL)
-    {
-        Matrix m, t;
-        
-        // set the projection
-        pCam->getProjection          (m, 
-                                      pPart->getViewportWidth (), 
-                                      pPart->getViewportHeight());
-        
-        pCam->getProjectionTranslation(t, 
-                                       pPart->getViewportWidth (), 
-                                       pPart->getViewportHeight());
-        
-        pPart->setupProjection(m, t);
-        
-        pCam->getViewing(m, 
-                         pPart->getViewportWidth (),
-                         pPart->getViewportHeight());
-        
-        
-        pPart->setupViewing(m              );
-        
-        pPart->setNear     (pCam->getNear());
-        pPart->setFar      (pCam->getFar ());
-        
-        pPart->calcFrustum (               );
-        
-    }
-    
-    this->fillPreRenderStore(vCallbackStore);
-
-    GroupingStage::RenderFunctorStore::const_iterator cbIt  = 
-        vCallbackStore.begin();
-
-    GroupingStage::RenderFunctorStore::const_iterator cbEnd = 
-        vCallbackStore.end  ();
-
-    while(cbIt != cbEnd)
-    {
-        pPart->addPreRenderCallback(*cbIt);
-        
-        ++cbIt;
-    }
-
-
-    vCallbackStore.clear();
-
-    this->fillPostRenderStore(vCallbackStore);
-
-    cbIt  = vCallbackStore.begin();
-    cbEnd = vCallbackStore.end  ();
-
-    while(cbIt != cbEnd)
-    {
-        pPart->addPostRenderCallback(*cbIt);
-        
-        ++cbIt;
-    }
-
-
-    pPart->setBackground(pBack);
-#endif
-
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE GroupingStage::renderLeave(Action *action)
+Action::ResultE GroupingStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     this->popPartition(a);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/

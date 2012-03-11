@@ -79,12 +79,12 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction) = 0;
-    virtual ActionBase::ResultE runOnLeave(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction) = 0;
+    virtual Action::ResultE runOnEnter(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction) = 0;
+    virtual Action::ResultE runOnLeave(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

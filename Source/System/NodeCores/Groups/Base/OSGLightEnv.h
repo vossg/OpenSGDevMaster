@@ -105,10 +105,7 @@ class OSG_SYSTEM_DLLMAPPING LightEnv : public LightEnvBase
     /*! \name                     Actions                                  */
     /*! \{                                                                 */
 
-    template<class RenderActionT>
     Action::ResultE renderEnter(Action *action);
-
-    template<class RenderActionT>
     Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */

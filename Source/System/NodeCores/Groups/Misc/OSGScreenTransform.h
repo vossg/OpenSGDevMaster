@@ -129,11 +129,11 @@ class OSG_GROUP_DLLMAPPING ScreenTransform : public ScreenTransformBase
     /*! \name              Intersect & Render                              */
     /*! \{                                                                 */
 
-    ActionBase::ResultE intersectEnter(Action *action);
-    ActionBase::ResultE intersectLeave(Action *action);
+    Action::ResultE intersectEnter(Action *action);
+    Action::ResultE intersectLeave(Action *action);
 
-    ActionBase::ResultE renderEnter   (Action *action);
-    ActionBase::ResultE renderLeave   (Action *action);
+    Action::ResultE renderEnter   (Action *action);
+    Action::ResultE renderLeave   (Action *action);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

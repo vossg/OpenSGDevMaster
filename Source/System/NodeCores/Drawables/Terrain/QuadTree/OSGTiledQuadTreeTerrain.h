@@ -74,11 +74,11 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrain :
                          UInt32            origin,
                          BitVector         detail);
 
-    Action::ResultE renderEnter (Action* action);
+    Action::ResultE renderEnter  (      Action        *action );
 
-    Action::ResultE doRenderEnter  (const FrustumVolume &frustum,
-                                          Matrix         camera,
-                                          Matrix         toworld);
+    Action::ResultE doRenderEnter(const FrustumVolume &frustum,
+                                        Matrix         camera,
+                                        Matrix         toworld);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

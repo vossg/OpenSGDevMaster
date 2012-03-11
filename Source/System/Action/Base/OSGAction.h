@@ -104,7 +104,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     typedef FunctorStore::iterator                     FunctorStoreIt;
     typedef FunctorStore::const_iterator               FunctorStoreConstIt;
 
-    typedef ActionBase::ResultE (NodeCore::*Callback)(Action *);
+    typedef Action::ResultE (NodeCore::*Callback)(Action *);
 
 
     //-----------------------------------------------------------------------
@@ -389,10 +389,10 @@ typedef boost::function<
 /*! \ingroup GrpSystemActionFuncs
  */
 
-typedef boost::function<ActionBase::ResultE (Action *)> RenderActionFunctor;
+typedef boost::function<Action::ResultE (Action *)> RenderActionFunctor;
 
 /*
-typedef ArgsCollector<ActionBase::ResultE> ArgsT;
+typedef ArgsCollector<Action::ResultE> ArgsT;
 
 typedef TypedFunctor1Base<Action::ResultE, 
                           CPtrRefCallArg<NodePtr> > TraverseEnterFunctor;
@@ -405,45 +405,45 @@ typedef TypedFunctor2Base<Action::ResultE,
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(      Node * const          root, 
-                                   TraverseEnterFunctor  func);
+Action::ResultE traverse(      Node * const          root, 
+                               TraverseEnterFunctor  func);
 
 /*! \ingroup GrpSystemActionFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const std::vector<Node *> &nodeList, 
-                                   TraverseEnterFunctor  func);
+Action::ResultE traverse(const std::vector<Node *> &nodeList, 
+                               TraverseEnterFunctor  func);
 
 /*! \ingroup GrpSystemActionFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
-                                   TraverseEnterFunctor  func);
+Action::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
+                               TraverseEnterFunctor  func);
                             
 /*! \ingroup GrpSystemActionFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(      Node * const          root, 
-                                   TraverseEnterFunctor  enter, 
+Action::ResultE traverse(      Node * const          root, 
+                               TraverseEnterFunctor  enter, 
                                    TraverseLeaveFunctor  leave);
 /*! \ingroup GrpSystemActionFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList, 
-                                   TraverseEnterFunctor  enter, 
-                                   TraverseLeaveFunctor  leave);
+Action::ResultE traverse(const std::vector<Node *>  &nodeList, 
+                               TraverseEnterFunctor  enter, 
+                               TraverseLeaveFunctor  leave);
 
 /*! \ingroup GrpSystemActionFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
-                                   TraverseEnterFunctor  enter, 
-                                   TraverseLeaveFunctor  leave);
+Action::ResultE traverse(const MFUnrecChildNodePtr  &nodeList, 
+                               TraverseEnterFunctor  enter, 
+                               TraverseLeaveFunctor  leave);
                             
 /*! \}                                                                 */
 

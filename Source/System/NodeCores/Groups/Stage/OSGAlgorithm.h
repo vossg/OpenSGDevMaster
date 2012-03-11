@@ -45,7 +45,7 @@
 #include <queue>
 
 #include "OSGAlgorithmBase.h"
-#include "OSGActionBase.h"
+#include "OSGAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,9 +76,9 @@ class OSG_GROUP_DLLMAPPING Algorithm : public AlgorithmBase
     /*! \name                      Execute                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE renderEnter(Action  *pAction) = 0;
-    virtual ActionBase::ResultE renderLeave(Action  *pAction) = 0;
-    virtual void                execute    (DrawEnv *pEnv   ) = 0;
+    virtual Action::ResultE renderEnter(Action  *pAction) = 0;
+    virtual Action::ResultE renderLeave(Action  *pAction) = 0;
+    virtual void            execute    (DrawEnv *pEnv   ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

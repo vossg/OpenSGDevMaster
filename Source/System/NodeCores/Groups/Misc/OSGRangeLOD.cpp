@@ -106,13 +106,33 @@ void RangeLOD::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        typedef ActionBase::ResultE (RangeLOD::*Callback)(Action *);
-
-        Callback enter = &RangeLOD::render<RenderAction>;
 
         RenderAction::registerEnterDefault(
             RangeLOD::getClassType(),
-            reinterpret_cast<Action::Callback>(enter));
+            reinterpret_cast<Action::Callback>(&RangeLOD::renderEnter));
     }
 }
 
+Action::ResultE RangeLOD::renderEnter(Action *action)
+{
+    RenderAction  *ra = dynamic_cast<RenderAction *>(action);
+
+    Pnt3f eyepos;
+
+    ra->getActivePartition()->getCameraToWorld().mult(eyepos, eyepos);
+
+    Pnt3f objpos;
+
+    ra->topMatrix().mult(getCenter(), objpos);
+
+    Real32 dist = eyepos.dist(objpos);
+
+    if(dist > getSwitchOut() && dist < getSwitchIn())
+    {
+        return Action::Continue;
+    }
+    else
+    {
+        return Action::Skip;
+    }
+}

@@ -118,7 +118,7 @@ void AlgorithmStage::execute(DrawEnv *pDrawEnv)
 /*-------------------------------------------------------------------------*/
 /*                               loading                                   */
 
-ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
+Action::ResultE AlgorithmStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -235,7 +235,7 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE AlgorithmStage::renderLeave(Action *a)
+Action::ResultE AlgorithmStage::renderLeave(Action *a)
 {
     Algorithm *pAlgorithm = getAlgorithm();
     

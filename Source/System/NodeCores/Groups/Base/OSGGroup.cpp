@@ -95,7 +95,7 @@ Group::~Group(void)
 /*-------------------------------------------------------------------------*/
 /*                              Render                                     */
 
-ActionBase::ResultE Group::renderEnter(Action *action)
+Action::ResultE Group::renderEnter(Action *action)
 {
     RenderAction *ra = dynamic_cast<RenderAction *>(action);
 
@@ -108,22 +108,22 @@ ActionBase::ResultE Group::renderEnter(Action *action)
         }
     }
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE Group::renderLeave(Action *action)
+Action::ResultE Group::renderLeave(Action *action)
 {
     RenderAction *ra = dynamic_cast<RenderAction *>(action);
 
     ra->popVisibility();
     
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                             Intersect                                   */
 
-ActionBase::ResultE Group::intersect(Action *action)
+Action::ResultE Group::intersectEnter(Action *action)
 {
           IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     const BoxVolume       &bv = ia->getActNode()->getVolume();
@@ -133,7 +133,7 @@ ActionBase::ResultE Group::intersect(Action *action)
         return Action::Skip;  //bv missed -> can not hit children
     }
     
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -156,6 +156,6 @@ void Group::initMethod(InitPhase ePhase)
 
         IntersectAction::registerEnterDefault( 
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Group::intersect));
+            reinterpret_cast<Action::Callback>(&Group::intersectEnter));
     }
 }

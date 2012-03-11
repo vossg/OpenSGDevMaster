@@ -191,10 +191,10 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE start    (void                   );
-    virtual ActionBase::ResultE stop     (ActionBase::ResultE res);
+    virtual Action::ResultE start    (void               );
+    virtual Action::ResultE stop     (Action::ResultE res);
 
-    virtual void                frameInit(void                   );
+    virtual void            frameInit(void               );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

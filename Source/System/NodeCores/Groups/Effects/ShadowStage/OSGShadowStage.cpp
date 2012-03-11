@@ -261,9 +261,9 @@ void ShadowStage::onDestroy(UInt32 uiContainerId)
     Inherited::onDestroy(uiContainerId);
 }
 
-ActionBase::ResultE ShadowStage::renderEnter(Action *action)
+Action::ResultE ShadowStage::renderEnter(Action *action)
 {
-    ActionBase::ResultE returnValue = ActionBase::Continue;
+    Action::ResultE returnValue = Action::Continue;
 
     RenderAction *ract = dynamic_cast<RenderAction *>(action);
 
@@ -515,7 +515,7 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
         }
         this->endPartitionGroup(ract);
 
-        returnValue = ActionBase::Skip;
+        returnValue = Action::Skip;
     }
 
     pData->setRunning(false);
@@ -523,9 +523,9 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE ShadowStage::renderLeave(Action *action)
+Action::ResultE ShadowStage::renderLeave(Action *action)
 {
-    ActionBase::ResultE returnValue = ActionBase::Continue;
+    Action::ResultE returnValue = Action::Continue;
 
 //    fprintf(stderr, "ShadowStage::renderLeave\n");
 

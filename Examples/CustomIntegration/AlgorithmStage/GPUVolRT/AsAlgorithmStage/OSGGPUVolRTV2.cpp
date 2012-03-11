@@ -126,14 +126,14 @@ void GPUVolRTV2::changed(ConstFieldMaskArg whichField,
 }
 
 
-ActionBase::ResultE GPUVolRTV2::renderEnter(Action *pAction)
+Action::ResultE GPUVolRTV2::renderEnter(Action *pAction)
 {
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE GPUVolRTV2::renderLeave(Action *pAction)
+Action::ResultE GPUVolRTV2::renderLeave(Action *pAction)
 {
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 void GPUVolRTV2::execute(DrawEnv *pEnv)

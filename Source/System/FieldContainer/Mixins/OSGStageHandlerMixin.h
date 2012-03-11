@@ -220,7 +220,7 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \{                                                                 */
 
     Action::ResultE recurseFromThis(Action   *action );
-
+ 
     Action::ResultE recurseFrom    (Action   *action,
                                     NodeCore *pFrom  );
 

@@ -82,12 +82,12 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction);
-    virtual ActionBase::ResultE runOnLeave(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction);
+    virtual Action::ResultE runOnEnter(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction);
+    virtual Action::ResultE runOnLeave(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

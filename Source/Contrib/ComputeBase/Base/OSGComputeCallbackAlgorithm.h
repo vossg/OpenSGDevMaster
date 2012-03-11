@@ -82,10 +82,10 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeCallbackAlgorithm :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE renderEnter(Action          *pAction );
-    virtual ActionBase::ResultE renderLeave(Action          *pAction );
-    virtual void                execute    (HardwareContext *pContext, 
-                                            DrawEnv         *pEnv    );
+    virtual Action::ResultE renderEnter(Action          *pAction );
+    virtual Action::ResultE renderLeave(Action          *pAction );
+    virtual void            execute    (HardwareContext *pContext, 
+                                        DrawEnv         *pEnv    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

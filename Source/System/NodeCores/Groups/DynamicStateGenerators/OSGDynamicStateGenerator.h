@@ -115,8 +115,8 @@ class OSG_GROUP_DLLMAPPING DynamicStateGenerator :
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

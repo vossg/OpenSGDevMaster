@@ -136,7 +136,7 @@ DoubleTransform::~DoubleTransform(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE DoubleTransform::renderEnter(Action *action)
+Action::ResultE DoubleTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -144,10 +144,10 @@ ActionBase::ResultE DoubleTransform::renderEnter(Action *action)
 
     pAction->pushMatrix(this->getMatrix());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE DoubleTransform::renderLeave(Action *action)
+Action::ResultE DoubleTransform::renderLeave(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -155,13 +155,13 @@ ActionBase::ResultE DoubleTransform::renderLeave(Action *action)
 
     pAction->popMatrix();
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE DoubleTransform::intersectEnter(Action *action)
+Action::ResultE DoubleTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix4d         matd = this->getMatrix();
@@ -180,10 +180,10 @@ ActionBase::ResultE DoubleTransform::intersectEnter(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue; 
+    return Action::Continue; 
 }
 
-ActionBase::ResultE DoubleTransform::intersectLeave(Action *action)
+Action::ResultE DoubleTransform::intersectLeave(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix4d         matd = this->getMatrix();
@@ -200,7 +200,7 @@ ActionBase::ResultE DoubleTransform::intersectLeave(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 #ifdef OSG_HAVE_ACTION //CHECK

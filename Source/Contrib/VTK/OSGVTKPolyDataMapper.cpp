@@ -644,7 +644,7 @@ void VTKPolyDataMapper::resolveLinks(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE VTKPolyDataMapper::renderEnter(Action *action)
+Action::ResultE VTKPolyDataMapper::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
     
@@ -652,7 +652,7 @@ ActionBase::ResultE VTKPolyDataMapper::renderEnter(Action *action)
 
 
     if(pAction == NULL)
-        return ActionBase::Skip;
+        return Action::Skip;
 
     if(pAction!= NULL)
     {
@@ -664,21 +664,21 @@ ActionBase::ResultE VTKPolyDataMapper::renderEnter(Action *action)
         }
     }
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE VTKPolyDataMapper::renderLeave(Action *action)
+Action::ResultE VTKPolyDataMapper::renderLeave(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE VTKPolyDataMapper::intersectEnter(Action *action)
+Action::ResultE VTKPolyDataMapper::intersectEnter(Action *action)
 {
 /*
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -696,10 +696,10 @@ ActionBase::ResultE VTKPolyDataMapper::intersectEnter(Action *action)
     ia->scale(dir.length());
  */
     
-    return ActionBase::Continue; 
+    return Action::Continue; 
 }
 
-ActionBase::ResultE VTKPolyDataMapper::intersectLeave(Action *action)
+Action::ResultE VTKPolyDataMapper::intersectLeave(Action *action)
 {
 /*
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -715,7 +715,7 @@ ActionBase::ResultE VTKPolyDataMapper::intersectLeave(Action *action)
     ia->scale(dir.length());
  */
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 

@@ -165,12 +165,12 @@ void ProxyGroup::adjustVolume(Volume &volume)
  */
 
 #ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE ProxyGroup::render(Action *action)
+Action::ResultE ProxyGroup::render(Action *action)
 {
     DrawActionBase *da        = dynamic_cast<DrawActionBase *>(action);
 
     if(getEnabled() == false)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     if(getState() == NOT_LOADED)
         startLoading();
@@ -230,7 +230,7 @@ ActionBase::ResultE ProxyGroup::render(Action *action)
 }
 #endif
 
-ActionBase::ResultE ProxyGroup::render(Action *action)
+Action::ResultE ProxyGroup::renderEnter(Action *action)
 {
     return Action::Continue;
 }
@@ -311,7 +311,7 @@ void ProxyGroup::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             ProxyGroup::getClassType(),
-            reinterpret_cast<Action::Callback>(&ProxyGroup::render));
+            reinterpret_cast<Action::Callback>(&ProxyGroup::renderEnter));
     }
 }
 

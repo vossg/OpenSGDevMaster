@@ -244,7 +244,7 @@ void DisplayFilterStage::resizeStageData(DisplayFilterStageData *pData,
     commitChanges();
 }
 
-ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
+Action::ResultE DisplayFilterStage::renderEnter(Action *action)
 {
     RenderAction *ract = dynamic_cast<RenderAction *>(action);
 
@@ -532,7 +532,7 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
     return Action::Skip;
 }
 
-ActionBase::ResultE DisplayFilterStage::renderLeave(Action *action)
+Action::ResultE DisplayFilterStage::renderLeave(Action *action)
 {
     return Action::Skip;
 }

@@ -83,12 +83,12 @@ class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction) = 0;
-    virtual ActionBase::ResultE runOnLeave(Light        *pLight,
-                                           LightTypeE    eType,
-                                           RenderAction *pAction) = 0;
+    virtual Action::ResultE runOnEnter(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction) = 0;
+    virtual Action::ResultE runOnLeave(Light        *pLight,
+                                       LightTypeE    eType,
+                                       RenderAction *pAction) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

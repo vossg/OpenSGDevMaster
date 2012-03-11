@@ -249,7 +249,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     virtual void            drawPrimitives      (DrawEnv        *pEnv  );
 
-            Action::ResultE intersect           (Action         *action);
+            Action::ResultE intersectEnter      (Action         *action);
 
             void            invalidateDlistCache(void);
 

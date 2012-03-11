@@ -45,10 +45,6 @@
 #include "OSGRenderAction.h"
 #include "OSGIntersectAction.h"
 
-#ifdef OSG_HAVE_ACTION //CHECK
-#include "OSGIntersectActor.h"
-#endif
-
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -161,25 +157,5 @@ void ComponentTransform::initMethod(InitPhase ePhase)
             getClassType(),
             reinterpret_cast<Action::Callback>(
                 &ComponentTransform::intersectLeave));
-        
-#ifdef OSG_HAVE_ACTION //CHECK
-        IntersectActor::regClassEnter(
-            osgTypedMethodFunctor2BaseCPtr<
-                NewActionTypes::ResultE,
-                ComponentTransformPtr  ,
-                NodeCorePtr            ,
-                ActorBase::FunctorArgumentType &>(
-                    &ComponentTransform::intersectActorEnter),
-            getClassType());
-        
-        IntersectActor::regClassLeave(
-            osgTypedMethodFunctor2BaseCPtr<
-                NewActionTypes::ResultE,
-                ComponentTransformPtr  ,
-                NodeCorePtr            ,
-                ActorBase::FunctorArgumentType &>(
-                    &ComponentTransform::intersectActorLeave),
-            getClassType());
-#endif
     }
 }

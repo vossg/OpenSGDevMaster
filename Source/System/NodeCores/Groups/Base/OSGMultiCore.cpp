@@ -153,7 +153,7 @@ void MultiCore::dump(      UInt32    ,
     SLOG << "Dump MultiCore NI" << std::endl;
 }
 
-ActionBase::ResultE MultiCore::renderEnter(Action *action)
+Action::ResultE MultiCore::renderEnter(Action *action)
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
@@ -189,7 +189,7 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE MultiCore::renderLeave(Action *action)
+Action::ResultE MultiCore::renderLeave(Action *action)
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
@@ -225,8 +225,8 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
     return returnValue;
 }
 
-ActionBase::ResultE MultiCore::actionEnterFrom(Action   *action,
-                                               NodeCore *pFrom )
+Action::ResultE MultiCore::actionEnterFrom(Action   *action,
+                                           NodeCore *pFrom )
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
@@ -270,8 +270,8 @@ ActionBase::ResultE MultiCore::actionEnterFrom(Action   *action,
     return returnValue;
 }
 
-ActionBase::ResultE MultiCore::actionLeaveFrom(Action   *action,
-                                               NodeCore *pFrom )
+Action::ResultE MultiCore::actionLeaveFrom(Action   *action,
+                                           NodeCore *pFrom )
 {
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();

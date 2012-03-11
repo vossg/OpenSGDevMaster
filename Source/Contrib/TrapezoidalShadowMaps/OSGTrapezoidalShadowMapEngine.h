@@ -66,12 +66,12 @@ class OSG_CONTRIBTRAPEZOIDALSHADOWMAPS_DLLMAPPING TrapezoidalShadowMapEngine
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(Light        *light,
-                                           LightTypeE    eType,
-                                           RenderAction *ract);
-    virtual ActionBase::ResultE runOnLeave(Light        *light,
-                                           LightTypeE    eType,
-                                           RenderAction *ract);
+    virtual Action::ResultE runOnEnter(Light        *light,
+                                       LightTypeE    eType,
+                                       RenderAction *ract);
+    virtual Action::ResultE runOnLeave(Light        *light,
+                                       LightTypeE    eType,
+                                       RenderAction *ract);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

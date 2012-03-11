@@ -691,7 +691,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
 }
 
 
-ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
+Action::ResultE SimpleShadowMapEngine::runOnEnter(
     Light        *pLight,
     LightTypeE    eType,
     RenderAction *pAction)
@@ -765,14 +765,14 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
         pAction->subPassMask(bvLightPassMask);
     }
 
-    return ActionBase::Skip;
+    return Action::Skip;
 }
 
-ActionBase::ResultE SimpleShadowMapEngine::runOnLeave(
+Action::ResultE SimpleShadowMapEngine::runOnLeave(
     Light        *pLight,
     LightTypeE    eType,
     RenderAction *pAction)
 {
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 

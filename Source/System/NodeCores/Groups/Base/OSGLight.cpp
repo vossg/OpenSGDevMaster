@@ -215,7 +215,7 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE    eType,
 }
 
 Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
-                                   Action                  *action)
+                                       Action                  *action)
 {
     Action::ResultE  r = Action::Continue;
     RenderAction    *a = dynamic_cast<RenderAction *>(action);

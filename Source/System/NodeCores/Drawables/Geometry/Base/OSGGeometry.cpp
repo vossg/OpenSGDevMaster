@@ -101,17 +101,17 @@ void Geometry::initMethod(InitPhase ePhase)
     {
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&Geometry::intersect));
+            reinterpret_cast<Action::Callback>(&Geometry::intersectEnter));
 
         RenderAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MaterialDrawable::renderActionEnterHandler));
+                &MaterialDrawable::renderEnter));
                 
         RenderAction::registerLeaveDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MaterialDrawable::renderActionLeaveHandler));
+                &MaterialDrawable::renderLeave));
 
 
         _arbVertexArrayObject = 
@@ -563,7 +563,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     \note This method is registered with the IntersectAction and automatically
     called from there, you probably never have to call it manually.
 */
-Action::ResultE Geometry::intersect(Action * action)
+
+Action::ResultE Geometry::intersectEnter(Action * action)
 {
     IntersectAction      *ia = dynamic_cast<IntersectAction*>(action);
    

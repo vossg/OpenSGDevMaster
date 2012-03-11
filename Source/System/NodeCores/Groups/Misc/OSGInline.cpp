@@ -112,7 +112,7 @@ void Inline::initMethod(InitPhase ePhase)
 
         RenderAction::registerEnterDefault(
             Inline::getClassType(),
-            reinterpret_cast<Action::Callback>(&Inline::render));
+            reinterpret_cast<Action::Callback>(&Inline::renderEnter));
     }
 }
  
@@ -212,7 +212,7 @@ void Inline::postOSGLoading(void)
     }
 }
 
-ActionBase::ResultE Inline::render(Action *action)
+Action::ResultE Inline::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 

@@ -74,7 +74,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithm : public SkinningAlgorithmBase
 
     virtual void execute     (DrawEnv *drawEnv);
 
-    virtual ActionBase::ResultE intersectEnter(Action *action) = 0;
+    virtual Action::ResultE intersectEnter(Action *action) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

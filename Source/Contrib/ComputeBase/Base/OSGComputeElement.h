@@ -46,11 +46,6 @@
 
 #include "OSGComputeElementBase.h"
 
-#if 0
-#include "OSGAction.h"
-#include "OSGFrameBufferObject.h"
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 //! ComputeElement
@@ -105,8 +100,8 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeElement :
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

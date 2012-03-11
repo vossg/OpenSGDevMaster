@@ -111,12 +111,12 @@ SimpleStage::~SimpleStage(void)
   thid group.
  */
 
-ActionBase::ResultE SimpleStage::renderEnter(Action *action)
+Action::ResultE SimpleStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     RenderPartition   *pParentPart = a   ->getActivePartition();
     Window            *pWin        = a   ->getWindow         ();
@@ -142,19 +142,19 @@ ActionBase::ResultE SimpleStage::renderEnter(Action *action)
 
     Inherited::addCallbacks(pPart);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
-ActionBase::ResultE SimpleStage::renderLeave(Action *action)
+Action::ResultE SimpleStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
-        return ActionBase::Continue;
+        return Action::Continue;
 
     this->popPartition(a);
 
-    return ActionBase::Continue;
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
